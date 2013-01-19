@@ -166,7 +166,7 @@ namespace EclipseLibrary.Oracle.Helpers
         /// </summary>
         /// <param name="fieldName">Column name</param>
         /// <returns></returns>
-        [Obsolete("Use GetDateTimeOffset() instead")]
+        //[Obsolete("Use GetDateTimeOffset() instead")]
         public DateTime? GetDate(string fieldName)
         {
             var val = GetValueAs<INullable>(fieldName);
