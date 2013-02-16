@@ -1,0 +1,98 @@
+﻿@model DcmsMobile.DcmsLite.ViewModels.ViewModelBase
+<!DOCTYPE html>
+<!--
+    Design by Free CSS Templates
+    http://www.freecsstemplates.org
+    Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="@Links_DcmsLite.Areas.DcmsLite.Content.DcmsLite_all_css" rel="stylesheet" type="text/css" />
+    <link href="@Links_DcmsLite.Content.themes.start.jquery_ui_1_9_1_css" rel="stylesheet" type="text/css" />
+</head>
+<body style="font-size:68%">
+    <div id="outer" class="ui-widget">
+        <div id="header">
+            <h1>@ViewBag.Title</h1>
+            <h2>
+                @ViewBag.Subtitle</h2>
+        </div>
+        <div id="menu">
+            <ul>
+                <li class="banner">
+                    <span>DCMS Lite - </span>
+                    @if (string.IsNullOrWhiteSpace(Model.BuildingDescription))
+                    {
+                        <span class="ui-state-error" style="font-size: 0.8em">@Html.DisplayFor(m => m.BuildingDescription)</span> <span>@Model.BuildingId</span>
+                    }
+                    else
+                    {
+                        <span>@Html.DisplayFor(m => m.BuildingDescription)</span>
+                    }
+                </li>
+                <li><a href="@Url.Content("~")" >DCMS Connect Home</a></li>
+                @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <li>Welcome @ViewContext.HttpContext.User.Identity.Name</li>
+                }
+                @if (ViewContext.HttpContext.Trace.IsEnabled)
+                {
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+                }
+            </ul>
+        </div>
+        <div id="content">
+            <div id="primaryContentContainer">
+                <div id="primaryContent">
+                    @Html.ValidationSummary()
+                    @Html.StatusSummary()
+                    <br/>
+                    @RenderBody()
+                </div>
+            </div>
+            <div id="secondaryContent">
+                <div class="box">
+                    <h3>Search</h3>
+                    <div class="boxContent">
+                        Batch, Printed UCC Label or Pick Wave
+                        @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Home.Search()))
+                        { 
+                            <input name="@MVC_DcmsLite.DcmsLite.Home.SearchParams.searchText" style="text-transform: uppercase" />
+                            <button id="btnSearch">Go</button>
+                            <div id="layoutError" class="ui-helper-hidden ui-state-error"></div>
+                        }
+                    </div>
+                </div>
+                @if (!Model.IsEditable)
+                {
+                    <div class="box">
+                        <h3>Role Required</h3>
+                        <div class="boxContent">
+                            <blockquote>
+                                DCMS Lite supervisor can <a href="@Url.Content("~/Logon?returnUrl=" + Url.Encode(Url.Action(MVC_DcmsLite.DcmsLite.Home.Index())))">Login</a> to Receive cartons and can print labels for pick waves. 
+                                If you are a supervisor you can request the Help Desk to grant the role <em>@Model.DcmsLiteRoleName</em> to you.
+                            </blockquote>
+                        </div>
+                    </div>
+                }
+                @RenderSection("sidebar", false)
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2013 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">http://www.eclsys.com</a>
+            </p>
+        </div>
+    </div>
+    <script src="@Links_DcmsLite.Scripts.jquery_1_8_2_js"  type="text/javascript"></script>
+    <script src="@Links_DcmsLite.Scripts.jquery_ui_1_9_0_js" type="text/javascript"></script>
+    @RenderSection("scripts", false)
+</body>
+</html>
