@@ -34,17 +34,29 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
             try
             {
                 //Validating box
-                _service.ValidateBox(model.UccId);
-                AddStatusMessage(string.Format("Box {0} is verified.", model.UccId));
-                model.Sound = 'S';
+                var result = _service.ValidateBox(model.UccId, _service.GetPostVerificationArea(), _service.GetBadVerificationArea());
+                switch (result.Item1)
+                {
+                    case ValidationStatus.Valid:
+                        AddStatusMessage(string.Format("Box {0} is verified.", model.UccId));
+                        model.Sound = 'S';
+                        break;
+                    case ValidationStatus.Invalid:
+                        ModelState.AddModelError("", result.Item2);
+                        model.Sound = 'E';
+                        break;
+                    case ValidationStatus.Failed:
+                        AddStatusMessage(string.Format("Box {0} is already verified.", model.UccId));
+                        model.Sound = 'W';
+                        break;
+                }
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException.Message);
-                model.Sound = 'E';
+                model.Sound = 'W';
             }
             return RedirectToAction(Actions.Index(model.UccId, model.Sound));
         }
-
     }
 }

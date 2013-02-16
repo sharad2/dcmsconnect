@@ -40,6 +40,13 @@
             <strong style="font-size: 2em;" class="ui-state-highlight">@Model.LastScan</strong>
         </div>   
     }
+    else if (ViewData.ModelState.IsValid && Model.Sound == 'W')
+    {
+        <div class="ui-state-highlight ui-corner-all" style="width: 30em; height: 20em; text-align: center;">
+            <div style="font-size: 2em; font-weight: bold; line-height: 8.5em;">Already Verified</div>
+            <strong style="font-size: 2em;">@Model.LastScan</strong>
+        </div>   
+    }
 </div>
 
 @section scripts{
