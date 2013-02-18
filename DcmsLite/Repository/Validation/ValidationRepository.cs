@@ -20,7 +20,7 @@ namespace DcmsMobile.DcmsLite.Repository.Validation
             DECLARE 
                 LRESULT <proxy />PKG_VALIDATE_BOX.INFO_REC;
             BEGIN 
-                LRESULT := <proxy />PKG_VALIDATE_BOX.VALIDATE_BOX_LITE_3(AUCC128_ID       => :AUCC128_ID,
+                LRESULT := <proxy />PKG_VALIDATE_BOX_LITE.VALIDATE_BOX(AUCC128_ID       => :AUCC128_ID,
                                                                         ABADVERIFY_AREA  => :ABADVERIFY_AREA,
                                                                         APOSTVERIFY_AREA => :APOSTVERIFY_AREA);
                         :MESSAGE  := LRESULT.MESSAGE;
