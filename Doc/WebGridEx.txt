@@ -1,0 +1,59 @@
+﻿This fully working example exploits many of the features available in WebGridEx.
+
+
+@{
+    ViewBag.Title = Model.ModelTitle;
+    var hasEpc = Model.SkuWithEpc.Any(p => p.AllEpc.Any());
+    var grid = Html.GridFor(Model.SkuWithEpc);
+    grid.AddColumn(m => m.Upc).FooterHtml("Total").CellHtml(c => c.Html.DisplayFor(m => m.Upc, MVC_Inquiry.Inquiry.Shared.Views.DisplayTemplates.ActionLink, new
+    {
+        ActionName = MVC_Inquiry.Inquiry.Details.ActionNames.HandleUpcScan,
+        ControllerName = MVC_Inquiry.Inquiry.Details.Name
+    }));
+    grid.AddColumn(m => m.Style).HeaderHtml("SKU").Presorted().HeaderAttribute("style", "text-align: center");
+    grid.AddColumn(m => m.Color).SpanHeader();
+    grid.AddColumn(m => m.Dimension).SpanHeader();
+    grid.AddColumn(m => m.SkuSize).SpanHeader();
+    grid.AddColumn(m => m.ExtendedPrice).CellAttribute("style", "text-align: right");
+    grid.AddColumn().HeaderHtml("Pieces")
+        .HeaderAttribute("title", "Current vs ExpectedPieces")
+        .CellHtml(@<text>@item.Html.DisplayFor(m => m.Pieces) of @item.Html.DisplayFor(m => m.ExpectedPieces)</text>)
+        .FooterHtml(string.Format("{0:N0} of {1:N0}", Model.SkuWithEpc.Sum(p => p.Pieces), Model.SkuWithEpc.Sum(p => p.ExpectedPieces)));
+    if (hasEpc)
+    {
+        grid.AddColumn(m => m.AllEpc)
+            .CellAttribute("style", "min-width: 14em")
+            .CellHtml(c => c.Html.ViewData.Model.AllEpc.Count() >= 2,
+    @<div class="widget-container">
+        <div class="accordion">
+            <h3>
+                <a href="#">@string.Format("{0:N0} EPC", item.Html.ViewData.Model.AllEpc.Count())</a></h3>
+            <div>
+                @OrderedList(item.Html.ViewData.Model.AllEpc)
+            </div>
+        </div>
+    </div>
+            ).CellHtml(c => OrderedList(c.Html.ViewData.Model.AllEpc, "noaccordion"));
+    }
+}
+@helper OrderedList(IEnumerable<string> list, string style = null)
+    {
+    <ol @Html.Raw(style == null ? "" : string.Format("class='{0}'", style))>
+        @foreach (var epc in list)
+        {
+            <li>
+                @epc
+            </li>
+        }
+    </ol>
+}
+@{
+
+}
+<div class="box">
+    <h3>
+        SKUs in Box</h3>
+    <div class="boxContent">
+        @grid.GetHtml(rowStyle: "rowA", alternatingRowStyle: "rowB", emptyDataHtml: "The box is empty")
+    </div>
+</div>
