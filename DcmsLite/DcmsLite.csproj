@@ -207,6 +207,7 @@
     <Content Include="Areas\DcmsLite\Views\Validation\Index.cshtml" />
     <Content Include="Areas\DcmsLite\Views\Shared\_soundPartial.cshtml" />
     <None Include="Chirpy.ReadMe.txt" />
+    <Content Include="Doc\DCMS Lite Flow.vsd" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
