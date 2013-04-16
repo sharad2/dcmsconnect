@@ -93,7 +93,6 @@ readonly string[] ExcludedStaticFileExtensions = new string[] {
 	".min.js",
 	"vsdoc.js",
 	".png",
-	".min.css",
 	".config",
 	".partial.js",
 	".partial.css"  
