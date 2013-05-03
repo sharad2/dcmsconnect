@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Shipping";
+}
+1. @Html.ActionLink("Scan to Truck", MVC_Shipping.Shipping.ScanToTruck.Index(), new { id = "ScanToTruckUI" })<span> Guided truck loading</span>
+   
+@section scripts {
+    <script type="text/javascript">
+        function OnBodyKeyPress() {
+            var a;
+            var url;
+            if (window.event.keyCode == 49) {
+                //  1 is pressed
+                a = document.getElementById("ScanToTruckUI");
+                url = a.getAttribute('href');
+                window.location = url;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,267 @@
+﻿@*Promises added by: Binay Bhushan 4th December 2012.
+Used CSS class:
+1. td.row-span[rowspan]: Used for make browser compatibility and provide specific look to those td on which "row-span" class used.
+*@
+
+@model DcmsMobile.Shipping.ViewModels.RoutedViewModel
+@{
+    ViewBag.Title = "Routed Orders";   
+    int rowspan;
+}
+@helper Highlight(DcmsMobile.Shipping.ViewModels.RoutedPoGroup group1, DcmsMobile.Shipping.ViewModels.RoutedPoGroup group2)
+{
+    if (group1 != null && group2 != null && group1.AtsDate == group2.AtsDate)
+    {
+    @:class="ui-state-highlight"
+    }
+}
+
+<p>
+    <span class="ui-icon ui-icon-lightbulb" style="display: inline-block"></span>
+    Orders are available for BOL creation. To edit any information before creating BOL please go to Routing screen. 
+</p>
+@Html.ValidationSummary(true)
+@Html.StatusSummary()
+@if (Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsAsnCustomer==true).FirstOrDefault()))
+{
+    <p>
+        <span class="ui-state-highlight">This is an ASN customer,BOLs will be created per PO,DC.</span>
+    </p>
+}
+@if (Model.GroupedPoList.Count > 1)
+{
+    <fieldset>
+        <legend>Go to ATS Date</legend>
+        <dl id="quicklist">
+            <dd style="margin-left: 5em">
+                @for (var i = 0; i < Model.GroupedPoList.Count; ++i)
+                {
+                    <a href="#@Model.GroupedPoList.Keys[i].HtmlId" @Highlight(Model.GroupedPoList.Keys[i], Model.InitialGroup)>
+                        @Html.DisplayFor(m => Model.GroupedPoList.Keys[i].AtsDate)</a><span> &nbsp; </span>
+                }
+            </dd>
+        </dl>
+    </fieldset>
+}
+
+@if (@Model.BolAtsdate.HasValue && @Model.CreatedBolCount > 0)
+{
+    <div class="ui-state-highlight">
+        @Html.ActionLink(string.Format("{0} BOLs ", Model.CreatedBolCount), MVC_Shipping.Shipping.Home.Bol(new DcmsMobile.Shipping.ViewModels.BolViewModel(Model.Summary.CustomerId, null, DcmsMobile.Shipping.Helpers.UnixTimestampBinder.GetUnixTimeStamp(Model.BolAtsdate.Value))))created for Ats date @string.Format("{0:d}", Model.BolAtsdate)
+    </div>
+}
+@for (var i = 0; i < Model.GroupedPoList.Count; ++i)
+{
+    <div class="box">
+        <div class="boxContent">
+            @using (Html.BeginForm(MVC_Shipping.Shipping.Home.CreateBol(), FormMethod.Post))
+            {
+                <input type="hidden" name = "@Model.NameFor(m => m.PostedCustomerId)" value = "@Model.Summary.CustomerId" />
+                <table  id="@Model.GroupedPoList.Keys[i].HtmlId" style="width:100%">
+                    <caption  @Highlight(Model.GroupedPoList.Keys[i], Model.InitialGroup) >
+                        ATS Date:@Html.DisplayFor(m => m.GroupedPoList.Keys[i].AtsDate)-
+                         @Html.DisplayFor(m => m.GroupedPoList.Keys[i].PoCount)POs
+                        <br />
+                        <input type="hidden" name = "@Model.NameFor(m => m.EdiId)" value = "@Model.GroupedPoList.Keys[i].EdiIdList">
+                        <input type="hidden" name="@Model.NameFor(m => m.BolAtsdate)" value="@Model.GroupedPoList.Keys[i].AtsDate"/>
+                        @if (Model.GroupedPoList.Values[i].Any(p => p.LoadCount > 1 || p.EdiRoutablePoCount > 0))
+                        { 
+                            <button type="submit" title="BOLs cannot be created as some POs have multiple Loads or don't have routing info. Please correct them through  link 'Edit Routing'." style="cursor: pointer" disabled>
+                                Create Bol</button> 
+                        }
+                        else
+                        {
+                            <button>Create Bol</button>
+                        }
+                        @{
+                        var routingGroup = new DcmsMobile.Shipping.ViewModels.RoutingPoGroup
+                        {
+                            AtsDate = Model.GroupedPoList.Keys[i].AtsDate,
+                            BuildingId = Model.GroupedPoList.Keys[i].BuildingId
+                        };
+                        }
+                        @Html.ActionLink("Edit Routing", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId, true, routingGroup)),
+                            null, null, null, routingGroup.HtmlId)
+                    </caption>
+
+                    <thead>
+                        <tr>
+                            <th>BOL #
+                            </th>
+                            <th>DC
+                                 <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="DC in ascending order"></span><sup>1</sup> 
+                            </th>
+                            <th>Load
+                                <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="Load in ascending order"></span><sup>2</sup> 
+                            </th>
+                            <th>PO
+                                 <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="PO in ascending order"></span><sup>3</sup> 
+                            </th>
+                            <th>#Pieces
+                            </th>
+                            <th>#Boxes
+                            </th>
+                            <th>Building
+                            </th>
+                            <th>Carrier
+                            </th>
+                            <th>PickUp Date
+                            </th>
+                            <th>Door
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-routed">
+                        @for (var j = 0; j < Model.GroupedPoList.Values[i].Count; ++j)
+                        {
+                            var bolRowNumber = @Model.GroupedPoList.Values[i][j].BolRowNumber;                    
+                            <tr class="@(bolRowNumber % 2 == 1 ? "rowA" : "rowB")">
+                                @{
+                            rowspan = Model.SpanFor(m => m.BolRowNumber, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span" style="text-align:right">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BolRowNumber)
+                                    </td>
+                                }
+                                @{
+                                rowspan = Model.SpanFor(m => m.CustomerDcId, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CustomerDcId)
+                                        @if (!string.IsNullOrEmpty(Model.GroupedPoList.Values[i][j].OriginalDCId) && Model.GroupedPoList.Values[i][j].OriginalDCId != Model.GroupedPoList.Values[i][j].CustomerDcId)
+                                        {
+                                            <span class="ui-icon ui-icon-info" style="display: inline-block" title="Routing has changed the DC. Original DC: @Model.GroupedPoList.Values[i][j].OriginalDCId"></span>
+                                        }
+                                    </td>
+                                }
+                                @{
+                                rowspan = Model.SpanFor(m => m.LoadId, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].LoadId)
+                                    </td>
+                                }
+                                <td class="routed-po">
+                                    @Model.GroupedPoList.Values[i][j].PoId
+                                    <span class="@(Model.GroupedPoList.Values[i][j].IsRouted ? "" : "ui-icon ui-icon-close")" style="display: inline-block;" title="@(Model.GroupedPoList.Values[i][j].IsRouted ? "":"Please provide load or Pickupdate to complete routing.")"></span>
+                                    @if (Model.GroupedPoList.Values[i][j].PoAlertMessages.Count > 0)
+                                    {
+                                        <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
+                                        <ol class="ui-helper-hidden">
+                                            @foreach (var msg in Model.GroupedPoList.Values[i][j].PoAlertMessages)
+                                            {
+                                                <li>@msg</li>
+                                            }
+                                        </ol>
+                                    }
+                                </td>
+                                <td style="text-align: right">
+                                    @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].Pieces)
+                                </td>
+                                <td style="text-align: right">
+                                    @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CountBoxesDisplay)
+                                </td>
+                                @{
+                                    rowspan = Model.SpanFor(m => m.BuildingId, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BuildingId)
+                                    </td>
+                                }
+                                @{
+                                rowspan = Model.SpanFor(m => m.CarrierId, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CarrierDisplay)
+                                        @if (!string.IsNullOrEmpty(Model.GroupedPoList.Values[i][j].OriginalCarrierId) && Model.GroupedPoList.Values[i][j].OriginalCarrierId != Model.GroupedPoList.Values[i][j].CarrierId)
+                                        {
+                                            <span class="ui-icon ui-icon-info" style="display: inline-block" title="Routing has changed  Carrier. Original Carrier: @Model.GroupedPoList.Values[i][j].OriginalCarrierDisplay"></span>
+                                        }
+                                    </td>
+                                }
+                                @{
+                                rowspan = Model.SpanFor(m => m.PickUpDate, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PickUpDate)
+                                    </td>
+                                }
+                                @{
+                                rowspan = Model.SpanFor(m => m.DoorId, i, j);
+                                }
+                                @if (rowspan >= 0)
+                                { 
+                                    <td rowspan="@rowspan" class="row-span">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].DoorId)                                      
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+@section sidebar
+{
+    <h3>Legend</h3>
+    <div class="boxContent">
+        <span class="ui-icon ui-icon-info" style="display: inline-block"></span>Displays when routing information has changed.
+    </div>
+    @if (Model.GroupedPoList.SelectMany(p => p.Value).Any(p => p.PoAlertMessages.Count > 0))
+    {
+        <div class="box">
+            <div class="boxContent">
+                <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>Displays if PO is unusual. See tooltip for more information.
+            </div>
+        </div>
+    }
+    <div class="boxContent">
+        <span class="ui-icon ui-icon-close" style="display: inline-block"></span>Displays when PO neither have Load nor PickUp Date.
+    </div>
+}
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('tbody.tbody-routed').tooltip({
+                //Used to show appropriate/conditional massage via tooltip
+                content: function () {
+                    return $(this).next().html();
+                },
+                items: 'span.ui-icon.ui-icon-alert'
+            });
+
+            // When ATS date is clicked in the quick list, highlight the clicked date and the table we navigate to
+            $('#quicklist').on('click', 'a', function (e) {
+                $('a', e.delegateTarget).removeClass('ui-state-highlight');
+                $(this).addClass('ui-state-highlight');
+                $('table caption').removeClass('ui-state-highlight');
+                $('caption', $(this).attr('href')).addClass('ui-state-highlight');
+            });
+        });
+    </script>
+    <style>
+        td.row-span[rowspan]
+        {
+            
+            vertical-align: top;
+        }
+        .rowA
+        {
+            background-color:goldenrod;
+        }
+    </style>
+}

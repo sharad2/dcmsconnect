@@ -1,0 +1,20 @@
+﻿@model DcmsMobile.Shipping.ViewModels.ScanToTruck.UnloadPalletViewModel
+@{
+    ViewBag.Title = "Unload Pallet";
+}
+
+@Html.StatusSummary()
+@Html.ValidationSummary()
+
+@using (Html.BeginForm(MVC_Shipping.Shipping.ScanToTruck.UnloadPallet(), FormMethod.Post))
+{
+    <input type = "hidden" value = "@Model.AppointmentNumber" name = "@Model.NameFor(m => m.AppointmentNumber)" />
+    
+    <input type = "hidden" value = "@Model.ConfirmScanText" name = "@Model.NameFor(m => m.ConfirmScanText)" />
+    <label for="scan">
+        Confirm Pallet</label>
+    <input id="scan" type="text" name ="@Model.NameFor(m => m.ScanText)" size="20" style="text-transform: uppercase"/>
+}
+<div class="ui-state-active">
+    Tip : Press Enter to skip unload pallet.
+</div>

@@ -1,0 +1,168 @@
+﻿/* Progress bar displayed in day view HTML */
+.ui-progressbar
+{
+    position: relative;
+    height: 1.2em;
+}
+
+.ui-progressbar-value
+{
+    position: absolute;
+    font-size: 0.9em;
+    font-weight: normal;
+    overflow: hidden;
+    text-align: center;
+}
+
+.ui-progressbar .ui-widget-header
+{
+    color: Black;
+    font-weight: normal;
+}
+
+.app-addevent
+{
+    float: left;
+    cursor: pointer;
+}
+
+.app-daydetail
+{
+    display: inline-block;
+    cursor: pointer;
+}
+
+#calendarLoading
+{
+    z-index: 1000;
+    width: 15mm;
+    height: 15mm;
+    position: fixed;
+    background-color: brown;
+    display: none;
+}
+
+/* Override the line height specified by standardized.css. ol is used for displaying customer list */
+div.fc ol
+{
+    line-height: 1.1em!important;
+    font-size:0.9em;
+    margin:1em;
+}
+
+.fc-event-skin
+{
+    background-color: whitesmoke;
+}
+
+.fc-event.ui-selected > .fc-event-skin
+{
+    background-color: rgb(243,152,20)!important;
+}
+
+.fc-event.app-nocarrier > .fc-event-skin
+{
+    background-color: white;
+}
+
+.fc-day-number
+{
+    cursor: pointer;
+}
+
+#dlgAppointment label
+{
+    display: inline-block;
+    width: 9em;
+    padding-bottom: 0.9em;
+}
+
+div.arrival-slider
+{
+    display: inline-block;
+    width: 15em;
+}
+
+/* Override fc-event style specified in fullcalendar.css */
+div.fc-event
+{
+    font-size: 1em;
+}
+
+.fc-event-inner span.ui-icon
+{
+    display: inline-block;
+}
+
+.fc-event-time
+{
+    font-size: 1.1em;
+}
+
+/* Title of the appointment in all views */
+.fc-event-title
+{
+    font-style: italic;
+    font-size: 1.2em;
+}
+
+/* Edit,Delete ,Refresh appointment*/
+.app-edit, .app-delete, .app-refresh
+{
+    cursor: pointer;
+}
+
+/* Progress bar values in day view
+div.fc-view-basicDay div.ui-progressbar-value
+{
+    text-align: left;
+}
+
+/* In day view, seperate the events somewhat */
+div.fc-view-basicDay .fc-event
+{
+    margin-bottom: 1em;
+    font-size: 1em;
+}
+
+/* The spinner text box sould not appear highlighted within the dialog*/
+div.ui-dialog-content span.ui-spinner
+{
+    background-image: none;
+    background-color: transparent;
+}
+
+.appA .boxContent
+{
+    margin-top: 0em;
+    color: black;
+    border-bottom: solid 1px #bb6600;
+    background: lemonchiffon;
+    padding: 1em 1.5em 1em 1em;
+}
+
+/* We do not want to see the time for unscheduled appointments */
+.app-unscheduled .fc-event-time
+{
+    display: none;
+}
+
+/* The day header in week view should appear to be clickable */
+div.fc div.fc-view-basicWeek thead th
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Color for Unscheduled appointment*/
+.fc-event.app-unscheduled > .fc-event-skin
+{
+    background-color: rgb(219,172,188)!important;
+}
+
+
+/* Color for Scheduled appointment*/
+.fc-event.app-scheduled > .fc-event-skin
+{
+    background-color: rgb(177,205,164)!important;
+}
