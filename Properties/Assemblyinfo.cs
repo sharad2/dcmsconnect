@@ -111,8 +111,8 @@ using System.Runtime.InteropServices;
  * Deepak and Rajesh 07-11-2012: Suppoted TimeSpan in out parameter.
  */
 /*
- * 7.2.0.0 -> ?
+ * 7.2.0.0 -> 7.2.1.0 (Branched by Ritesh Verma on 18th June 2013)
  *   Sharad 17 Jan 2013: Added function GetDateTimeOffset() and deprecated GetDate()
  */
-[assembly: AssemblyVersion("7.2.0.0")]
-[assembly: AssemblyFileVersion("7.2.0.0")]
+[assembly: AssemblyVersion("7.2.1.0")]
+[assembly: AssemblyFileVersion("7.2.1.0")]
