@@ -301,7 +301,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                                 PoIterationCount = order.PoIterationCount,
                                 CustomerDcId = order.CustomerDcId,
                                 BucketId = order.BucketId,
-                                BuildingCount=order.BuidlingCount
+                                BuildingCount=order.BuidlingCount,
+                                IsEdiCustomer=order.IsEdiCustomer
                             }).ToList();
                 item.Key.UpdateStats(list);
                 model.GroupedPoList.Add(item.Key, list);

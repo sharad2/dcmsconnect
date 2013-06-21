@@ -43,5 +43,7 @@ namespace DcmsMobile.Shipping.Repository
         public int PoIterationCount { get; set; }
 
         public int? BuidlingCount { get; set; }
+
+        public bool IsEdiCustomer { get; set; }
     }
 }

@@ -159,5 +159,7 @@ namespace DcmsMobile.Shipping.ViewModels
                 return _unroutedPoAlertMessages;
             }
         }
+
+        public bool IsEdiCustomer { get; set; }
     }
 }

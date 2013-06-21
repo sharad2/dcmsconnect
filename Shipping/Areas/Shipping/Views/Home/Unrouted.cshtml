@@ -56,6 +56,12 @@ Used CSS class:
         <input type = "hidden" name = "@Model.NameFor(m => m.BuildingId)" value = "@Model.BuildingId" />
     </blockquote>  
 }
+@if (Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()))
+{
+    <p>
+        <span class="ui-state-highlight">EDI is sent electronically for this customer.</span>
+    </p>
+}
 
 @if (Model.GroupedPoList.Count >= 1 && !string.IsNullOrEmpty(Model.Summary.CustomerId))
 {

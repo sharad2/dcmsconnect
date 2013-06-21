@@ -252,7 +252,8 @@ namespace DcmsMobile.Shipping.Repository
                                              SUM(BD.expected_pieces)                  AS EXPECTED_PIECES,
                                              MAX(PS.CUSTOMER_DC_ID)                   AS CUSTOMER_DC_ID,
                                              MAX(PO.START_DATE)                       AS START_DATE,
-                                             MIN(PO.DC_CANCEL_DATE)                   AS DCCANCEL_DATE
+                                             MIN(PO.DC_CANCEL_DATE)                   AS DCCANCEL_DATE,
+                                             MIN(C.SPLH_VALUE)                       AS EDI_CUSTOMER
                                         FROM <proxy />PS PS
                                       INNER JOIN <proxy />BUCKET BK 
                                           ON BK.BUCKET_ID=PS.BUCKET_ID
@@ -263,6 +264,9 @@ namespace DcmsMobile.Shipping.Repository
                                        LEFT OUTER JOIN <proxy />BOXDET BD
                                           ON B.PICKSLIP_ID = BD.PICKSLIP_ID
                                          AND B.UCC128_ID = BD.UCC128_ID
+                                        LEFT OUTER JOIN <proxy />CUSTSPLH C
+                                        ON C.CUSTOMER_ID=PS.CUSTOMER_ID
+                                         AND C.SPLH_ID = '$EDI753'
                                        LEFT OUTER JOIN <proxy />PO PO
                                         ON PO.CUSTOMER_ID = PS.CUSTOMER_ID
                                        AND PO.PO_ID = PS.PO_ID
@@ -292,7 +296,8 @@ namespace DcmsMobile.Shipping.Repository
                                                  NULL                                               AS EXPECTED_PIECES,
                                                  MAX(DP.CUSTOMER_DIST_CENTER_ID)                    AS CUSTOMER_DC_ID,
                                                  NULL                                               AS START_DATE,
-                                                 MIN(DP.DC_CANCEL_DATE)                             AS DCCANCEL_DATE
+                                                 MIN(DP.DC_CANCEL_DATE)                             AS DCCANCEL_DATE,
+                                                 NULL                                               AS EDI_CUSTOMER
                                             FROM  <proxy />DEM_PICKSLIP DP
                                             LEFT OUTER JOIN <proxy />CUST CUST
                                               ON DP.CUSTOMER_ID = CUST.CUSTOMER_ID
@@ -316,7 +321,8 @@ namespace DcmsMobile.Shipping.Repository
                                            MIN(Q1.DCCANCEL_DATE)                                      AS MIN_DCCANCEL_DATE,
                                            Q1.CUSTOMER_DC_ID                                          AS CUSTOMER_DC_ID,
                                            COUNT(UNIQUE Q1.ITERATION) OVER(PARTITION BY Q1.CUSTOMER_ID, Q1.PO_ID) AS PO_ITERATION_COUNT,
-                                           count(UNIQUE Q1.WAREHOUSE_LOCATION_ID)OVER(PARTITION BY Q1.CUSTOMER_ID, Q1.PO_ID,Q1.ITERATION,Q1.CUSTOMER_DC_ID) AS BUILDING_COUNT
+                                           count(UNIQUE Q1.WAREHOUSE_LOCATION_ID)OVER(PARTITION BY Q1.CUSTOMER_ID, Q1.PO_ID,Q1.ITERATION,Q1.CUSTOMER_DC_ID) AS BUILDING_COUNT,
+                                           MAX(Q1.EDI_CUSTOMER)                                     AS EDI_CUSTOMER
                                     FROM Q1
                                     GROUP BY Q1.CUSTOMER_ID, Q1.PO_ID, Q1.ITERATION,Q1.CUSTOMER_DC_ID,Q1.WAREHOUSE_LOCATION_ID
                                     ORDER BY (MIN(Q1.DCCANCEL_DATE))";
@@ -335,7 +341,8 @@ namespace DcmsMobile.Shipping.Repository
                 BucketId = row.GetInteger("BUCKET_ID"),
                 CustomerDcId = row.GetString("CUSTOMER_DC_ID"),
                 PoIterationCount = row.GetInteger("PO_ITERATION_COUNT").Value,
-                BuidlingCount=row.GetInteger("BUILDING_COUNT")
+                BuidlingCount=row.GetInteger("BUILDING_COUNT"),
+                IsEdiCustomer=row.GetString("EDI_CUSTOMER")=="Y"? true :false
             }).Parameter("CUSTOMER_ID", customerId)
              .Parameter("BUILDING_ID", buildingId);
             binder.ParameterXPath("getUnavailableorders", getUnavailableorders);
