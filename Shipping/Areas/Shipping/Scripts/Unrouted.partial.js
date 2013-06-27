@@ -94,7 +94,7 @@ $(document).ready(function () {
     $('#divAtsDate').dialog({
         dialogClass: 'dlg-atsdate',
         resizable: false,
-        height: 138,
+        height: 150,
         width: 233,
         closeOnEscape: false,
         //It will fixed the position of the dialog at right center of the window.
@@ -108,6 +108,10 @@ $(document).ready(function () {
             click: function (event, ui) {
                 var $form = $('#frmAtsDate');
                 var $selected = $('table tbody input:checkbox:checked');
+                // Explicity set value for checkbox if it is checked...hide MVC bug
+                if ($('#cbElectronicEdi').is(':checked')) {
+                    $('#cbElectronicEdi').val(true);
+                }
                 if ($selected.length == 0) {
                     alert("Please select POs to route.");
                     return;

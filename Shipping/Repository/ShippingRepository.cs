@@ -364,7 +364,7 @@ namespace DcmsMobile.Shipping.Repository
             var binder = SqlBinder.Create().
             Parameter("aedi_customer", customerId)
             .OutParameter("result", values => ediId = values ?? 0);
-            _db.ExecuteNonQuery(QUERY, binder);
+            _db.ExecuteNonQuery(QUERY, binder);         
             return ediId;
         }
 
@@ -375,7 +375,8 @@ namespace DcmsMobile.Shipping.Repository
         /// <param name="atsDate"></param>
         /// <param name="customerId"></param>
         /// <param name="ediId"> </param>      
-        public void AddPoToEdi(string customerId, ICollection<Tuple<string, int, string>> poList, DateTime? atsDate, int ediId)
+        /// <param name="isElectronicEdi">If true sends EDI electronically</param>
+        public void AddPoToEdi(string customerId, ICollection<Tuple<string, int, string>> poList, DateTime? atsDate, int ediId,bool isElectronicEdi)
         {
             const string QUERY = @"                
                             begin
@@ -386,6 +387,10 @@ namespace DcmsMobile.Shipping.Repository
                                                      adc_list => :aedi_dc,
                                                      aats_date => :aats_date
                                                     );
+                            <if c='$isElectronicEdi'>
+                                <proxy />pkg_edi.send_ps(aedi_id =>:aedi_id);
+                            </if>
+
                             end;        
                                        ";
             var binder = SqlBinder.Create();
@@ -394,6 +399,7 @@ namespace DcmsMobile.Shipping.Repository
             binder.ParameterAssociativeArray("aedi_dc", poList.Select(p => p.Item3).ToArray());
             binder.Parameter("aats_date", atsDate);
             binder.Parameter("aedi_id", ediId);
+            binder.ParameterXPath("isElectronicEdi", isElectronicEdi);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

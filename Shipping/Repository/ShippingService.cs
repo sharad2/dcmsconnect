@@ -68,7 +68,7 @@ namespace DcmsMobile.Shipping.Repository
         /// <param name="atsDate"></param>
         /// <returns></returns>
         /// <remarks>POs are added to existing EDI, if ATS date already exists for the customer</remarks>
-        internal void AddPoToEdi(string customerId, ICollection<Tuple<string, int, string>> poList, DateTime atsDate)
+        internal void AddPoToEdi(string customerId, ICollection<Tuple<string, int, string>> poList, DateTime atsDate,bool isElectronicEdi)
         {
             // Get list of ATS date already exists for the customer.
             var existingEdiId = _repos.GetExistingAtsDates(customerId, atsDate).Select(p => p.EdiId).FirstOrDefault();
@@ -77,12 +77,12 @@ namespace DcmsMobile.Shipping.Repository
             if (existingEdiId == null)
             {
                 var ediId = _repos.CreateEDIforCustomer(customerId);
-                _repos.AddPoToEdi(customerId, poList, atsDate, ediId);
+                _repos.AddPoToEdi(customerId, poList, atsDate, ediId, isElectronicEdi);
             }
             // POs are added to existing EDI, if ATS date already exists for the customer.
             else
             {
-                _repos.AddPoToEdi(customerId, poList, atsDate, existingEdiId.Value);
+                _repos.AddPoToEdi(customerId, poList, atsDate, existingEdiId.Value,isElectronicEdi);
             }
 
             // Since counts for this customer have changed, remove them from the cache

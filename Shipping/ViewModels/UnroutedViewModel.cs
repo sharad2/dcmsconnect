@@ -325,6 +325,11 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         
         }
+
+        /// <summary>
+        /// True if EDI is sent electronically
+        /// </summary>
+        public bool IsElectronicEdi { get; set; }
     }
 
     internal class UnroutedViewModelUnbinder : LayoutTabsViewModelUnbinder
