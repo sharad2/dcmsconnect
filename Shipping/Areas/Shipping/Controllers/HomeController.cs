@@ -353,7 +353,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                                      PoKey = Tuple.Create(upm.PoId, upm.Iteration, upm.CustomerDcId)
                                  };
                     var pokeys = tuples.Select(p => p.PoKey).ToArray();
-                    _service.AddPoToEdi(model.PostedCustomerId, pokeys, model.AtsDate.Value,model.IsElectronicEdi);
+                    _service.AddPoToEdi(model.PostedCustomerId, pokeys, model.AtsDate.Value,model.IsAutomaticEdi);
                     model.RecentlyAssignedPoCount = pokeys.Length;
                     model.RecentlyAssignedGroup = new RoutingPoGroup(tuples.Select(p => p.Building).First(), model.AtsDate.Value);
                 }

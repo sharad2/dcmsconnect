@@ -59,7 +59,7 @@ Used CSS class:
 @if (Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()))
 {
     <p>
-        <span class="ui-state-highlight">EDI is sent electronically for this customer.</span>
+        <span class="ui-state-highlight">Automatic EDI is send for this customer</span>
     </p>
 }
 
@@ -77,7 +77,7 @@ Used CSS class:
             <div class="ui-state-highlight">
                 <span class="spnPOSelected"></span>
             </div>
-            <span>Send Electronic EDI &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m=>m.IsElectronicEdi)" @(Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()) ? "checked" : "")  id="cbElectronicEdi" />
+            <span>Send Automatic EDI &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m=>m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()) ? "checked" : "")  id="cbElectronicEdi" />
         }
     </div>
 }

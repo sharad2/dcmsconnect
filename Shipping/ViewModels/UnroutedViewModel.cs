@@ -329,7 +329,7 @@ namespace DcmsMobile.Shipping.ViewModels
         /// <summary>
         /// True if EDI is sent electronically
         /// </summary>
-        public bool IsElectronicEdi { get; set; }
+        public bool IsAutomaticEdi { get; set; }
     }
 
     internal class UnroutedViewModelUnbinder : LayoutTabsViewModelUnbinder
@@ -361,11 +361,6 @@ namespace DcmsMobile.Shipping.ViewModels
                 ModelUnbinderHelpers.ModelUnbinders.FindUnbinderFor(uvm.InitialGroup.GetType())
                     .UnbindModel(routeValueDictionary, uvm.NameFor(m => m.InitialGroup), uvm.InitialGroup);
             }
-            // We also need to unbind the ShowUnavailableBucket to keep there state after submition of form.
-            //if (uvm.ShowUnavailableBucket)
-            //{
-            //    routeValueDictionary.Add(uvm.NameFor(m => m.ShowUnavailableBucket), uvm.ShowUnavailableBucket);
-            //}
             base.DoUnbindModel(routeValueDictionary, model);
         }
     }
