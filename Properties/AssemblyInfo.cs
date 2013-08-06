@@ -67,6 +67,7 @@ using System.Runtime.InteropServices;
 // Sharad 27 Feb 2013: Deprecated class AutocompleteItem. Deprecated WebGridEx family of classes.
 //          Removed previously deprecated functionality:
 //            class MobileEmulation,  class ReflectionExtensions, ReflectionHelpers.FieldNameFor, class HandleAjaxErrorAttribute, class MobileCapableRazorViewEngine
+// Sharad 6 Aug 2013: Added reference to MVC 4 Nuget package. Earlier, this library was compiling against older version of MVC.
 
 [assembly: AssemblyVersion("2.1.8.0")]
 [assembly: AssemblyFileVersion("2.1.8.0")]
