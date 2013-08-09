@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -27,6 +28,7 @@ namespace EclipseLibrary.Mvc.ModelBinding
     /// input converted to uppercase.
     /// </para>
     /// </remarks>
+    [Obsolete("Not needed if the deprecated BindUpperCaseAttribute is not being used")]
     public class DefaultModelBinderEx:DefaultModelBinder
     {
         /// <summary>
