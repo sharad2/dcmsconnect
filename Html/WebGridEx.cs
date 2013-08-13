@@ -82,12 +82,13 @@ namespace EclipseLibrary.Mvc.Html
         /// emptyDataHtml defaults to NullDisplayText of data source.
         /// </para>
         /// </remarks>
-        [Obsolete("Use the other overload")]
+        [Obsolete]
         public static WebGridEx<T> GridFor<T>(this HtmlHelper helper, IEnumerable<T> source)
         {
             return new WebGridEx<T>(helper, source, null);
         }
 
+        [Obsolete]
         public static WebGridEx<T> GridFor<TModel, T>(this HtmlHelper<TModel> helper, Expression<Func<TModel, IEnumerable<T>>> sourceExpr)
         {
             var source = sourceExpr.Compile()(helper.ViewData.Model);
