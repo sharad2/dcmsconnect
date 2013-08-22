@@ -45,6 +45,7 @@ namespace EclipseLibrary.Mvc.Html
     /// To clear all autocomplete fields:  <c>$('input.ui-autocomplete-input').autocompleteEx('clear');</c>
     /// </para>
     /// </remarks>
+    [Obsolete]
     public static class AutocompleteExtensions
     {
         /// <summary>
@@ -183,6 +184,7 @@ namespace EclipseLibrary.Mvc.Html
         /// ]]>
         /// </code>
         /// </example>
+        [Obsolete]
         public static MvcHtmlString AutocompleteFor<TModel, TProperty1, TProperty2>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty1>> exprValue,
             Expression<Func<TModel, TProperty2>> exprShortName,
             string listUrl, string validateUrl = null, object htmlAttributes = null)
@@ -216,6 +218,7 @@ namespace EclipseLibrary.Mvc.Html
         /// <param name="validateUrl"></param>
         /// <param name="htmlAttributes"></param>
         /// <returns></returns>
+        [Obsolete]
         public static MvcHtmlString AutocompleteFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> exprValue,
             string listUrl, string validateUrl = null, object htmlAttributes = null)
         {
@@ -245,6 +248,7 @@ namespace EclipseLibrary.Mvc.Html
         /// <remarks>
         /// 
         /// </remarks>
+        [Obsolete]
         public static MvcHtmlString AutocompleteDescriptionFor<TModel, TProperty>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TProperty>> expression,
             object htmlAttributes = null, string html = null)
         {
@@ -263,6 +267,7 @@ namespace EclipseLibrary.Mvc.Html
         /// <param name="validateUrl"></param>
         /// <param name="htmlAttributes"></param>
         /// <returns></returns>
+        [Obsolete]
         public static MvcHtmlString Autocomplete(this HtmlHelper helper, string nameValue, string nameShortName,
             string listUrl, string validateUrl = null, object htmlAttributes = null)
         {
@@ -283,6 +288,7 @@ namespace EclipseLibrary.Mvc.Html
             return MvcHtmlString.Create(sb.ToString());
         }
 
+        [Obsolete]
         public static MvcHtmlString AutocompleteDescription(this HtmlHelper helper, string name,
             object htmlAttributes = null, string html = null)
         {
