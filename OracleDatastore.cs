@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Security.Authentication;
 using System.Web;
-using System.Xml.Linq;
 using EclipseLibrary.Oracle.Helpers;
 using Oracle.DataAccess.Client;
 
@@ -318,40 +316,6 @@ namespace EclipseLibrary.Oracle
         }
         #endregion
 
-        //        #region Proxy
-        //        /// <summary>
-        //        /// 
-        //        /// </summary>
-        //        /// <param name="elem"></param>
-        //        /// <returns></returns>
-        //        /// <remarks>
-        //        /// Sharad 28 Sep 2012: This metod is public because it is used by EclipseLibrary.WebForms
-        //        /// Sharad 30 Aug 2013: Changed EclipseLibrary.WebForms so that it no longer accesses this method. Now we can make it private.
-        //        /// </remarks>
-        //        [Obsolete]
-        //        private bool ProxyTagResolver(XElement elem)
-        //        {
-        //#if DEBUG
-        //            if (elem.Name.LocalName != "proxy")
-        //            {
-        //                throw new ArgumentOutOfRangeException(elem.Name.LocalName, "Unrecognized XML tag encountered in query");
-        //            }
-        //            if (string.IsNullOrEmpty(_builder.ProxyUserId))
-        //            {
-        //                throw new NotSupportedException("This method should be called only when the proxy user is being used");
-        //            }
-        //            if (_builder.ProxyUserId != _builder.ProxyUserId.Trim())
-        //            {
-        //                throw new NotSupportedException("It is not expected that the ProxyUserId will have leading or trailing spaces");
-        //            }
-        //#endif
-        //            //var builder = new OracleConnectionStringBuilder(this.Connection.ConnectionString);
-
-        //            elem.Value = _builder.ProxyUserId + ".";
-        //            return true;
-        //        }
-        //        #endregion
-
         #region Public Sql Execution Functions
 
         /// <summary>
@@ -425,10 +389,6 @@ namespace EclipseLibrary.Oracle
         /// </remarks>
         public int ExecuteDml(string xml, SqlBinder binder)
         {
-            // ReSharper disable InvocationIsSkipped
-            //Contract.Ensures(this.Connection != null, "The connection should be created before executing a query");
-            // ReSharper restore InvocationIsSkipped
-
             OracleCommand cmd = null;
             try
             {
@@ -472,13 +432,6 @@ namespace EclipseLibrary.Oracle
                 QueryLogging.TraceQueryEnd(_traceContext);
             }
         }
-
-        //[Obsolete]
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //public T ExecuteSingle<T>(SqlBinder<T> binder)
-        //{
-        //    return ExecuteSingle(binder.Query, binder);
-        //}
 
         /// <summary>
         /// Executes the query and returns the first row as a strongly typed object.
@@ -532,30 +485,12 @@ namespace EclipseLibrary.Oracle
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="binder"></param>
-        ///// <returns></returns>
-        //[Obsolete]
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //public IList<T> ExecuteReader<T>(SqlBinder<T> binder)
-        //{
-        //    return ExecuteReader(binder.Query, binder, 0);
-        //}
 
         public IList<T> ExecuteReader<T>(string xmlQuery, SqlBinder<T> binder)
         {
             return ExecuteReader(xmlQuery, binder, 0);
         }
 
-        //[Obsolete]
-        //[EditorBrowsable(EditorBrowsableState.Never)]
-        //public IList<T> ExecuteReader<T>(SqlBinder<T> binder, int maxRows)
-        //{
-        //    return ExecuteReader(binder.Query, binder, maxRows);
-        //}
 
         /// <summary>
         /// Executes the query using the information in the passed <paramref name="binder"/>. When no rows are found, an empty list is returned.
@@ -683,17 +618,6 @@ namespace EclipseLibrary.Oracle
         }
         #endregion
 
-        //[Obsolete]
-        //private void PrepareConnection(string actionName)
-        //{
-        //    this.Connection.ClientInfo = this.ClientInfo;
-        //    this.Connection.ActionName = actionName;
-        //    this.Connection.ModuleName = this.ModuleName;
-        //    if (_traceContext != null)
-        //    {
-        //        var msg = string.Format("ModuleName: {0}; ClientInfo: {1}; actionName: {2}", this.ModuleName, this.ClientInfo, actionName);
-        //        _traceContext.Write("Connection", msg);
-        //    }
-        //}
+
     }
 }
