@@ -112,7 +112,9 @@ using System.Runtime.InteropServices;
  */
 /*
  * 7.2.0.0 -> ?
- *   Sharad 17 Jan 2013: Added function GetDateTimeOffset() and deprecated GetDate()
+ *   Sharad 17 Jan 2013: Added function GetDateTimeOffset() in preparation for deprecating GetDate()
+ *   Sharad 30 Aug 2013: In OracleDataStore, storing the OracleConnectionStringBuilder to optimize resolving the <proxy/> tag.
+ *      Made ProxyTagResolver private. Module and ClientInfo properties are now set when the connection state changes from closed to opened
  */
 [assembly: AssemblyVersion("7.2.0.0")]
 [assembly: AssemblyFileVersion("7.2.0.0")]

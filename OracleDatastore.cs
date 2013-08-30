@@ -82,6 +82,9 @@ namespace EclipseLibrary.Oracle
         #region Construction and Destruction
 
         private readonly TraceContext _traceContext;
+
+        private readonly OracleConnection _conn;
+
         /// <summary>
         /// 
         /// </summary>
@@ -91,6 +94,10 @@ namespace EclipseLibrary.Oracle
         {
             _traceContext = traceContext;
             this.DefaultMaxRows = 1000;         // Never retrieve more than 1000 rows
+
+            _conn = new OracleConnection();
+
+            _conn.StateChange += Connection_StateChange;
         }
 
         public int DefaultMaxRows { get; set; }
@@ -100,14 +107,22 @@ namespace EclipseLibrary.Oracle
         /// </summary>
         public void Dispose()
         {
-            if (_conn != null)
-            {
-                _conn.Dispose();
-            }
+            _conn.Dispose();
         }
         #endregion
 
         #region Connection
+
+        /// <summary>
+        /// For use by the ProxyTagResolver
+        /// </summary>
+        private OracleConnectionStringBuilder _builder;
+
+        /// <summary>
+        /// The value which will replace <proxy/> tag in queries, e.g. dcms8.
+        /// </summary>
+        private string _proxyTagValue;
+
         /// <summary>
         /// Creates a connection on behalf of the passed <paramref name="userId"/>.
         /// </summary>
@@ -129,32 +144,32 @@ namespace EclipseLibrary.Oracle
         /// </remarks>
         public void CreateConnection(string connectString, string userId)
         {
-            var builder = new OracleConnectionStringBuilder(connectString);
-            if (string.IsNullOrEmpty(builder.ProxyUserId))
+            _builder = new OracleConnectionStringBuilder(connectString);
+            if (string.IsNullOrEmpty(_builder.ProxyUserId))
             {
                 // Proxy not being used. Nothing to do. Ignore userId. Use connect string as is.
             }
-            else if (string.IsNullOrEmpty(userId) || string.Compare(builder.ProxyUserId, userId, true) == 0)
+            else if (string.IsNullOrEmpty(userId) || string.Compare(_builder.ProxyUserId, userId, true) == 0)
             {
                 // Anonymous user wants to execute a query
                 // Special case: If userId is same as proxy user, Create a direct connection for the passed user.
                 // This prevents the unreasonable error "dcms4 not allowed to connect on behalf of dcms4".
                 // Treat the proxy as the real user and remove the proxy attributes.
-                builder.UserID = builder.ProxyUserId;
-                builder.Password = builder.ProxyPassword;
-                builder.ProxyUserId = string.Empty;
-                builder.ProxyPassword = string.Empty;
+                _builder.UserID = _builder.ProxyUserId;
+                _builder.Password = _builder.ProxyPassword;
+                _builder.ProxyUserId = string.Empty;
+                _builder.ProxyPassword = string.Empty;
             }
             else
             {
                 // Proxy is being used.
-                builder.UserID = userId;
+                _builder.UserID = userId;
             }
-            if (_conn != null)
-            {
-                _conn.Dispose();
-            }
-            if (builder.PersistSecurityInfo)
+            //if (_conn != null)
+            //{
+            //    _conn.Dispose();
+            //}
+            if (_builder.PersistSecurityInfo)
             {
                 if (_traceContext != null)
                 {
@@ -162,12 +177,45 @@ namespace EclipseLibrary.Oracle
                     _traceContext.Warn("Connection String",
                                        "The connection string specifies PersistSecurityInfo=true. This setting is not recommended and is not necessary.");
                 }
-                builder.PersistSecurityInfo = false;
+                _builder.PersistSecurityInfo = false;
             }
-            _conn = new OracleConnection { ConnectionString = builder.ConnectionString }; // factory.CreateConnection();
+
+            if (_conn.State != ConnectionState.Closed)
+            {
+                _conn.Close();
+            }
+            _conn.ConnectionString = _builder.ConnectionString; // factory.CreateConnection();
+            //_proxyUserId = (_builder.ProxyUserId ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(_builder.ProxyUserId))
+            {
+                _proxyTagValue = null;
+            }
+            else
+            {
+                _proxyTagValue = _builder.ProxyUserId.Trim() + ".";
+            }
         }
 
-        private OracleConnection _conn;
+        /// <summary>
+        /// Called whenever the connection is opened. Set the module and client info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Connection_StateChange(object sender, StateChangeEventArgs e)
+        {
+            if (e.CurrentState == ConnectionState.Open)
+            {
+                var conn = (OracleConnection)sender;
+                conn.ModuleName = this.ModuleName;
+                conn.ClientInfo = this.ClientInfo;
+                if (_traceContext != null)
+                {
+                    var msg = string.Format("Connection opened at {0:F}. ModuleName: {1}; ClientInfo: {2}", DateTimeOffset.Now, this.ModuleName, this.ClientInfo);
+                    _traceContext.Write("Connection Opened", msg);
+                    _traceContext.Write("Connection String", conn.ConnectionString);
+                }
+            }
+        }
 
         /// <summary>
         /// The connection to be used for executing queries
@@ -181,7 +229,7 @@ namespace EclipseLibrary.Oracle
         {
             get
             {
-                // This will be null if the connection has not yet been created
+                // This may be closed but it will not be null
                 return _conn;
             }
         }
@@ -261,7 +309,7 @@ namespace EclipseLibrary.Oracle
         /// </example>
         public DbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
         {
-            Contract.Assert(_conn != null, "Connection must be created");
+            //Contract.Assert(_conn != null, "Connection must be created");
             if (_conn.State == ConnectionState.Closed)
             {
                 _conn.Open();
@@ -270,30 +318,39 @@ namespace EclipseLibrary.Oracle
         }
         #endregion
 
-        #region Proxy
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="elem"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Sharad 28 Sep 2012: This metod is public because it is used by EclipseLibrary.WebForms
-        /// </remarks>
-        public bool ProxyTagResolver(XElement elem)
-        {
-            if (elem.Name.LocalName != "proxy")
-            {
-                throw new ArgumentOutOfRangeException(elem.Name.LocalName, "Unrecognized XML tag encountered in query");
-            }
-            var builder = new OracleConnectionStringBuilder(this.Connection.ConnectionString);
-            if (string.IsNullOrEmpty(builder.ProxyUserId))
-            {
-                return false;
-            }
-            elem.Value = builder.ProxyUserId + ".";
-            return true;
-        }
-        #endregion
+        //        #region Proxy
+        //        /// <summary>
+        //        /// 
+        //        /// </summary>
+        //        /// <param name="elem"></param>
+        //        /// <returns></returns>
+        //        /// <remarks>
+        //        /// Sharad 28 Sep 2012: This metod is public because it is used by EclipseLibrary.WebForms
+        //        /// Sharad 30 Aug 2013: Changed EclipseLibrary.WebForms so that it no longer accesses this method. Now we can make it private.
+        //        /// </remarks>
+        //        [Obsolete]
+        //        private bool ProxyTagResolver(XElement elem)
+        //        {
+        //#if DEBUG
+        //            if (elem.Name.LocalName != "proxy")
+        //            {
+        //                throw new ArgumentOutOfRangeException(elem.Name.LocalName, "Unrecognized XML tag encountered in query");
+        //            }
+        //            if (string.IsNullOrEmpty(_builder.ProxyUserId))
+        //            {
+        //                throw new NotSupportedException("This method should be called only when the proxy user is being used");
+        //            }
+        //            if (_builder.ProxyUserId != _builder.ProxyUserId.Trim())
+        //            {
+        //                throw new NotSupportedException("It is not expected that the ProxyUserId will have leading or trailing spaces");
+        //            }
+        //#endif
+        //            //var builder = new OracleConnectionStringBuilder(this.Connection.ConnectionString);
+
+        //            elem.Value = _builder.ProxyUserId + ".";
+        //            return true;
+        //        }
+        //        #endregion
 
         #region Public Sql Execution Functions
 
@@ -310,13 +367,13 @@ namespace EclipseLibrary.Oracle
                 throw new ArgumentNullException("binder");
             }
 
-            Contract.Ensures(this.Connection != null, "The connection should be created before executing a query");
+            //Contract.Ensures(this.Connection != null, "The connection should be created before executing a query");
 
             OracleCommand cmd = null;
             try
             {
-                cmd = this.CreateCommand(xml, binder.GetParameter);
-                PrepareConnection(binder.ActionName);
+                cmd = this.CreateCommand(xml, binder.GetParameter, binder.ActionName);
+                //PrepareConnection(binder.ActionName);
                 cmd.ArrayBindCount = binder.ArrayBindCount;
 
                 var rowsAffected = cmd.ExecuteNonQuery();
@@ -369,7 +426,7 @@ namespace EclipseLibrary.Oracle
         public int ExecuteDml(string xml, SqlBinder binder)
         {
             // ReSharper disable InvocationIsSkipped
-            Contract.Ensures(this.Connection != null, "The connection should be created before executing a query");
+            //Contract.Ensures(this.Connection != null, "The connection should be created before executing a query");
             // ReSharper restore InvocationIsSkipped
 
             OracleCommand cmd = null;
@@ -378,13 +435,13 @@ namespace EclipseLibrary.Oracle
                 // Sharad 3 Jun 2011: Handling the case when binder is null
                 if (binder == null)
                 {
-                    cmd = this.CreateCommand(xml, null);
-                    PrepareConnection(null);
+                    cmd = this.CreateCommand(xml, null, binder.ActionName);
+                    //PrepareConnection(null);
                 }
                 else
                 {
-                    cmd = this.CreateCommand(xml, binder.GetParameter);
-                    PrepareConnection(binder.ActionName);
+                    cmd = this.CreateCommand(xml, binder.GetParameter, binder.ActionName);
+                    //PrepareConnection(binder.ActionName);
                 }
 
                 var rowsAffected = cmd.ExecuteNonQuery();
@@ -442,8 +499,8 @@ namespace EclipseLibrary.Oracle
             OracleDataReader reader = null;
             try
             {
-                cmd = CreateCommand(xmlQuery, binder.GetParameter);
-                PrepareConnection(binder.ActionName);
+                cmd = CreateCommand(xmlQuery, binder.GetParameter, binder.ActionName);
+                //PrepareConnection(binder.ActionName);
 
                 reader = cmd.ExecuteReader(CommandBehavior.SingleRow);
                 var result = binder.MapRows(reader).FirstOrDefault();
@@ -529,8 +586,8 @@ namespace EclipseLibrary.Oracle
             OracleDataReader reader = null;
             try
             {
-                cmd = CreateCommand(xmlQuery, binder.GetParameter);
-                PrepareConnection(binder.ActionName);
+                cmd = CreateCommand(xmlQuery, binder.GetParameter, binder.ActionName);
+                //PrepareConnection(binder.ActionName);
 
                 reader = cmd.ExecuteReader(maxRows == 1 ? CommandBehavior.SingleRow : CommandBehavior.Default);
                 if (reader.RowSize > 0 && maxRows > 0)
@@ -571,8 +628,8 @@ namespace EclipseLibrary.Oracle
                 }
                 if (ex.Number == 28150)
                 {
-                    var userId = new OracleConnectionStringBuilder(this.Connection.ConnectionString).UserID;
-                    var proxyUser = new OracleConnectionStringBuilder(this.Connection.ConnectionString).ProxyUserId;
+                    var userId = _builder.UserID;
+                    var proxyUser = _builder.ProxyUserId;
                     var msg = string.Format("User '{0}' was not authenticated to connect as proxy user", userId) + "\n\n Excute following script to get rid of this error: \n\n" +
                               string.Format("ALTER USER {0} GRANT CONNECT THROUGH {1};", userId, proxyUser);
                     throw new AuthenticationException(msg);
@@ -599,33 +656,44 @@ namespace EclipseLibrary.Oracle
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities")]
-        private OracleCommand CreateCommand(string xml, Func<string, OracleParameter> paramUpdater)
+        private OracleCommand CreateCommand(string xml, Func<string, OracleParameter> paramUpdater, string actionName)
         {
-            Contract.Assert(this.Connection != null);
-            OracleCommand cmd = this.Connection.CreateCommand();
+
+            OracleCommand cmd = _conn.CreateCommand();
             cmd.CommandText = xml;
-            XmlToSql.BuildCommand(cmd, paramUpdater, ProxyTagResolver);
-            if (cmd.Connection.State == ConnectionState.Closed)
+
+            XmlToSql.BuildCommand(cmd, paramUpdater, (elem) =>
             {
-                cmd.Connection.Open();
+                if (_proxyTagValue == null)
+                {
+                    return false;
+                }
+                elem.Value = _proxyTagValue;
+                return true;
+            });
+            if (_conn.State == ConnectionState.Closed)
+            {
+                _conn.Open();
             }
             cmd.BindByName = true;
             cmd.InitialLONGFetchSize = 1024;    // Retrieve first 1K chars from a long column
-            QueryLogging.TraceOracleCommand(_traceContext, cmd);
+            _conn.ActionName = actionName;
+            QueryLogging.TraceOracleCommand(_traceContext, cmd, actionName);
             return cmd;
         }
         #endregion
 
-        private void PrepareConnection(string actionName)
-        {
-            this.Connection.ClientInfo = this.ClientInfo;
-            this.Connection.ActionName = actionName;
-            this.Connection.ModuleName = this.ModuleName;
-            if (_traceContext != null)
-            {
-                var msg = string.Format("ModuleName: {0}; ClientInfo: {1}; actionName: {2}", this.ModuleName, this.ClientInfo, actionName);
-                _traceContext.Write("Connection", msg);
-            }
-        }
+        //[Obsolete]
+        //private void PrepareConnection(string actionName)
+        //{
+        //    this.Connection.ClientInfo = this.ClientInfo;
+        //    this.Connection.ActionName = actionName;
+        //    this.Connection.ModuleName = this.ModuleName;
+        //    if (_traceContext != null)
+        //    {
+        //        var msg = string.Format("ModuleName: {0}; ClientInfo: {1}; actionName: {2}", this.ModuleName, this.ClientInfo, actionName);
+        //        _traceContext.Write("Connection", msg);
+        //    }
+        //}
     }
 }

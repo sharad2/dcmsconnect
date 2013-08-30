@@ -9,24 +9,25 @@ namespace EclipseLibrary.Oracle.Helpers
     /// <summary>
     /// Provides useful functions for logging queries
     /// </summary>
-    public static class QueryLogging
+    internal static class QueryLogging
     {
         /// <summary>
         /// Designed for MVC applications. They pass the controller trace context
         /// </summary>
         /// <param name="ctx"></param>
         /// <param name="cmd"></param>
-        public static void TraceOracleCommand(TraceContext ctx, DbCommand cmd)
+        /// <param name="actionName"></param>
+        public static void TraceOracleCommand(TraceContext ctx, DbCommand cmd, string actionName)
         {
             if (ctx == null)
             {
                 // This can happen during unit tests. Do nothing.
                 return;
             }
-            ctx.Write("QueryBegin", DateTime.Now.ToString("F"));
+            ctx.Write("QueryBegin", string.Format("{0:F} for Action {1}", DateTime.Now, actionName));
             // Make sure that PersistSecurityInfo has not been set to true in the connection string. Otherwise, the password will be traced as well.
             // OracleDatastore takes the responsibility of explicitly setting PersistSecurityInfo=false.
-            ctx.Write("Connection String", cmd.Connection.ConnectionString);
+            //ctx.Write("Connection String", cmd.Connection.ConnectionString);
             string str = string.Format("[{0}] {1}", cmd.CommandType, cmd.CommandText.Trim());
             ctx.Write("QueryText", str);
             foreach (DbParameter param in cmd.Parameters)
