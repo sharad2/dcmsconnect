@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Script.Serialization;
 using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.ViewModels
@@ -18,7 +17,6 @@ namespace DcmsMobile.Shipping.ViewModels
     {
         public AppointmentViewModel(): base(LayoutTabPage.Appointment)
         {
-
         }
         /// <summary>
         /// The initial date to display

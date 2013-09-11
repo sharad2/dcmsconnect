@@ -1,11 +1,11 @@
-﻿using EclipseLibrary.Mvc.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Routing;
+using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
@@ -207,29 +207,6 @@ namespace DcmsMobile.Shipping.ViewModels
         /// </summary>
         public bool ShowRoutedOrders { get; set; }
 
-        ///// <summary>
-        ///// Property used to edid address while creating load
-        ///// </summary>
-
-        //[BindUpperCase]
-        //[Display(Name = "Address")]
-        //public string Address { get; set; }
-
-        //[BindUpperCase]
-        //[Display(Name = "City")]
-        //public string City { get; set; }
-
-        //[BindUpperCase]
-        //[Display(Name = "State")]
-        //public string State { get; set; }
-
-        //[Display(Name = "Zip")]
-        //public string ZipCode { get; set; }
-
-        //[BindUpperCase]
-        //[Display(Name = "Country")]
-        //public string CountryCode { get; set; }
-
         //Used for building filter.
         [DisplayName("Building")]
         public string BuildingId { get; set; }
@@ -257,14 +234,6 @@ namespace DcmsMobile.Shipping.ViewModels
                     yield return new ValidationResult("Please select at least one PO.");
                 }
             }
-
-            //if (this.UpdateAddress)
-            //{
-            //    if (string.IsNullOrWhiteSpace(this.Address) || string.IsNullOrWhiteSpace(this.City) || string.IsNullOrWhiteSpace(this.State) || string.IsNullOrWhiteSpace(this.ZipCode) || string.IsNullOrWhiteSpace(this.CountryCode))
-            //    {
-            //        yield return new ValidationResult("Please specify the address");
-            //    }
-            //}
         }
     }
 

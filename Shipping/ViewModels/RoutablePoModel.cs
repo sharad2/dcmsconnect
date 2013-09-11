@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using DcmsMobile.Shipping.Repository;
 using System.Linq;
+using DcmsMobile.Shipping.Repository;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
@@ -47,7 +47,6 @@ namespace DcmsMobile.Shipping.ViewModels
             this.BuildingId = entity.BuildingId;
             this.PoIterationCount = entity.PoIterationCount;
             this.DoorId = entity.DoorId;
-            //this.IsPoRouted = !string.IsNullOrEmpty(entity.LoadId) || entity.PickUpDate.HasValue;
             this.StartDate = entity.StartDate;
             this.DcCancelDate = entity.DcCancelDate;
             this.TotalDollars = entity.TotalDollars;
@@ -55,7 +54,7 @@ namespace DcmsMobile.Shipping.ViewModels
             this.DoorCount = entity.DoorCount;
             this.EdiRoutablePoCount = entity.EdiRoutablePoCount;
             this.EdiList = entity.EdiIdList;
-            this.IsAsnCustomer = entity.CustAsnFlag =="Y" ? true :false;
+            this.IsAsnCustomer = entity.CustAsnFlag == "Y" ? true : false;
             this.BuildingList = entity.BuildingList;
         }
 
@@ -79,7 +78,7 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         }
 
-       
+
         public string CustomerId
         {
             get
@@ -164,13 +163,13 @@ namespace DcmsMobile.Shipping.ViewModels
         /// The original DC which was downloaded from ERP.
         /// </summary>
         public string OriginalDCId { get; set; }
-        
+
         [Display(Name = "DC")]
         public string CustomerDcId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? Pieces { get; set; }
-        
+
         public int? CountBoxes { get; set; }
 
         /// <summary>
@@ -187,7 +186,7 @@ namespace DcmsMobile.Shipping.ViewModels
                 return string.Format("{0:N0}", this.CountBoxes);
             }
         }
-        
+
         [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
         public DateTime? PickUpDate { get; set; }
 
@@ -201,27 +200,13 @@ namespace DcmsMobile.Shipping.ViewModels
 
         public int? PickUpDateCount { get; set; }
 
-        public string CarrierList
-        {
-            get;
-            set;
-        }
-        public string LoadList
-        {
-            get;
-            set;
-        }
-        public string PickupDateList
-        {
-            get;
-            set;
-        }
-        public string DoorList
-        {
-            get;
-            set;
-        }
-        
+        public string CarrierList { get; set; }
+
+        public string LoadList { get; set; }
+
+        public string PickupDateList { get; set; }
+
+        public string DoorList { get; set; }
 
         [DisplayName("Building")]
         public string BuildingId { get; set; }
@@ -231,25 +216,16 @@ namespace DcmsMobile.Shipping.ViewModels
         /// </summary>
         public int PoIterationCount { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? StartDate { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? DcCancelDate { get; set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
+
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public decimal? TotalDollars { get; set; }
-        
-        
+
+
         /// <summary>
         /// The property is used to show conditional title at UI.
         /// </summary>
@@ -269,10 +245,6 @@ namespace DcmsMobile.Shipping.ViewModels
                 {
                     _poAlertMessages.Add(string.Format("This PO appears {0} times in the list because it was downloaded multiple times from the Vision system", this.PoIterationCount));
                 }
-                //if (CarrierCount > 1)
-                //{
-                //    _poAlertMessages.Add(string.Format("Multiple Carriers: {0}.For BOL creation it's necessary the PO has only one Carrier", this.CarrierList));
-                //}
                 if (LoadCount > 1)
                 {
                     _poAlertMessages.Add(string.Format("Multiple Loads: {0}.For BOL creation it's necessary the PO has only one Load", this.LoadList));
@@ -284,9 +256,9 @@ namespace DcmsMobile.Shipping.ViewModels
                 }
                 if (DoorCount > 1)
                 {
-                    _poAlertMessages.Add(string.Format("PO {0} has multiple Door: {1}.it will result in seprate BOL for each door.",this.PoId, this.DoorList));
+                    _poAlertMessages.Add(string.Format("PO {0} has multiple Door: {1}.it will result in seprate BOL for each door.", this.PoId, this.DoorList));
                 }
-                if(!string.IsNullOrEmpty(this.BuildingList) && this.BuildingList.Split('-').Where(p => !string.IsNullOrWhiteSpace(p)).ToArray().Length > 1)
+                if (!string.IsNullOrEmpty(this.BuildingList) && this.BuildingList.Split('-').Where(p => !string.IsNullOrWhiteSpace(p)).ToArray().Length > 1)
                 {
                     _poAlertMessages.Add(string.Format("PO {0} has multiple Buildings: {1}.It will result in separate BOL per building.", this.PoId, this.BuildingList));
                 }

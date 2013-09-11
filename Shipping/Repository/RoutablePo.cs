@@ -15,7 +15,7 @@ namespace DcmsMobile.Shipping.Repository
 
         public string LoadId { get; set; }
 
-        public decimal? Weight { get; set; }   
+        public decimal? Weight { get; set; }
 
         public decimal? Volume { get; set; }
 
@@ -35,28 +35,14 @@ namespace DcmsMobile.Shipping.Repository
 
         public int? DoorCount { get; set; }
 
-        public string CarrierList
-        {
-            get;
-            set;
-        }
-        public string LoadList
-        {
-            get;
-            set;
-        }
+        public string CarrierList { get; set; }
 
-        public string PickupDateList
-        {
-            get;
-            set;
-        }
+        public string LoadList { get; set; }
 
-        public string DoorList
-        {
-            get;
-            set;
-        }
+        public string PickupDateList { get; set; }
+
+        public string DoorList { get; set; }
+
         public int? CarrierCount { get; set; }
 
         public string DoorId { get; set; }

@@ -43,14 +43,14 @@ namespace DcmsMobile.Shipping.ViewModels
 
         public DateTime? DcCancelDate { get; set; }
 
-        public string CustomUrl { get; set; }      
+        public string CustomUrl { get; set; }
 
         public string DcId { get; set; }
 
         public string CustomerDisplay
         {
 
-            get 
+            get
             {
                 return string.Format("{0}:{1}", this.CustomerId, this.CustomerName);
             }
@@ -87,7 +87,6 @@ namespace DcmsMobile.Shipping.ViewModels
         /// <summary>
         /// Url of Report 110.21: Summary of the Shipments as well as cartons received.
         /// </summary>
-        ///[ScriptIgnore]
         public string BolDetailUrl
         {
             get

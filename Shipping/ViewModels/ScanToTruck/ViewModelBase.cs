@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
 {
-    public class ViewModelBase :LayoutTabsViewModel
+    public class ViewModelBase : LayoutTabsViewModel
     {
         public ViewModelBase()
             : base(LayoutTabPage.ScanToTruck)

@@ -23,7 +23,6 @@ namespace DcmsMobile.Shipping.ViewModels
             CountRoutingInProgressPo = entity.CountRoutingPo == null || entity.CountRoutingPo == 0 ? (int?)null : entity.CountRoutingPo;
             CountUnroutedpo = entity.CountUnroutedPo == null || entity.CountUnroutedPo == 0 ? (int?)null : entity.CountUnroutedPo;
             OrderedPieces = entity.PiecesOrdered;
-            //PiecesRouted = entity.RoutedPieces;
             MaxDcCancelDate = entity.MaxDcCancelDate;
             StartDate = entity.StartDate;
             TotalDollarsOrdered = entity.TotalDollarsOrdered;
@@ -176,11 +175,6 @@ namespace DcmsMobile.Shipping.ViewModels
                 return string.Format("{0:N0}", this.OrderedPieces);
             }
         }
-
-        //public int? PiecesRouted { get; set; }
-
-        
-        //internal DateTime? MinDcCancelDate { get; set; }
 
         /// <summary>
         /// Shows number of days for future dates. Actual date for past dates highlighted as error.

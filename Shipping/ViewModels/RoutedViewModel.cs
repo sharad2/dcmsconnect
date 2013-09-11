@@ -1,13 +1,12 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 using EclipseLibrary.Mvc.Helpers;
-using System.Linq;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
@@ -175,10 +174,6 @@ namespace DcmsMobile.Shipping.ViewModels
         protected override void DoUnbindModel(RouteValueDictionary routeValueDictionary, LayoutTabsViewModel model)
         {
             var rvm = (RoutedViewModel)model;
-            //if (rvm.BolEdi.HasValue)
-            //{
-            //    routeValueDictionary.Add(rvm.NameFor(m => m.BolEdi), rvm.BolEdi);
-            //}
             if (rvm.CreatedBolCount.HasValue)
             {
                 routeValueDictionary.Add(rvm.NameFor(m => m.CreatedBolCount), rvm.CreatedBolCount);

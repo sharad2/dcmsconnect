@@ -1,14 +1,14 @@
-﻿using DcmsMobile.Shipping.Helpers;
-using DcmsMobile.Shipping.Repository;
-using EclipseLibrary.Mvc.Helpers;
-using EclipseLibrary.Mvc.ModelBinding;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using DcmsMobile.Shipping.Helpers;
+using DcmsMobile.Shipping.Repository;
+using EclipseLibrary.Mvc.Helpers;
+using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
@@ -25,12 +25,12 @@ namespace DcmsMobile.Shipping.ViewModels
 
         public AppointmentModel()
         {
-            _classNames = new HashSet<string>();           
+            _classNames = new HashSet<string>();
         }
 
         public AppointmentModel(Appointment entity)
         {
-            _classNames = new HashSet<string>();           
+            _classNames = new HashSet<string>();
             this.id = entity.AppointmentId;
             this.AppointmentNumber = entity.AppointmentNumber;
             this.AppointmentDate = entity.AppointmentTime;
@@ -45,13 +45,13 @@ namespace DcmsMobile.Shipping.ViewModels
             this.AppointmentBols = entity.GetCustomerNames().Select(p => new AppointmentBolModel
             {
                 CustomerName = p,
-                CustomerId=entity.CustomerId,
-                BolPoCount=entity.BolPoCount,
-                NoBolPoCount=entity.NoBolPoCount
-            });           
-            this.BolBoxCount = entity.BolBoxCount;           
+                CustomerId = entity.CustomerId,
+                BolPoCount = entity.BolPoCount,
+                NoBolPoCount = entity.NoBolPoCount
+            });
+            this.BolBoxCount = entity.BolBoxCount;
             this.NoBolBoxCount = entity.NoBolBoxCount;
-            this.IsShipped = entity.IsShipped;           
+            this.IsShipped = entity.IsShipped;
         }
 
         #region Javascript Event data
@@ -80,10 +80,6 @@ namespace DcmsMobile.Shipping.ViewModels
                 if (_title == null)
                 {
                     var list = new List<string>(4);
-                    //if (this.IsTimeZoneDifferent.HasValue && this.IsTimeZoneDifferent.Value && this.AppointmentDate.HasValue)
-                    //{
-                    //    list.Add(string.Format("({0:h:mm tt} local)", this.AppointmentDate.Value));
-                    //}
                     if (this.AppointmentNumber != null)
                     {
                         list.Add(string.Format("#{0}", this.AppointmentNumber));
@@ -181,15 +177,7 @@ namespace DcmsMobile.Shipping.ViewModels
             }
             set
             {
-                _carrierId = value;
-                //if (string.IsNullOrWhiteSpace(_carrierId))
-                //{
-                //    _classNames.Add(CLASSNAME_NOCARRIER);
-                //}
-                //else
-                //{
-                //    _classNames.Remove(CLASSNAME_NOCARRIER);
-                //}
+                _carrierId = value;              
             }
         }
 
@@ -383,7 +371,7 @@ namespace DcmsMobile.Shipping.ViewModels
         [ScriptIgnore]
         public int? BolCount { get; set; }
 
-       
+
         /// <summary>
         /// No of BOXs associated with appointment
         /// </summary>
@@ -391,19 +379,19 @@ namespace DcmsMobile.Shipping.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BolBoxCount { get; set; }
 
-          
+
         /// <summary>
         /// No of BOXs associated with appointment
         /// </summary>
         [ScriptIgnore]
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? NoBolBoxCount { get; set; }
-       
+
         /// <summary>
         /// Appointment is shipped or not 
         /// </summary>
-        public bool IsShipped { get; set;}
-  
+        public bool IsShipped { get; set; }
+
 
         /// <summary>
         /// Dispaly UTC offset if timezone of user is different from time zone of appointment.
@@ -436,7 +424,7 @@ namespace DcmsMobile.Shipping.ViewModels
                 {
                     return null;
                 }
-             
+
                 return this.AppointmentDate.Value.Offset;
 
             }
@@ -457,7 +445,7 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         }
 
-      
+
     }
 
     /// <summary>

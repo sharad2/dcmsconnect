@@ -16,11 +16,9 @@ namespace DcmsMobile.Shipping.Repository
         public int Iteration { get; set; }
 
         [Key]
-        public string CustomerDcId { get; set; }
-   
+        public string CustomerDcId { get; set; }   
 
         public int? BucketId { get; set; }
-
 
         public string CustomerName { get; set; }            
 

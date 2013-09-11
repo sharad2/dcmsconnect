@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.Shipping.Repository
 {
@@ -28,7 +27,7 @@ namespace DcmsMobile.Shipping.Repository
             _key = key;
         }
 
-        public static RoutingKey Create(string customerId, string poId, int iteration,string dcId)
+        public static RoutingKey Create(string customerId, string poId, int iteration, string dcId)
         {
             var key = (poId ?? string.Empty) + "," + iteration + "," + customerId + "," + dcId;
             return new RoutingKey(key);
@@ -84,34 +83,19 @@ namespace DcmsMobile.Shipping.Repository
 
         public bool UpdateCarrierId { get; set; }
 
-        public string CarrierId
-        {
-            get;
-            set;
-        }
+        public string CarrierId { get; set; }
 
         public bool UpdateCustomerDcId { get; set; }
 
-        public string CustomerDcId
-        {
-            get;
-            set;
-        }
+        public string CustomerDcId { get; set; }
 
         public bool UpdateLoadId { get; set; }
 
-        public string LoadId
-        {
-            get;
-            set;
-        }
+        public string LoadId { get; set; }
 
         public bool UpdatePickupDate { get; set; }
-        public DateTime? PickUpDate
-        {
-            get;
-            set;
-        }
+
+        public DateTime? PickUpDate { get; set; }
 
         /// <summary>
         /// Whether anything needs to be updated

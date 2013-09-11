@@ -480,7 +480,6 @@ namespace DcmsMobile.Shipping.Repository
                        EDIPS.CUSTOMER_DC_ID                     AS CUSTOMER_DC_ID,
                        MAX(EDIPS.ATS_DATE)                      AS ATS_DATE,
                        Max(bkt.ship_ia_id)                      as DOOR_ID,
-                       ---MAX(EDIPS.EDI_ID)                        AS EDI_ID,
                        SYS.STRAGG(UNIQUE(EDIPS.EDI_ID || ',')) AS edi_ID_LIST,
                        SUM(EDIPS.WEIGHT_IN_LB)                  AS WEIGHT,
                        SUM(EDIPS.VOLUME_IN_CUFT)                AS VOLUME,

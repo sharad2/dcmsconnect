@@ -1,5 +1,4 @@
-﻿using EclipseLibrary.Mvc.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.ViewModels
 {

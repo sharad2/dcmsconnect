@@ -22,8 +22,6 @@ namespace DcmsMobile.Shipping.Repository
 
         public int? PiecesOrdered { get; set; }
 
-        //public int? RoutedPieces { get; set; }
-
         public Decimal? TotalDollarsOrdered { get; set; }
 
         public int? CustomerPosCount { get; set; }
@@ -36,8 +34,7 @@ namespace DcmsMobile.Shipping.Repository
         /// <summary>
         /// Customer for which EDI is sent and received electronically.
         /// </summary>
-        public string EdiCustomer { get; set; }    
-
+        public string EdiCustomer { get; set; }
 
         /// <summary>
         /// NO of Unshipped BOLs

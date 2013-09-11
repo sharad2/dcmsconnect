@@ -1,6 +1,6 @@
-﻿using EclipseLibrary.Mvc.ModelBinding;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
 {

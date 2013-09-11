@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
 using DcmsMobile.Shipping.Helpers;
+
 namespace DcmsMobile.Shipping.ViewModels
 {
     public class BolModel
