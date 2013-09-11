@@ -126,7 +126,6 @@ namespace DcmsMobile.Shipping.ViewModels
             set
             {
                 this.AppointmentDate = UnixTimestampBinder.GetDateFromUnixTimeStamp(long.Parse(value));
-                //throw new NotImplementedException(value);
             }
         }
 
@@ -141,21 +140,41 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         }
 
+        private string _pickUpDoor;
         /// <summary>
         /// This is part of eventData so that the dialog can show it
         /// </summary>
         [Display(Name = "Door")]
-        [BindUpperCase]
         [ReadOnly(false)]
-        public string PickUpDoor { get; set; }
+        public string PickUpDoor
+        {
+            get
+            {
+                return _pickUpDoor;
+            }
+            set
+            {
+                _pickUpDoor = value.ToUpper();
+            }
+        }
 
+        private string _buildingId;
         /// <summary>
         /// This is part of eventData so that the dialog can show it
         /// </summary>
         [Display(Name = "Building")]
-        [BindUpperCase]
         [ReadOnly(false)]
-        public string BuildingId { get; set; }
+        public string BuildingId
+        {
+            get
+            {
+                return _buildingId;
+            }
+            set
+            {
+                _buildingId = value.ToUpper();
+            }
+        }
 
         /// <summary>
         /// This is part of eventData so that the dialog can show it. Also shown as tooltip of the event
@@ -177,7 +196,7 @@ namespace DcmsMobile.Shipping.ViewModels
             }
             set
             {
-                _carrierId = value;              
+                _carrierId = value;
             }
         }
 
@@ -192,7 +211,6 @@ namespace DcmsMobile.Shipping.ViewModels
         [ScriptIgnore]
         [Key]
         public int? AppointmentNumber { get; set; }
-
 
         [Display(Name = "Date & Time")]
         [ScriptIgnore]
@@ -271,7 +289,6 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         }
 
-
         [ScriptIgnore]
         public int? TotalBoxesCount
         {
@@ -327,7 +344,6 @@ namespace DcmsMobile.Shipping.ViewModels
         /// <summary>
         /// Url of Report 110.21: Summary of the Shipments as well as cartons received.
         /// </summary>
-        ///[ScriptIgnore]
         public string BolDetailUrl
         {
             get
@@ -371,14 +387,12 @@ namespace DcmsMobile.Shipping.ViewModels
         [ScriptIgnore]
         public int? BolCount { get; set; }
 
-
         /// <summary>
         /// No of BOXs associated with appointment
         /// </summary>
         [ScriptIgnore]
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BolBoxCount { get; set; }
-
 
         /// <summary>
         /// No of BOXs associated with appointment
@@ -391,7 +405,6 @@ namespace DcmsMobile.Shipping.ViewModels
         /// Appointment is shipped or not 
         /// </summary>
         public bool IsShipped { get; set; }
-
 
         /// <summary>
         /// Dispaly UTC offset if timezone of user is different from time zone of appointment.
@@ -444,8 +457,6 @@ namespace DcmsMobile.Shipping.ViewModels
                 return string.Format("{0:o}", this.AppointmentDate.Value);
             }
         }
-
-
     }
 
     /// <summary>

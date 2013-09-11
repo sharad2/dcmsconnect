@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
 {
@@ -11,15 +10,20 @@ namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
         [Required]
         public int AppointmentNumber { get; set; }
 
+        private string _scanText;
         [ReadOnly(false)]
-        [BindUpperCase]
-        public string ScanText { get; set; }
+        public string ScanText
+        {
+            get
+            {
+                return _scanText;
+            }
+            set
+            {
+                _scanText = value.ToUpper();
+            }
+        }
 
-        public string ConfirmScanText { get; set; }
-
-        /// <summary>
-        /// From which building,area the pallets for this appointment will be pulled to load on the truck
-        /// </summary>
-        //public string Context { get; set; }
+        public string ConfirmScanText { get; set; }       
     }
 }

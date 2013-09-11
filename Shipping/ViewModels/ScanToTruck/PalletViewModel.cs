@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
 {
@@ -26,9 +25,19 @@ namespace DcmsMobile.Shipping.ViewModels.ScanToTruck
             }
         }
 
+        private string _scanText;
         [ReadOnly(false)]
-        [BindUpperCase]
-        public string ScanText { get; set; }
+        public string ScanText
+        {
+            get
+            {
+                return _scanText;
+            }
+            set
+            {
+                _scanText = value.ToUpper();
+            }
+        }
 
         public string CarrierId { get; set; }
 
