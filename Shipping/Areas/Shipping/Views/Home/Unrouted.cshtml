@@ -35,6 +35,10 @@ Used CSS class:
 }
 @Html.StatusSummary()
 @Html.ValidationSummary(true)
+@if (Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()))
+{
+    <div class="ui-state-highlight" style="font-size: 1.8em;">EDI 753 is send for customer @Model.Summary.CustomerId</div>
+}
 <p>
     <span class="ui-icon ui-icon-lightbulb" style="display: inline-block"></span>
     Select POs below and assign an ATS Date to them.
@@ -56,13 +60,6 @@ Used CSS class:
         <input type = "hidden" name = "@Model.NameFor(m => m.BuildingId)" value = "@Model.BuildingId" />
     </blockquote>  
 }
-@if (Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()))
-{
-    <p>
-        <span class="ui-state-highlight">Automatic EDI is send for this customer</span>
-    </p>
-}
-
 @if (Model.GroupedPoList.Count >= 1 && !string.IsNullOrEmpty(Model.Summary.CustomerId))
 {
     <div id="divAtsDate" class="ui-widget-content">
@@ -77,7 +74,7 @@ Used CSS class:
             <div class="ui-state-highlight">
                 <span class="spnPOSelected"></span>
             </div>
-            <span>Send Automatic EDI &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m=>m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p=>p.Value.Select(p1=>p1.IsEdiCustomer==true).FirstOrDefault()) ? "checked" : "")  id="cbElectronicEdi" />
+            <span>Send EDI 753 &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m => m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()) ? "checked" : "")  id="cbElectronicEdi" />
         }
     </div>
 }
