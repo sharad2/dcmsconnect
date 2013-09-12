@@ -226,6 +226,7 @@ namespace DcmsMobile.Shipping.Repository
         /// <summary>
         /// Gets unrouted orders for the passed customer. 
         /// One row for each PO,iteration and DC is returned.
+        /// TODO: Is Customer EdiCustomer? Check this from ps table.
         /// </summary>
         /// <param name="customerId"></param>  
         /// <param name="buildingId"></param>
