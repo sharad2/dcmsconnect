@@ -228,6 +228,11 @@ namespace EclipseLibrary.Oracle
             get
             {
                 // This may be closed but it will not be null
+                if (string.IsNullOrWhiteSpace(_conn.ConnectionString))
+                {
+                    // To maintain compatibility with EclipseLibrary.WebForms, we return null if CreateConnection() has not been called.
+                    return null;
+                }
                 return _conn;
             }
         }
