@@ -7,10 +7,15 @@ using System.Web;
 namespace EclipseLibrary.Oracle.Helpers
 {
     /// <summary>
-    /// Provides useful functions for logging queries
+    /// Provides useful functions for logging queries. I wanted to make this class internal, but it is being used by EclipseLibrary.WebForms
     /// </summary>
-    internal static class QueryLogging
+    public static class QueryLogging
     {
+        [Obsolete("Use the overload which accepts actionName")]
+        public static void TraceOracleCommand(TraceContext ctx, DbCommand cmd)
+        {
+            TraceOracleCommand(ctx, cmd, "Unspecified Action");
+        }
         /// <summary>
         /// Designed for MVC applications. They pass the controller trace context
         /// </summary>
