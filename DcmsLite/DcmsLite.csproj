@@ -232,7 +232,6 @@
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
-    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Lite.pubxml" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
