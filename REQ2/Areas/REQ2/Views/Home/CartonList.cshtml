@@ -1,0 +1,43 @@
+﻿@model DcmsMobile.REQ2.ViewModels.CartonListViewModel
+@{
+    ViewBag.Title = "Carton List";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var grid = Html.GridFor(m => m.CartonList);
+    grid.AddColumn(m => m.CartonId);
+    grid.AddColumn(m => m.PalletId);
+    grid.AddColumn(m => m.Quantity);
+    grid.AddColumn().HeaderHtml("Area")
+        .CellHtml(@<span>@item.Html.DisplayFor(m => m.StoregeArea) &rarr; @item.Html.DisplayFor(m => m.AreaDescription)</span>);
+    grid.AddColumn(m => m.VwhId);
+    grid.AddColumn(m => m.QualityCode);
+   
+}
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            <div>
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
+                @Html.ActionLink("Back to ManageSku", MVC_REQ2.REQ2.Home.DisplayRequest(Model.CtnresvId))
+            </div>
+            <div>
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
+                @Html.ActionLink("Back to Recent Requests", MVC_REQ2.REQ2.Home.Index())
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.HiddenFor(m => m.CtnresvId)
+</div>
+@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    emptyDataHtml: "<span class='ui-state-highlight'>No cartons have been assigned yet.</span>",
+        caption: string.Format("Cartons in Request <strong>#{0}</strong>", @Html.DisplayFor(m => m.ReqId))
+)
+@if (Model.CartonList.Count() >= 500)
+{
+    <div class="ui-state-active">Showing only 500 cartons.</div>
+}
+@*$Id$*@

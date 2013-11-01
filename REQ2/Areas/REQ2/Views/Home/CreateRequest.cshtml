@@ -1,0 +1,147 @@
+﻿@model DcmsMobile.REQ2.ViewModels.SelectRequestViewModel
+@{  
+    ViewBag.Title = string.IsNullOrEmpty(Model.CurrentRequest.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.CurrentRequest.ReqId);
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $ddlTargetQualityCode = $('#ddlTargetQualityCode');
+            var $cbUpdateQuality = $('#cbUpdateQuality');
+            var $CbConversionRequest = $('#CbConversionRequest');
+            var $ddlTargetVwh = $('#ddlTargetVwh');
+
+            $('#divAccordion').accordion();
+            if ($('#resvId').val() != '') {
+                if ($ddlTargetQualityCode.val() != '') {
+                    $cbUpdateQuality.attr('checked', 'checked');
+                } else {
+                    $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
+                }
+                $CbConversionRequest.attr('disabled', 'disabled');
+                if ($CbConversionRequest.attr('checked')) {
+                    $ddlTargetVwh.removeAttr('disabled');
+                } else {
+                    $ddlTargetVwh.attr('disabled', 'disabled');
+                }
+            }
+            else {
+                $CbConversionRequest.removeAttr('disabled');
+                $ddlTargetVwh.attr('disabled', 'disabled');
+                $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
+            }
+
+            $CbConversionRequest.change(function (e) {
+                if ($CbConversionRequest.attr('checked')) {
+                    $ddlTargetVwh.removeAttr('disabled');
+                }
+                else {
+                    $ddlTargetVwh.val('').attr('disabled', 'disabled');
+                }
+            });
+
+            $cbUpdateQuality.change(function (e) {
+                if ($cbUpdateQuality.attr('checked')) {
+                    $ddlTargetQualityCode.removeAttr('disabled');
+                }
+                else {
+                    $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
+                }
+            });
+
+            $('#btnCreateRequest').button({ icons: { primary: 'ui-icon-document'} });
+            $('#btnSaveRequest').button({ icons: { primary: 'ui-icon-disk'} });
+            $('#btnGo').button({ icons: { secondary: 'ui-icon-search'} }).click(function (e) {
+                if ($('#frmSearch input:text').val() == '') {
+                    $('#frmSearch div').html("Please enter the valid Request ID")
+                        .removeClass('validation-summary-valid')
+                        .addClass('validation-summary-errors');
+                    return false;
+                }
+            });
+        });
+    </script>
+}
+@section sidebar{
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
+        </div>
+    </div>
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
+            </span>@Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
+        </div>
+    </div>
+}
+@using (Html.BeginForm(MVC_REQ2.REQ2.Home.UpdateRequest(), FormMethod.Post, new
+{
+    id = "frmMain"
+}))
+{
+    @Html.HiddenFor(m => m.CurrentRequest.ResvId, new { id = "resvId" })
+    <div class="box divReqMain">
+        @Html.LabelFor(m => m.CurrentRequest.RequestForConversion)
+        @Html.CheckBoxFor(m => m.CurrentRequest.RequestForConversion, new { id = "CbConversionRequest" })
+        Check this if you want to convert SKU/VWH<br />
+        @Html.LabelFor(m => m.CurrentRequest.VirtualWareHouseId)
+        @Html.DropDownListFor(m => m.CurrentRequest.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, null)*
+        <br />
+        <label>
+            Pull From Area</label>
+        @Html.GroupDropListFor(m => m.CurrentRequest.SourceAreaId, Model.SourceAreas, "(Please Select)")
+        * To
+        @Html.GroupDropListFor(m => m.CurrentRequest.DestinationAreaId, Model.DestinationAreas)
+        *<br />
+        <label for ="ddlTargetQualityCode" >
+        @Html.CheckBoxFor(m => m.CurrentRequest.UpdateQualityFlag, new { id = "cbUpdateQuality" })
+        Change Quality To
+        </label>
+        @Html.DropDownListFor(m => m.CurrentRequest.TargetQualityCode, Model.TargetQualityCodeList, "(No Change)", new { id = "ddlTargetQualityCode" })<br />
+        @Html.LabelFor(m => m.CurrentRequest.Remarks)
+        @Html.TextAreaFor(m => m.CurrentRequest.Remarks)
+        <br />
+        @if (string.IsNullOrEmpty(Model.CurrentRequest.ResvId))
+        {
+            <button id="btnCreateRequest">
+                Create Request</button>
+        }
+        else
+        {
+            <button id="btnSaveRequest">
+                Save Request</button>
+            @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.DisplayRequest(Model.CurrentRequest.ResvId))
+        }
+        @Html.ValidationSummary()
+    </div>
+    <div id="divAccordion" class="box divReqMain">
+        <h3>
+            <a href="#divConv">Conversion</a></h3>
+        <div id="divConv">
+            @Html.LabelFor(m => m.CurrentRequest.TargetVwhId)
+            @Html.DropDownListFor(m => m.CurrentRequest.TargetVwhId, Model.TargetVwhList, "(No Change)", new { id = "ddlTargetVwh" })
+        </div>
+        <h3>
+            <a href="#divAdvance">Advanced</a></h3>
+        <div id="divAdvance" class="box divReqMain">
+            @Html.LabelFor(m => m.CurrentRequest.SaleTypeId)
+            @Html.DropDownListFor(m => m.CurrentRequest.SaleTypeId, Model.SaleTypes, "(Any)", null)
+            <br />
+            @Html.LabelFor(m => m.CurrentRequest.Priorities)
+            @Html.TextBoxFor(m => m.CurrentRequest.Priorities, new { style = "width:30px;" })
+            <br />
+            @Html.LabelFor(m => m.CurrentRequest.OverPullCarton)
+            @Html.CheckBoxFor(m => m.CurrentRequest.OverPullCarton, new { onclick = "return false" })
+            Yes
+            <br />
+            @Html.LabelFor(m => m.CurrentRequest.IsHung)
+            @Html.CheckBoxFor(m => m.CurrentRequest.IsHung) Yes
+            <br />
+        </div>
+    </div>
+}
+<div class="ui-helper-clearfix">
+</div>
+@*$Id$*@

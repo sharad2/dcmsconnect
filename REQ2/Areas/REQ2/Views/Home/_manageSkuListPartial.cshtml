@@ -1,0 +1,22 @@
+﻿@model DcmsMobile.REQ2.ViewModels.ManageSkuViewModel
+@{
+    var grid = Html.GridFor(m => m.RequestedSkus);
+    grid.AddColumn(m => m.SourceSku.DisplaySku).HeaderHtml("Source SKU");
+    grid.AddColumn(m => m.TargetSku.DisplaySku).HeaderHtml("Convert to SKU");
+    grid.AddColumn(m => m.Pieces).CellAttribute("style", "text-align:right;");
+    grid.AddColumn().HeaderHtml("Remove").CellHtml(
+    @<text>
+    <div style="cursor: pointer;" class="ui-icon ui-icon-close" title="Remove SKU" />
+    </text>).CellAttribute("style", "padding-left: 1.5em;");
+    grid.AddColumn().CellHtml(c => c.Html.HiddenFor(m => m.SourceSku.SkuId, new { id = string.Format("SourceSku{0}", c.RowIndex) }))
+    .HeaderAttribute("class", "ui-helper-hidden")
+    .CellAttribute("class", "ui-helper-hidden")
+    .FooterAttribute("class", "ui-helper-hidden");
+}
+@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    caption: "SKU List",
+    emptyDataHtml: "<span class='ui-state-highlight'>No SKUs have been added yet.</span>"
+)
+@*$Id$*@

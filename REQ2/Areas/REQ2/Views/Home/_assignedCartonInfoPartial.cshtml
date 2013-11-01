@@ -1,0 +1,16 @@
+﻿@model DcmsMobile.REQ2.ViewModels.ManageSkuViewModel
+@{
+    var grid = Html.GridFor(m => m.AssignedCartonInfo);
+    grid.AddColumn(m => m.Sku.DisplaySku).HeaderHtml("SKU");
+    grid.AddColumn(m => m.PulledCartons).CellAttribute("style", "text-align:right;");
+    grid.AddColumn(m => m.TotalCartons).CellAttribute("style", "text-align:right;");
+    grid.AddColumn(m => m.PulledPieces).CellAttribute("style", "text-align:right;");
+    grid.AddColumn(m => m.TotalPieces).CellAttribute("style", "text-align:right;");
+}
+@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    caption: "Assigned Cartons Info",
+    emptyDataHtml: "<span class='ui-state-highlight'>No cartons have been assigned</span>"
+)
+@*$Id$*@

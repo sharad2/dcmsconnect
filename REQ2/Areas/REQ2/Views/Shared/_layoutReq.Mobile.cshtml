@@ -1,0 +1,69 @@
+﻿@*
+If the view as a control with id = scan, then this control will get
+initial focus
+*@
+<!DOCTYPE html>
+<!--
+	Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+@*    <link href="@Links.REQ2.Areas.REQ2.Content.REQ2_mobile_all_min_css" rel="stylesheet" type="text/css" />*@
+    <link href="@Links_REQ2.Content.themes.Default.jquery_ui_css" rel="stylesheet" type="text/css" />
+</head>
+<body onkeydown="window.event.keyCode == 124 && window.close()" onkeypress="OnBodyKeyPress()">
+    <div style="position: absolute; right: 1mm; text-align: right; z-index: 100">
+        <a href="@Url.Content("~")" accesskey="0">@REQ2Resource.Home</a> <span>@REQ2Resource.Welcome
+            @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                @ViewContext.HttpContext.User.Identity.Name
+            }
+        </span>
+    </div>
+    <div id="outer">
+        <div id="header">
+            <h1>
+                @ViewBag.Title</h1>
+            <h2>
+                @ViewBag.Subtitle</h2>
+        </div>
+        <div id="content">
+            <div id="primaryContentContainer">
+                <div id="primaryContent">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>
+        @REQ2Resource.Exit_Message
+    </h2>
+    @RenderSection("scripts", false)
+    <script type="text/javascript">
+        function OnBodyKeyPress()
+        {
+            // If key is pressed outside an input control, set focus to scan text box
+            if (window.event.srcElement.id != 'scan' &&
+                window.event.srcElement.tagName != 'INPUT')
+            {
+                var tbScan = document.getElementById('scan');
+                tbScan.value = '';
+                tbScan.focus();
+            }
+        }
+        // Set focus to scan input box when the page loads
+        var input = document.getElementById('scan');
+        if (input)
+        {
+            input.focus();
+        }
+    </script>
+</body>
+</html>
+@*$Id$*@
