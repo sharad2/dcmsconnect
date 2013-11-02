@@ -1,0 +1,58 @@
+﻿#menu li.banner{color:#fff;font-size:2.5em;font-family:Impact;font-style:oblique;padding-right:1.5em}
+.sku-display{font-size:1.1em;color:Green;font-family:Sans-Serif;letter-spacing:.1mm;font-weight:bold}
+.field-validation-error{color:#f00}
+.field-validation-valid{display:none}
+.input-validation-error{border:1px solid #f00;background-color:#fee}
+.validation-summary-errors{font-weight:bold;color:#f00}
+.validation-summary-valid{display:none}
+*{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{color:#444}
+body,input{font-family:tahoma,sans-serif;font-size:12pt;color:#777}
+input.button{border-top:solid 1px #fff;border-left:solid 1px #fff;border-bottom:solid 1px #888;border-right:solid 1px #888;background-color:#eaeaea;color:#555;font-size:.8em;padding:.35em}
+input.text{border-top:solid 1px #888;border-left:solid 1px #888;border-bottom:solid 1px #fff;border-right:solid 1px #fff;padding:.1em;margin-top:.25em;margin-bottom:.5em}
+a{color:#069;text-decoration:underline}
+a:hover{text-decoration:none}
+#outer{margin:1.5em auto 0 auto;width:100%}
+#header{padding:2.5em 4.5em 0 1.5em}
+#header h2{font-size:.8em;font-weight:normal;color:#949494;display:inline;padding-left:.5em}
+#header h1{font-size:1.9em;display:inline;letter-spacing:-0.05em;padding-left:0}
+#header h1 a{color:#343434;text-decoration:none}
+#menu{position:absolute;top:0;left:0;background-color:#580;border-bottom:solid 1px #360;width:100%}
+#menu ul{padding:.5em 4.5em .5em 4.5em;list-style:none}
+#menu li{display:inline;padding-right:2.5em;font-size:.8em}
+#menu li a{color:#fff;background-color:inherit}
+#menu li a:hover{border-bottom:solid 1px #580}
+#content{padding-left:2em;padding-right:2em;font-size:10pt;padding-top:1.5em}
+.box{margin-bottom:1.25em}
+.boxContent{margin-top:.5em;padding:1.25em 1em .25em 1em;background:#fff url('images/a1.gif') top left repeat-x}
+.boxA .boxContent{margin-top:0;color:#fff;border-bottom:solid 1px #b60;background:#f80;padding:1em 1.5em 1em 1em}
+.boxA span,.boxA label{font-weight:bold;font-size:.9em}
+.boxA a{background-color:inherit;color:#fff;font-size:.9em}
+.boxA a:hover{text-decoration:none;border-bottom:solid 1px #f90}
+.boxA input.button{margin-top:.25em;vertical-align:middle}
+.boxA input.text{width:100%}
+input{margin-bottom:.25em}
+.boxB .boxContent{margin-top:0;color:#fff;border-bottom:solid 1px #046;background:#079;padding:1em 1.5em 1em 1em}
+.boxB span{font-weight:bold;font-size:.8em}
+.boxB a{background-color:inherit;color:#fff;font-size:.8em}
+.boxB a:hover{text-decoration:none;border-bottom:solid 1px #079}
+.boxB input.button{margin-top:.25em;vertical-align:middle}
+.boxB input.text{width:100%}
+#content p{margin-bottom:1em;text-align:justify;line-height:1.5em}
+#content strong{color:#444}
+#content h3{font-size:1.0em}
+#content h2{font-size:1.25em}
+#content ul,#content ol{margin-bottom:1em;padding-left:1em;line-height:1.8em}
+#content blockquote{padding:1em;margin-bottom:1.5em;border-left:solid 6px #580}
+#content blockquote p{margin-bottom:0;line-height:1.5em}
+#content table{margin-bottom:1.5em}
+#content table caption{font-style:italic;font-size:1.2em;font-weight:bold}
+#content table th{font-weight:bold;padding:.5em;color:#444}
+#content table thead{text-align:left;font-weight:bold;padding:.5em;color:#444;background-color:#acf}
+#content table td{padding-left:.5em;padding-right:.5em}
+#content table tr.rowA{color:inherit}
+#content table tr.rowB{background-color:#ccc;color:inherit}
+#primaryContentContainer{float:right;margin-left:-19em;width:100%}
+#primaryContent{margin:0 0 0 15em;padding:0 2.5em 1.5em 2.5em}
+#secondaryContent{float:left;width:14em;padding:1em 2.5em 1.5em 0}
+#footer{border-top:solid 1px #e5e5e5;text-align:center;font-size:.8em}

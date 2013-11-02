@@ -1,0 +1,66 @@
+﻿@model int?
+<h1>REQ3 Tutorial</h1>
+<br />
+<h2>Target audience
+</h2>
+<p>
+    This document is intended for warehouse managers, REQ module users and development
+    team at Eclipse.
+</p>
+<h2>Business Need</h2>
+<p>
+    REQ3 module is used for making requests for cartons in a warehouse and to assign inventory to these requests from numbered carton areas. 
+    You can request cartons for various purposes. For example,
+</p>
+<ol>
+    <li>You can request inventory for converting SKUs.</li>
+    <li>Request inventory for opening to shelf (SHL).</li>
+    <li>Request inventory for performing some work on it like cleaning SKUs.</li>
+    <li>You can request inventory to an area for shipping to customer..</li>
+</ol>
+<h2>Request for Conversion</h2>
+<p>
+    A request for conversion of source SKU is created through REQ3 program. User
+    can specify the request of conversion by Checking  "Perform Rework" CheckBox
+    given in the create Request UI of the program. This optimizes the UI for making a conversion request.
+</p>
+<h2>Copy Request feature</h2>
+<p>
+    By clicking "Create Like" link in manage SKU UI  a new request is created which copies the current request except the SKUs. It can be useful when you want to create 
+    multiple requests with different SKUs but keeping all other parameters same.
+</p>
+<h2>UI Options available
+</h2>
+<ul>
+    <li>Provided menu to create, edit, Add Sku and delete request in Recent Request Page.
+    </li>
+    <li>Select Virtual Warehouse of Cartons.
+        By clicking More link UI provides filters which include price season code, sewing plant code, receive date and when you assign inventory to the request system makes sure 
+    that only the cartons fulfilling filter criteria are selected. 
+    </li>
+    <li>Select source area from where inventory is to be pulled for the request.You can only request from numbered carton areas.</li>
+    <li>Select destination area where inventory pulled will be taken to. All carton areas are
+        shown here. </li>
+    <li>Enter Priority for these requirements and system makes sure that request with the
+        highest priority is given precedence. Priority can only be set at requirement level
+        and not SKU level.</li>
+    <li>Remarks will be shown in carton ticket or bundle ticket. Remark will be provided only if pulled cartons require hanger or sale type.
+    </li>
+    <li>Enter UPC/ (Style, Color, Dimension, and SKU Size) of the SKU to be pulled in manage sku page. User can also enter conversion sku like as 233-34434, WH-WWH, .-XL, 34-36 when user create a Rework Request.
+    </li>
+
+</ul>
+<h2>De-assignment</h2>
+<ul>
+    <li>When the request is created but cartons are not pulled to destination area the user
+        can de-assign the request.This makes the cartons avaialble for other engagements.</li>
+</ul>
+
+<h2>Inventory Hiding</h2>
+<p>
+    User can hide the inventory from ERP by using this feature. This feature is useful when you 
+    have to do some work on the inventory before making it shippable and you want to hide the inventory from
+    ERP so that they do not drop orders for it. 
+    REQ3 UI provides this option when you create a new conversion request. As soon as you finished working on these cartons just upgrade the quality 
+    to shippable quality and you are now ready to ship these cartons.
+</p>

@@ -1,0 +1,132 @@
+﻿@model DcmsMobile.REQ2.ViewModels.RecentRequestsViewModel
+@{  
+    ViewBag.Title = "Recent Requests";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    const int normalPriority = 10;
+}
+@section scripts {
+    <script src="@Links_REQ2.Areas.REQ2.Scripts.RecentRequest_all_js" type="text/javascript"></script>
+    <style type="text/css">
+        .ui-menu .ui-menu-item {
+            /* support: IE10, see #8844 */
+            list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+        }
+
+        .ui-menu {
+            width: 9em;
+        }
+    </style>
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_REQ2.REQ2.Req.Views._existingRequestPartial, Model)
+        </div>
+    </div>
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-document"></span>@Html.ActionLink("Create Request", MVC_REQ2.REQ2.Req.CreateRequest())
+        </div>
+
+    </div>
+    <div class="box boxA">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
+            <a href="Repack/Home/RepackConversion">Convert from SHL</a><br />
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
+            <a href="CartonManager/Home/MarkReworkCompleteUi" title="Upgrade quality of cartons which have been converted to target SKU">Convert Cartons</a>
+        </div>
+
+    </div>
+}
+@Html.StatusSummary()
+<div>
+    <table>
+        <caption>Recent Request List</caption>
+        <thead>
+            <tr>
+                <th>Request</th>
+                <th>VWh</th>
+                <th>Area</th>
+                <th>#Pieces
+                    <br />
+                    [#SKU]
+                </th>
+                <th>Created On<span class="ui-icon ui-icon-triangle-1-s" style="display: inline-block;"></span>
+                    <br />
+                    Assigned On</th>
+                <td>#Cartons
+                </td>
+                <th>Requested By</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            @for (var i = 0; i < Model.RecentRequests.Count; ++i)
+            {
+                <tr class="@(i % 2 != 0 ? "rowA" : "rowB")">
+                    <td>
+                        <ul class="actionMenu">
+                            <li>
+                                <a href="@Url.Action(MVC_REQ2.REQ2.Req.DisplayRequest(Model.RecentRequests[i].ResvId))">
+                                    @if (Model.RecentRequests[i].Priority > normalPriority)
+                                    { 
+                                        <span title=" Priority @Model.RecentRequests[i].Priority" class="ui-icon ui-icon-notice"></span>
+                                    }
+                                    @Model.RecentRequests[i].ResvId</a>
+                                <ul>
+                                    <li><a href="@Url.Action(MVC_REQ2.REQ2.Req.DisplayRequest(Model.RecentRequests[i].ResvId))" title="Click to add SKU"><strong>Add SKU</strong></a></li>
+                                    <li title="Edit request"><a  href="@Url.Action(MVC_REQ2.REQ2.Req.EditRequest(Model.RecentRequests[i].ResvId))">Edit</a></li>
+                                    <li><a title ="Create a new request keeping all other attributes same except SKUs of this request" href="@Url.Action(MVC_REQ2.REQ2.Req.CreateRequest(Model.RecentRequests[i].ResvId))">Create Like</a></li>
+                                    <li>-</li>
+                                    <li class="@(Model.RecentRequests[i].PulledCartons > 0 ? "ui-state-disabled" : "")"  title="@(Model.RecentRequests[i].PulledCartons > 0 ? "Cartons already pullded in this request" : "Delete request")">
+                                        <a data-resvid ="@Model.RecentRequests[i].ResvId" data-delete-request="delete" href="@Url.Action(MVC_REQ2.REQ2.Req.DeleteRequest(Model.RecentRequests[i].ResvId))">Delete...</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        @Model.RecentRequests[i].Remarks
+                    </td>
+                    <td style="white-space: nowrap">@Model.RecentRequests[i].VirtualWareHouseId
+                        @if (Model.RecentRequests[i].IsConversionRequest)
+                        {
+                            if (!string.IsNullOrWhiteSpace(Model.RecentRequests[i].TargetVwhId))
+                            {
+                            @:&rarr; @Model.RecentRequests[i].TargetVwhId
+                            }
+                        }
+
+                    </td>
+
+                    <td style="white-space: nowrap"><em>@Model.RecentRequests[i].BuildingId</em> @Model.RecentRequests[i].SourceAreaShortName @Html.Raw(string.IsNullOrWhiteSpace(Model.RecentRequests[i].DestinationAreaShortName) ? "" : "&rarr;") @Model.RecentRequests[i].DestinationAreaShortName</td>
+                    <td style="text-align: right">
+                        @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) [@Html.DisplayFor(m => m.RecentRequests[i].RequestedSkuCount)]
+                        <br />
+                        <span style="font-size: 0.8em">@Model.RecentRequests[i].AssignedPieces assigned</span>
+                    </td>
+                    <td style="white-space: nowrap">@Model.RecentRequests[i].DateCreated
+                        <br />@Model.RecentRequests[i].AssignDate</td>
+                    <td style="white-space: nowrap">
+                        @if (Model.RecentRequests[i].PulledCartons > 0 || Model.RecentRequests[i].AssignedCartonCount > 0)
+                        {
+                            <span>@Model.RecentRequests[i].PulledCartons
+                                of
+                            @Model.RecentRequests[i].AssignedCartonCount
+                                cartons pulled </span>
+                            if (Model.RecentRequests[i].IsConversionRequest)
+                            {
+                            <br />
+                            <span>[@Model.RecentRequests[i].ReworkCartonCount cartons needs rework]</span>
+                            }
+                        }
+                    </td>
+                    <td>
+                        @Model.RecentRequests[i].RequestedBy
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div id="ajaxError">
+</div>
+@*$Id$*@

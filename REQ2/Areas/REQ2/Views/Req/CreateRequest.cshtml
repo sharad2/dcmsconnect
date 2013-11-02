@@ -1,0 +1,168 @@
+﻿@model DcmsMobile.REQ2.ViewModels.CreateRequestViewModel
+@{  
+    ViewBag.Title = string.IsNullOrEmpty(Model.CurrentRequest.ResvId) ? "Create Request" : string.Format("Edit Request #{0}", Model.CurrentRequest.ResvId);
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@section scripts {
+    <script src="@Links_REQ2.Areas.REQ2.Scripts.CreateRequest_all_js" type="text/javascript"></script>
+}
+@section sidebar{
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_REQ2.REQ2.Req.Views._existingRequestPartial, Model)
+        </div>
+    </div>
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open"></span>@Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Req.DisplayRecentRequest())
+        </div>
+    </div>
+    <div class="box boxA">
+        <div class="boxContent">
+            <span class="ui-icon ui-icon-lightbulb" style="display: inline-block"></span>Buildings having both Pull From Area and To Area are visible here.
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm(MVC_REQ2.REQ2.Req.CreateOrUpdateRequest(), FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.CurrentRequest.ResvId)
+    @Html.HiddenFor(m => m.CurrentRequest.RowSequence)
+    <div class="box">
+        <h3>Pull What ? <span id="pullWhatOptions" style="font-size: 0.9em; font-weight: normal"><a href="#">More &raquo;</a><a href="#" style="display: none">Less &laquo;</a></span></h3>
+        <div style="padding-left: 3em; margin-bottom: 1em" class="boxContent">
+            Pull cartons containing SKUs of <span style="white-space: nowrap"><em>Virtual Warehouse</em> @Html.DropDownListFor(m => m.CurrentRequest.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, null)*
+            </span>
+            <fieldset id="fsFilters" style="margin-top: 1em; display: none; padding-left: 0.5em">
+                <legend></legend>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Received from a specific  <em>Sewing Plant?</em></td>
+                            <td>@Html.DropDownListFor(m => m.CurrentRequest.SewingPlantCode, Model.SewingPlantCodes, "(Any Sewing Plant)")</td>
+                        </tr>
+                        <tr>
+                            <td>Received on a specific <em>date?</em></td>
+                            <td>
+                                <input id="tbCartonDate" maxlength="10" name="@Html.NameFor(m => m.CurrentRequest.CartonReceivedDate)" 
+                                       size="10" type="text" value="@Html.DisplayFor(m => m.CurrentRequest.CartonReceivedDate)" data-img-url="@Links_REQ2.Areas.REQ2.Content.images.calendar_gif" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Cartons of a specific  <em>Price Season Code?</em></td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CurrentRequest.PriceSeasonCode, Model.PriceSeasonCodes, "(All Price Season Codes)")</td>
+                        </tr>
+                        <tr>
+                            <td>Pull cartons of specific Quality?
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CurrentRequest.SorceQualityCode, Model.SourceQualityCodeList) <span style="font-size: 0.9em">By default we pull shippable cartons</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+        </div>
+        <h3>Pull Why ?<span id="reworkOptions" style="font-size: 0.9em; font-weight: normal"><a href="#">Rework Options &raquo;</a> <a href="#" style="display: none">Rework options &laquo;</a></span></h3>
+        <div style="padding-left: 3em; margin-bottom: 1em" class="boxContent">
+            <fieldset id="fsRework" style="@Html.Raw("margin-bottom: 1em; padding-left: 0.5em" + (Model.CurrentRequest.IsConversionRequest ? "" : ";display: none"))">
+                <legend>@Html.CheckBoxFor(m => m.CurrentRequest.IsConversionRequest, new
+                   {
+                       id = "cbIsConversionRequest"
+                   })
+                    <label for="cbIsConversionRequest">Perform Rework</label>
+
+                </legend>
+                <blockquote>
+                    When cartons are assigned to this request, the quality of each carton will be immediately downgraded. 
+                   <span class="ui-icon ui-icon-info" style="display: inline-block" title="This ensures that Vision will not send you orders for this inventory. After pulling you must perform the rework and then indicate to the system that rework is complete by using Mark Rework Complete or Abandon Rework."></span>
+                </blockquote>
+                <input type="hidden" name ="@Html.NameFor(m => m.CurrentRequest.TargetQualityCode)" value="@Model.CurrentRequest.TargetQualityCode"/>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Change Virtual Warehouse
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(m => m.CurrentRequest.TargetVwhId, Model.TargetVwhList, "(No Change)")
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+            <div id="divReworkMessage" class="ui-state-active" style="@Html.Raw("" + (!Model.CurrentRequest.IsConversionRequest ? ";display: none" : ""))">Rework will be performed</div>
+            <div style="margin-top: 1em; margin-bottom: 1em">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Priority</td>
+                            <td>@Html.TextBoxFor(m => m.CurrentRequest.Priority, new { size = "2" })* </td>
+                            <td style="font-size: 0.9em">10 is normal priority. Increase it only if the cartons must be pulled urgently</td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top">Remarks</td>
+                            <td>@Html.TextAreaFor(m => m.CurrentRequest.Remarks) </td>
+                            <td style="font-size: 0.9em; vertical-align: top">Enter something to help everyone know why these cartons are being pulled. This will printed on carton/bundle ticket</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h3>Pull Where ?</h3>
+        <div style="padding-left: 3em; margin-bottom: 1em" class="boxContent">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <em>In Building</em>
+                        </td>
+                        <td>@Html.DropDownListFor(m => m.CurrentRequest.BuildingId, Model.BuildingList, "(Select Building)", new
+                                {
+                                    id = "ddlBuilding",
+                                    data_source_url = Url.Action(MVC_REQ2.REQ2.Req.GetCartonAreas("X"))
+                                })*</td>
+                    </tr>
+                    <tr>
+                        <td><em>From Area</em></td>
+                        <td>
+                            <select id = "ddlSourceArea" name="@Html.NameFor(m => m.CurrentRequest.SourceAreaId)" data-selected-areaid="@Model.CurrentRequest.SourceAreaId" 
+                                    @Html.Raw(string.IsNullOrEmpty(Model.CurrentRequest.BuildingId) ? "disabled" : "")>
+                                <option value="">(Select From Area)</option>
+                            </select>*</td>
+
+                    </tr>
+                    <tr>
+                        <td><em>To Area</em></td>
+                        <td>
+                            <select id = "ddlDestArea" name="@Html.NameFor(m => m.CurrentRequest.DestinationAreaId)" data-selected-areaid="@Model.CurrentRequest.DestinationAreaId" 
+                                    @Html.Raw(string.IsNullOrEmpty(Model.CurrentRequest.BuildingId) ? "disabled" : "")>
+                                <option value="">(Select To Area)</option>
+                            </select>*</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            @if (string.IsNullOrEmpty(Model.CurrentRequest.ResvId))
+            {
+                <button id="btnCreateRequest">
+                    Create Request</button>
+            }
+            else
+            {
+                <button id="btnSaveRequest">
+                    Save Request</button>
+                @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Req.DisplayRequest(Model.CurrentRequest.ResvId))
+            }
+        </div>
+        @Html.ValidationSummary()
+    </div>
+}
+<div class="ui-helper-clearfix">
+</div>
+@*$Id$*@

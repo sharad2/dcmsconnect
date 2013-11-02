@@ -1,0 +1,17 @@
+﻿@model DcmsMobile.REQ2.ViewModels.Pull.PalletViewModel
+
+<div>
+    Req @Model.RequestId by @Model.Requestedby
+    @Model.SourceShortName &rarr; @Model.DestShortName
+</div>
+
+
+
+@using (Html.BeginForm(MVC_REQ2.REQ2.Pull.PalletPost(), FormMethod.Get))
+{  
+    @Html.HiddenFor(m => m.RequestId)
+    <label for="scan">
+        Pallet
+    </label>
+    <input id="scan" type="text" name="@Html.NameFor(m => m.PalletId)" size="20" style="text-transform: uppercase;" />
+}
