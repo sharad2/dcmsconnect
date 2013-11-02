@@ -54,6 +54,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.1\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Caching" />
@@ -216,6 +219,7 @@
       <DependentUpon>Shipping.chirp.config</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Shipping.pubxml" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
