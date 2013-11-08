@@ -158,16 +158,17 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\DcmsLite\Content\DcmsLite-all.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
-    </Content>
     <Content Include="Areas\DcmsLite\Content\DcmsLite-all.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>DcmsLite-all.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Content\images\a1.gif" />
     <Content Include="Areas\DcmsLite\Content\3PLDCMS V3.pptx" />
+    <Content Include="Areas\DcmsLite\Scripts\layout.min.js">
+      <DependentUpon>layout.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <None Include="Areas\DcmsLite\Content\DcmsLite-all.css.bundle" />
     <None Include="Areas\DcmsLite\Content\standardized.partial.css" />
     <None Include="Areas\DcmsLite\Content\DcmsLite.partial.css" />
     <Content Include="Areas\DcmsLite\Content\images\ajax-loader.gif" />
@@ -175,40 +176,48 @@
     <Content Include="Areas\DcmsLite\Content\Sounds\success.wav" />
     <Content Include="Areas\DcmsLite\Content\Sounds\warning.wav" />
     <Content Include="Areas\DcmsLite\Scripts\Batch.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Batch.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Batch.min.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Batch.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Batch.partial.js" />
-    <Content Include="Areas\DcmsLite\Scripts\layout.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\DcmsLite\Scripts\layout.min.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\DcmsLite\Scripts\layout.partial.js" />
+    <Content Include="Areas\DcmsLite\Scripts\layout.js" />
     <Content Include="Areas\DcmsLite\Scripts\Receive.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Receive.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Receive.min.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Receive.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Receive.partial.js" />
     <Content Include="Areas\DcmsLite\Scripts\Wave.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Wave.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Wave.min.js">
-      <DependentUpon>DcmsLite.chirp.config</DependentUpon>
+      <DependentUpon>Wave.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\DcmsLite\Scripts\Wave.partial.js" />
     <Content Include="Areas\DcmsLite\Views\Receive\Index.cshtml" />
     <Content Include="Areas\DcmsLite\Views\Pick\Index.cshtml" />
     <Content Include="Areas\DcmsLite\Views\Pick\Wave.cshtml" />
     <Content Include="Areas\DcmsLite\Views\Pick\Batch.cshtml" />
-    <None Include="Areas\DcmsLite\Scripts\DcmsLite.chirp.config" />
+    <None Include="Areas\DcmsLite\Scripts\Batch.js.bundle" />
+    <Content Include="Areas\DcmsLite\Scripts\Batch.min.js.map">
+      <DependentUpon>Batch.js.bundle</DependentUpon>
+    </Content>
     <Content Include="Areas\DcmsLite\Views\Validation\Index.cshtml" />
     <Content Include="Areas\DcmsLite\Views\Shared\_soundPartial.cshtml" />
+    <Content Include="Areas\DcmsLite\Scripts\layout.min.js.map">
+      <DependentUpon>layout.js</DependentUpon>
+    </Content>
+    <None Include="Areas\DcmsLite\Scripts\Receive.js.bundle" />
+    <Content Include="Areas\DcmsLite\Scripts\Receive.min.js.map">
+      <DependentUpon>Receive.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\DcmsLite\Scripts\Wave.js.bundle" />
+    <Content Include="Areas\DcmsLite\Scripts\Wave.min.js.map">
+      <DependentUpon>Wave.js.bundle</DependentUpon>
+    </Content>
     <None Include="Chirpy.ReadMe.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
@@ -266,7 +275,6 @@
   <ItemGroup>
     <Content Include="Areas\DcmsLite\Views\Shared\_layoutDcmsLite.cshtml" />
     <Content Include="Areas\DcmsLite\Views\_ViewStart.cshtml" />
-    <None Include="Areas\DcmsLite\Content\Stylesheets.chirp.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

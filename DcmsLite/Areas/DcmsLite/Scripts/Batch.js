@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/DcmsLite/Scripts/layout.partial.js
+$(document).ready(function () {
     $('#btnSearch').button({ icons: { primary: 'ui-icon-search' } }).on('click', function (e) {
         var $form = $(this).closest('form');
         $.ajax({
@@ -23,6 +24,7 @@
     });
 });
 
+///#source 1 1 /Areas/DcmsLite/Scripts/Batch.partial.js
 $(document).ready(function () {
     $('#tabs').tabs();
     $('button').button();
