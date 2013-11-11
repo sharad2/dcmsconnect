@@ -143,21 +143,27 @@
     <Compile Include="ViewModels\SkuModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\REQ2\Content\ManageSku.css" />
     <Content Include="Areas\REQ2\Content\ManageSku.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>ManageSku.css</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Content\ManageSku.partial.css" />
+    <Content Include="Areas\REQ2\Content\PULL-all.css" />
     <Content Include="Areas\REQ2\Content\PULL-all.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>PULL-all.css</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Content\PULL.partial.css" />
-    <Content Include="Areas\REQ2\Scripts\CreateRequest-all.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
+    <Content Include="Areas\REQ2\Content\REQ2-all.css">
+      <DependentUpon>REQ2-all.css.bundle</DependentUpon>
     </Content>
+    <Content Include="Areas\REQ2\Scripts\CreateRequest-all.js" />
     <Content Include="Areas\REQ2\Scripts\CreateRequest-all.min.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
+      <DependentUpon>CreateRequest-all.js</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Scripts\CreateRequest.partial.js" />
+    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js">
+      <DependentUpon>ManageSku-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js">
+      <DependentUpon>RecentRequest-all.js</DependentUpon>
+    </Content>
     <Content Include="Areas\REQ2\Views\Home\Index.cshtml" />
     <Content Include="Areas\REQ2\Views\Pull\Index.cshtml" />
     <Content Include="Areas\REQ2\Views\Pull\_layout.cshtml" />
@@ -165,29 +171,27 @@
     <Content Include="Areas\REQ2\Views\Pull\Carton.cshtml" />
     <Content Include="Doc\New PUL.docx" />
     <Content Include="Areas\REQ2\Views\Home\Index.mobile.cshtml" />
+    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js.map">
+      <DependentUpon>RecentRequest-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js.map">
+      <DependentUpon>ManageSku-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\CreateRequest-all.min.js.map">
+      <DependentUpon>CreateRequest-all.js</DependentUpon>
+    </Content>
+    <None Include="Areas\REQ2\Content\REQ2-all.css.bundle" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Areas\REQ2\Content\images\a1.gif" />
     <Content Include="Areas\REQ2\Content\images\ajax-loader.gif" />
     <Content Include="Areas\REQ2\Content\images\calendar.gif" />
     <Content Include="Areas\REQ2\Content\REQ2-all.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>REQ2-all.css.bundle</DependentUpon>
     </Content>
     <None Include="Areas\REQ2\Content\standardized.partial.css" />
     <None Include="Areas\REQ2\Content\REQ2.partial.css" />
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <None Include="Areas\REQ2\Scripts\RecentRequest.partial.js" />
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <None Include="Areas\REQ2\Scripts\ManageSku.partial.js" />
+    <None Include="Areas\REQ2\Scripts\RecentRequest-all.js" />
+    <None Include="Areas\REQ2\Scripts\ManageSku-all.js" />
     <Content Include="Areas\REQ2\Views\Req\CartonList.cshtml" />
     <Content Include="Areas\REQ2\Views\Req\Tutorial.cshtml" />
     <None Include="Doc\Readme.txt" />
@@ -252,12 +256,6 @@
   <ItemGroup>
     <Content Include="Areas\REQ2\Views\Shared\_layout.cshtml" />
     <Content Include="Areas\REQ2\Views\_ViewStart.cshtml" />
-    <None Include="Areas\REQ2\Content\Stylesheets.chirp.config">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Areas\REQ2\Scripts\REQ2.chirp.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

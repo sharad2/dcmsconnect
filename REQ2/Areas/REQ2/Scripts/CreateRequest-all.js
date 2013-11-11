@@ -1,4 +1,4 @@
-// scripts used in create request view.
+﻿// scripts used in create request view.
 $(document).ready(function () {
     // Show/Hide additional filters
     $('#pullWhatOptions').on('click', 'a:first', function (e) {

@@ -1,4 +1,4 @@
-/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 $(document).ready(function () {
     $('ul.actionMenu').menu();
     // Creating menu to edit, create, delete request.

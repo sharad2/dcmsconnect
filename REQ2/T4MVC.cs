@@ -132,8 +132,14 @@ namespace Links_REQ2 {
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
+                public static readonly string ManageSku_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku.min.css") ? Url("ManageSku.min.css") : Url("ManageSku.css");
+                     
                 public static readonly string ManageSku_min_css = Url("ManageSku.min.css");
+                public static readonly string PULL_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PULL-all.min.css") ? Url("PULL-all.min.css") : Url("PULL-all.css");
+                     
                 public static readonly string PULL_all_min_css = Url("PULL-all.min.css");
+                public static readonly string REQ2_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2-all.min.css") ? Url("REQ2-all.min.css") : Url("REQ2-all.css");
+                     
                 public static readonly string REQ2_all_min_css = Url("REQ2-all.min.css");
             }
         

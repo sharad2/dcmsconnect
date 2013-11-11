@@ -108,4 +108,4 @@ $(document).ready(function () {
         });
 });
 
-//$Id: ManageSku.partial.js 21957 2013-07-30 04:08:48Z rkandari $
+//$Id$
