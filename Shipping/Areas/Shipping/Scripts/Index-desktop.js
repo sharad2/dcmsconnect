@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     //Make submit type button look better. .
     $('button:submit').button();
@@ -65,6 +65,5 @@ $(document).ready(function () {
     }).focus();
     $('#layoutTabMenu').menu();
 });
-
 
 

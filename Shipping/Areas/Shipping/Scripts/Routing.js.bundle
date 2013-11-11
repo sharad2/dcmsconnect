@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="Routing.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/Shipping/Scripts/Routing.partial.js</file>
+  <file>/Areas/Shipping/Scripts/selectable.partial.js</file>
+</bundle>

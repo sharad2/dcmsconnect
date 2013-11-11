@@ -172,54 +172,63 @@
     <Compile Include="ViewModels\UnroutedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shipping\Content\Appointment.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
-    </Content>
     <Content Include="Areas\Shipping\Content\Appointment.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>Appointment.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\Print.css" />
-    <Content Include="Areas\Shipping\Content\Shipping-all.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
-    </Content>
     <Content Include="Areas\Shipping\Content\Shipping-all.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>Shipping-all.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\Shipping-mobile-all.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>Shipping-mobile-all.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\Shipping-mobile-all.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>Shipping-mobile-all.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\Sounds\Error.wav" />
     <Content Include="Areas\Shipping\Content\Sounds\success.wav" />
     <Content Include="Areas\Shipping\Content\Sounds\warning.wav" />
-    <Content Include="Areas\Shipping\Scripts\Appointment.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
-    </Content>
     <Content Include="Areas\Shipping\Scripts\Appointment.min.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Appointment.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Bol.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Bol.min.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\Shipping\Scripts\Index-desktop.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Index-desktop.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Routing.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Routing.min.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
     <Content Include="packages.config" />
+    <Content Include="Areas\Shipping\Scripts\Appointment.min.js.map">
+      <DependentUpon>Appointment.js</DependentUpon>
+    </Content>
+    <None Include="Areas\Shipping\Content\Appointment.css.bundle" />
+    <None Include="Areas\Shipping\Content\Shipping-all.css.bundle" />
+    <None Include="Areas\Shipping\Content\Shipping-mobile-all.css.bundle" />
+    <None Include="Areas\Shipping\Scripts\Bol.js.bundle" />
+    <Content Include="Areas\Shipping\Scripts\Bol.min.js.map">
+      <DependentUpon>Bol.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js.map">
+      <DependentUpon>Index-desktop.js</DependentUpon>
+    </Content>
+    <None Include="Areas\Shipping\Scripts\Routing.js.bundle" />
+    <Content Include="Areas\Shipping\Scripts\Routing.min.js.map">
+      <DependentUpon>Routing.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\Shipping\Scripts\Unrouted.js.bundle" />
+    <Content Include="Areas\Shipping\Scripts\Unrouted.min.js.map">
+      <DependentUpon>Unrouted.js.bundle</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Shipping.pubxml" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
@@ -243,10 +252,10 @@
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Areas\Shipping\Scripts\selectable.partial.js" />
     <Content Include="Areas\Shipping\Scripts\Unrouted.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Unrouted.min.js">
-      <DependentUpon>Shipping.chirp.config</DependentUpon>
+      <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Views\Shared\_soundPartial.cshtml" />
     <Content Include="Areas\Shipping\Views\ScanToTruck\UnloadPallet.cshtml" />
@@ -264,19 +273,15 @@
     <None Include="Areas\Shipping\Content\SiteMobile.partial.css" />
     <None Include="Areas\Shipping\Content\standardized.partial.css" />
     <None Include="Areas\Shipping\Content\Shipping.partial.css" />
-    <None Include="Areas\Shipping\Content\Stylesheets.chirp.config" />
     <Content Include="Areas\Shipping\Scripts\fullcalendar.js" />
-    <None Include="Areas\Shipping\Scripts\Appointment.partial.js" />
+    <None Include="Areas\Shipping\Scripts\Appointment.js" />
     <None Include="Areas\Shipping\Scripts\Bol.partial.js" />
     <None Include="Areas\Shipping\Scripts\Routing.partial.js" />
     <None Include="Areas\Shipping\Scripts\Unrouted.partial.js" />
-    <None Include="Areas\Shipping\Scripts\_layoutTabs.partial.js" />
+    <None Include="Areas\Shipping\Scripts\Index-desktop.js" />
     <Content Include="Areas\Shipping\Views\Home\_dayHtmlPartial.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\_monthHtmlPartial.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\_bolAppointmentHtmlPartial.cshtml" />
-    <None Include="Areas\Shipping\Scripts\Shipping.chirp.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />

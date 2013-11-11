@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="Shipping-all.css">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/Shipping/Content/Shipping.partial.css</file>
+  <file>/Areas/Shipping/Content/standardized.partial.css</file>
+</bundle>

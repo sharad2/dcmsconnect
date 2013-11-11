@@ -131,11 +131,11 @@ namespace Links_Shipping {
                 private const string URLPATH = "~/Areas/Shipping/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string fullcalendar_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.min.js") ? Url("fullcalendar.min.js") : Url("fullcalendar.js");
-                              
                 public static readonly string Appointment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.js") ? Url("Appointment.min.js") : Url("Appointment.js");
                               
                 public static readonly string Bol_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bol.min.js") ? Url("Bol.min.js") : Url("Bol.js");
+                              
+                public static readonly string fullcalendar_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.min.js") ? Url("fullcalendar.min.js") : Url("fullcalendar.js");
                               
                 public static readonly string Index_desktop_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-desktop.min.js") ? Url("Index-desktop.min.js") : Url("Index-desktop.js");
                               
@@ -156,6 +156,7 @@ namespace Links_Shipping {
                 private const string URLPATH = "~/Areas/Shipping/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Appointment_min_css = Url("Appointment.min.css");
                 public static readonly string GuidedTruckLoading_ppt = Url("GuidedTruckLoading.ppt");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
@@ -169,6 +170,10 @@ namespace Links_Shipping {
             
                 public static readonly string Print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Print.min.css") ? Url("Print.min.css") : Url("Print.css");
                      
+                public static readonly string Shipping_all_min_css = Url("Shipping-all.min.css");
+                public static readonly string Shipping_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-mobile-all.min.css") ? Url("Shipping-mobile-all.min.css") : Url("Shipping-mobile-all.css");
+                     
+                public static readonly string Shipping_mobile_all_min_css = Url("Shipping-mobile-all.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Shipping/Content/Sounds";
@@ -179,15 +184,6 @@ namespace Links_Shipping {
                     public static readonly string warning_wav = Url("warning.wav");
                 }
             
-                public static readonly string Appointment_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.css") ? Url("Appointment.min.css") : Url("Appointment.css");
-                     
-                public static readonly string Appointment_min_css = Url("Appointment.min.css");
-                public static readonly string Shipping_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-all.min.css") ? Url("Shipping-all.min.css") : Url("Shipping-all.css");
-                     
-                public static readonly string Shipping_all_min_css = Url("Shipping-all.min.css");
-                public static readonly string Shipping_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-mobile-all.min.css") ? Url("Shipping-mobile-all.min.css") : Url("Shipping-mobile-all.css");
-                     
-                public static readonly string Shipping_mobile_all_min_css = Url("Shipping-mobile-all.min.css");
             }
         
         }

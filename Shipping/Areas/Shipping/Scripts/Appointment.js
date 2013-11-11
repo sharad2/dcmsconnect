@@ -1,4 +1,4 @@
-/// <reference path="../../../Scripts/jquery-1.8.2.intellisense.js" />
+﻿/// <reference path="../../../Scripts/jquery-1.8.2.intellisense.js" />
 ///$Id$
 // Displays time in a jquery spinner. Used for entering arrival time and appointment time.
 $.widget("ui.timespinner", $.ui.spinner, {
@@ -469,4 +469,3 @@ $(document).ready(function () {
         });
     }).button();
 });
-
