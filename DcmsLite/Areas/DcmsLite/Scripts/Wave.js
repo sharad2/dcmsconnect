@@ -98,7 +98,7 @@ $(document).ready(function () {
             return false;
         });
 });
-///#source 1 1 /Areas/DcmsLite/Scripts/layout.partial.js
+///#source 1 1 /Areas/DcmsLite/Scripts/layout.js
 $(document).ready(function () {
     $('#btnSearch').button({ icons: { primary: 'ui-icon-search' } }).on('click', function (e) {
         var $form = $(this).closest('form');

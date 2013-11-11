@@ -2,5 +2,5 @@
 <bundle minify="true" runOnBuild="true" output="Wave.js">
   <!--The order of the <file> elements determines the order of them when bundled.-->
   <file>/Areas/DcmsLite/Scripts/Wave.partial.js</file>
-  <file>/Areas/DcmsLite/Scripts/layout.partial.js</file>
+  <file>/Areas/DcmsLite/Scripts/layout.js</file>
 </bundle>

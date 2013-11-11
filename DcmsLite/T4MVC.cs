@@ -122,6 +122,8 @@ namespace Links_DcmsLite {
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _3PLDCMS_V3_pptx = Url("3PLDCMS V3.pptx");
+                public static readonly string DcmsLite_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DcmsLite-all.min.css") ? Url("DcmsLite-all.min.css") : Url("DcmsLite-all.css");
+                     
                 public static readonly string DcmsLite_all_min_css = Url("DcmsLite-all.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
