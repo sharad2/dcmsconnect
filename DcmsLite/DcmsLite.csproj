@@ -213,7 +213,9 @@
     <Content Include="Areas\DcmsLite\Scripts\layout.min.js.map">
       <DependentUpon>layout.js</DependentUpon>
     </Content>
-    <None Include="Areas\DcmsLite\Scripts\Receive.js.bundle" />
+    <None Include="Areas\DcmsLite\Scripts\Receive.js.bundle">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Areas\DcmsLite\Scripts\Receive.min.js.map">
       <DependentUpon>Receive.js.bundle</DependentUpon>
     </Content>
@@ -221,7 +223,6 @@
     <Content Include="Areas\DcmsLite\Scripts\Wave.min.js.map">
       <DependentUpon>Wave.js.bundle</DependentUpon>
     </Content>
-    <None Include="Chirpy.ReadMe.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
