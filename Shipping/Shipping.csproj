@@ -296,7 +296,6 @@
     <Content Include="Areas\Shipping\Views\ScanToTruck\Pallet.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\Index.mobile.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\Appointment.cshtml" />
-    <None Include="Chirpy.ReadMe.txt" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery-1.8.2.js" />
