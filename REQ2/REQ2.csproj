@@ -201,7 +201,6 @@
     <Content Include="Areas\REQ2\Views\Req\RecentRequests.cshtml" />
     <Content Include="Areas\REQ2\Views\Req\_manageSkuListPartial.cshtml" />
     <Content Include="Areas\REQ2\Views\Req\_existingRequestPartial.cshtml" />
-    <None Include="Chirpy.ReadMe.txt" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
