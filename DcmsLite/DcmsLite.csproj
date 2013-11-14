@@ -340,12 +340,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>@echo Deleting "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)"
-rmdir /S /Q "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)"
-@echo Copying to "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)"
-xcopy /Y /S /F /I "$(ProjectDir)Areas\$(ProjectName)\Views\*.*" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)\Views"
-xcopy /Y /S /F /I "$(ProjectDir)Areas\$(ProjectName)\Content\*.*" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)\Content"
-xcopy /Y /S /F /I "$(ProjectDir)Areas\$(ProjectName)\Scripts\*.*" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)\Scripts"
-xcopy /Y "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
+    <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
+xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
   </PropertyGroup>
 </Project>
