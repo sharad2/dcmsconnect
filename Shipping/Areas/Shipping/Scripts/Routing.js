@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/Shipping/Scripts/Routing.partial.js
-/// <reference path="Routing.partial.js" />
+﻿/// <reference path="Routing.partial.js" />
 /// Implements selectable feature
 /// Implements Address dialog and RoutingEdditor dialog on Routing UI.
 /// Checkbox id should be started with 'cb' and followed by the id of corresponding textbox .
@@ -329,7 +328,6 @@ $(document).ready(function () {
     //This button is used to filter the orders for particular date.
     $('#btnApplyFilter').button();
 });
-///#source 1 1 /Areas/Shipping/Scripts/selectable.partial.js
 // When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
 $(function () {
     $.widget("ui.selectable", $.ui.selectable, {
