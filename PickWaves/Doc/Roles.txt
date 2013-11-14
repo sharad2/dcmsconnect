@@ -1,0 +1,68 @@
+﻿-- Role: DCMS8_CREATEBPP is needed to grant the user to use Box Expediting feature
+
+-- Create the role 
+create role DCMS8_CREATEBPP;
+
+-- Grant/Revoke system privileges 
+grant create session to DCMS8_CREATEBPP;
+
+-- Grant/Revoke object privileges 
+grant select on BOX to DCMS8_CREATEBPP;
+grant select on BOXDET to DCMS8_CREATEBPP;
+grant select on BUCKET to DCMS8_CREATEBPP;
+grant select on PO to DCMS8_CREATEBPP;
+grant select on dcms4.TAB_INVENTORY_AREA to DCMS8_CREATEBPP;
+grant select on IA to DCMS8_CREATEBPP;
+grant select on PS to DCMS8_CREATEBPP;
+grant select on CUST to DCMS8_CREATEBPP;
+grant execute on PKG_BOXEXPEDITE to DCMS8_CREATEBPP;
+
+---------------------------------------------------------------------------------------------------
+
+-- Role: DCMS8_WAVE_MANAGER is needed to grant the user to run this application module
+
+-- Create the role 
+create role DCMS8_WAVE_MANAGER;
+
+
+-- Grant/Revoke system privileges 
+grant create session to DCMS8_WAVE_MANAGER;
+
+
+-- Grant/Revoke object privileges
+grant select, update, insert on BUCKET to DCMS8_WAVE_MANAGER;
+grant select on PS to DCMS8_WAVE_MANAGER;
+grant select on PSDET to DCMS8_WAVE_MANAGER;
+grant select on PO to DCMS8_WAVE_MANAGER;
+grant select on IA to DCMS8_WAVE_MANAGER;
+grant select on dcms4.TAB_INVENTORY_AREA to DCMS8_WAVE_MANAGER;
+grant select on BOX to DCMS8_WAVE_MANAGER;
+grant select on BOXDET to DCMS8_WAVE_MANAGER;
+grant select on CUST to DCMS8_WAVE_MANAGER;
+grant select on dcms4.DEM_PICKSLIP to DCMS8_WAVE_MANAGER;
+grant select on dcms4.DEM_PICKSLIP_DETAIL to DCMS8_WAVE_MANAGER;
+grant select on dcms4.MASTER_SKU to DCMS8_WAVE_MANAGER;
+grant select on dcms4.SRC_CARTON to DCMS8_WAVE_MANAGER;
+grant select on dcms4.SRC_CARTON_DETAIL to DCMS8_WAVE_MANAGER;
+grant select on IALOC to DCMS8_WAVE_MANAGER;
+grant select on IALOC_CONTENT to DCMS8_WAVE_MANAGER;
+grant select on dcms4.TAB_VIRTUAL_WAREHOUSE to DCMS8_WAVE_MANAGER;
+grant select on dcms4.TAB_WAREHOUSE_LOCATION to DCMS8_WAVE_MANAGER;
+grant select on dcms4.MASTER_STORAGE_LOCATION to DCMS8_WAVE_MANAGER;
+
+grant select on BUCKET_SEQUENCE to DCMS8_WAVE_MANAGER;
+grant execute on PKG_DATA_EXCHANGE to DCMS8_WAVE_MANAGER;
+grant execute on PKG_BUCKET_PITCHING to DCMS8_WAVE_MANAGER;
+grant execute on PKG_BUCKET to DCMS8_WAVE_MANAGER;
+
+
+----------------------------------------------------------
+PickWave Configuration
+grant select on SPLH to DCMS8_WAVE_MANAGER;
+grant select, insert, update, delete on CUSTSPLH to DCMS8_WAVE_MANAGER;
+grant select, update on CUST to DCMS8_WAVE_MANAGER;
+grant select, insert, delete on CUSTSKUCASE_CONSTRAINTS to DCMS8_WAVE_MANAGER;
+grant select, update, insert on SKUCASE to DCMS8_WAVE_MANAGER;
+grant select, insert, delete on PACKING_RULE to DCMS8_WAVE_MANAGER;
+grant select, insert, update on SKU_CASE to DCMS8_WAVE_MANAGER;
+-----------------------------------------------------------

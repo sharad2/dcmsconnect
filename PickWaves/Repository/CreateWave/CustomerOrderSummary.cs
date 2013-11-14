@@ -1,0 +1,22 @@
+﻿using System.Collections.Generic;
+
+namespace DcmsMobile.PickWaves.Repository.CreateWave
+{
+    public class CustomerOrderSummary
+    {
+        /// <summary>
+        /// The value in the column which was chosen as the dimension for the pickslip
+        /// </summary>
+        /// <remarks>
+        /// The datatype of the value depends on the dimension which was retrieved
+        /// </remarks>
+        public object DimensionValue { get; set; }
+
+        /// <summary>
+        /// Key is DC
+        /// </summary>
+        public IDictionary<string, int> Data { get; set; }
+
+        public IDictionary<PickslipDimension, int> Counts { get; set; }
+    }
+}

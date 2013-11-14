@@ -1,0 +1,190 @@
+﻿@using DcmsMobile.PickWaves.ViewModels.Config
+@model ConstraintViewModel
+@{
+    ViewBag.Title = "Constraint";
+}
+@section sidebar{
+    <div class="box boxB">
+        <div class="boxContent">
+            <ul>
+                <li>@Html.ActionLink("SKU Case", MVC_PickWaves.PickWaves.Config.SkuCase())</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<p>
+    Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
+on a per customer basis.
+</p>
+
+<div id="tabs" data-active-tab="@Model.ActiveTab">
+    <ul>
+        <li><a href="#tabs-1">Default Constraint</a></li>
+        <li><a href="#tabs-2">Customer Wise List</a></li>
+    </ul>
+    <div id="tabs-1">
+        <table>
+            <caption>Default customer constraints</caption>
+            <thead>
+                <tr>
+                    <th>Constraint</th>
+                    <th>Default Value</th>
+                    <th>Customer Overrides</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.LabelFor(m => m.DefaultConstraints.MaxBoxWeight)</td>
+                    <td>@Html.DisplayFor(m => m.DefaultConstraints.MaxBoxWeight)</td>
+                    <td>
+                        <ul>
+                            @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.MaxBoxWeight.HasValue))
+                            {
+                                <li>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <span class="ui-icon ui-icon-pencil" data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))"
+                                                  title="Edit customer constraints"></span>
+                                    }
+                                    <span style="display: inline-block; width: 25em"> @item.Key.CustomerId: @item.Key.CustomerName</span>
+                                   <span> @item.Value.MaxBoxWeight lbs</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="rowB">
+                    <td>@Html.LabelFor(m => m.DefaultConstraints.MaxSkuWithinBox)</td>
+                    <td>@Html.DisplayFor(m => m.DefaultConstraints.MaxSkuWithinBox)</td>
+                    <td>
+                        <ul>
+                            @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.MaxSkuWithinBox.HasValue))
+                            {
+                                <li>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <span data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))"
+                                                  class="ui-icon ui-icon-pencil" title ="Edit customer constraints" ></span>
+                                    }
+                                     <span style="display: inline-block; width: 25em"> @item.Key.CustomerId: @item.Key.CustomerName</span>
+                                    <span>@item.Value.MaxSkuWithinBox</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="vertical-align: top; padding-top: 1em">
+                        @Html.LabelFor(m => m.DefaultConstraints.IsSingleStyleColor)
+                    </td>
+                    <td style="vertical-align: top; padding-top: 1em">
+                        @string.Format(Model.DefaultConstraints.IsSingleStyleColor ? "Set" : "Not Set")
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.IsSingleStyleColor))
+                            {
+                                <li>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <span data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))"
+                                                  class="ui-icon ui-icon-pencil" title ="Edit customer constraints" ></span>
+                                    }
+                                    @item.Key.CustomerId: @item.Key.CustomerName
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr class="rowB">
+                    <td>@Html.LabelFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</td>
+                    <td>@Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</td>
+                    <td>
+                        <ul>
+                            @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.RequiredMinSkuPieces.HasValue))
+                            {
+                                <li>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <span data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))" 
+                                                  class="ui-icon ui-icon-pencil" title ="Edit Customer Constraints"></span>
+                                    }
+                                     <span style="display: inline-block; width: 25em"> @item.Key.CustomerId : @item.Key.CustomerName</span>
+                                    <span>@item.Value.RequiredMinSkuPieces</span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)</td>
+                    <td>@Html.DisplayFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)</td>
+                    <td>
+                        <ul>
+                            @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.RequiredMaxSkuPieces.HasValue))
+                            {
+                                <li>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <span data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))" 
+                                                  class="ui-icon ui-icon-pencil" title ="Edit Customer Constraints"></span>
+                                    }
+                                      <span style="display: inline-block; width: 25em">@item.Key.CustomerId : @item.Key.CustomerName</span>
+                                    <span>
+                                        @item.Value.RequiredMaxSkuPieces
+                                    </span>
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tabs-2">
+        <table>
+            <caption>
+                Constraints overridden by customers 
+                @if (Model.UserIsManager)
+                {
+                    <button id="btnAddNewCustConstraint" data-add-customer ="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintAddView())">Add Customer..</button>
+                }
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Customer</th>
+                    <th>Constraint</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.CustomerGroupedList.Count; ++i)
+                {
+                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                        <td>@(i + 1) </td>
+                        <td>
+                            @if (Model.UserIsManager)
+                            {
+                                <span data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))"
+                                      class="ui-icon ui-icon-pencil" title="Edit customer constraint" style="cursor: pointer; display: inline-block"></span>
+                            }
+                            @Model.CustomerGroupedList.Keys[i].CustomerId : @Model.CustomerGroupedList.Keys[i].CustomerName
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => m.CustomerGroupedList.Values[i])
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="dlgConstraintsEditor">
+</div>
+
+@section scripts{
+    <link href="@Links_PickWaves.Areas.PickWaves.Content.Config_min_css" rel="stylesheet" type="text/css" />
+    <script src="@Links_PickWaves.Areas.PickWaves.Scripts.Config_js" type="text/javascript"></script>
+}

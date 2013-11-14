@@ -1,0 +1,55 @@
+﻿/* Standard CSS to be used in all pages */
+
+#menu li.banner
+{
+    color: #fff;
+    font-size: 2.5em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.5em;
+}
+
+/* Validation styles */
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+.ui-menu .ui-menu-item
+{
+    /* support: IE10, see #8844 */
+    list-style-image: url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);
+}
+
+/* No bullets in status summary*/
+div.status-summary ul
+{
+    list-style-type:none;
+}
+
+.ui-selected
+{
+    background-color: rgb(243,152,20);
+}

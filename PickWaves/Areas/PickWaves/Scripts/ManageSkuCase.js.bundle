@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="ManageSkuCase.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/PickWaves/Scripts/AutoComplete.partial.js</file>
+  <file>/Areas/PickWaves/Scripts/ManageSkuCase.partial.js</file>
+</bundle>

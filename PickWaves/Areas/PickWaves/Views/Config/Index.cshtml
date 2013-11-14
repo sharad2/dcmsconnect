@@ -1,0 +1,17 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.IndexViewModel
+@{
+    ViewBag.Title = "Wave Configuration";
+}
+<ul>
+    <li>Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know
+        <br/>
+        <div style="margin-left: 1.5em">
+            What size cartons are available in which, SKUs can be shipped. 
+            Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
+    @Html.ActionLink("Manage", MVC_PickWaves.PickWaves.Config.SkuCase()).
+        </div><br/>
+    </li>
+    <li>Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
+    on a per customer basis. @Html.ActionLink("DCMS Supported Constraints", MVC_PickWaves.PickWaves.Config.Constraint())
+    </li>
+</ul>

@@ -1,0 +1,108 @@
+﻿@*Displays the pickslip matrix based on the passed dimension. User has the option of changing the passed dimension and it auto refreshes itself via Ajax
+
+Model.SelectedDimension is displayed as a drop down. If you choose to place this partial in a form, this value will get posted.
+
+Check state of hidden Radio buttons for Model.SelectedDc and Model.DimensionValue is updated when a cell is clicked. The clicked cell will have the class ui-state-highlight applied to it.
+
+All selectable cells have class ui-selectable applied.
+
+*@
+
+@model DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipMatrixPartialViewModel
+<div class="matrixOuter" data-url="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.RefreshPickslipMatrix())" data-row-dimension="@Model.RowDimDisplayName" data-col-dimension="@Model.ColDimDisplayName">
+    @Html.HiddenFor(m => m.CustomerId)
+    <table>
+        <caption>
+            Pickslip Counts for customer @Html.DisplayFor(m => m.CustomerId)
+        </caption>
+        <thead>
+            <tr>
+                <th colspan="@(Model.ColDimensionValues.Count+3)">
+                   @Html.LabelFor(m => m.VwhId) @Html.DropDownListFor(m => m.VwhId,Model.VwhList,"All Virtual Warehouses")
+                </th>
+            </tr>
+            <tr>
+                <th rowspan="2">#
+                </th>
+                <th rowspan="2">
+                    <select name="@Model.NameFor(m => m.RowDimIndex)">
+                        @foreach (var item in Model.DimensionList)
+                        {
+                            <option value="@item.Value" @Html.Raw(item.Value == Model.RowDimIndex.ToString() ? "selected=\"selected\"" : "") 
+                                @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique "
+                                                                             + item.Text + "\"" : "")>
+                                @item.Text</option>
+                        }
+                    </select>
+                </th>
+                <th colspan="@Model.ColDimensionValues.Count" style="text-align:left">
+                    <select name="@Model.NameFor(m => m.ColDimIndex)">
+                        @foreach (var item in Model.DimensionList)
+                        {
+                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "") 
+                                @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique "
+                                                                             + item.Text + "\"" : "")>
+                                @item.Text</option>
+                        }
+                    </select>
+                </th>
+                <th rowspan="2" class="ui-state-active">Total
+                </th>
+            </tr>
+            <tr class="dc-header">
+                @foreach (var item in Model.ColDimensionValues)
+                {
+                    <th>
+                        @Html.RadioButtonFor(m => m.ColDimVal, item, new { @class = "ui-helper-hidden" })
+                        @item
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (var j = 0; j < Model.CustomerOrders.Count; ++j)
+            {
+                <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
+                    <td style="text-align: right">
+                        @(j + 1)
+                    </td>
+                    <td>
+                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue, new { @Class = "ui-helper-hidden" })
+                        @Model.CustomerOrders[j].DimensionDisplayValue
+                    </td>
+                    @foreach (var item in Model.ColDimensionValues)
+                    {
+                        if (Model.CustomerOrders[j].Data.ContainsKey(item))
+                        {
+                        <td style="text-align: right" tabindex="0" class="ui-selectable">
+                            @string.Format("{0:N0}", Model.CustomerOrders[j].Data[item])
+                        </td>
+                        }
+                        else
+                        { 
+                        <td></td>
+                        }
+                    }
+                    <td style="text-align: right;" class="ui-state-active">
+                        @Html.DisplayFor(m => m.CustomerOrders[j].TotalPickslips)
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="ui-state-active">
+                <td colspan="2" style="font-weight: bold;">Total
+                </td>
+                @foreach (var dc in Model.ColDimensionValues)
+                {
+                    <td style="text-align: right">
+                        @string.Format("{0:N0}", Model.GetPickslipCount(dc))
+                    </td>
+                }
+                <td style="text-align: right; font-weight: bold; font-size: 1.2em">@Html.DisplayFor(m => m.GrandTotalPickslips)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

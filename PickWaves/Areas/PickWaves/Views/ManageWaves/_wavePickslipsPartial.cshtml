@@ -1,0 +1,137 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.ManageWaves.WavePickslipsViewModel
+
+@if (Model.UserIsManager && Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
+{
+    <p>
+        <span class="ui-state-highlight">You can add more pickslip on this wave
+        <a href ="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipListSelector(new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListSelectorViewModel(
+                 Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add pickslips</a>
+        </span>
+    </p>
+}
+<table>
+    <caption>Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)</caption>
+    <thead>
+        <tr>
+            <th rowspan="2">#</th>
+            <th rowspan="2">Pickslip<span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
+            </th>
+            <th colspan="2" style="text-align: center">Pieces</th>
+            <th rowspan="2">Purchase Order
+                    <span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
+            </th>
+            <th rowspan="2">VWh</th>
+            <th colspan="2">Customer</th>
+            @if (Model.UserIsManager)
+            {
+                <th rowspan="2">Remove from Pick Wave</th>
+            }
+        </tr>
+        <tr>
+            <th>Ordered
+                    <span class="ui-icon ui-icon-triangle-1-s" style="display: inline-block"></span><sup>2</sup>
+            </th>
+            <td style="white-space: nowrap; text-align: center; vertical-align: middle">
+                <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 15em; display: inline-block">
+                    <div style="width: 40%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                        Picked
+                    </div>
+                    <div style="width: 50%" class="ui-progressbar-value">
+                        Not Picked
+                    </div>
+                </div>
+                <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span><sup>1</sup>
+            </td>
+            <th>DC</th>
+            <th>Store</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.PickslipList.Count; ++i)
+        {
+            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    <a href='@Url.Content(string.Format("~/Inquiry/Pickslip/{0}", Model.PickslipList[i].PickslipId))' target ="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                </td>
+                <td style="text-align: right">
+                    @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces)
+                </td>
+                <td>
+                    <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 15em;">
+                        @if (Model.PickslipList[i].CurrentPieces > 0)
+                        { 
+                            <div style="width: @Model.PickslipList[i].PercentCurrentPieces%" class="ui-progressbar-value ui-widget-header ui-corner-left" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
+                                @Html.DisplayFor(m => m.PickslipList[i].CurrentPieces)
+                            </div>
+                        }
+                        @if (Model.PickslipList[i].UnPickedPieces > 0)
+                        {
+                            <div style="width: @Model.PickslipList[i].PercentUnPickedPieces%; left: @Model.PickslipList[i].PercentCurrentPieces%;" class="ui-progressbar-value" title="@Html.DisplayFor(m => m.PickslipList[i].UnPickedPieces) pieces not in box">
+                                @Html.DisplayFor(m => m.PickslipList[i].UnPickedPieces)
+                            </div>
+                        }
+                    </div>
+                    @if (Model.PickslipList[i].CancelledBoxCount > 0)
+                    {
+                        <br /> <span style="font-style: italic; font-weight: normal; background-color: thistle">
+                            @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
+                        </span>
+                    }
+                </td>
+                <td style="text-align: center">
+                    <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target ="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
+                </td>
+                @if (Model.UserIsManager)
+                {
+                    <td>
+                        @if (Model.PickslipList[i].IsRemovablePickslip)
+                        {
+                            <span class="ui-icon ui-icon-close" style="cursor:pointer" data-pickslip-val ="@Model.PickslipList[i].PickslipId"
+                                  data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
+                                  (Model.Bucket.BucketId, Model.PickslipList[i].PickslipId))"></span>
+                        }
+                        else
+                        {
+                            <span title="Can't remove because of some pieces are pulled or picked or Wave is unfreeze.">Can't remove</span>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
+            <td colspan="2">Total</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalOrderedPieces)</td>
+            <td>
+                <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 15em;">
+                    @if (Model.TotalPickedPieces > 0)
+                    { 
+                        <div style="width: @Model.TotalPercentPickedPieces%" class="ui-progressbar-value ui-widget-header ui-corner-left" title="@Html.DisplayFor(m => m.TotalPickedPieces) pieces in box">
+                            @Html.DisplayFor(m => m.TotalPickedPieces)
+                        </div>
+                    }
+                    @if (Model.TotalUnpickedPieces > 0)
+                    {
+                        <div style="width: @(100 - Model.TotalPercentPickedPieces)%; left: @Model.TotalPercentPickedPieces%;" class="ui-progressbar-value" title="@Html.DisplayFor(m => m.TotalUnpickedPieces) pieces not in box">
+                            @Html.DisplayFor(m => m.TotalUnpickedPieces)
+                        </div>
+                    }
+                </div>
+            </td>
+            <td colspan="5"></td>
+        </tr>
+    </tfoot>
+</table>

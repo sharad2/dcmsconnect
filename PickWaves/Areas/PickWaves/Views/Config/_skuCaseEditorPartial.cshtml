@@ -1,0 +1,51 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.SkuCaseModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+<div>
+    @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase(), FormMethod.Post, new
+    {
+        id = "frmSkuCaseEditor"
+    }))
+    {
+        if (Model.CaseId != null)
+        {
+        <label>Case</label>
+        @Html.DisplayFor(m => m.CaseId)
+        @Html.HiddenFor(m => m.CaseId)
+        }
+        else
+        {
+        <label>Case</label>
+        @Html.TextBoxFor(m => m.CaseId, new
+   {
+       MaxLength = "6",
+       style = "text-transform: uppercase;"
+   })<sup>*</sup>   
+        <br />
+        }
+        <br />
+        <label>Description</label> @Html.TextAreaFor(m => m.Description, new
+        {
+            MaxLength = "50"
+        }) <sub style="color: blue">Max 50 characters</sub>
+        <br />
+        <label>Empty Weight</label>@Html.TextBoxFor(m => m.EmptyWeight) <sup>*</sup>                
+        <br />
+        <label>Max Content Volume</label>@Html.TextBoxFor(m => m.MaxContentVolume)<sup>*</sup>
+        <br />
+        <label>Is Available</label>@Html.CheckBoxFor(m => m.IsAvailable)
+        <br />
+        <label>Outer Cube Volume</label>@Html.TextBoxFor(m => m.OuterCubeVolume)<sup>*</sup>
+        <br />
+        @Html.ValidationSummary()
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready($(function () {
+        // Force the unobtrusive validation script to run
+        // http://forums.asp.net/t/1651961.aspx/1
+        $.validator.unobtrusive.parse("#frmSkuCaseEditor");
+    }));
+</script>

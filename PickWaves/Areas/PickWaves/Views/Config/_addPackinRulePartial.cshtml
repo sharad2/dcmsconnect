@@ -1,0 +1,36 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.PackingRulesModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+<div>
+    @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddPackingRule(), FormMethod.Post, new
+    {
+        id = "frmAddPackingRule"
+    }))
+    {
+        <label>Style</label>
+        @Html.TextBoxFor(m => m.Style, new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.StyleAutoComplete())},
+         {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateStyle())},
+         {"id", "tbStyle"}
+   })<sup>&darr;*</sup>
+        <br />
+        <span id="styleDetail" style="display: inline-block;" class="ui-state-active"></span>
+        <br />
+       
+        <label>Case </label>@Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "(Please Select)")<sup>*</sup>
+        <br /> <br />
+        <label>Ignore</label> @Html.CheckBoxFor(m => m.IgnoreFlag)
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
+    }
+</div>
+<script type="text/ecmascript">
+    $(document).ready($(function () {
+        // Force the unobtrusive validation script to run
+        // http://forums.asp.net/t/1651961.aspx/1
+        $.validator.unobtrusive.parse("#frmAddPackingRule");
+        $('#tbStyle').autocompleteEx();
+    }));
+</script>

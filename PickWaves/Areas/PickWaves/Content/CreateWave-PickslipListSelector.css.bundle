@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="CreateWave-PickslipListSelector.css">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/PickWaves/Content/BucketModel-Display.partial.css</file>
+  <file>/Areas/PickWaves/Content/Home-CustomerSummary.css</file>
+  <file>/Areas/PickWaves/Content/CreateWave-PickslipListSelector.partial.css</file>
+</bundle>

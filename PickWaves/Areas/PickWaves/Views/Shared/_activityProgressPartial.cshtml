@@ -1,0 +1,41 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.BucketActivityModel
+
+@*
+This is simply an inline thin progress bar. The outer most div as the data-activity attribute to facilitate scripting.
+Each div.progressbar-value has attribute data-boxstate which indicates the nature of the value (Completed, InProgress).
+ Wave.cshtml uses these attributes to handle clicks on progress values.
+*@
+<div style="display: inline-block" data-activity="@Model.ActivityType">
+    @if (Model.PiecesComplete > 0 || Model.PiecesIncomplete > 0)
+    {
+        <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all"
+        title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) pieces picked @Html.DisplayFor(m => m.PickingDateRange). @Html.DisplayFor(m => m.PiecesIncomplete) pieces remaining">
+            @if (Model.PiecesComplete > 0)
+            { 
+                <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left" 
+                data-boxstate="@((int)(DcmsMobile.PickWaves.Helpers.BoxState.Completed))">
+                    @Html.DisplayFor(m => m.PiecesComplete)
+                </div>
+            }
+            @if (Model.PiecesIncomplete > 0)
+            { 
+                <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value"
+                 data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)">
+                    @Html.DisplayFor(m => m.PiecesIncomplete)
+                </div>
+            }
+        </div>
+    }
+    <div>
+        @if (Model.UnderPickedPieces.HasValue)
+        {
+            <span style="font-style:italic;background-color:thistle">@Html.DisplayFor(m => m.UnderPickedPieces) under picked</span>
+        }
+        @if (Model.CancelledPieces.HasValue)
+        {
+            <span class="ui-progressbar-value"
+                style="font-style:italic; background-color:thistle"
+                 data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.Cancelled)">@Html.DisplayFor(m => m.CancelledPieces) cancelled</span>
+        }
+    </div>
+</div>

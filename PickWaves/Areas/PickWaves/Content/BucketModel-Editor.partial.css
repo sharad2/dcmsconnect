@@ -1,0 +1,19 @@
+﻿/* Bucket Model Editor styles*/
+div.bucketmodel-editor > div > label
+{
+    width: 12em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.bucketmodel-editor > div
+{
+    margin-bottom: 0.25em;
+}
+
+div.bucketmodel-editor em
+{
+    color: #777;
+}
+
+

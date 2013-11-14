@@ -1,0 +1,139 @@
+﻿@using DcmsMobile.PickWaves.Helpers
+@model DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveBoxListModel
+@* Design only for use by Wave.cshtml*@
+@helper DisplayBoxPieces(DcmsMobile.PickWaves.ViewModels.ManageWaves.BoxModel box)
+{
+    if (box.CurrentPieces == box.ExpectedPieces)
+    { 
+    @box.CurrentPieces
+    }
+    else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
+    {
+    @box.ExpectedPieces
+    }
+    else
+    { 
+    @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
+    }
+}
+@helper ShowTableFooterText(BoxState filter)
+{
+    
+    if (filter == BoxState.NotSet || filter == BoxState.Completed || filter == BoxState.InProgress)
+    {
+    <span>@Html.DisplayFor(m => m.TotalPiecesInBox) of @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces Picked</span>
+    }
+    else if (filter == BoxState.Cancelled)
+    {
+    <span>@string.Format("{0:N0} Pcs cancelled in {1:N0} boxes", Model.BoxesList.Sum(p => p.ExpectedPieces), Model.BoxesList.Count)</span>
+    }
+}
+
+@helper ShowTableCaption()
+{
+    var stateText = string.Empty;
+    if (Model.StateFilter == BoxState.NotSet)
+    {
+        stateText = "All Boxes";
+    }
+    else if (Model.StateFilter == BoxState.InProgress)
+    {
+        stateText = "Inprogress Boxes";
+    }
+    else if (Model.StateFilter == BoxState.Completed)
+    {
+        stateText = "Boxes which have pieces";
+    }
+    else if (Model.StateFilter == BoxState.Cancelled)
+    {
+        stateText = "Cancelled Boxes";
+    }
+    <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
+}
+
+<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
+    <legend>Legend</legend>
+
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: gray;" />
+    <span>Not Started</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: deepskyblue;" />
+    <span>In Progress</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: green;" />
+    <span>Validated</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: red;" />
+    <span>Cancelled</span>
+</fieldset>
+
+<table>
+    <caption>
+        @ShowTableCaption()
+    </caption>
+    <thead>
+        <tr>
+            <th rowspan="2">#</th>
+            <th rowspan="2">Box
+            <span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
+            </th>
+            <th rowspan="2">Pickslip</th>
+            <th rowspan="2">VWh</th>
+            <th rowspan="2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">Pull Carton?</th>
+            <th rowspan="2">Pieces               
+            </th>
+            <th title="Not Started, In Progress, Validated or Cancelled" rowspan="2">Status
+            </th>
+            <th colspan="2">Created</th>
+        </tr>
+        <tr>
+            <th>By</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.BoxesList.Count; ++i)
+        {
+            <tr class="@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "pitched-box" : "pulled-box")">
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    <a href='@Url.Content(string.Format("~/Inquiry/Ucc/{0}", Model.BoxesList[i].Ucc128Id))' target ="_inquiry">@Model.BoxesList[i].Ucc128Id</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
+                </td>
+                <td style="text-align: center">
+                    @Html.DisplayFor(m => m.BoxesList[i].VWhId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.BoxesList[i].CartonId)
+                </td>
+                <td style="text-align: right">
+                    @DisplayBoxPieces(Model.BoxesList[i])
+                </td>
+                <td title="@Model.BoxesList[i].DisplayStateTip" style="text-align:center;">
+                    @Html.DisplayFor(m => m.BoxesList[i].DisplayState)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.BoxesList[i].CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.BoxesList[i].CreatedDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
+            <td colspan="2">Total</td>
+            <td style="text-align: center" colspan="7">
+                @ShowTableFooterText(Model.StateFilter)
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+

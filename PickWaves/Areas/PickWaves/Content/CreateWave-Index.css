@@ -1,0 +1,67 @@
+﻿/* Bucket Model Display styles */
+
+
+.bucketmodel-display {
+    border-collapse: collapse;
+    margin-bottom: 1em !important;
+}
+
+    .bucketmodel-display tbody td, .bucketmodel-display thead th, .bucketmodel-display thead td {
+        border: 1px solid gray;
+    }
+
+    .bucketmodel-display span.ui-icon {
+        cursor: pointer;
+        display: inline-block;
+    }
+
+/* Classes used by box list to distinguish pulling and pitching boxes*/
+.pitched-box {
+    background-color: paleturquoise;
+}
+
+.pulled-box {
+    background-color: antiquewhite;
+}
+
+
+/*These styling is used to showing progress bar when showing bucket information*/
+.ui-progressbar-value
+{
+    display: inline-block;
+    text-align: center;
+    font-size: 0.9em;
+    overflow: hidden;
+    font-weight: normal;
+}
+
+.ui-progressbar
+{
+    width: 12em;
+}
+
+span.ui-icon
+{
+    cursor: pointer;
+    display: inline-block;
+}
+
+.ui-dialog .ui-dialog-titlebar, .ui-dialog .ui-dialog-buttonpane
+{
+    font-size: 0.8em;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+div#matrixPartial .ui-selectable:hover
+{
+    border-style: ridge;
+}
+
+div#matrixPartial .ui-selectable
+{
+    cursor: pointer;
+    border-color: #FFBD32;
+    border-width: 2.2px;
+    border-style: solid;
+}

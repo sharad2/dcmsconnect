@@ -1,0 +1,43 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListSelectorViewModel
+@{
+    ViewBag.Title = string.Format("Add pickslip to Pick Wave {0}", Model.BucketId);
+}
+
+@section sidebar {
+    <div class="boxContent">
+        You can see @Html.ActionLink("Existing Waves", MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId)) of customer <em>@Html.DisplayFor(m => m.CustomerId)</em>
+    </div>
+}
+<div class="boxContent">
+    <div id="bucketModelPartial">
+        @Html.DisplayFor(m => m.Bucket, MVC_PickWaves.PickWaves.Shared.Views.DisplayTemplates.BucketModel)
+    </div>
+    <div>
+        @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.PickslipList(), FormMethod.Get, new { id = "frmPickslipMatrix" }))
+        {                
+            @Html.HiddenFor(m => m.BucketId)
+            @Html.HiddenFor(m => m.CustomerId)
+            <blockquote>
+                Click on the pickslip count to see pickslip list.
+            <br />
+                Clicking on the pickslip count for a customer will provide you with an opportunity to <em><strong>add pickslip</strong></em> of wave @Model.BucketId
+            </blockquote>
+            if (Model.CustomerOrders.Count > 0)
+            {
+            <div id="matrixPartial">
+                @Html.Partial(MVC_PickWaves.PickWaves.CreateWave.Views._pickslipMatrixPartial, Model)
+            </div>
+            }
+            else
+            {
+            <span class="ui-state-highlight">No imported orders found for Customer @Model.CustomerId
+            </span>
+            }
+        }
+    </div>
+</div>
+@section Scripts{
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.Content.CreateWave_PickslipListSelector_min_css" rel="stylesheet" />
+    <script src="@Links_PickWaves.Areas.PickWaves.Scripts.CreateWave_PickslipListSelector_js" type="text/javascript"></script>
+}
+

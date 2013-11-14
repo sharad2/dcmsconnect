@@ -1,0 +1,72 @@
+﻿@* To use this partial, make sure you include _bucketEditorPartial.partial.js *@
+
+@model DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var dict = new Dictionary<DcmsMobile.PickWaves.Helpers.BucketActivityType, string>
+    {
+        {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching, "(Undecided)"},
+        {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling, "(No Pulling)"}
+    };    
+}
+<div class="bucketmodel-editor">
+    @Html.HiddenFor(m => m.Bucket.BucketId)
+    <div>
+        @Html.LabelFor(m => m.Bucket.BucketName)
+        @Html.TextBoxFor(m => m.Bucket.BucketName, new
+   {
+       size = 50,
+       maxlength = 50
+   })<sup>*</sup>
+        @Html.ValidationMessageFor(m => m.Bucket.BucketName)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Bucket.PriorityId)
+        @Html.TextBoxFor(m => m.Bucket.PriorityId, new
+   {
+       size = 2,
+       maxlength = 2,
+       id = "tbPriority"
+   })
+        @Html.ValidationMessageFor(m => m.Bucket.PriorityId)
+        <em>(Pick Waves with higher priority will show first(Max: 99))</em>
+    </div>
+    @for (var i = 0; i < Model.Bucket.Activities.Count; ++i)
+    {
+        @Html.HiddenFor(m => m.Bucket.Activities[i].ActivityType)
+        <div>
+            <span style="display: inline-block; width: 12em">@Html.DisplayFor(m => m.Bucket.Activities[i].DisplayName)</span>
+            @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType],
+                dict[Model.Bucket.Activities[i].ActivityType])
+            @if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
+            { 
+                @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <label>Require Box Expediting</label>
+            }
+            else
+            {
+                <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+            }
+        </div>        
+    }
+    <div>
+        @Html.LabelFor(m => m.Bucket.BucketComment)
+        @Html.TextAreaFor(m => m.Bucket.BucketComment, new
+            {
+                maxlength = 128
+            })<sub style="color: blue; font-size: 1.1em">Max 128 characters</sub>
+        <br />
+        <label></label>
+        <em>(Remark will be shown in Wave Summery UI)</em>
+    </div>
+    
+    @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
+    @Html.LabelFor(m => m.UnfreezeWaveAfterSave)
+
+    @Html.HiddenFor(m => m.BucketNameOriginal)
+    @Html.HiddenFor(m => m.PriorityIdOriginal)
+    @Html.HiddenFor(m => m.PullAreaOriginal)
+    @Html.HiddenFor(m => m.PitchAreaOriginal)
+    @Html.HiddenFor(m => m.BucketCommentOriginal)
+    @Html.HiddenFor(m => m.RequireBoxExpeditingOriginal)
+</div>

@@ -1,0 +1,21 @@
+﻿ul.waveActionMenu
+{
+    width: 8em;
+}
+
+    ul.waveActionMenu li ul.ui-menu
+    {
+        width: 150px;
+        cursor: pointer;
+    }
+
+div.boxContent > table
+{
+    border-collapse: collapse;
+    margin-bottom: 1em !important;
+}
+
+    div.boxContent > table > #tbody > tr
+    {
+        border: 1px solid green;
+    }

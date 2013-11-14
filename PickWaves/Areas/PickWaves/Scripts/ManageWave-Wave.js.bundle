@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="ManageWave-Wave.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/PickWaves/Scripts/ManageWave-Wave.partial.js</file>
+  <file>/Areas/PickWaves/Scripts/bucketModel.partial.js</file>
+  <file>/Areas/PickWaves/Scripts/_bucketEditorPartial.partial.js</file>
+</bundle>
