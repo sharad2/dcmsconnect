@@ -103,6 +103,36 @@ namespace EclipseLibrary.Oracle.Helpers
             return val.ToInt32();
         }
 
+        //Ankit: Added long data handler function to handle long integer data send from SAP.
+
+        public long? GetLong(string fieldName)
+        {
+            var val = GetValueAs<OracleDecimal>(fieldName);
+            if (val.IsNull)
+            {
+                return null;
+            }
+            if (!val.IsInt)
+            {
+                throw new InvalidCastException(fieldName + " is not an long. Retrieved value is " + val.ToString());
+            }
+            return val.ToInt64();
+        }
+
+        public long? GetLong(int index)
+        {
+            var val = GetValueAs<OracleDecimal>(index);
+            if (val.IsNull)
+            {
+                return null;
+            }
+            if (!val.IsInt)
+            {
+                throw new InvalidCastException(string.Format("Field {0} is not an long. Retrieved value is {1}", index, val.ToString()));
+            }
+            return val.ToInt64();
+        }
+
         /// <summary>
         /// Returns a fractional value stored in the database
         /// </summary>
