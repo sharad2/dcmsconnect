@@ -5,9 +5,8 @@ using System.Web;
 
 namespace DcmsMobile.DcmsLite.ViewModels.Ship
 {
-    public class IndexViewModel: ViewModelBase
+    public class IndexViewModel : ViewModelBase
     {
-
-        public int MyProperty { get; set; }
+        public IEnumerable<PoModel> PoList { get; set; }
     }
 }

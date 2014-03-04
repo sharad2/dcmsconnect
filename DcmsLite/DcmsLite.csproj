@@ -162,6 +162,7 @@
     <Compile Include="ViewModels\Pick\IndexViewModel.cs" />
     <Compile Include="ViewModels\Receive\IndexViewModel.cs" />
     <Compile Include="ViewModels\Ship\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Ship\PoModel.cs" />
     <Compile Include="ViewModels\Validation\IndexViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
