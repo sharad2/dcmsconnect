@@ -97,6 +97,9 @@
     <Compile Include="Areas\DcmsLite\Controllers\HomeController.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\PickController.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\ReceiveController.cs" />
+    <Compile Include="Areas\DcmsLite\Controllers\ShipController.cs" />
+    <Compile Include="Repository\Ship\ShipRepository.cs" />
+    <Compile Include="Repository\Ship\ShipService.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\ValidationController.cs" />
     <Compile Include="Areas\DcmsLite\DcmsLiteAreaRegistration.cs" />
     <Compile Include="Areas\DcmsLite\SubAreas.cs" />
@@ -110,6 +113,9 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="DcmsLite.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DcmsLite.ShipController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="DcmsLite.ValidationController.generated.cs">
@@ -154,6 +160,7 @@
     <Compile Include="ViewModels\Pick\BucketModel.cs" />
     <Compile Include="ViewModels\Pick\IndexViewModel.cs" />
     <Compile Include="ViewModels\Receive\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Ship\IndexViewModel.cs" />
     <Compile Include="ViewModels\Validation\IndexViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
@@ -241,6 +248,7 @@
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Doc\DCMS Lite Flow.vsd" />
+    <Content Include="Areas\DcmsLite\Views\Ship\Index.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />

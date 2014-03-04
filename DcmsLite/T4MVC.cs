@@ -34,6 +34,7 @@ namespace T4MVC {
         public DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.HomeController Home = new DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.T4MVC_HomeController();
         public DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.PickController Pick = new DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.T4MVC_PickController();
         public DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.ReceiveController Receive = new DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.T4MVC_ReceiveController();
+        public DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.ShipController Ship = new DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.T4MVC_ShipController();
         public DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.ValidationController Validation = new DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.T4MVC_ValidationController();
         public T4MVC.DcmsLite.SharedController Shared = new T4MVC.DcmsLite.SharedController();
     }
@@ -207,6 +208,14 @@ namespace Links_DcmsLite {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _layoutDcmsLite_cshtml = Url("_layoutDcmsLite.cshtml");
                     public static readonly string _soundPartial_cshtml = Url("_soundPartial.cshtml");
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Ship {
+                    private const string URLPATH = "~/Areas/DcmsLite/Views/Ship";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string Index_cshtml = Url("Index.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
