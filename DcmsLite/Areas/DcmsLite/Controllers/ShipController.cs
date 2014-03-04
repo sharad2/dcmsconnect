@@ -11,8 +11,12 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
         public virtual ActionResult Index()
         {
             var buildingId = _buildingId;
+            //TODO: Show a list of POs. 
+
+            _service.GetPoList();
             var model = new IndexViewModel();
             return View(model);
+
         }
 
     }

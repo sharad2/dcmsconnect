@@ -98,6 +98,7 @@
     <Compile Include="Areas\DcmsLite\Controllers\PickController.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\ReceiveController.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\ShipController.cs" />
+    <Compile Include="Repository\Ship\PO.cs" />
     <Compile Include="Repository\Ship\ShipRepository.cs" />
     <Compile Include="Repository\Ship\ShipService.cs" />
     <Compile Include="Areas\DcmsLite\Controllers\ValidationController.cs" />

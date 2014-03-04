@@ -6,5 +6,9 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
     public class ShipService : DcmsLiteServiceBase<ShipRepository>
     {
 
+        internal void GetPoList()
+        {
+            _repos.GetPoList();
+        }
     }
 }
