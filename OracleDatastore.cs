@@ -400,7 +400,7 @@ namespace EclipseLibrary.Oracle
                 // Sharad 3 Jun 2011: Handling the case when binder is null
                 if (binder == null)
                 {
-                    cmd = this.CreateCommand(xml, null, binder.ActionName);
+                    cmd = this.CreateCommand(xml, null, null);
                     //PrepareConnection(null);
                 }
                 else
