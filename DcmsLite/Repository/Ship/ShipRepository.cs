@@ -4,7 +4,7 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
 {
     public class ShipRepository : DcmsLiteRepositoryBase
     {
-        internal IList<PO> GetPoList()
+        internal IList<PO> GetPoList(string customerId)
         {
             const string QUERY = @"WITH Q1 AS
  (SELECT PS.PICKSLIP_ID,
@@ -19,23 +19,22 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
          MAX(PS.CUSTOMER_DC_ID) AS CUSTOMER_DC_ID,
          MAX(PO.START_DATE) AS START_DATE,
          MIN(PO.DC_CANCEL_DATE) AS DCCANCEL_DATE
-    FROM PS PS
-   INNER JOIN BUCKET BK
+    FROM <proxy/>PS PS
+   INNER JOIN <proxy/>BUCKET BK
       ON BK.BUCKET_ID = PS.BUCKET_ID
-    LEFT OUTER JOIN CUST CUST
+    LEFT OUTER JOIN <proxy/>CUST CUST
       ON PS.CUSTOMER_ID = CUST.CUSTOMER_ID
-    LEFT OUTER JOIN BOX B
+    LEFT OUTER JOIN <proxy/>BOX B
       ON B.PICKSLIP_ID = PS.PICKSLIP_ID
-    LEFT OUTER JOIN BOXDET BD
+    LEFT OUTER JOIN <proxy/>BOXDET BD
       ON B.PICKSLIP_ID = BD.PICKSLIP_ID
      AND B.UCC128_ID = BD.UCC128_ID
-    LEFT OUTER JOIN PO PO
+    LEFT OUTER JOIN <proxy/>PO PO
       ON PO.CUSTOMER_ID = PS.CUSTOMER_ID
      AND PO.PO_ID = PS.PO_ID
      AND PO.ITERATION = PS.ITERATION
    WHERE 1 = 1
-     AND PS.CUSTOMER_ID = '11160'
-        
+     AND PS.CUSTOMER_ID = :CUSTOMER_ID
      AND PS.TRANSFER_DATE IS NULL
      AND Bk.AVAILABLE_FOR_PITCHING = 'Y'
      AND PS.SHIPPING_ID IS NULL
@@ -43,9 +42,8 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
      AND B.STOP_PROCESS_DATE IS NULL
      AND BD.STOP_PROCESS_DATE IS NULL
      AND PS.PICKSLIP_ID NOT IN
-         (SELECT EDIPS.PICKSLIP_ID FROM EDI_753_754_PS EDIPS)
+         (SELECT EDIPS.PICKSLIP_ID FROM <proxy/>EDI_753_754_PS EDIPS)
    GROUP BY PS.PICKSLIP_ID
-  
   )
 SELECT Q1.CUSTOMER_ID,
        MAX(Q1.CUST_NAME) AS NAME,
@@ -64,7 +62,6 @@ SELECT Q1.CUSTOMER_ID,
           Q1.CUSTOMER_DC_ID,
           Q1.WAREHOUSE_LOCATION_ID
  ORDER BY (MIN(Q1.DCCANCEL_DATE))";
-
             var binder = SqlBinder.Create(row => new PO
             {
                 CustomerId = row.GetString("CUSTOMER_ID"),
@@ -78,11 +75,8 @@ SELECT Q1.CUSTOMER_ID,
                 PickedPieces = row.GetInteger("EXPECTED_PIECES"),
                 BucketId = row.GetInteger("BUCKET_ID"),
                 CustomerDcId = row.GetString("CUSTOMER_DC_ID")
-               
-               
-                
-            });
-            return _db.ExecuteReader(QUERY, binder);
+            }).Parameter("CUSTOMER_ID", customerId);
+            return _db.ExecuteReader(QUERY, binder, 10);     //TODO: Remove limit after applying suitable group by.
         }
     }
 }

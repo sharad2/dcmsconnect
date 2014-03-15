@@ -40,6 +40,11 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult SearchCustomer() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.SearchCustomer);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ShipController Actions { get { return MVC_DcmsLite.DcmsLite.Ship; } }
@@ -56,14 +61,23 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string SearchCustomer = "SearchCustomer";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
+            public const string SearchCustomer = "SearchCustomer";
         }
 
 
+        static readonly ActionParamsClass_SearchCustomer s_params_SearchCustomer = new ActionParamsClass_SearchCustomer();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SearchCustomer SearchCustomerParams { get { return s_params_SearchCustomer; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SearchCustomer {
+            public readonly string customerId = "customerId";
+        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
@@ -79,6 +93,12 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SearchCustomer(string customerId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SearchCustomer);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
             return callInfo;
         }
 
