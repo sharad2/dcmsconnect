@@ -20,7 +20,7 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
             var model = new IndexViewModel();
             if (string.IsNullOrWhiteSpace(customerId))
             {
-                this.AddStatusMessage("Please scan customer");
+                this.AddStatusMessage("Please enter customer");
                 return RedirectToAction(this.Actions.Index());
             }
             var poList = _service.GetPoList(customerId);
