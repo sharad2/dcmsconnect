@@ -7,6 +7,6 @@ namespace DcmsMobile.DcmsLite.ViewModels.Ship
 {
     public class IndexViewModel : ViewModelBase
     {
-        public IEnumerable<PoModel> PoList { get; set; }
+        public IList<PoModel> PoList { get; set; }
     }
 }

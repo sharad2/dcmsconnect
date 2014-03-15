@@ -15,14 +15,23 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
             var buildingId = _buildingId;
             //TODO: Show a list of POs. 
             //var list = _service.GetPoList();
-            var model = new IndexViewModel {
+            var model = new IndexViewModel
+            {
                 PoList = (from item in _service.GetPoList()
-                           select new PoModel
-                           {
-                              BucketId=item.BucketId,
-                              CustomerId=item.CustomerId,
-                              PoId=item.PoId
-                           }).ToArray()
+                          select new PoModel
+                          {
+                              BucketId = item.BucketId,
+                              BuildingId = item.BuildingId,
+                              CustomerDcId = item.CustomerDcId,
+                              CustomerId = item.CustomerId,
+                              CustomerName = item.CustomerName,
+                              MinDcCancelDate = item.MinDcCancelDate,
+                              NumberOfBoxes = item.NumberOfBoxes,
+                              PickedPieces = item.PickedPieces ?? 0,
+                              PiecesOrdered = item.PiecesOrdered ?? 0,
+                              StartDate = item.StartDate,
+                              PoId = item.PoId
+                          }).ToArray()
             };
 
             return View(model);

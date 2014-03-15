@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/DcmsLite/Scripts/Wave.partial.js
+$(document).ready(function () {
     $('#printerlist').on('change', 'input:checkbox', function (e) {
         var count = $('input:checkbox:checked', e.delegateTarget).length;
         if (count) {
@@ -97,6 +98,7 @@
             return false;
         });
 });
+///#source 1 1 /Areas/DcmsLite/Scripts/layout.js
 $(document).ready(function () {
     $('#btnSearch').button({ icons: { primary: 'ui-icon-search' } }).on('click', function (e) {
         var $form = $(this).closest('form');
