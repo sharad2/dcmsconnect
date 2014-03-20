@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Linq;
+using System;
 
 namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
 {
@@ -42,9 +43,15 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
                                 PickedPieces = item.PickedPieces ?? 0,
                                 PiecesOrdered = item.PiecesOrdered ?? 0,
                                 StartDate = item.StartDate,
-                                PoId = item.PoId
+                                PoId = item.PoId,
+                                Iteration = item.Iteration
                             }).ToArray();
             return View(Views.Index, model);
+        }
+
+        public virtual ActionResult CreateBol(IndexViewModel model)
+        {
+            throw new NotImplementedException();
         }
     }
 }

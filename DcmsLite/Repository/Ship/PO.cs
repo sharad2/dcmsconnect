@@ -26,5 +26,7 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
 
         public string BuildingId { get; set; }
 
+        public int Iteration { get; set; }
+
     }
 }

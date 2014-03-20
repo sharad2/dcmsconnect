@@ -45,6 +45,11 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         public System.Web.Mvc.ActionResult SearchCustomer() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.SearchCustomer);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult CreateBol() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateBol);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ShipController Actions { get { return MVC_DcmsLite.DcmsLite.Ship; } }
@@ -62,12 +67,14 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string SearchCustomer = "SearchCustomer";
+            public readonly string CreateBol = "CreateBol";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string SearchCustomer = "SearchCustomer";
+            public const string CreateBol = "CreateBol";
         }
 
 
@@ -77,6 +84,13 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_SearchCustomer {
             public readonly string customerId = "customerId";
+        }
+        static readonly ActionParamsClass_CreateBol s_params_CreateBol = new ActionParamsClass_CreateBol();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CreateBol CreateBolParams { get { return s_params_CreateBol; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CreateBol {
+            public readonly string model = "model";
         }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -99,6 +113,12 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         public override System.Web.Mvc.ActionResult SearchCustomer(string customerId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SearchCustomer);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult CreateBol(DcmsMobile.DcmsLite.ViewModels.Ship.IndexViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateBol);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;
         }
 

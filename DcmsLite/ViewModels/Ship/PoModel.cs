@@ -29,7 +29,29 @@ namespace DcmsMobile.DcmsLite.ViewModels.Ship
 
         public string BuildingId { get; set; }
 
+        public int Iteration { get; set; }
 
-
+        private string _key;
+        public string Key
+        {
+            get
+            {
+                if (_key == null)
+                {
+                    var tokens = new[] {
+                        this.PoId, this.Iteration.ToString(), this.CustomerDcId
+                    };
+                    _key = string.Join(",", tokens);
+                }
+                return _key;
+            }
+            set
+            {
+                var tokens = value.Split(',');
+                this.PoId = tokens[0];
+                this.Iteration = int.Parse(tokens[1]);
+                this.CustomerDcId = tokens[2];
+            }
+        }
     }
 }
