@@ -39,7 +39,7 @@ namespace DcmsMobile.DcmsLite.ViewModels.Ship
                 if (_key == null)
                 {
                     var tokens = new[] {
-                        this.PoId, this.Iteration.ToString(), this.CustomerDcId
+                        this.PoId, this.Iteration.ToString(), this.CustomerDcId,this.CustomerId
                     };
                     _key = string.Join(",", tokens);
                 }
@@ -51,6 +51,7 @@ namespace DcmsMobile.DcmsLite.ViewModels.Ship
                 this.PoId = tokens[0];
                 this.Iteration = int.Parse(tokens[1]);
                 this.CustomerDcId = tokens[2];
+                this.CustomerId = tokens[3];
             }
         }
     }

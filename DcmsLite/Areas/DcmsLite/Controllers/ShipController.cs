@@ -46,12 +46,27 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
                                 PoId = item.PoId,
                                 Iteration = item.Iteration
                             }).ToArray();
+
             return View(Views.Index, model);
         }
 
         public virtual ActionResult CreateBol(IndexViewModel model)
         {
-            throw new NotImplementedException();
+            var tuples = from key in model.SelectedKeys
+                         let upm = new PoModel
+                         {
+                             Key = key
+                         }
+                         select new
+                         {
+                             customerId = upm.CustomerId,
+                             PoKey = Tuple.Create(upm.PoId, upm.Iteration, upm.CustomerDcId)
+                         };
+            var pokeys = tuples.Select(p => p.PoKey).ToArray();
+            var postedCustomerId = tuples.Select(p => p.customerId).First();
+            var count = _service.CreateBol(postedCustomerId, pokeys);
+            AddStatusMessage(string.Format("{0} BOL created.", count));
+            return RedirectToAction(this.Actions.SearchCustomer(postedCustomerId));
         }
     }
 }

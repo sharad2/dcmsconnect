@@ -85,76 +85,34 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
             return _db.ExecuteReader(QUERY, binder, 10);     //TODO: Remove limit after applying suitable group by.
         }
 
-        public string CreateBol(string customerId, ICollection<Tuple<string, int, string>> poList)
+        public int CreateBol(string customerId, ICollection<Tuple<string, int, string>> poList)
         {
             const string QUERY = @"
                                 DECLARE
-                                  LPARENT_BOL_ID SHIP.PARENT_SHIPPING_ID%TYPE;
-                                  LBOL_ID        SHIP.SHIPPING_ID%TYPE; 
-                                  TYPE PICKSLIP_TABLE_T IS TABLE OF PS.PICKSLIP_ID%TYPE;
-                                  PICKSLIP_LIST PICKSLIP_TABLE_T;
+                                      LEDI_ID         EDI_753_754.EDI_ID%TYPE;                                     
+                                      LBOL_COUNT      NUMBER(3);
 
-                                BEGIN
-                                  LPARENT_BOL_ID := GET_BOL_ID(NULL);
-                                  LBOL_ID        := GET_BOL_ID(:PICKSLIP_PREFIX);
+                                    BEGIN
+                                      LEDI_ID := PKG_EDI_2.CREATE_EDI(ACUSTOMER_ID => :CUSTOMER_ID);
 
-                                  SELECT PS.PICKSLIP_ID BULK COLLECT
-                                    INTO PICKSLIP_LIST
-                                    FROM PS PS
-                                   WHERE PS.BUCKET_ID > 0
-                                     AND PS.REPORTING_STATUS IS NOT NULL
-                                     AND PS.TRANSFER_DATE IS NULL
-                                     AND PS.SHIPPING_ID IS NULL
-                                     AND PS.CUSTOMER_ID = :CUSTOMER_ID
-                                     AND PS.PO_ID = :PO_ID
-                                     AND PS.ITERATION = :ITERATION
-                                     AND PS.CUSTOMER_DC_ID = :CUSTOMER_DC_ID;
+                                      PKG_EDI_2.ADD_PO_TO_EDI(AEDI_ID         => LEDI_ID,
+                                                              APO_LIST        => :PO_LIST,
+                                                              AITERATION_LIST => :ITERATION_LIST,
+                                                              ADC_LIST        => :DC_LIST,
+                                                              AATS_DATE       => SYSDATE);
 
-                                  INSERT INTO SHIP SHP
-                                    (SHP.PARENT_SHIPPING_ID,
-                                     SHP.SHIPPING_ID,
-                                     SHP.SHIPPING_TYPE,
-                                     SHP.CUSTOMER_ID,
-                                     SHP.CUSTOMER_DC_ID,
-                                     SHP.DOOR_IA_ID, --7562016,3,00890
-                                     SHP.PREPAID_CODE,
-                                     SHP.SHIP_DATE,
-                                     SHP.ARRIVAL_DATE,
-                                     SHP.ONHOLD_FLAG,
-                                     SHP.SHIPPER_NAME)
-                                  VALUES
-                                    (LPARENT_BOL_ID,
-                                     LBOL_ID,
-                                     :SHIPPING_TYPE,
-                                     :CUSTOMER_ID,
-                                     :CUSTOMER_DC_ID,
-                                     :DOOR_IA_ID,
-                                     :PREPAID_CODE,
-                                     SYSDATE,
-                                     SYSDATE + 5,
-                                     :ONHOLD_FLAG,
-                                     USER);
+                                      :LBOL_COUNT := PKG_EDI_2.CREATE_BOL_FOR_EDI(AEDI_ID => LEDI_ID);
 
-                                  FORALL I IN PICKSLIP_LIST.FIRST .. PICKSLIP_LIST.LAST
-                                    UPDATE DCMS8.PS PS
-                                       SET PS.SHIPPING_ID = LBOL_ID
-                                     WHERE PS.PICKSLIP_ID = PICKSLIP_LIST(I);
-
-                                  :LBOL_ID := LBOL_ID;
-                                END;";
-            string bolId = null;
+                                    END;";
+            int bolCount = 0;
             var binder = SqlBinder.Create();
-            binder.ParameterAssociativeArray("PO_ID", poList.Select(p => p.Item1).ToArray());
-            binder.ParameterAssociativeArray("ITERATION", poList.Select(p => (int?)p.Item2).ToArray());
-            binder.ParameterAssociativeArray("CUSTOMER_DC_ID", poList.Select(p => p.Item3).ToArray());
-            binder.Parameter("SHIPPING_TYPE", "BOL")
-                .Parameter("CUSTOMER_ID", customerId)
-                .Parameter("DOOR_IA_ID", "ADR")
-                .Parameter("PREPAID_CODE", "CC")
-                .Parameter("ONHOLD_FLAG", "Y")
-                .OutParameter("LBOL_ID", val => bolId = val);
+            binder.ParameterAssociativeArray("PO_LIST", poList.Select(p => p.Item1).ToArray());
+            binder.ParameterAssociativeArray("ITERATION_LIST", poList.Select(p => (int?)p.Item2).ToArray());
+            binder.ParameterAssociativeArray("DC_LIST", poList.Select(p => p.Item3).ToArray());
+            binder.Parameter("CUSTOMER_ID", customerId);
+            binder.OutParameter("LBOL_COUNT", val => bolCount = val.Value);
             _db.ExecuteNonQuery(QUERY, binder);
-            return bolId;
+            return bolCount;
         }
     }
 }
