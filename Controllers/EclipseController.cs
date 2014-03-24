@@ -154,6 +154,8 @@ namespace EclipseLibrary.Mvc.Controllers
                 filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                 filterContext.Result = new ContentResult { Content = filterContext.Exception.Message };
                 filterContext.ExceptionHandled = true;
+                // Sharad 24 Mar 2014: Logging the exception
+                this.HttpContext.Trace.Warn("AjaxException", "Exception encountered in AJAX request", filterContext.Exception);
             }
             else
             {

@@ -68,6 +68,7 @@ using System.Runtime.InteropServices;
 //          Removed previously deprecated functionality:
 //            class MobileEmulation,  class ReflectionExtensions, ReflectionHelpers.FieldNameFor, class HandleAjaxErrorAttribute, class MobileCapableRazorViewEngine
 // Sharad 6 Aug 2013: Added reference to MVC 4 Nuget package. Earlier, this library was compiling against older version of MVC.
+// Sharad 24 Mar 2014: Logging AJAX exceptions in EclipseController
 
 [assembly: AssemblyVersion("2.1.8.0")]
 [assembly: AssemblyFileVersion("2.1.8.0")]
