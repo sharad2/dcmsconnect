@@ -440,7 +440,7 @@ WHERE 1 = 1
                                  GROUP BY PS.PICKSLIP_ID";
             var binder = SqlBinder.Create(row => new Pickslip
             {
-                PickslipId = row.GetInteger("PICKSLIP_ID").Value,
+                PickslipId = row.GetLong("PICKSLIP_ID").Value,
                 CustomerDcId = row.GetString("CUSTOMER_DC_ID"),
                 PurchaseOrder = row.GetString("PO_ID"),
                 VwhId = row.GetString("VWH_ID"),
@@ -518,7 +518,7 @@ WHERE 1 = 1
                 CurrentPieces = row.GetInteger("CURRENT_PIECES"),
                 CreatedDate = row.GetDateTimeOffset("DATE_CREATED").Value,
                 CreatedBy = row.GetString("CREATED_BY"),
-                PickslipId = row.GetInteger("PICKSLIP_ID").Value,
+                PickslipId = row.GetLong("PICKSLIP_ID").Value,
                 VWhId = row.GetString("VWH_ID")
             });
             binder.Parameter("BUCKET_ID", bucketId);
@@ -703,7 +703,7 @@ WHERE 1 = 1
         /// Removed passed pickslip from bucket
         /// </summary>
         /// <param name="pickslipId"></param>
-        public void RemovePickslipFromBucket(int pickslipId)
+        public void RemovePickslipFromBucket(long pickslipId)
         {
             const string QUERY = @"
                     BEGIN

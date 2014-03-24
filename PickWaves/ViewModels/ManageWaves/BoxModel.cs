@@ -10,7 +10,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         internal string AreaId { get; set; }
 
-        public int PickslipId { get; set; }
+        public long PickslipId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTimeOffset CreatedDate { get; set; }

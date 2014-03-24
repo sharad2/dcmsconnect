@@ -6,7 +6,7 @@ namespace DcmsMobile.PickWaves.ViewModels
     public class PickslipModel
     {
         [Display(Name = "Pickslip")]
-        public int PickslipId { get; set; }
+        public long PickslipId { get; set; }
 
         [Display(Name = "Customer")]
         public string CustomerId { get; set; }

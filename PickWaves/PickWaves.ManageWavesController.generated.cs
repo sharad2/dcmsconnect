@@ -304,7 +304,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RemovePickslipFromBucket(int bucketId, int pickslipId) {
+        public override System.Web.Mvc.ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RemovePickslipFromBucket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pickslipId", pickslipId);

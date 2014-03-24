@@ -18,7 +18,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
 
         public string CreatedBy { get; set; }
 
-        public int PickslipId { get; set; }
+        public long PickslipId { get; set; }
 
         public string VWhId { get; set; }
 

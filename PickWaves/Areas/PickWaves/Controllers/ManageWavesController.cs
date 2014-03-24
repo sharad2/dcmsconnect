@@ -483,7 +483,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
         }
 
-        public virtual ActionResult RemovePickslipFromBucket(int bucketId, int pickslipId)
+        public virtual ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId)
         {
             try
             {

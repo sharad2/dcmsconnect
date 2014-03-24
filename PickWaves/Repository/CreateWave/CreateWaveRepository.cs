@@ -52,7 +52,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
 
             var binder = SqlBinder.Create(row => new Pickslip
             {
-                PickslipId = row.GetInteger("PICKSLIP_ID").Value,
+                PickslipId = row.GetLong("PICKSLIP_ID").Value,
                 DcCancelDate = row.GetDate("DC_CANCEL_DATE"),
                 CancelDate = row.GetDate("CANCEL_DATE"),
                 StartDate = row.GetDate("Delivery_Date"),

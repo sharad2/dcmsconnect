@@ -6,7 +6,7 @@ namespace DcmsMobile.PickWaves.Repository
     public class Pickslip
     {
         [Key]
-        public int PickslipId { get; set; }
+        public long PickslipId { get; set; }
 
         public string CustomerId { get; set; }
 
