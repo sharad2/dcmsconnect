@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/DcmsLite/Scripts/Receive.partial.js
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('button[data-icon]').each(function () {
         $(this).button({ icons: { primary: $(this).attr('data-icon') } });
     }).click(function (e) {
@@ -36,7 +35,6 @@ $(document).ready(function () {
         ]
     });
 });
-///#source 1 1 /Areas/DcmsLite/Scripts/layout.js
 $(document).ready(function () {
     $('#btnSearch').button({ icons: { primary: 'ui-icon-search' } }).on('click', function (e) {
         var $form = $(this).closest('form');
@@ -61,3 +59,4 @@ $(document).ready(function () {
         return false;
     });
 });
+
