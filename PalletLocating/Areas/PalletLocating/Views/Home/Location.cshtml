@@ -1,0 +1,49 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.LocationViewModel
+@{
+    ViewBag.Title = "Scan Location";
+    var grid = Html.GridFor(m => m.SuggestedLocations);
+    grid.AddColumn(m => m.LocationId).Presorted().CellHtml(p => p.RowIndex == 0, @<span
+        style="font-weight: bold">@item.Model.LocationId</span>);
+    grid.AddColumn(m => m.DisplayCartonCount).CellAttribute("style", "text-align:right");
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_PalletLocating.PalletLocating.Home.Views._locationFormPartial, Model)
+        </div>
+    </div>
+}
+<div class="box">
+    <div class="tabs">
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.BuildingId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.TargetAreaShortName) <em>@Html.DisplayFor(m => m.ReplenishAreaShortName)</em></span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.PalletId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+            <span class="ui-button-text">Location</span>
+        </label>
+    </div>   
+    <div class="boxContent">
+        @grid.GetHtml(
+            rowStyle: "rowA",
+            alternatingRowStyle: "rowB",
+            emptyDataHtml: "<span class='ui-state-highlight'>No Locations found</span>",
+            caption: string.Format("Suggested loc in <strong>{0}</strong>", Model.SuggestedAreaShortName))
+    </div>
+</div>
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

@@ -1,0 +1,76 @@
+﻿@model char
+@helper SoundFile()
+{
+        string filename;
+        switch (Model)
+        {
+            case '\0':
+                if (this.ViewData.ModelState.IsValid)
+                {
+                    //filename = "success.wav";
+                    filename = @Links_PalletLocating.Areas.PalletLocating.Content.Sounds.success_wav;
+                }
+                else
+                {
+                    //filename = "Error.wav";
+                    filename = @Links_PalletLocating.Areas.PalletLocating.Content.Sounds.Error_wav;
+                }
+                break;
+
+            case 'S':
+                //filename = "success.wav";
+                filename = @Links_PalletLocating.Areas.PalletLocating.Content.Sounds.success_wav;
+                break;
+
+            case 'E':
+                //filename = "Error.wav";
+                filename = @Links_PalletLocating.Areas.PalletLocating.Content.Sounds.Error_wav;
+                break;
+
+            case 'W':
+                //filename = "warning.wav";
+                filename = @Links_PalletLocating.Areas.PalletLocating.Content.Sounds.warning_wav;
+                break;
+
+            default:
+                throw new NotImplementedException();
+        }
+        //string url = Url.Content("~/Content/Sounds/" + filename);
+    @filename   
+}
+@helper Loop()
+{
+        int loop = 0;
+        switch (Model)
+        {
+            case '\0':
+                if (!this.ViewData.ModelState.IsValid)
+                {
+                    loop = 5;
+                }
+                break;
+
+            case 'E':
+                loop = 5;
+                break;
+
+            default:
+                break;
+        }
+        if (loop > 0)
+        {
+            string loopString = string.Format("loop={0}", loop);
+    @loopString
+        }   
+    
+}
+<bgsound src="@SoundFile()" @Loop() />
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

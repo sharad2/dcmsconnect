@@ -1,0 +1,20 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.BuildingViewModel
+@using (Html.BeginForm(MVC_PalletLocating.PalletLocating.Home.PalletOrArea(), FormMethod.Get))
+{
+    <div>
+        <strong>Building</strong><input id="scan"
+         style="text-transform: uppercase" type="text" name="@Html.NameFor(m => m.BuildingId)"
+         size="5" />
+        <sup>*</sup>
+        @Html.StatusSummary()
+        @Html.ValidationSummary()
+    </div>
+}
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

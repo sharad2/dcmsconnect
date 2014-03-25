@@ -1,0 +1,109 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.PalletViewModel
+@{
+    ViewBag.Title = "Scan Pallet";
+    var query = from loc in Model.SuggestedLocations
+                group loc by new
+                {
+                    SourceLocationId = loc.PalletLocationId,
+                    DestinationLocationId = loc.DestinationLocationId
+                } into g
+                let maxSpaceAtDest = g.Max(p => p.MaxCartonsAtDestinationLocation - p.CartonCountAtDestinationLocation)
+                let cartonsAtDestLoc = g.Select(p => p.CartonCountAtDestinationLocation).First()
+                let skuPriority = g.Select(p => p.SkuPriority).First()
+                orderby skuPriority descending, cartonsAtDestLoc, maxSpaceAtDest descending, g.Key.SourceLocationId
+                select new
+                {
+                    SourceLocation = new
+                    {
+                        LocationId = g.Key.SourceLocationId,
+                    },
+                    SkuToPull = g.Select(p => p.SkuToPull).First(),
+                    VwhToPull = g.Select(p => p.VwhIdToPull).First(),
+                    SkuPriority = skuPriority,
+                    DestinationLocation = new
+                    {
+                        LocationId = g.Key.DestinationLocationId,
+                        AvailableCartonCapacity = string.Format("{0:N0}", maxSpaceAtDest),
+                    },
+                    FirstPalletId = g.OrderByDescending(p => p.CartonCountOnPallet).Select(p => p.PalletIdToPull).First(),
+                    PalletCount = g.Count()
+                }; 
+                 
+}
+<div class="box">
+    <div class="tabs">
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.BuildingId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.AreaShortName) <em>@Html.DisplayFor(m => m.ReplenishAreaShortName)</em></span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+            <span class="ui-button-text">Pallet</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Location</span>
+        </label>
+    </div>
+    <div class="boxContent">
+        @Html.Partial(MVC_PalletLocating.PalletLocating.Home.Views._palletFormPartial, Model)        
+        @if (Model.SuggestedLocations.Count() > 0)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            From @Model.ReplenishAreaShortName Loc
+                        </th>
+                        <th>
+                            To @Model.AreaShortName Loc
+                        </th>
+                        <th>
+                            Pallets
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+            var i = 0;
+                    }
+                    @foreach (var loc in query.Take(10))
+                    {
+                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                            <td style="vertical-align: top">
+                                <div class="ui-priority-primary">@loc.SourceLocation.LocationId</div>
+                                <strong>SKU</strong> <em>@loc.SkuToPull.DisplaySku</em> <strong>VWH</strong><em> @loc.VwhToPull</em>
+                            </td>
+                            <td style="vertical-align: top">
+                                <div class="ui-priority-primary @Html.Raw(loc.SkuPriority > 0 ? "ui-state-highlight" : "")">@loc.DestinationLocation.LocationId</div>
+                                <em>@loc.DestinationLocation.AvailableCartonCapacity cartons</em>
+                            </td>
+                            <td style="vertical-align: top">
+                                @loc.FirstPalletId
+                                @if (loc.PalletCount > 1)
+                                {
+                                    <span>+ @(loc.PalletCount - 1)
+                                        more </span>
+                                }
+                            </td>
+                        </tr>
+                                ++i;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

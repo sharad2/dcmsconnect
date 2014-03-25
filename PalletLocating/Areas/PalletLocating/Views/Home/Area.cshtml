@@ -1,0 +1,42 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.AreaViewModel
+@{
+    ViewBag.Title = "Destination Area";
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_PalletLocating.PalletLocating.Home.Views._areaFormPartial, Model)
+        </div>
+    </div>
+}
+<div class="box">
+    <div class="tabs">
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.BuildingId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+            <span class="ui-button-text">Area</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Pallet</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Location</span>
+        </label>
+    </div>
+    <div class="boxContent">
+Pallets can be located in any carton area, numbered or unnumbered. For unnumbered areas, you do not have to specify a location.
+    </div>
+</div>
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

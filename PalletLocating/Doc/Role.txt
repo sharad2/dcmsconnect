@@ -1,0 +1,25 @@
+﻿-- Create the role 
+create role SRC_LOCATING;
+-- Grant/Revoke object privileges 
+grant select, insert on CARTON_PRODUCTIVITY to SRC_LOCATING;
+grant execute on DCMS_APPLICATION to SRC_LOCATING;
+grant execute on DELETE_REQ_REQUEST to SRC_LOCATING;
+grant select on MASTER_SKU to SRC_LOCATING;
+grant select on MASTER_STORAGE_LOCATION to SRC_LOCATING;
+grant execute on PKG_JF_SRC to SRC_LOCATING;
+grant select on PROCESS_SEQUENCE to SRC_LOCATING;
+grant select on PRODUCTIVITY_SEQUENCE to SRC_LOCATING;
+grant select, insert, update on SRC_CARTON to SRC_LOCATING;
+grant select, update on SRC_CARTON_DETAIL to SRC_LOCATING;
+grant select, insert on SRC_CARTON_PROCESS to SRC_LOCATING;
+grant select on SRC_OPEN_CARTON to SRC_LOCATING;
+grant select, update on SRC_REQ_DETAIL to SRC_LOCATING;
+grant select on TAB_INVENTORY_AREA to SRC_LOCATING;
+grant select on TAB_MODULE_AREA to SRC_LOCATING;
+grant select on TAB_PREFERENCES to SRC_LOCATING;
+-- Grant/Revoke system privileges 
+grant create session to SRC_LOCATING;
+GRANT SELECT ON dem_pickslip_detail TO src_locating;
+GRANT SELECT ON dem_pickslip TO src_locating;
+GRANT SELECT ON boxdet TO src_locating;
+GRANT SELECT ON box TO src_locating;

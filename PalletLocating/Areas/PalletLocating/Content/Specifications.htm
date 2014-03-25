@@ -1,0 +1,402 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Guided Pallet Locating</title>
+</head>
+<body>
+    <h1 style="text-align: center">
+        Pallet Locating Specifications</h1>
+    <h1>
+        Description</h1>
+    <blockquote>
+        Sharad Singhal: 15 Nov 2011; Updated 24 Nov 2011.
+        <br />
+        Deepak Bhatt: 5 Jan 2012; Defined the Pallet Merging feature.
+        <br />
+        Sharad Singhal: 24 Feb 2012; Documented Replenishment suggestion algorithm.
+    </blockquote>
+    <p>
+        This is a mobile application. The purpose of GPL is to allow efficient locating
+        of pallets under system guidance. The system guidance algorithm aims to optimize<br />
+        the carton replenishment process. It does this by clustering SKUs in nearby locations
+        and honoring SKU and capacity assignments of locations.</p>
+    <p>
+        The user enters the building and area where he wishes to locate cartons. If the
+        entered area is replenishable, the system suggests locations in replenishment area
+        from where pallets can be pulled for the entered area. All suggestions should strictly
+        be treated as hints. They can be safely ignored. Thus this program can be used to
+        locate arbitrary pallets to arbitrary locations. It can be thought of as a manual
+        locating program with hints provided.
+    </p>
+    <h1 id="Most-common-use-case">
+        Most common use case</h1>
+    <p>
+        In the following description, <em>CPK</em> refers to the the area from where cartons
+        will be picked. <em>CFD</em> refers to the area from where CPK will be replenished.
+    </p>
+    <ol>
+        <li>User enters building. This is required.
+            <p>
+                The system looks up the pallet areas in this building. If only a single pallet area
+                is found, then the user will not have to enter the destiantion area. Replenishable
+                pallet areas along with the associated replenishment area are treated as a single
+                area. Thus if you only have CPK and CFD defined, CFD will be automatically deduced
+                as the destination area.
+            </p>
+        </li>
+        <li>If necessary, user enters CPK as destination area. He is then prompted to scan a
+            pallet to locate. After you enter building press enter in the textbox to allow program
+            to take a destination area from you.
+            <p>
+                For replenishable areas only, the sytem will suggest locations in the replenishment
+                area from where pallets can be picked. It does this by first making a list of available
+                space in CPK for each location. It then makes a list of available pallets in CFD.
+                These two lists are matched to identify pallets can be replenished. See <a href="#replenishment_suggestions">
+                    Replenishment Suggestion Algorithm</a> for more insight on how this works.
+            </p>
+        </li>
+        <li>User scans pallet. He is then prompted to scan the location where the pallet should
+            be located.
+            <p>
+                System displays number of cartons, curret area of the pallet, and the SKU/Pieces
+                on the pallet. The proposed location for the pallet is also displayed which will
+                be either in CPK or CFD. The <a href='#Location-Proposal-Algorithm'>Location Proposal
+                    Algorithm</a> below describes this in more detail.</p>
+        </li>
+        <li>User scans the location. Any qualifying location will be accepted. A qualifying
+            location means:
+            <ol>
+                <li>The location is assigned to the SKU on the pallet</li>
+                <li>The location has no assignment, but it contains other pallets of the same SKU.</li>
+                <li>The location has no assignment and is empty.</li>
+            </ol>
+            <p>
+                Capacity violations will be accepted, but will require a confirmation.
+            </p>
+        </li>
+        <li>System updates the location of each carton on the pallet.</li>
+        <li>Repeat for each pallet.</li>
+    </ol>
+    <h2 id="Special-Scenarios">
+        Recovering from Errors</h2>
+    <dl>
+        <dt>Scanned the wrong pallet</dt>
+        <dd>
+            Press enter on the location screen and you will be given a chance to enter another
+            pallet.</dd>
+        <dt>Scanned wrong location </dt>
+        <dd>
+            Just relocate the pallet again by scanning the pallet and the correct location.
+        </dd>
+        <dt>Scanned wrong building </dt>
+        <dd>
+            Press Enter on the area or pallet screen and you will be asked for a new building.
+        </dd>
+        <dt>Entered wrong area </dt>
+        <dd>
+            Press enter on the pallet screen. This will take you to the area screen where you
+            can enter the new area. Pressing enter here will take you back to the buuilding
+            screen.
+        </dd>
+    </dl>
+    <h2>
+        Special Scenarios</h2>
+    <ol>
+        <li>Replenishing specific SKUs. When a pallet is requested, you can scan a UPC instead.
+            The program will understand this to mean that you are wanting to replenish this
+            SKU and will update the location suggestions displayed.</li>
+        <li>Normally you will enter CPK as the destination area. The program will then tell
+            you whether to locate in CPK, or it might ask you locate in CFD.</li>
+        <li>If you know that the carton must be located in CFD, then enter CFD as the destination
+            area. Then the program will always propose location in CFD.<br />
+            If you are not given the opportunity to enter an area, press enter where pallet
+            is expected. This will display the area screen where you can enter the area.</li>
+        <li>Do not use this program if your goal is to locate individual cartons. LOC exists
+            for locating cartons.</li>
+        <li>Since GPL does not care about the source area for pallets, it can be easily used
+            to move pallets within CFD by specifying CFD as the destination area. This functionality
+            will be very useful on Day 1 when you will need to inform the system about location
+            of each pallet.</li>
+        <li>Sometimes, you may want to manually locate pallets from CFD to CPK. Depending on
+            the algorithm result, GPL could propose that you locate in CFD. This is ironical
+            since the pallet is already in CFD. Therefore, special code will exist which will
+            prvent proposing CFD when the scanned pallet is already in CFD. This makes manual
+            replenishment much more convenient.</li>
+        <li>Merging Pallets.Pallet locating will allow a pallet scan where a location scan is
+            expected. When a pallet is scanned, the originally scanned pallet will be merged
+            with the second pallet scanned. This enables you to quickly consolidate pallets
+            at a location.The <a href='#Merging_Pallets'>Merging Pallet</a> below describes
+            this in more detail.</li>
+        <li>Orphan Cartons. Pallet locating can <a href='#Orphan_Cartons'>locate unpalletized
+            cartons</a> to a pallet.</li>
+        <li>Locating to unumbered area. Since PalletLocating is designed to move full pallets
+            from anywhere to anywhere, it makes sense that it should allow moving a pallet to
+            an unnumbered area as well. Unnumbered areas are not suggested as an area, but you
+            can enter them as destination anyway. For unnumbered areas, you are not prompted
+            to scan a location id.</li>
+    </ol>
+    <h2 id="Concurrency">
+        Concurrency</h2>
+    <p>
+        All users will see the same location suggestions. Multiple suggestions are displayed
+        and it is expected that users will be able to determine which suggestion they should
+        target.</p>
+    <h1 id="sounds">
+        Sounds</h1>
+    <ol>
+        <li>Warning<br />
+            <embed src="Sounds/warning.wav" autostart="false" height="24" />
+            <p>
+                This sound plays when something unusual occurs, but the occurence can be safely
+                ignored. For example, it plays when locate a pallet to that location which is unavailable</p>
+        </li>
+        <li>Error<br />
+            <embed src="Sounds/Error.wav" autostart="false" height="24" />
+            <p>
+                This sound plays when your scan has been ignored due to circumstances beyond your
+                control. For example, locating a pallet which contains cartons of different SKU
+                or this sound will play if database errors are being encountered etc.</p>
+        </li>
+        <li>Success<br />
+            <embed src="Sounds/success.wav" autostart="false" height="24" />
+            <p>
+                This sound plays on suceesfully locate pallet.</p>
+        </li>
+    </ol>
+    <p>
+        If you are making no mistakes at all, then the only sounds you will encounter are
+        <code>Success</code> sounds.
+    </p>
+    <h1 id="Merging_Pallets">
+        Merging Pallets</h1>
+    <p>
+        You can "locate" Pallet 1 on Pallet 2 instead of at a location. This simply means
+        that that the program will transfer all cartons of Pallet 1 to Pallet 2, and Pallet
+        1 will disappear. This is useful when you want to consolidate smaller pallets into
+        one larger pallet. Since this program is very finicky about not creating mixed SKU/VWh/Quality
+        pallets, the merge will succeed only if Pallet 2 is pure to begin with and will
+        remain pure after the merge. Furthermore, Pallet 2 must qualify to remain at its
+        location after the merge. Capacity violation and other warnings will be generated
+        as necessary.
+    </p>
+    <h1 id="Orphan_Cartons">
+        Put orphan carton on a pallet</h1>
+    <p>
+        Pallet locating will accept carton scans which do not belong to any pallet. These
+        cartons can then be scanned to a pallet thereby bypassing the need to touch C2P.
+        This feature is especially useful for orphaned cartons, such cartons are found regularly
+        in the warehouse.
+    </p>
+    <h1 id="replenishment_suggestions">
+        Replenishment Suggestion Algorithm</h1>
+    <p>
+        This algorithm applies only when the destination area is replenishable from another
+        area. Let CPK be the area which is replenished from CFD.
+    </p>
+    <ol>
+        <li><em>Space availability in CPK</em>. All assigned locations in CPK where number of
+            cartons is less than the assigned max cartons are eligible for replenishment.
+        </li>
+        <li><em>Pallet availability in CFD</em>. All single SKU pallets in CFD are eligible
+            for moving to CPK. </li>
+        <li><em>Intersect space availability with Pallet availability</em>. The intersection
+            of the above two lists yields a list of pallets which can be moved from CFD to CPK.
+        </li>
+    </ol>
+    <p>
+        The list of pallets yielded by the above algorithm defines what replenishment needs
+        to occur from CFD to CPK. These are the pallets which can be suggested by the UI.
+        This is potentially a very large list. The next challenge is to determine the prioritization
+        of these suggestions.
+    </p>
+    <p>
+        For prioritization, our goal is to first replenish those SKUs for which we have
+        demand. Higher the demand, higher is the priority of the suggestion.</p>
+    <ol>
+        <li><em>Calculate pieces in unshipped orders</em>. For all orders which will be shipped
+            from the building of CPK (i.e. ANX3), make a list of ordered SKUs and pieces. For
+            some of the boxes, we may have already assigned cartons in CPK. The assigned pieces
+            do not represent demand any more. </li>
+        <li></li>
+    </ol>
+    <h1 id="Destination-Area-Concepts">
+        Destination Area Concepts</h1>
+    <p>
+        Destination Area is the carton area where the user wishes to locate the pallet.<br />
+        Only areas where tab_inventory_area.is_pallet_required = &#39;Y&#39; will be visible
+        to GPL.<br />
+        The user will have the option enter building and/or area.</p>
+    <h2 id="Building-entered">
+        Building entered</h2>
+    <p>
+        The pallet areas within the building which need replenishment are candidates for
+        automatic selection. If only a single area qualifies,<br />
+        we select it and bypass the area prompt. More specifics are given next.</p>
+    <p>
+        Only areas within the building will be visible. If there is only 1 area within the
+        building which has
+        <br />
+        is_pallet_required = &#39;Y&#39;, then the area will be automatically selected and
+        the area prompt will be skipped.</p>
+    <p>
+        If multiple areas are found, then we check the which areas have tab_inventory_area.replenishment_area_id
+        set.<br />
+        If only one area qualifies, then we select this area and the area prompt is skipped.</p>
+    <p>
+        Otherwise we require that the area must be entered.</p>
+    <h2 id="Area-entered">
+        Area entered</h2>
+    <p>
+        The area must be a pallet area, i.e. is_pallet_required = &#39;Y&#39;.</p>
+    <h1 id="Location-Proposal-Algorithm">
+        Location Proposal Algorithm</h1>
+    <p>
+        This algorithm is invoked when the user scans a pallet.
+    </p>
+    <h2 id="The-destination-area-does-not-require-replenishment">
+        The destination area does not require replenishment</h2>
+    <p>
+        For the destination area, get a location from the Replenishment Algorithm given
+        below and propose it. Basically, we are looking for locations in destination area
+        which have space. In most cases multiple locations will be eligible and they are
+        prioritized as explained in the algorithm.</p>
+    <h2 id="The-destination-area-requires-replenishment">
+        The destination area requires replenishment</h2>
+    <p>
+        Check whether the SKU exists in the replenishment area (CFD). If it does, then get
+        the proposed location from the Replenishment Algorithm using the replenishment area
+        (CFD).</p>
+    <p>
+        If the SKU does not exist in the replenishment area, then get the proposed location
+        from the Replenishment Algorithm using the destination area (CPK).</p>
+    <p>
+        If no suitable location found in destination area (CPK), then propose a location
+        in the replenishment area (CFD).
+    </p>
+    <h2 id="Replenishment-algorithm-for-a-give-carton-area-and-SKU">
+        Replenishment algorithm for a give carton area and SKU</h2>
+    <p>
+        This algorithm will propose a location in the given carton area. Let SKU1 be the
+        SKU on the scanned pallet.</p>
+    <ol>
+        <li>Look for a location assigned to SKU1, and which has space to accommodate this pallet.
+            If a qualifying location is found, then we propose it. Otherwise move to next step.</li>
+        <li>Look for an unassigned location containing SKU1, and propose it. If no such location
+            is found, move to next step.</li>
+        <li>Look for an empty unassigned location. If found, propose it. Otherwise indicate
+            that no location can be proposed.</li>
+    </ol>
+    <p>
+        TODO: Provide GPP features in this program. If location contains cartons different
+        from what is assigned, the location will not be replenished.</p>
+    <p>
+        Locations for which unavailable_flag is set are not considered.
+    </p>
+    <h3>
+        Algorithm Test Cases</h3>
+    <p>
+        This is the query which retrieves locations to suggest in a given area for a given
+        SKU and number of cartons.
+    </p>
+    <pre>
+
+with assigned_locations as
+ (select msl.location_id          as location_id,
+         msl.assigned_max_cartons as assigned_max_cartons,
+         msl.assigned_sku_id AS assigned_sku_id,
+tia.inventory_storage_area AS area_id,
+tia.short_name AS short_name
+    from master_storage_location msl
+inner join tab_inventory_area tia on tia.inventory_storage_area = msl.storage_area
+   where msl.storage_area = :areaId
+     and msl.assigned_sku_id = :skuId
+     and msl.assigned_max_cartons is not null
+),
+containing_locations AS
+ (select ctn.location_id AS location_id, MAX(ctn.carton_storage_area) AS area_id, MAX(tia.short_name) AS short_name,
+         count(DISTINCT ctn.carton_id) as carton_count
+    from src_carton ctn
+   inner join src_carton_detail ctndet
+      on ctn.carton_id = ctndet.carton_id
+inner join tab_inventory_area tia on tia.inventory_storage_area = ctn.carton_storage_area
+   where ctn.carton_storage_area = :areaId
+     and ctn.location_id is not null
+     and ctndet.sku_id = :skuId
+group by ctn.location_id
+),
+
+unassigned_empty_locations AS
+ (select DISTINCT msl.location_id AS location_id, tia.inventory_storage_area AS area_id, tia.short_name AS short_name
+    from master_storage_location msl
+inner join tab_inventory_area tia on tia.inventory_storage_area = msl.storage_area
+   where msl.storage_area = :areaId
+     and msl.assigned_sku_id is null
+  minus
+  select ctn.location_id, tia.inventory_storage_area, tia.short_name
+    from src_carton ctn
+inner join tab_inventory_area tia on tia.inventory_storage_area = ctn.carton_storage_area
+   where ctn.carton_storage_area = :areaId)
+
+select NVL(NVL(al.location_id, cl.location_id), uel.location_id) as location_id,
+       NVL(NVL(al.area_id, cl.area_id), uel.area_id) as area_id,
+       NVL(NVL(al.short_name, cl.short_name), uel.short_name) as short_name,
+       al.assigned_max_cartons AS assigned_max_cartons,
+       cl.carton_count AS carton_count,
+       al.assigned_max_cartons - NVL(cl.carton_count, 0) AS available_carton_space,
+       al.assigned_sku_id AS assigned_sku_id
+  from assigned_locations al
+  full outer join containing_locations cl
+    on al.location_id = cl.location_id
+  full outer join unassigned_empty_locations uel
+    on al.location_id = uel.location_id
+
+where (al.assigned_max_cartons IS NULL OR al.assigned_max_cartons - NVL(cl.carton_count, 0) &gt;= :minCartonsToLocate)
+
+ order by (al.assigned_max_cartons - NVL(cl.carton_count, 0)) desc nulls last,
+          cl.carton_count asc nulls last,
+          NVL(NVL(al.location_id, cl.location_id), uel.location_id) asc
+</pre>
+    <dl>
+        <dt>TC1: Assigned location with space is available</dt>
+        <dd>
+            This location should be displayed at the top of the list.
+        </dd>
+        <dt>TC2: Assigned location already filled by assigned sku but the same sku exists on
+            another unassigned location </dt>
+        <dd>
+            Query suggested to unassigned location at the top of the list and after that suggest
+            empty unassigned location.
+        </dd>
+        <dt>TC3: Assigned location has already filled by Assigned sku and the same sku does
+            not exists to any location </dt>
+        <dd>
+            Query should be suggest empty unassigned location.
+        </dd>
+        <dt>TC4: SKU not assigned to any location, not kept at any location, and no empty locations.</dt>
+        <dd>
+            No locations are returned by the query.</dd>
+        <dt>TC5: Provide more cartons than capacity (master_storage_location.Assigned_max_cartons)
+            of the assigned location.</dt>
+        <dd>
+            Query should be suggest empty unassigned location.
+        </dd>
+        <dt>TC6: When same sku assigned to multiple location with different capacity of sku,
+            now Provide more cartons than capacity (master_storage_location.Assigned_max_cartons)
+            of the assigned location. </dt>
+        <dd>
+            Query should be suggest that assigned location which is apporpriate for that capacity
+            else suggest empty unassigned location .
+        </dd>
+        <dt>TC7:SKU not assigned to any location </dt>
+        <dd>
+            Empty unassigned location are returned by the query.
+        </dd>
+        <dt>TC8: SKU not assigned to any location but exists in unassigned location </dt>
+        <dd>
+            Query should be return unassigned location at the top of list and then suggest empty
+            unassigned location.
+        </dd>
+    </dl>
+</body>
+</html>
+<!--$Id: Specifications.htm 11537 2012-01-12 09:39:26Z bkumar $-->
