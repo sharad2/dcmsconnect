@@ -216,8 +216,8 @@
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Steps to publish a pluggable app.txt" />
     <Content Include="Global.asax" />
-    <Content Include="MvcDiagnostics.aspx" />
     <None Include="DcmsMobile\Scripts\mobile.partial.js" />
+    <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />

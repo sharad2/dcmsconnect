@@ -45,6 +45,11 @@
         new MvcCoreAssemblyInfo() { Version = "4.0.20126.16343", Name = "ASP.NET MVC 4 Beta" },
         new MvcCoreAssemblyInfo() { Version = "4.0.20505.0",     Name = "ASP.NET MVC 4 RC" },
         new MvcCoreAssemblyInfo() { Version = "4.0.20710.0",     Name = "ASP.NET MVC 4 RTM" },
+
+        // v5
+        new MvcCoreAssemblyInfo() { Version = "5.0.10530.0", Name = "ASP.NET MVC 5 Preview" },
+        new MvcCoreAssemblyInfo() { Version = "5.0.10620.0", Name = "ASP.NET MVC 5 Preview Refresh" },
+        new MvcCoreAssemblyInfo() { Version = "5.1.20129.0", Name = "ASP.NET MVC 5" },
     };
 
     private static readonly MvcFuturesAssemblyInfo[] _mvcFuturesAssemblyHistory = new MvcFuturesAssemblyInfo[] {
