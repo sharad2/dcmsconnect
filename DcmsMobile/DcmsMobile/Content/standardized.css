@@ -1,0 +1,359 @@
+
+/*
+	Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+/* Basic */
+
+*
+{
+    margin: 0em;
+    padding: 0em;
+}
+
+h1, h2, h3, h4, h5, h6
+{
+    color: #444;
+}
+
+/* The page should not appear to be too stuck to the left browser border */
+#outer
+{
+    margin-left:1.5mm;
+}
+
+body, input
+{
+    font-family: tahoma, sans-serif;
+    font-size: 12pt;
+    color: #777;
+}
+
+input.button
+{
+    border-top: solid 1px #fff;
+    border-left: solid 1px #fff;
+    border-bottom: solid 1px #888;
+    border-right: solid 1px #888;
+    background-color: #eaeaea;
+    color: #555;
+    font-size: 0.8em;
+    padding: 0.35em;
+}
+
+input.text
+{
+    border-top: solid 1px #888;
+    border-left: solid 1px #888;
+    border-bottom: solid 1px #fff;
+    border-right: solid 1px #fff;
+    padding: 0.1em;
+    margin-top: 0.25em;
+    margin-bottom: 0.5em;
+}
+
+a
+{
+    color: #006699;
+    text-decoration: underline;
+}
+
+a:hover
+{
+    text-decoration: none;
+}
+
+/* Header */
+
+#header
+{
+    padding: 2.5em 4.5em 0em 2.5em;
+}
+
+#header h2
+{
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #949494;
+    display: inline;
+    padding-left: 0.5em;
+}
+
+#header h1
+{
+    font-size: 1.9em;
+    display: inline;
+    letter-spacing: -0.05em;
+    padding-left: 0;
+}
+
+#header h1 a
+{
+    color: #343434;
+    text-decoration: none;
+}
+
+/* Menu */
+
+#menu
+{
+    /*position: absolute;*/
+    /*top: 0px;
+    left: 0px;*/
+    background-color: #558800;
+    border-bottom: solid 1px #336600;
+    width: 100%;
+}
+
+#menu ul
+{
+    padding: 0.5em 4.5em 0.5em 4.5em;
+    list-style: none;
+}
+
+#menu li
+{
+    display: inline;
+    padding-right: 2.5em;
+    font-size: 0.8em;
+}
+
+#menu li a
+{
+    color: #fff;
+    background-color: inherit;
+}
+
+#menu li a:hover
+{
+    border-bottom: solid 1px #558800;
+}
+
+/* Content */
+
+/*#content
+{
+    padding-left: 2em;
+    padding-right: 2em;
+    font-size: 10pt;
+    padding-top: 1.5em;
+}*/
+
+#primaryContentContainer .ui-widget, .ui-dialog
+{
+    font-size: 10pt;
+}
+
+.box
+{
+    margin-bottom: 1.25em;
+}
+
+.boxContent
+{
+    margin-top: 0.5em;
+    padding: 1.25em 1em 0.25em 2em;
+    background: #ffffff url('images/a1.gif') top left repeat-x;
+}
+
+#secondaryContent .boxContent
+{
+    padding: 2mm 2mm 2mm 2mm;
+}
+
+/** boxA **/
+
+.boxA .boxContent
+{
+    margin-top: 0em;
+    color: #fff;
+    border-bottom: 1px solid #bb6600;
+    background: #ff8800;
+}
+
+.boxA span, .boxA label /* SS: Added .boxA label */
+{
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.boxA a
+{
+    background-color: inherit;
+    color: #fff;
+}
+
+.boxA a:hover
+{
+    text-decoration: none;
+    border-bottom: solid 1px #ff9900;
+}
+
+.boxA input.button
+{
+    margin-top: 0.25em;
+    vertical-align: middle;
+}
+
+.boxA input.text
+{
+    width: 100%;
+}
+
+/** boxB **/
+
+.boxB .boxContent
+{
+    margin-top: 0em;
+    color: #fff;
+    border-bottom: solid 1px #004466;
+    background: #007799;
+    padding: 1em 1.5em 1em 1em;
+}
+
+.boxB span
+{
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.boxB a
+{
+    background-color: inherit;
+    color: #fff;
+    font-size: 0.8em;
+}
+
+.boxB a:hover
+{
+    text-decoration: none;
+    border-bottom: solid 1px #007799;
+}
+
+.boxB input.button
+{
+    margin-top: 0.25em;
+    vertical-align: middle;
+}
+
+.boxB input.text
+{
+    width: 100%;
+}
+
+/** Content **/
+
+#primaryContentContainer p
+{
+    margin-bottom: 1em;
+    line-height: 1.5em;
+}
+
+#primaryContentContainer strong
+{
+    color: #444;
+}
+
+#primaryContentContainer h3
+{
+    font-size: 1.0em;
+}
+
+#primaryContentContainer h2
+{
+    font-size: 1.25em;
+}
+
+#primaryContentContainer ul, #primaryContentContainer ol
+{
+    margin-bottom: 1em;
+    margin-left: 2mm;
+}
+
+blockquote
+{
+    padding-left: 1em;
+    border-left: solid 6px #558800;
+}
+
+blockquote p
+{
+    margin-bottom: 0em;
+    line-height: 1.5em;
+}
+
+#primaryContentContainer table
+{
+    margin-bottom: 1.5em;
+}
+
+#primaryContentContainer table th
+{
+    text-align: left;
+    font-weight: bold;
+    padding: 0.1em;
+    color: #444;
+}
+
+#primaryContentContainer table td
+{
+    padding: 0.1em;
+}
+
+#primaryContentContainer table tr.rowA, #primaryContentContainer table tbody tr:nth-child(even)
+{
+    background-color: #efefef;
+    color: inherit;
+    border: 1px solid #fafafa;
+}
+
+#primaryContentContainer table tr.rowB, #primaryContentContainer table tbody tr:nth-child(odd)
+{
+    background-color: #fafafa;
+    color: inherit;
+}
+/* Primary Content */
+
+
+#primaryContentContainer
+{
+    position: relative;
+            font-size: 10pt;
+}
+
+#primaryContent
+{
+    margin: 0 0 0 45mm;
+    padding: 0em 1em 1em 2em;
+    top: 0px;
+    position: absolute;
+
+}
+
+/* Secondary Content */
+
+#secondaryContent
+{
+    margin-top: 2mm;
+    width: 45mm;
+}
+
+/* Footer */
+
+#footer
+{
+    border-top: solid 1px #e5e5e5;
+    text-align: center;
+    font-size: 8pt;
+}
+
+#menu li.banner
+{
+    color: #fff;
+    font-size: 2.5em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.5em;
+}

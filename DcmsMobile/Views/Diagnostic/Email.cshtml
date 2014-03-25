@@ -1,0 +1,53 @@
+﻿@model DcmsMobile.Models.DiagnosticEmailModel
+@{
+    ViewBag.Title = "Email";
+}
+<link href="@Url.Content("~/Content/Site.css")" rel="Stylesheet" />
+<style type="text/css">
+    label
+    {
+        display: inline-block;
+        width: 10em;
+    }
+    input
+    {
+        margin-bottom: 0.5em;
+    }
+</style>
+
+    @using (Html.BeginForm("SendEmail", "Diagnostic"))
+    {
+        <h3>
+            web.config settings</h3>
+        <p>
+            @Html.LabelFor(m => m.From)
+            @Html.DisplayFor(m => m.From)
+            <br />
+            @Html.LabelFor(m => m.HostName)
+            @Html.DisplayFor(m => m.HostName)
+        </p>
+        <h3>
+            Send Test E-mail to validate your settings</h3>
+        <p>
+            @Html.LabelFor(m => m.To)
+            @Html.TextBoxFor(m => m.To)*
+            <br />
+            @Html.LabelFor(m => m.Subject)
+            @Html.TextBoxFor(m => m.Subject, new
+   {
+       size = 40
+   })*
+            <br />
+            @Html.LabelFor(m => m.Body)
+            @Html.TextAreaFor(m => m.Body, new
+   {
+       rows = 10,
+       cols = 40
+   })*
+            <br />
+            <button type="submit">
+                Send Email</button>
+        </p>
+    
+    }
+<script src="@Links_DcmsMobile.DcmsMobile.Scripts.launcher_mobile_js" type="text/javascript"></script>

@@ -1,0 +1,157 @@
+﻿@model DcmsMobile.Models.CategorizedViewModel
+@{
+    ViewBag.Title = "Shipping";
+}
+
+<style type="text/css">
+    #myouter div
+    {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+    }
+</style>
+
+<div id="myouter">
+    <fieldset>
+        <legend>Shipping</legend>
+        <div>
+            <a href="@Model.MenuItems["PWAV"].Url">@Model.MenuItems["PWAV"].Name</a>
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Box Expediting &rarr; Box Picking
+        <br />
+            Pitching ??
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            VAS
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Validation ??
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+        <div>
+            Scan To Pallet
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+                <div>
+            Move Pallet
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Shipping
+        </div>
+
+
+    </fieldset>
+    <fieldset>
+        <legend>Replenishment
+        </legend>
+        <div>
+            Pulling
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Restock
+        </div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>Receiving
+        </legend>
+        <div>
+            Receiving
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            MAT ??
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Carton Locating
+            <br />
+            Pallet Locating
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Inventory Rework
+        </legend>
+        <div>
+            Pull Requests
+        </div>
+
+        <div>
+            &rarr;
+        </div>
+
+        <div>
+            Pull ??
+            <br />
+            Repack SKUs
+        </div>
+        <div>
+            &rarr;
+        </div>
+        <div>
+            Mark Rework Complete
+            <br />
+            Abandon Rework
+        </div>
+        <div>
+            &rarr;
+        </div>
+        <div>
+            Locate
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Administration</legend>
+        DCMS Rights
+    </fieldset>
+    <fieldset>
+        <legend>Forward Pick Inventory Management</legend>
+        <div>
+            Monitor Replenishment, Repack SKUs, SKU CYC, SKU Transfer
+        </div>
+    </fieldset>
+</div>

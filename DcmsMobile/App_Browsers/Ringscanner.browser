@@ -1,0 +1,31 @@
+﻿<!--
+    You can find existing browser definitions at
+    <windir>\Microsoft.NET\Framework\<ver>\CONFIG\Browsers
+
+    For IE6 on WinCE platform we set mobile device to true. This makes ring scanner receive mobile views.
+-->
+<browsers>
+  <!--1. Ring Scanner-->
+  <browser id="RingScanner" parentID="IE6to9">
+    <identification>
+      <capability name="majorversion" match="6" />
+      <capability name="platform" match="WinCE" />
+    </identification>
+    <capabilities>
+      <capability name="isMobileDevice" value="true" />
+    </capabilities>
+  </browser>
+
+  <browser refID="Mozilla">
+    <capabilities>
+      <capability name="xml" value="true" />
+
+      <!--2. Uncomment this to treat all browsers as mobile. Use for debugging only. -->      
+      <!--<capability name="isMobileDevice" value="true" />-->
+    </capabilities>
+  </browser>
+</browsers>
+
+
+
+<!--$Id$-->

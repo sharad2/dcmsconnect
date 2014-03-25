@@ -1,0 +1,25 @@
+﻿@model DcmsMobile.Models.LogonModel
+@{
+    ViewBag.Title = "DCMS Web Login";
+}
+
+    @using (Html.BeginForm(MVC_DcmsMobile.Logon.Login()))
+    {
+        <div>
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div>
+            @Html.PasswordFor(m => m.Password)
+        </div>
+        <p>
+            <input type="submit" value="Log On" />
+        </p>
+        @Html.HiddenFor(m => m.ReturnUrl)
+    }
+

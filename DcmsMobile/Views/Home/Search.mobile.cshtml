@@ -1,0 +1,22 @@
+﻿@model DcmsMobile.Models.SearchViewModel
+@{
+    ViewBag.Title = "DCMS Connect Search Results";
+    var i = 1;
+}
+<label for="tb">
+    Search</label><input id="tb" type="text" maxlength="24" autocomplete="off" style="text-transform: uppercase"
+        onkeypress="RedirectToChoice(this)" /><br />
+<br />
+<a id="choice_default" href="@Url.Action(MVC_DcmsMobile.Home.AcceptChoice("X", true))">
+</a>
+<h2 style="white-space: nowrap; font-size: 1.1em">
+    Search results for <em>@Model.SearchText</em></h2>
+<ol>
+    @foreach (var choice in Model.Results)
+    {
+        <li style="text-align: left"><a id="choice_@(i)" href="@choice.Url">@choice.ShortName</a>.
+            @Html.Raw(choice.Description). </li>
+        ++i;
+    }
+</ol>
+<script src="@Links_DcmsMobile.DcmsMobile.Scripts.launcher_mobile_js" type="text/javascript"></script>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="launcher-mobile.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/DcmsMobile/Scripts/RedirectToChoice.partial.js</file>
+  <file>/DcmsMobile/Scripts/mobile.partial.js</file>
+</bundle>

@@ -1,0 +1,56 @@
+﻿@*To use this layout, you must include the script mobile.partial.js*@
+@model DcmsMobile.Models.ViewModelBase
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @*<link href="@Links_DcmsMobile.Content.themes.Start1_10_0.jquery_ui_min_css" rel="stylesheet" type="text/css" />*@
+    <link href="@Links_DcmsMobile.DcmsMobile.Content.SiteMobile_css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="InitScanTextBox(this);" onkeydown="window.event.keyCode != 124 || window.close()">
+    <h2>
+        @ViewBag.Title
+    </h2>
+    @if (this.ViewContext.HttpContext.GetOverriddenBrowser().IsMobileDevice != this.ViewContext.HttpContext.Request.Browser.IsMobileDevice)
+    {
+        <fieldset class="ui-state-error">
+            <legend>Emulation Warning</legend>
+            <div>
+                Mobile views are being rendered on this desktop browser. @Html.ActionLink("Turn off Mobile Emulation", MVC_DcmsMobile.Diagnostic.Index(false)).
+            </div>
+        </fieldset>
+    }
+
+    @Html.StatusSummary()
+    @Html.ValidationSummary()
+    @Html.Partial(MVC_DcmsMobile.Shared.Views._soundPartial, '\0')
+    @RenderBody()
+    <div class="ui-priority-secondary">
+        P2 to Exit
+    </div>
+</body>
+</html>
+<style type="text/css">
+    .ui-state-error
+    {
+        color: #fff;
+        border-top-color: #cd0a0a;
+        border-right-color: #cd0a0a;
+        border-bottom-color: #cd0a0a;
+        border-left-color: #cd0a0a;
+        border-top-width: 1px;
+        border-right-width: 1px;
+        border-bottom-width: 1px;
+        border-left-width: 1px;
+        border-top-style: solid;
+        border-right-style: solid;
+        border-bottom-style: solid;
+        border-left-style: solid;
+        background-image: url("images/ui-bg_gloss-wave_45_e14f1c_500x100.png");
+        background-attachment: scroll;
+        background-repeat: repeat-x;
+        background-position-x: 50%;
+        background-position-y: top;
+        background-color: rgb(225, 79, 28);
+    }
+</style>
