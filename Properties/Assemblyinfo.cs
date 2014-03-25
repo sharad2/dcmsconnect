@@ -118,12 +118,15 @@ using System.Runtime.InteropServices;
 /*  7.2.1.0 -> 7.2.2.0 (Branched by Ankit Sharma on 18 JAN 2014)
  * Sharad 30 Aug 2013: In OracleDataStore, storing the OracleConnectionStringBuilder to optimize resolving the <proxy/> tag.
  * Made ProxyTagResolver private. Module and ClientInfo properties are now set when the connection state changes from closed to opened
- * 
- * Ankit(18 JAN 2013): Added new function GetLong() for handling long integer values.
+  * Ankit(18 JAN 2013): Added new function GetLong() for handling long integer values.
  */
 
+
 /* 7.2.2.0 -> 7.2.3.0 (Branched by Ankit Sharma on 25 MAR 2014)
+ * Hemant K. Singh(5th March 2014): Fix the binder NullReferenceException in the OracleDatastore class.
  * Now in Trace we have encrypted password to ****.
  */
+ 
+
 [assembly: AssemblyVersion("7.2.3.0")]
 [assembly: AssemblyFileVersion("7.2.3.0")]
