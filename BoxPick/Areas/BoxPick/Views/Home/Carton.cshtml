@@ -1,0 +1,43 @@
+﻿@*
+In the script the popup method is creating a window which Url using a query string
+'Carton_id' which needed for the Action method Don't change this.
+*@
+@model DcmsMobile.BoxPick.ViewModels.CartonViewModel
+@{
+    ViewBag.Title = "BoxPick: Enter Carton";
+    ViewBag.HelpAction = "Carton";
+}
+@section heading {
+    @if (Model.PalletTotalBoxCount > 0)
+    {
+        <div style="position: relative">
+            <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="height: 1em">
+                <div style="width:@(Model.PercentComplete)%;" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                </div>
+            </div>
+            <div class="ui-priority-primary" style="position: absolute; top: 0.1em; left: 1em">
+                @Html.DisplayFor(m => m.PalletPickedBoxCount)
+                of @Html.DisplayFor(m => m.PalletTotalBoxCount) cartons on <em>@Html.DisplayFor(m => m.CurrentPalletId)</em>
+            </div>
+        </div>
+    }
+    else
+    {
+    <h2>
+        Expecting first of
+        @Html.DisplayFor(m => m.PalletTotalBoxCount) cartons on @Html.DisplayFor(m => m.CurrentPalletId)
+    </h2>        
+    }
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary
+{
+    {"ActiveTab", "Ca"}
+})
+@using (Html.BeginForm("Carton", null))
+{
+    @Html.EditorFor(m => m.ScannedCartonId)
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._PalletStatus, Model)
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._bottomPartial, Model)
+
+@*$Id$*@

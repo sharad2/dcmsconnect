@@ -1,0 +1,24 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.MainContent.CartonViewModel
+@{
+    var grid = Html.GridFor(m => m.BoxesOnPallet);
+    grid.AddColumn(m => m.UccId);
+    grid.AddColumn(m => m.Pieces);
+    grid.AddColumn().CellHtml(@<span>@(string.IsNullOrEmpty(@item.ViewData.Model.IaId) ? "Picked" : "To pick")</span>).HeaderHtml("Status");
+    grid.AddColumn(m => m.VwhId);
+    grid.AddColumn(m => m.QualityCode);
+    grid.AddColumn(m => m.AssociatedCartonId).CellHtml(@<span>@(string.Format("{0} contains SKU {1}", item.ViewData.Model.AssociatedCartonId, item.ViewData.Model.SkuInCarton))</span>);
+}
+@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    emptyDataHtml: "<span class='ui-state-highlight'>No any box status.</span>",
+    caption: "Boxes status"
+)
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

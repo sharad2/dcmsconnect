@@ -1,0 +1,25 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.MainContent.BuildingViewModel
+@{
+    var grid = Html.GridFor(m => m.PendingActivities);
+    grid.AddColumn().CellHtml(@<span>
+        @string.Format("In Building {0}, {1} boxes on {2} pallets need {3} for {4}",
+    @item.Html.ViewData.Model.BuildingId, @item.Html.ViewData.Model.PickableBoxCount, @item.Html.ViewData.Model.CountPallets, @item.Html.ViewData.Model.PickModeText,
+    @item.Html.ViewData.Model.AreaShortName)
+    </span>);
+}
+@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    emptyDataHtml: "<span class='ui-state-highlight'>No any pending activity.</span>",
+    caption: "Pending Activities"
+)
+
+
+@*
+    $Id$
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DcmsMobile.BoxPick.Models.Box>
+@if (Model.Any())
+{
+    <table>
+        <caption>
+            Debug Mode Display: Boxes status</caption>
+        <tr>
+            <th>
+                Ucc Id
+            </th>
+            <th>
+                Pieces
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                IA ID
+            </th>
+            <th>
+                Virtual Warehouse
+            </th>
+            <th>
+                Quality Code
+            </th>
+            <th>
+                Carton Id
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.UccId
+                </td>
+                <td>
+                    @item.Pieces
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.IaId))
+                    {
+                        @:Picked
+                   }
+                    else
+                    {
+                        @:To Pick
+                     }
+                </td>
+                <td>
+                    @item.IaId
+                </td>
+                <td>
+                    @item.VwhId
+                </td>
+                <td>
+                    @item.QualityCode
+                </td>
+                <td>
+                    @if (item.AssociatedCarton != null)
+                    {
+                        @item.AssociatedCarton.CartonId
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+
+
+
+
+
+@*$Id$*@

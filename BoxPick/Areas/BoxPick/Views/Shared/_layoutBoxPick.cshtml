@@ -1,0 +1,90 @@
+﻿@* Includes scripts and style sheets and then renders the body of the calling view.
+Also manages sound. Includes a help link if ViewBag.HelpAction is defined. Runs
+JavaScript on onLoad to manage scan text boxes. The first input element within the
+first form is always treated as a scan text box. If the JavaScript variable _emptyOk
+is true, then the scan textbox will postback when empty enter is pressed, otherwise
+it will not. This script in your view will look like this:
+<script type="text/javascript">
+    var _emptyOk = true;
+</script>
+*@
+@model DcmsMobile.BoxPick.ViewModels.MasterModel
+@{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Links_BoxPick.Content.themes.Start1_10_0.jquery_ui_min_css" rel="stylesheet" type="text/css" />
+    <link href="@Links_BoxPick.Areas.BoxPick.Content.BoxPick_all_css" rel="stylesheet" type="text/css" />
+    <link href="@Links_BoxPick.Areas.BoxPick.Content.standardized_css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="@Links_BoxPick.Areas.BoxPick.Scripts.BoxPick_all_js"></script>
+    @RenderSection("head", false)
+</head>
+<body>
+    <div id="outer">
+        <div id="header">
+            @if (IsSectionDefined("heading"))
+            {
+                @RenderSection("heading")
+            }
+            else
+            {
+                <h1>
+                    @ViewBag.Title
+                </h1>
+            }
+        </div>
+        <div id="menu">
+            <ul>
+                <li class="banner"><span>DCMS Connect - Box Picking</span></li>
+                <li><a href="@Url.Content("~")">DCMS Connect Home</a></li>
+                <li><a href="#" target="_blank">Documentation</a></li>
+                @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <li>Welcome @ViewContext.HttpContext.User.Identity.Name</li>
+                }
+                @if (ViewContext.HttpContext.Trace.IsEnabled)
+                {
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+                }
+                <li class="ui-state-highlight" id="timeout"><span id="timeoutValue">@(ViewContext.HttpContext.Session.Timeout)</span>
+                    <span id="timeoutUnit">minutes</span></li>
+            </ul>
+        </div>
+        <div id="content">
+            <div id="primaryContentContainer">
+                <div id="primaryContent">
+                    @Html.StatusSummary()
+                    @Html.ValidationSummary()
+                    @if (Model != null)
+                    {
+                        @Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._soundPartial, Model.Sound)
+                        if (Model.MainContentAction != null)
+                        {
+                        @Html.Action(Model.MainContentAction)
+                        }
+                    }
+                </div>
+            </div>
+            <div id="secondaryContent">
+                <div class="box boxA">
+                    <div class="boxContent">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+            <div class="ui-helper-clearfix">
+            </div>
+        </div>
+        <div id="footer">
+            <p>
+                Copyright &copy; 2012 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">
+                    http://www.eclsys.com</a></p>
+        </div>
+    </div>
+    @RenderSection("scripts", false)
+</body>
+</html>
+@*$Id$*@ 

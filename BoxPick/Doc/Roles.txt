@@ -1,0 +1,49 @@
+-- Create the role
+
+create role DCMS8_BOXPICK;
+
+-- Grant/Revoke object privileges 
+
+grant insert on dcms4.CARTON_PRODUCTIVITY to DCMS8_BOXPICK;
+grant insert on DCMS4.CARTON_PRODUCTIVITY to DCMS8_BOXPICK;
+grant select on DCMS4.MASTER_SKU to DCMS8_BOXPICK;
+grant select on DCMS4.MASTER_STORAGE_LOCATION to DCMS8_BOXPICK;
+grant select, update on DCMS4.SRC_CARTON to DCMS8_BOXPICK;
+grant select on DCMS4.SRC_CARTON_DETAIL to DCMS8_BOXPICK;
+grant select on DCMS4.TAB_INVENTORY_AREA to DCMS8_BOXPICK;
+grant select on DCMS4.TAB_WAREHOUSE_LOCATION to DCMS8_BOXPICK;
+grant select, update on BOX to DCMS8_BOXPICK;
+grant select on BOXDET to DCMS8_BOXPICK;
+grant select on BUCKET to DCMS8_BOXPICK;
+grant select on IACONFIG to DCMS8_BOXPICK;
+grant execute on PKG_BOXEXPEDITE to DCMS8_BOXPICK;
+grant execute on PKG_BOXPICK to DCMS8_BOXPICK;
+grant execute on PKG_PUL to DCMS8_BOXPICK;
+grant select on PS to DCMS8_BOXPICK;
+grant select on PSDET to DCMS8_BOXPICK;
+
+
+-- Grant/Revoke system privileges 
+
+grant create session to DCMS8_BOXPICK;
+
+
+---------------------------------------------------------
+
+-- Create the user 
+
+create user ""
+  identified by ""
+  default tablespace "tablespace_name"
+  temporary tablespace TEMP04
+  profile DEFAULT;
+
+-- Grant/Revoke role privileges 
+
+grant dcms8_boxpick to BOXPICK;
+grant dcms_reports to BOXPICK;
+alter user BOXPICK grant connect through dcms8;
+
+------New grants
+
+Grant Select on ps_vas to DCMS8_BOXPICK;

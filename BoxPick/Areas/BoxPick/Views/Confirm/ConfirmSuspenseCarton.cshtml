@@ -1,0 +1,30 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.CartonViewModel
+@{
+    ViewBag.Title = "BoxPick: Rescan Carton to confirm";
+}
+@section head {
+    <script type="text/javascript">
+        var _emptyOk = true;
+    </script>
+}
+@section heading{
+    <h2>
+        Confirm carton in suspense</h2>
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary
+{
+    {"ActiveTab", "Ca"}
+})
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(m => m.ConfirmCartonId)
+}
+<div style="font-size: 1.2em; font-weight: bold">
+    The location of carton scanned is different from the location suggested.
+    </div>
+<ul>
+    <li>If the suggested location was empty, Enter 1 to put carton <span class="ui-state-highlight ui-priority-primary">@Model.CartonIdToPick</span>
+        in suspense.</li>
+    <li>Press <span class="ui-priority-primary">enter</span> to pick carton without putting the suggested carton in suspense.</li>
+</ul>
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._bottomPartial, Model)
