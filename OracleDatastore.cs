@@ -8,6 +8,7 @@ using System.Security.Authentication;
 using System.Web;
 using EclipseLibrary.Oracle.Helpers;
 using Oracle.DataAccess.Client;
+using System.Text.RegularExpressions;
 
 namespace EclipseLibrary.Oracle
 {
@@ -210,7 +211,8 @@ namespace EclipseLibrary.Oracle
                 {
                     var msg = string.Format("Connection opened at {0:F}. ModuleName: {1}; ClientInfo: {2}", DateTimeOffset.Now, this.ModuleName, this.ClientInfo);
                     _traceContext.Write("Connection Opened", msg);
-                    _traceContext.Write("Connection String", conn.ConnectionString);
+                    //Encrypt the password with '****'
+                    _traceContext.Write("Connection String", Regex.Replace(conn.ConnectionString, @"(\bPASSWORD=\S*;\b)", "PASSWORD=****"));
                 }
             }
         }
