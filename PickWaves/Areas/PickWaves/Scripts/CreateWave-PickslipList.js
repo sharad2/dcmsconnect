@@ -114,3 +114,4 @@ $.widget("custom.bucketmodel", {
         this._doChangePriority($icon[0]);
     }
 });
+
