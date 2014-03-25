@@ -1,0 +1,217 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.ManageCartonAreaViewModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+
+    ViewBag.Title = "Manage Carton Area";
+    var rowIndex = 0;
+}
+@section scripts {
+    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.CartonAreas_all_js"></script>
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <ul>
+                <li>
+                    @Html.LabelFor(m => m.CurrentArea.BuildingId)
+                    @Html.DisplayFor(m => m.CurrentArea.BuildingId)
+                </li>
+            </ul>
+            @Html.ActionLink("Back to Carton Area List", MVC_CartonAreas.CartonAreas.Home.Actions.ManageCartonArea())
+        </div>
+    </div>
+}
+<style type="text/css">
+    .ui-widget
+    {
+        font-size: 1em;
+    }
+
+    #divLocationList .ui-progressbar
+    {
+        height: 1.1em;
+    }
+
+        #divLocationList .ui-progressbar .ui-widget-header
+        {
+            color: Black;
+            font-weight: normal;
+        }
+</style>
+<h2>@Html.LabelFor(m => m.CurrentArea.AreaId) @Html.DisplayFor(m => m.CurrentArea.ShortName)</h2>
+<div class="box">
+    <h3>Search for locations
+    </h3>
+    <div id="divFilter" class="boxContent designForm">
+        <div id="divupdatefilter">
+            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, Model.CurrentArea)
+        </div>
+        @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilter(), FormMethod.Get))
+        {
+            <div>
+                @Html.HiddenFor(m => m.CurrentArea.AreaId, new { id = "hfAreaId" })
+                @Html.LabelFor(m => m.LocationId)
+                @Html.TextBoxFor(m => m.LocationId)
+                <button type="submit" id="btnLocation">
+                    Go</button>
+                @Html.ValidationMessageFor(m => m.LocationId)
+            </div>
+        }
+        @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilter(), FormMethod.Get))
+        {
+            <div>
+                @Html.HiddenFor(m => m.CurrentArea.AreaId)
+                @Html.LabelFor(m => m.AssignedSkuText)
+                @Html.AutocompleteFor(m => m.AssignedSkuId, m => m.AssignedSkuText,
+                                Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete()),
+                                Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku()), new
+                                {
+                                    style = "text-transform: uppercase",
+                                    size = 18
+                                })
+                <button type="submit" id="btnAssignedSku">
+                    Go</button>
+                @Html.AutocompleteDescriptionFor(m => m.AssignedSkuText, new { id = "displaySKU", @class = "sku-display" })
+            </div>
+        }
+    </div>
+</div>
+<div class="box">
+    @if (Model.Locations.Count() > 0)
+    {
+        <div class="boxContent" id="divLocationList">
+            <table>
+                <caption>
+                    @if (this.ViewData.ModelState.IsValid)
+                    {
+
+                        @Model.Locations.Count() <text>Locations Displayed</text>
+                    }
+                    else
+                    {
+                        <text> Invalid filters</text>
+                    }
+                </caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">Location <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span>
+                        </th>
+                        <th colspan="3" style="text-align: center">Assigned
+                        </th>
+                        <th colspan="4" style="text-align: center">Content
+                        </th>
+                        <th rowspan="2" style="text-align: center">Change
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center">SKU
+                        </th>
+                        <th>Capacity(Cartons)
+                        </th>
+                        <th>VWH
+                        </th>
+                        <th># Pieces
+                        </th>
+                        <th># Cartons
+                        </th>
+                        <th>SKU
+                        </th>
+                        <th># Pallets
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Locations)
+                    {
+               
+                        <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                            <td>
+                                <span class="mca-locationid">@item.LocationId</span>
+                            </td>
+                            <td style="white-space: nowrap">
+                                <span class="mca-sku">
+                                    @if (item.AssignedSku != null)
+                                    {
+                                        <span title="@item.AssignedSku.UpcCode">
+                                            @item.AssignedSku.Style,
+                                            @item.AssignedSku.Color,
+                                            @item.AssignedSku.Dimension,
+                                            @item.AssignedSku.SkuSize
+                                        </span>
+                                    }
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                <span class="mca-maxassignedcartons">
+                                    @string.Format("{0:#,###}", item.MaxAssignedCartons)
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                <span class="mca-vwh">
+                                    @string.Format("{0:#,###}", item.AssignedVwhId)
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                @string.Format("{0:N0}", item.TotalPieces)
+                            </td>
+                            <td style="text-align: right" title="@item.PercentFull% full">
+                                <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                                    <div style="width: @item.PercentFull%" class="ui-progressbar-value ui-widget-header ui-corner-left
+                                  @(item.MaxAssignedCartons.HasValue && item.CartonCount >= item.MaxAssignedCartons ? "ui-state-error" : "")">
+                                        <span class="mca-cartoncount">@string.Format("{0:N0}", item.CartonCount)</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="mca-ctnSku">
+                                    @if (item.CartonSku != null)
+                                    {
+                                        <span title="@item.CartonSku.UpcCode">
+                                            @item.CartonSku.Style/
+                                        @item.CartonSku.Color/
+                                        @item.CartonSku.Dimension/
+                                        @item.CartonSku.SkuSize
+                                        </span>
+                                        if (item.CartonSkuCount > 1)
+                                        {
+                                        <span class="ui-priority-primary">and @(item.CartonSkuCount - 1)
+                                            more</span>
+
+                                        }
+                                    }
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                @string.Format("{0:#,###}", item.PalletCount)
+                            </td>
+                            <td style="white-space: nowrap">
+                                <button class="mca-assign" title="Assign SKU" />
+                                <button class="mca-unassign" 
+                            @(item.AssignedSku == null ? "disabled" : "") title="Unassign SKU" />
+                            </td>
+                        </tr>
+                                    ++rowIndex;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div>
+            No qualifying locations found
+        </div>
+    }
+</div>
+<div id="divEditDialog" data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation())">
+    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._assignSkuDialogPartial, Model.AssignedSku)
+</div>
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+    *@ 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="CartonAreas-all.css">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/CartonAreas/Content/Autocomplete.partial.css</file>
+  <file>/Areas/CartonAreas/Content/CartonAreas.partial.css</file>
+  <file>/Areas/CartonAreas/Content/standardized.partial.css</file>
+</bundle>

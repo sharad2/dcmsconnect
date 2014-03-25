@@ -1,0 +1,43 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.AssignSkuViewModel
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateLocation(), FormMethod.Post, new
+    {
+        id = "frmEditLocation"
+    }))
+{   <div class="designForm">
+    @Html.HiddenFor(m => m.LocationId, new { id = "hfCurrentLocationId" })
+    @Html.HiddenFor(m => m.AreaId)
+    <span id="displayWarning" class="ui-state-highlight"></span>
+    <br />
+    @Html.LabelFor(m => m.SkuId)
+    @Html.AutocompleteFor(m => m.SkuId, m => m.SkuBarCode, Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete()),
+                                Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku()), new
+                            {
+                                id = "tbUpcAssignedSKU",
+                                style = "text-transform: uppercase",
+                                size = 18,
+                                maxlength = 20
+                            })
+    @Html.AutocompleteDescriptionFor(m => m.SkuBarCode, new { id = "displayAssignSKU", @class = "sku-display" })
+    <br />
+    @Html.LabelFor(m => m.AssignedVwhId)
+    @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })
+    <br />
+    @Html.LabelFor(m => m.MaxAssignedCarton)
+    @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
+        <br />
+    <span id ="displayCartonCount"></span>
+    @Html.ValidationSummary()
+    <div id="ajaxErrors">
+    </div>
+    </div>
+}
+
+
+    @*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+    *@
