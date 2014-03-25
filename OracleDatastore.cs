@@ -212,7 +212,7 @@ namespace EclipseLibrary.Oracle
                     var msg = string.Format("Connection opened at {0:F}. ModuleName: {1}; ClientInfo: {2}", DateTimeOffset.Now, this.ModuleName, this.ClientInfo);
                     _traceContext.Write("Connection Opened", msg);
                     //Encrypt the password with '****'
-                    _traceContext.Write("Connection String", Regex.Replace(conn.ConnectionString, @"(\bPASSWORD=\S*;\b)", "PASSWORD=****"));
+                    _traceContext.Write("Connection String", Regex.Replace(conn.ConnectionString, @"(\bPASSWORD=\S*;\b)", "PASSWORD=****;"));
                 }
             }
         }
