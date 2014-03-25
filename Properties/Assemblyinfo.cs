@@ -121,5 +121,9 @@ using System.Runtime.InteropServices;
  * 
  * Ankit(18 JAN 2013): Added new function GetLong() for handling long integer values.
  */
-[assembly: AssemblyVersion("7.2.2.0")]
-[assembly: AssemblyFileVersion("7.2.2.0")]
+
+/* 7.2.2.0 -> 7.2.3.0 (Branched by Ankit Sharma on 25 MAR 2014)
+ * Now in Trace we have encrypted password to ****.
+ */
+[assembly: AssemblyVersion("7.2.3.0")]
+[assembly: AssemblyFileVersion("7.2.3.0")]
