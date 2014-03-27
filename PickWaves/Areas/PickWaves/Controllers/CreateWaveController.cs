@@ -101,7 +101,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                     Selected = item.VWhId == model.VwhId
                                 };
             var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-            
+
             if (orders.Any())
             {
                 // TC1: When passed customer have some order.
@@ -251,16 +251,36 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 // TC5: Give pitch area if user wants to pitched pieces.
                 bucket.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaId;
             }
-            var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
-            var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
-            bucket.BucketName = string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
-                Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,
-                model.RowDimVal,
-                Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].ShortName,
-                model.ColDimVal); // 'WC3 WM ' || ORDERS_REC.CUSTOMER_ORDER_ID || ORDERS_REC.dc_cancel_date,
+            bucket.BucketName = "Bucket";
+                //string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
+    // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,
+    // model.RowDimVal,
+    // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].ShortName,
+    // model.ColDimVal); // 'WC3 WM ' || ORDERS_REC.CUSTOMER_ORDER_ID || ORDERS_REC.dc_cancel_date,
             try
             {
-                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
+                model.LastBucketId = _service.CreateWave(bucket);
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return RedirectToAction(this.Actions.Index(model));
+        }
+
+        [HttpPost]
+        public virtual ActionResult AddPickslipsOfDim(IndexViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
+            }
+
+            var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
+            var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
+            try
+            {
+                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             }
             catch (DbException ex)
             {

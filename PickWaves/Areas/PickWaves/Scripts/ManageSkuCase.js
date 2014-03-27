@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/PickWaves/Scripts/AutoComplete.partial.js
+$(document).ready(function () {
 
     /*
     Generic autocomplete script to be used in conjunction with autocomplete helpers
@@ -142,6 +143,7 @@
     $("input[data-ac-list-url]").autocompleteEx();
 });
 
+///#source 1 1 /Areas/PickWaves/Scripts/ManageSkuCase.partial.js
 $(document).ready(function () {
     $('#tabs').tabs({ active: $('#tabs').attr('data-active-tab') });
     $('#btnAddSkuCase').button({ icons: { primary: 'ui-icon-plus' } })
@@ -233,4 +235,3 @@ $(document).ready(function () {
     }
 
 });
-

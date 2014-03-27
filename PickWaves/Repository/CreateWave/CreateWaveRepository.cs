@@ -276,25 +276,16 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                             Value = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT")
                         }).ToDictionary(p => isColDate ? ((DateTime)p.ColValue).ToString() : (string)p.ColValue, p => p.Value);
             return dict;
-        }
+        }       
 
-        public int CreateWave(Bucket bucket, string customerId, IList<Tuple<PickslipDimension, object>> dimensions)
+        public int CreateWave(Bucket bucket)
         {
             if (bucket == null)
             {
                 throw new ArgumentNullException("bucket");
             }
-            const string QUERY = @"
-                                    DECLARE
-                                      CURSOR PICKSLIP_CURSOR IS
-                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID    
-                                          FROM <proxy />DEM_PICKSLIP DEMPS
-                                         WHERE DEMPS.PS_STATUS_ID = 1
-                                           AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID
-                                           AND {0};
-                                      PICKSLIP_COUNT BINARY_INTEGER := 0;
-                                    BEGIN
-                                      INSERT INTO <proxy />BUCKET BKT
+            const string QUERY = @"  
+                                    INSERT INTO <proxy />BUCKET BKT
                                         (BKT.BUCKET_ID,
                                          BKT.PITCH_TYPE,
                                          BKT.NAME,
@@ -316,15 +307,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          :FREEZE,
                                          :PULL_TYPE,
                                          :CREATED_BY_MODULE)
-                                      RETURNING BUCKET_ID INTO :BUCKET_ID;
-                                      FOR PICKSLIP_REC IN PICKSLIP_CURSOR LOOP
-                                        PICKSLIP_COUNT := PICKSLIP_COUNT + 1;
-                                        <proxy />PKG_DATA_EXCHANGE.GET_PICKSLIP(PICKSLIP_REC.PICKSLIP_ID, :BUCKET_ID);
-                                      END LOOP;
-                                      IF PICKSLIP_COUNT = 0 THEN
-                                        RAISE_APPLICATION_ERROR(-20000, 'No pickslips were added');
-                                      END IF;
-                                    END;
+                                      RETURNING BUCKET_ID INTO :BUCKET_ID
               ";
             var binder = SqlBinder.Create();
             binder.Parameter("PITCH_TYPE", "BOX")
@@ -336,8 +319,37 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
                   .Parameter("FREEZE", bucket.IsFrozen ? "Y" : null)
                   .Parameter("CREATED_BY_MODULE", MODULE_CODE)
-                  .Parameter("CUSTOMER_ID", customerId)
                   ;
+            var bucketId = 0;
+            binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);
+            _db.ExecuteDml(QUERY, binder);
+            return bucketId;
+        }
+
+        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions)
+        {
+            const string QUERY = @"
+                                    DECLARE
+                                      CURSOR PICKSLIP_CURSOR IS
+                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID    
+                                          FROM <proxy />DEM_PICKSLIP DEMPS
+                                         WHERE DEMPS.PS_STATUS_ID = 1
+                                           AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID
+                                           AND {0};
+                                      PICKSLIP_COUNT BINARY_INTEGER := 0;
+                                    BEGIN                                      
+                                      FOR PICKSLIP_REC IN PICKSLIP_CURSOR LOOP
+                                        PICKSLIP_COUNT := PICKSLIP_COUNT + 1;
+                                        <proxy />PKG_DATA_EXCHANGE.GET_PICKSLIP(PICKSLIP_REC.PICKSLIP_ID, :BUCKET_ID);
+                                      END LOOP;
+                                      IF PICKSLIP_COUNT = 0 THEN
+                                        RAISE_APPLICATION_ERROR(-20000, 'No pickslips were added');
+                                      END IF;
+                                    END;
+              ";
+            var binder = SqlBinder.Create();
+            binder.Parameter("BUCKET_ID", bucketId)
+                  .Parameter("CUSTOMER_ID", customerId);
 
             var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
             var clauses = new List<string>(2);
@@ -353,11 +365,8 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                     binder.Parameter(dim.Item1.ToString(), Convert.ToString(dim.Item2));
                 }
             }
-            var bucketId = 0;
-            binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);
             var queryFinal = string.Format(QUERY, string.Join(" AND ", clauses));
             _db.ExecuteDml(queryFinal, binder);
-            return bucketId;
         }
 
         /// <summary>
