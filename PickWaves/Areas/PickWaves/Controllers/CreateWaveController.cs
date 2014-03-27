@@ -141,15 +141,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             var areas = _service.GetAreasForCustomer(model.CustomerId);
 
-            model.PullAreaList = (from area in areas
-                                  where area.AreaType == BucketActivityType.Pulling
-                                  orderby area.CountSku descending
-                                  select new CreateWaveAreaModel(area)).ToArray();
-            if (string.IsNullOrWhiteSpace(model.PullAreaId) && model.PullAreaList.Count > 0)
-            {
-                // TC2: Shows best pull area for pulling
-                model.PullAreaId = model.PullAreaList[0].AreaId;
-            }
+            //model.PullAreaList = (from area in areas
+            //                      where area.AreaType == BucketActivityType.Pulling
+            //                      orderby area.CountSku descending
+            //                      select new CreateWaveAreaModel(area)).ToArray();
+            //if (string.IsNullOrWhiteSpace(model.PullAreaId) && model.PullAreaList.Count > 0)
+            //{
+            //    // TC2: Shows best pull area for pulling
+            //    model.PullAreaId = model.PullAreaList[0].AreaId;
+            //}
+
+            model.PullAreas = (from area in areas
+                                             where area.AreaType == BucketActivityType.Pulling
+                                             orderby area.CountSku descending
+                                             select new SelectListItem
+                                             {
+                                                 Text = string.Format("{0}: {1} ({2:P0} SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountSku / (decimal)area.CountOrderedSku),
+                                                 Value = area.AreaId
+                                             }).ToList();
+
+            //model.PullAreas = 
 
             model.PitchAreaList = (from area in areas
                                    where area.AreaType == BucketActivityType.Pitching
@@ -241,22 +252,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 RequireBoxExpediting = model.RequireBoxExpediting,
                 IsFrozen = true
             };
-            if (model.AllowPulling)
-            {
+            //if (model.AllowPulling)
+            //{
                 // TC4: Give pull area if user wants to pulled cartons.
                 bucket.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaId;
-            }
+            //}
             if (model.AllowPitching)
             {
                 // TC5: Give pitch area if user wants to pitched pieces.
                 bucket.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaId;
             }
             bucket.BucketName = "Bucket";
-                //string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
-    // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,
-    // model.RowDimVal,
-    // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].ShortName,
-    // model.ColDimVal); // 'WC3 WM ' || ORDERS_REC.CUSTOMER_ORDER_ID || ORDERS_REC.dc_cancel_date,
+            //string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
+            // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,
+            // model.RowDimVal,
+            // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].ShortName,
+            // model.ColDimVal); // 'WC3 WM ' || ORDERS_REC.CUSTOMER_ORDER_ID || ORDERS_REC.dc_cancel_date,
             try
             {
                 model.LastBucketId = _service.CreateWave(bucket);

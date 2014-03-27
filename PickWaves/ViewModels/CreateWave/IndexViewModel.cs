@@ -5,9 +5,11 @@ using System.Linq;
 using System.Web.Routing;
 using DcmsMobile.PickWaves.Repository.CreateWave;
 using EclipseLibrary.Mvc.Helpers;
+using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 {
+    [Obsolete]
     public class CreateWaveAreaModel : InventoryAreaModel
     {
         public CreateWaveAreaModel(CreateWaveArea entity) : base(entity)
@@ -84,6 +86,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         /// <summary>
         /// Whether user wants to allow pulling. Note that the PullAreaId should ignored if this is posted as false
         /// </summary>
+        [Obsolete]
         public bool AllowPulling { get; set; }
 
         /// <summary>
@@ -92,19 +95,23 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         public bool AllowPitching { get; set; }
         #endregion
 
+        [Obsolete]
         public IList<CreateWaveAreaModel> PullAreaList { get; set; }
 
-        public int CountVisiblePullAreas
-        {
-            get
-            {
-                if (PullAreaList == null)
-                {
-                    return 0;
-                }
-                return this.PullAreaList.Count(p => p.PercentSkusInArea >= 40);
-            }
-        }
+        public IList<SelectListItem> PullAreas { get; set; }
+
+        //[Obsolete]
+        //public int CountVisiblePullAreas
+        //{
+        //    get
+        //    {
+        //        if (PullAreaList == null)
+        //        {
+        //            return 0;
+        //        }
+        //        return this.PullAreaList.Count(p => p.PercentSkusInArea >= 40);
+        //    }
+        //}
 
         public IList<CreateWaveAreaModel> PitchAreaList { get; set; }
 

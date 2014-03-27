@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/Scripts/_pickslipMatrixPartial.partial.js
-/*
+﻿/*
 This widget display a matrix of pickslip counts for the dimension selected by the user.
 
 When the user selects a different dimension, it auto refreshes itself via Ajax, raising the events refreshing and refreshed
@@ -92,7 +91,6 @@ $.widget("custom.pickslipmatrix", {
 }
 });
 
-///#source 1 1 /Areas/PickWaves/Scripts/CreateWave-Index.partial.js
 $(document).ready(function () {
     $('#btnCreateBucket').button();
     // Positions the dialog at the passed td and opens it
@@ -181,3 +179,4 @@ $(document).ready(function () {
         $(this).hide();
     });
 });
+

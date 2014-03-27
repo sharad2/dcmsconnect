@@ -24,18 +24,18 @@
             </span>
         </div>
     }
-    
-<div class="boxContent">
-    <fieldset style="padding: 1em 3em 1em 1em;">
-        <legend>Legend</legend>
-        <div style="width: 9em; background-color: antiquewhite; text-align: center">
-            Pulling Areas
-        </div>
-        <div style="width: 9em; background-color: paleturquoise; text-align: center">
-            Pitching Areas
-        </div>
-    </fieldset>
-</div>
+
+    <div class="boxContent">
+        <fieldset style="padding: 1em 3em 1em 1em;">
+            <legend>Legend</legend>
+            <div style="width: 9em; background-color: antiquewhite; text-align: center">
+                Pulling Areas
+            </div>
+            <div style="width: 9em; background-color: paleturquoise; text-align: center">
+                Pitching Areas
+            </div>
+        </fieldset>
+    </div>
 }
 @if (Model.CustomerOrders.Count > 0)
 {
@@ -47,42 +47,17 @@
             </blockquote>
             <div id="areaDropDowns">
                 <div style="margin-top: 0.25em; background-color: antiquewhite" id="divPullArea">
-                    <fieldset style="padding: 1em">
-                        <legend style="margin-left: 1em">
-                            @Html.CheckBoxFor(m => m.AllowPulling, new { id = "cbAllowPulling" })
-                            Pull as many cartons as possible from Area
-                        </legend>
-                        <ul style="list-style-type: none">
-                            @for (var i = 0; i < Model.PullAreaList.Count; ++i)
-                            {
-                                <li class="pull-area @Html.Raw(i < Model.CountVisiblePullAreas && Model.PullAreaList[i].AreaId == Model.PullAreaId ? "" : "ui-helper-hidden")
-                                    @Html.Raw(Model.PullAreaList[i].AreaId == Model.PullAreaId ? "ui-state-active" : "")
-                                    " style=" padding 4px 4px 4px 4px">
-                                    @Html.RadioButtonFor(m => m.PullAreaId, Model.PullAreaList[i].AreaId, new
-                           {
-                               style = "display:inline-block;vertical-align:middle",
-                               id = string.Format("pull_area_{0}", i)
-                           })
-                                    <label style="display: inline-block; width: 24em; overflow-x: hidden; white-space: nowrap; padding-right: 2em" for="@string.Format("pull_area_{0}", i)">
-                                        @Model.PullAreaList[i].DisplayName.
-                                    </label>
-                                    @Model.PullAreaList[i].PercentSkusInArea % SKUs available.
-                                </li>
-                            }
-                            @if (Model.CountVisiblePullAreas < Model.PullAreaList.Count)
-                            {
-                                <li>
-                                    <a href="#" id="seeAllPullAreas">See More Pull Areas</a>
-                                </li>
-                            }
-                            <li style="padding: 4px 4px 4px 4px">
-                                @Html.CheckBoxFor(m => m.RequireBoxExpediting)
 
-                                @Html.LabelFor(m => m.RequireBoxExpediting)
-                            </li>
-                        </ul>
+                    Pull From
 
-                    </fieldset>
+                    @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Do Not Pull)")
+                    <ul style="list-style-type: none">
+                        <li style="padding: 4px 4px 4px 4px">
+                            @Html.CheckBoxFor(m => m.RequireBoxExpediting)
+                            @Html.LabelFor(m => m.RequireBoxExpediting)
+                        </li>
+                    </ul>
+
                 </div>
                 <div style="margin-top: 0.25em; background-color: paleturquoise;" id="divPitchArea">
                     <fieldset style="padding: 1em">
