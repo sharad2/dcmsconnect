@@ -71,7 +71,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             {
                 routeValueDictionary.Add(model.NameFor(m => m.PitchAreaId), model.PitchAreaId);
             }
-            if (!string.IsNullOrWhiteSpace(model.PitchAreaId))
+            if (!string.IsNullOrWhiteSpace(model.PullAreaId))
             {
                 routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
             }
