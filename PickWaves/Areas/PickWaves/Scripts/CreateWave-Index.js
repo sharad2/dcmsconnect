@@ -94,6 +94,7 @@ $.widget("custom.pickslipmatrix", {
 
 ///#source 1 1 /Areas/PickWaves/Scripts/CreateWave-Index.partial.js
 $(document).ready(function () {
+    $('#btnCreateBucket').button();
     // Positions the dialog at the passed td and opens it
     // this represents the dialog DOM object
     function OpenDialog(td) {

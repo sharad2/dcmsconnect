@@ -17,13 +17,25 @@
                 (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe)))">
                 @Model.LastBucketId
             </a> has been created.
-            @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
-                (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing))) |
-            @Html.ActionLink("Add pickslips", MVC_PickWaves.PickWaves.CreateWave.PickslipListSelector
-                (new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListSelectorViewModel(Model.CustomerId, Model.LastBucketId.Value)))
-
+            <br />
+            <span style="font-weight:bold; font-size : 1.2em;">
+                @Html.ActionLink("Edit Pick wave", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
+                (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing))).
+            </span>
         </div>
     }
+    
+<div class="boxContent">
+    <fieldset style="padding: 1em 3em 1em 1em;">
+        <legend>Legend</legend>
+        <div style="width: 9em; background-color: antiquewhite; text-align: center">
+            Pulling Areas
+        </div>
+        <div style="width: 9em; background-color: paleturquoise; text-align: center">
+            Pitching Areas
+        </div>
+    </fieldset>
+</div>
 }
 @if (Model.CustomerOrders.Count > 0)
 {
@@ -109,7 +121,7 @@
 
             </div>
             <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
-            <button type="submit">Create Wave</button>
+            <button type="submit" id="btnCreateBucket">Create New Wave</button>
         }
     </div>
     <div class="boxContent">
