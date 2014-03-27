@@ -37,7 +37,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         /// </summary>
         public int? LastBucketId { get; set; }
 
-        #region Posted Values
+        #region Posted Values while creating new pick wave
 
         [Display(Name = "Pulling")]
         public string PullAreaId { get; set; }

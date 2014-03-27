@@ -97,25 +97,25 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             }
         }
 
-        /// <summary>
-        /// This value will be posted
-        /// </summary>      
+        #region Posted Values
         public int? RowDimIndex { get; set; }
 
         public int? ColDimIndex { get; set; }
 
-        public IEnumerable<SelectListItem> DimensionList { get; set; }
+        /// <summary>
+        /// Value of the dimension in the selected column. This is posted.
+        /// </summary>        
+        public string ColDimVal { get; set; }
 
         public string RowDimVal { get; set; }
+
+        #endregion
+
+        public IEnumerable<SelectListItem> DimensionList { get; set; }        
 
         public string RowDimDisplayName { get; set; }
 
         public string ColDimDisplayName { get; set; }
-
-        /// <summary>
-        /// Value of the dimension in the selected column. This is posted.
-        /// </summary>
-        public string ColDimVal { get; set; }
     }
 
     internal abstract class PickslipMatrixPartialViewModelUnbinder : IModelUnbinder
