@@ -140,24 +140,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
 
             var areas = _service.GetAreasForCustomer(model.CustomerId);
+            if (areas != null)
+            {
+                model.PullAreas = (from area in areas
+                                   where area.AreaType == BucketActivityType.Pulling
+                                   orderby area.CountSku descending
+                                   select new SelectListItem
+                                   {
+                                       Text = string.Format("{0}: {1} ({2:P0} SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku / area.CountOrderedSku),
+                                       Value = area.AreaId
+                                   }).ToList();
 
-            model.PullAreas = (from area in areas
-                               where area.AreaType == BucketActivityType.Pulling
-                               orderby area.CountSku descending
-                               select new SelectListItem
-                               {
-                                   Text = string.Format("{0}: {1} ({2:P0} SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountSku / (decimal)area.CountOrderedSku),
-                                   Value = area.AreaId
-                               }).ToList();
-
-            model.PitchAreas = (from area in areas
-                                where area.AreaType == BucketActivityType.Pitching
-                                orderby area.CountSku descending
-                                select new SelectListItem
-                                {
-                                    Text = string.Format("{0}: {1} ({2:P0} SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountSku / (decimal)area.CountOrderedSku),
-                                    Value = area.AreaId
-                                }).ToList();
+                model.PitchAreas = (from area in areas
+                                    where area.AreaType == BucketActivityType.Pitching
+                                    orderby area.CountSku descending
+                                    select new SelectListItem
+                                    {
+                                        Text = string.Format("{0}: {1} ({2:P0} SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku / area.CountOrderedSku),
+                                        Value = area.AreaId
+                                    }).ToList();
+            }
 
             #region Manage Cookie
             //  SelectedDimension : If null, then a reasonable default is used. The default is cookie => factory default
@@ -273,6 +275,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             try
             {
                 _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
+                AddStatusMessage(string.Format("{0} pickslip added to wave {1}", "1", model.LastBucketId));
             }
             catch (DbException ex)
             {

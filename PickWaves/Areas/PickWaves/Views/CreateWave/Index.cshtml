@@ -48,6 +48,7 @@
             <div style="margin-top: 0.25em; background-color: antiquewhite">
                 Pull From
                 @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Do Not Pull)")
+                <br />
                 @Html.CheckBoxFor(m => m.RequireBoxExpediting)
                 @Html.LabelFor(m => m.RequireBoxExpediting)
             </div>
