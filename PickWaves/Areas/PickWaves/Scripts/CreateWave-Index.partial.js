@@ -65,24 +65,4 @@
         }
         ]
     });
-
-    //For pull area
-    $('#divPullArea').on('click', '.pull-area input:radio', function (e) {
-        $(e.delegateTarget).find('li.ui-state-active').removeClass('ui-state-active');
-        $(this).closest('li').addClass('ui-state-active');
-        $('#cbAllowPulling').prop('checked', true);
-    }).on('click', '#seeAllPullAreas', function (e) {
-        $(e.delegateTarget).find('li.ui-helper-hidden').show();
-        $(this).hide();
-    });
-
-    //For pitch area
-    $('#divPitchArea').on('click', '.pitch-area input:radio', function (e) {
-        $(e.delegateTarget).find('li.ui-state-active').removeClass('ui-state-active');
-        $(this).closest('li').addClass('ui-state-active');
-        $('#cbAllowPitching').prop('checked', true);
-    }).on('click', '#seeAllPitchAreas', function (e) {
-        $(e.delegateTarget).find('li.ui-helper-hidden').show();
-        $(this).hide();
-    });
 });

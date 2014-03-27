@@ -1,46 +1,11 @@
-﻿using System;
+﻿using EclipseLibrary.Mvc.Helpers;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web.Routing;
-using DcmsMobile.PickWaves.Repository.CreateWave;
-using EclipseLibrary.Mvc.Helpers;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 {
-    [Obsolete]
-    public class CreateWaveAreaModel : InventoryAreaModel
-    {
-        public CreateWaveAreaModel(CreateWaveArea entity) : base(entity)
-        {
-            this.CountSku = entity.CountSku;
-            if (this.CountSku == 0)
-            {
-                // Treat as null
-                this.CountSku = null;
-            }
-            this.CountOrderedSku = entity.CountOrderedSku;
-        }
-
-        public int? CountSku { get; set; }
-
-        public int? CountOrderedSku { get; set; }
-
-        public int PercentSkusInArea
-        {
-            get
-            {
-                if (this.CountOrderedSku == 0 || this.CountSku == null || this.CountSku == 0)
-                {
-                    return 0;
-                }
-                return (int)Math.Round((decimal)this.CountSku * 100 / (decimal)this.CountOrderedSku);
-            }
-        }
-
-    }
-
     /// <summary>
     /// The unbinder is capable of handling many properties.
     /// </summary>
@@ -71,61 +36,22 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         /// Return the bucket Id when bucket is created.
         /// </summary>
         public int? LastBucketId { get; set; }
-        
+
         #region Posted Values
 
-        [Display(Name="Pulling")]
+        [Display(Name = "Pulling")]
         public string PullAreaId { get; set; }
 
         [Display(Name = "Pitching")]
         public string PitchAreaId { get; set; }
 
-        [Display(Name="Require Box Expediting")]
+        [Display(Name = "Require Box Expediting")]
         public bool RequireBoxExpediting { get; set; }
-
-        /// <summary>
-        /// Whether user wants to allow pulling. Note that the PullAreaId should ignored if this is posted as false
-        /// </summary>
-        [Obsolete]
-        public bool AllowPulling { get; set; }
-
-        /// <summary>
-        /// Whether user wants to allow pitching. Note that the PitchAreaId should ignored if this is posted as false
-        /// </summary>
-        public bool AllowPitching { get; set; }
         #endregion
-
-        [Obsolete]
-        public IList<CreateWaveAreaModel> PullAreaList { get; set; }
 
         public IList<SelectListItem> PullAreas { get; set; }
 
-        //[Obsolete]
-        //public int CountVisiblePullAreas
-        //{
-        //    get
-        //    {
-        //        if (PullAreaList == null)
-        //        {
-        //            return 0;
-        //        }
-        //        return this.PullAreaList.Count(p => p.PercentSkusInArea >= 40);
-        //    }
-        //}
-
-        public IList<CreateWaveAreaModel> PitchAreaList { get; set; }
-
-        public int CountVisiblePitchAreas
-        {
-            get
-            {
-                if (PitchAreaList == null)
-                {
-                    return 0;
-                }
-                return this.PitchAreaList.Count(p => p.PercentSkusInArea >= 40);
-            }
-        }
+        public IList<SelectListItem> PitchAreas { get; set; }
     }
 
     internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder

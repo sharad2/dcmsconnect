@@ -347,7 +347,7 @@
       <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
-      <DependentUpon>CreateWave-Index.js</DependentUpon>
+      <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js">
       <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>

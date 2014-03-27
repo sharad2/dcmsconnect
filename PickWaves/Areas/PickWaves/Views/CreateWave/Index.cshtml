@@ -45,55 +45,14 @@
             <blockquote>
                 To create a Pick Wave, select a pitch and/or pull area. Then choose one of the pickslip counts in the table below.
             </blockquote>
-            <div id="areaDropDowns">
-                <div style="margin-top: 0.25em; background-color: antiquewhite" id="divPullArea">
-
-                    Pull From
-
-                    @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Do Not Pull)")
-                    <ul style="list-style-type: none">
-                        <li style="padding: 4px 4px 4px 4px">
-                            @Html.CheckBoxFor(m => m.RequireBoxExpediting)
-                            @Html.LabelFor(m => m.RequireBoxExpediting)
-                        </li>
-                    </ul>
-
-                </div>
-                <div style="margin-top: 0.25em; background-color: paleturquoise;" id="divPitchArea">
-                    <fieldset style="padding: 1em">
-                        <legend style="margin-left: 1em">
-                            @Html.CheckBoxFor(m => m.AllowPitching, new { id = "cbAllowPitching" })
-                            Allow Pitching from Area
-                        </legend>
-                        <ul style="list-style-type: none">
-                            @for (var i = 0; i < Model.PitchAreaList.Count; ++i)
-                            {
-                                <li class="pitch-area @Html.Raw(i < Model.CountVisiblePitchAreas && Model.PitchAreaList[i].AreaId == Model.PitchAreaId ? "" : "ui-helper-hidden")
-                                    @Html.Raw(Model.PitchAreaList[i].AreaId == Model.PitchAreaId ? "ui-state-active" : "")
-                                    "
-                                style=" padding 4px 4px 4px 4px">
-                                    @Html.RadioButtonFor(m => m.PitchAreaId, Model.PitchAreaList[i].AreaId, new
-                           {
-                               style = "display:inline-block;vertical-align:middle",
-                               id = string.Format("pitch_area_{0}", i)
-                           })
-                                    <label style="display: inline-block; width: 24em; overflow-x: hidden; white-space: nowrap; padding-right: 2em" for="@string.Format("pitch_area_{0}", i)">
-                                        @Model.PitchAreaList[i].DisplayName.
-                                    </label>
-                                    @Model.PitchAreaList[i].PercentSkusInArea % SKUs available.
-                                </li>
-                            }
-                            @if (Model.CountVisiblePitchAreas < Model.PitchAreaList.Count)
-                            {
-                                <li>
-                                    <a href="#" id="seeAllPitchAreas">See More Pitch Areas</a>
-                                </li>
-                            }
-                        </ul>
-                    </fieldset>
-                </div>
-
-
+            <div style="margin-top: 0.25em; background-color: antiquewhite">
+                Pull From
+                @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Do Not Pull)")
+                @Html.CheckBoxFor(m => m.RequireBoxExpediting)
+                @Html.LabelFor(m => m.RequireBoxExpediting)
+            </div>
+            <div style="margin-top: 0.25em; background-color: paleturquoise;">
+                Pitch From @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Do Not Pitch)")
             </div>
             <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
             <button type="submit" id="btnCreateBucket">Create New Wave</button>

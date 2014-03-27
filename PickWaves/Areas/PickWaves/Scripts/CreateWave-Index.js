@@ -1,4 +1,5 @@
-﻿/*
+﻿///#source 1 1 /Areas/PickWaves/Scripts/_pickslipMatrixPartial.partial.js
+/*
 This widget display a matrix of pickslip counts for the dimension selected by the user.
 
 When the user selects a different dimension, it auto refreshes itself via Ajax, raising the events refreshing and refreshed
@@ -91,6 +92,7 @@ $.widget("custom.pickslipmatrix", {
 }
 });
 
+///#source 1 1 /Areas/PickWaves/Scripts/CreateWave-Index.partial.js
 $(document).ready(function () {
     $('#btnCreateBucket').button();
     // Positions the dialog at the passed td and opens it
@@ -158,25 +160,4 @@ $(document).ready(function () {
         }
         ]
     });
-
-    //For pull area
-    $('#divPullArea').on('click', '.pull-area input:radio', function (e) {
-        $(e.delegateTarget).find('li.ui-state-active').removeClass('ui-state-active');
-        $(this).closest('li').addClass('ui-state-active');
-        $('#cbAllowPulling').prop('checked', true);
-    }).on('click', '#seeAllPullAreas', function (e) {
-        $(e.delegateTarget).find('li.ui-helper-hidden').show();
-        $(this).hide();
-    });
-
-    //For pitch area
-    $('#divPitchArea').on('click', '.pitch-area input:radio', function (e) {
-        $(e.delegateTarget).find('li.ui-state-active').removeClass('ui-state-active');
-        $(this).closest('li').addClass('ui-state-active');
-        $('#cbAllowPitching').prop('checked', true);
-    }).on('click', '#seeAllPitchAreas', function (e) {
-        $(e.delegateTarget).find('li.ui-helper-hidden').show();
-        $(this).hide();
-    });
 });
-
