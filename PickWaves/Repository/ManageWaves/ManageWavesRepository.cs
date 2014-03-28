@@ -125,6 +125,8 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
+   and p.transfer_date is null
+   and pd.transfer_date is null
                                    GROUP BY PD.UPC_CODE, P.VWH_ID
                             ),
                             ALL_INVENTORY_SKU(SKU_ID,
