@@ -51,7 +51,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                           P.CUSTOMER_ID                             AS CUSTOMER_ID,
                                           B.FREEZE                                  AS FREEZE,
                                           P.TOTAL_QUANTITY_ORDERED                  AS TOTAL_QUANTITY_ORDERED,
-                                          SUM(P.TOTAL_QUANTITY_ORDERED) OVER(PARTITION BY B.BUCKET_ID) AS TOTAL_QUANTITY_ORDERED_IN_BKT,
                                           CUST.NAME                                 AS CUSTOMER_NAME,
                                           CUST.INACTIVE_FLAG                        AS INACTIVE_FLAG,
                                           B.PULL_CARTON_AREA                        AS PULL_CARTON_AREA,
@@ -81,7 +80,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                     LEFT OUTER JOIN <proxy />TAB_WAREHOUSE_LOCATION TWL_PITCH
                                       ON TWL_PITCH.WAREHOUSE_LOCATION_ID = IA.WAREHOUSE_LOCATION_ID
                                    WHERE P.TRANSFER_DATE IS NULL
-                                    AND B.CREATED_BY_MODULE = :MODULE_CODE
                                     <if> AND P.CUSTOMER_ID = :CUSTOMER_ID </if>
                                 ),
                                 PICKED_PIECES AS
@@ -89,32 +87,21 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                   -- PK: pickslip_id for row_num = 1
                                   SELECT ROW_NUMBER() OVER(PARTITION BY P.PICKSLIP_ID ORDER BY BD.BOXDET_ID) AS ROW_NUM,
                                           P.PICKSLIP_ID AS PICKSLIP_ID,
+                                          SUM(BD.CURRENT_PIECES) OVER(PARTITION BY P.PICKSLIP_ID) AS CURRENT_PIECES,                                         
+                                          SUM(NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)) OVER(PARTITION BY P.PICKSLIP_ID) AS EXPECTED_PIECES,                                                                        
                                           SUM(CASE
-                                                WHEN B.STOP_PROCESS_DATE IS NULL THEN
-                                                 BD.CURRENT_PIECES
-                                              END) OVER(PARTITION BY P.PICKSLIP_ID) AS CURRENT_PIECES,
-                                          SUM(CASE
-                                                WHEN B.STOP_PROCESS_DATE IS NOT NULL THEN
-                                                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                              END) OVER(PARTITION BY P.PICKSLIP_ID) AS CANCELLED_PIECES,
-                                          SUM(NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)) OVER(PARTITION BY P.BUCKET_ID) AS EXPECTED_PIECES_IN_BKT,
-                                          SUM(NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)) OVER(PARTITION BY P.PICKSLIP_ID) AS EXPECTED_PIECES,                                         
-                                          COUNT(UNIQUE B.UCC128_ID) OVER(PARTITION BY P.BUCKET_ID) AS COUNT_BOXES_IN_BUCKET,                                
-                                          SUM(CASE
-                                                WHEN B.STOP_PROCESS_DATE IS NULL AND B.VERIFY_DATE IS NULL AND
+                                                WHEN B.VERIFY_DATE IS NULL AND
                                                      B.IA_ID IS NOT NULL THEN
                                                  B.UCC128_ID
                                               END) OVER(PARTITION BY P.BUCKET_ID) AS INPROGRESS_BOXES_IN_BKT,
                                           SUM(CASE
-                                                WHEN B.STOP_PROCESS_DATE IS NULL AND B.VERIFY_DATE IS NULL AND
+                                                WHEN B.VERIFY_DATE IS NULL AND
                                                      B.IA_ID IS NULL THEN
                                                  B.UCC128_ID
                                               END) OVER(PARTITION BY P.BUCKET_ID) AS NONPHYSICAL_BOXES_IN_BKT,
                                           MAX(B.PITCHING_END_DATE) OVER(PARTITION BY P.BUCKET_ID) AS MAX_PITCHING_END_DATE,
                                           MIN(B.PITCHING_END_DATE) OVER(PARTITION BY P.BUCKET_ID) AS MIN_PITCHING_END_DATE
                                     FROM <proxy />PS P
-                                   INNER JOIN <proxy />BUCKET BKT
-                                      ON P.BUCKET_ID = BKT.BUCKET_ID
                                    INNER JOIN <proxy />BOX B
                                       ON B.PICKSLIP_ID = P.PICKSLIP_ID
                                    INNER JOIN <proxy />BOXDET BD
@@ -122,15 +109,15 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                      AND B.UCC128_ID = BD.UCC128_ID
                                    WHERE P.TRANSFER_DATE IS NULL
                                     <if> AND P.CUSTOMER_ID = :CUSTOMER_ID </if>
-                                     AND BKT.CREATED_BY_MODULE = :MODULE_CODE)
+                                     and b.stop_process_date is null
+                                     and bd.stop_process_date is null)
                                 SELECT BI.CUSTOMER_ID                               AS CUSTOMER_ID,
                                        MAX(BI.CUSTOMER_NAME)                        AS CUSTOMER_NAME,                                       
                                        COUNT(UNIQUE BI.BUCKET_ID)                   AS BUCKET_COUNT,                                       
                                        MAX(BI.PRIORITY)                             AS MAX_PRIORITY,
                                        SUM(PP.CURRENT_PIECES)                       AS CURRENT_PIECES,
                                        SUM(BI.TOTAL_QUANTITY_ORDERED)               AS TOTAL_QUANTITY_ORDERED,                                       
-                                       SUM(PP.EXPECTED_PIECES)                      AS EXPECTED_PIECES,
-                                       SUM(PP.CANCELLED_PIECES)                     AS CANCELLED_PIECES,                                     
+                                       SUM(PP.EXPECTED_PIECES)                      AS EXPECTED_PIECES,                                                                            
                                        MAX(BI.INACTIVE_FLAG)                        AS INACTIVE_FLAG,
                                        MAX(PP.MAX_PITCHING_END_DATE)                AS MAX_PITCHING_END_DATE,
                                        MIN(PP.MIN_PITCHING_END_DATE)                AS MIN_PITCHING_END_DATE,
@@ -185,8 +172,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                        MaxPriorityId = row.GetInteger("MAX_PRIORITY") ?? 0,
                        OrderedPieces = row.GetInteger("TOTAL_QUANTITY_ORDERED") ?? 0,
                        CurrentPieces = row.GetInteger("CURRENT_PIECES") ?? 0,
-                       ExpectedPieces = row.GetInteger("EXPECTED_PIECES") ?? 0,
-                       CancelledPieces = row.GetInteger("CANCELLED_PIECES") ?? 0,
+                       ExpectedPieces = row.GetInteger("EXPECTED_PIECES") ?? 0,                       
                        PitchAreaCount = row.GetInteger("PITCH_AREA_COUNT") ?? 0,
                        PullAreaCount = row.GetInteger("PULL_AREA_COUNT") ?? 0,
                        BucketState = row.GetEnum<ProgressStage>("BUCKET_STATUS"),
@@ -224,8 +210,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
             binder.Parameter("CUSTOMER_ID", customerId)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString())
-                  .Parameter("CompletedState", ProgressStage.Completed.ToString())
-                  .Parameter("MODULE_CODE", MODULE_CODE);
+                  .Parameter("CompletedState", ProgressStage.Completed.ToString());
             return _db.ExecuteReader(QUERY, binder);
         }
 
