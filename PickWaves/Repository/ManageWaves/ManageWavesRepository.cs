@@ -114,20 +114,18 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
-                                    SELECT  PD.UPC_CODE            AS UPC_CODE,
-                                            MAX(PD.SKU_ID)         AS SKU_ID,
+                                    SELECT  PD.SKU_ID         AS SKU_ID,
                                             P.VWH_ID               AS VWH_ID,
-                                            SUM(CASE
-                                               WHEN P.BUCKET_ID = :BUCKET_ID THEN
+                                            SUM(
                                                 PD.PIECES_ORDERED
-                                             END)               AS QUANTITY_ORDERED
+                                             )               AS QUANTITY_ORDERED
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
    and p.transfer_date is null
    and pd.transfer_date is null
-                                   GROUP BY PD.UPC_CODE, P.VWH_ID
+                                   GROUP BY PD.SKU_ID, P.VWH_ID
                             ),
                             ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
@@ -166,7 +164,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                      AND SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
                                    INNER JOIN <proxy />TAB_INVENTORY_AREA TIA
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
-                                  INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = SCD.SKU_ID
+                           --       INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = SCD.SKU_ID
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
                                 UNION ALL
@@ -196,7 +194,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
                                     ON I.IA_ID = IL.IA_ID
-                                INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = IC.SKU_ID
+                            --    INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = IC.SKU_ID
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
@@ -207,7 +205,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                     MAX(IS_PULL_AREA) AS IS_PULL_AREA
                                     FOR(INVENTORY_AREA, BUILDING_ID) IN(ANY, ANY))),
                             BOX_SKU AS
-                                 (SELECT BD.UPC_CODE AS UPC_CODE,
+                                 (SELECT BD.SKU_ID AS SKU_ID,
                                          B.VWH_ID AS VWH_ID,
                                          SUM(CASE
                                                WHEN B.CARTON_ID IS NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is null THEN
@@ -268,16 +266,17 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    INNER JOIN <proxy />PS P
                                       ON P.PICKSLIP_ID = B.PICKSLIP_ID
                                    WHERE p.bucket_id = :BUCKET_ID
+and b.stop_process_date is null and bd.stop_process_date is null
                             <if c='$Pitching'>AND B.CARTON_ID IS NULL</if>
                             <if c='$Pulling'>AND B.CARTON_ID IS NOT NULL</if>
-                                   GROUP BY BD.UPC_CODE, B.VWH_ID
+                                   GROUP BY BD.SKU_ID, B.VWH_ID
                             )
                             SELECT MS.SKU_ID        AS SKU_ID,
                                    MS.STYLE         AS STYLE,
                                    MS.COLOR         AS COLOR,
                                    MS.DIMENSION     AS DIMENSION,
                                    MS.SKU_SIZE      AS SKU_SIZE,
-                                   AOS.UPC_CODE     AS UPC_CODE,
+                                   ms.UPC_CODE     AS UPC_CODE,
                                    AOS.VWH_ID       AS VWH_ID,
                                    AOS.QUANTITY_ORDERED             AS QUANTITY_ORDERED,
                                    BOX_SKU.UNVRFY_CUR_PCS_PITCH     AS UNVRFY_CUR_PCS_PITCH,
@@ -295,12 +294,12 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    AIS.XML_COLUMN                   AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
-                                ON MS.UPC_CODE = AOS.UPC_CODE
+                                ON MS.SKU_ID = AOS.SKU_ID
                               LEFT OUTER JOIN PIVOT_ALL_INVENTORY_SKU AIS
-                                ON AIS.SKU_ID = MS.SKU_ID
+                                ON AIS.SKU_ID = aos.SKU_ID
                                AND AIS.VWH_ID = AOS.VWH_ID
                               LEFT OUTER JOIN BOX_SKU BOX_SKU
-                                ON BOX_SKU.UPC_CODE = AOS.UPC_CODE
+                                ON BOX_SKU.SKU_ID = AOS.SKU_ID
                                AND BOX_SKU.VWH_ID = AOS.VWH_ID
 WHERE 1 = 1
     <if c='$Completed'>AND (BOX_SKU.VRFY_CUR_PCS_PITCH &gt; 0 OR BOX_SKU.VRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PITCH &gt; 0)</if>
