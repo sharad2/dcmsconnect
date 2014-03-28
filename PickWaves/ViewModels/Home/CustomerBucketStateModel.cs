@@ -42,17 +42,18 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PickedPieces { get; set; }
 
-        /// <summary>
-        /// Number of pieces which we want to pick for this customer. Regardless of whether they have already been picked or not.
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PickablePieces
-        {
-            get
-            {
-                return this.OrderedPieces - this.CancelledPieces;
-            }
-        }
+        ///// <summary>
+        ///// Number of pieces which we want to pick for this customer. Regardless of whether they have already been picked or not.
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //[Obsolete]
+        //public int PickablePieces
+        //{
+        //    get
+        //    {
+        //        return this.OrderedPieces - this.CancelledPieces;
+        //    }
+        //}
 
         /// <summary>
         /// 0 is returned if nothing is picked, or there are no ordered pieces
@@ -61,11 +62,11 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         {
             get
             {
-                if (this.PickablePieces == 0 || this.PickedPieces == 0)
+                if (this.OrderedPieces == 0 || this.PickedPieces == 0)
                 {
                     return 0;
                 }
-                return (int)Math.Round((decimal)(this.PickedPieces) * 100 / (decimal)this.PickablePieces);
+                return (int)Math.Round((decimal)(this.PickedPieces) * 100 / (decimal)this.OrderedPieces);
             }
         }
 
@@ -79,7 +80,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         {
             get
             {
-                return this.OrderedPieces - this.CancelledPieces - this.PickedPieces;
+                return this.OrderedPieces -  this.PickedPieces;
             }
         }
 
@@ -87,19 +88,20 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         {
             get
             {
-                if (this.PickablePieces == 0 || this.UnpickedPieces == 0)
+                if (this.OrderedPieces == 0 || this.UnpickedPieces == 0)
                 {
                     return 0;
                 }
-                return (int)Math.Round((decimal)this.UnpickedPieces * 100 / (decimal)this.PickablePieces);
+                return (int)Math.Round((decimal)this.UnpickedPieces * 100 / (decimal)this.OrderedPieces);
             }
         }
 
-        /// <summary>
-        /// Sum of expected pieces in cancelled boxes
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CancelledPieces { get; set; }
+        ///// <summary>
+        ///// Sum of expected pieces in cancelled boxes
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //[Obsolete]
+        //public int CancelledPieces { get; set; }
 
         /// <summary>
         /// Max(OrderedPieces - CancelledPieces) - this.ExpectedPieces)
@@ -109,7 +111,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         {
             get
             {
-                var result = (this.OrderedPieces - this.CancelledPieces) - this.ExpectedPieces;
+                var result = this.OrderedPieces - this.ExpectedPieces;
                 if (result == 0)
                 {
                     result = 0;

@@ -48,6 +48,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// <summary>
         /// Number of pieces which have been cancelled.
         /// </summary>
+        [Obsolete]
         public int CancelledPieces { get; set; }
 
         public int MaxPriorityId { get; set; }

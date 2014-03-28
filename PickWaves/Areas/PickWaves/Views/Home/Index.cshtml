@@ -235,18 +235,18 @@
                                     </td>
                                     <td style="text-align: right">
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)
-                                        @if (Model.BucketsByStatus.Values[j][i].CancelledPieces > 0)
+                                        @*@if (Model.BucketsByStatus.Values[j][i].CancelledPieces > 0)
                                         {
                                             <div style="text-align: right; display: inline-block; font-style: italic; background-color: thistle">
                                                 @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CancelledPieces) cancelled
                                             </div>
-                                        }
+                                        }*@
                                     </td>
                                     <td>
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                         { 
                                             <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 14em;" 
-                                                title ="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickablePieces) pieces picked.">
+                                                title ="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked.">
                                                 @if (Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                                 {
                                                     <div style="width: @Model.BucketsByStatus.Values[j][i].PercentPickedPieces%" class="ui-progressbar-value ui-widget-header ui-corner-left">

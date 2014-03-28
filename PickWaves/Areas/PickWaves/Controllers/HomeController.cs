@@ -185,7 +185,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                        PickedPieces = g.Sum(p => p.CurrentPieces),
                        OrderedPieces = g.Sum(p => p.OrderedPieces),
                        ExpectedPieces = g.Sum(p => p.ExpectedPieces),
-                       CancelledPieces = g.Sum(p => p.CancelledPieces),
+                       //CancelledPieces = g.Sum(p => p.CancelledPieces),
                        PitchAreaCount = g.Sum(p => p.PitchAreaCount),
                        PullAreaCount = g.Sum(p => p.PullAreaCount),
                        MaxPriorityId = g.Sum(p => p.MaxPriorityId),
