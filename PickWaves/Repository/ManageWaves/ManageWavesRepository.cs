@@ -291,7 +291,7 @@ and b.stop_process_date is null and bd.stop_process_date is null
                                    BOX_SKU.MIN_PITCHING_END_DATE    AS MIN_PITCHING_END_DATE,
                                    BOX_SKU.MAX_PULL_END_DATE        AS MAX_PULL_END_DATE,
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
-                                   AIS.XML_COLUMN                   AS XML_COLUMN
+                                   AIS.XML_COLUMN.getstringval()                   AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
                                 ON MS.SKU_ID = AOS.SKU_ID
@@ -321,7 +321,7 @@ WHERE 1 = 1
                                 VwhId = row.GetString("VWH_ID")
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
-                            BucketSkuInAreas = MapOrderedSkuXml(row.GetXml("XML_COLUMN"))
+                            BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };
                     bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
                     bs.Activities[BucketActivityType.Pitching].MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
@@ -377,14 +377,15 @@ WHERE 1 = 1
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(XElement xml)
+        private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
         {
-            if (xml == null)
+            if (string.IsNullOrWhiteSpace(xml))
             {
                 // No inventory
                 return Enumerable.Empty<CartonAreaInventory>();
             }
-            var result = (from item in xml.Elements("item")
+            var x = XElement.Parse(xml);
+            var result = (from item in x.Elements("item")
                           let column = item.Elements("column")
                           select new CartonAreaInventory
                           {
