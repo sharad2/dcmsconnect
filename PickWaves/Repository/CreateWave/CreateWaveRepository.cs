@@ -294,8 +294,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          BKT.PULL_CARTON_AREA,
                                          BKT.BUCKET_COMMENT,
                                          BKT.FREEZE,
-                                         BKT.PULL_TYPE,
-                                         BKT.CREATED_BY_MODULE)
+                                         BKT.PULL_TYPE)
                                       VALUES
                                         (<proxy />BUCKET_SEQUENCE.NEXTVAL,
                                          :PITCH_TYPE,
@@ -305,8 +304,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          :PULL_CARTON_AREA,
                                          :BUCKET_COMMENT,
                                          :FREEZE,
-                                         :PULL_TYPE,
-                                         :CREATED_BY_MODULE)
+                                         :PULL_TYPE)
                                       RETURNING BUCKET_ID INTO :BUCKET_ID
               ";
             var binder = SqlBinder.Create();
@@ -318,7 +316,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
                   .Parameter("FREEZE", bucket.IsFrozen ? "Y" : null)
-                  .Parameter("CREATED_BY_MODULE", MODULE_CODE)
                   ;
             var bucketId = 0;
             binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);

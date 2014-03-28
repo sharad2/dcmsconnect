@@ -1,8 +1,8 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Web;
-using DcmsMobile.PickWaves.Helpers;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository.Home
 {
@@ -221,7 +221,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
 SELECT 1 FROM <proxy />BUCKET BKT
  INNER JOIN <proxy />PS P ON P.BUCKET_ID = BKT.BUCKET_ID
  WHERE BKT.BUCKET_ID = :int_value
-   AND BKT.CREATED_BY_MODULE = :MODULE_CODE
    AND P.TRANSFER_DATE IS NULL
 UNION
 </if>
@@ -239,8 +238,7 @@ ORDER BY 1
                 binder.Parameter("int_value", string.Empty);
             }
 
-            binder.Parameter("string_value", searchText)
-                .Parameter("MODULE_CODE", MODULE_CODE);
+            binder.Parameter("string_value", searchText);
             var result = _db.ExecuteSingle(QUERY, binder);
 
             SearchTextType ret;

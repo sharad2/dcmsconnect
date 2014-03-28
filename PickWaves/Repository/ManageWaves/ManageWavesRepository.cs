@@ -585,7 +585,7 @@ WHERE 1 = 1
                                                                                             END,       </if>
                                 <if c = '$PULL_CARTON_AREA_FLAG'>   BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA, </if>
                                 <if c = '$PULL_TYPE_FLAG'>          BKT.PULL_TYPE         = :PULL_TYPE,      </if>
-                                                                    BKT.CREATED_BY_MODULE = :MODULE_CODE
+                                                                    BKT.DATE_MODIFIED = SYSDATE
                          WHERE BKT.BUCKET_ID = :BUCKET_ID
                         RETURNING BKT.NAME, 
                                   BKT.PITCH_IA_ID,
@@ -606,8 +606,7 @@ WHERE 1 = 1
                   .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
                   .Parameter("BUCKET_ID", bucket.BucketId)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
-                  .Parameter("BUCKET_COMMENT", bucket.BucketComment)
-                  .Parameter("MODULE_CODE", MODULE_CODE);
+                  .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
             binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
             binder.ParameterXPath("PRIORITY_FLAG", flags.HasFlag(EditBucketFlags.Priority));

@@ -13,7 +13,7 @@ namespace DcmsMobile.PickWaves.Repository
 
         protected OracleDatastore _db;
 
-        protected const string MODULE_CODE = "PickWaveManager";
+        //protected const string MODULE_CODE = "PickWaveManager";
 
         protected PickWaveRepositoryBase(TraceContext ctx, string userName, string clientInfo)
         {
@@ -21,7 +21,7 @@ namespace DcmsMobile.PickWaves.Repository
             var connectString = ConfigurationManager.ConnectionStrings["dcms8"].ConnectionString;
             db.CreateConnection(connectString, userName);
 
-            db.ModuleName = MODULE_CODE;
+            db.ModuleName = "PickWaveManager";
             db.ClientInfo = clientInfo;
             _db = db;
         }
@@ -143,7 +143,6 @@ namespace DcmsMobile.PickWaves.Repository
                         LEFT OUTER JOIN <proxy />IA IA
                           ON IA.IA_ID = BKT.PITCH_IA_ID
                        WHERE PS.TRANSFER_DATE IS NULL
-                         AND BKT.CREATED_BY_MODULE =  :MODULE_CODE
                         <if>
                         AND BKT.BUCKET_ID = :BUCKET_ID
                         </if>
@@ -262,8 +261,7 @@ namespace DcmsMobile.PickWaves.Repository
                            INNER JOIN <proxy />BOXDET BD
                               ON BOX.PICKSLIP_ID = BD.PICKSLIP_ID
                              AND BOX.UCC128_ID = BD.UCC128_ID
-                           WHERE PS.TRANSFER_DATE IS NULL
-                             AND BKT.CREATED_BY_MODULE = :MODULE_CODE                             
+                           WHERE PS.TRANSFER_DATE IS NULL                         
                             <if>
                                 AND BKT.BUCKET_ID = :BUCKET_ID
                             </if>
@@ -409,8 +407,7 @@ namespace DcmsMobile.PickWaves.Repository
                   .Parameter("state", bucketState)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString())
-                  .Parameter("CompletedState", ProgressStage.Completed.ToString())
-                  .Parameter("MODULE_CODE", MODULE_CODE);
+                  .Parameter("CompletedState", ProgressStage.Completed.ToString());
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
     }
