@@ -20,7 +20,7 @@
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
              (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
             </legend>
-TODO: Display number of added pickslips
+            TODO: Display number of added pickslips
             <br />
             Selct pickslips from the table to add to this pick wave
         </fieldset>
@@ -33,13 +33,13 @@ TODO: Display number of added pickslips
         <legend>New Pick Wave</legend>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.CreatePickWave(), FormMethod.Post))
         {
-            <div style="margin-top: 0.25em; background-color: antiquewhite">
+            <div style="margin-top: 0.25em;">
                 Pull From
                 @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
                 @Html.CheckBoxFor(m => m.RequireBoxExpediting)
                 @Html.LabelFor(m => m.RequireBoxExpediting)
             </div>
-            <div style="margin-top: 0.25em; background-color: paleturquoise;">
+            <div style="margin-top: 0.25em;">
                 Pitch From @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
             </div>
             <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
