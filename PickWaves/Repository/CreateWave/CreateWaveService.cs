@@ -45,7 +45,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             return result;
         }        
 
-        public int CreateWave(Bucket bucket)
+        public int CreateWave(PickWaveEditable bucket)
         {
             return _repos.CreateWave(bucket);
         }

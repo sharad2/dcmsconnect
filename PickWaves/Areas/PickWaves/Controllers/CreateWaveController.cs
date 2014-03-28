@@ -234,17 +234,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
             }
-            var bucket = new Bucket
+            var bucket = new PickWaveEditable
             {
                 PriorityId = 1,   // Default priority
                 RequireBoxExpediting = model.RequireBoxExpediting,
-                IsFrozen = true
+               // IsFrozen = true
             };
             // TC4: Give pull area if user wants to pulled cartons.
-            bucket.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaId;
+            bucket.PullAreaId = model.PullAreaId;
 
             // TC5: Give pitch area if user wants to pitched pieces.
-            bucket.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaId;
+            bucket.PitchAreaId = model.PitchAreaId;
             bucket.BucketName = "Bucket";
             //string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
             // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,

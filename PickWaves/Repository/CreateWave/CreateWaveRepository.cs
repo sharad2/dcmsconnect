@@ -9,6 +9,41 @@ using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
+    /// <summary>
+    /// TODO: Remove derivation. Move class to its own file
+    /// </summary>
+    /// <remarks>
+    /// Represents those properties of a bucket which are useful while creating or editing a bucket.
+    /// </remarks>
+    public class PickWaveEditable
+    {
+        [Key]
+        public int BucketId { get; set; }
+
+        #region Editable
+        /// <summary>
+        /// Name of the bucket
+        /// </summary>
+        public string BucketName { get; set; }
+
+        /// <summary>
+        /// Priority Id of Bucket
+        /// </summary>
+        public int PriorityId { get; set; }
+
+        public bool RequireBoxExpediting { get; set; }
+
+        public string PullAreaId { get; set; }
+
+        public string PitchAreaId { get; set; }
+        #endregion
+
+        #region Non editable
+        public int PickslipCount { get; set; }
+        #endregion
+
+    }
+
     public class CreateWaveRepository : PickWaveRepositoryBase
     {
         #region Intialization
@@ -278,7 +313,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             return dict;
         }       
 
-        public int CreateWave(Bucket bucket)
+        public int CreateWave(PickWaveEditable bucket)
         {
             if (bucket == null)
             {
@@ -292,7 +327,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          BKT.PITCH_IA_ID,
                                          BKT.PRIORITY,
                                          BKT.PULL_CARTON_AREA,
-                                         BKT.BUCKET_COMMENT,
                                          BKT.FREEZE,
                                          BKT.PULL_TYPE)
                                       VALUES
@@ -302,20 +336,18 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          :PITCH_IA_ID,
                                          :PRIORITY,
                                          :PULL_CARTON_AREA,
-                                         :BUCKET_COMMENT,
-                                         :FREEZE,
+                                         'Y',
                                          :PULL_TYPE)
                                       RETURNING BUCKET_ID INTO :BUCKET_ID
               ";
             var binder = SqlBinder.Create();
             binder.Parameter("PITCH_TYPE", "BOX")
                   .Parameter("NAME", bucket.BucketName)
-                  .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
+                  .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("PRIORITY", bucket.PriorityId)
-                  .Parameter("PULL_CARTON_AREA", bucket.Activities[BucketActivityType.Pulling].Area.AreaId)
-                  .Parameter("BUCKET_COMMENT", bucket.BucketComment)
+                  .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
+                  //.Parameter("BUCKET_COMMENT", bucket.BucketComment)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
-                  .Parameter("FREEZE", bucket.IsFrozen ? "Y" : null)
                   ;
             var bucketId = 0;
             binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);
@@ -345,8 +377,10 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                     END;
               ";
             var binder = SqlBinder.Create();
+            var bucket = new PickWaveEditable();
             binder.Parameter("BUCKET_ID", bucketId)
-                  .Parameter("CUSTOMER_ID", customerId);
+                  .Parameter("CUSTOMER_ID", customerId)
+                  ;
 
             var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
             var clauses = new List<string>(2);
@@ -365,6 +399,8 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             var queryFinal = string.Format(QUERY, string.Join(" AND ", clauses));
             _db.ExecuteDml(queryFinal, binder);
         }
+
+
 
         /// <summary>
         /// Add pickslip to passed bucket.
