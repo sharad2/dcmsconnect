@@ -53,7 +53,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         public IList<SelectListItem> PitchAreas { get; set; }
 
-        #region After creating bucket
+        #region Only for display
 
         public string PullAreaShortName { get; set; }
 

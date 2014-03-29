@@ -1,54 +1,14 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
-using DcmsMobile.PickWaves.Helpers;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
-    /// <summary>
-    /// TODO: Remove derivation. Move class to its own file
-    /// </summary>
-    /// <remarks>
-    /// Represents those properties of a bucket which are useful while creating or editing a bucket.
-    /// </remarks>
-    public class PickWaveEditable
-    {
-        [Key]
-        public int BucketId { get; set; }
-
-        #region Editable
-        /// <summary>
-        /// Name of the bucket
-        /// </summary>
-        public string BucketName { get; set; }
-
-        /// <summary>
-        /// Priority Id of Bucket
-        /// </summary>
-        public int PriorityId { get; set; }
-
-        public bool RequireBoxExpediting { get; set; }
-
-        public string PullAreaId { get; set; }
-
-        public string PitchAreaId { get; set; }
-        #endregion
-
-        #region Non editable
-
-        public int PickslipCount { get; set; }
-
-        public string PullAreaShortName { get; set; }
-
-        public string PitchAreaShortName { get; set; }
-
-        #endregion
-    }
-
     public class CreateWaveRepository : PickWaveRepositoryBase
     {
         #region Intialization
@@ -405,8 +365,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             _db.ExecuteDml(queryFinal, binder);
         }
 
-
-
         /// <summary>
         /// Add pickslip to passed bucket.
         /// </summary>
@@ -537,12 +495,12 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                 SELECT COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
                                        MAX(T.SHORT_NAME) AS PULL_AREA,
                                        MAX(I.SHORT_NAME) AS PITCH_AREA
-                                  FROM BUCKET B
-                                 INNER JOIN PS PS
+                                  FROM <proxy />BUCKET B
+                                 INNER JOIN <proxy />PS PS
                                     ON PS.BUCKET_ID = B.BUCKET_ID
-                                  LEFT OUTER JOIN TAB_INVENTORY_AREA T
+                                  LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA T
                                     ON T.INVENTORY_STORAGE_AREA = B.PULL_CARTON_AREA
-                                  LEFT OUTER JOIN IA I
+                                  LEFT OUTER JOIN <proxy />IA I
                                     ON I.IA_ID = B.PITCH_IA_ID
                                  WHERE PS.BUCKET_ID = :BUCKET_ID
                                    AND PS.TRANSFER_DATE IS NULL

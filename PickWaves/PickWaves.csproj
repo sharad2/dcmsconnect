@@ -150,6 +150,7 @@
     <Compile Include="Repository\Bucket.cs" />
     <Compile Include="Repository\Config\Style.cs" />
     <Compile Include="Repository\CreateWave\CreateWaveArea.cs" />
+    <Compile Include="Repository\CreateWave\PickWaveEditable.cs" />
     <Compile Include="Repository\CreateWave\VirtualWarehouse.cs" />
     <Compile Include="Repository\Customer.cs" />
     <Compile Include="Repository\Home\BucketSummary.cs" />
@@ -347,7 +348,7 @@
       <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
-      <DependentUpon>CreateWave-Index.js</DependentUpon>
+      <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js">
       <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>
