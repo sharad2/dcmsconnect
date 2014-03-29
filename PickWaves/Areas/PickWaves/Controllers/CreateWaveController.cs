@@ -147,7 +147,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                    orderby area.CountSku descending
                                    select new SelectListItem
                                    {
-                                       Text = string.Format("{0}: {1} ({2:P0} SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku / area.CountOrderedSku),
+                                       Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                        Value = area.AreaId
                                    }).ToList();
 
@@ -156,7 +156,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                     orderby area.CountSku descending
                                     select new SelectListItem
                                     {
-                                        Text = string.Format("{0}: {1} ({2:P0} SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku / area.CountOrderedSku),
+                                        Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                         Value = area.AreaId
                                     }).ToList();
             }

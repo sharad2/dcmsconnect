@@ -37,7 +37,7 @@
 @if (Model.CustomerOrders.Count > 0)
 {
     <fieldset>
-        <legend>New Pick Wave</legend>
+        <legend style="font-size: 1.2em; font-weight : bold;">New Pick Wave</legend>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.CreatePickWave(), FormMethod.Post))
         {
             <div style="margin-top: 0.25em;">
@@ -54,7 +54,7 @@
         }
     </fieldset>
     <fieldset>
-        <legend>Add Pickslips</legend>
+        <legend style="font-size: 1.2em; font-weight : bold;">Add Pickslips</legend>
         @if (Model.LastBucketId.HasValue)
         {
             using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim(), FormMethod.Post, new
