@@ -52,6 +52,16 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         public IList<SelectListItem> PullAreas { get; set; }
 
         public IList<SelectListItem> PitchAreas { get; set; }
+
+        #region After creating bucket
+
+        public string PullAreaShortName { get; set; }
+
+        public string PitchAreaShortName { get; set; }
+
+        public int PickslipCount { get; set; }
+
+        #endregion
     }
 
     internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder

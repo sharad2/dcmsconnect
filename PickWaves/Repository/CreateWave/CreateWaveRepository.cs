@@ -39,9 +39,14 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         #endregion
 
         #region Non editable
-        public int PickslipCount { get; set; }
-        #endregion
 
+        public int PickslipCount { get; set; }
+
+        public string PullAreaShortName { get; set; }
+
+        public string PitchAreaShortName { get; set; }
+
+        #endregion
     }
 
     public class CreateWaveRepository : PickWaveRepositoryBase
@@ -311,7 +316,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                             Value = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT")
                         }).ToDictionary(p => isColDate ? ((DateTime)p.ColValue).ToString() : (string)p.ColValue, p => p.Value);
             return dict;
-        }       
+        }
 
         public int CreateWave(PickWaveEditable bucket)
         {
@@ -346,7 +351,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("PRIORITY", bucket.PriorityId)
                   .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
-                  //.Parameter("BUCKET_COMMENT", bucket.BucketComment)
+                //.Parameter("BUCKET_COMMENT", bucket.BucketComment)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
                   ;
             var bucketId = 0;
@@ -519,6 +524,38 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 Description = row.GetString("DESCRIPTION")
             }).Parameter("CUSTOMER_ID", customerId);
             return _db.ExecuteReader(QUERY, binder);
+        }
+
+        public PickWaveEditable GetEditableBucket(int bucketId)
+        {
+            if (bucketId == 0)
+            {
+                throw new ArgumentNullException("bucketId");
+            }
+
+            const string QUERY = @"
+                                SELECT COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
+                                       MAX(T.SHORT_NAME) AS PULL_AREA,
+                                       MAX(I.SHORT_NAME) AS PITCH_AREA
+                                  FROM BUCKET B
+                                 INNER JOIN PS PS
+                                    ON PS.BUCKET_ID = B.BUCKET_ID
+                                  LEFT OUTER JOIN TAB_INVENTORY_AREA T
+                                    ON T.INVENTORY_STORAGE_AREA = B.PULL_CARTON_AREA
+                                  LEFT OUTER JOIN IA I
+                                    ON I.IA_ID = B.PITCH_IA_ID
+                                 WHERE PS.BUCKET_ID = :BUCKET_ID
+                                   AND PS.TRANSFER_DATE IS NULL
+                                ";
+
+            var binder = SqlBinder.Create(row => new PickWaveEditable
+            {
+                PullAreaShortName = row.GetString("PULL_AREA"),
+                PickslipCount = row.GetInteger("PICKSLIP_COUNT") ?? 0,
+                PitchAreaShortName = row.GetString("PITCH_AREA")
+            })
+                .Parameter("BUCKET_ID", bucketId);
+            return _db.ExecuteSingle(QUERY, binder);
         }
     }
 }

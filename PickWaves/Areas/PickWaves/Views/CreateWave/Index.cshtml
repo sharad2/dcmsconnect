@@ -20,8 +20,15 @@
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
              (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
             </legend>
-            TODO: Display number of added pickslips
-            <br />
+            <span class="ui-state-highlight" style="font-size: 1.2em;"> @Model.PickslipCount pickslip added.</span>
+            @if (!string.IsNullOrWhiteSpace(Model.PullAreaShortName))
+            {
+                <div>Pull from : <span style="font-size: 1.2em;">@Model.PullAreaShortName</span> </div>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.PitchAreaShortName))
+            {
+                <div>Pitch from : <span style="font-size: 1.2em;">@Model.PitchAreaShortName</span> </div>
+            }
             Selct pickslips from the table to add to this pick wave
         </fieldset>
     }
@@ -79,7 +86,7 @@ else
     </span>
 }
 
-<div id="divDlg" title="Create Pick Wave">
+<div id="divDlg" title="Add pickslip to Pick Wave">
     <em id="dlgColDimSpan" style="display: inline-block; width: 8em"></em><span id="dlgColDimSpanVal"></span>
     <br />
     <em id="dlgRowDimSpan" style="display: inline-block; width: 8em">Customer DC</em> <span id="dlgRowDimSpanVal"></span>

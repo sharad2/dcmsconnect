@@ -74,5 +74,10 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         {
             return _repos.GetVWhListOfCustomer(customerId);
         }
+
+        public PickWaveEditable GetEditableBucket(int bucketId)
+        {
+            return _repos.GetEditableBucket(bucketId);
+        }
     }
 }

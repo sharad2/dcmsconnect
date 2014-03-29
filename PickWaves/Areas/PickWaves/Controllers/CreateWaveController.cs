@@ -198,6 +198,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             #endregion
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
+            if (model.LastBucketId.HasValue)
+            {
+                // Retrive some information of bucket.
+                var bucket = _service.GetEditableBucket(model.LastBucketId.Value);
+                model.PullAreaShortName = bucket.PullAreaShortName;
+                model.PitchAreaShortName = bucket.PitchAreaShortName;
+                model.PickslipCount = bucket.PickslipCount;
+            }
             return View(Views.Index, model);
         }
 
@@ -238,7 +246,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 PriorityId = 1,   // Default priority
                 RequireBoxExpediting = model.RequireBoxExpediting,
-               // IsFrozen = true
+                // IsFrozen = true
             };
             // TC4: Give pull area if user wants to pulled cartons.
             bucket.PullAreaId = model.PullAreaId;
@@ -274,8 +282,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
             try
             {
-                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
-                AddStatusMessage(string.Format("{0} pickslip added to wave {1}", "1", model.LastBucketId));
+                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);               
+                //AddStatusMessage(string.Format("{0} pickslip added to wave {1}", model.PickslipCount, model.LastBucketId));
             }
             catch (DbException ex)
             {
