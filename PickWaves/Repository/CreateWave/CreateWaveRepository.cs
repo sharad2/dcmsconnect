@@ -498,14 +498,14 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                        MAX(T.SHORT_NAME) AS PULL_AREA,
                                        MAX(I.SHORT_NAME) AS PITCH_AREA
                                   FROM <proxy />BUCKET B
-                                 INNER JOIN <proxy />PS PS
+                                 LEFT OUTER JOIN <proxy />PS PS
                                     ON PS.BUCKET_ID = B.BUCKET_ID
+                                    AND PS.TRANSFER_DATE IS NULL
                                   LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA T
                                     ON T.INVENTORY_STORAGE_AREA = B.PULL_CARTON_AREA
                                   LEFT OUTER JOIN <proxy />IA I
                                     ON I.IA_ID = B.PITCH_IA_ID
-                                 WHERE PS.BUCKET_ID = :BUCKET_ID
-                                   AND PS.TRANSFER_DATE IS NULL
+                                 WHERE B.BUCKET_ID = :BUCKET_ID                                   
                                 ";
 
             var binder = SqlBinder.Create(row => new PickWaveEditable
