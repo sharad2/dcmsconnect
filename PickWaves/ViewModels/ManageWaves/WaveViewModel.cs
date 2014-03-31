@@ -89,6 +89,8 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         public bool RequireBoxExpeditingOriginal { get; set; }
 
+        public bool QuickPitchOriginal { get; set; }
+
         public IDictionary<BucketActivityType, IList<GroupSelectListItem>> InventoryAreaLists { get; set; }
 
         /// <summary>

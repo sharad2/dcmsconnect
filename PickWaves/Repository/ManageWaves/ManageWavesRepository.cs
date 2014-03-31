@@ -35,7 +35,9 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         /// <summary>
         /// The priority of the bucket must be incremented/decremented by the value specified in the Bucket.Priority property
         /// </summary>
-        PriorityDelta = 0x80
+        PriorityDelta = 0x80,
+
+        QuickPitch = 0x100
     }
 
     public class ManageWavesRepository : PickWaveRepositoryBase
@@ -587,6 +589,7 @@ WHERE 1 = 1
                                                                                             END,       </if>
                                 <if c = '$PULL_CARTON_AREA_FLAG'>   BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA, </if>
                                 <if c = '$PULL_TYPE_FLAG'>          BKT.PULL_TYPE         = :PULL_TYPE,      </if>
+                                <if c = '$QUICK_PITCH_FLAG'>        BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH, </if>
                                                                     BKT.DATE_MODIFIED = SYSDATE
                          WHERE BKT.BUCKET_ID = :BUCKET_ID
                         RETURNING BKT.NAME, 
@@ -594,13 +597,15 @@ WHERE 1 = 1
                                   BKT.BUCKET_COMMENT,
                                   BKT.PRIORITY,
                                   BKT.PULL_CARTON_AREA,
-                                  BKT.PULL_TYPE
+                                  BKT.PULL_TYPE,
+                                  BKT.QUICK_PITCH_FLAG
                         INTO      :NAME_OUT,
                                   :PITCH_IA_ID_OUT,
                                   :BUCKET_COMMENT_OUT,
                                   :PRIORITY_OUT,
                                   :PULL_CARTON_AREA_OUT,
-                                  :PULL_TYPE_OUT";
+                                  :PULL_TYPE_OUT,
+                                  :QUICK_PITCH_FLAG_OUT";
             var binder = SqlBinder.Create();
             binder.Parameter("NAME", bucket.BucketName)
                   .Parameter("PRIORITY", bucket.PriorityId)
@@ -608,6 +613,7 @@ WHERE 1 = 1
                   .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
                   .Parameter("BUCKET_ID", bucket.BucketId)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
+                  .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
             binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
@@ -617,11 +623,13 @@ WHERE 1 = 1
             binder.ParameterXPath("PITCH_IA_ID_FLAG", flags.HasFlag(EditBucketFlags.PitchArea));
             binder.ParameterXPath("BUCKET_COMMENT_FLAG", flags.HasFlag(EditBucketFlags.Remarks));
             binder.ParameterXPath("PULL_TYPE_FLAG", flags.HasFlag(EditBucketFlags.PullType));
+            binder.ParameterXPath("QUICK_PITCH_FLAG", flags.HasFlag(EditBucketFlags.QuickPitch));
 
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
                 .OutParameter("PRIORITY_OUT", p => bucket.PriorityId = p ?? 0)
-                .OutParameter("PULL_TYPE_OUT", p => bucket.RequireBoxExpediting = p == "EXP");
+                .OutParameter("PULL_TYPE_OUT", p => bucket.RequireBoxExpediting = p == "EXP")
+                .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y");
             binder.OutParameter("PITCH_IA_ID_OUT", p =>
                 {
                     bucket.Activities[BucketActivityType.Pitching].Area.AreaId = p;
@@ -630,6 +638,7 @@ WHERE 1 = 1
                     {
                         bucket.Activities[BucketActivityType.Pulling].Area.AreaId = p;
                     });
+
             int rows = _db.ExecuteDml(QUERY, binder);
             if (rows == 0)
             {

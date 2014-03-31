@@ -137,6 +137,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
             model.BucketCommentOriginal = bucket.BucketComment;
             model.RequireBoxExpeditingOriginal = bucket.RequireBoxExpediting;
+            model.QuickPitchOriginal = bucket.QuickPitch;
 
             return View(this.Views.Wave, model);
         }
@@ -344,7 +345,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketName = model.Bucket.BucketName,
                 PriorityId = model.Bucket.PriorityId,
                 RequireBoxExpediting = !string.IsNullOrEmpty(pullAreaId) && model.Bucket.RequireBoxExpediting,
-                BucketComment = model.Bucket.BucketComment
+                BucketComment = model.Bucket.BucketComment,
+                QuickPitch = !string.IsNullOrEmpty(pitchAreaId) && model.Bucket.QuickPitch
             };
             bucket.Activities[BucketActivityType.Pulling].Area.AreaId = pullAreaId;
             bucket.Activities[BucketActivityType.Pitching].Area.AreaId = pitchAreaId;
@@ -354,7 +356,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketName = model.BucketNameOriginal,
                 PriorityId = model.PriorityIdOriginal,
                 RequireBoxExpediting = model.RequireBoxExpeditingOriginal,
-                BucketComment = model.BucketCommentOriginal
+                BucketComment = model.BucketCommentOriginal,
+                QuickPitch = model.QuickPitchOriginal
             };
             bucketOld.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaOriginal;
             bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
@@ -415,6 +418,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 flags |= EditBucketFlags.PullType;
             }
+            if (model.QuickPitchOriginal != model.Bucket.QuickPitch || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+            {
+                flags |= EditBucketFlags.QuickPitch;
+            }
             return flags;
         }
 
@@ -461,7 +468,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
                     if (displayEditable)
                     {
-                        return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(bucketId, SuggestedNextActionType.CancelEditing 
+                        return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(bucketId, SuggestedNextActionType.CancelEditing
                             | SuggestedNextActionType.FreezeOthers)));
                     }
                     else
