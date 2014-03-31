@@ -6,12 +6,9 @@
 }
 @section sidebar {
     <div class="boxContent">
-        @Html.ActionLink("All Pick Waves", MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId)) of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em>
-    </div>
+        @if (Model.LastBucketId.HasValue)
+        {
 
-    @if (Model.LastBucketId.HasValue)
-    {
-        <div class="boxContent">
             <fieldset>
                 <legend>
                     <span style="font-size: 1.2em; font-weight: bold;">Pick Wave @Html.DisplayFor(m => m.LastBucketId) </span>
@@ -34,8 +31,18 @@
 
                 Selct pickslips from the table to add to this pick wave
             </fieldset>
-        </div>
-    }
+
+        }
+        else
+        {
+            <span>Create a Pick Wave to continue</span>
+        }
+    </div>
+
+    <div class="boxContent">
+        @Html.ActionLink("All Pick Waves", MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId)) of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em>
+    </div>
+
 
 }
 @if (Model.CustomerOrders.Count > 0)
