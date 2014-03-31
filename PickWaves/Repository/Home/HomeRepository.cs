@@ -89,12 +89,12 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                           P.PICKSLIP_ID AS PICKSLIP_ID,
                                           SUM(BD.CURRENT_PIECES) OVER(PARTITION BY P.PICKSLIP_ID) AS CURRENT_PIECES,                                         
                                           SUM(NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)) OVER(PARTITION BY P.PICKSLIP_ID) AS EXPECTED_PIECES,                                                                        
-                                          SUM(CASE
+                                          count(unique CASE
                                                 WHEN B.VERIFY_DATE IS NULL AND
                                                      B.IA_ID IS NOT NULL THEN
                                                  B.UCC128_ID
                                               END) OVER(PARTITION BY P.BUCKET_ID) AS INPROGRESS_BOXES_IN_BKT,
-                                          SUM(CASE
+                                          count(unique CASE
                                                 WHEN B.VERIFY_DATE IS NULL AND
                                                      B.IA_ID IS NULL THEN
                                                  B.UCC128_ID
