@@ -32,6 +32,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             IsFrozen = src.IsFrozen;
             PriorityId = src.PriorityId;
             RequireBoxExpediting = src.RequireBoxExpediting;
+            QuickPitch = src.QuickPitch;
             CreatedBy = src.CreatedBy;
             CreationDate = src.CreationDate;
 
@@ -135,6 +136,9 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         [Display(Name = "Require Box Expediting")]
         public bool RequireBoxExpediting { get; set; }
+
+        [Display(Name = "Quick Pitch")]
+        public bool QuickPitch { get; set; }
 
         [Display(Name = "Freeze")]
         public bool IsFrozen { get; set; }

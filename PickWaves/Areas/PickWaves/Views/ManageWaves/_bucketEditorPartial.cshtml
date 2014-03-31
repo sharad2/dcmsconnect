@@ -8,7 +8,7 @@
     {
         {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching, "(Undecided)"},
         {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling, "(No Pulling)"}
-    };    
+    };
 }
 <div class="bucketmodel-editor">
     @Html.HiddenFor(m => m.Bucket.BucketId)
@@ -40,14 +40,14 @@
             @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType],
                 dict[Model.Bucket.Activities[i].ActivityType])
             @if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
-            { 
+            {
                 @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <label>Require Box Expediting</label>
             }
             else
             {
-                <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+                @Html.CheckBoxFor(m => m.Bucket.QuickPitch)  <span>Quick Pitch</span> <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
             }
-        </div>        
+        </div>
     }
     <div>
         @Html.LabelFor(m => m.Bucket.BucketComment)
@@ -59,7 +59,7 @@
         <label></label>
         <em>(Remark will be shown in Wave Summery UI)</em>
     </div>
-    
+
     @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
     @Html.LabelFor(m => m.UnfreezeWaveAfterSave)
 

@@ -62,6 +62,8 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool RequireBoxExpediting { get; set; }
 
+        public bool QuickPitch { get; set; }
+
         public string MaxPoId { get; set; }
 
         public string MinPoId { get; set; }

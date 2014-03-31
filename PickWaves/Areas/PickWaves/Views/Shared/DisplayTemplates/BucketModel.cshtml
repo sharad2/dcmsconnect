@@ -4,12 +4,12 @@
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
 }
-@* 
-    To use this template, make sure you include BucketModel-Display.partial.css and bucketModel.partial.js, ThinProgressBar.partial.css.
-This template use class "pitched-box" to show pitching progress and "pulled-box" for pulling progress.
+@*
+        To use this template, make sure you include BucketModel-Display.partial.css and bucketModel.partial.js, ThinProgressBar.partial.css.
+    This template use class "pitched-box" to show pitching progress and "pulled-box" for pulling progress.
 
-The link to edit wave has the class edit-wave applied to it
- *@
+    The link to edit wave has the class edit-wave applied to it
+*@
 <table class="bucketmodel-display">
     <caption @Html.Raw(Model.IsFrozen ? "class='ui-state-disabled' title='This pick wave is frozen'" : "")>
         Pick Wave - <span style="font-size: 1.3em">@Html.DisplayFor(m => m.BucketId)</span>
@@ -22,7 +22,8 @@ The link to edit wave has the class edit-wave applied to it
         <tr>
             <td style="text-align: center">
                 <span style="font-size: 1.2em" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) picked">
-                    @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered &bull; @Html.DisplayFor(m => m.PercentPiecesComplete)</span> complete
+                    @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered &bull; @Html.DisplayFor(m => m.PercentPiecesComplete)
+                </span> complete
                 <div style="font-weight: normal; font-style: italic">
                     @Html.DisplayFor(m => m.UnderPickedPieces)
                     <span style="padding-left: 2em">
@@ -54,10 +55,11 @@ The link to edit wave has the class edit-wave applied to it
     <tbody>
         <tr>
             <td style="vertical-align: top; padding-top: 1mm">
-                <div class ="div-bucket" style="white-space:nowrap"
-                    data-increase-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))"
-                     data-decrease-priority-url ="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
-                    <span>DC Cancel <em>@Html.DisplayFor(m => m.DcCancelDateRange)</em>
+                <div class="div-bucket" style="white-space:nowrap"
+                     data-increase-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))"
+                     data-decrease-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
+                    <span>
+                        DC Cancel <em>@Html.DisplayFor(m => m.DcCancelDateRange)</em>
                     </span>&bull;
                     @if (isEditable && Model.BucketState != ProgressStage.Completed)
                     {
@@ -74,8 +76,12 @@ The link to edit wave has the class edit-wave applied to it
                     &bull; <strong>@Html.DisplayFor(m => m.CountPickslips)</strong> Pickslips &bull; <strong>@Html.DisplayFor(m => m.CountPurchaseOrder)</strong> POs
                 </div>
                 @if (Model.RequireBoxExpediting)
-                {    <hr />                    
+                {    <hr />
                     <strong><em>Box Expediting Required</em></strong>
+                }
+                @if (Model.QuickPitch)
+                {    <hr />
+                    <strong><em>Quick Pitching Required</em></strong>
                 }
                 <div>Pick Wave Created on @Html.DisplayFor(m => m.CreationDate) by @Html.DisplayFor(m => m.CreatedBy)</div>
             </td>
@@ -86,33 +92,34 @@ The link to edit wave has the class edit-wave applied to it
                     {
                         if (!string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) || Model.Activities[i].PiecesBoxesCreated > 0)
                         {
-                    <div class='@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")' style="padding-top: 0.5em;padding-bottom: 0.5em">
-                        <span style="width: 12em; display: inline-block; white-space: nowrap; max-width: 12em">
-                            <em>@Html.DisplayFor(m => m.Activities[i].DisplayName)</em>
-                            <strong><span title ="@Model.Activities[i].AreaDescription">@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay)</span></strong>
-                        </span>
-                        @Html.Partial(MVC_PickWaves.PickWaves.Shared.Views._activityProgressPartial, Model.Activities[i])
-                        @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
-                        {
-                            <div>
-                                To minimize the number of pieces to be pitched,  
-                                <a href="#" class="edit-wave">Edit
-                                </a>and save the pick wave
+                            <div class='@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")' style="padding-top: 0.5em;padding-bottom: 0.5em">
+                                <span style="width: 12em; display: inline-block; white-space: nowrap; max-width: 12em">
+                                    <em>@Html.DisplayFor(m => m.Activities[i].DisplayName)</em>
+                                    <strong><span title="@Model.Activities[i].AreaDescription">@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay)</span></strong>
+                                </span>
+                                @Html.Partial(MVC_PickWaves.PickWaves.Shared.Views._activityProgressPartial, Model.Activities[i])
+                                @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
+                                {
+                                    <div>
+                                        To minimize the number of pieces to be pitched,
+                                        <a href="#" class="edit-wave">
+                                            Edit
+                                        </a>and save the pick wave
+                                    </div>
+
+                                }
                             </div>
-                        
-                        }
-                    </div>
                         }
                     }
                     if (Model.BoxNotCreatedPieces > 0)
                     {
                         if (Model.IsFrozen)
                         {
-                    <span>@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span>
+                            <span>@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span>
                         }
                         else
                         {
-                    <span class="ui-state-error">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span> 
+                            <span class="ui-state-error">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span>
                         }
                     }
                     @Html.DisplayFor(m => m.OverShippedPieces)

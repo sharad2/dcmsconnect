@@ -121,6 +121,7 @@ namespace DcmsMobile.PickWaves.Repository
                            MAX(CUST.NAME)                           AS CUSTOMER_NAME,
                            COUNT(DISTINCT PS.PICKSLIP_ID)           AS PICKSLIP_COUNT,
                            MAX(BKT.FREEZE)                          AS FREEZE,
+                           MAX(BKT.QUICK_PITCH_FLAG)                AS QUICK_PITCH_FLAG,
                            MAX(BKT.PULL_CARTON_AREA)                AS PULL_AREA_ID,
                            MAX(TIA.SHORT_NAME)                      AS PULL_AREA_SHORT_NAME,
                            MAX(TIA.DESCRIPTION)                     AS PULL_AREA_DESCRIPTION,
@@ -303,6 +304,7 @@ namespace DcmsMobile.PickWaves.Repository
                            OP.MIN_DC_CANCEL_DATE      AS MIN_DC_CANCEL_DATE,
                            OP.MAX_DC_CANCEL_DATE      AS MAX_DC_CANCEL_DATE,
                            OP.FREEZE                  AS FREEZE,
+                           OP.QUICK_PITCH_FLAG        AS QUICK_PITCH_FLAG,
                            OP.PULL_AREA_ID            AS PULL_AREA_ID,
                            OP.PULL_AREA_SHORT_NAME    AS PULL_AREA_SHORT_NAME,
                            OP.PULL_AREA_DESCRIPTION   AS PULL_AREA_DESCRIPTION,
@@ -350,6 +352,7 @@ namespace DcmsMobile.PickWaves.Repository
                             MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
                             IsFrozen = row.GetString("FREEZE") == "Y",
                             RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
+                            QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y"
                         };
                     var activity = bucket.Activities[BucketActivityType.Pulling];
                     activity.Area = new InventoryArea
