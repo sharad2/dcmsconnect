@@ -40,15 +40,30 @@
         <legend style="font-size: 1.2em; font-weight : bold;">New Pick Wave</legend>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.CreatePickWave(), FormMethod.Post))
         {
-            <div style="margin-top: 0.25em;">
-                Pull From
-                @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
-                @Html.CheckBoxFor(m => m.RequireBoxExpediting)
-                @Html.LabelFor(m => m.RequireBoxExpediting)
-            </div>
-            <div style="margin-top: 0.25em;">
-                Pitch From @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
-            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Pull From
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m.RequireBoxExpediting)
+                            @Html.LabelFor(m => m.RequireBoxExpediting)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Pitch From
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
             <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
             <button type="submit" id="btnCreateBucket">Create</button>
         }
