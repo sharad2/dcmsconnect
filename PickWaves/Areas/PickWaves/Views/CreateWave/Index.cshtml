@@ -11,27 +11,30 @@
 
     @if (Model.LastBucketId.HasValue)
     {
-        <fieldset>
-            <legend>
-                Pick Wave @Html.DisplayFor(m => m.LastBucketId) @Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
+        <div class="boxContent">
+            <fieldset>
+                <legend>
+                    <span style="font-size: 1.2em; font-weight: bold;">Pick Wave @Html.DisplayFor(m => m.LastBucketId) </span>
+                    <br />@Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
                 (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))) /
-                @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.Wave(
+                    @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.Wave(
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
              (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
-            </legend>
-            <div class="ui-state-highlight" style="font-size: 1.2em;"> @Model.PickslipCount pickslip added.</div>
-            @if (!string.IsNullOrWhiteSpace(Model.PullAreaShortName))
-            {
-                <div>Pull from : <span style="font-size: 1.2em;">@Model.PullAreaShortName</span> </div>
-            }
-            @if (!string.IsNullOrWhiteSpace(Model.PitchAreaShortName))
-            {
-                <div>Pitch from : <span style="font-size: 1.2em;">@Model.PitchAreaShortName</span> </div>
-            }
-            
-            Selct pickslips from the table to add to this pick wave
-        </fieldset>
+                </legend>
+                <div class="ui-state-highlight" style="font-size: 1.2em;"> @Model.PickslipCount pickslip added.</div>
+                @if (!string.IsNullOrWhiteSpace(Model.PullAreaShortName))
+                {
+                    <div>Pull from : <span style="font-size: 1.2em;">@Model.PullAreaShortName</span> </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.PitchAreaShortName))
+                {
+                    <div>Pitch from : <span style="font-size: 1.2em;">@Model.PitchAreaShortName</span> </div>
+                }
+
+                Selct pickslips from the table to add to this pick wave
+            </fieldset>
+        </div>
     }
 
 }
