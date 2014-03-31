@@ -47,6 +47,9 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         [Display(Name = "Require Box Expediting")]
         public bool RequireBoxExpediting { get; set; }
+
+        [Display(Name = "Quick Pitch")]
+        public bool QuickPitch { get; set; }
         #endregion
 
         public IList<SelectListItem> PullAreas { get; set; }

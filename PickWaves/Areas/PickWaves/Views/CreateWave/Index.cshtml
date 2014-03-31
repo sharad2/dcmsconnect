@@ -65,6 +65,10 @@
                         <td>
                             @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
                         </td>
+                        <td>
+                            @Html.CheckBoxFor(m => m.QuickPitch)
+                            @Html.LabelFor(m => m.QuickPitch)
+                        </td>
                     </tr>
                 </tbody>
             </table>

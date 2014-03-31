@@ -291,6 +291,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          BKT.NAME,
                                          BKT.PITCH_IA_ID,
                                          BKT.PRIORITY,
+                                         BKT.QUICK_PITCH_FLAG,
                                          BKT.PULL_CARTON_AREA,
                                          BKT.FREEZE,
                                          BKT.PULL_TYPE)
@@ -300,6 +301,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          SUBSTR(:NAME, 1, 50),
                                          :PITCH_IA_ID,
                                          :PRIORITY,
+                                         :QUICK_PITCH_FLAG,
                                          :PULL_CARTON_AREA,
                                          'Y',
                                          :PULL_TYPE)
@@ -311,7 +313,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("PRIORITY", bucket.PriorityId)
                   .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
-                //.Parameter("BUCKET_COMMENT", bucket.BucketComment)
+                  .Parameter("QUICK_PITCH_FLAG", bucket.QuickPitch ? "Y" : null)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
                   ;
             var bucketId = 0;

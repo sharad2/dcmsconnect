@@ -246,7 +246,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 PriorityId = 1,   // Default priority
                 RequireBoxExpediting = model.RequireBoxExpediting,
-                // IsFrozen = true
+                QuickPitch = model.QuickPitch                
             };
             // TC4: Give pull area if user wants to pulled cartons.
             bucket.PullAreaId = model.PullAreaId;

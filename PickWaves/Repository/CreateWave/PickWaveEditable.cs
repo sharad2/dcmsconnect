@@ -25,6 +25,8 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
 
         public bool RequireBoxExpediting { get; set; }
 
+        public bool QuickPitch { get; set; }
+
         public string PullAreaId { get; set; }
 
         public string PitchAreaId { get; set; }
