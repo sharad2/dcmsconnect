@@ -143,6 +143,10 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             {
                 routeValueDictionary.Add(model.NameFor(m => m.ColDimVal), model.ColDimVal);
             }
+            if (!string.IsNullOrEmpty(model.VwhId))
+            {
+                routeValueDictionary.Add(model.NameFor(m => m.VwhId), model.VwhId);
+            }
         }
     }
 }

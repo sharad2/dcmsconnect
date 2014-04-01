@@ -236,17 +236,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns>
         /// </returns>
         [HttpPost]
-        public virtual ActionResult CreatePickWave(IndexViewModel model)
+        private void CreatePickWave(IndexViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
-            }
             var bucket = new PickWaveEditable
             {
                 PriorityId = 1,   // Default priority
                 RequireBoxExpediting = model.RequireBoxExpediting,
-                QuickPitch = model.QuickPitch                
+                QuickPitch = model.QuickPitch
             };
             // TC4: Give pull area if user wants to pulled cartons.
             bucket.PullAreaId = model.PullAreaId;
@@ -267,9 +263,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(this.Actions.Index(model));
+            //return RedirectToAction(this.Actions.Index(model));
         }
 
+        /// <summary>
+        /// Add pickslips to passed bucket.Or if bucket is not created then create it first, then add pickslip.
+        /// </summary>
+        /// <param name="model">
+        /// RowDimIndex,ColDimIndex,CustomerId,LastBucketId
+        /// Optional : RequireBoxExpediting,PullAreaId,PitchAreaId,QuickPitch
+        /// </param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult AddPickslipsOfDim(IndexViewModel model)
         {
@@ -277,12 +281,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
             }
+            if (!model.LastBucketId.HasValue)
+            {
+                CreatePickWave(model);
+            }
 
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
             try
             {
-                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);               
+                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
                 //AddStatusMessage(string.Format("{0} pickslip added to wave {1}", model.PickslipCount, model.LastBucketId));
             }
             catch (DbException ex)
@@ -373,7 +381,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
         protected override string ManagerRoleName
         {
-            get { return ROLE_WAVE_MANAGER; }
+            get 
+            { 
+                return ROLE_WAVE_MANAGER; 
+            }
         }
     }
 }

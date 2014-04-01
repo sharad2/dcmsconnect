@@ -92,6 +92,10 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             {
                 routeValueDictionary.Add(model.NameFor(m => m.RequireBoxExpediting), model.RequireBoxExpediting);
             }
+            if (model.QuickPitch)
+            {
+                routeValueDictionary.Add(model.NameFor(m => m.QuickPitch), model.QuickPitch);
+            }
         }
     }
 }

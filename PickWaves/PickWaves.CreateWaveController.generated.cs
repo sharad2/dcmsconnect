@@ -49,11 +49,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreatePickWave() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreatePickWave);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult AddPickslipsOfDim() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.AddPickslipsOfDim);
         }
@@ -89,7 +84,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string RefreshPickslipMatrix = "RefreshPickslipMatrix";
-            public readonly string CreatePickWave = "CreatePickWave";
             public readonly string AddPickslipsOfDim = "AddPickslipsOfDim";
             public readonly string PickslipListSelector = "PickslipListSelector";
             public readonly string PickslipList = "PickslipList";
@@ -100,7 +94,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string RefreshPickslipMatrix = "RefreshPickslipMatrix";
-            public const string CreatePickWave = "CreatePickWave";
             public const string AddPickslipsOfDim = "AddPickslipsOfDim";
             public const string PickslipListSelector = "PickslipListSelector";
             public const string PickslipList = "PickslipList";
@@ -120,13 +113,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         public ActionParamsClass_RefreshPickslipMatrix RefreshPickslipMatrixParams { get { return s_params_RefreshPickslipMatrix; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_RefreshPickslipMatrix {
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_CreatePickWave s_params_CreatePickWave = new ActionParamsClass_CreatePickWave();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CreatePickWave CreatePickWaveParams { get { return s_params_CreatePickWave; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreatePickWave {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_AddPickslipsOfDim s_params_AddPickslipsOfDim = new ActionParamsClass_AddPickslipsOfDim();
@@ -181,12 +167,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
 
         public override System.Web.Mvc.ActionResult RefreshPickslipMatrix(DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipMatrixPartialViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RefreshPickslipMatrix);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult CreatePickWave(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreatePickWave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;
         }
