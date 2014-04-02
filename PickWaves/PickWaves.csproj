@@ -202,7 +202,6 @@
     <Compile Include="ViewModels\Config\SkuCaseViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\CreateWave\PickslipListSelectorViewModel.cs" />
     <Compile Include="ViewModels\CreateWave\PickslipDimensionModel.cs" />
     <Compile Include="ViewModels\CreateWave\PickslipMatrixPartialViewModel.cs" />
     <Compile Include="ViewModels\Home\CustomerBucketStateModel.cs" />

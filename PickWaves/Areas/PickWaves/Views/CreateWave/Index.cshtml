@@ -113,12 +113,12 @@ else
     @if (Model.LastBucketId.HasValue)
     {
         <span>Add <span id="dlgSpanPsCount"></span>pickslips to pick wave @Model.LastBucketId.</span>
+        <a id="btnViewPickslips" href="#">View Pickslips</a>
     }
     else
     {
         <span>Create a pick wave containing <span id="dlgSpanPsCount"></span>pickslips ?</span>
-    }
-    <a id="btnViewPickslips" href="#">View Pickslips</a>
+    }    
     <div id="dlgMessage" class="validation-summary-errors"></div>
 </div>
 

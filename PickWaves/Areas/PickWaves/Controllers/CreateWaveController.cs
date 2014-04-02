@@ -249,12 +249,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             // TC5: Give pitch area if user wants to pitched pieces.
             bucket.PitchAreaId = model.PitchAreaId;
-            bucket.BucketName = "Bucket";
-            //string.Format("{0}-{1} {2}/{3} {4}", model.CustomerId,
-            // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].ShortName,
-            // model.RowDimVal,
-            // Helpers.PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].ShortName,
-            // model.ColDimVal); // 'WC3 WM ' || ORDERS_REC.CUSTOMER_ORDER_ID || ORDERS_REC.dc_cancel_date,
+            bucket.BucketName = "Bucket"; //TODO
             try
             {
                 model.LastBucketId = _service.CreateWave(bucket);
@@ -263,7 +258,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            //return RedirectToAction(this.Actions.Index(model));
         }
 
         /// <summary>
@@ -279,7 +273,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             if (!string.IsNullOrWhiteSpace(viewPickslips))
             {
-                throw new NotImplementedException();
+                return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new PickslipListViewModel
+                {
+                    BucketId = model.LastBucketId.Value,
+                    RowDimIndex = model.RowDimIndex,
+                    ColDimIndex = model.ColDimIndex,
+                    RowDimVal = model.RowDimVal,
+                    ColDimVal = model.ColDimVal,
+                    CustomerId = model.CustomerId
+                }));
             }
             if (!ModelState.IsValid)
             {
@@ -303,25 +305,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             return RedirectToAction(this.Actions.Index(model));
         }
-
-        ///// <summary>
-        ///// Select dimension to add pickslip in passed bucket.
-        ///// </summary>
-        ///// <param name="model">
-        ///// Posted value : model.CustomerId, model.BucketId
-        ///// </param>
-        ///// <returns></returns>
-        //public virtual ActionResult PickslipListSelector(PickslipListSelectorViewModel model)
-        //{
-        //    PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
-        //    if (model.CustomerOrders.Count == 0)
-        //    {
-        //        AddStatusMessage(string.Format("No imported orders found for Customer {0}", model.CustomerId));
-        //    }
-        //    var bucket = _service.GetBucket(model.BucketId);
-        //    model.Bucket = new BucketModel(bucket);
-        //    return View(Views.PickslipListSelector, model);
-        //}
 
         /// <summary>
         /// Get pickslip list of passed criteria.
@@ -385,9 +368,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
         protected override string ManagerRoleName
         {
-            get 
-            { 
-                return ROLE_WAVE_MANAGER; 
+            get
+            {
+                return ROLE_WAVE_MANAGER;
             }
         }
     }
