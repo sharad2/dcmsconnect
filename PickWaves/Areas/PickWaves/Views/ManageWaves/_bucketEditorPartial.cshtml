@@ -41,7 +41,7 @@
                 dict[Model.Bucket.Activities[i].ActivityType])
             @if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
             {
-                @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <label>Require Box Expediting</label>
+                @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <span>Pre-create pallets to pull</span>
             }
             else
             {

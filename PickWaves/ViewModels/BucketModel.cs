@@ -134,7 +134,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [Display(Name = "Require Box Expediting")]
+        [Display(Name = "Pre-create pallets to pull")]
         public bool RequireBoxExpediting { get; set; }
 
         [Display(Name = "Quick Pitch")]

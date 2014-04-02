@@ -19,11 +19,14 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         {
             CustomerId = customerId;
         }
-        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex)
+
+        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex,string pullAreaId, string pitchAreaId)
         {
             CustomerId = customerId;
             RowDimIndex = rowDimIndex;
             ColDimIndex = colDimIndex;
+            PullAreaId = pullAreaId;
+            PitchAreaId = pitchAreaId;
         }
 
         public string CustomerName { get; set; }
@@ -51,7 +54,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         [Display(Name = "Pitching")]
         public string PitchAreaId { get; set; }
 
-        [Display(Name = "Require Box Expediting")]
+        [Display(Name = "Pre-create Pallets to pull")]
         public bool RequireBoxExpediting { get; set; }
 
         [Display(Name = "Quick Pitch")]
