@@ -304,24 +304,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return RedirectToAction(this.Actions.Index(model));
         }
 
-        /// <summary>
-        /// Select dimension to add pickslip in passed bucket.
-        /// </summary>
-        /// <param name="model">
-        /// Posted value : model.CustomerId, model.BucketId
-        /// </param>
-        /// <returns></returns>
-        public virtual ActionResult PickslipListSelector(PickslipListSelectorViewModel model)
-        {
-            PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
-            if (model.CustomerOrders.Count == 0)
-            {
-                AddStatusMessage(string.Format("No imported orders found for Customer {0}", model.CustomerId));
-            }
-            var bucket = _service.GetBucket(model.BucketId);
-            model.Bucket = new BucketModel(bucket);
-            return View(Views.PickslipListSelector, model);
-        }
+        ///// <summary>
+        ///// Select dimension to add pickslip in passed bucket.
+        ///// </summary>
+        ///// <param name="model">
+        ///// Posted value : model.CustomerId, model.BucketId
+        ///// </param>
+        ///// <returns></returns>
+        //public virtual ActionResult PickslipListSelector(PickslipListSelectorViewModel model)
+        //{
+        //    PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
+        //    if (model.CustomerOrders.Count == 0)
+        //    {
+        //        AddStatusMessage(string.Format("No imported orders found for Customer {0}", model.CustomerId));
+        //    }
+        //    var bucket = _service.GetBucket(model.BucketId);
+        //    model.Bucket = new BucketModel(bucket);
+        //    return View(Views.PickslipListSelector, model);
+        //}
 
         /// <summary>
         /// Get pickslip list of passed criteria.

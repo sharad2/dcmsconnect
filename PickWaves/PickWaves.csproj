@@ -317,15 +317,11 @@
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js.map">
       <DependentUpon>CreateWave-PickslipList.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js">
       <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js">
       <DependentUpon>CreateWave-PickslipList.js</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.min.js.map">
-      <DependentUpon>CreateWave-PickslipListSelector.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\Home-Index.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js.map">
@@ -350,12 +346,6 @@
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
       <DependentUpon>CreateWave-Index.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js">
-      <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.min.js">
-      <DependentUpon>CreateWave-PickslipListSelector.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.js">
       <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
     </Content>
@@ -370,7 +360,6 @@
       <DependentUpon>ManageWave-Wave.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.partial.js" />
     <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.partial.js" />
     <None Include="Areas\PickWaves\Scripts\ManageSkuCase.partial.js" />
     <None Include="Areas\PickWaves\Scripts\CreateWave-Index.partial.js" />
@@ -434,7 +423,6 @@
     <Content Include="Areas\PickWaves\Views\Shared\_activityProgressPartial.cshtml" />
     <Content Include="Areas\PickWaves\Views\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\Views\CreateWave\_pickslipMatrixPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\CreateWave\PickslipListSelector.cshtml" />
     <Content Include="Areas\PickWaves\Views\ManageWaves\_wavePickslipsPartial.cshtml" />
     <Content Include="Areas\PickWaves\Views\Config\_addCustomerConstraintPartial.cshtml" />
     <None Include="Doc\GPL Technical.docx" />

@@ -209,8 +209,6 @@ namespace Links_PickWaves {
                               
                 public static readonly string CreateWave_PickslipList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.js") ? Url("CreateWave-PickslipList.min.js") : Url("CreateWave-PickslipList.js");
                               
-                public static readonly string CreateWave_PickslipListSelector_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipListSelector.min.js") ? Url("CreateWave-PickslipListSelector.min.js") : Url("CreateWave-PickslipListSelector.js");
-                              
                 public static readonly string Home_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.js") ? Url("Home-Index.min.js") : Url("Home-Index.js");
                               
                 public static readonly string ManageSkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSkuCase.min.js") ? Url("ManageSkuCase.min.js") : Url("ManageSkuCase.js");
@@ -265,7 +263,6 @@ namespace Links_PickWaves {
                     public static readonly string _pickslipMatrixPartial_cshtml = Url("_pickslipMatrixPartial.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml");
                     public static readonly string PickslipList_cshtml = Url("PickslipList.cshtml");
-                    public static readonly string PickslipListSelector_cshtml = Url("PickslipListSelector.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
