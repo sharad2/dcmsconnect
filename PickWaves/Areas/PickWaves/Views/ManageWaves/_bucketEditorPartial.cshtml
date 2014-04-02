@@ -36,16 +36,18 @@
     {
         @Html.HiddenFor(m => m.Bucket.Activities[i].ActivityType)
         <div>
-            <span style="display: inline-block; width: 12em">@Html.DisplayFor(m => m.Bucket.Activities[i].DisplayName)</span>
-            @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType],
-                dict[Model.Bucket.Activities[i].ActivityType])
-            @if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
+            @if (Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType].Count > 1)
             {
-                @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <span>Pre-create pallets to pull</span>
-            }
-            else
-            {
-                @Html.CheckBoxFor(m => m.Bucket.QuickPitch)  <span>Quick Pitch</span> <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+                <span style="display: inline-block; width: 12em">@Html.DisplayFor(m => m.Bucket.Activities[i].DisplayName)</span>
+                @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType],dict[Model.Bucket.Activities[i].ActivityType])
+                if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
+                {
+                    @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <span>Pre-create pallets to pull</span>
+                }
+                else
+                {
+                    @Html.CheckBoxFor(m => m.Bucket.QuickPitch)  <span>Quick Pitch</span> <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+                }
             }
         </div>
     }
