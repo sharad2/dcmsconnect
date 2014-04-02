@@ -44,7 +44,7 @@
 
                     Select pickslips from the table to add to this pick wave
                 </div>
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId)))">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId, Model.RowDimIndex.Value, Model.ColDimIndex.Value)))">
                     Create New Wave
                 </a>
                 <input type="hidden" name="@Model.NameFor(m => m.LastBucketId)" value="@Model.LastBucketId" />

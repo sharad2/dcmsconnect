@@ -19,6 +19,12 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         {
             CustomerId = customerId;
         }
+        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex)
+        {
+            CustomerId = customerId;
+            RowDimIndex = rowDimIndex;
+            ColDimIndex = colDimIndex;
+        }
 
         public string CustomerName { get; set; }
 

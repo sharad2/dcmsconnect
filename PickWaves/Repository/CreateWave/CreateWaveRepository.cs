@@ -494,9 +494,9 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             }
 
             const string QUERY = @"
-                                SELECT COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
-                                       MAX(T.SHORT_NAME) AS PULL_AREA,
-                                       MAX(I.SHORT_NAME) AS PITCH_AREA
+                                SELECT COUNT(PS.PICKSLIP_ID)        AS PICKSLIP_COUNT,
+                                       MAX(T.SHORT_NAME)            AS PULL_AREA,
+                                       MAX(I.SHORT_NAME)            AS PITCH_AREA
                                   FROM <proxy />BUCKET B
                                  LEFT OUTER JOIN <proxy />PS PS
                                     ON PS.BUCKET_ID = B.BUCKET_ID
@@ -505,8 +505,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                     ON T.INVENTORY_STORAGE_AREA = B.PULL_CARTON_AREA
                                   LEFT OUTER JOIN <proxy />IA I
                                     ON I.IA_ID = B.PITCH_IA_ID
-                                 WHERE B.BUCKET_ID = :BUCKET_ID                                   
-                                ";
+                                 WHERE B.BUCKET_ID = :BUCKET_ID";
 
             var binder = SqlBinder.Create(row => new PickWaveEditable
             {
