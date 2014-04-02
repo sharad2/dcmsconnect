@@ -54,6 +54,7 @@
         {
             text: "Ok",
             click: function () {
+                $('#hfViewPickslips').val('');
                 $('#frmMain').submit();
             }
         },
@@ -64,5 +65,8 @@
             }
         }
         ]
+    }).on('click', '#btnViewPickslips', function (e) {
+        $('#hfViewPickslips').val('Y');
+        $('#frmMain').submit();
     });
 });

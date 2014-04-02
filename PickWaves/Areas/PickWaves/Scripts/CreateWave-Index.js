@@ -147,6 +147,7 @@ $(document).ready(function () {
         {
             text: "Ok",
             click: function () {
+                $('#hfViewPickslips').val('');
                 $('#frmMain').submit();
             }
         },
@@ -157,6 +158,9 @@ $(document).ready(function () {
             }
         }
         ]
+    }).on('click', '#btnViewPickslips', function (e) {
+        $('#hfViewPickslips').val('Y');
+        $('#frmMain').submit();
     });
 });
 

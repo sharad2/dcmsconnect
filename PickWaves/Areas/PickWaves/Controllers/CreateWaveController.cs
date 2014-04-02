@@ -275,8 +275,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult AddPickslipsOfDim(IndexViewModel model)
+        public virtual ActionResult AddPickslipsOfDim(IndexViewModel model, string viewPickslips)
         {
+            if (!string.IsNullOrWhiteSpace(viewPickslips))
+            {
+                throw new NotImplementedException();
+            }
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));

@@ -22,6 +22,7 @@
         }))
         {
             <input type="hidden" name="@Model.NameFor(m => m.LastBucketId)" value="@Model.LastBucketId" />
+            <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.viewPickslips" id="hfViewPickslips" />
             if (Model.LastBucketId.HasValue)
             {
                 <blockquote>
@@ -118,7 +119,7 @@ else
     {
         <span>Create a pick wave containing <span id="dlgSpanPsCount"></span>pickslips ?</span>
     }
-
+    <a id="btnViewPickslips" href="#">View Pickslips</a>
     <div id="dlgMessage" class="validation-summary-errors"></div>
 </div>
 
