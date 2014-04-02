@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/PickWaves/Scripts/ManageWave-Wave.partial.js
+$(document).ready(function () {
 
     var _refreshIndex = (new Date()).getTime();  //Increment this to force reloads
 
@@ -126,6 +127,7 @@
         }
     });
 });
+///#source 1 1 /Areas/PickWaves/Scripts/bucketModel.partial.js
 
 /*
 Provides method and event to Increase or Decrease priority bucket
@@ -187,6 +189,7 @@ $.widget("custom.bucketmodel", {
     }
 });
 
+///#source 1 1 /Areas/PickWaves/Scripts/_bucketEditorPartial.partial.js
 $(document).ready(function () {
     $("#tbPriority").spinner({
         spin: function (event, ui) {
