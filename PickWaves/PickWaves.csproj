@@ -299,7 +299,7 @@
     <None Include="Areas\PickWaves\Content\PickWaves-all.css.bundle" />
     <None Include="Areas\PickWaves\Scripts\Config.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\Config.min.js.map">
-      <DependentUpon>Config.js.bundle</DependentUpon>
+      <DependentUpon>Config.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\Config.partial.js" />
     <None Include="Areas\PickWaves\Scripts\bucketModel.partial.js" />
@@ -308,28 +308,28 @@
       <DependentUpon>Config.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\Config.min.js">
-      <DependentUpon>Config.js.bundle</DependentUpon>
+      <DependentUpon>Config.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js.map">
-      <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-Index.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js.map">
-      <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-PickslipList.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js">
       <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js">
-      <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-PickslipList.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.min.js.map">
-      <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-PickslipListSelector.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\Home-Index.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js.map">
-      <DependentUpon>Home-Index.js.bundle</DependentUpon>
+      <DependentUpon>Home-Index.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\Home-Index.partial.js" />
     <None Include="Areas\PickWaves\Scripts\jQuery.cookie.partial.js" />
@@ -338,36 +338,36 @@
       <DependentUpon>Home-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js">
-      <DependentUpon>Home-Index.js.bundle</DependentUpon>
+      <DependentUpon>Home-Index.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.min.js.map">
-      <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
+      <DependentUpon>ManageSkuCase.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\ManageWave-Index.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.js">
       <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
-      <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-Index.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.js">
       <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.min.js">
-      <DependentUpon>CreateWave-PickslipListSelector.js.bundle</DependentUpon>
+      <DependentUpon>CreateWave-PickslipListSelector.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.js">
       <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.min.js">
-      <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
+      <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.min.js.map">
-      <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
+      <DependentUpon>ManageWave-Index.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.js.bundle" />
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.min.js.map">
-      <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
+      <DependentUpon>ManageWave-Wave.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.partial.js" />
     <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipListSelector.partial.js" />
@@ -382,13 +382,13 @@
       <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.min.js">
-      <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
+      <DependentUpon>ManageWave-Index.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.js">
       <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.min.js">
-      <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
+      <DependentUpon>ManageWave-Wave.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Views\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
