@@ -40,8 +40,8 @@
                 <li>-</li>
                 <li @Html.Raw(Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed
                             ? "" : "class='ui-state-disabled' title='Only frozen and not complete waves can be add pickslip'")>
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipListSelector(new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListSelectorViewModel(
-                                                                                                         Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add Pickslips</a>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(
+                                                                                                         Model.Bucket.MaxCustomerId,Model.Bucket.BucketId)))">Add Pickslips</a>
                 </li>
                 <li>-</li>
                 <li>

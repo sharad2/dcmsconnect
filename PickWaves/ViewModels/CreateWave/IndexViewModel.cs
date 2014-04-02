@@ -20,6 +20,12 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             CustomerId = customerId;
         }
 
+        public IndexViewModel(string customerId,int bucketId)
+        {
+            CustomerId = customerId;
+            LastBucketId = bucketId;
+        }
+
         public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex,string pullAreaId, string pitchAreaId)
         {
             CustomerId = customerId;

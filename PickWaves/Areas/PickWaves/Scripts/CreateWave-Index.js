@@ -104,7 +104,7 @@ $(document).ready(function () {
             }
         }).dialog("open");
     }
-    $('#matrix').pickslipmatrix();
+    
     $('#matrixPartial').pickslipmatrix({
         refreshing: function (event, ui) {
             // Before the ajax call, close the popup just in case it is open
