@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/Scripts/ManageWave-Index.partial.js
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('ul.waveActionMenu').menu({
         select: function (event, ui) {           
             if (ui.item.is('.increase-action')) {
@@ -16,7 +15,6 @@ $(document).ready(function () {
 
     $('div.bucketModelPartial').bucketmodel();
 });
-///#source 1 1 /Areas/PickWaves/Scripts/bucketModel.partial.js
 
 /*
 Provides method and event to Increase or Decrease priority bucket

@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/Scripts/selectable.partial.js
-// When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
+﻿// When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
 $(function () {
     $.widget("ui.selectable", $.ui.selectable, {
         _mouseStart: function (event) {
@@ -24,7 +23,6 @@ $(function () {
     });
 });
 
-///#source 1 1 /Areas/PickWaves/Scripts/CreateWave-PickslipList.partial.js
 $(document).ready(function () {
     $('button').button();
 
@@ -56,7 +54,6 @@ $(document).ready(function () {
         }
     });
 });
-///#source 1 1 /Areas/PickWaves/Scripts/bucketModel.partial.js
 
 /*
 Provides method and event to Increase or Decrease priority bucket
