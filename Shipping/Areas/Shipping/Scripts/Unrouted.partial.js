@@ -4,10 +4,41 @@
 
 // Handle select all checkbox. Select all checkboxes perform changes on each selected check box
 $(document).ready(function () {
-    $('#pogroups').on('click', 'thead input:checkbox', function (e) {
+    var _filter = 'tr';
+
+    // Handle selectable event on selected orders.
+    $('#pogroups tbody').selectable({
+        filter: _filter,
+        cancel: 'a, input:checkbox, td[rowspan]',
+        stop: function (event, ui) {
+            $(_filter, this).each(function () {
+                //Check the hidden check boxes for each row selected by user.
+                $('input:checkbox', this).prop('checked', $(this).is('.ui-selected'));
+            });
+            ShowSelectedPoCount();
+        }
+    }).on('click', 'td.dc', function (e) {
+        // When a DC is clicked, select all rows for that DC
+        var $tr = $(this).closest(_filter);
+        var isSelected = $tr.hasClass('ui-selected');
+        $tr.nextAll()
+            .andSelf()
+            .slice(0, $(this).attr('rowspan'))
+            .toggleClass('ui-selected', !isSelected)
+            .find('input:checkbox')
+            .prop('checked', !isSelected);
+    }).tooltip({
+        content: function () {
+            return $(this).next().html();
+        },
+        items: 'span.ui-icon.ui-icon-alert'
+    });
+
+    $('#pogroups thead').on('change', 'input:checkbox', function (e) {
+        // When header checkbox clicked, select or unselect all rows
         $(this).closest('table').find('tbody input:checkbox')
             .prop('checked', $(this).is(':checked'))
-            .closest('td')
+            .closest(_filter)
             .toggleClass('ui-selected', $(this).is(':checked'));
 
         ShowSelectedPoCount();
@@ -20,10 +51,8 @@ $(document).ready(function () {
 
     //Show the number of selected POs.
     function ShowSelectedPoCount() {
-        var $selected = $('td.ui-selected');
-        if ($selected.length >= 0) {
-            $('span.spnPOSelected').text('Total : ' + $selected.length + ' POs selected');
-        }
+        var $selected = $('tr.ui-selected');
+        $('span.spnPOSelected').text('Total : ' + $selected.length + ' POs selected');
     }
     // Handle datepicker event on UnRouted UI and used to assign the selected date to each selected orders.
     $("#tbAtsDate").datepicker({
@@ -57,30 +86,7 @@ $(document).ready(function () {
             }
         }
     });
-     // Handle selectable event on selected orders.
-    $('#pogroups tbody').selectable({
-        filter: 'tr',
-        cancel: 'a, input:checkbox, td[rowspan]',
-        stop: function (event, ui) {
-            $('tr', this).each(function () {
-                //Check the hidden check boxes for each row selected by user.
-                $('input:checkbox', this).prop('checked', $(this).is('.ui-selected'));
-                //if ($(this).is('.ui-selected')) {                    
-                //    $('input:checkbox', this).attr('checked', 'checked');
-                //} else {
-                //    $('input:checkbox', this).removeAttr('checked');
-                //}
-            });
-            ShowSelectedPoCount();
-        }
-    }).on('click', 'td.dc', function (e) {
-        alert('Hi');
-    }).tooltip({
-        content: function () {
-            return $(this).next().html();
-        },
-        items: 'span.ui-icon.ui-icon-alert'
-    });
+
 
     // When Dc Cancel date and DC is clicked in the quick list, highlight the clicked date and the table we navigate to
     $('#quicklist').on('click', 'a[href^="#"]', function (e) {
@@ -104,7 +110,7 @@ $(document).ready(function () {
         },
         buttons: [{
             text: 'Assign',
-            id:'btnAssign',
+            id: 'btnAssign',
             click: function (event, ui) {
                 var $form = $('#frmAtsDate');
                 var $selected = $('table tbody input:checkbox:checked');
