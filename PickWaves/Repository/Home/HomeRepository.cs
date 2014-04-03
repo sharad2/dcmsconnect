@@ -41,6 +41,84 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// </remarks>
         public IList<BucketSummary> GetBucketSummary(string customerId)
         {
+
+            /*
+            WITH BUCKET_INFO AS
+             (SELECT B.BUCKET_ID AS BUCKET_ID,
+                     P.CUSTOMER_ID AS CUSTOMER_ID,
+                     MAX(B.PRIORITY) AS PRIORITY,
+                     MAX(B.FREEZE) AS FREEZE,
+                     SUM(P.TOTAL_QUANTITY_ORDERED) AS TOTAL_QUANTITY_ORDERED,
+                     MAX(CUST.NAME) AS CUSTOMER_NAME,
+                     MAX(CUST.INACTIVE_FLAG) AS INACTIVE_FLAG,
+                     MIN(PO.DC_CANCEL_DATE) AS DC_CANCEL_DATE
+                FROM BUCKET B
+               INNER JOIN PS P
+                  ON P.BUCKET_ID = B.BUCKET_ID
+                 and P.TRANSFER_DATE IS NULL
+               INNER JOIN PO PO
+                  ON PO.PO_ID = P.PO_ID
+                 AND PO.ITERATION = P.ITERATION
+                 AND PO.CUSTOMER_ID = P.CUSTOMER_ID
+               INNER JOIN CUST CUST
+                  ON P.CUSTOMER_ID = CUST.CUSTOMER_ID
+               group by B.BUCKET_ID, P.CUSTOMER_ID),
+            PICKED_PIECES AS
+             (SELECT p.bucket_id,
+                     p.customer_id,
+                     SUM(BD.CURRENT_PIECES) AS CURRENT_PIECES,
+                     SUM(NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)) AS EXPECTED_PIECES,
+                     count(unique B.UCC128_ID) AS count_boxes,
+                     count(unique CASE
+                             WHEN B.VERIFY_DATE IS not NULL THEN
+                              B.UCC128_ID
+                           END) AS count_validated_boxes
+                FROM PS P
+               INNER JOIN BOX B
+                  ON B.PICKSLIP_ID = P.PICKSLIP_ID
+                 and b.stop_process_date is null
+               INNER JOIN BOXDET BD
+                  ON B.PICKSLIP_ID = BD.PICKSLIP_ID
+                 AND B.UCC128_ID = BD.UCC128_ID
+                 and bd.stop_process_date is null
+               WHERE P.TRANSFER_DATE IS NULL
+  
+               group by p.bucket_id, p.customer_id
+  
+              )
+            SELECT BI.CUSTOMER_ID AS CUSTOMER_ID,
+                   MAX(BI.CUSTOMER_NAME) AS CUSTOMER_NAME,
+                   COUNT(UNIQUE BI.BUCKET_ID) AS BUCKET_COUNT,
+                   MAX(BI.PRIORITY) AS MAX_PRIORITY,
+                   SUM(PP.CURRENT_PIECES) AS CURRENT_PIECES,
+                   SUM(BI.TOTAL_QUANTITY_ORDERED) AS TOTAL_QUANTITY_ORDERED,
+                   SUM(PP.EXPECTED_PIECES) AS EXPECTED_PIECES,
+                   MAX(BI.INACTIVE_FLAG) AS INACTIVE_FLAG,
+                   MAX(BI.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE,
+                   MIN(BI.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
+                   CASE
+                     WHEN BI.FREEZE = 'Y' THEN
+                      ':FrozenState'
+                     WHEN count_validated_boxes = count_boxes THEN
+                      ':COMPLETEDSTATE'
+                     ELSE
+                      ':InProgressState'
+                   END
+              FROM BUCKET_INFO BI
+              LEFT OUTER JOIN PICKED_PIECES PP
+                ON PP.bucket_id = BI.bucket_id
+               and pp.customer_id = bi.customer_id
+             GROUP BY BI.CUSTOMER_ID,
+                      CASE
+                        WHEN BI.FREEZE = 'Y' THEN
+                         ':FrozenState'
+                        WHEN count_validated_boxes = count_boxes THEN
+                         ':COMPLETEDSTATE'
+                        ELSE
+                         ':InProgressState'
+                      END
+
+             */
             const string QUERY = @"
                                 WITH BUCKET_INFO AS
                                  (
