@@ -279,8 +279,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             var orders = _service.GetUnRoutedOrders(model.PostedCustomerId, model.BuildingId, model.ShowUnavailableBucket);
 
             var groupedPoList = from po in orders
-                                orderby po.BuildingId, po.MinDcCancelDate, po.StartDate,
-                                po.CustomerDcId,po.PoId
+                                //orderby po.BuildingId, po.MinDcCancelDate, po.StartDate,
+                                //po.CustomerDcId,po.PoId
                                 group po by new UnroutedPoGroup(po.BuildingId, po.MinDcCancelDate) into g
                                 select g;
             foreach (var item in groupedPoList)
@@ -308,12 +308,13 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 model.GroupedPoList.Add(item.Key, list);
             }
             var query = from pogroup in model.GroupedPoList.Keys
-                        orderby pogroup.DcCancelDate
+                        //orderby pogroup.DcCancelDate ?? DateTime.MaxValue
                         group pogroup by pogroup.BuildingId into g
+                        orderby g.Key
                         select new
                         {
                             BuildingId = g.Key,
-                            UnRoutedPoGroup = g.ToList()
+                            UnRoutedPoGroup = g.OrderBy(p => p).ToList()
                         };
 
             foreach (var item in query)

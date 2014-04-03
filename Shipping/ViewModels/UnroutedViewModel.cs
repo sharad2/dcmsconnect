@@ -57,7 +57,7 @@ namespace DcmsMobile.Shipping.ViewModels
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+        [DisplayFormat(DataFormatString = "{0:ddd d MMM}", NullDisplayText="(Not Specified)")]
         public DateTime? DcCancelDate
         {
             get
@@ -89,8 +89,8 @@ namespace DcmsMobile.Shipping.ViewModels
             var ret = (_buildingId ?? string.Empty).CompareTo(other._buildingId);
             if (ret == 0)
             {
-                
-                    ret = (_dcCancelDate ?? DateTime.MinValue).CompareTo(other._dcCancelDate);
+
+                ret = (_dcCancelDate ?? DateTime.MinValue).CompareTo(other._dcCancelDate ?? DateTime.MinValue);
             }
             return ret;
         }
