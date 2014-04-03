@@ -261,13 +261,13 @@
                                                 }
                                             </div>
                                         }
-                                        @if (Model.BucketsByStatus.Values[j][i].PickingDateRange.To.HasValue)
+                                        @*@if (Model.BucketsByStatus.Values[j][i].PickingDateRange.To.HasValue)
                                         {
                                             <div>
                                                 Picked from @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickingDateRange)
 
                                             </div>
-                                        }
+                                        }*@
                                         @if (Model.BucketsByStatus.Values[j][i].UncreatedPieces > 0)
                                         {
                                             if (Model.BucketsByStatus.Values[j][i].UncreatedPieces >= Model.BucketsByStatus.Values[j][i].OrderedPieces)

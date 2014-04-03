@@ -189,12 +189,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                        PitchAreaCount = g.Sum(p => p.PitchAreaCount),
                        PullAreaCount = g.Sum(p => p.PullAreaCount),
                        MaxPriorityId = g.Sum(p => p.MaxPriorityId),
-                       PickingDateRange = new DateRange
-                       {
-                           To = g.Select(p => p.MaxPitchingEndDate).FirstOrDefault(),
-                           From = g.Select(p => p.MinPitchingEndDate).FirstOrDefault(),
-                           ShowTime = true
-                       },
+                       //PickingDateRange = new DateRange
+                       //{
+                       //    To = g.Select(p => p.MaxPitchingEndDate).FirstOrDefault(),
+                       //    From = g.Select(p => p.MinPitchingEndDate).FirstOrDefault(),
+                       //    ShowTime = true
+                       //},
                        DcCancelDateRange = new DateRange
                        {
                            To = g.Select(p => p.MaxDcCancelDate).FirstOrDefault(),

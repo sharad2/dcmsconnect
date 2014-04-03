@@ -138,6 +138,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         public int MaxPriorityId { get; set; }
 
         [DataType(DataType.Text)]
+        [Obsolete]
         public DateRange PickingDateRange { get; set; }
 
         [DataType(DataType.Text)]

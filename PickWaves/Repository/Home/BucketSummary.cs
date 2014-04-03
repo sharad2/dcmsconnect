@@ -52,10 +52,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
         //public int CancelledPieces { get; set; }
 
         public int MaxPriorityId { get; set; }
-
-        public DateTimeOffset? MaxPitchingEndDate { get; set; }
-
-        public DateTimeOffset? MinPitchingEndDate { get; set; }
         
         public DateTime MaxDcCancelDate { get; set; }
 

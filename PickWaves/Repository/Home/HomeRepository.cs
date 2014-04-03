@@ -98,9 +98,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                                 WHEN B.VERIFY_DATE IS NULL AND
                                                      B.IA_ID IS NULL THEN
                                                  B.UCC128_ID
-                                              END) OVER(PARTITION BY P.BUCKET_ID) AS NONPHYSICAL_BOXES_IN_BKT,
-                                          MAX(B.PITCHING_END_DATE) OVER(PARTITION BY P.BUCKET_ID) AS MAX_PITCHING_END_DATE,
-                                          MIN(B.PITCHING_END_DATE) OVER(PARTITION BY P.BUCKET_ID) AS MIN_PITCHING_END_DATE
+                                              END) OVER(PARTITION BY P.BUCKET_ID) AS NONPHYSICAL_BOXES_IN_BKT
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />BOX B
                                       ON B.PICKSLIP_ID = P.PICKSLIP_ID
@@ -119,8 +117,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                        SUM(BI.TOTAL_QUANTITY_ORDERED)               AS TOTAL_QUANTITY_ORDERED,                                       
                                        SUM(PP.EXPECTED_PIECES)                      AS EXPECTED_PIECES,                                                                            
                                        MAX(BI.INACTIVE_FLAG)                        AS INACTIVE_FLAG,
-                                       MAX(PP.MAX_PITCHING_END_DATE)                AS MAX_PITCHING_END_DATE,
-                                       MIN(PP.MIN_PITCHING_END_DATE)                AS MIN_PITCHING_END_DATE,
                                        MAX(BI.PULL_CARTON_AREA) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)              AS MAX_PULL_AREA,
                                        MAX(BI.PULL_AREA_SHORT_NAME) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)          AS MAX_PULL_AREA_SHORT_NAME,
                                        MIN(BI.PULL_CARTON_AREA) KEEP(DENSE_RANK FIRST ORDER BY BI.PULL_CARTON_AREA NULLS LAST)              AS MIN_PULL_AREA,
@@ -176,8 +172,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                        PitchAreaCount = row.GetInteger("PITCH_AREA_COUNT") ?? 0,
                        PullAreaCount = row.GetInteger("PULL_AREA_COUNT") ?? 0,
                        BucketState = row.GetEnum<ProgressStage>("BUCKET_STATUS"),
-                       MaxPitchingEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE"),
-                       MinPitchingEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE"),
                        MaxPitchArea = new InventoryArea
                        {
                            AreaId = row.GetString("MAX_PITCH_AREA"),
