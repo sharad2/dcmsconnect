@@ -171,10 +171,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                        BucketStatus = item.BucketState,
                        item.Customer.CustomerId
                    } into g
-                   let maxPitchArea = g.Select(p => p.MaxPitchArea).First()
-                   let minPitchArea = g.Select(p => p.MinPitchArea).First()
-                   let maxPullArea = g.Select(p => p.MaxPullArea).First()
-                   let minPullArea = g.Select(p => p.MinPullArea).First()
+                   //let maxPitchArea = g.Select(p => p.MaxPitchArea).First()
+                   //let minPitchArea = g.Select(p => p.MinPitchArea).First()
+                   //let maxPullArea = g.Select(p => p.MaxPullArea).First()
+                   //let minPullArea = g.Select(p => p.MinPullArea).First()
                    select new CustomerBucketStateModel
                    {
                        BucketStatus = g.Key.BucketStatus,
@@ -186,8 +186,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                        OrderedPieces = g.Sum(p => p.OrderedPieces),
                        ExpectedPieces = g.Sum(p => p.ExpectedPieces),
                        //CancelledPieces = g.Sum(p => p.CancelledPieces),
-                       PitchAreaCount = g.Sum(p => p.PitchAreaCount),
-                       PullAreaCount = g.Sum(p => p.PullAreaCount),
+                       //PitchAreaCount = g.Sum(p => p.PitchAreaCount),
+                       //PullAreaCount = g.Sum(p => p.PullAreaCount),
                        MaxPriorityId = g.Sum(p => p.MaxPriorityId),
                        //PickingDateRange = new DateRange
                        //{
@@ -200,10 +200,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                            To = g.Select(p => p.MaxDcCancelDate).FirstOrDefault(),
                            From = g.Select(p => p.MinDcCancelDate).FirstOrDefault(),
                        },
-                       MaxPitchArea = new InventoryAreaModel(maxPitchArea),
-                       MinPitchArea = new InventoryAreaModel(minPitchArea),
-                       MaxPullArea = new InventoryAreaModel(maxPullArea),
-                       MinPullArea = new InventoryAreaModel(minPullArea)
+                      // MaxPitchArea = new InventoryAreaModel(maxPitchArea),
+                       //MinPitchArea = new InventoryAreaModel(minPitchArea),
+                       //MaxPullArea = new InventoryAreaModel(maxPullArea),
+                      // MinPullArea = new InventoryAreaModel(minPullArea)
                    };
         }
 

@@ -120,26 +120,28 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
             }
         }
 
+        [Obsolete]
         public int PitchAreaCount { get; set; }
 
+        [Obsolete]
         public int PullAreaCount { get; set; }
 
+        [Obsolete]
         public InventoryAreaModel MaxPitchArea { get; set; }
 
+        [Obsolete]
         public InventoryAreaModel MinPitchArea { get; set; }
 
+        [Obsolete]
         public InventoryAreaModel MaxPullArea { get; set; }
 
+        [Obsolete]
         public InventoryAreaModel MinPullArea { get; set; }
 
         /// <summary>
         /// Showing highest priority of buckets.
         /// </summary>
         public int MaxPriorityId { get; set; }
-
-        [DataType(DataType.Text)]
-        [Obsolete]
-        public DateRange PickingDateRange { get; set; }
 
         [DataType(DataType.Text)]
         public DateRange DcCancelDateRange { get; set; }

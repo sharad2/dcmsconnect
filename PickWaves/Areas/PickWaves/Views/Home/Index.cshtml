@@ -170,8 +170,7 @@
                             <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sub>1</sub>
                                 </th>
                                 <td colspan="2">Pieces
-                                </td>
-                                <th rowspan="2">Building</th>
+                                </td>                                
                             </tr>
                             <tr>
                                 <th>#</th>
@@ -200,8 +199,7 @@
                                 <th>@dr</th>
                                 <th>@string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.OrderedPieces))</th>
                                 <th>@string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.PickedPieces)) of 
-                                    @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.UnpickedPieces + p.PickedPieces))</th>
-                                <th></th>
+                                    @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.UnpickedPieces + p.PickedPieces))</th>                                
                             </tr>
                         </thead>
                         <tbody>
@@ -289,7 +287,7 @@
                                             }
                                         }
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @if (Model.BucketsByStatus.Values[j][i].PullAreaCount > 0)
                                         {
                                             <div>
@@ -329,7 +327,7 @@
                                                 }
                                             </div>
                                         }
-                                    </td>
+                                    </td>*@
                                 </tr>
                             }
                         </tbody>

@@ -53,14 +53,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                           P.TOTAL_QUANTITY_ORDERED                  AS TOTAL_QUANTITY_ORDERED,
                                           CUST.NAME                                 AS CUSTOMER_NAME,
                                           CUST.INACTIVE_FLAG                        AS INACTIVE_FLAG,
-                                          B.PULL_CARTON_AREA                        AS PULL_CARTON_AREA,
-                                          TIA.SHORT_NAME                            AS PULL_AREA_SHORT_NAME,
-                                          B.PITCH_IA_ID                             AS PITCH_IA_ID,
-                                          IA.SHORT_NAME                             AS PITCH_IA_SHORT_NAME,
-                                          TIA.WAREHOUSE_LOCATION_ID                 AS PULL_BUILDING_ID,
-                                          IA.WAREHOUSE_LOCATION_ID                  AS PITCH_BUILDING_ID,
-                                          TWL_PULL.DESCRIPTION                      AS PULL_BUILDING_NAME,
-                                          TWL_PITCH.DESCRIPTION                     AS PITCH_BUILDING_NAME,
                                           PO.DC_CANCEL_DATE                         AS DC_CANCEL_DATE
                                     FROM <proxy />BUCKET B
                                    INNER JOIN <proxy />PS P
@@ -71,14 +63,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                          AND PO.CUSTOMER_ID = P.CUSTOMER_ID
                                    INNER JOIN <proxy />CUST CUST
                                       ON P.CUSTOMER_ID = CUST.CUSTOMER_ID
-                                    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                                      ON TIA.INVENTORY_STORAGE_AREA = B.PULL_CARTON_AREA
-                                    LEFT OUTER JOIN <proxy />IA IA
-                                      ON IA.IA_ID = B.PITCH_IA_ID
-                                    LEFT OUTER JOIN <proxy />TAB_WAREHOUSE_LOCATION TWL_PULL
-                                      ON TWL_PULL.WAREHOUSE_LOCATION_ID = TIA.WAREHOUSE_LOCATION_ID
-                                    LEFT OUTER JOIN <proxy />TAB_WAREHOUSE_LOCATION TWL_PITCH
-                                      ON TWL_PITCH.WAREHOUSE_LOCATION_ID = IA.WAREHOUSE_LOCATION_ID
                                    WHERE P.TRANSFER_DATE IS NULL
                                     <if> AND P.CUSTOMER_ID = :CUSTOMER_ID </if>
                                 ),
@@ -116,25 +100,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                        SUM(PP.CURRENT_PIECES)                       AS CURRENT_PIECES,
                                        SUM(BI.TOTAL_QUANTITY_ORDERED)               AS TOTAL_QUANTITY_ORDERED,                                       
                                        SUM(PP.EXPECTED_PIECES)                      AS EXPECTED_PIECES,                                                                            
-                                       MAX(BI.INACTIVE_FLAG)                        AS INACTIVE_FLAG,
-                                       MAX(BI.PULL_CARTON_AREA) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)              AS MAX_PULL_AREA,
-                                       MAX(BI.PULL_AREA_SHORT_NAME) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)          AS MAX_PULL_AREA_SHORT_NAME,
-                                       MIN(BI.PULL_CARTON_AREA) KEEP(DENSE_RANK FIRST ORDER BY BI.PULL_CARTON_AREA NULLS LAST)              AS MIN_PULL_AREA,
-                                       MIN(BI.PULL_AREA_SHORT_NAME) KEEP(DENSE_RANK FIRST ORDER BY BI.PULL_CARTON_AREA NULLS LAST)          AS MIN_PULL_AREA_SHORT_NAME,
-                                       MAX(BI.PULL_BUILDING_ID) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)              AS MAX_PULL_BUILDING_ID,
-                                       MAX(BI.PULL_BUILDING_NAME) KEEP(DENSE_RANK LAST ORDER BY BI.PULL_CARTON_AREA NULLS FIRST)            AS MAX_PULL_BUILDING_NAME,
-                                       MIN(BI.PULL_BUILDING_ID) KEEP(DENSE_RANK FIRST ORDER BY BI.PULL_CARTON_AREA NULLS LAST)              AS MIN_PULL_BUILDING_ID,
-                                       MIN(BI.PULL_BUILDING_NAME) KEEP(DENSE_RANK FIRST ORDER BY BI.PULL_CARTON_AREA NULLS LAST)            AS MIN_PULL_BUILDING_NAME,
-                                       MAX(BI.PITCH_IA_ID) KEEP(DENSE_RANK LAST ORDER BY BI.PITCH_IA_ID NULLS FIRST)                        AS MAX_PITCH_AREA,                                       
-                                       MAX(BI.PITCH_IA_SHORT_NAME) KEEP(DENSE_RANK LAST ORDER BY BI.PITCH_IA_ID NULLS FIRST)                AS MAX_PITCH_IA_SHORT_NAME,
-                                       MAX(BI.PITCH_BUILDING_ID) KEEP(DENSE_RANK LAST ORDER BY BI.PITCH_IA_ID NULLS FIRST)                  AS MAX_PITCH_BUILDING_ID,
-                                       MAX(BI.PITCH_BUILDING_NAME) KEEP(DENSE_RANK LAST ORDER BY BI.PITCH_IA_ID NULLS FIRST)                AS MAX_PITCH_BUILDING_NAME,
-                                       MIN(BI.PITCH_IA_ID) KEEP(DENSE_RANK FIRST ORDER BY BI.PITCH_IA_ID NULLS LAST)                        AS MIN_PITCH_AREA,                                       
-                                       MIN(BI.PITCH_IA_SHORT_NAME) KEEP(DENSE_RANK FIRST ORDER BY BI.PITCH_IA_ID NULLS LAST)                AS MIN_PITCH_IA_SHORT_NAME,
-                                       MIN(BI.PITCH_BUILDING_ID) KEEP(DENSE_RANK FIRST ORDER BY BI.PITCH_IA_ID NULLS LAST)                  AS MIN_PITCH_BUILDING_ID,
-                                       MIN(BI.PITCH_BUILDING_NAME) KEEP(DENSE_RANK FIRST ORDER BY BI.PITCH_IA_ID NULLS LAST)                AS MIN_PITCH_BUILDING_NAME,
-                                       COUNT(UNIQUE BI.PULL_CARTON_AREA)            AS PULL_AREA_COUNT,                                       
-                                       COUNT(UNIQUE BI.PITCH_IA_ID)                 AS PITCH_AREA_COUNT,                                      
+                                       MAX(BI.INACTIVE_FLAG)                        AS INACTIVE_FLAG,                                    
                                        CASE
                                          WHEN BI.FREEZE = 'Y' THEN                                                                  :FrozenState
                                          WHEN NVL(PP.INPROGRESS_BOXES_IN_BKT, 0) + NVL(PP.NONPHYSICAL_BOXES_IN_BKT, 0) = 0 THEN   :COMPLETEDSTATE
@@ -169,37 +135,37 @@ namespace DcmsMobile.PickWaves.Repository.Home
                        OrderedPieces = row.GetInteger("TOTAL_QUANTITY_ORDERED") ?? 0,
                        CurrentPieces = row.GetInteger("CURRENT_PIECES") ?? 0,
                        ExpectedPieces = row.GetInteger("EXPECTED_PIECES") ?? 0,                       
-                       PitchAreaCount = row.GetInteger("PITCH_AREA_COUNT") ?? 0,
-                       PullAreaCount = row.GetInteger("PULL_AREA_COUNT") ?? 0,
+                       //PitchAreaCount = row.GetInteger("PITCH_AREA_COUNT") ?? 0,
+                      // PullAreaCount = row.GetInteger("PULL_AREA_COUNT") ?? 0,
                        BucketState = row.GetEnum<ProgressStage>("BUCKET_STATUS"),
-                       MaxPitchArea = new InventoryArea
-                       {
-                           AreaId = row.GetString("MAX_PITCH_AREA"),
-                           ShortName = row.GetString("MAX_PITCH_IA_SHORT_NAME"),
-                           BuildingId = row.GetString("MAX_PITCH_BUILDING_ID"),
-                           BuildingName = row.GetString("MAX_PITCH_BUILDING_NAME")
-                       },
-                       MinPitchArea = new InventoryArea
-                       {
-                           AreaId = row.GetString("MIN_PITCH_AREA"),
-                           ShortName = row.GetString("MIN_PITCH_IA_SHORT_NAME"),
-                           BuildingId = row.GetString("MIN_PITCH_BUILDING_ID"),
-                           BuildingName = row.GetString("MIN_PITCH_BUILDING_NAME")
-                       },
-                       MaxPullArea = new InventoryArea
-                       {
-                           AreaId = row.GetString("MAX_PULL_AREA"),
-                           ShortName = row.GetString("MAX_PULL_AREA_SHORT_NAME"),
-                           BuildingId = row.GetString("MAX_PULL_BUILDING_ID"),
-                           BuildingName = row.GetString("MAX_PULL_BUILDING_NAME")
-                       },
-                       MinPullArea = new InventoryArea
-                       {
-                           AreaId = row.GetString("MIN_PULL_AREA"),
-                           ShortName = row.GetString("MIN_PULL_AREA_SHORT_NAME"),
-                           BuildingId = row.GetString("MIN_PULL_BUILDING_ID"),
-                           BuildingName = row.GetString("MIN_PULL_BUILDING_NAME")
-                       }
+                       //MaxPitchArea = new InventoryArea
+                       //{
+                       //    AreaId = row.GetString("MAX_PITCH_AREA"),
+                       //    ShortName = row.GetString("MAX_PITCH_IA_SHORT_NAME"),
+                       //    BuildingId = row.GetString("MAX_PITCH_BUILDING_ID"),
+                       //    BuildingName = row.GetString("MAX_PITCH_BUILDING_NAME")
+                       //},
+                       //MinPitchArea = new InventoryArea
+                       //{
+                       //    AreaId = row.GetString("MIN_PITCH_AREA"),
+                       //    ShortName = row.GetString("MIN_PITCH_IA_SHORT_NAME"),
+                       //    BuildingId = row.GetString("MIN_PITCH_BUILDING_ID"),
+                       //    BuildingName = row.GetString("MIN_PITCH_BUILDING_NAME")
+                       //},
+                       //MaxPullArea = new InventoryArea
+                       //{
+                       //    AreaId = row.GetString("MAX_PULL_AREA"),
+                       //    ShortName = row.GetString("MAX_PULL_AREA_SHORT_NAME"),
+                       //    BuildingId = row.GetString("MAX_PULL_BUILDING_ID"),
+                       //    BuildingName = row.GetString("MAX_PULL_BUILDING_NAME")
+                       //},
+                       //MinPullArea = new InventoryArea
+                       //{
+                       //    AreaId = row.GetString("MIN_PULL_AREA"),
+                       //    ShortName = row.GetString("MIN_PULL_AREA_SHORT_NAME"),
+                       //    BuildingId = row.GetString("MIN_PULL_BUILDING_ID"),
+                       //    BuildingName = row.GetString("MIN_PULL_BUILDING_NAME")
+                       //}
                    });
             binder.Parameter("CUSTOMER_ID", customerId)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())

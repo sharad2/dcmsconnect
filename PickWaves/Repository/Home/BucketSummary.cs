@@ -26,17 +26,18 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// Pieces in not cancelled boxes
         /// </summary>
         public int CurrentPieces { get; set; }
-
+        [Obsolete]
         public InventoryArea MaxPitchArea { get; set; }
-
+        [Obsolete]
         public InventoryArea MinPitchArea { get; set; }
-
+        [Obsolete]
         public InventoryArea MaxPullArea { get; set; }
-
+        [Obsolete]
         public InventoryArea MinPullArea { get; set; }
 
+        [Obsolete]
         public int PitchAreaCount { get; set; }
-
+        [Obsolete]
         public int PullAreaCount { get; set; }
 
         /// <summary>
