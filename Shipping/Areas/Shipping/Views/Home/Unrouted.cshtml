@@ -1,14 +1,14 @@
 ﻿@*Promises added by: Binay Bhushan 4th December 2012.
 
-Following attributes  are used in our code:
-1. data-calendar-img: We keep it to show calendar image for datepicker used by Unrouted script.
-2. variable layoutResult and layoutView: used to provide reference of view "_layoutTabs" .
+    Following attributes  are used in our code:
+    1. data-calendar-img: We keep it to show calendar image for datepicker used by Unrouted script.
+    2. variable layoutResult and layoutView: used to provide reference of view "_layoutTabs" .
 
-Used CSS class:
-1. .ui-datepicker: Used to provide specific look to those ATS dates which have some POs for routing or selected row.
-2. .ui-selected: Used with selected rows and Unrouted script.
-3. td.row-span[rowspan]: Used for make browser compatibility and provide specific look to those td on which "row-span" class used.
-4. .po-column : Used for apply selectable event on selected orders.
+    Used CSS class:
+    1. .ui-datepicker: Used to provide specific look to those ATS dates which have some POs for routing or selected row.
+    2. .ui-selected: Used with selected rows and Unrouted script.
+    3. td.row-span[rowspan]: Used for make browser compatibility and provide specific look to those td on which "row-span" class used.
+    4. .po-column : Used for apply selectable event on selected orders.
 
 *@
 
@@ -22,14 +22,14 @@ Used CSS class:
 {
     if (group1 != null && group2 != null && group1.Equals(group2))
     {
-    @:class="ui-state-highlight"
+        @:class="ui-state-highlight"
     }
 }
 @if (Model.RecentlyAssignedPoCount.HasValue)
 {
     <div class="ui-state-highlight">
         @Html.DisplayFor(m => m.RecentlyAssignedPoCount) POs have been routed for @Html.DisplayFor(m => m.RecentlyAssignedGroup.AtsDate).
-            @Html.ActionLink("Enter Routing Information", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId,
+        @Html.ActionLink("Enter Routing Information", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId,
                 initialGroup: Model.RecentlyAssignedGroup)), null, null, null, Model.RecentlyAssignedGroup.HtmlId)
     </div>
 }
@@ -47,7 +47,7 @@ Used CSS class:
 {
     id = "frmShowUnavailableBucket"
 }))
-{ 
+{
     <blockquote>
         @Html.CheckBoxFor(m => m.ShowUnavailableBucket, new
    {
@@ -56,25 +56,26 @@ Used CSS class:
         <label for="cbShowRouted">
             Show orders of unavailable waves also.
         </label>
-        <input type = "hidden" name = "@Model.NameFor(m => m.PostedCustomerId)" value = "@Model.Summary.CustomerId" />
-        <input type = "hidden" name = "@Model.NameFor(m => m.BuildingId)" value = "@Model.BuildingId" />
-    </blockquote>  
+        <input type="hidden" name="@Model.NameFor(m => m.PostedCustomerId)" value="@Model.Summary.CustomerId" />
+        <input type="hidden" name="@Model.NameFor(m => m.BuildingId)" value="@Model.BuildingId" />
+    </blockquote>
 }
 @if (Model.GroupedPoList.Count >= 1 && !string.IsNullOrEmpty(Model.Summary.CustomerId))
 {
     <div id="divAtsDate" class="ui-widget-content">
         @using (Html.BeginForm(MVC_Shipping.Shipping.Home.PrepareToRoute(), FormMethod.Post, new { id = "frmAtsDate" }))
         {
-            <input type = "hidden" name = "@Model.NameFor(m => m.PostedCustomerId)" value = "@Model.Summary.CustomerId" />
+            <input type="hidden" name="@Model.NameFor(m => m.PostedCustomerId)" value="@Model.Summary.CustomerId" />
             <label>
-                ATS Date</label>
-            <input name="@Html.NameFor(m => m.AtsDate)" value="@string.Format("{0:d}", Model.AtsDate)" id = "tbAtsDate" size = "10" maxlength = "10" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
+                ATS Date
+            </label>
+            <input name="@Html.NameFor(m => m.AtsDate)" value="@string.Format("{0:d}", Model.AtsDate)" id="tbAtsDate" size="10" maxlength="10" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
             <span>*</span>
             <span class="ui-icon ui-icon-comment" title="Select POs from the list and assign an ATS Date to them." style="display: inline-block"></span>
             <div class="ui-state-highlight">
                 <span class="spnPOSelected"></span>
             </div>
-            <span>Send EDI 753 &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m => m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()) ? "checked" : "")  id="cbElectronicEdi" />
+            <span>Send EDI 753 &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m => m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()) ? "checked" : "") id="cbElectronicEdi" />
         }
     </div>
 }
@@ -88,28 +89,31 @@ Used CSS class:
         <dl id="quicklist">
             @for (var i = 0; i < Model.DcCancelDatesByBuilding.Count; ++i)
             {
-                <dt>Building 
-                 <em>@Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])
-                     @if (Model.DcCancelDatesByBuilding.Count > 1)
+            <dt>
+                Building
+                <em>
+                    @Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])
+                @if (Model.DcCancelDatesByBuilding.Count > 1)
                      {
-                         <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(Model.Summary.CustomerId, Model.DcCancelDatesByBuilding.Keys[i], Model.ShowUnavailableBucket)))">
-                             <span title="Only show POs having Building @Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])">Only</span>
-                         </a>
+                    <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(Model.Summary.CustomerId, Model.DcCancelDatesByBuilding.Keys[i], Model.ShowUnavailableBucket)))">
+                        <span title="Only show POs having Building @Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])">Only</span>
+                    </a>
                      }
-                 </em></dt>
-                <dd style="margin-left: 5em">
-                    @for (var j = 0; j < Model.DcCancelDatesByBuilding.Values[i].Count; ++j)
+            </em>
+        </dt>
+            <dd style="margin-left: 5em">
+                @for (var j = 0; j < Model.DcCancelDatesByBuilding.Values[i].Count; ++j)
                     {
                         if (Model.DcCancelDatesByBuilding.Values[i][j].DcCancelDate.HasValue)
                         {
-                        <div style="white-space: nowrap; display: inline-block; width: 12em">
-                            <a  href="#@Model.DcCancelDatesByBuilding.Values[i][j].HtmlId" @Highlight(Model.DcCancelDatesByBuilding.Values[i][j], Model.InitialGroup)>
-                                @Html.DisplayFor(m => Model.DcCancelDatesByBuilding.Values[i][j].DcCancelDate)
-                            </a>
-                        </div>
+                    <div style="white-space: nowrap; display: inline-block; width: 12em">
+                        <a href="#@Model.DcCancelDatesByBuilding.Values[i][j].HtmlId" @Highlight(Model.DcCancelDatesByBuilding.Values[i][j], Model.InitialGroup)>
+                            @Html.DisplayFor(m => Model.DcCancelDatesByBuilding.Values[i][j].DcCancelDate)
+                        </a>
+                    </div>
                         }
                     }
-                </dd>
+            </dd>
             }
         </dl>
     </fieldset>
@@ -117,37 +121,47 @@ Used CSS class:
 @if (Model.BuildingId != null)
 {
     <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(Model.Summary.CustomerId)))">
-        <strong style="font-style: italic">Clear Building Filter</strong></a> 
+        <strong style="font-style: italic">Clear Building Filter</strong>
+    </a>
 }
 <div>
     @for (var i = 0; i < Model.GroupedPoList.Count; ++i)
     {
         <table id="@Model.GroupedPoList.Keys[i].HtmlId">
-            <caption @Highlight(Model.GroupedPoList.Keys[i], Model.InitialGroup) >
+            <caption @Highlight(Model.GroupedPoList.Keys[i], Model.InitialGroup)>
                 Building: @Model.GroupedPoList.Keys[i].BuildingId - @Model.GroupedPoList.Values[i].Count POs
-                    <br />
+                <br />
+                Start Date: @Html.DisplayFor(m => m.GroupedPoList.Keys[i].StartDateDisplay).
+                <br />
                 DC Cancel Date: @Html.DisplayFor(m => m.GroupedPoList.Keys[i].DcCancelDate).
-                    <a href="#">Back to Top</a>
+                <br />
+                <a href="#">Back to Top</a>
             </caption>
             <thead>
                 <tr>
-                    <th>#
+                    <th>
+                        #
                     </th>
-                    <th>DC
-                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="DC in ascending order"></span><sup>2</sup>
+                    <th>
+                        DC
+                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="DC in ascending order"></span><sup>1</sup>
                     </th>
                     <th style="text-align: left">
                         <input type="checkbox" class="select-all" title="Select All/Clear" /><span> &nbsp;&nbsp; </span>PO
                         <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each PO that provide their details"></span>
-                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="PO in ascending order"></span><sup>3</sup>
+                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="PO in ascending order"></span><sup>2</sup>
                     </th>
-                    <th>Start Date<span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="Start Date in ascending order"></span><sup>1</sup>
+                    @*<th>
+                        Start Date<span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="Start Date in ascending order"></span><sup>1</sup>
+                    </th>*@
+                    <th>
+                        Pieces Ordered
                     </th>
-                    <th>Pieces Ordered
+                    <th>
+                        #Boxes
                     </th>
-                    <th>#Boxes
-                    </th>
-                    <th>Wave                         
+                    <th>
+                        Wave
                         <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each Bucket that provide their details"></span>
                     </th>
                 </tr>
@@ -167,7 +181,7 @@ Used CSS class:
                             </td>
                         }
                         <td>
-                            <input type="checkbox" class="ui-helper-hidden" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key"  />
+                            <input type="checkbox" class="ui-helper-hidden" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key" />
                             <a href="@Url.Content(string.Format("~/Inquiry/PurchaseOrder/{0}/{1}/{2}", Model.GroupedPoList.Values[i][j].PoId, Model.PostedCustomerId, Model.GroupedPoList.Values[i][j].Iteration))" target="_inquiry" title="PO Details">
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PoId)
                             </a>
@@ -182,13 +196,13 @@ Used CSS class:
                                 </ol>
                             }
                         </td>
-                        @if (j == 0 || Model.GroupedPoList.Values[i][j].StartDate != Model.GroupedPoList.Values[i][j - 1].StartDate)
+                        @*@if (j == 0 || Model.GroupedPoList.Values[i][j].StartDate != Model.GroupedPoList.Values[i][j - 1].StartDate)
                         {
                             var span = Model.GroupedPoList.Values[i].Skip(j).TakeWhile(p => p.StartDate == Model.GroupedPoList.Values[i][j].StartDate).Count();
                             <td rowspan="@span" class="row-span" style="text-align: left">
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].StartDate)
                             </td>
-                        }
+                        }*@
                         <td style="text-align: right">
                             @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PiecesOrdered)
                         </td>
@@ -207,7 +221,8 @@ Used CSS class:
                                 @if (Model.GroupedPoList.Values[i][j].BucketId != null)
                                 {
                                     <a href="@Url.Content(string.Format("~/Inquiry/Wave/{0}", Model.GroupedPoList.Values[i][j].BucketId))" target="_inquiry" title="Bucket Details">
-                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BucketId)</a>
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BucketId)
+                                    </a>
                                 }
                                 else
                                 {

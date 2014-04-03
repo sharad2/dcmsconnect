@@ -286,6 +286,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             foreach (var item in groupedPoList)
             {
                 var list = (from order in item
+                            orderby order.CustomerDcId, order.PoId
                             select new UnroutedPoModel
                             {
                                 PickedPieces = order.PickedPieces ?? 0,

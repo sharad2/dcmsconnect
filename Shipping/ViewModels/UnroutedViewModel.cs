@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EclipseLibrary.Mvc.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -8,10 +9,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
+    /// <summary>
+    /// Represents a tuple of building id and DC Cancel date. Additionally it contains a start date property which applies to the group.
+    /// </summary>
     public class UnroutedPoGroup : IComparable<UnroutedPoGroup>, IEquatable<UnroutedPoGroup>
     {
         private  string _buildingId;
@@ -27,7 +30,7 @@ namespace DcmsMobile.Shipping.ViewModels
             _dcCancelDate = dcCancelDate == null ? (DateTime?)null : dcCancelDate.Value.Date;
         }
 
-        public void UpdateStats(IList<UnroutedPoModel> list)
+        internal void UpdateStats(IList<UnroutedPoModel> list)
         {
             var minstart = list.Min(p => p.StartDate);
             var maxstart = list.Max(p => p.StartDate);
@@ -136,8 +139,7 @@ namespace DcmsMobile.Shipping.ViewModels
     }
     /// <summary>
     /// Displays a list of unrouted orders of a particular customer. The passed or posted customer ID dictates which POs are displayed.
-    /// </summary>
-    
+    /// </summary> 
     public class UnroutedViewModel : LayoutTabsViewModel
     {
         public UnroutedViewModel()
@@ -165,14 +167,15 @@ namespace DcmsMobile.Shipping.ViewModels
             _dcCancelDatesByBuilding = new SortedList<string, IList<UnroutedPoGroup>>();
         }
 
-        public UnroutedViewModel(string customerId, DateTime? dcCancelDate)
-            : base(LayoutTabPage.Unrouted)
-        {
-            this.PostedCustomerId = customerId;
-            this.DcCancelDate = dcCancelDate;
-            _groupedPoList = new SortedList<UnroutedPoGroup, IList<UnroutedPoModel>>();
-            _dcCancelDatesByBuilding = new SortedList<string, IList<UnroutedPoGroup>>();
-        }
+        //[Obsolete]
+        //public UnroutedViewModel(string customerId, DateTime? dcCancelDate)
+        //    : base(LayoutTabPage.Unrouted)
+        //{
+        //    this.PostedCustomerId = customerId;
+        //    this.DcCancelDate = dcCancelDate;
+        //    _groupedPoList = new SortedList<UnroutedPoGroup, IList<UnroutedPoModel>>();
+        //    _dcCancelDatesByBuilding = new SortedList<string, IList<UnroutedPoGroup>>();
+        //}
 
         public UnroutedViewModel(string customerId, UnroutedPoGroup initialGroup=null)
             : base(LayoutTabPage.Unrouted)
@@ -275,16 +278,17 @@ namespace DcmsMobile.Shipping.ViewModels
         public DateTime? AtsDate { get; set; }
 
 
-        /// <summary>
-        /// Following properties are  for filtering orders
-        /// </summary>        
+        ///// <summary>
+        ///// Following properties are  for filtering orders
+        ///// </summary>        
+        //[Obsolete]
+        //[DisplayName("DCCancel Date")]
+        //[DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+        //public DateTime? DcCancelDate { get; set; }
 
-        [DisplayName("DCCancel Date")]
-        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
-        public DateTime? DcCancelDate { get; set; }
-
-        [DisplayName("Start Date")]
-        public DateTime? StartDate { get; set; }
+        //[Obsolete]
+        //[DisplayName("Start Date")]
+        //public DateTime? StartDate { get; set; }
 
         [DisplayName("Building")]
         public string BuildingId { get; set; }
@@ -337,10 +341,10 @@ namespace DcmsMobile.Shipping.ViewModels
         protected override void DoUnbindModel(RouteValueDictionary routeValueDictionary, LayoutTabsViewModel model)
         {
             var uvm = (UnroutedViewModel)model;
-            if (uvm.DcCancelDate.HasValue)
-            {
-                routeValueDictionary.Add(uvm.NameFor(m => m.DcCancelDate), string.Format(CultureInfo.InvariantCulture, "{0:d}", uvm.DcCancelDate));
-            }
+            //if (uvm.DcCancelDate.HasValue)
+            //{
+            //    routeValueDictionary.Add(uvm.NameFor(m => m.DcCancelDate), string.Format(CultureInfo.InvariantCulture, "{0:d}", uvm.DcCancelDate));
+            //}
             if (!string.IsNullOrEmpty(uvm.BuildingId))
             {
                 routeValueDictionary.Add(uvm.NameFor(m => m.BuildingId), uvm.BuildingId);

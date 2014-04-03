@@ -462,7 +462,7 @@ namespace DcmsMobile.Shipping.ViewModels
     /// <summary>
     /// AppointmentDate is posted as two values. One value is the date and the other value is the time. These two values are merged by this binder.
     /// </summary>
-    internal class AppointmentModelBinder : DefaultModelBinderEx
+    internal class AppointmentModelBinder : DefaultModelBinder
     {
         protected override void SetProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor, object value)
         {

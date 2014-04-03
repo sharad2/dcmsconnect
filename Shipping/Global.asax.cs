@@ -32,7 +32,7 @@ namespace DcmsMobile.Shipping
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
+            //ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
         }
 
 #if DEBUG
