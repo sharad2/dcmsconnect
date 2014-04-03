@@ -124,7 +124,7 @@
         <strong style="font-style: italic">Clear Building Filter</strong>
     </a>
 }
-<div>
+<div id="pogroups">
     @for (var i = 0; i < Model.GroupedPoList.Count; ++i)
     {
         <table id="@Model.GroupedPoList.Keys[i].HtmlId">
@@ -151,9 +151,6 @@
                         <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each PO that provide their details"></span>
                         <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="PO in ascending order"></span><sup>2</sup>
                     </th>
-                    @*<th>
-                        Start Date<span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="Start Date in ascending order"></span><sup>1</sup>
-                    </th>*@
                     <th>
                         Pieces Ordered
                     </th>
@@ -180,7 +177,7 @@
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CustomerDcId)
                             </td>
                         }
-                        <td>
+                        <td class="po">
                             <input type="checkbox" class="ui-helper-hidden" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key" />
                             <a href="@Url.Content(string.Format("~/Inquiry/PurchaseOrder/{0}/{1}/{2}", Model.GroupedPoList.Values[i][j].PoId, Model.PostedCustomerId, Model.GroupedPoList.Values[i][j].Iteration))" target="_inquiry" title="PO Details">
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PoId)

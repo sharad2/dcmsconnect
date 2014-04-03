@@ -261,7 +261,7 @@
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Unrouted.min.js">
-      <DependentUpon>Unrouted.js.bundle</DependentUpon>
+      <DependentUpon>Unrouted.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Views\Shared\_soundPartial.cshtml" />
     <Content Include="Areas\Shipping\Views\ScanToTruck\UnloadPallet.cshtml" />

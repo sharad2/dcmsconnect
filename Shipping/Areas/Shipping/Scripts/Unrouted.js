@@ -29,15 +29,12 @@ $(function () {
 
 // Handle select all checkbox. Select all checkboxes perform changes on each selected check box
 $(document).ready(function () {
-    $('table thead input:checkbox').click(function (e) {
-        var $tr = $('tbody tr.ui-selectee', $(this).closest('table'));
-        if ($(this).is(':checked')) {
-            $tr.filter(':not(.ui-selected,tr.ui-state-disabled)').addClass('ui-selected')
-                .find('input:checkbox').attr('checked', 'checked');
-        } else {
-            $tr.filter('.ui-selected').removeClass('ui-selected')
-                .find('input:checkbox').removeAttr('checked');
-        }
+    $('#pogroups').on('click', 'thead input:checkbox', function (e) {
+        $(this).closest('table').find('tbody input:checkbox')
+            .prop('checked', $(this).is(':checked'))
+            .closest('td')
+            .toggleClass('ui-selected', $(this).is(':checked'));
+
         ShowSelectedPoCount();
     });
 
@@ -48,7 +45,7 @@ $(document).ready(function () {
 
     //Show the number of selected POs.
     function ShowSelectedPoCount() {
-        var $selected = $('tbody tr.ui-selected').not('.text-changed');
+        var $selected = $('td.ui-selected');
         if ($selected.length >= 0) {
             $('span.spnPOSelected').text('Total : ' + $selected.length + ' POs selected');
         }
@@ -86,8 +83,8 @@ $(document).ready(function () {
         }
     });
      // Handle selectable event on selected orders.
-    $('.tbody').selectable({
-        filter: 'tr',
+    $('#pogroups .tbody').selectable({
+        filter: 'td.po',
         cancel: 'a,tr.ui-state-disabled',
         stop: function (event, ui) {
             $('tr', this).each(function () {
@@ -100,7 +97,7 @@ $(document).ready(function () {
             });
             ShowSelectedPoCount();
         }
-    }).end().tooltip({
+    }).tooltip({
         content: function () {
             return $(this).next().html();
         },
