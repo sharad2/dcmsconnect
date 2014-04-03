@@ -1,6 +1,6 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
-using DcmsMobile.PickWaves.Helpers;
 
 namespace DcmsMobile.PickWaves.Repository.Home
 {
@@ -26,19 +26,6 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// Pieces in not cancelled boxes
         /// </summary>
         public int CurrentPieces { get; set; }
-        [Obsolete]
-        public InventoryArea MaxPitchArea { get; set; }
-        [Obsolete]
-        public InventoryArea MinPitchArea { get; set; }
-        [Obsolete]
-        public InventoryArea MaxPullArea { get; set; }
-        [Obsolete]
-        public InventoryArea MinPullArea { get; set; }
-
-        [Obsolete]
-        public int PitchAreaCount { get; set; }
-        [Obsolete]
-        public int PullAreaCount { get; set; }
 
         /// <summary>
         /// If this is null in the database, we set it to be same as current pieces. That is, we expect whatever is in there.
@@ -46,14 +33,8 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// </summary>
         public int ExpectedPieces { get; set; }
 
-        ///// <summary>
-        ///// Number of pieces which have been cancelled.
-        ///// </summary>
-        //[Obsolete]
-        //public int CancelledPieces { get; set; }
-
         public int MaxPriorityId { get; set; }
-        
+
         public DateTime MaxDcCancelDate { get; set; }
 
         public DateTime MinDcCancelDate { get; set; }

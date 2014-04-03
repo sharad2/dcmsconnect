@@ -40,20 +40,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         /// Number of pieces which have already been picked
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PickedPieces { get; set; }
-
-        ///// <summary>
-        ///// Number of pieces which we want to pick for this customer. Regardless of whether they have already been picked or not.
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //[Obsolete]
-        //public int PickablePieces
-        //{
-        //    get
-        //    {
-        //        return this.OrderedPieces - this.CancelledPieces;
-        //    }
-        //}
+        public int PickedPieces { get; set; }       
 
         /// <summary>
         /// 0 is returned if nothing is picked, or there are no ordered pieces
@@ -96,13 +83,6 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
             }
         }
 
-        ///// <summary>
-        ///// Sum of expected pieces in cancelled boxes
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //[Obsolete]
-        //public int CancelledPieces { get; set; }
-
         /// <summary>
         /// Max(OrderedPieces - CancelledPieces) - this.ExpectedPieces)
         /// </summary>
@@ -119,24 +99,6 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
                 return result;
             }
         }
-
-        [Obsolete]
-        public int PitchAreaCount { get; set; }
-
-        [Obsolete]
-        public int PullAreaCount { get; set; }
-
-        [Obsolete]
-        public InventoryAreaModel MaxPitchArea { get; set; }
-
-        [Obsolete]
-        public InventoryAreaModel MinPitchArea { get; set; }
-
-        [Obsolete]
-        public InventoryAreaModel MaxPullArea { get; set; }
-
-        [Obsolete]
-        public InventoryAreaModel MinPullArea { get; set; }
 
         /// <summary>
         /// Showing highest priority of buckets.
