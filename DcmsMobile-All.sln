@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{96F0081D-6C5D-4F4C-BA67-E95595577BE1}"
 	ProjectSection(SolutionItems) = preProject
 		HTMLPage1.htm = HTMLPage1.htm
+		WebEssentials-Settings.json = WebEssentials-Settings.json
 		XMLFile1.xml = XMLFile1.xml
 	EndProjectSection
 EndProject
