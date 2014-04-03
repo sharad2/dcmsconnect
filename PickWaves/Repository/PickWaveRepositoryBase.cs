@@ -326,7 +326,7 @@ namespace DcmsMobile.PickWaves.Repository
                         ON OP.BUCKET_ID = PP.BUCKET_ID
                         <if>
                             WHERE (CASE
-                                WHEN OP.FREEZE = 'Y' THEN       :FrozenState
+                                WHEN OP.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN       :FrozenState
                                 WHEN NVL(PP.INPROGRESS_BOXES_PULL,0) + NVL(PP.INPROGRESS_BOXES_PITCH,0)  + NVL(PP.NONPHYSICAL_BOXES_PULL,0) + NVL(PP.NONPHYSICAL_BOXES_PITCH,0) = 0 THEN :CompletedState 
                                 ELSE                            :InProgressState
                                 END) = :state
