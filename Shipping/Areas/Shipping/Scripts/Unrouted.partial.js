@@ -59,10 +59,10 @@ $(document).ready(function () {
     });
      // Handle selectable event on selected orders.
     $('#pogroups tbody').selectable({
-        filter: 'td.po',
-        cancel: 'a, input',
+        filter: 'tr',
+        cancel: 'a, input:checkbox, td[rowspan]',
         stop: function (event, ui) {
-            $('td.po', this).each(function () {
+            $('tr', this).each(function () {
                 //Check the hidden check boxes for each row selected by user.
                 $('input:checkbox', this).prop('checked', $(this).is('.ui-selected'));
                 //if ($(this).is('.ui-selected')) {                    
