@@ -236,7 +236,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns>
         /// </returns>
         [HttpPost]
-        private void CreatePickWave(IndexViewModel model)
+        private void DoCreatePickWave(IndexViewModel model)
         {
             var bucket = new PickWaveEditable
             {
@@ -289,7 +289,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             if (!model.LastBucketId.HasValue)
             {
-                CreatePickWave(model);
+                DoCreatePickWave(model);
             }
 
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
