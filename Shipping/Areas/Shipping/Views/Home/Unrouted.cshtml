@@ -173,12 +173,12 @@
                         @if (j == 0 || Model.GroupedPoList.Values[i][j].CustomerDcId != Model.GroupedPoList.Values[i][j - 1].CustomerDcId)
                         {
                             var span = Model.GroupedPoList.Values[i].Skip(j).TakeWhile(p => p.CustomerDcId == Model.GroupedPoList.Values[i][j].CustomerDcId).Count();
-                            <td rowspan="@span" class="row-span">
+                            <td rowspan="@span" class="dc row-span">
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CustomerDcId)
                             </td>
                         }
                         <td class="po">
-                            <input type="checkbox" class="ui-helper-hidden" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key" />
+                            <input type="checkbox" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key" />
                             <a href="@Url.Content(string.Format("~/Inquiry/PurchaseOrder/{0}/{1}/{2}", Model.GroupedPoList.Values[i][j].PoId, Model.PostedCustomerId, Model.GroupedPoList.Values[i][j].Iteration))" target="_inquiry" title="PO Details">
                                 @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PoId)
                             </a>
@@ -193,18 +193,11 @@
                                 </ol>
                             }
                         </td>
-                        @*@if (j == 0 || Model.GroupedPoList.Values[i][j].StartDate != Model.GroupedPoList.Values[i][j - 1].StartDate)
-                        {
-                            var span = Model.GroupedPoList.Values[i].Skip(j).TakeWhile(p => p.StartDate == Model.GroupedPoList.Values[i][j].StartDate).Count();
-                            <td rowspan="@span" class="row-span" style="text-align: left">
-                                @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].StartDate)
-                            </td>
-                        }*@
                         <td style="text-align: right">
                             @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PiecesOrdered)
                         </td>
 
-                        <td style="text-align: right">
+                        <td style="text-align: right" class="po">
                             @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].NumberOfBoxesDisplay)
                             @if (Model.GroupedPoList.Values[i][j].PercentFull != 0 && Model.GroupedPoList.Values[i][j].PercentFull != 100)
                             {

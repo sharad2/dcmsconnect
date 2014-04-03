@@ -58,20 +58,23 @@ $(document).ready(function () {
         }
     });
      // Handle selectable event on selected orders.
-    $('#pogroups .tbody').selectable({
+    $('#pogroups tbody').selectable({
         filter: 'td.po',
-        cancel: 'a,tr.ui-state-disabled',
+        cancel: 'a, input',
         stop: function (event, ui) {
-            $('tr', this).each(function () {
+            $('td.po', this).each(function () {
                 //Check the hidden check boxes for each row selected by user.
-                if ($(this).is('.ui-selected')) {                    
-                    $('input:checkbox', this).attr('checked', 'checked');
-                } else {
-                    $('input:checkbox', this).removeAttr('checked');
-                }
+                $('input:checkbox', this).prop('checked', $(this).is('.ui-selected'));
+                //if ($(this).is('.ui-selected')) {                    
+                //    $('input:checkbox', this).attr('checked', 'checked');
+                //} else {
+                //    $('input:checkbox', this).removeAttr('checked');
+                //}
             });
             ShowSelectedPoCount();
         }
+    }).on('click', 'td.dc', function (e) {
+        alert('Hi');
     }).tooltip({
         content: function () {
             return $(this).next().html();
