@@ -25,6 +25,9 @@
     }).on('click', 'td:not(.ui-selectable)', function (e) {
         // Close the dialog
         $('#divDlg').dialog('close');
+    }).on('change', 'input:radio', function (e) {
+        // Just show the dialog
+        $('#divDlg').dialog('open', $(this).closest('td,th'));
     });
 
     var _dlgOpen;
