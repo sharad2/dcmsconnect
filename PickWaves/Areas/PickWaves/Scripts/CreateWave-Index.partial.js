@@ -36,7 +36,7 @@
 
         // Open the dialog after close has completed
         // http://stackoverflow.com/questions/6923647/how-to-attach-callback-to-jquery-effect-on-dialog-show
-        $dlg.dialog('close').parent().promise().done(function () {
+        $dlg.dialog('close').dialog('widget').promise().done(function () {
             $dlg.dialog('option', {
                 position: {
                     of: $(td),
