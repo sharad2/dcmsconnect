@@ -17,16 +17,14 @@
         return true;
     }).on('click', 'td.ui-selectable', function (e) {
         // Select the row and col radio buttions and open dialog
-        $('#dlgSpanPsCount').text($(this).text());
-
         var $tr = $(this).closest('tr');
         $('input:radio', $tr).prop('checked', true);
 
         $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
-
-
-
         $('#divDlg').dialog('open', $(this));
+    }).on('click', 'td:not(.ui-selectable)', function (e) {
+        // Close the dialog
+        $('#divDlg').dialog('close');
     });
 
     var _dlgOpen;
@@ -82,13 +80,20 @@
             });
             this._super();
             _dlgOpen = this;
-
-            var $rb = $('#matrixPartial thead input:radio:checked');
-            $('#dlgColDimSpanVal').text($rb.val());
-            $rb = $('#matrixPartial tbody input:radio:checked');
-            $('#dlgRowDimSpanVal').text($rb.val());
             $('#dlgMessage').empty();
 
+            // Find the checked radio buttons and their row and column indexes
+            var $elems = $('#matrixPartial thead input:radio');
+            var $rb = $elems.filter('input:radio:checked');
+            $('#dlgColDimSpanVal').text($rb.val());
+            var j = $elems.index($rb);
+
+            var $tr = $('#matrixPartial tbody tr').has('input:radio:checked'); // Row containing selected radio button
+            $rb = $('input:radio', $tr);  // The only radio button in this row
+            $('#dlgRowDimSpanVal').text($rb.val());
+
+            // j'th td is the selected cell of $tr. Show its text as pickslip count
+            $('#dlgSpanPsCount').text($('td', $tr).eq(j + 2).text());
         }
     });
 
