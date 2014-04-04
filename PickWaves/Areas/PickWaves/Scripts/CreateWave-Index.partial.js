@@ -22,7 +22,7 @@
 
         $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
         $('#divDlg').dialog('open', $(this));
-    }).on('change click', 'input:radio', function (e) {
+    }).on('click', 'input:radio', function (e) {
         // Just show the dialog
         $('#divDlg').dialog('open', $(this).closest('td,th'));
     });
