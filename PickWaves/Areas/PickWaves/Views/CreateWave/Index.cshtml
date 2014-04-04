@@ -92,7 +92,8 @@
                     </tbody>
                 </table>
             }
-            <div id="matrixPartial" data-name-selected-dc="@Model.NameFor(m => m.ColDimVal)" data-name-selected-dim="@Model.NameFor(m => m.RowDimVal)">
+            <div id="matrixPartial" data-name-selected-dc="@Model.NameFor(m => m.ColDimVal)" data-name-selected-dim="@Model.NameFor(m => m.RowDimVal)"
+                 data-url="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.RefreshPickslipMatrix())">
                 @Html.Partial(MVC_PickWaves.PickWaves.CreateWave.Views._pickslipMatrixPartial, Model)
             </div>
         }
