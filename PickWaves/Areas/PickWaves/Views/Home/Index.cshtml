@@ -37,7 +37,7 @@
             @if (Model.ImportedOrders.Count > 0)
             {
                 <li><a href="#ToCreate">To Create 
-                        <span style="margin: 0.5mm 0mm 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.ImportedOrders.Count customers">
+                        <span style="margin: 0.5mm 0 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.ImportedOrders.Count customers">
                             @Model.ImportedOrders.Count
                         </span>
                 </a></li>
@@ -45,7 +45,7 @@
             @for (var i = 0; i < Model.BucketsByStatus.Count; ++i)
             {
                 <li><a href = "#@Model.BucketsByStatus.Keys[i].ToString()">@Model.StateDisplayNames[Model.BucketsByStatus.Keys[i]]
-                    <span style="margin: 0.5mm 0mm 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.BucketsByStatus.Values[i].Count customers">
+                    <span style="margin: 0.5mm 0 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.BucketsByStatus.Values[i].Count customers">
                         @Model.BucketsByStatus.Values[i].Count
                     </span>
                 </a>
