@@ -16,47 +16,30 @@
             }, { self: $(e.delegateTarget) }));
         return true;
     }).on('click', 'td.ui-selectable', function (e) {
-
+        // Select the row and col radio buttions and open dialog
         $('#dlgSpanPsCount').text($(this).text());
 
         var $tr = $(this).closest('tr');
-        // Display the values of the selected row and column dimensions
-        var $rb = $('input:radio', $tr)
-            .prop('checked', true);
+        $('input:radio', $tr).prop('checked', true);
 
-        $('#dlgRowDimSpanVal').text($rb.val());
-
-        $rb = $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
-        $('#dlgColDimSpanVal').text($rb.val());
+        $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
 
 
-        // Open the dialog which asks for confirmation to add pickslips
-        var $dlg = $('#divDlg');
-        var td = this;
 
-        // Open the dialog after close has completed
-        // http://stackoverflow.com/questions/6923647/how-to-attach-callback-to-jquery-effect-on-dialog-show
-        $dlg.dialog('close').dialog('widget').promise().done(function () {
-            $dlg.dialog('option', {
-                position: {
-                    of: $(td),
-                    my: 'left top',
-                    at: 'right bottom'
-                }
-            }).dialog('open');
-        });
-
+        $('#divDlg').dialog('open', $(this));
     });
 
-    $('#divDlg').dialog({
-        show: "slide",
-        hide: "slide",
-        autoOpen: false,
-        open: function (event, ui) {
-            $('#dlgMessage').empty();
-
-        },
-        buttons: [
+    var _dlgOpen;
+    // Good tutorial on extending widgets
+    // http://learn.jquery.com/jquery-ui/widget-factory/extending-widgets/
+    // This dialog displays text associated with selected radio buttons
+    // This is a singleton dialog. Automatically closes other dialogs when a new instance is opened
+    $.widget("ui.dialog", $.ui.dialog, {
+        options: {
+            show: "slide",
+            hide: "slide",
+            autoOpen: false,
+            buttons: [
         {
             text: "Ok",
             click: function () {
@@ -70,8 +53,46 @@
                 $(this).dialog("close");
             }
         }
-        ]
-    }).on('click', '#btnViewPickslips', function (e) {
+            ]
+        },
+        // Pass the td which will be used to position the dialog
+        open: function ($td) {
+            if (_dlgOpen) {
+                // Something is already open. Close it and then call this same function again after closing is complete
+                // http://stackoverflow.com/questions/6923647/how-to-attach-callback-to-jquery-effect-on-dialog-show
+                var self = this;
+                _dlgOpen.close();
+                _dlgOpen.widget().promise().done(function () {
+                    _dlgOpen = null;
+                    self.options.position = {
+                        of: $td,
+                        my: 'left top',
+                        at: 'right bottom'
+                    };
+                    self.open($td);
+                });
+                return;
+            }
+            this.option({
+                position: {
+                    of: $td,
+                    my: 'left top',
+                    at: 'right bottom'
+                }
+            });
+            this._super();
+            _dlgOpen = this;
+
+            var $rb = $('#matrixPartial thead input:radio:checked');
+            $('#dlgColDimSpanVal').text($rb.val());
+            $rb = $('#matrixPartial tbody input:radio:checked');
+            $('#dlgRowDimSpanVal').text($rb.val());
+            $('#dlgMessage').empty();
+
+        }
+    });
+
+    $('#divDlg').dialog().on('click', '#btnViewPickslips', function (e) {
         $('#hfViewPickslips').val('Y');
         $('#frmMain').submit();
     });

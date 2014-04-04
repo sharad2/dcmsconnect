@@ -53,7 +53,7 @@ All selectable cells have class ui-selectable applied.
                 @foreach (var item in Model.ColDimensionValues)
                 {
                     <th>
-                        @Html.RadioButtonFor(m => m.ColDimVal, item, new { @class = "ui-helper-hidden" })
+                        @Html.RadioButtonFor(m => m.ColDimVal, item)
                         @item
                     </th>
                 }
@@ -67,7 +67,7 @@ All selectable cells have class ui-selectable applied.
                         @(j + 1)
                     </td>
                     <td>
-                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue, new { @Class = "ui-helper-hidden" })
+                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue)
                         @Model.CustomerOrders[j].DimensionDisplayValue
                     </td>
                     @foreach (var item in Model.ColDimensionValues)
