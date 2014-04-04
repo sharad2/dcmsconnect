@@ -108,6 +108,7 @@ namespace DcmsMobile.PickWaves.Repository
                            MAX(BKT.DATE_CREATED)                    AS DATE_CREATED,
                            MAX(BKT.CREATED_BY)                      AS CREATED_BY,
                            MAX(BKT.PITCH_IA_ID)                     AS PITCH_IA_ID,
+                           MAX(BKT.PITCH_LIMIT)                     AS PITCH_LIMIT,
                            MAX(IA.SHORT_NAME)                       AS PITCH_AREA_SHORT_NAME,
                            MAX(IA.SHORT_DESCRIPTION)                AS PITCH_AREA_DESCRIPTION,
                            MAX(IA.WAREHOUSE_LOCATION_ID)            AS BUILDING_PITCH_FROM,
@@ -320,7 +321,8 @@ namespace DcmsMobile.PickWaves.Repository
                            PP.MAX_PITCHING_END_DATE   AS MAX_PITCHING_END_DATE,
                            PP.MIN_PITCHING_END_DATE   AS MIN_PITCHING_END_DATE,
                            pp.MAX_PULLING_END_DATE    AS MAX_PULLING_END_DATE,
-                           pp.MIN_PULLING_END_DATE    AS MIN_PULLING_END_DATE                          
+                           pp.MIN_PULLING_END_DATE    AS MIN_PULLING_END_DATE,
+                           OP.PITCH_LIMIT             AS PITCH_LIMIT                        
                       FROM TOTAL_ORDERED_PIECES OP
                       LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
                         ON OP.BUCKET_ID = PP.BUCKET_ID
@@ -352,7 +354,8 @@ namespace DcmsMobile.PickWaves.Repository
                             MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
                             IsFrozen = row.GetString("FREEZE") == "Y",
                             RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
-                            QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y"
+                            QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
+                            PitchLimit = row.GetInteger("PITCH_LIMIT")
                         };
                     var activity = bucket.Activities[BucketActivityType.Pulling];
                     activity.Area = new InventoryArea

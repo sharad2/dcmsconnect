@@ -60,6 +60,8 @@ namespace DcmsMobile.PickWaves.Repository
         /// </summary>
         public int PriorityId { get; set; }
 
+        public int? PitchLimit { get; set; }
+
         public bool RequireBoxExpediting { get; set; }
 
         public bool QuickPitch { get; set; }

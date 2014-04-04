@@ -39,7 +39,7 @@
             @if (Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType].Count > 1)
             {
                 <span style="display: inline-block; width: 12em">@Html.DisplayFor(m => m.Bucket.Activities[i].DisplayName)</span>
-                @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType],dict[Model.Bucket.Activities[i].ActivityType])
+                @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType], dict[Model.Bucket.Activities[i].ActivityType])
                 if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
                 {
                     @Html.CheckBoxFor(m => m.Bucket.RequireBoxExpediting) <span>Pre-create pallets to pull</span>
@@ -47,6 +47,16 @@
                 else
                 {
                     @Html.CheckBoxFor(m => m.Bucket.QuickPitch)  <span>Quick Pitch</span> <em style="font-size: 0.9em">(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+                    <div>
+                        <span style="width: 12em; display: inline-block; margin-top: 0.25em; ">
+                            @Html.LabelFor(m => m.Bucket.PitchLimit)
+                        </span>
+                        @Html.TextBoxFor(m => m.Bucket.PitchLimit, new
+                                                         {
+                                                             size = 5,
+                                                             maxlength = 5
+                                                         })
+                    </div>
                 }
             }
         </div>
@@ -72,4 +82,5 @@
     @Html.HiddenFor(m => m.BucketCommentOriginal)
     @Html.HiddenFor(m => m.RequireBoxExpeditingOriginal)
     @Html.HiddenFor(m => m.QuickPitchOriginal)
+    @Html.HiddenFor(m => m.PitchLimitOriginal)
 </div>

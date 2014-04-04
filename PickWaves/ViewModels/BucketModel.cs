@@ -33,6 +33,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             PriorityId = src.PriorityId;
             RequireBoxExpediting = src.RequireBoxExpediting;
             QuickPitch = src.QuickPitch;
+            PitchLimit = src.PitchLimit;
             CreatedBy = src.CreatedBy;
             CreationDate = src.CreationDate;
 
@@ -146,6 +147,9 @@ namespace DcmsMobile.PickWaves.ViewModels
         public DateTime CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
+
+        [Display(Name = "Pitch Limit")]
+        public int? PitchLimit { get; set; }
 
         #endregion
 

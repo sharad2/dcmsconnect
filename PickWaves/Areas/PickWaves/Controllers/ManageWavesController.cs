@@ -138,6 +138,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.BucketCommentOriginal = bucket.BucketComment;
             model.RequireBoxExpeditingOriginal = bucket.RequireBoxExpediting;
             model.QuickPitchOriginal = bucket.QuickPitch;
+            model.PitchLimitOriginal = bucket.PitchLimit;
 
             return View(this.Views.Wave, model);
         }
@@ -348,6 +349,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketComment = model.Bucket.BucketComment,
                 QuickPitch = !string.IsNullOrEmpty(pitchAreaId) && model.Bucket.QuickPitch
             };
+            if (!string.IsNullOrEmpty(pitchAreaId) && model.Bucket.PitchLimit != null)
+            {
+                bucket.PitchLimit = model.Bucket.PitchLimit;
+            }
             bucket.Activities[BucketActivityType.Pulling].Area.AreaId = pullAreaId;
             bucket.Activities[BucketActivityType.Pitching].Area.AreaId = pitchAreaId;
             var bucketOld = new Bucket
@@ -357,7 +362,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 PriorityId = model.PriorityIdOriginal,
                 RequireBoxExpediting = model.RequireBoxExpeditingOriginal,
                 BucketComment = model.BucketCommentOriginal,
-                QuickPitch = model.QuickPitchOriginal
+                QuickPitch = model.QuickPitchOriginal,
+                PitchLimit = model.PitchLimitOriginal
             };
             bucketOld.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaOriginal;
             bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
@@ -421,6 +427,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (model.QuickPitchOriginal != model.Bucket.QuickPitch || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
             {
                 flags |= EditBucketFlags.QuickPitch;
+            }
+            if (model.PitchLimitOriginal != model.Bucket.PitchLimit || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+            {
+                flags |= EditBucketFlags.PitchLimit;
             }
             return flags;
         }

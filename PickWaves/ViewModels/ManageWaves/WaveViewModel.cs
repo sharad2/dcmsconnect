@@ -85,6 +85,8 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         public string PitchAreaOriginal { get; set; }
 
+        public int? PitchLimitOriginal { get; set; }
+
         public string BucketCommentOriginal { get; set; }
 
         public bool RequireBoxExpeditingOriginal { get; set; }
