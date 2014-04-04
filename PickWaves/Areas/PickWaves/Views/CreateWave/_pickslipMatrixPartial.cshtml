@@ -1,10 +1,10 @@
 ﻿@*Displays the pickslip matrix based on the passed dimension. User has the option of changing the passed dimension and it auto refreshes itself via Ajax
 
-Model.SelectedDimension is displayed as a drop down. If you choose to place this partial in a form, this value will get posted.
+    Model.SelectedDimension is displayed as a drop down. If you choose to place this partial in a form, this value will get posted.
 
-Check state of hidden Radio buttons for Model.SelectedDc and Model.DimensionValue is updated when a cell is clicked. The clicked cell will have the class ui-state-highlight applied to it.
+    Check state of hidden Radio buttons for Model.SelectedDc and Model.DimensionValue is updated when a cell is clicked. The clicked cell will have the class ui-state-highlight applied to it.
 
-All selectable cells have class ui-selectable applied.
+    All selectable cells have class ui-selectable applied.
 
 *@
 
@@ -18,20 +18,21 @@ All selectable cells have class ui-selectable applied.
         <thead>
             <tr>
                 <th colspan="@(Model.ColDimensionValues.Count+3)">
-                   @Html.LabelFor(m => m.VwhId) @Html.DropDownListFor(m => m.VwhId,Model.VwhList,"All Virtual Warehouses")
+                    @Html.LabelFor(m => m.VwhId) @Html.DropDownListFor(m => m.VwhId, Model.VwhList, "All Virtual Warehouses")
                 </th>
             </tr>
             <tr>
-                <th rowspan="2">#
+                <th rowspan="2">
+                    #
                 </th>
                 <th rowspan="2">
                     <select name="@Model.NameFor(m => m.RowDimIndex)">
                         @foreach (var item in Model.DimensionList)
                         {
-                            <option value="@item.Value" @Html.Raw(item.Value == Model.RowDimIndex.ToString() ? "selected=\"selected\"" : "") 
-                                @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique "
-                                                                             + item.Text + "\"" : "")>
-                                @item.Text</option>
+                            <option value="@item.Value" @Html.Raw(item.Value == Model.RowDimIndex.ToString() ? "selected=\"selected\"" : "")
+                                    @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique " + item.Text + "\"" : "")>
+                                @item.Text
+                            </option>
                         }
                     </select>
                 </th>
@@ -39,22 +40,29 @@ All selectable cells have class ui-selectable applied.
                     <select name="@Model.NameFor(m => m.ColDimIndex)">
                         @foreach (var item in Model.DimensionList)
                         {
-                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "") 
-                                @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique "
-                                                                             + item.Text + "\"" : "")>
-                                @item.Text</option>
+                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "")
+                                    @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique " + item.Text + "\"" : "")>
+                                @item.Text
+                            </option>
                         }
                     </select>
                 </th>
-                <th rowspan="2" class="ui-state-active">Total
+                <th rowspan="2" class="ui-state-active">
+                    Total
                 </th>
             </tr>
             <tr class="dc-header">
-                @foreach (var item in Model.ColDimensionValues)
+                @for (var i = 0; i < Model.ColDimensionValues.Count; ++i)
                 {
                     <th>
-                        @Html.RadioButtonFor(m => m.ColDimVal, item)
-                        @item
+                        @Html.RadioButtonFor(m => m.ColDimVal, Model.ColDimensionValues[i], new
+                   {
+                       id = "col_" + i.ToString(),
+                       @checked = i == 0 ? "checked" : ""
+                   })
+                        <label for="@Html.Raw("col_" + i.ToString())">
+                            @Model.ColDimensionValues[i]
+                        </label>
                     </th>
                 }
             </tr>
@@ -67,20 +75,26 @@ All selectable cells have class ui-selectable applied.
                         @(j + 1)
                     </td>
                     <td>
-                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue)
-                        @Model.CustomerOrders[j].DimensionDisplayValue
+                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue, new
+                   {
+                       id = "row_" + j.ToString(),
+                       @checked = j == 0 ? "checked" : ""
+                   })
+                        <label for="@Html.Raw("row_" + j.ToString())">
+                            @Model.CustomerOrders[j].DimensionDisplayValue
+                        </label>
                     </td>
                     @foreach (var item in Model.ColDimensionValues)
                     {
                         if (Model.CustomerOrders[j].Data.ContainsKey(item))
                         {
-                        <td style="text-align: right" tabindex="0" class="ui-selectable">
-                            @string.Format("{0:N0}", Model.CustomerOrders[j].Data[item])
-                        </td>
+                            <td style="text-align: right" tabindex="0" class="ui-selectable">
+                                @string.Format("{0:N0}", Model.CustomerOrders[j].Data[item])
+                            </td>
                         }
                         else
-                        { 
-                        <td></td>
+                        {
+                            <td></td>
                         }
                     }
                     <td style="text-align: right;" class="ui-state-active">
@@ -92,7 +106,8 @@ All selectable cells have class ui-selectable applied.
         </tbody>
         <tfoot>
             <tr class="ui-state-active">
-                <td colspan="2" style="font-weight: bold;">Total
+                <td colspan="2" style="font-weight: bold;">
+                    Total
                 </td>
                 @foreach (var dc in Model.ColDimensionValues)
                 {
@@ -100,7 +115,8 @@ All selectable cells have class ui-selectable applied.
                         @string.Format("{0:N0}", Model.GetPickslipCount(dc))
                     </td>
                 }
-                <td style="text-align: right; font-weight: bold; font-size: 1.2em">@Html.DisplayFor(m => m.GrandTotalPickslips)
+                <td style="text-align: right; font-weight: bold; font-size: 1.2em">
+                    @Html.DisplayFor(m => m.GrandTotalPickslips)
                 </td>
             </tr>
         </tfoot>

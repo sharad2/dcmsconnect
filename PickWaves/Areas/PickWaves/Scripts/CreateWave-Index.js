@@ -22,10 +22,7 @@
 
         $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
         $('#divDlg').dialog('open', $(this));
-    }).on('click', 'td:not(.ui-selectable)', function (e) {
-        // Close the dialog
-        $('#divDlg').dialog('close');
-    }).on('change', 'input:radio', function (e) {
+    }).on('change click', 'input:radio', function (e) {
         // Just show the dialog
         $('#divDlg').dialog('open', $(this).closest('td,th'));
     });
