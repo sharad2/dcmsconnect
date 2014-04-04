@@ -29,8 +29,8 @@
 {
     <div class="ui-state-highlight">
         @Html.DisplayFor(m => m.RecentlyAssignedPoCount) POs have been routed for @Html.DisplayFor(m => m.RecentlyAssignedGroup.AtsDate).
-        @Html.ActionLink("Enter Routing Information", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId,
-                initialGroup: Model.RecentlyAssignedGroup)), null, null, null, Model.RecentlyAssignedGroup.HtmlId)
+      <span style="font-weight:bold;">  @Html.ActionLink("Enter Routing Information", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId,
+                initialGroup: Model.RecentlyAssignedGroup)), null, null, null, Model.RecentlyAssignedGroup.HtmlId)</span>
     </div>
 }
 @Html.StatusSummary()
