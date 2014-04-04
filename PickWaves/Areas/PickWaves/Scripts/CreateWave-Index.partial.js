@@ -1,43 +1,5 @@
 ﻿$(document).ready(function () {
     $('#btnCreateBucket').button();
-    // Positions the dialog at the passed td and opens it
-    // this represents the dialog DOM object
-    //function OpenDialog(td) {
-    //    $(this).dialog('option', {
-    //        position: {
-    //            of: td,
-    //            my: 'left top',
-    //            at: 'right bottom'
-    //        }
-    //    }).dialog("open");
-    //}
-
-    //$('#matrixPartial').pickslipmatrix({
-    //    refreshing: function (event, ui) {
-    //        // Before the ajax call, close the popup just in case it is open
-    //        $('#divDlg').dialog("close");
-    //    },
-    //    selected: function (event, ui) {
-    //        // User selected a cell. Show popup and update its contents
-    //        var $dlg = $('#divDlg');
-    //        $('#dlgColDimSpan', $dlg).text($('#matrixPartial').pickslipmatrix("dimColDisplayName"));
-    //        $('#dlgRowDimSpan', $dlg).text($('#matrixPartial').pickslipmatrix("dimRowDisplayName"));
-    //        $('#dlgColDimSpanVal', $dlg).text(ui.colValue);
-    //        $('#dlgRowDimSpanVal', $dlg).text(ui.rowValue);
-    //        $('#dlgSpanPsCount', $dlg).text($(ui.td).text());
-
-    //        var isOpen = $dlg.dialog('isOpen');
-
-    //        if (isOpen) {
-    //            $dlg.one('dialogclose', $.proxy(function (event, ui2) {
-    //                OpenDialog.apply($(event.target), [this.td]);
-    //            }, { td: ui.td })).dialog('close');
-    //        } else {
-    //            OpenDialog.apply($dlg, [ui.td]);
-    //        }
-
-    //    }
-    //});
 
     $('#matrixPartial').on('keypress', '.ui-state-highlight', function (e) {
         if (e.which == $.ui.keyCode.ENTER) {
@@ -54,6 +16,21 @@
             }, { self: $(e.delegateTarget) }));
         return true;
     }).on('click', 'td.ui-selectable', function (e) {
+
+        $('#dlgSpanPsCount').text($(this).text());
+
+        var $tr = $(this).closest('tr');
+        // Display the values of the selected row and column dimensions
+        var $rb = $('input:radio', $tr)
+            .prop('checked', true);
+
+        $('#dlgRowDimSpanVal').text($rb.val());
+
+        $rb = $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
+        $('#dlgColDimSpanVal').text($rb.val());
+        
+
+        // Open the dialog which asks for confirmation to add pickslips
         var $dlg = $('#divDlg');
         var isOpen = $dlg.dialog('isOpen');
         var td = this;
@@ -86,6 +63,7 @@
         autoOpen: false,
         open: function (event, ui) {
             $('#dlgMessage').empty();
+            
         },
         buttons: [
         {

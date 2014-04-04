@@ -9,7 +9,7 @@ All selectable cells have class ui-selectable applied.
 *@
 
 @model DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipMatrixPartialViewModel
-<div class="matrixOuter" data-url="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.RefreshPickslipMatrix())" data-row-dimension="@Model.RowDimDisplayName" data-col-dimension="@Model.ColDimDisplayName">
+<div class="matrixOuter">
     @Html.HiddenFor(m => m.CustomerId)
     <table>
         <caption>

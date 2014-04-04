@@ -365,7 +365,6 @@
     <None Include="Areas\PickWaves\Scripts\ManageWave-Index.partial.js" />
     <None Include="Areas\PickWaves\Scripts\selectable.partial.js" />
     <None Include="Areas\PickWaves\Scripts\_bucketEditorPartial.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\_pickslipMatrixPartial.partial.js" />
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.js">
       <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
     </Content>
