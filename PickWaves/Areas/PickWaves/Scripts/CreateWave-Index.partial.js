@@ -28,25 +28,15 @@
 
         $rb = $('thead tr.dc-header input:radio', e.delegateTarget).eq($('td', $tr).index(this) - 2).prop('checked', true);
         $('#dlgColDimSpanVal').text($rb.val());
-        
+
 
         // Open the dialog which asks for confirmation to add pickslips
         var $dlg = $('#divDlg');
-        var isOpen = $dlg.dialog('isOpen');
         var td = this;
-        if (isOpen) {
-            // Associate an event which will reopen the dialog when it is closed. Then close the dialog.
-            $dlg.one('dialogclose', function (e) {
-                $(this).dialog('option', {
-                    position: {
-                        of: $(td),
-                        my: 'left top',
-                        at: 'right bottom'
-                    }
-                }).dialog('open');
-            }).dialog('close');
-        } else {
-            // Just open the dialog
+
+        // Open the dialog after close has completed
+        // http://stackoverflow.com/questions/6923647/how-to-attach-callback-to-jquery-effect-on-dialog-show
+        $dlg.dialog('close').parent().promise().done(function () {
             $dlg.dialog('option', {
                 position: {
                     of: $(td),
@@ -54,7 +44,8 @@
                     at: 'right bottom'
                 }
             }).dialog('open');
-        }
+        });
+
     });
 
     $('#divDlg').dialog({
@@ -63,7 +54,7 @@
         autoOpen: false,
         open: function (event, ui) {
             $('#dlgMessage').empty();
-            
+
         },
         buttons: [
         {
