@@ -148,6 +148,9 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         public string CreatedBy { get; set; }
 
+        /// <summary>
+        /// Showing piece limit on pitch cart
+        /// </summary>
         [Display(Name = "Pitch Limit")]
         public int? PitchLimit { get; set; }
 
