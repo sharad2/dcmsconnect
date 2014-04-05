@@ -504,7 +504,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             try
             {
-                _service.RemovePickslipFromBucket(pickslipId);
+                _service.RemovePickslipFromBucket(pickslipId, bucketId);
             }
             catch (DbException exception)
             {

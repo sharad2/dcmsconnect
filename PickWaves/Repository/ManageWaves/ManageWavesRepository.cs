@@ -719,18 +719,33 @@ WHERE 1 = 1
 
         /// <summary>
         /// Removed passed pickslip from bucket
+        /// Sharad Sir and Shiva : Delete Bucket when last pickslip is deleted.
         /// </summary>
         /// <param name="pickslipId"></param>
-        public void RemovePickslipFromBucket(long pickslipId)
+        /// <param name="bucketId"></param>
+        public void RemovePickslipFromBucket(long pickslipId, int bucketId)
         {
             const string QUERY = @"
-                    BEGIN
-                        <proxy />PKG_BUCKET.DELETE_PS_CTNRESV(APICKSLIP_ID => :APICKSLIP_ID);
-                        <proxy />PKG_DATA_EXCHANGE.REVERT_PICKSLIP(APICKSLIP_ID => :APICKSLIP_ID);
-                    END;   
-              ";
+                                DECLARE
+                                      LPICKSLIP_COUNT NUMBER;
+                                    BEGIN
+                                      <proxy />PKG_BUCKET.DELETE_PS_CTNRESV(APICKSLIP_ID => :APICKSLIP_ID);
+                                      <proxy />PKG_DATA_EXCHANGE.REVERT_PICKSLIP(APICKSLIP_ID => :APICKSLIP_ID);
+
+                                      SELECT COUNT(P.PICKSLIP_ID)
+                                        INTO LPICKSLIP_COUNT
+                                        FROM <proxy />PS P
+                                       WHERE P.BUCKET_ID = :BUCKET_ID
+                                         AND P.TRANSFER_DATE IS NULL;
+
+                                      IF LPICKSLIP_COUNT = 0 THEN
+                                        DELETE FROM <proxy />BUCKET BKT WHERE BKT.BUCKET_ID = :BUCKET_ID;
+                                      END IF;
+                                    END;
+                                ";
             var binder = SqlBinder.Create();
-            binder.Parameter("APICKSLIP_ID", pickslipId);
+            binder.Parameter("APICKSLIP_ID", pickslipId)
+                .Parameter("BUCKET_ID", bucketId);
             _db.ExecuteDml(QUERY, binder);
         }
 
