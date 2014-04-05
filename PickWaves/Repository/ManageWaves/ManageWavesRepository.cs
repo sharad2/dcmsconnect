@@ -719,7 +719,7 @@ WHERE 1 = 1
 
         /// <summary>
         /// Removed passed pickslip from bucket
-        /// Sharad Sir and Shiva : Delete Bucket when last pickslip is deleted.
+        /// Sharad Sir and Shiva : Delete Bucket when last pickslip is removed.
         /// </summary>
         /// <param name="pickslipId"></param>
         /// <param name="bucketId"></param>
