@@ -322,7 +322,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             return bucketId;
         }
 
-        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions)
+        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions, bool updateBucketName)
         {
             const string QUERY = @"
                                     DECLARE
@@ -345,13 +345,16 @@ LBucket_Name := PICKSLIP_REC.bucket_name;
                                       IF PICKSLIP_COUNT = 0 THEN
                                         RAISE_APPLICATION_ERROR(-20000, 'No pickslips were added');
                                       END IF;
+<if c='$updateBucketName'>
 update bucket set name = lbucket_name where bucket_id = :BUCKET_ID;
+</if>
                                     END;
               ";
             var binder = SqlBinder.Create();
             var bucket = new PickWaveEditable();
             binder.Parameter("BUCKET_ID", bucketId)
                   .Parameter("CUSTOMER_ID", customerId)
+                  .ParameterXPath("updateBucketName", updateBucketName)
                   ;
 
             var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
