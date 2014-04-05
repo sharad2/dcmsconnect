@@ -84,11 +84,7 @@
                             <div>
                                 Pick Wave #, Customer Id.
                             </div>
-                        }
-                        @if (Model != null && Model.IsFilterApplied)
-                        { 
-                            @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())
-                        }
+                        }                        
                     </div>
                 </div>
                 @RenderSection("sidebar", false)

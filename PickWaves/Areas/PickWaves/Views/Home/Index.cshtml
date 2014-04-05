@@ -2,31 +2,37 @@
 @{
     ViewBag.Title = "Pick Waves Home";
 }
-
+@if (Model != null && Model.IsFilterApplied)
+{
+    if (!string.IsNullOrEmpty(Model.ImportedOrders.Single().CustomerId))
+    {
+        <h2>Showing PickWave of customer @Model.ImportedOrders.Single().CustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
+    }  
+}
 @helper TabDescription(DcmsMobile.PickWaves.Helpers.ProgressStage state)
 {
     switch (state)
     {
         case DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen:
-    <p class="ui-state-disabled">
-        Picking will not be performed on these pick waves. You will need to unfreeze them first.
-    </p>        
+            <p class="ui-state-disabled">
+                Picking will not be performed on these pick waves. You will need to unfreeze them first.
+            </p>
             break;
 
         case DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress:
-    <p>
-        Check the picking progress using the progress bars displayed in the table. Go to the <em>Pick Wave List</em> of a customer to manage individual pick waves.
-    </p>        
+        <p>
+            Check the picking progress using the progress bars displayed in the table. Go to the <em>Pick Wave List</em> of a customer to manage individual pick waves.
+        </p>
             break;
 
         case DcmsMobile.PickWaves.Helpers.ProgressStage.Completed:
-    <p>
-        Picking for these pick waves has been completed. Hopefully, the progress bar is telling you that you did not have to undership anything.
-    </p>        
+        <p>
+            Picking for these pick waves has been completed. Hopefully, the progress bar is telling you that you did not have to undership anything.
+        </p>
             break;
 
         default:
-    <p>Internal Error. We are not sure what you are seeing</p>        
+        <p>Internal Error. We are not sure what you are seeing</p>
             break;
     }
 }
@@ -36,19 +42,24 @@
         <ul>
             @if (Model.ImportedOrders.Count > 0)
             {
-                <li><a href="#ToCreate">To Create 
+                <li>
+                    <a href="#ToCreate">
+                        To Create
                         <span style="margin: 0.5mm 0 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.ImportedOrders.Count customers">
                             @Model.ImportedOrders.Count
                         </span>
-                </a></li>
+                    </a>
+                </li>
             }
             @for (var i = 0; i < Model.BucketsByStatus.Count; ++i)
             {
-                <li><a href = "#@Model.BucketsByStatus.Keys[i].ToString()">@Model.StateDisplayNames[Model.BucketsByStatus.Keys[i]]
-                    <span style="margin: 0.5mm 0 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.BucketsByStatus.Values[i].Count customers">
-                        @Model.BucketsByStatus.Values[i].Count
-                    </span>
-                </a>
+                <li>
+                    <a href="#@Model.BucketsByStatus.Keys[i].ToString()">
+                        @Model.StateDisplayNames[Model.BucketsByStatus.Keys[i]]
+                        <span style="margin: 0.5mm 0 0.5mm 1mm; padding: 0.5mm 1.5mm 0.5mm 1.5mm;" class="ui-corner-all ui-state-error" title="@Model.BucketsByStatus.Values[i].Count customers">
+                            @Model.BucketsByStatus.Values[i].Count
+                        </span>
+                    </a>
                 </li>
             }
         </ul>
@@ -64,26 +75,34 @@
                     </caption>
                     <thead>
                         <tr>
-                            <th rowspan="2">#
+                            <th rowspan="2">
+                                #
                             </th>
-                            <th colspan="2">Customer
+                            <th colspan="2">
+                                Customer
                             </th>
-                            <th rowspan="2"># Pickslips
+                            <th rowspan="2">
+                                # Pickslips
                             </th>
-                            <th rowspan="2" title="Earliest DC cancel date [MM/DD] to Latest DC cancel date [MM/DD/YYYY]">DC Cancel
-                            <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span>
+                            <th rowspan="2" title="Earliest DC cancel date [MM/DD] to Latest DC cancel date [MM/DD/YYYY]">
+                                DC Cancel
+                                <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span>
                             </th>
-                            <th colspan="2">Ordered
+                            <th colspan="2">
+                                Ordered
                             </th>
-                            <th rowspan="2" title="Earliest Pickslip import date [MM/DD] to Latest Pickslip import date [MM/DD/YYYY]">Imported on
+                            <th rowspan="2" title="Earliest Pickslip import date [MM/DD] to Latest Pickslip import date [MM/DD/YYYY]">
+                                Imported on
                             </th>
                         </tr>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>$
+                            <th>
+                                $
                             </th>
-                            <th>Pieces
+                            <th>
+                                Pieces
                             </th>
                         </tr>
                         <tr class="ui-state-active">
@@ -103,23 +122,24 @@
                                 <td style="text-align: right">@(i + 1)</td>
                                 <td>
                                     @if (Model.UserIsManager)
-                                    { 
+                                    {
                                         <ul class="customerActionMenu">
                                             <li>
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.ImportedOrders[i].CustomerId)))" title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
                                                     <span class="ui-icon ui-icon-plus"></span>
-                                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)</a>
+                                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)
+                                                </a>
                                             </li>
                                         </ul>
                                     }
                                     else
-                                    { 
+                                    {
                                         <span>@Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)</span>
                                     }
                                 </td>
                                 <td>
                                     @if (Model.ImportedOrders[i].IsCustomerActive)
-                                    { 
+                                    {
                                         @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                     }
                                     else
@@ -151,7 +171,7 @@
 
         @for (var j = 0; j < Model.BucketsByStatus.Count; ++j)
         {
-            <div id = "@Model.BucketsByStatus.Values[j][0].BucketStatus.ToString()">
+            <div id="@Model.BucketsByStatus.Values[j][0].BucketStatus.ToString()">
                 <h2>
                     <em>@Model.StateDisplayNames[Model.BucketsByStatus.Values[j][0].BucketStatus]</em> Pick Waves
                 </h2>
@@ -161,16 +181,20 @@
                     <table>
                         <thead>
                             <tr>
-                                <th colspan="3">Customer
+                                <th colspan="3">
+                                    Customer
                                 </th>
-                                <th rowspan="2"># Waves
+                                <th rowspan="2">
+                                    # Waves
                                 </th>
                                 <th rowspan="2">Highest priority</th>
-                                <th rowspan="2" title="Earliest DC cancel date [MM/DD] to Latest DC cancel date [MM/DD/YYYY]" style="white-space: nowrap">DC Cancel
-                            <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sub>1</sub>
+                                <th rowspan="2" title="Earliest DC cancel date [MM/DD] to Latest DC cancel date [MM/DD/YYYY]" style="white-space: nowrap">
+                                    DC Cancel
+                                    <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sub>1</sub>
                                 </th>
-                                <td colspan="2">Pieces
-                                </td>                                
+                                <td colspan="2">
+                                    Pieces
+                                </td>
                             </tr>
                             <tr>
                                 <th>#</th>
@@ -186,20 +210,22 @@
                             </tr>
                             <tr class="ui-state-active">
                                 <th colspan="2">Summary</th>
-                                <th>@string.Format("{0:N0} customers",Model.BucketsByStatus.Values[j].Count) </th>
+                                <th>@string.Format("{0:N0} customers", Model.BucketsByStatus.Values[j].Count) </th>
                                 <th>@Model.BucketsByStatus.Values[j].Sum(p => p.BucketCount)</th>
                                 <th>@Model.BucketsByStatus.Values[j].Max(p => p.MaxPriorityId)</th>
                                 @{
-                                    var dr = new DcmsMobile.PickWaves.Helpers.DateRange
-                                    {
-                                        From = Model.BucketsByStatus.Values[j].Min(p => p.DcCancelDateRange.From),
-                                        To = Model.BucketsByStatus.Values[j].Max(p => p.DcCancelDateRange.To)
-                                    };
+            var dr = new DcmsMobile.PickWaves.Helpers.DateRange
+            {
+                From = Model.BucketsByStatus.Values[j].Min(p => p.DcCancelDateRange.From),
+                To = Model.BucketsByStatus.Values[j].Max(p => p.DcCancelDateRange.To)
+            };
                                 }
                                 <th>@dr</th>
                                 <th>@string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.OrderedPieces))</th>
-                                <th>@string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.PickedPieces)) of 
-                                    @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.UnpickedPieces + p.PickedPieces))</th>                                
+                                <th>
+                                    @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.PickedPieces)) of
+                                    @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.UnpickedPieces + p.PickedPieces))
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -215,7 +241,8 @@
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
                                                                      new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus)))" title="Wave List">
                                                     <span class="ui-icon ui-icon-zoomin"></span>
-                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId)</a>
+                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId)
+                                                </a>
                                             </li>
                                         </ul>
 
@@ -227,24 +254,25 @@
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)
                                     </td>
                                     <td style="text-align: right">
-                                        @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)</td>
+                                        @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)
+                                    </td>
                                     <td style="text-align: right">
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].DcCancelDateRange)
                                     </td>
                                     <td style="text-align: right">
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)
                                         @*@if (Model.BucketsByStatus.Values[j][i].CancelledPieces > 0)
-                                        {
-                                            <div style="text-align: right; display: inline-block; font-style: italic; background-color: thistle">
-                                                @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CancelledPieces) cancelled
-                                            </div>
-                                        }*@
+                                            {
+                                                <div style="text-align: right; display: inline-block; font-style: italic; background-color: thistle">
+                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CancelledPieces) cancelled
+                                                </div>
+                                            }*@
                                     </td>
                                     <td>
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
-                                        { 
-                                            <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 14em;" 
-                                                title ="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked.">
+                                        {
+                                            <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 14em;"
+                                                 title="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked.">
                                                 @if (Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                                 {
                                                     <div style="width: @Model.BucketsByStatus.Values[j][i].PercentPickedPieces%" class="ui-progressbar-value ui-widget-header ui-corner-left">
@@ -253,24 +281,24 @@
                                                 }
                                                 @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0)
                                                 {
-                                                    <div style="left: @(Model.BucketsByStatus.Values[j][i].PercentPickedPieces)%; width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%" class="ui-progressbar-value ui-corner-right" >
+                                                    <div style="left: @(Model.BucketsByStatus.Values[j][i].PercentPickedPieces)%; width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%" class="ui-progressbar-value ui-corner-right">
                                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UnpickedPieces)
                                                     </div>
                                                 }
                                             </div>
                                         }
                                         @*@if (Model.BucketsByStatus.Values[j][i].PickingDateRange.To.HasValue)
-                                        {
-                                            <div>
-                                                Picked from @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickingDateRange)
+                                            {
+                                                <div>
+                                                    Picked from @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickingDateRange)
 
-                                            </div>
-                                        }*@
+                                                </div>
+                                            }*@
                                         @if (Model.BucketsByStatus.Values[j][i].UncreatedPieces > 0)
                                         {
                                             if (Model.BucketsByStatus.Values[j][i].UncreatedPieces >= Model.BucketsByStatus.Values[j][i].OrderedPieces)
                                             {
-                                            <div>Boxes not created</div>
+                                                <div>Boxes not created</div>
                                             }
                                             else
                                             {
@@ -279,55 +307,55 @@
                                                 }
                                                 else
                                                 {
-@* We never expect to see this message because we always create boxes for all pieces*@
-                                            <div class="ui-state-error">
-                                                @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled
-                                            </div>
+                                                    @* We never expect to see this message because we always create boxes for all pieces*@
+                                                    <div class="ui-state-error">
+                                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled
+                                                    </div>
                                                 }
                                             }
                                         }
                                     </td>
                                     @*<td>
-                                        @if (Model.BucketsByStatus.Values[j][i].PullAreaCount > 0)
-                                        {
-                                            <div>
-                                                @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 1)
-                                                { 
-                                                    <text>
-                                                    <em>Pull From</em> <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.ShortName)</span>
-                                                    </text>
-                                                }
-                                                @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 2)
-                                                {
-                                                    <text>&amp; </text>
-                                                    <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.ShortName)</span>
-                                                }
-                                                @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 3)
-                                                {
-                                                    <span title="More pull areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PullAreaCount - 2) more</span>
-                                                }
-                                            </div>
-                                        }
-                                        @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount > 0)
-                                        {
-                                            <div>
-                                                @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 1)
-                                                { 
-                                                    <em>Pitch From</em>
-                                                    <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.ShortName)</span>
-                                                }
-                                                @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 2)
-                                                {
-                                                    <text>&amp; </text>
-                                                    <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.ShortName)</span>
-                                                }
-                                                @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 3)
-                                                {
-                                                    <span title="More pitch areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PitchAreaCount - 2) more</span>
-                                                }
-                                            </div>
-                                        }
-                                    </td>*@
+                                            @if (Model.BucketsByStatus.Values[j][i].PullAreaCount > 0)
+                                            {
+                                                <div>
+                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 1)
+                                                    {
+                                                        <text>
+                                                        <em>Pull From</em> <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.ShortName)</span>
+                                                        </text>
+                                                    }
+                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 2)
+                                                    {
+                                                        <text>&amp; </text>
+                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.ShortName)</span>
+                                                    }
+                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 3)
+                                                    {
+                                                        <span title="More pull areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PullAreaCount - 2) more</span>
+                                                    }
+                                                </div>
+                                            }
+                                            @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount > 0)
+                                            {
+                                                <div>
+                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 1)
+                                                    {
+                                                        <em>Pitch From</em>
+                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.ShortName)</span>
+                                                    }
+                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 2)
+                                                    {
+                                                        <text>&amp; </text>
+                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.ShortName)</span>
+                                                    }
+                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 3)
+                                                    {
+                                                        <span title="More pitch areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PitchAreaCount - 2) more</span>
+                                                    }
+                                                </div>
+                                            }
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -338,11 +366,11 @@
     </div>
 </div>
 @section scripts{
-    <link type="text/css" href ="@Links_PickWaves.Areas.PickWaves.Content.Home_Index_min_css"  rel="stylesheet"/>
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.Content.Home_Index_min_css" rel="stylesheet" />
     <script type="text/javascript" src="@Links_PickWaves.Areas.PickWaves.Scripts.Home_Index_js"></script>
 }
 @*
-    $Id$ 
+    $Id$
     $Revision$
     $URL$
     $Header$
