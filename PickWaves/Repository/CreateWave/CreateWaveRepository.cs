@@ -322,16 +322,24 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             return bucketId;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bucketId"></param>
+        /// <param name="customerId"></param>
+        /// <param name="dimensions"></param>
+        /// <param name="updateBucketName"></param>
         public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions, bool updateBucketName)
         {
             const string QUERY = @"
                                     DECLARE
-LBucket_Name <proxy />bucket.name%type;
-                                      CURSOR PICKSLIP_CURSOR IS
-                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID, substr(c.name, 10) || ' ' || demps.customer_order_id || to_char(demps.dc_cancel_date, ' MM/DD') as bucket_name    
+                                        LBUCKET_NAME <proxy />BUCKET.NAME%TYPE;
+                                        CURSOR PICKSLIP_CURSOR IS
+                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID, 
+                                               SUBSTR(C.NAME,1, 10) || ' ' || SUBSTR(DEMPS.CUSTOMER_ORDER_ID,1,9) || TO_CHAR(DEMPS.DC_CANCEL_DATE, ' MM/DD') AS BUCKET_NAME
                                           FROM <proxy />DEM_PICKSLIP DEMPS
-  left outer join <proxy />master_customer c
-    on c.customer_id = demps.customer_id
+                                          LEFT OUTER JOIN <proxy />MASTER_CUSTOMER C
+                                                ON C.CUSTOMER_ID = DEMPS.CUSTOMER_ID
                                          WHERE DEMPS.PS_STATUS_ID = 1
                                            AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID
                                            AND {0};
@@ -340,16 +348,16 @@ LBucket_Name <proxy />bucket.name%type;
                                       FOR PICKSLIP_REC IN PICKSLIP_CURSOR LOOP
                                         PICKSLIP_COUNT := PICKSLIP_COUNT + 1;
                                         <proxy />PKG_DATA_EXCHANGE.GET_PICKSLIP(PICKSLIP_REC.PICKSLIP_ID, :BUCKET_ID);
-LBucket_Name := PICKSLIP_REC.bucket_name;
+                                    LBUCKET_NAME := PICKSLIP_REC.BUCKET_NAME;
                                       END LOOP;
                                       IF PICKSLIP_COUNT = 0 THEN
                                         RAISE_APPLICATION_ERROR(-20000, 'No pickslips were added');
                                       END IF;
-<if c='$updateBucketName'>
-update bucket set name = lbucket_name where bucket_id = :BUCKET_ID;
-</if>
-                                    END;
-              ";
+                                <if c='$updateBucketName'>
+                                  UPDATE <proxy />BUCKET SET NAME = LBUCKET_NAME WHERE BUCKET_ID = :BUCKET_ID;
+                                </if>
+                                    END;";
+
             var binder = SqlBinder.Create();
             var bucket = new PickWaveEditable();
             binder.Parameter("BUCKET_ID", bucketId)

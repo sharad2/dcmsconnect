@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Common;
 using System.Web;
-using DcmsMobile.PickWaves.Helpers;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository
 {
@@ -32,6 +33,11 @@ namespace DcmsMobile.PickWaves.Repository
         }
 
         #endregion
+
+        public DbTransaction BeginTransaction()
+        {
+            return _db.BeginTransaction();
+        }
 
         /// <summary>
         /// Returns information about a specific customer.

@@ -231,39 +231,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         /// <summary>
-        /// Create a new bucket.
-        /// </summary>
-        /// <param name="model"> 
-        /// Posted value: model.CreateBucket, model.CustomerId,model.SelectedDc, model.SelectedDimension,model.SelectedDimensionVal
-        /// </param>
-        /// <returns>
-        /// </returns>
-        [HttpPost]
-        private void DoCreatePickWave(IndexViewModel model)
-        {
-            var bucket = new PickWaveEditable
-            {
-                PriorityId = 1,   // Default priority
-                RequireBoxExpediting = model.RequireBoxExpediting,
-                QuickPitch = model.QuickPitch
-            };
-            // TC4: Give pull area if user wants to pulled cartons.
-            bucket.PullAreaId = model.PullAreaId;
-
-            // TC5: Give pitch area if user wants to pitched pieces.
-            bucket.PitchAreaId = model.PitchAreaId;
-            bucket.BucketName = "Bucket"; //TODO
-            try
-            {
-                model.LastBucketId = _service.CreateWave(bucket);
-            }
-            catch (DbException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-            }
-        }
-
-        /// <summary>
         /// Add pickslips to passed bucket.Or if bucket is not created then create it first, then add pickslip.
         /// </summary>
         /// <param name="model">
@@ -290,21 +257,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
             }
-            if (!model.LastBucketId.HasValue)
-            {
-                DoCreatePickWave(model);
-            }
-
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
-            try
+            if (!model.LastBucketId.HasValue)
+            {
+                var bucket = new PickWaveEditable
+                {
+                    PriorityId = 1,   // Default priority
+                    RequireBoxExpediting = model.RequireBoxExpediting,
+                    QuickPitch = model.QuickPitch
+                };
+                // TC4: Give pull area if user wants to pulled cartons.
+                bucket.PullAreaId = model.PullAreaId;
+
+                // TC5: Give pitch area if user wants to pitched pieces.
+                bucket.PitchAreaId = model.PitchAreaId;
+                bucket.BucketName = "Bucket"; //Update Bucket Name.
+                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
+            }
+            else
             {
                 _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
-                //AddStatusMessage(string.Format("{0} pickslip added to wave {1}", model.PickslipCount, model.LastBucketId));
-            }
-            catch (DbException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
             }
             return RedirectToAction(this.Actions.Index(model));
         }

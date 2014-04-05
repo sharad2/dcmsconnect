@@ -43,20 +43,17 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 return result.OrderBy(p => ((string)p.DimensionValue).PadLeft(8));
             }
             return result;
-        }        
-
-        [Obsolete]
-        public int CreateWave(PickWaveEditable bucket)
-        {
-            return _repos.CreateWave(bucket);
         }
 
         public int CreateWave(PickWaveEditable bucket, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal)
         {
-            // TODO: Use transaction
-            var bucketId = _repos.CreateWave(bucket);
-            _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, true);
-            return bucketId;
+            using (var trans = _repos.BeginTransaction())
+            {
+                var bucketId = _repos.CreateWave(bucket);
+                _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, true);
+                trans.Commit();
+                return bucketId;
+            }
         }
 
         public void AddPickslipsPerDim(int bucketId, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal)

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
-using DcmsMobile.PickWaves.Helpers;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository.ManageWaves
 {
@@ -56,12 +55,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             : base(trace, userName, clientInfo)
         {
         }
-        #endregion
-
-        public DbTransaction BeginTransaction()
-        {
-            return _db.BeginTransaction();
-        }
+        #endregion        
 
         /// <summary>
         /// Returns bucket information and locks the bucket (FOR UPDATE).
