@@ -326,9 +326,12 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         {
             const string QUERY = @"
                                     DECLARE
+LBucket_Name <proxy />bucket.name%type;
                                       CURSOR PICKSLIP_CURSOR IS
-                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID    
+                                        SELECT DEMPS.PICKSLIP_ID AS PICKSLIP_ID, substr(c.name, 10) || ' ' || demps.customer_order_id || to_char(demps.dc_cancel_date, ' MM/DD') as bucket_name    
                                           FROM <proxy />DEM_PICKSLIP DEMPS
+  left outer join <proxy />master_customer c
+    on c.customer_id = demps.customer_id
                                          WHERE DEMPS.PS_STATUS_ID = 1
                                            AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID
                                            AND {0};
@@ -337,10 +340,12 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                       FOR PICKSLIP_REC IN PICKSLIP_CURSOR LOOP
                                         PICKSLIP_COUNT := PICKSLIP_COUNT + 1;
                                         <proxy />PKG_DATA_EXCHANGE.GET_PICKSLIP(PICKSLIP_REC.PICKSLIP_ID, :BUCKET_ID);
+LBucket_Name := PICKSLIP_REC.bucket_name;
                                       END LOOP;
                                       IF PICKSLIP_COUNT = 0 THEN
                                         RAISE_APPLICATION_ERROR(-20000, 'No pickslips were added');
                                       END IF;
+update bucket set name = lbucket_name where bucket_id = :BUCKET_ID;
                                     END;
               ";
             var binder = SqlBinder.Create();
