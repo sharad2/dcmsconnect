@@ -270,61 +270,6 @@ $(document).ready(function () {
         $('caption', $(this).attr('href')).addClass('ui-state-highlight');
     });
 
-    ////Showing the original address in dialog
-    //$('#dlgOriginalAddress').dialog({
-    //    autoOpen: false,
-    //    modal: false,
-    //    title: 'Shipping address',
-    //    open: function (event, ui) {
-    //        $.ajax({
-    //            cache: false,
-    //            url: $(this).dialog('option', 'data_url'),
-    //            type: 'GET',
-    //            context: this,
-    //            success: function (data, textStatus, jqXHR) {
-    //                if (data == "") {
-    //                    $('#divOriginalAddress').html('Address not entered yet.');
-    //                } else {
-    //                    $('#divOriginalAddress').html(
-    //                        data.OriginalShipAddress.AddressLine1 + '<br/>' +
-    //                        data.OriginalShipAddress.AddressLine2 + '<br/>' +
-    //                        data.OriginalShipAddress.AddressLine3 + '<br/>' +
-    //                        data.OriginalShipAddress.AddressLine4 + '<br/>' +
-    //                        data.OriginalShipAddress.City + '<br/>' +
-    //                        data.OriginalShipAddress.State + '<br/>' +
-    //                        data.OriginalShipAddress.ZipCode + '<br/>' +
-    //                        data.OriginalShipAddress.Country);
-    //                }
-    //                if (data == "") {
-    //                    $('#divCurrentAddress').html('Address not entered yet.');
-    //                } else {
-    //                    //Showing the current address(changed address) in dialog if any.
-    //                    $('#divCurrentAddress').html(
-    //                        data.CurrentShipAddress.AddressLine1 + '<br/>' +
-    //                        data.CurrentShipAddress.AddressLine2 + '<br/>' +
-    //                        data.CurrentShipAddress.AddressLine3 + '<br/>' +
-    //                        data.CurrentShipAddress.AddressLine4 + '<br/>' +
-    //                        data.CurrentShipAddress.City + '<br/>' +
-    //                        data.CurrentShipAddress.State + '<br/>' +
-    //                        data.CurrentShipAddress.ZipCode + '<br/>' +
-    //                        data.CurrentShipAddress.Country);
-    //                }
-    //            },
-    //            error: function (jqXHR, textStatus, errorThrown) {
-    //                alert(jqXHR.responseText);
-    //            }
-    //        });
-    //    },
-    //    buttons: [
-    //        {
-    //            text: 'OK',
-    //            click: function (event, ui) {
-    //                $(this).dialog('close');
-    //            }
-    //        }
-    //    ]
-    //});
-
     //This button is used to filter the orders for particular date.
     $('#btnApplyFilter').button();
 });
