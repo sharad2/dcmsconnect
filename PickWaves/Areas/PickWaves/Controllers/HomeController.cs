@@ -90,9 +90,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                          DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain)));
 
                 // TC3: When search text is customer id.
-                case SearchTextType.CustomerId:
-                    AddStatusMessage(string.Format("Filter applied for Customer: {0}", searchText));
-                    break;               
+                case SearchTextType.CustomerId:                    
+                    break;
+
+                case SearchTextType.UserName:
+                    AddStatusMessage(string.Format("Filter applied for User: {0}", searchText));
+                    break;
 
                 default:
 #if DEBUG
@@ -123,7 +126,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             var model = new IndexViewModel
             {
-                IsFilterApplied = search != SearchTextType.Unknown
+                IsCustomerFilterApplied = search == SearchTextType.CustomerId,
+                IsUserNameFilterApplied = search == SearchTextType.UserName
             };
             foreach (var item in query)
             {
@@ -200,10 +204,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                            To = g.Select(p => p.MaxDcCancelDate).FirstOrDefault(),
                            From = g.Select(p => p.MinDcCancelDate).FirstOrDefault(),
                        },
-                      // MaxPitchArea = new InventoryAreaModel(maxPitchArea),
+                       // MaxPitchArea = new InventoryAreaModel(maxPitchArea),
                        //MinPitchArea = new InventoryAreaModel(minPitchArea),
                        //MaxPullArea = new InventoryAreaModel(maxPullArea),
-                      // MinPullArea = new InventoryAreaModel(minPullArea)
+                       // MinPullArea = new InventoryAreaModel(minPullArea)
                    };
         }
 

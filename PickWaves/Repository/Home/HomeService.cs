@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using System.Linq;
 
 namespace DcmsMobile.PickWaves.Repository.Home
 {
@@ -42,14 +43,17 @@ namespace DcmsMobile.PickWaves.Repository.Home
             switch (filterType)
             {
                 case SearchTextType.Unknown:
-                    return _repos.GetBucketSummary(null);
+                    return _repos.GetBucketSummary(null, null);
 
                 case SearchTextType.BucketId:
                     // We don't expect to show a summary for a single bucket
                     throw new NotSupportedException();
 
                 case SearchTextType.CustomerId:
-                    return _repos.GetBucketSummary(filterText);
+                    return _repos.GetBucketSummary(filterText, null);
+
+                case SearchTextType.UserName:
+                    return _repos.GetBucketSummary(null, filterText);
 
                 default:
                     throw new NotImplementedException();
@@ -74,6 +78,9 @@ namespace DcmsMobile.PickWaves.Repository.Home
 
                 case SearchTextType.CustomerId:
                     return _repos.GetImportedOrderSummary(filterText);
+
+                case SearchTextType.UserName:
+                   return Enumerable.Empty<ImportedOrderSummary>();
 
                 default:
                     throw new NotImplementedException();

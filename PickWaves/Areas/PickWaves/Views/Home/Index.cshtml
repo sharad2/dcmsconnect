@@ -2,12 +2,13 @@
 @{
     ViewBag.Title = "Pick Waves Home";
 }
-@if (Model != null && Model.IsFilterApplied)
+@if (Model != null && Model.IsCustomerFilterApplied)
 {
-    if (!string.IsNullOrEmpty(Model.ImportedOrders.Single().CustomerId))
-    {
-        <h2>Showing PickWave of customer @Model.ImportedOrders.Single().CustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
-    }  
+    <h2>Showing PickWave of customer @Model.ImportedOrders.Single().CustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
+}
+@if (Model != null && Model.IsUserNameFilterApplied)
+{
+    <h2>@Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
 }
 @helper TabDescription(DcmsMobile.PickWaves.Helpers.ProgressStage state)
 {

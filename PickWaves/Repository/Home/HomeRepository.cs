@@ -11,7 +11,8 @@ namespace DcmsMobile.PickWaves.Repository.Home
     {
         Unknown,
         BucketId,
-        CustomerId
+        CustomerId,
+        UserName
     }
 
     public class HomeRepository : PickWaveRepositoryBase
@@ -39,7 +40,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// InProgress => Picking or pulling are not completed yet.
         /// Completed => Picking or pulling are completed yet.
         /// </remarks>
-        public IList<BucketSummary> GetBucketSummary(string customerId)
+        public IList<BucketSummary> GetBucketSummary(string customerId, string userName)
         {
             const string QUERY = @"
                                     WITH BUCKET_INFO AS
@@ -50,7 +51,8 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                                          SUM(P.TOTAL_QUANTITY_ORDERED) AS TOTAL_QUANTITY_ORDERED,
                                                          MAX(CUST.NAME) AS CUSTOMER_NAME,
                                                          MAX(CUST.INACTIVE_FLAG) AS INACTIVE_FLAG,
-                                                         MIN(PO.DC_CANCEL_DATE) AS DC_CANCEL_DATE
+                                                         MIN(PO.DC_CANCEL_DATE) AS DC_CANCEL_DATE,
+                                                         MAX(B.CREATED_BY) AS CREATED_BY
                                                     FROM <proxy />BUCKET B
                                                    INNER JOIN <proxy />PS P
                                                       ON P.BUCKET_ID = B.BUCKET_ID
@@ -107,6 +109,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                            AND PP.CUSTOMER_ID = BI.CUSTOMER_ID
                                          WHERE 1 = 1
                                            <if>AND BI.CUSTOMER_ID = :CUSTOMER_ID</if>
+                                           <if>AND BI.CREATED_BY = :CREATED_BY</if>
                                         GROUP BY BI.CUSTOMER_ID,
                                                 CASE
                                                 WHEN BI.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN
@@ -135,6 +138,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                        BucketState = row.GetEnum<ProgressStage>("BUCKET_STATUS")
                    });
             binder.Parameter("CUSTOMER_ID", customerId)
+                  .Parameter("CREATED_BY", userName)
                   .Parameter("FROZENSTATE", ProgressStage.Frozen.ToString())
                   .Parameter("INPROGRESSSTATE", ProgressStage.InProgress.ToString())
                   .Parameter("COMPLETEDSTATE", ProgressStage.Completed.ToString());
@@ -182,12 +186,16 @@ namespace DcmsMobile.PickWaves.Repository.Home
                 case 2:
                     ret = SearchTextType.CustomerId;
                     break;
+                case 3:
+                    ret = SearchTextType.UserName;
+                    break;
 
                 default:
                     throw new NotImplementedException("Not expected");
 
             }
-            return ret;
+            //return ret;
+            return SearchTextType.UserName;
         }
 
         /// <summary>
