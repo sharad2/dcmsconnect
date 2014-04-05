@@ -194,8 +194,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                     throw new NotImplementedException("Not expected");
 
             }
-            //return ret;
-            return SearchTextType.UserName;
+            return ret;            
         }
 
         /// <summary>

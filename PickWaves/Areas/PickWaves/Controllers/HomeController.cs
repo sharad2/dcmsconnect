@@ -90,7 +90,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                          DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain)));
 
                 // TC3: When search text is customer id.
-                case SearchTextType.CustomerId:                    
+                case SearchTextType.CustomerId:
                     break;
 
                 case SearchTextType.UserName:
@@ -175,40 +175,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                        BucketStatus = item.BucketState,
                        item.Customer.CustomerId
                    } into g
-                   //let maxPitchArea = g.Select(p => p.MaxPitchArea).First()
-                   //let minPitchArea = g.Select(p => p.MinPitchArea).First()
-                   //let maxPullArea = g.Select(p => p.MaxPullArea).First()
-                   //let minPullArea = g.Select(p => p.MinPullArea).First()
                    select new CustomerBucketStateModel
-                   {
-                       BucketStatus = g.Key.BucketStatus,
-                       BucketCount = g.Sum(p => p.BucketCount),
-                       CustomerId = g.Key.CustomerId,
-                       CustomerName = g.First().Customer.Name,
-                       IsCustomerActive = g.First().Customer.IsActive,
-                       PickedPieces = g.Sum(p => p.CurrentPieces),
-                       OrderedPieces = g.Sum(p => p.OrderedPieces),
-                       ExpectedPieces = g.Sum(p => p.ExpectedPieces),
-                       //CancelledPieces = g.Sum(p => p.CancelledPieces),
-                       //PitchAreaCount = g.Sum(p => p.PitchAreaCount),
-                       //PullAreaCount = g.Sum(p => p.PullAreaCount),
-                       MaxPriorityId = g.Sum(p => p.MaxPriorityId),
-                       //PickingDateRange = new DateRange
-                       //{
-                       //    To = g.Select(p => p.MaxPitchingEndDate).FirstOrDefault(),
-                       //    From = g.Select(p => p.MinPitchingEndDate).FirstOrDefault(),
-                       //    ShowTime = true
-                       //},
-                       DcCancelDateRange = new DateRange
-                       {
-                           To = g.Select(p => p.MaxDcCancelDate).FirstOrDefault(),
-                           From = g.Select(p => p.MinDcCancelDate).FirstOrDefault(),
-                       },
-                       // MaxPitchArea = new InventoryAreaModel(maxPitchArea),
-                       //MinPitchArea = new InventoryAreaModel(minPitchArea),
-                       //MaxPullArea = new InventoryAreaModel(maxPullArea),
-                       // MinPullArea = new InventoryAreaModel(minPullArea)
-                   };
+                                {
+                                    BucketStatus = g.Key.BucketStatus,
+                                    BucketCount = g.Sum(p => p.BucketCount),
+                                    CustomerId = g.Key.CustomerId,
+                                    CustomerName = g.First().Customer.Name,
+                                    IsCustomerActive = g.First().Customer.IsActive,
+                                    PickedPieces = g.Sum(p => p.CurrentPieces),
+                                    OrderedPieces = g.Sum(p => p.OrderedPieces),
+                                    ExpectedPieces = g.Sum(p => p.ExpectedPieces),
+                                    MaxPriorityId = g.Sum(p => p.MaxPriorityId),
+                                    DcCancelDateRange = new DateRange
+                                    {
+                                        To = g.Select(p => p.MaxDcCancelDate).FirstOrDefault(),
+                                        From = g.Select(p => p.MinDcCancelDate).FirstOrDefault(),
+                                    }
+                                };
         }
 
         protected override string ManagerRoleName
