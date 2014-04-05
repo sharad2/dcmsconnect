@@ -147,15 +147,23 @@ namespace DcmsMobile.PickWaves.Repository.Home
 
         internal SearchTextType ParseSearchText(string searchText)
         {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                throw new ArgumentNullException("searchText");
+            }
             const string QUERY = @"
                         <if>
                         SELECT 1 FROM <proxy />BUCKET BKT
                             INNER JOIN <proxy />PS P ON P.BUCKET_ID = BKT.BUCKET_ID
                             WHERE BKT.BUCKET_ID = :int_value
                             AND P.TRANSFER_DATE IS NULL
-                        UNION
+                        UNION ALL
                         </if>
                         SELECT 2 FROM <proxy />CUST WHERE CUSTOMER_ID = :string_value
+UNION ALL
+
+select 3 from all_users where username = :string_value
+
                         ORDER BY 1
                         ";
             var binder = SqlBinder.Create(row => row.GetInteger(0) ?? 0);
@@ -169,7 +177,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                 binder.Parameter("int_value", string.Empty);
             }
 
-            binder.Parameter("string_value", searchText);
+            binder.Parameter("string_value", searchText.ToUpper());
             var result = _db.ExecuteSingle(QUERY, binder);
 
             SearchTextType ret;
