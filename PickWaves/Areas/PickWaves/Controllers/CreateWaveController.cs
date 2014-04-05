@@ -100,8 +100,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                     Value = item.VWhId,
                                     Selected = item.VWhId == model.VwhId
                                 };
+            if (string.IsNullOrEmpty(model.VwhId))
+            {
+                model.VwhId = model.VwhList.Select(p => p.Value).First();
+            }
             var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-
             if (orders.Any())
             {
                 // TC1: When passed customer have some order.
