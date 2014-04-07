@@ -50,7 +50,7 @@ namespace DcmsMobile.PickWaves.Repository
                                     SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID,
                                            CUST.NAME AS NAME,
                                            CUST.INACTIVE_FLAG as INACTIVE_FLAG
-                                     FROM <proxy />CUST CUST
+                                     FROM <proxy />MASTER_CUSTOMER CUST
                                     WHERE CUST.CUSTOMER_ID = :SEARCH
                                     ";
             var binder = SqlBinder.Create(row => new Customer
@@ -140,7 +140,7 @@ namespace DcmsMobile.PickWaves.Repository
                         FROM <proxy />BUCKET BKT
                        INNER JOIN <proxy />PS PS
                           ON PS.BUCKET_ID = BKT.BUCKET_ID
-                       INNER JOIN <proxy />CUST CUST
+                       INNER JOIN <proxy />MASTER_CUSTOMER CUST
                           ON CUST.CUSTOMER_ID = PS.CUSTOMER_ID
                         LEFT OUTER JOIN <proxy />PO PO
                           ON PS.CUSTOMER_ID = PO.CUSTOMER_ID

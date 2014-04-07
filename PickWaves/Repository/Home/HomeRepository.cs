@@ -61,7 +61,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                                                       ON PO.PO_ID = P.PO_ID
                                                      AND PO.ITERATION = P.ITERATION
                                                      AND PO.CUSTOMER_ID = P.CUSTOMER_ID
-                                                   INNER JOIN <proxy />CUST CUST
+                                                   INNER JOIN <proxy />MASTER_CUSTOMER CUST
                                                       ON P.CUSTOMER_ID = CUST.CUSTOMER_ID
                                                    GROUP BY B.BUCKET_ID, P.CUSTOMER_ID),
                                                 PICKED_PIECES AS
@@ -159,7 +159,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                             AND P.TRANSFER_DATE IS NULL
                         UNION ALL
                         </if>
-                        SELECT 2 FROM <proxy />CUST WHERE CUSTOMER_ID = :string_value
+                        SELECT 2 FROM <proxy />MASTER_CUSTOMER WHERE CUSTOMER_ID = :string_value
 UNION ALL
 
 select 3 from all_users where username = :string_value
@@ -224,7 +224,7 @@ select 3 from all_users where username = :string_value
                                        MAX(DEMPS.PICKSLIP_IMPORT_DATE)      AS MAX_PICKSLIP_IMPORT_DATE,
                                        MAX(case when cust.customer_id is null then 'Y' else cust.inactive_flag end) as inactive_flag
                                   FROM <proxy />DEM_PICKSLIP DEMPS
-                                  LEFT OUTER JOIN <proxy />CUST
+                                  LEFT OUTER JOIN <proxy />MASTER_CUSTOMER CUST
                                     ON CUST.CUSTOMER_ID = DEMPS.CUSTOMER_ID
                                  WHERE DEMPS.PS_STATUS_ID = 1
                                 <if>AND DEMPS.CUSTOMER_ID = :customer_id</if>

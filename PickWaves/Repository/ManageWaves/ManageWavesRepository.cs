@@ -264,7 +264,8 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    INNER JOIN <proxy />PS P
                                       ON P.PICKSLIP_ID = B.PICKSLIP_ID
                                    WHERE p.bucket_id = :BUCKET_ID
-and b.stop_process_date is null and bd.stop_process_date is null
+                                    and b.stop_process_date is null 
+                                    and bd.stop_process_date is null
                             <if c='$Pitching'>AND B.CARTON_ID IS NULL</if>
                             <if c='$Pulling'>AND B.CARTON_ID IS NOT NULL</if>
                                    GROUP BY BD.SKU_ID, B.VWH_ID
