@@ -329,7 +329,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// <param name="customerId"></param>
         /// <param name="dimensions"></param>
         /// <param name="updateBucketName"></param>
-        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions, bool updateBucketName)
+        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions,string vwhId, bool updateBucketName)
         {
             const string QUERY = @"
                                     DECLARE
@@ -342,6 +342,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                                 ON C.CUSTOMER_ID = DEMPS.CUSTOMER_ID
                                          WHERE DEMPS.PS_STATUS_ID = 1
                                            AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID
+                                           AND DEMPS.VWH_ID = :VWH_ID
                                            AND {0};
                                       PICKSLIP_COUNT BINARY_INTEGER := 0;
                                     BEGIN                                      
@@ -362,6 +363,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             var bucket = new PickWaveEditable();
             binder.Parameter("BUCKET_ID", bucketId)
                   .Parameter("CUSTOMER_ID", customerId)
+                  .Parameter("VWH_ID", vwhId)
                   .ParameterXPath("updateBucketName", updateBucketName)
                   ;
 

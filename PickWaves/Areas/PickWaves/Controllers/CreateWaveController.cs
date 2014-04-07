@@ -273,11 +273,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 // TC5: Give pitch area if user wants to pitched pieces.
                 bucket.PitchAreaId = model.PitchAreaId;
                 bucket.BucketName = "Bucket"; //Update Bucket Name.
-                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
+                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal,model.VwhId);
             }
             else
             {
-                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
+                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal,model.VwhId);
             }
             return RedirectToAction(this.Actions.Index(model));
         }

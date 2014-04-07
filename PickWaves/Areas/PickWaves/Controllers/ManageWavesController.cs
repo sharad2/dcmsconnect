@@ -427,11 +427,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 flags |= EditBucketFlags.PullType;
             }
-            if (model.QuickPitchOriginal != model.Bucket.QuickPitch || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+            if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
             {
                 flags |= EditBucketFlags.QuickPitch;
             }
-            if (model.PitchLimitOriginal != model.Bucket.PitchLimit || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+            if (model.PitchLimitOriginal != model.Bucket.PitchLimit && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
             {
                 flags |= EditBucketFlags.PitchLimit;
             }
