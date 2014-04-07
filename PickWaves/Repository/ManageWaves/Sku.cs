@@ -18,5 +18,9 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         public string UpcCode { get; set; }
 
         public string VwhId { get; set; }
+
+        public decimal? WeightPerDozen { get; set; }
+
+        public decimal? VolumePerDozen { get; set; }
     }
 }

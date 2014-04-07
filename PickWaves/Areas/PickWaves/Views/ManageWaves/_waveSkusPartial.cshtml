@@ -7,11 +7,11 @@
     {
         if (pcs == null || pcs < activity.PiecesIncomplete)
         {
-    @:class='ui-state-error'
+            @:class='ui-state-error'
         }
         else
-        { 
-    @:class='ui-state-highlight'
+        {
+            @:class='ui-state-highlight'
     }
     }
 }
@@ -22,25 +22,25 @@
         case BoxState.InProgress:
         case BoxState.Completed:
         case BoxState.NotSet:
-    <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" 
-                         title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.OrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
-        @if (Model.TotalPiecesPicked > 0)
-        { 
-            <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                @Html.DisplayFor(m => m.TotalPiecesPicked)
+            <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all"
+                 title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.OrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+                @if (Model.TotalPiecesPicked > 0)
+                {
+                    <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                        @Html.DisplayFor(m => m.TotalPiecesPicked)
+                    </div>
+                }
+                @if (Model.RemainingPiecesToPick > 0)
+                {
+                    <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
+                        @Html.DisplayFor(m => m.RemainingPiecesToPick)
+                    </div>
+                }
             </div>
-        }
-        @if (Model.RemainingPiecesToPick > 0)
-        { 
-            <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
-                @Html.DisplayFor(m => m.RemainingPiecesToPick)
-            </div>
-        }
-    </div>
-        break;
+                break;
         case BoxState.Cancelled:
-    <span>@string.Format("{0:N0} SKUs cancelled", Model.BucketSkuList.Count)</span>
-        break;
+        <span>@string.Format("{0:N0} SKUs cancelled", Model.BucketSkuList.Count)</span>
+                break;
     }
 }
 <table>
@@ -51,13 +51,16 @@
         <tr>
             <th rowspan="2">#</th>
             <th colspan="2" rowspan="2">SKU<span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sup>2</sup></th>
-
-            <td colspan="2" style="text-align: center">Pieces
-            </td>
+            <th rowspan="2">Vwh</th>
+            <th rowspan="2">Weight</th>
+            <th rowspan="2">Volume</th>
+            <th colspan="2" style="text-align: center">
+                Pieces
+            </th>
 
             @if (Model.AllAreas.Count > 0)
             {
-                <th colspan="@Model.AllAreas.Count" >Inventory in Areas</th>
+                <th colspan="@Model.AllAreas.Count">Inventory in Areas</th>
             }
         </tr>
         <tr>
@@ -79,7 +82,7 @@
                     <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
                     @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
                     {
-                        <span title ="Replenish from @area.ReplenishAreaId"><span class="ui-icon ui-icon-seek-prev" style="display: inline-block;"></span>@area.ReplenishAreaId</span>
+                        <span title="Replenish from @area.ReplenishAreaId"><span class="ui-icon ui-icon-seek-prev" style="display: inline-block;"></span>@area.ReplenishAreaId</span>
                     }
                 </td>
             }
@@ -87,7 +90,7 @@
     </thead>
     <tbody>
         @for (var i = 0; i < Model.BucketSkuList.Count; ++i)
-        {        
+        {
             <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
                 <td style="text-align: right">
                     @(i + 1)
@@ -95,16 +98,19 @@
                 <td>
                     @Html.DisplayFor(m => m.BucketSkuList[i].Style)
                 </td>
-                <td title ="@Model.BucketSkuList[i].UpcCode">
+                <td title="@Model.BucketSkuList[i].UpcCode">
                     @Html.DisplayFor(m => m.BucketSkuList[i].Color),@Html.DisplayFor(m => m.BucketSkuList[i].Dimension),@Html.DisplayFor(m => m.BucketSkuList[i].SkuSize)
                 </td>
+                <td>@Html.DisplayFor(m => m.BucketSkuList[i].VwhId)</td>
+                <td title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</td>
+                <td title="Volume Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</td>
                 <td style="text-align: right">
                     @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)
                 </td>
                 <td style="white-space: nowrap">
                     @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                     {
-                        <div class='@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")' >
+                        <div class='@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")'>
                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
 
                             @Html.Partial(MVC_PickWaves.PickWaves.Shared.Views._activityProgressPartial, Model.BucketSkuList[i].Activities[j])
@@ -116,13 +122,13 @@
                     var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
                     <td style="white-space: nowrap; text-align: right" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
                         @if (Model.BucketSkuList[i].InventoryByArea[j].IsPullArea)
-                        {                    
+                        {
                             <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                            <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>                    
+                            <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
                         }
                         else
-                        {                    
-                            <span title="@string.Format("Number of pieces in {0}", Model.BucketSkuList[i].InventoryByArea[j].ShortName)">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>                    
+                        {
+                            <span title="@string.Format("Number of pieces in {0}", Model.BucketSkuList[i].InventoryByArea[j].ShortName)">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
                         }
                     </td>
                 }
@@ -131,7 +137,7 @@
     </tbody>
     <tfoot>
         <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
-            <td colspan="4">Total</td>
+            <td colspan="7">Total</td>
             <td>@ShowTableFooterText(Model.StateFilter)</td>
             <td colspan="@(Model.BucketSkuList.Select(p => p.InventoryByArea.Count).Max() + 1)"></td>
         </tr>

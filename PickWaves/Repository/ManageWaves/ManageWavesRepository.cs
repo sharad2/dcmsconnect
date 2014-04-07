@@ -289,6 +289,8 @@ and b.stop_process_date is null and bd.stop_process_date is null
                                    BOX_SKU.MIN_PITCHING_END_DATE    AS MIN_PITCHING_END_DATE,
                                    BOX_SKU.MAX_PULL_END_DATE        AS MAX_PULL_END_DATE,
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
+                                   MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
+                                   MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
                                    AIS.XML_COLUMN.getstringval()                   AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
@@ -316,7 +318,9 @@ WHERE 1 = 1
                                 Dimension = row.GetString("DIMENSION"),
                                 SkuSize = row.GetString("SKU_SIZE"),
                                 UpcCode = row.GetString("UPC_CODE"),
-                                VwhId = row.GetString("VWH_ID")
+                                VwhId = row.GetString("VWH_ID"),
+                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN"),
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
