@@ -134,7 +134,7 @@ namespace DcmsMobile.PickWaves.Repository
                            MAX(TIA.DESCRIPTION)                     AS PULL_AREA_DESCRIPTION,
                            MAX(TIA.WAREHOUSE_LOCATION_ID)           AS BUILDING_PULL_FROM,                           
                            MIN(BKT.PRIORITY)                        AS PRIORITY,
-                           MAX(BKT.PULL_TYPE)                       AS PULL_TYPE,
+                           MAX(BKT.PULL_TO_DOCK)                    AS PULL_TO_DOCK,
                            MAX(BKT.BUCKET_COMMENT)                  AS BUCKET_COMMENT,
                            MAX(ia.default_repreq_ia_id)             AS default_repreq_ia_id
                         FROM <proxy />BUCKET BKT
@@ -322,7 +322,7 @@ namespace DcmsMobile.PickWaves.Repository
                            OP.PITCH_AREA_DESCRIPTION  AS PITCH_AREA_DESCRIPTION,
                            OP.BUILDING_PITCH_FROM     AS BUILDING_PITCH_FROM, 
                            OP.default_repreq_ia_id    AS REPLENISH_AREA_ID,
-                           OP.PULL_TYPE               AS PULL_TYPE,
+                           OP.PULL_TO_DOCK            AS PULL_TO_DOCK,
                            OP.BUCKET_COMMENT          AS BUCKET_COMMENT,                                                                              
                            PP.MAX_PITCHING_END_DATE   AS MAX_PITCHING_END_DATE,
                            PP.MIN_PITCHING_END_DATE   AS MIN_PITCHING_END_DATE,
@@ -359,7 +359,7 @@ namespace DcmsMobile.PickWaves.Repository
                             MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE"),
                             MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
                             IsFrozen = row.GetString("FREEZE") == "Y",
-                            PrePrintingPallets = row.GetString("PULL_TYPE") == "EXP",
+                            PullingBucket = row.GetString("PULL_TO_DOCK"),
                             QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                             PitchLimit = row.GetInteger("PITCH_LIMIT")
                         };

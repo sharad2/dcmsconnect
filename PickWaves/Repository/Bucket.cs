@@ -64,6 +64,8 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool PrePrintingPallets { get; set; }
 
+        internal string PullingBucket { get; set; }
+
         public bool QuickPitch { get; set; }
 
         public string MaxPoId { get; set; }

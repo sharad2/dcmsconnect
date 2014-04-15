@@ -136,10 +136,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
             model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
             model.BucketCommentOriginal = bucket.BucketComment;
-            model.PrePrintingPalletsOriginal = bucket.PrePrintingPallets;
+            // model.PrePrintingPalletsOriginal = bucket.PrePrintingPallets;
             model.QuickPitchOriginal = bucket.QuickPitch;
             model.PitchLimitOriginal = bucket.PitchLimit;
 
+            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            {
+                model.PrePrintingPalletsOriginal = true;
+            }
             return View(this.Views.Wave, model);
         }
 
@@ -151,6 +155,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
 
             model.Bucket = new BucketModel(bucket);
+            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            {
+                model.Bucket.PrePrintingPallets = true;
+            }
 
             model.InventoryAreaLists = new Dictionary<BucketActivityType, IList<GroupSelectListItem>>
                 {
@@ -347,14 +355,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 BucketId = model.Bucket.BucketId,
                 BucketName = model.Bucket.BucketName,
-                PriorityId = model.Bucket.PriorityId,
-                PrePrintingPallets = !string.IsNullOrEmpty(pullAreaId) && model.Bucket.PrePrintingPallets,
+                PriorityId = model.Bucket.PriorityId,                
                 BucketComment = model.Bucket.BucketComment,
                 QuickPitch = !string.IsNullOrEmpty(pitchAreaId) && model.Bucket.QuickPitch
             };
             if (!string.IsNullOrEmpty(pitchAreaId) && model.Bucket.PitchLimit != null)
             {
                 bucket.PitchLimit = model.Bucket.PitchLimit;
+            }
+
+            // For manage PullToDock flag. In case of pulling PullToDock is not null.
+            if (!string.IsNullOrEmpty(pullAreaId))
+            {
+                if (model.Bucket.PrePrintingPallets)
+                {
+                    bucket.PullingBucket = "N";
+                }
+                else
+                {
+                    bucket.PullingBucket = "Y";
+                }
+            }
+            else
+            {
+                bucket.PullingBucket = null;
             }
             bucket.Activities[BucketActivityType.Pulling].Area.AreaId = pullAreaId;
             bucket.Activities[BucketActivityType.Pitching].Area.AreaId = pitchAreaId;
@@ -368,6 +392,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 QuickPitch = model.QuickPitchOriginal,
                 PitchLimit = model.PitchLimitOriginal
             };
+
             bucketOld.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaOriginal;
             bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
             try
@@ -422,11 +447,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (model.BucketCommentOriginal != model.Bucket.BucketComment)
             {
                 flags |= EditBucketFlags.Remarks;
-            }
-            if (model.PrePrintingPalletsOriginal != model.Bucket.PrePrintingPallets || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId))
-            {
-                flags |= EditBucketFlags.PullType;
-            }
+            }            
             if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
             {
                 flags |= EditBucketFlags.QuickPitch;
@@ -435,6 +456,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 flags |= EditBucketFlags.PitchLimit;
             }
+            flags |= EditBucketFlags.PullType;
             return flags;
         }
 

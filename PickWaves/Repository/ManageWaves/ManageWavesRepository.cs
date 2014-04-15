@@ -71,7 +71,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                BKT.FREEZE AS FREEZE,
                                BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
                                BKT.PRIORITY AS PRIORITY,
-                               BKT.PULL_TYPE AS PULL_TYPE,
+                               BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
                                BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
                        (SELECT p.customer_id
                           from <proxy />ps p
@@ -87,7 +87,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                   BucketName = row.GetString("NAME"),
                   IsFrozen = row.GetString("FREEZE") == "Y",
                   PriorityId = row.GetInteger("PRIORITY") ?? 0,
-                  PrePrintingPallets = row.GetString("PULL_TYPE") == "EXP",
+                  PullingBucket = row.GetString("PULL_TO_DOCK"),
                   BucketComment = row.GetString("BUCKET_COMMENT"),
                   MaxCustomerId = row.GetString("customer_id")
               };
@@ -589,7 +589,7 @@ WHERE 1 = 1
                                                                                             ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
                                                                                             END,                </if>
                                 <if c = '$PULL_CARTON_AREA_FLAG'>   BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  </if>
-                                <if c = '$PULL_TYPE_FLAG'>          BKT.PULL_TYPE         = :PULL_TYPE,         </if>
+                                <if c = '$PULL_TYPE_FLAG'>          BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      </if>
                                 <if c = '$QUICK_PITCH_FLAG'>        BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       </if>
                                 <if c = '$PITCH_LIMIT_FLAG'>        BKT.PITCH_LIMIT       = :PITCH_LIMIT,       </if>
                                                                     BKT.DATE_MODIFIED = SYSDATE
@@ -599,7 +599,7 @@ WHERE 1 = 1
                                   BKT.BUCKET_COMMENT,
                                   BKT.PRIORITY,
                                   BKT.PULL_CARTON_AREA,
-                                  BKT.PULL_TYPE,
+                                  BKT.PULL_TO_DOCK,
                                   BKT.QUICK_PITCH_FLAG,
                                   BKT.PITCH_LIMIT
                         INTO      :NAME_OUT,
@@ -607,7 +607,7 @@ WHERE 1 = 1
                                   :BUCKET_COMMENT_OUT,
                                   :PRIORITY_OUT,
                                   :PULL_CARTON_AREA_OUT,
-                                  :PULL_TYPE_OUT,
+                                  :PULL_TO_DOCK_OUT,
                                   :QUICK_PITCH_FLAG_OUT,
                                   :PITCH_LIMIT_OUT";
             var binder = SqlBinder.Create();
@@ -616,7 +616,7 @@ WHERE 1 = 1
                   .Parameter("PULL_CARTON_AREA", bucket.Activities[BucketActivityType.Pulling].Area.AreaId)
                   .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
                   .Parameter("BUCKET_ID", bucket.BucketId)
-                  .Parameter("PULL_TYPE", bucket.PrePrintingPallets ? "EXP" : null)
+                  .Parameter("PULL_TO_DOCK", bucket.PullingBucket)
                   .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
@@ -635,7 +635,7 @@ WHERE 1 = 1
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
                 .OutParameter("PRIORITY_OUT", p => bucket.PriorityId = p ?? 0)
                 .OutParameter("PITCH_LIMIT_OUT", p => bucket.PitchLimit = p ?? 0) //TODO
-                .OutParameter("PULL_TYPE_OUT", p => bucket.PrePrintingPallets = p == "EXP")
+                .OutParameter("PULL_TO_DOCK_OUT", p => bucket.PullingBucket = p)
                 .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y");
             binder.OutParameter("PITCH_IA_ID_OUT", p =>
                 {

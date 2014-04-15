@@ -31,7 +31,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             BucketComment = src.BucketComment;
             IsFrozen = src.IsFrozen;
             PriorityId = src.PriorityId;
-            PrePrintingPallets = src.PrePrintingPallets;
             QuickPitch = src.QuickPitch;
             PitchLimit = src.PitchLimit;
             CreatedBy = src.CreatedBy;
@@ -99,6 +98,11 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
 
             BucketState = state;
+
+            if (!string.IsNullOrWhiteSpace(src.PullingBucket) && src.PullingBucket == "N")
+            {
+                PrePrintingPallets = true;
+            }
         }
 
         #region Bucket
