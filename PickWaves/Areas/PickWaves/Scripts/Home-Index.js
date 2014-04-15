@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/PickWaves/Scripts/Home-Index.partial.js
+$(document).ready(function () {
     //$.cookie('the_cookie', 'the_value', { expires: 1 });
     //alert($.cookie('the_cookie'));
     $('ul.customerActionMenu').menu();
@@ -33,6 +34,7 @@
         $(this).menu('collapseAll', e, true);
     });
 });
+///#source 1 1 /Areas/PickWaves/Scripts/jQuery.cookie.partial.js
 //steal('jquery/lang/json', function () {
 (function ($) {
     // break
