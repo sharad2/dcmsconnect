@@ -359,7 +359,7 @@ namespace DcmsMobile.PickWaves.Repository
                             MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE"),
                             MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
                             IsFrozen = row.GetString("FREEZE") == "Y",
-                            RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
+                            PrePrintingPallets = row.GetString("PULL_TYPE") == "EXP",
                             QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                             PitchLimit = row.GetInteger("PITCH_LIMIT")
                         };

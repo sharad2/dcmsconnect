@@ -89,7 +89,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         public string BucketCommentOriginal { get; set; }
 
-        public bool RequireBoxExpeditingOriginal { get; set; }
+        public bool PrePrintingPalletsOriginal { get; set; }
 
         public bool QuickPitchOriginal { get; set; }
 

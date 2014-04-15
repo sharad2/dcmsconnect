@@ -235,7 +235,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="model">
         /// RowDimIndex,ColDimIndex,CustomerId,LastBucketId
-        /// Optional : RequireBoxExpediting,PullAreaId,PitchAreaId,QuickPitch
+        /// Optional : PrePrintingPallets,PullAreaId,PitchAreaId,QuickPitch
         /// </param>
         /// <returns></returns>
         [HttpPost]

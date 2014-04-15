@@ -31,7 +31,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             BucketComment = src.BucketComment;
             IsFrozen = src.IsFrozen;
             PriorityId = src.PriorityId;
-            RequireBoxExpediting = src.RequireBoxExpediting;
+            PrePrintingPallets = src.PrePrintingPallets;
             QuickPitch = src.QuickPitch;
             PitchLimit = src.PitchLimit;
             CreatedBy = src.CreatedBy;
@@ -136,7 +136,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         [Display(Name = "Pre-create pallets to pull")]
-        public bool RequireBoxExpediting { get; set; }
+        public bool PrePrintingPallets { get; set; }
 
         [Display(Name = "Quick Pitch")]
         public bool QuickPitch { get; set; }

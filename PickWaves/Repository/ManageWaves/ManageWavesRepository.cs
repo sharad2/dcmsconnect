@@ -87,7 +87,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                   BucketName = row.GetString("NAME"),
                   IsFrozen = row.GetString("FREEZE") == "Y",
                   PriorityId = row.GetInteger("PRIORITY") ?? 0,
-                  RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
+                  PrePrintingPallets = row.GetString("PULL_TYPE") == "EXP",
                   BucketComment = row.GetString("BUCKET_COMMENT"),
                   MaxCustomerId = row.GetString("customer_id")
               };
@@ -616,7 +616,7 @@ WHERE 1 = 1
                   .Parameter("PULL_CARTON_AREA", bucket.Activities[BucketActivityType.Pulling].Area.AreaId)
                   .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
                   .Parameter("BUCKET_ID", bucket.BucketId)
-                  .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
+                  .Parameter("PULL_TYPE", bucket.PrePrintingPallets ? "EXP" : null)
                   .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
@@ -635,7 +635,7 @@ WHERE 1 = 1
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
                 .OutParameter("PRIORITY_OUT", p => bucket.PriorityId = p ?? 0)
                 .OutParameter("PITCH_LIMIT_OUT", p => bucket.PitchLimit = p ?? 0) //TODO
-                .OutParameter("PULL_TYPE_OUT", p => bucket.RequireBoxExpediting = p == "EXP")
+                .OutParameter("PULL_TYPE_OUT", p => bucket.PrePrintingPallets = p == "EXP")
                 .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y");
             binder.OutParameter("PITCH_IA_ID_OUT", p =>
                 {

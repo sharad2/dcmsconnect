@@ -62,7 +62,7 @@ namespace DcmsMobile.PickWaves.Repository
 
         public int? PitchLimit { get; set; }
 
-        public bool RequireBoxExpediting { get; set; }
+        public bool PrePrintingPallets { get; set; }
 
         public bool QuickPitch { get; set; }
 

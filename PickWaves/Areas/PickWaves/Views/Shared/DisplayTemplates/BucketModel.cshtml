@@ -75,7 +75,7 @@
                     }
                     &bull; <strong>@Html.DisplayFor(m => m.CountPickslips)</strong> Pickslips &bull; <strong>@Html.DisplayFor(m => m.CountPurchaseOrder)</strong> POs
                 </div>
-                @if (Model.RequireBoxExpediting)
+                @if (Model.PrePrintingPallets)
                 {    <hr />
                     <strong><em>Pre-create pallets are Required</em></strong>
                 }

@@ -136,7 +136,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
             model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
             model.BucketCommentOriginal = bucket.BucketComment;
-            model.RequireBoxExpeditingOriginal = bucket.RequireBoxExpediting;
+            model.PrePrintingPalletsOriginal = bucket.PrePrintingPallets;
             model.QuickPitchOriginal = bucket.QuickPitch;
             model.PitchLimitOriginal = bucket.PitchLimit;
 
@@ -348,7 +348,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketId = model.Bucket.BucketId,
                 BucketName = model.Bucket.BucketName,
                 PriorityId = model.Bucket.PriorityId,
-                RequireBoxExpediting = !string.IsNullOrEmpty(pullAreaId) && model.Bucket.RequireBoxExpediting,
+                PrePrintingPallets = !string.IsNullOrEmpty(pullAreaId) && model.Bucket.PrePrintingPallets,
                 BucketComment = model.Bucket.BucketComment,
                 QuickPitch = !string.IsNullOrEmpty(pitchAreaId) && model.Bucket.QuickPitch
             };
@@ -363,7 +363,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketId = model.Bucket.BucketId,
                 BucketName = model.BucketNameOriginal,
                 PriorityId = model.PriorityIdOriginal,
-                RequireBoxExpediting = model.RequireBoxExpeditingOriginal,
+                PrePrintingPallets = model.PrePrintingPalletsOriginal,
                 BucketComment = model.BucketCommentOriginal,
                 QuickPitch = model.QuickPitchOriginal,
                 PitchLimit = model.PitchLimitOriginal
@@ -423,7 +423,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 flags |= EditBucketFlags.Remarks;
             }
-            if (model.RequireBoxExpeditingOriginal != model.Bucket.RequireBoxExpediting || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId))
+            if (model.PrePrintingPalletsOriginal != model.Bucket.PrePrintingPallets || string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId))
             {
                 flags |= EditBucketFlags.PullType;
             }
