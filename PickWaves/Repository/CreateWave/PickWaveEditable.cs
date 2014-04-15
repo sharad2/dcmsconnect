@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// </summary>
         public int PriorityId { get; set; }
 
-        public bool RequireBoxExpediting { get; set; }
+        public bool PrePrintingPallets { get; set; }
 
         public bool QuickPitch { get; set; }
 

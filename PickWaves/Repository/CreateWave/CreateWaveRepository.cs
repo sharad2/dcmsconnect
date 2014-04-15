@@ -314,7 +314,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("PRIORITY", bucket.PriorityId)
                   .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
                   .Parameter("QUICK_PITCH_FLAG", bucket.QuickPitch ? "Y" : null)
-                  .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
+                  .Parameter("PULL_TYPE", bucket.PrePrintingPallets ? "EXP" : null)
                   ;
             var bucketId = 0;
             binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);

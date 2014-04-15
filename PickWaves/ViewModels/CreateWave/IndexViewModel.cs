@@ -61,7 +61,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         public string PitchAreaId { get; set; }
 
         [Display(Name = "Pre-create Pallets to pull")]
-        public bool RequireBoxExpediting { get; set; }
+        public bool PrePrintingPallets { get; set; }
 
         [Display(Name = "Quick Pitch")]
         public bool QuickPitch { get; set; }
@@ -103,9 +103,9 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             {
                 routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
             }
-            if (model.RequireBoxExpediting)
+            if (model.PrePrintingPallets)
             {
-                routeValueDictionary.Add(model.NameFor(m => m.RequireBoxExpediting), model.RequireBoxExpediting);
+                routeValueDictionary.Add(model.NameFor(m => m.PrePrintingPallets), model.PrePrintingPallets);
             }
             if (model.QuickPitch)
             {

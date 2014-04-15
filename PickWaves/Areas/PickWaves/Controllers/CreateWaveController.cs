@@ -264,7 +264,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 var bucket = new PickWaveEditable
                 {
                     PriorityId = 1,   // Default priority
-                    RequireBoxExpediting = model.RequireBoxExpediting,
+                    PrePrintingPallets = model.PrePrintingPallets,
                     QuickPitch = model.QuickPitch
                 };
                 // TC4: Give pull area if user wants to pulled cartons.
