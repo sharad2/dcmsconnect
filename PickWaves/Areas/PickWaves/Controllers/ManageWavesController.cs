@@ -355,7 +355,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 BucketId = model.Bucket.BucketId,
                 BucketName = model.Bucket.BucketName,
-                PriorityId = model.Bucket.PriorityId,                
+                PriorityId = model.Bucket.PriorityId,
                 BucketComment = model.Bucket.BucketComment,
                 QuickPitch = !string.IsNullOrEmpty(pitchAreaId) && model.Bucket.QuickPitch
             };
@@ -447,7 +447,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (model.BucketCommentOriginal != model.Bucket.BucketComment)
             {
                 flags |= EditBucketFlags.Remarks;
-            }            
+            }
             if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
             {
                 flags |= EditBucketFlags.QuickPitch;
@@ -521,7 +521,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.Wave(new WaveViewModel(bucketId)));
+                return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(bucketId, SuggestedNextActionType.CancelEditing)));
             }
         }
 
