@@ -36,7 +36,7 @@
                     @Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
                 (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))) /
-                    @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.Wave(
+                    @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
             new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
              (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
                     <br />
