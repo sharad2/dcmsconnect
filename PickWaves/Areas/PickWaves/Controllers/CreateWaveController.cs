@@ -264,7 +264,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 var bucket = new PickWaveEditable
                 {
                     PriorityId = 1,   // Default priority
-                    PrePrintingPallets = model.PrePrintingPallets,
                     QuickPitch = model.QuickPitch
                 };
                 // TC4: Give pull area if user wants to pulled cartons.
@@ -273,11 +272,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 // TC5: Give pitch area if user wants to pitched pieces.
                 bucket.PitchAreaId = model.PitchAreaId;
                 bucket.BucketName = "Bucket"; //Update Bucket Name.
-                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal,model.VwhId);
+
+                if (string.IsNullOrWhiteSpace(model.PullAreaId))
+                {
+                    bucket.PullingBucket = null;
+                }
+                else
+                {
+                    if(model.PrePrintingPallets)
+                    {
+                        bucket.PullingBucket = "N";
+                    }
+                    else
+                    {
+                        bucket.PullingBucket = "Y";
+                    }
+                }
+                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
             }
             else
             {
-                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal,model.VwhId);
+                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
             }
             return RedirectToAction(this.Actions.Index(model));
         }

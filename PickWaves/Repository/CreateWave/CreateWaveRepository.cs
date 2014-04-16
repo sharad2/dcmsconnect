@@ -294,7 +294,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          BKT.QUICK_PITCH_FLAG,
                                          BKT.PULL_CARTON_AREA,
                                          BKT.FREEZE,
-                                         BKT.PULL_TYPE)
+                                         BKT.PULL_TO_DOCK)
                                       VALUES
                                         (<proxy />BUCKET_SEQUENCE.NEXTVAL,
                                          :PITCH_TYPE,
@@ -304,7 +304,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                                          :QUICK_PITCH_FLAG,
                                          :PULL_CARTON_AREA,
                                          'Y',
-                                         :PULL_TYPE)
+                                         :PULL_TO_DOCK)
                                       RETURNING BUCKET_ID INTO :BUCKET_ID
               ";
             var binder = SqlBinder.Create();
@@ -314,7 +314,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                   .Parameter("PRIORITY", bucket.PriorityId)
                   .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
                   .Parameter("QUICK_PITCH_FLAG", bucket.QuickPitch ? "Y" : null)
-                  .Parameter("PULL_TYPE", bucket.PrePrintingPallets ? "EXP" : null)
+                  .Parameter("PULL_TO_DOCK", bucket.PullingBucket)
                   ;
             var bucketId = 0;
             binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);
