@@ -67,9 +67,18 @@
         @if (Model.ImportedOrders.Count > 0)
         {
             <div id="ToCreate">
-                <blockquote>
-                    You can create new pick waves from here by simply clicking the customer Id.
-                </blockquote>
+                @if (Model.UserIsManager)
+                {
+                    <blockquote>
+                        You can create new pick waves from here by simply clicking the customer Id.
+                    </blockquote>
+                }
+                else
+                {
+                    <blockquote>
+                        Want to create new pick waves ? login as a user who has <em>@Model.ManagerRoleName</em> role.
+                    </blockquote>
+                }
                 <table>
                     <caption>
                         Imported Order Summary
