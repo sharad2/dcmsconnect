@@ -99,7 +99,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
 
             model.Bucket = new BucketModel(bucket);
-            PopulateWaveViewModel(model, bucket);
+            //PopulateWaveViewModel(model, bucket);
+            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            {
+                model.Bucket.PrePrintingPallets = true;
+            }
             return View(this.Views.Wave, model);
         }
 
@@ -127,38 +131,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
                 return RedirectToAction(Actions.Wave(model));
             }
-            PopulateWaveViewModel(model, bucket);
-            // For edit wave
-            model.DisplayEditableWave = true;
-
-            model.BucketNameOriginal = bucket.BucketName;
-            model.PriorityIdOriginal = bucket.PriorityId;
-            model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-            model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-            model.BucketCommentOriginal = bucket.BucketComment;
-            // model.PrePrintingPalletsOriginal = bucket.PrePrintingPallets;
-            model.QuickPitchOriginal = bucket.QuickPitch;
-            model.PitchLimitOriginal = bucket.PitchLimit;
-
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                model.PrePrintingPalletsOriginal = true;
-            }
-            return View(this.Views.Wave, model);
-        }
-
-        private void PopulateWaveViewModel(WaveViewModel model, Bucket bucket)
-        {
-            if (bucket == null)
-            {
-                throw new ArgumentNullException("bucket");
-            }
-
             model.Bucket = new BucketModel(bucket);
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                model.Bucket.PrePrintingPallets = true;
-            }
+
             var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
             model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
                 {
@@ -187,6 +161,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                 }).ToArray()
                        }
                 };
+            // For edit wave
+            model.DisplayEditableWave = true;
+            model.BucketNameOriginal = bucket.BucketName;
+            model.PriorityIdOriginal = bucket.PriorityId;
+            model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
+            model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
+            model.BucketCommentOriginal = bucket.BucketComment;
+            model.QuickPitchOriginal = bucket.QuickPitch;
+            model.PitchLimitOriginal = bucket.PitchLimit;
+            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            {
+                model.Bucket.PrePrintingPallets = true;
+            }
+            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            {
+                model.PrePrintingPalletsOriginal = true;
+            }
+            return View(this.Views.Wave, model);
         }
 
         /// <summary>
