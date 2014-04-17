@@ -28,5 +28,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
 
         [DataType(DataType.Text)]
         public DateRange ImportDateRange { get; set; }
+
+        public bool InternationalFlag { get; set; }
     }
 }

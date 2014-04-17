@@ -21,5 +21,7 @@ namespace DcmsMobile.PickWaves.Repository
         public DateTime MinPickslipImportDate { get; set; }
 
         public DateTime MaxPickslipImportDate { get; set; }
+        
+        public bool InternationalFlag { get; set; }
     }
 }

@@ -222,7 +222,8 @@ select 3 from all_users where username = :string_value
                                        MAX(DC_CANCEL_DATE)                  AS MAX_DC_CANCEL_DATE,
                                        MIN(DEMPS.PICKSLIP_IMPORT_DATE)      AS MIN_PICKSLIP_IMPORT_DATE,
                                        MAX(DEMPS.PICKSLIP_IMPORT_DATE)      AS MAX_PICKSLIP_IMPORT_DATE,
-                                       MAX(case when cust.customer_id is null then 'Y' else cust.inactive_flag end) as inactive_flag
+                                       MAX(case when cust.customer_id is null then 'Y' else cust.inactive_flag end) as inactive_flag,
+                                       MAX(CUST.INTERNATIONAL_FLAG)         AS INTERNATIONAL_FLAG
                                   FROM <proxy />DEM_PICKSLIP DEMPS
                                   LEFT OUTER JOIN <proxy />MASTER_CUSTOMER CUST
                                     ON CUST.CUSTOMER_ID = DEMPS.CUSTOMER_ID
@@ -246,7 +247,8 @@ select 3 from all_users where username = :string_value
                 MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE").Value,
                 MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE").Value,
                 MinPickslipImportDate = row.GetDate("MIN_PICKSLIP_IMPORT_DATE").Value,
-                MaxPickslipImportDate = row.GetDate("MAX_PICKSLIP_IMPORT_DATE").Value
+                MaxPickslipImportDate = row.GetDate("MAX_PICKSLIP_IMPORT_DATE").Value,
+                InternationalFlag = row.GetString("INTERNATIONAL_FLAG") == "Y"
             });
             binder.Parameter("customer_id", customerId);
             return _db.ExecuteReader(QUERY, binder);

@@ -152,7 +152,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                         {
                                             From = item.MinPickslipImportDate,
                                             To = item.MaxPickslipImportDate
-                                        }
+                                        },
+                                        InternationalFlag = item.InternationalFlag
                                     }).ToArray();
             return View(Views.Index, model);
         }

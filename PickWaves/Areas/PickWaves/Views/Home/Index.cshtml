@@ -147,7 +147,7 @@
                                         <span>@Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)</span>
                                     }
                                 </td>
-                                <td>
+                                <td @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "style = 'background-color: #b3ea3c' title='International customer'" : "")>
                                     @if (Model.ImportedOrders[i].IsCustomerActive)
                                     {
                                         @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
