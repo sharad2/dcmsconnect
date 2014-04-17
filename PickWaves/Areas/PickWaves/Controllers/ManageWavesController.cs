@@ -159,32 +159,32 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 model.Bucket.PrePrintingPallets = true;
             }
-
-            model.InventoryAreaLists = new Dictionary<BucketActivityType, IList<GroupSelectListItem>>
+            var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
+            model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
                 {
                     {
                         BucketActivityType.Pulling,
-                        (from area in _service.GetAreas()
+                        (from area in bucketAreas
                          where area.AreaType == BucketActivityType.Pulling
-                            select new GroupSelectListItem
+                         orderby area.CountSku descending
+                            select new SelectListItem
                             {
-                                Text = area.ShortName + " : " + area.Description,
-                                Value = area.AreaId,
-                                GroupText = area.BuildingId,
+                                Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                Value = area.AreaId,                               
                                 Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
                             }).ToArray()
                       },
                       {
                             BucketActivityType.Pitching,
-                            (from area in _service.GetAreas()
+                            (from area in bucketAreas
                              where area.AreaType == BucketActivityType.Pitching
-                             select new GroupSelectListItem
+                             orderby area.CountSku descending
+                             select new SelectListItem
                                 {
-                                   Text = area.ShortName + " : " + area.Description,
-                                   Value = area.AreaId,
-                                   GroupText = area.BuildingId,
+                                   Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                   Value = area.AreaId,                                 
                                    Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
-                                   }).ToArray()
+                                }).ToArray()
                        }
                 };
         }

@@ -159,6 +159,7 @@
     <Compile Include="Repository\CreateWave\CustomerOrderSummary.cs" />
     <Compile Include="Repository\BoxPickPallet\Pallet.cs" />
     <Compile Include="Repository\ManageWaves\Box.cs" />
+    <Compile Include="Repository\ManageWaves\BucketArea.cs" />
     <Compile Include="Repository\Pickslip.cs" />
     <Compile Include="Repository\ManageWaves\BucketSku.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -91,9 +91,9 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         public bool PrePrintingPalletsOriginal { get; set; }
 
-        public bool QuickPitchOriginal { get; set; }
+        public bool QuickPitchOriginal { get; set; }        
 
-        public IDictionary<BucketActivityType, IList<GroupSelectListItem>> InventoryAreaLists { get; set; }
+        public IDictionary<BucketActivityType, IList<SelectListItem>> BucketAreaLists { get; set; }
 
         /// <summary>
         /// If user set it true, bucket will be unfrozen after save

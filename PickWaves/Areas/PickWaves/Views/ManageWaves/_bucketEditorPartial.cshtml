@@ -36,10 +36,10 @@
     {
         @Html.HiddenFor(m => m.Bucket.Activities[i].ActivityType)
         <div>
-            @if (Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType].Count > 1)
+            @if (Model.BucketAreaLists[Model.Bucket.Activities[i].ActivityType].Count > 0)
             {
                 <span style="display: inline-block; width: 12em">@Html.DisplayFor(m => m.Bucket.Activities[i].DisplayName)</span>
-                @Html.GroupDropListFor(m => m.Bucket.Activities[i].AreaId, Model.InventoryAreaLists[Model.Bucket.Activities[i].ActivityType], dict[Model.Bucket.Activities[i].ActivityType])
+                @Html.DropDownListFor(m => m.Bucket.Activities[i].AreaId, Model.BucketAreaLists[Model.Bucket.Activities[i].ActivityType], dict[Model.Bucket.Activities[i].ActivityType])
                 if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
                 {
                     @Html.CheckBoxFor(m => m.Bucket.PrePrintingPallets) <span>Pre-create pallets to pull</span>

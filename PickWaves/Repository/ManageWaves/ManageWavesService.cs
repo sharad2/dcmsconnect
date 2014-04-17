@@ -92,9 +92,9 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             }
         }
 
-        public void RemovePickslipFromBucket(long pickslipId,int bucketId)
+        public void RemovePickslipFromBucket(long pickslipId, int bucketId)
         {
-            _repos.RemovePickslipFromBucket(pickslipId,bucketId);
+            _repos.RemovePickslipFromBucket(pickslipId, bucketId);
         }
 
         /// <summary>
@@ -171,13 +171,13 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         }
 
         /// <summary>
-        /// Get area list of passed AreaType as Ship area, pull area , pitch area
+        /// Get area list for bucket sku.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<InventoryArea> GetAreas()
+        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
         {
-            return _repos.GetAreas();
+            return _repos.GetBucketAreas(bucketId);
         }
     }
 }

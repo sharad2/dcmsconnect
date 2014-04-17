@@ -55,7 +55,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             : base(trace, userName, clientInfo)
         {
         }
-        #endregion        
+        #endregion
 
         /// <summary>
         /// Returns bucket information and locks the bucket (FOR UPDATE).
@@ -752,45 +752,79 @@ WHERE 1 = 1
         /// Area list as pull area, pitch area.
         /// TODO : Change query ?? WE USE IA.PICKING_AREA_FLAG.
         /// </summary>
-        /// <param name="type"></param>
+        /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<InventoryArea> GetAreas()
+        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
         {
             const string QUERY = @"
-                        SELECT :PULL_AREA_TYPE            AS AREA_TYPE,
-                           TIA.INVENTORY_STORAGE_AREA AS INVENTORY_STORAGE_AREA,
-                           TIA.DESCRIPTION            AS DESCRIPTION,
-                           TIA.SHORT_NAME             AS SHORT_NAME,
-                           TIA.WAREHOUSE_LOCATION_ID  AS WAREHOUSE_LOCATION_ID
-                        FROM <proxy />TAB_INVENTORY_AREA TIA
-                        WHERE EXISTS (SELECT MSL.STORAGE_AREA
-                                            FROM <proxy />MASTER_STORAGE_LOCATION MSL
-                                            INNER JOIN <proxy />SRC_CARTON SC
-                                               ON SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
-                                              AND SC.LOCATION_ID = MSL.LOCATION_ID
-                                            WHERE TIA.INVENTORY_STORAGE_AREA = MSL.STORAGE_AREA)
-
+                            WITH ORDERED_SKU AS
+                                 (SELECT MAX(PD.UPC_CODE) AS UPC_CODE, SKU.SKU_ID, P.VWH_ID
+                                    FROM <proxy />PS P
+                                   INNER JOIN <proxy />PSDET PD
+                                      ON P.PICKSLIP_ID = PD.PICKSLIP_ID
+                                   INNER JOIN <proxy />MASTER_SKU SKU
+                                      ON SKU.UPC_CODE = PD.UPC_CODE
+                                   WHERE P.BUCKET_ID = :BUCKET_ID
+                                     AND P.TRANSFER_DATE IS NULL
+                                     AND PD.TRANSFER_DATE IS NULL
+                                   GROUP BY SKU.SKU_ID, P.VWH_ID),
+                                CARTON_AREAS AS
+                                 (SELECT CTN.CARTON_STORAGE_AREA, COUNT(UNIQUE OS.SKU_ID) AS COUNT_SKU
+                                    FROM <proxy />SRC_CARTON CTN
+                                   INNER JOIN <proxy />SRC_CARTON_DETAIL CTNDET
+                                      ON CTN.CARTON_ID = CTNDET.CARTON_ID
+                                    LEFT OUTER JOIN ORDERED_SKU OS
+                                      ON OS.SKU_ID = CTNDET.SKU_ID
+                                     AND OS.VWH_ID = CTN.VWH_ID
+                                   WHERE CTN.LOCATION_ID IS NOT NULL
+                                   GROUP BY CTN.CARTON_STORAGE_AREA),
+                        PICK_AREAS AS
+                            (SELECT IALOC.IA_ID, COUNT(UNIQUE OS.SKU_ID) AS COUNT_SKU
+                            FROM <proxy />IALOC IALOC
+                            LEFT OUTER JOIN ORDERED_SKU OS
+                                ON OS.UPC_CODE = IALOC.ASSIGNED_UPC_CODE
+                                AND OS.VWH_ID = IALOC.VWH_ID
+                            GROUP BY IALOC.IA_ID)
+                        SELECT :PULL_AREA_TYPE AS AREA_TYPE,
+                                TIA.INVENTORY_STORAGE_AREA AS INVENTORY_STORAGE_AREA,
+                                TIA.DESCRIPTION AS DESCRIPTION,
+                                TIA.SHORT_NAME AS SHORT_NAME,
+                                TIA.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
+                                CA.COUNT_SKU AS COUNT_SKU,
+                                (SELECT COUNT(UNIQUE SKU_ID) FROM ORDERED_SKU) AS COUNT_ORDERED_SKU
+                            FROM <proxy />TAB_INVENTORY_AREA TIA
+                            INNER JOIN CARTON_AREAS CA
+                                ON CA.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
+                            WHERE CA.COUNT_SKU &gt; 0
                         UNION ALL
 
-                        SELECT :PITCH_AREA_TYPE         AS AREA_TYPE,
-                               IA.IA_ID                 AS INVENTORY_STORAGE_AREA,
-                               IA.SHORT_NAME            AS SHORT_NAME,
-                               IA.SHORT_DESCRIPTION     AS DESCRIPTION,
-                               IA.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID
-                          FROM <proxy />IA IA
-                         WHERE IA.PICKING_AREA_FLAG = 'Y'";
+                        SELECT :PITCH_AREA_TYPE AS AREA_TYPE,
+                               I.IA_ID AS INVENTORY_STORAGE_AREA,
+                               I.SHORT_DESCRIPTION AS DESCRIPTION,
+                               I.SHORT_NAME AS SHORT_NAME,
+                               I.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
+                               CA.COUNT_SKU AS COUNT_SKU,
+                               (SELECT COUNT(UNIQUE SKU_ID) FROM ORDERED_SKU) AS COUNT_ORDERED_SKU
+                          FROM <proxy />IA I
+                         INNER JOIN PICK_AREAS CA
+                            ON CA.IA_ID = I.IA_ID
+                         WHERE I.PICKING_AREA_FLAG = 'Y'
+                            AND CA.COUNT_SKU &gt; 0";
 
-            var binder = SqlBinder.Create(row => new InventoryArea
+            var binder = SqlBinder.Create(row => new BucketArea
             {
                 AreaId = row.GetString("INVENTORY_STORAGE_AREA"),
                 ShortName = row.GetString("SHORT_NAME"),
                 Description = row.GetString("DESCRIPTION"),
                 BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
-                AreaType = row.GetEnum<BucketActivityType>("AREA_TYPE")
+                AreaType = row.GetEnum<BucketActivityType>("AREA_TYPE"),
+                CountSku = row.GetInteger("COUNT_SKU"),
+                CountOrderedSku = row.GetInteger("COUNT_ORDERED_SKU")
             });
 
             binder.Parameter("PITCH_AREA_TYPE", BucketActivityType.Pitching.ToString())
-                  .Parameter("PULL_AREA_TYPE", BucketActivityType.Pulling.ToString());
+                  .Parameter("PULL_AREA_TYPE", BucketActivityType.Pulling.ToString())
+                  .Parameter("BUCKET_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder);
         }
     }
