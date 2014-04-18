@@ -136,10 +136,14 @@ namespace DcmsMobile.PickWaves.Repository
                            MIN(BKT.PRIORITY)                        AS PRIORITY,
                            MAX(BKT.PULL_TO_DOCK)                    AS PULL_TO_DOCK,
                            MAX(BKT.BUCKET_COMMENT)                  AS BUCKET_COMMENT,
-                           MAX(ia.default_repreq_ia_id)             AS default_repreq_ia_id
+                           MAX(IA.DEFAULT_REPREQ_IA_ID)             AS DEFAULT_REPREQ_IA_ID,
+                           COUNT(UNIQUE PSD.SKU_ID)                 AS COUNT_TOTAL_SKU,
+                           COUNT(UNIQUE IL.ASSIGNED_UPC_CODE)       AS COUNT_ASSIGNED_SKU
                         FROM <proxy />BUCKET BKT
                        INNER JOIN <proxy />PS PS
                           ON PS.BUCKET_ID = BKT.BUCKET_ID
+                        INNER JOIN <proxy />PSDET PSD
+                          ON PSD.PICKSLIP_ID = PS.PICKSLIP_ID
                        INNER JOIN <proxy />MASTER_CUSTOMER CUST
                           ON CUST.CUSTOMER_ID = PS.CUSTOMER_ID
                         LEFT OUTER JOIN <proxy />PO PO
@@ -150,7 +154,11 @@ namespace DcmsMobile.PickWaves.Repository
                           ON TIA.INVENTORY_STORAGE_AREA = BKT.PULL_CARTON_AREA
                         LEFT OUTER JOIN <proxy />IA IA
                           ON IA.IA_ID = BKT.PITCH_IA_ID
+                        LEFT OUTER JOIN <proxy />IALOC IL
+                            ON IL.ASSIGNED_UPC_CODE = PSD.UPC_CODE
+                            AND IL.IA_ID = BKT.PITCH_IA_ID
                        WHERE PS.TRANSFER_DATE IS NULL
+                            AND PSD.TRANSFER_DATE IS NULL
                         <if>
                         AND BKT.BUCKET_ID = :BUCKET_ID
                         </if>
@@ -328,7 +336,9 @@ namespace DcmsMobile.PickWaves.Repository
                            PP.MIN_PITCHING_END_DATE   AS MIN_PITCHING_END_DATE,
                            pp.MAX_PULLING_END_DATE    AS MAX_PULLING_END_DATE,
                            pp.MIN_PULLING_END_DATE    AS MIN_PULLING_END_DATE,
-                           OP.PITCH_LIMIT             AS PITCH_LIMIT                        
+                           OP.PITCH_LIMIT             AS PITCH_LIMIT,
+                           OP.COUNT_TOTAL_SKU         AS COUNT_TOTAL_SKU,
+                           OP.COUNT_ASSIGNED_SKU      AS COUNT_ASSIGNED_SKU                    
                       FROM TOTAL_ORDERED_PIECES OP
                       LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
                         ON OP.BUCKET_ID = PP.BUCKET_ID
@@ -361,7 +371,9 @@ namespace DcmsMobile.PickWaves.Repository
                             IsFrozen = row.GetString("FREEZE") == "Y",
                             PullingBucket = row.GetString("PULL_TO_DOCK"),
                             QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
-                            PitchLimit = row.GetInteger("PITCH_LIMIT")
+                            PitchLimit = row.GetInteger("PITCH_LIMIT"),
+                            CountAssignedSku = row.GetInteger("COUNT_ASSIGNED_SKU") ?? 0,
+                            CountTotalSku = row.GetInteger("COUNT_TOTAL_SKU") ?? 0
                         };
                     var activity = bucket.Activities[BucketActivityType.Pulling];
                     activity.Area = new InventoryArea

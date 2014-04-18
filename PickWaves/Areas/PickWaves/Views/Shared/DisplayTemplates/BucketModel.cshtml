@@ -83,8 +83,13 @@
                 {    <hr />
                     <strong><em>Quick Pitching Required</em></strong>
                 }
+                @if (Model.CountNotAssignedSku > 0)
+                {
+                    @Html.DisplayFor(m => m.CountNotAssignedSku)
+                }
                 <div>Pick Wave Created on @Html.DisplayFor(m => m.CreationDate) by @Html.DisplayFor(m => m.CreatedBy)</div>
             </td>
+
             <td>
                 @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
                 {

@@ -104,6 +104,14 @@ namespace DcmsMobile.PickWaves.Repository
 
         #endregion
 
+        #region Sku Assigned
+
+        public int CountAssignedSku { get; set; }
+
+        public int CountTotalSku { get; set; }
+
+        #endregion
+
         public bool Equals(Bucket other)
         {
              return true;

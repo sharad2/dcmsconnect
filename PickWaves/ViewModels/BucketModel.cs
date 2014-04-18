@@ -103,6 +103,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 PrePrintingPallets = true;
             }
+
+            CountAssignedSku = src.CountAssignedSku;
+            CountTotalSku = src.CountTotalSku;
         }
 
         #region Bucket
@@ -330,6 +333,30 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return PiecesComplete / (decimal)PiecesToShip;
             }
         }
+        #endregion
+
+        #region Sku Assigned
+
+        public int CountAssignedSku { get; set; }
+
+        public int CountTotalSku { get; set; }
+
+        [DisplayFormat(DataFormatString = "<span class='ui-state-error'>Inventory of {0:N0} SKUs are not available.</span>", HtmlEncode = false)]
+        public int CountNotAssignedSku
+        {
+            get
+            {
+                if (this.Activities.Select(p => p.ActivityType == BucketActivityType.Pitching).First() && this.Activities.Select(p => !string.IsNullOrWhiteSpace(p.AreaId)).First())
+                {
+                    if (this.CountTotalSku > this.CountAssignedSku)
+                    {
+                        return (this.CountTotalSku - this.CountAssignedSku);
+                    }
+                }               
+                return 0;               
+            }
+        }
+
         #endregion
 
         /// <summary>
