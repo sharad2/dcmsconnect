@@ -22,5 +22,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         public decimal? WeightPerDozen { get; set; }
 
         public decimal? VolumePerDozen { get; set; }
+
+        public bool IsAssignedSku { get; set; }
     }
 }

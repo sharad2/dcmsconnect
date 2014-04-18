@@ -96,6 +96,10 @@
                     @(i + 1)
                 </td>
                 <td>
+                    @if (!Model.BucketSkuList[i].IsAssignedSku)
+                    {
+                        <span class="ui-icon ui-icon-alert" title="SKU Not assigned"></span>
+                    }
                     @Html.DisplayFor(m => m.BucketSkuList[i].Style)
                 </td>
                 <td title="@Model.BucketSkuList[i].UpcCode">

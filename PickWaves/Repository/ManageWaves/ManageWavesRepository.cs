@@ -112,17 +112,21 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
-                                    SELECT  PD.SKU_ID         AS SKU_ID,
-                                            P.VWH_ID               AS VWH_ID,
-                                            SUM(
-                                                PD.PIECES_ORDERED
-                                             )               AS QUANTITY_ORDERED
+                                    SELECT  PD.SKU_ID               AS SKU_ID,
+                                            P.VWH_ID                AS VWH_ID,
+                                            SUM( PD.PIECES_ORDERED) AS QUANTITY_ORDERED,
+                                            COUNT(UNIQUE IL.ASSIGNED_UPC_CODE) AS COUNT_ASSIGED_SKU
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
+                                    INNER JOIN <proxy />BUCKET BKT
+                                      ON BKT.BUCKET_ID = P.BUCKET_ID
+                                    LEFT OUTER JOIN <proxy />IALOC IL
+                                        ON IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
+                                         AND IL.IA_ID = BKT.PITCH_IA_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
-   and p.transfer_date is null
-   and pd.transfer_date is null
+                                    AND P.TRANSFER_DATE IS NULL
+                                    AND PD.TRANSFER_DATE IS NULL
                                    GROUP BY PD.SKU_ID, P.VWH_ID
                             ),
                             ALL_INVENTORY_SKU(SKU_ID,
@@ -292,7 +296,8 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   AIS.XML_COLUMN.getstringval()                   AS XML_COLUMN
+                                   AOS.COUNT_ASSIGED_SKU            AS COUNT_ASSIGED_SKU,
+                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
                                 ON MS.SKU_ID = AOS.SKU_ID
@@ -321,7 +326,8 @@ WHERE 1 = 1
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
                                 WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN"),
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN"),
+                                IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
