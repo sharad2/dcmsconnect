@@ -249,7 +249,7 @@
                                         <ul class="customerActionMenu">
                                             <li>
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
-                                                                     new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus)))" title="Wave List">
+                                                                     new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus,Model.UserName)))" title="Wave List">
                                                     <span class="ui-icon ui-icon-zoomin"></span>
                                                     @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId)
                                                 </a>
@@ -270,13 +270,7 @@
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].DcCancelDateRange)
                                     </td>
                                     <td style="text-align: right">
-                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)
-                                        @*@if (Model.BucketsByStatus.Values[j][i].CancelledPieces > 0)
-                                            {
-                                                <div style="text-align: right; display: inline-block; font-style: italic; background-color: thistle">
-                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CancelledPieces) cancelled
-                                                </div>
-                                            }*@
+                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)                                        
                                     </td>
                                     <td>
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)

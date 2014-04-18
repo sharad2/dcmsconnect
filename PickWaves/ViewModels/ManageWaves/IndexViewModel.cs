@@ -27,11 +27,12 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="stateIndex"></param>
-        public IndexViewModel(string customerId, ProgressStage state)
+        public IndexViewModel(string customerId, ProgressStage state,string userName)
         {
             this.CustomerId = customerId;
             this.Buckets = new BucketModel[0];
             this.BucketState = state;
+            this.UserName = userName;
         }
 
         /// <summary>
@@ -58,6 +59,8 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
 
         [ReadOnly(true)]
         public string CustomerName { get; set; }
+
+        public string UserName { get; set; }
 
         public static string InventoryShortageReportUrl
         {
@@ -86,6 +89,10 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
             {
                 // Don't bother to encode the default state
                 routeValueDictionary.Add(model.NameFor(m => m.BucketState), (int)model.BucketState);
+            }
+            if (!string.IsNullOrWhiteSpace(model.UserName))
+            {
+                routeValueDictionary.Add(model.NameFor(m => m.UserName), model.UserName);
             }
         }
     }

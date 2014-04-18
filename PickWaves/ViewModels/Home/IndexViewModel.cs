@@ -93,6 +93,8 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
                 };
             }
         }
+
+        public string UserName { get; set; }
     }
 }
 

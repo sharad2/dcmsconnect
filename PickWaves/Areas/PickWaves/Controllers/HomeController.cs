@@ -129,6 +129,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 IsCustomerFilterApplied = search == SearchTextType.CustomerId,
                 IsUserNameFilterApplied = search == SearchTextType.UserName
             };
+            if (model.IsUserNameFilterApplied)
+            {
+                model.UserName = searchText;
+            }
             foreach (var item in query)
             {
                 model.BucketsByStatus.Add(item.Status, item.Buckets);

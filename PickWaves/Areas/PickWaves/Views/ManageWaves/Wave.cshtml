@@ -98,14 +98,14 @@
             { 
                 <li>
                     @Html.ActionLink("Freeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress)))
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress,null)))
                 </li>
             }
             @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeOthers))
             { 
                 <li>
                     @Html.ActionLink("Unfreeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)))
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen,null)))
                 </li>
             }
             @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain))
@@ -122,7 +122,7 @@
             <li>
                 @Html.ActionLink(string.Format("Other {0} Waves of this customer", Model.Bucket.StateDisplayName),
                                      MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState)))
+                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState,null)))
             </li>
         </ul>
     </div>
