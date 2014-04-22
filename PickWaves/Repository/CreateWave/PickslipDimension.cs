@@ -4,7 +4,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
     /// <summary>
     /// The column to use as dimension while retrieving pickslips. 
-    /// DataTypeAttribute is used by the repository to determine the type of the database column. If not specified, defaults to string.
     /// </summary>
     /// <remarks>
     /// ShortName is used for generating bucket name
@@ -33,21 +32,18 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// Value Type: Date
         /// </summary>
         [Display(Name = "Import Date", ShortName="Imp")]
-        [DataType(DataType.Date)]
         ImportDate,
 
         /// <summary>
         /// Value Type: Date
         /// </summary>
         [Display(Name = "Start Date", ShortName="Start")]
-        [DataType(DataType.Date)]
         StartDate,
 
         /// <summary>
         /// Value Type: Date
         /// </summary>
         [Display(Name = "Cancel Date", ShortName="Cancel")]
-        [DataType(DataType.Date)]
         CancelDate,
 
         /// <summary>
@@ -72,7 +68,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// Value Type: Date
         /// </summary>
         [Display(Name = "DC Cancel Date", ShortName="DCCan")] 
-        [DataType(DataType.Date)]
         CustomerDcCancelDate,
 
         [Display(Name = "Customer DC", ShortName="DC")]

@@ -175,26 +175,26 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             {
                 throw new ArgumentNullException("vwhId");
             }
-            var dimMap = new Dictionary<PickslipDimension, string>
+            var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
-                {PickslipDimension.Priority, "PR"},
-                {PickslipDimension.CustomerStore, "CS"},
-                {PickslipDimension.CustomerDcCancelDate, "DCDATE"},
-                {PickslipDimension.Label, "LB"},
-                {PickslipDimension.ImportDate, "IDATE"},
-                {PickslipDimension.StartDate, "SDATE"},
-                {PickslipDimension.CancelDate, "CANDATE"},
-                {PickslipDimension.CustomerOrderType, "COT"},
-                {PickslipDimension.SaleTypeId, "STI"},
-                {PickslipDimension.PurchaseOrder, "PO"},
-                {PickslipDimension.CustomerDc, "CDC"}
+                {PickslipDimension.Priority, Tuple.Create("PR", typeof(string))},
+                {PickslipDimension.CustomerStore, Tuple.Create("CS", typeof(string))},
+                {PickslipDimension.CustomerDcCancelDate, Tuple.Create("DCDATE", typeof(DateTime))},
+                {PickslipDimension.Label, Tuple.Create("LB", typeof(string))},
+                {PickslipDimension.ImportDate, Tuple.Create("IDATE", typeof(DateTime))},
+                {PickslipDimension.StartDate, Tuple.Create("SDATE", typeof(DateTime))},
+                {PickslipDimension.CancelDate, Tuple.Create("CANDATE", typeof(DateTime))},
+                {PickslipDimension.CustomerOrderType, Tuple.Create("COT", typeof(string))},
+                {PickslipDimension.SaleTypeId, Tuple.Create("STI", typeof(string))},
+                {PickslipDimension.PurchaseOrder, Tuple.Create("PO", typeof(string))},
+                {PickslipDimension.CustomerDc, Tuple.Create("CDC", typeof(string))}
             };
             const string QUERY = @"
          WITH Q1 AS
              (SELECT PICKSLIP_ID,
                      <if c='$DIMENSION=""PR""'> T.PRIORITY_ID </if>
                      <else c='$DIMENSION=""CS""'> T.CUSTOMER_STORE_ID </else>
-                     <else c='$DIMENSION=""DCDATE""'> (T.DC_CANCEL_DATE)</else>
+                     <else c='$DIMENSION=""DCDATE""'>TRUNC(T.DC_CANCEL_DATE)</else>
                      <else c='$DIMENSION=""LB""'> T.PICKSLIP_TYPE</else>
                      <else c='$DIMENSION=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
                      <else c='$DIMENSION=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
@@ -206,7 +206,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                AS PICKSLIP_DIMENSION,
                      <if c='$DIMENSION_COL=""PR""'> T.PRIORITY_ID </if>
                      <else c='$DIMENSION_COL=""CS""'> T.CUSTOMER_STORE_ID </else>
-                     <else c='$DIMENSION_COL=""DCDATE""'> (T.DC_CANCEL_DATE)</else>
+                     <else c='$DIMENSION_COL=""DCDATE""'>TRUNC(T.DC_CANCEL_DATE)</else>
                      <else c='$DIMENSION_COL=""LB""'> T.PICKSLIP_TYPE</else>
                      <else c='$DIMENSION_COL=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
                      <else c='$DIMENSION_COL=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
@@ -235,9 +235,9 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
               FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION
         ";
-            var dict = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
-            var isRowDate = dict.ContainsKey(col1) && dict[col1].DataType == DataType.Date;
-            var isColDate = dict.ContainsKey(col2) && dict[col2].DataType == DataType.Date;
+            //var dict = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
+            //var isRowDate = dict.ContainsKey(col1) && dict[col1].DataType == DataType.Date;
+            //var isColDate = dict.ContainsKey(col2) && dict[col2].DataType == DataType.Date;
 
             var binder = SqlBinder.Create(row => new CustomerOrderSummary
             {
@@ -255,13 +255,13 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                         {PickslipDimension.PurchaseOrder, row.GetInteger("COUNT_CUSTOMER_ORDER_ID")  ?? 0},
                         {PickslipDimension.CustomerDc, row.GetInteger("COUNT_CUSTOMER_DIST_CENTER_ID")  ?? 0}                        
                     },
-                DimensionValue = isRowDate ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                Data = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), isColDate)
+                DimensionValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
+                Data = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
-                .Parameter("DIMENSION", dimMap[col1])
-                .Parameter("DIMENSION_COL", dimMap[col2])
+                .Parameter("DIMENSION", dimMap[col1].Item1)
+                .Parameter("DIMENSION_COL", dimMap[col2].Item1)
                 ;
             return _db.ExecuteReader(QUERY, binder);
         }
