@@ -16,8 +16,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// <summary>
         /// Key is DC
         /// </summary>
-        public IDictionary<object, int> Data { get; set; }
+        public IDictionary<object, int> PickslipCounts { get; set; }
 
-        public IDictionary<PickslipDimension, int> Counts { get; set; }
     }
 }

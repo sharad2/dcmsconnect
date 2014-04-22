@@ -105,42 +105,41 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
             var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-            if (orders.Any())
-            {
-                // TC1: When passed customer have some order.
-                const int MAX_COL_DIMENSIONS = 30;
-                var first = orders.First();
 
-                model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                             let count = first.Counts[kvp.Key]
-                             select new SelectListItem
-                             {
-                                 Value = ((int)(kvp.Key)).ToString(),
-                                 Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
-                             }).OrderBy(p => p.Text).ToArray();
+            // TC1: When passed customer have some order.
+            const int MAX_COL_DIMENSIONS = 30;
+            var first = orders.Item2;
 
-                // Dimensions which have too many distinct values are not displayed as column dimensions
-                model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                                          let count = first.Counts[kvp.Key]
-                                          where count <= MAX_COL_DIMENSIONS
-                                          select new SelectListItem
-                                          {
-                                              Value = ((int)(kvp.Key)).ToString(),
-                                              Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
-                                          }).OrderBy(p => p.Text).ToArray();
+            model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                                      let count = first[kvp.Key]
+                                      select new SelectListItem
+                                      {
+                                          Value = ((int)(kvp.Key)).ToString(),
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                      }).OrderBy(p => p.Text).ToArray();
 
-                model.Rows = (from order in orders
-                                       select new RowDimensionModel
-                                       {
-                                           PickslipCounts = order.Data.Select(p => new
-                                           {
-                                               Key = FormatDimensionValue(p.Key),
-                                               Value = p.Value
-                                           }).ToDictionary(p => p.Key, p => p.Value),
-                                           DimensionValue = FormatDimensionValue(order.DimensionValue)
-                                       }).ToArray();
-            }
+            // Dimensions which have too many distinct values are not displayed as column dimensions
+            model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                                      let count = first[kvp.Key]
+                                      where count <= MAX_COL_DIMENSIONS
+                                      select new SelectListItem
+                                      {
+                                          Value = ((int)(kvp.Key)).ToString(),
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                      }).OrderBy(p => p.Text).ToArray();
+
+            model.Rows = (from order in orders.Item1
+                          select new RowDimensionModel
+                          {
+                              PickslipCounts = order.PickslipCounts.Select(p => new
+                              {
+                                  Key = FormatDimensionValue(p.Key),
+                                  Value = p.Value
+                              }).ToDictionary(p => p.Key, p => p.Value),
+                              DimensionValue = FormatDimensionValue(order.DimensionValue)
+                          }).ToArray();
         }
+
 
         /// <summary>
         /// Showing list of dimension and their pickslip count for passed customer and dimension.
