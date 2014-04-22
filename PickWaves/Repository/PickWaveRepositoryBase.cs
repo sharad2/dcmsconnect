@@ -157,6 +157,7 @@ namespace DcmsMobile.PickWaves.Repository
                         LEFT OUTER JOIN <proxy />IALOC IL
                             ON IL.ASSIGNED_UPC_CODE = PSD.UPC_CODE
                             AND IL.IA_ID = BKT.PITCH_IA_ID
+                            AND IL.VWH_ID = PS.VWH_ID
                        WHERE PS.TRANSFER_DATE IS NULL
                             AND PSD.TRANSFER_DATE IS NULL
                         <if>

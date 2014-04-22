@@ -114,6 +114,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                  (                             
                                     SELECT  PD.SKU_ID               AS SKU_ID,
                                             P.VWH_ID                AS VWH_ID,
+                                             MAX(BKT.PITCH_IA_ID)   AS PITCH_AREA,
                                             SUM( PD.PIECES_ORDERED) AS QUANTITY_ORDERED,
                                             COUNT(UNIQUE IL.ASSIGNED_UPC_CODE) AS COUNT_ASSIGED_SKU
                                     FROM <proxy />PS P
@@ -124,6 +125,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                     LEFT OUTER JOIN <proxy />IALOC IL
                                         ON IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
                                          AND IL.IA_ID = BKT.PITCH_IA_ID
+                                         AND IL.VWH_ID = P.VWH_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
                                     AND P.TRANSFER_DATE IS NULL
                                     AND PD.TRANSFER_DATE IS NULL
@@ -296,6 +298,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
                                    AOS.COUNT_ASSIGED_SKU            AS COUNT_ASSIGED_SKU,
+                                   AOS.PITCH_AREA                   AS PITCH_AREA,
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
@@ -329,6 +332,7 @@ WHERE 1 = 1
                                 IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
+                            IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };
                     bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");

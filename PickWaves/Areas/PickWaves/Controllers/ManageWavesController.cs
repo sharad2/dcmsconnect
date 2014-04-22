@@ -225,7 +225,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                      VolumePerDozen = sku.BucketSku.Sku.VolumePerDozen,
                                      WeightPerDozen = sku.BucketSku.Sku.WeightPerDozen,
                                      OrderedPieces = sku.BucketSku.QuantityOrdered,
-                                     IsAssignedSku = sku.BucketSku.Sku.IsAssignedSku,
+                                     IsAssignedSku = sku.BucketSku.IsPitchingBucket ? sku.BucketSku.Sku.IsAssignedSku : true,
                                      InventoryByArea = (from area in allAreas
                                                         join item in sku.BucketSku.BucketSkuInAreas on area.AreaId equals item.InventoryArea.AreaId into gj
                                                         from subitem in gj.DefaultIfEmpty()
