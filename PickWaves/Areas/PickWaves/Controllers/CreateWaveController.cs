@@ -121,8 +121,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
                 model.DimensionList = query;
 
-                model.CustomerOrders = (from order in orders
-                                        select new PickslipDimensionModel
+                model.RowDimensions = (from order in orders
+                                        select new RowDimensionModel
                                         {
                                             Data = order.Data,
                                             DimensionValue = FormatDimensionValue(order.DimensionValue)
@@ -330,7 +330,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
             model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
-            model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? PickslipDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
+            model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
             var bucket = _service.GetBucket(model.BucketId);
             model.Bucket = new BucketModel(bucket);

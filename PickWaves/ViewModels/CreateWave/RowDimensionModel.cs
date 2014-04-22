@@ -7,7 +7,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
     /// <summary>
     /// Represents available information for a particular value of the retrieved dimension
     /// </summary>
-    public class PickslipDimensionModel
+    public class RowDimensionModel
     {
         /// <summary>
         /// This is a work around for T4MVC. It is unable to generate reasonable action links when the value being passed in NULL.

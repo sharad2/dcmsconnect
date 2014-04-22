@@ -39,20 +39,24 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         public string CustomerId { get; set; }
 
-        private IList<PickslipDimensionModel> _customerOrders;
-        public IList<PickslipDimensionModel> CustomerOrders
+        private IList<RowDimensionModel> _rowDimensions;
+        public IList<RowDimensionModel> RowDimensions
         {
             get
             {
-                return _customerOrders ?? new List<PickslipDimensionModel>();
+                return _rowDimensions ?? new List<RowDimensionModel>();
             }
             set
             {
-                _customerOrders = value;
+                _rowDimensions = value;
             }
         }
 
         private IDictionary<string, int> _colDimensionValues;
+
+        /// <summary>
+        /// Unique dimension values for the column
+        /// </summary>
         public IList<string> ColDimensionValues
         {
             get
@@ -60,7 +64,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
                 if (_colDimensionValues == null)
                 {
                     _colDimensionValues = new Dictionary<string, int>();
-                    foreach (var item in CustomerOrders.SelectMany(p => p.Data))
+                    foreach (var item in RowDimensions.SelectMany(p => p.Data))
                     {
                         int count;
                         if (_colDimensionValues.TryGetValue(item.Key, out count))

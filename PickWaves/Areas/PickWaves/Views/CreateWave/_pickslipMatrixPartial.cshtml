@@ -68,28 +68,28 @@
             </tr>
         </thead>
         <tbody>
-            @for (var j = 0; j < Model.CustomerOrders.Count; ++j)
+            @for (var j = 0; j < Model.RowDimensions.Count; ++j)
             {
                 <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
                     <td style="text-align: right">
                         @(j + 1)
                     </td>
                     <td>
-                        @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue, new
+                        @Html.RadioButtonFor(m => m.RowDimVal, Model.RowDimensions[j].DimensionValue, new
                    {
                        id = "row_" + j.ToString(),
                        //@checked = j == 0 ? "checked" : ""
                    })
                         <label for="@Html.Raw("row_" + j.ToString())">
-                            @Model.CustomerOrders[j].DimensionDisplayValue
+                            @Model.RowDimensions[j].DimensionDisplayValue
                         </label>
                     </td>
                     @foreach (var item in Model.ColDimensionValues)
                     {
-                        if (Model.CustomerOrders[j].Data.ContainsKey(item))
+                        if (Model.RowDimensions[j].Data.ContainsKey(item))
                         {
                             <td style="text-align: right" tabindex="0" class="ui-selectable">
-                                @string.Format("{0:N0}", Model.CustomerOrders[j].Data[item])
+                                @string.Format("{0:N0}", Model.RowDimensions[j].Data[item])
                             </td>
                         }
                         else
@@ -98,7 +98,7 @@
                         }
                     }
                     <td style="text-align: right;" class="ui-state-active">
-                        @Html.DisplayFor(m => m.CustomerOrders[j].TotalPickslips)
+                        @Html.DisplayFor(m => m.RowDimensions[j].TotalPickslips)
 
                     </td>
                 </tr>
