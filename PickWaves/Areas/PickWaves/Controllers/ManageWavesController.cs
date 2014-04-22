@@ -67,8 +67,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var buckets = _service.GetBuckets(model.CustomerId, model.BucketState);
 
             // Null DC Cancel dates display last
-            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
-                             orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
+            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p)
+                                    {
+                                        HighlightCreatedBy = string.Compare(p.CreatedBy, model.UserName, true) == 0
+                                    })
+                             orderby bucket.CreatedBy == model.UserName ? 0 : 1, bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
                              select bucket).ToArray();
 
             if (!buckets.Any())

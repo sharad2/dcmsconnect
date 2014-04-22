@@ -163,6 +163,8 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         #endregion
 
+        public bool HighlightCreatedBy { get; set; }
+
         public IList<BucketActivityModel> Activities
         {
             get
