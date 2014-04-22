@@ -152,45 +152,69 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         }
 
         /// <summary>
-        /// The results are returned ordered by the dimension
+        /// For the passed customer and vwh, groups results by col1 and returns a row for each unique value of col1.
+        /// Each row contains an array of pickslip counts for each unique value of col2
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="vwhId"> </param>
         /// <param name="dimRow"></param>
-        /// <param name="dimCol"> </param>
+        /// <param name="col2"> </param>
         /// <returns></returns>
         /// <remarks>
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
         /// Thus null is different from empty.
         /// </remarks>
-        internal IList<CustomerOrderSummary> GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
+        internal IList<CustomerOrderSummary> GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension col1, PickslipDimension col2)
         {
+            if (string.IsNullOrWhiteSpace(customerId))
+            {
+                throw new ArgumentNullException("customerId");
+            }
+
+            if (string.IsNullOrWhiteSpace(vwhId))
+            {
+                throw new ArgumentNullException("vwhId");
+            }
+            var dimMap = new Dictionary<PickslipDimension, string>
+            {
+                {PickslipDimension.Priority, "PR"},
+                {PickslipDimension.CustomerStore, "CS"},
+                {PickslipDimension.CustomerDcCancelDate, "DCDATE"},
+                {PickslipDimension.Label, "LB"},
+                {PickslipDimension.ImportDate, "IDATE"},
+                {PickslipDimension.StartDate, "SDATE"},
+                {PickslipDimension.CancelDate, "CANDATE"},
+                {PickslipDimension.CustomerOrderType, "COT"},
+                {PickslipDimension.SaleTypeId, "STI"},
+                {PickslipDimension.PurchaseOrder, "PO"},
+                {PickslipDimension.CustomerDc, "CDC"}
+            };
             const string QUERY = @"
          WITH Q1 AS
              (SELECT PICKSLIP_ID,
-                     <if c='$DIMENSION=""Priority""'> T.PRIORITY_ID </if>
-                     <if c='$DIMENSION=""CustomerStore""'> T.CUSTOMER_STORE_ID </if>
-                     <if c='$DIMENSION=""CustomerDcCancelDate""'> (T.DC_CANCEL_DATE)</if>
-                     <if c='$DIMENSION=""Label""'> T.PICKSLIP_TYPE</if>
-                     <if c='$DIMENSION=""ImportDate""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</if>
-                     <if c='$DIMENSION=""StartDate""'> TRUNC(T.DELIVERY_DATE)</if>
-                     <if c='$DIMENSION=""CancelDate""'> TRUNC(T.CANCEL_DATE)</if> 
-                     <if c='$DIMENSION=""CustomerOrderType""'> T.CUSTOMER_ORDER_TYPE</if> 
-                     <if c='$DIMENSION=""SaleTypeId""'> T.SALES_TYPE_ID</if>
-                     <if c='$DIMENSION=""PurchaseOrder""'> T.CUSTOMER_ORDER_ID</if> 
-            <if c='$DIMENSION=""CustomerDc""'> T.CUSTOMER_DIST_CENTER_ID</if> 
+                     <if c='$DIMENSION=""PR""'> T.PRIORITY_ID </if>
+                     <else c='$DIMENSION=""CS""'> T.CUSTOMER_STORE_ID </else>
+                     <else c='$DIMENSION=""DCDATE""'> (T.DC_CANCEL_DATE)</else>
+                     <else c='$DIMENSION=""LB""'> T.PICKSLIP_TYPE</else>
+                     <else c='$DIMENSION=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
+                     <else c='$DIMENSION=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
+                     <else c='$DIMENSION=""CANDATE""'> TRUNC(T.CANCEL_DATE)</else> 
+                     <else c='$DIMENSION=""COT""'> T.CUSTOMER_ORDER_TYPE</else> 
+                     <else c='$DIMENSION=""STI""'> T.SALES_TYPE_ID</else>
+                     <else c='$DIMENSION=""PO""'> T.CUSTOMER_ORDER_ID</else> 
+                     <else c='$DIMENSION=""CDC""'> T.CUSTOMER_DIST_CENTER_ID</else> 
                AS PICKSLIP_DIMENSION,
-                     <if c='$DIMENSION_COL=""Priority""'> T.PRIORITY_ID </if>
-                     <if c='$DIMENSION_COL=""CustomerStore""'> T.CUSTOMER_STORE_ID </if>
-                     <if c='$DIMENSION_COL=""CustomerDcCancelDate""'> (T.DC_CANCEL_DATE)</if>
-                     <if c='$DIMENSION_COL=""Label""'> T.PICKSLIP_TYPE</if>
-                     <if c='$DIMENSION_COL=""ImportDate""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</if>
-                     <if c='$DIMENSION_COL=""StartDate""'> TRUNC(T.DELIVERY_DATE)</if>
-                     <if c='$DIMENSION_COL=""CancelDate""'> TRUNC(T.CANCEL_DATE)</if> 
-                     <if c='$DIMENSION_COL=""CustomerOrderType""'> T.CUSTOMER_ORDER_TYPE</if> 
-                     <if c='$DIMENSION_COL=""SaleTypeId""'> T.SALES_TYPE_ID</if>
-                     <if c='$DIMENSION_COL=""PurchaseOrder""'> T.CUSTOMER_ORDER_ID</if> 
-         <if c='$DIMENSION_COL=""CustomerDc""'> T.CUSTOMER_DIST_CENTER_ID</if> 
+                     <if c='$DIMENSION_COL=""PR""'> T.PRIORITY_ID </if>
+                     <else c='$DIMENSION_COL=""CS""'> T.CUSTOMER_STORE_ID </else>
+                     <else c='$DIMENSION_COL=""DCDATE""'> (T.DC_CANCEL_DATE)</else>
+                     <else c='$DIMENSION_COL=""LB""'> T.PICKSLIP_TYPE</else>
+                     <else c='$DIMENSION_COL=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
+                     <else c='$DIMENSION_COL=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
+                     <else c='$DIMENSION_COL=""CANDATE""'> TRUNC(T.CANCEL_DATE)</else> 
+                     <else c='$DIMENSION_COL=""COT""'> T.CUSTOMER_ORDER_TYPE</else> 
+                     <else c='$DIMENSION_COL=""STI""'> T.SALES_TYPE_ID</else>
+                     <else c='$DIMENSION_COL=""PO""'> T.CUSTOMER_ORDER_ID</else> 
+                     <else c='$DIMENSION_COL=""CDC""'> T.CUSTOMER_DIST_CENTER_ID</else> 
               AS DIM_COL,
                      COUNT(UNIQUE T.PRIORITY_ID) OVER()                     AS COUNT_PRIORITY_ID,
                      COUNT(UNIQUE T.CUSTOMER_STORE_ID) OVER()               AS COUNT_CUSTOMER_STORE_ID,
@@ -212,8 +236,8 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
              ORDER BY PICKSLIP_DIMENSION
         ";
             var dict = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
-            var isRowDate = dict.ContainsKey(dimRow) && dict[dimRow].DataType == DataType.Date;
-            var isColDate = dict.ContainsKey(dimCol) && dict[dimCol].DataType == DataType.Date;
+            var isRowDate = dict.ContainsKey(col1) && dict[col1].DataType == DataType.Date;
+            var isColDate = dict.ContainsKey(col2) && dict[col2].DataType == DataType.Date;
 
             var binder = SqlBinder.Create(row => new CustomerOrderSummary
             {
@@ -236,8 +260,8 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
-                .Parameter("DIMENSION", dimRow.ToString())
-                .Parameter("DIMENSION_COL", dimCol.ToString())
+                .Parameter("DIMENSION", dimMap[col1])
+                .Parameter("DIMENSION_COL", dimMap[col2])
                 ;
             return _db.ExecuteReader(QUERY, binder);
         }
