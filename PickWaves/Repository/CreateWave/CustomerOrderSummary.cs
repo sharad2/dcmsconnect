@@ -2,7 +2,7 @@
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
-    public class CustomerOrderSummary
+    internal class CustomerOrderSummary
     {
         /// <summary>
         /// The value in the column which was chosen as the dimension for the pickslip
@@ -15,7 +15,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// <summary>
         /// Key is DC
         /// </summary>
-        public IDictionary<string, int> Data { get; set; }
+        public IDictionary<object, int> Data { get; set; }
 
         public IDictionary<PickslipDimension, int> Counts { get; set; }
     }

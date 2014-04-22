@@ -163,7 +163,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
         /// Thus null is different from empty.
         /// </remarks>
-        public IList<CustomerOrderSummary> GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
+        internal IList<CustomerOrderSummary> GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
         {
             const string QUERY = @"
          WITH Q1 AS
@@ -266,16 +266,20 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<string, int> MapOrderSummaryXml(XElement xml, bool isColDate)
+        private IDictionary<object, int> MapOrderSummaryXml(XElement xml, bool isColDate)
         {
-            var dict = (from item in xml.Elements("item")
+            var query = (from item in xml.Elements("item")
                         let column = item.Elements("column")
                         select new
                         {
-                            ColValue = column.First(p => p.Attribute("name").Value == "DIM_COL"),
-                            Value = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT")
-                        }).ToDictionary(p => isColDate ? ((DateTime)p.ColValue).ToString() : (string)p.ColValue, p => p.Value);
-            return dict;
+                            ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
+                            PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT")
+                        });
+            if (isColDate)
+            {
+                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
+            }
+            return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
         }
 
         public int CreateWave(PickWaveEditable bucket)

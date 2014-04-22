@@ -33,7 +33,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
         /// Thus null is different from empty.
         /// </remarks>
-        public IEnumerable<CustomerOrderSummary> GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
+        internal IEnumerable<CustomerOrderSummary> GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
         {
             var result = _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);
             // If dim is priority, pad the dim value
