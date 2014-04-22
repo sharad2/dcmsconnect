@@ -337,11 +337,11 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         #region Sku Assigned
 
-        public int CountAssignedSku { get; set; }
+        internal int CountAssignedSku { get; set; }
 
-        public int CountTotalSku { get; set; }
+        internal int CountTotalSku { get; set; }
 
-        [DisplayFormat(DataFormatString = "<span class='ui-state-error'>Inventory of {0:N0} SKUs are not available.</span>", HtmlEncode = false)]
+        [DisplayFormat(DataFormatString = "<span class='ui-state-error'>{0:N0} SKUs are not assigned at any location.</span>", HtmlEncode = false)]
         public int CountNotAssignedSku
         {
             get
