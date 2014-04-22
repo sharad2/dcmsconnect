@@ -1,11 +1,13 @@
 ﻿$(document).ready(function () {
     $('#btnCreateBucket').button();
 
-    $('#matrixPartial').on('keypress', '.ui-state-highlight', function (e) {
+    $('#matrixPartial').on('keypress', 'td.ui-selectable', function (e) {
         if (e.which == $.ui.keyCode.ENTER) {
-            $('#frmMain').submit();
+            // Simulate a click on the cell
+            $(this).click();
         }
     }).on('change', 'th select', function (e) {
+        // Ajax load the new matrix when a dimension changes
         $(e.delegateTarget).addClass('ui-state-disabled')
             .load($(e.delegateTarget).attr('data-url'), $('input,select', $(e.delegateTarget)).serialize(),
             $.proxy(function (responseText, textStatus, xhr) {
@@ -16,7 +18,7 @@
             }, { self: $(e.delegateTarget) }));
         return true;
     }).on('click', 'td.ui-selectable', function (e) {
-        // Select the row and col radio buttions and open dialog
+        // When a selectable cell is clicked, Select the row and col radio buttons and open dialog
         var $tr = $(this).closest('tr');
         $('input:radio', $tr).prop('checked', true);
 
@@ -97,6 +99,7 @@
         }
     });
 
+    // Navigate to the page which will list pickslips of the selected cell
     $('#divDlg').dialog().on('click', '#btnViewPickslips', function (e) {
         $('#hfViewPickslips').val('Y');
         $('#frmMain').submit();
