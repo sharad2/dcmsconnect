@@ -108,20 +108,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (orders.Any())
             {
                 // TC1: When passed customer have some order.
-                const int MAX_DIMENSIONS = 500;
+                const int MAX_COL_DIMENSIONS = 30;
                 var first = orders.First();
 
-                var query = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
                              let count = first.Counts[kvp.Key]
                              select new SelectListItem
                              {
-                                 Value = count > MAX_DIMENSIONS ? "" : ((int)(kvp.Key)).ToString(),
+                                 Value = ((int)(kvp.Key)).ToString(),
                                  Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
                              }).OrderBy(p => p.Text).ToArray();
 
-                model.DimensionList = query;
+                // Dimensions which have too many distinct values are not displayed as column dimensions
+                model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                                          let count = first.Counts[kvp.Key]
+                                          where count <= MAX_COL_DIMENSIONS
+                                          select new SelectListItem
+                                          {
+                                              Value = ((int)(kvp.Key)).ToString(),
+                                              Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                          }).OrderBy(p => p.Text).ToArray();
 
-                model.RowDimensions = (from order in orders
+                model.Rows = (from order in orders
                                        select new RowDimensionModel
                                        {
                                            PickslipCounts = order.Data.Select(p => new

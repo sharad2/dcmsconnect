@@ -27,7 +27,7 @@
                 </th>
                 <th rowspan="2">
                     <select name="@Model.NameFor(m => m.RowDimIndex)">
-                        @foreach (var item in Model.DimensionList)
+                        @foreach (var item in Model.RowDimensionList)
                         {
                             <option value="@item.Value" @Html.Raw(item.Value == Model.RowDimIndex.ToString() ? "selected=\"selected\"" : "")
                                     @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique " + item.Text + "\"" : "")>
@@ -38,10 +38,9 @@
                 </th>
                 <th colspan="@Model.ColDimensionValues.Count" style="text-align:left">
                     <select name="@Model.NameFor(m => m.ColDimIndex)">
-                        @foreach (var item in Model.DimensionList)
+                        @foreach (var item in Model.ColDimensionList)
                         {
-                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "")
-                                    @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique " + item.Text + "\"" : "")>
+                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "")>
                                 @item.Text
                             </option>
                         }
@@ -68,28 +67,28 @@
             </tr>
         </thead>
         <tbody>
-            @for (var j = 0; j < Model.RowDimensions.Count; ++j)
+            @for (var j = 0; j < Model.Rows.Count; ++j)
             {
                 <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
                     <td style="text-align: right">
                         @(j + 1)
                     </td>
                     <td>
-                        @Html.RadioButtonFor(m => m.RowDimVal, Model.RowDimensions[j].DimensionValue, new
+                        @Html.RadioButtonFor(m => m.RowDimVal, Model.Rows[j].DimensionValue, new
                    {
                        id = "row_" + j.ToString(),
                        //@checked = j == 0 ? "checked" : ""
                    })
                         <label for="@Html.Raw("row_" + j.ToString())">
-                            @Model.RowDimensions[j].DimensionDisplayValue
+                            @Model.Rows[j].DimensionDisplayValue
                         </label>
                     </td>
                     @foreach (var item in Model.ColDimensionValues)
                     {
-                        if (Model.RowDimensions[j].PickslipCounts.ContainsKey(item))
+                        if (Model.Rows[j].PickslipCounts.ContainsKey(item))
                         {
                             <td style="text-align: right" tabindex="0" class="ui-selectable">
-                                @string.Format("{0:N0}", Model.RowDimensions[j].PickslipCounts[item])
+                                @string.Format("{0:N0}", Model.Rows[j].PickslipCounts[item])
                             </td>
                         }
                         else
@@ -98,7 +97,7 @@
                         }
                     }
                     <td style="text-align: right;" class="ui-state-active">
-                        @Html.DisplayFor(m => m.RowDimensions[j].TotalPickslips)
+                        @Html.DisplayFor(m => m.Rows[j].TotalPickslips)
 
                     </td>
                 </tr>

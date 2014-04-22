@@ -16,7 +16,7 @@
                 $(e.delegateTarget).attr('data-url'), $('input,select', $(e.delegateTarget)).serialize(),
                 $.proxy(function (responseText, textStatus, xhr) {
                     if (textStatus == "error") {
-                        alert("Sorry but there was an error: " + xhr.status + " " + xhr.statusText + ". Refresh the page.");
+                        alert("Sorry but there was an error: " + xhr.status + " " + responseText + ". Refresh the page.");
                     }
                     this.self.removeClass('ui-state-disabled');
                 }, { self: $(e.delegateTarget) })

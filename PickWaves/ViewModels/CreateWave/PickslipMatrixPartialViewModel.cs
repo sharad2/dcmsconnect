@@ -40,16 +40,16 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         public string CustomerId { get; set; }
 
-        private IList<RowDimensionModel> _rowDimensions;
-        public IList<RowDimensionModel> RowDimensions
+        private IList<RowDimensionModel> _rows;
+        public IList<RowDimensionModel> Rows
         {
             get
             {
-                return _rowDimensions ?? new List<RowDimensionModel>();
+                return _rows ?? new List<RowDimensionModel>();
             }
             set
             {
-                _rowDimensions = value;
+                _rows = value;
             }
         }
 
@@ -65,7 +65,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
                 if (_colDimensionValues == null)
                 {
                     _colDimensionValues = new Dictionary<string, int>();
-                    foreach (var item in RowDimensions.SelectMany(p => p.PickslipCounts))
+                    foreach (var item in Rows.SelectMany(p => p.PickslipCounts))
                     {
                         int count;
                         if (_colDimensionValues.TryGetValue(item.Key, out count))
@@ -116,7 +116,9 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         #endregion
 
-        public IEnumerable<SelectListItem> DimensionList { get; set; }        
+        public IEnumerable<SelectListItem> RowDimensionList { get; set; }
+
+        public IEnumerable<SelectListItem> ColDimensionList { get; set; }     
 
         public string RowDimDisplayName { get; set; }
 
