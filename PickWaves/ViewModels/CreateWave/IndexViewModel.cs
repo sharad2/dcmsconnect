@@ -60,7 +60,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         [Display(Name = "Pitching")]
         public string PitchAreaId { get; set; }
 
-        [Display(Name = "Pre-create Pallets to pull")]
+        [Display(Name = "Require Box Expediting")]
         public bool PrePrintingPallets { get; set; }
 
         [Display(Name = "Quick Pitch")]
