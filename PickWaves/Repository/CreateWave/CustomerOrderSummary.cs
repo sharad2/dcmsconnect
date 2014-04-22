@@ -14,11 +14,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         public object DimensionValue { get; set; }
 
         /// <summary>
-        /// Type of the value in DimensionValue
-        /// </summary>
-        public Type DimensionValueType { get; set; }
-
-        /// <summary>
         /// Key is DC
         /// </summary>
         public IDictionary<object, int> Data { get; set; }
