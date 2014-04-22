@@ -122,14 +122,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 model.DimensionList = query;
 
                 model.RowDimensions = (from order in orders
-                                        select new RowDimensionModel
-                                        {
-                                            PickslipCounts = order.Data.Select(p => new {
-                                                Key = FormatDimensionValue(p.Key),
-                                                Value = p.Value
-                                            }).ToDictionary(p => p.Key, p => p.Value),
-                                            DimensionValue = FormatDimensionValue(order.DimensionValue)
-                                        }).ToArray();
+                                       select new RowDimensionModel
+                                       {
+                                           PickslipCounts = order.Data.Select(p => new
+                                           {
+                                               Key = FormatDimensionValue(p.Key),
+                                               Value = p.Value
+                                           }).ToDictionary(p => p.Key, p => p.Value),
+                                           DimensionValue = FormatDimensionValue(order.DimensionValue)
+                                       }).ToArray();
             }
         }
 
@@ -149,7 +150,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (areas != null)
             {
                 model.PullAreas = (from area in areas
-                                   where area.AreaType == BucketActivityType.Pulling
+                                   where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
                                    orderby area.CountSku descending
                                    select new SelectListItem
                                    {
@@ -158,13 +159,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                    }).ToList();
 
                 model.PitchAreas = (from area in areas
-                                    where area.AreaType == BucketActivityType.Pitching
+                                    where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
                                     orderby area.CountSku descending
                                     select new SelectListItem
                                     {
                                         Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                         Value = area.AreaId
                                     }).ToList();
+                if (model.PitchAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
+                {
+                    // Pitch areas exist but none of them have SKUs assigned
+                    model.PitchAreas.Add(new SelectListItem
+                    {
+                        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+                        Value = "",
+                        Selected = true
+                    });
+                }
             }
 
             #region Manage Cookie
@@ -282,7 +293,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 }
                 else
                 {
-                    if(model.PrePrintingPallets)
+                    if (model.PrePrintingPallets)
                     {
                         bucket.PullingBucket = "N";
                     }
