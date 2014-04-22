@@ -195,8 +195,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                     ON IL.IA_ID = IC.IA_ID
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
-                                    ON I.IA_ID = IL.IA_ID
-                            --    INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = IC.SKU_ID
+                                    ON I.IA_ID = IL.IA_ID                            
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
