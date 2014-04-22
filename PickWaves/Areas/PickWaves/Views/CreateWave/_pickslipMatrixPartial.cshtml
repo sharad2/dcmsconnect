@@ -86,10 +86,10 @@
                     </td>
                     @foreach (var item in Model.ColDimensionValues)
                     {
-                        if (Model.RowDimensions[j].Data.ContainsKey(item))
+                        if (Model.RowDimensions[j].PickslipCounts.ContainsKey(item))
                         {
                             <td style="text-align: right" tabindex="0" class="ui-selectable">
-                                @string.Format("{0:N0}", Model.RowDimensions[j].Data[item])
+                                @string.Format("{0:N0}", Model.RowDimensions[j].PickslipCounts[item])
                             </td>
                         }
                         else

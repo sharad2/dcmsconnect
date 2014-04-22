@@ -5,7 +5,7 @@ using System.Linq;
 namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 {
     /// <summary>
-    /// Represents available information for a particular value of the retrieved dimension
+    /// Represents available information for each row of the dimension matrix
     /// </summary>
     public class RowDimensionModel
     {
@@ -37,7 +37,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         /// <summary>
         /// Key is Column Dimension. Value is pickslip count.
         /// </summary>        
-        public IDictionary<string, int> Data { get; set; }
+        public IDictionary<string, int> PickslipCounts { get; set; }
 
         /// <summary>
         /// Total pickslips for this pickslip dimension
@@ -47,7 +47,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         {
             get
             {
-                return this.Data.Values.Sum();
+                return this.PickslipCounts.Values.Sum();
             }
         }
     }

@@ -124,7 +124,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 model.RowDimensions = (from order in orders
                                         select new RowDimensionModel
                                         {
-                                            Data = order.Data,
+                                            PickslipCounts = order.Data,
                                             DimensionValue = FormatDimensionValue(order.DimensionValue)
                                         }).ToArray();
             }

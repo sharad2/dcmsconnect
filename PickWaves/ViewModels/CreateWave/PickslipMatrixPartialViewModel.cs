@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DcmsMobile.PickWaves.Repository.CreateWave;
 using EclipseLibrary.Mvc.Helpers;
+using System;
 
 namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 {
@@ -64,7 +65,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
                 if (_colDimensionValues == null)
                 {
                     _colDimensionValues = new Dictionary<string, int>();
-                    foreach (var item in RowDimensions.SelectMany(p => p.Data))
+                    foreach (var item in RowDimensions.SelectMany(p => p.PickslipCounts))
                     {
                         int count;
                         if (_colDimensionValues.TryGetValue(item.Key, out count))
