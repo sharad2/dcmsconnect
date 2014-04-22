@@ -65,7 +65,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
                         int count;
                         if (_colDimensionValues.TryGetValue(item.Key, out count))
                         {
-                            // The date exists
+                            // The data exists
                             _colDimensionValues[item.Key] = count + item.Value;      // Sum the pickslip count
                         }
                         else

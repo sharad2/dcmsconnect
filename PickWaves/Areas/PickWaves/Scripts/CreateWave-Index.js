@@ -7,15 +7,29 @@
             $(this).click();
         }
     }).on('change', 'th select', function (e) {
+        // Close the dialog if it is open
+        $('#divDlg').dialog('close');
+
         // Ajax load the new matrix when a dimension changes
         $(e.delegateTarget).addClass('ui-state-disabled')
-            .load($(e.delegateTarget).attr('data-url'), $('input,select', $(e.delegateTarget)).serialize(),
-            $.proxy(function (responseText, textStatus, xhr) {
-                if (textStatus == "error") {
-                    alert("Sorry but there was an error: " + xhr.status + " " + xhr.statusText + ". Refresh the page.");
-                }
-                this.self.removeClass('ui-state-disabled');
-            }, { self: $(e.delegateTarget) }));
+            .load(
+                $(e.delegateTarget).attr('data-url'), $('input,select', $(e.delegateTarget)).serialize(),
+                $.proxy(function (responseText, textStatus, xhr) {
+                    if (textStatus == "error") {
+                        alert("Sorry but there was an error: " + xhr.status + " " + xhr.statusText + ". Refresh the page.");
+                    }
+                    this.self.removeClass('ui-state-disabled');
+                }, { self: $(e.delegateTarget) })
+            );
+        var dimText = $('option:selected', this).text();
+      
+        if ($(this).closest('th').attr('rowspan')) {
+            // Represents ddl of row dimension
+            $('#dlgRowDimSpan').text(dimText);
+        } else {
+            // represents ddl of col dimension
+            $('#dlgColDimSpan').text(dimText);
+        }
         return true;
     }).on('click', 'td.ui-selectable', function (e) {
         // When a selectable cell is clicked, Select the row and col radio buttons and open dialog

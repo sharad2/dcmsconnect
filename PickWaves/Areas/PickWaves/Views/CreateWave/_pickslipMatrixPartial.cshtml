@@ -58,7 +58,7 @@
                         @Html.RadioButtonFor(m => m.ColDimVal, Model.ColDimensionValues[i], new
                    {
                        id = "col_" + i.ToString(),
-                       @checked = i == 0 ? "checked" : ""
+                       //@checked = i == 0 ? "checked" : ""
                    })
                         <label for="@Html.Raw("col_" + i.ToString())">
                             @Model.ColDimensionValues[i]
@@ -78,7 +78,7 @@
                         @Html.RadioButtonFor(m => m.RowDimVal, Model.CustomerOrders[j].DimensionValue, new
                    {
                        id = "row_" + j.ToString(),
-                       @checked = j == 0 ? "checked" : ""
+                       //@checked = j == 0 ? "checked" : ""
                    })
                         <label for="@Html.Raw("row_" + j.ToString())">
                             @Model.CustomerOrders[j].DimensionDisplayValue

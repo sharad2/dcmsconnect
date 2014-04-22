@@ -109,9 +109,9 @@ else
 }
 
 <div id="divDlg" title="@string.Format(Model.LastBucketId.HasValue ? "Add pickslip to Pick Wave" : "Create New Pick Wave")">
-    <em id="dlgColDimSpan" style="display: inline-block; width: 8em">@Model.ColDimDisplayName</em><span id="dlgColDimSpanVal"></span>
+    <em id="dlgColDimSpan" style="display: inline-block; width: 12em">@Model.ColDimDisplayName</em><span id="dlgColDimSpanVal"></span>
     <br />
-    <em id="dlgRowDimSpan" style="display: inline-block; width: 8em">@Model.RowDimDisplayName</em> <span id="dlgRowDimSpanVal"></span>
+    <em id="dlgRowDimSpan" style="display: inline-block; width: 12em">@Model.RowDimDisplayName</em> <span id="dlgRowDimSpanVal"></span>
     <hr />
     @if (Model.LastBucketId.HasValue)
     {
