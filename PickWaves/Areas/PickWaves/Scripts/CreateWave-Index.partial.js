@@ -80,7 +80,7 @@
                     at: 'right bottom'
                 }
             });
-            this._super();
+
             _dlgOpen = this;
             $('#dlgMessage').empty();
 
@@ -95,7 +95,13 @@
             $('#dlgRowDimSpanVal').text($rb.val());
 
             // j'th td is the selected cell of $tr. Show its text as pickslip count
-            $('#dlgSpanPsCount').text($('td', $tr).eq(j + 2).text());
+            var $td = $('td', $tr).eq(j + 2);  // td which contains the pickslip count
+
+            // Open the dialog only if the td is selctable
+            if ($td.is('.ui-selectable')) {
+                $('#dlgSpanPsCount').text($td.text());
+                this._super();
+            }
         }
     });
 
