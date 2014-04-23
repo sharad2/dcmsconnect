@@ -142,7 +142,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     {
                         BucketActivityType.Pulling,
                         (from area in bucketAreas
-                         where area.AreaType == BucketActivityType.Pulling
+                         where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
                          orderby area.CountSku descending
                             select new SelectListItem
                             {
@@ -154,7 +154,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                       {
                             BucketActivityType.Pitching,
                             (from area in bucketAreas
-                             where area.AreaType == BucketActivityType.Pitching
+                             where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
                              orderby area.CountSku descending
                              select new SelectListItem
                                 {
@@ -164,6 +164,31 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                 }).ToArray()
                        }
                 };
+
+            //if (model.BucketAreaLists.Count == 0 || model.BucketAreaLists.Where(p => p.Key == BucketActivityType.Pulling).SelectMany(p => p.Value).Count() == 0
+            //    && bucketAreas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
+            //{
+            //    // Pull areas exist but none of them have SKUs available                
+            //    var q = new SelectListItem
+            //    {
+            //        Text = "(Ordered SKUs are not available in any Pull Area)",
+            //        Value = "",
+            //        Selected = true
+            //    };
+            //    model.BucketAreaLists.Add(BucketActivityType.Pulling, new List<SelectListItem> { q }.ToList());
+            //}
+            //if (model.BucketAreaLists.Count == 0 || model.BucketAreaLists.Where(p => p.Key == BucketActivityType.Pitching).SelectMany(p => p.Value).Count() == 0
+            //    && bucketAreas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
+            //{
+            //    // Pitch areas exist but none of them have SKUs assigned        
+            //    var q = new SelectListItem
+            //    {
+            //        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+            //        Value = "",
+            //        Selected = true
+            //    };
+            //    model.BucketAreaLists.Add(BucketActivityType.Pitching, new List<SelectListItem> { q }.ToList());
+            //}
             // For edit wave
             model.DisplayEditableWave = true;
             model.BucketNameOriginal = bucket.BucketName;
