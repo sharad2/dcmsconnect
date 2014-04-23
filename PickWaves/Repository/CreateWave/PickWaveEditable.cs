@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
@@ -22,8 +23,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// Priority Id of Bucket
         /// </summary>
         public int PriorityId { get; set; }
-
-        public bool PrePrintingPallets { get; set; }
 
         /// <summary>
         /// If bucket is pull , set it as not null.

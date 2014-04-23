@@ -101,7 +101,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             if (!string.IsNullOrWhiteSpace(src.PullingBucket) && src.PullingBucket == "N")
             {
-                PrePrintingPallets = true;
+                RequiredBoxExpediting = true;
             }
 
             CountAssignedSku = src.CountAssignedSku;
@@ -142,8 +142,8 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [Display(Name = "Pre-create pallets to pull")]
-        public bool PrePrintingPallets { get; set; }
+        [Display(Name = "Required Box Expediting")]
+        public bool RequiredBoxExpediting { get; set; }
 
         [Display(Name = "Quick Pitch")]
         public bool QuickPitch { get; set; }

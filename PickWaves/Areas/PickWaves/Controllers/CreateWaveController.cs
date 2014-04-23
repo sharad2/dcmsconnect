@@ -268,7 +268,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="model">
         /// RowDimIndex,ColDimIndex,CustomerId,LastBucketId
-        /// Optional : PrePrintingPallets,PullAreaId,PitchAreaId,QuickPitch
+        /// Optional : RequiredBoxExpediting,PullAreaId,PitchAreaId,QuickPitch
         /// </param>
         /// <returns></returns>
         [HttpPost]
@@ -312,7 +312,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 }
                 else
                 {
-                    if (model.PrePrintingPallets)
+                    if (model.RequiredBoxExpediting)
                     {
                         bucket.PullingBucket = "N";
                     }

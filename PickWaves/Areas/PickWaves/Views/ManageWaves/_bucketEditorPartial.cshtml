@@ -42,7 +42,7 @@
                 @Html.DropDownListFor(m => m.Bucket.Activities[i].AreaId, Model.BucketAreaLists[Model.Bucket.Activities[i].ActivityType], dict[Model.Bucket.Activities[i].ActivityType])
                 if (Model.Bucket.Activities[i].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling)
                 {
-                    @Html.CheckBoxFor(m => m.Bucket.PrePrintingPallets) <span>Pre-create pallets to pull</span>
+                    @Html.CheckBoxFor(m => m.Bucket.RequiredBoxExpediting) <span>Required Box Expediting</span>
                 }
                 else
                 {
@@ -80,7 +80,7 @@
     @Html.HiddenFor(m => m.PullAreaOriginal)
     @Html.HiddenFor(m => m.PitchAreaOriginal)
     @Html.HiddenFor(m => m.BucketCommentOriginal)
-    @Html.HiddenFor(m => m.PrePrintingPalletsOriginal)
+    @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
     @Html.HiddenFor(m => m.QuickPitchOriginal)
     @Html.HiddenFor(m => m.PitchLimitOriginal)
 </div>

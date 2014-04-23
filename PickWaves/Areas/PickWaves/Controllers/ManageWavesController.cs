@@ -105,7 +105,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             //PopulateWaveViewModel(model, bucket);
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
-                model.Bucket.PrePrintingPallets = true;
+                model.Bucket.RequiredBoxExpediting = true;
             }
             return View(this.Views.Wave, model);
         }
@@ -175,11 +175,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.PitchLimitOriginal = bucket.PitchLimit;
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
-                model.Bucket.PrePrintingPallets = true;
+                model.Bucket.RequiredBoxExpediting = true;
             }
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
-                model.PrePrintingPalletsOriginal = true;
+                model.RequiredBoxExpeditingOriginal = true;
             }
             return View(this.Views.Wave, model);
         }
@@ -363,7 +363,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             // For manage PullToDock flag. In case of pulling PullToDock is not null.
             if (!string.IsNullOrEmpty(pullAreaId))
             {
-                if (model.Bucket.PrePrintingPallets)
+                if (model.Bucket.RequiredBoxExpediting)
                 {
                     bucket.PullingBucket = "N";
                 }
@@ -383,7 +383,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 BucketId = model.Bucket.BucketId,
                 BucketName = model.BucketNameOriginal,
                 PriorityId = model.PriorityIdOriginal,
-                PrePrintingPallets = model.PrePrintingPalletsOriginal,
+                RequiredBoxExpediting = model.RequiredBoxExpeditingOriginal,
                 BucketComment = model.BucketCommentOriginal,
                 QuickPitch = model.QuickPitchOriginal,
                 PitchLimit = model.PitchLimitOriginal
