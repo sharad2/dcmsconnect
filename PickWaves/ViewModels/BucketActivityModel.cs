@@ -72,7 +72,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Displays the short name with Building
         /// </summary>
-        [DisplayFormat(NullDisplayText = "?")]
+        [DisplayFormat(NullDisplayText = "<span class='ui-state-error'>Undecided</span>", HtmlEncode = false)]
         public string AreaShortNameDisplay
         {
             get

@@ -118,7 +118,7 @@ namespace DcmsMobile.PickWaves.Repository
                            MAX(IA.SHORT_NAME)                       AS PITCH_AREA_SHORT_NAME,
                            MAX(IA.SHORT_DESCRIPTION)                AS PITCH_AREA_DESCRIPTION,
                            MAX(IA.WAREHOUSE_LOCATION_ID)            AS BUILDING_PITCH_FROM,
-                           SUM(NVL(PS.TOTAL_QUANTITY_ORDERED,0))    AS ORDERED_PIECES,
+                           SUM(UNIQUE NVL(PS.TOTAL_QUANTITY_ORDERED,0))    AS ORDERED_PIECES,
                            MIN(PO.DC_CANCEL_DATE)                   AS MIN_DC_CANCEL_DATE,
                            MAX(PO.DC_CANCEL_DATE)                   AS MAX_DC_CANCEL_DATE,
                            COUNT(DISTINCT PS.PO_ID)                 AS PO_COUNT,
