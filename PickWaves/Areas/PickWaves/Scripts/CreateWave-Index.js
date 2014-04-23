@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/Scripts/CreateWave-Index.partial.js
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#btnCreateBucket').button();
 
     $('#matrixPartial').on('keypress', 'td.ui-selectable', function (e) {

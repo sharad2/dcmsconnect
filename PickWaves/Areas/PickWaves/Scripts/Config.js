@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/Scripts/Config.partial.js
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $('#tabs').tabs({ active: $('#tabs').attr('data-active-tab') });
 
     // Autocomplete for customer.
@@ -68,7 +67,6 @@ $(document).ready(function () {
         });
     }
 });
-///#source 1 1 /Areas/PickWaves/Scripts/AutoComplete.partial.js
 $(document).ready(function () {
 
     /*

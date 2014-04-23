@@ -142,12 +142,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     {
                         BucketActivityType.Pulling,
                         (from area in bucketAreas
-                         where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
+                         where area.AreaType == BucketActivityType.Pulling
                          orderby area.CountSku descending
                             select new SelectListItem
                             {
                                 Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                Value = area.AreaId,                               
+                                Value = area.CountSku > 0 ? area.AreaId : "",                               
                                 Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
                             }).ToArray()
                       },
@@ -164,7 +164,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                 }).ToArray()
                        }
                 };
-
+            if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+            {
+                // We have some areas with no ordered SKUs
+                model.BucketAreaLists[BucketActivityType.Pulling] = model.BucketAreaLists[BucketActivityType.Pulling].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+                if (!model.BucketAreaLists[BucketActivityType.Pulling].Any())
+                {
+                    // We do have pull areas but none with SKUs needed
+                    model.BucketAreaLists[BucketActivityType.Pulling].Add(new SelectListItem
+                    {
+                        Text = "(Ordered SKUs are not available in any Pull Area)",
+                        Value = "",
+                        Selected = true
+                    });
+                }
+            }
             //if (model.BucketAreaLists.Count == 0 || model.BucketAreaLists.Where(p => p.Key == BucketActivityType.Pulling).SelectMany(p => p.Value).Count() == 0
             //    && bucketAreas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
             //{
