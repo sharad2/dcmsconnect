@@ -112,24 +112,23 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
-                                    SELECT  PD.SKU_ID               AS SKU_ID,
-                                            P.VWH_ID                AS VWH_ID,
-                                             MAX(BKT.PITCH_IA_ID)   AS PITCH_AREA,
-                                            SUM( PD.PIECES_ORDERED) AS QUANTITY_ORDERED,
-                                            COUNT(UNIQUE IL.ASSIGNED_UPC_CODE) AS COUNT_ASSIGED_SKU
+                                    SELECT PD.SKU_ID               AS SKU_ID,
+                                           P.VWH_ID                AS VWH_ID,
+                                         MAX(B.PITCH_IA_ID) OVER() AS PITCH_AREA,
+                                         SUM(PD.PIECES_ORDERED) OVER(PARTITION BY PD.SKU_ID, P.VWH_ID) AS QUANTITY_ORDERED,
+                                         (SELECT COUNT(UNIQUE ASSIGNED_UPC_CODE)
+                                            FROM <proxy />IALOC IL                                           
+                                           WHERE IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
+                                             AND IL.VWH_ID = P.VWH_ID
+                                             AND IL.IA_ID = B.PITCH_IA_ID) AS COUNT_ASSIGED_SKU
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
-                                    INNER JOIN <proxy />BUCKET BKT
-                                      ON BKT.BUCKET_ID = P.BUCKET_ID
-                                    LEFT OUTER JOIN <proxy />IALOC IL
-                                        ON IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
-                                         AND IL.IA_ID = BKT.PITCH_IA_ID
-                                         AND IL.VWH_ID = P.VWH_ID
+                                   INNER JOIN <proxy />BUCKET B
+                                      ON B.BUCKET_ID = P.BUCKET_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
-                                    AND P.TRANSFER_DATE IS NULL
-                                    AND PD.TRANSFER_DATE IS NULL
-                                   GROUP BY PD.SKU_ID, P.VWH_ID
+                                     AND P.TRANSFER_DATE IS NULL
+                                     AND PD.TRANSFER_DATE IS NULL
                             ),
                             ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
