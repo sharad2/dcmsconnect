@@ -173,6 +173,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                         Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                         Value = area.AreaId
                                     }).ToList();
+
+                if (model.PullAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
+                {
+                    // Pull areas exist but none of them have SKUs available
+                    model.PullAreas.Add(new SelectListItem
+                    {
+                        Text = "(Ordered SKUs are not available in any Pull Area)",
+                        Value = "",
+                        Selected = true
+                    });
+                }
+
                 if (model.PitchAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
                 {
                     // Pitch areas exist but none of them have SKUs assigned

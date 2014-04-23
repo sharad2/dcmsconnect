@@ -803,8 +803,7 @@ WHERE 1 = 1
                                 (SELECT COUNT(UNIQUE SKU_ID) FROM ORDERED_SKU) AS COUNT_ORDERED_SKU
                             FROM <proxy />TAB_INVENTORY_AREA TIA
                             INNER JOIN CARTON_AREAS CA
-                                ON CA.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
-                            WHERE CA.COUNT_SKU &gt; 0
+                                ON CA.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA                            
                         UNION ALL
 
                         SELECT :PITCH_AREA_TYPE AS AREA_TYPE,
@@ -817,8 +816,7 @@ WHERE 1 = 1
                           FROM <proxy />IA I
                          INNER JOIN PICK_AREAS CA
                             ON CA.IA_ID = I.IA_ID
-                         WHERE I.PICKING_AREA_FLAG = 'Y'
-                            AND CA.COUNT_SKU &gt; 0";
+                         WHERE I.PICKING_AREA_FLAG = 'Y'";
 
             var binder = SqlBinder.Create(row => new BucketArea
             {
