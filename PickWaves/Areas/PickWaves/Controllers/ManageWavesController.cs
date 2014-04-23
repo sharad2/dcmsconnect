@@ -147,23 +147,25 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                             select new SelectListItem
                             {
                                 Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                Value = area.CountSku > 0 ? area.AreaId : "",                               
+                                Value = area.CountSku > 0 ? area.AreaId : "",
                                 Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
                             }).ToArray()
                       },
                       {
                             BucketActivityType.Pitching,
                             (from area in bucketAreas
-                             where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
+                             where area.AreaType == BucketActivityType.Pitching
                              orderby area.CountSku descending
                              select new SelectListItem
                                 {
                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                   Value = area.AreaId,                                 
+                                   Value = area.CountSku > 0 ? area.AreaId : "",
                                    Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
                                 }).ToArray()
                        }
                 };
+
+            //For Pull area
             if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
             {
                 // We have some areas with no ordered SKUs
@@ -179,30 +181,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     });
                 }
             }
-            //if (model.BucketAreaLists.Count == 0 || model.BucketAreaLists.Where(p => p.Key == BucketActivityType.Pulling).SelectMany(p => p.Value).Count() == 0
-            //    && bucketAreas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
-            //{
-            //    // Pull areas exist but none of them have SKUs available                
-            //    var q = new SelectListItem
-            //    {
-            //        Text = "(Ordered SKUs are not available in any Pull Area)",
-            //        Value = "",
-            //        Selected = true
-            //    };
-            //    model.BucketAreaLists.Add(BucketActivityType.Pulling, new List<SelectListItem> { q }.ToList());
-            //}
-            //if (model.BucketAreaLists.Count == 0 || model.BucketAreaLists.Where(p => p.Key == BucketActivityType.Pitching).SelectMany(p => p.Value).Count() == 0
-            //    && bucketAreas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
-            //{
-            //    // Pitch areas exist but none of them have SKUs assigned        
-            //    var q = new SelectListItem
-            //    {
-            //        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
-            //        Value = "",
-            //        Selected = true
-            //    };
-            //    model.BucketAreaLists.Add(BucketActivityType.Pitching, new List<SelectListItem> { q }.ToList());
-            //}
+
+            //For Pitch area
+            if (model.BucketAreaLists[BucketActivityType.Pitching].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+            {
+                // We have some areas with no ordered SKUs
+                model.BucketAreaLists[BucketActivityType.Pitching] = model.BucketAreaLists[BucketActivityType.Pitching].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+                if (!model.BucketAreaLists[BucketActivityType.Pitching].Any())
+                {
+                    // We do have pitch areas but none with SKUs needed
+                    model.BucketAreaLists[BucketActivityType.Pitching].Add(new SelectListItem
+                    {
+                        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+                        Value = "",
+                        Selected = true
+                    });
+                }
+            }
+
             // For edit wave
             model.DisplayEditableWave = true;
             model.BucketNameOriginal = bucket.BucketName;

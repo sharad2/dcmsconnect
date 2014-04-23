@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
@@ -8,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PickWaves", "PickWaves\PickWaves.csproj", "{A98AA80C-48D3-4B87-B284-82F45C8BF706}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AF8543E-DFCF-43BC-8C25-05E76BC58109}"
+	ProjectSection(SolutionItems) = preProject
+		WebEssentials-Settings.json = WebEssentials-Settings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

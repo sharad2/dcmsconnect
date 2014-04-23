@@ -297,7 +297,9 @@
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Content\PickWaves-all.css.bundle" />
-    <None Include="Areas\PickWaves\Scripts\Config.js.bundle" />
+    <None Include="Areas\PickWaves\Scripts\Config.js.bundle">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\Config.min.js.map">
       <DependentUpon>Config.min.js</DependentUpon>
     </Content>
