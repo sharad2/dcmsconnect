@@ -149,8 +149,23 @@ using System.Runtime.InteropServices;
 //					   A wave can be processed from more than one areas/buildings when inventory is available.
 //					   A new Pick wave configuration UI is introduced in this version.
 
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+
+/* Change log from 2.0.0.0 to 2.0.0.1
+ *  [DEPENDENCY] Depending on IA.SHORT_NAME and BUILDINGS of area.
+ *  [DEPENDENCY] Depending on Bucket.CREATED_BY_MODULE(add new column in bucket table).
+ *  [DEPENDENCY] Depending on Bucket.SHIP_IA_ID(Default value 'ADR').
+ *  [DEPENDENCY] Depending on Bucket.AVAILABLE_FOR_PITCHING = 'Y'(Default value is Y)
+ *  New Role DCMS8_WAVE_MANAGER is required to run this module.
+ *  New Pick Wave Manager helps the user to create/manage pick wave in efficient manner. 
+ *  Now this module create a wave, which can be processed in both way pulling or pitching and both at simultaneously.
+ *  A wave can be processed from more than one areas/buildings when inventory is available.
+ *  [DEPENDENCY] Depends on PKG_BUCKET
+ *  [DEPENDENCY] Depends on PKG_BOXEXPEDITE.CREATE_ADR_PALLET
+ *  [DEPENDENCY] Depends on new trigger TRG_MIG_BUCKET_FREEZE_BIUR
+ */
+
+[assembly: AssemblyVersion("2.0.0.1")]
+[assembly: AssemblyFileVersion("2.0.0.1")]
 
 [assembly: AssemblyProduct(@"
 <ol>
@@ -162,9 +177,6 @@ Now this module create a wave, which can be processed in both way pulling, pitch
 </li>
 <li>
 A wave can be processed from more than one areas/buildings when inventory is available.
-</li>
-<li>
-A new Pick wave configuration UI is introduced in this version.
 </li>
 </ol>
 ")]

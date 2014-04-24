@@ -256,20 +256,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 }
                 return new CustomerOrderSummary
             {
-                //Counts = new Dictionary<PickslipDimension, int>
-                //    {
-                //        {PickslipDimension.CancelDate, row.GetInteger("COUNT_CANCEL_DATE") ?? 0},
-                //        {PickslipDimension.Priority, row.GetInteger("COUNT_PRIORITY_ID") ?? 0},
-                //        {PickslipDimension.CustomerStore, row.GetInteger("COUNT_CUSTOMER_STORE_ID") ?? 0},
-                //        {PickslipDimension.CustomerDcCancelDate, row.GetInteger("COUNT_DC_CANCEL_DATE") ?? 0},
-                //        {PickslipDimension.Label, row.GetInteger("COUNT_PICKSLIP_TYPE")  ?? 0},
-                //        {PickslipDimension.ImportDate, row.GetInteger("COUNT_IMPORT_DATES")  ?? 0},
-                //        {PickslipDimension.StartDate, row.GetInteger("COUNT_DELIVERY_DATE")  ?? 0},
-                //        {PickslipDimension.CustomerOrderType, row.GetInteger("COUNT_CUSTOMER_ORDER_TYPE")  ?? 0},
-                //        {PickslipDimension.SaleTypeId, row.GetInteger("COUNT_SALES_TYPE_ID")  ?? 0},
-                //        {PickslipDimension.PurchaseOrder, row.GetInteger("COUNT_CUSTOMER_ORDER_ID")  ?? 0},
-                //        {PickslipDimension.CustomerDc, row.GetInteger("COUNT_CUSTOMER_DIST_CENTER_ID")  ?? 0}                        
-                //    },
                 DimensionValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
                 PickslipCounts = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
             };
