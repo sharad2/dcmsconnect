@@ -290,14 +290,7 @@
                                                     </div>
                                                 }
                                             </div>
-                                        }
-                                        @*@if (Model.BucketsByStatus.Values[j][i].PickingDateRange.To.HasValue)
-                                            {
-                                                <div>
-                                                    Picked from @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickingDateRange)
-
-                                                </div>
-                                            }*@
+                                        }                                       
                                         @if (Model.BucketsByStatus.Values[j][i].UncreatedPieces > 0)
                                         {
                                             if (Model.BucketsByStatus.Values[j][i].UncreatedPieces >= Model.BucketsByStatus.Values[j][i].OrderedPieces)
@@ -318,48 +311,7 @@
                                                 }
                                             }
                                         }
-                                    </td>
-                                    @*<td>
-                                            @if (Model.BucketsByStatus.Values[j][i].PullAreaCount > 0)
-                                            {
-                                                <div>
-                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 1)
-                                                    {
-                                                        <text>
-                                                        <em>Pull From</em> <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPullArea.ShortName)</span>
-                                                        </text>
-                                                    }
-                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 2)
-                                                    {
-                                                        <text>&amp; </text>
-                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPullArea.ShortName)</span>
-                                                    }
-                                                    @if (Model.BucketsByStatus.Values[j][i].PullAreaCount >= 3)
-                                                    {
-                                                        <span title="More pull areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PullAreaCount - 2) more</span>
-                                                    }
-                                                </div>
-                                            }
-                                            @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount > 0)
-                                            {
-                                                <div>
-                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 1)
-                                                    {
-                                                        <em>Pitch From</em>
-                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MaxPitchArea.ShortName)</span>
-                                                    }
-                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 2)
-                                                    {
-                                                        <text>&amp; </text>
-                                                        <span style="white-space: nowrap">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.BuildingId)-@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].MinPitchArea.ShortName)</span>
-                                                    }
-                                                    @if (Model.BucketsByStatus.Values[j][i].PitchAreaCount >= 3)
-                                                    {
-                                                        <span title="More pitch areas" style="font-size: 0.9em">+@(Model.BucketsByStatus.Values[j][i].PitchAreaCount - 2) more</span>
-                                                    }
-                                                </div>
-                                            }
-                                        </td>*@
+                                    </td>                                    
                                 </tr>
                             }
                         </tbody>
