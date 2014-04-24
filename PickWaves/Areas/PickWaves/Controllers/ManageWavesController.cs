@@ -1,17 +1,16 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
+using DcmsMobile.PickWaves.Repository.ManageWaves;
+using DcmsMobile.PickWaves.ViewModels;
+using DcmsMobile.PickWaves.ViewModels.ManageWaves;
+using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository;
-using DcmsMobile.PickWaves.Repository.ManageWaves;
-using DcmsMobile.PickWaves.ViewModels;
-using DcmsMobile.PickWaves.ViewModels.ManageWaves;
-using EclipseLibrary.Mvc.Controllers;
-using EclipseLibrary.Mvc.Html;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
@@ -96,13 +95,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var bucket = _service.GetBucket(model.Bucket.BucketId);
             if (bucket == null)
             {
-                // TC1 : Unreasonable bucket id
+                // Unreasonable bucket id
                 ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", model.Bucket.BucketId));
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
 
             model.Bucket = new BucketModel(bucket);
-            //PopulateWaveViewModel(model, bucket);
+
+            // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
                 model.Bucket.RequiredBoxExpediting = true;
@@ -124,13 +124,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var bucket = _service.GetBucket(model.Bucket.BucketId);
             if (bucket == null)
             {
-                // TC2 : Unreasonable bucket id
+                // Unreasonable bucket id
                 ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", model.Bucket.BucketId));
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
             if (!bucket.IsFrozen)
             {
-                // TC3 : bucket is not freeze,freeze it before attempting to edit it.
+                // bucket is not freeze,freeze it before attempting to edit it.
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
                 return RedirectToAction(Actions.Wave(model));
             }
@@ -208,12 +208,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.BucketCommentOriginal = bucket.BucketComment;
             model.QuickPitchOriginal = bucket.QuickPitch;
             model.PitchLimitOriginal = bucket.PitchLimit;
+
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
+                // If pulling bucket
                 model.Bucket.RequiredBoxExpediting = true;
-            }
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
                 model.RequiredBoxExpeditingOriginal = true;
             }
             return View(this.Views.Wave, model);
@@ -334,6 +333,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return PartialView(this.Views._waveBoxesPartial, model);
         }
 
+        /// <summary>
+        /// Ajax call.
+        /// Showing pickslip list of bucket
+        /// </summary>
+        /// <param name="bucketId"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public virtual ActionResult WavePickslips(int bucketId)
         {
@@ -375,7 +380,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var count = model.Bucket.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId));
             if (count == 0)
             {
-                // TC4 : Bucket have not any area for pulling and / pitching.
+                // Bucket have not any area for pulling and / pitching.
                 ModelState.AddModelError("", "Pick wave could not be updated. Please gave at least one area for pulling and/ pitching and try again");
                 return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(model.Bucket.BucketId, SuggestedNextActionType.CancelEditing)));
             }
@@ -395,7 +400,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 bucket.PitchLimit = model.Bucket.PitchLimit;
             }
 
-            // For manage PullToDock flag. In case of pulling PullToDock is not null.
+            // For manage PullToDock flag. In case of pulling, PullToDock is not null.
             if (!string.IsNullOrEmpty(pullAreaId))
             {
                 if (model.Bucket.RequiredBoxExpediting)
@@ -407,10 +412,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     bucket.PullingBucket = "Y";
                 }
             }
+            // In case of pitching, PullToDock is null.
             else
             {
                 bucket.PullingBucket = null;
             }
+
             bucket.Activities[BucketActivityType.Pulling].Area.AreaId = pullAreaId;
             bucket.Activities[BucketActivityType.Pitching].Area.AreaId = pitchAreaId;
             var bucketOld = new Bucket
@@ -444,7 +451,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             if (model.UnfreezeWaveAfterSave)
             {
-                // TC5 : if user says unfreeze bucket after editing.
+                //  if user says unfreeze bucket after editing.
                 _service.FreezeWave(model.Bucket.BucketId, false);
                 AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", model.Bucket.BucketId));
             }
@@ -530,7 +537,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 _service.FreezeWave(bucketId, freeze);
                 if (freeze)
                 {
-                    // TC6 : user has frozen a bucket.
+                    // user has frozen a bucket.
                     AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
                     if (displayEditable)
                     {
@@ -544,7 +551,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 }
                 else
                 {
-                    // TC7 : User has unfrozen a bucket.
+                    // User has unfrozen a bucket.
                     AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", bucketId));
                     return RedirectToAction(this.Actions.Wave(new WaveViewModel(bucketId, SuggestedNextActionType.UnfreezeOthers)));
                 }
@@ -556,6 +563,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
         }
 
+        /// <summary>
+        /// Remove passed pickslip from bucket
+        /// </summary>
+        /// <param name="bucketId"></param>
+        /// <param name="pickslipId"></param>
+        /// <returns></returns>
         public virtual ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId)
         {
             try

@@ -1,16 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Common;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository;
+﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository.CreateWave;
 using DcmsMobile.PickWaves.ViewModels;
 using DcmsMobile.PickWaves.ViewModels.CreateWave;
 using EclipseLibrary.Mvc.Controllers;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
@@ -105,8 +103,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
             var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-
-            // TC1: When passed customer have some order.
+            
             const int MAX_COL_DIMENSIONS = 30;
             var first = orders.Item2;
 
@@ -153,6 +150,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
 
+            //Showing only those area where order of customer are available.
             var areas = _service.GetAreasForCustomer(model.CustomerId);
             if (areas != null)
             {
@@ -233,7 +231,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
 
             #endregion
+
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
+
+            // If Bucket is created.
             if (model.LastBucketId.HasValue)
             {
                 // Retrive some information of bucket.
@@ -270,10 +271,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// RowDimIndex,ColDimIndex,CustomerId,LastBucketId
         /// Optional : RequiredBoxExpediting,PullAreaId,PitchAreaId,QuickPitch
         /// </param>
+        /// <param name="viewPickslips">
+        /// Showing the pickslip list
+        /// </param>
         /// <returns></returns>
         [HttpPost]
         public virtual ActionResult AddPickslipsOfDim(IndexViewModel model, string viewPickslips)
         {
+            // If user want to see pickslip list.
             if (!string.IsNullOrWhiteSpace(viewPickslips))
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new PickslipListViewModel
@@ -290,8 +295,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
             }
+
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
+
+            // If bucket is not created.create it first.
             if (!model.LastBucketId.HasValue)
             {
                 var bucket = new PickWaveEditable
@@ -299,32 +307,40 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     PriorityId = 1,   // Default priority
                     QuickPitch = model.QuickPitch
                 };
-                // TC4: Give pull area if user wants to pulled cartons.
+
+                // Give pull area if user wants to pulled cartons.
                 bucket.PullAreaId = model.PullAreaId;
 
-                // TC5: Give pitch area if user wants to pitched pieces.
+                // Give pitch area if user wants to pitched pieces.
                 bucket.PitchAreaId = model.PitchAreaId;
-                bucket.BucketName = "Bucket"; //Update Bucket Name.
 
+                // Update Bucket name default. it change when pickslip is added to this bucket.
+                bucket.BucketName = "Bucket"; 
+                
                 if (string.IsNullOrWhiteSpace(model.PullAreaId))
                 {
+                    // This bucket is not pulling buccket.
                     bucket.PullingBucket = null;
                 }
                 else
                 {
                     if (model.RequiredBoxExpediting)
                     {
+                        // Bucket is pull and Required Box Expediting (ADREPPWSS)
                         bucket.PullingBucket = "N";
                     }
                     else
                     {
+                        // Pulling bucket , ADRE bucket
                         bucket.PullingBucket = "Y";
                     }
                 }
+                //Now Create bucket
                 model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
             }
             else
             {
+                // Add pickslip to bucket 
                 _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
             }
             return RedirectToAction(this.Actions.Index(model));
@@ -334,7 +350,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Get pickslip list of passed criteria.
         /// </summary>
         /// <param name="model">
-        /// model.CustomerId, model.CustomerDc, model.SelectedDimension, model.DimensionDisplayValue, model.addToBucketId
+        /// model.CustomerId, model.RowDimIndex, model.ColDimIndex, model.RowDimVal, model.ColDimVal,model.BucketId
         /// </param
         /// <returns></returns>
         public virtual ActionResult PickslipList(PickslipListViewModel model)
@@ -346,6 +362,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
 
+            // Pickslip list of passed dimension.
             var pickslips = _service.GetPickslipList(model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             model.PickslipList = (from pickslip in pickslips
                                   select new PickslipModel

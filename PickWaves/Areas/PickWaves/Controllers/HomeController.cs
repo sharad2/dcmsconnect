@@ -1,12 +1,11 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository.Home;
+using DcmsMobile.PickWaves.ViewModels.Home;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository.Home;
-using DcmsMobile.PickWaves.ViewModels;
-using DcmsMobile.PickWaves.ViewModels.Home;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
@@ -54,13 +53,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return ShowHomePage(SearchTextType.Unknown, null);
         }
 
-
+        /// <summary>
+        /// Showing list of bucket summary for passed customer.
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         public virtual ActionResult Customer(string customerId)
         {
             return ShowHomePage(SearchTextType.CustomerId, customerId);
         }
 
-
+        /// <summary>
+        /// Search text.
+        /// </summary>
+        /// <param name="searchText">Should be BucketId,CustomerId,UserName</param>
+        /// <returns></returns>
         public virtual ActionResult Search(string searchText)
         {
             var search = SearchTextType.Unknown;
@@ -72,7 +79,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             switch (search)
             {
-                // TC1: When search text is unknown.
+                // When search text is unknown.
                 case SearchTextType.Unknown:
                     if (!string.IsNullOrEmpty(searchText))
                     {
@@ -84,15 +91,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     }
                     break;
 
-                // TC2: When search text is bucket id.
+                // When search text is bucket id.
                 case SearchTextType.BucketId:
                     return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(int.Parse(searchText),
                          DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain)));
 
-                // TC3: When search text is customer id.
+                // When search text is customer id.
                 case SearchTextType.CustomerId:
                     break;
 
+                //When search text is UserName.
                 case SearchTextType.UserName:
                     AddStatusMessage(string.Format("Filter applied for User: {0}", searchText));
                     break;
@@ -107,6 +115,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return ShowHomePage(search, searchText);
         }
 
+        /// <summary>
+        /// Showing UI based on passed search Text
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
         private ActionResult ShowHomePage(SearchTextType search, string searchText)
         {
             var bucketSummary = _service.GetBucketSummary(search, searchText);
@@ -161,8 +175,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                     }).ToArray();
             return View(Views.Index, model);
         }
-
-
 
         /// <summary>
         /// </summary>
