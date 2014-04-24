@@ -1,7 +1,7 @@
-﻿using System.IO;
-using System.Web.Mvc;
-using DcmsMobile.PickWaves.ViewModels;
+﻿using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using System.IO;
+using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Helpers
 {

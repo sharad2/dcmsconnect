@@ -1,5 +1,4 @@
-﻿
-namespace DcmsMobile.PickWaves.Repository.ManageWaves
+﻿namespace DcmsMobile.PickWaves.Repository.ManageWaves
 {
     public class BucketArea : InventoryArea
     {

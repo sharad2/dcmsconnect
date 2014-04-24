@@ -1,7 +1,7 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using DcmsMobile.PickWaves.Helpers;
 
 namespace DcmsMobile.PickWaves.Repository
 {

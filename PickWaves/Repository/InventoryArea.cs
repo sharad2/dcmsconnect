@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using DcmsMobile.PickWaves.Helpers;
+﻿using DcmsMobile.PickWaves.Helpers;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
 {

@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
         internal int OrderedPieces { get; set; }
 
         /// <summary>
-        /// Pieces in not cancelled boxes
+        /// Pieces in boxes
         /// </summary>
         public int CurrentPieces { get; set; }
 

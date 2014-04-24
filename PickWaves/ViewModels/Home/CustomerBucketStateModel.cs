@@ -84,7 +84,8 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
         }
 
         /// <summary>
-        /// Max(OrderedPieces - CancelledPieces) - this.ExpectedPieces)
+        /// Boxes are not created of these pieces.
+        /// OrderedPieces - this.ExpectedPieces
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int UncreatedPieces

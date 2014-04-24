@@ -31,6 +31,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
         /// Counts all buckets whose status is not VALIDATED. Checking buckets are excluded since we do not want to manage them.
         /// </summary>
         /// <param name="customerId"></param>
+        /// <param name="userName"></param>
         /// <returns></returns>
         /// <remarks>
         /// Sharad 13 Aug 2012: Excluding buckets for which all pickslips have been transferred
@@ -160,10 +161,8 @@ namespace DcmsMobile.PickWaves.Repository.Home
                         UNION ALL
                         </if>
                         SELECT 2 FROM <proxy />MASTER_CUSTOMER WHERE CUSTOMER_ID = :string_value
-UNION ALL
-
-select 3 from <proxy />all_users where username = :string_value
-
+                        UNION ALL
+                        select 3 from <proxy />all_users where username = :string_value
                         ORDER BY 1
                         ";
             var binder = SqlBinder.Create(row => row.GetInteger(0) ?? 0);

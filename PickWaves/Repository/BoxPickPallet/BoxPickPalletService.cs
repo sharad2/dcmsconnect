@@ -36,7 +36,6 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
             return _repos.CreatePallet(bucketId, palletId, palletLimit);
         }
 
-
         public void RemoveUnPickedBoxesFromPallet(string palletId)
         {
             _repos.RemoveUnPickedBoxesFromPallet(palletId);

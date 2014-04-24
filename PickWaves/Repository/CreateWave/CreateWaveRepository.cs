@@ -157,7 +157,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="vwhId"> </param>
-        /// <param name="dimRow"></param>
+        /// <param param name="col1"></param>
         /// <param name="col2"> </param>
         /// <returns>Item1 is a list of rows for each unique value of col1. Item2 is number of pickslips per dimension</returns>
         /// <remarks>
@@ -308,6 +308,11 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
         }
 
+        /// <summary>
+        /// Create bucket
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <returns></returns>
         public int CreateWave(PickWaveEditable bucket)
         {
             if (bucket == null)
@@ -353,11 +358,12 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         }
 
         /// <summary>
-        /// 
+        /// Add pickslips to bucket
         /// </summary>
         /// <param name="bucketId"></param>
         /// <param name="customerId"></param>
         /// <param name="dimensions"></param>
+        /// <param name="vwhId"></param>
         /// <param name="updateBucketName"></param>
         public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions, string vwhId, bool updateBucketName)
         {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
@@ -35,16 +34,20 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// </remarks>
         internal Tuple<IList<CustomerOrderSummary>, IDictionary<PickslipDimension, int>> GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
         {
-            var result = _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);
-            // If dim is priority, pad the dim value
-            //if (dimRow == PickslipDimension.Priority)
-            //{
-            //    // For priority we want numeric sort even though priority is stored in a string column
-            //    return result.OrderBy(p => ((string)p.DimensionValue).PadLeft(8));
-            //}
-            return result;
+           return _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);            
         }
 
+        /// <summary>
+        /// Create wave and then add pickslips to this.
+        /// </summary>
+        /// <param name="bucket"></param>
+        /// <param name="customerId"></param>
+        /// <param name="dimRow"></param>
+        /// <param name="dimRowVal"></param>
+        /// <param name="dimCol"></param>
+        /// <param name="dimColVal"></param>
+        /// <param name="vwhId"></param>
+        /// <returns></returns>
         public int CreateWave(PickWaveEditable bucket, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
         {
             using (var trans = _repos.BeginTransaction())

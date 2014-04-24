@@ -1,5 +1,4 @@
-﻿
-namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
+﻿namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
 {
     public class BoxPickBucket
     {
