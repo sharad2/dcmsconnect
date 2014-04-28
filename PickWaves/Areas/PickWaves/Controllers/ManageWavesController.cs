@@ -454,6 +454,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 //  if user says unfreeze bucket after editing.
                 _service.FreezeWave(model.Bucket.BucketId, false);
                 AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", model.Bucket.BucketId));
+                return RedirectToAction(this.Actions.Wave(new WaveViewModel(model.Bucket.BucketId, SuggestedNextActionType.UnfreezeOthers)));
             }
             return RedirectToAction(this.Actions.Wave(new WaveViewModel(model.Bucket.BucketId, SuggestedNextActionType.UnfreezeMe)));
         }
