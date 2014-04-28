@@ -103,7 +103,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
             var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-            
+
             const int MAX_COL_DIMENSIONS = 30;
             var first = orders.Item2;
 
@@ -239,9 +239,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 // Retrive some information of bucket.
                 var bucket = _service.GetEditableBucket(model.LastBucketId.Value);
-                model.PullAreaShortName = bucket.PullAreaShortName;
-                model.PitchAreaShortName = bucket.PitchAreaShortName;
-                model.PickslipCount = bucket.PickslipCount;
+                if (bucket != null)
+                {
+                    model.PullAreaShortName = bucket.PullAreaShortName;
+                    model.PitchAreaShortName = bucket.PitchAreaShortName;
+                    model.PickslipCount = bucket.PickslipCount;
+                }
+                else
+                {
+                    model.LastBucketId = null;
+                }
             }
             return View(Views.Index, model);
         }
@@ -315,8 +322,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 bucket.PitchAreaId = model.PitchAreaId;
 
                 // Update Bucket name default. it change when pickslip is added to this bucket.
-                bucket.BucketName = "Bucket"; 
-                
+                bucket.BucketName = "Bucket";
+
                 if (string.IsNullOrWhiteSpace(model.PullAreaId))
                 {
                     // This bucket is not pulling buccket.
