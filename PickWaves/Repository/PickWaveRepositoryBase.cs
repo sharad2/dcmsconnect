@@ -107,242 +107,278 @@ namespace DcmsMobile.PickWaves.Repository
                     throw new ArgumentOutOfRangeException("state");
             }
             var QUERY = @"
-           WITH TOTAL_ORDERED_PIECES AS
-                    (
-                    SELECT BKT.BUCKET_ID                            AS BUCKET_ID,
-                           MIN(BKT.NAME)                            AS NAME,
-                           MAX(BKT.DATE_CREATED)                    AS DATE_CREATED,
-                           MAX(BKT.CREATED_BY)                      AS CREATED_BY,
-                           MAX(BKT.PITCH_IA_ID)                     AS PITCH_IA_ID,
-                           MAX(BKT.PITCH_LIMIT)                     AS PITCH_LIMIT,
-                           MAX(IA.SHORT_NAME)                       AS PITCH_AREA_SHORT_NAME,
-                           MAX(IA.SHORT_DESCRIPTION)                AS PITCH_AREA_DESCRIPTION,
-                           MAX(IA.WAREHOUSE_LOCATION_ID)            AS BUILDING_PITCH_FROM,
-                           SUM(UNIQUE NVL(PS.TOTAL_QUANTITY_ORDERED,0))    AS ORDERED_PIECES,
-                           MIN(PO.DC_CANCEL_DATE)                   AS MIN_DC_CANCEL_DATE,
-                           MAX(PO.DC_CANCEL_DATE)                   AS MAX_DC_CANCEL_DATE,
-                           COUNT(DISTINCT PS.PO_ID)                 AS PO_COUNT,
-                           MIN(PS.PO_ID)                            AS MIN_PO,
-                           MAX(PS.PO_ID)                            AS MAX_PO,
-                           MAX(PS.CUSTOMER_ID)                      AS CUSTOMER_ID,
-                           MAX(CUST.NAME)                           AS CUSTOMER_NAME,
-                           COUNT(DISTINCT PS.PICKSLIP_ID)           AS PICKSLIP_COUNT,
-                           MAX(BKT.FREEZE)                          AS FREEZE,
-                           MAX(BKT.QUICK_PITCH_FLAG)                AS QUICK_PITCH_FLAG,
-                           MAX(BKT.PULL_CARTON_AREA)                AS PULL_AREA_ID,
-                           MAX(TIA.SHORT_NAME)                      AS PULL_AREA_SHORT_NAME,
-                           MAX(TIA.DESCRIPTION)                     AS PULL_AREA_DESCRIPTION,
-                           MAX(TIA.WAREHOUSE_LOCATION_ID)           AS BUILDING_PULL_FROM,                           
-                           MIN(BKT.PRIORITY)                        AS PRIORITY,
-                           MAX(BKT.PULL_TO_DOCK)                    AS PULL_TO_DOCK,
-                           MAX(BKT.BUCKET_COMMENT)                  AS BUCKET_COMMENT,
-                           MAX(IA.DEFAULT_REPREQ_IA_ID)             AS DEFAULT_REPREQ_IA_ID,
-                           COUNT(UNIQUE PSD.SKU_ID)                 AS COUNT_TOTAL_SKU,
-                           COUNT(UNIQUE IL.ASSIGNED_UPC_CODE)       AS COUNT_ASSIGNED_SKU
-                        FROM <proxy />BUCKET BKT
-                       INNER JOIN <proxy />PS PS
-                          ON PS.BUCKET_ID = BKT.BUCKET_ID
-                        INNER JOIN <proxy />PSDET PSD
-                          ON PSD.PICKSLIP_ID = PS.PICKSLIP_ID
-                       INNER JOIN <proxy />MASTER_CUSTOMER CUST
-                          ON CUST.CUSTOMER_ID = PS.CUSTOMER_ID
-                        LEFT OUTER JOIN <proxy />PO PO
-                          ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
-                         AND PS.PO_ID = PO.PO_ID
-                         AND PS.ITERATION = PO.ITERATION
-                        LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                          ON TIA.INVENTORY_STORAGE_AREA = BKT.PULL_CARTON_AREA
-                        LEFT OUTER JOIN <proxy />IA IA
-                          ON IA.IA_ID = BKT.PITCH_IA_ID
-                        LEFT OUTER JOIN <proxy />IALOC IL
-                            ON IL.ASSIGNED_UPC_CODE = PSD.UPC_CODE
-                            AND IL.IA_ID = BKT.PITCH_IA_ID
-                            AND IL.VWH_ID = PS.VWH_ID
-                       WHERE PS.TRANSFER_DATE IS NULL
-                            AND PSD.TRANSFER_DATE IS NULL
-                        <if>
-                        AND BKT.BUCKET_ID = :BUCKET_ID
-                        </if>
-                        <else>
-                        <if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
-                        </else>
-                           GROUP BY BKT.BUCKET_ID),
-                    TOTAL_PICKED_PIECES AS
-                        (
-                        SELECT BKT.BUCKET_ID AS BUCKET_ID,                               
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND
-                                          BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS CAN_EXP_PCS_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND
-                                          BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS CAN_CUR_PCS_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS VRFY_EXP_PCS_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS VRFY_CUR_PCS_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS UNVRFY_EXP_PCS_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS UNVRFY_CUR_PCS_PITCH,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NOT NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS INPROGRESS_BOXES_PITCH,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS VALIDATED_BOXES_PITCH,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS CANCELLED_BOXES_PITCH,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND
-                                          BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS CAN_EXP_PCS_PULL,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND
-                                          BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS CAN_CUR_PCS_PULL,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS VRFY_EXP_PCS_PULL,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS VRFY_CUR_PCS_PULL,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                   END) AS UNVRFY_EXP_PCS_PULL,
-                               SUM(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                      BD.CURRENT_PIECES
-                                   END) AS UNVRFY_CUR_PCS_PULL,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NOT NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS INPROGRESS_BOXES_PULL,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS VALIDATED_BOXES_PULL,
-                               COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NOT NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS CANCELLED_BOXES_PULL,
-                            COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NOT NULL  AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS NONPHYSICAL_BOXES_PULL,
-                            COUNT(UNIQUE CASE
-                                       WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NULL THEN
-                                        BOX.UCC128_ID
-                                     END) AS NONPHYSICAL_BOXES_PITCH,
-                               MAX(CASE
-                                     WHEN BOX.CARTON_ID IS NULL THEN
-                                      BOX.PITCHING_END_DATE
-                                   END) AS MAX_PITCHING_END_DATE,
-                               MIN(CASE
-                                     WHEN BOX.CARTON_ID IS NULL THEN
-                                      BOX.PITCHING_END_DATE
-                                   END) AS MIN_PITCHING_END_DATE,
-                               MAX(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL THEN
-                                      BOX.PITCHING_END_DATE
-                                   END) AS MAX_PULLING_END_DATE,
-                               MIN(CASE
-                                     WHEN BOX.CARTON_ID IS NOT NULL THEN
-                                      BOX.PITCHING_END_DATE
-                                   END) AS MIN_PULLING_END_DATE                              
-                            FROM <proxy />PS PS
-                           INNER JOIN <proxy />BUCKET BKT
-                              ON PS.BUCKET_ID = BKT.BUCKET_ID
-                           INNER JOIN <proxy />BOX BOX
-                              ON PS.PICKSLIP_ID = BOX.PICKSLIP_ID
-                           INNER JOIN <proxy />BOXDET BD
-                              ON BOX.PICKSLIP_ID = BD.PICKSLIP_ID
-                             AND BOX.UCC128_ID = BD.UCC128_ID
-                           WHERE PS.TRANSFER_DATE IS NULL                         
-                            <if>
-                                AND BKT.BUCKET_ID = :BUCKET_ID
-                            </if>
-                            <else>
-                                <if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
-                            </else>
-                           GROUP BY BKT.BUCKET_ID)
-                    SELECT OP.BUCKET_ID               AS BUCKET_ID,
-                           OP.NAME                    AS NAME,
-                           OP.DATE_CREATED            AS DATE_CREATED,
-                           OP.CREATED_BY              AS CREATED_BY,
-                           OP.CUSTOMER_ID             AS CUSTOMER_ID,
-                           OP.CUSTOMER_NAME           AS CUSTOMER_NAME,
-                           OP.PO_COUNT                AS PO_COUNT,
-                           OP.MIN_PO                  AS MIN_PO,
-                           OP.MAX_PO                  AS MAX_PO,
-                           OP.PICKSLIP_COUNT          AS PICKSLIP_COUNT,
-                           OP.ORDERED_PIECES          AS ORDERED_PIECES,
-                           PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
-                           PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
-                           PP.VRFY_EXP_PCS_PITCH      AS VRFY_EXP_PCS_PITCH,
-                           PP.VRFY_CUR_PCS_PITCH      AS VRFY_CUR_PCS_PITCH,
-                           PP.UNVRFY_EXP_PCS_PITCH    AS UNVRFY_EXP_PCS_PITCH,
-                           PP.UNVRFY_CUR_PCS_PITCH    AS UNVRFY_CUR_PCS_PITCH,
-                           PP.INPROGRESS_BOXES_PITCH  AS INPROGRESS_BOXES_PITCH,
-                           PP.VALIDATED_BOXES_PITCH   AS VALIDATED_BOXES_PITCH,
-                           PP.CANCELLED_BOXES_PITCH   AS CANCELLED_BOXES_PITCH,                           
-                           PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
-                           PP.CAN_CUR_PCS_PULL        AS CAN_CUR_PCS_PULL,
-                           PP.VRFY_EXP_PCS_PULL       AS VRFY_EXP_PCS_PULL,
-                           PP.VRFY_CUR_PCS_PULL       AS VRFY_CUR_PCS_PULL,
-                           PP.UNVRFY_EXP_PCS_PULL     AS UNVRFY_EXP_PCS_PULL,
-                           PP.UNVRFY_CUR_PCS_PULL     AS UNVRFY_CUR_PCS_PULL,
-                           PP.INPROGRESS_BOXES_PULL   AS INPROGRESS_BOXES_PULL,
-                           PP.VALIDATED_BOXES_PULL    AS VALIDATED_BOXES_PULL,
-                           PP.CANCELLED_BOXES_PULL    AS CANCELLED_BOXES_PULL,
-                           PP.NONPHYSICAL_BOXES_PULL  AS NONPHYSICAL_BOXES_PULL,
-                           PP.NONPHYSICAL_BOXES_PITCH AS NONPHYSICAL_BOXES_PITCH,
-                           OP.MIN_DC_CANCEL_DATE      AS MIN_DC_CANCEL_DATE,
-                           OP.MAX_DC_CANCEL_DATE      AS MAX_DC_CANCEL_DATE,
-                           OP.FREEZE                  AS FREEZE,
-                           OP.QUICK_PITCH_FLAG        AS QUICK_PITCH_FLAG,
-                           OP.PULL_AREA_ID            AS PULL_AREA_ID,
-                           OP.PULL_AREA_SHORT_NAME    AS PULL_AREA_SHORT_NAME,
-                           OP.PULL_AREA_DESCRIPTION   AS PULL_AREA_DESCRIPTION,
-                           OP.BUILDING_PULL_FROM      AS BUILDING_PULL_FROM,
-                           OP.PRIORITY                AS PRIORITY,
-                           OP.PITCH_IA_ID             AS PITCH_IA_ID,
-                           OP.PITCH_AREA_SHORT_NAME   AS PITCH_AREA_SHORT_NAME,
-                           OP.PITCH_AREA_DESCRIPTION  AS PITCH_AREA_DESCRIPTION,
-                           OP.BUILDING_PITCH_FROM     AS BUILDING_PITCH_FROM, 
-                           OP.default_repreq_ia_id    AS REPLENISH_AREA_ID,
-                           OP.PULL_TO_DOCK            AS PULL_TO_DOCK,
-                           OP.BUCKET_COMMENT          AS BUCKET_COMMENT,                                                                              
-                           PP.MAX_PITCHING_END_DATE   AS MAX_PITCHING_END_DATE,
-                           PP.MIN_PITCHING_END_DATE   AS MIN_PITCHING_END_DATE,
-                           pp.MAX_PULLING_END_DATE    AS MAX_PULLING_END_DATE,
-                           pp.MIN_PULLING_END_DATE    AS MIN_PULLING_END_DATE,
-                           OP.PITCH_LIMIT             AS PITCH_LIMIT,
-                           OP.COUNT_TOTAL_SKU         AS COUNT_TOTAL_SKU,
-                           OP.COUNT_ASSIGNED_SKU      AS COUNT_ASSIGNED_SKU                    
-                      FROM TOTAL_ORDERED_PIECES OP
-                      LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
-                        ON OP.BUCKET_ID = PP.BUCKET_ID
+           WITH Q1 AS
+ (SELECT BKT.BUCKET_ID AS BUCKET_ID,
+         PS.VWH_ID,
+         BKT.NAME AS NAME,
+         BKT.DATE_CREATED AS DATE_CREATED,
+         BKT.CREATED_BY AS CREATED_BY,
+         BKT.PITCH_IA_ID AS PITCH_IA_ID,
+         BKT.PITCH_LIMIT AS PITCH_LIMIT,
+         IA.SHORT_NAME AS PITCH_AREA_SHORT_NAME,
+         IA.SHORT_DESCRIPTION AS PITCH_AREA_DESCRIPTION,
+         IA.WAREHOUSE_LOCATION_ID AS BUILDING_PITCH_FROM,
+         SUM(PS.TOTAL_QUANTITY_ORDERED) OVER(PARTITION BY BKT.BUCKET_ID) AS ORDERED_PIECES,
+         PO.DC_CANCEL_DATE AS MIN_DC_CANCEL_DATE,
+         PO.DC_CANCEL_DATE AS MAX_DC_CANCEL_DATE,
+         PS.PO_ID AS PO_COUNT,
+         MIN(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MIN_PO,
+         MAX(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MAX_PO,
+         PS.CUSTOMER_ID AS CUSTOMER_ID,
+         CUST.NAME AS CUSTOMER_NAME,
+         PS.PICKSLIP_ID AS PICKSLIP_ID,
+         BKT.FREEZE AS FREEZE,
+         BKT.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
+         BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
+         TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
+         TIA.DESCRIPTION AS PULL_AREA_DESCRIPTION,
+         TIA.WAREHOUSE_LOCATION_ID AS BUILDING_PULL_FROM,
+         BKT.PRIORITY AS PRIORITY,
+         BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
+         BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
+         IA.DEFAULT_REPREQ_IA_ID AS DEFAULT_REPREQ_IA_ID
+    FROM <proxy />BUCKET BKT
+   INNER JOIN <proxy />PS PS
+      ON PS.BUCKET_ID = BKT.BUCKET_ID
+   INNER JOIN <proxy />MASTER_CUSTOMER CUST
+      ON CUST.CUSTOMER_ID = PS.CUSTOMER_ID
+    LEFT OUTER JOIN <proxy />PO PO
+      ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
+     AND PS.PO_ID = PO.PO_ID
+     AND PS.ITERATION = PO.ITERATION
+    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
+      ON TIA.INVENTORY_STORAGE_AREA = BKT.PULL_CARTON_AREA
+    LEFT OUTER JOIN <proxy />IA IA
+      ON IA.IA_ID = BKT.PITCH_IA_ID
+   WHERE PS.TRANSFER_DATE IS NULL
+ <if>AND BKT.BUCKET_ID = :BUCKET_ID</if>
+<else><if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if></else>
+        ),
+TOTAL_ORDERED_PIECES AS
+ (SELECT Q1.BUCKET_ID AS BUCKET_ID,
+         MAX(Q1.VWH_ID) AS VWH_ID,
+         MAX(Q1.NAME) AS NAME,
+         MAX(Q1.DATE_CREATED) AS DATE_CREATED,
+         MAX(Q1.CREATED_BY) AS CREATED_BY,
+         MAX(Q1.PITCH_IA_ID) AS PITCH_IA_ID,
+         MAX(Q1.PITCH_LIMIT) AS PITCH_LIMIT,
+         MAX(Q1.PITCH_AREA_SHORT_NAME) AS PITCH_AREA_SHORT_NAME,
+         MAX(Q1.PITCH_AREA_DESCRIPTION) AS PITCH_AREA_DESCRIPTION,
+         MAX(Q1.BUILDING_PITCH_FROM) AS BUILDING_PITCH_FROM,
+         MAX(Q1.ORDERED_PIECES) AS ORDERED_PIECES,
+         MAX(Q1.MIN_DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
+         MAX(Q1.MAX_DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE,
+         COUNT(UNIQUE Q1.PO_COUNT) AS PO_COUNT,
+         MIN(Q1.MIN_PO) AS MIN_PO,
+         MAX(Q1.MAX_PO) AS MAX_PO,
+         MAX(Q1.CUSTOMER_ID) AS CUSTOMER_ID,
+         MAX(Q1.CUSTOMER_NAME) AS CUSTOMER_NAME,
+         COUNT(UNIQUE Q1.PICKSLIP_ID) AS PICKSLIP_COUNT,
+         MAX(Q1.FREEZE) AS FREEZE,
+         MAX(Q1.QUICK_PITCH_FLAG) AS QUICK_PITCH_FLAG,
+         MAX(Q1.PULL_AREA_ID) AS PULL_AREA_ID,
+         MAX(Q1.PULL_AREA_SHORT_NAME) AS PULL_AREA_SHORT_NAME,
+         MAX(Q1.PULL_AREA_DESCRIPTION) AS PULL_AREA_DESCRIPTION,
+         MAX(Q1.BUILDING_PULL_FROM) AS BUILDING_PULL_FROM,
+         MAX(Q1.PRIORITY) AS PRIORITY,
+         MAX(Q1.PULL_TO_DOCK) AS PULL_TO_DOCK,
+         MAX(Q1.BUCKET_COMMENT) AS BUCKET_COMMENT,
+         MAX(Q1.DEFAULT_REPREQ_IA_ID) AS DEFAULT_REPREQ_IA_ID,
+         COUNT(UNIQUE PD.SKU_ID) AS COUNT_TOTAL_SKU,
+         COUNT(UNIQUE (SELECT MAX(ASSIGNED_UPC_CODE)
+                  FROM <proxy />IALOC IL
+                 WHERE IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
+                   AND IL.VWH_ID = Q1.VWH_ID
+                   AND IL.IA_ID = Q1.PITCH_IA_ID)) AS COUNT_ASSIGNED_SKU
+    FROM Q1
+   INNER JOIN <proxy />PSDET PD
+      ON PD.PICKSLIP_ID = Q1.PICKSLIP_ID
+   WHERE PD.TRANSFER_DATE IS NULL
+   GROUP BY Q1.BUCKET_ID),
+TOTAL_PICKED_PIECES AS
+ (SELECT BKT.BUCKET_ID AS BUCKET_ID,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS CAN_EXP_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                BD.CURRENT_PIECES
+             END) AS CAN_CUR_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS VRFY_EXP_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                BD.CURRENT_PIECES
+             END) AS VRFY_CUR_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS UNVRFY_EXP_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                BD.CURRENT_PIECES
+             END) AS UNVRFY_CUR_PCS_PITCH,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NOT NULL THEN
+                  BOX.UCC128_ID
+               END) AS INPROGRESS_BOXES_PITCH,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL THEN
+                  BOX.UCC128_ID
+               END) AS VALIDATED_BOXES_PITCH,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                  BOX.UCC128_ID
+               END) AS CANCELLED_BOXES_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS CAN_EXP_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                BD.CURRENT_PIECES
+             END) AS CAN_CUR_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS VRFY_EXP_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                BD.CURRENT_PIECES
+             END) AS VRFY_CUR_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS UNVRFY_EXP_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
+                    BOX.STOP_PROCESS_DATE IS NULL THEN
+                BD.CURRENT_PIECES
+             END) AS UNVRFY_CUR_PCS_PULL,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NOT NULL THEN
+                  BOX.UCC128_ID
+               END) AS INPROGRESS_BOXES_PULL,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL THEN
+                  BOX.UCC128_ID
+               END) AS VALIDATED_BOXES_PULL,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NOT NULL AND
+                      BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                  BOX.UCC128_ID
+               END) AS CANCELLED_BOXES_PULL,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NULL THEN
+                  BOX.UCC128_ID
+               END) AS NONPHYSICAL_BOXES_PULL,
+         COUNT(UNIQUE CASE
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
+                      BOX.STOP_PROCESS_DATE IS NULL AND BOX.IA_ID IS NULL THEN
+                  BOX.UCC128_ID
+               END) AS NONPHYSICAL_BOXES_PITCH,
+         MAX(CASE
+               WHEN BOX.CARTON_ID IS NULL THEN
+                BOX.PITCHING_END_DATE
+             END) AS MAX_PITCHING_END_DATE,
+         MIN(CASE
+               WHEN BOX.CARTON_ID IS NULL THEN
+                BOX.PITCHING_END_DATE
+             END) AS MIN_PITCHING_END_DATE,
+         MAX(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL THEN
+                BOX.PITCHING_END_DATE
+             END) AS MAX_PULLING_END_DATE,
+         MIN(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL THEN
+                BOX.PITCHING_END_DATE
+             END) AS MIN_PULLING_END_DATE
+    FROM <proxy />PS PS
+   INNER JOIN <proxy />BUCKET BKT
+      ON PS.BUCKET_ID = BKT.BUCKET_ID
+   INNER JOIN <proxy />BOX BOX
+      ON PS.PICKSLIP_ID = BOX.PICKSLIP_ID
+   INNER JOIN <proxy />BOXDET BD
+      ON BOX.PICKSLIP_ID = BD.PICKSLIP_ID
+     AND BOX.UCC128_ID = BD.UCC128_ID
+   WHERE PS.TRANSFER_DATE IS NULL
+<if>AND BKT.BUCKET_ID = :BUCKET_ID</if>
+<else><if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if></else>
+   GROUP BY BKT.BUCKET_ID)
+SELECT OP.BUCKET_ID               AS BUCKET_ID,
+       OP.NAME                    AS NAME,
+       OP.DATE_CREATED            AS DATE_CREATED,
+       OP.CREATED_BY              AS CREATED_BY,
+       OP.CUSTOMER_ID             AS CUSTOMER_ID,
+       OP.CUSTOMER_NAME           AS CUSTOMER_NAME,
+       OP.PO_COUNT                AS PO_COUNT,
+       OP.MIN_PO                  AS MIN_PO,
+       OP.MAX_PO                  AS MAX_PO,
+       OP.PICKSLIP_COUNT          AS PICKSLIP_COUNT,
+       OP.ORDERED_PIECES          AS ORDERED_PIECES,
+       PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
+       PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
+       PP.VRFY_EXP_PCS_PITCH      AS VRFY_EXP_PCS_PITCH,
+       PP.VRFY_CUR_PCS_PITCH      AS VRFY_CUR_PCS_PITCH,
+       PP.UNVRFY_EXP_PCS_PITCH    AS UNVRFY_EXP_PCS_PITCH,
+       PP.UNVRFY_CUR_PCS_PITCH    AS UNVRFY_CUR_PCS_PITCH,
+       PP.INPROGRESS_BOXES_PITCH  AS INPROGRESS_BOXES_PITCH,
+       PP.VALIDATED_BOXES_PITCH   AS VALIDATED_BOXES_PITCH,
+       PP.CANCELLED_BOXES_PITCH   AS CANCELLED_BOXES_PITCH,
+       PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
+       PP.CAN_CUR_PCS_PULL        AS CAN_CUR_PCS_PULL,
+       PP.VRFY_EXP_PCS_PULL       AS VRFY_EXP_PCS_PULL,
+       PP.VRFY_CUR_PCS_PULL       AS VRFY_CUR_PCS_PULL,
+       PP.UNVRFY_EXP_PCS_PULL     AS UNVRFY_EXP_PCS_PULL,
+       PP.UNVRFY_CUR_PCS_PULL     AS UNVRFY_CUR_PCS_PULL,
+       PP.INPROGRESS_BOXES_PULL   AS INPROGRESS_BOXES_PULL,
+       PP.VALIDATED_BOXES_PULL    AS VALIDATED_BOXES_PULL,
+       PP.CANCELLED_BOXES_PULL    AS CANCELLED_BOXES_PULL,
+       PP.NONPHYSICAL_BOXES_PULL  AS NONPHYSICAL_BOXES_PULL,
+       PP.NONPHYSICAL_BOXES_PITCH AS NONPHYSICAL_BOXES_PITCH,
+       OP.MIN_DC_CANCEL_DATE      AS MIN_DC_CANCEL_DATE,
+       OP.MAX_DC_CANCEL_DATE      AS MAX_DC_CANCEL_DATE,
+       OP.FREEZE                  AS FREEZE,
+       OP.QUICK_PITCH_FLAG        AS QUICK_PITCH_FLAG,
+       OP.PULL_AREA_ID            AS PULL_AREA_ID,
+       OP.PULL_AREA_SHORT_NAME    AS PULL_AREA_SHORT_NAME,
+       OP.PULL_AREA_DESCRIPTION   AS PULL_AREA_DESCRIPTION,
+       OP.BUILDING_PULL_FROM      AS BUILDING_PULL_FROM,
+       OP.PRIORITY                AS PRIORITY,
+       OP.PITCH_IA_ID             AS PITCH_IA_ID,
+       OP.PITCH_AREA_SHORT_NAME   AS PITCH_AREA_SHORT_NAME,
+       OP.PITCH_AREA_DESCRIPTION  AS PITCH_AREA_DESCRIPTION,
+       OP.BUILDING_PITCH_FROM     AS BUILDING_PITCH_FROM,
+       OP.DEFAULT_REPREQ_IA_ID    AS REPLENISH_AREA_ID,
+       OP.PULL_TO_DOCK            AS PULL_TO_DOCK,
+       OP.BUCKET_COMMENT          AS BUCKET_COMMENT,
+       PP.MAX_PITCHING_END_DATE   AS MAX_PITCHING_END_DATE,
+       PP.MIN_PITCHING_END_DATE   AS MIN_PITCHING_END_DATE,
+       PP.MAX_PULLING_END_DATE    AS MAX_PULLING_END_DATE,
+       PP.MIN_PULLING_END_DATE    AS MIN_PULLING_END_DATE,
+       OP.PITCH_LIMIT             AS PITCH_LIMIT,
+       OP.COUNT_TOTAL_SKU         AS COUNT_TOTAL_SKU,
+       OP.COUNT_ASSIGNED_SKU      AS COUNT_ASSIGNED_SKU
+  FROM TOTAL_ORDERED_PIECES OP
+  LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
+    ON OP.BUCKET_ID = PP.BUCKET_ID
                         <if>
                             WHERE (CASE
                                 WHEN OP.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN       :FrozenState
