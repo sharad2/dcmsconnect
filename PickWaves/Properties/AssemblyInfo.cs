@@ -150,7 +150,7 @@ using System.Runtime.InteropServices;
 //					   A new Pick wave configuration UI is introduced in this version.
 
 
-/* Change log from 2.0.0.0 to 2.0.0.1 (Branch created by Shiva on 28 april 2014) (Redmine task : #1803)
+/* Change log from 2.0.0.0 to 2.0.1.0 (Branch created by Shiva on 28 april 2014) (Redmine task : #1803)
  *  [DEPENDENCY] Depending on IA.SHORT_NAME and BUILDINGS of area.
  *  [DEPENDENCY] Depending on Bucket.CREATED_BY_MODULE(add new column in bucket table).
  *  [DEPENDENCY] Depending on Bucket.SHIP_IA_ID(Default value 'ADR').
@@ -164,8 +164,8 @@ using System.Runtime.InteropServices;
  *  [DEPENDENCY] Depends on new trigger TRG_MIG_BUCKET_FREEZE_BIUR
  */
 
-[assembly: AssemblyVersion("2.0.0.1")]
-[assembly: AssemblyFileVersion("2.0.0.1")]
+[assembly: AssemblyVersion("2.0.1.0")]
+[assembly: AssemblyFileVersion("2.0.1.0")]
 
 [assembly: AssemblyProduct(@"
 <ol>
