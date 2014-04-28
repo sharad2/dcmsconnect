@@ -27,7 +27,7 @@
                 <li class="banner"><span>DCMS Connect - PickWaves</span></li>
                 <li><a href="@Url.Content("~")" >DCMS Connect Home</a></li>
                 <li><a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">Box Expediting</a></li>
-                <li><a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">Wave Configuration</a></li>
+                @*<li><a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">Wave Configuration</a></li>*@
                 @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                 {
                     <li>@PickWavesResource.Welcome @ViewContext.HttpContext.User.Identity.Name</li>
