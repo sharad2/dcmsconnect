@@ -238,30 +238,30 @@
     <Content Include="Areas\PickWaves\Content\Config.min.css">
       <DependentUpon>Config.css</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\CreateWave-Index.css">
+    <None Include="Areas\PickWaves\Content\CreateWave-Index.css">
       <DependentUpon>CreateWave-Index.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\CreateWave-Index.min.css">
       <DependentUpon>CreateWave-Index.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\CreateWave-PickslipList.css">
+    <None Include="Areas\PickWaves\Content\CreateWave-PickslipList.css">
       <DependentUpon>CreateWave-PickslipList.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\CreateWave-PickslipList.min.css">
       <DependentUpon>CreateWave-PickslipList.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.css">
+    <None Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.css">
       <DependentUpon>CreateWave-PickslipListSelector.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.min.css">
       <DependentUpon>CreateWave-PickslipListSelector.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Content\Home-CustomerSummary.min.css">
       <DependentUpon>Home-CustomerSummary.css</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\Home-Index.css">
+    <None Include="Areas\PickWaves\Content\Home-Index.css">
       <DependentUpon>Home-Index.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\Home-Index.min.css">
       <DependentUpon>Home-Index.css.bundle</DependentUpon>
     </Content>
@@ -271,31 +271,31 @@
     <None Include="Areas\PickWaves\Content\ManageWave-Index.partial.css" />
     <None Include="Areas\PickWaves\Content\ManageWave-Wave.css.bundle" />
     <None Include="Areas\PickWaves\Content\ManageWave-Wave.partial.css" />
-    <Content Include="Areas\PickWaves\Content\ManageWave-Index.css">
+    <None Include="Areas\PickWaves\Content\ManageWave-Index.css">
       <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\ManageWave-Index.min.css">
       <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\ManageWave-Wave.css">
+    <None Include="Areas\PickWaves\Content\ManageWave-Wave.css">
       <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\ManageWave-Wave.min.css">
       <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\PickWaves-all.css">
+    <None Include="Areas\PickWaves\Content\PickWaves-all.css">
       <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Content\PickWaves-all.min.css">
       <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\AutoComplete.partial.js" />
+    <None Include="Areas\PickWaves\Scripts\AutoComplete.partial.js" />
     <Content Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.min.js">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.min.js.map">
+    <None Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.min.js.map">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
-    </Content>
+    </None>
     <None Include="Areas\PickWaves\Content\PickWaves-all.css.bundle" />
     <None Include="Areas\PickWaves\Scripts\Config.js.bundle">
       <SubType>Designer</SubType>
@@ -319,9 +319,9 @@
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js.map">
       <DependentUpon>CreateWave-PickslipList.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js">
+    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js">
       <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js">
       <DependentUpon>CreateWave-PickslipList.js</DependentUpon>
     </Content>
@@ -332,9 +332,9 @@
     <None Include="Areas\PickWaves\Scripts\Home-Index.partial.js" />
     <None Include="Areas\PickWaves\Scripts\jQuery.cookie.partial.js" />
     <None Include="Areas\PickWaves\Scripts\ManageSkuCase.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\Home-Index.js">
+    <None Include="Areas\PickWaves\Scripts\Home-Index.js">
       <DependentUpon>Home-Index.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js">
       <DependentUpon>Home-Index.js</DependentUpon>
     </Content>
@@ -342,15 +342,15 @@
       <DependentUpon>ManageSkuCase.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Scripts\ManageWave-Index.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.js">
+    <None Include="Areas\PickWaves\Scripts\CreateWave-Index.js">
       <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
       <DependentUpon>CreateWave-Index.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.js">
+    <None Include="Areas\PickWaves\Scripts\ManageSkuCase.js">
       <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
@@ -368,38 +368,38 @@
     <None Include="Areas\PickWaves\Scripts\ManageWave-Index.partial.js" />
     <None Include="Areas\PickWaves\Scripts\selectable.partial.js" />
     <None Include="Areas\PickWaves\Scripts\_bucketEditorPartial.partial.js" />
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.js">
+    <None Include="Areas\PickWaves\Scripts\ManageWave-Index.js">
       <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.min.js">
       <DependentUpon>ManageWave-Index.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.js">
+    <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.js">
       <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
-    </Content>
+    </None>
     <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.min.js">
       <DependentUpon>ManageWave-Wave.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Views\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
+    <EmbeddedResource Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Doc\PickWaveManager.doc" />
     <Content Include="Areas\PickWaves\Views\Shared\DisplayTemplates\BucketModel.cshtml" />
     <None Include="Areas\PickWaves\Content\Box Creation for Pitching.pptx" />
@@ -430,17 +430,17 @@
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
-    <Content Include="packages.config" />
+    <None Include="packages.config" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <None Include="Scripts\jquery-2.0.3.js" />
+    <None Include="Scripts\jquery-2.0.3.min.js" />
+    <None Include="Scripts\jquery-ui-1.10.0.js" />
+    <None Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
