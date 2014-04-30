@@ -20,12 +20,13 @@
         <div id="header">
             <h1>@Html.Raw(ViewBag.Title)</h1>
             <h3>
-                @ViewBag.Subtitle</h3>
+                @ViewBag.Subtitle
+            </h3>
         </div>
         <div id="menu">
             <ul>
                 <li class="banner"><span>DCMS Connect - PickWaves</span></li>
-                <li><a href="@Url.Content("~")" >DCMS Connect Home</a></li>
+                <li><a href="@Url.Content("~")">DCMS Connect Home</a></li>
                 <li><a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">Box Expediting</a></li>
                 @*<li><a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">Wave Configuration</a></li>*@
                 @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
@@ -34,7 +35,7 @@
                 }
                 @if (ViewContext.HttpContext.Trace.IsEnabled)
                 {
-                    <li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace">Trace</a> </li>
                 }
             </ul>
         </div>
@@ -58,18 +59,20 @@
                                 <li>@Html.ActionLink("Pick Waves Home", MVC_PickWaves.PickWaves.Home.Index())</li>
                             }
                             @if (this.Request.UrlReferrer != null)
-                            { 
+                            {
                                 <li>
-                                    <a href="@this.Request.UrlReferrer.OriginalString">Back</a></li>
+                                    <a href="@this.Request.UrlReferrer.OriginalString">Back</a>
+                                </li>
                             }
                         </ul>
                     </div>
                     @if (Model != null && !Model.UserIsManager)
                     {
                         <div class="boxContent">
-                            To perform individual managerial actions you, need to 
-                                <a href="@(FormsAuthentication.LoginUrl + "?returnUrl=" + Url.Encode(Request.Url.PathAndQuery))">login
-                                </a>as a user who has <em>@Model.ManagerRoleName</em> role.
+                            To perform individual managerial actions you, need to
+                            <a href="@(FormsAuthentication.LoginUrl + "?returnUrl=" + Url.Encode(Request.Url.PathAndQuery))">
+                                login
+                            </a>as a user who has <em>@Model.ManagerRoleName</em> role.
                         </div>
                     }
                 </div>
@@ -77,14 +80,16 @@
                     <h3>Search of Pick Wave</h3>
                     <div class="boxContent">
                         @using (Html.BeginForm(MVC_PickWaves.PickWaves.Home.Search(), FormMethod.Get))
-                        {               
-                            <input type="text" name="@MVC_PickWaves.PickWaves.Home.SearchParams.searchText" size="12" 
-                         style="text-transform: uppercase" class="required" />
+                        {
+                            <input type="text" name="@MVC_PickWaves.PickWaves.Home.SearchParams.searchText" size="12"
+                                   style="text-transform: uppercase" class="required" />
                             <button id="btnSearch" type="submit">Go</button>
-                            <div>
-                                Pick Wave #, Customer Id, User name(Waves created by).
-                            </div>
-                        }                        
+                            <ul>
+                                <li>Pick Wave #</li>
+                                <li>Customer Id</li>
+                                <li>User name(Waves created by)</li>
+                            </ul>
+                        }
                     </div>
                 </div>
                 @RenderSection("sidebar", false)
@@ -98,7 +103,7 @@
             </p>
         </div>
     </div>
-    <script src="@Links_PickWaves.Scripts.jquery_2_0_3_js"  type="text/javascript"></script>
+    <script src="@Links_PickWaves.Scripts.jquery_2_0_3_js" type="text/javascript"></script>
     <script>$.uiBackCompat = false;</script>
     <script src="@Links_PickWaves.Scripts.jquery_ui_1_10_0_js" type="text/javascript"></script>
     <script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
@@ -112,7 +117,7 @@
 </body>
 </html>
 @*
-    $Id$ 
+    $Id$
     $Revision$
     $URL$
     $Header$

@@ -96,7 +96,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             if (bucket == null)
             {
                 // Unreasonable bucket id
-                ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", model.Bucket.BucketId));
+                ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
 
