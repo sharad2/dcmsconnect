@@ -385,7 +385,7 @@ WHERE 1 = 1
                     throw new NotImplementedException();
             }
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder);
+            return _db.ExecuteReader(QUERY, binder,2000);
         }
 
         private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
