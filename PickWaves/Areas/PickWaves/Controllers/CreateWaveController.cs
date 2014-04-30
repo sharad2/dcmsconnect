@@ -128,13 +128,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                           }).OrderBy(p => p.Text).ToArray();
 
                 model.Rows = (from order in orders.Item1
-                              select new RowDimensionModel
-                              {
-                                  PickslipCounts = order.PickslipCounts.Select(p => new
+                              let value = order.Counts.Select(p => new
                                   {
                                       Key = FormatDimensionValue(p.Key),
                                       Value = p.Value
-                                  }).ToDictionary(p => p.Key, p => p.Value),
+                                  })
+                              select new RowDimensionModel
+                              {
+                                  PickslipCounts = value.ToDictionary(p => p.Key, p => p.Value.Item1),
+                                  OrderedPieces = value.ToDictionary(p => p.Key, p => p.Value.Item2),
                                   DimensionValue = FormatDimensionValue(order.DimensionValue)
                               }).ToArray();
             }

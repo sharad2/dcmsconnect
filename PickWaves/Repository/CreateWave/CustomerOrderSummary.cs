@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
@@ -14,8 +15,9 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
 
         /// <summary>
         /// Key is DC
+        /// Count of pickslip and sum of ordered pieces.
         /// </summary>
-        public IDictionary<object, int> PickslipCounts { get; set; }
+        public IDictionary<object, Tuple<int, int>> Counts { get; set; }
 
     }
 }

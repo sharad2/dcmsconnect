@@ -56,7 +56,7 @@
                     <th>
                         @Html.RadioButtonFor(m => m.ColDimVal, Model.ColDimensionValues[i], new
                    {
-                       id = "col_" + i.ToString()                       
+                       id = "col_" + i.ToString()
                    })
                         <label for="@Html.Raw("col_" + i.ToString())">
                             @Model.ColDimensionValues[i]
@@ -85,8 +85,8 @@
                     {
                         if (Model.Rows[j].PickslipCounts.ContainsKey(item))
                         {
-                            <td style="text-align: right" tabindex="0" class="ui-selectable">
-                                @string.Format("{0:N0}", Model.Rows[j].PickslipCounts[item])
+                            <td style="white-space:nowrap" tabindex="0" class="ui-selectable">
+                                @string.Format("Pickslip {0:N0}[Pcs {1:N0}]", Model.Rows[j].PickslipCounts[item], Model.Rows[j].OrderedPieces[item])
                             </td>
                         }
                         else

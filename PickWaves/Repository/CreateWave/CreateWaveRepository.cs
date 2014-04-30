@@ -192,6 +192,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             const string QUERY = @"
          WITH Q1 AS
              (SELECT PICKSLIP_ID,
+                    T.TOTAL_QUANTITY_ORDERED,
                      <if c='$DIMENSION=""PR""'>LPAD(T.PRIORITY_ID, 10) </if>
                      <else c='$DIMENSION=""CS""'> T.CUSTOMER_STORE_ID </else>
                      <else c='$DIMENSION=""DCDATE""'>TRUNC(T.DC_CANCEL_DATE)</else>
@@ -232,7 +233,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
              <if>AND T.VWH_ID = :VWH_ID</if>)
             SELECT *
-              FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT FOR DIM_COL IN(ANY))
+              FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT,SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION
         ";
 
@@ -257,7 +258,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 return new CustomerOrderSummary
             {
                 DimensionValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                PickslipCounts = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
+                Counts = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
             };
             });
             binder.Parameter("CUSTOMER_ID", customerId)
@@ -292,20 +293,23 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<object, int> MapOrderSummaryXml(XElement xml, bool isColDate)
+        private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(XElement xml, bool isColDate)
         {
             var query = (from item in xml.Elements("item")
                          let column = item.Elements("column")
                          select new
                          {
                              ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
-                             PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT")
+                             PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
+                             OrderedPieces = (int)column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
                          });
             if (isColDate)
             {
-                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
+                //return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
+                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces));
             }
-            return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
+            //return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
+            return query.ToDictionary(p => (object)(string)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces));
         }
 
         /// <summary>

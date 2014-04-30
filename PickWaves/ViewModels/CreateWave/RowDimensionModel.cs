@@ -50,6 +50,8 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
                 return this.PickslipCounts.Values.Sum();
             }
         }
+
+        public Dictionary<string, int> OrderedPieces { get; set; }
     }
 
 }
