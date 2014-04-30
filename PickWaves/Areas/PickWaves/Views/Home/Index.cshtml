@@ -4,7 +4,7 @@
 }
 @if (Model != null && Model.IsCustomerFilterApplied)
 {
-    <h2>Showing PickWave of customer @Model.ImportedOrders.Single().CustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
+    <h2>Showing PickWave of customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
 }
 @if (Model != null && Model.IsUserNameFilterApplied)
 {
@@ -249,7 +249,7 @@
                                         <ul class="customerActionMenu">
                                             <li>
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
-                                                                     new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus,Model.UserName)))" title="Wave List">
+                                                 new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus, Model.SearchUserName)))" title="Wave List">
                                                     <span class="ui-icon ui-icon-zoomin"></span>
                                                     @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId)
                                                 </a>

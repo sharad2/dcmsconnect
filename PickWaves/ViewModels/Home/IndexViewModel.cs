@@ -94,7 +94,9 @@ namespace DcmsMobile.PickWaves.ViewModels.Home
             }
         }
 
-        public string UserName { get; set; }
+        public string SearchUserName { get; set; }
+
+        public string SearchCustomerId { get; set; }
     }
 }
 

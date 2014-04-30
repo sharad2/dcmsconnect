@@ -145,7 +145,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             };
             if (model.IsUserNameFilterApplied)
             {
-                model.UserName = searchText;
+                model.SearchUserName = searchText;
+            }
+            if (model.IsCustomerFilterApplied)
+            {
+                model.SearchCustomerId = searchText;
             }
             foreach (var item in query)
             {

@@ -466,7 +466,7 @@ WHERE 1 = 1
                 IsFrozenWave = row.GetString("MAX_FREEZE") == "Y"
             });
             binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteReader(QUERY, binder);
+            return _db.ExecuteReader(QUERY, binder,2000);
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ WHERE 1 = 1
                     throw new NotImplementedException();
             }
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder);
+            return _db.ExecuteReader(QUERY, binder,2000);
         }
 
         /// <summary> 
