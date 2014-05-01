@@ -210,7 +210,7 @@
       <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Scripts\Routing.min.js">
-      <DependentUpon>Routing.js.bundle</DependentUpon>
+      <DependentUpon>Routing.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
     <Content Include="packages.config" />

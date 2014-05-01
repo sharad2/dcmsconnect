@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/Shipping/Scripts/selectable.partial.js
-// When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
+﻿// When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
 $(function () {
     $.widget("ui.selectable", $.ui.selectable, {
         _mouseStart: function (event) {
@@ -24,7 +23,6 @@ $(function () {
     });
 });
 
-///#source 1 1 /Areas/Shipping/Scripts/Unrouted.partial.js
 /// <reference path="~/Areas/Shipping/Scripts/Unrouted.bundle.js" />/
 /// Implements selectable feature
 /// Intiliazes datetime picker
@@ -156,3 +154,4 @@ $(document).ready(function () {
         }]
     });
 });
+
