@@ -155,10 +155,10 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// For the passed customer and vwh, groups results by col1 and returns a row for each unique value of col1.
         /// Each row contains an array of pickslip counts for each unique value of col2
         /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="vwhId"> </param>
-        /// <param param name="col1"></param>
-        /// <param name="col2"> </param>
+        /// <param name="customerId">Supmmary of pickslip counts and pieces ordered are required for this customer</param>
+        /// <param name="vwhId">Consider only those orders of this vwhId</param>
+        /// <param param name="col1">First Group by column</param>
+        /// <param name="col2">Second Group by column</param>
         /// <returns>Item1 is a list of rows for each unique value of col1. Item2 is number of pickslips per dimension</returns>
         /// <remarks>
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
@@ -177,46 +177,24 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             }
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
-                {PickslipDimension.Priority, Tuple.Create("PR", typeof(string))},
-                {PickslipDimension.CustomerStore, Tuple.Create("CS", typeof(string))},
-                {PickslipDimension.CustomerDcCancelDate, Tuple.Create("DCDATE", typeof(DateTime))},
-                {PickslipDimension.Label, Tuple.Create("LB", typeof(string))},
-                {PickslipDimension.ImportDate, Tuple.Create("IDATE", typeof(DateTime))},
-                {PickslipDimension.StartDate, Tuple.Create("SDATE", typeof(DateTime))},
-                {PickslipDimension.CancelDate, Tuple.Create("CANDATE", typeof(DateTime))},
-                {PickslipDimension.CustomerOrderType, Tuple.Create("COT", typeof(string))},
-                {PickslipDimension.SaleTypeId, Tuple.Create("STI", typeof(string))},
-                {PickslipDimension.PurchaseOrder, Tuple.Create("PO", typeof(string))},
-                {PickslipDimension.CustomerDc, Tuple.Create("CDC", typeof(string))}
+                {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},
+                {PickslipDimension.CustomerStore, Tuple.Create("T.CUSTOMER_STORE_ID", typeof(string))},
+                {PickslipDimension.CustomerDcCancelDate, Tuple.Create("TRUNC(T.DC_CANCEL_DATE)", typeof(DateTime))},
+                {PickslipDimension.Label, Tuple.Create("T.PICKSLIP_TYPE", typeof(string))},
+                {PickslipDimension.ImportDate, Tuple.Create("TRUNC(T.PICKSLIP_IMPORT_DATE)", typeof(DateTime))},
+                {PickslipDimension.StartDate, Tuple.Create("TRUNC(T.DELIVERY_DATE)", typeof(DateTime))},
+                {PickslipDimension.CancelDate, Tuple.Create("TRUNC(T.CANCEL_DATE)", typeof(DateTime))},
+                {PickslipDimension.CustomerOrderType, Tuple.Create("t.CUSTOMER_ORDER_TYPE", typeof(string))},
+                {PickslipDimension.SaleTypeId, Tuple.Create("T.SALES_TYPE_ID", typeof(string))},
+                {PickslipDimension.PurchaseOrder, Tuple.Create("T.CUSTOMER_ORDER_ID", typeof(string))},
+                {PickslipDimension.CustomerDc, Tuple.Create("T.CUSTOMER_DIST_CENTER_ID", typeof(string))}
             };
             const string QUERY = @"
          WITH Q1 AS
              (SELECT PICKSLIP_ID,
                     T.TOTAL_QUANTITY_ORDERED,
-                     <if c='$DIMENSION=""PR""'>LPAD(T.PRIORITY_ID, 10) </if>
-                     <else c='$DIMENSION=""CS""'> T.CUSTOMER_STORE_ID </else>
-                     <else c='$DIMENSION=""DCDATE""'>TRUNC(T.DC_CANCEL_DATE)</else>
-                     <else c='$DIMENSION=""LB""'> T.PICKSLIP_TYPE</else>
-                     <else c='$DIMENSION=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
-                     <else c='$DIMENSION=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
-                     <else c='$DIMENSION=""CANDATE""'> TRUNC(T.CANCEL_DATE)</else> 
-                     <else c='$DIMENSION=""COT""'> T.CUSTOMER_ORDER_TYPE</else> 
-                     <else c='$DIMENSION=""STI""'> T.SALES_TYPE_ID</else>
-                     <else c='$DIMENSION=""PO""'> T.CUSTOMER_ORDER_ID</else> 
-                     <else c='$DIMENSION=""CDC""'> T.CUSTOMER_DIST_CENTER_ID</else> 
-               AS PICKSLIP_DIMENSION,
-                     <if c='$DIMENSION_COL=""PR""'> T.PRIORITY_ID </if>
-                     <else c='$DIMENSION_COL=""CS""'> T.CUSTOMER_STORE_ID </else>
-                     <else c='$DIMENSION_COL=""DCDATE""'>TRUNC(T.DC_CANCEL_DATE)</else>
-                     <else c='$DIMENSION_COL=""LB""'> T.PICKSLIP_TYPE</else>
-                     <else c='$DIMENSION_COL=""IDATE""'> TRUNC(T.PICKSLIP_IMPORT_DATE)</else>
-                     <else c='$DIMENSION_COL=""SDATE""'> TRUNC(T.DELIVERY_DATE)</else>
-                     <else c='$DIMENSION_COL=""CANDATE""'> TRUNC(T.CANCEL_DATE)</else> 
-                     <else c='$DIMENSION_COL=""COT""'> T.CUSTOMER_ORDER_TYPE</else> 
-                     <else c='$DIMENSION_COL=""STI""'> T.SALES_TYPE_ID</else>
-                     <else c='$DIMENSION_COL=""PO""'> T.CUSTOMER_ORDER_ID</else> 
-                     <else c='$DIMENSION_COL=""CDC""'> T.CUSTOMER_DIST_CENTER_ID</else> 
-              AS DIM_COL,
+                     {0} AS PICKSLIP_DIMENSION,
+                     {1} AS DIM_COL,
                      COUNT(UNIQUE T.PRIORITY_ID) OVER()                     AS COUNT_PRIORITY_ID,
                      COUNT(UNIQUE T.CUSTOMER_STORE_ID) OVER()               AS COUNT_CUSTOMER_STORE_ID,
                      COUNT(UNIQUE TRUNC(T.DC_CANCEL_DATE)) OVER()           AS COUNT_DC_CANCEL_DATE,                     
@@ -237,6 +215,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
              ORDER BY PICKSLIP_DIMENSION
         ";
 
+            var query = string.Format(QUERY, dimMap[col1].Item1, dimMap[col2].Item1);
             IDictionary<PickslipDimension, int> dimValueCounts = null;
             var binder = SqlBinder.Create(row =>
             {
@@ -263,10 +242,10 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
-                .Parameter("DIMENSION", dimMap[col1].Item1)
-                .Parameter("DIMENSION_COL", dimMap[col2].Item1)
+                //.Parameter("DIMENSION", dimMap[col1].Item1)
+                //.Parameter("DIMENSION_COL", dimMap[col2].Item1)
                 ;
-            return Tuple.Create(_db.ExecuteReader(QUERY, binder), dimValueCounts);
+            return Tuple.Create(_db.ExecuteReader(query, binder), dimValueCounts);
         }
 
         /// <summary>
