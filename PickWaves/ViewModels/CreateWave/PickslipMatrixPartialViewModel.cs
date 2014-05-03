@@ -118,9 +118,9 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         #endregion
 
-        public IEnumerable<SelectListItem> RowDimensionList { get; set; }
+        public IList<SelectListItem> RowDimensionList { get; set; }
 
-        public IEnumerable<SelectListItem> ColDimensionList { get; set; }     
+        public IList<SelectListItem> ColDimensionList { get; set; }     
 
         public string RowDimDisplayName { get; set; }
 
