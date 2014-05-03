@@ -9,6 +9,24 @@
 *@
 
 @model DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipMatrixPartialViewModel
+
+@helper OptionAttributes(SelectListItem item, int? selectedIndex)
+{
+    @:value="@item.Value"
+
+
+    if (string.IsNullOrWhiteSpace(item.Value))
+    {
+        @:disabled="disabled"
+    }
+    else
+    {
+        if (selectedIndex != null && item.Value == selectedIndex.ToString())
+        {
+            @:selected="selected"
+        }
+    }
+}
 <div class="matrixOuter">
     @Html.HiddenFor(m => m.CustomerId)
     <table>
@@ -29,10 +47,7 @@
                     <select name="@Model.NameFor(m => m.RowDimIndex)">
                         @foreach (var item in Model.RowDimensionList)
                         {
-                            <option value="@item.Value" @Html.Raw(item.Value == Model.RowDimIndex.ToString() ? "selected=\"selected\"" : "")
-                                    @Html.Raw(string.IsNullOrEmpty(item.Value) ? @"disabled=""disabled"" title=""This option is disabled because there are too many unique " + item.Text + "\"" : "")>
-                                @item.Text
-                            </option>
+                            <option @OptionAttributes(item, Model.RowDimIndex)>@item.Text</option>
                         }
                     </select>
                 </th>
@@ -40,7 +55,7 @@
                     <select name="@Model.NameFor(m => m.ColDimIndex)">
                         @foreach (var item in Model.ColDimensionList)
                         {
-                            <option value="@item.Value" @Html.Raw(item.Value == Model.ColDimIndex.ToString() ? "selected=\"selected\"" : "")>
+                            <option @OptionAttributes(item, Model.ColDimIndex)>
                                 @item.Text
                             </option>
                         }
