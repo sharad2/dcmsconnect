@@ -102,12 +102,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
-            var orders = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
+            var summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
 
-            if (orders.Item1.Count > 0 && orders.Item2 != null)
+            if (summary.AllValues.RowValues.Count > 0 && summary.CountValuesPerDimension != null)
             {
                 const int MAX_COL_DIMENSIONS = 30;
-                var first = orders.Item2;
+                var first = summary.CountValuesPerDimension;
 
                 model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
                                           let count = first[kvp.Key]
@@ -127,18 +127,29 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                               Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
                                           }).OrderBy(p => p.Text).ToArray();
 
-                model.Rows = (from order in orders.Item1
-                              let value = order.Counts.Select(p => new
-                                  {
-                                      Key = FormatDimensionValue(p.Key),
-                                      Value = p.Value
-                                  })
+                //model.Rows = (from order in orders.Item1
+                //              let value = order.ColumnValues.Select(p => new
+                //                  {
+                //                      Key = FormatDimensionValue(p.Key),
+                //                      Value = p.Value
+                //                  })
+                //              select new RowDimensionModel
+                //              {
+                //                  PickslipCounts = value.ToDictionary(p => p.Key, p => p.Value.PickslipCount),
+                //                  OrderedPieces = value.ToDictionary(p => p.Key, p => p.Value.OrderedPieces),
+                //                  DimensionValue = FormatDimensionValue(order.DimensionValue)
+                //              }).ToArray();
+
+                model.Rows = (from rowVal in summary.AllValues.RowValues
+                              let row = summary.AllValues.GetRow(rowVal)
                               select new RowDimensionModel
                               {
-                                  PickslipCounts = value.ToDictionary(p => p.Key, p => p.Value.Item1),
-                                  OrderedPieces = value.ToDictionary(p => p.Key, p => p.Value.Item2),
-                                  DimensionValue = FormatDimensionValue(order.DimensionValue)
+                                  PickslipCounts = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
+                                  OrderedPieces = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
+                                  DimensionValue = FormatDimensionValue(rowVal)
                               }).ToArray();
+
+                model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
             }
         }
 

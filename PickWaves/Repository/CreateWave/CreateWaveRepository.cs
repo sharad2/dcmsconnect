@@ -164,7 +164,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
         /// Thus null is different from empty.
         /// </remarks>
-        internal Tuple<IList<CustomerOrderSummary>, IDictionary<PickslipDimension, int>> GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension col1, PickslipDimension col2)
+        internal CustomerOrderSummary GetOrderSummaryForCustomer(string customerId, string vwhId, PickslipDimension col1, PickslipDimension col2)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
@@ -191,21 +191,11 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             };
             const string QUERY = @"
          WITH Q1 AS
-             (SELECT PICKSLIP_ID,
+             (SELECT t.PICKSLIP_ID,
                     T.TOTAL_QUANTITY_ORDERED,
                      {0} AS PICKSLIP_DIMENSION,
                      {1} AS DIM_COL,
-                     COUNT(UNIQUE T.PRIORITY_ID) OVER()                     AS COUNT_PRIORITY_ID,
-                     COUNT(UNIQUE T.CUSTOMER_STORE_ID) OVER()               AS COUNT_CUSTOMER_STORE_ID,
-                     COUNT(UNIQUE TRUNC(T.DC_CANCEL_DATE)) OVER()           AS COUNT_DC_CANCEL_DATE,                     
-                     COUNT(UNIQUE T.PICKSLIP_TYPE) OVER()                   AS COUNT_PICKSLIP_TYPE,
-                     COUNT(UNIQUE TRUNC(T.PICKSLIP_IMPORT_DATE)) OVER()     AS COUNT_IMPORT_DATES,
-                     COUNT(UNIQUE TRUNC(T.DELIVERY_DATE)) OVER()            AS COUNT_DELIVERY_DATE,
-                     COUNT(UNIQUE TRUNC(T.CANCEL_DATE)) OVER()              AS COUNT_CANCEL_DATE,
-                     COUNT(UNIQUE T.CUSTOMER_ORDER_TYPE) OVER()             AS COUNT_CUSTOMER_ORDER_TYPE,
-                     COUNT(UNIQUE T.SALES_TYPE_ID) OVER()                   AS COUNT_SALES_TYPE_ID,
-                     COUNT(UNIQUE T.CUSTOMER_ORDER_ID) OVER()               AS COUNT_CUSTOMER_ORDER_ID,
-                     COUNT(UNIQUE T.CUSTOMER_DIST_CENTER_ID) OVER()         AS COUNT_CUSTOMER_DIST_CENTER_ID
+                     {2}
                 FROM <proxy />DEM_PICKSLIP T
                WHERE T.PS_STATUS_ID = 1
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
@@ -215,37 +205,72 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
              ORDER BY PICKSLIP_DIMENSION
         ";
 
-            var query = string.Format(QUERY, dimMap[col1].Item1, dimMap[col2].Item1);
-            IDictionary<PickslipDimension, int> dimValueCounts = null;
+
+            var array = new List<string>();
+            foreach (var item in dimMap)
+            {
+                array.Add(string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", item.Value.Item1, item.Key.ToString()));
+            }
+            var query = string.Format(QUERY, dimMap[col1].Item1, dimMap[col2].Item1, string.Join(", ", array));
+            /* The value of query will look something like this
+WITH Q1 AS
+ (SELECT t.PICKSLIP_ID,
+         T.TOTAL_QUANTITY_ORDERED,
+         TRUNC(T.DC_CANCEL_DATE) AS PICKSLIP_DIMENSION,
+         T.CUSTOMER_DIST_CENTER_ID AS DIM_COL,
+         COUNT(UNIQUE LPAD(T.PRIORITY_ID, 10)) OVER() AS Priority,
+         COUNT(UNIQUE T.CUSTOMER_STORE_ID) OVER() AS CustomerStore,
+         COUNT(UNIQUE TRUNC(T.DC_CANCEL_DATE)) OVER() AS CustomerDcCancelDate,
+         COUNT(UNIQUE T.PICKSLIP_TYPE) OVER() AS Label,
+         COUNT(UNIQUE TRUNC(T.PICKSLIP_IMPORT_DATE)) OVER() AS ImportDate,
+         COUNT(UNIQUE TRUNC(T.DELIVERY_DATE)) OVER() AS StartDate,
+         COUNT(UNIQUE TRUNC(T.CANCEL_DATE)) OVER() AS CancelDate,
+         COUNT(UNIQUE t.CUSTOMER_ORDER_TYPE) OVER() AS CustomerOrderType,
+         COUNT(UNIQUE T.SALES_TYPE_ID) OVER() AS SaleTypeId,
+         COUNT(UNIQUE T.CUSTOMER_ORDER_ID) OVER() AS PurchaseOrder,
+         COUNT(UNIQUE T.CUSTOMER_DIST_CENTER_ID) OVER() AS CustomerDc
+    FROM DEM_PICKSLIP T
+   WHERE T.PS_STATUS_ID = 1
+     AND T.CUSTOMER_ID = :CUSTOMER_ID
+     AND T.VWH_ID = :VWH_ID)
+SELECT *
+  FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT, SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
+ ORDER BY PICKSLIP_DIMENSION
+             */
+
+            //IDictionary<PickslipDimension, int> dimValueCounts = null;
+            var result = new CustomerOrderSummary
+            {
+                AllValues = new Matrix()
+            };
             var binder = SqlBinder.Create(row =>
             {
-                if (dimValueCounts == null)
+                if (result.CountValuesPerDimension == null)
                 {
-                    dimValueCounts = new Dictionary<PickslipDimension, int>();
-                    dimValueCounts.Add(PickslipDimension.CancelDate, row.GetInteger("COUNT_CANCEL_DATE") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.Priority, row.GetInteger("COUNT_PRIORITY_ID") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.CustomerStore, row.GetInteger("COUNT_CUSTOMER_STORE_ID") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.CustomerDcCancelDate, row.GetInteger("COUNT_DC_CANCEL_DATE") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.Label, row.GetInteger("COUNT_PICKSLIP_TYPE") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.ImportDate, row.GetInteger("COUNT_IMPORT_DATES") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.StartDate, row.GetInteger("COUNT_DELIVERY_DATE") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.CustomerOrderType, row.GetInteger("COUNT_CUSTOMER_ORDER_TYPE") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.SaleTypeId, row.GetInteger("COUNT_SALES_TYPE_ID") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.PurchaseOrder, row.GetInteger("COUNT_CUSTOMER_ORDER_ID") ?? 0);
-                    dimValueCounts.Add(PickslipDimension.CustomerDc, row.GetInteger("COUNT_CUSTOMER_DIST_CENTER_ID") ?? 0);
+                    result.CountValuesPerDimension = new Dictionary<PickslipDimension, int>();
+                    foreach (var item in dimMap)
+                    {
+                        result.CountValuesPerDimension.Add(item.Key, row.GetInteger(item.Key.ToString()) ?? 0);
+                    }
                 }
-                return new CustomerOrderSummary
+                return new
             {
-                DimensionValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                Counts = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
+                RowValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
+                ColValues = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
             };
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
-                //.Parameter("DIMENSION", dimMap[col1].Item1)
-                //.Parameter("DIMENSION_COL", dimMap[col2].Item1)
                 ;
-            return Tuple.Create(_db.ExecuteReader(query, binder), dimValueCounts);
+            var rows = _db.ExecuteReader(query, binder);
+
+            foreach (var row in rows)
+            {
+                result.AllValues.AddRow(row.RowValue, row.ColValues);
+
+            }
+            //return Tuple.Create(_db.ExecuteReader(query, binder), dimValueCounts);
+            return result;
         }
 
         /// <summary>
@@ -272,7 +297,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(XElement xml, bool isColDate)
+        private IDictionary<object, CellValue> MapOrderSummaryXml(XElement xml, bool isColDate)
         {
             var query = (from item in xml.Elements("item")
                          let column = item.Elements("column")
@@ -285,10 +310,18 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             if (isColDate)
             {
                 //return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
-                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces));
+                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => new CellValue
+                {
+                    OrderedPieces = p.OrderedPieces,
+                    PickslipCount = p.PickslipCount
+                });
             }
             //return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
-            return query.ToDictionary(p => (object)(string)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces));
+            return query.ToDictionary(p => (object)(string)p.ColElement, p => new CellValue
+            {
+                PickslipCount = p.PickslipCount,
+                OrderedPieces = p.OrderedPieces
+            });
         }
 
         /// <summary>

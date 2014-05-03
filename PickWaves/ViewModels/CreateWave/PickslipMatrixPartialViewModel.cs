@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.PickWaves.Repository.CreateWave;
+using EclipseLibrary.Mvc.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.PickWaves.Repository.CreateWave;
-using EclipseLibrary.Mvc.Helpers;
-using System;
 
 namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 {
@@ -53,39 +52,41 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             }
         }
 
-        private IDictionary<string, int> _colDimensionValues;
+        //private IDictionary<string, int> _colDimensionValues;
 
         /// <summary>
         /// Unique dimension values for the column
         /// </summary>
         public IList<string> ColDimensionValues
         {
-            get
-            {
-                if (_colDimensionValues == null)
-                {
-                    _colDimensionValues = new Dictionary<string, int>();
-                    foreach (var item in Rows.SelectMany(p => p.PickslipCounts))
-                    {
-                        int count;
-                        if (_colDimensionValues.TryGetValue(item.Key, out count))
-                        {
-                            // The data exists
-                            _colDimensionValues[item.Key] = count + item.Value;      // Sum the pickslip count
-                        }
-                        else
-                        {
-                            _colDimensionValues.Add(item);
-                        }
-                    }
-                }
-                return _colDimensionValues.Keys.OrderBy(p => p).ToArray();
-            }
+            //get
+            //{
+            //    if (_colDimensionValues == null)
+            //    {
+            //        _colDimensionValues = new Dictionary<string, int>();
+            //        foreach (var item in Rows.SelectMany(p => p.PickslipCounts))
+            //        {
+            //            int count;
+            //            if (_colDimensionValues.TryGetValue(item.Key, out count))
+            //            {
+            //                // The data exists
+            //                _colDimensionValues[item.Key] = count + item.Value;      // Sum the pickslip count
+            //            }
+            //            else
+            //            {
+            //                _colDimensionValues.Add(item);
+            //            }
+            //        }
+            //    }
+            //    return _colDimensionValues.Keys.OrderBy(p => p).ToArray();
+            //}
+            get;
+            set;
         }
 
         public int GetPickslipCount(string distributionCenter)
         {
-            return _colDimensionValues[distributionCenter];
+            return -1;
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -93,12 +94,13 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         {
             get
             {
-                if (_colDimensionValues == null)
-                {
-                    // This happens because it seems that DisplayFor() pre-calculates metadata
-                    return 0;
-                }
-                return _colDimensionValues.Values.Sum();
+                //if (_colDimensionValues == null)
+                //{
+                //    // This happens because it seems that DisplayFor() pre-calculates metadata
+                //    return 0;
+                //}
+                //return _colDimensionValues.Values.Sum();
+                return -1;
             }
         }
 

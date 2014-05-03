@@ -32,7 +32,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// If too many rows for the dimension are returned, then null is returned. If no rows are returned for the dimension, and empty collection is returned.
         /// Thus null is different from empty.
         /// </remarks>
-        internal Tuple<IList<CustomerOrderSummary>, IDictionary<PickslipDimension, int>> GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
+        internal CustomerOrderSummary GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
         {
            return _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);            
         }
