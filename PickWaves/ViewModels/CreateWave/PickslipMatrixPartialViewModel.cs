@@ -52,55 +52,17 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             }
         }
 
-        //private IDictionary<string, int> _colDimensionValues;
-
         /// <summary>
         /// Unique dimension values for the column
         /// </summary>
-        public IList<string> ColDimensionValues
-        {
-            //get
-            //{
-            //    if (_colDimensionValues == null)
-            //    {
-            //        _colDimensionValues = new Dictionary<string, int>();
-            //        foreach (var item in Rows.SelectMany(p => p.PickslipCounts))
-            //        {
-            //            int count;
-            //            if (_colDimensionValues.TryGetValue(item.Key, out count))
-            //            {
-            //                // The data exists
-            //                _colDimensionValues[item.Key] = count + item.Value;      // Sum the pickslip count
-            //            }
-            //            else
-            //            {
-            //                _colDimensionValues.Add(item);
-            //            }
-            //        }
-            //    }
-            //    return _colDimensionValues.Keys.OrderBy(p => p).ToArray();
-            //}
-            get;
-            set;
-        }
-
-        public int GetPickslipCount(string distributionCenter)
-        {
-            return -1;
-        }
+        public IList<string> ColDimensionValues { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int GrandTotalPickslips
         {
             get
             {
-                //if (_colDimensionValues == null)
-                //{
-                //    // This happens because it seems that DisplayFor() pre-calculates metadata
-                //    return 0;
-                //}
-                //return _colDimensionValues.Values.Sum();
-                return -1;
+                return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
             }
         }
 
@@ -120,7 +82,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         public IList<SelectListItem> RowDimensionList { get; set; }
 
-        public IList<SelectListItem> ColDimensionList { get; set; }     
+        public IList<SelectListItem> ColDimensionList { get; set; }
 
         public string RowDimDisplayName { get; set; }
 

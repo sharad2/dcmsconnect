@@ -47,7 +47,7 @@
                     <select name="@Model.NameFor(m => m.RowDimIndex)">
                         @foreach (var item in Model.RowDimensionList)
                         {
-                            <option @OptionAttributes(item, Model.RowDimIndex)>@item.Text</option>
+                        <option @OptionAttributes(item, Model.RowDimIndex)>@item.Text</option>
                         }
                     </select>
                 </th>
@@ -68,52 +68,52 @@
             <tr class="dc-header">
                 @for (var i = 0; i < Model.ColDimensionValues.Count; ++i)
                 {
-                    <th>
-                        @Html.RadioButtonFor(m => m.ColDimVal, Model.ColDimensionValues[i], new
+                <th>
+                    @Html.RadioButtonFor(m => m.ColDimVal, Model.ColDimensionValues[i], new
                    {
                        id = "col_" + i.ToString()
                    })
-                        <label for="@Html.Raw("col_" + i.ToString())">
-                            @Model.ColDimensionValues[i]
-                        </label>
-                    </th>
+                    <label for="@Html.Raw("col_" + i.ToString())">
+                        @Model.ColDimensionValues[i]
+                    </label>
+                </th>
                 }
             </tr>
         </thead>
         <tbody>
             @for (var j = 0; j < Model.Rows.Count; ++j)
             {
-                <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
-                    <td style="text-align: right">
-                        @(j + 1)
-                    </td>
-                    <td>
-                        @Html.RadioButtonFor(m => m.RowDimVal, Model.Rows[j].DimensionValue, new
+            <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
+                <td style="text-align: right">
+                    @(j + 1)
+                </td>
+                <td>
+                    @Html.RadioButtonFor(m => m.RowDimVal, Model.Rows[j].DimensionValue, new
                    {
                        id = "row_" + j.ToString()
                    })
-                        <label for="@Html.Raw("row_" + j.ToString())">
-                            @Model.Rows[j].DimensionDisplayValue
-                        </label>
-                    </td>
-                    @foreach (var item in Model.ColDimensionValues)
+                    <label for="@Html.Raw("row_" + j.ToString())">
+                        @Model.Rows[j].DimensionDisplayValue
+                    </label>
+                </td>
+                @foreach (var item in Model.ColDimensionValues)
                     {
                         if (Model.Rows[j].PickslipCounts.ContainsKey(item))
                         {
-                            <td style="white-space:nowrap" tabindex="0" class="ui-selectable">
-                                @string.Format("Pickslip {0:N0}[Pcs {1:N0}]", Model.Rows[j].PickslipCounts[item], Model.Rows[j].OrderedPieces[item])
-                            </td>
+                    <td style="white-space:nowrap" tabindex="0" class="ui-selectable">
+                        @string.Format("Pickslip {0:N0}[Pcs {1:N0}]", Model.Rows[j].PickslipCounts[item], Model.Rows[j].OrderedPieces[item])
+                    </td>
                         }
                         else
                         {
-                            <td></td>
+                    <td></td>
                         }
                     }
-                    <td style="text-align: right;" class="ui-state-active">
-                        @Html.DisplayFor(m => m.Rows[j].TotalPickslips)
+                <td style="text-align: right;" class="ui-state-active">
+                    @Html.DisplayFor(m => m.Rows[j].TotalPickslips)
 
-                    </td>
-                </tr>
+                </td>
+            </tr>
             }
         </tbody>
         <tfoot>
@@ -121,13 +121,7 @@
                 <td colspan="2" style="font-weight: bold;">
                     Total
                 </td>
-                @foreach (var dc in Model.ColDimensionValues)
-                {
-                    <td style="text-align: right">
-                        @string.Format("{0:N0}", Model.GetPickslipCount(dc))
-                    </td>
-                }
-                <td style="text-align: right; font-weight: bold; font-size: 1.2em">
+                <td colspan="@(Model.ColDimensionValues.Count + 2)" style="text-align: right; font-weight: bold; font-size: 1.2em">
                     @Html.DisplayFor(m => m.GrandTotalPickslips)
                 </td>
             </tr>

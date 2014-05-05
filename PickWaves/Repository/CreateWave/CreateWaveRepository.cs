@@ -238,7 +238,6 @@ SELECT *
  ORDER BY PICKSLIP_DIMENSION
              */
 
-            //IDictionary<PickslipDimension, int> dimValueCounts = null;
             var result = new CustomerOrderSummary
             {
                 AllValues = new Matrix()
@@ -269,7 +268,6 @@ SELECT *
                 result.AllValues.AddRow(row.RowValue, row.ColValues);
 
             }
-            //return Tuple.Create(_db.ExecuteReader(query, binder), dimValueCounts);
             return result;
         }
 
