@@ -433,7 +433,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 throw new ArgumentNullException("model.BucketId");
             }
-            if (model.SelectedPickslip != null)
+            if (model.SelectedPickslip.Count == 0)
+            {
+                AddStatusMessage("Please select pickslip.");
+            }
+            else
             {
                 _service.AddPickslipsToWave(model.BucketId, model.SelectedPickslip);
                 AddStatusMessage(string.Format("{0} pickslips have been added to PickWave {1}", model.SelectedPickslip.Count, model.BucketId));
