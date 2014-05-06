@@ -107,6 +107,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 model.Bucket.RequiredBoxExpediting = true;
             }
+            if(!model.Bucket.IsFrozen)
+            {
+                model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
+            }
             return View(this.Views.Wave, model);
         }
 
