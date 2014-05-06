@@ -154,7 +154,7 @@
                                     }
                                     else
                                     {
-                                        <span style="text-decoration: line-through" title="This customer is inactive. Pick Waves cannot be created for inactive customers.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</span>
+                                        <span style="text-decoration: line-through" title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</span>
                                     }
                                 </td>
                                 <td style="text-align: right">
@@ -270,7 +270,7 @@
                                         @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].DcCancelDateRange)
                                     </td>
                                     <td style="text-align: right">
-                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)                                        
+                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)
                                     </td>
                                     <td>
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
@@ -290,7 +290,7 @@
                                                     </div>
                                                 }
                                             </div>
-                                        }                                       
+                                        }
                                         @if (Model.BucketsByStatus.Values[j][i].UncreatedPieces > 0)
                                         {
                                             if (Model.BucketsByStatus.Values[j][i].UncreatedPieces >= Model.BucketsByStatus.Values[j][i].OrderedPieces)
@@ -311,7 +311,7 @@
                                                 }
                                             }
                                         }
-                                    </td>                                    
+                                    </td>
                                 </tr>
                             }
                         </tbody>
