@@ -15,9 +15,9 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
 
         #endregion
 
-        public IEnumerable<Pickslip> GetPickslipList(string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal)
+        public IEnumerable<Pickslip> GetPickslipList(string customerId, string vwhId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal)
         {
-            return _repos.GetPickslips(customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) });
+            return _repos.GetPickslips(customerId, vwhId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) });
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// </remarks>
         internal CustomerOrderSummary GetOrderSummary(string customerId, string vwhId, PickslipDimension dimRow, PickslipDimension dimCol)
         {
-           return _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);            
+            return _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);
         }
 
         /// <summary>

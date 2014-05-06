@@ -26,7 +26,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// <param name="customerId"> </param>
         /// <param name="dimensions"> </param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetPickslips(string customerId, IList<Tuple<PickslipDimension, object>> dimensions)
+        public IEnumerable<Pickslip> GetPickslips(string customerId, string vwhId, IList<Tuple<PickslipDimension, object>> dimensions)
         {
             if (string.IsNullOrEmpty(customerId))
             {
@@ -42,11 +42,11 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                    DEMPS.CUSTOMER_ORDER_ID          AS CUSTOMER_ORDER_ID,
                    DEMPS.CUSTOMER_ID                AS CUSTOMER_ID,
                    DEMPS.CUSTOMER_STORE_ID          AS CUSTOMER_STORE_ID,
-                   DEMPS.VWH_ID                     AS VWH_ID,
                    DEMPS.CUSTOMER_DIST_CENTER_ID    AS CUSTOMER_DIST_CENTER_ID
               FROM <proxy />DEM_PICKSLIP DEMPS
              WHERE DEMPS.PS_STATUS_ID = 1   
-               AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID           
+               AND DEMPS.CUSTOMER_ID = :CUSTOMER_ID 
+               AND DEMPS.VWH_ID = :VWH_ID
                AND {0}
             ORDER BY DEMPS.PRIORITY_ID, DEMPS.PICKSLIP_ID DESC";
 
@@ -60,9 +60,9 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 PurchaseOrder = row.GetString("CUSTOMER_ORDER_ID"),
                 CustomerId = row.GetString("CUSTOMER_ID"),
                 CustomerStoreId = row.GetString("CUSTOMER_STORE_ID"),
-                VwhId = row.GetString("VWH_ID"),
                 CustomerDcId = row.GetString("CUSTOMER_DIST_CENTER_ID")
-            }).Parameter("CUSTOMER_ID", customerId);
+            }).Parameter("CUSTOMER_ID", customerId)
+            .Parameter("VWH_ID", vwhId);
 
             var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
             var clauses = new List<string>(2);
@@ -199,7 +199,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 FROM <proxy />DEM_PICKSLIP T
                WHERE T.PS_STATUS_ID = 1
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
-             <if>AND T.VWH_ID = :VWH_ID</if>)
+             AND T.VWH_ID = :VWH_ID)
             SELECT *
               FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT,SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION

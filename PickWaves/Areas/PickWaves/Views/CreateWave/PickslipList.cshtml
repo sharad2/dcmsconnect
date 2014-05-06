@@ -48,6 +48,7 @@
                 <table>
                     <caption>
                         @string.Format("Pickslips of {0}: {1}; {2}: {3}", Model.ColDimDisplayName, Model.ColDimVal, Model.RowDimDisplayName, Model.RowDimVal)
+                        <span style="font-size: 0.7em;">(VWh : @Model.VwhId)</span>
                     </caption>
                     <thead>
                         <tr>
@@ -63,10 +64,7 @@
                             </th>
                             <th>
                                 Start Date
-                            </th>
-                            <th>
-                                VWh
-                            </th>
+                            </th>                           
                             <th>
                                 Imported
                             </th>
@@ -94,9 +92,6 @@
                                 </td>
                                 <td>
                                     @Html.DisplayFor(m => m.PickslipList[i].StartDate)
-                                </td>
-                                <td style="text-align: center">
-                                    @Html.DisplayFor(m => m.PickslipList[i].VwhId)
                                 </td>
                                 <td style="text-align: center">
                                     @Html.DisplayFor(m => m.PickslipList[i].PickslipImportDate)
