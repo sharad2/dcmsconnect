@@ -245,9 +245,8 @@
                                     <td style="text-align: right">@(i + 1)</td>
 
                                     <td>
-
-                                        <ul class="customerActionMenu">
-                                            <li>
+                                        <ul class="ui-menu ui-widget ui-widget-content ui-corner-all ui-menu-icons">
+                                            <li class="ui-menu-item">
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
                                                  new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus, Model.SearchUserName)))" title="Wave List">
                                                     <span class="ui-icon ui-icon-zoomin"></span>
@@ -255,7 +254,6 @@
                                                 </a>
                                             </li>
                                         </ul>
-
                                     </td>
                                     <td>
                                         <span @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "style='text-decoration:line-through' title='This customer is inactive'")>@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerName)</span>

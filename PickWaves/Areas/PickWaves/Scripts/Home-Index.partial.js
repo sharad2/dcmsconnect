@@ -1,7 +1,9 @@
 ﻿$(document).ready(function () {
-    //$.cookie('the_cookie', 'the_value', { expires: 1 });
-    //alert($.cookie('the_cookie'));
-    $('ul.customerActionMenu').menu();
+    //$('ul.customerActionMenu').menu({
+    //    select: function (event, ui) {
+    //        alert('Hi');
+    //    }
+    //});
     $('#divTabs').tabs({
         heightStyle: 'auto',
         hide: true,
