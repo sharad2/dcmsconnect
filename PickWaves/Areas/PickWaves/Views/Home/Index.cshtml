@@ -133,8 +133,8 @@
                                 <td>
                                     @if (Model.UserIsManager)
                                     {
-                                        <ul class="customerActionMenu">
-                                            <li>
+                                        <ul class="ui-menu ui-widget ui-widget-content ui-corner-all ui-menu-icons">
+                                            <li class="ui-menu-item">
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.ImportedOrders[i].CustomerId)))" title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
                                                     <span class="ui-icon ui-icon-plus"></span>
                                                     @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)

@@ -78,15 +78,15 @@ namespace Links_PickWaves {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js") : Url("_references.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js");
                       
-        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js") : Url("jquery-2.0.3.js");
+        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js") : Url("jquery-2.0.3.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js");
                       
-        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
+        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js") : Url("jquery-ui-1.10.0.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
                       
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
+        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js") : Url("jquery.validate.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js");
                       
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
+        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
                       
     }
 
@@ -110,25 +110,25 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Content/themes/Start1.10.0/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string ui_bg_flat_55_999999_40x100_png = Url("ui-bg_flat_55_999999_40x100.png");
-                    public static readonly string ui_bg_flat_75_aaaaaa_40x100_png = Url("ui-bg_flat_75_aaaaaa_40x100.png");
-                    public static readonly string ui_bg_glass_45_0078ae_1x400_png = Url("ui-bg_glass_45_0078ae_1x400.png");
-                    public static readonly string ui_bg_glass_55_f8da4e_1x400_png = Url("ui-bg_glass_55_f8da4e_1x400.png");
-                    public static readonly string ui_bg_glass_75_79c9ec_1x400_png = Url("ui-bg_glass_75_79c9ec_1x400.png");
-                    public static readonly string ui_bg_gloss_wave_45_e14f1c_500x100_png = Url("ui-bg_gloss-wave_45_e14f1c_500x100.png");
-                    public static readonly string ui_bg_gloss_wave_50_6eac2c_500x100_png = Url("ui-bg_gloss-wave_50_6eac2c_500x100.png");
-                    public static readonly string ui_bg_gloss_wave_75_2191c0_500x100_png = Url("ui-bg_gloss-wave_75_2191c0_500x100.png");
-                    public static readonly string ui_bg_inset_hard_100_fcfdfd_1x100_png = Url("ui-bg_inset-hard_100_fcfdfd_1x100.png");
-                    public static readonly string ui_icons_0078ae_256x240_png = Url("ui-icons_0078ae_256x240.png");
-                    public static readonly string ui_icons_056b93_256x240_png = Url("ui-icons_056b93_256x240.png");
-                    public static readonly string ui_icons_d8e7f3_256x240_png = Url("ui-icons_d8e7f3_256x240.png");
-                    public static readonly string ui_icons_e0fdff_256x240_png = Url("ui-icons_e0fdff_256x240.png");
-                    public static readonly string ui_icons_f5e175_256x240_png = Url("ui-icons_f5e175_256x240.png");
-                    public static readonly string ui_icons_f7a50d_256x240_png = Url("ui-icons_f7a50d_256x240.png");
-                    public static readonly string ui_icons_fcd113_256x240_png = Url("ui-icons_fcd113_256x240.png");
+                    public static readonly string ui_bg_flat_55_999999_40x100_png = Url("ui-bg_flat_55_999999_40x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_flat_55_999999_40x100.png");
+                    public static readonly string ui_bg_flat_75_aaaaaa_40x100_png = Url("ui-bg_flat_75_aaaaaa_40x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_flat_75_aaaaaa_40x100.png");
+                    public static readonly string ui_bg_glass_45_0078ae_1x400_png = Url("ui-bg_glass_45_0078ae_1x400.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_glass_45_0078ae_1x400.png");
+                    public static readonly string ui_bg_glass_55_f8da4e_1x400_png = Url("ui-bg_glass_55_f8da4e_1x400.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_glass_55_f8da4e_1x400.png");
+                    public static readonly string ui_bg_glass_75_79c9ec_1x400_png = Url("ui-bg_glass_75_79c9ec_1x400.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_glass_75_79c9ec_1x400.png");
+                    public static readonly string ui_bg_gloss_wave_45_e14f1c_500x100_png = Url("ui-bg_gloss-wave_45_e14f1c_500x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_gloss-wave_45_e14f1c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_50_6eac2c_500x100_png = Url("ui-bg_gloss-wave_50_6eac2c_500x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_gloss-wave_50_6eac2c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_75_2191c0_500x100_png = Url("ui-bg_gloss-wave_75_2191c0_500x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_gloss-wave_75_2191c0_500x100.png");
+                    public static readonly string ui_bg_inset_hard_100_fcfdfd_1x100_png = Url("ui-bg_inset-hard_100_fcfdfd_1x100.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-bg_inset-hard_100_fcfdfd_1x100.png");
+                    public static readonly string ui_icons_0078ae_256x240_png = Url("ui-icons_0078ae_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_0078ae_256x240.png");
+                    public static readonly string ui_icons_056b93_256x240_png = Url("ui-icons_056b93_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_056b93_256x240.png");
+                    public static readonly string ui_icons_d8e7f3_256x240_png = Url("ui-icons_d8e7f3_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_d8e7f3_256x240.png");
+                    public static readonly string ui_icons_e0fdff_256x240_png = Url("ui-icons_e0fdff_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_e0fdff_256x240.png");
+                    public static readonly string ui_icons_f5e175_256x240_png = Url("ui-icons_f5e175_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_f5e175_256x240.png");
+                    public static readonly string ui_icons_f7a50d_256x240_png = Url("ui-icons_f7a50d_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_f7a50d_256x240.png");
+                    public static readonly string ui_icons_fcd113_256x240_png = Url("ui-icons_fcd113_256x240.png")+"?"+T4Extensions.TimestampString(URLPATH + "/ui-icons_fcd113_256x240.png");
                 }
             
-                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
+                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui.min.css");
             }
         
         }
@@ -150,43 +150,43 @@ namespace Links_PickWaves {
                 private const string URLPATH = "~/Areas/PickWaves/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Box_Creation_for_Pitching_pptx = Url("Box Creation for Pitching.pptx");
-                public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.css") ? Url("Config.min.css") : Url("Config.css");
+                public static readonly string Box_Creation_for_Pitching_pptx = Url("Box Creation for Pitching.pptx")+"?"+T4Extensions.TimestampString(URLPATH + "/Box Creation for Pitching.pptx");
+                public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.css") ? Url("Config.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Config.css") : Url("Config.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Config.css");
                      
-                public static readonly string Config_min_css = Url("Config.min.css");
-                public static readonly string CreateWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-Index.min.css") ? Url("CreateWave-Index.min.css") : Url("CreateWave-Index.css");
+                public static readonly string Config_min_css = Url("Config.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Config.min.css");
+                public static readonly string CreateWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-Index.min.css") ? Url("CreateWave-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-Index.css") : Url("CreateWave-Index.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-Index.css");
                      
-                public static readonly string CreateWave_Index_min_css = Url("CreateWave-Index.min.css");
-                public static readonly string CreateWave_PickslipList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.css") ? Url("CreateWave-PickslipList.min.css") : Url("CreateWave-PickslipList.css");
+                public static readonly string CreateWave_Index_min_css = Url("CreateWave-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-Index.min.css");
+                public static readonly string CreateWave_PickslipList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.css") ? Url("CreateWave-PickslipList.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipList.css") : Url("CreateWave-PickslipList.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipList.css");
                      
-                public static readonly string CreateWave_PickslipList_min_css = Url("CreateWave-PickslipList.min.css");
-                public static readonly string CreateWave_PickslipListSelector_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipListSelector.min.css") ? Url("CreateWave-PickslipListSelector.min.css") : Url("CreateWave-PickslipListSelector.css");
+                public static readonly string CreateWave_PickslipList_min_css = Url("CreateWave-PickslipList.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipList.min.css");
+                public static readonly string CreateWave_PickslipListSelector_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipListSelector.min.css") ? Url("CreateWave-PickslipListSelector.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipListSelector.css") : Url("CreateWave-PickslipListSelector.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipListSelector.css");
                      
-                public static readonly string CreateWave_PickslipListSelector_min_css = Url("CreateWave-PickslipListSelector.min.css");
-                public static readonly string Home_CustomerSummary_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-CustomerSummary.min.css") ? Url("Home-CustomerSummary.min.css") : Url("Home-CustomerSummary.css");
+                public static readonly string CreateWave_PickslipListSelector_min_css = Url("CreateWave-PickslipListSelector.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipListSelector.min.css");
+                public static readonly string Home_CustomerSummary_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-CustomerSummary.min.css") ? Url("Home-CustomerSummary.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-CustomerSummary.css") : Url("Home-CustomerSummary.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-CustomerSummary.css");
                      
-                public static readonly string Home_CustomerSummary_min_css = Url("Home-CustomerSummary.min.css");
-                public static readonly string Home_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.css") ? Url("Home-Index.min.css") : Url("Home-Index.css");
+                public static readonly string Home_CustomerSummary_min_css = Url("Home-CustomerSummary.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-CustomerSummary.min.css");
+                public static readonly string Home_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.css") ? Url("Home-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-Index.css") : Url("Home-Index.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-Index.css");
                      
-                public static readonly string Home_Index_min_css = Url("Home-Index.min.css");
+                public static readonly string Home_Index_min_css = Url("Home-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-Index.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
                     private const string URLPATH = "~/Areas/PickWaves/Content/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
-                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
+                    public static readonly string a1_gif = Url("a1.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/a1.gif");
+                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/ajax-loader.gif");
                 }
             
-                public static readonly string ManageWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.css") ? Url("ManageWave-Index.min.css") : Url("ManageWave-Index.css");
+                public static readonly string ManageWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.css") ? Url("ManageWave-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Index.css") : Url("ManageWave-Index.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Index.css");
                      
-                public static readonly string ManageWave_Index_min_css = Url("ManageWave-Index.min.css");
-                public static readonly string ManageWave_Wave_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.css") ? Url("ManageWave-Wave.min.css") : Url("ManageWave-Wave.css");
+                public static readonly string ManageWave_Index_min_css = Url("ManageWave-Index.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Index.min.css");
+                public static readonly string ManageWave_Wave_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.css") ? Url("ManageWave-Wave.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Wave.css") : Url("ManageWave-Wave.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Wave.css");
                      
-                public static readonly string ManageWave_Wave_min_css = Url("ManageWave-Wave.min.css");
-                public static readonly string PickWaves_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PickWaves-all.min.css") ? Url("PickWaves-all.min.css") : Url("PickWaves-all.css");
+                public static readonly string ManageWave_Wave_min_css = Url("ManageWave-Wave.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Wave.min.css");
+                public static readonly string PickWaves_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PickWaves-all.min.css") ? Url("PickWaves-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/PickWaves-all.css") : Url("PickWaves-all.css")+"?"+T4Extensions.TimestampString(URLPATH + "/PickWaves-all.css");
                      
-                public static readonly string PickWaves_all_min_css = Url("PickWaves-all.min.css");
+                public static readonly string PickWaves_all_min_css = Url("PickWaves-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/PickWaves-all.min.css");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -201,21 +201,21 @@ namespace Links_PickWaves {
                 private const string URLPATH = "~/Areas/PickWaves/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js") : Url("BoxPickPalletIndex-all.js");
+                public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/BoxPickPalletIndex-all.js") : Url("BoxPickPalletIndex-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/BoxPickPalletIndex-all.js");
                               
-                public static readonly string Config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.js") ? Url("Config.min.js") : Url("Config.js");
+                public static readonly string Config_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.js") ? Url("Config.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Config.js") : Url("Config.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Config.js");
                               
-                public static readonly string CreateWave_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-Index.min.js") ? Url("CreateWave-Index.min.js") : Url("CreateWave-Index.js");
+                public static readonly string CreateWave_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-Index.min.js") ? Url("CreateWave-Index.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-Index.js") : Url("CreateWave-Index.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-Index.js");
                               
-                public static readonly string CreateWave_PickslipList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.js") ? Url("CreateWave-PickslipList.min.js") : Url("CreateWave-PickslipList.js");
+                public static readonly string CreateWave_PickslipList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.js") ? Url("CreateWave-PickslipList.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipList.js") : Url("CreateWave-PickslipList.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateWave-PickslipList.js");
                               
-                public static readonly string Home_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.js") ? Url("Home-Index.min.js") : Url("Home-Index.js");
+                public static readonly string Home_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.js") ? Url("Home-Index.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-Index.js") : Url("Home-Index.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Home-Index.js");
                               
-                public static readonly string ManageSkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSkuCase.min.js") ? Url("ManageSkuCase.min.js") : Url("ManageSkuCase.js");
+                public static readonly string ManageSkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSkuCase.min.js") ? Url("ManageSkuCase.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageSkuCase.js") : Url("ManageSkuCase.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageSkuCase.js");
                               
-                public static readonly string ManageWave_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.js") ? Url("ManageWave-Index.min.js") : Url("ManageWave-Index.js");
+                public static readonly string ManageWave_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.js") ? Url("ManageWave-Index.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Index.js") : Url("ManageWave-Index.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Index.js");
                               
-                public static readonly string ManageWave_Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.js") ? Url("ManageWave-Wave.min.js") : Url("ManageWave-Wave.js");
+                public static readonly string ManageWave_Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.js") ? Url("ManageWave-Wave.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Wave.js") : Url("ManageWave-Wave.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageWave-Wave.js");
                               
             }
         
@@ -224,13 +224,13 @@ namespace Links_PickWaves {
                 private const string URLPATH = "~/Areas/PickWaves/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml");
+                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_ViewStart.cshtml");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class BoxPickPallet {
                     private const string URLPATH = "~/Areas/PickWaves/Views/BoxPickPallet";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -238,21 +238,21 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Areas/PickWaves/Views/Config";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _addCustomerConstraintPartial_cshtml = Url("_addCustomerConstraintPartial.cshtml");
-                    public static readonly string _addPackinRulePartial_cshtml = Url("_addPackinRulePartial.cshtml");
-                    public static readonly string _custSkuCasePreferenceEditorPartial_cshtml = Url("_custSkuCasePreferenceEditorPartial.cshtml");
-                    public static readonly string _skuCaseEditorPartial_cshtml = Url("_skuCaseEditorPartial.cshtml");
-                    public static readonly string Constraint_cshtml = Url("Constraint.cshtml");
+                    public static readonly string _addCustomerConstraintPartial_cshtml = Url("_addCustomerConstraintPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_addCustomerConstraintPartial.cshtml");
+                    public static readonly string _addPackinRulePartial_cshtml = Url("_addPackinRulePartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_addPackinRulePartial.cshtml");
+                    public static readonly string _custSkuCasePreferenceEditorPartial_cshtml = Url("_custSkuCasePreferenceEditorPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_custSkuCasePreferenceEditorPartial.cshtml");
+                    public static readonly string _skuCaseEditorPartial_cshtml = Url("_skuCaseEditorPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_skuCaseEditorPartial.cshtml");
+                    public static readonly string Constraint_cshtml = Url("Constraint.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Constraint.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/PickWaves/Views/Config/DisplayTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string ConstraintModel_cshtml = Url("ConstraintModel.cshtml");
+                        public static readonly string ConstraintModel_cshtml = Url("ConstraintModel.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ConstraintModel.cshtml");
                     }
                 
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string SkuCase_cshtml = Url("SkuCase.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
+                    public static readonly string SkuCase_cshtml = Url("SkuCase.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/SkuCase.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -260,9 +260,9 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Areas/PickWaves/Views/CreateWave";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _pickslipMatrixPartial_cshtml = Url("_pickslipMatrixPartial.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string PickslipList_cshtml = Url("PickslipList.cshtml");
+                    public static readonly string _pickslipMatrixPartial_cshtml = Url("_pickslipMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_pickslipMatrixPartial.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
+                    public static readonly string PickslipList_cshtml = Url("PickslipList.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/PickslipList.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -270,7 +270,7 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Areas/PickWaves/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -278,12 +278,12 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Areas/PickWaves/Views/ManageWaves";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _bucketEditorPartial_cshtml = Url("_bucketEditorPartial.cshtml");
-                    public static readonly string _waveBoxesPartial_cshtml = Url("_waveBoxesPartial.cshtml");
-                    public static readonly string _wavePickslipsPartial_cshtml = Url("_wavePickslipsPartial.cshtml");
-                    public static readonly string _waveSkusPartial_cshtml = Url("_waveSkusPartial.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string Wave_cshtml = Url("Wave.cshtml");
+                    public static readonly string _bucketEditorPartial_cshtml = Url("_bucketEditorPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_bucketEditorPartial.cshtml");
+                    public static readonly string _waveBoxesPartial_cshtml = Url("_waveBoxesPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_waveBoxesPartial.cshtml");
+                    public static readonly string _wavePickslipsPartial_cshtml = Url("_wavePickslipsPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_wavePickslipsPartial.cshtml");
+                    public static readonly string _waveSkusPartial_cshtml = Url("_waveSkusPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_waveSkusPartial.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
+                    public static readonly string Wave_cshtml = Url("Wave.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Wave.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -291,14 +291,14 @@ namespace Links_PickWaves {
                     private const string URLPATH = "~/Areas/PickWaves/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _activityProgressPartial_cshtml = Url("_activityProgressPartial.cshtml");
-                    public static readonly string _layoutPickWaves_cshtml = Url("_layoutPickWaves.cshtml");
+                    public static readonly string _activityProgressPartial_cshtml = Url("_activityProgressPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_activityProgressPartial.cshtml");
+                    public static readonly string _layoutPickWaves_cshtml = Url("_layoutPickWaves.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutPickWaves.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/PickWaves/Views/Shared/DisplayTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string BucketModel_cshtml = Url("BucketModel.cshtml");
+                        public static readonly string BucketModel_cshtml = Url("BucketModel.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/BucketModel.cshtml");
                     }
                 
                 }

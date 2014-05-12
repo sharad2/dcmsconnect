@@ -30,10 +30,6 @@
         $(this).autocomplete('search');
     });
 
-    $('#divTabs').on('mouseleave', 'ul.customerActionMenu', function (e) {
-        // Close the menu if user navigates out of it
-        $(this).menu('collapseAll', e, true);
-    });
 });
 //steal('jquery/lang/json', function () {
 (function ($) {

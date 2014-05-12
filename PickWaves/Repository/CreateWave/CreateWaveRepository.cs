@@ -303,14 +303,14 @@ SELECT *
                          {
                              ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
                              PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
-                             OrderedPieces = (int)column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
+                             OrderedPieces = column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
                          });
             if (isColDate)
             {
                 //return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
                 return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => new CellValue
                 {
-                    OrderedPieces = p.OrderedPieces,
+                    OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
                     PickslipCount = p.PickslipCount
                 });
             }
@@ -318,7 +318,7 @@ SELECT *
             return query.ToDictionary(p => (object)(string)p.ColElement, p => new CellValue
             {
                 PickslipCount = p.PickslipCount,
-                OrderedPieces = p.OrderedPieces
+                OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
             });
         }
 
