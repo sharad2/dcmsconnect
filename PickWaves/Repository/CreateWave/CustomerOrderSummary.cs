@@ -17,22 +17,6 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
     internal class CustomerOrderSummary
     {
         /// <summary>
-        /// The value in the column which was chosen as the dimension for the pickslip
-        /// </summary>
-        /// <remarks>
-        /// The datatype of the value depends on the dimension which was retrieved
-        /// </remarks>
-        [Obsolete]
-        public object DimensionValue { get; set; }
-
-        /// <summary>
-        /// Key is 
-        /// Count of pickslip and sum of ordered pieces.
-        /// </summary>
-        [Obsolete]
-        public IDictionary<object, CellValue> ColumnValues { get; set; }
-
-        /// <summary>
         /// Specifies the count of distinct values for each possible dimension
         /// </summary>
         public IDictionary<PickslipDimension, int> CountValuesPerDimension { get; set; }
