@@ -114,13 +114,8 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                  (                             
                                     SELECT PD.SKU_ID               AS SKU_ID,
                                            P.VWH_ID                AS VWH_ID,
-                                         MAX(B.PITCH_IA_ID) OVER() AS PITCH_AREA,
-                                         SUM(PD.PIECES_ORDERED) OVER(PARTITION BY PD.SKU_ID, P.VWH_ID) AS QUANTITY_ORDERED,
-                                         (SELECT COUNT(UNIQUE ASSIGNED_UPC_CODE)
-                                            FROM <proxy />IALOC IL                                           
-                                           WHERE IL.ASSIGNED_UPC_CODE = PD.UPC_CODE
-                                             AND IL.VWH_ID = P.VWH_ID
-                                             AND IL.IA_ID = B.PITCH_IA_ID) AS COUNT_ASSIGED_SKU
+                                         MAX(B.PITCH_IA_ID)  AS PITCH_AREA,
+                                         SUM(PD.PIECES_ORDERED)  AS QUANTITY_ORDERED
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
@@ -129,6 +124,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    WHERE P.BUCKET_ID = :BUCKET_ID
                                      AND P.TRANSFER_DATE IS NULL
                                      AND PD.TRANSFER_DATE IS NULL
+group by PD.SKU_ID, P.VWH_ID
                             ),
                             ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
@@ -167,7 +163,6 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                      AND SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
                                    INNER JOIN <proxy />TAB_INVENTORY_AREA TIA
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
-                           --       INNER JOIN ALL_ORDERED_SKU AOS ON AOS.SKU_ID = SCD.SKU_ID
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
                                 UNION ALL
@@ -296,7 +291,11 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   AOS.COUNT_ASSIGED_SKU            AS COUNT_ASSIGED_SKU,
+                                   (SELECT COUNT(UNIQUE ASSIGNED_UPC_CODE)
+          FROM IALOC IL
+         WHERE IL.ASSIGNED_UPC_CODE = ms.UPC_CODE
+           AND IL.VWH_ID = AOS.VWH_ID
+           AND IL.IA_ID = AOS.PITCH_AREA)            AS COUNT_ASSIGED_SKU,
                                    AOS.PITCH_AREA                   AS PITCH_AREA,
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
