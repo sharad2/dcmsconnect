@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
@@ -31,11 +32,6 @@ namespace DcmsMobile.PickWaves.Repository
         /// Carton area from which this pick area is replenished
         /// </summary>
         public string ReplenishAreaId { get; set; }
-
-        /// <summary>
-        /// True, if cartons can be pulled form this area.
-        /// </summary>
-        public bool IsPullArea { get; set; }
     }
 }
 

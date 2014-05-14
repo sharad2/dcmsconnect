@@ -277,8 +277,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                                                             BuildingId = area.BuildingId,
                                                             Description = area.Description,
                                                             InventoryPieces = subitem == null ? (int?)null : subitem.InventoryPieces,
-                                                            QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton,
-                                                            IsPullArea = area.IsPullArea
+                                                            QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton
                                                         }).ToArray(),
                                      Activities = sku.Activities.ToArray()
                                  })

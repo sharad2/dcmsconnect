@@ -133,8 +133,8 @@ group by PD.SKU_ID, P.VWH_ID
                             SHORT_NAME,
                             PIECES_IN_AREA,
                             DESCRIPTION,
-                            REPLENISH_FROM_AREA_ID,
-                            IS_PULL_AREA) AS
+                            REPLENISH_FROM_AREA_ID
+                            ) AS
                                  (SELECT SCD.SKU_ID AS SKU_ID,
                                          SC.VWH_ID AS VWH_ID,
                                          NVL(TIA.WAREHOUSE_LOCATION_ID, MSL.WAREHOUSE_LOCATION_ID) AS BUILDING_ID,
@@ -142,19 +142,7 @@ group by PD.SKU_ID, P.VWH_ID
                                          TIA.SHORT_NAME,
                                          SCD.QUANTITY AS PIECES_IN_AREA,
                                          TIA.DESCRIPTION, 
-                                         NULL,
-                                     CASE
-                                         WHEN EXISTS
-                                          (SELECT MSL.STORAGE_AREA
-                                                 FROM <proxy />MASTER_STORAGE_LOCATION MSL
-                                                INNER JOIN <proxy />SRC_CARTON SC
-                                                   ON SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
-                                                  AND SC.LOCATION_ID = MSL.LOCATION_ID
-                                                WHERE TIA.INVENTORY_STORAGE_AREA = MSL.STORAGE_AREA) THEN
-                                          'TRUE'
-                                         ELSE
-                                          'FALSE'
-                                     END
+                                         NULL
                                     FROM <proxy />SRC_CARTON_DETAIL SCD
                                    INNER JOIN <proxy />SRC_CARTON SC
                                       ON SC.CARTON_ID = SCD.CARTON_ID
@@ -174,19 +162,7 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                        I.SHORT_NAME,
                                        IC.NUMBER_OF_UNITS,
                                        I.SHORT_DESCRIPTION, 
-                                       I.DEFAULT_REPREQ_IA_ID,
-                                     CASE
-                                         WHEN EXISTS
-                                          (SELECT MSL.STORAGE_AREA
-                                             FROM <proxy />MASTER_STORAGE_LOCATION MSL
-                                            INNER JOIN <proxy />SRC_CARTON SC
-                                               ON SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
-                                              AND SC.LOCATION_ID = MSL.LOCATION_ID
-                                            WHERE I.IA_ID = MSL.STORAGE_AREA) THEN
-                                                'TRUE'
-                                            ELSE
-                                                'FALSE'
-                                      END
+                                       I.DEFAULT_REPREQ_IA_ID
                                   FROM <proxy />IALOC_CONTENT IC
                                  INNER JOIN <proxy />IALOC IL
                                     ON IL.IA_ID = IC.IA_ID
@@ -200,8 +176,7 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                             XML_COLUMN) AS
                                  (SELECT *
                                     FROM ALL_INVENTORY_SKU PIVOT XML(SUM(PIECES_IN_AREA) AS PIECES_IN_AREA, MIN(PIECES_IN_AREA) AS PIECES_IN_SMALLEST_CARTON,
-                                    MAX(DESCRIPTION) AS AREA_DESCRIPTION, MAX(SHORT_NAME) AS AREA_SHORT_NAME, MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID,
-                                    MAX(IS_PULL_AREA) AS IS_PULL_AREA
+                                    MAX(DESCRIPTION) AS AREA_DESCRIPTION, MAX(SHORT_NAME) AS AREA_SHORT_NAME, MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                     FOR(INVENTORY_AREA, BUILDING_ID) IN(ANY, ANY))),
                             BOX_SKU AS
                                  (SELECT BD.SKU_ID AS SKU_ID,
@@ -407,8 +382,7 @@ WHERE 1 = 1
                                   BuildingId = (string)column.First(p => p.Attribute("name").Value == "BUILDING_ID"),
                                   Description = (string)column.First(p => p.Attribute("name").Value == "AREA_DESCRIPTION"),
                                   ShortName = (string)column.First(p => p.Attribute("name").Value == "AREA_SHORT_NAME"),
-                                  ReplenishAreaId = (string)column.First(p => p.Attribute("name").Value == "REPLENISH_FROM_AREA_ID"),
-                                  IsPullArea = (bool)column.First(p => p.Attribute("name").Value == "IS_PULL_AREA")
+                                  ReplenishAreaId = (string)column.First(p => p.Attribute("name").Value == "REPLENISH_FROM_AREA_ID")
                               },
                               InventoryPieces = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_AREA"),
                               PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON")

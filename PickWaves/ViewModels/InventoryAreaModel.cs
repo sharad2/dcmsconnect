@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Repository;
+using System;
 
 namespace DcmsMobile.PickWaves.ViewModels
 {
@@ -21,7 +22,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             BuildingId = area.BuildingId;
             Description = area.Description;
             ReplenishAreaId = area.ReplenishAreaId;
-            IsPullArea = area.IsPullArea;
         }
 
         [DisplayFormat(NullDisplayText = "(Not Specified)")]
@@ -84,11 +84,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         public string BuildingName { get; set; }
 
         public string ReplenishAreaId { get; set; }
-
-        /// <summary>
-        /// True, if cartons can be pulled form this area.
-        /// </summary>
-        public bool IsPullArea { get; set; }
     }
 
     public class InventoryAreaModelComparer : IEqualityComparer<InventoryAreaModel>

@@ -106,7 +106,7 @@
                     @Html.DisplayFor(m => m.BucketSkuList[i].Color),@Html.DisplayFor(m => m.BucketSkuList[i].Dimension),@Html.DisplayFor(m => m.BucketSkuList[i].SkuSize)
                 </td>
                 <td>@Html.DisplayFor(m => m.BucketSkuList[i].VwhId)</td>
-                <td style="text-align: right"  title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</td>
+                <td style="text-align: right" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</td>
                 <td style="text-align: right" title="Volume Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</td>
                 <td style="text-align: right">
                     @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)
@@ -125,15 +125,9 @@
                 {
                     var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
                     <td style="white-space: nowrap; text-align: right" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
-                        @if (Model.BucketSkuList[i].InventoryByArea[j].IsPullArea)
-                        {
-                            <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                            <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
-                        }
-                        else
-                        {
-                            <span title="@string.Format("Number of pieces in {0}", Model.BucketSkuList[i].InventoryByArea[j].ShortName)">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                        }
+                        <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
+                        <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
+
                     </td>
                 }
             </tr>
