@@ -165,6 +165,7 @@ group by PD.SKU_ID, P.VWH_ID
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
+and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -191,7 +192,8 @@ group by PD.SKU_ID, P.VWH_ID
                                     ON IL.IA_ID = IC.IA_ID
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
-                                    ON I.IA_ID = IL.IA_ID                            
+                                    ON I.IA_ID = IL.IA_ID 
+   where ic.sku_id in (select sku_id from ALL_ORDERED_SKU)                           
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
