@@ -17,7 +17,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
     internal class CustomerOrderSummary
     {
         /// <summary>
-        /// Specifies the count of distinct values for each possible dimension
+        /// Specifies the count of distinct values for each possible dimension. This will be null when there are no status 1 orders of the customer
         /// </summary>
         public IDictionary<PickslipDimension, int> CountValuesPerDimension { get; set; }
 

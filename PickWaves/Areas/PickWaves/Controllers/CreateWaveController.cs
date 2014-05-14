@@ -80,11 +80,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="customerId"> </param>
         /// <param name="selectedRowDimIndex"> </param>
         /// <param name="selectedColDimIndex"> </param>
-        /// <returns></returns>
+        /// <returns>Whether pickslips exist which can be added to a bucket</returns>
         /// <remarks>
         /// Passed selectedRowDimIndex and selectedColDimIndex are ignored if it turns out that either of them have no pickslips
         /// </remarks>
-        private void PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model, string customerId, int selectedRowDimIndex, int selectedColDimIndex)
+        private bool PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model, string customerId, int selectedRowDimIndex, int selectedColDimIndex)
         {
             model.CustomerId = customerId;
 
@@ -103,6 +103,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedRowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedColDimIndex.ToString());
             var summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
+
+            if (summary.CountValuesPerDimension == null)
+            {
+                // No more pickslips which can be added to a bucket. The dimension matrix will be empty.
+                // This happens when the last set of pickslips has been added to the bucket.
+                return false;
+            }
 
             var requery = false;
             if (summary.CountValuesPerDimension[pdimRow] == 0)
@@ -160,7 +167,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                           }).ToArray();
 
             model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
-
+            return true;
         }
 
 
@@ -255,8 +262,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
 
             #endregion
+
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
-            PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0);
+            if (!PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0))
+            {
+                // No more pickslips to add to the bucket. Redirect to the last bucket id if available. Else redirect to home page
+                if (model.LastBucketId.HasValue)
+                {
+                    AddStatusMessage(string.Format("No more pickslips are available to add to pick wave {0}", model.LastBucketId));
+                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(model.LastBucketId.Value)));
+                }
+                else
+                {
+                    // The passed customer does not have any pickslips which can be used to create a pick wave
+                    AddStatusMessage(string.Format("No pickslips of Customer {} are available to create Pick Waves", model.CustomerId));
+                    return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                }
+            }
 
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
 
