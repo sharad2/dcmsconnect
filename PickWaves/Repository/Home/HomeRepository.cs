@@ -162,7 +162,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
                         </if>
                         SELECT 2 FROM <proxy />MASTER_CUSTOMER WHERE CUSTOMER_ID = :string_value
                         UNION ALL
-                        select 3 from <proxy />all_users where username = :string_value
+                        select 3 from all_users where username = :string_value
                         ORDER BY 1
                         ";
             var binder = SqlBinder.Create(row => row.GetInteger(0) ?? 0);
