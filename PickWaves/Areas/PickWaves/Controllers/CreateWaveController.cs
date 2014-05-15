@@ -333,6 +333,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [HttpPost]
         public virtual ActionResult AddPickslipsOfDim(IndexViewModel model, string viewPickslips)
         {
+            if(model.ColDimVal != null || model.RowDimVal != null)
+            {
+                model.ColDimVal = model.ColDimVal.Trim();
+                model.RowDimVal = model.RowDimVal.Trim();
+            }
+
             // If user want to see pickslip list.
             if (!string.IsNullOrWhiteSpace(viewPickslips))
             {

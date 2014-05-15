@@ -1,6 +1,6 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel
 @{
-    ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName , Model.CustomerId);
+    ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName, Model.CustomerId);
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
@@ -51,8 +51,8 @@
             </div>
             if (Model.Rows.Count > 0)
             {
-                @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId, Model.RowDimIndex.Value,
-                        Model.ColDimIndex.Value, Model.PullAreaId, Model.PitchAreaId)))
+                @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
+               Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.PullAreaId, Model.PitchAreaId, null)))
             }
 
         }
@@ -67,33 +67,33 @@
                     <tbody>
                         @if (Model.PullAreas.Count > 0)
                         {
-                        <tr>
-                            <td>
-                                Pull From
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
-                            </td>
-                            <td>
-                                @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
-                                @Html.LabelFor(m => m.RequiredBoxExpediting)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    Pull From
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
+                                    @Html.LabelFor(m => m.RequiredBoxExpediting)
+                                </td>
+                            </tr>
                         }
                         @if (Model.PitchAreas.Count > 0)
                         {
-                        <tr>
-                            <td>
-                                Pitch From
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
-                            </td>
-                            <td>
-                                @Html.CheckBoxFor(m => m.QuickPitch)
-                                @Html.LabelFor(m => m.QuickPitch)
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    Pitch From
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(m => m.QuickPitch)
+                                    @Html.LabelFor(m => m.QuickPitch)
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -109,11 +109,12 @@
         else
         {
             <div class="ui-state-highlight" style="margin-top: 2em; font-size : 1.5em; font-weight: bold;">
-                 No imported orders found for Customer @Model.CustomerId
+                No imported orders found for Customer @Model.CustomerId
             </div>
         }
     }
 </fieldset>
+
 
 
 
