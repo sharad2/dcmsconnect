@@ -33,9 +33,7 @@ Each div.progressbar-value has attribute data-boxstate which indicates the natur
         }
         @if (Model.CancelledPieces.HasValue)
         {
-            <span class="ui-progressbar-value"
-                style="font-style:italic; background-color:thistle"
-                 data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.Cancelled)">@Html.DisplayFor(m => m.CancelledPieces) cancelled</span>
+            <span style="font-style:italic; background-color:thistle">@Html.DisplayFor(m => m.CancelledPieces) cancelled</span>
         }
     </div>
 </div>

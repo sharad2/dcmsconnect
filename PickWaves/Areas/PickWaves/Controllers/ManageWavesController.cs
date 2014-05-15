@@ -241,7 +241,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                            {
                                BucketSku = item,
                                Activities = item.Activities.Select(p => new BucketActivityModel(p))
-                                 .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0 || p.CancelledPieces.HasValue),
+                                 .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0),
                                Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
                            }).ToArray();
 

@@ -182,37 +182,29 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                  (SELECT BD.SKU_ID AS SKU_ID,
                                          B.VWH_ID AS VWH_ID,
                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is null THEN
+                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is null THEN
                                                 BD.CURRENT_PIECES
                                              END) AS UNVRFY_CUR_PCS_PITCH,
                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is not null THEN
+                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is not null THEN
                                                 BD.CURRENT_PIECES
                                              END) AS VRFY_CUR_PCS_PITCH,
                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND B.STOP_PROCESS_REASON IS NULL  AND b.verify_date is null THEN
+                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is null THEN
                                                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
                                              END) AS UNVRFY_EXP_PCS_PITCH,
                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is not null THEN
+                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is not null THEN
                                                 BD.CURRENT_PIECES
                                              END) AS VRFY_CUR_PCS_PULL,
                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is null THEN
+                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is null THEN
                                                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
                                              END) AS UNVRFY_EXP_PCS_PULL,
                                           SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND B.STOP_PROCESS_REASON IS NULL AND b.verify_date is null THEN
+                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is null THEN
                                                 BD.CURRENT_PIECES
-                                             END) AS UNVRFY_CUR_PCS_PULL,
-                                        SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND B.STOP_PROCESS_REASON IS NOT NULL THEN
-                                                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                             END) AS CAN_EXP_PCS_PULL,
-                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND B.STOP_PROCESS_REASON IS NOT NULL THEN
-                                                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                             END) AS CAN_EXP_PCS_PITCH,
+                                             END) AS UNVRFY_CUR_PCS_PULL,                                        
                                          MAX(CASE
                                                WHEN B.CARTON_ID IS NULL THEN
                                                  B.PITCHING_END_DATE
@@ -260,8 +252,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    BOX_SKU.VRFY_CUR_PCS_PULL        AS VRFY_CUR_PCS_PULL,
                                    BOX_SKU.UNVRFY_EXP_PCS_PULL      AS UNVRFY_EXP_PCS_PULL,
                                    BOX_SKU.UNVRFY_CUR_PCS_PULL      AS UNVRFY_CUR_PCS_PULL,
-                                   BOX_SKU.CAN_EXP_PCS_PULL         AS CAN_EXP_PCS_PULL,
-                                   BOX_SKU.CAN_EXP_PCS_PITCH        AS CAN_EXP_PCS_PITCH,
                                    BOX_SKU.MAX_PITCHING_END_DATE    AS MAX_PITCHING_END_DATE,
                                    BOX_SKU.MIN_PITCHING_END_DATE    AS MIN_PITCHING_END_DATE,
                                    BOX_SKU.MAX_PULL_END_DATE        AS MAX_PULL_END_DATE,
@@ -286,8 +276,7 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                AND BOX_SKU.VWH_ID = AOS.VWH_ID
 WHERE 1 = 1
     <if c='$Completed'>AND (BOX_SKU.VRFY_CUR_PCS_PITCH &gt; 0 OR BOX_SKU.VRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PITCH &gt; 0)</if>
-    <if c='$InProgress'>AND (BOX_SKU.UNVRFY_EXP_PCS_PULL &gt; NVL(BOX_SKU.UNVRFY_CUR_PCS_PULL,0) OR BOX_SKU.UNVRFY_EXP_PCS_PITCH &gt; NVL(UNVRFY_CUR_PCS_PITCH,0))</if>
-    <if c='$Cancelled'>AND (BOX_SKU.CAN_EXP_PCS_PULL &gt; 0 OR BOX_SKU.CAN_EXP_PCS_PITCH &gt; 0 )</if>
+    <if c='$InProgress'>AND (BOX_SKU.UNVRFY_EXP_PCS_PULL &gt; NVL(BOX_SKU.UNVRFY_CUR_PCS_PULL,0) OR BOX_SKU.UNVRFY_EXP_PCS_PITCH &gt; NVL(UNVRFY_CUR_PCS_PITCH,0))</if>    
 ";
             var binder = SqlBinder.Create(row =>
                 {
@@ -319,10 +308,7 @@ WHERE 1 = 1
                     bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PITCH");
+                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");                   
                     return bs;
                 });
 
@@ -338,11 +324,7 @@ WHERE 1 = 1
             if (stateFilter.HasFlag(BoxState.InProgress))
             {
                 binder.ParameterXPath("InProgress", true);
-            }
-            if (stateFilter.HasFlag(BoxState.Cancelled))
-            {
-                binder.ParameterXPath("Cancelled", true);
-            }
+            }           
 
             switch (activityFilter)
             {
