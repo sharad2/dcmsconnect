@@ -103,14 +103,14 @@
             {
                 <li>
                     @Html.ActionLink("Freeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress,null)))
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress, null)))
                 </li>
             }
             @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeOthers))
             {
                 <li>
                     @Html.ActionLink("Unfreeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen,null)))
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen, null)))
                 </li>
             }
             @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain))
@@ -129,7 +129,7 @@
             <li>
                 @Html.ActionLink(string.Format("Other {0} Waves of this customer", Model.Bucket.StateDisplayName),
                                      MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState,null)))
+                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))
             </li>
         </ul>
     </div>
@@ -227,8 +227,8 @@
                 <br />
                 <p style="font-style: italic">
                     We will try to pull as many cartons as possible for <strong>@Model.Bucket.PiecesIncomplete</strong>
-                    pieces from <strong>@Model.Bucket.PullAreaShortName</strong>. Remaining pieces will be picked from
-                    <strong>@Model.Bucket.PitchAreaShortName</strong>.
+                    pieces from pull area <strong>@Html.DisplayFor(m => m.Bucket.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
+                    <strong>@Html.DisplayFor(m => m.Bucket.PitchAreaShortName)</strong>.
                 </p>
             </div>
             <div style="padding-top: 1em">Are you sure want to unfreeze pick wave?</div>

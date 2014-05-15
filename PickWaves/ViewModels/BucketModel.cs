@@ -364,6 +364,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Pull area short name of the pick wave
         /// </summary>
+        [DisplayFormat(NullDisplayText = "Not decided")]
         public string PullAreaShortName
         {
             get
@@ -375,6 +376,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Pull area short name of the pick wave
         /// </summary>
+       [DisplayFormat(NullDisplayText = "Not decided")]
         public string PitchAreaShortName
         {
             get
