@@ -27,7 +27,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         /// </summary>
         /// <param name="customerId"></param>
         /// <param name="stateIndex"></param>
-        public IndexViewModel(string customerId, ProgressStage state,string userName)
+        public IndexViewModel(string customerId, ProgressStage state, string userName)
         {
             this.CustomerId = customerId;
             this.Buckets = new BucketModel[0];
@@ -42,8 +42,8 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         {
             get
             {
-                var x = PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>()[this.BucketState].Name;
-                return string.Format("{0} waves of {1} <em>{2}</em>", x, this.CustomerName, this.CustomerId);
+                var state = PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>()[this.BucketState].Name;
+                return string.Format("{0} waves of {1} <em>{2}</em>", state, this.CustomerName, this.CustomerId);
             }
         }
 

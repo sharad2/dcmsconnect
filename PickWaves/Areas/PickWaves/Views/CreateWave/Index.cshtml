@@ -1,6 +1,6 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel
 @{
-    ViewBag.Title = string.Format("Create Pick Waves for {0}", Model.CustomerName);
+    ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName , Model.CustomerId);
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
