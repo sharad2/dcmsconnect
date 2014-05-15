@@ -52,7 +52,7 @@
             if (Model.Rows.Count > 0)
             {
                 @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
-               Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.PullAreaId, Model.PitchAreaId, null)))
+               Model.RowDimIndex.Value, Model.ColDimIndex.Value,Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null)))
             }
 
         }

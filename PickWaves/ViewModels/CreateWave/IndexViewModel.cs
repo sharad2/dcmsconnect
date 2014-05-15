@@ -26,11 +26,12 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             LastBucketId = bucketId;
         }
 
-        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex, string pullAreaId, string pitchAreaId, int? lastBucketId)
+        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
         {
             CustomerId = customerId;
             RowDimIndex = rowDimIndex;
             ColDimIndex = colDimIndex;
+            VwhId = vwhId;
             PullAreaId = pullAreaId;
             PitchAreaId = pitchAreaId;
             LastBucketId = lastBucketId;
@@ -103,15 +104,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             if (!string.IsNullOrWhiteSpace(model.PullAreaId))
             {
                 routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
-            }
-            if (model.RequiredBoxExpediting)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.RequiredBoxExpediting), model.RequiredBoxExpediting);
-            }
-            if (model.QuickPitch)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.QuickPitch), model.QuickPitch);
-            }
+            }                     
         }
     }
 }

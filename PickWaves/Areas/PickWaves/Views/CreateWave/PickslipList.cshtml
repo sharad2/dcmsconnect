@@ -12,7 +12,7 @@
             <li>
                 If you want to
                 @Html.ActionLink("Add more pickslip", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
-               Model.RowDimIndex.Value, Model.ColDimIndex.Value, null, null, Model.BucketId))) in @Model.BucketId Pick Wave.
+               Model.RowDimIndex.Value, Model.ColDimIndex.Value,Model.VwhId, null, null, Model.BucketId))) in @Model.BucketId Pick Wave.
         </li>
         <li>
             To see Pick Wave <a href="@Url.Action(
