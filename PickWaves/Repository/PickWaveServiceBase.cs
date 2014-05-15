@@ -50,7 +50,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// <returns></returns>
         internal Bucket GetBucket(int bucketId)
         {
-            return _repos.GetBuckets(bucketId, null, null).FirstOrDefault();
+            return _repos.GetBucket(bucketId);
         }
     }
 }

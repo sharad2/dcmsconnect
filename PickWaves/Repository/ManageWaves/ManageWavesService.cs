@@ -26,7 +26,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         /// <returns></returns>
         internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state)
         {
-            return _repos.GetBuckets(null, customerId, state);
+            return _repos.GetBuckets(customerId, state);
         }
 
         /// <summary>
