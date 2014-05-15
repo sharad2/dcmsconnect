@@ -63,6 +63,20 @@ namespace DcmsMobile.PickWaves.Repository
             return _db.ExecuteSingle(QUERY, binder);
         }
 
+        public Bucket GetBuckets(int? bucketId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage? state)
+        {
+
+            /*
+             * 
+             */
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         ///  This method gets Buckets information.
         /// </summary>
