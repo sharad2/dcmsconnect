@@ -170,11 +170,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
             {
                 throw new ArgumentNullException("customerId");
             }
-
-            if (string.IsNullOrWhiteSpace(vwhId))
-            {
-                throw new ArgumentNullException("vwhId");
-            }
+           
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
                 {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},
@@ -199,7 +195,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                 FROM <proxy />DEM_PICKSLIP T
                WHERE T.PS_STATUS_ID = 1
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
-             AND T.VWH_ID = :VWH_ID)
+             <if>AND T.VWH_ID = :VWH_ID</if>)
             SELECT *
               FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT,SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION
