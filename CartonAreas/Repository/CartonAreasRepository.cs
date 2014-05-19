@@ -56,6 +56,65 @@ namespace DcmsMobile.CartonAreas.Repository
 
         #endregion
 
+        internal class Building
+        {
+
+            public string BuildingId { get; set; }
+
+            public string Description { get; set; }
+        }
+
+        internal IList<Building> GetBuildings()
+        {
+            const string QUERY = @"
+with location_counts as
+ (select tia.warehouse_location_id,
+         count(msl.location_id) as count_locations,
+         count(unique tia.inventory_storage_area) as count_areas,
+         count(unique msl.storage_area) as count_numbered_areas
+    from <proxy/>tab_inventory_area tia
+    left outer join <proxy/>master_storage_location msl
+      on tia.inventory_storage_area = msl.storage_area
+   where tia.warehouse_location_id is not null
+   group by tia.warehouse_location_id)
+select t.warehouse_location_id,
+       t.description,
+       t.insert_date,
+       t.inserted_by,
+       t.receiving_pallet_limit,
+       t.address_1,
+       t.address_2,
+       t.address_3,
+       t.address_4,
+       t.city,
+       t.state,
+       t.zip_code,
+       lc.count_areas,
+       lc.count_numbered_areas,
+       lc.count_locations
+  from <proxy/>tab_warehouse_location t
+ inner join location_counts lc
+    on lc.warehouse_location_id = t.warehouse_location_id
+
+";
+            var binder = SqlBinder.Create(row => new Building
+            {
+                BuildingId = row.GetString("warehouse_location_id"),
+                Description = row.GetString("description"),
+                //TotalLocations = row.GetInteger("LOCATION_COUNT") ?? 0,
+                //ShortName = row.GetString("SHORT_NAME"),
+                //CountEmptyLocations = row.GetInteger("empty_locations"),
+                //CountNonemptyLocations = row.GetInteger("nonempty_locations"),
+                //CountAssignedLocations = row.GetInteger("assigned_locations"),
+                //CountEmptyUnassignedLocations = row.GetInteger("empty_unassigned_locations"),
+                //CountUnassignedLocations = row.GetInteger("total_unassigned_locations"),
+                //CountEmptyAssignedLocations = row.GetInteger("empty_assigned_locations"),
+                //CountNonemptyAssignedLocations = row.GetInteger("nonempty_assigned_locations"),
+                //CountNonemptyUnassignedLocations = row.GetInteger("nonempty_unassigned_locations")
+            });
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
         /// <summary>
         /// This method gets the carton area info and number of locations in it.
         /// </summary>
