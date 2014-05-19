@@ -82,7 +82,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string Buildings = "Buildings";
             public readonly string Index = "Index";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
@@ -95,7 +94,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
-            public const string Buildings = "Buildings";
             public const string Index = "Index";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
@@ -160,8 +158,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _areaInfoPartial = "_areaInfoPartial";
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
-            public readonly string Buildings = "Buildings";
             public readonly string CartonArea = "CartonArea";
+            public readonly string Index = "Index";
             public readonly string ManageCartonArea = "ManageCartonArea";
             public readonly string Tutorial = "Tutorial";
         }
@@ -170,11 +168,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class T4MVC_HomeController: DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers.HomeController {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
-
-        public override System.Web.Mvc.ActionResult Buildings() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Buildings);
-            return callInfo;
-        }
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);

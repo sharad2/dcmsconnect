@@ -67,10 +67,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
         #endregion
 
-        public virtual ActionResult Buildings()
-        {
-            return View(Views.Buildings);
-        }
+        //public virtual ActionResult Buildings()
+        //{
+        //    return View(Views.Buildings);
+        //}
         /// <summary>
         /// Displays home page which shows carton area list
         /// </summary>
