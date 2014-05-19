@@ -2,18 +2,13 @@
 @{
     ViewBag.Title = "Buildings";
 }
-@*@foreach (var item in Model.Building)
-    {
-        <span>@item.BuildingId</span>
-    }*@
-
 @for (var i = 0; i < Model.Building.Count; i++)
 {
     <div class="boxContent">
         <fieldset>
             <legend>
                 @Html.DisplayFor(m => m.Building[i].BuildingId) : @Html.DisplayFor(m => m.Building[i].Description)
-                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea())">
+                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Building[i].BuildingId))">
                     <span title="Carton Areas">(@Model.Building[i].CountArea)</span>
                 </a>
             </legend>

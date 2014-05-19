@@ -65,9 +65,9 @@ namespace DcmsMobile.CartonAreas.Repository
         /// Give the list of carton area.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CartonArea> GetCartonAreas()
+        public IEnumerable<CartonArea> GetCartonAreas(string buildingId)
         {
-            return _repos.GetCartonAreas(null);
+            return _repos.GetCartonAreas(null,buildingId);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <returns></returns>
         public CartonArea GetCartonAreaInfo(string areaId)
         {
-            return _repos.GetCartonAreas(areaId).FirstOrDefault();
+            return _repos.GetCartonAreas(areaId,null).FirstOrDefault();
         }
 
         /// <summary>

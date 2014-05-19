@@ -103,11 +103,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return View(Views.Index, model);
         }
 
-        public virtual ActionResult CartonArea()
+        public virtual ActionResult CartonArea(string buildingId)
         {
             var model = new CartonAreaViewModel
             {
-                CartonAreaList = _service.GetCartonAreas().Select(p => Map(p))
+                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => Map(p))
             };
             model.CurrentArea = new CartonAreaModel();
             return View(Views.CartonArea, model);

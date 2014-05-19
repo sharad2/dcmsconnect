@@ -39,6 +39,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult CartonArea() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult UpdateArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateArea);
         }
@@ -107,6 +112,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
 
 
+        static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CartonArea CartonAreaParams { get { return s_params_CartonArea; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CartonArea {
+            public readonly string buildingId = "buildingId";
+        }
         static readonly ActionParamsClass_UpdateArea s_params_UpdateArea = new ActionParamsClass_UpdateArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateArea UpdateAreaParams { get { return s_params_UpdateArea; } }
@@ -176,8 +188,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CartonArea() {
+        public override System.Web.Mvc.ActionResult CartonArea(string buildingId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             return callInfo;
         }
 

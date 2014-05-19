@@ -102,14 +102,14 @@ select t.warehouse_location_id,
                 BuildingId = row.GetString("warehouse_location_id"),
                 Description = row.GetString("description"),
                 InsertDate = row.GetDate("insert_date"),
-                InsertedBy=row.GetString("inserted_by"),
+                InsertedBy = row.GetString("inserted_by"),
                 ReceivingPalletLimit = row.GetInteger("receiving_pallet_limit"),
                 Address1 = row.GetString("address_1"),
                 Address2 = row.GetString("address_2"),
                 Address3 = row.GetString("address_3"),
                 Address4 = row.GetString("address_4"),
-                City=row.GetString("City"),
-                State=row.GetString("State"),
+                City = row.GetString("City"),
+                State = row.GetString("State"),
                 ZipCode = row.GetString("zip_code"),
                 CountArea = row.GetInteger("count_areas"),
                 CountNumberedArea = row.GetInteger("count_numbered_areas"),
@@ -135,7 +135,7 @@ select t.warehouse_location_id,
         /// </summary>
         /// <param name="areaId"></param>
         /// <returns></returns>
-        public IEnumerable<CartonArea> GetCartonAreas(string areaId)
+        public IEnumerable<CartonArea> GetCartonAreas(string areaId, string buildingId)
         {
             const string QUERY = @"
                 SELECT MAX(TIA.INVENTORY_STORAGE_AREA)       AS INVENTORY_STORAGE_AREA,
@@ -201,6 +201,7 @@ select t.warehouse_location_id,
 </if>
                  WHERE TIA.STORES_WHAT = 'CTN'
                <if>AND TIA.INVENTORY_STORAGE_AREA = :AREA_ID</if>
+              <if> AND TIA.WAREHOUSE_LOCATION_ID=:WAREHOUSE_LOCATION_ID</if>
                  GROUP BY TIA.WAREHOUSE_LOCATION_ID, tia.short_name
                  ORDER BY TIA.WAREHOUSE_LOCATION_ID, tia.short_name
         ";
@@ -223,7 +224,7 @@ select t.warehouse_location_id,
                 CountNonemptyAssignedLocations = row.GetInteger("nonempty_assigned_locations"),
                 CountNonemptyUnassignedLocations = row.GetInteger("nonempty_unassigned_locations")
             });
-            binder.Parameter("AREA_ID", areaId);
+            binder.Parameter("AREA_ID", areaId).Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -336,7 +337,7 @@ select t.warehouse_location_id,
                 // Ignore the ASSIGNED_FLAG
                 binder.Parameter("ASSIGNED_FLAG", "");
             }
-            return _db.ExecuteReader(QUERY,binder, 100);
+            return _db.ExecuteReader(QUERY, binder, 100);
         }
 
 
