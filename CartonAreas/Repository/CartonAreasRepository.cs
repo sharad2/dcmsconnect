@@ -56,13 +56,13 @@ namespace DcmsMobile.CartonAreas.Repository
 
         #endregion
 
-        internal class Building
-        {
+        //internal class Building
+        //{
 
-            public string BuildingId { get; set; }
+        //    public string BuildingId { get; set; }
 
-            public string Description { get; set; }
-        }
+        //    public string Description { get; set; }
+        //}
 
         internal IList<Building> GetBuildings()
         {
@@ -101,6 +101,21 @@ select t.warehouse_location_id,
             {
                 BuildingId = row.GetString("warehouse_location_id"),
                 Description = row.GetString("description"),
+                InsertDate = row.GetDate("insert_date"),
+                InsertedBy=row.GetString("inserted_by"),
+                ReceivingPalletLimit = row.GetInteger("receiving_pallet_limit"),
+                Address1 = row.GetString("address_1"),
+                Address2 = row.GetString("address_2"),
+                Address3 = row.GetString("address_3"),
+                Address4 = row.GetString("address_4"),
+                City=row.GetString("City"),
+                State=row.GetString("State"),
+                ZipCode = row.GetInteger("zip_code"),
+                CountArea = row.GetInteger("count_areas"),
+                CountNumberedArea = row.GetInteger("count_numbered_areas"),
+                CountLocation = row.GetInteger("count_locations")
+
+
                 //TotalLocations = row.GetInteger("LOCATION_COUNT") ?? 0,
                 //ShortName = row.GetString("SHORT_NAME"),
                 //CountEmptyLocations = row.GetInteger("empty_locations"),

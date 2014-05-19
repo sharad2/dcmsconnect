@@ -161,7 +161,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
             public readonly string Buildings = "Buildings";
-            public readonly string Index = "Index";
+            public readonly string CartonArea = "CartonArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
             public readonly string Tutorial = "Tutorial";
         }

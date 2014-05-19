@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
-    public class IndexViewModel
+    public class CartonAreaViewModel
     {
         [Display(Name = "Name_AreaList", ResourceType = typeof(Resources.CartonAreasResource))]
         public IEnumerable<CartonAreaModel> CartonAreaList { get; set; }

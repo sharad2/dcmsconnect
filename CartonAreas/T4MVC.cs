@@ -177,7 +177,7 @@ namespace Links_CartonAreas {
                     public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml");
                     public static readonly string Buildings_cshtml = Url("Buildings.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
+                    public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml");
                     public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml");
                 }

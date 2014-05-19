@@ -217,7 +217,7 @@
     <Content Include="Areas\CartonAreas\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\CartonAreas\Views\Home\Index.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\CartonArea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\CartonAreas\Views\Shared\_layoutCartonAreas.cshtml" />

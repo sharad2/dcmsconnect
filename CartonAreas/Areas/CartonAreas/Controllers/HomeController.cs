@@ -77,12 +77,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <returns></returns>
         public virtual ActionResult Index()
         {
-            var model = new IndexViewModel
+            var model = new CartonAreaViewModel
                 {
                     CartonAreaList = _service.GetCartonAreas().Select(p => Map(p))
                 };
             model.CurrentArea = new CartonAreaModel();
-            return View(Views.Index, model);
+            return View(Views.CartonArea, model);
         }
 
         /// <summary>
