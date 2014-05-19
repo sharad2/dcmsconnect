@@ -83,6 +83,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
             public readonly string ApplyAssignedSkuFilter = "ApplyAssignedSkuFilter";
@@ -95,6 +96,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
+            public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
             public const string ApplyAssignedSkuFilter = "ApplyAssignedSkuFilter";
@@ -171,6 +173,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult CartonArea() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
             return callInfo;
         }
 

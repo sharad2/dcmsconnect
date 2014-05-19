@@ -124,8 +124,10 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AssignSkuViewModel.cs" />
+    <Compile Include="ViewModels\BuildingModel.cs" />
     <Compile Include="ViewModels\CartonAreaModel.cs" />
     <Compile Include="ViewModels\CartonAreaViewModel.cs" />
+    <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />
     <Compile Include="ViewModels\SkuModel.cs" />

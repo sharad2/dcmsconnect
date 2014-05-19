@@ -1,5 +1,21 @@
-﻿@{
+﻿@model DcmsMobile.CartonAreas.ViewModels.IndexViewModel
+@{
     ViewBag.Title = "Buildings";
 }
+@*@foreach (var item in Model.Building)
+    {
+        <span>@item.BuildingId</span>
+    }*@
 
-<h2>Buildings</h2>
+@for (var i = 0; i < Model.Building.Count; i++)
+{
+    <ul>
+        <li>
+            @Html.DisplayFor(m => m.Building[i].BuildingId) : @Html.DisplayFor(m => m.Building[i].Description)
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea())">@Model.Building[i].CountArea</a>
+
+        </li>
+
+    </ul>
+
+}

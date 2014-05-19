@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DcmsMobile.CartonAreas.Repository
+namespace DcmsMobile.CartonAreas.ViewModels
 {
-    public class Building
+    public class BuildingModel
     {
-
         public string BuildingId { get; set; }
 
         public string Description { get; set; }

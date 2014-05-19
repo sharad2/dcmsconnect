@@ -110,7 +110,7 @@ select t.warehouse_location_id,
                 Address4 = row.GetString("address_4"),
                 City=row.GetString("City"),
                 State=row.GetString("State"),
-                ZipCode = row.GetInteger("zip_code"),
+                ZipCode = row.GetString("zip_code"),
                 CountArea = row.GetInteger("count_areas"),
                 CountNumberedArea = row.GetInteger("count_numbered_areas"),
                 CountLocation = row.GetInteger("count_locations")

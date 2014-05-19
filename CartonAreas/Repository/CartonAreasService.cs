@@ -108,6 +108,11 @@ namespace DcmsMobile.CartonAreas.Repository
             _repos.UpdateArea(model);
         }
 
+
+        internal IList<Building> GetBuilding()
+        {
+            return _repos.GetBuildings();
+        }
     }
 }
 //$Id$

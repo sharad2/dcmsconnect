@@ -77,12 +77,41 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <returns></returns>
         public virtual ActionResult Index()
         {
+
+            var model = new IndexViewModel
+           {
+               Building = (from item in _service.GetBuilding()
+                           select new BuildingModel
+               {
+                   BuildingId = item.BuildingId,
+                   Address1 = item.Address1,
+                   Address2 = item.Address2,
+                   Address3 = item.Address3,
+                   Address4 = item.Address4,
+                   City = item.City,
+                   CountArea = item.CountArea,
+                   CountLocation = item.CountLocation,
+                   CountNumberedArea = item.CountNumberedArea,
+                   Description = item.Description,
+                   InsertDate = item.InsertDate,
+                   InsertedBy = item.InsertedBy,
+                   ReceivingPalletLimit = item.ReceivingPalletLimit,
+                   State = item.State,
+                   ZipCode = item.ZipCode
+               }).ToList()
+           };
+            return View(Views.Index, model);
+        }
+
+        public virtual ActionResult CartonArea()
+        {
             var model = new CartonAreaViewModel
-                {
-                    CartonAreaList = _service.GetCartonAreas().Select(p => Map(p))
-                };
+            {
+                CartonAreaList = _service.GetCartonAreas().Select(p => Map(p))
+            };
             model.CurrentArea = new CartonAreaModel();
             return View(Views.CartonArea, model);
+
         }
 
         /// <summary>
