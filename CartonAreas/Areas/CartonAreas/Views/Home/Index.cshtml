@@ -9,13 +9,37 @@
 
 @for (var i = 0; i < Model.Building.Count; i++)
 {
-    <ul>
-        <li>
-            @Html.DisplayFor(m => m.Building[i].BuildingId) : @Html.DisplayFor(m => m.Building[i].Description)
-            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea())">@Model.Building[i].CountArea</a>
+    <div class="boxContent">
+        <fieldset>
+            <legend>
+                @Html.DisplayFor(m => m.Building[i].BuildingId) : @Html.DisplayFor(m => m.Building[i].Description)
+                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea())">
+                    <span title="Carton Areas">(@Model.Building[i].CountArea)</span>
+                </a>
+            </legend>
+            <div>
+                Address: @Html.DisplayFor(m => m.Building[i].Address1)
+                @Html.DisplayFor(m => m.Building[i].Address2)
+                @Html.DisplayFor(m => m.Building[i].Address3)
+                @Html.DisplayFor(m => m.Building[i].Address4)
+                @Html.DisplayFor(m => m.Building[i].City)
+                (@Html.DisplayFor(m => m.Building[i].State))
+                (@Html.DisplayFor(m => m.Building[i].ZipCode))
+            </div>
+            <span>Location # :</span>
+            @Html.DisplayFor(m => m.Building[i].CountLocation)
+            <span>, Pallet Limit :</span>
+            @Html.DisplayFor(m => m.Building[i].ReceivingPalletLimit)
+            <span>, Numbered Areas # :</span>
+            @Html.DisplayFor(m => m.Building[i].CountNumberedArea)
+            <span>, Building Creation Date:</span>
+            @Html.DisplayFor(m => m.Building[i].InsertDate)
+            <span>, Building Created By :</span>
+            @Html.DisplayFor(m => m.Building[i].InsertedBy)
+           
 
-        </li>
 
-    </ul>
+        </fieldset>
+    </div>
 
 }
