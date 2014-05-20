@@ -80,7 +80,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             var model = new IndexViewModel
            {
-               Building = (from item in _service.GetBuilding()
+               Buildings = (from item in _service.GetBuilding()
                            select new BuildingModel
                {
                    BuildingId = item.BuildingId,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -31,6 +32,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public int? CountNumberedArea { get; set; }
 
+        [DisplayFormat(DataFormatString="{0:N0}")]
         public int? CountLocation { get; set; }
 
         public string Address3 { get; set; }

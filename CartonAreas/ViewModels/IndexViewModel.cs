@@ -4,6 +4,6 @@ namespace DcmsMobile.CartonAreas.ViewModels
 {
     public class IndexViewModel
     {
-        public IList<BuildingModel> Building { get; set; }
+        public IList<BuildingModel> Buildings { get; set; }
     }
 }
