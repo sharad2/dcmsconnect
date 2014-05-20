@@ -163,6 +163,9 @@ namespace Links_CartonAreas {
                 public static readonly string CartonArea_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CartonArea-all.min.js") ? Url("CartonArea-all.min.js") : Url("CartonArea-all.js");
                               
                 public static readonly string CartonArea_all_min_js = Url("CartonArea-all.min.js");
+                public static readonly string Index_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-all.min.js") ? Url("Index-all.min.js") : Url("Index-all.js");
+                              
+                public static readonly string Index_all_min_js = Url("Index-all.min.js");
                 public static readonly string ManageCartonAreas_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageCartonAreas-all.min.js") ? Url("ManageCartonAreas-all.min.js") : Url("ManageCartonAreas-all.js");
                               
                 public static readonly string ManageCartonAreas_all_min_js = Url("ManageCartonAreas-all.min.js");

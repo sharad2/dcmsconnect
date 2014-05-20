@@ -11,7 +11,7 @@
     <div class="box">
         <div class="boxContent">
             <h2>
-               @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
+                @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
             </h2>
 
             <div style="margin-left:1em">
@@ -41,11 +41,21 @@
             </div>
 
             <div style="margin-top:1em">
-                When receiving in this building, you will need to palletize received cartons. What should be the size of each Pallet? <strong style="font-size:1.2em">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
+                When receiving in this building, you will need to palletize received cartons. What should be the size of each Pallet?
+                <strong class="oldPalletValue" style="font-size:1.2em">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
+                <input type="text" size="4" class="tbPalletLimit" value="@Model.Buildings[i].ReceivingPalletLimit" />
+                <a class="editPalletLimit" href="#">Edit</a>
+                <button class="btPalletLimit">Go</button>
+
                 <br />
                 Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.
             </div>
         </div>
     </div>
+}
 
+@section scripts {
+    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js">
+       
+    </script>
 }
