@@ -46,10 +46,10 @@
                 <a class="editPalletLimit" href="#">Edit</a>
                 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:inline-block" }))
                 {
-                    <input type="text" size="4" class="tbPalletLimit" value="@Model.Buildings[i].ReceivingPalletLimit"
+                    <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
                            name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
                     <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
-                    <button class="btPalletLimit">Go</button>
+                    <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
                 }
                 <br />
                 Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.

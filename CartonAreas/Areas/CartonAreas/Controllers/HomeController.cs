@@ -73,29 +73,28 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <returns></returns>
         public virtual ActionResult Index()
         {
-
             var model = new IndexViewModel
-           {
-               Buildings = (from item in _service.GetBuilding()
-                            select new BuildingModel
-                {
-                    BuildingId = item.BuildingId,
-                    Address1 = item.Address1,
-                    Address2 = item.Address2,
-                    Address3 = item.Address3,
-                    Address4 = item.Address4,
-                    City = item.City,
-                    CountArea = item.CountArea,
-                    CountLocation = item.CountLocation,
-                    CountNumberedArea = item.CountNumberedArea,
-                    Description = item.Description,
-                    InsertDate = item.InsertDate,
-                    InsertedBy = item.InsertedBy,
-                    ReceivingPalletLimit = item.ReceivingPalletLimit,
-                    State = item.State,
-                    ZipCode = item.ZipCode
-                }).ToList()
-           };
+                        {
+                            Buildings = (from item in _service.GetBuilding()
+                                         select new BuildingModel
+                                         {
+                                             BuildingId = item.BuildingId,
+                                             Address1 = item.Address1,
+                                             Address2 = item.Address2,
+                                             Address3 = item.Address3,
+                                             Address4 = item.Address4,
+                                             City = item.City,
+                                             CountArea = item.CountArea,
+                                             CountLocation = item.CountLocation,
+                                             CountNumberedArea = item.CountNumberedArea,
+                                             Description = item.Description,
+                                             InsertDate = item.InsertDate,
+                                             InsertedBy = item.InsertedBy,
+                                             ReceivingPalletLimit = item.ReceivingPalletLimit,
+                                             State = item.State,
+                                             ZipCode = item.ZipCode
+                                         }).ToList()
+                        };
             return View(Views.Index, model);
         }
 
@@ -103,7 +102,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         public virtual ActionResult EditPalletLimit(string buildingId, int? palletLimit)
         {
             _service.UpdatePalletLimit(buildingId, palletLimit);
-            return Json(palletLimit);
+            return RedirectToAction(this.Actions.Index());
         }
 
         public virtual ActionResult CartonArea(string buildingId)
@@ -146,7 +145,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
+            //TODO : pass building also
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea());
         }
 
         /// <summary>

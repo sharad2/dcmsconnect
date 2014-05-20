@@ -114,18 +114,6 @@ select t.warehouse_location_id,
                 CountArea = row.GetInteger("count_areas"),
                 CountNumberedArea = row.GetInteger("count_numbered_areas"),
                 CountLocation = row.GetInteger("count_locations")
-
-
-                //TotalLocations = row.GetInteger("LOCATION_COUNT") ?? 0,
-                //ShortName = row.GetString("SHORT_NAME"),
-                //CountEmptyLocations = row.GetInteger("empty_locations"),
-                //CountNonemptyLocations = row.GetInteger("nonempty_locations"),
-                //CountAssignedLocations = row.GetInteger("assigned_locations"),
-                //CountEmptyUnassignedLocations = row.GetInteger("empty_unassigned_locations"),
-                //CountUnassignedLocations = row.GetInteger("total_unassigned_locations"),
-                //CountEmptyAssignedLocations = row.GetInteger("empty_assigned_locations"),
-                //CountNonemptyAssignedLocations = row.GetInteger("nonempty_assigned_locations"),
-                //CountNonemptyUnassignedLocations = row.GetInteger("nonempty_unassigned_locations")
             });
             return _db.ExecuteReader(QUERY, binder);
         }
