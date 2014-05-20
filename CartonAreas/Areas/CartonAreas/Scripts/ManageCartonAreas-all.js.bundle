@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<bundle minify="true" runOnBuild="true" output="CartonAreas-all.js">
+<bundle minify="true" runOnBuild="true" output="ManageCartonAreas-all.js">
   <!--The order of the <file> elements determines the order of them when bundled.-->
-  <file>/Areas/CartonAreas/Scripts/CartonAreas.partial.js</file>
+  <file>/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js</file>
   <file>/Areas/CartonAreas/Scripts/AutoComplete.partial.js</file>
 </bundle>

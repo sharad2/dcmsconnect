@@ -138,7 +138,7 @@ readonly string[] StaticFilesFolders = new string[] {
 // Static files to exclude from the generated links   
 readonly string[] ExcludedStaticFileExtensions = new string[] {   
     ".cs",
-	".min.js",
+	".all.js",	
 	"vsdoc.js",
 	".png",
 	".config",

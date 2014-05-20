@@ -136,20 +136,26 @@
     <Content Include="Areas\CartonAreas\Content\CartonAreas-all.css">
       <DependentUpon>CartonAreas-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\CartonAreas\Scripts\Index-all.min.js">
-      <DependentUpon>Index-all.js</DependentUpon>
+    <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js">
+      <DependentUpon>CartonArea-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.js">
+      <DependentUpon>ManageCartonAreas-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.min.js">
+      <DependentUpon>ManageCartonAreas-all.js</DependentUpon>
     </Content>
     <Content Include="Areas\CartonAreas\Views\Home\_updateFlagDialogPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\Tutorial.cshtml" />
     <None Include="Areas\CartonAreas\Content\CartonAreas-all.css.bundle" />
-    <None Include="Areas\CartonAreas\Scripts\CartonAreas-all.js.bundle" />
-    <Content Include="Areas\CartonAreas\Scripts\CartonAreas-all.min.js.map">
-      <DependentUpon>CartonAreas-all.js.bundle</DependentUpon>
+    <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js.map">
+      <DependentUpon>CartonArea-all.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\CartonAreas\Scripts\Index-all.min.js.map">
-      <DependentUpon>Index-all.js</DependentUpon>
-    </Content>
+    <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.js.bundle" />
     <Content Include="Areas\CartonAreas\Views\Home\Index.cshtml" />
+    <Content Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.min.js.map">
+      <DependentUpon>ManageCartonAreas-all.min.js</DependentUpon>
+    </Content>
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
@@ -182,14 +188,8 @@
     <None Include="Areas\CartonAreas\Content\CartonAreas.partial.css" />
     <Content Include="Areas\CartonAreas\Content\images\ajax-loader.gif" />
     <None Include="Areas\CartonAreas\Scripts\AutoComplete.partial.js" />
-    <Content Include="Areas\CartonAreas\Scripts\CartonAreas-all.js">
-      <DependentUpon>CartonAreas-all.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\CartonAreas\Scripts\CartonAreas-all.min.js">
-      <DependentUpon>CartonAreas-all.js.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\CartonAreas\Scripts\CartonAreas.partial.js" />
-    <Content Include="Areas\CartonAreas\Scripts\Index-all.js" />
+    <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas.partial.js" />
+    <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.js" />
     <Content Include="Areas\CartonAreas\Views\Home\_areaInfoPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\_assignSkuDialogPartial.cshtml" />
     <None Include="Doc\Readme.txt" />

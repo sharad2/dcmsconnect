@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
@@ -20,6 +17,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public string Address2 { get; set; }
 
+        public string Address3 { get; set; }
+
         public string Address4 { get; set; }
 
         public string City { get; set; }
@@ -28,15 +27,16 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public string ZipCode { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountArea { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountNumberedArea { get; set; }
 
-        [DisplayFormat(DataFormatString="{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountLocation { get; set; }
 
-        public string Address3 { get; set; }
-
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? ReceivingPalletLimit { get; set; }
     }
 }
