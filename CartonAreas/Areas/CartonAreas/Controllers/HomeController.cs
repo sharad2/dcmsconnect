@@ -67,10 +67,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
         #endregion
 
-        //public virtual ActionResult Buildings()
-        //{
-        //    return View(Views.Buildings);
-        //}
         /// <summary>
         /// Displays home page which shows carton area list
         /// </summary>
@@ -81,26 +77,33 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = new IndexViewModel
            {
                Buildings = (from item in _service.GetBuilding()
-                           select new BuildingModel
-               {
-                   BuildingId = item.BuildingId,
-                   Address1 = item.Address1,
-                   Address2 = item.Address2,
-                   Address3 = item.Address3,
-                   Address4 = item.Address4,
-                   City = item.City,
-                   CountArea = item.CountArea,
-                   CountLocation = item.CountLocation,
-                   CountNumberedArea = item.CountNumberedArea,
-                   Description = item.Description,
-                   InsertDate = item.InsertDate,
-                   InsertedBy = item.InsertedBy,
-                   ReceivingPalletLimit = item.ReceivingPalletLimit,
-                   State = item.State,
-                   ZipCode = item.ZipCode
-               }).ToList()
+                            select new BuildingModel
+                {
+                    BuildingId = item.BuildingId,
+                    Address1 = item.Address1,
+                    Address2 = item.Address2,
+                    Address3 = item.Address3,
+                    Address4 = item.Address4,
+                    City = item.City,
+                    CountArea = item.CountArea,
+                    CountLocation = item.CountLocation,
+                    CountNumberedArea = item.CountNumberedArea,
+                    Description = item.Description,
+                    InsertDate = item.InsertDate,
+                    InsertedBy = item.InsertedBy,
+                    ReceivingPalletLimit = item.ReceivingPalletLimit,
+                    State = item.State,
+                    ZipCode = item.ZipCode
+                }).ToList()
            };
             return View(Views.Index, model);
+        }
+
+        [HttpPost]
+        public virtual ActionResult EditPalletLimit(string buildingId, int? palletLimit)
+        {
+            _service.UpdatePalletLimit(buildingId, palletLimit);
+            return Json(palletLimit);
         }
 
         public virtual ActionResult CartonArea(string buildingId)

@@ -39,6 +39,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult EditPalletLimit() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.EditPalletLimit);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult CartonArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
         }
@@ -88,6 +93,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string EditPalletLimit = "EditPalletLimit";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
@@ -101,6 +107,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
+            public const string EditPalletLimit = "EditPalletLimit";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
@@ -112,6 +119,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
 
 
+        static readonly ActionParamsClass_EditPalletLimit s_params_EditPalletLimit = new ActionParamsClass_EditPalletLimit();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditPalletLimit EditPalletLimitParams { get { return s_params_EditPalletLimit; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditPalletLimit {
+            public readonly string buildingId = "buildingId";
+            public readonly string palletLimit = "palletLimit";
+        }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CartonArea CartonAreaParams { get { return s_params_CartonArea; } }
@@ -185,6 +200,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult EditPalletLimit(string buildingId, int? palletLimit) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditPalletLimit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletLimit", palletLimit);
             return callInfo;
         }
 

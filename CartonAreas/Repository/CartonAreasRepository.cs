@@ -418,6 +418,21 @@ select t.warehouse_location_id,
             .OutParameter("short_name", p => model.ShortName = p);
             _db.ExecuteNonQuery(QUERY, binder);
         }
+
+
+        public void UpdatePalletLimit(string buildingId, int? palletLimit)
+        {
+            const string QUERY = @"
+             UPDATE <proxy />TAB_WAREHOUSE_LOCATION T
+                   SET T.RECEIVING_PALLET_LIMIT = :RECEIVING_PALLET_LIMIT
+                 WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
+            ";
+            var binder = SqlBinder.Create()
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
+                .Parameter("RECEIVING_PALLET_LIMIT", palletLimit);
+            _db.ExecuteDml(QUERY, binder);
+
+        }
     }
 }
 //$Id$

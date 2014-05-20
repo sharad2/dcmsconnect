@@ -113,6 +113,11 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             return _repos.GetBuildings();
         }
+
+        public void UpdatePalletLimit(string buildingId, int? palletLimit)
+        {
+            _repos.UpdatePalletLimit(buildingId, palletLimit);
+        }
     }
 }
 //$Id$

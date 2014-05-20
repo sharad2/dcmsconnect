@@ -42,11 +42,15 @@
 
             <div style="margin-top:1em">
                 When receiving in this building, you will need to palletize received cartons. What should be the size of each Pallet?
-                <strong class="oldPalletValue" style="font-size:1.2em">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
-                <input type="text" size="4" class="tbPalletLimit" value="@Model.Buildings[i].ReceivingPalletLimit" />
+                <strong class="palletLimit" style="font-size:1.2em;display:inline-block">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
                 <a class="editPalletLimit" href="#">Edit</a>
-                <button class="btPalletLimit">Go</button>
-
+                @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:inline-block" }))
+                {
+                    <input type="text" size="4" class="tbPalletLimit" value="@Model.Buildings[i].ReceivingPalletLimit"
+                           name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
+                    <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
+                    <button class="btPalletLimit">Go</button>
+                }
                 <br />
                 Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.
             </div>
@@ -55,7 +59,5 @@
 }
 
 @section scripts {
-    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js">
-       
-    </script>
+    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>
 }
