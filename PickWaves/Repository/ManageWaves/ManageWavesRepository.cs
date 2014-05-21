@@ -78,7 +78,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
                          where p.bucket_id = :BUCKET_ID
                            and rownum &lt; 2) as customer_id
                           FROM <proxy />BUCKET BKT
-                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME";
+                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME NOWAIT";
             var binder = SqlBinder.Create(row =>
             {
                 var bucket = new Bucket
