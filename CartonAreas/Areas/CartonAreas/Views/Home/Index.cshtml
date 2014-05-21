@@ -66,14 +66,19 @@
     {
         id = "frmEditAddress"
     }))
-{   
-        <pre>
-        <label style="width:11em;display:inline-block">Adress Line</label> <textarea id="tbAddress"  rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea>
-        <label style="width: 11em; display: inline-block">City</label> <input type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" />
-        <label style="width: 11em; display: inline-block">State</label> <input type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" />
-        <label style="width: 11em; display: inline-block">Zip Code</label> <input type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" />
-        <label style="width: 11em; display: inline-block">Country Code </label> <input type="text" id="tbCountry" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.country" />
-</pre>
+    {
+        <div>
+            Adress Line<textarea style="margin-left:1.9em;" id="tbAddress" rows="4" cols="40"  name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea><br />
+        
+            City<input style="margin-left:5.8em;" type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" /><br />
+       
+            State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
+        
+            Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
+       
+            Country Code<input style="margin-left:.8em;" type="text" id="tbCountry" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.country" /><br />
+        </div>
+
     }
 </div>
 @section scripts {
