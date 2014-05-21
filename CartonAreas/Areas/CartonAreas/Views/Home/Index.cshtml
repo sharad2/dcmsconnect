@@ -14,8 +14,8 @@
                 @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
             </h2>
 
-            <div style="margin-left:1em">
-                When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a href="#">Edit</a>
+            <div style="margin-left: 1em">
+                When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
@@ -33,6 +33,7 @@
                 @Html.DisplayFor(m => m.Buildings[i].InsertDate)
                 by
                 @Html.DisplayFor(m => m.Buildings[i].InsertedBy)
+
             </div>
             <div style="margin-top:1em">
                 There are <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountArea)</a>
@@ -60,6 +61,21 @@
     </div>
 }
 
+<div id="dglEditAddress">
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditAddress(), FormMethod.Post, new
+    {
+        id = "frmEditAddress"
+    }))
+{   
+        <pre>
+        <label style="width:11em;display:inline-block">Adress Line</label> <textarea id="tbAddress"  rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea>
+        <label style="width: 11em; display: inline-block">City</label> <input type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" />
+        <label style="width: 11em; display: inline-block">State</label> <input type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" />
+        <label style="width: 11em; display: inline-block">Zip Code</label> <input type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" />
+        <label style="width: 11em; display: inline-block">Country Code </label> <input type="text" id="tbCountry" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.country" />
+</pre>
+    }
+</div>
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>
 }

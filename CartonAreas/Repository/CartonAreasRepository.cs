@@ -421,6 +421,34 @@ select t.warehouse_location_id,
             _db.ExecuteDml(QUERY, binder);
 
         }
+
+        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode, string country)
+        {
+            const string QUERY = @"
+                    UPDATE TAB_WAREHOUSE_LOCATION T
+                           SET T.ADDRESS_1    = :ADDRESS_1,
+                               T.ADDRESS_2    = :ADDRESS_2,
+                               T.ADDRESS_3    = :ADDRESS_3,
+                               T.ADDRESS_4    = :ADDRESS_4,
+                               T.CITY         = :CITY,
+                               T.STATE        = :STATE,
+                               T.ZIP_CODE     = :ZIP_CODE,
+                               T.COUNTRY_CODE = :COUNTRY_CODE
+                         WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
+            ";
+            var binder = SqlBinder.Create()
+                .Parameter("ADDRESS_1", address[0])
+                .Parameter("ADDRESS_2", address[1])
+                .Parameter("ADDRESS_3", address[2])
+                .Parameter("ADDRESS_4", address[3])
+                .Parameter("CITY", city)
+                .Parameter("STATE", state)
+                .Parameter("ZIP_CODE", zipcode)
+                .Parameter("COUNTRY_CODE", country)
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId);               
+            _db.ExecuteNonQuery(QUERY, binder);
+        }
+
     }
 }
 //$Id$

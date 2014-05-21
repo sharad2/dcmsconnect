@@ -44,6 +44,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult EditAddress() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.EditAddress);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult CartonArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
         }
@@ -94,6 +99,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string EditPalletLimit = "EditPalletLimit";
+            public readonly string EditAddress = "EditAddress";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
@@ -108,6 +114,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string EditPalletLimit = "EditPalletLimit";
+            public const string EditAddress = "EditAddress";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
@@ -126,6 +133,18 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionParamsClass_EditPalletLimit {
             public readonly string buildingId = "buildingId";
             public readonly string palletLimit = "palletLimit";
+        }
+        static readonly ActionParamsClass_EditAddress s_params_EditAddress = new ActionParamsClass_EditAddress();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditAddress EditAddressParams { get { return s_params_EditAddress; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditAddress {
+            public readonly string buildingId = "buildingId";
+            public readonly string address = "address";
+            public readonly string city = "city";
+            public readonly string state = "state";
+            public readonly string zipcode = "zipcode";
+            public readonly string country = "country";
         }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -207,6 +226,17 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditPalletLimit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletLimit", palletLimit);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode, string country) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditAddress);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address", address);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipcode", zipcode);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "country", country);
             return callInfo;
         }
 

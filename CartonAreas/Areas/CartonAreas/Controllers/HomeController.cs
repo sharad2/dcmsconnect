@@ -6,6 +6,8 @@ using DcmsMobile.CartonAreas.Models;
 using DcmsMobile.CartonAreas.Repository;
 using DcmsMobile.CartonAreas.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using System;
+using System.Web;
 
 namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 {
@@ -104,6 +106,41 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             _service.UpdatePalletLimit(buildingId, palletLimit);
             return RedirectToAction(this.Actions.Index());
         }
+
+        [HttpPost]
+        public virtual ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode, string country)
+        {
+
+            var addressLines = new string[4];
+            var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            for (int i = 0; i < 4; i++)
+            {
+                if (i < add.Count())
+                {
+                    addressLines[i] = add[i];
+                }
+                else
+                {
+                    addressLines[i] = string.Empty;
+                }
+            }
+
+            try
+            {
+                _service.UpdateAddress(buildingId, addressLines, city, state, zipcode, country);
+                this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));               
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("Edit Exception", ex.InnerException);
+            }                      
+            return RedirectToAction(this.Actions.Index());
+
+
+
+        }
+
+
 
         public virtual ActionResult CartonArea(string buildingId)
         {

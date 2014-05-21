@@ -118,6 +118,13 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             _repos.UpdatePalletLimit(buildingId, palletLimit);
         }
+
+
+        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode, string country)
+        {
+            _repos.UpdateAddress(buildingId, address, city, state, zipcode, country);
+        }
+
     }
 }
 //$Id$
