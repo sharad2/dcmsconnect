@@ -76,7 +76,7 @@ namespace DcmsMobile.PickWaves.Repository
             if (bucketId == 0)
             {
                 throw new ArgumentException("All parameters cannot be null to avoid retrieving too many buckets");
-            }            
+            }
             var QUERY = @"
            WITH Q1 AS
  (SELECT BKT.BUCKET_ID AS BUCKET_ID,
@@ -451,7 +451,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
         /// </remarks>
         /// Discuss with Sharad sir on 15-May-2014 : 
         /// Get bucket for customer is not showing cancelled box.
-        public IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage? state)
+        public IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage? state, string userName)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
@@ -704,7 +704,8 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                                 WHEN NVL(PP.INPROGRESS_BOXES_PULL,0) + NVL(PP.INPROGRESS_BOXES_PITCH,0)  + NVL(PP.NONPHYSICAL_BOXES_PULL,0) + NVL(PP.NONPHYSICAL_BOXES_PITCH,0) = 0 THEN :CompletedState 
                                 ELSE                            :InProgressState
                                 END) = :state
-                            </if>";
+                            </if>
+                <if>AND OP.CREATED_BY = :CREATED_BY</if>";
             var binder = SqlBinder.Create(row =>
             {
                 var bucket = new Bucket
@@ -777,6 +778,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
             });
 
             binder.Parameter("CUSTOMER_ID", customerId)
+                  .Parameter("CREATED_BY", userName)
                   .Parameter("state", bucketState)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString())

@@ -63,14 +63,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 return View(Views.Index, model);
             }
-            var buckets = _service.GetBuckets(model.CustomerId, model.BucketState);
+            var buckets = _service.GetBuckets(model.CustomerId, model.BucketState, model.UserName);
 
             // Null DC Cancel dates display last
-            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p)
-                                    {
-                                        HighlightCreatedBy = string.Compare(p.CreatedBy, model.UserName, true) == 0
-                                    })
-                             orderby bucket.CreatedBy == model.UserName ? 0 : 1, bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
+            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
+                             orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
                              select bucket).ToArray();
 
             if (!buckets.Any())
@@ -107,7 +104,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 model.Bucket.RequiredBoxExpediting = true;
             }
-            if(!model.Bucket.IsFrozen)
+            if (!model.Bucket.IsFrozen)
             {
                 model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
             }

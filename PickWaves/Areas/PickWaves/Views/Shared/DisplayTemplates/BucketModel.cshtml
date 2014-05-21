@@ -87,7 +87,7 @@
                 {
                     <div>@Html.DisplayFor(m => m.CountNotAssignedSku)</div>
                 }
-                <div>Pick Wave Created on @Html.DisplayFor(m => m.CreationDate) by <span @Html.Raw(Model.HighlightCreatedBy ? "class='ui-state-highlight'" : "")>@Html.DisplayFor(m => m.CreatedBy)</span></div>
+                <div>Pick Wave Created on @Html.DisplayFor(m => m.CreationDate) by @Html.DisplayFor(m => m.CreatedBy)</div>
             </td>
 
             <td>

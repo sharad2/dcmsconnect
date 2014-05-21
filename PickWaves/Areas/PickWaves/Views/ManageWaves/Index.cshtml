@@ -7,9 +7,13 @@
         <h3>Reports</h3>
         <div class="boxContent">
             <dl>
-                <dt><a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))" target="report">
-                    <em>130.28</em>. Inventory Shortages.</a> </dt>
-                <dd>This report will identify those SKUs which cannot be shipped due to insufficient
+                <dt>
+                    <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))" target="report">
+                        <em>130.28</em>. Inventory Shortages.
+                    </a>
+                </dt>
+                <dd>
+                    This report will identify those SKUs which cannot be shipped due to insufficient
                     inventory. It will also tell you which areas these
                     SKUs can be pulled from.
                 </dd>
@@ -28,9 +32,17 @@
         </fieldset>
     </div>
 }
+@if (!string.IsNullOrWhiteSpace(Model.UserName))
+{
+    <span class="ui-state-highlight">Showing Waves created by : @Model.UserName </span>
+    <h2>
+        @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index
+    (new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
+    </h2>
+}
 <div class="box">
     @if (Model.Buckets.Count > 0)
-    { 
+    {
         <div class="boxContent">
             <span style="font-size: 1em">This list is order by priority and then DC Cancel Date</span>
             <table>
@@ -41,16 +53,20 @@
                             <td style="text-align: left; vertical-align: top">
                                 <span style="margin-top: 2mm; margin-left: 2mm; display: inline-block">@(i + 1).</span>
                                 <ul class="waveActionMenu" style="margin-top: 25%">
-                                    <li><a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
+                                    <li>
+                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
                                                             DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))" title="Pick Wave Details">
-                                        <span class="ui-icon ui-icon-zoomin"></span>
-                                        @Model.Buckets[i].BucketId</a>
+                                            <span class="ui-icon ui-icon-zoomin"></span>
+                                            @Model.Buckets[i].BucketId
+                                        </a>
                                         <ul>
                                             <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "class='ui-state-disabled'")>
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
                                                         Model.Buckets[i].BucketId,
                                                     DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
-                                                    <span class="ui-icon ui-icon-pencil"></span>Edit</a></li>
+                                                    <span class="ui-icon ui-icon-pencil"></span>Edit
+                                                </a>
+                                            </li>
                                             <li>-</li>
                                             <li class="increase-action @Html.Raw(Model.UserIsManager ? "" : "ui-state-disabled")">
                                                 <a>
@@ -94,6 +110,6 @@
 </div>
 
 @section scripts{
-    <script src= "@Links_PickWaves.Areas.PickWaves.Scripts.ManageWave_Index_js"></script>
-    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.Content.ManageWave_Index_min_css" rel="stylesheet"/>
+    <script src="@Links_PickWaves.Areas.PickWaves.Scripts.ManageWave_Index_js"></script>
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.Content.ManageWave_Index_min_css" rel="stylesheet" />
 }

@@ -161,9 +161,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Pitch Limit")]
         public int? PitchLimit { get; set; }
 
-        #endregion
-
-        public bool HighlightCreatedBy { get; set; }
+        #endregion        
 
         public IList<BucketActivityModel> Activities
         {
@@ -354,8 +352,8 @@ namespace DcmsMobile.PickWaves.ViewModels
                     {
                         return (this.CountTotalSku - this.CountAssignedSku);
                     }
-                }               
-                return 0;               
+                }
+                return 0;
             }
         }
 
@@ -376,7 +374,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Pull area short name of the pick wave
         /// </summary>
-       [DisplayFormat(NullDisplayText = "Not decided")]
+        [DisplayFormat(NullDisplayText = "Not decided")]
         public string PitchAreaShortName
         {
             get
