@@ -386,11 +386,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 }
                 //Now Create bucket
                 model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
+                AddStatusMessage(string.Format("{0} pick wave created.", model.LastBucketId));
             }
             else
             {
                 // Add pickslip to bucket 
                 _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
+                AddStatusMessage(string.Format("Add pickslip to {0} pick wave.", model.LastBucketId));
             }
             return RedirectToAction(this.Actions.Index(model));
         }
