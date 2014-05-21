@@ -378,7 +378,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(model.Bucket.BucketId, SuggestedNextActionType.CancelEditing)));
             }
             var count = model.Bucket.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId));
-            if (count == 0)
+            if (count == 0 && model.UnfreezeWaveAfterSave)
             {
                 // Bucket have not any area for pulling and / pitching.
                 ModelState.AddModelError("", "Pick wave could not be updated. Please gave at least one area for pulling and/ pitching and try again");
