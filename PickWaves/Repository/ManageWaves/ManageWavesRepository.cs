@@ -291,8 +291,8 @@ WHERE 1 = 1
                                 SkuSize = row.GetString("SKU_SIZE"),
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
-                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN"),
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN"),
+                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0,
                                 IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,

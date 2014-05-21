@@ -22,6 +22,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         /// <summary>
         /// Total number of picked pieces for all SKUs of this wave
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int TotalPiecesPicked
         {
             get
@@ -33,6 +34,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         /// <summary>
         /// Total remaining pieces for all SKUs of this wave
         /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int RemainingPiecesToPick
         {
             get
@@ -44,7 +46,8 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         /// <summary>
         /// Total ordered pieces for all SKUs of this wave
         /// </summary>
-        public int OrderedPieces
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalOrderedPieces
         {
             get
             {
@@ -59,11 +62,11 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
         {
             get
             {
-                if (TotalPiecesPicked == 0 || OrderedPieces == 0)
+                if (TotalPiecesPicked == 0 || TotalOrderedPieces == 0)
                 {
                     return 0;
                 }
-                return (decimal)TotalPiecesPicked * 100 / (decimal)(OrderedPieces);
+                return (decimal)TotalPiecesPicked * 100 / (decimal)(TotalOrderedPieces);
             }
         }
 
@@ -85,6 +88,30 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
             {
                 return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityFilter].Name;
             }
-        }     
+        }
+
+        /// <summary>
+        /// Total Weight of all SKUs of this wave
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:n2}")]
+        public decimal TotalWeight
+        {
+            get
+            {
+                return BucketSkuList.Sum(p => p.WeightPerDozen);
+            }
+        }
+
+        /// <summary>
+        /// Total Volume of all SKUs of this wave
+        /// </summary>     
+        [DisplayFormat(DataFormatString = "{0:n2}")]
+        public decimal TotalVolume
+        {
+            get
+            {
+                return BucketSkuList.Sum(p => p.VolumePerDozen);                
+            }
+        }
     }
 }

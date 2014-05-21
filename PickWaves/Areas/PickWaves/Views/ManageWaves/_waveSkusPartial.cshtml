@@ -23,18 +23,18 @@
         case BoxState.Completed:
         case BoxState.NotSet:
             <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all"
-                 title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.OrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+                 title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
                 @if (Model.TotalPiecesPicked > 0)
                 {
-                    <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                        @Html.DisplayFor(m => m.TotalPiecesPicked)
-                    </div>
+                <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                    @Html.DisplayFor(m => m.TotalPiecesPicked)
+                </div>
                 }
                 @if (Model.RemainingPiecesToPick > 0)
                 {
-                    <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
-                        @Html.DisplayFor(m => m.RemainingPiecesToPick)
-                    </div>
+                <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
+                    @Html.DisplayFor(m => m.RemainingPiecesToPick)
+                </div>
                 }
             </div>
                 break;
@@ -135,7 +135,10 @@
     </tbody>
     <tfoot>
         <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
-            <td colspan="7">Total</td>
+            <td colspan="4">Total</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalWeight)</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalVolume)</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalOrderedPieces)</td>
             <td>@ShowTableFooterText(Model.StateFilter)</td>
             <td colspan="@(Model.BucketSkuList.Select(p => p.InventoryByArea.Count).Max() + 1)"></td>
         </tr>
