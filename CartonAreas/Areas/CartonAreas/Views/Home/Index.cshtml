@@ -12,10 +12,13 @@
         <div class="boxContent">
             <h2>
                 @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
+               
             </h2>
 
             <div style="margin-left: 1em">
+              
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
+                <input type="hidden" id="hfPassBuildingId" value="@Model.Buildings[i].BuildingId" />
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
@@ -48,10 +51,10 @@
 
                 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:inline-block" }))
                 {
-                    <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
-                           name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
-                    <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
-                    <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
+                <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
+                       name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
+                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
+                <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
                 }
                 <a class="cancelEdit ui-helper-hidden" href="#">Cancel</a>
                 <br />
@@ -60,7 +63,6 @@
         </div>
     </div>
 }
-
 <div id="dglEditAddress">
     @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditAddress(), FormMethod.Post, new
     {
@@ -68,19 +70,23 @@
     }))
     {
         <div>
-            Adress Line<textarea style="margin-left:1.9em;" id="tbAddress" rows="4" cols="40"  name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea><br />
-        
+            <input style="margin-left:5.8em;" type="hidden" id="hfGetBuildingId" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.buildingId" />
+
+            Adress Line<textarea style="margin-left:1.9em;" id="tbAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea><br />
+
             City<input style="margin-left:5.8em;" type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" /><br />
-       
+
+
             State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
-        
+
             Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
-       
+
             Country Code<input style="margin-left:.8em;" type="text" id="tbCountry" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.country" /><br />
         </div>
 
     }
 </div>
+
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>
 }

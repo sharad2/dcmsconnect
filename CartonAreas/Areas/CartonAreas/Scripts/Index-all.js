@@ -1,7 +1,7 @@
-﻿$(document).ready(function () {   
+﻿$(document).ready(function () {
     $('div.boxContent').on('click', 'a.editPalletLimit', function () {
         var $item = $(this).closest('div');
-        $item.find('strong.palletLimit').hide();   
+        $item.find('strong.palletLimit').hide();
         $(this).hide();
         $item.find('input.tbPalletLimit').show();
         $item.find('button.btPalletLimit').show().button();
@@ -14,13 +14,14 @@
         $item.find('input.tbPalletLimit').hide();
         $item.find('button.btPalletLimit').hide();
         $item.find('strong.palletLimit').show();
-        $item.find('a.editPalletLimit').show();       
-        
+        $item.find('a.editPalletLimit').show();
+
     });
 
 
     $('a.editAddressDialogOpen').click(function (e) {
-
+        var $item = $(this).closest('div');
+        $('#hfGetBuildingId').val($item.find('#hfPassBuildingId').val());
         $('#dglEditAddress').dialog('open');
     });
 
@@ -34,7 +35,6 @@
         {
             text: 'Update',
             click: function (event, ui) {
-                
                 $('#frmEditAddress').submit();
             }
         },
