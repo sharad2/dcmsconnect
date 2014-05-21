@@ -44,6 +44,7 @@
                 When receiving in this building, you will need to palletize received cartons. What should be the size of each Pallet?
                 <strong class="palletLimit" style="font-size:1.2em;display:inline-block">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
                 <a class="editPalletLimit" href="#">Edit</a>
+
                 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:inline-block" }))
                 {
                     <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
@@ -51,6 +52,7 @@
                     <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
                     <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
                 }
+                <a class="cancelEdit ui-helper-hidden" href="#">Cancel</a>
                 <br />
                 Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.
             </div>
