@@ -8,7 +8,7 @@
 }
 @if (Model != null && Model.IsUserNameFilterApplied)
 {
-    <h2>@Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
+    <h2>Showing PickWave created by @Model.SearchUserName @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index()) </h2>
 }
 @helper TabDescription(DcmsMobile.PickWaves.Helpers.ProgressStage state)
 {

@@ -34,11 +34,11 @@
 }
 @if (!string.IsNullOrWhiteSpace(Model.UserName))
 {
-    <span class="ui-state-highlight">Showing Waves created by : @Model.UserName </span>
     <h2>
-        @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index
+        Showing PickWave created by @Model.UserName
+    @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index
     (new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
-    </h2>
+</h2>
 }
 <div class="box">
     @if (Model.Buckets.Count > 0)

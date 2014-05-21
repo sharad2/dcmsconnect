@@ -102,7 +102,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
                 //When search text is UserName.
                 case SearchTextType.UserName:
-                    AddStatusMessage(string.Format("Filter applied for User: {0}", searchText));
+                    //AddStatusMessage(string.Format("Filter applied for User: {0}", searchText));
                     break;
 
                 default:
