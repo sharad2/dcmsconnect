@@ -144,7 +144,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string city = "city";
             public readonly string state = "state";
             public readonly string zipcode = "zipcode";
-            public readonly string country = "country";
         }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -229,14 +228,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode, string country) {
+        public override System.Web.Mvc.ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditAddress);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address", address);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipcode", zipcode);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "country", country);
             return callInfo;
         }
 

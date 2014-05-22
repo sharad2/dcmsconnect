@@ -108,7 +108,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode, string country)
+        public virtual ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode)
         {
 
             var addressLines = new string[4];
@@ -127,7 +127,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             try
             {
-                _service.UpdateAddress(buildingId, addressLines, city, state, zipcode, country);
+                _service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
                 this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));               
             }
             catch (DbException ex)

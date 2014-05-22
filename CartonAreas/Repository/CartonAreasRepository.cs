@@ -422,7 +422,7 @@ select t.warehouse_location_id,
 
         }
 
-        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode, string country)
+        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode)
         {
             const string QUERY = @"
                     UPDATE TAB_WAREHOUSE_LOCATION T
@@ -432,8 +432,7 @@ select t.warehouse_location_id,
                                T.ADDRESS_4    = :ADDRESS_4,
                                T.CITY         = :CITY,
                                T.STATE        = :STATE,
-                               T.ZIP_CODE     = :ZIP_CODE,
-                               T.COUNTRY_CODE = :COUNTRY_CODE
+                               T.ZIP_CODE     = :ZIP_CODE                             
                          WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
             ";
             var binder = SqlBinder.Create()
@@ -443,8 +442,7 @@ select t.warehouse_location_id,
                 .Parameter("ADDRESS_4", address[3])
                 .Parameter("CITY", city)
                 .Parameter("STATE", state)
-                .Parameter("ZIP_CODE", zipcode)
-                .Parameter("COUNTRY_CODE", country)
+                .Parameter("ZIP_CODE", zipcode)              
                 .Parameter("WAREHOUSE_LOCATION_ID", buildingId);               
             _db.ExecuteNonQuery(QUERY, binder);
         }

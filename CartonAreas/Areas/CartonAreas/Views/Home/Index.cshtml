@@ -18,17 +18,21 @@
             <div style="margin-left: 1em">
               
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
-                <input type="hidden" id="hfPassBuildingId" value="@Model.Buildings[i].BuildingId" />
+                <input type="hidden" class="hfPassBuildingId" value="@Model.Buildings[i].BuildingId" />
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
-                    @Html.DisplayFor(m => m.Buildings[i].Address2)
-                    @Html.DisplayFor(m => m.Buildings[i].Address3)
-                    @Html.DisplayFor(m => m.Buildings[i].Address4)
+                    <input type="hidden" class="hfPassAddress" value="@Model.Buildings[i].Address1,@Model.Buildings[i].Address2,@Model.Buildings[i].Address3,@Model.Buildings[i].Address4" />
+                    @Html.DisplayFor(m => m.Buildings[i].Address2)                  
+                    @Html.DisplayFor(m => m.Buildings[i].Address3)                  
+                    @Html.DisplayFor(m => m.Buildings[i].Address4)                 
                     <br />
                     @Html.DisplayFor(m => m.Buildings[i].City)
+                    <input type="hidden" class="hfPassCity"  value="@Model.Buildings[i].City" />
                     @Html.DisplayFor(m => m.Buildings[i].State),
+                    <input type="hidden" class="hfPassState" value="@Model.Buildings[i].State" />
                     @Html.DisplayFor(m => m.Buildings[i].ZipCode)
+                    <input type="hidden" class="hfPassZipCode" value="@Model.Buildings[i].ZipCode" />
                 </em>
             </div>
             <div style="margin-top:1em">
@@ -80,8 +84,7 @@
             State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
 
             Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
-
-            Country Code<input style="margin-left:.8em;" type="text" id="tbCountry" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.country" /><br />
+           
         </div>
 
     }

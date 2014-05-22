@@ -120,9 +120,9 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode, string country)
+        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode)
         {
-            _repos.UpdateAddress(buildingId, address, city, state, zipcode, country);
+            _repos.UpdateAddress(buildingId, address, city, state, zipcode);
         }
 
     }
