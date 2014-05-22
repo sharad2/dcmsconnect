@@ -65,12 +65,13 @@
     });
 
     //Handel the maximum rows(4) and cols(40) for the text area field for address.
-    var textArea = $('#tbAddress');
+    var textArea = $('#tbAddress, #tbAddAddress');
     var maxRows = textArea.attr('rows');
     var maxChars = textArea.attr('cols');
     textArea.keypress(function (e) {
         var text = textArea.val();
         var lines = text.split('\n');
+        //max rows=4 
         if (e.keyCode == 13) {
             return lines.length < maxRows;
         }
@@ -110,8 +111,11 @@
         autoOpen: false,
         closeOnEscape: true,
         open: function () {
-            $('#divErrorLog').html('').removeClass('ui-state-error');          
-                    
+            $('#divErrorLog').html('').removeClass('ui-state-error'); 
+            emptyInputOnLoad = $("#dglAddBuilding").html();                    
+        },
+        close : function(event, ui) {
+            $("#dglAddBuilding").html(emptyInputOnLoad);
         },
         buttons: [
         {
@@ -139,8 +143,9 @@
         },
         {
             text: 'Cancel',
-            click: function (event, ui) {
+            click: function (event, ui) {               
                 $(this).dialog('close');
+               
             }
         }
         ]
