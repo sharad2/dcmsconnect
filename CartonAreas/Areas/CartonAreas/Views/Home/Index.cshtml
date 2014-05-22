@@ -3,7 +3,7 @@
     ViewBag.Title = "Buildings";
 }
 @section sidebar {
-    There are @Model.Buildings.Count Buildings. <a href="#">Add</a>
+    There are @Model.Buildings.Count Buildings. <a class="addbuildingDialogOpen" href="#">Add</a>
 }
 <h1>List of Buildings</h1>
 @for (var i = 0; i < Model.Buildings.Count; i++)
@@ -12,23 +12,23 @@
         <div class="boxContent">
             <h2>
                 @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
-               
+
             </h2>
 
             <div style="margin-left: 1em">
-              
+
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
                 <input type="hidden" class="hfPassBuildingId" value="@Model.Buildings[i].BuildingId" />
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
                     <input type="hidden" class="hfPassAddress" value="@Model.Buildings[i].Address1,@Model.Buildings[i].Address2,@Model.Buildings[i].Address3,@Model.Buildings[i].Address4" />
-                    @Html.DisplayFor(m => m.Buildings[i].Address2)                  
-                    @Html.DisplayFor(m => m.Buildings[i].Address3)                  
-                    @Html.DisplayFor(m => m.Buildings[i].Address4)                 
+                    @Html.DisplayFor(m => m.Buildings[i].Address2)
+                    @Html.DisplayFor(m => m.Buildings[i].Address3)
+                    @Html.DisplayFor(m => m.Buildings[i].Address4)
                     <br />
                     @Html.DisplayFor(m => m.Buildings[i].City)
-                    <input type="hidden" class="hfPassCity"  value="@Model.Buildings[i].City" />
+                    <input type="hidden" class="hfPassCity" value="@Model.Buildings[i].City" />
                     @Html.DisplayFor(m => m.Buildings[i].State),
                     <input type="hidden" class="hfPassState" value="@Model.Buildings[i].State" />
                     @Html.DisplayFor(m => m.Buildings[i].ZipCode)
@@ -55,10 +55,10 @@
 
                 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:inline-block" }))
                 {
-                <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
-                       name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
-                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
-                <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
+                    <input type="text" size="4" class="tbPalletLimit ui-helper-hidden" value="@Model.Buildings[i].ReceivingPalletLimit"
+                           name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
+                    <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
+                    <button type="submit" class="btPalletLimit ui-helper-hidden">Go</button>
                 }
                 <a class="cancelEdit ui-helper-hidden" href="#">Cancel</a>
                 <br />
@@ -84,11 +84,36 @@
             State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
 
             Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
-           
+
         </div>
 
     }
 </div>
+
+
+<div id="dglAddBuilding">
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post, new
+    {
+        id = "frmAddBuilding"
+    }))
+    {
+        <div>
+            Building<input style="margin-left: 3.6em;text-transform:uppercase" type="text" id="tbAddBuildingId" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.buildingId" /><br />
+
+            Adress Line<textarea style="margin-left:1.9em;" id="tbAddAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.address"></textarea><br />
+
+            City<input style="margin-left:5.7em;" type="text" id="tbAddCity" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.city" /><br />
+
+            State<input style="margin-left:5em;" type="text" id="tbAddState" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.state" /><br />
+
+            Zip Code<input style="margin-left:3.2em;" type="text" id="tbAddZipCode" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.zipcode" /><br />
+        </div>
+        <span id="divErrorLog"></span>
+    }
+</div>
+
+
+
 
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>

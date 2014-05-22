@@ -442,11 +442,47 @@ select t.warehouse_location_id,
                 .Parameter("ADDRESS_4", address[3])
                 .Parameter("CITY", city)
                 .Parameter("STATE", state)
-                .Parameter("ZIP_CODE", zipcode)              
-                .Parameter("WAREHOUSE_LOCATION_ID", buildingId);               
+                .Parameter("ZIP_CODE", zipcode)
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
+
+        public void AddBuilding(string buildingId, string[] address, string city, string state, string zipcode)
+        {
+            const string QUERY = @"INSERT INTO TAB_WAREHOUSE_LOCATION
+                      (WAREHOUSE_LOCATION_ID,
+                       ADDRESS_1,
+                       ADDRESS_2,
+                       ADDRESS_3,
+                       ADDRESS_4,
+                       CITY,
+                       STATE,
+                       ZIP_CODE,
+                        Richter_Warehouse_Id_o)
+                    VALUES
+                       (:WAREHOUSE_LOCATION_ID,
+                        :ADDRESS_1,
+                        :ADDRESS_2,
+                        :ADDRESS_3,
+                        :ADDRESS_4,
+                        :CITY,
+                        :STATE,
+                        :ZIP_CODE,
+                        :Richter_Warehouse_Id_o)
+                             ";
+            var binder = SqlBinder.Create()
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
+                .Parameter("ADDRESS_1", address[0])
+                .Parameter("ADDRESS_2", address[1])
+                .Parameter("ADDRESS_3", address[2])
+                .Parameter("ADDRESS_4", address[3])
+                .Parameter("CITY", city)
+                .Parameter("STATE", state)
+                .Parameter("ZIP_CODE", zipcode)
+                .Parameter("Richter_Warehouse_Id_o","15");//TODO : Remove Hardwiring
+            _db.ExecuteNonQuery(QUERY, binder);
+        }
     }
 }
 //$Id$

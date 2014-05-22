@@ -125,6 +125,11 @@ namespace DcmsMobile.CartonAreas.Repository
             _repos.UpdateAddress(buildingId, address, city, state, zipcode);
         }
 
+
+        public void AddBuilding(string buildingId, string[] address, string city, string state, string zipcode)
+        {
+            _repos.AddBuilding(buildingId, address, city, state, zipcode);
+        }
     }
 }
 //$Id$

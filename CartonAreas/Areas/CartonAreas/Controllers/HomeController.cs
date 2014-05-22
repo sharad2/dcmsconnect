@@ -135,10 +135,45 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ModelState.AddModelError("Edit Exception", ex.InnerException);
             }                      
             return RedirectToAction(this.Actions.Index());
-
-
-
         }
+
+
+
+
+        [HttpPost]
+        public virtual ActionResult AddBuilding(string buildingId, string address, string city, string state, string zipcode)
+        {
+            var addressLines = new string[4];
+            var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            for (int i = 0; i < 4; i++)
+            {
+                if (i < add.Count())
+                {
+                    addressLines[i] = add[i];
+                }
+                else
+                {
+                    addressLines[i] = string.Empty;
+                }
+            }
+
+            try
+            {
+                _service.AddBuilding(buildingId, addressLines, city, state, zipcode);
+                this.AddStatusMessage(string.Format("Added new building sucessfully"));
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("Add Exception", ex.InnerException);
+            }
+            return RedirectToAction(this.Actions.Index());
+        }
+
+
+
+
+
+
 
 
 
