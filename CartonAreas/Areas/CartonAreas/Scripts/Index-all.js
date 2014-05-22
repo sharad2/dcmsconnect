@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+
+    //shows the "Go" and "Cancel" button for clicking the "Edit" option of the Pallet Limit and hide Edit.
     $('div.boxContent').on('click', 'a.editPalletLimit', function () {
         var $item = $(this).closest('div');
         $item.find('strong.palletLimit').hide();
@@ -7,7 +9,7 @@
         $item.find('button.btPalletLimit').show().button();
         $item.find('a.cancelEdit').show();
     });
-
+    //Comes with previous option of Edit for Pallet Limit Edit option.
     $('div.boxContent').on('click', 'a.cancelEdit', function () {
         var $item = $(this).closest('div');
         $('.cancelEdit').hide();
@@ -20,9 +22,8 @@
 
 
 
-
-
-
+    //Open the Dialogue box for Edit Address and Insert default 
+    //values of the corresponding fields in the input fields.
     $('a.editAddressDialogOpen').click(function (e) {
         var $item = $(this).closest('div');
         $('#hfGetBuildingId').val($item.find('.hfPassBuildingId').val());
@@ -32,14 +33,18 @@
         $('#tbZipCode').val($item.find('.hfPassZipCode').val());
         $('#dglEditAddress').dialog('open');
     });
+
+
+    //Edit Address dialogue box.
     $('#dglEditAddress').dialog({
         width: 'auto',
         modal: true,
         autoOpen: false,
         closeOnEscape: true,
         open: function (event, ui) {
-            var $item = $('a.editAddressDialogOpen').closest('div');
+            var $item = $('a.editAddressDialogOpen').closest('div');          
             var BuildingId = $('#hfGetBuildingId').val();
+            //Shows Title of the Dialogue box
             $(this).dialog({ title: 'Edit Address : ' + BuildingId });
         },
         buttons: [
@@ -58,6 +63,8 @@
         ]
 
     });
+
+    //Handel the maximum rows(4) and cols(40) for the text area field for address.
     var textArea = $('#tbAddress');
     var maxRows = textArea.attr('rows');
     var maxChars = textArea.attr('cols');
@@ -91,12 +98,11 @@
 
 
 
-
+    //Open Dialogue box for Adding new building.
 
     $('a.addbuildingDialogOpen').click(function (e) {
         $('#dglAddBuilding').dialog('open');       
     });
-
     $('#dglAddBuilding').dialog({
         title: 'Add Building',
         width: 'auto',
@@ -104,7 +110,7 @@
         autoOpen: false,
         closeOnEscape: true,
         open: function () {
-            $('#divErrorLog').html('').removeClass('ui-state-error');
+            $('#divErrorLog').html('').removeClass('ui-state-error');          
                     
         },
         buttons: [
