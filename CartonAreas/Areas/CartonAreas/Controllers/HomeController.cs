@@ -159,7 +159,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             try
             {
-                _service.AddBuilding(buildingId.ToUpper(), addressLines, city, state, zipcode);
+                _service.AddBuilding(buildingId.ToUpper(),
+                    addressLines,
+                    city.First().ToString().ToUpper() + String.Join("", city.Skip(1)),  // char.ToUpper(city[0]) + city.Substring(1), 
+                    state.First().ToString().ToUpper() + String.Join("", state.Skip(1)),
+                    zipcode.First().ToString().ToUpper() + String.Join("", zipcode.Skip(1)));
+
                 this.AddStatusMessage(string.Format("Added new building sucessfully"));
             }
             catch (DbException ex)
