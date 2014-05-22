@@ -164,8 +164,16 @@ using System.Runtime.InteropServices;
  *  [DEPENDENCY] Depends on new trigger TRG_MIG_BUCKET_FREEZE_BIUR
  */
 
-[assembly: AssemblyVersion("2.0.1.0")]
-[assembly: AssemblyFileVersion("2.0.1.0")]
+/* Change log from 2.0.1.0 to 2.0.2.0 (Branch created by Shiva on 22 May 2014) (Redmine task : #1803)
+ *  Bug Fixed : A bucket was opened in SelectPO and want to freeze the bucket through new pick wave manager. I went in hang state.
+ *  Feature : Bucket searching by user name must allow user to see only those buckets.
+ *  Bug Fixed : Now While creating a wave for customers, give success massage that bucket is created.
+ *  Feature : Now showing total ordered pieces and total weight and volume on Sku List page.
+ *  Bug Fixed : Now update buckets properties if the there is no area decided either for pulling or pitching.
+ */
+
+[assembly: AssemblyVersion("2.0.2.0")]
+[assembly: AssemblyFileVersion("2.0.2.0")]
 
 [assembly: AssemblyProduct(@"
 <ol>
