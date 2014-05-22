@@ -33,11 +33,15 @@
         $('#dglEditAddress').dialog('open');
     });
     $('#dglEditAddress').dialog({
-        title: 'Edit Address',
         width: 'auto',
         modal: true,
         autoOpen: false,
         closeOnEscape: true,
+        open: function (event, ui) {
+            var $item = $('a.editAddressDialogOpen').closest('div');
+            var BuildingId = $('#hfGetBuildingId').val();
+            $(this).dialog({ title: 'Edit Address : ' + BuildingId });
+        },
         buttons: [
         {
             text: 'Update',
