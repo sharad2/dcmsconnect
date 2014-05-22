@@ -111,8 +111,8 @@
         autoOpen: false,
         closeOnEscape: true,
         open: function () {
-            $('#divErrorLog').html('').removeClass('ui-state-error'); 
-            emptyInputOnLoad = $("#dglAddBuilding").html();                    
+            $('#divErrorLog').html(''); 
+            emptyInputOnLoad = $("#dglAddBuilding").html();
         },
         close : function(event, ui) {
             $("#dglAddBuilding").html(emptyInputOnLoad);
@@ -150,8 +150,5 @@
         }
         ]
 
-    });
-
-
-   
+    });   
 });

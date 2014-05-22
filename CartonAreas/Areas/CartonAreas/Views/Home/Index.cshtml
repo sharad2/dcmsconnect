@@ -12,9 +12,7 @@
         <div class="boxContent">
             <h2>
                 @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
-
             </h2>
-
             <div style="margin-left: 1em">
 
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
@@ -80,7 +78,6 @@
 
             City<input style="margin-left:5.8em;" type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" /><br />
 
-
             State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
 
             Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
@@ -100,13 +97,13 @@
         <div>
             Building<input style="margin-left: 3.6em;text-transform:uppercase" type="text" id="tbAddBuildingId" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.buildingId" /><sup>*</sup><br />
 
-            Adress Line<textarea style="margin-left:1.9em; text-transform: capitalize;" id="tbAddAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.address"></textarea><sup>*</sup><br />
+            Adress Line<textarea style="margin-left:1.9em; text-transform: uppercase;" id="tbAddAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.address"></textarea><sup>*</sup><br />
 
-            City<input style="margin-left: 5.7em; text-transform: capitalize; " type="text" id="tbAddCity" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.city" /><br />
+            City<input style="margin-left: 5.7em; text-transform: uppercase; " type="text" id="tbAddCity" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.city" /><br />
 
-            State<input style="margin-left: 5em; text-transform: capitalize;" type="text" id="tbAddState" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.state" /><sup>*</sup><br />
+            State<input style="margin-left: 5em; text-transform: uppercase;" type="text" id="tbAddState" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.state" /><sup>*</sup><br />
 
-            Zip Code<input style="margin-left: 3.2em; text-transform: capitalize;" type="text" id="tbAddZipCode" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.zipcode" /><sup>*</sup><br />
+            Zip Code<input style="margin-left: 3.2em; text-transform: uppercase;" type="text" id="tbAddZipCode" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.zipcode" /><sup>*</sup><br />
         </div>
         <span id="divErrorLog"></span>
     }

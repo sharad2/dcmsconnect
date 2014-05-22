@@ -70,7 +70,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         #endregion
 
         /// <summary>
-        /// Displays home page which shows carton area list
+        /// Displays home page which shows building area list
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult Index()
@@ -124,21 +124,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                     addressLines[i] = string.Empty;
                 }
             }
-
-            try
-            {
-                _service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
-                this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));               
-            }
-            catch (DbException ex)
-            {
-                ModelState.AddModelError("Edit Exception", ex.InnerException);
-            }                      
+            _service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
+            this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }
-
-
-
 
         [HttpPost]
         public virtual ActionResult AddBuilding(string buildingId, string address, string city, string state, string zipcode)
@@ -157,30 +146,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 }
             }
 
-            try
-            {
-                _service.AddBuilding(buildingId.ToUpper(),
-                    addressLines,
-                    city.First().ToString().ToUpper() + String.Join("", city.Skip(1)),  // char.ToUpper(city[0]) + city.Substring(1), 
-                    state.First().ToString().ToUpper() + String.Join("", state.Skip(1)),
-                    zipcode.First().ToString().ToUpper() + String.Join("", zipcode.Skip(1)));
-
-                this.AddStatusMessage(string.Format("Added new building sucessfully"));
-            }
-            catch (DbException ex)
-            {
-                ModelState.AddModelError("Add Exception", ex.InnerException);
-            }
+            _service.AddBuilding(buildingId.ToUpper(), addressLines, city.ToUpper(), state.ToUpper(), zipcode.ToUpper());
+            this.AddStatusMessage(string.Format("Added new building sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }
-
-
-
-
-
-
-
-
 
         public virtual ActionResult CartonArea(string buildingId)
         {
