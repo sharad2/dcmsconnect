@@ -94,7 +94,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                              InsertedBy = item.InsertedBy,
                                              ReceivingPalletLimit = item.ReceivingPalletLimit,
                                              State = item.State,
-                                             ZipCode = item.ZipCode
+                                             ZipCode = item.ZipCode,
+                                             CountryCode = item.CountryCode
                                          }).ToList()
                         };
             return View(Views.Index, model);
@@ -110,7 +111,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
-            var model = new EditAddressOfBuildingViewModel { BuildingId = buildingId };
+            var model = new EditAddressOfBuildingViewModel
+            {
+                BuildingId = buildingId
+            };
             return View(Views.EditAddressOfBuilding, model);
         }
 

@@ -27,6 +27,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public string ZipCode { get; set; }
 
+        public string CountryCode { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountArea { get; set; }
 

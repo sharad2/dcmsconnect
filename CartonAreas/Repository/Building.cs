@@ -37,5 +37,7 @@ namespace DcmsMobile.CartonAreas.Repository
         public string Address3 { get; set; }
 
         public int? ReceivingPalletLimit { get; set; }
+
+        public string CountryCode { get; set; }
     }
 }
