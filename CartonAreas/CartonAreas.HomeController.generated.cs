@@ -162,11 +162,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_UpdateAddress UpdateAddressParams { get { return s_params_UpdateAddress; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UpdateAddress {
-            public readonly string buildingId = "buildingId";
-            public readonly string address = "address";
-            public readonly string city = "city";
-            public readonly string state = "state";
-            public readonly string zipcode = "zipcode";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_AddBuilding s_params_AddBuilding = new ActionParamsClass_AddBuilding();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -275,13 +271,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateAddress(string buildingId, string address, string city, string state, string zipcode) {
+        public override System.Web.Mvc.ActionResult UpdateAddress(DcmsMobile.CartonAreas.ViewModels.EditAddressOfBuildingViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateAddress);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address", address);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipcode", zipcode);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;
         }
 

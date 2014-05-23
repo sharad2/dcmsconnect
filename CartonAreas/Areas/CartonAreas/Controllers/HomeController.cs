@@ -77,7 +77,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         {
             var model = new IndexViewModel
                         {
-                            Buildings = (from item in _service.GetBuilding()
+                            Buildings = (from item in _service.GetBuildings()
                                          select new BuildingModel
                                          {
                                              BuildingId = item.BuildingId,
@@ -111,31 +111,40 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
+            var building = _service.GetBuilding(buildingId);
             var model = new EditAddressOfBuildingViewModel
             {
-                BuildingId = buildingId
+                BuildingId = buildingId,
+                Address1 = building.Address1,
+                Address2 = building.Address2,
+                Address3 = building.Address3,
+                Address4 = building.Address4,
+                City = building.City,
+                State = building.State,
+                ZipCode = building.ZipCode,
+                CountryCode = building.CountryCode
             };
             return View(Views.EditAddressOfBuilding, model);
         }
 
         [HttpPost]
-        public virtual ActionResult UpdateAddress(string buildingId, string address, string city, string state, string zipcode)
+        public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
         {
 
-            var addressLines = new string[4];
-            var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            for (int i = 0; i < 4; i++)
-            {
-                if (i < add.Count())
-                {
-                    addressLines[i] = add[i];
-                }
-                else
-                {
-                    addressLines[i] = string.Empty;
-                }
-            }
-            _service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
+            //var addressLines = new string[4];
+            //var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (i < add.Count())
+            //    {
+            //        addressLines[i] = add[i];
+            //    }
+            //    else
+            //    {
+            //        addressLines[i] = string.Empty;
+            //    }
+            //}
+            //_service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
             this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }

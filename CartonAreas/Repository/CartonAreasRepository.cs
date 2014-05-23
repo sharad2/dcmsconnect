@@ -57,7 +57,7 @@ namespace DcmsMobile.CartonAreas.Repository
 
         #endregion
 
-        internal IList<Building> GetBuildings()
+        internal IList<Building> GetBuildings(string buildingId)
         {
             const string QUERY = @"
                                     WITH LOCATION_COUNTS AS
@@ -89,6 +89,8 @@ namespace DcmsMobile.CartonAreas.Repository
                                       FROM <proxy />TAB_WAREHOUSE_LOCATION T
                                       LEFT OUTER JOIN LOCATION_COUNTS LC
                                         ON LC.WAREHOUSE_LOCATION_ID = T.WAREHOUSE_LOCATION_ID
+                                      WHERE 1 = 1
+                                        <if>AND T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID</if>
                                 ";
             var binder = SqlBinder.Create(row => new Building
             {
@@ -109,6 +111,7 @@ namespace DcmsMobile.CartonAreas.Repository
                 CountNumberedArea = row.GetInteger("count_numbered_areas"),
                 CountLocation = row.GetInteger("count_locations")
             });
+            binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             return _db.ExecuteReader(QUERY, binder);
         }
 

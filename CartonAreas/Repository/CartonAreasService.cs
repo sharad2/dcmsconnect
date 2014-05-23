@@ -110,9 +110,14 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        internal IList<Building> GetBuilding()
+        internal IList<Building> GetBuildings()
         {
-            return _repos.GetBuildings();
+            return _repos.GetBuildings(null);
+        }
+
+        internal Building GetBuilding(string buildingId)
+        {
+            return _repos.GetBuildings(buildingId).First();
         }
 
         public void UpdatePalletLimit(string buildingId, int? palletLimit)
