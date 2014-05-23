@@ -15,15 +15,15 @@
         </div>
 
         <div>
-            @Html.LabelFor(m => m.ReceivingPalletLimit)
-            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new { size = 4, maxlength = 4 })
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new { size = 40, maxlength = 40})
+            <sup>*</sup>
+            @Html.ValidationMessageFor(m => m.BuildingId)
         </div>
 
         <div>
-            @Html.LabelFor(m => m.RictherWarehouseId)
-            @Html.TextBoxFor(m => m.RictherWarehouseId, new { size = 3, maxlength = 3 })
-            <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.RictherWarehouseId)
+            @Html.LabelFor(m => m.ReceivingPalletLimit)
+            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new { size = 4, maxlength = 4 })
         </div>
 
         <div>
@@ -61,11 +61,14 @@
         </div>
 
         <div>
+            @Html.LabelFor(m => m.CountryCode)
+            @Html.TextBoxFor(m => m.CountryCode, new { size = 3, maxlength = 3 })
+        </div>
+
+        <div>
             @Html.LabelFor(m => m.ZipCode)
             @Html.TextBoxFor(m => m.ZipCode, new { size = 10, maxlength = 10 })
-            <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.ZipCode)
-        </div>
+        </div>        
     </div>
     <div>
         <input type="submit" value="Change" />

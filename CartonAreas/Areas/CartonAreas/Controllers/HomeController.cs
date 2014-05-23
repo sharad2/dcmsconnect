@@ -175,15 +175,16 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             _service.AddBuilding(new Building
             {
                 BuildingId = modal.BuildingId.ToUpper(),
-                RictherWarehouseId = modal.RictherWarehouseId.ToUpper(),
+                Description=modal.Description,
                 ReceivingPalletLimit = modal.ReceivingPalletLimit,
-                Address1 = modal.Address1.ToUpper(),
-                Address2 = modal.Address2.ToUpper(),
-                Address3 = modal.Address3.ToUpper(),
-                Address4 = modal.Address4.ToUpper(),
-                City = modal.City.ToUpper(),
-                State = modal.State.ToUpper(),
-                ZipCode = modal.ZipCode
+                Address1 = modal.Address1,
+                Address2 = modal.Address2,
+                Address3 = modal.Address3,
+                Address4 = modal.Address4,
+                City = modal.City,
+                State = modal.State,
+                ZipCode = modal.ZipCode,
+                CountryCode=modal.CountryCode
             });
             this.AddStatusMessage(string.Format("New Building  Added sucessfully"));
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());

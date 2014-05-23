@@ -461,8 +461,10 @@ namespace DcmsMobile.CartonAreas.Repository
                                    T.STATE,
                                    T.ZIP_CODE,
                                    T.RICHTER_WAREHOUSE_ID_O,
-                                   T.RECEIVING_PALLET_LIMIT)
-                                VALUES
+                                   T.RECEIVING_PALLET_LIMIT,
+                                   T.DESCRIPTION,
+                                   T.COUNTRY_CODE)
+                   VALUES
                                   (:WAREHOUSE_LOCATION_ID,
                                    :ADDRESS_1,
                                    :ADDRESS_2,
@@ -472,7 +474,9 @@ namespace DcmsMobile.CartonAreas.Repository
                                    :STATE,
                                    :ZIP_CODE,
                                    :RICHTER_WAREHOUSE_ID_O,
-                                   :RECEIVING_PALLET_LIMIT)
+                                   :RECEIVING_PALLET_LIMIT,
+                                   :DESCRIPTION,
+                                   :COUNTRY_CODE)
 
                              ";
             var binder = SqlBinder.Create()
@@ -484,8 +488,10 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("CITY", building.City)
                 .Parameter("STATE", building.State)
                 .Parameter("ZIP_CODE", building.ZipCode)
-                .Parameter("RICHTER_WAREHOUSE_ID_O", building.RictherWarehouseId)
-                .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit);
+                .Parameter("RICHTER_WAREHOUSE_ID_O", 15)
+                .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit)
+                .Parameter("DESCRIPTION",building.Description)
+                .Parameter("COUNTRY_CODE",building.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

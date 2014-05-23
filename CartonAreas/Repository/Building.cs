@@ -61,6 +61,6 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public string CountryCode { get; set; }
        
-        public string RictherWarehouseId { get; set; }
+     
     }
 }

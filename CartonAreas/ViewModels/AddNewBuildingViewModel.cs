@@ -39,9 +39,11 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Display(Name = "Pallet Limit")]
         public int? ReceivingPalletLimit { get; set; }
 
-        [Display(Name = "Ricther Warehouse Id")]
-        [Required]
-        public string RictherWarehouseId { get; set; }
+        [Display(Name = "Country Code")]
+        public string CountryCode { get; set; }
+
+        [Display(Name = "Description")]
+        public string Description { get; set; }
 
     }
 }
