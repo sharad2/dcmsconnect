@@ -7,9 +7,12 @@
 }
 
 
-@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Get))
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post,
+    new
+    {
+        id = "frmAddBuilding"
+    }))
 {
-
     <div class="boxContent">
         @Html.LabelFor(m => m.BuildingId)
         @Html.TextBoxFor(m => m.BuildingId)<sup>*</sup><br />
@@ -36,10 +39,19 @@
         @Html.TextBoxFor(m => m.City)<sup>*</sup><br />
 
         @Html.LabelFor(m => m.State)
-        @Html.TextBoxFor(m => m.State)<sup>*</sup><br />
+        @Html.TextBoxFor(m => m.State, new { maxlength = 2 })<sup>*</sup><br />
 
         @Html.LabelFor(m => m.ZipCode)
         @Html.TextBoxFor(m => m.ZipCode)<sup>*</sup><br />
     </div>
     <button type="submit">Add</button>
+}
+
+
+@section scripts {
+    <style>
+        #frmAddBuilding input[type=text] {
+            text-transform: uppercase;
+        }
+    </style>
 }
