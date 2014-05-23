@@ -1,5 +1,5 @@
 ﻿
-namespace DcmsMobile.CartonAreas.Models
+namespace DcmsMobile.CartonAreas.Repository
 {
     public class CodeDescriptionModel
     {

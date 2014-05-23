@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Linq;
 using System.Web.Routing;
-using DcmsMobile.CartonAreas.Models;
-using DcmsMobile.CartonAreas.ViewModels;
 
 namespace DcmsMobile.CartonAreas.Repository
 {

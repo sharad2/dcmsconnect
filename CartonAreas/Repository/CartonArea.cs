@@ -1,5 +1,5 @@
 ﻿
-namespace DcmsMobile.CartonAreas.Models
+namespace DcmsMobile.CartonAreas.Repository
 {
     /// <summary>
     /// Count* properties are populated by the query only when a single area is retrieved

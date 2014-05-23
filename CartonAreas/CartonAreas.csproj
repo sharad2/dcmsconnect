@@ -103,16 +103,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CartonArea.cs" />
-    <Compile Include="Models\CodeDescriptionModel.cs" />
-    <Compile Include="Models\Location.cs" />
-    <Compile Include="Models\LocationFilter.cs" />
+    <Compile Include="Repository\CartonArea.cs" />
+    <Compile Include="Repository\CodeDescriptionModel.cs" />
+    <Compile Include="Repository\Location.cs" />
+    <Compile Include="Repository\LocationFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AutoCompleteRepository.cs" />
     <Compile Include="Repository\Building.cs" />
     <Compile Include="Repository\CartonAreasRepository.cs" />
     <Compile Include="Repository\CartonAreasService.cs" />
-    <Compile Include="Models\Sku.cs" />
+    <Compile Include="Repository\Sku.cs" />
     <Compile Include="Resources\CartonAreasResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

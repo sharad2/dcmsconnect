@@ -1,5 +1,5 @@
 ﻿
-namespace DcmsMobile.CartonAreas.Models
+namespace DcmsMobile.CartonAreas.Repository
 {
     /// <summary>
     /// Supplies filters while querying locations. Null value of a property means that the property does not participate as a filter.

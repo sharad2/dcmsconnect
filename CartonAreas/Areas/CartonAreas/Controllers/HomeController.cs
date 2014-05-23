@@ -1,13 +1,10 @@
-﻿using System.Data.Common;
+﻿using DcmsMobile.CartonAreas.Repository;
+using DcmsMobile.CartonAreas.ViewModels;
+using EclipseLibrary.Mvc.Controllers;
+using System.Data.Common;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.CartonAreas.Models;
-using DcmsMobile.CartonAreas.Repository;
-using DcmsMobile.CartonAreas.ViewModels;
-using EclipseLibrary.Mvc.Controllers;
-using System;
-using System.Web;
 
 namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 {

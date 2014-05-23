@@ -1,8 +1,7 @@
-﻿using System;
+﻿using DcmsMobile.CartonAreas.Repository;
+using System;
 using System.Linq;
 using System.Web.Mvc;
-using DcmsMobile.CartonAreas.Models;
-using DcmsMobile.CartonAreas.Repository;
 
 namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 {

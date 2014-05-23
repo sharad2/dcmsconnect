@@ -1,6 +1,4 @@
-﻿using DcmsMobile.CartonAreas.Models;
-using DcmsMobile.CartonAreas.ViewModels;
-using EclipseLibrary.Oracle;
+﻿using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
