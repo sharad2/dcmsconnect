@@ -158,15 +158,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             _service.AddBuilding(new Building
             {
-                BuildingId = modal.BuildingId,
-                RictherWarehouseId = modal.RictherWarehouseId,
+                BuildingId = modal.BuildingId.ToUpper(),
+                RictherWarehouseId = modal.RictherWarehouseId.ToUpper(),
                 ReceivingPalletLimit = modal.ReceivingPalletLimit,
-                Address1 = modal.Address1,
-                Address2 = modal.Address2,
-                Address3 = modal.Address3,
-                Address4 = modal.Address4,
-                City = modal.City,
-                State = modal.State,
+                Address1 = modal.Address1.ToUpper(),
+                Address2 = modal.Address2.ToUpper(),
+                Address3 = modal.Address3.ToUpper(),
+                Address4 = modal.Address4.ToUpper(),
+                City = modal.City.ToUpper(),
+                State = modal.State.ToUpper(),
                 ZipCode = modal.ZipCode
             });
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
