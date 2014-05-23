@@ -152,11 +152,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         }
 
 
-        public virtual ActionResult AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
+        public virtual ActionResult AddBuilding(AddNewBuildingViewModel modal)
         {
 
 
-            _service.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3, address4, city, state, zipCode);
+            _service.AddBuilding(modal.BuildingId, modal.RictherWarehouseId, modal.ReceivingPalletLimit, modal.Address1, modal.Address2, modal.Address3, modal.Address4, modal.City, modal.State, modal.ZipCode);
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }
 

@@ -169,16 +169,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_AddBuilding AddBuildingParams { get { return s_params_AddBuilding; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AddBuilding {
-            public readonly string buildingId = "buildingId";
-            public readonly string rictherWarehouseId = "rictherWarehouseId";
-            public readonly string receivingPalletLimit = "receivingPalletLimit";
-            public readonly string address1 = "address1";
-            public readonly string address2 = "address2";
-            public readonly string address3 = "address3";
-            public readonly string address4 = "address4";
-            public readonly string city = "city";
-            public readonly string state = "state";
-            public readonly string zipCode = "zipCode";
+            public readonly string modal = "modal";
         }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -282,18 +273,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode) {
+        public override System.Web.Mvc.ActionResult AddBuilding(DcmsMobile.CartonAreas.ViewModels.AddNewBuildingViewModel modal) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rictherWarehouseId", rictherWarehouseId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "receivingPalletLimit", receivingPalletLimit);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address1", address1);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address2", address2);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address3", address3);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address4", address4);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipCode", zipCode);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modal", modal);
             return callInfo;
         }
 
