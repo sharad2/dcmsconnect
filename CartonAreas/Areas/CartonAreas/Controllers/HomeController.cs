@@ -110,7 +110,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
-            return View(Views.EditAddressOfBuilding);
+            var model = new EditAddressOfBuildingViewModel { BuildingId = buildingId };
+            return View(Views.EditAddressOfBuilding, model);
         }
 
         [HttpPost]
@@ -135,10 +136,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
-       
+
         public virtual ActionResult AddBuilding()
         {
-           // string buildingId, string address, string city, string state, string zipcode
+            // string buildingId, string address, string city, string state, string zipcode
             //var addressLines = new string[4];
             //var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             //for (int i = 0; i < 4; i++)

@@ -127,6 +127,7 @@
     <Compile Include="ViewModels\BuildingModel.cs" />
     <Compile Include="ViewModels\CartonAreaModel.cs" />
     <Compile Include="ViewModels\CartonAreaViewModel.cs" />
+    <Compile Include="ViewModels\EditAddressOfBuildingViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />
