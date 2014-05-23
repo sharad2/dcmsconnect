@@ -16,21 +16,16 @@
             <div style="margin-left: 1em">
 
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
-                @*<input type="hidden" class="hfPassBuildingId" value="@Model.Buildings[i].BuildingId" />*@
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
-                    @*<input type="hidden" class="hfPassAddress" value="@Model.Buildings[i].Address1,@Model.Buildings[i].Address2,@Model.Buildings[i].Address3,@Model.Buildings[i].Address4" />*@
-                    @Html.DisplayFor(m => m.Buildings[i].Address2)
+                     @Html.DisplayFor(m => m.Buildings[i].Address2)
                     @Html.DisplayFor(m => m.Buildings[i].Address3)
                     @Html.DisplayFor(m => m.Buildings[i].Address4)
                     <br />
                     @Html.DisplayFor(m => m.Buildings[i].City)
-                    @*<input type="hidden" class="hfPassCity" value="@Model.Buildings[i].City" />*@
                     @Html.DisplayFor(m => m.Buildings[i].State),
-                    @*<input type="hidden" class="hfPassState" value="@Model.Buildings[i].State" />*@
-                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)
-                    @*<input type="hidden" class="hfPassZipCode" value="@Model.Buildings[i].ZipCode" />*@
+                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)                    
                 </em>
             </div>
             <div style="margin-top:1em">
@@ -66,52 +61,6 @@
         </div>
     </div>
 }
-@*<div id="dglEditAddress">
-    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditAddress(), FormMethod.Post, new
-    {
-        id = "frmEditAddress"
-    }))
-    {
-        <div>
-            <input style="margin-left:5.8em;" type="hidden" id="hfGetBuildingId" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.buildingId" />
-
-            Adress Line<textarea style="margin-left:1.9em;" id="tbAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.address"></textarea><br />
-
-            City<input style="margin-left:5.8em;" type="text" id="tbCity" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.city" /><br />
-
-            State<input style="margin-left:5em;" type="text" id="tbState" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.state" /><br />
-
-            Zip Code<input style="margin-left:3.2em;" type="text" id="tbZipCode" name="@MVC_CartonAreas.CartonAreas.Home.EditAddressParams.zipcode" /><br />
-
-        </div>
-
-    }
-</div>
-
-
-<div id="dglAddBuilding">
-    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post, new
-    {
-        id = "frmAddBuilding"
-    }))
-    {
-        <div>
-            Building<input style="margin-left: 3.6em;text-transform:uppercase" type="text" id="tbAddBuildingId" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.buildingId" /><sup>*</sup><br />
-
-            Adress Line<textarea style="margin-left:1.9em; text-transform: uppercase;" id="tbAddAddress" rows="4" cols="40" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.address"></textarea><sup>*</sup><br />
-
-            City<input style="margin-left: 5.7em; text-transform: uppercase; " type="text" id="tbAddCity" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.city" /><br />
-
-            State<input style="margin-left: 5em; text-transform: uppercase;" type="text" id="tbAddState" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.state" /><sup>*</sup><br />
-
-            Zip Code<input style="margin-left: 3.2em; text-transform: uppercase;" type="text" id="tbAddZipCode" name="@MVC_CartonAreas.CartonAreas.Home.AddBuildingParams.zipcode" /><sup>*</sup><br />
-        </div>
-        <span id="divErrorLog"></span>
-    }
-</div>*@
-
-
-
 
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>
