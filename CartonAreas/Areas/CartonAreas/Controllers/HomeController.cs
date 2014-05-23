@@ -130,18 +130,18 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
         {
-            _service.UpdateAddress(new Building
-            {
-                BuildingId = model.BuildingId,
-                Address1 = model.Address1,
-                Address2 = model.Address2,
-                Address3 = model.Address3,
-                Address4 = model.Address4,
-                City = model.City,
-                State = model.State,
-                ZipCode = model.ZipCode,
-                CountryCode = model.CountryCode
-            });
+            _service.UpdateAddress(new UpdateAddressOfBuilding
+                                                    {
+                                                        BuildingId = model.BuildingId,
+                                                        Address1 = model.Address1,
+                                                        Address2 = model.Address2,
+                                                        Address3 = model.Address3,
+                                                        Address4 = model.Address4,
+                                                        City = model.City,
+                                                        State = model.State,
+                                                        ZipCode = model.ZipCode,
+                                                        CountryCode = model.CountryCode
+                                                    });
             this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }

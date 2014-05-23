@@ -1,13 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DcmsMobile.CartonAreas.Repository
 {
+    /// <summary>
+    /// For update address of any building
+    /// </summary>
+    public class UpdateAddressOfBuilding
+    {
+        public string BuildingId { get; set; }
+
+        public string Address1 { get; set; }
+
+        public string Address2 { get; set; }
+
+        public string Address4 { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
+        public string ZipCode { get; set; }
+
+        public string Address3 { get; set; }
+
+        public string CountryCode { get; set; }
+
+    }
+
     public class Building
     {
-
         public string BuildingId { get; set; }
 
         public string Description { get; set; }

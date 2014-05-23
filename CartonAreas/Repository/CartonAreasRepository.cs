@@ -419,8 +419,12 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
-        public void UpdateAddress(Building building)
+        public void UpdateAddress(UpdateAddressOfBuilding building)
         {
+            if (string.IsNullOrWhiteSpace(building.BuildingId))
+            {
+                throw new ArgumentNullException("BuildingId");
+            }
             const string QUERY = @"
                     UPDATE TAB_WAREHOUSE_LOCATION T
                            SET T.ADDRESS_1    = :ADDRESS_1,
