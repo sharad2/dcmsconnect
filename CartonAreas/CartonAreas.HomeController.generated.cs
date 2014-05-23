@@ -49,11 +49,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AddBuilding() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult CartonArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
         }
@@ -152,17 +147,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string state = "state";
             public readonly string zipcode = "zipcode";
         }
-        static readonly ActionParamsClass_AddBuilding s_params_AddBuilding = new ActionParamsClass_AddBuilding();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AddBuilding AddBuildingParams { get { return s_params_AddBuilding; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AddBuilding {
-            public readonly string buildingId = "buildingId";
-            public readonly string address = "address";
-            public readonly string city = "city";
-            public readonly string state = "state";
-            public readonly string zipcode = "zipcode";
-        }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CartonArea CartonAreaParams { get { return s_params_CartonArea; } }
@@ -223,7 +207,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _areaInfoPartial = "_areaInfoPartial";
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
+            public readonly string AddNewBuilding = "AddNewBuilding";
             public readonly string CartonArea = "CartonArea";
+            public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
             public readonly string Index = "Index";
             public readonly string ManageCartonArea = "ManageCartonArea";
             public readonly string Tutorial = "Tutorial";
@@ -256,13 +242,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddBuilding(string buildingId, string address, string city, string state, string zipcode) {
+        public override System.Web.Mvc.ActionResult AddBuilding() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address", address);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipcode", zipcode);
             return callInfo;
         }
 

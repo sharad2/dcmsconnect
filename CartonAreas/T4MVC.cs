@@ -185,7 +185,9 @@ namespace Links_CartonAreas {
                     public static readonly string _areaInfoPartial_cshtml = Url("_areaInfoPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_areaInfoPartial.cshtml");
                     public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_assignSkuDialogPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.cshtml");
+                    public static readonly string AddNewBuilding_cshtml = Url("AddNewBuilding.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/AddNewBuilding.cshtml");
                     public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea.cshtml");
+                    public static readonly string EditAddressOfBuilding_cshtml = Url("EditAddressOfBuilding.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/EditAddressOfBuilding.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                     public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonArea.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");

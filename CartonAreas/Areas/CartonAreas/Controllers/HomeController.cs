@@ -129,26 +129,27 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
-        [HttpPost]
-        public virtual ActionResult AddBuilding(string buildingId, string address, string city, string state, string zipcode)
+       
+        public virtual ActionResult AddBuilding()
         {
-            var addressLines = new string[4];
-            var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            for (int i = 0; i < 4; i++)
-            {
-                if (i < add.Count())
-                {
-                    addressLines[i] = add[i];
-                }
-                else
-                {
-                    addressLines[i] = string.Empty;
-                }
-            }
+           // string buildingId, string address, string city, string state, string zipcode
+            //var addressLines = new string[4];
+            //var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            //for (int i = 0; i < 4; i++)
+            //{
+            //    if (i < add.Count())
+            //    {
+            //        addressLines[i] = add[i];
+            //    }
+            //    else
+            //    {
+            //        addressLines[i] = string.Empty;
+            //    }
+            //}
 
-            _service.AddBuilding(buildingId.ToUpper(), addressLines, city.ToUpper(), state.ToUpper(), zipcode.ToUpper());
-            this.AddStatusMessage(string.Format("Added new building sucessfully"));
-            return RedirectToAction(this.Actions.Index());
+            //_service.AddBuilding(buildingId.ToUpper(), addressLines, city.ToUpper(), state.ToUpper(), zipcode.ToUpper());
+            //this.AddStatusMessage(string.Format("Added new building sucessfully"));
+            return View(Views.AddNewBuilding);
         }
 
         public virtual ActionResult CartonArea(string buildingId)
