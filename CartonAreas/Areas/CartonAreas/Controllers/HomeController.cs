@@ -169,6 +169,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 State = modal.State.ToUpper(),
                 ZipCode = modal.ZipCode
             });
+            this.AddStatusMessage(string.Format("New Building  Added sucessfully"));
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }
 
