@@ -119,7 +119,7 @@ const string LinksNamespace = "Links_CartonAreas";
 // when the static file changes, the link changes and guarantees that the client will re-request the resource.
 // e.g. when true, the link looks like: "/Content/nerd.jpg?2009-09-04T12:25:48"
 // See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this feature
-static bool AddTimestampToStaticLinks = false;
+static bool AddTimestampToStaticLinks = true;
 
 static bool AddTimestampToStaticLink(ProjectItem projectItem) {
     // By default, this just returns the static flag, but you can add additional logic to make more complex

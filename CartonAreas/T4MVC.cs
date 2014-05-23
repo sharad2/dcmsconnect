@@ -74,20 +74,20 @@ namespace Links_CartonAreas {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js") : Url("_references.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js");
                       
-        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
+        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-1.8.2.js") : Url("jquery-1.8.2.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-1.8.2.js");
                       
-        public static readonly string jquery_1_8_2_min_js = Url("jquery-1.8.2.min.js");
-        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
+        public static readonly string jquery_1_8_2_min_js = Url("jquery-1.8.2.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-1.8.2.min.js");
+        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js") : Url("jquery-ui-1.10.0.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
                       
-        public static readonly string jquery_ui_1_10_0_min_js = Url("jquery-ui-1.10.0.min.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
+        public static readonly string jquery_ui_1_10_0_min_js = Url("jquery-ui-1.10.0.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.min.js");
+        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js") : Url("jquery.validate.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js");
                       
-        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
+        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.min.js");
+        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
                       
-        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -112,7 +112,7 @@ namespace Links_CartonAreas {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }
             
-                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
+                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui.min.css");
             }
         
         }
@@ -134,16 +134,16 @@ namespace Links_CartonAreas {
                 private const string URLPATH = "~/Areas/CartonAreas/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string CartonAreas_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CartonAreas-all.min.css") ? Url("CartonAreas-all.min.css") : Url("CartonAreas-all.css");
+                public static readonly string CartonAreas_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CartonAreas-all.min.css") ? Url("CartonAreas-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonAreas-all.css") : Url("CartonAreas-all.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonAreas-all.css");
                      
-                public static readonly string CartonAreas_all_min_css = Url("CartonAreas-all.min.css");
+                public static readonly string CartonAreas_all_min_css = Url("CartonAreas-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonAreas-all.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
                     private const string URLPATH = "~/Areas/CartonAreas/Content/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
-                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
+                    public static readonly string a1_gif = Url("a1.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/a1.gif");
+                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/ajax-loader.gif");
                 }
             
             }
@@ -160,15 +160,15 @@ namespace Links_CartonAreas {
                 private const string URLPATH = "~/Areas/CartonAreas/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string CartonArea_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CartonArea-all.min.js") ? Url("CartonArea-all.min.js") : Url("CartonArea-all.js");
+                public static readonly string CartonArea_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CartonArea-all.min.js") ? Url("CartonArea-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea-all.js") : Url("CartonArea-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea-all.js");
                               
-                public static readonly string CartonArea_all_min_js = Url("CartonArea-all.min.js");
-                public static readonly string Index_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-all.min.js") ? Url("Index-all.min.js") : Url("Index-all.js");
+                public static readonly string CartonArea_all_min_js = Url("CartonArea-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea-all.min.js");
+                public static readonly string Index_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-all.min.js") ? Url("Index-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Index-all.js") : Url("Index-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Index-all.js");
                               
-                public static readonly string Index_all_min_js = Url("Index-all.min.js");
-                public static readonly string ManageCartonAreas_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageCartonAreas-all.min.js") ? Url("ManageCartonAreas-all.min.js") : Url("ManageCartonAreas-all.js");
+                public static readonly string Index_all_min_js = Url("Index-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Index-all.min.js");
+                public static readonly string ManageCartonAreas_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageCartonAreas-all.min.js") ? Url("ManageCartonAreas-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonAreas-all.js") : Url("ManageCartonAreas-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonAreas-all.js");
                               
-                public static readonly string ManageCartonAreas_all_min_js = Url("ManageCartonAreas-all.min.js");
+                public static readonly string ManageCartonAreas_all_min_js = Url("ManageCartonAreas-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonAreas-all.min.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -176,19 +176,19 @@ namespace Links_CartonAreas {
                 private const string URLPATH = "~/Areas/CartonAreas/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml");
+                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_ViewStart.cshtml");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/CartonAreas/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _areaInfoPartial_cshtml = Url("_areaInfoPartial.cshtml");
-                    public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml");
-                    public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml");
-                    public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml");
-                    public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml");
+                    public static readonly string _areaInfoPartial_cshtml = Url("_areaInfoPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_areaInfoPartial.cshtml");
+                    public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_assignSkuDialogPartial.cshtml");
+                    public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.cshtml");
+                    public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
+                    public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonArea.cshtml");
+                    public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -196,7 +196,7 @@ namespace Links_CartonAreas {
                     private const string URLPATH = "~/Areas/CartonAreas/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _layoutCartonAreas_cshtml = Url("_layoutCartonAreas.cshtml");
+                    public static readonly string _layoutCartonAreas_cshtml = Url("_layoutCartonAreas.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutCartonAreas.cshtml");
                 }
             
             }

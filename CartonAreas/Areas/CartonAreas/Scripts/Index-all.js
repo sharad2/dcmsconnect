@@ -2,25 +2,10 @@
 
     //shows the "Go" and "Cancel" button for clicking the "Edit" option of the Pallet Limit and hide Edit.
     $('div.boxContent').on('click', 'a.editPalletLimit', function () {
-        var $item = $(this).closest('div');
-        $item.find('strong.palletLimit').hide();
-        $(this).hide();
-        $item.find('input.tbPalletLimit').show();
-        $item.find('button.btPalletLimit').show().button();
-        $item.find('a.cancelEdit').show();
+        $(this).hide().next().css("display", "inline-block").find('button').button();
+    }).on('click', 'a.cancelEdit', function () {
+        $(this).parent().css("display", "none").prev().show();
     });
-    //Comes with previous option of Edit for Pallet Limit Edit option.
-    $('div.boxContent').on('click', 'a.cancelEdit', function () {
-        var $item = $(this).closest('div');
-        $('.cancelEdit').hide();
-        $item.find('input.tbPalletLimit').hide();
-        $item.find('button.btPalletLimit').hide();
-        $item.find('strong.palletLimit').show();
-        $item.find('a.editPalletLimit').show();
-
-    });
-
-
 
     //Open the Dialogue box for Edit Address and Insert default 
     //values of the corresponding fields in the input fields.
