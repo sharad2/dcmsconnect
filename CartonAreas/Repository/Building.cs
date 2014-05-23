@@ -39,5 +39,7 @@ namespace DcmsMobile.CartonAreas.Repository
         public int? ReceivingPalletLimit { get; set; }
 
         public string CountryCode { get; set; }
+       
+        public string RictherWarehouseId { get; set; }
     }
 }

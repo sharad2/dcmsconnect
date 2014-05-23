@@ -132,9 +132,9 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        public void AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
+        public void AddBuilding(Building building)
         {
-            _repos.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3, address4, city, state, zipCode);
+            _repos.AddBuilding(building);
         }
     }
 }

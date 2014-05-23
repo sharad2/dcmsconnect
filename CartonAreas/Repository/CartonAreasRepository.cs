@@ -447,7 +447,7 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        public void AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
+        public void AddBuilding(Building building)
         {
             const string QUERY = @" INSERT INTO TAB_WAREHOUSE_LOCATION T
                                   (T.WAREHOUSE_LOCATION_ID,
@@ -474,16 +474,16 @@ namespace DcmsMobile.CartonAreas.Repository
 
                              ";
             var binder = SqlBinder.Create()
-                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
-                .Parameter("ADDRESS_1", address1)
-                .Parameter("ADDRESS_2", address2)
-                .Parameter("ADDRESS_3", address3)
-                .Parameter("ADDRESS_4", address4)
-                .Parameter("CITY", city)
-                .Parameter("STATE", state)
-                .Parameter("ZIP_CODE", zipCode)
-                .Parameter("RICHTER_WAREHOUSE_ID_O", rictherWarehouseId)
-                .Parameter("RECEIVING_PALLET_LIMIT", receivingPalletLimit);
+                .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId)
+                .Parameter("ADDRESS_1", building.Address1)
+                .Parameter("ADDRESS_2", building.Address2)
+                .Parameter("ADDRESS_3", building.Address3)
+                .Parameter("ADDRESS_4", building.Address4)
+                .Parameter("CITY", building.City)
+                .Parameter("STATE", building.State)
+                .Parameter("ZIP_CODE", building.ZipCode)
+                .Parameter("RICHTER_WAREHOUSE_ID_O", building.RictherWarehouseId)
+                .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
