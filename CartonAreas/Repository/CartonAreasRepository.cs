@@ -59,37 +59,36 @@ namespace DcmsMobile.CartonAreas.Repository
         internal IList<Building> GetBuildings()
         {
             const string QUERY = @"
-with location_counts as
- (select tia.warehouse_location_id,
-         count(msl.location_id) as count_locations,
-         count(unique tia.inventory_storage_area) as count_areas,
-         count(unique msl.storage_area) as count_numbered_areas
-    from <proxy/>tab_inventory_area tia
-    left outer join <proxy/>master_storage_location msl
-      on tia.inventory_storage_area = msl.storage_area
-   where tia.warehouse_location_id is not null
-   group by tia.warehouse_location_id)
-select t.warehouse_location_id,
-       t.description,
-       t.insert_date,
-       t.inserted_by,
-       t.receiving_pallet_limit,
-       t.address_1,
-       t.address_2,
-       t.address_3,
-       t.address_4,
-       t.city,
-       t.state,
-       t.zip_code,
-       t.country_code,
-       lc.count_areas,
-       lc.count_numbered_areas,
-       lc.count_locations
-  from <proxy/>tab_warehouse_location t
- left outer join location_counts lc
-    on lc.warehouse_location_id = t.warehouse_location_id
-
-";
+                                    WITH LOCATION_COUNTS AS
+                                     (SELECT TIA.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
+                                             COUNT(MSL.LOCATION_ID) AS COUNT_LOCATIONS,
+                                             COUNT(UNIQUE TIA.INVENTORY_STORAGE_AREA) AS COUNT_AREAS,
+                                             COUNT(UNIQUE MSL.STORAGE_AREA) AS COUNT_NUMBERED_AREAS
+                                        FROM <proxy />TAB_INVENTORY_AREA TIA
+                                        LEFT OUTER JOIN <proxy />MASTER_STORAGE_LOCATION MSL
+                                          ON TIA.INVENTORY_STORAGE_AREA = MSL.STORAGE_AREA
+                                       WHERE TIA.WAREHOUSE_LOCATION_ID IS NOT NULL
+                                       GROUP BY TIA.WAREHOUSE_LOCATION_ID)
+                                    SELECT T.WAREHOUSE_LOCATION_ID  AS WAREHOUSE_LOCATION_ID,
+                                           T.DESCRIPTION            AS DESCRIPTION,
+                                           T.INSERT_DATE            AS INSERT_DATE,
+                                           T.INSERTED_BY            AS INSERTED_BY,
+                                           T.RECEIVING_PALLET_LIMIT AS RECEIVING_PALLET_LIMIT,
+                                           T.ADDRESS_1              AS ADDRESS_1,
+                                           T.ADDRESS_2              AS ADDRESS_2,
+                                           T.ADDRESS_3              AS ADDRESS_3,
+                                           T.ADDRESS_4              AS ADDRESS_4,
+                                           T.CITY                   AS CITY,
+                                           T.STATE                  AS STATE,
+                                           T.ZIP_CODE               AS ZIP_CODE,
+                                           T.COUNTRY_CODE           AS COUNTRY_CODE,
+                                           LC.COUNT_AREAS           AS COUNT_AREAS,
+                                           LC.COUNT_NUMBERED_AREAS  AS COUNT_NUMBERED_AREAS,
+                                           LC.COUNT_LOCATIONS       AS COUNT_LOCATIONS
+                                      FROM <proxy />TAB_WAREHOUSE_LOCATION T
+                                      LEFT OUTER JOIN LOCATION_COUNTS LC
+                                        ON LC.WAREHOUSE_LOCATION_ID = T.WAREHOUSE_LOCATION_ID
+                                ";
             var binder = SqlBinder.Create(row => new Building
             {
                 BuildingId = row.GetString("warehouse_location_id"),
