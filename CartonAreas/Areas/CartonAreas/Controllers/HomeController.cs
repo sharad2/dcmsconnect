@@ -70,7 +70,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         #endregion
 
         /// <summary>
-        /// Displays home page which shows building area list
+        /// Displays home page which shows buildings
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult Index()
@@ -101,6 +101,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return View(Views.Index, model);
         }
 
+        /// <summary>
+        /// Edit pallet limit of any building.
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <param name="palletLimit"></param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult EditPalletLimit(string buildingId, int? palletLimit)
         {
@@ -108,6 +114,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
+        /// <summary>
+        /// Edit address of passed building
+        /// </summary>
+        /// <param name="buildingId"></param>
+        /// <returns></returns>
         [HttpGet]
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
@@ -127,6 +138,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return View(Views.EditAddressOfBuilding, model);
         }
 
+        /// <summary>
+        /// Update address of passed building
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
         {
@@ -146,16 +162,19 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
-        public virtual ActionResult ToAddBuilding()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public virtual ActionResult AddNewBuilding()
         {
             return View(Views.AddNewBuilding);
         }
 
-
+        [HttpPost]
         public virtual ActionResult AddBuilding(AddNewBuildingViewModel modal)
         {
-
-
             _service.AddBuilding(new Building
             {
                 BuildingId = modal.BuildingId.ToUpper(),

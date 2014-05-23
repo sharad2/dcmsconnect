@@ -111,7 +111,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string EditPalletLimit = "EditPalletLimit";
             public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
             public readonly string UpdateAddress = "UpdateAddress";
-            public readonly string ToAddBuilding = "ToAddBuilding";
+            public readonly string AddNewBuilding = "AddNewBuilding";
             public readonly string AddBuilding = "AddBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
@@ -129,7 +129,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public const string EditPalletLimit = "EditPalletLimit";
             public const string EditAddressOfBuilding = "EditAddressOfBuilding";
             public const string UpdateAddress = "UpdateAddress";
-            public const string ToAddBuilding = "ToAddBuilding";
+            public const string AddNewBuilding = "AddNewBuilding";
             public const string AddBuilding = "AddBuilding";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
@@ -268,8 +268,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ToAddBuilding() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ToAddBuilding);
+        public override System.Web.Mvc.ActionResult AddNewBuilding() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddNewBuilding);
             return callInfo;
         }
 

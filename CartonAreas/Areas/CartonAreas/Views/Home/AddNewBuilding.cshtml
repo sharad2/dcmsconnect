@@ -1,79 +1,70 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.AddNewBuildingViewModel
-
 @{
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
     ViewBag.Title = "Add New Building";
 }
-
-
-@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post,
-    new
-    {
-        id = "frmAddBuilding"
-    }))
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post))
 {
     <div class="boxContent">
         <div>
             @Html.LabelFor(m => m.BuildingId)
-            @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5 })
+            @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.BuildingId)<br />
+            @Html.ValidationMessageFor(m => m.BuildingId)
         </div>
 
         <div>
             @Html.LabelFor(m => m.ReceivingPalletLimit)
-            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new { size = 4, maxlength = 4 })<br />
+            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new { size = 4, maxlength = 4 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.RictherWarehouseId)
             @Html.TextBoxFor(m => m.RictherWarehouseId, new { size = 3, maxlength = 3 })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.RictherWarehouseId)<br />
+            @Html.ValidationMessageFor(m => m.RictherWarehouseId)
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address1)
             @Html.TextBoxFor(m => m.Address1, new { size = 40, maxlength = 40 })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.Address1)<br />
+            @Html.ValidationMessageFor(m => m.Address1)
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address2)
-            @Html.TextBoxFor(m => m.Address2, new { size = 40, maxlength = 40 })<br />
+            @Html.TextBoxFor(m => m.Address2, new { size = 40, maxlength = 40 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address3)
-            @Html.TextBoxFor(m => m.Address3, new { size = 40, maxlength = 40 })<br />
+            @Html.TextBoxFor(m => m.Address3, new { size = 40, maxlength = 40 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address4)
-            @Html.TextBoxFor(m => m.Address4, new { size = 40, maxlength = 40 })<br />
+            @Html.TextBoxFor(m => m.Address4, new { size = 40, maxlength = 40 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.City)
             @Html.TextBoxFor(m => m.City, new { size = 40, maxlength = 40 })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.City)<br />
+            @Html.ValidationMessageFor(m => m.City)
         </div>
 
         <div>
             @Html.LabelFor(m => m.State)
             @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
-            <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.State)<br />
         </div>
 
         <div>
             @Html.LabelFor(m => m.ZipCode)
             @Html.TextBoxFor(m => m.ZipCode, new { size = 10, maxlength = 10 })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.ZipCode)<br />
+            @Html.ValidationMessageFor(m => m.ZipCode)
         </div>
     </div>
     <div>
@@ -91,11 +82,7 @@
     </script>
 
     <style>
-        #frmAddBuilding input[type=text] {
-            text-transform: uppercase;
-        }
-
-       #frmAddBuilding div > label {
+        div > label {
             width: 12em;
             display: inline-block;
             vertical-align: top;

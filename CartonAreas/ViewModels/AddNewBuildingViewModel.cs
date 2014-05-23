@@ -12,28 +12,27 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Required]
         public string BuildingId { get; set; }
 
-        [Display(Name = "Address1")]
+        [Display(Name = "Address Line 1")]
         [Required]
         public string Address1 { get; set; }
 
-        [Display(Name = "Address2")]
+        [Display(Name = "Address Line 2")]
         public string Address2 { get; set; }
 
-        [Display(Name = "Address3")]
+        [Display(Name = "Address Line 3")]
         public string Address3 { get; set; }
 
-        [Display(Name = "Address4")]
+        [Display(Name = "Address Line 4")]
         public string Address4 { get; set; }
 
         [Display(Name = "City")]
         [Required]
         public string City { get; set; }
 
-        [Display(Name = "State")]
-        [Required]
+        [Display(Name = "State")]        
         public string State { get; set; }
 
-        [Display(Name = "ZipCode")]
+        [Display(Name = "Zip Code")]
         [Required]
         public string ZipCode { get; set; }
 
