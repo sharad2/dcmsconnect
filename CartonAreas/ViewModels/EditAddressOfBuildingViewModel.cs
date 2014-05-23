@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace DcmsMobile.CartonAreas.ViewModels
 {
     public class EditAddressOfBuildingViewModel
     {
-
         public string BuildingId { get; set; }
 
         [Required(ErrorMessage = "Address Line 1 is required")]
