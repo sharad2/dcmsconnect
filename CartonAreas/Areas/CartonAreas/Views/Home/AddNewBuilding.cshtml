@@ -14,44 +14,81 @@
     }))
 {
     <div class="boxContent">
-        @Html.LabelFor(m => m.BuildingId)
-        @Html.TextBoxFor(m => m.BuildingId)<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.BuildingId)
+            @Html.TextBoxFor(m => m.BuildingId, new {size = 5, maxlength = 5 })
+            <sup>*</sup><br />
+        </div>
 
-        @Html.LabelFor(m => m.ReceivingPalletLimit)
-        @Html.TextBoxFor(m => m.ReceivingPalletLimit)<br />
+        <div>
+            @Html.LabelFor(m => m.ReceivingPalletLimit)
+            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new {size = 4, maxlength = 4 })<br />
+        </div>
 
-        @Html.LabelFor(m => m.RictherWarehouseId)
-        @Html.TextBoxFor(m => m.RictherWarehouseId)<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.RictherWarehouseId)
+            @Html.TextBoxFor(m => m.RictherWarehouseId, new { size = 3, maxlength = 3 })<sup>*</sup><br />
+        </div>
 
-        @Html.LabelFor(m => m.Address1)
-        @Html.TextBoxFor(m => m.Address1)<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.Address1)
+            @Html.TextBoxFor(m => m.Address1, new {size = 40, maxlength = 40 })<sup>*</sup><br />
+        </div>
 
-        @Html.LabelFor(m => m.Address2)
-        @Html.TextBoxFor(m => m.Address2)<br />
+        <div>
+            @Html.LabelFor(m => m.Address2)
+            @Html.TextBoxFor(m => m.Address2, new { size = 40, maxlength = 40 })<br />
+        </div>
 
-        @Html.LabelFor(m => m.Address3)
-        @Html.TextBoxFor(m => m.Address3)<br />
+        <div>
+            @Html.LabelFor(m => m.Address3)
+            @Html.TextBoxFor(m => m.Address3, new { size = 40, maxlength = 40 })<br />
+        </div>
 
-        @Html.LabelFor(m => m.Address4)
-        @Html.TextBoxFor(m => m.Address4)<br />
+        <div>
+            @Html.LabelFor(m => m.Address4)
+            @Html.TextBoxFor(m => m.Address4, new { size = 40, maxlength = 40 })<br />
+        </div>
 
-        @Html.LabelFor(m => m.City)
-        @Html.TextBoxFor(m => m.City)<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City, new { size = 40, maxlength = 40 })<sup>*</sup><br />
+        </div>
 
-        @Html.LabelFor(m => m.State)
-        @Html.TextBoxFor(m => m.State, new { maxlength = 2 })<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.State)
+            @Html.TextBoxFor(m => m.State, new{size = 2,maxlength = 2 })<sup>*</sup><br />
+        </div>
 
-        @Html.LabelFor(m => m.ZipCode)
-        @Html.TextBoxFor(m => m.ZipCode)<sup>*</sup><br />
+        <div>
+            @Html.LabelFor(m => m.ZipCode)
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 10, maxlength = 10 })<sup>*</sup><br />
+        </div>
     </div>
-    <button type="submit">Add</button>
+    <div>
+        <input type="submit" value="Change" />
+        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
+    </div>
 }
 
 
 @section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input:submit').button();
+        });
+    </script>
+
     <style>
         #frmAddBuilding input[type=text] {
             text-transform: uppercase;
         }
+
+        div > label {
+            width: 12em;
+            display: inline-block;
+            vertical-align: top;
+        }
     </style>
+
 }
