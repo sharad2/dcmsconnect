@@ -44,8 +44,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult EditAddress() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.EditAddress);
+        public System.Web.Mvc.ActionResult EditAddressOfBuilding() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.EditAddressOfBuilding);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult UpdateAddress() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateAddress);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -99,7 +104,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionNamesClass {
             public readonly string Index = "Index";
             public readonly string EditPalletLimit = "EditPalletLimit";
-            public readonly string EditAddress = "EditAddress";
+            public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
+            public readonly string UpdateAddress = "UpdateAddress";
             public readonly string AddBuilding = "AddBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
@@ -115,7 +121,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionNameConstants {
             public const string Index = "Index";
             public const string EditPalletLimit = "EditPalletLimit";
-            public const string EditAddress = "EditAddress";
+            public const string EditAddressOfBuilding = "EditAddressOfBuilding";
+            public const string UpdateAddress = "UpdateAddress";
             public const string AddBuilding = "AddBuilding";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
@@ -136,11 +143,18 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string buildingId = "buildingId";
             public readonly string palletLimit = "palletLimit";
         }
-        static readonly ActionParamsClass_EditAddress s_params_EditAddress = new ActionParamsClass_EditAddress();
+        static readonly ActionParamsClass_EditAddressOfBuilding s_params_EditAddressOfBuilding = new ActionParamsClass_EditAddressOfBuilding();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditAddress EditAddressParams { get { return s_params_EditAddress; } }
+        public ActionParamsClass_EditAddressOfBuilding EditAddressOfBuildingParams { get { return s_params_EditAddressOfBuilding; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditAddress {
+        public class ActionParamsClass_EditAddressOfBuilding {
+            public readonly string buildingId = "buildingId";
+        }
+        static readonly ActionParamsClass_UpdateAddress s_params_UpdateAddress = new ActionParamsClass_UpdateAddress();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpdateAddress UpdateAddressParams { get { return s_params_UpdateAddress; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpdateAddress {
             public readonly string buildingId = "buildingId";
             public readonly string address = "address";
             public readonly string city = "city";
@@ -232,8 +246,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditAddress);
+        public override System.Web.Mvc.ActionResult EditAddressOfBuilding(string buildingId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditAddressOfBuilding);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult UpdateAddress(string buildingId, string address, string city, string state, string zipcode) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateAddress);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address", address);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);

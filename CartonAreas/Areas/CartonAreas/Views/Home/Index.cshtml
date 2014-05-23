@@ -15,17 +15,18 @@
             </h2>
             <div style="margin-left: 1em">
 
-                When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address <a class="editAddressDialogOpen" href="#">Edit</a>
+                When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address
+                <a href="@MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId)">Edit</a>
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
-                     @Html.DisplayFor(m => m.Buildings[i].Address2)
+                    @Html.DisplayFor(m => m.Buildings[i].Address2)
                     @Html.DisplayFor(m => m.Buildings[i].Address3)
                     @Html.DisplayFor(m => m.Buildings[i].Address4)
                     <br />
                     @Html.DisplayFor(m => m.Buildings[i].City)
                     @Html.DisplayFor(m => m.Buildings[i].State),
-                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)                    
+                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)
                 </em>
             </div>
             <div style="margin-top:1em">

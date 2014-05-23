@@ -107,8 +107,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
+        public virtual ActionResult EditAddressOfBuilding(string buildingId)
+        {
+            return View(Views.EditAddressOfBuilding);
+        }
+
         [HttpPost]
-        public virtual ActionResult EditAddress(string buildingId, string address, string city, string state, string zipcode)
+        public virtual ActionResult UpdateAddress(string buildingId, string address, string city, string state, string zipcode)
         {
 
             var addressLines = new string[4];
