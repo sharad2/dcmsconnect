@@ -419,7 +419,7 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
-        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode)
+        public void UpdateAddress(string buildingId, string address1, string address2, string address3, string address4, string city, string state, string zipcode, string countryCode)
         {
             const string QUERY = @"
                     UPDATE TAB_WAREHOUSE_LOCATION T
@@ -429,17 +429,19 @@ namespace DcmsMobile.CartonAreas.Repository
                                T.ADDRESS_4    = :ADDRESS_4,
                                T.CITY         = :CITY,
                                T.STATE        = :STATE,
-                               T.ZIP_CODE     = :ZIP_CODE                             
+                               T.ZIP_CODE     = :ZIP_CODE,
+                               T.COUNTRY_CODE = :COUNTRY_CODE
                          WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
             ";
             var binder = SqlBinder.Create()
-                .Parameter("ADDRESS_1", address[0])
-                .Parameter("ADDRESS_2", address[1])
-                .Parameter("ADDRESS_3", address[2])
-                .Parameter("ADDRESS_4", address[3])
+                .Parameter("ADDRESS_1", address1)
+                .Parameter("ADDRESS_2", address2)
+                .Parameter("ADDRESS_3", address3)
+                .Parameter("ADDRESS_4", address4)
                 .Parameter("CITY", city)
                 .Parameter("STATE", state)
                 .Parameter("ZIP_CODE", zipcode)
+                .Parameter("COUNTRY_CODE", countryCode)
                 .Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
@@ -472,16 +474,16 @@ namespace DcmsMobile.CartonAreas.Repository
 
                              ";
             var binder = SqlBinder.Create()
-                .Parameter("WAREHOUSE_LOCATION_ID",buildingId)
-                .Parameter("ADDRESS_1",address1)
-                .Parameter("ADDRESS_2",address2)
-                .Parameter("ADDRESS_3",address3)
-                .Parameter("ADDRESS_4",address4)
-                .Parameter("CITY",city)
-                .Parameter("STATE",state)
-                .Parameter("ZIP_CODE",zipCode)
-                .Parameter("RICHTER_WAREHOUSE_ID_O",rictherWarehouseId)
-                .Parameter("RECEIVING_PALLET_LIMIT",receivingPalletLimit);
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
+                .Parameter("ADDRESS_1", address1)
+                .Parameter("ADDRESS_2", address2)
+                .Parameter("ADDRESS_3", address3)
+                .Parameter("ADDRESS_4", address4)
+                .Parameter("CITY", city)
+                .Parameter("STATE", state)
+                .Parameter("ZIP_CODE", zipCode)
+                .Parameter("RICHTER_WAREHOUSE_ID_O", rictherWarehouseId)
+                .Parameter("RECEIVING_PALLET_LIMIT", receivingPalletLimit);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

@@ -130,26 +130,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
         {
-
-            //var addressLines = new string[4];
-            //var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    if (i < add.Count())
-            //    {
-            //        addressLines[i] = add[i];
-            //    }
-            //    else
-            //    {
-            //        addressLines[i] = string.Empty;
-            //    }
-            //}
-            //_service.UpdateAddress(buildingId, addressLines, city, state, zipcode);
+            _service.UpdateAddress(model.BuildingId, model.Address1, model.Address2, model.Address3, model.Address4, model.City, model.State, model.ZipCode, model.CountryCode);
             this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }
 
-        public virtual ActionResult ToAddBuilding() 
+        public virtual ActionResult ToAddBuilding()
         {
             return View(Views.AddNewBuilding);
         }
@@ -160,7 +146,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
 
             _service.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3, address4, city, state, zipCode);
-           return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }
 
         public virtual ActionResult CartonArea(string buildingId)

@@ -68,7 +68,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <returns></returns>
         public IEnumerable<CartonArea> GetCartonAreas(string buildingId)
         {
-            return _repos.GetCartonAreas(null,buildingId);
+            return _repos.GetCartonAreas(null, buildingId);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <returns></returns>
         public CartonArea GetCartonAreaInfo(string areaId)
         {
-            return _repos.GetCartonAreas(areaId,null).FirstOrDefault();
+            return _repos.GetCartonAreas(areaId, null).FirstOrDefault();
         }
 
         /// <summary>
@@ -126,15 +126,15 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        public void UpdateAddress(string buildingId, string[] address, string city, string state, string zipcode)
+        public void UpdateAddress(string buildingId, string address1, string address2, string address3, string address4, string city, string state, string zipcode, string countryCode)
         {
-            _repos.UpdateAddress(buildingId, address, city, state, zipcode);
+            _repos.UpdateAddress(buildingId, address1, address2, address3, address4, city, state, zipcode, countryCode);
         }
 
 
         public void AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
         {
-            _repos.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3,address4, city, state, zipCode);
+            _repos.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3, address4, city, state, zipCode);
         }
     }
 }

@@ -6,6 +6,7 @@
 }
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateAddress(), FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.BuildingId)
     <div>
         @Html.LabelFor(m => m.Address1)
         @Html.TextBoxFor(m => m.Address1, new
