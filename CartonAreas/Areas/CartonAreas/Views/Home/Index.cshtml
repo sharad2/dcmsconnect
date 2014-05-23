@@ -3,7 +3,7 @@
     ViewBag.Title = "Buildings";
 }
 @section sidebar {
-    There are @Model.Buildings.Count Buildings.@Html.ActionLink("Add", MVC_CartonAreas.CartonAreas.Home.AddBuilding())
+    There are @Model.Buildings.Count Buildings.@Html.ActionLink("Add", MVC_CartonAreas.CartonAreas.Home.ToAddBuilding())
 }
 <h1>List of Buildings</h1>
 @for (var i = 0; i < Model.Buildings.Count; i++)

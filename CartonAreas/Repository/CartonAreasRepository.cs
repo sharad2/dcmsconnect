@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.CartonAreas.Models;
+using DcmsMobile.CartonAreas.ViewModels;
 using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
@@ -441,41 +442,46 @@ namespace DcmsMobile.CartonAreas.Repository
         }
 
 
-        public void AddBuilding(string buildingId, string[] address, string city, string state, string zipcode)
+        public void AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
         {
-            const string QUERY = @"INSERT INTO TAB_WAREHOUSE_LOCATION
-                      (WAREHOUSE_LOCATION_ID,
-                       ADDRESS_1,
-                       ADDRESS_2,
-                       ADDRESS_3,
-                       ADDRESS_4,
-                       CITY,
-                       STATE,
-                       ZIP_CODE,
-                        Richter_Warehouse_Id_o)
-                    VALUES
-                       (:WAREHOUSE_LOCATION_ID,
-                        :ADDRESS_1,
-                        :ADDRESS_2,
-                        :ADDRESS_3,
-                        :ADDRESS_4,
-                        :CITY,
-                        :STATE,
-                        :ZIP_CODE,
-                        :Richter_Warehouse_Id_o)
+            const string QUERY = @" INSERT INTO TAB_WAREHOUSE_LOCATION T
+                                  (T.WAREHOUSE_LOCATION_ID,
+                                   T.ADDRESS_1,
+                                   T.ADDRESS_2,
+                                   T.ADDRESS_3,
+                                   T.ADDRESS_4,
+                                   T.CITY,
+                                   T.STATE,
+                                   T.ZIP_CODE,
+                                   T.RICHTER_WAREHOUSE_ID_O,
+                                   T.RECEIVING_PALLET_LIMIT)
+                                VALUES
+                                  (:WAREHOUSE_LOCATION_ID,
+                                   :ADDRESS_1,
+                                   :ADDRESS_2,
+                                   :ADDRESS_3,
+                                   :ADDRESS_4,
+                                   :CITY,
+                                   :STATE,
+                                   :ZIP_CODE,
+                                   :RICHTER_WAREHOUSE_ID_O,
+                                   :RECEIVING_PALLET_LIMIT)
+
                              ";
             var binder = SqlBinder.Create()
-                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
-                .Parameter("ADDRESS_1", address[0])
-                .Parameter("ADDRESS_2", address[1])
-                .Parameter("ADDRESS_3", address[2])
-                .Parameter("ADDRESS_4", address[3])
-                .Parameter("CITY", city)
-                .Parameter("STATE", state)
-                .Parameter("ZIP_CODE", zipcode)
-                .Parameter("Richter_Warehouse_Id_o", "15");//TODO : Remove Hardwiring
+                .Parameter("WAREHOUSE_LOCATION_ID",buildingId)
+                .Parameter("ADDRESS_1",address1)
+                .Parameter("ADDRESS_2",address2)
+                .Parameter("ADDRESS_3",address3)
+                .Parameter("ADDRESS_4",address4)
+                .Parameter("CITY",city)
+                .Parameter("STATE",state)
+                .Parameter("ZIP_CODE",zipCode)
+                .Parameter("RICHTER_WAREHOUSE_ID_O",rictherWarehouseId)
+                .Parameter("RECEIVING_PALLET_LIMIT",receivingPalletLimit);
             _db.ExecuteNonQuery(QUERY, binder);
         }
+
     }
 }
 //$Id$

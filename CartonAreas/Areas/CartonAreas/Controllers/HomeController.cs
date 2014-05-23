@@ -140,27 +140,18 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
-
-        public virtual ActionResult AddBuilding()
+        public virtual ActionResult ToAddBuilding() 
         {
-            // string buildingId, string address, string city, string state, string zipcode
-            //var addressLines = new string[4];
-            //var add = address.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            //for (int i = 0; i < 4; i++)
-            //{
-            //    if (i < add.Count())
-            //    {
-            //        addressLines[i] = add[i];
-            //    }
-            //    else
-            //    {
-            //        addressLines[i] = string.Empty;
-            //    }
-            //}
-
-            //_service.AddBuilding(buildingId.ToUpper(), addressLines, city.ToUpper(), state.ToUpper(), zipcode.ToUpper());
-            //this.AddStatusMessage(string.Format("Added new building sucessfully"));
             return View(Views.AddNewBuilding);
+        }
+
+
+        public virtual ActionResult AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode)
+        {
+
+
+            _service.AddBuilding(buildingId, rictherWarehouseId, receivingPalletLimit, address1, address2, address3, address4, city, state, zipCode);
+           return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }
 
         public virtual ActionResult CartonArea(string buildingId)

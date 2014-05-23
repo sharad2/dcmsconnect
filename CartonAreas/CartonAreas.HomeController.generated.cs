@@ -54,6 +54,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult AddBuilding() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult CartonArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
         }
@@ -106,6 +111,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string EditPalletLimit = "EditPalletLimit";
             public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
             public readonly string UpdateAddress = "UpdateAddress";
+            public readonly string ToAddBuilding = "ToAddBuilding";
             public readonly string AddBuilding = "AddBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
@@ -123,6 +129,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public const string EditPalletLimit = "EditPalletLimit";
             public const string EditAddressOfBuilding = "EditAddressOfBuilding";
             public const string UpdateAddress = "UpdateAddress";
+            public const string ToAddBuilding = "ToAddBuilding";
             public const string AddBuilding = "AddBuilding";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
@@ -160,6 +167,22 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string city = "city";
             public readonly string state = "state";
             public readonly string zipcode = "zipcode";
+        }
+        static readonly ActionParamsClass_AddBuilding s_params_AddBuilding = new ActionParamsClass_AddBuilding();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddBuilding AddBuildingParams { get { return s_params_AddBuilding; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddBuilding {
+            public readonly string buildingId = "buildingId";
+            public readonly string rictherWarehouseId = "rictherWarehouseId";
+            public readonly string receivingPalletLimit = "receivingPalletLimit";
+            public readonly string address1 = "address1";
+            public readonly string address2 = "address2";
+            public readonly string address3 = "address3";
+            public readonly string address4 = "address4";
+            public readonly string city = "city";
+            public readonly string state = "state";
+            public readonly string zipCode = "zipCode";
         }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -262,8 +285,23 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddBuilding() {
+        public override System.Web.Mvc.ActionResult ToAddBuilding() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ToAddBuilding);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult AddBuilding(string buildingId, string rictherWarehouseId, int? receivingPalletLimit, string address1, string address2, string address3, string address4, string city, string state, string zipCode) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rictherWarehouseId", rictherWarehouseId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "receivingPalletLimit", receivingPalletLimit);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address1", address1);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address2", address2);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address3", address3);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "address4", address4);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "city", city);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "state", state);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "zipCode", zipCode);
             return callInfo;
         }
 

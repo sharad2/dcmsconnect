@@ -1,5 +1,45 @@
-﻿@{
-    ViewBag.Title = "AddNewBuilding";
+﻿@model DcmsMobile.CartonAreas.ViewModels.IndexViewModel
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    ViewBag.Title = "Add New Building";
 }
 
-<h2>Add New Building</h2>
+
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Get))
+{
+
+    <div class="boxContent">
+        @Html.LabelFor(m => m.BuildingId)
+        @Html.TextBoxFor(m => m.BuildingId)<sup>*</sup><br />
+
+        @Html.LabelFor(m => m.ReceivingPalletLimit)
+        @Html.TextBoxFor(m => m.ReceivingPalletLimit)<br />
+
+        @Html.LabelFor(m => m.RictherWarehouseId)
+        @Html.TextBoxFor(m => m.RictherWarehouseId)<sup>*</sup><br />
+
+        @Html.LabelFor(m => m.Address1)
+        @Html.TextBoxFor(m => m.Address1)<sup>*</sup><br />
+
+        @Html.LabelFor(m => m.Address2)
+        @Html.TextBoxFor(m => m.Address2)<br />
+
+        @Html.LabelFor(m => m.Address3)
+        @Html.TextBoxFor(m => m.Address3)<br />
+
+        @Html.LabelFor(m => m.Address4)
+        @Html.TextBoxFor(m => m.Address4)<br />
+
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City)<sup>*</sup><br />
+
+        @Html.LabelFor(m => m.State)
+        @Html.TextBoxFor(m => m.State)<sup>*</sup><br />
+
+        @Html.LabelFor(m => m.ZipCode)
+        @Html.TextBoxFor(m => m.ZipCode)<sup>*</sup><br />
+    </div>
+    <button type="submit">Add</button>
+}
