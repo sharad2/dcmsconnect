@@ -163,6 +163,8 @@
     <Content Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.min.js.map">
       <DependentUpon>ManageCartonAreas-all.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\CartonAreas\Views\Home\EditAddressOfBuilding.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\AddNewBuilding.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />

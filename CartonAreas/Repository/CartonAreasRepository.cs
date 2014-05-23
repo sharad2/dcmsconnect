@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.CartonAreas.Models;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.Contracts;
 using System.Web;
-using DcmsMobile.CartonAreas.Models;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.CartonAreas.Repository
 {
@@ -56,14 +56,6 @@ namespace DcmsMobile.CartonAreas.Repository
 
         #endregion
 
-        //internal class Building
-        //{
-
-        //    public string BuildingId { get; set; }
-
-        //    public string Description { get; set; }
-        //}
-
         internal IList<Building> GetBuildings()
         {
             const string QUERY = @"
@@ -93,7 +85,7 @@ select t.warehouse_location_id,
        lc.count_numbered_areas,
        lc.count_locations
   from <proxy/>tab_warehouse_location t
- inner join location_counts lc
+ left outer join location_counts lc
     on lc.warehouse_location_id = t.warehouse_location_id
 
 ";
@@ -480,7 +472,7 @@ select t.warehouse_location_id,
                 .Parameter("CITY", city)
                 .Parameter("STATE", state)
                 .Parameter("ZIP_CODE", zipcode)
-                .Parameter("Richter_Warehouse_Id_o","15");//TODO : Remove Hardwiring
+                .Parameter("Richter_Warehouse_Id_o", "15");//TODO : Remove Hardwiring
             _db.ExecuteNonQuery(QUERY, binder);
         }
     }
