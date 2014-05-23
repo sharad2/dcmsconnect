@@ -419,7 +419,7 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
-        public void UpdateAddress(string buildingId, string address1, string address2, string address3, string address4, string city, string state, string zipcode, string countryCode)
+        public void UpdateAddress(Building building)
         {
             const string QUERY = @"
                     UPDATE TAB_WAREHOUSE_LOCATION T
@@ -434,15 +434,15 @@ namespace DcmsMobile.CartonAreas.Repository
                          WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
             ";
             var binder = SqlBinder.Create()
-                .Parameter("ADDRESS_1", address1)
-                .Parameter("ADDRESS_2", address2)
-                .Parameter("ADDRESS_3", address3)
-                .Parameter("ADDRESS_4", address4)
-                .Parameter("CITY", city)
-                .Parameter("STATE", state)
-                .Parameter("ZIP_CODE", zipcode)
-                .Parameter("COUNTRY_CODE", countryCode)
-                .Parameter("WAREHOUSE_LOCATION_ID", buildingId);
+                .Parameter("ADDRESS_1", building.Address1)
+                .Parameter("ADDRESS_2", building.Address2)
+                .Parameter("ADDRESS_3", building.Address3)
+                .Parameter("ADDRESS_4", building.Address4)
+                .Parameter("CITY", building.City)
+                .Parameter("STATE", building.State)
+                .Parameter("ZIP_CODE", building.ZipCode)
+                .Parameter("COUNTRY_CODE", building.CountryCode)
+                .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
