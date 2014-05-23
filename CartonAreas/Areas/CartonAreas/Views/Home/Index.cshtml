@@ -20,17 +20,17 @@
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)
-                    <input type="hidden" class="hfPassAddress" value="@Model.Buildings[i].Address1,@Model.Buildings[i].Address2,@Model.Buildings[i].Address3,@Model.Buildings[i].Address4" />
+                    @*<input type="hidden" class="hfPassAddress" value="@Model.Buildings[i].Address1,@Model.Buildings[i].Address2,@Model.Buildings[i].Address3,@Model.Buildings[i].Address4" />*@
                     @Html.DisplayFor(m => m.Buildings[i].Address2)
                     @Html.DisplayFor(m => m.Buildings[i].Address3)
                     @Html.DisplayFor(m => m.Buildings[i].Address4)
                     <br />
                     @Html.DisplayFor(m => m.Buildings[i].City)
-                    <input type="hidden" class="hfPassCity" value="@Model.Buildings[i].City" />
+                    @*<input type="hidden" class="hfPassCity" value="@Model.Buildings[i].City" />*@
                     @Html.DisplayFor(m => m.Buildings[i].State),
-                    <input type="hidden" class="hfPassState" value="@Model.Buildings[i].State" />
+                    @*<input type="hidden" class="hfPassState" value="@Model.Buildings[i].State" />*@
                     @Html.DisplayFor(m => m.Buildings[i].ZipCode)
-                    <input type="hidden" class="hfPassZipCode" value="@Model.Buildings[i].ZipCode" />
+                    @*<input type="hidden" class="hfPassZipCode" value="@Model.Buildings[i].ZipCode" />*@
                 </em>
             </div>
             <div style="margin-top:1em">
@@ -59,14 +59,14 @@
                     <button type="submit">Change</button> @:or
                     <a class="cancelEdit" href="#">Cancel</a>
                 }
-                
+
                 <br />
                 Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.
             </div>
         </div>
     </div>
 }
-<div id="dglEditAddress">
+@*<div id="dglEditAddress">
     @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditAddress(), FormMethod.Post, new
     {
         id = "frmEditAddress"
@@ -108,7 +108,7 @@
         </div>
         <span id="divErrorLog"></span>
     }
-</div>
+</div>*@
 
 
 
