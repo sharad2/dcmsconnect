@@ -16,7 +16,7 @@
             <div style="margin-left: 1em">
 
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address
-                <a href="@MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId)">Edit</a>
+                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId))">Edit</a>
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)

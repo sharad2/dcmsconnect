@@ -107,6 +107,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return RedirectToAction(this.Actions.Index());
         }
 
+        [HttpGet]
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
             return View(Views.EditAddressOfBuilding);
