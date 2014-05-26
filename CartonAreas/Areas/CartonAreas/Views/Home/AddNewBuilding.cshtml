@@ -26,40 +26,35 @@
 
         <div>
             @Html.LabelFor(m => m.Address1)
-            @Html.TextBoxFor(m => m.Address1, new { size = 40, maxlength = 40 })
+            @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40 })
             <sup>*</sup>
             @Html.ValidationMessageFor(m => m.Address1)
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address2)
-            @Html.TextBoxFor(m => m.Address2, new { size = 40, maxlength = 40 })
+            @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address3)
-            @Html.TextBoxFor(m => m.Address3, new { size = 40, maxlength = 40 })
+            @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40 })
         </div>
 
         <div>
             @Html.LabelFor(m => m.Address4)
-            @Html.TextBoxFor(m => m.Address4, new { size = 40, maxlength = 40 })
+            @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40 })
         </div>
 
         <div>
-            @Html.LabelFor(m => m.City)
-            @Html.TextBoxFor(m => m.City, new { size = 40, maxlength = 40 })
+            <label>City/State/Zip</label>
+            @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40 })
             <sup>*</sup>
             @Html.ValidationMessageFor(m => m.City)
-        </div>
 
-        <div>
-            @Html.LabelFor(m => m.State)
-            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
-        </div>
-        <div>
-            @Html.LabelFor(m => m.ZipCode)
-            @Html.TextBoxFor(m => m.ZipCode, new { size = 10, maxlength = 10 })
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })        
+
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10 })
             <sup>*</sup>
             @Html.ValidationMessageFor(m => m.ZipCode)
         </div>
