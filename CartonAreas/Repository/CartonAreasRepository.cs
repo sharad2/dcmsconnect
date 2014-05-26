@@ -468,7 +468,6 @@ namespace DcmsMobile.CartonAreas.Repository
                                    T.STATE,
                                    T.ZIP_CODE,
                                    T.RICHTER_WAREHOUSE_ID_O,
-                                   T.RECEIVING_PALLET_LIMIT,
                                    T.DESCRIPTION,
                                    T.COUNTRY_CODE)
                    VALUES
@@ -481,7 +480,6 @@ namespace DcmsMobile.CartonAreas.Repository
                                    :STATE,
                                    :ZIP_CODE,
                                    :RICHTER_WAREHOUSE_ID_O,
-                                   :RECEIVING_PALLET_LIMIT,
                                    :DESCRIPTION,
                                    :COUNTRY_CODE)
 
@@ -496,7 +494,6 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("STATE", building.Address.State)
                 .Parameter("ZIP_CODE", building.Address.ZipCode)
                 .Parameter("RICHTER_WAREHOUSE_ID_O", 15)
-                .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit)
                 .Parameter("DESCRIPTION", building.Description)
                 .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);

@@ -186,8 +186,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             _service.AddBuilding(new Building
             {
                 BuildingId = modal.BuildingId.ToUpper(),
-                Description = modal.Description,
-                ReceivingPalletLimit = modal.ReceivingPalletLimit,
+                Description = modal.Description,                
                 Address = new Address
                 {
                     Address1 = modal.Address1,

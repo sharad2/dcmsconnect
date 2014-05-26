@@ -34,10 +34,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         [Display(Name = "Zip Code")]
         [Required]
-        public string ZipCode { get; set; }
-
-        [Display(Name = "Pallet Limit")]
-        public int? ReceivingPalletLimit { get; set; }
+        public string ZipCode { get; set; }    
 
         [Display(Name = "Country Code")]
         public string CountryCode { get; set; }

@@ -17,13 +17,7 @@
         <div>
             @Html.LabelFor(m => m.Description)
             @Html.TextBoxFor(m => m.Description, new { size = 40, maxlength = 40 })
-        </div>
-
-        <div>
-            @Html.LabelFor(m => m.ReceivingPalletLimit)
-            @Html.TextBoxFor(m => m.ReceivingPalletLimit, new { size = 4, maxlength = 4 })
-        </div>
-
+        </div> 
         <div>
             @Html.LabelFor(m => m.Address1)
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40 })
@@ -52,7 +46,7 @@
             <sup>*</sup>
             @Html.ValidationMessageFor(m => m.City)
 
-            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })        
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
 
             @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10 })
             <sup>*</sup>
@@ -65,7 +59,7 @@
         </div>
     </div>
     <div>
-        <input type="submit" value="Add" />
+        <button type="submit" id="btnAdd">Add</button>
         <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
     </div>
 }
@@ -74,7 +68,7 @@
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('input:submit').button();
+            $('#btnAdd').button();
         });
     </script>
 

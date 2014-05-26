@@ -49,22 +49,12 @@
         </div>
         <div>
             <label>City/State/Zip</label>
-            @Html.TextBoxFor(m => m.City, new
-   {
-       size = 15,
-       maxlength = 40
-   })<sup>*</sup>
+            @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40 })<sup>*</sup>
             @Html.ValidationMessageFor(m => m.City)
-            @Html.TextBoxFor(m => m.State, new
-   {
-       size = 2,
-       maxlength = 2
-   })
-            @Html.TextBoxFor(m => m.ZipCode, new
-   {
-       size = 5,
-       maxlength = 10
-   })<sup>*</sup>
+
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
+
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10 })<sup>*</sup>
             @Html.ValidationMessageFor(m => m.ZipCode)
         </div>
         <div>
@@ -76,7 +66,7 @@
    })
         </div>
         <div>
-            <button type="submit" id="btnUpdate">Update</button> 
+            <button type="submit" id="btnUpdate">Update</button>
             <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
         </div>
     }
