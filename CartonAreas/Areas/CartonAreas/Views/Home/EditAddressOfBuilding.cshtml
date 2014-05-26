@@ -9,6 +9,7 @@
         The address you define here will print on the Bill of Lading
     </div>
 }
+@Html.ValidationSummary()
 <div class="boxContent">
     @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateAddress(), FormMethod.Post))
     {

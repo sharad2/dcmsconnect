@@ -427,7 +427,7 @@ namespace DcmsMobile.CartonAreas.Repository
                 throw new ArgumentNullException("BuildingId");
             }
             const string QUERY = @"
-BEGIN
+                BEGIN
                     UPDATE TAB_WAREHOUSE_LOCATION T
                            SET T.ADDRESS_1    = :ADDRESS_1,
                                T.ADDRESS_2    = :ADDRESS_2,
@@ -438,10 +438,10 @@ BEGIN
                                T.ZIP_CODE     = :ZIP_CODE,
                                T.COUNTRY_CODE = :COUNTRY_CODE
                          WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID;
-IF SQL%ROWCOUNT = 0 THEN
-  RAISE_APPLICATION_EROR(20000, 'Building ' || :WAREHOUSE_LOCATION_ID || ' not found');
-END;
-            ";
+                    IF SQL%ROWCOUNT = 0 THEN
+                      RAISE_APPLICATION_ERROR(20000, 'Building ' || :WAREHOUSE_LOCATION_ID || ' not found');
+                    END IF;
+                END;";
             var binder = SqlBinder.Create()
                 .Parameter("ADDRESS_1", address.Address1)
                 .Parameter("ADDRESS_2", address.Address2)
