@@ -83,7 +83,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                              Address3 = item.Address.Address3,
                                              Address4 = item.Address.Address4,
                                              City = item.Address.City,
-                                             CountArea = item.CountAreas,
+                                             CountCartonArea = item.CountCartonAreas,
+                                             CountPickingAreas = item.CountPickingAreas,
                                              CountLocation = item.CountLocations,
                                              CountNumberedArea = item.CountNumberedAreas,
                                              Description = item.Description,
@@ -233,7 +234,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             catch (DbException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(Views.AddNewBuilding, modal);
+                return RedirectToAction(this.Actions.AddNewBuilding());
             }
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }

@@ -30,7 +30,9 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public string CountryCode { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountArea { get; set; }
+        public int? CountCartonArea { get; set; }
+
+        public int? CountPickingAreas { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountNumberedArea { get; set; }

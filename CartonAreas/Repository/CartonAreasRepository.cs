@@ -62,10 +62,13 @@ namespace DcmsMobile.CartonAreas.Repository
                                      (SELECT TIA.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
                                              COUNT(MSL.LOCATION_ID) AS COUNT_LOCATIONS,
                                              COUNT(UNIQUE TIA.INVENTORY_STORAGE_AREA) AS COUNT_AREAS,
-                                             COUNT(UNIQUE MSL.STORAGE_AREA) AS COUNT_NUMBERED_AREAS
+                                             COUNT(UNIQUE MSL.STORAGE_AREA) AS COUNT_NUMBERED_AREAS,
+                                             COUNT(UNIQUE I.IA_ID) AS PICKING_AREA_COUNT
                                         FROM <proxy />TAB_INVENTORY_AREA TIA
                                         LEFT OUTER JOIN <proxy />MASTER_STORAGE_LOCATION MSL
                                           ON TIA.INVENTORY_STORAGE_AREA = MSL.STORAGE_AREA
+                                        LEFT OUTER JOIN dcms8.IA I
+                                           ON I.WAREHOUSE_LOCATION_ID = TIA.WAREHOUSE_LOCATION_ID
                                        WHERE TIA.WAREHOUSE_LOCATION_ID IS NOT NULL
                                        GROUP BY TIA.WAREHOUSE_LOCATION_ID)
                                     SELECT T.WAREHOUSE_LOCATION_ID  AS WAREHOUSE_LOCATION_ID,
@@ -83,7 +86,8 @@ namespace DcmsMobile.CartonAreas.Repository
                                            T.COUNTRY_CODE           AS COUNTRY_CODE,
                                            LC.COUNT_AREAS           AS COUNT_AREAS,
                                            LC.COUNT_NUMBERED_AREAS  AS COUNT_NUMBERED_AREAS,
-                                           LC.COUNT_LOCATIONS       AS COUNT_LOCATIONS
+                                           LC.COUNT_LOCATIONS       AS COUNT_LOCATIONS,
+                                           LC.PICKING_AREA_COUNT    AS PICKING_AREA_COUNT
                                       FROM <proxy />TAB_WAREHOUSE_LOCATION T
                                       LEFT OUTER JOIN LOCATION_COUNTS LC
                                         ON LC.WAREHOUSE_LOCATION_ID = T.WAREHOUSE_LOCATION_ID
@@ -108,7 +112,8 @@ namespace DcmsMobile.CartonAreas.Repository
                     ZipCode = row.GetString("zip_code"),
                     CountryCode = row.GetString("country_code")
                 },
-                CountAreas = row.GetInteger("count_areas"),
+                CountCartonAreas = row.GetInteger("count_areas"),
+                CountPickingAreas = row.GetInteger("PICKING_AREA_COUNT"),
                 CountNumberedAreas = row.GetInteger("count_numbered_areas"),
                 CountLocations = row.GetInteger("count_locations")
             });
@@ -374,7 +379,7 @@ namespace DcmsMobile.CartonAreas.Repository
             });
             return _db.ExecuteReader(QUERY, binder);
 
-        }       
+        }
 
         /// <summary>
         /// This method is used to update area information.

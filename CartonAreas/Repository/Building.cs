@@ -37,7 +37,9 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public Address Address { get; set; }
 
-        public int? CountAreas { get; set; }
+        public int? CountCartonAreas { get; set; }
+
+        public int? CountPickingAreas { get; set; }
 
         public int? CountNumberedAreas { get; set; }
 

@@ -41,9 +41,15 @@
 
             </div>
             <div style="margin-top:1em">
-                There are <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountArea)</a>
-                Carton Areas in this building.
+                There are <span style="font-size:1.3em;">
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountCartonArea)</a>
+                    Carton Areas
+                </span> in this building.
                 @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) of these areas contain @Html.DisplayFor(m => m.Buildings[i].CountLocation) locations.
+                And <span style="font-size:1.3em;">
+                    <a href="#">@Html.DisplayFor(m => m.Buildings[i].CountPickingAreas)</a>
+                    Picking Areas
+                </span> in this building.
             </div>
 
             <div style="margin-top:1em">
