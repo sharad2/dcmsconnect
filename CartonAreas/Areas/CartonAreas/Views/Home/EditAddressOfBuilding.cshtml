@@ -75,7 +75,7 @@
    })
         </div>
         <div>
-            <input type="submit" value="Update" />
+            <button type="submit" id="btnUpdate">Update</button> 
             <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
         </div>
     }
@@ -85,7 +85,7 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('input:submit').button();
+            $('#btnUpdate').button();
         });
     </script>
     <style type="text/css">
