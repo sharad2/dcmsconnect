@@ -160,13 +160,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                                             ZipCode = model.ZipCode,
                                                             CountryCode = model.CountryCode
                                                         });
+                this.AddStatusMessage(string.Format("Adderess of building {0} has been modified sucessfully", model.BuildingId));
             }
             catch (DbException ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 return View(Views.EditAddressOfBuilding, model);
             }
-            this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }
 
