@@ -92,7 +92,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                              ReceivingPalletLimit = item.ReceivingPalletLimit,
                                              State = item.Address.State,
                                              ZipCode = item.Address.ZipCode,
-                                             CountryCode = item.CountryCode
+                                             CountryCode = item.Address.CountryCode
                                          }).ToList()
                         };
             return View(Views.Index, model);
@@ -130,7 +130,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 City = building.Address.City,
                 State = building.Address.State,
                 ZipCode = building.Address.ZipCode,
-                CountryCode = building.CountryCode
+                CountryCode = building.Address.CountryCode
             };
             return View(Views.EditAddressOfBuilding, model);
         }

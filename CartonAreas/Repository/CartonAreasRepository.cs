@@ -498,7 +498,7 @@ END;
                 .Parameter("RICHTER_WAREHOUSE_ID_O", 15)
                 .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit)
                 .Parameter("DESCRIPTION", building.Description)
-                .Parameter("COUNTRY_CODE", building.CountryCode);
+                .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

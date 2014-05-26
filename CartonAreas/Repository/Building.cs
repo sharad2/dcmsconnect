@@ -7,8 +7,6 @@ namespace DcmsMobile.CartonAreas.Repository
     /// </summary>
     internal class Address
     {
-        //public string BuildingId { get; set; }
-
         public string Address1 { get; set; }
 
         public string Address2 { get; set; }
@@ -35,21 +33,7 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public DateTime? InsertDate { get; set; }
 
-        public string InsertedBy { get; set; }
-
-        //public string Address1 { get; set; }
-
-        //public string Address2 { get; set; }
-
-        //public string Address3 { get; set; }
-
-        //public string Address4 { get; set; }
-
-        //public string City { get; set; }
-
-        //public string State { get; set; }
-
-        //public string ZipCode { get; set; }
+        public string InsertedBy { get; set; }       
 
         public Address Address { get; set; }
 
@@ -59,11 +43,6 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public int? CountLocations { get; set; }
 
-
-        public int? ReceivingPalletLimit { get; set; }
-
-        public string CountryCode { get; set; }
-       
-     
+        public int? ReceivingPalletLimit { get; set; }        
     }
 }
