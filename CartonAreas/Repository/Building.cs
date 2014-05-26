@@ -5,9 +5,9 @@ namespace DcmsMobile.CartonAreas.Repository
     /// <summary>
     /// For update address of any building
     /// </summary>
-    public class UpdateAddressOfBuilding
+    public class Address
     {
-        public string BuildingId { get; set; }
+        //public string BuildingId { get; set; }
 
         public string Address1 { get; set; }
 

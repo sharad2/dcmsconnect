@@ -143,9 +143,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
         {
-            _service.UpdateAddress(new UpdateAddressOfBuilding
+            if (!ModelState.IsValid)
+            {
+                return View(Views.EditAddressOfBuilding, model);
+            }
+            _service.UpdateAddress(model.BuildingId, new Address
                                                     {
-                                                        BuildingId = model.BuildingId,
                                                         Address1 = model.Address1,
                                                         Address2 = model.Address2,
                                                         Address3 = model.Address3,

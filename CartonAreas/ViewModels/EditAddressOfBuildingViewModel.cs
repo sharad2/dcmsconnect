@@ -4,6 +4,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 {
     public class EditAddressOfBuildingViewModel
     {
+        [Required]
         public string BuildingId { get; set; }
 
         [Required(ErrorMessage = "Address Line 1 is required")]

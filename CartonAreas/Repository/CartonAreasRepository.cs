@@ -417,13 +417,14 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
-        public void UpdateAddress(UpdateAddressOfBuilding building)
+        public void UpdateAddress(string buildingId, Address address)
         {
-            if (string.IsNullOrWhiteSpace(building.BuildingId))
+            if (string.IsNullOrWhiteSpace(buildingId))
             {
                 throw new ArgumentNullException("BuildingId");
             }
             const string QUERY = @"
+BEGIN
                     UPDATE TAB_WAREHOUSE_LOCATION T
                            SET T.ADDRESS_1    = :ADDRESS_1,
                                T.ADDRESS_2    = :ADDRESS_2,
@@ -433,18 +434,21 @@ namespace DcmsMobile.CartonAreas.Repository
                                T.STATE        = :STATE,
                                T.ZIP_CODE     = :ZIP_CODE,
                                T.COUNTRY_CODE = :COUNTRY_CODE
-                         WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
+                         WHERE T.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID;
+IF SQL%ROWCOUNT = 0 THEN
+  RAISE_APPLICATION_EROR(20000, 'Building ' || :WAREHOUSE_LOCATION_ID || ' not found');
+END;
             ";
             var binder = SqlBinder.Create()
-                .Parameter("ADDRESS_1", building.Address1)
-                .Parameter("ADDRESS_2", building.Address2)
-                .Parameter("ADDRESS_3", building.Address3)
-                .Parameter("ADDRESS_4", building.Address4)
-                .Parameter("CITY", building.City)
-                .Parameter("STATE", building.State)
-                .Parameter("ZIP_CODE", building.ZipCode)
-                .Parameter("COUNTRY_CODE", building.CountryCode)
-                .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId);
+                .Parameter("ADDRESS_1", address.Address1)
+                .Parameter("ADDRESS_2", address.Address2)
+                .Parameter("ADDRESS_3", address.Address3)
+                .Parameter("ADDRESS_4", address.Address4)
+                .Parameter("CITY", address.City)
+                .Parameter("STATE", address.State)
+                .Parameter("ZIP_CODE", address.ZipCode)
+                .Parameter("COUNTRY_CODE", address.CountryCode)
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
