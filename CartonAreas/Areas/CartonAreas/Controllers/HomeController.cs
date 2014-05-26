@@ -147,17 +147,25 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return View(Views.EditAddressOfBuilding, model);
             }
-            _service.UpdateAddress(model.BuildingId, new Address
-                                                    {
-                                                        Address1 = model.Address1,
-                                                        Address2 = model.Address2,
-                                                        Address3 = model.Address3,
-                                                        Address4 = model.Address4,
-                                                        City = model.City,
-                                                        State = model.State,
-                                                        ZipCode = model.ZipCode,
-                                                        CountryCode = model.CountryCode
-                                                    });
+            try
+            {
+                _service.UpdateAddress(model.BuildingId, new Address
+                                                        {
+                                                            Address1 = model.Address1,
+                                                            Address2 = model.Address2,
+                                                            Address3 = model.Address3,
+                                                            Address4 = model.Address4,
+                                                            City = model.City,
+                                                            State = model.State,
+                                                            ZipCode = model.ZipCode,
+                                                            CountryCode = model.CountryCode
+                                                        });
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(Views.EditAddressOfBuilding, model);
+            }
             this.AddStatusMessage(string.Format("Adderess has been modified sucessfully"));
             return RedirectToAction(this.Actions.Index());
         }
@@ -178,7 +186,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             _service.AddBuilding(new Building
             {
                 BuildingId = modal.BuildingId.ToUpper(),
-                Description=modal.Description,
+                Description = modal.Description,
                 ReceivingPalletLimit = modal.ReceivingPalletLimit,
                 Address1 = modal.Address1,
                 Address2 = modal.Address2,
@@ -187,7 +195,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 City = modal.City,
                 State = modal.State,
                 ZipCode = modal.ZipCode,
-                CountryCode=modal.CountryCode
+                CountryCode = modal.CountryCode
             });
             this.AddStatusMessage(string.Format("New Building  Added sucessfully"));
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
