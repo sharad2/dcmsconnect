@@ -243,7 +243,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         {
             var model = new CartonAreaViewModel
             {
-                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => Map(p))
+                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => Map(p)).ToArray()
             };
             model.CurrentArea = new CartonAreaModel();
             return View(Views.CartonArea, model);

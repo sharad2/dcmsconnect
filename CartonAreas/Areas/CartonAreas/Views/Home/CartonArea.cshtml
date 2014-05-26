@@ -1,6 +1,5 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.CartonAreaViewModel
 @{
-    var i = 0;
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
     ViewBag.Title = "Carton Area Home";
@@ -24,40 +23,40 @@
 
             </thead>
             <tbody>
-                @foreach (var item in Model.CartonAreaList)
+                @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
                 {
                     <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                        <td style="white-space:nowrap;">@(item.BuildingId == "" ? "(All)" : item.BuildingId) - @item.ShortName</td>
-                        <td><span class="data-Description">@item.Description</span></td>
+                        <td style="white-space:nowrap;">@Html.DisplayFor(m => m.CartonAreaList[i].BuildingId) - @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)</td>
+                        <td><span class="data-Description">@Html.DisplayFor(m => m.CartonAreaList[i].Description)</span></td>
                         <td style="text-align: right">
-                            @if (item.LocationNumberingFlag)
+                            @if (Model.CartonAreaList[i].LocationNumberingFlag)
                             {
-                                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(item.AreaId))">@item.TotalLocations</a>
+                                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId))">@Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)</a>
                             }
                             else
                             {
-                                @item.TotalLocations
+                                @Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)
                             }
                         </td>
 
                         <td style="text-align: center">
-                            <span class="@(item.LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location":"" )"  title="Numbered Location"
+                            <span class="@(Model.CartonAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")" title="Numbered Location"
                                   style="display: inline-block" />
                         </td>
                         <td style="text-align: center">
-                            <span class="@(item.IsPalletRequired ? "ui-icon ui-icon-check data-Pallet-Required" : "")"  title="Pallet required"
+                            <span class="@(Model.CartonAreaList[i].IsPalletRequired ? "ui-icon ui-icon-check data-Pallet-Required" : "")" title="Pallet required"
                                   style="display: inline-block;" />
                         </td>
                         <td style="text-align: center">
-                            <span class="@(item.UnusableInventory  ? " ui-icon ui-icon-check data-Unusable-Inventory" : "")"  title="Unusable Inventory"
+                            <span class="@(Model.CartonAreaList[i].UnusableInventory ? " ui-icon ui-icon-check data-Unusable-Inventory" : "")" title="Unusable Inventory"
                                   style="display: inline-block;" />
                         </td>
                         <td style="text-align: center">
-                            <span class="data-area-id ui-helper-hidden">@item.AreaId</span>
-                            <span class="ui-icon ui-icon-pencil" title='Update area @item.ShortName' style="display: inline-block; cursor: pointer;" />
+                            <span class="data-area-id ui-helper-hidden">@Html.DisplayFor(m => m.CartonAreaList[i].AreaId)</span>
+                            <span class="ui-icon ui-icon-pencil" title='Update area @Model.CartonAreaList[i].ShortName' style="display: inline-block; cursor: pointer;" />
                         </td>
                     </tr>
-                            i++;
+                           
                 }
             </tbody>
         </table>
