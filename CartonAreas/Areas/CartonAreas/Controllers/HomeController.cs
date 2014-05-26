@@ -78,20 +78,20 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                          select new BuildingModel
                                          {
                                              BuildingId = item.BuildingId,
-                                             Address1 = item.Address1,
-                                             Address2 = item.Address2,
-                                             Address3 = item.Address3,
-                                             Address4 = item.Address4,
-                                             City = item.City,
-                                             CountArea = item.CountArea,
-                                             CountLocation = item.CountLocation,
-                                             CountNumberedArea = item.CountNumberedArea,
+                                             Address1 = item.Address.Address1,
+                                             Address2 = item.Address.Address2,
+                                             Address3 = item.Address.Address3,
+                                             Address4 = item.Address.Address4,
+                                             City = item.Address.City,
+                                             CountArea = item.CountAreas,
+                                             CountLocation = item.CountLocations,
+                                             CountNumberedArea = item.CountNumberedAreas,
                                              Description = item.Description,
                                              InsertDate = item.InsertDate,
                                              InsertedBy = item.InsertedBy,
                                              ReceivingPalletLimit = item.ReceivingPalletLimit,
-                                             State = item.State,
-                                             ZipCode = item.ZipCode,
+                                             State = item.Address.State,
+                                             ZipCode = item.Address.ZipCode,
                                              CountryCode = item.CountryCode
                                          }).ToList()
                         };
@@ -123,13 +123,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = new EditAddressOfBuildingViewModel
             {
                 BuildingId = buildingId,
-                Address1 = building.Address1,
-                Address2 = building.Address2,
-                Address3 = building.Address3,
-                Address4 = building.Address4,
-                City = building.City,
-                State = building.State,
-                ZipCode = building.ZipCode,
+                Address1 = building.Address.Address1,
+                Address2 = building.Address.Address2,
+                Address3 = building.Address.Address3,
+                Address4 = building.Address.Address4,
+                City = building.Address.City,
+                State = building.Address.State,
+                ZipCode = building.Address.ZipCode,
                 CountryCode = building.CountryCode
             };
             return View(Views.EditAddressOfBuilding, model);
@@ -188,14 +188,17 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 BuildingId = modal.BuildingId.ToUpper(),
                 Description = modal.Description,
                 ReceivingPalletLimit = modal.ReceivingPalletLimit,
-                Address1 = modal.Address1,
-                Address2 = modal.Address2,
-                Address3 = modal.Address3,
-                Address4 = modal.Address4,
-                City = modal.City,
-                State = modal.State,
-                ZipCode = modal.ZipCode,
-                CountryCode = modal.CountryCode
+                Address = new Address
+                {
+                    Address1 = modal.Address1,
+                    Address2 = modal.Address2,
+                    Address3 = modal.Address3,
+                    Address4 = modal.Address4,
+                    City = modal.City,
+                    State = modal.State,
+                    ZipCode = modal.ZipCode,
+                    CountryCode = modal.CountryCode
+                }
             });
             this.AddStatusMessage(string.Format("New Building  Added sucessfully"));
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());

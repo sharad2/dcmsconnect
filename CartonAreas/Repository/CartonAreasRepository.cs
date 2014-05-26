@@ -7,7 +7,7 @@ using System.Web;
 
 namespace DcmsMobile.CartonAreas.Repository
 {
-    public class CartonAreasRepository : IDisposable
+    internal class CartonAreasRepository : IDisposable
     {
         #region Intialization
 
@@ -97,17 +97,20 @@ namespace DcmsMobile.CartonAreas.Repository
                 InsertDate = row.GetDate("insert_date"),
                 InsertedBy = row.GetString("inserted_by"),
                 ReceivingPalletLimit = row.GetInteger("receiving_pallet_limit"),
-                Address1 = row.GetString("address_1"),
-                Address2 = row.GetString("address_2"),
-                Address3 = row.GetString("address_3"),
-                Address4 = row.GetString("address_4"),
-                City = row.GetString("City"),
-                State = row.GetString("State"),
-                ZipCode = row.GetString("zip_code"),
-                CountryCode = row.GetString("country_code"),
-                CountArea = row.GetInteger("count_areas"),
-                CountNumberedArea = row.GetInteger("count_numbered_areas"),
-                CountLocation = row.GetInteger("count_locations")
+                Address = new Address
+                {
+                    Address1 = row.GetString("address_1"),
+                    Address2 = row.GetString("address_2"),
+                    Address3 = row.GetString("address_3"),
+                    Address4 = row.GetString("address_4"),
+                    City = row.GetString("City"),
+                    State = row.GetString("State"),
+                    ZipCode = row.GetString("zip_code"),
+                    CountryCode = row.GetString("country_code")
+                },
+                CountAreas = row.GetInteger("count_areas"),
+                CountNumberedAreas = row.GetInteger("count_numbered_areas"),
+                CountLocations = row.GetInteger("count_locations")
             });
             binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             return _db.ExecuteReader(QUERY, binder);
@@ -485,17 +488,17 @@ END;
                              ";
             var binder = SqlBinder.Create()
                 .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId)
-                .Parameter("ADDRESS_1", building.Address1)
-                .Parameter("ADDRESS_2", building.Address2)
-                .Parameter("ADDRESS_3", building.Address3)
-                .Parameter("ADDRESS_4", building.Address4)
-                .Parameter("CITY", building.City)
-                .Parameter("STATE", building.State)
-                .Parameter("ZIP_CODE", building.ZipCode)
+                .Parameter("ADDRESS_1", building.Address.Address1)
+                .Parameter("ADDRESS_2", building.Address.Address2)
+                .Parameter("ADDRESS_3", building.Address.Address3)
+                .Parameter("ADDRESS_4", building.Address.Address4)
+                .Parameter("CITY", building.Address.City)
+                .Parameter("STATE", building.Address.State)
+                .Parameter("ZIP_CODE", building.Address.ZipCode)
                 .Parameter("RICHTER_WAREHOUSE_ID_O", 15)
                 .Parameter("RECEIVING_PALLET_LIMIT", building.ReceivingPalletLimit)
-                .Parameter("DESCRIPTION",building.Description)
-                .Parameter("COUNTRY_CODE",building.CountryCode);
+                .Parameter("DESCRIPTION", building.Description)
+                .Parameter("COUNTRY_CODE", building.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

@@ -7,7 +7,7 @@ using System.Web.Routing;
 namespace DcmsMobile.CartonAreas.Repository
 {
 
-    public class CartonAreasService : IDisposable
+    internal class CartonAreasService : IDisposable
     {
 
         #region Intialization
