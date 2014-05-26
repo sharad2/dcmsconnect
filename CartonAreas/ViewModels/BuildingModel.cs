@@ -38,7 +38,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountLocation { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}",NullDisplayText = "Not set")]
         public int? ReceivingPalletLimit { get; set; }
     }
 }
