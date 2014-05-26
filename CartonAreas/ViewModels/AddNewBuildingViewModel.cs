@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Web.Mvc;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
@@ -29,12 +27,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Required]
         public string City { get; set; }
 
-        [Display(Name = "State")]        
+        [Display(Name = "State")]
         public string State { get; set; }
 
         [Display(Name = "Zip Code")]
         [Required]
-        public string ZipCode { get; set; }    
+        public string ZipCode { get; set; }
 
         [Display(Name = "Country Code")]
         public string CountryCode { get; set; }
@@ -42,5 +40,6 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        public IList<SelectListItem> CountryCodeList { get; set; }
     }
 }

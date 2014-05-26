@@ -190,7 +190,16 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult AddNewBuilding()
         {
-            return View(Views.AddNewBuilding);
+            var model = new AddNewBuildingViewModel
+            {
+                CountryCodeList = (from item in _service.GetCountryList()
+                                   select new SelectListItem
+                                   {
+                                       Text = item.Code + " : " + item.Description,
+                                       Value = item.Code
+                                   }).ToArray()
+            };
+            return View(Views.AddNewBuilding, model);
         }
 
         [HttpPost]
