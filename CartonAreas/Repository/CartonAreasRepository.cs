@@ -30,9 +30,9 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="trace"></param>
         public CartonAreasRepository(string userName, string moduleName, string clientInfo, TraceContext trace)
         {
-            Contract.Assert(ConfigurationManager.ConnectionStrings["dcms4"] != null);
+            Contract.Assert(ConfigurationManager.ConnectionStrings["dcms8"] != null);
             var store = new OracleDatastore(trace);
-            store.CreateConnection(ConfigurationManager.ConnectionStrings["dcms4"].ConnectionString,
+            store.CreateConnection(ConfigurationManager.ConnectionStrings["dcms8"].ConnectionString,
                 userName);
             store.ModuleName = moduleName;
             store.ClientInfo = clientInfo;
@@ -67,7 +67,7 @@ namespace DcmsMobile.CartonAreas.Repository
                                         FROM <proxy />TAB_INVENTORY_AREA TIA
                                         LEFT OUTER JOIN <proxy />MASTER_STORAGE_LOCATION MSL
                                           ON TIA.INVENTORY_STORAGE_AREA = MSL.STORAGE_AREA
-                                        LEFT OUTER JOIN dcms8.IA I
+                                        LEFT OUTER JOIN <proxy />IA I
                                            ON I.WAREHOUSE_LOCATION_ID = TIA.WAREHOUSE_LOCATION_ID
                                        WHERE TIA.WAREHOUSE_LOCATION_ID IS NOT NULL
                                        GROUP BY TIA.WAREHOUSE_LOCATION_ID)
