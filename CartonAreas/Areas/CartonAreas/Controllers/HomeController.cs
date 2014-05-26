@@ -136,7 +136,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 City = building.Address.City,
                 State = building.Address.State,
                 ZipCode = building.Address.ZipCode,
-                CountryCode = building.Address.CountryCode
+                CountryCode = building.Address.CountryCode,
+                CountryCodeList = (from item in _service.GetCountryList()
+                                   select new SelectListItem
+                                   {
+                                       Text = item.Code + " : " + item.Description,
+                                       Value = item.Code,
+                                       Selected = item.Code == building.Address.CountryCode
+                                   }).ToArray()
             };
             return View(Views.EditAddressOfBuilding, model);
         }

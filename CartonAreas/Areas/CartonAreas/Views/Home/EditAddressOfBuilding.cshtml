@@ -53,11 +53,7 @@
         </div>
         <div>
             @Html.LabelFor(m => m.CountryCode)
-            @Html.TextBoxFor(m => m.CountryCode, new
-   {
-       size = 3,
-       maxlength = 3
-   })
+            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList)
         </div>
         <div>
             <button type="submit" id="btnUpdate">Update</button>
