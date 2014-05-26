@@ -5,26 +5,14 @@ namespace DcmsMobile.CartonAreas.ViewModels
     /// <summary>
     /// Represents the display of a specific carton area
     /// </summary>
-    public class CartonAreaModel
+    public class CartonAreaModel : AreaModel
     {
-        [Display(Name = "Name_AreaId", ResourceType = typeof(Resources.CartonAreasResource))]
-        public string AreaId { get; set; }
-
-        [Display(Name = "Name_Description", ResourceType = typeof(Resources.CartonAreasResource))]
-        public string Description { get; set; }
-
-        [Display(Name = "Building")]
-        [DisplayFormat(NullDisplayText = "(All)")]
-        public string BuildingId { get; set; }
-
         [Display(Name = "# Locations")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int TotalLocations { get; set; }
 
         [Display(Name = "Numbered")]
         public bool LocationNumberingFlag { get; set; }
-
-        public string ShortName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountAssignedLocations { get; set; }
