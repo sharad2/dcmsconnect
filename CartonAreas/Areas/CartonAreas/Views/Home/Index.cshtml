@@ -7,6 +7,7 @@
     <br />
     @Html.ActionLink("Add Building", MVC_CartonAreas.CartonAreas.Home.AddNewBuilding())
 }
+@Html.ValidationSummary()
 <h1>List of Buildings</h1>
 @for (var i = 0; i < Model.Buildings.Count; i++)
 {

@@ -374,7 +374,7 @@ namespace DcmsMobile.CartonAreas.Repository
             });
             return _db.ExecuteReader(QUERY, binder);
 
-        }
+        }       
 
         /// <summary>
         /// This method is used to update area information.
@@ -404,7 +404,6 @@ namespace DcmsMobile.CartonAreas.Repository
             .OutParameter("short_name", p => model.ShortName = p);
             _db.ExecuteNonQuery(QUERY, binder);
         }
-
 
         public void UpdatePalletLimit(string buildingId, int? palletLimit)
         {
@@ -457,7 +456,6 @@ namespace DcmsMobile.CartonAreas.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-
         public void AddBuilding(Building building)
         {
             const string QUERY = @" 
@@ -501,6 +499,20 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("DESCRIPTION", building.Description)
                 .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
+        }
+
+        internal IList<CodeDescriptionModel> GetCountryList()
+        {
+            const string QUERY = @"
+                                SELECT T.COUNTRY_ID AS COUNTRY_ID, T.NAME AS NAME FROM <proxy />TAB_COUNTRY T
+                                ";
+            var binder = SqlBinder.Create(row => new CodeDescriptionModel
+            {
+                Code = row.GetString("COUNTRY_ID"),
+                Description = row.GetString("NAME")
+            });
+            return _db.ExecuteReader(QUERY, binder);
+
         }
 
     }

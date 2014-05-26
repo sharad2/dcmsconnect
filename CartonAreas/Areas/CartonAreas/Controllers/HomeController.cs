@@ -120,6 +120,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         public virtual ActionResult EditAddressOfBuilding(string buildingId)
         {
             var building = _service.GetBuilding(buildingId);
+            if (building == null)
+            {
+                ModelState.AddModelError("", string.Format("Invalid building {0}", buildingId));
+                return RedirectToAction(this.Actions.Index());
+            }
             var model = new EditAddressOfBuildingViewModel
             {
                 BuildingId = buildingId,

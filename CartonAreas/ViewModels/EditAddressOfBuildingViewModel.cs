@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
@@ -36,5 +38,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         [Display(Name = "Country Code")]
         public string CountryCode { get; set; }
+
+        public IList<SelectListItem> CountryCodeList { get; set; }
     }
 }
