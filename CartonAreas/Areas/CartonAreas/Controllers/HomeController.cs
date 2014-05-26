@@ -123,6 +123,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = new EditAddressOfBuildingViewModel
             {
                 BuildingId = buildingId,
+                Description = building.Description,
                 Address1 = building.Address.Address1,
                 Address2 = building.Address.Address2,
                 Address3 = building.Address.Address3,
@@ -149,7 +150,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             try
             {
-                _service.UpdateAddress(model.BuildingId, new Address
+                _service.UpdateAddress(model.BuildingId, model.Description, new Address
                                                         {
                                                             Address1 = model.Address1,
                                                             Address2 = model.Address2,
@@ -160,7 +161,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                                             ZipCode = model.ZipCode,
                                                             CountryCode = model.CountryCode
                                                         });
-                this.AddStatusMessage(string.Format("Adderess of building {0} has been modified sucessfully", model.BuildingId));
+                this.AddStatusMessage(string.Format("Adderess/Description of building {0} has been updated sucessfully", model.BuildingId));
             }
             catch (DbException ex)
             {

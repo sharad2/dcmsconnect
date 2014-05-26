@@ -420,7 +420,7 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
-        public void UpdateAddress(string buildingId, Address address)
+        public void UpdateAddress(string buildingId, string description, Address address)
         {
             if (string.IsNullOrWhiteSpace(buildingId))
             {
@@ -429,7 +429,8 @@ namespace DcmsMobile.CartonAreas.Repository
             const string QUERY = @"
                 BEGIN
                     UPDATE TAB_WAREHOUSE_LOCATION T
-                           SET T.ADDRESS_1    = :ADDRESS_1,
+                           SET T.DESCRIPTION  = :DESCRIPTION,
+                               T.ADDRESS_1    = :ADDRESS_1,
                                T.ADDRESS_2    = :ADDRESS_2,
                                T.ADDRESS_3    = :ADDRESS_3,
                                T.ADDRESS_4    = :ADDRESS_4,
@@ -443,6 +444,7 @@ namespace DcmsMobile.CartonAreas.Repository
                     END IF;
                 END;";
             var binder = SqlBinder.Create()
+                .Parameter("DESCRIPTION", description)
                 .Parameter("ADDRESS_1", address.Address1)
                 .Parameter("ADDRESS_2", address.Address2)
                 .Parameter("ADDRESS_3", address.Address3)
@@ -495,7 +497,7 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("ADDRESS_4", building.Address.Address4)
                 .Parameter("CITY", building.Address.City)
                 .Parameter("STATE", building.Address.State)
-                .Parameter("ZIP_CODE", building.Address.ZipCode)                
+                .Parameter("ZIP_CODE", building.Address.ZipCode)
                 .Parameter("DESCRIPTION", building.Description)
                 .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);

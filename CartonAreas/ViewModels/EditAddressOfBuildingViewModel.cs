@@ -7,6 +7,9 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Required]
         public string BuildingId { get; set; }
 
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
         [Required(ErrorMessage = "Address Line 1 is required")]
         [Display(Name = "Address Line 1")]
         public string Address1 { get; set; }
