@@ -41,20 +41,20 @@
                         </td>
 
                         <td style="text-align: center">
-                            <span class="@(item.LocationNumberingFlag == true ? "ui-icon ui-icon-check data-numbered-location":"" )" title="Numbered Location"
+                            <span class="@(item.LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location":"" )"  title="Numbered Location"
                                   style="display: inline-block" />
                         </td>
                         <td style="text-align: center">
-                            <span class="@(item.IsPalletRequired == true ? "ui-icon ui-icon-check data-Pallet-Required" : "")" title="Pallet required"
+                            <span class="@(item.IsPalletRequired ? "ui-icon ui-icon-check data-Pallet-Required" : "")"  title="Pallet required"
                                   style="display: inline-block;" />
                         </td>
                         <td style="text-align: center">
-                            <span class="@(item.UnusableInventory == true ? " ui-icon ui-icon-check data-Unusable-Inventory" : "")" title="Unusable Inventory"
+                            <span class="@(item.UnusableInventory  ? " ui-icon ui-icon-check data-Unusable-Inventory" : "")"  title="Unusable Inventory"
                                   style="display: inline-block;" />
                         </td>
                         <td style="text-align: center">
                             <span class="data-area-id ui-helper-hidden">@item.AreaId</span>
-                            <span class="ui-icon ui-icon-pencil" title='Update area @item.ShortName' style="display: inline-block; cursor: pointer;"/>
+                            <span class="ui-icon ui-icon-pencil" title='Update area @item.ShortName' style="display: inline-block; cursor: pointer;" />
                         </td>
                     </tr>
                             i++;
