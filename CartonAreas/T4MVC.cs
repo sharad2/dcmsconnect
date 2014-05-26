@@ -191,6 +191,7 @@ namespace Links_CartonAreas {
                     public static readonly string EditAddressOfBuilding_cshtml = Url("EditAddressOfBuilding.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/EditAddressOfBuilding.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                     public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonArea.cshtml");
+                    public static readonly string PickingArea_cshtml = Url("PickingArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/PickingArea.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");
                 }
             

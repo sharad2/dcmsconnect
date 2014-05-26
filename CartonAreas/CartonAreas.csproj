@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />
+    <Compile Include="ViewModels\PickingAreaViewModel.cs" />
     <Compile Include="ViewModels\SkuModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     </Content>
     <Content Include="Areas\CartonAreas\Views\Home\EditAddressOfBuilding.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\AddNewBuilding.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\PickingArea.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />

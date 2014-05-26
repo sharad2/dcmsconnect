@@ -47,7 +47,7 @@
                 </span> in this building.
                 @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) of these areas contain @Html.DisplayFor(m => m.Buildings[i].CountLocation) locations.
                 And <span style="font-size:1.3em;">
-                    <a href="#">@Html.DisplayFor(m => m.Buildings[i].CountPickingAreas)</a>
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountPickingAreas)</a>
                     Picking Areas
                 </span> in this building.
             </div>
