@@ -4,6 +4,7 @@
     Html.EnableUnobtrusiveJavaScript();
     ViewBag.Title = "Add New Building";
 }
+@Html.ValidationSummary()
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post))
 {
     <div class="boxContent">

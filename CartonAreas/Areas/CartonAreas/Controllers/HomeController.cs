@@ -187,11 +187,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return View(Views.AddNewBuilding, modal);
             }
+            modal.BuildingId = modal.BuildingId.ToUpper();
             try
             {
                 _service.AddBuilding(new Building
                 {
-                    BuildingId = modal.BuildingId.ToUpper(),
+                    BuildingId = modal.BuildingId,
                     Description = modal.Description,
                     Address = new Address
                     {
