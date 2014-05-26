@@ -520,6 +520,32 @@ namespace DcmsMobile.CartonAreas.Repository
 
         }
 
+        internal IList<PickingArea> GetPickingAreas(string buildingId)
+        {
+            const string QUERY = @"
+                            SELECT I.IA_ID              AS IA_ID,
+                                   I.SHORT_DESCRIPTION  AS SHORT_DESCRIPTION,
+                                   I.SHORT_NAME         AS SHORT_NAME,
+                                   I.SHIPPING_AREA_FLAG AS SHIPPING_AREA_FLAG,
+                                   I.PICKING_AREA_FLAG  AS PICKING_AREA_FLAG,
+                                   I.RESOCK_AREA_FLAG   AS RESOCK_AREA_FLAG
+                              FROM <proxy />IA I
+                             WHERE 1 = 1
+                               AND I.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
+                            ";
+            var binder = SqlBinder.Create(row => new PickingArea
+            {
+                AreaId = row.GetString("IA_ID"),
+                Description = row.GetString("SHORT_DESCRIPTION"),
+                ShortName = row.GetString("SHORT_NAME"),
+                IsPickingArea = row.GetString("PICKING_AREA_FLAG") == "Y",
+                IsRestockArea = row.GetString("RESOCK_AREA_FLAG") == "Y",
+                IsShippingArea = row.GetString("SHIPPING_AREA_FLAG") == "Y"
+            });
+            binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId);
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
     }
 }
 //$Id$

@@ -137,6 +137,11 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             return _repos.GetCountryList();
         }
+
+        internal IList<PickingArea> GetPickingAreas(string buildingId)
+        {
+            return _repos.GetPickingAreas(buildingId);
+        }
     }
 }
 //$Id$
