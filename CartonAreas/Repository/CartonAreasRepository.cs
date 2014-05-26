@@ -466,8 +466,7 @@ namespace DcmsMobile.CartonAreas.Repository
                                    T.ADDRESS_4,
                                    T.CITY,
                                    T.STATE,
-                                   T.ZIP_CODE,
-                                   T.RICHTER_WAREHOUSE_ID_O,
+                                   T.ZIP_CODE,                                   
                                    T.DESCRIPTION,
                                    T.COUNTRY_CODE)
                    VALUES
@@ -478,8 +477,7 @@ namespace DcmsMobile.CartonAreas.Repository
                                    :ADDRESS_4,
                                    :CITY,
                                    :STATE,
-                                   :ZIP_CODE,
-                                   :RICHTER_WAREHOUSE_ID_O,
+                                   :ZIP_CODE,                                   
                                    :DESCRIPTION,
                                    :COUNTRY_CODE)
 
@@ -492,8 +490,7 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("ADDRESS_4", building.Address.Address4)
                 .Parameter("CITY", building.Address.City)
                 .Parameter("STATE", building.Address.State)
-                .Parameter("ZIP_CODE", building.Address.ZipCode)
-                .Parameter("RICHTER_WAREHOUSE_ID_O", 15)
+                .Parameter("ZIP_CODE", building.Address.ZipCode)                
                 .Parameter("DESCRIPTION", building.Description)
                 .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);

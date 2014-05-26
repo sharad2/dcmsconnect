@@ -75,10 +75,12 @@ using System.Runtime.InteropServices;
 // Change log from 1.1.3.0 to 1.1.4.0(Branched By Ankit Sharma on 4 jan 2013)
 // Binod 29 Dec 2012: Upgraded to MVC4
 
-// 1.1.4.0 -> ?
-// Sharad 7 Jan 2013: Javascript for UpdateLocation() updated. In case of unhandled exception, it will display an alert before displaying the error as a validation error.
-// Sharad 15 Mar 2013: Upgraded to jquery UI 1.10
-//
+/* Change log from 1.1.4.0 -> ?
+ * Sharad 7 Jan 2013: Javascript for UpdateLocation() updated. In case of unhandled exception, it will display an alert before displaying the error as a validation error.
+ * Sharad 15 Mar 2013: Upgraded to jquery UI 1.10
+ * Dependency : Set nullable colomn value TAB_WAREHOUSE_LOCATION.RICHTER_WAREHOUSE_ID_O
+ */
+
 [assembly: AssemblyVersion("1.1.4.0")]
 [assembly: AssemblyFileVersion("1.1.4.0")]
 [assembly: AssemblyProduct("1: You can now increase or decrease capacity(cartons) at a location without providing SKU and VWH. 2: You have the flexibility to change assignment at a location which already has cartons in it. 3: Showing SKU of carton in Manage Carton Area page")]
