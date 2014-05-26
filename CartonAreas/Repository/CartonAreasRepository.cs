@@ -458,7 +458,9 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public void AddBuilding(Building building)
         {
-            const string QUERY = @" INSERT INTO TAB_WAREHOUSE_LOCATION T
+            const string QUERY = @" 
+                    BEGIN
+                        INSERT INTO TAB_WAREHOUSE_LOCATION T
                                   (T.WAREHOUSE_LOCATION_ID,
                                    T.ADDRESS_1,
                                    T.ADDRESS_2,
@@ -469,7 +471,7 @@ namespace DcmsMobile.CartonAreas.Repository
                                    T.ZIP_CODE,                                   
                                    T.DESCRIPTION,
                                    T.COUNTRY_CODE)
-                   VALUES
+                                VALUES
                                   (:WAREHOUSE_LOCATION_ID,
                                    :ADDRESS_1,
                                    :ADDRESS_2,
@@ -479,8 +481,11 @@ namespace DcmsMobile.CartonAreas.Repository
                                    :STATE,
                                    :ZIP_CODE,                                   
                                    :DESCRIPTION,
-                                   :COUNTRY_CODE)
-
+                                   :COUNTRY_CODE);
+                    IF SQL%ROWCOUNT = 0 THEN
+                      RAISE_APPLICATION_ERROR(20000, 'Building ' || :WAREHOUSE_LOCATION_ID || ' Not Added.');
+                    END IF;
+                        END;
                              ";
             var binder = SqlBinder.Create()
                 .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId)

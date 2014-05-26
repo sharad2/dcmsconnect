@@ -183,23 +183,35 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult AddBuilding(AddNewBuildingViewModel modal)
         {
-            _service.AddBuilding(new Building
+            if (!ModelState.IsValid)
             {
-                BuildingId = modal.BuildingId.ToUpper(),
-                Description = modal.Description,                
-                Address = new Address
+                return View(Views.AddNewBuilding, modal);
+            }
+            try
+            {
+                _service.AddBuilding(new Building
                 {
-                    Address1 = modal.Address1,
-                    Address2 = modal.Address2,
-                    Address3 = modal.Address3,
-                    Address4 = modal.Address4,
-                    City = modal.City,
-                    State = modal.State,
-                    ZipCode = modal.ZipCode,
-                    CountryCode = modal.CountryCode
-                }
-            });
-            this.AddStatusMessage(string.Format("New Building  Added sucessfully"));
+                    BuildingId = modal.BuildingId.ToUpper(),
+                    Description = modal.Description,
+                    Address = new Address
+                    {
+                        Address1 = modal.Address1,
+                        Address2 = modal.Address2,
+                        Address3 = modal.Address3,
+                        Address4 = modal.Address4,
+                        City = modal.City,
+                        State = modal.State,
+                        ZipCode = modal.ZipCode,
+                        CountryCode = modal.CountryCode
+                    }
+                });
+                this.AddStatusMessage(string.Format("New Building {0} added sucessfully", modal.BuildingId));
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(Views.AddNewBuilding, modal);
+            }
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
         }
 
