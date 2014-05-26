@@ -5,9 +5,15 @@
     ViewBag.Title = string.Format("Edit Address Of {0}", Model.BuildingId);
 }
 @section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
+        </div>
+    </div>
     <div>
         The address you define here will print on the Bill of Lading
     </div>
+
 }
 @Html.ValidationSummary()
 <div class="boxContent">

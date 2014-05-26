@@ -4,6 +4,13 @@
     Html.EnableUnobtrusiveJavaScript();
     ViewBag.Title = "Add New Building";
 }
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
+        </div>
+    </div>
+}
 @Html.ValidationSummary()
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.AddBuilding(), FormMethod.Post))
 {
@@ -18,7 +25,7 @@
         <div>
             @Html.LabelFor(m => m.Description)
             @Html.TextBoxFor(m => m.Description, new { size = 40, maxlength = 40 })
-        </div> 
+        </div>
         <div>
             @Html.LabelFor(m => m.Address1)
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40 })
