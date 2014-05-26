@@ -1,6 +1,43 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel
 @{
-    ViewBag.Title = "PickingArea";
+    ViewBag.Title = string.Format("Picking Area of {0}", Model.BuildingId);
 }
-
-<h2>PickingArea</h2>
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
+        </div>
+    </div>
+}
+<div class="boxContent">
+    <table>
+        <caption>Area List</caption>
+        <thead>
+            <tr>
+                <th>Area : Description</th>
+                <th>Picking Area</th>
+                <th>Restock Area</th>
+                <th>Shipping Area</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.PickingAreaList.Count; i++)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>
+                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) : @Html.DisplayFor(m => m.PickingAreaList[i].Description)
+                    </td>
+                    <td title="Picking Area">
+                        <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check" : "")"></span>
+                    </td>
+                    <td title="Restock Area">
+                        <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check" : "")"></span>
+                    </td>
+                    <td title="Shipping Area">
+                        <span class="@(Model.PickingAreaList[i].IsShippingArea ? "ui-icon ui-icon-check" : "")"></span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

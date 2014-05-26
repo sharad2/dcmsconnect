@@ -444,7 +444,20 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
         public virtual ActionResult PickingArea(string buildingId)
         {
-            var model = new PickingAreaViewModel();
+            var model = new PickingAreaViewModel
+            {
+                BuildingId = buildingId,
+                PickingAreaList = (from area in _service.GetPickingAreas(buildingId)
+                                   select new PickingAreaModel
+                                   {
+                                       AreaId = area.AreaId,
+                                       Description = area.Description,
+                                       ShortName = area.ShortName,
+                                       IsPickingArea = area.IsPickingArea,
+                                       IsRestockArea = area.IsRestockArea,
+                                       IsShippingArea = area.IsShippingArea
+                                   }).ToArray()
+            };
             return View(Views.PickingArea, model);
 
         }
