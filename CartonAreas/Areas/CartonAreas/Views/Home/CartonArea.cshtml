@@ -1,48 +1,74 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.CartonAreaViewModel
 @{
+    var i = 0;
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
     ViewBag.Title = "Carton Area Home";
-    var grid = Html.GridFor(m => m.CartonAreaList);
-    grid.AddColumn().HeaderHtml("Building-Area").CellAttribute("style", "white-space :nowrap")
-        .CellHtml(item => item.Html.DisplayFor(m => m.BuildingId) + " - " + item.Html.DisplayFor(m => m.ShortName))
-        .Presorted();
-    grid.AddColumn(m => m.Description).CellHtml(@<text><span class="data-Description">@item.Model.Description</span></text>).CellAttribute("style", "white-space :nowrap; ");
-    grid.AddColumn(m => m.TotalLocations).CellAttribute("style", "text-align:right")
-         .CellHtml(item => item.Model.LocationNumberingFlag, item => item.Html.ActionLink(
-             item.Html.DisplayFor(m => m.TotalLocations).ToString(), MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(
-             item.Model.AreaId)));
-    grid.AddColumn(m => m.LocationNumberingFlag).CellHtml(c => c.Html.ViewData.Model.LocationNumberingFlag, @<text><div
-        class="ui-icon ui-icon-check data-numbered-location" title="Numbered Location"
-        style="display: inline-block;">
-    </div></text>).CellHtml(c => !c.Html.ViewData.Model.LocationNumberingFlag, @<text>&nbsp;</text>).CellAttribute("style", "text-align:center");
-    grid.AddColumn(m => m.IsPalletRequired).CellHtml(c => c.Html.ViewData.Model.IsPalletRequired, @<text><div
-        class="ui-icon ui-icon-check data-Pallet-Required" title="Pallet required" style="display: inline-block;">
-    </div></text>).CellHtml(c => !c.Html.ViewData.Model.IsPalletRequired, @<text>&nbsp;</text>).CellAttribute("style", "text-align:center");
-    grid.AddColumn(m => m.UnusableInventory).CellHtml(c => c.Html.ViewData.Model.UnusableInventory, @<text><div
-        class="ui-icon ui-icon-check data-Unusable-Inventory" title="Unusable Inventory"
-        style="display: inline-block;">
-    </div></text>).CellHtml(c => !c.Html.ViewData.Model.UnusableInventory, @<text>&nbsp;</text>).CellAttribute("style", "text-align:center");
-    grid.AddColumn().HeaderHtml("Change").CellHtml(@<text><div
-    class="ui-icon ui-icon-pencil" title='Update area @item.Model.ShortName' style="display:
-    inline-block; cursor:pointer;">
-    </div></text>).CellAttribute("style", "text-align:center");
-    grid.AddColumn().CellHtml(@<text><span class="data-area-id">@item.Model.AreaId</span></text>)
-        .CellAttribute("class", "ui-helper-hidden")
-        .FooterAttribute("class", "ui-helper-hidden")
-        .HeaderAttribute("class", "ui-helper-hidden");
 }
 <div id="divAreaList">
-    @grid.GetHtml(
-            rowStyle: "rowA",
-            alternatingRowStyle: "rowB",
-            emptyDataHtml: "<span class='ui-state-highlight'>Carton area not found.</span>"
-            )
+    @if (Model.CartonAreaList.Count() > 0)
+    {
+        <table>
+            <caption>Carton Areas</caption>
+            <thead>
+
+                <tr>
+                    <th>Building-Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
+                    <th>Description</th>
+                    <th># Locations</th>
+                    <th>Numbered</th>
+                    <th>Pallet Required</th>
+                    <th>Unusable Inventory</th>
+                    <th>Change</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CartonAreaList)
+                {
+                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                        <td style="white-space:nowrap;">@(item.BuildingId == "" ? "(All)" : item.BuildingId) - @item.ShortName</td>
+                        <td><span class="data-Description">@item.Description</span></td>
+                        <td style="text-align: right">
+                            @if (item.LocationNumberingFlag)
+                            {
+                                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(item.AreaId))">@item.TotalLocations</a>
+                            }
+                            else
+                            {
+                                @item.TotalLocations
+                            }
+                        </td>
+
+                        <td style="text-align: center">
+                            <span class="@(item.LocationNumberingFlag == true ? "ui-icon ui-icon-check data-numbered-location":"" )" title="Numbered Location"
+                                  style="display: inline-block" />
+                        </td>
+                        <td style="text-align: center">
+                            <span class="@(item.IsPalletRequired == true ? "ui-icon ui-icon-check data-Pallet-Required" : "")" title="Pallet required"
+                                  style="display: inline-block;" />
+                        </td>
+                        <td style="text-align: center">
+                            <span class="@(item.UnusableInventory == true ? " ui-icon ui-icon-check data-Unusable-Inventory" : "")" title="Unusable Inventory"
+                                  style="display: inline-block;" />
+                        </td>
+                        <td style="text-align: center">
+                            <span class="data-area-id ui-helper-hidden">@item.AreaId</span>
+                            <span class="ui-icon ui-icon-pencil" title='Update area @item.ShortName' style="display: inline-block; cursor: pointer;"/>
+                        </td>
+                    </tr>
+                            i++;
+                }
+            </tbody>
+        </table>
+
+    }
+
 </div>
 <div id="divUpdateAreaDialog">
     @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, Model.CurrentArea)
 </div>
-@section scripts 
+@section scripts
 {
     <script src="@Links_CartonAreas.Areas.CartonAreas.Scripts.CartonArea_all_min_js" type="text/javascript"></script>
 }

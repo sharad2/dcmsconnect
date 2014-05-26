@@ -13,25 +13,25 @@
                 .addClass('validation-summary-valid')
                 .removeClass('validation-summary-errors');
             //For location numbering flag.
-            if ($tr.find('div.data-numbered-location').length == 1) {
+            if ($tr.find('span.data-numbered-location').length == 1) {
                 $('#cbLocationNumberingFlag').attr('CHECKED', 'checked');
             } else {
                 $('#cbLocationNumberingFlag').removeAttr('CHECKED');
             }
             //For pallet required.
-            if ($tr.find('div.data-Pallet-Required').length == 1) {
+            if ($tr.find('span.data-Pallet-Required').length == 1) {
                 $('#cbPalletRequired').attr('CHECKED', 'checked');
             } else {
                 $('#cbPalletRequired').removeAttr('CHECKED');
             }
             // For Unusable Inventory
-            if ($tr.find('div.data-Unusable-Inventory').length == 1) {
+            if ($tr.find('span.data-Unusable-Inventory').length == 1) {
                 $('#cbUnusableInventory').attr('CHECKED', 'checked');
             } else {
                 $('#cbUnusableInventory').removeAttr('CHECKED');
             }
             $('#tbDescription').val($tr.find('span.data-Description').text());
-            $(this).dialog({ title: $tr.find('div.ui-icon-pencil').attr('title') });
+            $(this).dialog({ title: $tr.find('span.ui-icon-pencil').attr('title') });
             $("#btnUpdate").button({ icons: { primary: "ui-icon-disk"} });
         },
         buttons: [
@@ -56,13 +56,15 @@
     });
 
     // When the pencil icon is clicked, show the dialog
-    $('#divAreaList').on('click', 'div.ui-icon-pencil', function (e) {
+    $('#divAreaList').on('click', 'span.ui-icon-pencil', function (e) {
             var $tr = $(this).closest('tr');
             $dlg = $('#divUpdateAreaDialog');
             var $oldtr = $dlg.dialog('option', 'currentRow');
             $oldtr && $oldtr.removeClass('ui-state-active');
             $tr.addClass('ui-state-active');
             $dlg.dialog('option', 'currentRow', $tr)
-                .dialog('open');
+            .dialog('open');
+        $('#divUpdateAreaDialog').dialog('open');
+
     });
 });  

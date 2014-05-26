@@ -156,10 +156,10 @@
     <Content Include="Areas\CartonAreas\Views\Home\Tutorial.cshtml" />
     <None Include="Areas\CartonAreas\Content\CartonAreas-all.css.bundle" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js.map">
-      <DependentUpon>CartonArea-all.min.js</DependentUpon>
+      <DependentUpon>CartonArea-all.js</DependentUpon>
     </Content>
     <Content Include="Areas\CartonAreas\Scripts\Index-all.min.js.map">
-      <DependentUpon>Index-all.min.js</DependentUpon>
+      <DependentUpon>Index-all.js</DependentUpon>
     </Content>
     <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.js.bundle" />
     <Content Include="Areas\CartonAreas\Views\Home\Index.cshtml" />
