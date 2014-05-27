@@ -63,16 +63,14 @@
             <div>
                 @Html.HiddenFor(m => m.CurrentArea.AreaId)
                 @Html.LabelFor(m => m.AssignedSkuText)
-                @Html.AutocompleteFor(m => m.AssignedSkuId, m => m.AssignedSkuText,
-                                Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete()),
-                                Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku()), new
-                                {
-                                    style = "text-transform: uppercase",
-                                    size = 18
-                                })
-                <button type="submit" id="btnAssignedSku">
-                    Go</button>
-                @Html.AutocompleteDescriptionFor(m => m.AssignedSkuText, new { id = "displaySKU", @class = "sku-display" })
+                @Html.HiddenFor(m => m.AssignedSkuId)              
+                @Html.TextBoxFor(m => m.AssignedSkuText , new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete())},
+         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())}         
+   })<sup>&darr;*</sup>               
+                <button type="submit">Go</button>               
+                <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSkuText)" class="sku-display"></span>
             </div>
         }
     </div>
