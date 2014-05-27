@@ -142,7 +142,9 @@
     <Content Include="Areas\CartonAreas\Content\CartonAreas-all.css">
       <DependentUpon>CartonAreas-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\CartonAreas\Content\images\BOL.JPG" />
+    <Content Include="..\..\..\Users\Shiva\Downloads\BOL.JPG">
+      <Link>Areas\CartonAreas\Content\images\BOL.JPG</Link>
+    </Content>
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js">
       <DependentUpon>CartonArea-all.js</DependentUpon>
     </Content>

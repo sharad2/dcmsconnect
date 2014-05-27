@@ -174,7 +174,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                                             ZipCode = model.ZipCode,
                                                             CountryCode = model.CountryCode
                                                         });
-                this.AddStatusMessage(string.Format("Adderess/Description of building {0} has been updated sucessfully", model.BuildingId));
+                this.AddStatusMessage(string.Format("Adderess/Description of building {0} has been sucessfully updated.", model.BuildingId));
             }
             catch (DbException ex)
             {
@@ -229,7 +229,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                         CountryCode = modal.CountryCode
                     }
                 });
-                this.AddStatusMessage(string.Format("New Building {0} added sucessfully", modal.BuildingId));
+                this.AddStatusMessage(string.Format("New Building {0} added sucessfully.", modal.BuildingId));
             }
             catch (DbException ex)
             {
