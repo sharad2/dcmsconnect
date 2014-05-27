@@ -16,7 +16,7 @@ $(document).ready(function () {
         modal: true,
         closeOnEscape: true,
         // Clear existing values
-        open: function (event, ui) {
+        open: function (event, ui) {            
             var $tr = $(this).dialog('option', 'currentRow');
             var locationId = $tr.find('span.mca-locationid').html();
             var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
@@ -39,8 +39,8 @@ $(document).ready(function () {
                 .addClass('ui-state-highlight');
             if (sku != "") {
                 var upccode = $tr.find('span.mca-sku span').attr('title');
-                $('#tbUpcAssignedSKU').val(upccode);
-                $('#displayAssignSKU').html($tr.find('span.mca-sku').text().replace(/\s+/g, ''));
+                $('#tbSku').val(upccode);
+                $('span.spnDisplaySku').html($tr.find('span.mca-sku').text().replace(/\s+/g, ''));
             }
             $('#tbAssignedVwh').val(vwh).attr('selected', true);
             $('#tbMaxAssignedCarton').val($tr.find('span.mca-maxassignedcartons').text().replace(/\s+/g, ''));
@@ -60,7 +60,7 @@ $(document).ready(function () {
                         $('input:text', this).val('');
                         return false;
                     }
-                    if (!$('#tbUpcAssignedSKU').val()) {
+                    if (!$('#tbSku').val()) {
                         $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                     }
                     var dialogData = $form.serializeArray();
@@ -83,7 +83,7 @@ $(document).ready(function () {
                                 $row.removeClass('ui-state-highlight')
                                     .addClass('ui-state-active')
                                     .find('span.mca-sku')
-                                    .html('<span title=' + $('#tbUpcAssignedSKU').val() + '>' + $('#displayAssignSKU', this).html() + '</span>')
+                                    .html('<span title=' + $('#tbSku').val() + '>' + $('span.spnDisplaySku', this).html() + '</span>')
                                     .end()
                                     .find('span.mca-vwh')
                                     .html($('#tbAssignedVwh', this).val())

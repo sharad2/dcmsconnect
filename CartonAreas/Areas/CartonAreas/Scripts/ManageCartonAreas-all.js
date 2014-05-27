@@ -19,7 +19,7 @@ $(document).ready(function () {
         modal: true,
         closeOnEscape: true,
         // Clear existing values
-        open: function (event, ui) {
+        open: function (event, ui) {            
             var $tr = $(this).dialog('option', 'currentRow');
             var locationId = $tr.find('span.mca-locationid').html();
             var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
@@ -42,8 +42,8 @@ $(document).ready(function () {
                 .addClass('ui-state-highlight');
             if (sku != "") {
                 var upccode = $tr.find('span.mca-sku span').attr('title');
-                $('#tbUpcAssignedSKU').val(upccode);
-                $('#displayAssignSKU').html($tr.find('span.mca-sku').text().replace(/\s+/g, ''));
+                $('#tbSku').val(upccode);
+                $('span.spnDisplaySku').html($tr.find('span.mca-sku').text().replace(/\s+/g, ''));
             }
             $('#tbAssignedVwh').val(vwh).attr('selected', true);
             $('#tbMaxAssignedCarton').val($tr.find('span.mca-maxassignedcartons').text().replace(/\s+/g, ''));
@@ -63,7 +63,7 @@ $(document).ready(function () {
                         $('input:text', this).val('');
                         return false;
                     }
-                    if (!$('#tbUpcAssignedSKU').val()) {
+                    if (!$('#tbSku').val()) {
                         $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                     }
                     var dialogData = $form.serializeArray();
@@ -86,7 +86,7 @@ $(document).ready(function () {
                                 $row.removeClass('ui-state-highlight')
                                     .addClass('ui-state-active')
                                     .find('span.mca-sku')
-                                    .html('<span title=' + $('#tbUpcAssignedSKU').val() + '>' + $('#displayAssignSKU', this).html() + '</span>')
+                                    .html('<span title=' + $('#tbSku').val() + '>' + $('span.spnDisplaySku', this).html() + '</span>')
                                     .end()
                                     .find('span.mca-vwh')
                                     .html($('#tbAssignedVwh', this).val())
@@ -184,8 +184,7 @@ $Date: 2014-05-20 12:19:02 +0530 (Tue, 20 May 2014) $
 */
 ///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
-/// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
-// $Id: AutoComplete.partial.js 8401 2011-12-14 12:19:00Z spandey $
+// $Id: AutoComplete.partial.js 12312 2012-06-21 09:14:20Z bkumar $
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers
@@ -321,7 +320,7 @@ Generic autocomplete script to be used in conjunction with autocomplete helpers
             prev.valid = true;
 
         }
-    })
+    });
 })(jQuery);
 
 $.validator.setDefaults({

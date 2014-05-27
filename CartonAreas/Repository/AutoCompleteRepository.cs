@@ -78,7 +78,7 @@ namespace DcmsMobile.CartonAreas.Repository
                     MS.COLOR AS COLOR,
                     MS.DIMENSION AS DIMENSION,
                     MS.SKU_SIZE AS SKU_SIZE,
-                    MS.INACTIVE_FLAG AS INACTIVE_FLAG, 
+                    MS.INACTIVE_FLAG AS INACTIVE_FLAG,
         <a sep='+'>
         CASE
             WHEN MS.UPC_CODE = CAST(:TERM AS VARCHAR2(255)) THEN 13
@@ -131,14 +131,14 @@ namespace DcmsMobile.CartonAreas.Repository
                ALL1.RELEVANCE AS RELEVANCE,
                ROW_NUMBER() OVER(ORDER BY ALL1.RELEVANCE DESC, ALL1.STYLE, ALL1.COLOR, ALL1.DIMENSION, ALL1.SKU_SIZE) AS ROW_NUMBER
           FROM ALL_SKU ALL1
-          WHERE ALL1.INACTIVE_FLAG IS NULL  
+          WHERE ALL1.INACTIVE_FLAG IS NULL
                     )
-        SELECT RS.SKU_ID, rs.STYLE, rs.COLOR, rs.DIMENSION, rs.SKU_SIZE, rs.UPC_CODE FROM RELEVANCE_SKU RS
+        SELECT RS.SKU_ID,RS.STYLE,RS.COLOR,RS.DIMENSION,RS.SKU_SIZE,RS.UPC_CODE  FROM RELEVANCE_SKU RS
         WHERE RS.ROW_NUMBER &lt; 40
         ORDER BY RS.ROW_NUMBER
         ";
             Contract.Assert(_db != null);
-            var binder = SqlBinder.Create(row => new Sku
+            var binder = SqlBinder.Create(row => new Sku()
             {
                 SkuId = row.GetInteger("SKU_ID").Value,
                 Style = row.GetString("STYLE"),
@@ -146,12 +146,10 @@ namespace DcmsMobile.CartonAreas.Repository
                 Dimension = row.GetString("DIMENSION"),
                 SkuSize = row.GetString("SKU_SIZE"),
                 UpcCode = row.GetString("UPC_CODE")
-            });
-            binder.Parameter("TERM", term);
-            var result = _db.ExecuteReader(QUERY, binder);
-            return result;
-
+            }).Parameter("TERM", term);
+            return _db.ExecuteReader(QUERY, binder);
         }
+
 
         /// <summary>
         /// Used to validated the UPC code
@@ -190,7 +188,7 @@ namespace DcmsMobile.CartonAreas.Repository
         ";
 
             Contract.Assert(_db != null);
-            var binder = SqlBinder.Create(row => new Sku
+            var binder = SqlBinder.Create(row => new Sku()
             {
                 SkuId = row.GetInteger("SKU_ID").Value,
                 Style = row.GetString("STYLE"),
@@ -198,8 +196,7 @@ namespace DcmsMobile.CartonAreas.Repository
                 Dimension = row.GetString("DIMENSION"),
                 SkuSize = row.GetString("SKU_SIZE"),
                 UpcCode = row.GetString("UPC_CODE")
-            });
-            binder.Parameter("UPCCODE", upcCode);
+            }).Parameter("UPCCODE", upcCode);
             return _db.ExecuteSingle(QUERY, binder);
         }
 
