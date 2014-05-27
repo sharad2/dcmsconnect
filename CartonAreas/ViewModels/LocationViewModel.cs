@@ -14,7 +14,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public int PalletCount { get; set; }
 
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:#,###}")]
         [Display(Name = "VWh")]
         public string AssignedVwhId { get; set; }
 

@@ -402,7 +402,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 {
                     AddStatusMessage("No location found");
                 }
-                model.Locations = locations.Select(p => new LocationViewModel()
+                model.Locations = (locations.Select(p => new LocationViewModel()
                     {
                         AssignedSku = p.AssignedSku == null ? null : new SkuModel
                             {
@@ -429,7 +429,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                         LocationId = p.LocationId,
                         MaxAssignedCartons = p.MaxAssignedCarton,
                         CartonSkuCount = p.CartonSkuCount
-                    });
+                    })).ToArray();
             }
             model.AssignedSku = new AssignSkuViewModel
             {

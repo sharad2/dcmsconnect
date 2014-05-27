@@ -1,18 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
     public class ManageCartonAreaViewModel
     {
-        private IEnumerable<LocationViewModel> _locations;
-
-        public IEnumerable<LocationViewModel> Locations
-        {
-            get { return _locations ?? Enumerable.Empty<LocationViewModel>(); }
-            set { _locations = value; }
-        }
+        public IList<LocationViewModel> Locations { get; set; }
 
         public CartonAreaModel CurrentArea { get; set; }
 
@@ -33,11 +26,11 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// </summary>
         public int? AssignedSkuId { get; set; }
 
-        [Display(Name="Assigned to SKU")]
-        [Required(ErrorMessage="Locations assigned to the SKU you specify here will be listed")]
+        [Display(Name = "Assigned to SKU")]
+        [Required(ErrorMessage = "Locations assigned to the SKU you specify here will be listed")]
         public string AssignedSkuText { get; set; }
 
-        
+
     }
 }
 
