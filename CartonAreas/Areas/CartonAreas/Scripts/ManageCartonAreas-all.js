@@ -9,6 +9,8 @@ $(document).ready(function () {
     $('button.mca-assign').each(function () {
         $(this).button({ text: false, icons: { primary: 'ui-icon-pencil' } });
     });
+  
+    
 
     // The dialog must be passed $tr (current row which has been clicked) in the custom option currentRow
     $('#divEditDialog').dialog({
