@@ -12,9 +12,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Total Pallets")]
         public int PalletCount { get; set; }
-
-
-        [DisplayFormat(DataFormatString = "{0:#,###}")]
+       
         [Display(Name = "VWh")]
         public string AssignedVwhId { get; set; }
 
@@ -26,7 +24,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Display(Name = "Total Pieces")]
         public int? TotalPieces { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:#,###}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         [Display(Name = "Max Cartons")]
         [Range(minimum: 1, maximum: 99999, ErrorMessage = "Cartons must be in between 1 to 99999")]
         public int? MaxAssignedCartons { get; set; }
@@ -34,6 +32,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public SkuModel AssignedSku { get; set; }
 
         public SkuModel CartonSku { get; set; }
+
         public int PercentFull
         {
             get
