@@ -106,7 +106,7 @@ $(document).ready(function () {
                                 $('div[data-valmsg-summary]', this).html(jqXHR.responseText)
                                     .removeClass('validation-summary-valid')
                                     .addClass('validation-summary-errors');
-                                $('#displayAssignSKU,#ajaxErrors', this).empty();
+                                $('span.spnDisplaySku,#ajaxErrors', this).empty();
                                 $('input:text', this).val('');
                                 $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                             }

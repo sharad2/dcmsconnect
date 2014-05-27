@@ -10,34 +10,25 @@
         <br />
         @Html.LabelFor(m => m.SkuId)
         @Html.HiddenFor(m => m.SkuId)
-    @*@Html.AutocompleteFor(m => m.SkuId, m => m.SkuBarCode, Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete()),
-                                    Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku()), new
-                                {
-                                    id = "tbUpcAssignedSKU",
-                                    style = "text-transform: uppercase",
-                                    size = 18,
-                                    maxlength = 20
-                                })
-        @Html.AutocompleteDescriptionFor(m => m.SkuBarCode, new { id = "displayAssignSKU", @class = "sku-display" })*@
-    @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
+        @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
    {
            {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete())},
          {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
          {"id", "tbSku"}
    })<sup>&darr;*</sup>
-    <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display spnDisplaySku"></span>   
-    <br />
-    @Html.LabelFor(m => m.AssignedVwhId)
-    @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })
-    <br />
-    @Html.LabelFor(m => m.MaxAssignedCarton)
-    @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
-    <br />
-    <span id="displayCartonCount"></span>
-    @Html.ValidationSummary()
-    <div id="ajaxErrors">
+        <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display spnDisplaySku"></span>
+        <br />
+        @Html.LabelFor(m => m.AssignedVwhId)
+        @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })
+        <br />
+        @Html.LabelFor(m => m.MaxAssignedCarton)
+        @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
+        <br />
+        <span id="displayCartonCount"></span>
+        @Html.ValidationSummary()
+        <div id="ajaxErrors">
+        </div>
     </div>
-</div>
 }
 
 

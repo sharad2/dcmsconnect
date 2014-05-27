@@ -9,8 +9,6 @@ $(document).ready(function () {
     $('button.mca-assign').each(function () {
         $(this).button({ text: false, icons: { primary: 'ui-icon-pencil' } });
     });
-  
-    
 
     // The dialog must be passed $tr (current row which has been clicked) in the custom option currentRow
     $('#divEditDialog').dialog({
@@ -109,7 +107,7 @@ $(document).ready(function () {
                                 $('div[data-valmsg-summary]', this).html(jqXHR.responseText)
                                     .removeClass('validation-summary-valid')
                                     .addClass('validation-summary-errors');
-                                $('#displayAssignSKU,#ajaxErrors', this).empty();
+                                $('span.spnDisplaySku,#ajaxErrors', this).empty();
                                 $('input:text', this).val('');
                                 $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                             }
@@ -175,16 +173,17 @@ $(document).ready(function () {
 });
 
 /*
-$Id: ManageCartonAreas.partial.js 24285 2014-05-20 06:49:02Z spandey $ 
-$Revision: 24285 $
+$Id: ManageCartonAreas.partial.js 24558 2014-05-27 07:33:57Z spandey $ 
+$Revision: 24558 $
 $URL: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24285 2014-05-20 06:49:02Z spandey $
+$Header: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24558 2014-05-27 07:33:57Z spandey $
 $Author: spandey $
-$Date: 2014-05-20 12:19:02 +0530 (Tue, 20 May 2014) $
+$Date: 2014-05-27 13:03:57 +0530 (Tue, 27 May 2014) $
 */
 ///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
-// $Id: AutoComplete.partial.js 12312 2012-06-21 09:14:20Z bkumar $
+/// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
+// $Id: AutoComplete.partial.js 8401 2011-12-14 12:19:00Z spandey $
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers
@@ -320,7 +319,7 @@ Generic autocomplete script to be used in conjunction with autocomplete helpers
             prev.valid = true;
 
         }
-    });
+    })
 })(jQuery);
 
 $.validator.setDefaults({
