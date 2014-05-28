@@ -29,7 +29,7 @@
             {
                 <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
                     <td>
-                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) : @Html.DisplayFor(m => m.PickingAreaList[i].Description)
+                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description"> @Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
                     </td>
                     <td title="Numberd Location">
                         <span class="@(Model.PickingAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")"></span>
@@ -56,21 +56,94 @@
 
 
 <div id="divUpdatePickingAreaDialog">
-   Dialogue box
-  
+
+    @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
+    @Html.LabelFor(m => m.LocationNumberingFlag)
+    @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
+    <br />
+    @Html.LabelFor(m => m.IsPickingArea)
+    @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
+    <br />
+    @Html.LabelFor(m => m.IsRestockArea)
+    @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
+    <br />
+    @Html.LabelFor(m => m.IsShippingArea)
+    @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
+    <br />
+    @Html.LabelFor(m => m.Description)
+    @Html.TextBoxFor(m => m.Description, new
+   {
+       id = "tbDescription",
+       maxlength = 40,
+       size = 30
+   })
+
 </div>
 @section scripts {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#divPickingAreaList').click(function (e) {
-                $("#divUpdatePickingAreaDialog").dialog('open');
+            $('#divPickingAreaList').on('click', 'span.ui-icon-pencil', function (e) {
+                var $tr = $(this).closest('tr');
+                $dlg = $('#divUpdatePickingAreaDialog');
+                var $oldtr = $dlg.dialog('option', 'currentRow');
+                $oldtr && $oldtr.removeClass('ui-state-active');
+                $tr.addClass('ui-state-active');
+                $dlg.dialog('option', 'currentRow', $tr).dialog('open');
+                $('#divUpdatePickingAreaDialog').dialog('open');
             });
 
             $("#divUpdatePickingAreaDialog").dialog({
                 autoOpen: false,
                 width: 'auto',
                 modal: true,
-                closeOnEscape: true
+                closeOnEscape: true,
+                open: function (event, ui) {
+                    var $tr = $(this).dialog('option', 'currentRow');
+                    $('#hfAreaId').val($tr.find('span.data-area-id').html());
+                    $('div[data-valmsg-summary]', this)
+                    .addClass('validation-summary-valid')
+                    .removeClass('validation-summary-errors');
+                    //For location numbering flag.
+                    if ($tr.find('span.data-numbered-location').length == 1) {
+                        $('#cbLocationNumberingFlag').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbLocationNumberingFlag').removeAttr('CHECKED');
+                    }
+                    //For Picking area.
+                    if ($tr.find('span.data-Picking-Area').length == 1) {
+                        $('#cbPickingArea').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbPickingArea').removeAttr('CHECKED');
+                    }
+                    // For Restock Area
+                    if ($tr.find('span.data-Shipping-Area').length == 1) {
+                        $('#cbShippingArea').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbShippingArea').removeAttr('CHECKED');
+                    }
+                    $('#tbDescription').val($tr.find('span.data-Description').text());
+                    $(this).dialog({ title: $tr.find('span.ui-icon-pencil').attr('title') });
+                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
+                },
+                buttons: [
+                    {
+                        id: 'btnUpdate',
+                        text: 'Update',
+                        click: function (event, ui) {
+                            var $form = $('form', this);
+                            if (!$form.valid()) {
+                                return false;
+                            }
+                            $form.submit();
+                        }
+                    },
+                    {
+                        text: 'Close',
+                        click: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    }
+                ]
             });
 
         });
