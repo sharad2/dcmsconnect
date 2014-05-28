@@ -378,7 +378,7 @@ namespace DcmsMobile.CartonAreas.Repository
                                    I.RESOCK_AREA_FLAG   AS RESOCK_AREA_FLAG
                               FROM <proxy />IA I
                              WHERE 1 = 1
-                               AND I.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID
+                               <if>AND I.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID</if>
                             ";
             var binder = SqlBinder.Create(row => new PickingArea
             {
