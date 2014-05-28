@@ -53,3 +53,28 @@
         </tbody>
     </table>
 </div>
+
+
+<div id="divUpdatePickingAreaDialog">
+   Dialogue box
+  
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#divPickingAreaList').click(function (e) {
+                $("#divUpdatePickingAreaDialog").dialog('open');
+            });
+
+            $("#divUpdatePickingAreaDialog").dialog({
+                autoOpen: false,
+                width: 'auto',
+                modal: true,
+                closeOnEscape: true
+            });
+
+        });
+    </script>
+}
+
+
