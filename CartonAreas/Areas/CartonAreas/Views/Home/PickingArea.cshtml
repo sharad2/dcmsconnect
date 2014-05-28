@@ -60,28 +60,28 @@
 
 
 <div id="divUpdatePickingAreaDialog">
-
-    @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
-    @Html.LabelFor(m => m.LocationNumberingFlag)
-    @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
-    <br />
-    @Html.LabelFor(m => m.IsPickingArea)
-    @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
-    <br />
-    @Html.LabelFor(m => m.IsRestockArea)
-    @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
-    <br />
-    @Html.LabelFor(m => m.IsShippingArea)
-    @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
-    <br />
-    @Html.LabelFor(m => m.Description)
-    @Html.TextBoxFor(m => m.Description, new
+    <div class="designForm">
+        @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
+        @Html.LabelFor(m => m.LocationNumberingFlag)
+        @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
+        <br />
+        @Html.LabelFor(m => m.IsPickingArea)
+        @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
+        <br />
+        @Html.LabelFor(m => m.IsRestockArea)
+        @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
+        <br />
+        @Html.LabelFor(m => m.IsShippingArea)
+        @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
+        <br />
+        @Html.LabelFor(m => m.Description)
+        @Html.TextBoxFor(m => m.Description, new
    {
        id = "tbDescription",
        maxlength = 40,
        size = 30
    })
-
+      </div>
 </div>
 @section scripts {
     <script type="text/javascript">
