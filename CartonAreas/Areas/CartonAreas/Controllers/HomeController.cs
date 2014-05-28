@@ -458,6 +458,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                    select new PickingAreaModel
                                    {
                                        AreaId = area.AreaId,
+                                       LocationNumberingFlag=area.LocationNumberingFlag,
                                        Description = area.Description,
                                        ShortName = area.ShortName,
                                        IsPickingArea = area.IsPickingArea,

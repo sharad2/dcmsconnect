@@ -9,15 +9,19 @@
         </div>
     </div>
 }
-<div class="boxContent">
+
+<div class="boxContent" id="divPickingAreaList">
     <table>
         <caption>Area List</caption>
         <thead>
             <tr>
                 <th>Area : Description</th>
+                <th>Numbered</th>
                 <th>Picking Area</th>
                 <th>Restock Area</th>
                 <th>Shipping Area</th>
+                <th>Change</th>
+
             </tr>
         </thead>
         <tbody>
@@ -27,15 +31,23 @@
                     <td>
                         @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) : @Html.DisplayFor(m => m.PickingAreaList[i].Description)
                     </td>
+                    <td title="Numberd Location">
+                        <span class="@(Model.PickingAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")"></span>
+                    </td>
                     <td title="Picking Area">
-                        <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check" : "")"></span>
+                        <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check data-Picking-Area" : "")"></span>
                     </td>
                     <td title="Restock Area">
-                        <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check" : "")"></span>
+                        <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check data-Restock-Area" : "")"></span>
                     </td>
                     <td title="Shipping Area">
-                        <span class="@(Model.PickingAreaList[i].IsShippingArea ? "ui-icon ui-icon-check" : "")"></span>
+                        <span class="@(Model.PickingAreaList[i].IsShippingArea ? "ui-icon ui-icon-check data-Shipping-Area" : "")"></span>
                     </td>
+                    <td style="text-align: center">
+                        <span class="data-area-id ui-helper-hidden">@Html.DisplayFor(m => m.PickingAreaList[i].AreaId)</span>
+                        <span class="ui-icon ui-icon-pencil" title='Update area @Model.PickingAreaList[i].ShortName' style="display: inline-block; cursor: pointer;" />
+                    </td>
+
                 </tr>
             }
         </tbody>

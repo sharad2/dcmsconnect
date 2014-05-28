@@ -16,5 +16,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public bool IsShippingArea { get; set; }
 
         public bool IsRestockArea { get; set; }
+
+        public bool LocationNumberingFlag { get; set; }
     }
 }
