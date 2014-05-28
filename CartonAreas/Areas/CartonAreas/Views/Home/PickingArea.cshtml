@@ -17,7 +17,7 @@
             <tr>
                 <th>Area : Description</th>
                 <th>#Location</th>
-                <th>Numberd</th>
+                <th>Numbered</th>
                 <th>Picking Area</th>
                 <th>Restock Area</th>
                 <th>Shipping Area</th>
@@ -30,7 +30,7 @@
             {
                 <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
                     <td>
-                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description"> @Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
+                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description">@Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
                     </td>
                     <td style="text-align:right">@Html.DisplayFor(m=>m.PickingAreaList[i].LocationCount)</td>
                     <td style="text-align: center" title="Numberd Location">
