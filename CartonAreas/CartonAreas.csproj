@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Repository\Area.cs" />
     <Compile Include="Repository\CartonArea.cs" />
+    <Compile Include="Repository\CartonAreasRepositoryUpdate.cs" />
     <Compile Include="Repository\CodeDescriptionModel.cs" />
     <Compile Include="Repository\Location.cs" />
     <Compile Include="Repository\LocationFilter.cs" />

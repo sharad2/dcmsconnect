@@ -144,7 +144,7 @@ namespace Links_CartonAreas {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string a1_gif = Url("a1.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/a1.gif");
                     public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/ajax-loader.gif");
-                    public static readonly string BOL_JPG = Url("BOL.JPG")+"?"+T4Extensions.TimestampString(URLPATH + "/BOL.JPG");
+                    public static readonly string BOL_jpg = Url("BOL.jpg")+"?"+T4Extensions.TimestampString(URLPATH + "/BOL.jpg");
                 }
             
             }

@@ -1,5 +1,4 @@
-﻿///#source 1 1 /Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js
-/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 $(document).ready(function () {
     //$('#btnLocation,#btnAssignedSku').button({ icons: { primary: 'ui-icon-circle-check'} });
@@ -175,12 +174,11 @@ $(document).ready(function () {
 /*
 $Id: ManageCartonAreas.partial.js 24559 2014-05-27 07:57:27Z spandey $ 
 $Revision: 24559 $
-$URL: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24559 2014-05-27 07:57:27Z spandey $
+$URL: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
+$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24559 2014-05-27 07:57:27Z spandey $
 $Author: spandey $
 $Date: 2014-05-27 13:27:27 +0530 (Tue, 27 May 2014) $
 */
-///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
 // $Id: AutoComplete.partial.js 8401 2011-12-14 12:19:00Z spandey $
