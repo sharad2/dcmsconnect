@@ -12,5 +12,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Display(Name = "Building")]
         [DisplayFormat(NullDisplayText = "(All)")]
         public string BuildingId { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int LocationCount { get; set; }
     }
 }

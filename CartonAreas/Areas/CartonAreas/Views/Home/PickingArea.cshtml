@@ -16,6 +16,7 @@
         <thead>
             <tr>
                 <th>Area : Description</th>
+                <th>#Location</th>
                 <th>Numberd</th>
                 <th>Picking Area</th>
                 <th>Restock Area</th>
@@ -31,19 +32,20 @@
                     <td>
                         @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description"> @Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
                     </td>
-                    <td title="Numberd Location">
+                    <td style="text-align:right">@Html.DisplayFor(m=>m.PickingAreaList[i].LocationCount)</td>
+                    <td style="text-align: center" title="Numberd Location">
                         <span class="@(Model.PickingAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")" title="Numberd Location"
                               style="display: inline-block;"></span>
                     </td>
-                    <td title="Picking Area">
+                    <td style="text-align: center" title="Picking Area">
                         <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check data-Picking-Area" : "")" title="Picking Area"
                               style="display: inline-block;"></span>
                     </td>
-                    <td title="Restock Area">
+                    <td style="text-align: center"  title="Restock Area">
                         <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check data-Restock-Area" : "")" title="Restock Area"
                               style="display: inline-block;"></span>
                     </td>
-                    <td title="Shipping Area">
+                    <td style="text-align: center" title="Shipping Area">
                         <span class="@(Model.PickingAreaList[i].IsShippingArea ? "ui-icon ui-icon-check data-Shipping-Area" : "")" title="Shipping Area"
                               style="display: inline-block;"></span>
                     </td>

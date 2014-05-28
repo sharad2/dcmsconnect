@@ -10,5 +10,7 @@ namespace DcmsMobile.CartonAreas.Repository
         public bool IsRestockArea { get; set; }
 
         public bool LocationNumberingFlag { get; set; }
+
+        public int LocationCount { get; set; }
     }
 }

@@ -463,7 +463,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                        ShortName = area.ShortName,
                                        IsPickingArea = area.IsPickingArea,
                                        IsRestockArea = area.IsRestockArea,
-                                       IsShippingArea = area.IsShippingArea
+                                       IsShippingArea = area.IsShippingArea,
+                                       LocationCount=area.LocationCount
                                    }).ToArray()
             };
             return View(Views.PickingArea, model);
