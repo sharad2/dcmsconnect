@@ -138,7 +138,11 @@
                     }
                     $('#tbDescription').val($tr.find('span.data-Description').text());
                     $(this).dialog({ title: $tr.find('span.ui-icon-pencil').attr('title') });
-                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
+                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });                
+                    InputOnLoad = $("#divUpdatePickingAreaDialog").html();
+                }, 
+                close: function (event, ui) {
+                    $("#divUpdatePickingAreaDialog").html(InputOnLoad);
                 },
                 buttons: [
                     {
