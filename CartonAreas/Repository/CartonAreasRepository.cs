@@ -266,7 +266,8 @@ namespace DcmsMobile.CartonAreas.Repository
                     ON MSKU2.SKU_ID = SCD.SKU_ID
                  WHERE 1 = 1
                <if>AND MSL.STORAGE_AREA = :AREA_ID</if>
-               <if>AND MSL.LOCATION_ID = :LOCATION_ID</if>                
+               <if>AND MSL.LOCATION_ID = :LOCATION_ID</if>
+               <if>AND MSL.LOCATION_ID LIKE :SEARCHLOCATION || '%'</if>
                <if>AND MSL.ASSIGNED_SKU_ID = :SKU_ID</if>
                <if c=""$EMPTY_LOCATION_FLAG = 'true' "">
                    AND NOT EXISTS
@@ -317,6 +318,7 @@ namespace DcmsMobile.CartonAreas.Repository
                         }
                 }).Parameter("AREA_ID", filters.CartonAreaId)
                 .Parameter("LOCATION_ID", filters.LocationId)
+                .Parameter("SEARCHLOCATION", filters.SearchLocationLike)
                .Parameter("EMPTY_LOCATION_FLAG", filters.EmptyLocations.HasValue ? filters.EmptyLocations.ToString().ToLower() : "")
                .Parameter("SKU_ID", filters.SkuId);
             if (filters.SkuId == null)

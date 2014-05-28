@@ -394,9 +394,16 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                     AssignedLocations = assigned,
                     EmptyLocations = emptyLocations,
                     SkuId = assignedSkuId,
-                    SkuEntry = skuEntry,
-                    LocationId = locationId
+                    SkuEntry = skuEntry
                 };
+                if (!string.IsNullOrWhiteSpace(locationId))
+                {
+                    filterModel.SearchLocationLike = locationId.Contains("*") ? locationId.Remove(locationId.Length - 1) : null;
+                    if (string.IsNullOrWhiteSpace(filterModel.SearchLocationLike))
+                    {
+                        filterModel.LocationId = locationId;
+                    }
+                }
                 var locations = _service.GetLocations(filterModel);
                 if (locations.Count() == 0)
                 {

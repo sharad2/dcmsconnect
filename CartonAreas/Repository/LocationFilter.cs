@@ -30,6 +30,8 @@ namespace DcmsMobile.CartonAreas.Repository
         public string SkuEntry { get; set; }
 
         public string LocationId { get; set; }
+
+        public string SearchLocationLike { get; set; }
     }
 }
 //$Id$
