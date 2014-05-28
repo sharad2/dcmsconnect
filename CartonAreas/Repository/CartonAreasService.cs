@@ -142,6 +142,12 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             return _repos.GetPickingAreas(buildingId);
         }
+
+
+        public void UpdatePickingArea(PickingArea model)
+        {
+            _repos.UpdatePickingArea(model);
+        }
     }
 }
 //$Id$

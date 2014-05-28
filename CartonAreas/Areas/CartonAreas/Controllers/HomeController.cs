@@ -474,6 +474,29 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         {
             return View(Views.Tutorial);
         }
+
+        public virtual ActionResult UpdatePickingArea(PickingAreaViewModel model)
+        {
+            try
+            {
+                var updatePickingAreas = new PickingArea
+                {
+                    AreaId = model.AreaId,                
+                    Description=model.Description,
+                    IsPickingArea=model.IsPickingArea,
+                    IsRestockArea=model.IsRestockArea,
+                    IsShippingArea=model.IsShippingArea,
+                    LocationNumberingFlag=model.LocationNumberingFlag //TODO:How to update,not implemented in repository yet.                   
+                };
+                _service.UpdatePickingArea(updatePickingAreas);
+                AddStatusMessage(string.Format("Picking Area {0} successfully updated", updatePickingAreas.ShortName));
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.PickingArea(model.BuildingId));
+        }
     }
 }
 

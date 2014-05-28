@@ -97,6 +97,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public System.Web.Mvc.ActionResult PickingArea() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.PickingArea);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult UpdatePickingArea() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_CartonAreas.CartonAreas.Home; } }
@@ -127,6 +132,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string UnassignLocation = "UnassignLocation";
             public readonly string PickingArea = "PickingArea";
             public readonly string Tutorial = "Tutorial";
+            public readonly string UpdatePickingArea = "UpdatePickingArea";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -146,6 +152,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public const string UnassignLocation = "UnassignLocation";
             public const string PickingArea = "PickingArea";
             public const string Tutorial = "Tutorial";
+            public const string UpdatePickingArea = "UpdatePickingArea";
         }
 
 
@@ -236,6 +243,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_PickingArea {
             public readonly string buildingId = "buildingId";
+        }
+        static readonly ActionParamsClass_UpdatePickingArea s_params_UpdatePickingArea = new ActionParamsClass_UpdatePickingArea();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpdatePickingArea UpdatePickingAreaParams { get { return s_params_UpdatePickingArea; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpdatePickingArea {
+            public readonly string model = "model";
         }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -347,6 +361,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         public override System.Web.Mvc.ActionResult Tutorial() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Tutorial);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult UpdatePickingArea(DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;
         }
 

@@ -160,5 +160,31 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("COUNTRY_CODE", building.Address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
         }
+
+
+        public void UpdatePickingArea(PickingArea pickingArea)
+        {
+            const string QUERY = @"BEGIN
+                                          UPDATE IA I
+                                             SET I.SHORT_DESCRIPTION  = :SHORT_DESCRIPTION,
+                                                 I.SHIPPING_AREA_FLAG = :SHIPPING_AREA_FLAG,
+                                                 I.RESOCK_AREA_FLAG   = :RESOCK_AREA_FLAG,
+                                                 I.PICKING_AREA_FLAG  = :PICKING_AREA_FLAG
+                                           WHERE I.IA_ID = :IA_ID;
+                                          IF SQL%ROWCOUNT = 0 THEN
+                                            RAISE_APPLICATION_ERROR(20000, 'Area ' || :IA_ID || ' not found');
+                                          END IF;
+                                        END;";
+            var binder = SqlBinder.Create()
+                .Parameter("SHORT_DESCRIPTION", pickingArea.Description)
+                .Parameter("SHIPPING_AREA_FLAG", pickingArea.IsShippingArea ? "Y" : "")
+                .Parameter("RESOCK_AREA_FLAG", pickingArea.IsRestockArea ? "Y" : "")
+                .Parameter("PICKING_AREA_FLAG", pickingArea.IsPickingArea ? "Y" : "")
+                .Parameter("IA_ID", pickingArea.AreaId);
+            _db.ExecuteNonQuery(QUERY, binder);
+
+
+        }
+
     }
 }
