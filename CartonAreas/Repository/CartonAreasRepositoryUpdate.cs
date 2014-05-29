@@ -87,7 +87,7 @@ namespace DcmsMobile.CartonAreas.Repository
             }
             const string QUERY = @"
                 BEGIN
-                    UPDATE TAB_WAREHOUSE_LOCATION T
+                    UPDATE <proxy />TAB_WAREHOUSE_LOCATION T
                            SET T.DESCRIPTION  = :DESCRIPTION,
                                T.ADDRESS_1    = :ADDRESS_1,
                                T.ADDRESS_2    = :ADDRESS_2,
@@ -120,7 +120,7 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             const string QUERY = @" 
                     BEGIN
-                        INSERT INTO TAB_WAREHOUSE_LOCATION T
+                        INSERT INTO <proxy />TAB_WAREHOUSE_LOCATION T
                                   (T.WAREHOUSE_LOCATION_ID,
                                    T.ADDRESS_1,
                                    T.ADDRESS_2,
@@ -161,11 +161,10 @@ namespace DcmsMobile.CartonAreas.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-
         public void UpdatePickingArea(PickingArea pickingArea)
         {
             const string QUERY = @"BEGIN
-                                          UPDATE IA I
+                                          UPDATE <proxy />IA I
                                              SET I.SHORT_DESCRIPTION  = :SHORT_DESCRIPTION,
                                                  I.SHIPPING_AREA_FLAG = :SHIPPING_AREA_FLAG,
                                                  I.RESOCK_AREA_FLAG   = :RESOCK_AREA_FLAG,
