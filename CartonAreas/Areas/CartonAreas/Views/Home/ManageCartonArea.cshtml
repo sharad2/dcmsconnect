@@ -47,9 +47,9 @@
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilter(), FormMethod.Get))
         {
             <div>
-                @Html.HiddenFor(m => m.CurrentArea.AreaId, new { id = "hfAreaId" })
+                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.areaId" value="@Model.CurrentArea.AreaId" id="hfAreaId" />
                 @Html.LabelFor(m => m.LocationId)
-                @Html.TextBoxFor(m => m.LocationId)
+                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.locationId" value="@Model.LocationId">
                 <button type="submit" id="btnLocation">
                     Go
                 </button>
@@ -62,12 +62,11 @@
                 <input type="hidden" value="@Model.CurrentArea.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
                 @Html.LabelFor(m => m.AssignedSkuText)
                 <input type="hidden" value="@Model.AssignedSkuId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
-                @Html.TextBoxFor(m => m.AssignedSkuText, new Dictionary<string, object>
-   {
-           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())},
-         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
-         {"data-ac-extra-param", Model.CurrentArea.AreaId}
-   })<sup>&darr;*</sup>
+                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuText" value="@Model.AssignedSkuText"
+                       data-ac-list-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())"
+                       data-ac-validate-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())"
+                       data-ac-extra-param="@Model.CurrentArea.AreaId" />
+                <sup>&darr;*</sup>
                 <button type="submit">Go</button>
                 <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSkuText)" class="sku-display"></span>
             </div>

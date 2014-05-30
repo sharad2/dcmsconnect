@@ -302,7 +302,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <summary>
         /// Called when the user enters the assigned SKU to search for
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="areaId"></param>
+        /// <param name="assignedSkuId"></param>
+        /// <param name="assignedSkuText"></param>
         /// <returns></returns>
         /// <remarks>
         /// We clear the model state since we do not want server side validation. Server validation causes problems because
@@ -317,12 +319,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <summary>
         /// Called when the user enters any location to search for
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="areaId"></param>
+        /// <param name="locationId"></param>
         /// <returns></returns>
-        public virtual ActionResult ApplyLocationIdFilter(ManageCartonAreaViewModel model)
+        public virtual ActionResult ApplyLocationIdFilter(string areaId,string locationId)
         {
             ModelState.Clear();
-            return DoManageCartonArea(model.CurrentArea.AreaId, null, null, null, null, model.LocationId);
+            return DoManageCartonArea(areaId, null, null, null, null, locationId);
         }
 
         /// <summary>

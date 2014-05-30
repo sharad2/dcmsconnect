@@ -222,7 +222,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_ApplyLocationIdFilter ApplyLocationIdFilterParams { get { return s_params_ApplyLocationIdFilter; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ApplyLocationIdFilter {
-            public readonly string model = "model";
+            public readonly string areaId = "areaId";
+            public readonly string locationId = "locationId";
         }
         static readonly ActionParamsClass_UpdateLocation s_params_UpdateLocation = new ActionParamsClass_UpdateLocation();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -338,9 +339,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyLocationIdFilter(DcmsMobile.CartonAreas.ViewModels.ManageCartonAreaViewModel model) {
+        public override System.Web.Mvc.ActionResult ApplyLocationIdFilter(string areaId, string locationId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyLocationIdFilter);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
             return callInfo;
         }
 
