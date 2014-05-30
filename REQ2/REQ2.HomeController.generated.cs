@@ -23,9 +23,6 @@ using T4MVC;
 namespace DcmsMobile.REQ2.Areas.REQ2.Controllers {
     public partial class HomeController {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public HomeController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -40,6 +37,46 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers {
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult CreateRequest() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateRequest);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult UpdateRequest() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateRequest);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult DisplayExistingRequest() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DisplayExistingRequest);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult DeleteRequest() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteRequest);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult DisplayRequest() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DisplayRequest);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult DisplayCartonList() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DisplayCartonList);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult AddSku() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.AddSku);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult DeleteSku() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteSku);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_REQ2.REQ2.Home; } }
@@ -55,24 +92,108 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
+            public readonly string CreateRequest = "CreateRequest";
             public readonly string Index = "Index";
-            public readonly string ToggleEmulation = "ToggleEmulation";
+            public readonly string UpdateRequest = "UpdateRequest";
+            public readonly string DisplayExistingRequest = "DisplayExistingRequest";
+            public readonly string DeleteRequest = "DeleteRequest";
+            public readonly string DisplayRequest = "DisplayRequest";
+            public readonly string DisplayCartonList = "DisplayCartonList";
+            public readonly string AddSku = "AddSku";
+            public readonly string DeleteSku = "DeleteSku";
+            public readonly string AssignCartons = "AssignCartons";
+            public readonly string UnAssignCartons = "UnAssignCartons";
+            public readonly string Tutorial = "Tutorial";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
+            public const string CreateRequest = "CreateRequest";
             public const string Index = "Index";
-            public const string ToggleEmulation = "ToggleEmulation";
+            public const string UpdateRequest = "UpdateRequest";
+            public const string DisplayExistingRequest = "DisplayExistingRequest";
+            public const string DeleteRequest = "DeleteRequest";
+            public const string DisplayRequest = "DisplayRequest";
+            public const string DisplayCartonList = "DisplayCartonList";
+            public const string AddSku = "AddSku";
+            public const string DeleteSku = "DeleteSku";
+            public const string AssignCartons = "AssignCartons";
+            public const string UnAssignCartons = "UnAssignCartons";
+            public const string Tutorial = "Tutorial";
         }
 
 
+        static readonly ActionParamsClass_CreateRequest s_params_CreateRequest = new ActionParamsClass_CreateRequest();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CreateRequest CreateRequestParams { get { return s_params_CreateRequest; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CreateRequest {
+            public readonly string ctnresvId = "ctnresvId";
+        }
+        static readonly ActionParamsClass_UpdateRequest s_params_UpdateRequest = new ActionParamsClass_UpdateRequest();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UpdateRequest UpdateRequestParams { get { return s_params_UpdateRequest; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UpdateRequest {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_DisplayExistingRequest s_params_DisplayExistingRequest = new ActionParamsClass_DisplayExistingRequest();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DisplayExistingRequest DisplayExistingRequestParams { get { return s_params_DisplayExistingRequest; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DisplayExistingRequest {
+            public readonly string reqId = "reqId";
+        }
+        static readonly ActionParamsClass_DeleteRequest s_params_DeleteRequest = new ActionParamsClass_DeleteRequest();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DeleteRequest DeleteRequestParams { get { return s_params_DeleteRequest; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DeleteRequest {
+            public readonly string resvId = "resvId";
+        }
+        static readonly ActionParamsClass_DisplayRequest s_params_DisplayRequest = new ActionParamsClass_DisplayRequest();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DisplayRequest DisplayRequestParams { get { return s_params_DisplayRequest; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DisplayRequest {
+            public readonly string ctnresvId = "ctnresvId";
+        }
+        static readonly ActionParamsClass_DisplayCartonList s_params_DisplayCartonList = new ActionParamsClass_DisplayCartonList();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DisplayCartonList DisplayCartonListParams { get { return s_params_DisplayCartonList; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DisplayCartonList {
+            public readonly string ctnresvId = "ctnresvId";
+        }
+        static readonly ActionParamsClass_AddSku s_params_AddSku = new ActionParamsClass_AddSku();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddSku AddSkuParams { get { return s_params_AddSku; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddSku {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_DeleteSku s_params_DeleteSku = new ActionParamsClass_DeleteSku();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DeleteSku DeleteSkuParams { get { return s_params_DeleteSku; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DeleteSku {
+            public readonly string skuId = "skuId";
+            public readonly string resvId = "resvId";
+        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string Index = "Index";
-            public readonly string Index_mobile = "Index.mobile";
+            public readonly string _assignedCartonInfoPartial = "_assignedCartonInfoPartial";
+            public readonly string _existingRequestPartial = "_existingRequestPartial";
+            public readonly string _manageSkuListPartial = "_manageSkuListPartial";
+            public readonly string _recentRequestListPartial = "_recentRequestListPartial";
+            public readonly string CartonList = "CartonList";
+            public readonly string CreateRequest = "CreateRequest";
+            public readonly string ManageSku = "ManageSku";
+            public readonly string RecentRequests = "RecentRequests";
+            public readonly string Tutorial = "Tutorial";
         }
     }
 
@@ -80,13 +201,72 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers {
     public class T4MVC_HomeController: DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
+        public override System.Web.Mvc.ActionResult CreateRequest(string ctnresvId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateRequest);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
+            return callInfo;
+        }
+
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ToggleEmulation() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ToggleEmulation);
+        public override System.Web.Mvc.ActionResult UpdateRequest(DcmsMobile.REQ2.ViewModels.SelectRequestViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateRequest);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DisplayExistingRequest(string reqId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DisplayExistingRequest);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "reqId", reqId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DeleteRequest(string resvId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteRequest);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "resvId", resvId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DisplayRequest(string ctnresvId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DisplayRequest);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DisplayCartonList(string ctnresvId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DisplayCartonList);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult AddSku(DcmsMobile.REQ2.ViewModels.ManageSkuViewModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddSku);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult DeleteSku(int? skuId, string resvId) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteSku);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "skuId", skuId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "resvId", resvId);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult AssignCartons() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AssignCartons);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult UnAssignCartons() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnAssignCartons);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult Tutorial() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Tutorial);
             return callInfo;
         }
 

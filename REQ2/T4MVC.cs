@@ -31,9 +31,8 @@ namespace T4MVC {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public class REQ2Class {
         public readonly string Name = "REQ2";
+        public DcmsMobile.REQ2.Areas.REQ2.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController Home = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_HomeController();
-        public DcmsMobile.REQ2.Areas.REQ2.Controllers.PullController Pull = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_PullController();
-        public DcmsMobile.REQ2.Areas.REQ2.Controllers.ReqController Req = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_ReqController();
         public T4MVC.REQ2.SharedController Shared = new T4MVC.REQ2.SharedController();
     }
 }
@@ -64,13 +63,9 @@ namespace Links_REQ2 {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        public static readonly string jquery_ui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.js") ? Url("jquery-ui.min.js") : Url("jquery-ui.js");
                       
-        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
-                      
-        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js") : Url("jquery-2.0.3.js");
-                      
-        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
+        public static readonly string jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.min.js") ? Url("jquery.min.js") : Url("jquery.js");
                       
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
                       
@@ -89,18 +84,19 @@ namespace Links_REQ2 {
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Start1_10_0 {
-                private const string URLPATH = "~/Content/themes/Start1.10.0";
+            public static class Default {
+                private const string URLPATH = "~/Content/themes/Default";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
-                    private const string URLPATH = "~/Content/themes/Start1.10.0/images";
+                    private const string URLPATH = "~/Content/themes/Default/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }
             
-                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
+                public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
+                     
             }
         
         }
@@ -132,15 +128,8 @@ namespace Links_REQ2 {
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
-                public static readonly string ManageSku_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku.min.css") ? Url("ManageSku.min.css") : Url("ManageSku.css");
-                     
-                public static readonly string ManageSku_min_css = Url("ManageSku.min.css");
-                public static readonly string PULL_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PULL-all.min.css") ? Url("PULL-all.min.css") : Url("PULL-all.css");
-                     
-                public static readonly string PULL_all_min_css = Url("PULL-all.min.css");
                 public static readonly string REQ2_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2-all.min.css") ? Url("REQ2-all.min.css") : Url("REQ2-all.css");
                      
-                public static readonly string REQ2_all_min_css = Url("REQ2-all.min.css");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -155,8 +144,6 @@ namespace Links_REQ2 {
                 private const string URLPATH = "~/Areas/REQ2/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string CreateRequest_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateRequest-all.min.js") ? Url("CreateRequest-all.min.js") : Url("CreateRequest-all.js");
-                              
                 public static readonly string ManageSku_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku-all.min.js") ? Url("ManageSku-all.min.js") : Url("ManageSku-all.js");
                               
                 public static readonly string RecentRequest_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RecentRequest-all.min.js") ? Url("RecentRequest-all.min.js") : Url("RecentRequest-all.js");
@@ -174,28 +161,10 @@ namespace Links_REQ2 {
                     private const string URLPATH = "~/Areas/REQ2/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string Index_mobile_cshtml = Url("Index.mobile.cshtml");
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Pull {
-                    private const string URLPATH = "~/Areas/REQ2/Views/Pull";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _layout_cshtml = Url("_layout.cshtml");
-                    public static readonly string Carton_cshtml = Url("Carton.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string Pallet_cshtml = Url("Pallet.cshtml");
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Req {
-                    private const string URLPATH = "~/Areas/REQ2/Views/Req";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string _assignedCartonInfoPartial_cshtml = Url("_assignedCartonInfoPartial.cshtml");
                     public static readonly string _existingRequestPartial_cshtml = Url("_existingRequestPartial.cshtml");
                     public static readonly string _manageSkuListPartial_cshtml = Url("_manageSkuListPartial.cshtml");
+                    public static readonly string _recentRequestListPartial_cshtml = Url("_recentRequestListPartial.cshtml");
                     public static readonly string CartonList_cshtml = Url("CartonList.cshtml");
                     public static readonly string CreateRequest_cshtml = Url("CreateRequest.cshtml");
                     public static readonly string ManageSku_cshtml = Url("ManageSku.cshtml");
@@ -208,7 +177,8 @@ namespace Links_REQ2 {
                     private const string URLPATH = "~/Areas/REQ2/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _layout_cshtml = Url("_layout.cshtml");
+                    public static readonly string _layoutReq_cshtml = Url("_layoutReq.cshtml");
+                    public static readonly string _layoutReq_Mobile_cshtml = Url("_layoutReq.Mobile.cshtml");
                 }
             
             }

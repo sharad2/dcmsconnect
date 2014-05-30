@@ -102,42 +102,14 @@ using System.Runtime.InteropServices;
 // On carton list page now the header is Carton List instead of Cartonlist.
 // Added exception handling script for source and target sku auto complete.
 
-// Change log from 1.0.12.0 to 1.0.13.0 (Branched by Binod on 8 jan 2013)
+// Change log from 1.0.12.0 to 1.0.13.0 (Tagged by Ankit Sharma on 10 jan 2013)
 // Bug Fixed : When we delete a request from recent requests then all the delete icons get enable.Issue is fixed now.
 // Upgraded to MVC4 and remove warnings.
 // Binod 7 Jan 2013: Removed obsolete HandleAjaxErrorAttribute
 
-// Change log from 1.0.13.0 -> 1.1.0.0 (Branched by Rajesh Kandari on 25 jun 2013)
-// Sharad 5 Feb 2013: Upgraded to jquery UI 1.10
-// Now user can search cartons while creating request.
-// Copy request feature: Allows you to create new request for same source and destination area quickly. You just need to change the SKU.
-// Provided cascading dropdown list for selected building.
-// Autocomplete now suggest inactive SKUs also.
-
-// Change log from 1.1.0.0 -> ?
-// Sharad 2 Jul 2013: Upgraded to jquery 2.0.2 for IE > 8
-// Major UI changes in REQ2.
-// Backend Dependency
-// 1: Dependency on SKU_ID column of SRC_REQ_DETAIL
-// 2: Renamed CONVERSION_AREA flag name to IS_CONVERSION_AREA of TAB_INVENTORY_AREA table.
-// 
-
-[assembly: AssemblyProduct(@"
-<ol>
-<li>
-Now user can also provide the search criteria for the cartons.
-</li>
-<li>
-Copy request feature: Allows you to create new request for same source and destination area quickly. You just need to change the SKU.
-</li>
-<li>
-Provided cascading dropdown list for selected building.
-</li>
-<li>
-Autocomplete now suggest inactive SKUs also.
-</li>
-</ol>
-")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+// Change log from 1.0.13.0 to 1.0.13.1 (Tagged by HKV on 16 Aug 2013)
+// Bug fixed: Carton List page was breaking when there is more than 1000 cartons in a Request. Now we are showing only 500 cartons.
+[assembly: AssemblyVersion("1.0.13.1")]
+[assembly: AssemblyFileVersion("1.0.13.1")]
+[assembly: AssemblyProduct("Bug fixed: Carton List page was breaking when there is more than 1000 cartons in a Request.")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("REQ2.Test")]

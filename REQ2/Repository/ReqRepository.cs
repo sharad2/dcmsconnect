@@ -1,29 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics.Contracts;
 using System.Web;
 using DcmsMobile.REQ2.Models;
 using EclipseLibrary.Oracle;
+using EclipseLibrary.Oracle.Helpers;
 
 namespace DcmsMobile.REQ2.Repository
 {
+
+
     public class ReqRepository : IDisposable
     {
-        #region Initialization
+        #region Intialization
 
-        private OracleDatastore _db;
+        private readonly OracleDatastore _db;
 
-        /// <summary>
-        /// For injecting the value through unit tests
-        /// </summary>
-        /// <param name="db"></param>
-        public ReqRepository(OracleDatastore db)
-        {
-            _db = db;
-        }
-
-        /// <summary>
-        /// For use in tests
-        /// </summary>
         public OracleDatastore Db
         {
             get
@@ -32,25 +25,82 @@ namespace DcmsMobile.REQ2.Repository
             }
         }
 
-        public ReqRepository(TraceContext ctx, string connectString, string userName, string clientInfo, string moduleName)
+        /// <summary>
+        /// Constructor of class used to create the connection to database.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="moduleName"></param>
+        /// <param name="clientInfo"></param>
+        /// <param name="trace"></param>
+        public ReqRepository(string userName, string moduleName, string clientInfo, TraceContext trace)
         {
-            var db = new OracleDatastore(ctx);
-            db.CreateConnection(connectString, userName);
 
-            db.ModuleName = moduleName;
-            db.ClientInfo = clientInfo;
+            const string MODULE_CODE = "REQ2";
+            Contract.Assert(ConfigurationManager.ConnectionStrings["dcms8"] != null);
+            var store = new OracleDatastore(trace);
+            store.CreateConnection(ConfigurationManager.ConnectionStrings["dcms8"].ConnectionString,
+                userName);
+            store.ModuleName = MODULE_CODE;
+            store.ClientInfo = clientInfo;
+            _db = store;
+        }
+
+        /// <summary>
+        /// For use in unit tests
+        /// </summary>
+        /// <param name="db"></param>
+        public ReqRepository(OracleDatastore db)
+        {
             _db = db;
         }
 
         public void Dispose()
         {
-            if (_db != null)
+            var dis = _db as IDisposable;
+            if (dis != null)
             {
-                _db.Dispose();
+                dis.Dispose();
             }
         }
 
         #endregion
+
+
+        /// <summary>
+        /// Returns all carton areas
+        /// 25-1-2012: Removing conversion area.Now conversion can be done in any area.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CartonArea> GetCartonAreas(string areaId)
+        {
+            const string QUERY =
+                @"
+                SELECT TIA.INVENTORY_STORAGE_AREA   AS INVENTORY_STORAGE_AREA,
+                       TIA.DESCRIPTION              AS DESCRIPTION,
+                       TIA.SHORT_NAME               AS SHORT_NAME,
+                       TIA.STORES_WHAT              AS  STORES_WHAT,
+                       TIA.LOCATION_NUMBERING_FLAG  AS LOCATION_NUMBERING_FLAG,
+                       TIA.WAREHOUSE_LOCATION_ID    AS WAREHOUSE_LOCATION_ID,
+                       TIA.UNUSABLE_INVENTORY       AS UNUSABLE_INVENTORY
+                  FROM <proxy />TAB_INVENTORY_AREA TIA
+               <if>
+                WHERE TIA.INVENTORY_STORAGE_AREA  = :INVENTORY_STORAGE_AREA
+                </if>
+                 ORDER BY TIA.INVENTORY_STORAGE_AREA
+        ";
+            var binder = SqlBinder.Create(row => new CartonArea
+            {
+                AreaId = row.GetString("INVENTORY_STORAGE_AREA"),
+                Description = row.GetString("DESCRIPTION"),
+                ShortName = row.GetString("SHORT_NAME"),
+                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
+                LocationNumberingFlag = row.GetString("LOCATION_NUMBERING_FLAG") == "Y",
+                UnusableInventory = row.GetString("UNUSABLE_INVENTORY") == "Y",
+                IsCartonArea = row.GetString("STORES_WHAT") == "CTN"
+            }).Parameter("INVENTORY_STORAGE_AREA", areaId);
+            return _db.ExecuteReader(QUERY, binder);
+
+        }
 
         /// <summary>
         /// Getting the list of Quality Codes
@@ -76,6 +126,28 @@ namespace DcmsMobile.REQ2.Repository
 
 
         /// <summary>
+        /// Get sale types
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CodeDescriptionModel> GetSaleTypeList()
+        {
+            const string QUERY =
+                @"
+               SELECT T.SALES_TYPE_ID    AS SALES_TYPE_ID,
+                      T.DESCRIPTION     AS DESCRIPTION
+                FROM <proxy />TAB_SALE_TYPE T
+                WHERE T.INACTIVE_FLAG IS NULL ORDER BY SALES_TYPE_ID
+        ";
+            var binder = SqlBinder.Create(row => new CodeDescriptionModel
+            {
+                Code = row.GetString("SALES_TYPE_ID"),
+                Description = row.GetString("DESCRIPTION")
+            });
+
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
+        /// <summary>
         /// Getting the list of Virtual Warehouse
         /// </summary>
         /// <returns></returns>
@@ -99,29 +171,16 @@ namespace DcmsMobile.REQ2.Repository
 
 
         /// <summary>
-        /// Getting list of those Buildings which have both numbered and unnumbered areas
+        /// Getting list of Building.
         /// </summary>
         /// <returns></returns>
         public IEnumerable<CodeDescriptionModel> GetBuildingList()
         {
             const string QUERY = @"
-                                WITH Q1 AS 
-                                (
-                                  SELECT DISTINCT (TWL.WAREHOUSE_LOCATION_ID), TWL.DESCRIPTION
-                                    FROM <proxy />TAB_WAREHOUSE_LOCATION TWL
-                                    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                                      ON TIA.WAREHOUSE_LOCATION_ID = TWL.WAREHOUSE_LOCATION_ID
-                                   WHERE TIA.LOCATION_NUMBERING_FLAG IS NOT NULL
-                                     AND TIA.STORES_WHAT = 'CTN'
-                                  INTERSECT
-                                  SELECT DISTINCT (TWL.WAREHOUSE_LOCATION_ID), TWL.DESCRIPTION
-                                    FROM <proxy />TAB_WAREHOUSE_LOCATION TWL
-                                    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                                      ON TIA.WAREHOUSE_LOCATION_ID = TWL.WAREHOUSE_LOCATION_ID
-                                   WHERE TIA.LOCATION_NUMBERING_FLAG IS NULL
-                                     AND TIA.UNUSABLE_INVENTORY IS NULL
-                                )
-                                SELECT * FROM Q1 ORDER BY Q1.WAREHOUSE_LOCATION_ID
+            SELECT TWL.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
+                    TWL.DESCRIPTION          AS DESCRIPTION
+              FROM <proxy />TAB_WAREHOUSE_LOCATION TWL
+             ORDER BY WAREHOUSE_LOCATION_ID
             ";
             var binder = SqlBinder.Create(row => new CodeDescriptionModel
             {
@@ -156,44 +215,80 @@ namespace DcmsMobile.REQ2.Repository
 
 
         /// <summary>
+        /// Getting Building of passed area
+        /// </summary>
+        /// <returns></returns>
+        public string GetBuildingofArea(string areaId)
+        {
+            const string QUERY =
+        @"SELECT TIA.Warehouse_Location_Id FROM <proxy />TAB_INVENTORY_AREA TIA
+          WHERE TIA.INVENTORY_STORAGE_AREA = :areaId
+        ";
+            var binder = SqlBinder.Create(row => row.GetString("Warehouse_Location_Id")).Parameter("areaId", areaId);
+            return _db.ExecuteSingle(QUERY, binder);
+        }
+
+        /// <summary>
+        /// This method is use for find ctnresvId
+        /// </summary>
+        /// <param name="reqId"></param>
+        /// <returns></returns>
+        public string GetCtnRevId(string reqId)
+        {
+            const string QUERY =
+           @"  select c.ctn_resv_id
+             from  <proxy />ctnresv c where c.dcms4_req_id=:dcms4_req_id";
+            var binder = SqlBinder.Create(row => row.GetString("ctn_resv_id")).Parameter("dcms4_req_id", reqId);
+            return _db.ExecuteSingle(QUERY, binder);
+        }
+
+        /// <summary>
         /// Creates a new request and returns the request id.
         /// 25-1-2012:Insert IS_CONVERSION_REQUEST colomn value in table when request is for conversion.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public string CreateRequest(Request model)
+        public void CreateCartonRequest(RequestModel model)
         {
             //TODO: remove hardwirings of Module Code
             const string QUERY = @"
                         declare
-                        Lresv_rec <proxy />pkg_ctnresv_2.resv_rec_type;
+                        Lresv_rec <proxy />pkg_ctnresv.resv_rec_type;
+                        LGroup_Id VARCHAR2(255);
                     begin
                       Lresv_rec.ctn_resv_id := :resv_id;
                       Lresv_rec.source_area := :source_area;
                       Lresv_rec.destination_area := :destination_area;
+                      Lresv_rec.pieces_constraint := :pieces_constraint;
                       Lresv_rec.vwh_id := :source_vwh_id;
                       Lresv_rec.conversion_vwh_id := :conversion_vwh_id;
                       Lresv_rec.priority := :priority;
                       Lresv_rec.quality_code := :quality_code;
                       Lresv_rec.target_quality := :target_quality;
-                      Lresv_rec.module_code := 'REQ3';
+                      Lresv_rec.module_code := 'REQ2';
                       Lresv_rec.warehouse_location_id := :warehouse_location_id;
+                      Lresv_rec.packaging_preference := :packaging_preference;
+                      Lresv_rec.sale_type_id := :sale_type_id;
                       Lresv_rec.price_season_code := :price_season_code;
                       Lresv_rec.sewing_plant_code := :sewing_plant_code;
                       Lresv_rec.receive_date := :receive_date;
                       Lresv_rec.is_conversion_request := :is_conversion_request;
                       Lresv_rec.remarks := :remarks;
-                      :ctn_resv_id := <proxy />pkg_ctnresv_2.create_resv_id(aresv_rec =&gt; Lresv_rec);
+                      :ctn_resv_id := <proxy />pkg_ctnresv.create_resv_id(aresv_rec =&gt; Lresv_rec,
+                                                            actnresv_group_id =&gt; LGroup_Id);
                     end;";
             var binder = SqlBinder.Create()
                 .Parameter("source_area", model.SourceAreaId)
                 .Parameter("destination_area", model.DestinationArea)
+                .Parameter("pieces_constraint", model.AllowOverPulling)
                 .Parameter("source_vwh_id", model.SourceVwhId)
                 .Parameter("conversion_vwh_id", model.TargetVwhId)
                 .Parameter("priority", model.Priority)
                 .Parameter("quality_code", model.SourceQuality)
                 .Parameter("target_quality", model.TargetQuality)
                 .Parameter("warehouse_location_id", model.BuildingId)
+                .Parameter("packaging_preference", model.PackagingPreferance)
+                .Parameter("sale_type_id", model.SaleTypeId)
                 .Parameter("price_season_code", model.PriceSeasonCode)
                 .Parameter("sewing_plant_code", model.SewingPlantCode)
                 .Parameter("remarks", model.Remarks)
@@ -202,58 +297,10 @@ namespace DcmsMobile.REQ2.Repository
                 .Parameter("is_conversion_request", model.IsConversionRequest ? "Y" : "")
                 .OutParameter("ctn_resv_id", val => model.CtnResvId = val)
             ;
+
             _db.ExecuteNonQuery(QUERY, binder);
 
-            return model.CtnResvId;
-        }
-
-        /// <summary>
-        /// Update an existing request.
-        /// </summary>
-        public void UpdateRequest(Request updatedRequest)
-        {
-            const string QUERY = @"
-                    DECLARE
-                      -- Non-scalar parameters require additional processing 
-                      ANEW_RESV_REC <proxy />PKG_CTNRESV_2.RESV_REC_TYPE;
-                    BEGIN
-                      ANEW_RESV_REC.CTN_RESV_ID           := :RESV_ID;
-                      ANEW_RESV_REC.SOURCE_AREA           := :SOURCE_AREA;
-                      ANEW_RESV_REC.DESTINATION_AREA      := :DESTINATION_AREA;
-                      ANEW_RESV_REC.VWH_ID                := :aSOURCE_VWH_ID;
-                      ANEW_RESV_REC.CONVERSION_VWH_ID     := :CONVERSION_VWH_ID;
-                      ANEW_RESV_REC.PRIORITY              := :PRIORITY;
-                      ANEW_RESV_REC.QUALITY_CODE          := :QUALITY_CODE;
-                      ANEW_RESV_REC.TARGET_QUALITY        := :TARGET_QUALITY;
-                      ANEW_RESV_REC.WAREHOUSE_LOCATION_ID := :WAREHOUSE_LOCATION_ID;
-                      ANEW_RESV_REC.PRICE_SEASON_CODE     := :PRICE_SEASON_CODE;
-                      ANEW_RESV_REC.SEWING_PLANT_CODE     := :SEWING_PLANT_CODE;
-                      ANEW_RESV_REC.RECEIVE_DATE          := :RECEIVE_DATE;
-                      ANEW_RESV_REC.IS_CONVERSION_REQUEST := :IS_CONVERSION_REQUEST;
-                      ANEW_RESV_REC.REMARKS               := :REMARKS;
-
-                      -- Call the procedure
-                      <proxy />PKG_CTNRESV_2.UPDATE_RESV_ID(ANEW_RESV_REC =&gt; ANEW_RESV_REC,
-                                                            AROW_SEQ   =&gt; :AROW_SEQ);
-                    END;";
-            var binder = SqlBinder.Create()
-                .Parameter("source_area", updatedRequest.SourceAreaId)
-                .Parameter("destination_area", updatedRequest.DestinationArea)
-                .Parameter("asource_vwh_id", updatedRequest.SourceVwhId)
-                .Parameter("conversion_vwh_id", updatedRequest.TargetVwhId)
-                .Parameter("priority", updatedRequest.Priority)
-                .Parameter("quality_code", updatedRequest.SourceQuality)
-                .Parameter("target_quality", updatedRequest.TargetQuality)
-                .Parameter("warehouse_location_id", updatedRequest.BuildingId)
-                .Parameter("price_season_code", updatedRequest.PriceSeasonCode)
-                .Parameter("sewing_plant_code", updatedRequest.SewingPlantCode)
-                .Parameter("remarks", updatedRequest.Remarks)
-                .Parameter("receive_date", updatedRequest.CartonReceivedDate)
-                .Parameter("resv_id", updatedRequest.CtnResvId)
-                .Parameter("is_conversion_request", updatedRequest.IsConversionRequest ? "Y" : "")
-                .Parameter("AROW_SEQ", updatedRequest.RowSequence)
-                ;
-            _db.ExecuteNonQuery(QUERY, binder);
+            return;
         }
 
         /// <summary>
@@ -265,7 +312,7 @@ namespace DcmsMobile.REQ2.Repository
             const string QUERY =
                             @"
                             begin
-                                <proxy />pkg_ctnresv_2.delete_ctnresv(actn_resv_id =&gt; :ctn_resv_id);
+                                <proxy />pkg_ctnresv.delete_ctnresv(actn_resv_id =&gt; :ctn_resv_id);
                             end;
                         ";
             var binder = SqlBinder.Create().Parameter("ctn_resv_id", ctnresvId);
@@ -297,99 +344,88 @@ namespace DcmsMobile.REQ2.Repository
         /// 25-1-2012: Showing IS_CONVERSION_REQUEST column value.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Request> GetRequests(string ctnResvId, int maxRows)
+        public IEnumerable<RequestModel> GetRequests(string ctnResvId, int maxRows)
         {
             const string QUERY = @"
-                      WITH CARTON_RESERVATIONS AS
-                             (SELECT T.CTN_RESV_ID      AS CTN_RESV_ID,
-                                     ROW_NUMBER() OVER(PARTITION BY T.CTN_RESV_ID ORDER BY T.CTN_RESV_ID) AS SEQUENCE_WITHIN_RESV_ID,
-                                     DENSE_RANK() OVER(ORDER BY T.INSERT_DATE DESC, T.PRIORITY DESC) AS RANK_BY_CREATION,
-                                     T.PRIORITY         AS PRIORITY,
-                                     T.TARGET_QUALITY   AS TARGET_QUALITY,
-                                     T.SOURCE_AREA      AS SOURCE_AREA,
-                                     T.DESTINATION_AREA AS DESTINATION_AREA,
-                                     T.VWH_ID           AS VWH_ID,
-                                     T.CONVERSION_VWH_ID AS CONVERSION_VWH_ID,
-                                     T.SEWING_PLANT_CODE AS SEWING_PLANT_CODE,
-                                     T.QUALITY_CODE AS QUALITY_CODE,
-                                     T.PRICE_SEASON_CODE AS PRICE_SEASON_CODE,
-                                     T.RECEIVE_DATE AS RECEIVE_DATE,
-                                     T.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
-                                     SUM(CD.QUANTITY_REQUESTED) OVER(PARTITION BY T.CTN_RESV_ID) AS QUANTITY_REQUESTED,
-                                     T.INSERT_DATE AS INSERT_DATE,
-                                     T.REMARKS AS REMARKS,
-                                     T.INSERTED_BY AS INSERTED_BY,
-                                     T.IS_CONVERSION_REQUEST AS IS_CONVERSION_REQUEST,
-                                     COUNT(UNIQUE MS.SKU_ID) OVER(PARTITION BY T.CTN_RESV_ID) AS REQUESTED_SKU_COUNT,
-                                     T.ASSIGN_DATE AS ASSIGN_DATE,
-                                     T.ORA_ROWSCN AS ROW_SEQUENCE
-                                FROM <proxy />CTNRESV T
-                               LEFT OUTER JOIN <proxy />CTNRESV_DETAIL CD
-                                  ON T.CTN_RESV_ID = CD.CTN_RESV_ID
-                                LEFT OUTER JOIN <proxy />MASTER_SKU MS
-                                  ON MS.SKU_ID = CD.SKU_ID
-                               WHERE T.MODULE_CODE = 'REQ3'
-                              <if>AND T.CTN_RESV_ID = :CTN_RESV_ID</if>
-                              ),
-
-                            ASSIGNED_CARTON_SUMMARY AS
-                             (SELECT C.CTN_RESV_ID AS CTN_RESV_ID,
-                                     COUNT(CASE
-                                             WHEN CPC.IS_PULLED = 'Y' THEN
-                                              CPC.CARTON_ID
-                                           END) AS PULLED_CARTONS,
-                                     COUNT(CASE
-                                             WHEN SC.WORK_NEEDED_XML IS NOT NULL THEN
-                                              SC.CARTON_ID
-                                           END) AS REWORK_CARTON_COUNT,
-                                     SUM(NVL(CPC.QUANTITY, 0)) AS TOTAL_PIECES_IN_CARTONS,
-                                     COUNT(DISTINCT(CPC.CARTON_ID)) AS CARTON_COUNT
-                                FROM <proxy />CTNRESV C
-                               INNER JOIN <proxy />CTNRESV_DETAIL CD
-                                  ON C.CTN_RESV_ID = CD.CTN_RESV_ID
-                               INNER JOIN <proxy />CTNRESV_PULL_CARTON CPC
-                                  ON CPC.REQ_PROCESS_ID = CD.REQ_PROCESS_ID
-                               INNER JOIN <proxy />SRC_CARTON SC
-                                  ON SC.CARTON_ID = CPC.CARTON_ID
-                               GROUP BY C.CTN_RESV_ID)
-                            SELECT REQ.CTN_RESV_ID             AS CTN_RESV_ID,
-                                   REQ.SOURCE_AREA             AS SOURCE_AREA,
-                                   TIA.SHORT_NAME              AS SOURCE_AREA_SHORT_NAME,
-                                   REQ.DESTINATION_AREA        AS DESTINATION_AREA,
-                                   TIA2.SHORT_NAME             AS DESTINATION_AREA_SHORT_NAME,
-                                   REQ.VWH_ID                  AS VWH_ID,
-                                   REQ.CONVERSION_VWH_ID       AS CONVERSION_VWH_ID,
-                                   REQ.SEWING_PLANT_CODE       AS SEWING_PLANT_CODE,
-                                   REQ.QUALITY_CODE            AS QUALITY_CODE,
-                                   REQ.PRICE_SEASON_CODE       AS PRICE_SEASON_CODE,
-                                   REQ.RECEIVE_DATE            AS RECEIVE_DATE,
-                                   REQ.WAREHOUSE_LOCATION_ID   AS WAREHOUSE_LOCATION_ID,
-                                   REQ.QUANTITY_REQUESTED      AS QUANTITY_REQUESTED,
-                                   REQ.INSERT_DATE             AS INSERT_DATE,
-                                   REQ.REMARKS                 AS REMARKS,
-                                   REQ.INSERTED_BY             AS INSERTED_BY,
-                                   REQ.PRIORITY                AS PRIORITY,
-                                   REQ.TARGET_QUALITY          AS TARGET_QUALITY,
-                                   CTN.CARTON_COUNT            AS CARTON_COUNT,
-                                   REQ.IS_CONVERSION_REQUEST   AS IS_CONVERSION_REQUEST,
-                                   CTN.TOTAL_PIECES_IN_CARTONS AS TOTAL_PIECES_IN_CARTONS,
-                                   REQ.REQUESTED_SKU_COUNT     AS REQUESTED_SKU_COUNT,
-                                   CTN.PULLED_CARTONS          AS PULLED_CARTONS,
-                                   REQ.ASSIGN_DATE             AS ASSIGN_DATE,
-                                   REQ.ROW_SEQUENCE            AS ROW_SEQUENCE,     
-                                   CTN.REWORK_CARTON_COUNT     AS REWORK_CARTON_COUNT
-                              FROM CARTON_RESERVATIONS REQ
-                              LEFT OUTER JOIN ASSIGNED_CARTON_SUMMARY CTN
-                                ON CTN.CTN_RESV_ID = REQ.CTN_RESV_ID
-                              LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                                ON TIA.INVENTORY_STORAGE_AREA = REQ.SOURCE_AREA
-                              LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA2
-                                ON TIA2.INVENTORY_STORAGE_AREA = REQ.DESTINATION_AREA
-                             WHERE REQ.SEQUENCE_WITHIN_RESV_ID = 1
-                             AND REQ.RANK_BY_CREATION &lt;= :MAX_ROWS
-                              ORDER BY REQ.RANK_BY_CREATION
+            WITH REQUESTS AS
+             (SELECT T.CTN_RESV_ID                                 AS CTN_RESV_ID,
+                     MAX(T.DCMS4_REQ_ID)                           AS DCMS4_REQ_ID,
+                     ROW_NUMBER() OVER(ORDER BY MAX(T.INSERT_DATE) DESC, MAX(T.PRIORITY) DESC, T.CTN_RESV_ID) AS ROW_SEQUENCE,
+                     MAX(T.PRIORITY)                               AS PRIORITY,
+                     MAX(T.TARGET_QUALITY)                         AS TARGET_QUALITY,
+                     MAX(T.SOURCE_AREA)                            AS SOURCE_AREA,
+                     MAX(T.DESTINATION_AREA)                       AS DESTINATION_AREA,
+                     MAX(T.VWH_ID)                                 AS VWH_ID,
+                     MAX(T.CONVERSION_VWH_ID)                      AS CONVERSION_VWH_ID,
+                     MAX(T.SEWING_PLANT_CODE)                      AS SEWING_PLANT_CODE,
+                     MAX(T.QUALITY_CODE)                           AS QUALITY_CODE,
+                     MAX(T.ASSIGNED_FLAG)                          AS ASSIGNED_FLAG,
+                     MAX(T.PIECES_CONSTRAINT)                      AS OVERPULLING,
+                     MAX(T.PACKAGING_PREFERENCE)                   AS PACKAGING_PREFERENCE,
+                     MAX(T.PRICE_SEASON_CODE)                      AS PRICE_SEASON_CODE,
+                     MAX(T.SALE_TYPE_ID)                           AS SALE_TYPE_ID,
+                     MAX(T.RECEIVE_DATE)                           AS RECEIVE_DATE,
+                     MAX(T.WAREHOUSE_LOCATION_ID)                  AS WAREHOUSE_LOCATION_ID,
+                     SUM(REQDET.QUANTITY_REQUESTED)                AS QUANTITY_REQUESTED,
+                     MAX(T.INSERT_DATE)                            AS INSERT_DATE,
+                     MAX(T.REMARKS)                                AS REMARKS,
+                     MAX(T.INSERTED_BY)                            AS INSERTED_BY,
+                     MAX(T.IS_CONVERSION_REQUEST)                  AS IS_CONVERSION_REQUEST,
+                     MAX(REQDET.REQDET.REQ_PROCESS_ID)             AS REQ_PROCESS_ID
+                FROM <proxy />CTNRESV T
+                LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
+                  ON T.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
+                 AND T.MODULE_CODE = REQDET.REQ_MODULE_CODE
+               WHERE T.MODULE_CODE = 'REQ2'
+               <if>
+                 AND T.CTN_RESV_ID = :CTN_RESV_ID
+               </if>
+               GROUP BY T.CTN_RESV_ID),
+            CARTONS AS
+             (SELECT COUNT(*)                AS CARTON_COUNT,
+                     CTNDET.REQ_PROCESS_ID   AS REQ_PROCESS_ID,
+                     SUM(CTNDET.QUANTITY)    AS TOTAL_PIECES
+                FROM <proxy />SRC_CARTON_DETAIL CTNDET
+               WHERE CTNDET.REQ_MODULE_CODE = 'REQ2'
+               GROUP BY CTNDET.REQ_PROCESS_ID)
+            SELECT REQ.CTN_RESV_ID           AS CTN_RESV_ID,
+                   REQ.DCMS4_REQ_ID          AS DCMS4_REQ_ID,
+                   REQ.SOURCE_AREA           AS SOURCE_AREA,
+                   TIA.SHORT_NAME            AS SOURCE_AREA_SHORT_NAME,
+                   REQ.DESTINATION_AREA      AS DESTINATION_AREA,
+                   TIA2.SHORT_NAME           AS DESTINATION_AREA_SHORT_NAME,
+                   REQ.VWH_ID                AS VWH_ID,
+                   REQ.CONVERSION_VWH_ID     AS CONVERSION_VWH_ID,
+                   REQ.SEWING_PLANT_CODE     AS SEWING_PLANT_CODE,
+                   REQ.QUALITY_CODE          AS QUALITY_CODE,
+                   REQ.ASSIGNED_FLAG         AS ASSIGNED_FLAG,
+                   REQ.OVERPULLING           AS OVERPULLING,
+                   REQ.PACKAGING_PREFERENCE  AS PACKAGING_PREFERENCE,
+                   REQ.PRICE_SEASON_CODE     AS PRICE_SEASON_CODE,
+                   REQ.SALE_TYPE_ID          AS SALE_TYPE_ID,
+                   REQ.RECEIVE_DATE          AS RECEIVE_DATE,
+                   REQ.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
+                   REQ.QUANTITY_REQUESTED    AS QUANTITY_REQUESTED,
+                   REQ.INSERT_DATE           AS INSERT_DATE,
+                   REQ.REMARKS               AS REMARKS,
+                   REQ.INSERTED_BY           AS INSERTED_BY,
+                   REQ.PRIORITY              AS PRIORITY,
+                   REQ.TARGET_QUALITY        AS TARGET_QUALITY,
+                   CTN.CARTON_COUNT          AS CARTON_COUNT,
+                   REQ.IS_CONVERSION_REQUEST AS IS_CONVERSION_REQUEST,
+                   CTN.TOTAL_PIECES          AS TOTAL_PIECES
+              FROM REQUESTS REQ
+              LEFT OUTER JOIN CARTONS CTN
+                ON CTN.REQ_PROCESS_ID = REQ.REQ_PROCESS_ID
+              LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA
+                ON TIA.INVENTORY_STORAGE_AREA = REQ.SOURCE_AREA
+              LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA TIA2
+                ON TIA2.INVENTORY_STORAGE_AREA = REQ.DESTINATION_AREA
+             WHERE REQ.ROW_SEQUENCE &lt;= :max_rows
+             ORDER BY REQ.ROW_SEQUENCE
             ";
-            var binder = SqlBinder.Create(row => new Request
+            //var binder = new SqlBinder<RequestModel>("GetRecentRequests");
+            var binder = SqlBinder.Create(row => new RequestModel
             {
                 CtnResvId = row.GetString("CTN_RESV_ID"),
                 SourceAreaId = row.GetString("SOURCE_AREA"),
@@ -403,20 +439,20 @@ namespace DcmsMobile.REQ2.Repository
                 DestinationArea = row.GetString("DESTINATION_AREA"),
                 DestinationAreaShortName = row.GetString("DESTINATION_AREA_SHORT_NAME"),
                 QuantityRequested = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
+                AssignedFlag = row.GetString("ASSIGNED_FLAG") == "Y",
                 TargetVwhId = row.GetString("CONVERSION_VWH_ID"),
                 SewingPlantCode = row.GetString("SEWING_PLANT_CODE"),
                 SourceQuality = row.GetString("QUALITY_CODE"),
+                AllowOverPulling = row.GetString("OVERPULLING"),
+                PackagingPreferance = row.GetString("PACKAGING_PREFERENCE"),
                 PriceSeasonCode = row.GetString("PRICE_SEASON_CODE"),
                 CartonReceivedDate = row.GetDate("RECEIVE_DATE"),
+                SaleTypeId = row.GetString("SALE_TYPE_ID"),
                 AssignedCartonCount = row.GetInteger("CARTON_COUNT") ?? 0,
-                AssignedPieces = row.GetInteger("TOTAL_PIECES_IN_CARTONS") ?? 0,
+                AssignedPieces = row.GetInteger("total_pieces") ?? 0,
+                ReqId = row.GetInteger("DCMS4_REQ_ID"),
                 TargetQuality = row.GetString("TARGET_QUALITY"),
                 IsConversionRequest = row.GetString("IS_CONVERSION_REQUEST") == "Y",
-                RequestedSkuCount = row.GetInteger("REQUESTED_SKU_COUNT"),
-                PulledCartons = row.GetInteger("PULLED_CARTONS"),
-                AssignDate = row.GetDate("ASSIGN_DATE"),
-                RowSequence = row.GetDecimal("ROW_SEQUENCE"),
-                ReworkCartonCount = row.GetInteger("REWORK_CARTON_COUNT")
             }).Parameter("CTN_RESV_ID", ctnResvId)
             .Parameter("max_rows", maxRows);
             return _db.ExecuteReader(QUERY, binder);
@@ -427,48 +463,41 @@ namespace DcmsMobile.REQ2.Repository
         /// </summary>
         /// <param name="ctnresvId"></param>
         /// <returns></returns>
-        public IEnumerable<RequestSku> GetRequestSkus(string ctnresvId)
+        public IEnumerable<RequestSkuModel> GetRequestSkus(string ctnresvId)
         {
-            const string QUERY = @"SELECT max(MSKU.STYLE) AS STYLE,
-                                       MAX(MSKU.COLOR) AS COLOR,
-                                       MAX(MSKU.DIMENSION) AS DIMENSION,
-                                       MAX(MSKU.SKU_SIZE) AS SKU_SIZE,
-                                       REQDET.SKU_ID AS SKU_ID,
-                                       MAX(MSKUCONV.STYLE) AS CON_STYLE_,
-                                       MAX(MSKUCONV.COLOR) AS CON_COLOR_,
-                                       MAX(MSKUCONV.DIMENSION) AS CON_DIMENSION_,
-                                       MAX(MSKUCONV.SKU_SIZE) AS CON_SKU_SIZE_,
-                                       MAX(MSKUCONV.SKU_ID) AS CON_SKU_ID,
-                                       MAX(REQDET.QUANTITY_REQUESTED) AS QUANTITY_REQUESTED,
-                                       COUNT(DISTINCT CPC.CARTON_ID) AS TOTAL_CARTONS,
-                                       COUNT(CASE
-                                               WHEN CPC.IS_PULLED = 'Y' THEN
-                                                CPC.CARTON_ID
-                                               ELSE
-                                                NULL
-                                             END) AS PULLED_CARTONS,
-                                       SUM(CPC.QUANTITY) AS NUM_PIECES
-                                  FROM <proxy />CTNRESV_DETAIL REQDET
-                                 INNER JOIN <proxy />CTNRESV C
-                                    ON C.CTN_RESV_ID = REQDET.CTN_RESV_ID
-                                  LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
-                                    ON MSKU.SKU_ID = REQDET.SKU_ID
-                                  LEFT OUTER JOIN <proxy />MASTER_SKU MSKUCONV
-                                    ON MSKUCONV.SKU_ID = REQDET.TARGET_SKU_ID
-                                  LEFT OUTER JOIN <proxy />CTNRESV_PULL_CARTON CPC
-                                    ON CPC.REQ_PROCESS_ID = REQDET.REQ_PROCESS_ID
-                                 WHERE C.CTN_RESV_ID = :ctnresv_id
-                                 GROUP BY C.CTN_RESV_ID, C.MODULE_CODE, REQDET.SKU_ID
-                         ORDER BY MAX(REQDET.INSERT_DATE) DESC
-
+            const string QUERY = @"
+            SELECT 
+                   MAX(REQDET.STYLE)                    AS STYLE,
+                   MAX(REQDET.COLOR)                    AS COLOR,
+                   MAX(REQDET.DIMENSION)                AS DIMENSION,
+                   MAX(REQDET.SKU_SIZE)                 AS SKU_SIZE,
+                   MAX(MSKU.SKU_ID)                     AS SKU_ID,
+                   MAX(REQDET.CONVERSION_STYLE)         AS CON_STYLE_,
+                   MAX(REQDET.CONVERSION_COLOR)         AS CON_COLOR_,
+                   MAX(REQDET.CONVERSION_DIMENSION)     AS CON_DIMENSION_,
+                   MAX(REQDET.CONVERSION_SKU_SIZE)      AS CON_SKU_SIZE_,
+                   MAX(MSKUCONV.SKU_ID)                 AS CON_SKU_ID,
+                   MAX(REQDET.QUANTITY_REQUESTED)       AS QUANTITY_REQUESTED
+              FROM <proxy />CTNRESV C
+              INNER JOIN <proxy />SRC_REQ_DETAIL REQDET
+                ON C.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
+              LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
+                ON MSKU.STYLE = REQDET.STYLE
+               AND MSKU.COLOR = REQDET.COLOR
+               AND MSKU.DIMENSION = REQDET.DIMENSION
+               AND MSKU.SKU_SIZE = REQDET.SKU_SIZE
+              LEFT OUTER JOIN <proxy />MASTER_SKU MSKUCONV
+                ON MSKUCONV.STYLE = REQDET.CONVERSION_STYLE
+               AND MSKUCONV.COLOR = REQDET.CONVERSION_COLOR
+               AND MSKUCONV.DIMENSION = REQDET.CONVERSION_DIMENSION
+               AND MSKUCONV.SKU_SIZE = REQDET.CONVERSION_SKU_SIZE
+             WHERE C.CTN_RESV_ID = :ctnresv_id
+            GROUP BY REQDET.REQ_PROCESS_ID, REQDET.REQ_LINE_NUMBER
         ";
-            var binder = SqlBinder.Create(row => new RequestSku
+            var binder = SqlBinder.Create(row => new RequestSkuModel
             {
                 Pieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
-                PulledCartons = row.GetInteger("PULLED_CARTONS"),
-                TotalCartons = row.GetInteger("TOTAL_CARTONS"),
-                AssignedPieces = row.GetInteger("NUM_PIECES"),
-                SourceSku = new Sku
+                SourceSku = new SkuModel
                 {
                     Style = row.GetString("STYLE"),
                     Color = row.GetString("COLOR"),
@@ -477,7 +506,7 @@ namespace DcmsMobile.REQ2.Repository
                     SkuId = row.GetInteger("SKU_ID") ?? 0,
                 },
 
-                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new Sku
+                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new SkuModel
                 {
                     Style = row.GetString("CON_STYLE_"),
                     Color = row.GetString("CON_COLOR_"),
@@ -486,132 +515,206 @@ namespace DcmsMobile.REQ2.Repository
                     SkuId = row.GetInteger("CON_SKU_ID") ?? 0
                 } : null
             }).Parameter("ctnresv_id", ctnresvId);
+            //var binder = new SqlBinder<RequestSkuModel>("GetRequestInfo");
+            //binder.Parameter("ctnresv_id", ctnresvId);
+            //binder.CreateMapper(QUERY, config =>
+            //    config.CreateMap<RequestSkuModel>()
+            //            .MapField("QUANTITY_REQUESTED", dest => dest.Pieces)
+            //            .ForMember(dest => dest.SourceSku, opt => opt.MapFrom(src => src.GetValue<int?>("SKU_ID").HasValue ? new SkuModel
+            //            {
+            //                Color = src.GetValue<string>("COLOR"),
+            //                Dimension = src.GetValue<string>("DIMENSION"),
+            //                SkuSize = src.GetValue<string>("SKU_SIZE"),
+            //                Style = src.GetValue<string>("STYLE"),
+            //                SkuId = src.GetValue<int>("SKU_ID")
+            //            } : null))
+            //            .ForMember(dest => dest.TargetSku, opt => opt.MapFrom(src => src.GetValue<int?>("CON_SKU_ID").HasValue ? new SkuModel
+            //            {
+            //                Color = src.GetValue<string>("CON_COLOR"),
+            //                Dimension = src.GetValue<string>("CON_DIMENSION"),
+            //                SkuSize = src.GetValue<string>("CON_SKU_SIZE"),
+            //                Style = src.GetValue<string>("CON_STYLE"),
+            //                SkuId = src.GetValue<int>("CON_SKU_ID")
+            //            } : null))
+            //            );
             var result = _db.ExecuteReader(QUERY, binder);
             return result;
         }
 
-
-        public IEnumerable<CartonList> GetCartonList(string ctnresvId)
+        /// <summary>
+        /// Getting the list of cartons assigned to passed reservation id 
+        /// </summary>
+        /// <param name="ctnresvId"></param>
+        /// <returns></returns>
+        public IEnumerable<AssignedCarton> GetAssignedCartons(string ctnresvId)
         {
             const string QUERY =
-                              @"SELECT SRC.CARTON_ID          AS CARTON_ID,
-                                       CTNRESV.CTN_RESV_ID    AS CTN_RESV_ID,
-                                       SC.QUALITY_CODE        AS QUALITY_CODE,
-                                       SC.VWH_ID              AS VWH_ID,
-                                       SRC.QUANTITY           AS QUANTITY,
-                                       SC.WORK_NEEDED_XML     AS REWORK_NEEDED,
-                                       SC.CARTON_STORAGE_AREA AS INVENTORY_STORAGE_AREA,
-                                       TIA.SHORT_NAME         AS SHORT_NAME,
-                                       TIA.DESCRIPTION        AS AREA_DESCRIPTION
-                                  FROM <proxy />CTNRESV_PULL_CARTON SRC
-                                  LEFT OUTER JOIN <proxy />SRC_CARTON SC
-                                    ON SRC.CARTON_ID = SC.CARTON_ID
-                                 INNER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                                    ON TIA.INVENTORY_STORAGE_AREA = SC.CARTON_STORAGE_AREA
-                                  LEFT OUTER JOIN <proxy />CTNRESV_DETAIL REQDET
-                                    ON SRC.REQ_PROCESS_ID = REQDET.REQ_PROCESS_ID
-                                  LEFT OUTER JOIN <proxy />CTNRESV CTNRESV
-                                    ON REQDET.CTN_RESV_ID = CTNRESV.CTN_RESV_ID
-                                 WHERE CTNRESV.CTN_RESV_ID = :CTN_RESV_ID
+                @"
+                 SELECT ctndet.style AS style,
+                        ctndet.color AS color,
+                        ctndet.dimension AS dimension,
+                        ctndet.sku_size AS sku_size,
+                        ctndet.sku_id AS sku_id,
+                        count(DISTINCT ctndet.carton_id) AS num_cartons,
+                        count(DISTINCT DECODE(ctn.carton_storage_area,
+                                    c.source_area,
+                                    NULL,
+                                    ctndet.carton_id)) AS pulled_cartons,
+                        SUM(ctndet.quantity) AS num_pieces,
+                        SUM(DECODE(ctn.carton_storage_area,
+                                    c.source_area,
+                                    0,
+                                    ctndet.quantity)) AS pulled_pieces
+                    FROM <proxy />ctnresv c
+                    INNER JOIN <proxy />src_carton_detail ctndet 
+                            ON c.dcms4_req_id = ctndet.req_process_id
+                    AND c.module_code = ctndet.req_module_code
+                    INNER JOIN <proxy />src_carton ctn 
+                            ON ctndet.carton_id = ctn.carton_id 
+                    WHERE c.ctn_resv_id = :ctnresv_id
+                      AND c.module_code = 'REQ2'
+                    GROUP BY ctndet.style, ctndet.color, ctndet.dimension, ctndet.sku_size, ctndet.sku_id
+                    ORDER BY ctndet.style, ctndet.color, ctndet.dimension, ctndet.sku_size
+            ";
+            var binder = SqlBinder.Create(row => new AssignedCarton
+            {
+                PulledCartons = row.GetInteger("pulled_cartons").Value,
+                PulledPieces = row.GetInteger("pulled_pieces").Value,
+                TotalCartons = row.GetInteger("num_cartons").Value,
+                TotalPieces = row.GetInteger("num_pieces").Value,
+                Sku = new SkuModel
+                {
+                    Style = row.GetString("STYLE"),
+                    Color = row.GetString("COLOR"),
+                    Dimension = row.GetString("DIMENSION"),
+                    SkuSize = row.GetString("SKU_SIZE"),
+                    SkuId = row.GetInteger("SKU_ID").Value
+                }
+            }).Parameter("ctnresv_id", ctnresvId);
+            var result = _db.ExecuteReader(QUERY, binder);
+            return result;
+        }
 
+        public IEnumerable<CartonList> GetCartonList(string ctnresvId, int maxRows)
+        {
+            const string QUERY =
+ @"SELECT SRC.CARTON_ID AS ACARTON_ID,
+       MAX(SRC.PALLET_ID) AS PALLET_ID,
+       MAX(CTNRESV.CTN_RESV_ID) AS CTN_RESV_ID,
+       MAX(reqdet.req_process_id) As req_process_id,
+       MAX(SRC.CARTON_STORAGE_AREA) AS CARTON_STORAGE_AREA,
+       MAX(IA.DESCRIPTION) AS AREA_DESCRIPTION,
+       MAX(SRC.QUALITY_CODE) AS QUALITY_CODE,
+       MAX(SRC.VWH_ID) AS VWH_ID,
+       SUM(SRCD.QUANTITY) AS QUANTITY
+    FROM <proxy />SRC_CARTON SRC
+    LEFT OUTER JOIN <proxy />SRC_CARTON_DETAIL SRCD
+     ON SRCD.CARTON_ID = SRC.CARTON_ID
+    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA IA
+     ON IA.INVENTORY_STORAGE_AREA = SRC.CARTON_STORAGE_AREA
+    LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT TSP
+     ON TSP.SEWING_PLANT_CODE = SRC.SEWING_PLANT_CODE
+    LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
+     ON SRCD.REQ_PROCESS_ID = REQDET.REQ_PROCESS_ID
+     AND SRCD.REQ_LINE_NUMBER = REQDET.REQ_LINE_NUMBER
+     AND SRCD.REQ_MODULE_CODE = REQDET.REQ_MODULE_CODE
+    LEFT OUTER JOIN <proxy />CTNRESV CTNRESV
+     ON REQDET.REQ_PROCESS_ID = CTNRESV.DCMS4_REQ_ID
+     WHERE 1 = 1
+     AND CTNRESV.CTN_RESV_ID =:CTN_RESV_ID
+     AND ROWNUM &lt;= :max_rows
+  GROUP BY SRC.CARTON_ID
+ ORDER BY carton_storage_area
   ";
             var binder = SqlBinder.Create(row => new CartonList
             {
-                CartonId = row.GetString("CARTON_ID"),
-                AreaShortName = row.GetString("SHORT_NAME"),
-                StoregeArea = row.GetString("INVENTORY_STORAGE_AREA"),
+                CartonId = row.GetString("ACARTON_ID"),
+                PalletId = row.GetString("PALLET_ID"),
+                StoregeArea = row.GetString("CARTON_STORAGE_AREA"),
                 AreaDescription = row.GetString("AREA_DESCRIPTION"),
                 QuilityCode = row.GetString("QUALITY_CODE"),
                 VwhId = row.GetString("VWH_ID"),
+                ReqId = row.GetInteger("req_process_id") ?? 0,
                 CtnresvId = row.GetString("CTN_RESV_ID"),
                 Quantity = row.GetInteger("QUANTITY") ?? 0,
-                ReworkNeeded = row.GetString("REWORK_NEEDED")
-            }).Parameter("CTN_RESV_ID", ctnresvId);
+            }).Parameter("CTN_RESV_ID", ctnresvId).Parameter("max_rows", maxRows);
             return _db.ExecuteReader(QUERY, binder);
         }
 
         /// <summary>
         /// Adds SKU to passed request
         /// </summary>
+        /// <param name="requestSkuModel"></param>
         /// <param name="ctnresvId"></param>
-        /// <param name="skuId"></param>
-        /// <param name="pieces">If the SKU already exists in the request, the existing pieces are replaced by the passed pieces</param>
-        /// <param name="conversionSkuId"></param>
-        public int AddSkutoRequest(string ctnresvId, int skuId, int pieces, int? conversionSkuId)
+        public void AddSkutoRequest(string ctnresvId, int skuId, int pieces, int? conversionSkuId)
         {
+            // Remove hardwirings
+            // DB: TODO Why destination location is needed ???
+
             const string QUERY = @"
                begin
-                       :result := <proxy />pkg_ctnresv_2.MERGE_SKU(actn_resv_id =&gt; :ctn_resv_id,
+                          <proxy />pkg_ctnresv.add_sku(actn_resv_id =&gt; :ctn_resv_id,
                                           asku_id =&gt; :sku_id,
+                                          apieces_per_package =&gt; 1,
                                           arequired_pieces =&gt; :quantity_requested,
+                                          adestination_location =&gt; :dest_area,
                                           atarget_sku_id =&gt; :conversion_sku_id);
                     end;";
-            int count = 0;
             var binder = SqlBinder.Create().Parameter("ctn_resv_id", ctnresvId)
                   .Parameter("sku_id", skuId)
                   .Parameter("quantity_requested", pieces)
+                  .Parameter("dest_area", "")
                   .Parameter("conversion_sku_id", conversionSkuId);
-            binder.OutParameter("result", val => count = val ?? 0);
             _db.ExecuteNonQuery(QUERY, binder);
-            return count;
         }
 
         /// <summary>
-        /// Delete an SKU from a request. Also delete any cartons assigned to this request which contain this SKU. Do not delete pulled cartons.
+        /// Delete an SKU from a request
         /// </summary>
         /// <param name="skuId"></param>
         /// <param name="ctnresvId"></param>
         public void DeleteSkuFromRequest(int skuId, string ctnresvId)
         {
             const string QUERY = @"
-    DECLARE
-           Lresult number;
-        BEGIN
-           Lresult := <proxy /> PKG_CTNRESV_2.MERGE_SKU(ACTN_RESV_ID        =&gt; :ACTN_RESV_ID,
-                                                        ASKU_ID             =&gt; :ASKU_ID,
-                                                        AREQUIRED_PIECES    =&gt; 0,
-                                                        ATARGET_SKU_ID      =&gt; NULL);
-            END;";
+               begin
+                <proxy />pkg_ctnresv.delete_sku(actn_resv_id => :ctn_resv_id,
+                                            asku_id => :sku_id);
+              end;";
 
             var binder = SqlBinder.Create()
-                .Parameter("ACTN_RESV_ID", ctnresvId)
-                .Parameter("ASKU_ID", skuId);
+                .Parameter("ctn_resv_id", ctnresvId)
+                .Parameter("sku_id", skuId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
         /// <summary>
         /// This method Assigns carton to the request
         /// </summary>
-        public int AssignCartons(string ctnresvId)
+        public void AssignCartons(string ctnresvId)
         {
             const string QUERY = @"
                 BEGIN
-                  :RESULT :=  <proxy />pkg_ctnresv_2.assign(actn_resv_id =&gt; :ctn_resv_id);
+                    <proxy />pkg_ctnresv.assign(actn_resv_id =&gt; :ctn_resv_id,
+                                        acustomer_id =&gt; NULL);
                 END;";
-            int pieces = 0;
             var binder = SqlBinder.Create().Parameter("ctn_resv_id", ctnresvId);
-            binder.OutParameter("result", val => pieces = val ?? 0);
             _db.ExecuteNonQuery(QUERY, binder);
-            return pieces;
         }
 
         /// <summary>
         /// This method is used to unassigned the cartons from a request
         /// </summary>
         /// <param name="ctnresvId"></param>
-        public int UnAssignCartons(string ctnresvId)
+        public void UnAssignCartons(string ctnresvId)
         {
             const string QUERY =
                             @"
                             BEGIN
-                                :result := <proxy />pkg_ctnresv_2.unassign(actn_resv_id =&gt; :ctn_resv_id);
+                                <proxy />pkg_ctnresv.unassign(actn_resv_id =&gt; :ctn_resv_id);
                             END;
                         ";
-            int cartons = 0;
             var binder = SqlBinder.Create().Parameter("ctn_resv_id", ctnresvId);
-            binder.OutParameter("result", val => cartons = val ?? 0);
             _db.ExecuteNonQuery(QUERY, binder);
-            return cartons;
         }
 
         /// <summary>
@@ -624,7 +727,7 @@ namespace DcmsMobile.REQ2.Repository
         /// <returns>
         /// Return style,color,dimension,SKuSize and SKuId.
         /// </returns>
-        public Sku GetSku(string style, string color, string dimension, string skuSize)
+        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
         {
             const string QUERY =
                              @" SELECT MSKU.SKU_ID      AS SKU_ID,
@@ -638,7 +741,7 @@ namespace DcmsMobile.REQ2.Repository
                                         AND MSKU.DIMENSION = :DIMENSION
                                         AND MSKU.SKU_SIZE = :SKU_SIZE";
 
-            var binder = SqlBinder.Create(row => new Sku
+            var binder = SqlBinder.Create(row => new SkuModel
             {
                 Style = row.GetString("STYLE"),
                 Color = row.GetString("COLOR"),
@@ -652,44 +755,6 @@ namespace DcmsMobile.REQ2.Repository
             return _db.ExecuteSingle(QUERY, binder);
         }
 
-        /// <summary>
-        /// Returns all carton areas
-        /// 25-1-2012: Removing conversion area.Now conversion can be done in any area.
-        /// </summary>
-        /// <returns></returns>
-        internal IEnumerable<CartonArea> GetCartonAreas(string buildingId)
-        {
-            const string QUERY =
-                @"
-                    SELECT TIA.INVENTORY_STORAGE_AREA AS INVENTORY_STORAGE_AREA,
-                       MAX(TIA.DESCRIPTION)           AS DESCRIPTION,
-                       MAX(TIA.SHORT_NAME)            AS SHORT_NAME,
-                       MAX(TIA.LOCATION_NUMBERING_FLAG) AS LOCATION_NUMBERING_FLAG,
-                       MAX(TIA.WAREHOUSE_LOCATION_ID) AS WAREHOUSE_LOCATION_ID,
-                       COUNT(UNIQUE CTN.CARTON_ID) AS CARTON_COUNT,
-                       MAX(TIA.IS_CONVERSION_AREA)    AS REWORK_AREA
-                  FROM <proxy />SRC_CARTON CTN
-                 INNER JOIN <proxy />TAB_INVENTORY_AREA TIA
-                    ON TIA.INVENTORY_STORAGE_AREA = CTN.CARTON_STORAGE_AREA
-                         WHERE TIA.WAREHOUSE_LOCATION_ID  = :WAREHOUSE_LOCATION_ID
-                         AND TIA.STORES_WHAT = 'CTN'
-                AND TIA.UNUSABLE_INVENTORY IS NULL
-                    GROUP BY TIA.INVENTORY_STORAGE_AREA
-                 ORDER BY TIA.INVENTORY_STORAGE_AREA
-        ";
-            var binder = SqlBinder.Create(row => new CartonArea
-            {
-                AreaId = row.GetString("INVENTORY_STORAGE_AREA"),
-                Description = row.GetString("DESCRIPTION"),
-                ShortName = row.GetString("SHORT_NAME"),
-                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
-                LocationNumberingFlag = row.GetString("LOCATION_NUMBERING_FLAG") == "Y",
-                IsReworkArea = row.GetString("REWORK_AREA") == "Y",
-                CartonCount = row.GetInteger("CARTON_COUNT").Value
-            }).Parameter("WAREHOUSE_LOCATION_ID", buildingId);
-            return _db.ExecuteReader(QUERY, binder);
-
-        }
     }
 }
 

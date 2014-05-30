@@ -16,10 +16,6 @@ namespace DcmsMobile.REQ2.Models
         public string ShortName { get; set; }
 
         public bool IsCartonArea { get; set; }
-
-        public bool IsReworkArea { get; set; }
-
-        public int CartonCount { get; set; }
     }
 }
 

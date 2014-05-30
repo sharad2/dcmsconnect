@@ -1,4 +1,26 @@
-﻿#menu li.banner
+.divReqMain 
+{
+    white-space: nowrap;    
+}
+
+.divReqMain label
+{
+    display:inline-block;
+    width: 20em;  
+}
+
+.divReqMain textarea
+{
+    width: 40em;
+    margin-bottom: 0.3em;
+}
+
+.divReqMain select,textarea
+{
+    margin-bottom: 0.3em;
+}
+
+#menu li.banner
 {
     color: #fff;
     font-size: 2.5em;
@@ -44,6 +66,22 @@
 .validation-summary-valid
 {
     display: none;
+}
+
+.ui-autocomplete-loading
+{
+    background: white url('images/ajax-loader.gif') right center no-repeat;
+}
+
+/*
+When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large
+*/
+.ui-autocomplete
+{
+    max-height: 20em;
+    overflow-y: auto; /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
 }
 
 
@@ -191,6 +229,10 @@ a:hover
 	padding-top:1.5em;
 }
 
+#content .ui-widget, .ui-dialog, div.ui-datepicker, body .ui-autocomplete
+{
+    font-size:8pt;
+}
 
 .box
 {

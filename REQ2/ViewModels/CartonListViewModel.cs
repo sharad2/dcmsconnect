@@ -1,19 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.REQ2.ViewModels
 {
-    public class CartonModel
+    public class CartonListViewModel
     {
+        [Required]
+        [Display(Name = "Existing Request ID")]
+        public string CtnresvId { get; set; }
+
+        public int ReqId { get; set; }
+
         [Display(Name = "Carton")]
         public string CartonId { get; set; }
 
+        [Display(Name = "PalletId")]
+        public string PalletId { get; set; }
+
         [Display(Name = "Area")]
         public string StoregeArea { get; set; }
-
-        [Display(Name = "AreaShortName")]
-        public string AreaShortName { get; set; }
 
         [Display(Name = "AreaDesc")]
         public string AreaDescription { get; set; }
@@ -27,24 +32,11 @@ namespace DcmsMobile.REQ2.ViewModels
         [Display(Name = "Pieces")]
         public int Quantity { get; set; }
 
-        [Display(Name = "Rewok Needed")]
-        public string ReworkNeeded { get; set; }
-    }
-
-    public class CartonListViewModel
-    {
-        [Required]
-        [Display(Name = "Existing Request ID")]
-        public string CtnresvId { get; set; }
-
-        public int ReqId { get; set; }
-
         /// <summary>
         /// We never return null.
         /// </summary>
-        public IList<CartonModel> CartonList { get; set; }
+        public IEnumerable<CartonListViewModel> CartonList { get; set; }
+
     }
 }
-
-
 //$Id$

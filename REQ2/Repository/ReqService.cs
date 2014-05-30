@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Linq;
-using System.Web;
+using System.Web.Routing;
 using DcmsMobile.REQ2.Models;
 
 namespace DcmsMobile.REQ2.Repository
@@ -21,34 +21,31 @@ namespace DcmsMobile.REQ2.Repository
         SewingPlantCode = 0x10,
         SourceAreaId = 0x20,
         Priority = 0x40,
-        IsConversionRequest = 0x80,
+        AllowOverPulling = 0x80,
+        PackagingPreference = 0x100,
         DestinationArea = 0x200,
         TargetVwhId = 0x400,
+        SaleTypeId = 0x800,
         CartonReceivedDate = 0x1000,
         Remarks = 0x2000,
         TargetQualityCode = 0x4000
     }
 
+  
+
     public class ReqService : IDisposable
     {
-        #region Intialization
 
+        #region Intialization
         private readonly ReqRepository _repos;
 
-        /// <summary>
-        /// For unit tests. 
-        /// </summary>
-        public ReqService(ReqRepository repos)
+        public ReqService(RequestContext ctx)
         {
-            _repos = repos;
-        }
+            string module = "REQ2";
+            var clientInfo = string.IsNullOrEmpty(ctx.HttpContext.Request.UserHostName) ?
+                             ctx.HttpContext.Request.UserHostAddress : ctx.HttpContext.Request.UserHostName;
 
-        /// <summary>
-        /// Used to store destination area of intransit cartons until they are received
-        /// </summary>      
-        public ReqService(TraceContext ctx, string connectString, string userName, string clientInfo, string moduleName)
-        {
-            _repos = new ReqRepository(ctx, connectString, userName, clientInfo, moduleName);
+            _repos = new ReqRepository(ctx.HttpContext.User.Identity.Name, module, clientInfo, ctx.HttpContext.Trace);
         }
 
         public void Dispose()
@@ -58,9 +55,16 @@ namespace DcmsMobile.REQ2.Repository
 
         #endregion
 
-
         #region Get methods
+        public IEnumerable<CartonArea> GetCartonAreas()
+        {
+            return _repos.GetCartonAreas(null);
+        }
 
+        public CartonArea GetCartonAreaInfo(string areaId)
+        {
+            return _repos.GetCartonAreas(areaId).FirstOrDefault();
+        }
 
         public IEnumerable<CodeDescriptionModel> GetVwhList()
         {
@@ -88,12 +92,18 @@ namespace DcmsMobile.REQ2.Repository
         }
 
 
-        public IEnumerable<RequestSku> GetRequestSKUs(string ctnresvId)
+        public IEnumerable<RequestSkuModel> GetRequestSKUs(string ctnresvId)
         {
             return _repos.GetRequestSkus(ctnresvId);
         }
 
-        public Request GetRequestInfo(string ctnresvId)
+        public IEnumerable<CodeDescriptionModel> GetSaleTypeList()
+        {
+            return _repos.GetSaleTypeList();
+        }
+
+
+        public RequestModel GetRequestInfo(string ctnresvId)
         {
             if (string.IsNullOrEmpty(ctnresvId))
             {
@@ -102,92 +112,125 @@ namespace DcmsMobile.REQ2.Repository
             return _repos.GetRequests(ctnresvId, 1).SingleOrDefault();
         }
 
-        public IEnumerable<Request> GetRequests()
+        public IEnumerable<RequestModel> GetRequests()
         {
             return _repos.GetRequests(null, 20);
         }
 
+
+        public IEnumerable<AssignedCarton> GetAssignedCartons(string ctnresvId)
+        {
+            return _repos.GetAssignedCartons(ctnresvId);
+        }
         public IEnumerable<CartonList> GetCartonList(string ctnresvId)
         {
-            return _repos.GetCartonList(ctnresvId);
+            return _repos.GetCartonList(ctnresvId, 500);
         }
-        
+
+        public string GetCtnRevId(string reqId)
+        {
+            return _repos.GetCtnRevId(reqId);
+        }
+
         #endregion
 
-        /// <summary>
-        /// This method create new request as passed properties of model. 
-        /// </summary>
-        /// <param name="model"> 
-        /// </param>
-        public string CreateCartonRequest(Request model)
+        public void CreateCartonRequest(RequestModel model)
         {
-            return _repos.CreateRequest(model);
+
+            string sourceBuildingId = _repos.GetBuildingofArea(model.SourceAreaId);
+            string destBuildingId = _repos.GetBuildingofArea(model.DestinationArea);
+            if (!string.IsNullOrEmpty(sourceBuildingId) && !string.IsNullOrEmpty(destBuildingId))
+            {
+                if (sourceBuildingId != destBuildingId)
+                {
+                    throw new ProviderException("Selected FromArea and ToArea should be in a same building.");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(model.BuildingId))
+            {
+                if (!string.IsNullOrEmpty(sourceBuildingId))
+                {
+                    if (model.BuildingId != sourceBuildingId)
+                    {
+                        throw new ProviderException(string.Format("Selected source area {0} does not  belong to building {1}.",model.SourceAreaShortName,model.BuildingId));
+                    }
+                }
+                sourceBuildingId = model.BuildingId;
+            }
+            model.BuildingId = sourceBuildingId;
+            _repos.CreateCartonRequest(model);
         }
 
-        public void UpdateCartonRequest(Request updatedRequest, RequestProperties propertiesToUpdate)
+        public void UpdateCartonRequest(RequestModel model, RequestProperties propertiesToUpdate)
         {
-            var modelToUpdate = _repos.GetRequests(updatedRequest.CtnResvId, 1).SingleOrDefault();
+            var modelToUpdate = _repos.GetRequests(model.CtnResvId, 1).SingleOrDefault();
             if (modelToUpdate == null)
             {
                 throw new ProviderException("Invalid Request Id passed");
             }
-
+            if (propertiesToUpdate.HasFlag(RequestProperties.AllowOverPulling))
+            {
+                modelToUpdate.AllowOverPulling = model.AllowOverPulling;
+            }
             if (propertiesToUpdate.HasFlag(RequestProperties.BuildingId))
             {
-                modelToUpdate.BuildingId = updatedRequest.BuildingId;
+                modelToUpdate.BuildingId = model.BuildingId;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.CartonReceivedDate))
             {
-                modelToUpdate.CartonReceivedDate = updatedRequest.CartonReceivedDate;
+                modelToUpdate.CartonReceivedDate = model.CartonReceivedDate;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.DestinationArea))
             {
-                modelToUpdate.DestinationArea = updatedRequest.DestinationArea;
+                modelToUpdate.DestinationArea = model.DestinationArea;
             }
-
+            if (propertiesToUpdate.HasFlag(RequestProperties.PackagingPreference))
+            {
+                modelToUpdate.PackagingPreferance = model.PackagingPreferance;
+            }
             if (propertiesToUpdate.HasFlag(RequestProperties.PriceSeasonCode))
             {
-                modelToUpdate.PriceSeasonCode = updatedRequest.PriceSeasonCode;
+                modelToUpdate.PriceSeasonCode = model.PriceSeasonCode;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.Priority))
             {
-                modelToUpdate.Priority = updatedRequest.Priority;
+                modelToUpdate.Priority = model.Priority;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.QualityCode))
             {
-                modelToUpdate.SourceQuality = updatedRequest.SourceQuality;
+                modelToUpdate.SourceQuality = model.SourceQuality;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.Remarks))
             {
-                modelToUpdate.Remarks = updatedRequest.Remarks;
+                modelToUpdate.Remarks = model.Remarks;
             }
-
+            if (propertiesToUpdate.HasFlag(RequestProperties.SaleTypeId))
+            {
+                modelToUpdate.SaleTypeId = model.SaleTypeId;
+            }
             if (propertiesToUpdate.HasFlag(RequestProperties.SewingPlantCode))
             {
-                modelToUpdate.SewingPlantCode = updatedRequest.SewingPlantCode;
+                modelToUpdate.SewingPlantCode = model.SewingPlantCode;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.SourceAreaId))
             {
-                modelToUpdate.SourceAreaId = updatedRequest.SourceAreaId;
+                modelToUpdate.SourceAreaId = model.SourceAreaId;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.SourceVwhId))
             {
-                modelToUpdate.SourceVwhId = updatedRequest.SourceVwhId;
+                modelToUpdate.SourceVwhId = model.SourceVwhId;
             }
             if (propertiesToUpdate.HasFlag(RequestProperties.TargetVwhId))
             {
-                modelToUpdate.TargetVwhId = updatedRequest.TargetVwhId;
+                modelToUpdate.TargetVwhId = model.TargetVwhId;
             }
 
             if (propertiesToUpdate.HasFlag(RequestProperties.TargetQualityCode))
             {
-                modelToUpdate.TargetQuality = updatedRequest.TargetQuality;
+                modelToUpdate.TargetQuality = model.TargetQuality;
             }
-            if (propertiesToUpdate.HasFlag(RequestProperties.IsConversionRequest))
-            {
-                modelToUpdate.IsConversionRequest = updatedRequest.IsConversionRequest;
-            }
-            _repos.UpdateRequest(modelToUpdate);
+            CreateCartonRequest(modelToUpdate);
         }
 
         public void DeleteCartonRequest(string ctnresvId)
@@ -202,9 +245,35 @@ namespace DcmsMobile.REQ2.Repository
         /// <param name="sourceSkuId"></param>
         /// <param name="pieces"></param>
         /// <param name="targetSkuId"></param>
-        public int AddSkutoRequest(string ctnresvId, int sourceSkuId, int pieces, int? targetSkuId)
+        public void AddSkutoRequest(string ctnresvId, int sourceSkuId, int pieces, int? targetSkuId)
         {
-            return _repos.AddSkutoRequest(ctnresvId, sourceSkuId, pieces, targetSkuId);
+            var skusInRequest = _repos.GetRequestSkus(ctnresvId);
+
+            // If source SKU has already been added to the request, its conversion SKU must match.
+            var previouslyAddedSku = skusInRequest.Where(p => p.SourceSku.SkuId == sourceSkuId).FirstOrDefault();
+            if (previouslyAddedSku != null)
+            {
+                bool problem;
+                if (previouslyAddedSku.TargetSku == null)
+                {
+                    problem = targetSkuId != null;
+                }
+                else
+                {
+                    problem = previouslyAddedSku.TargetSku.SkuId != targetSkuId;
+                }
+                if (problem)
+                {
+                    // Problem
+                    throw new ApplicationException(string.Format(@"
+                                        SKU {0} has already been added to the request.
+                                        Earlier it was being converted to {1}.<br/>
+                                        You are now trying to convert it to a different SKU which is not allowed.",
+                       previouslyAddedSku.SourceSku, previouslyAddedSku.TargetSku));
+                }
+            }
+
+            _repos.AddSkutoRequest(ctnresvId, sourceSkuId, pieces, targetSkuId);
         }
 
         public void DeleteSkuFromRequest(int skuId, string ctnresvId)
@@ -212,14 +281,14 @@ namespace DcmsMobile.REQ2.Repository
             _repos.DeleteSkuFromRequest(skuId, ctnresvId);
         }
 
-        public int AssignCartons(string ctnresvId)
+        public void AssignCartons(string ctnresvId)
         {
-           return _repos.AssignCartons(ctnresvId);
+            _repos.AssignCartons(ctnresvId);
         }
 
-        public int UnAssignCartons(string ctnresvId)
+        public void UnAssignCartons(string ctnresvId)
         {
-            return _repos.UnAssignCartons(ctnresvId);
+            _repos.UnAssignCartons(ctnresvId);
         }
 
         /// <summary>
@@ -230,14 +299,9 @@ namespace DcmsMobile.REQ2.Repository
         /// <param name="dimension"></param>
         /// <param name="skuSize"></param>
         /// <returns></returns>
-        public Sku GetSku(string style, string color, string dimension, string skuSize)
+        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
         {
             return _repos.GetSku(style, color, dimension, skuSize);
-        }
-
-        public IEnumerable<CartonArea> GetCartonAreas(string buildingId)
-        {
-            return _repos.GetCartonAreas(buildingId);
         }
     }
 }

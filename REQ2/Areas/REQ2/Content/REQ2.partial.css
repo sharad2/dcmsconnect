@@ -1,4 +1,26 @@
-﻿#menu li.banner
+﻿.divReqMain 
+{
+    white-space: nowrap;    
+}
+
+.divReqMain label
+{
+    display:inline-block;
+    width: 20em;  
+}
+
+.divReqMain textarea
+{
+    width: 40em;
+    margin-bottom: 0.3em;
+}
+
+.divReqMain select,textarea
+{
+    margin-bottom: 0.3em;
+}
+
+#menu li.banner
 {
     color: #fff;
     font-size: 2.5em;

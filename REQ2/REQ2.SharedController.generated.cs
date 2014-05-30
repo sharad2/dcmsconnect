@@ -28,7 +28,8 @@ namespace T4MVC.REQ2 {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string _layout = "_layout";
+            public readonly string _layoutReq = "_layoutReq";
+            public readonly string _layoutReq_Mobile = "_layoutReq.Mobile";
         }
     }
 

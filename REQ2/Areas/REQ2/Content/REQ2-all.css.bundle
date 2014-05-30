@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<bundle minify="true" runOnBuild="true" output="REQ2-all.css">
-  <!--The order of the <file> elements determines the order of them when bundled.-->
-  <file>/Areas/REQ2/Content/REQ2.partial.css</file>
-  <file>/Areas/REQ2/Content/standardized.partial.css</file>
-</bundle>

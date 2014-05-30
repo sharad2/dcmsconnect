@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.REQ2
 {
@@ -20,9 +21,9 @@ namespace DcmsMobile.REQ2
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = MVC_REQ2.REQ2.Home.Name, action = MVC_REQ2.REQ2.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
-                new string[] { typeof(DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController).Namespace } // Add Namespace of controller
-            ).DataTokens.Add("area", MVC_REQ2.REQ2.Name);
+                new { controller = "Home", action = MVC_REQ2.REQ2.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
+                new string[] { "DcmsMobile.REQ2.Areas.REQ2.Controllers" } // Add Namespace of controller
+            ).DataTokens.Add("area", "REQ2");
         }
 
         protected void Application_Start()
@@ -31,6 +32,7 @@ namespace DcmsMobile.REQ2
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
         }
 
 #if DEBUG

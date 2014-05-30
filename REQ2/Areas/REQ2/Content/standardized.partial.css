@@ -143,6 +143,10 @@ a:hover
 	padding-top:1.5em;
 }
 
+#content .ui-widget, .ui-dialog, div.ui-datepicker, body .ui-autocomplete
+{
+    font-size:8pt;
+}
 
 .box
 {
