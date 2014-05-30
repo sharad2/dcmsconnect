@@ -19,34 +19,34 @@ namespace DcmsMobile.REQ2.ViewModels
 
         #region SourceSKu Property
         [Required]
-        [BindUpperCase]
+        //[BindUpperCase]
         public string NewStyle { get; set; }
 
         [Required]
-        [BindUpperCase]
+        //[BindUpperCase]
         public string NewColor { get; set; }
 
         [Required]
-        [BindUpperCase]
+        //[BindUpperCase]
         public string NewDimension { get; set; }
 
         [Required]
-        [BindUpperCase]
+        //[BindUpperCase]
         public string NewSkuSize { get; set; }
 
         #endregion
 
         #region TargetSKu Property
-        [BindUpperCase]
+      //  [BindUpperCase]
         public string TargetStyle { get; set; }
 
-        [BindUpperCase]
+        //[BindUpperCase]
         public string TargetColor { get; set; }
 
-        [BindUpperCase]
+        //[BindUpperCase]
         public string TargetDimension { get; set; }
 
-        [BindUpperCase]
+        //[BindUpperCase]
         public string TargetSkuSize { get; set; }
 
         #endregion

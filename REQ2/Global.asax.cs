@@ -32,7 +32,8 @@ namespace DcmsMobile.REQ2
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-            ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
+            //ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
+            this.Context.SkipAuthorization = true;
         }
 
 #if DEBUG
