@@ -48,12 +48,12 @@
         {
             <div>
                 <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.areaId" value="@Model.CurrentArea.AreaId" id="hfAreaId" />
-                @Html.LabelFor(m => m.LocationId)
-                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.locationId" value="@Model.LocationId">
+                <label>Specific Locations</label>
+                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.locationId">
                 <button type="submit" id="btnLocation">
                     Go
-                </button>
-                @Html.ValidationMessageFor(m => m.LocationId)
+                </button><span>Use * as wildcard</span>
+               
             </div>
         }
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilter(), FormMethod.Get))

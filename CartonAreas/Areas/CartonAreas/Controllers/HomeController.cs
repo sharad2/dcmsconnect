@@ -385,7 +385,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 CurrentArea = Map(area),
                 //AssignedSkuId = assignedSkuId,
                 //AssignedSkuText = skuEntry,
-                LocationId = locationId,
+                //LocationId = locationId,
             };
             model.CurrentArea.AssignedLocationsFlag = assigned;
             model.CurrentArea.EmptyLocationsFlag = emptyLocations;

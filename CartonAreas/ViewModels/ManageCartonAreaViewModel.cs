@@ -14,12 +14,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// </summary>
         public AssignSkuViewModel AssignedSku { get; set; }
 
-        /// <summary>
-        /// Specific location to search for
-        /// </summary>
-        [Display(Name = "Specific Location")]
-        [Required(ErrorMessage = "Which location are you looking for?")]
-        public string LocationId { get; set; }
+        ///// <summary>
+        ///// Specific location to search for
+        ///// </summary>
+        //[Display(Name = "Specific Location")]
+        //[Required(ErrorMessage = "Which location are you looking for?")]
+        //public string LocationId { get; set; }
 
         ///// <summary>
         ///// Locations to which this SKU is assigned are posted
