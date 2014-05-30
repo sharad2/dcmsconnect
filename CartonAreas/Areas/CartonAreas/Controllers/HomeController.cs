@@ -280,7 +280,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
             //TODO : pass building also
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea());
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(cam.BuildingId));
         }
 
         /// <summary>
@@ -458,13 +458,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                    select new PickingAreaModel
                                    {
                                        AreaId = area.AreaId,
-                                       LocationNumberingFlag=area.LocationNumberingFlag,
+                                       LocationNumberingFlag = area.LocationNumberingFlag,
                                        Description = area.Description,
                                        ShortName = area.ShortName,
                                        IsPickingArea = area.IsPickingArea,
                                        IsRestockArea = area.IsRestockArea,
                                        IsShippingArea = area.IsShippingArea,
-                                       LocationCount=area.LocationCount
+                                       LocationCount = area.LocationCount
                                    }).ToArray()
             };
             return View(Views.PickingArea, model);
@@ -482,12 +482,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 var updatePickingAreas = new PickingArea
                 {
-                    AreaId = model.AreaId,                
-                    Description=model.Description,
-                    IsPickingArea=model.IsPickingArea,
-                    IsRestockArea=model.IsRestockArea,
-                    IsShippingArea=model.IsShippingArea,
-                    LocationNumberingFlag=model.LocationNumberingFlag //TODO:How to update,not implemented in repository yet.                   
+                    AreaId = model.AreaId,
+                    Description = model.Description,
+                    IsPickingArea = model.IsPickingArea,
+                    IsRestockArea = model.IsRestockArea,
+                    IsShippingArea = model.IsShippingArea,
+                    LocationNumberingFlag = model.LocationNumberingFlag //TODO:How to update,not implemented in repository yet.                   
                 };
                 _service.UpdatePickingArea(updatePickingAreas);
                 AddStatusMessage(string.Format("Picking Area {0} successfully updated", updatePickingAreas.ShortName));

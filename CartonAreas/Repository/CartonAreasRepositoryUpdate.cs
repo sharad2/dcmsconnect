@@ -169,7 +169,8 @@ namespace DcmsMobile.CartonAreas.Repository
                                                  I.SHIPPING_AREA_FLAG = :SHIPPING_AREA_FLAG,
                                                  I.RESOCK_AREA_FLAG   = :RESOCK_AREA_FLAG,
                                                  I.PICKING_AREA_FLAG  = :PICKING_AREA_FLAG
-                                           WHERE I.IA_ID = :IA_ID;
+                                           WHERE I.IA_ID = :IA_ID
+                                            RETURNING I.short_name INTO :short_name;
                                           IF SQL%ROWCOUNT = 0 THEN
                                             RAISE_APPLICATION_ERROR(20000, 'Area ' || :IA_ID || ' not found');
                                           END IF;
@@ -179,7 +180,8 @@ namespace DcmsMobile.CartonAreas.Repository
                 .Parameter("SHIPPING_AREA_FLAG", pickingArea.IsShippingArea ? "Y" : "")
                 .Parameter("RESOCK_AREA_FLAG", pickingArea.IsRestockArea ? "Y" : "")
                 .Parameter("PICKING_AREA_FLAG", pickingArea.IsPickingArea ? "Y" : "")
-                .Parameter("IA_ID", pickingArea.AreaId);
+                .Parameter("IA_ID", pickingArea.AreaId)
+                .OutParameter("short_name", p => pickingArea.ShortName = p);
             _db.ExecuteNonQuery(QUERY, binder);
 
 
