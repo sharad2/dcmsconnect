@@ -1,0 +1,18 @@
+﻿--Role require for this application module
+
+-- Create the role 
+create role DCMS8_REQUEST;
+-- Grant/Revoke object privileges 
+grant select on DCMS4.MASTER_CUSTOMER_SKU to DCMS8_REQUEST;
+grant select on DCMS4.MASTER_SKU to DCMS8_REQUEST;
+grant select, update on DCMS4.SRC_CARTON to DCMS8_REQUEST;
+grant select on DCMS4.SRC_CARTON_DETAIL to DCMS8_REQUEST;
+grant select on DCMS4.SRC_REQ_DETAIL to DCMS8_REQUEST;
+grant select on DCMS4.TAB_INVENTORY_AREA to DCMS8_REQUEST;
+grant select on DCMS4.TAB_PRICE_SEASON to DCMS8_REQUEST;
+grant select on DCMS4.TAB_QUALITY_CODE to DCMS8_REQUEST;
+grant select on DCMS4.TAB_SALE_TYPE to DCMS8_REQUEST;
+grant select on DCMS4.TAB_SEWINGPLANT to DCMS8_REQUEST;
+grant select on DCMS4.TAB_VIRTUAL_WAREHOUSE to DCMS8_REQUEST;
+grant select on CTNRESV to DCMS8_REQUEST;
+grant execute on PKG_CTNRESV to DCMS8_REQUEST;
