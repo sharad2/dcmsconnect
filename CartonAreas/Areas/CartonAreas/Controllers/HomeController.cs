@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.CartonAreas.Repository;
 using DcmsMobile.CartonAreas.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Web.Mvc;
@@ -322,7 +323,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="areaId"></param>
         /// <param name="locationId"></param>
         /// <returns></returns>
-        public virtual ActionResult ApplyLocationIdFilter(string areaId,string locationId)
+        public virtual ActionResult ApplyLocationIdFilter(string areaId, string locationId)
         {
             ModelState.Clear();
             return DoManageCartonArea(areaId, null, null, null, locationId);
@@ -389,57 +390,69 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             };
             model.CurrentArea.AssignedLocationsFlag = assigned;
             model.CurrentArea.EmptyLocationsFlag = emptyLocations;
-            if (ModelState.IsValid)
+
+            //var filterModel = new LocationFilter
+            //{
+            //    CartonAreaId = areaId,
+            //    AssignedLocations = assigned,
+            //    EmptyLocations = emptyLocations,
+            //    SkuId = assignedSkuId
+            //};
+            //if (!string.IsNullOrWhiteSpace(locationId))
+            //{
+            //    filterModel.SearchLocationLike = locationId.Contains("*") ? locationId.Remove(locationId.Length - 1) : null;
+            //    if (string.IsNullOrWhiteSpace(filterModel.SearchLocationLike))
+            //    {
+            //        filterModel.LocationId = locationId;
+            //    }
+            //}
+            IList<Location> locations;
+            if (!string.IsNullOrWhiteSpace(locationId))
             {
-                var filterModel = new LocationFilter
-                {
-                    CartonAreaId = areaId,
-                    AssignedLocations = assigned,
-                    EmptyLocations = emptyLocations,
-                    SkuId = assignedSkuId
-                };
-                if (!string.IsNullOrWhiteSpace(locationId))
-                {
-                    filterModel.SearchLocationLike = locationId.Contains("*") ? locationId.Remove(locationId.Length - 1) : null;
-                    if (string.IsNullOrWhiteSpace(filterModel.SearchLocationLike))
-                    {
-                        filterModel.LocationId = locationId;
-                    }
-                }
-                var locations = _service.GetLocations(filterModel);
-                if (locations.Count() == 0)
-                {
-                    AddStatusMessage("No location found");
-                }
-                model.Locations = (locations.Select(p => new LocationViewModel()
-                    {
-                        AssignedSku = p.AssignedSku == null ? null : new SkuModel
-                            {
-                                Style = p.AssignedSku.Style,
-                                Color = p.AssignedSku.Color,
-                                Dimension = p.AssignedSku.Dimension,
-                                SkuSize = p.AssignedSku.SkuSize,
-                                SkuId = p.AssignedSku.SkuId,
-                                UpcCode = p.AssignedSku.UpcCode
-                            },
-                        CartonSku = p.CartonSku == null ? null : new SkuModel
-                                                        {
-                                                            Style = p.CartonSku.Style,
-                                                            Color = p.CartonSku.Color,
-                                                            Dimension = p.CartonSku.Dimension,
-                                                            SkuSize = p.CartonSku.SkuSize,
-                                                            SkuId = p.CartonSku.SkuId,
-                                                            UpcCode = p.CartonSku.UpcCode
-                                                        },
-                        CartonCount = p.CartonCount,
-                        PalletCount = p.PalletCount,
-                        AssignedVwhId = p.AssignedVwhId,
-                        TotalPieces = p.TotalPieces,
-                        LocationId = p.LocationId,
-                        MaxAssignedCartons = p.MaxAssignedCarton,
-                        CartonSkuCount = p.CartonSkuCount
-                    })).ToArray();
+                locations = _service.GetLocation(locationId);
             }
+            else if (assignedSkuId.HasValue)
+            {
+                locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId.Value);
+            }
+            else
+            {
+                locations = _service.GetLocations(areaId, assigned, emptyLocations);
+            }
+
+            if (locations.Count() == 0)
+            {
+                AddStatusMessage("No location found");
+            }
+            model.Locations = (locations.Select(p => new LocationViewModel()
+                {
+                    AssignedSku = p.AssignedSku == null ? null : new SkuModel
+                        {
+                            Style = p.AssignedSku.Style,
+                            Color = p.AssignedSku.Color,
+                            Dimension = p.AssignedSku.Dimension,
+                            SkuSize = p.AssignedSku.SkuSize,
+                            SkuId = p.AssignedSku.SkuId,
+                            UpcCode = p.AssignedSku.UpcCode
+                        },
+                    CartonSku = p.CartonSku == null ? null : new SkuModel
+                                                    {
+                                                        Style = p.CartonSku.Style,
+                                                        Color = p.CartonSku.Color,
+                                                        Dimension = p.CartonSku.Dimension,
+                                                        SkuSize = p.CartonSku.SkuSize,
+                                                        SkuId = p.CartonSku.SkuId,
+                                                        UpcCode = p.CartonSku.UpcCode
+                                                    },
+                    CartonCount = p.CartonCount,
+                    PalletCount = p.PalletCount,
+                    AssignedVwhId = p.AssignedVwhId,
+                    TotalPieces = p.TotalPieces,
+                    LocationId = p.LocationId,
+                    MaxAssignedCartons = p.MaxAssignedCarton,
+                    CartonSkuCount = p.CartonSkuCount
+                })).ToArray();
+
             model.AssignedSku = new AssignSkuViewModel
             {
                 VwhList = _service.GetVwhList().Select(p => new SelectListItem

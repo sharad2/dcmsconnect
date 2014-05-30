@@ -224,12 +224,12 @@ namespace DcmsMobile.CartonAreas.Repository
         /// This function gets the location details in a specified area,
         /// and also give all information of any one location for assignment.
         /// </summary>
-        /// <param name="filters"></param>
+        /// <param name="locationIdPattern">The pattern can include % as the wildcard</param>
         /// <returns></returns>
         /// <remarks>
         /// SS 28/12/2011: Pallet count was wrong. Changed COUNT(SC.PALLET_ID) to COUNT(DISTINCT SC.PALLET_ID)
         /// </remarks>
-        public IEnumerable<Location> GetLocations(LocationFilter filters)
+        public IList<Location> GetLocations(string locationIdPattern, int? skuId, bool? assignedLocations, bool? emptyLocations, string cartonAreaId)
         {
             const string QUERY = @"
                 SELECT MSL.LOCATION_ID                AS LOCATION_ID,
@@ -267,7 +267,7 @@ namespace DcmsMobile.CartonAreas.Repository
                  WHERE 1 = 1
                <if>AND MSL.STORAGE_AREA = :AREA_ID</if>
                <if>AND MSL.LOCATION_ID = :LOCATION_ID</if>
-               <if>AND MSL.LOCATION_ID LIKE :SEARCHLOCATION || '%'</if>
+               <if>AND MSL.LOCATION_ID LIKE :SEARCHLOCATION</if>
                <if>AND MSL.ASSIGNED_SKU_ID = :SKU_ID</if>
                <if c=""$EMPTY_LOCATION_FLAG = 'true' "">
                    AND NOT EXISTS
@@ -316,20 +316,35 @@ namespace DcmsMobile.CartonAreas.Repository
                             SkuId = row.GetInteger("SKU_ID").Value,
                             UpcCode = row.GetString("UPC_CODE_")
                         }
-                }).Parameter("AREA_ID", filters.CartonAreaId)
-                .Parameter("LOCATION_ID", filters.LocationId)
-                .Parameter("SEARCHLOCATION", filters.SearchLocationLike)
-               .Parameter("EMPTY_LOCATION_FLAG", filters.EmptyLocations.HasValue ? filters.EmptyLocations.ToString().ToLower() : "")
-               .Parameter("SKU_ID", filters.SkuId);
-            if (filters.SkuId == null)
+                }).Parameter("AREA_ID", cartonAreaId)
+                //.Parameter("LOCATION_ID", locationId)
+               .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())
+               .Parameter("SKU_ID", skuId)
+               .Parameter("ASSIGNED_FLAG", string.Format("{0}", assignedLocations).ToLower());
+            if (string.IsNullOrWhiteSpace(locationIdPattern))
             {
-                binder.Parameter("ASSIGNED_FLAG", filters.AssignedLocations.HasValue ? filters.AssignedLocations.ToString().ToLower() : "");
+                binder.Parameter("LOCATION_ID", string.Empty)
+                    .Parameter("SEARCHLOCATION", string.Empty);
+            }
+            else if (locationIdPattern.Contains("%"))
+            {
+                binder.Parameter("LOCATION_ID", string.Empty)
+                    .Parameter("SEARCHLOCATION", locationIdPattern);
             }
             else
             {
-                // Ignore the ASSIGNED_FLAG
-                binder.Parameter("ASSIGNED_FLAG", "");
+                binder.Parameter("LOCATION_ID", locationIdPattern)
+                    .Parameter("SEARCHLOCATION", string.Empty);
             }
+            //if (filters.SkuId == null)
+            //{
+            //    binder.Parameter("ASSIGNED_FLAG", filters.AssignedLocations.HasValue ? filters.AssignedLocations.ToString().ToLower() : "");
+            //}
+            //else
+            //{
+            //    // Ignore the ASSIGNED_FLAG
+            //    binder.Parameter("ASSIGNED_FLAG", "");
+            //}
             return _db.ExecuteReader(QUERY, binder, 100);
         }
 

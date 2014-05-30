@@ -79,14 +79,35 @@ namespace DcmsMobile.CartonAreas.Repository
             return _repos.GetCartonAreas(areaId, null).FirstOrDefault();
         }
 
-        /// <summary>
-        /// Find the list of location in any one area.
-        /// </summary>
-        /// <param name="filters"></param>
-        /// <returns></returns>
-        public IEnumerable<Location> GetLocations(LocationFilter filters)
+        ///// <summary>
+        ///// Find the list of location in any one area.
+        ///// </summary>
+        ///// <param name="filters"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public IEnumerable<Location> GetLocations(LocationFilter filters)
+        //{
+        //    throw new NotImplementedException();
+        //    //return _repos.GetLocations(filters);
+        //}
+
+        public IList<Location> GetLocation(string locationId)
         {
-            return _repos.GetLocations(filters);
+            if (string.IsNullOrWhiteSpace(locationId))
+            {
+                throw new ArgumentNullException("locationId");
+            }
+            return _repos.GetLocations(locationId.Replace('*', '%'), null, null, null, null);
+        }
+
+        public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId)
+        {
+            return _repos.GetLocations(null, skuId, null, null, cartonAreaId);
+        }
+
+        public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation)
+        {
+            return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId);
         }
 
         /// <summary>

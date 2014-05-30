@@ -108,7 +108,6 @@
     <Compile Include="Repository\CartonAreasRepositoryUpdate.cs" />
     <Compile Include="Repository\CodeDescriptionModel.cs" />
     <Compile Include="Repository\Location.cs" />
-    <Compile Include="Repository\LocationFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AutoCompleteRepository.cs" />
     <Compile Include="Repository\Building.cs" />
