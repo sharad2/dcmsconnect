@@ -222,7 +222,9 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </Content>
     <None Include="T4MVC.tt.settings.t4" />
-    <None Include="Web.config" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

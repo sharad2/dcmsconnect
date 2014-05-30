@@ -73,8 +73,8 @@ $(document).ready(function () {
                         statusCode: {
                             // Success
                             200: function (data, textStatus, jqXHR) {
-                                // Update areaInfo table.
-                                $('#divupdatefilter').html(data);
+                                 //Update areaInfo table.
+                                //$('#divupdatefilter').html(data);
                                 // update location list.
                                 var $row = $(this).dialog('option', 'currentRow');
                                 var cartonCount = parseInt($('span.mca-cartoncount', $row).html());

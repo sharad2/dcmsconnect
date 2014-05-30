@@ -258,7 +258,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string _areaInfoPartial = "_areaInfoPartial";
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
             public readonly string AddNewBuilding = "AddNewBuilding";
