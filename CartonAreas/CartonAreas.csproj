@@ -207,7 +207,6 @@
     <None Include="Areas\CartonAreas\Scripts\AutoComplete.partial.js" />
     <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas.partial.js" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.js" />
-    <Content Include="Areas\CartonAreas\Views\Home\_areaInfoPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\_assignSkuDialogPartial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />
