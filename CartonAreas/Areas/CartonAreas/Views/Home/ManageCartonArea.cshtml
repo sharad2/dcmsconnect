@@ -64,8 +64,9 @@
                 @Html.HiddenFor(m => m.AssignedSkuId)
                 @Html.TextBoxFor(m => m.AssignedSkuText, new Dictionary<string, object>
    {
-           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete())},
-         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())}
+           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())},
+         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
+         {"data-ac-extra-param", Model.CurrentArea.AreaId}
    })<sup>&darr;*</sup>
                 <button type="submit">Go</button>
                 <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSkuText)" class="sku-display"></span>

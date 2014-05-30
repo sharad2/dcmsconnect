@@ -12,7 +12,7 @@
         @Html.HiddenFor(m => m.SkuId)
         @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
    {
-           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkuAutocomplete())},
+           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAll())},
          {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
          {"id", "tbSku"}
    })<sup>&darr;*</sup>

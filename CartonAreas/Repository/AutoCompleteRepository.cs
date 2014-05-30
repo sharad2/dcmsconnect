@@ -7,7 +7,8 @@ using System.Web;
 
 namespace DcmsMobile.CartonAreas.Repository
 {
-    public class AutoCompleteRepository : IDisposable
+
+    internal class AutoCompleteRepository : IDisposable
     {
 
         public void Dispose()
@@ -63,11 +64,12 @@ namespace DcmsMobile.CartonAreas.Repository
 
 
         /// <summary>
-        /// For UPC autocomplete
+        /// For UPC autocomplete.
         /// </summary>
         /// <param name="term"></param>
+        /// <param name="cartonAreaId">If passed, the list will include only those SKUs which are assigned to locations in this area</param>
         /// <returns></returns>
-        public IEnumerable<Sku> UpcAutoComplete(string term)
+        public IEnumerable<Sku> UpcAutoComplete(string term, string cartonAreaId)
         {
             const string QUERY =
                 @"
@@ -115,7 +117,12 @@ namespace DcmsMobile.CartonAreas.Repository
         </a>
         <if c='not($TERM)'>0</if> AS RELEVANCE
         FROM <proxy />MASTER_SKU MS
-        WHERE 1=1
+        WHERE 1 = 1
+<if>
+and ms.sku_id in (
+select assigned_sku_id from <proxy/>master_storage_location where assigned_sku_id is not null and storage_area = :carton_area_id
+)
+</if>
         <a pre=' AND ' sep=' OR '>
         (MS.STYLE LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR  MS.COLOR LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR MS.DIMENSION LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR
         MS.SKU_SIZE LIKE '%' || CAST(:TERM AS VARCHAR2(255))  || '%' OR MS.UPC_CODE LIKE '%' || CAST(:TERM AS VARCHAR2(255))  || '%')
@@ -146,7 +153,11 @@ namespace DcmsMobile.CartonAreas.Repository
                 Dimension = row.GetString("DIMENSION"),
                 SkuSize = row.GetString("SKU_SIZE"),
                 UpcCode = row.GetString("UPC_CODE")
-            }).Parameter("TERM", term);
+            }).Parameter("TERM", term)
+                .Parameter("carton_area_id", cartonAreaId);
+
+
+
             return _db.ExecuteReader(QUERY, binder);
         }
 

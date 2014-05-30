@@ -21,7 +21,7 @@ Generic autocomplete script to be used in conjunction with autocomplete helpers
                 $.ajax({
                     url: self.element.attr('data-ac-list-url'),
                     dataType: 'json',
-                    data: { term: request.term },
+                    data: { term: request.term, extra: self.element.attr('data-ac-extra-param') },
                     success: function (data, textStatus, jqXHR) {
                         response(data);
                     },

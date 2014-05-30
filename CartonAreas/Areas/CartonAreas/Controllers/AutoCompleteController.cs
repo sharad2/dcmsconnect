@@ -47,10 +47,17 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// method for Autocomplete
         /// </summary>
         /// <param name="term"></param>
+        /// <param name="extra">The returned list will include SKUs assigned to locations in this area. The name of this parameter should not be changed</param>
         /// <returns></returns>
-        public virtual ActionResult SkuAutocomplete(string term)
+        public virtual ActionResult SkusAssignedToCartonLocations(string term, string extra)
         {
-            var data = _repos.UpcAutoComplete(term.ToUpper());
+            var data = _repos.UpcAutoComplete(term.ToUpper(), extra);
+            return Json(data.Select(p => Map(p)), JsonRequestBehavior.AllowGet);
+        }
+
+        public virtual ActionResult SkusAll(string term)
+        {
+            var data = _repos.UpcAutoComplete(term.ToUpper(), null);
             return Json(data.Select(p => Map(p)), JsonRequestBehavior.AllowGet);
         }
 
@@ -73,7 +80,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var sku = _repos.GetSkuFromUpc(barCode);
             if (sku == null)
             {
-                throw new ApplicationException(string.Format("No such SKU: {0}", barCode.ToUpper()));
+                return Json("Invalid SKU", JsonRequestBehavior.AllowGet);
             }
             return Json(Map(sku), JsonRequestBehavior.AllowGet);
         }

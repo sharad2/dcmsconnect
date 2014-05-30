@@ -39,8 +39,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult SkuAutocomplete() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.SkuAutocomplete);
+        public System.Web.Mvc.ActionResult SkusAssignedToCartonLocations() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.SkusAssignedToCartonLocations);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult SkusAll() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.SkusAll);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -57,22 +62,32 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string SkuAutocomplete = "SkuAutocomplete";
+            public readonly string SkusAssignedToCartonLocations = "SkusAssignedToCartonLocations";
+            public readonly string SkusAll = "SkusAll";
             public readonly string ValidateSku = "ValidateSku";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
-            public const string SkuAutocomplete = "SkuAutocomplete";
+            public const string SkusAssignedToCartonLocations = "SkusAssignedToCartonLocations";
+            public const string SkusAll = "SkusAll";
             public const string ValidateSku = "ValidateSku";
         }
 
 
-        static readonly ActionParamsClass_SkuAutocomplete s_params_SkuAutocomplete = new ActionParamsClass_SkuAutocomplete();
+        static readonly ActionParamsClass_SkusAssignedToCartonLocations s_params_SkusAssignedToCartonLocations = new ActionParamsClass_SkusAssignedToCartonLocations();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SkuAutocomplete SkuAutocompleteParams { get { return s_params_SkuAutocomplete; } }
+        public ActionParamsClass_SkusAssignedToCartonLocations SkusAssignedToCartonLocationsParams { get { return s_params_SkusAssignedToCartonLocations; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SkuAutocomplete {
+        public class ActionParamsClass_SkusAssignedToCartonLocations {
+            public readonly string term = "term";
+            public readonly string extra = "extra";
+        }
+        static readonly ActionParamsClass_SkusAll s_params_SkusAll = new ActionParamsClass_SkusAll();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SkusAll SkusAllParams { get { return s_params_SkusAll; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SkusAll {
             public readonly string term = "term";
         }
         static readonly ViewNames s_views = new ViewNames();
@@ -87,8 +102,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
     public class T4MVC_AutoCompleteController: DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers.AutoCompleteController {
         public T4MVC_AutoCompleteController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult SkuAutocomplete(string term) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SkuAutocomplete);
+        public override System.Web.Mvc.ActionResult SkusAssignedToCartonLocations(string term, string extra) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SkusAssignedToCartonLocations);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "extra", extra);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SkusAll(string term) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SkusAll);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
             return callInfo;
         }
