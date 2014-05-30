@@ -207,6 +207,7 @@
     <None Include="Areas\CartonAreas\Scripts\AutoComplete.partial.js" />
     <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas.partial.js" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.js" />
+    <Content Include="Areas\CartonAreas\Views\Home\_areaInfoPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\_assignSkuDialogPartial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />
@@ -222,9 +223,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </Content>
     <None Include="T4MVC.tt.settings.t4" />
-    <None Include="Web.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -341,11 +341,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                              model.AssignedVwhId);
             Response.StatusCode = 200;
 
-            return Content("Success");
             // Update carton area info in areaInfo table.
-            //var cartonarea = Map(_service.GetCartonAreaInfo(model.AreaId));
-            // return View(Views.ManageCartonArea, model.AreaId);
-            //return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
+            var cartonarea = Map(_service.GetCartonAreaInfo(model.AreaId));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
         }
 
         /// <summary>
@@ -358,12 +356,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         public virtual ActionResult UnassignLocation(string locationId, string areaId)
         {
             _service.UnassignSkuFromlocation(locationId);
-             Response.StatusCode = 200;
-             return Content("Success");
-           // return RedirectToAction(this.Actions.ManageCartonArea(areaId));
+            Response.StatusCode = 200;
+
             // Update carton area info in areaInfo table.
-            // var cartonarea = Map(_service.GetCartonAreaInfo(areaId));
-            //return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
+            var cartonarea = Map(_service.GetCartonAreaInfo(areaId));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
         }
 
         /// <summary>
