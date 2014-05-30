@@ -296,7 +296,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return Index();
             }
-            return DoManageCartonArea(areaId, assigned, emptyLocations, null, null, null);
+            return DoManageCartonArea(areaId, assigned, emptyLocations, null, null);
         }
 
         /// <summary>
@@ -310,10 +310,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// We clear the model state since we do not want server side validation. Server validation causes problems because
         /// only partial model is posted.
         /// </remarks>
-        public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId, string assignedSkuText)
+        public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId)
         {
             ModelState.Clear();
-            return DoManageCartonArea(areaId, null, null, assignedSkuId, assignedSkuText, null);
+            return DoManageCartonArea(areaId, null, null, assignedSkuId, null);
         }
 
         /// <summary>
@@ -325,7 +325,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         public virtual ActionResult ApplyLocationIdFilter(string areaId,string locationId)
         {
             ModelState.Clear();
-            return DoManageCartonArea(areaId, null, null, null, null, locationId);
+            return DoManageCartonArea(areaId, null, null, null, locationId);
         }
 
         /// <summary>
@@ -372,7 +372,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="skuEntry"></param>
         /// <param name="locationId"></param>
         /// <returns></returns>
-        private ActionResult DoManageCartonArea(string areaId, bool? assigned, bool? emptyLocations, int? assignedSkuId, string skuEntry, string locationId)
+        private ActionResult DoManageCartonArea(string areaId, bool? assigned, bool? emptyLocations, int? assignedSkuId, string locationId)
         {
             var area = _service.GetCartonAreaInfo(areaId);
             if (string.IsNullOrEmpty(areaId))
@@ -383,8 +383,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = new ManageCartonAreaViewModel
             {
                 CurrentArea = Map(area),
-                AssignedSkuId = assignedSkuId,
-                AssignedSkuText = skuEntry,
+                //AssignedSkuId = assignedSkuId,
+                //AssignedSkuText = skuEntry,
                 LocationId = locationId,
             };
             model.CurrentArea.AssignedLocationsFlag = assigned;

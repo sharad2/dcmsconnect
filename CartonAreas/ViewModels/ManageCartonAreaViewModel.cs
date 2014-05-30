@@ -21,14 +21,14 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Required(ErrorMessage = "Which location are you looking for?")]
         public string LocationId { get; set; }
 
-        /// <summary>
-        /// Locations to which this SKU is assigned are posted
-        /// </summary>
-        public int? AssignedSkuId { get; set; }
+        ///// <summary>
+        ///// Locations to which this SKU is assigned are posted
+        ///// </summary>
+        //public int? AssignedSkuId { get; set; }
 
-        [Display(Name = "Assigned to SKU")]
-        [Required(ErrorMessage = "Locations assigned to the SKU you specify here will be listed")]
-        public string AssignedSkuText { get; set; }
+        //[Display(Name = "Assigned to SKU")]
+        //[Required(ErrorMessage = "Locations assigned to the SKU you specify here will be listed")]
+        //public string AssignedSkuText { get; set; }
 
 
     }

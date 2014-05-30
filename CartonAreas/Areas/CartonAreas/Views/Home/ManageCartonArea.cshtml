@@ -60,15 +60,15 @@
         {
             <div>
                 <input type="hidden" value="@Model.CurrentArea.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
-                @Html.LabelFor(m => m.AssignedSkuText)
-                <input type="hidden" value="@Model.AssignedSkuId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
-                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuText" value="@Model.AssignedSkuText"
+                <label>Assigned to SKU</label>
+                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
+                <input type="text" name="skuText" 
                        data-ac-list-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())"
                        data-ac-validate-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())"
                        data-ac-extra-param="@Model.CurrentArea.AreaId" />
                 <sup>&darr;*</sup>
                 <button type="submit">Go</button>
-                <span data-ac-msg-for="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuText" class="sku-display"></span>
+                <span data-ac-msg-for="skuText" class="sku-display"></span>
             </div>
         }
     </div>
