@@ -23,12 +23,6 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public int? SkuId { get; set; }
 
-
-        /// <summary>
-        /// The text entered by the user for SKU
-        /// </summary>
-        public string SkuEntry { get; set; }
-
         public string LocationId { get; set; }
 
         public string SearchLocationLike { get; set; }

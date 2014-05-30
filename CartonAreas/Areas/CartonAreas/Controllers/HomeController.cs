@@ -396,8 +396,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                     CartonAreaId = areaId,
                     AssignedLocations = assigned,
                     EmptyLocations = emptyLocations,
-                    SkuId = assignedSkuId,
-                    SkuEntry = skuEntry
+                    SkuId = assignedSkuId
                 };
                 if (!string.IsNullOrWhiteSpace(locationId))
                 {
