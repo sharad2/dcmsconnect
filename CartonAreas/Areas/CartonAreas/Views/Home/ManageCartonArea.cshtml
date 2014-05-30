@@ -59,9 +59,9 @@
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilter(), FormMethod.Get))
         {
             <div>
-                @Html.HiddenFor(m => m.CurrentArea.AreaId)
+                <input type="hidden" value="@Model.CurrentArea.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
                 @Html.LabelFor(m => m.AssignedSkuText)
-                @Html.HiddenFor(m => m.AssignedSkuId)
+                <input type="hidden" value="@Model.AssignedSkuId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
                 @Html.TextBoxFor(m => m.AssignedSkuText, new Dictionary<string, object>
    {
            {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())},

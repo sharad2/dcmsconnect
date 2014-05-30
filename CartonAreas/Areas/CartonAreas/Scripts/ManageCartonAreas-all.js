@@ -181,7 +181,7 @@ $Date: 2014-05-27 13:27:27 +0530 (Tue, 27 May 2014) $
 */
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
-// $Id: AutoComplete.partial.js 8401 2011-12-14 12:19:00Z spandey $
+// $Id: AutoComplete.partial.js 24597 2014-05-30 09:31:49Z ssinghal $
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers

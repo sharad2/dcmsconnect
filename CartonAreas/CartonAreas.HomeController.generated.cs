@@ -213,7 +213,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_ApplyAssignedSkuFilter ApplyAssignedSkuFilterParams { get { return s_params_ApplyAssignedSkuFilter; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ApplyAssignedSkuFilter {
-            public readonly string model = "model";
+            public readonly string areaId = "areaId";
+            public readonly string assignedSkuId = "assignedSkuId";
+            public readonly string assignedSkuText = "assignedSkuText";
         }
         static readonly ActionParamsClass_ApplyLocationIdFilter s_params_ApplyLocationIdFilter = new ActionParamsClass_ApplyLocationIdFilter();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -328,9 +330,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyAssignedSkuFilter(DcmsMobile.CartonAreas.ViewModels.ManageCartonAreaViewModel model) {
+        public override System.Web.Mvc.ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId, string assignedSkuText) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyAssignedSkuFilter);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuId", assignedSkuId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuText", assignedSkuText);
             return callInfo;
         }
 

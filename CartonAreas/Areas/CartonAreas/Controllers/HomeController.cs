@@ -308,10 +308,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// We clear the model state since we do not want server side validation. Server validation causes problems because
         /// only partial model is posted.
         /// </remarks>
-        public virtual ActionResult ApplyAssignedSkuFilter(ManageCartonAreaViewModel model)
+        public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId, string assignedSkuText)
         {
             ModelState.Clear();
-            return DoManageCartonArea(model.CurrentArea.AreaId, null, null, model.AssignedSkuId, model.AssignedSkuText, null);
+            return DoManageCartonArea(areaId, null, null, assignedSkuId, assignedSkuText, null);
         }
 
         /// <summary>
