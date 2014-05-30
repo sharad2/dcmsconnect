@@ -128,6 +128,18 @@
     <Compile Include="ViewModels\SkuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js">
+      <DependentUpon>ManageSku-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js">
+      <DependentUpon>RecentRequest-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js.map">
+      <DependentUpon>RecentRequest-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js.map">
+      <DependentUpon>ManageSku-all.js</DependentUpon>
+    </Content>
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\REQ2\Content\Autocomplete.partial.css" />
     <Content Include="Areas\REQ2\Content\images\a1.gif" />
@@ -142,20 +154,8 @@
     <None Include="Areas\REQ2\Content\REQ2.mobile.partial.css" />
     <None Include="Areas\REQ2\Content\standardized.partial.css" />
     <None Include="Areas\REQ2\Content\REQ2.partial.css" />
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <None Include="Areas\REQ2\Scripts\RecentRequest.partial.js" />
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js">
-      <DependentUpon>REQ2.chirp.config</DependentUpon>
-    </Content>
-    <None Include="Areas\REQ2\Scripts\ManageSku.partial.js" />
+    <None Include="Areas\REQ2\Scripts\RecentRequest-all.js" />
+    <None Include="Areas\REQ2\Scripts\ManageSku-all.js" />
     <Content Include="Areas\REQ2\Views\Home\CartonList.cshtml" />
     <Content Include="Areas\REQ2\Views\Home\Tutorial.cshtml" />
     <None Include="Content\themes\Default\images\ui-bg_flat_55_999999_40x100.png" />
@@ -226,9 +226,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Areas\REQ2\Views\Shared\_layoutReq.Mobile.cshtml" />
-    <None Include="Areas\REQ2\Scripts\REQ2.chirp.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
