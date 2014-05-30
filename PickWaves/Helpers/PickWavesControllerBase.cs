@@ -8,7 +8,7 @@ namespace DcmsMobile.PickWaves.Helpers
 
     public abstract class PickWavesControllerBase : EclipseController
     {
-        protected const string ROLE_WAVE_MANAGER = "DCMS8_WAVE_MANAGER";
+        protected const string ROLE_WAVE_MANAGER = "DCMS8_SELECTPO";
         protected const string ROLE_EXPEDITE_BOXES = "DCMS8_CREATEBPP";
 
         /// <summary>

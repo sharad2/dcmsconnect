@@ -170,6 +170,7 @@ using System.Runtime.InteropServices;
  *  Bug Fixed : Now While creating a wave for customers, give success massage that bucket is created.
  *  Feature : Now showing total ordered pieces and total weight and volume on Sku List page.
  *  Bug Fixed : Now update buckets properties if the there is no area decided either for pulling or pitching.
+ *  Role is required : DCMS8_SELECTPO
  */
 
 [assembly: AssemblyVersion("2.0.2.0")]
