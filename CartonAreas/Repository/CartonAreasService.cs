@@ -91,13 +91,13 @@ namespace DcmsMobile.CartonAreas.Repository
         //    //return _repos.GetLocations(filters);
         //}
 
-        public IList<Location> GetLocation(string locationId)
+        public IList<Location> GetLocationsMatchingPattern(string locationPattern)
         {
-            if (string.IsNullOrWhiteSpace(locationId))
+            if (string.IsNullOrWhiteSpace(locationPattern))
             {
-                throw new ArgumentNullException("locationId");
+                throw new ArgumentNullException("locationPattern");
             }
-            return _repos.GetLocations(locationId.Replace('*', '%'), null, null, null, null);
+            return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null);
         }
 
         public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId)

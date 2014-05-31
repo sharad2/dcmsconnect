@@ -280,7 +280,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return Index();
             }
-            var model = CreateManageCartonAreaViewModel(areaId, assigned, emptyLocations, null, null);
+            var model = CreateManageCartonAreaViewModel(areaId);
+            model.Matrix.AssignedLocationsFlag = assigned;
+            model.Matrix.EmptyLocationsFlag = emptyLocations;
+            model.Locations = _service.GetLocations(areaId, assigned, emptyLocations).Select(p => new LocationModel(p)).ToArray();
             return View(Views.ManageCartonArea, model);
         }
 
@@ -302,7 +305,12 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 return RedirectToAction(Actions.Index());
             }
             ModelState.Clear();
-            var model = CreateManageCartonAreaViewModel(areaId, null, null, assignedSkuId, null);
+            var model = CreateManageCartonAreaViewModel(areaId);
+            model.Locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId).Select(p => new LocationModel(p)).ToArray();
+            model.AssignedToSkuFilter = new SkuModel
+            {
+                Style = "TODO"
+            };
             return View(Views.ManageCartonArea, model);
         }
 
@@ -319,7 +327,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 return RedirectToAction(Actions.Index());
             }
             ModelState.Clear();
-            var model = CreateManageCartonAreaViewModel(areaId, null, null, null, locationId);
+            var model = CreateManageCartonAreaViewModel(areaId);
+            model.Locations = _service.GetLocationsMatchingPattern(locationId).Select(p => new LocationModel(p)).ToArray();
+            model.LocationPatternFilter = locationId;
             return View(Views.ManageCartonArea, model);
         }
 
@@ -367,7 +377,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="skuEntry"></param>
         /// <param name="locationId"></param>
         /// <returns>The populated mode, or null if invalid area was passed</returns>
-        private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId, bool? assigned, bool? emptyLocations, int? assignedSkuId, string locationId)
+        private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId)
         {
             var area = _service.GetCartonAreaInfo(areaId);
             if (string.IsNullOrEmpty(areaId))
@@ -378,39 +388,35 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManageCartonAreaViewModel
             {
-                Matrix = new LocationCountMatrixViewModel(area)
-                {
-                    AssignedLocationsFlag = assigned,
-                    EmptyLocationsFlag = emptyLocations
-                },
+                Matrix = new LocationCountMatrixViewModel(area),
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId
             };
 
-            IList<Location> locations;
-            if (!string.IsNullOrWhiteSpace(locationId))
-            {
-                locations = _service.GetLocation(locationId);
-                model.LocationPatternFilter = locationId;
-            }
-            else if (assignedSkuId.HasValue)
-            {
-                locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId.Value);
-                model.AssignedToSkuFilter = new SkuModel
-                {
-                    Style = "TODO"
-                };
-            }
-            else
-            {
-                locations = _service.GetLocations(areaId, assigned, emptyLocations);
-            }
+            //IList<Location> locations;
+            //if (!string.IsNullOrWhiteSpace(locationId))
+            //{
+            //    locations = _service.GetLocation(locationId);
+            //    model.LocationPatternFilter = locationId;
+            //}
+            //else if (assignedSkuId.HasValue)
+            //{
+            //    locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId.Value);
+            //    model.AssignedToSkuFilter = new SkuModel
+            //    {
+            //        Style = "TODO"
+            //    };
+            //}
+            //else
+            //{
+            //    locations = _service.GetLocations(areaId, assigned, emptyLocations);
+            //}
 
-            if (locations.Count() == 0)
-            {
-                AddStatusMessage("No location found");
-            }
-            model.Locations = (locations.Select(p => new LocationModel(p))).ToArray();
+            //if (locations.Count() == 0)
+            //{
+            //    AddStatusMessage("No location found");
+            //}
+            //model.Locations = (locations.Select(p => new LocationModel(p))).ToArray();
 
             model.AssignedSku = new AssignSkuViewModel
             {
