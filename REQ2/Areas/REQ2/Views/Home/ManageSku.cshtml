@@ -260,7 +260,7 @@
             @Html.LabelFor(m => m.CurrentRequest.CartonRules.CartonReceivedDate)
             <input id="tbCartonDate" maxlength="10"
                    size="10" type="text" value="@string.Format("{0:d}", Model.CurrentRequest.CartonRules.CartonReceivedDate)" />
-            <input id="tbCartonDate1" name="@Html.NameFor(m => m.CurrentRequest.CartonRules.CartonReceivedDate)" value="@Model.CurrentRequest.CartonRules.CartonReceivedDate" />            
+            <input type="hidden" id="tbCartonDate1" name="@Html.NameFor(m => m.CurrentRequest.CartonRules.CartonReceivedDate)" value="@Model.CurrentRequest.CartonRules.CartonReceivedDate" />            
             <br />
             @Html.LabelFor(m => m.CurrentRequest.CartonRules.BuildingId)
             @Html.DropDownListFor(m => m.CurrentRequest.CartonRules.BuildingId, Model.BuildingList, "(Any)")<br />

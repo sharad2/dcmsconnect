@@ -198,7 +198,7 @@ $(document).ready(function () {
     $('#btnReset').button({ icons: { primary: 'ui-icon-refresh' } });
     $('#divTabs').tabs({
         create: function (event, ui) {
-            $(this).tabs('option', 'selected', parseInt($(this).attr('data-selected-index')));
+            $(this).tabs('option', 'active', parseInt($(this).attr('data-selected-index')));
         }
     });
     //Checking if request is already assigned, all controls must be disabled on the page
