@@ -47,7 +47,7 @@
                 }
             },
             {
-                text: 'Close',
+                text: 'Cancel',
                 click: function (event, ui) {
                     $(this).dialog('close');
                 }

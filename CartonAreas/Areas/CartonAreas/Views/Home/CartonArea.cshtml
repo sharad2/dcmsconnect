@@ -8,11 +8,11 @@
     @if (Model.CartonAreaList.Count() > 0)
     {
         <table>
-            <caption>Carton Areas</caption>
+            <caption>Carton Areas in Building @Model.BuildingId</caption>
             <thead>
 
                 <tr>
-                    <th>Building-Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
+                    <th>Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
                     <th>Description</th>
                     <th># Locations</th>
                     <th>Numbered</th>
@@ -26,7 +26,7 @@
                 @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
                 {
                     <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                        <td style="white-space:nowrap;">@Html.DisplayFor(m => m.BuildingId) - @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)</td>
+                        <td style="white-space:nowrap;">@Html.DisplayFor(m => m.CartonAreaList[i].ShortName)</td>
                         <td><span class="data-Description">@Html.DisplayFor(m => m.CartonAreaList[i].Description)</span></td>
                         <td style="text-align: right">
                             @if (Model.CartonAreaList[i].LocationNumberingFlag)
@@ -65,7 +65,7 @@
 
 </div>
 <div id="divUpdateAreaDialog">
-    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, Model.CurrentArea)
+    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel())
 </div>
 @section scripts
 {

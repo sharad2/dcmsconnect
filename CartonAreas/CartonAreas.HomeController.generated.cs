@@ -197,7 +197,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_UpdateArea UpdateAreaParams { get { return s_params_UpdateArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UpdateArea {
-            public readonly string buildingId = "buildingId";
             public readonly string cam = "cam";
         }
         static readonly ActionParamsClass_ManageCartonArea s_params_ManageCartonArea = new ActionParamsClass_ManageCartonArea();
@@ -262,7 +261,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _areaInfoPartial = "_areaInfoPartial";
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
-            public readonly string AddNewBuilding = "AddNewBuilding";
+            public readonly string AddBuilding = "AddBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
             public readonly string Index = "Index";
@@ -305,7 +304,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AddBuilding(DcmsMobile.CartonAreas.ViewModels.AddNewBuildingViewModel modal) {
+        public override System.Web.Mvc.ActionResult AddBuilding(DcmsMobile.CartonAreas.ViewModels.AddBuildingViewModel modal) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modal", modal);
             return callInfo;
@@ -317,9 +316,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateArea(string buildingId, DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam) {
+        public override System.Web.Mvc.ActionResult UpdateArea(DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateArea);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cam", cam);
             return callInfo;
         }

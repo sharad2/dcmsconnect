@@ -194,7 +194,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult AddNewBuilding()
         {
-            var model = new AddNewBuildingViewModel
+            var model = new AddBuildingViewModel
             {
                 CountryCodeList = (from item in _service.GetCountryList()
                                    select new SelectListItem
@@ -203,15 +203,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                        Value = item.Code
                                    }).ToArray()
             };
-            return View(Views.AddNewBuilding, model);
+            return View(Views.AddBuilding, model);
         }
 
         [HttpPost]
-        public virtual ActionResult AddBuilding(AddNewBuildingViewModel modal)
+        public virtual ActionResult AddBuilding(AddBuildingViewModel modal)
         {
             if (!ModelState.IsValid)
             {
-                return View(Views.AddNewBuilding, modal);
+                return View(Views.AddBuilding, modal);
             }
             modal.BuildingId = modal.BuildingId.ToUpper();
             try
@@ -244,11 +244,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
         public virtual ActionResult CartonArea(string buildingId)
         {
+            if (string.IsNullOrWhiteSpace(buildingId))
+            {
+                return RedirectToAction(Actions.Index());
+            }
             var model = new CartonAreaViewModel
             {
-                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => new CartonAreaModel(p)).ToArray()
+                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => new CartonAreaModel(p)).ToArray(),
+                BuildingId = buildingId
             };
-            model.CurrentArea = new CartonAreaModel();
             return View(Views.CartonArea, model);
 
         }
@@ -263,27 +267,27 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// This method returns the index view to update the grid.
         /// </returns>        
         [HttpPost]
-        public virtual ActionResult UpdateArea(string buildingId, CartonAreaModel cam)
+        public virtual ActionResult UpdateArea(CartonAreaModel cam)
         {
+            var entity = new CartonArea
+                {
+                    AreaId = cam.AreaId,
+                    LocationNumberingFlag = cam.LocationNumberingFlag,
+                    IsPalletRequired = cam.IsPalletRequired,
+                    UnusableInventory = cam.UnusableInventory,
+                    Description = cam.Description
+                };
             try
             {
-                var model = new CartonArea
-                    {
-                        AreaId = cam.AreaId,
-                        LocationNumberingFlag = cam.LocationNumberingFlag,
-                        IsPalletRequired = cam.IsPalletRequired,
-                        UnusableInventory = cam.UnusableInventory,
-                        Description = cam.Description
-                    };
-                _service.UpdateArea(model);
-                AddStatusMessage(string.Format("Area {0} successfully updated", model.ShortName));
+                _service.UpdateArea(entity);
+                AddStatusMessage(string.Format("Area {0} successfully updated", entity.ShortName));
             }
             catch (DbException ex)
             {
                 ModelState.AddModelError("", ex.Message);
             }
             //TODO : pass building also
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(buildingId));
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(entity.BuildingId));
         }
 
         /// <summary>

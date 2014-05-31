@@ -4,7 +4,10 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
-    public class AddNewBuildingViewModel
+    /// <summary>
+    /// View model for the page which adds a building
+    /// </summary>
+    public class AddBuildingViewModel
     {
         [Display(Name = "Building")]
         [Required]
