@@ -1,6 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
 namespace DcmsMobile.CartonAreas.ViewModels
 {
+    [Obsolete]
     public class AreaModel
     {
         public string AreaId { get; set; }

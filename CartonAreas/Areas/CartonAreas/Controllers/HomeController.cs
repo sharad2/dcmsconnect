@@ -13,29 +13,29 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
     [AuthorizeEx("CAM requires Role {0}", Roles = "SRC_CAM_MGR")]
     public partial class HomeController : EclipseController
     {
-        [Obsolete]
-        private CartonAreaModel Map(CartonArea src)
-        {
-            return new CartonAreaModel()
-                {
-                    AreaId = src.AreaId,
-                    Description = src.Description,
-                    ShortName = src.ShortName,
-                    BuildingId = src.BuildingId,
-                    TotalLocations = src.TotalLocations,
-                    CountAssignedLocations = src.CountAssignedLocations,
-                    CountEmptyAssignedLocations = src.CountEmptyAssignedLocations,
-                    CountEmptyUnassignedLocations = src.CountEmptyUnassignedLocations,
-                    CountEmptyLocations = src.CountEmptyLocations,
-                    CountNonemptyAssignedLocations = src.CountNonemptyAssignedLocations,
-                    CountNonemptyUnassignedLocations = src.CountNonemptyUnassignedLocations,
-                    CountUnassignedLocations = src.CountUnassignedLocations,
-                    CountNonemptyLocations = src.CountNonemptyLocations,
-                    LocationNumberingFlag = src.LocationNumberingFlag,
-                    IsPalletRequired = src.IsPalletRequired,
-                    UnusableInventory = src.UnusableInventory
-                };
-        }
+        //[Obsolete]
+        //private CartonAreaModel Map(CartonArea src)
+        //{
+        //    return new CartonAreaModel()
+        //        {
+        //            AreaId = src.AreaId,
+        //            Description = src.Description,
+        //            ShortName = src.ShortName,
+        //            BuildingId = src.BuildingId,
+        //            TotalLocations = src.TotalLocations,
+        //            CountAssignedLocations = src.CountAssignedLocations,
+        //            CountEmptyAssignedLocations = src.CountEmptyAssignedLocations,
+        //            CountEmptyUnassignedLocations = src.CountEmptyUnassignedLocations,
+        //            CountEmptyLocations = src.CountEmptyLocations,
+        //            CountNonemptyAssignedLocations = src.CountNonemptyAssignedLocations,
+        //            CountNonemptyUnassignedLocations = src.CountNonemptyUnassignedLocations,
+        //            CountUnassignedLocations = src.CountUnassignedLocations,
+        //            CountNonemptyLocations = src.CountNonemptyLocations,
+        //            LocationNumberingFlag = src.LocationNumberingFlag,
+        //            IsPalletRequired = src.IsPalletRequired,
+        //            UnusableInventory = src.UnusableInventory
+        //        };
+        //}
 
         #region Intialization
 
@@ -246,7 +246,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         {
             var model = new CartonAreaViewModel
             {
-                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => Map(p)).ToArray()
+                CartonAreaList = _service.GetCartonAreas(buildingId).Select(p => new CartonAreaModel(p)).ToArray()
             };
             model.CurrentArea = new CartonAreaModel();
             return View(Views.CartonArea, model);
@@ -263,7 +263,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// This method returns the index view to update the grid.
         /// </returns>        
         [HttpPost]
-        public virtual ActionResult UpdateArea(CartonAreaModel cam)
+        public virtual ActionResult UpdateArea(string buildingId, CartonAreaModel cam)
         {
             try
             {
@@ -283,7 +283,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
             //TODO : pass building also
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(cam.BuildingId));
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(buildingId));
         }
 
         /// <summary>
@@ -344,8 +344,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             Response.StatusCode = 200;
 
             // Update carton area info in areaInfo table.
-            var cartonarea = Map(_service.GetCartonAreaInfo(model.AreaId));
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
+            var area = _service.GetCartonAreaInfo(model.AreaId);
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, new ManageCartonAreaMatrixModel(area));
         }
 
         /// <summary>
@@ -361,8 +361,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             Response.StatusCode = 200;
 
             // Update carton area info in areaInfo table.
-            var cartonarea = Map(_service.GetCartonAreaInfo(areaId));
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, cartonarea);
+            var area = _service.GetCartonAreaInfo(areaId);
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, new ManageCartonAreaMatrixModel(area));
         }
 
         /// <summary>
@@ -385,20 +385,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManageCartonAreaViewModel
             {
-                Matrix = new ManageCartonAreaMatrixModel
+                Matrix = new ManageCartonAreaMatrixModel(area)
                 {
                     AssignedLocationsFlag = assigned,
-                    EmptyLocationsFlag = emptyLocations,
-                    AreaId = area.AreaId,
-                    TotalLocations = area.TotalLocations,
-                    CountAssignedLocations = area.CountAssignedLocations,
-                    CountEmptyAssignedLocations = area.CountEmptyAssignedLocations,
-                    CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations,
-                    CountEmptyLocations = area.CountEmptyLocations,
-                    CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations,
-                    CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations,
-                    CountUnassignedLocations = area.CountUnassignedLocations,
-                    CountNonemptyLocations = area.CountNonemptyLocations
+                    EmptyLocationsFlag = emptyLocations
                 },
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId

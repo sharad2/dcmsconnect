@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DcmsMobile.CartonAreas.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,25 @@ namespace DcmsMobile.CartonAreas.ViewModels
     /// </summary>
     public class ManageCartonAreaMatrixModel
     {
+        public ManageCartonAreaMatrixModel()
+        {
+
+        }
+
+        internal ManageCartonAreaMatrixModel(CartonArea area)
+        {
+            AreaId = area.AreaId;
+            TotalLocations = area.TotalLocations;
+            CountAssignedLocations = area.CountAssignedLocations;
+            CountEmptyAssignedLocations = area.CountEmptyAssignedLocations;
+            CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations;
+            CountEmptyLocations = area.CountEmptyLocations;
+            CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations;
+            CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations;
+            CountUnassignedLocations = area.CountUnassignedLocations;
+            CountNonemptyLocations = area.CountNonemptyLocations;
+        }
+
         public bool? AssignedLocationsFlag { get; set; }
 
         public bool? EmptyLocationsFlag { get; set; }

@@ -26,7 +26,7 @@
                 @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
                 {
                     <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                        <td style="white-space:nowrap;">@Html.DisplayFor(m => m.CartonAreaList[i].BuildingId) - @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)</td>
+                        <td style="white-space:nowrap;">@Html.DisplayFor(m => m.BuildingId) - @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)</td>
                         <td><span class="data-Description">@Html.DisplayFor(m => m.CartonAreaList[i].Description)</span></td>
                         <td style="text-align: right">
                             @if (Model.CartonAreaList[i].LocationNumberingFlag)

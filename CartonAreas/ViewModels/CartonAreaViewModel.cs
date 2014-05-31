@@ -11,6 +11,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
         // This property contains the information of current area, which will be updated.
         public CartonAreaModel CurrentArea { get; set; }
 
+        public string BuildingId { get; set; }
+
     }
 }
 //$Id$

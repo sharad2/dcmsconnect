@@ -197,6 +197,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_UpdateArea UpdateAreaParams { get { return s_params_UpdateArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UpdateArea {
+            public readonly string buildingId = "buildingId";
             public readonly string cam = "cam";
         }
         static readonly ActionParamsClass_ManageCartonArea s_params_ManageCartonArea = new ActionParamsClass_ManageCartonArea();
@@ -316,8 +317,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateArea(DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam) {
+        public override System.Web.Mvc.ActionResult UpdateArea(string buildingId, DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateArea);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cam", cam);
             return callInfo;
         }
