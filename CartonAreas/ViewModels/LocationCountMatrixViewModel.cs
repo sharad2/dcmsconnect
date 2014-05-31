@@ -1,6 +1,4 @@
 ﻿using DcmsMobile.CartonAreas.Repository;
-using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
@@ -43,11 +41,11 @@ namespace DcmsMobile.CartonAreas.ViewModels
                 }
             }
 
-            [Obsolete]
-            public void SetValue(bool? row, bool? col, int? value)
-            {
-                _data[ToArrayIndex(row), ToArrayIndex(col)] = value;
-            }
+            //[Obsolete]
+            //public void SetValue(bool? row, bool? col, int? value)
+            //{
+            //    _data[ToArrayIndex(row), ToArrayIndex(col)] = value;
+            //}
 
             //public int? GetValue(bool? row, bool? col)
             //{
@@ -72,23 +70,23 @@ namespace DcmsMobile.CartonAreas.ViewModels
             _counts = new BoolArrayTwoDimensional();
             AreaId = area.AreaId;
             //TotalLocations = area.TotalLocations;
-            _counts.SetValue(null, null, area.TotalLocations);
-            CountAssignedLocations = area.CountAssignedLocations;
-            _counts.SetValue(true, null, area.CountAssignedLocations);
-            CountEmptyAssignedLocations = area.CountEmptyAssignedLocations;
-            _counts.SetValue(true, true, area.CountEmptyAssignedLocations);
-            CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations;
-            _counts.SetValue(false, true, area.CountEmptyUnassignedLocations);
-            CountEmptyLocations = area.CountEmptyLocations;
-            _counts.SetValue(null, true, area.CountEmptyLocations);
-            CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations;
-            _counts.SetValue(true, false, area.CountNonemptyAssignedLocations);
-            CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations;
-            _counts.SetValue(false, false, area.CountNonemptyUnassignedLocations);
-            CountUnassignedLocations = area.CountUnassignedLocations;
-            _counts.SetValue(false, null, area.CountUnassignedLocations);
-            CountNonemptyLocations = area.CountNonemptyLocations;
-            _counts.SetValue(null, false, area.CountNonemptyLocations);
+            _counts[null, null] = area.TotalLocations;
+            //CountAssignedLocations = area.CountAssignedLocations;
+            _counts[true, null] = area.CountAssignedLocations;
+            //CountEmptyAssignedLocations = area.CountEmptyAssignedLocations;
+            _counts[true, true] =  area.CountEmptyAssignedLocations;
+            //CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations;
+            _counts[false, true]= area.CountEmptyUnassignedLocations;
+           // CountEmptyLocations = area.CountEmptyLocations;
+            _counts[null, true]= area.CountEmptyLocations;
+           // CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations;
+            _counts[true, false]= area.CountNonemptyAssignedLocations;
+           // CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations;
+            _counts[false, false] = area.CountNonemptyUnassignedLocations;
+           // CountUnassignedLocations = area.CountUnassignedLocations;
+            _counts[false, null]= area.CountUnassignedLocations;
+            //CountNonemptyLocations = area.CountNonemptyLocations;
+            _counts[null, false] = area.CountNonemptyLocations;
         }
 
         /// <summary>
@@ -111,37 +109,37 @@ namespace DcmsMobile.CartonAreas.ViewModels
             return string.Format("{0:N0}", _counts[assigned, empty]);
         }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountEmptyAssignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountEmptyAssignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountNonemptyAssignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountNonemptyAssignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountAssignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountAssignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountEmptyUnassignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountEmptyUnassignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountNonemptyUnassignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountNonemptyUnassignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountUnassignedLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountUnassignedLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountEmptyLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountEmptyLocations { get; set; }
 
-        [Obsolete]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountNonemptyLocations { get; set; }
+        //[Obsolete]
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? CountNonemptyLocations { get; set; }
 
         //[Obsolete]
         //[DisplayFormat(DataFormatString = "{0:N0}")]

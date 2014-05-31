@@ -34,10 +34,10 @@
                 }
             </td>
             <td>
-                @if (Model.CountNonemptyAssignedLocations > 0)
+                @if (Model.GetCount(true, false) > 0)
                 {
                     <input type="checkbox" />
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountNonemptyAssignedLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(true, false),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, false),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == false ? new
                                 {
@@ -47,10 +47,10 @@
                 }
             </td>
             <td>
-                @if (Model.CountAssignedLocations > 0)
+                @if (Model.GetCount(true, null) > 0)
                 {
                     <input type="checkbox" />
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountAssignedLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(true, null),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, null),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == null ? new
                                 {
@@ -64,10 +64,10 @@
                 Unassigned
             </td>
             <td>
-                @if (Model.CountEmptyUnassignedLocations > 0)
+                @if (Model.GetCount(false, true) > 0)
                 {
                     <input type="checkbox" />
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountEmptyUnassignedLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(false, true),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, true),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == true ? new
                                      {
@@ -77,10 +77,10 @@
                 }
             </td>
             <td>
-                @if (Model.CountNonemptyUnassignedLocations > 0)
+                @if (Model.GetCount(false, false) > 0)
                 {
                     <input type="checkbox" />
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountNonemptyUnassignedLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(false, false),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, false),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == false ? new
                                      {
@@ -90,10 +90,10 @@
                 }
             </td>
             <td>
-                @if (Model.CountUnassignedLocations > 0)
+                @if (Model.GetCount(false, null) > 0)
                 {
                     <input type="checkbox" />
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountUnassignedLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(false, null),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, null),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == null ? new
                                      {
@@ -110,9 +110,9 @@
                 Total
             </td>
             <td style="text-align:right">
-                @if (Model.CountEmptyLocations > 0)
+                @if (Model.GetCount(null, true) > 0)
                 {
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountEmptyLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(null, true),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, null, true),
                                                Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == true ? new
                                      {
@@ -122,9 +122,9 @@
                 }
             </td>
             <td style="text-align:right">
-                @if (Model.CountNonemptyLocations > 0)
+                @if (Model.GetCount(null, false) > 0)
                 {
-                    @Html.ActionLink(Html.DisplayFor(m => m.CountNonemptyLocations).ToString(),
+                    @Html.ActionLink(Model.GetDisplayCount(null, false),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, null, false),
                                                Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == false ? new
                                      {
