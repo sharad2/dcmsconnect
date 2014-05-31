@@ -433,7 +433,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 AddStatusMessage("No location found");
             }
-            model.Locations = (locations.Select(p => new LocationViewModel()
+            model.Locations = (locations.Select(p => new LocationModel()
                 {
                     AssignedSku = p.AssignedSku == null ? null : new SkuModel
                         {

@@ -130,7 +130,6 @@
     <Compile Include="ViewModels\CartonAreaViewModel.cs" />
     <Compile Include="ViewModels\EditAddressOfBuildingViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\LocationViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />
     <Compile Include="ViewModels\PickingAreaViewModel.cs" />
   </ItemGroup>
