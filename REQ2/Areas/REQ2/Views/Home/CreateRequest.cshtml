@@ -33,7 +33,7 @@
             }
 
             $CbConversionRequest.change(function (e) {
-                if ($CbConversionRequest.attr('checked')) {
+                if ($CbConversionRequest.is(':checked')) {
                     $ddlTargetVwh.removeAttr('disabled');
                 }
                 else {
@@ -42,7 +42,7 @@
             });
 
             $cbUpdateQuality.change(function (e) {
-                if ($cbUpdateQuality.attr('checked')) {
+                if ($cbUpdateQuality.is(':checked')) {
                     $ddlTargetQualityCode.removeAttr('disabled');
                 }
                 else {
