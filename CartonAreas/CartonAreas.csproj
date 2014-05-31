@@ -126,7 +126,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AddNewBuildingViewModel.cs" />
-    <Compile Include="ViewModels\AreaModel.cs" />
     <Compile Include="ViewModels\AssignSkuViewModel.cs" />
     <Compile Include="ViewModels\BuildingModel.cs" />
     <Compile Include="ViewModels\CartonAreaModel.cs" />
