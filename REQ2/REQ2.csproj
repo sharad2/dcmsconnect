@@ -168,6 +168,23 @@
     <Content Include="Areas\REQ2\Views\Home\_existingRequestPartial.cshtml" />
     <Content Include="Areas\REQ2\Views\Home\_recentRequestListPartial.cshtml" />
     <Content Include="Chirpy.ReadMe.txt" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
@@ -193,9 +210,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\themes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Areas\REQ2\Views\Web.config">
       <SubType>Designer</SubType>
