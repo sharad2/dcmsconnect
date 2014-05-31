@@ -237,7 +237,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_UnassignLocation {
             public readonly string locationId = "locationId";
-            public readonly string areaId = "areaId";
         }
         static readonly ActionParamsClass_PickingArea s_params_PickingArea = new ActionParamsClass_PickingArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -350,10 +349,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UnassignLocation(string locationId, string areaId) {
+        public override System.Web.Mvc.ActionResult UnassignLocation(string locationId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnassignLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             return callInfo;
         }
 

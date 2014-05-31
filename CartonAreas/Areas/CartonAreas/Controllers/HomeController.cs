@@ -357,13 +357,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="areaId"></param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult UnassignLocation(string locationId, string areaId)
+        public virtual ActionResult UnassignLocation(string locationId)
         {
             _service.UnassignSkuFromlocation(locationId);
             Response.StatusCode = 200;
 
+            //throw new NotImplementedException("UnassignSkuFromlocation should return areaId");
             // Update carton area info in areaInfo table.
-            var area = _service.GetCartonAreaInfo(areaId);
+            var area = _service.GetCartonAreaInfo("BIA");
             return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
         }
 

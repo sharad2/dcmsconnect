@@ -2,12 +2,9 @@
 
 $(document).ready(function () {
     //$('#btnLocation,#btnAssignedSku').button({ icons: { primary: 'ui-icon-circle-check'} });
-    $('button.mca-unassign').each(function () {
-        $(this).button({ text: false, disabled: $(this).is('[disabled]'), icons: { primary: 'ui-icon-close' } });
-    });
-    $('button.mca-assign').each(function () {
-        $(this).button({ text: false, icons: { primary: 'ui-icon-pencil' } });
-    });
+    $('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
+    $('button.mca-assign').button({ text: false, icons: { primary: 'ui-icon-pencil' } });
+
 
     // The dialog must be passed $tr (current row which has been clicked) in the custom option currentRow
     $('#divEditDialog').dialog({
@@ -16,7 +13,7 @@ $(document).ready(function () {
         modal: true,
         closeOnEscape: true,
         // Clear existing values
-        open: function (event, ui) {            
+        open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
             var locationId = $tr.find('span.mca-locationid').html();
             var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
@@ -118,57 +115,55 @@ $(document).ready(function () {
                 }
             },
             {
-                text: 'Close',
+                text: 'Cancel',
                 click: function (event, ui) {
                     $(this).dialog('close');
                 }
             }
         ]
     });
-    // Table row gets ui-state-highlight when the dialog is opened. It gets ui-state-active after a successful assignment/unassignment is performed.
-    // Only one row can have this state
-    $('#divLocationList').click(function (e) {
-        $('table tr', this).removeClass('ui-state-highlight').removeClass('ui-state-active');
-        var $tr = $(e.target).closest('tr');
-        if ($(e.target).is('button.mca-assign')) {
-            $('#divEditDialog')
-            .dialog('option', 'currentRow', $tr)
-            .dialog('open');
+
+    $('#divLocationList').on('click', 'button.mca-unassign', function (e) {
+        // Unassign SKU
+        var $tr = $(this).closest('tr').addClass('ui-state-highlight');
+        var locationId = $tr.attr('data-location-id');
+        if (!confirm("Assigned SKU from location " + locationId + " will be removed. Are you sure?")) {
+            $tr.removeClass('ui-state-highlight');
+            return false;
         }
 
-        // Unassign SKU
-        var locationId = $tr.find('span.mca-locationid').html();
-        // areaId is use for update areaInfo.
-        var areaId = $('#hfAreaId').val();
-        if ($(e.target).is('button.mca-unassign:not([disabled])') && confirm("Assigned SKU from location " + locationId + " will be removed. Are you sure?")) {
-            $.ajax({
-                url: $('#divEditDialog').attr('data-unassign-url'),
-                type: 'POST',
-                data: { locationId: locationId, areaId: areaId },
-                statusCode: {
-                    // Success
-                    200: function (data, textStatus, jqXHR) {
-                        // update areaInfo table.
-                        $('#divupdatefilter').html(data);
-                        //Clear the fields which like SKU and capacity in grid row
-                        $tr.find('span.mca-sku,span.mca-maxassignedcartons,span.mca-vwh')
-                            .empty()
-                            .end()
-                             .find('div.ui-progressbar-value')
-                            .css('width', '0%').removeClass('ui-state-error')
-                             .end()
-                            .removeClass('ui-state-highlight')
-                            .addClass('ui-state-active')
-                            .find('button.mca-unassign')
-                            .button('disable');
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                }
-            });
-        }
+        $.ajax($(this).attr('data-unassign-url'), {
+            type: 'POST',
+        }).complete($.proxy(function (jqXHR, textStatus) {
+            $('#divupdatefilter').html(jqXHR.responseText);
+            this.row.addClass('ui-state-active')
+                .find('span.mca-sku,span.mca-maxassignedcartons,span.mca-vwh')
+                .empty();
+            this.button.button('disable');
+        }, { row: $tr, button: $(this) })).error(function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+        }).always($.proxy(function () {
+            $tr.removeClass('ui-state-highlight');
+        }, { row: $tr }));
+    }).on('click', 'button.mca-assign', function (e) {
+        $('#divEditDialog')
+            .dialog('option', 'currentRow', $(this).closest('tr'))
+            .dialog('open');
     });
+
+    // Table row gets ui-state-highlight when the dialog is opened. It gets ui-state-active after a successful assignment/unassignment is performed.
+    // Only one row can have this state
+    //$('#divLocationList').click(function (e) {
+    //    $('table tr', this).removeClass('ui-state-highlight').removeClass('ui-state-active');
+    //    var $tr = $(e.target).closest('tr');
+    //    if ($(e.target).is('button.mca-assign')) {
+    //        $('#divEditDialog')
+    //        .dialog('option', 'currentRow', $tr)
+    //        .dialog('open');
+    //    }
+    //    return;
+
+    //});
 });
 
 /*

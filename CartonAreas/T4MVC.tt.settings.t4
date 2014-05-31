@@ -145,7 +145,8 @@ readonly string[] ExcludedStaticFileExtensions = new string[] {
 	".partial.js",
 	".partial.css",
 	".bundle",
-	".map"
+	".map",
+		".min.js",
 };
 
 //When creating links with T4MVC, it can force them to HTTPS if the action method you are linking to requires Http.  
