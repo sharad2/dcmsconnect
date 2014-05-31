@@ -34,13 +34,20 @@
         }
     }
 
-    if (!string.IsNullOrWhiteSpace(Model.LocationPattern))
+    if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
     {
         @: Matching Pattern
-        @Html.DisplayFor(m => m.LocationPattern)
+        @Html.DisplayFor(m => m.LocationPatternFilter)
     }
 
-
+    if (Model.AssignedToSkuFilter != null)
+    {
+        @:Assigned to SKU
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.Style)
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.Color)
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.Dimension)
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.SkuSize)
+    }
 
 }
 @section scripts {

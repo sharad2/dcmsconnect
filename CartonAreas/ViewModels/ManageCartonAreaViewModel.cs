@@ -83,7 +83,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// <summary>
         /// The location pattern which was used to filter the list
         /// </summary>
-        public string LocationPattern { get; set; }
+        public string LocationPatternFilter { get; set; }
+
+        /// <summary>
+        /// This will be non null if the Assigned to SKU filter has been used
+        /// </summary>
+        public SkuModel AssignedToSkuFilter { get; set; }
 
         /// <summary>
         /// Used to post the Assign SKU dialog

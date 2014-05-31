@@ -391,11 +391,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             if (!string.IsNullOrWhiteSpace(locationId))
             {
                 locations = _service.GetLocation(locationId);
-                model.LocationPattern = locationId;
+                model.LocationPatternFilter = locationId;
             }
             else if (assignedSkuId.HasValue)
             {
                 locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId.Value);
+                model.AssignedToSkuFilter = new SkuModel
+                {
+                    Style = "TODO"
+                };
             }
             else
             {
