@@ -41,17 +41,6 @@ namespace DcmsMobile.CartonAreas.ViewModels
                 }
             }
 
-            //[Obsolete]
-            //public void SetValue(bool? row, bool? col, int? value)
-            //{
-            //    _data[ToArrayIndex(row), ToArrayIndex(col)] = value;
-            //}
-
-            //public int? GetValue(bool? row, bool? col)
-            //{
-            //    return _data[ToArrayIndex(row), ToArrayIndex(col)];
-            //}
-
         }
 
         /// <summary>
@@ -69,23 +58,14 @@ namespace DcmsMobile.CartonAreas.ViewModels
         {
             _counts = new BoolArrayTwoDimensional();
             AreaId = area.AreaId;
-            //TotalLocations = area.TotalLocations;
             _counts[null, null] = area.TotalLocations;
-            //CountAssignedLocations = area.CountAssignedLocations;
             _counts[true, null] = area.CountAssignedLocations;
-            //CountEmptyAssignedLocations = area.CountEmptyAssignedLocations;
-            _counts[true, true] =  area.CountEmptyAssignedLocations;
-            //CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations;
-            _counts[false, true]= area.CountEmptyUnassignedLocations;
-           // CountEmptyLocations = area.CountEmptyLocations;
-            _counts[null, true]= area.CountEmptyLocations;
-           // CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations;
-            _counts[true, false]= area.CountNonemptyAssignedLocations;
-           // CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations;
+            _counts[true, true] = area.CountEmptyAssignedLocations;
+            _counts[false, true] = area.CountEmptyUnassignedLocations;
+            _counts[null, true] = area.CountEmptyLocations;
+            _counts[true, false] = area.CountNonemptyAssignedLocations;
             _counts[false, false] = area.CountNonemptyUnassignedLocations;
-           // CountUnassignedLocations = area.CountUnassignedLocations;
-            _counts[false, null]= area.CountUnassignedLocations;
-            //CountNonemptyLocations = area.CountNonemptyLocations;
+            _counts[false, null] = area.CountUnassignedLocations;
             _counts[null, false] = area.CountNonemptyLocations;
         }
 
@@ -107,43 +87,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public string GetDisplayCount(bool? assigned, bool? empty)
         {
             return string.Format("{0:N0}", _counts[assigned, empty]);
-        }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountEmptyAssignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountNonemptyAssignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountAssignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountEmptyUnassignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountNonemptyUnassignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountUnassignedLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountEmptyLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? CountNonemptyLocations { get; set; }
-
-        //[Obsolete]
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? TotalLocations { get; set; }
+        }       
 
         public string AreaId { get; set; }
     }
