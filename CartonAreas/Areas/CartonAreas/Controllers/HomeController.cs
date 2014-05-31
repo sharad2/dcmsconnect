@@ -281,8 +281,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 return Index();
             }
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Matrix.AssignedLocationsFlag = assigned;
-            model.Matrix.EmptyLocationsFlag = emptyLocations;
+            model.Matrix.AssignedLocationsFilter = assigned;
+            model.Matrix.EmptyLocationsFilter = emptyLocations;
             model.Locations = _service.GetLocations(areaId, assigned, emptyLocations).Select(p => new LocationModel(p)).ToArray();
             return View(Views.ManageCartonArea, model);
         }
@@ -382,8 +382,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var area = _service.GetCartonAreaInfo(areaId);
             if (string.IsNullOrEmpty(areaId))
             {
-                //this.AddStatusMessage(string.Format("Invalid carton area {0}", areaId));
-                //return RedirectToAction(Actions.Index());
                 return null;
             }
             var model = new ManageCartonAreaViewModel
@@ -393,31 +391,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 BuildingId = area.BuildingId
             };
 
-            //IList<Location> locations;
-            //if (!string.IsNullOrWhiteSpace(locationId))
-            //{
-            //    locations = _service.GetLocation(locationId);
-            //    model.LocationPatternFilter = locationId;
-            //}
-            //else if (assignedSkuId.HasValue)
-            //{
-            //    locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId.Value);
-            //    model.AssignedToSkuFilter = new SkuModel
-            //    {
-            //        Style = "TODO"
-            //    };
-            //}
-            //else
-            //{
-            //    locations = _service.GetLocations(areaId, assigned, emptyLocations);
-            //}
-
-            //if (locations.Count() == 0)
-            //{
-            //    AddStatusMessage("No location found");
-            //}
-            //model.Locations = (locations.Select(p => new LocationModel(p))).ToArray();
-
             model.AssignedSku = new AssignSkuViewModel
             {
                 VwhList = _service.GetVwhList().Select(p => new SelectListItem
@@ -426,7 +399,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                     Value = p.Code
                 })
             };
-            //return View(Views.ManageCartonArea, model);
             return model;
         }
 

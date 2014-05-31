@@ -10,9 +10,9 @@
 
     @Model.Locations.Count
     @:Locations Displayed
-    if (Model.Matrix.AssignedLocationsFlag.HasValue)
+    if (Model.Matrix.AssignedLocationsFilter.HasValue)
     {
-        if (Model.Matrix.AssignedLocationsFlag.Value)
+        if (Model.Matrix.AssignedLocationsFilter.Value)
         {
             @:Assigned
         }
@@ -22,9 +22,9 @@
         }
     }
 
-    if (Model.Matrix.EmptyLocationsFlag.HasValue)
+    if (Model.Matrix.EmptyLocationsFilter.HasValue)
     {
-        if (Model.Matrix.EmptyLocationsFlag.Value)
+        if (Model.Matrix.EmptyLocationsFilter.Value)
         {
             @:Empty
         }
