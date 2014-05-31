@@ -5,6 +5,44 @@
 
     ViewBag.Title = "Manage Carton Area";
 }
+@helper TableCaption()
+{
+
+    @Model.Locations.Count
+    @:Locations Displayed
+    if (Model.Matrix.AssignedLocationsFlag.HasValue)
+    {
+        if (Model.Matrix.AssignedLocationsFlag.Value)
+        {
+            @:Assigned
+        }
+        else
+        {
+            @:Unassigned
+        }
+    }
+
+    if (Model.Matrix.EmptyLocationsFlag.HasValue)
+    {
+        if (Model.Matrix.EmptyLocationsFlag.Value)
+        {
+            @:Empty
+        }
+        else
+        {
+            @:Non Empty
+        }
+    }
+
+    if (!string.IsNullOrWhiteSpace(Model.LocationPattern))
+    {
+        @: Matching Pattern
+        @Html.DisplayFor(m => m.LocationPattern)
+    }
+
+
+
+}
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.ManageCartonAreas_all_min_js"></script>
 }
@@ -53,7 +91,7 @@
                 <button type="submit" id="btnLocation">
                     Go
                 </button><span>Use * as wildcard</span>
-               
+
             </div>
         }
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilter(), FormMethod.Get))
@@ -62,7 +100,7 @@
                 <input type="hidden" value="@Model.Matrix.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
                 <label>Assigned to SKU</label>
                 <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
-                <input type="text" name="skuText" 
+                <input type="text" name="skuText"
                        data-ac-list-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())"
                        data-ac-validate-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())"
                        data-ac-extra-param="@Model.Matrix.AreaId" />
@@ -72,6 +110,9 @@
             </div>
         }
     </div>
+    <div>
+        <button>Apply Multiple Filters</button>
+    </div>
 </div>
 <div class="box">
     @if (Model.Locations.Count > 0)
@@ -79,15 +120,7 @@
         <div class="boxContent" id="divLocationList">
             <table>
                 <caption>
-                    @if (this.ViewData.ModelState.IsValid)
-                    {
-
-                        @Model.Locations.Count() <text>Locations Displayed</text>
-                    }
-                    else
-                    {
-                        <text> Invalid filters</text>
-                    }
+                    @TableCaption()
                 </caption>
                 <thead>
                     <tr>

@@ -78,10 +78,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public IList<LocationModel> Locations { get; set; }
 
-        //[Obsolete]
-        //public CartonAreaModel CurrentArea { get; set; }
-
         public LocationCountMatrixViewModel Matrix { get; set; }
+
+        /// <summary>
+        /// The location pattern which was used to filter the list
+        /// </summary>
+        public string LocationPattern { get; set; }
 
         /// <summary>
         /// Used to post the Assign SKU dialog

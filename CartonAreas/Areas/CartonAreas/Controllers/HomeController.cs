@@ -280,7 +280,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return Index();
             }
-            return DoManageCartonArea(areaId, assigned, emptyLocations, null, null);
+            var model = CreateManageCartonAreaViewModel(areaId, assigned, emptyLocations, null, null);
+            return View(Views.ManageCartonArea, model);
         }
 
         /// <summary>
@@ -296,8 +297,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// </remarks>
         public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId)
         {
+            if (string.IsNullOrWhiteSpace(areaId))
+            {
+                return RedirectToAction(Actions.Index());
+            }
             ModelState.Clear();
-            return DoManageCartonArea(areaId, null, null, assignedSkuId, null);
+            var model = CreateManageCartonAreaViewModel(areaId, null, null, assignedSkuId, null);
+            return View(Views.ManageCartonArea, model);
         }
 
         /// <summary>
@@ -308,8 +314,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <returns></returns>
         public virtual ActionResult ApplyLocationIdFilter(string areaId, string locationId)
         {
+            if (string.IsNullOrWhiteSpace(areaId))
+            {
+                return RedirectToAction(Actions.Index());
+            }
             ModelState.Clear();
-            return DoManageCartonArea(areaId, null, null, null, locationId);
+            var model = CreateManageCartonAreaViewModel(areaId, null, null, null, locationId);
+            return View(Views.ManageCartonArea, model);
         }
 
         /// <summary>
@@ -347,7 +358,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         }
 
         /// <summary>
-        /// Creates and populates ManageCartonAreaViewModel
+        /// Creates and populates ManageCartonAreaViewModel. The parameters are the filters used to retrieve the location list
         /// </summary>
         /// <param name="areaId"></param>
         /// <param name="assigned"></param>
@@ -355,14 +366,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assignedSkuId"></param>
         /// <param name="skuEntry"></param>
         /// <param name="locationId"></param>
-        /// <returns></returns>
-        private ActionResult DoManageCartonArea(string areaId, bool? assigned, bool? emptyLocations, int? assignedSkuId, string locationId)
+        /// <returns>The populated mode, or null if invalid area was passed</returns>
+        private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId, bool? assigned, bool? emptyLocations, int? assignedSkuId, string locationId)
         {
             var area = _service.GetCartonAreaInfo(areaId);
             if (string.IsNullOrEmpty(areaId))
             {
-                this.AddStatusMessage(string.Format("Invalid carton area {0}", areaId));
-                return RedirectToAction(Actions.Index());
+                //this.AddStatusMessage(string.Format("Invalid carton area {0}", areaId));
+                //return RedirectToAction(Actions.Index());
+                return null;
             }
             var model = new ManageCartonAreaViewModel
             {
@@ -379,6 +391,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             if (!string.IsNullOrWhiteSpace(locationId))
             {
                 locations = _service.GetLocation(locationId);
+                model.LocationPattern = locationId;
             }
             else if (assignedSkuId.HasValue)
             {
@@ -430,7 +443,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                     Value = p.Code
                 })
             };
-            return View(Views.ManageCartonArea, model);
+            //return View(Views.ManageCartonArea, model);
+            return model;
         }
 
         public virtual ActionResult PickingArea(string buildingId)

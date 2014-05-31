@@ -21,9 +21,10 @@
             <td>
                 Assigned
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountEmptyAssignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountEmptyAssignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, true),
                                 Model.AssignedLocationsFlag == true && Model.EmptyLocationsFlag == true ? new
@@ -32,21 +33,23 @@
                                 } : null)
                 }
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountNonemptyAssignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountNonemptyAssignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, false),
                                 Model.AssignedLocationsFlag == true && Model.EmptyLocationsFlag == false ? new
                                 {
                                     @class = "ui-state-active"
                                 } : null)
-                                
+
                 }
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountAssignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountAssignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, null),
                                 Model.AssignedLocationsFlag == true && Model.EmptyLocationsFlag == null ? new
@@ -60,9 +63,10 @@
             <td>
                 Unassigned
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountEmptyUnassignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountEmptyUnassignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, true),
                                      Model.AssignedLocationsFlag == false && Model.EmptyLocationsFlag == true ? new
@@ -72,9 +76,10 @@
                                 )
                 }
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountNonemptyUnassignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountNonemptyUnassignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, false),
                                      Model.AssignedLocationsFlag == false && Model.EmptyLocationsFlag == false ? new
@@ -84,9 +89,10 @@
                                 )
                 }
             </td>
-            <td style="text-align:right">
+            <td>
                 @if (Model.CountUnassignedLocations > 0)
                 {
+                    <input type="checkbox" />
                     @Html.ActionLink(Html.DisplayFor(m => m.CountUnassignedLocations).ToString(),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, null),
                                      Model.AssignedLocationsFlag == false && Model.EmptyLocationsFlag == null ? new
@@ -131,12 +137,7 @@
                 @if (Model.TotalLocations > 0)
                 {
                     @Html.ActionLink(Html.DisplayFor(m => m.TotalLocations).ToString(),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId),
-                                     Model.AssignedLocationsFlag == null && Model.EmptyLocationsFlag == null ? new
-                                     {
-                                         @class = "ui-state-active"
-                                     } : null
-                                )
+                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId))
                 }
             </td>
         </tr>
@@ -144,7 +145,7 @@
 </table>
 
 @*
-    $Id: _areaInfoPartial.cshtml 11262 2012-01-04 09:42:30Z spandey $ 
+    $Id: _areaInfoPartial.cshtml 11262 2012-01-04 09:42:30Z spandey $
     $Revision: 11262 $
     $URL: svn://vcs/net4/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Views/Home/_areaInfoPartial.cshtml $
     $Header: svn://vcs/net4/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Views/Home/_areaInfoPartial.cshtml 11262 2012-01-04 09:42:30Z spandey $
