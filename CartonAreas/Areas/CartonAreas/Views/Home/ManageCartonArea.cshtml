@@ -13,8 +13,8 @@
         <div class="boxContent">
             <ul>
                 <li>
-                    @Html.LabelFor(m => m.CurrentArea.BuildingId)
-                    @Html.DisplayFor(m => m.CurrentArea.BuildingId)
+                    @Html.LabelFor(m => m.BuildingId)
+                    @Html.DisplayFor(m => m.BuildingId)
                 </li>
             </ul>
             @Html.ActionLink("Back to Carton Area List", MVC_CartonAreas.CartonAreas.Home.Actions.ManageCartonArea())
@@ -35,19 +35,19 @@
             font-weight: normal;
         }
 </style>
-<h2>@Html.LabelFor(m => m.CurrentArea.AreaId) @Html.DisplayFor(m => m.CurrentArea.ShortName)</h2>
+<h2>@Html.LabelFor(m => m.Matrix.AreaId) @Html.DisplayFor(m => m.ShortName)</h2>
 <div class="box">
     <h3>
         Search for locations
     </h3>
     <div id="divFilter" class="boxContent designForm">
         <div id="divupdatefilter">
-            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, Model.CurrentArea)
+            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, Model.Matrix)
         </div>
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilter(), FormMethod.Get))
         {
             <div>
-                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.areaId" value="@Model.CurrentArea.AreaId" id="hfAreaId" />
+                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.areaId" value="@Model.Matrix.AreaId" id="hfAreaId" />
                 <label>Specific Locations</label>
                 <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilterParams.locationId">
                 <button type="submit" id="btnLocation">
@@ -59,13 +59,13 @@
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilter(), FormMethod.Get))
         {
             <div>
-                <input type="hidden" value="@Model.CurrentArea.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
+                <input type="hidden" value="@Model.Matrix.AreaId" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.areaId" />
                 <label>Assigned to SKU</label>
                 <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyAssignedSkuFilterParams.assignedSkuId" />
                 <input type="text" name="skuText" 
                        data-ac-list-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())"
                        data-ac-validate-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())"
-                       data-ac-extra-param="@Model.CurrentArea.AreaId" />
+                       data-ac-extra-param="@Model.Matrix.AreaId" />
                 <sup>&darr;*</sup>
                 <button type="submit">Go</button>
                 <span data-ac-msg-for="skuText" class="sku-display"></span>

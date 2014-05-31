@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.CartonAreas.Repository;
 using DcmsMobile.CartonAreas.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
     [AuthorizeEx("CAM requires Role {0}", Roles = "SRC_CAM_MGR")]
     public partial class HomeController : EclipseController
     {
+        [Obsolete]
         private CartonAreaModel Map(CartonArea src)
         {
             return new CartonAreaModel()
@@ -383,13 +385,26 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManageCartonAreaViewModel
             {
-                CurrentArea = Map(area),
-                //AssignedSkuId = assignedSkuId,
-                //AssignedSkuText = skuEntry,
-                //LocationId = locationId,
+                Matrix = new ManageCartonAreaMatrixModel
+                {
+                    AssignedLocationsFlag = assigned,
+                    EmptyLocationsFlag = emptyLocations,
+                    AreaId = area.AreaId,
+                    TotalLocations = area.TotalLocations,
+                    CountAssignedLocations = area.CountAssignedLocations,
+                    CountEmptyAssignedLocations = area.CountEmptyAssignedLocations,
+                    CountEmptyUnassignedLocations = area.CountEmptyUnassignedLocations,
+                    CountEmptyLocations = area.CountEmptyLocations,
+                    CountNonemptyAssignedLocations = area.CountNonemptyAssignedLocations,
+                    CountNonemptyUnassignedLocations = area.CountNonemptyUnassignedLocations,
+                    CountUnassignedLocations = area.CountUnassignedLocations,
+                    CountNonemptyLocations = area.CountNonemptyLocations
+                },
+                ShortName = area.ShortName,
+                BuildingId = area.BuildingId
             };
-            model.CurrentArea.AssignedLocationsFlag = assigned;
-            model.CurrentArea.EmptyLocationsFlag = emptyLocations;
+            //model.CurrentArea.AssignedLocationsFlag = assigned;
+            //model.CurrentArea.EmptyLocationsFlag = emptyLocations;
 
             //var filterModel = new LocationFilter
             //{
