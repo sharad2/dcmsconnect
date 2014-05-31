@@ -15,7 +15,13 @@ $(document).ready(function () {
         // Clear existing values
         open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
-            var locationId = $tr.find('span.mca-locationid').html();
+
+            // Extra code by Sharad
+            $('#lblSku em').text($('span.mca-sku', $tr).text());
+            $('#lblAssignedVwh em').text($('span.mca-vwh', $tr).text());
+
+            /////////////////////
+            var locationId = $tr.attr('data-location-id');
             var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
             if (sku == "") {
                 sku = "NONE";
@@ -32,8 +38,8 @@ $(document).ready(function () {
             $(this).dialog({ title: 'Update Location #' + locationId });
             $(this).find('#tbMaxAssignedCarton').removeClass('input-validation-error');
             $("#displayCartonCount").html("<b>Location contains " + cartonCount + " cartons of SKU " + cartonSku + ". </b>").addClass('ui-state-highlight');
-            $('#displayWarning', this).html("Assigned SKU: (" + sku + ") | VWh: (" + vwh)
-                .addClass('ui-state-highlight');
+            //$('#displayWarning', this).html("Assigned SKU: (" + sku + ") | VWh: (" + vwh)
+            //    .addClass('ui-state-highlight');
             if (sku != "") {
                 var upccode = $tr.find('span.mca-sku span').attr('title');
                 $('#tbSku').val(upccode);
@@ -167,12 +173,12 @@ $(document).ready(function () {
 });
 
 /*
-$Id: ManageCartonAreas.partial.js 24617 2014-05-30 12:21:09Z spandey $ 
-$Revision: 24617 $
+$Id: ManageCartonAreas.partial.js 24638 2014-05-31 12:17:15Z ssinghal $ 
+$Revision: 24638 $
 $URL: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24617 2014-05-30 12:21:09Z spandey $
-$Author: spandey $
-$Date: 2014-05-30 17:51:09 +0530 (Fri, 30 May 2014) $
+$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24638 2014-05-31 12:17:15Z ssinghal $
+$Author: ssinghal $
+$Date: 2014-05-31 17:47:15 +0530 (Sat, 31 May 2014) $
 */
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />

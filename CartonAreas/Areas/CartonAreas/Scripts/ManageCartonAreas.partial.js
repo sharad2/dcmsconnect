@@ -15,7 +15,13 @@ $(document).ready(function () {
         // Clear existing values
         open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
-            var locationId = $tr.find('span.mca-locationid').html();
+
+            // Extra code by Sharad
+            $('#lblSku em').text($('span.mca-sku', $tr).text());
+            $('#lblAssignedVwh em').text($('span.mca-vwh', $tr).text());
+
+            /////////////////////
+            var locationId = $tr.attr('data-location-id');
             var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
             if (sku == "") {
                 sku = "NONE";
@@ -32,8 +38,8 @@ $(document).ready(function () {
             $(this).dialog({ title: 'Update Location #' + locationId });
             $(this).find('#tbMaxAssignedCarton').removeClass('input-validation-error');
             $("#displayCartonCount").html("<b>Location contains " + cartonCount + " cartons of SKU " + cartonSku + ". </b>").addClass('ui-state-highlight');
-            $('#displayWarning', this).html("Assigned SKU: (" + sku + ") | VWh: (" + vwh)
-                .addClass('ui-state-highlight');
+            //$('#displayWarning', this).html("Assigned SKU: (" + sku + ") | VWh: (" + vwh)
+            //    .addClass('ui-state-highlight');
             if (sku != "") {
                 var upccode = $tr.find('span.mca-sku span').attr('title');
                 $('#tbSku').val(upccode);

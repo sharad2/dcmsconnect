@@ -173,18 +173,14 @@
                 {
                     <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId">
                         <td>
-                            <span class="mca-locationid">@Html.DisplayFor(m => m.Locations[i].LocationId)</span>
-                            mca-locationid is obsolete
+                            @Html.DisplayFor(m => m.Locations[i].LocationId)
                         </td>
                         <td style="white-space: nowrap">
                             <span class="mca-sku">
                                 @if (Model.Locations[i].AssignedSku != null)
                                 {
                                     <span title="@Model.Locations[i].AssignedSku.UpcCode">
-                                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.Style)
-                                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.Color)
-                                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.Dimension)
-                                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.SkuSize)
+                                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
                                     </span>
                                 }
                             </span>
@@ -217,10 +213,7 @@
                                 @if (Model.Locations[i].CartonSku != null)
                                 {
                                     <span title="@Model.Locations[i].CartonSku.UpcCode">
-                                        @Html.DisplayFor(m => m.Locations[i].CartonSku.Style)/
-                                        @Html.DisplayFor(m => m.Locations[i].CartonSku.Color)/
-                                        @Html.DisplayFor(m => m.Locations[i].CartonSku.Dimension)/
-                                        @Html.DisplayFor(m => m.Locations[i].CartonSku.SkuSize)
+                                        @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
                                     </span>
                                     if (Model.Locations[i].CartonSkuCount > 1)
                                     {
