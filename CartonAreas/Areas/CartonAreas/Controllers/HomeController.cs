@@ -410,34 +410,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 AddStatusMessage("No location found");
             }
-            model.Locations = (locations.Select(p => new LocationModel()
-                {
-                    AssignedSku = p.AssignedSku == null ? null : new SkuModel
-                        {
-                            Style = p.AssignedSku.Style,
-                            Color = p.AssignedSku.Color,
-                            Dimension = p.AssignedSku.Dimension,
-                            SkuSize = p.AssignedSku.SkuSize,
-                            SkuId = p.AssignedSku.SkuId,
-                            UpcCode = p.AssignedSku.UpcCode
-                        },
-                    CartonSku = p.CartonSku == null ? null : new SkuModel
-                                                    {
-                                                        Style = p.CartonSku.Style,
-                                                        Color = p.CartonSku.Color,
-                                                        Dimension = p.CartonSku.Dimension,
-                                                        SkuSize = p.CartonSku.SkuSize,
-                                                        SkuId = p.CartonSku.SkuId,
-                                                        UpcCode = p.CartonSku.UpcCode
-                                                    },
-                    CartonCount = p.CartonCount,
-                    PalletCount = p.PalletCount,
-                    AssignedVwhId = p.AssignedVwhId,
-                    TotalPieces = p.TotalPieces,
-                    LocationId = p.LocationId,
-                    MaxAssignedCartons = p.MaxAssignedCarton,
-                    CartonSkuCount = p.CartonSkuCount
-                })).ToArray();
+            model.Locations = (locations.Select(p => new LocationModel(p))).ToArray();
 
             model.AssignedSku = new AssignSkuViewModel
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DcmsMobile.CartonAreas.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -25,6 +26,46 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
     public class LocationModel
     {
+        public LocationModel()
+        {
+
+        }
+
+        internal LocationModel(Location entity)
+        {
+            if (entity.AssignedSku != null)
+            {
+                AssignedSku = new SkuModel
+                        {
+                            Style = entity.AssignedSku.Style,
+                            Color = entity.AssignedSku.Color,
+                            Dimension = entity.AssignedSku.Dimension,
+                            SkuSize = entity.AssignedSku.SkuSize,
+                            SkuId = entity.AssignedSku.SkuId,
+                            UpcCode = entity.AssignedSku.UpcCode
+                        };
+            }
+            if (entity.CartonSku != null)
+            {
+                CartonSku = new SkuModel
+                                                    {
+                                                        Style = entity.CartonSku.Style,
+                                                        Color = entity.CartonSku.Color,
+                                                        Dimension = entity.CartonSku.Dimension,
+                                                        SkuSize = entity.CartonSku.SkuSize,
+                                                        SkuId = entity.CartonSku.SkuId,
+                                                        UpcCode = entity.CartonSku.UpcCode
+                                                    };
+            }
+            CartonCount = entity.CartonCount;
+            PalletCount = entity.PalletCount;
+            AssignedVwhId = entity.AssignedVwhId;
+            TotalPieces = entity.TotalPieces;
+            LocationId = entity.LocationId;
+            MaxAssignedCartons = entity.MaxAssignedCarton;
+            CartonSkuCount = entity.CartonSkuCount;
+        }
+
         [Required]
         [Display(Name = "Location")]
         public string LocationId { get; set; }
