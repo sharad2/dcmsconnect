@@ -13,30 +13,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
     [AuthorizeEx("CAM requires Role {0}", Roles = "SRC_CAM_MGR")]
     public partial class HomeController : EclipseController
     {
-        //[Obsolete]
-        //private CartonAreaModel Map(CartonArea src)
-        //{
-        //    return new CartonAreaModel()
-        //        {
-        //            AreaId = src.AreaId,
-        //            Description = src.Description,
-        //            ShortName = src.ShortName,
-        //            BuildingId = src.BuildingId,
-        //            TotalLocations = src.TotalLocations,
-        //            CountAssignedLocations = src.CountAssignedLocations,
-        //            CountEmptyAssignedLocations = src.CountEmptyAssignedLocations,
-        //            CountEmptyUnassignedLocations = src.CountEmptyUnassignedLocations,
-        //            CountEmptyLocations = src.CountEmptyLocations,
-        //            CountNonemptyAssignedLocations = src.CountNonemptyAssignedLocations,
-        //            CountNonemptyUnassignedLocations = src.CountNonemptyUnassignedLocations,
-        //            CountUnassignedLocations = src.CountUnassignedLocations,
-        //            CountNonemptyLocations = src.CountNonemptyLocations,
-        //            LocationNumberingFlag = src.LocationNumberingFlag,
-        //            IsPalletRequired = src.IsPalletRequired,
-        //            UnusableInventory = src.UnusableInventory
-        //        };
-        //}
-
         #region Intialization
 
         /// <summary>
@@ -63,6 +39,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             if (_service != null)
             {
                 _service.Dispose();
+                _service = null;
             }
             base.Dispose(disposing);
         }
@@ -349,11 +326,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(model.AreaId);
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, new ManageCartonAreaMatrixModel(area));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
         }
 
         /// <summary>
-        /// Unassign SKU and VWh from location
+        /// Unassign SKU and VWh from location. This should be called via ajax. It will return HTML for the count matrix
         /// </summary>
         /// <param name="locationId"></param>
         /// <param name="areaId"></param>
@@ -366,7 +343,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(areaId);
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, new ManageCartonAreaMatrixModel(area));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
         }
 
         /// <summary>
@@ -389,7 +366,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManageCartonAreaViewModel
             {
-                Matrix = new ManageCartonAreaMatrixModel(area)
+                Matrix = new LocationCountMatrixViewModel(area)
                 {
                     AssignedLocationsFlag = assigned,
                     EmptyLocationsFlag = emptyLocations
@@ -397,24 +374,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId
             };
-            //model.CurrentArea.AssignedLocationsFlag = assigned;
-            //model.CurrentArea.EmptyLocationsFlag = emptyLocations;
 
-            //var filterModel = new LocationFilter
-            //{
-            //    CartonAreaId = areaId,
-            //    AssignedLocations = assigned,
-            //    EmptyLocations = emptyLocations,
-            //    SkuId = assignedSkuId
-            //};
-            //if (!string.IsNullOrWhiteSpace(locationId))
-            //{
-            //    filterModel.SearchLocationLike = locationId.Contains("*") ? locationId.Remove(locationId.Length - 1) : null;
-            //    if (string.IsNullOrWhiteSpace(filterModel.SearchLocationLike))
-            //    {
-            //        filterModel.LocationId = locationId;
-            //    }
-            //}
             IList<Location> locations;
             if (!string.IsNullOrWhiteSpace(locationId))
             {

@@ -183,8 +183,8 @@ namespace Links_CartonAreas {
                     private const string URLPATH = "~/Areas/CartonAreas/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _areaInfoPartial_cshtml = Url("_areaInfoPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_areaInfoPartial.cshtml");
                     public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_assignSkuDialogPartial.cshtml");
+                    public static readonly string _locationCountMatrixPartial_cshtml = Url("_locationCountMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_locationCountMatrixPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.cshtml");
                     public static readonly string AddBuilding_cshtml = Url("AddBuilding.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/AddBuilding.cshtml");
                     public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea.cshtml");

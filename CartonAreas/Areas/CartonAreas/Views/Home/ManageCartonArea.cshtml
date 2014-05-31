@@ -42,7 +42,7 @@
     </h3>
     <div id="divFilter" class="boxContent designForm">
         <div id="divupdatefilter">
-            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._areaInfoPartial, Model.Matrix)
+            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, Model.Matrix)
         </div>
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilter(), FormMethod.Get))
         {
