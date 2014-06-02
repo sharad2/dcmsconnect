@@ -11,8 +11,8 @@ $(document).ready(function () {
         width: 'auto',
         modal: true,
         closeOnEscape: true,
-        // Clear existing values
         open: function (event, ui) {
+            // Copy the values in the current to the dialog's input boxes
             var $tr = $(this).dialog('option', 'currentRow');
             var vwh = $('span.mca-vwh', $tr).text().trim();
 
@@ -30,6 +30,8 @@ $(document).ready(function () {
             $('#tbAssignedVwh').val(vwh);
 
             $('#hfCurrentLocationId', this).val($tr.attr('data-location-id'));
+
+            // Clear the validation error classes. If the user closed the dialog after receiving validation errors, this code will clean up all that.
             $('div[data-valmsg-summary]', this).removeClass('validation-summary-errors').addClass('validation-summary-valid');
             $('input,select', this).removeClass('input-validation-error');
         },
@@ -41,17 +43,20 @@ $(document).ready(function () {
                 click: function (event, ui) {
                     var $form = $('form', this);
                     if (!$form.valid()) {
+                        // Do nothing if the form is invalid
                         return false;
                     }
 
+                    // Make the ajax call to update the SKU assignment
+                    $('#imgAjaxLoader', this).show();
                     $.ajax($form.attr('action'), {
                         type: 'POST',
                         data: $form.serializeArray(),
                         context: this
                     }).done(function (data, textStatus, jqXHR) {
-                        // Update areaInfo table.
+                        // Update the location count matrix
                         $('#divupdatefilter').html(data);
-                        // update location list.
+                        // Success. Update the SKU assignemnt in the current row
                         var $row = $(this).dialog('option', 'currentRow').addClass('ui-state-active');
                         $('span.mca-sku', $row).text($('span.sku-display', this).text());
                         $('span.mca-maxassignedcartons', $row).text($('#tbMaxAssignedCarton', this).val());
@@ -62,6 +67,7 @@ $(document).ready(function () {
                         alert(jqXHR.responseText);
                     }).always(function () {
                         $(this).dialog('option', 'currentRow').removeClass('ui-state-highlight');
+                        $('#imgAjaxLoader', this).hide();
                     });
                 }
             },
