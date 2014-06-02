@@ -47,52 +47,83 @@ $(document).ready(function () {
                     $.ajax($form.attr('action'), {
                         type: 'POST',
                         data: $form.serializeArray(),
-                        context: this,
-                        statusCode: {
-                            // Success
-                            200: function (data, textStatus, jqXHR) {
-                                // Update areaInfo table.
-                                $('#divupdatefilter').html(data);
-                                // update location list.
-                                var $row = $(this).dialog('option', 'currentRow');
-                                var cartonCount = parseInt($('span.mca-cartoncount', $row).html());
-                                var value = parseInt($('#tbMaxAssignedCarton', this).val());
-                                var maxAssignedCartons = isNaN(value) ? null : value;
-                                var pct = Math.min((cartonCount * 100) / maxAssignedCartons, 100);
-                                $row.removeClass('ui-state-highlight')
-                                    .addClass('ui-state-active')
-                                    .find('span.mca-sku')
-                                    .html('<span title=' + $('#tbSku').val() + '>' + $('span.spnDisplaySku', this).html() + '</span>')
-                                    .end()
-                                    .find('span.mca-vwh')
-                                    .html($('#tbAssignedVwh', this).val())
-                                    .end()
-                                    .find('span.mca-maxassignedcartons')
-                                    .html(maxAssignedCartons)
-                                    .end()
-                                    .find('div.ui-progressbar-value')
-                                    .width(pct + '%')
-                                    .toggleClass('ui-state-error', (maxAssignedCartons == null ? 0 : maxAssignedCartons) < cartonCount)
-                                    .end()
-                                    .find('button.mca-unassign')
-                                    .button('enable');
-                                $(this).dialog('close');
-                                $('input:text', this).val('');
-                                $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
-                            },
-                            // Error
-                            500: function (jqXHR, textStatus, errorThrown) {
-                                $('div[data-valmsg-summary]', this).html(jqXHR.responseText)
-                                    .removeClass('validation-summary-valid')
-                                    .addClass('validation-summary-errors');
-                                $('span.spnDisplaySku,#ajaxErrors', this).empty();
-                                $('input:text', this).val('');
-                                $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.responseText);
-                        }
+                        context: this
+                        //statusCode: {
+                        //    // Success
+                        //    200: function (data, textStatus, jqXHR) {
+                        //        // Update areaInfo table.
+                        //        $('#divupdatefilter').html(data);
+                        //        // update location list.
+                        //        var $row = $(this).dialog('option', 'currentRow');
+                        //        var cartonCount = parseInt($('span.mca-cartoncount', $row).html());
+                        //        var value = parseInt($('#tbMaxAssignedCarton', this).val());
+                        //        var maxAssignedCartons = isNaN(value) ? null : value;
+                        //        var pct = Math.min((cartonCount * 100) / maxAssignedCartons, 100);
+                        //        $row.removeClass('ui-state-highlight')
+                        //            .addClass('ui-state-active')
+                        //            .find('span.mca-sku')
+                        //            .html('<span title=' + $('#tbSku').val() + '>' + $('span.spnDisplaySku', this).html() + '</span>')
+                        //            .end()
+                        //            .find('span.mca-vwh')
+                        //            .html($('#tbAssignedVwh', this).val())
+                        //            .end()
+                        //            .find('span.mca-maxassignedcartons')
+                        //            .html(maxAssignedCartons)
+                        //            .end()
+                        //            .find('div.ui-progressbar-value')
+                        //            .width(pct + '%')
+                        //            .toggleClass('ui-state-error', (maxAssignedCartons == null ? 0 : maxAssignedCartons) < cartonCount)
+                        //            .end()
+                        //            .find('button.mca-unassign')
+                        //            .button('enable');
+                        //        $(this).dialog('close');
+                        //        $('input:text', this).val('');
+                        //        $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
+                        //    },
+                        //    // Error
+                        //    500: function (jqXHR, textStatus, errorThrown) {
+                        //        $('div[data-valmsg-summary]', this).html(jqXHR.responseText)
+                        //            .removeClass('validation-summary-valid')
+                        //            .addClass('validation-summary-errors');
+                        //        $('span.spnDisplaySku,#ajaxErrors', this).empty();
+                        //        $('input:text', this).val('');
+                        //        $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
+                        //    }
+                        //},
+                        //error: function (jqXHR, textStatus, errorThrown) {
+                        //    alert(jqXHR.responseText);
+                        //}
+                    }).done(function (data, textStatus, jqXHR) {
+                        // Update areaInfo table.
+                        $('#divupdatefilter').html(data);
+                        // update location list.
+                        var $row = $(this).dialog('option', 'currentRow');
+                        var cartonCount = parseInt($('span.mca-cartoncount', $row).html());
+                        var value = parseInt($('#tbMaxAssignedCarton', this).val());
+                        var maxAssignedCartons = isNaN(value) ? null : value;
+                        var pct = Math.min((cartonCount * 100) / maxAssignedCartons, 100);
+                        $row.removeClass('ui-state-highlight')
+                            .addClass('ui-state-active')
+                            .find('span.mca-sku')
+                            .html('<span title=' + $('#tbSku').val() + '>' + $('span.spnDisplaySku', this).html() + '</span>')
+                            .end()
+                            .find('span.mca-vwh')
+                            .html($('#tbAssignedVwh', this).val())
+                            .end()
+                            .find('span.mca-maxassignedcartons')
+                            .html(maxAssignedCartons)
+                            .end()
+                            .find('div.ui-progressbar-value')
+                            .width(pct + '%')
+                            .toggleClass('ui-state-error', (maxAssignedCartons == null ? 0 : maxAssignedCartons) < cartonCount)
+                            .end()
+                            .find('button.mca-unassign')
+                            .button('enable');
+                        $(this).dialog('close');
+                        $('input:text', this).val('');
+                        $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
                     });
                 }
             },
@@ -117,7 +148,7 @@ $(document).ready(function () {
 
         $.ajax($(this).attr('data-unassign-url'), {
             type: 'POST',
-        }).done($.proxy(function (data, textStatus, jqXHR) {            
+        }).done($.proxy(function (data, textStatus, jqXHR) {
             $('#divupdatefilter').html(data);
             this.row.addClass('ui-state-active')
                 .find('span.mca-sku,span.mca-maxassignedcartons,span.mca-vwh')
