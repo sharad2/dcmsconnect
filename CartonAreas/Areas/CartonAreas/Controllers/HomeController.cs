@@ -283,7 +283,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = CreateManageCartonAreaViewModel(areaId);
             model.Matrix.AssignedLocationsFilter = assigned;
             model.Matrix.EmptyLocationsFilter = emptyLocations;
-            model.Locations = _service.GetLocations(areaId, assigned, emptyLocations).Select(p => new LocationModel(p)).ToArray();
+            model.Locations = _service.GetLocations(areaId, assigned, emptyLocations, 500).Select(p => new LocationModel(p)).ToArray();
             return View(Views.ManageCartonArea, model);
         }
 
@@ -306,7 +306,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             ModelState.Clear();
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId).Select(p => new LocationModel(p)).ToArray();
+            model.Locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500).Select(p => new LocationModel(p)).ToArray();
             model.AssignedToSkuFilter = new SkuModel
             {
                 Style = "TODO"
@@ -328,7 +328,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             ModelState.Clear();
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Locations = _service.GetLocationsMatchingPattern(locationId).Select(p => new LocationModel(p)).ToArray();
+            model.Locations = _service.GetLocationsMatchingPattern(locationId, 500).Select(p => new LocationModel(p)).ToArray();
             model.LocationPatternFilter = locationId;
             return View(Views.ManageCartonArea, model);
         }

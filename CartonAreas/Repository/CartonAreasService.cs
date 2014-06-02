@@ -83,23 +83,23 @@ namespace DcmsMobile.CartonAreas.Repository
         //    //return _repos.GetLocations(filters);
         //}
 
-        public IList<Location> GetLocationsMatchingPattern(string locationPattern)
+        public IList<Location> GetLocationsMatchingPattern(string locationPattern, int maxRows)
         {
             if (string.IsNullOrWhiteSpace(locationPattern))
             {
                 throw new ArgumentNullException("locationPattern");
             }
-            return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null);
+            return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null, maxRows);
         }
 
-        public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId)
+        public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId, int maxRows)
         {
-            return _repos.GetLocations(null, skuId, null, null, cartonAreaId);
+            return _repos.GetLocations(null, skuId, null, null, cartonAreaId, maxRows);
         }
 
-        public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation)
+        public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation, int maxRows)
         {
-            return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId);
+            return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId, maxRows);
         }
 
         /// <summary>

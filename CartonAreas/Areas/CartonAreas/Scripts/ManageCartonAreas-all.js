@@ -1,8 +1,8 @@
 ﻿/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 $(document).ready(function () {
-    $('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
-    $('button.mca-assign').button({ text: false, icons: { primary: 'ui-icon-pencil' } });
+    //$('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
+    //$('button.mca-assign').button({ text: false, icons: { primary: 'ui-icon-pencil' } });
 
 
     // The dialog must be passed $tr (current row which has been clicked) in the custom option currentRow
@@ -61,7 +61,8 @@ $(document).ready(function () {
                         $('span.mca-sku', $row).text($('span.sku-display', this).text());
                         $('span.mca-maxassignedcartons', $row).text($('#tbMaxAssignedCarton', this).val());
                         $('span.mca-vwh', $row).text($('#tbAssignedVwh', this).val());
-                        $('button.mca-unassign', $row).button('enable');
+                        //$('button.mca-unassign', $row).button('enable');
+                        $('button.mca-unassign', $row).prop('disabled', false).removeClass('ui-state-disabled');
                         $(this).dialog('close');
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         alert(jqXHR.responseText);
@@ -98,7 +99,8 @@ $(document).ready(function () {
             this.row.addClass('ui-state-active')
                 .find('span.mca-sku,span.mca-maxassignedcartons,span.mca-vwh')
                 .empty();
-            this.button.button('disable');
+            //this.button.button('disable');
+            this.button.prop('disabled', true).addClass('ui-state-disabled');
         }).fail(function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.responseText);
         }).always(function () {

@@ -120,126 +120,156 @@
 </div>
 <div class="box">
     @if (Model.Locations.Count > 0)
-{
-    <div class="boxContent" id="divLocationList">
-        <table>
-            <caption>
-                @TableCaption()
-            </caption>
-            <thead>
-                <tr>
-                    <th rowspan="2">
-                        Location <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span>
-                    </th>
-                    <th colspan="3" style="text-align: center">
-                        Assigned
-                    </th>
-                    <th colspan="4" style="text-align: center">
-                        Content
-                    </th>
-                    <th rowspan="2" style="text-align: center">
-                        Change
-                    </th>
-                </tr>
-                <tr>
-                    <th style="text-align: center">
-                        SKU
-                    </th>
-                    <th>
-                        Capacity(Cartons)
-                    </th>
-                    <th>
-                        VWH
-                    </th>
-                    <th>
-                        # Pieces
-                    </th>
-                    <th>
-                        # Cartons
-                    </th>
-                    <th>
-                        SKU
-                    </th>
-                    <th>
-                        # Pallets
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.Locations.Count; i++)
-{
-    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId" data-upc-code="@(Model.Locations[i].AssignedSku == null ? "" : Model.Locations[i].AssignedSku.UpcCode)">
-        <td>
-            @Html.DisplayFor(m => m.Locations[i].LocationId)
-        </td>
-        <td style="white-space: nowrap">
-            <span class="mca-sku">
-                @if (Model.Locations[i].AssignedSku != null)
-                {
-                    <span title="@Model.Locations[i].AssignedSku.UpcCode">
-                        @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
-                    </span>
-                }
-            </span>
-        </td>
-
-        <td style="text-align: right">
-            <span class="mca-maxassignedcartons">
-                @Html.DisplayFor(m => m.Locations[i].MaxAssignedCartons)
-            </span>
-        </td>
-        <td style="text-align: right">
-            <span class="mca-vwh">
-                @Html.DisplayFor(m => m.Locations[i].AssignedVwhId)
-            </span>
-        </td>
-        <td style="text-align: right">
-            @Html.DisplayFor(m => m.Locations[i].TotalPieces)
-        </td>
-        <td style="text-align: right" title="@Model.Locations[i].PercentFull% full">
-            <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
-                <div style="width: @Model.Locations[i].PercentFull%" class="ui-progressbar-value ui-widget-header ui-corner-left @(Model.Locations[i].MaxAssignedCartons.HasValue && Model.Locations[i].CartonCount >= Model.Locations[i].MaxAssignedCartons ? "ui-state-error" : "") ">
-                    <span class=" mca-cartoncount">
-                        @Html.DisplayFor(m => m.Locations[i].CartonCount)
-                    </span>
-                </div>
-            </div>
-        </td>
-        <td>
-            <span>
-                @if (Model.Locations[i].CartonSku != null)
-                {
-                    <span title="@Model.Locations[i].CartonSku.UpcCode">
-                        @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
-                    </span>
-                    if (Model.Locations[i].CartonSkuCount > 1)
+    {
+        <div class="boxContent" id="divLocationList">
+            <table>
+                <caption>
+                    @TableCaption()
+                </caption>
+                <thead>
+                    <tr>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">
+                            Location <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block"></span>
+                        </th>
+                        <th colspan="3" style="text-align: center">
+                            Assigned
+                        </th>
+                        <th colspan="4" style="text-align: center">
+                            Content
+                        </th>
+                        <th rowspan="2" style="text-align: center">
+                            Change
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center">
+                            SKU
+                        </th>
+                        <th>
+                            Capacity(Cartons)
+                        </th>
+                        <th>
+                            VWH
+                        </th>
+                        <th>
+                            # Pieces
+                        </th>
+                        <th>
+                            # Cartons
+                        </th>
+                        <th>
+                            SKU
+                        </th>
+                        <th>
+                            # Pallets
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Locations.Count; i++)
                     {
-                        <span class="ui-priority-primary">
-                            and @(Model.Locations[i].CartonSkuCount - 1)
-                            more
-                        </span>
+                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId" data-upc-code="@(Model.Locations[i].AssignedSku == null ? "" : Model.Locations[i].AssignedSku.UpcCode)">
+                            <td>
+                                @(i + 1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Locations[i].LocationId)
+                            </td>
+                            <td style="white-space: nowrap">
+                                <span class="mca-sku">
+                                    @if (Model.Locations[i].AssignedSku != null)
+                                    {
+                                        <span title="@Model.Locations[i].AssignedSku.UpcCode">
+                                            @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
+                                        </span>
+                                    }
+                                </span>
+                            </td>
 
+                            <td style="text-align: right">
+                                <span class="mca-maxassignedcartons">
+                                    @Html.DisplayFor(m => m.Locations[i].MaxAssignedCartons)
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                <span class="mca-vwh">
+                                    @Html.DisplayFor(m => m.Locations[i].AssignedVwhId)
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                @Html.DisplayFor(m => m.Locations[i].TotalPieces)
+                            </td>
+                            <td style="text-align: right" title="@Model.Locations[i].PercentFull% full">
+                                <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                                    <div style="width: @Model.Locations[i].PercentFull%" class="ui-progressbar-value ui-widget-header ui-corner-left @(Model.Locations[i].MaxAssignedCartons.HasValue && Model.Locations[i].CartonCount >= Model.Locations[i].MaxAssignedCartons ? "ui-state-error" : "") ">
+                                        <span class=" mca-cartoncount">
+                                            @Html.DisplayFor(m => m.Locations[i].CartonCount)
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span>
+                                    @if (Model.Locations[i].CartonSku != null)
+                                    {
+                                        <span title="@Model.Locations[i].CartonSku.UpcCode">
+                                            @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
+                                        </span>
+                                        if (Model.Locations[i].CartonSkuCount > 1)
+                                        {
+                                            <span class="ui-priority-primary">
+                                                and @(Model.Locations[i].CartonSkuCount - 1)
+                                                more
+                                            </span>
+
+                                        }
+                                    }
+                                </span>
+                            </td>
+                            <td style="text-align: right">
+                                @Html.DisplayFor(m => m.Locations[i].PalletCount)
+                            </td>
+                            <td style="white-space: nowrap">
+                                @*<button class="mca-assign" title="Assign SKU" />*@
+                                <button title="Assign SKU" class="mca-assign ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" role="button" aria-disabled="false">
+                                    <span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">
+                                    </span>
+                                </button>
+                                <button class="mca-unassign"
+                                        @(Model.Locations[i].AssignedSku == null ? "disabled" : "") title="Unassign SKU"
+                                        data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))" />
+                                @if (Model.Locations[i].AssignedSku == null)
+                                {
+                                    <button title="Unassign SKU" disabled="disabled" class="mca-unassign ui-button ui-widget ui-state-default ui-corner-all ui-button-disabled ui-state-disabled ui-button-icon-only" role="button"
+                                            data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))">
+                                        <span class="ui-button-icon-primary ui-icon ui-icon-close"></span><span class="ui-button-text">
+
+                                        </span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button title="Unassign SKU" class="mca-unassign ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" role="button" 
+                                            data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))">
+                                        <span class="ui-button-icon-primary ui-icon ui-icon-close"></span><span class="ui-button-text">
+
+                                        </span>
+                                    </button>
+                                }
+
+                            </td>
+
+
+
+                        </tr>
                     }
-                }
-            </span>
-        </td>
-        <td style="text-align: right">
-            @Html.DisplayFor(m => m.Locations[i].PalletCount)
-        </td>
-        <td style="white-space: nowrap">
-            <button class="mca-assign" title="Assign SKU" />
-            <button class="mca-unassign"
-                    @(Model.Locations[i].AssignedSku == null ? "disabled" : "") title="Unassign SKU"
-                    data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))" />
-        </td>
-    </tr>
-}
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
         <div>
             No qualifying locations found
         </div>
