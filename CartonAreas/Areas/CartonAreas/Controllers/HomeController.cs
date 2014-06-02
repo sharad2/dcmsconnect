@@ -343,7 +343,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         {
             if (!ModelState.IsValid)
             {
-                throw new NotImplementedException();
+                var errors = ModelState.Values.SelectMany(p => p.Errors).Select(p => p.ErrorMessage);
+                throw new Exception(string.Join("; ", errors));
             }
             var areaId = _service.AssignSkuToLocation(model.LocationId, model.SkuId, model.MaxAssignedCarton,
                                               model.AssignedVwhId);
