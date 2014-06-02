@@ -49,7 +49,6 @@
             <td>
                 @if (Model.GetCount(true, null) > 0)
                 {
-                    <input type="checkbox" />
                     @Html.ActionLink(Model.GetDisplayCount(true, null),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, null),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == null ? new
@@ -66,8 +65,8 @@
             <td>
                 @if (Model.GetCount(false, true) > 0)
                 {
-                    <input type="checkbox" />
-                    @Html.ActionLink(Model.GetDisplayCount(false, true),
+                <input type="checkbox" />
+                @Html.ActionLink(Model.GetDisplayCount(false, true),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, true),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == true ? new
                                      {
@@ -79,8 +78,8 @@
             <td>
                 @if (Model.GetCount(false, false) > 0)
                 {
-                    <input type="checkbox" />
-                    @Html.ActionLink(Model.GetDisplayCount(false, false),
+                <input type="checkbox" />
+                @Html.ActionLink(Model.GetDisplayCount(false, false),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, false),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == false ? new
                                      {
@@ -92,8 +91,7 @@
             <td>
                 @if (Model.GetCount(false, null) > 0)
                 {
-                    <input type="checkbox" />
-                    @Html.ActionLink(Model.GetDisplayCount(false, null),
+                @Html.ActionLink(Model.GetDisplayCount(false, null),
                                 MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, null),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == null ? new
                                      {
