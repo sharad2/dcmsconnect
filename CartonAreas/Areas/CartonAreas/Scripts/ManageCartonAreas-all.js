@@ -111,6 +111,7 @@ $(document).ready(function () {
             {
                 text: 'Cancel',
                 click: function (event, ui) {
+                    var $tr = $(this).dialog('option', 'currentRow').removeClass('ui-state-highlight');
                     $(this).dialog('close');
                 }
             }
@@ -140,8 +141,9 @@ $(document).ready(function () {
             $tr.removeClass('ui-state-highlight');
         }, { row: $tr }));
     }).on('click', 'button.mca-assign', function (e) {
+        var $tr = $(this).closest('tr').addClass('ui-state-highlight');
         $('#divEditDialog')
-            .dialog('option', 'currentRow', $(this).closest('tr'))
+            .dialog('option', 'currentRow', $tr)
             .dialog('open');
     });
 });
