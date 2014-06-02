@@ -5,7 +5,7 @@
     }))
 {   <div class="designForm">
         @Html.HiddenFor(m => m.LocationId, new { id = "hfCurrentLocationId" })
-        <label for="tbSku" id="lblSku">SKU <em></em></label>
+        <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
         @Html.HiddenFor(m => m.SkuId)
         @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
    {
@@ -13,12 +13,12 @@
          {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
          {"id", "tbSku"}
    })<sup>&darr;*</sup>
-        <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display spnDisplaySku"></span>
+        <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display"></span>
         <br />
-        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh<em></em></label>
+        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
         @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })
         <br />
-        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Capacity(Cartons)<em></em></label>
+        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Capacity(Cartons) <em class ="ui-state-disabled">@*Replaced Dynamically*@</em></label>
         @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
         <br />
         <span id="displayCartonCount"></span>

@@ -14,28 +14,27 @@ $(document).ready(function () {
         // Clear existing values
         open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
-            var sku = $('span.mca-sku', $tr).text().replace(/\s+/g, '');
-            var vwh = $('span.mca-vwh', $tr).text().replace(/\s+/g, '');
-            var capacity = $('span.mca-maxassignedcartons', $tr).text().replace(/\s+/g, '');
-            $('#lblSku em').text(sku).css('color', '#b0acac');
-            $('#lblAssignedVwh em').text(' ' + vwh).css('color', '#b0acac');
-            $('#lblMaxAssignedCarton em').text(' ' + capacity).css('color', '#b0acac');
+            //var sku = $('span.mca-sku', $tr).text().trim();
+            var vwh = $('span.mca-vwh', $tr).text().trim();
+            var capacity = $('span.mca-maxassignedcartons', $tr).text().trim();
+            $('#lblSku em, span.sku-display', this).text($('span.mca-sku', $tr).text().trim());
+            $('#lblAssignedVwh em').text(vwh);
+            $('#lblMaxAssignedCarton em').text(capacity);
             /////////////////////
-            var locationId = $tr.attr('data-location-id');
+           // var locationId = $tr.attr('data-location-id');
             var cartonSku = $tr.find('span.mca-ctnSku').text();
             if (cartonSku == "") {
                 cartonSku = "NONE";
             }
             var cartonCount = $tr.find('span.mca-cartoncount').html();
-            $(this).dialog({ title: 'Update Location #' + locationId });
+            $(this).dialog({ title: 'Update Location #' + $tr.attr('data-location-id') });
             $(this).find('#tbMaxAssignedCarton').removeClass('input-validation-error');
             $("#displayCartonCount").html("<b>Location contains " + cartonCount + " cartons of SKU " + cartonSku + ". </b>").addClass('ui-state-highlight');
-            var upccode = $('span.mca-sku span', $tr).attr('title');
-            $('#tbSku').val(upccode);
-            $('span.spnDisplaySku').html(sku);
-            $('#tbAssignedVwh').val(vwh).attr('selected', true);
+            //var upccode = $('span.mca-sku span', $tr).attr('title');
+            $('#tbSku').val($tr.attr('data-upc-code'));
+            $('#tbAssignedVwh').val(vwh);
             $('#tbMaxAssignedCarton').val(capacity);
-            $('#hfCurrentLocationId', this).val(locationId);
+            $('#hfCurrentLocationId', this).val($tr.attr('data-location-id'));
             $('#ajaxErrors', this).empty();
             $('div[data-valmsg-summary]', this).removeClass('validation-summary-errors').addClass('validation-summary-valid');
             $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
