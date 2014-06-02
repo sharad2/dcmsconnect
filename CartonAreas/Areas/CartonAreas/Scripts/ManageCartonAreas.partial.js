@@ -14,44 +14,34 @@ $(document).ready(function () {
         // Clear existing values
         open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
-            //var sku = $('span.mca-sku', $tr).text().trim();
             var vwh = $('span.mca-vwh', $tr).text().trim();
-            var capacity = $('span.mca-maxassignedcartons', $tr).text().trim();
+
             $('#lblSku em, span.sku-display', this).text($('span.mca-sku', $tr).text().trim());
-            $('#lblAssignedVwh em').text(vwh);
-            $('#lblMaxAssignedCarton em').text(capacity);
-            /////////////////////
-           // var locationId = $tr.attr('data-location-id');
-            var cartonSku = $tr.find('span.mca-ctnSku').text();
-            if (cartonSku == "") {
-                cartonSku = "NONE";
-            }
-            var cartonCount = $tr.find('span.mca-cartoncount').html();
-            $(this).dialog({ title: 'Update Location #' + $tr.attr('data-location-id') });
+            $('#lblAssignedVwh em', this).text(vwh);
+
+            var capacity = $('span.mca-maxassignedcartons', $tr).text().trim();
+            $('#lblMaxAssignedCarton em', this).text(capacity);
+            $('#tbMaxAssignedCarton').val(capacity);
+
+            $(this).dialog({ title: 'Assign SKU to Location #' + $tr.attr('data-location-id') });
             $(this).find('#tbMaxAssignedCarton').removeClass('input-validation-error');
-            $("#displayCartonCount").html("<b>Location contains " + cartonCount + " cartons of SKU " + cartonSku + ". </b>").addClass('ui-state-highlight');
-            //var upccode = $('span.mca-sku span', $tr).attr('title');
+            $("#displayCartonCount span", this).text($('span.mca-cartoncount', $tr).text());
             $('#tbSku').val($tr.attr('data-upc-code'));
             $('#tbAssignedVwh').val(vwh);
-            $('#tbMaxAssignedCarton').val(capacity);
+
             $('#hfCurrentLocationId', this).val($tr.attr('data-location-id'));
             $('#ajaxErrors', this).empty();
             $('div[data-valmsg-summary]', this).removeClass('validation-summary-errors').addClass('validation-summary-valid');
-            $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
         },
         buttons: [
             {
                 id: 'btnUpdate',
                 text: 'Update',
+                icons: { primary: "ui-icon-disk" },
                 click: function (event, ui) {
                     var $form = $('form', this);
                     if (!$form.valid()) {
-                        $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
-                        $('input:text', this).val('');
                         return false;
-                    }
-                    if (!$('#tbSku').val()) {
-                        $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                     }
 
                     $.ajax($form.attr('action'), {
@@ -127,13 +117,13 @@ $(document).ready(function () {
 
         $.ajax($(this).attr('data-unassign-url'), {
             type: 'POST',
-        }).complete($.proxy(function (jqXHR, textStatus) {
-            $('#divupdatefilter').html(jqXHR.responseText);
+        }).done($.proxy(function (data, textStatus, jqXHR) {            
+            $('#divupdatefilter').html(data);
             this.row.addClass('ui-state-active')
                 .find('span.mca-sku,span.mca-maxassignedcartons,span.mca-vwh')
                 .empty();
             this.button.button('disable');
-        }, { row: $tr, button: $(this) })).error(function (jqXHR, textStatus, errorThrown) {
+        }, { row: $tr, button: $(this) })).fail(function (jqXHR, textStatus, errorThrown) {
             alert(jqXHR.responseText);
         }).always($.proxy(function () {
             $tr.removeClass('ui-state-highlight');

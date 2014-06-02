@@ -341,9 +341,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UpdateLocation(AssignSkuViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+
+            }
             var areaId = _service.AssignSkuToLocation(model.LocationId, model.SkuId, model.MaxAssignedCarton,
                                               model.AssignedVwhId);
-            Response.StatusCode = 200;
+            //Response.StatusCode = 200;
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(areaId);
             return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));

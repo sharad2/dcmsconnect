@@ -171,7 +171,7 @@
             <tbody>
                 @for (var i = 0; i < Model.Locations.Count; i++)
 {
-    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId" data-upc-code="@Model.Locations[i].AssignedSku.UpcCode">
+    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId" data-upc-code="@(Model.Locations[i].AssignedSku == null ? "" : Model.Locations[i].AssignedSku.UpcCode)">
         <td>
             @Html.DisplayFor(m => m.Locations[i].LocationId)
         </td>
@@ -209,7 +209,7 @@
             </div>
         </td>
         <td>
-            <span class="mca-ctnSku">
+            <span>
                 @if (Model.Locations[i].CartonSku != null)
                 {
                     <span title="@Model.Locations[i].CartonSku.UpcCode">
