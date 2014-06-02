@@ -115,12 +115,12 @@ $(document).ready(function () {
 });
 
 /*
-$Id: ManageCartonAreas.partial.js 24647 2014-06-02 10:59:38Z ssinghal $ 
-$Revision: 24647 $
+$Id: ManageCartonAreas.partial.js 24649 2014-06-02 11:46:35Z ssinghal $ 
+$Revision: 24649 $
 $URL: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24647 2014-06-02 10:59:38Z ssinghal $
+$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24649 2014-06-02 11:46:35Z ssinghal $
 $Author: ssinghal $
-$Date: 2014-06-02 16:29:38 +0530 (Mon, 02 Jun 2014) $
+$Date: 2014-06-02 17:16:35 +0530 (Mon, 02 Jun 2014) $
 */
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />

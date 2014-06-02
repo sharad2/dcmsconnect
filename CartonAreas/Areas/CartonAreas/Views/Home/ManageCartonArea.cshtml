@@ -47,6 +47,39 @@
     }
 
 }
+@helper UnassignButton(string locationId, bool enabled)
+{
+    var button = new TagBuilder("button");
+    button.AddCssClass("mca-unassign"); //
+    button.AddCssClass("ui-button"); //
+    button.AddCssClass("ui-widget"); //
+    button.AddCssClass("ui-state-default"); //
+    button.AddCssClass("ui-corner-all"); //
+
+    button.AddCssClass("ui-button-icon-only"); //
+    button.Attributes.Add("title", "Unassign SKU");
+    button.Attributes.Add("data-unassign-url", Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(locationId)));
+
+    var span = new TagBuilder("span");
+    span.AddCssClass("ui-button-icon-primary");
+    span.AddCssClass("ui-icon");
+    span.AddCssClass("ui-icon-close");
+
+    var span2 = new TagBuilder("span");
+    span2.AddCssClass("ui-button-text");
+
+    button.InnerHtml = span.ToString() + span2.ToString();
+
+    if (!enabled)
+    {
+        button.AddCssClass("ui-button-disabled");
+        button.AddCssClass("ui-state-disabled");
+        button.Attributes.Add("disabled", "disabled");
+    }    
+
+    @Html.Raw(button)
+}
+
 @section scripts {
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.ManageCartonAreas_all_js"></script>
 }
@@ -231,33 +264,11 @@
                                 @Html.DisplayFor(m => m.Locations[i].PalletCount)
                             </td>
                             <td style="white-space: nowrap">
-                                @*<button class="mca-assign" title="Assign SKU" />*@
-                                <button title="Assign SKU" class="mca-assign ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" role="button" aria-disabled="false">
+                                <button title="Assign SKU" class="mca-assign ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only">
                                     <span class="ui-button-icon-primary ui-icon ui-icon-pencil"></span><span class="ui-button-text">
                                     </span>
                                 </button>
-                                <button class="mca-unassign"
-                                        @(Model.Locations[i].AssignedSku == null ? "disabled" : "") title="Unassign SKU"
-                                        data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))" />
-                                @if (Model.Locations[i].AssignedSku == null)
-                                {
-                                    <button title="Unassign SKU" disabled="disabled" class="mca-unassign ui-button ui-widget ui-state-default ui-corner-all ui-button-disabled ui-state-disabled ui-button-icon-only" role="button"
-                                            data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))">
-                                        <span class="ui-button-icon-primary ui-icon ui-icon-close"></span><span class="ui-button-text">
-
-                                        </span>
-                                    </button>
-                                }
-                                else
-                                {
-                                    <button title="Unassign SKU" class="mca-unassign ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" role="button" 
-                                            data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation(Model.Locations[i].LocationId))">
-                                        <span class="ui-button-icon-primary ui-icon ui-icon-close"></span><span class="ui-button-text">
-
-                                        </span>
-                                    </button>
-                                }
-
+                                @UnassignButton(Model.Locations[i].LocationId, Model.Locations[i].AssignedSku != null)
                             </td>
 
 
