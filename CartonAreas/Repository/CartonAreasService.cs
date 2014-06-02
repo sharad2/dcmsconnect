@@ -38,26 +38,18 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="vwhId"></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public void AssignSkuToLocation(string locationId, int? skuId, int? maxCartons, string vwhId)
+        public string AssignSkuToLocation(string locationId, int? skuId, int? maxCartons, string vwhId)
         {
-            if (string.IsNullOrEmpty(locationId))
-                throw new ArgumentNullException("", "Location ID can not be null");
-            if (_repos.AssignSkuToLocation(locationId, skuId, maxCartons, vwhId) <= 0)
-            {
-                throw new ProviderException(string.Format("Can't update location, please verify location #{0}", locationId));
-            }
+            return _repos.AssignSkuToLocation(locationId, skuId, maxCartons, vwhId);
         }
 
         /// <summary>
         /// Unassign SKU and VWh for location.
         /// </summary>
         /// <param name="locationId"></param>
-        public void UnassignSkuFromlocation(string locationId)
+        public string UnassignSkuFromlocation(string locationId)
         {
-            if (_repos.AssignSkuToLocation(locationId, null, null, null) <= 0)
-            {
-                throw new ProviderException(string.Format("Can't update location, please verify location #{0}", locationId));
-            }
+            return _repos.AssignSkuToLocation(locationId, null, null, null);
         }
 
         /// <summary>

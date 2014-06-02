@@ -1,7 +1,6 @@
 ﻿/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 $(document).ready(function () {
-    //$('#btnLocation,#btnAssignedSku').button({ icons: { primary: 'ui-icon-circle-check'} });
     $('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
     $('button.mca-assign').button({ text: false, icons: { primary: 'ui-icon-pencil' } });
 
@@ -15,38 +14,27 @@ $(document).ready(function () {
         // Clear existing values
         open: function (event, ui) {
             var $tr = $(this).dialog('option', 'currentRow');
-
-            // Extra code by Sharad
-            $('#lblSku em').text($('span.mca-sku', $tr).text());
-            $('#lblAssignedVwh em').text($('span.mca-vwh', $tr).text());
-
+            var sku = $('span.mca-sku', $tr).text().replace(/\s+/g, '');
+            var vwh = $('span.mca-vwh', $tr).text().replace(/\s+/g, '');
+            var capacity = $('span.mca-maxassignedcartons', $tr).text().replace(/\s+/g, '');
+            $('#lblSku em').text(sku).css('color', '#b0acac');
+            $('#lblAssignedVwh em').text(' ' + vwh).css('color', '#b0acac');
+            $('#lblMaxAssignedCarton em').text(' ' + capacity).css('color', '#b0acac');
             /////////////////////
             var locationId = $tr.attr('data-location-id');
-            var sku = $tr.find('span.mca-sku').text().replace(/\s+/g, '');
-            if (sku == "") {
-                sku = "NONE";
-            }
             var cartonSku = $tr.find('span.mca-ctnSku').text();
             if (cartonSku == "") {
                 cartonSku = "NONE";
-            }
-            var vwh = $tr.find('span.mca-vwh').text().replace(/\s+/g, '');
-            if (vwh == "") {
-                vwh = "NONE";
             }
             var cartonCount = $tr.find('span.mca-cartoncount').html();
             $(this).dialog({ title: 'Update Location #' + locationId });
             $(this).find('#tbMaxAssignedCarton').removeClass('input-validation-error');
             $("#displayCartonCount").html("<b>Location contains " + cartonCount + " cartons of SKU " + cartonSku + ". </b>").addClass('ui-state-highlight');
-            //$('#displayWarning', this).html("Assigned SKU: (" + sku + ") | VWh: (" + vwh)
-            //    .addClass('ui-state-highlight');
-            if (sku != "") {
-                var upccode = $tr.find('span.mca-sku span').attr('title');
-                $('#tbSku').val(upccode);
-                $('span.spnDisplaySku').html($tr.find('span.mca-sku').text().replace(/\s+/g, ''));
-            }
+            var upccode = $('span.mca-sku span', $tr).attr('title');
+            $('#tbSku').val(upccode);
+            $('span.spnDisplaySku').html(sku);
             $('#tbAssignedVwh').val(vwh).attr('selected', true);
-            $('#tbMaxAssignedCarton').val($tr.find('span.mca-maxassignedcartons').text().replace(/\s+/g, ''));
+            $('#tbMaxAssignedCarton').val(capacity);
             $('#hfCurrentLocationId', this).val(locationId);
             $('#ajaxErrors', this).empty();
             $('div[data-valmsg-summary]', this).removeClass('validation-summary-errors').addClass('validation-summary-valid');
@@ -66,11 +54,10 @@ $(document).ready(function () {
                     if (!$('#tbSku').val()) {
                         $("#frmEditLocation input[data-ac-list-url]").autocompleteEx('clear');
                     }
-                    var dialogData = $form.serializeArray();
-                    $.ajax({
-                        url: $form.attr('action'),
+
+                    $.ajax($form.attr('action'), {
                         type: 'POST',
-                        data: dialogData,
+                        data: $form.serializeArray(),
                         context: this,
                         statusCode: {
                             // Success
@@ -156,20 +143,6 @@ $(document).ready(function () {
             .dialog('option', 'currentRow', $(this).closest('tr'))
             .dialog('open');
     });
-
-    // Table row gets ui-state-highlight when the dialog is opened. It gets ui-state-active after a successful assignment/unassignment is performed.
-    // Only one row can have this state
-    //$('#divLocationList').click(function (e) {
-    //    $('table tr', this).removeClass('ui-state-highlight').removeClass('ui-state-active');
-    //    var $tr = $(e.target).closest('tr');
-    //    if ($(e.target).is('button.mca-assign')) {
-    //        $('#divEditDialog')
-    //        .dialog('option', 'currentRow', $tr)
-    //        .dialog('open');
-    //    }
-    //    return;
-
-    //});
 });
 
 /*

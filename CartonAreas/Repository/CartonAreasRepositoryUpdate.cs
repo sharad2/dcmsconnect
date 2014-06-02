@@ -16,8 +16,12 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="skuId"></param>
         /// <param name="maxCartons"></param>
         /// <param name="vwhId"></param>
-        public int AssignSkuToLocation(string locationId, int? skuId, int? maxCartons, string vwhId)
+        public string AssignSkuToLocation(string locationId, int? skuId, int? maxCartons, string vwhId)
         {
+            if (string.IsNullOrEmpty(locationId))
+            {
+                throw new ArgumentNullException("locationId", "Location ID can not be null");
+            }
             const string QUERY = @"
               UPDATE <proxy />MASTER_STORAGE_LOCATION MSL
                  SET MSL.ASSIGNED_SKU_ID      = :SKU_ID,
@@ -25,15 +29,18 @@ namespace DcmsMobile.CartonAreas.Repository
                      MSL.UNAVAILABLE_FLAG     = :UNAVAILABLE,
                      MSL.ASSIGNED_VWH_ID      = :ASSIGNED_VWH_ID
                WHERE MSL.LOCATION_ID = :LOCATION_ID
+                RETURNING MSL.STORAGE_AREA INTO :STORAGE_AREA
             ";
+            string areaId = null;
             var binder = SqlBinder.Create()
                 .Parameter("LOCATION_ID", locationId)
                 .Parameter("SKU_ID", skuId)
                 .Parameter("UNAVAILABLE", skuId.HasValue || maxCartons != null || !string.IsNullOrEmpty(vwhId) ? "" : "Y")
                 .Parameter("CARTON_COUNT", maxCartons)
-                .Parameter("ASSIGNED_VWH_ID", vwhId);
-            return _db.ExecuteDml(QUERY, binder);
-
+                .Parameter("ASSIGNED_VWH_ID", vwhId)
+                .OutParameter("STORAGE_AREA", p => areaId = p);
+            _db.ExecuteDml(QUERY, binder);
+            return areaId;
         }
 
         /// <summary>

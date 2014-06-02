@@ -5,10 +5,7 @@
     }))
 {   <div class="designForm">
         @Html.HiddenFor(m => m.LocationId, new { id = "hfCurrentLocationId" })
-        @Html.HiddenFor(m => m.AreaId)
-        @*<span id="displayWarning" class="ui-state-highlight"></span>*@
-        <br />
-        <label for="tbSku" id="lblSku">SKU <em>s,c,d,s</em></label>
+        <label for="tbSku" id="lblSku">SKU <em></em></label>
         @Html.HiddenFor(m => m.SkuId)
         @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
    {
@@ -18,10 +15,10 @@
    })<sup>&darr;*</sup>
         <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display spnDisplaySku"></span>
         <br />
-        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh<em>vwh</em></label>
+        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh<em></em></label>
         @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })
         <br />
-        @Html.LabelFor(m => m.MaxAssignedCarton)
+        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Capacity(Cartons)<em></em></label>
         @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
         <br />
         <span id="displayCartonCount"></span>

@@ -341,12 +341,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UpdateLocation(AssignSkuViewModel model)
         {
-            _service.AssignSkuToLocation(model.LocationId, model.SkuId, model.MaxAssignedCarton,
-                                             model.AssignedVwhId);
+            var areaId = _service.AssignSkuToLocation(model.LocationId, model.SkuId, model.MaxAssignedCarton,
+                                              model.AssignedVwhId);
             Response.StatusCode = 200;
-
             // Update carton area info in areaInfo table.
-            var area = _service.GetCartonAreaInfo(model.AreaId);
+            var area = _service.GetCartonAreaInfo(areaId);
             return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
         }
 
@@ -359,12 +358,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpPost]
         public virtual ActionResult UnassignLocation(string locationId)
         {
-            _service.UnassignSkuFromlocation(locationId);
+            var areaId = _service.UnassignSkuFromlocation(locationId);
             Response.StatusCode = 200;
-
-            //throw new NotImplementedException("UnassignSkuFromlocation should return areaId");
             // Update carton area info in areaInfo table.
-            var area = _service.GetCartonAreaInfo("BIA");
+            var area = _service.GetCartonAreaInfo(areaId);
             return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
         }
 
