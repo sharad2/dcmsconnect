@@ -71,33 +71,27 @@ namespace DcmsMobile.CartonAreas.Repository
             return _repos.GetCartonAreas(areaId, null).FirstOrDefault();
         }
 
-        //[Obsolete]
-        //public IList<Location> GetLocationsMatchingPattern(string locationPattern, int maxRows)
-        //{
-        //    if (string.IsNullOrWhiteSpace(locationPattern))
-        //    {
-        //        throw new ArgumentNullException("locationPattern");
-        //    }
-        //    return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null, maxRows);
-        //}
-
-        //[Obsolete]
-        //public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId, int maxRows)
-        //{
-        //    return _repos.GetLocations(null, skuId, null, null, cartonAreaId, maxRows);
-        //}
-
-        //[Obsolete]
-        //public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation, int maxRows)
-        //{
-        //    return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId, maxRows);
-        //}
-
+        /// <summary>
+        /// Get all locations of passed area.
+        /// </summary>
+        /// <param name="cartonAreaId"></param>
+        /// <param name="maxRows"></param>
+        /// <returns></returns>
         public IList<Location> GetLocations(string cartonAreaId, int maxRows)
         {
             return _repos.GetLocations(cartonAreaId, null, null, null, null, maxRows);
         }
 
+        /// <summary>
+        /// Get locations after applied filter.
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="assignedSkuId"></param>
+        /// <param name="locationPattern"></param>
+        /// <param name="assigned"></param>
+        /// <param name="emptyLocations"></param>
+        /// <param name="maxRows"></param>
+        /// <returns></returns>
         public IList<Location> GetLocationsOfFilters(string areaId, int? assignedSkuId, string locationPattern, bool? assigned, bool? emptyLocations, int maxRows)
         {
             if (!string.IsNullOrWhiteSpace(locationPattern))

@@ -268,6 +268,36 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         }
 
         /// <summary>
+        /// Creates and populates ManageCartonAreaViewModel. The parameters are the filters used to retrieve the location list
+        /// </summary>
+        ///<param name="areaId"></param>
+        /// <returns>The populated mode, or null if invalid area was passed</returns>
+        private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId)
+        {
+            var area = _service.GetCartonAreaInfo(areaId);
+            if (string.IsNullOrEmpty(areaId))
+            {
+                return null;
+            }
+            var model = new ManageCartonAreaViewModel
+            {
+                Matrix = new LocationCountMatrixViewModel(area),
+                ShortName = area.ShortName,
+                BuildingId = area.BuildingId
+            };
+
+            model.AssignedSku = new AssignSkuViewModel
+            {
+                VwhList = _service.GetVwhList().Select(p => new SelectListItem
+                {
+                    Text = (string.IsNullOrEmpty(p.Code) ? "NULL" : p.Code) + " : " + p.Description,
+                    Value = p.Code
+                })
+            };
+            return model;
+        }
+
+        /// <summary>
         /// Called when areaId is passed via query string
         /// </summary>
         /// <param name="areaId"></param>
@@ -287,6 +317,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return View(Views.ManageCartonArea, model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="areaId"></param>
+        /// <param name="assignedSkuId"></param>
+        /// <param name="locationId"></param>
+        /// <param name="assignedLocation"></param>
+        /// <param name="emptyLocations"></param>
+        /// <returns></returns>
         public virtual ActionResult ApplyLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations)
         {
             if (string.IsNullOrWhiteSpace(areaId))
@@ -312,59 +351,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             return View(Views.ManageCartonArea, model);
         }
-
-
-        /// <summary>
-        /// Called when the user enters the assigned SKU to search for
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="assignedSkuId"></param>
-        /// <param name="assignedSkuText"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// We clear the model state since we do not want server side validation. Server validation causes problems because
-        /// only partial model is posted.
-        /// </remarks>
-        //[Obsolete]
-        //public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId)
-        //{
-        //    if (string.IsNullOrWhiteSpace(areaId))
-        //    {
-        //        return RedirectToAction(Actions.Index());
-        //    }
-        //    ModelState.Clear();
-        //    var model = CreateManageCartonAreaViewModel(areaId);
-        //    var locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500);
-        //    model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
-        //    model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
-        //    model.AssignedToSkuFilter = new SkuModel
-        //    {
-        //        Style = "TODO"
-        //    };
-        //    return View(Views.ManageCartonArea, model);
-        //}
-
-        /// <summary>
-        /// Called when the user enters any location to search for
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="locationId"></param>
-        /// <returns></returns>
-        //[Obsolete]
-        //public virtual ActionResult ApplyLocationIdFilter(string areaId, string locationId)
-        //{
-        //    if (string.IsNullOrWhiteSpace(areaId))
-        //    {
-        //        return RedirectToAction(Actions.Index());
-        //    }
-        //    ModelState.Clear();
-        //    var model = CreateManageCartonAreaViewModel(areaId);
-        //    var locations = _service.GetLocationsMatchingPattern(locationId, 500);
-        //    model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
-        //    model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
-        //    model.LocationPatternFilter = locationId;
-        //    return View(Views.ManageCartonArea, model);
-        //}
 
         /// <summary>
         /// Update location assignment.
@@ -401,41 +387,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(areaId);
             return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
-        }
-
-        /// <summary>
-        /// Creates and populates ManageCartonAreaViewModel. The parameters are the filters used to retrieve the location list
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="assigned"></param>
-        /// <param name="emptyLocations"></param>
-        /// <param name="assignedSkuId"></param>
-        /// <param name="skuEntry"></param>
-        /// <param name="locationId"></param>
-        /// <returns>The populated mode, or null if invalid area was passed</returns>
-        private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId)
-        {
-            var area = _service.GetCartonAreaInfo(areaId);
-            if (string.IsNullOrEmpty(areaId))
-            {
-                return null;
-            }
-            var model = new ManageCartonAreaViewModel
-            {
-                Matrix = new LocationCountMatrixViewModel(area),
-                ShortName = area.ShortName,
-                BuildingId = area.BuildingId
-            };
-
-            model.AssignedSku = new AssignSkuViewModel
-            {
-                VwhList = _service.GetVwhList().Select(p => new SelectListItem
-                {
-                    Text = (string.IsNullOrEmpty(p.Code) ? "NULL" : p.Code) + " : " + p.Description,
-                    Value = p.Code
-                })
-            };
-            return model;
         }
 
         public virtual ActionResult PickingArea(string buildingId)
