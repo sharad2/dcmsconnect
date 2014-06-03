@@ -21,7 +21,7 @@
             <td>
                 Assigned
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(true, true) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, true),
@@ -32,7 +32,7 @@
                                 } : null)
                 }
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(true, false) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, false),
@@ -44,7 +44,7 @@
 
                 }
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(true, null) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, null),
@@ -60,7 +60,7 @@
             <td>
                 Unassigned
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(false, true) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(false, true),
@@ -72,7 +72,7 @@
                                 )
                 }
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(false, false) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(false, false),
@@ -84,7 +84,7 @@
                                 )
                 }
             </td>
-            <td>
+            <td style="text-align:right">
                 @if (Model.GetCount(false, null) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(false, null),

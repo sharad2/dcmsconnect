@@ -4,7 +4,7 @@ $(document).ready(function () {
     //$('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
     //$('button.mca-assign').button({ text: false, icons: { primary: 'ui-icon-pencil' } });
 
-
+    $('#btnAplyForFilter').button();
     // The dialog must be passed $tr (current row which has been clicked) in the custom option currentRow
     $('#divEditDialog').dialog({
         autoOpen: false,
