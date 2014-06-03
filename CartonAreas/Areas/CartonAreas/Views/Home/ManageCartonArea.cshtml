@@ -96,12 +96,9 @@
     </div>
 }
 
-<h2>@Html.LabelFor(m => m.Matrix.AreaId) @Html.DisplayFor(m => m.ShortName)</h2>
+<h2>Carton Area : @Html.DisplayFor(m => m.ShortName)</h2>
 <div class="box">
-    <h3>
-        Search for locations
-    </h3>
-    <div id="divFilter" class="boxContent designForm">
+    <div class="boxContent designForm">
         <p>
             Start by selecting the type of locations you wish to see in the location list
         </p>
@@ -130,9 +127,7 @@
                 <sup>&darr;*</sup>
                 <span data-ac-msg-for="skuText" class="sku-display"></span>
             </div>
-            <div>
-                <button type="submit" id="btnAplyForFilter">Go</button>
-            </div>
+            <button type="submit" id="btnAplyForFilter">Go</button>
         }
     </div>
 </div>
@@ -184,7 +179,7 @@
             </thead>
             <tbody>
                 @for (var i = 0; i < Model.Locations.Count; i++)
-                    {
+                {
                     <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-location-id="@Model.Locations[i].LocationId" data-upc-code="@(Model.Locations[i].AssignedSku == null ? "" : Model.Locations[i].AssignedSku.UpcCode)">
                         <td>
                             @(i + 1)
@@ -195,11 +190,11 @@
                         <td style="white-space: nowrap">
                             <span class="mca-sku">
                                 @if (Model.Locations[i].AssignedSku != null)
-                                    {
+                                {
                                     <span title="@Model.Locations[i].AssignedSku.UpcCode">
                                         @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
                                     </span>
-                                    }
+                                }
                             </span>
                         </td>
 
@@ -228,19 +223,19 @@
                         <td>
                             <span>
                                 @if (Model.Locations[i].CartonSku != null)
-                                    {
+                                {
                                     <span title="@Model.Locations[i].CartonSku.UpcCode">
                                         @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
                                     </span>
-                                        if (Model.Locations[i].CartonSkuCount > 1)
-                                        {
-                                    <span class="ui-priority-primary">
-                                        and @(Model.Locations[i].CartonSkuCount - 1)
-                                        more
-                                    </span>
+                                    if (Model.Locations[i].CartonSkuCount > 1)
+                                    {
+                                        <span class="ui-priority-primary">
+                                            and @(Model.Locations[i].CartonSkuCount - 1)
+                                            more
+                                        </span>
 
-                                        }
                                     }
+                                }
                             </span>
                         </td>
                         <td style="text-align: right">
@@ -254,7 +249,7 @@
                             @UnassignButton(Model.Locations[i].LocationId, Model.Locations[i].AssignedSku != null)
                         </td>
                     </tr>
-                    }
+                }
             </tbody>
         </table>
     </div>

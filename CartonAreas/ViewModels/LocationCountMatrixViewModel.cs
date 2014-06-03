@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.CartonAreas.Repository;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
@@ -89,6 +90,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
             return string.Format("{0:N0}", _counts[assigned, empty]);
         }       
 
+        [Display(Name = "Carton area") ]
         public string AreaId { get; set; }
     }
 }

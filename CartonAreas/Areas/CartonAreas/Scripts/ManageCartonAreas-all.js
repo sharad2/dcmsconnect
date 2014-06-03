@@ -116,12 +116,12 @@ $(document).ready(function () {
 });
 
 /*
-$Id: ManageCartonAreas.partial.js 24649 2014-06-02 11:46:35Z ssinghal $ 
-$Revision: 24649 $
+$Id: ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $ 
+$Revision: 24663 $
 $URL: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24649 2014-06-02 11:46:35Z ssinghal $
-$Author: ssinghal $
-$Date: 2014-06-02 17:16:35 +0530 (Mon, 02 Jun 2014) $
+$Header: http://server/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
+$Author: spandey $
+$Date: 2014-06-03 15:16:17 +0530 (Tue, 03 Jun 2014) $
 */
 ///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
