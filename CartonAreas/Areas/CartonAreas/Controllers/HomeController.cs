@@ -337,7 +337,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             model.Matrix.EmptyLocationsFilter = emptyLocations;
             var locations = _service.GetLocationsOfFilters(areaId, assignedSkuId, locationId, assignedLocation, emptyLocations, 500);
             model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
-            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+            if (locations.Count > 0)
+            {
+                model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+            }
             if (assignedSkuId != null)
             {
                 model.AssignedToSkuFilter = new SkuModel
