@@ -132,6 +132,21 @@
     </div>
 </div>
 <div class="box">
+    @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter) || Model.AssignedToSkuFilter != null)
+    {
+        <span>Filter applied</span>
+        if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
+        {
+            @: Location :  @Html.DisplayFor(m => m.LocationPatternFilter)
+        }
+        if (Model.AssignedToSkuFilter != null)
+        {
+            @: Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
+        }
+        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
+    }
+
+
     <div class="boxContent" id="divLocationList">
         <table>
             <caption>
