@@ -144,6 +144,11 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// </summary>
         public AssignSkuViewModel AssignedSku { get; set; }
 
+        /// <summary>
+        /// Total number of locations matching the filters. The list will contain only some of these locations
+        /// </summary>
+        public int CountTotalLocations { get; set; }
+
     }
 }
 

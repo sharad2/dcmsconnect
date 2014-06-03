@@ -253,7 +253,8 @@ namespace DcmsMobile.CartonAreas.Repository
                        MAX(MSKU2.COLOR)               AS CTN_COLOR_,
                        MAX(MSKU2.DIMENSION)           AS CTN_DIMENSION_,
                        MAX(MSKU2.SKU_SIZE)            AS CTN_SKU_SIZE_,
-                       MAX(MSKU2.UPC_CODE)            AS CTN_UPC_CODE_                       
+                       MAX(MSKU2.UPC_CODE)            AS CTN_UPC_CODE_,
+count(*) over() as count_total_locations                      
                   FROM <proxy/>MASTER_STORAGE_LOCATION MSL
                   LEFT OUTER JOIN <proxy/>SRC_CARTON SC
                     ON SC.LOCATION_ID = MSL.LOCATION_ID
@@ -290,14 +291,14 @@ namespace DcmsMobile.CartonAreas.Repository
             var binder = SqlBinder.Create(row => new Location()
                 {
                     LocationId = row.GetString("LOCATION_ID"),
-                    PalletCount = row.GetInteger("NUMBER_OF_PALLET").Value,
+                    PalletCount = row.GetInteger("NUMBER_OF_PALLET") ?? 0,
                     TotalPieces = row.GetInteger("TOTAL_PIECES"),
                     MaxAssignedCarton = row.GetInteger("ASSIGNED_MAX_CARTONS"),
-                    CartonCount = row.GetInteger("NUMBER_OF_CARTONS").Value,
+                    CartonCount = row.GetInteger("NUMBER_OF_CARTONS") ?? 0,
                     AssignedVwhId = row.GetString("ASSIGNED_VWH_ID"),
-                    CartonVwhCount = row.GetInteger("CARTON_VWH_COUNT").Value,
+                    CartonVwhCount = row.GetInteger("CARTON_VWH_COUNT") ?? 0,
                     CartonVwhId = row.GetString("CARTON_VWH_ID"),
-                    CartonSkuCount = row.GetInteger("CARTON_SKU_COUNT").Value,
+                    CartonSkuCount = row.GetInteger("CARTON_SKU_COUNT") ?? 0,
                     CartonSku = row.GetInteger("CARTON_SKU_ID") == null ? null : new Sku
                         {
                             Style = row.GetString("CTN_STYLE_"),
@@ -315,7 +316,8 @@ namespace DcmsMobile.CartonAreas.Repository
                             SkuSize = row.GetString("SKU_SIZE_"),
                             SkuId = row.GetInteger("SKU_ID").Value,
                             UpcCode = row.GetString("UPC_CODE_")
-                        }
+                        },
+                    CountTotalLocations = row.GetInteger("count_total_locations") ?? 0
                 }).Parameter("AREA_ID", cartonAreaId)
                 //.Parameter("LOCATION_ID", locationId)
                .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())

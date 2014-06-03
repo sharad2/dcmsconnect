@@ -75,12 +75,26 @@
         button.AddCssClass("ui-button-disabled");
         button.AddCssClass("ui-state-disabled");
         button.Attributes.Add("disabled", "disabled");
-    }    
+    }
 
     @Html.Raw(button)
 }
 
 @section scripts {
+    <style type="text/css">
+        .ui-widget {
+            font-size: 1em;
+        }
+
+        #divLocationList .ui-progressbar {
+            height: 1.1em;
+        }
+
+            #divLocationList .ui-progressbar .ui-widget-header {
+                color: Black;
+                font-weight: normal;
+            }
+    </style>
     <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.ManageCartonAreas_all_js"></script>
 }
 @section sidebar {
@@ -96,29 +110,21 @@
         </div>
     </div>
 }
-<style type="text/css">
-    .ui-widget {
-        font-size: 1em;
-    }
 
-    #divLocationList .ui-progressbar {
-        height: 1.1em;
-    }
-
-        #divLocationList .ui-progressbar .ui-widget-header {
-            color: Black;
-            font-weight: normal;
-        }
-</style>
 <h2>@Html.LabelFor(m => m.Matrix.AreaId) @Html.DisplayFor(m => m.ShortName)</h2>
 <div class="box">
     <h3>
         Search for locations
     </h3>
     <div id="divFilter" class="boxContent designForm">
+        <p>
+            Start by selecting the type of locations you wish to see in the location list
+        </p>
         <div id="divupdatefilter">
             @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, Model.Matrix)
         </div>
+
+        <p>Then you can refine the list further.</p>
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationIdFilter(), FormMethod.Get))
         {
             <div>

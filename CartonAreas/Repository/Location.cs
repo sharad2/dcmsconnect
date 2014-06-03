@@ -38,6 +38,8 @@ namespace DcmsMobile.CartonAreas.Repository
         /// </summary>
         public int CartonSkuCount { get; set; }
 
+
+        public int CountTotalLocations { get; set; }
     }
 }
 //$Id$
