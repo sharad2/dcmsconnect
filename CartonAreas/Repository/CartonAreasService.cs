@@ -160,6 +160,12 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             _repos.UpdatePickingArea(model);
         }
+
+        internal Sku GetSku(int skuId)
+        {
+            return _repos.GetSku(skuId);
+        }
+
     }
 }
 //$Id$

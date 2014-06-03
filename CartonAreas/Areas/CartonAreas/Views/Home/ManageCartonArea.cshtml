@@ -43,10 +43,7 @@
     if (Model.AssignedToSkuFilter != null)
     {
         @:Assigned to SKU
-        @Html.DisplayFor(m => m.AssignedToSkuFilter.Style)
-        @Html.DisplayFor(m => m.AssignedToSkuFilter.Color)
-        @Html.DisplayFor(m => m.AssignedToSkuFilter.Dimension)
-        @Html.DisplayFor(m => m.AssignedToSkuFilter.SkuSize)
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
     }
 
 }
@@ -142,7 +139,7 @@
             }
             @if (Model.AssignedToSkuFilter != null)
             {
-             @:Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.Style)
+             @:Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
             }
             <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
         </div>

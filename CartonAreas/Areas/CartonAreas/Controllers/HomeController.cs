@@ -343,9 +343,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             if (assignedSkuId != null)
             {
+                var sku = _service.GetSku(assignedSkuId.Value);
                 model.AssignedToSkuFilter = new SkuModel
                 {
-                    Style = "TODO"
+                    Style = sku.Style,
+                    Color = sku.Color,
+                    Dimension = sku.Dimension,
+                    SkuSize = sku.SkuSize,
+                    UpcCode = sku.UpcCode
                 };
             }
             if (!string.IsNullOrWhiteSpace(locationId))

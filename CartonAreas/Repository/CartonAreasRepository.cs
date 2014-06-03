@@ -418,6 +418,36 @@ count(*) over() as count_total_locations
             return _db.ExecuteReader(QUERY, binder);
         }
 
+        internal Sku GetSku(int skuId)
+        {
+            if(skuId == 0)
+            {
+                throw new ArgumentNullException("skuId");
+            }
+            const string QUERY =
+                             @"
+                            SELECT  MS.UPC_CODE AS UPC_CODE,
+                                    MS.SKU_ID AS SKU_ID,
+                                    MS.STYLE AS STYLE,
+                                    MS.COLOR AS COLOR,
+                                    MS.DIMENSION AS DIMENSION,
+                                    MS.SKU_SIZE AS SKU_SIZE
+                                FROM <proxy />MASTER_SKU MS
+                              WHERE MS.SKU_ID = :SKU_ID";
+
+            var binder = SqlBinder.Create(row => new Sku
+                {
+                    SkuId = row.GetInteger("SKU_ID").Value,
+                    Style = row.GetString("STYLE"),
+                    Color = row.GetString("COLOR"),
+                    Dimension = row.GetString("DIMENSION"),
+                    SkuSize = row.GetString("SKU_SIZE"),
+                    UpcCode = row.GetString("UPC_CODE")
+                }).Parameter("SKU_ID", skuId);
+            return _db.ExecuteSingle(QUERY, binder);
+
+        }
+
     }
 }
 //$Id$
