@@ -274,20 +274,45 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assigned"></param>
         /// <param name="emptyLocations"></param>
         /// <returns></returns>
-        public virtual ActionResult ManageCartonArea(string areaId, bool? assigned = null, bool? emptyLocations = null)
+        public virtual ActionResult ManageCartonArea(string areaId)
         {
             if (string.IsNullOrEmpty(areaId))
             {
                 return Index();
             }
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Matrix.AssignedLocationsFilter = assigned;
-            model.Matrix.EmptyLocationsFilter = emptyLocations;
-            var locations = _service.GetLocations(areaId, assigned, emptyLocations, 500);
+            var locations = _service.GetLocations(areaId, 500);
             model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
             model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             return View(Views.ManageCartonArea, model);
         }
+
+        public virtual ActionResult ApplyLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations)
+        {
+            if (string.IsNullOrWhiteSpace(areaId))
+            {
+                return RedirectToAction(Actions.Index());
+            }
+            var model = CreateManageCartonAreaViewModel(areaId);
+            model.Matrix.AssignedLocationsFilter = assignedLocation;
+            model.Matrix.EmptyLocationsFilter = emptyLocations;
+            var locations = _service.GetLocationsOfFilters(areaId, assignedSkuId, locationId, assignedLocation, emptyLocations, 500);
+            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+            if (assignedSkuId != null)
+            {
+                model.AssignedToSkuFilter = new SkuModel
+                {
+                    Style = "TODO"
+                };
+            }
+            if (!string.IsNullOrWhiteSpace(locationId))
+            {
+                model.LocationPatternFilter = locationId;
+            }
+            return View(Views.ManageCartonArea, model);
+        }
+
 
         /// <summary>
         /// Called when the user enters the assigned SKU to search for
@@ -300,23 +325,24 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// We clear the model state since we do not want server side validation. Server validation causes problems because
         /// only partial model is posted.
         /// </remarks>
-        public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId)
-        {
-            if (string.IsNullOrWhiteSpace(areaId))
-            {
-                return RedirectToAction(Actions.Index());
-            }
-            ModelState.Clear();
-            var model = CreateManageCartonAreaViewModel(areaId);
-            var locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500);
-            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
-            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
-            model.AssignedToSkuFilter = new SkuModel
-            {
-                Style = "TODO"
-            };
-            return View(Views.ManageCartonArea, model);
-        }
+        //[Obsolete]
+        //public virtual ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId)
+        //{
+        //    if (string.IsNullOrWhiteSpace(areaId))
+        //    {
+        //        return RedirectToAction(Actions.Index());
+        //    }
+        //    ModelState.Clear();
+        //    var model = CreateManageCartonAreaViewModel(areaId);
+        //    var locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500);
+        //    model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+        //    model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+        //    model.AssignedToSkuFilter = new SkuModel
+        //    {
+        //        Style = "TODO"
+        //    };
+        //    return View(Views.ManageCartonArea, model);
+        //}
 
         /// <summary>
         /// Called when the user enters any location to search for
@@ -324,20 +350,21 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="areaId"></param>
         /// <param name="locationId"></param>
         /// <returns></returns>
-        public virtual ActionResult ApplyLocationIdFilter(string areaId, string locationId)
-        {
-            if (string.IsNullOrWhiteSpace(areaId))
-            {
-                return RedirectToAction(Actions.Index());
-            }
-            ModelState.Clear();
-            var model = CreateManageCartonAreaViewModel(areaId);
-            var locations = _service.GetLocationsMatchingPattern(locationId, 500);
-            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
-            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
-            model.LocationPatternFilter = locationId;
-            return View(Views.ManageCartonArea, model);
-        }
+        //[Obsolete]
+        //public virtual ActionResult ApplyLocationIdFilter(string areaId, string locationId)
+        //{
+        //    if (string.IsNullOrWhiteSpace(areaId))
+        //    {
+        //        return RedirectToAction(Actions.Index());
+        //    }
+        //    ModelState.Clear();
+        //    var model = CreateManageCartonAreaViewModel(areaId);
+        //    var locations = _service.GetLocationsMatchingPattern(locationId, 500);
+        //    model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+        //    model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+        //    model.LocationPatternFilter = locationId;
+        //    return View(Views.ManageCartonArea, model);
+        //}
 
         /// <summary>
         /// Update location assignment.

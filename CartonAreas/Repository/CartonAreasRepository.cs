@@ -229,7 +229,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <remarks>
         /// SS 28/12/2011: Pallet count was wrong. Changed COUNT(SC.PALLET_ID) to COUNT(DISTINCT SC.PALLET_ID)
         /// </remarks>
-        public IList<Location> GetLocations(string locationIdPattern, int? skuId, bool? assignedLocations, bool? emptyLocations, string cartonAreaId, int maxRows)
+        public IList<Location> GetLocations(string areaId, int? assignedSkuId, string locationPattern, bool? assignedLocations, bool? emptyLocations, int maxRows)
         {
             const string QUERY = @"
                 SELECT MSL.LOCATION_ID                AS LOCATION_ID,
@@ -318,24 +318,23 @@ count(*) over() as count_total_locations
                             UpcCode = row.GetString("UPC_CODE_")
                         },
                     CountTotalLocations = row.GetInteger("count_total_locations") ?? 0
-                }).Parameter("AREA_ID", cartonAreaId)
-                //.Parameter("LOCATION_ID", locationId)
+                }).Parameter("AREA_ID", areaId)
                .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())
-               .Parameter("SKU_ID", skuId)
+               .Parameter("SKU_ID", assignedSkuId)
                .Parameter("ASSIGNED_FLAG", string.Format("{0}", assignedLocations).ToLower());
-            if (string.IsNullOrWhiteSpace(locationIdPattern))
+            if (string.IsNullOrWhiteSpace(locationPattern))
             {
                 binder.Parameter("LOCATION_ID", string.Empty)
                     .Parameter("SEARCHLOCATION", string.Empty);
             }
-            else if (locationIdPattern.Contains("%"))
+            else if (locationPattern.Contains("%"))
             {
                 binder.Parameter("LOCATION_ID", string.Empty)
-                    .Parameter("SEARCHLOCATION", locationIdPattern);
+                    .Parameter("SEARCHLOCATION", locationPattern);
             }
             else
             {
-                binder.Parameter("LOCATION_ID", locationIdPattern)
+                binder.Parameter("LOCATION_ID", locationPattern)
                     .Parameter("SEARCHLOCATION", string.Empty);
             }
             //if (filters.SkuId == null)

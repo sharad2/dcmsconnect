@@ -71,35 +71,40 @@ namespace DcmsMobile.CartonAreas.Repository
             return _repos.GetCartonAreas(areaId, null).FirstOrDefault();
         }
 
-        ///// <summary>
-        ///// Find the list of location in any one area.
-        ///// </summary>
-        ///// <param name="filters"></param>
-        ///// <returns></returns>
         //[Obsolete]
-        //public IEnumerable<Location> GetLocations(LocationFilter filters)
+        //public IList<Location> GetLocationsMatchingPattern(string locationPattern, int maxRows)
         //{
-        //    throw new NotImplementedException();
-        //    //return _repos.GetLocations(filters);
+        //    if (string.IsNullOrWhiteSpace(locationPattern))
+        //    {
+        //        throw new ArgumentNullException("locationPattern");
+        //    }
+        //    return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null, maxRows);
         //}
 
-        public IList<Location> GetLocationsMatchingPattern(string locationPattern, int maxRows)
+        //[Obsolete]
+        //public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId, int maxRows)
+        //{
+        //    return _repos.GetLocations(null, skuId, null, null, cartonAreaId, maxRows);
+        //}
+
+        //[Obsolete]
+        //public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation, int maxRows)
+        //{
+        //    return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId, maxRows);
+        //}
+
+        public IList<Location> GetLocations(string cartonAreaId, int maxRows)
         {
-            if (string.IsNullOrWhiteSpace(locationPattern))
+            return _repos.GetLocations(cartonAreaId, null, null, null, null, maxRows);
+        }
+
+        public IList<Location> GetLocationsOfFilters(string areaId, int? assignedSkuId, string locationPattern, bool? assigned, bool? emptyLocations, int maxRows)
+        {
+            if (!string.IsNullOrWhiteSpace(locationPattern))
             {
-                throw new ArgumentNullException("locationPattern");
+                locationPattern = locationPattern.Replace('*', '%');
             }
-            return _repos.GetLocations(locationPattern.Replace('*', '%'), null, null, null, null, maxRows);
-        }
-
-        public IList<Location> GetLocationsAssignedToSku(string cartonAreaId, int skuId, int maxRows)
-        {
-            return _repos.GetLocations(null, skuId, null, null, cartonAreaId, maxRows);
-        }
-
-        public IList<Location> GetLocations(string cartonAreaId, bool? assignedLocations, bool? emptyLocation, int maxRows)
-        {
-            return _repos.GetLocations(null, null, assignedLocations, emptyLocation, cartonAreaId, maxRows);
+            return _repos.GetLocations(areaId, assignedSkuId, locationPattern, assigned, emptyLocations, maxRows);
         }
 
         /// <summary>

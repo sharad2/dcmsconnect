@@ -74,13 +74,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ApplyAssignedSkuFilter() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ApplyAssignedSkuFilter);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ApplyLocationIdFilter() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ApplyLocationIdFilter);
+        public System.Web.Mvc.ActionResult ApplyLocationFilter() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.ApplyLocationFilter);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -126,8 +121,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
-            public readonly string ApplyAssignedSkuFilter = "ApplyAssignedSkuFilter";
-            public readonly string ApplyLocationIdFilter = "ApplyLocationIdFilter";
+            public readonly string ApplyLocationFilter = "ApplyLocationFilter";
             public readonly string UpdateLocation = "UpdateLocation";
             public readonly string UnassignLocation = "UnassignLocation";
             public readonly string PickingArea = "PickingArea";
@@ -146,8 +140,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
-            public const string ApplyAssignedSkuFilter = "ApplyAssignedSkuFilter";
-            public const string ApplyLocationIdFilter = "ApplyLocationIdFilter";
+            public const string ApplyLocationFilter = "ApplyLocationFilter";
             public const string UpdateLocation = "UpdateLocation";
             public const string UnassignLocation = "UnassignLocation";
             public const string PickingArea = "PickingArea";
@@ -205,24 +198,17 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ManageCartonArea {
             public readonly string areaId = "areaId";
-            public readonly string assigned = "assigned";
-            public readonly string emptyLocations = "emptyLocations";
         }
-        static readonly ActionParamsClass_ApplyAssignedSkuFilter s_params_ApplyAssignedSkuFilter = new ActionParamsClass_ApplyAssignedSkuFilter();
+        static readonly ActionParamsClass_ApplyLocationFilter s_params_ApplyLocationFilter = new ActionParamsClass_ApplyLocationFilter();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ApplyAssignedSkuFilter ApplyAssignedSkuFilterParams { get { return s_params_ApplyAssignedSkuFilter; } }
+        public ActionParamsClass_ApplyLocationFilter ApplyLocationFilterParams { get { return s_params_ApplyLocationFilter; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ApplyAssignedSkuFilter {
+        public class ActionParamsClass_ApplyLocationFilter {
             public readonly string areaId = "areaId";
             public readonly string assignedSkuId = "assignedSkuId";
-        }
-        static readonly ActionParamsClass_ApplyLocationIdFilter s_params_ApplyLocationIdFilter = new ActionParamsClass_ApplyLocationIdFilter();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_ApplyLocationIdFilter ApplyLocationIdFilterParams { get { return s_params_ApplyLocationIdFilter; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ApplyLocationIdFilter {
-            public readonly string areaId = "areaId";
             public readonly string locationId = "locationId";
+            public readonly string assignedLocation = "assignedLocation";
+            public readonly string emptyLocations = "emptyLocations";
         }
         static readonly ActionParamsClass_UpdateLocation s_params_UpdateLocation = new ActionParamsClass_UpdateLocation();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -321,25 +307,19 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ManageCartonArea(string areaId, bool? assigned, bool? emptyLocations) {
+        public override System.Web.Mvc.ActionResult ManageCartonArea(string areaId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ManageCartonArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assigned", assigned);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emptyLocations", emptyLocations);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyAssignedSkuFilter(string areaId, int assignedSkuId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyAssignedSkuFilter);
+        public override System.Web.Mvc.ActionResult ApplyLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyLocationFilter);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuId", assignedSkuId);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult ApplyLocationIdFilter(string areaId, string locationId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyLocationIdFilter);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedLocation", assignedLocation);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emptyLocations", emptyLocations);
             return callInfo;
         }
 

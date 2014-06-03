@@ -25,7 +25,7 @@
                 @if (Model.GetCount(true, true) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, true),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, true),
+                                MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, true, true),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == true ? new
                                 {
                                     @class = "ui-state-active"
@@ -36,7 +36,7 @@
                 @if (Model.GetCount(true, false) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, false),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, false),
+                                     MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, true, false),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == false ? new
                                 {
                                     @class = "ui-state-active"
@@ -48,7 +48,7 @@
                 @if (Model.GetCount(true, null) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(true, null),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, true, null),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, true, null),
                                           Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == null ? new
                                 {
                                     @class = "ui-state-active"
@@ -63,8 +63,8 @@
             <td>
                 @if (Model.GetCount(false, true) > 0)
                 {
-                @Html.ActionLink(Model.GetDisplayCount(false, true),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, true),
+                    @Html.ActionLink(Model.GetDisplayCount(false, true),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, false, true),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == true ? new
                                      {
                                          @class = "ui-state-active"
@@ -75,8 +75,8 @@
             <td>
                 @if (Model.GetCount(false, false) > 0)
                 {
-                @Html.ActionLink(Model.GetDisplayCount(false, false),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, false),
+                    @Html.ActionLink(Model.GetDisplayCount(false, false),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, false, false),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == false ? new
                                      {
                                          @class = "ui-state-active"
@@ -87,8 +87,8 @@
             <td>
                 @if (Model.GetCount(false, null) > 0)
                 {
-                @Html.ActionLink(Model.GetDisplayCount(false, null),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, false, null),
+                    @Html.ActionLink(Model.GetDisplayCount(false, null),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, false, null),
                                                Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == null ? new
                                      {
                                          @class = "ui-state-active"
@@ -107,7 +107,7 @@
                 @if (Model.GetCount(null, true) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(null, true),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, null, true),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, null, true),
                                                Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == true ? new
                                      {
                                          @class = "ui-state-active"
@@ -119,7 +119,7 @@
                 @if (Model.GetCount(null, false) > 0)
                 {
                     @Html.ActionLink(Model.GetDisplayCount(null, false),
-                                MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId, null, false),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(Model.AreaId, null, null, null, false),
                                                Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == false ? new
                                      {
                                          @class = "ui-state-active"
