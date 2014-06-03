@@ -134,16 +134,18 @@
 <div class="box">
     @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter) || Model.AssignedToSkuFilter != null)
     {
-        <span>Filter applied</span>
-        if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
-        {
-            @: Location :  @Html.DisplayFor(m => m.LocationPatternFilter)
-        }
-        if (Model.AssignedToSkuFilter != null)
-        {
-            @: Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
-        }
-        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
+        <div style="font-size : 1.2em;">
+            Filter applied
+            @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
+            {
+             @:Location :  @Html.DisplayFor(m => m.LocationPatternFilter)
+            }
+            @if (Model.AssignedToSkuFilter != null)
+            {
+             @:Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.Style)
+            }
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
+        </div>
     }
 
 
