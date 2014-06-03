@@ -283,7 +283,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = CreateManageCartonAreaViewModel(areaId);
             model.Matrix.AssignedLocationsFilter = assigned;
             model.Matrix.EmptyLocationsFilter = emptyLocations;
-            model.Locations = _service.GetLocations(areaId, assigned, emptyLocations, 500).Select(p => new LocationModel(p)).ToArray();
+            var locations = _service.GetLocations(areaId, assigned, emptyLocations, 500);
+            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             return View(Views.ManageCartonArea, model);
         }
 
@@ -306,7 +308,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             ModelState.Clear();
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500).Select(p => new LocationModel(p)).ToArray();
+            var locations = _service.GetLocationsAssignedToSku(areaId, assignedSkuId, 500);
+            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             model.AssignedToSkuFilter = new SkuModel
             {
                 Style = "TODO"
@@ -328,7 +332,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             ModelState.Clear();
             var model = CreateManageCartonAreaViewModel(areaId);
-            model.Locations = _service.GetLocationsMatchingPattern(locationId, 500).Select(p => new LocationModel(p)).ToArray();
+            var locations = _service.GetLocationsMatchingPattern(locationId, 500);
+            model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
+            model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             model.LocationPatternFilter = locationId;
             return View(Views.ManageCartonArea, model);
         }

@@ -6,7 +6,8 @@
 {
 
     @Model.Locations.Count
-    @:Locations Displayed
+    @:of 
+    @Model.CountTotalLocations    
     if (Model.Matrix.AssignedLocationsFilter.HasValue)
     {
         if (Model.Matrix.AssignedLocationsFilter.Value)
@@ -31,6 +32,8 @@
         }
     }
 
+    @:Locations Displayed
+    
     if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
     {
         @: Matching Pattern
@@ -78,24 +81,6 @@
     }
 
     @Html.Raw(button)
-}
-
-@section scripts {
-    <style type="text/css">
-        .ui-widget {
-            font-size: 1em;
-        }
-
-        #divLocationList .ui-progressbar {
-            height: 1.1em;
-        }
-
-            #divLocationList .ui-progressbar .ui-widget-header {
-                color: Black;
-                font-weight: normal;
-            }
-    </style>
-    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.ManageCartonAreas_all_js"></script>
 }
 @section sidebar {
     <div class="box boxA">
@@ -276,9 +261,6 @@
                                 </button>
                                 @UnassignButton(Model.Locations[i].LocationId, Model.Locations[i].AssignedSku != null)
                             </td>
-
-
-
                         </tr>
                     }
                 </tbody>
@@ -295,6 +277,25 @@
 <div id="divEditDialog" data-unassign-url="@Url.Action(MVC_CartonAreas.CartonAreas.Home.UnassignLocation())">
     @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._assignSkuDialogPartial, Model.AssignedSku)
 </div>
+
+@section scripts {
+    <style type="text/css">
+        .ui-widget {
+            font-size: 1em;
+        }
+
+        #divLocationList .ui-progressbar {
+            height: 1.1em;
+        }
+
+            #divLocationList .ui-progressbar .ui-widget-header {
+                color: Black;
+                font-weight: normal;
+            }
+    </style>
+    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.ManageCartonAreas_all_js"></script>
+}
+
 @*
     $Id$
     $Revision$
