@@ -32,7 +32,20 @@
                     <td>
                         @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description">@Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
                     </td>
-                    <td style="text-align:right">@Html.DisplayFor(m=>m.PickingAreaList[i].LocationCount)</td>
+                    <td style="text-align:right">
+                        @if (Model.PickingAreaList[i].LocationCount > 0)
+                        {
+                            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManagePickingArea(Model.PickingAreaList[i].AreaId))">
+                                @Html.DisplayFor(m => m.PickingAreaList[i].LocationCount)
+                            </a>
+                        }
+                        else
+                        {
+
+                            @Html.DisplayFor(m => m.PickingAreaList[i].LocationCount)
+                        }
+                    </td>
+
                     <td style="text-align: center" title="Numberd Location">
                         <span class="@(Model.PickingAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")" title="Numberd Location"
                               style="display: inline-block;"></span>
@@ -41,7 +54,7 @@
                         <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check data-Picking-Area" : "")" title="Picking Area"
                               style="display: inline-block;"></span>
                     </td>
-                    <td style="text-align: center"  title="Restock Area">
+                    <td style="text-align: center" title="Restock Area">
                         <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check data-Restock-Area" : "")" title="Restock Area"
                               style="display: inline-block;"></span>
                     </td>
@@ -62,32 +75,32 @@
 
 
 <div id="divUpdatePickingAreaDialog">
-@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdatePickingArea(), FormMethod.Post))
-{
-    <div class="designForm">
-        @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
-        @Html.HiddenFor(m => m.BuildingId)
-        @Html.LabelFor(m => m.LocationNumberingFlag)
-        @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
-        <br />
-        @Html.LabelFor(m => m.IsPickingArea)
-        @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
-        <br />
-        @Html.LabelFor(m => m.IsRestockArea)
-        @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
-        <br />
-        @Html.LabelFor(m => m.IsShippingArea)
-        @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
-        <br />
-        @Html.LabelFor(m => m.Description)
-        @Html.TextBoxFor(m => m.Description, new
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdatePickingArea(), FormMethod.Post))
+    {
+        <div class="designForm">
+            @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
+            @Html.HiddenFor(m => m.BuildingId)
+            @Html.LabelFor(m => m.LocationNumberingFlag)
+            @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
+            <br />
+            @Html.LabelFor(m => m.IsPickingArea)
+            @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
+            <br />
+            @Html.LabelFor(m => m.IsRestockArea)
+            @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
+            <br />
+            @Html.LabelFor(m => m.IsShippingArea)
+            @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
+            <br />
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new
    {
        id = "tbDescription",
        maxlength = 40,
        size = 30
    })
-      </div>
-}
+        </div>
+    }
 </div>
 @section scripts {
     <script type="text/javascript">
@@ -140,9 +153,9 @@
                     }
                     $('#tbDescription').val($tr.find('span.data-Description').text());
                     $(this).dialog({ title: $tr.find('span.ui-icon-pencil').attr('title') });
-                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });                
+                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
                     InputOnLoad = $("#divUpdatePickingAreaDialog").html();
-                }, 
+                },
                 close: function (event, ui) {
                     $("#divUpdatePickingAreaDialog").html(InputOnLoad);
                 },

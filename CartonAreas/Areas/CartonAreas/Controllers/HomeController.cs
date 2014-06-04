@@ -271,7 +271,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// Creates and populates ManageCartonAreaViewModel. The parameters are the filters used to retrieve the location list
         /// </summary>
         ///<param name="areaId"></param>
-        /// <returns>The populated mode, or null if invalid area was passed</returns>
+        /// <returns>The populated model, or null if invalid area was passed</returns>
         private ManageCartonAreaViewModel CreateManageCartonAreaViewModel(string areaId)
         {
             var area = _service.GetCartonAreaInfo(areaId);
@@ -445,6 +445,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
             return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.PickingArea(model.BuildingId));
+        }
+
+        public virtual ActionResult ManagePickingArea(string areaId)
+        {
+            if (string.IsNullOrEmpty(areaId))
+            {
+                return Index();
+            }          
+            return View(Views.ManagePickingArea);
         }
     }
 }

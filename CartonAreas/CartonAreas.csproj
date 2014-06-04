@@ -169,6 +169,7 @@
     <Content Include="Areas\CartonAreas\Views\Home\EditAddressOfBuilding.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\AddBuilding.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\PickingArea.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\ManagePickingArea.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
