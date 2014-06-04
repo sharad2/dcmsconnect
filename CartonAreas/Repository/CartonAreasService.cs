@@ -77,9 +77,9 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="cartonAreaId"></param>
         /// <param name="maxRows"></param>
         /// <returns></returns>
-        public IList<Location> GetLocations(string cartonAreaId, int maxRows)
+        public IList<Location> GetCartonAreaLocations(string cartonAreaId, int maxRows)
         {
-            return _repos.GetLocations(cartonAreaId, null, null, null, null, maxRows);
+            return _repos.GetCartonAreaLocations(cartonAreaId, null, null, null, null, maxRows);
         }
 
         /// <summary>
@@ -92,13 +92,13 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="emptyLocations"></param>
         /// <param name="maxRows"></param>
         /// <returns></returns>
-        public IList<Location> GetLocationsOfFilters(string areaId, int? assignedSkuId, string locationPattern, bool? assigned, bool? emptyLocations, int maxRows)
+        public IList<Location> GetCartonAreaLocationsOfFilters(string areaId, int? assignedSkuId, string locationPattern, bool? assigned, bool? emptyLocations, int maxRows)
         {
             if (!string.IsNullOrWhiteSpace(locationPattern))
             {
                 locationPattern = locationPattern.Replace('*', '%');
             }
-            return _repos.GetLocations(areaId, assignedSkuId, locationPattern, assigned, emptyLocations, maxRows);
+            return _repos.GetCartonAreaLocations(areaId, assignedSkuId, locationPattern, assigned, emptyLocations, maxRows);
         }
 
         /// <summary>

@@ -102,21 +102,21 @@
         <div id="divupdatefilter">
             @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, Model.Matrix)
         </div>
-        @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilter(), FormMethod.Get))
+        @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(), FormMethod.Get))
         {
             <p>Then you can refine the list further.</p>
-            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilterParams.assignedLocation" value="@Model.Matrix.AssignedLocationsFilter.ToString()" />
-            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilterParams.emptyLocations" value="@Model.Matrix.EmptyLocationsFilter.ToString()" />
-            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilterParams.areaId" value="@Model.Matrix.AreaId" id="hfAreaId" />
+            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilterParams.assignedLocation" value="@Model.Matrix.AssignedLocationsFilter.ToString()" />
+            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilterParams.emptyLocations" value="@Model.Matrix.EmptyLocationsFilter.ToString()" />
+            <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilterParams.areaId" value="@Model.Matrix.AreaId" id="hfAreaId" />
             <div>
                 <label>Specific Locations</label>
-                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilterParams.locationId">
+                <input type="text" name="@MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilterParams.locationId">
                 <span> Use * as wildcard</span>
 
             </div>
             <div>
                 <label>Assigned to SKU</label>
-                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyLocationFilterParams.assignedSkuId" />
+                <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilterParams.assignedSkuId" />
                 <input type="text" name="skuText"
                        data-ac-list-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAssignedToCartonLocations())"
                        data-ac-validate-url="@Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())"

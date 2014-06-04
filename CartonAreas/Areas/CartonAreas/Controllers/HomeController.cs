@@ -311,7 +311,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 return Index();
             }
             var model = CreateManageCartonAreaViewModel(areaId);
-            var locations = _service.GetLocations(areaId, 500);
+            var locations = _service.GetCartonAreaLocations(areaId, 500);
             model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
             model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             return View(Views.ManageCartonArea, model);
@@ -326,7 +326,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assignedLocation"></param>
         /// <param name="emptyLocations"></param>
         /// <returns></returns>
-        public virtual ActionResult ApplyLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations)
+        public virtual ActionResult ApplyCartonAreaLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations)
         {
             if (string.IsNullOrWhiteSpace(areaId))
             {
@@ -335,7 +335,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var model = CreateManageCartonAreaViewModel(areaId);
             model.Matrix.AssignedLocationsFilter = assignedLocation;
             model.Matrix.EmptyLocationsFilter = emptyLocations;
-            var locations = _service.GetLocationsOfFilters(areaId, assignedSkuId, locationId, assignedLocation, emptyLocations, 500);
+            var locations = _service.GetCartonAreaLocationsOfFilters(areaId, assignedSkuId, locationId, assignedLocation, emptyLocations, 500);
             model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
             if (locations.Count > 0)
             {

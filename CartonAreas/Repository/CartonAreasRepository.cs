@@ -229,7 +229,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <remarks>
         /// SS 28/12/2011: Pallet count was wrong. Changed COUNT(SC.PALLET_ID) to COUNT(DISTINCT SC.PALLET_ID)
         /// </remarks>
-        public IList<Location> GetLocations(string areaId, int? assignedSkuId, string locationPattern, bool? assignedLocations, bool? emptyLocations, int maxRows)
+        public IList<Location> GetCartonAreaLocations(string areaId, int? assignedSkuId, string locationPattern, bool? assignedLocations, bool? emptyLocations, int maxRows)
         {
             const string QUERY = @"
                 SELECT MSL.LOCATION_ID                AS LOCATION_ID,
