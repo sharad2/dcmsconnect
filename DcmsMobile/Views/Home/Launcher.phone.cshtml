@@ -1,5 +1,22 @@
-﻿@{
-    ViewBag.Title = "Launcher.phone.cshtml";
+﻿
+@model DcmsMobile.Models.LauncherViewModel
+@{
+    ViewBag.Title = "DCMS Connect Home";
 }
 
-<h2>Launcher.phone.cshtml</h2>
+<h2>DCMS Main Menu</h2>
+<ol>
+    @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
+    {
+        <li><a href="@choice.Url">@choice.Name</a></li>
+    }
+</ol>
+<ul>
+    @foreach (var choice in Model.MasterMenuItems)
+    {
+        <li><a href="@choice.Url"><small>@choice.Name</small></a></li>
+    }
+</ul>
+<aside>
+    <a href="@Model.UrlRc">Release Candidates</a>
+</aside>

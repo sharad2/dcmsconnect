@@ -6,7 +6,7 @@
 }
 <label for="tb">
     Search</label><input id="tb" type="text" maxlength="24" autocomplete="off" style="text-transform: uppercase"
-        onkeypress="RedirectToChoice(this)" />
+        autofocus="autofocus" />
 <a id="choice_default" href="@Url.Action(MVC_DcmsMobile.Home.AcceptChoice("X", true))" style="display:none" />
 
 <a href="@Model.UrlRc" id="choice_0" style="display:none">Release Candidates</a>
