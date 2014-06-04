@@ -54,7 +54,7 @@ namespace DcmsMobile
             //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
             {
-                ContextCondition = ctx => true  //ctx.GetOverriddenUserAgent().Contains("Android") || ctx.GetOverriddenUserAgent().Contains("iPhone")
+                ContextCondition = ctx => ctx.GetOverriddenUserAgent().Contains("Android") || ctx.GetOverriddenUserAgent().Contains("iPhone")
             });
 
             //// Generic mobile devices and ringscanners, use .mobile.cshtml
