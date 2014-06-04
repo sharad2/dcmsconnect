@@ -41,6 +41,35 @@ namespace DcmsMobile
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new Microsoft.Web.Mvc.FixedRazorViewEngine());
 
+            // Sharad: Code which makes extensions .mobile.cshtml and .phone.cshtml recognizable
+            // Conditions are checked in the order they are added
+            DisplayModeProvider.Instance.Modes.Clear();
+
+            // Smart Phones will use the .phone.cshtml extension
+            // Deepak's phone User Agent for Samsung Galaxy Y
+            //  Mozilla/5.0 (Linux; U; Android 2.3.6; en-gb; GT-S5360 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
+            // Ankit's phone user agent Samsung Galaxy Note
+            //  Mozilla/5.0 (Linux; U; Android 4.1.2; en-gb; GT-N7000 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
+            // iPhone 5 UserAgent when using Safari:
+            //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
+            {
+                ContextCondition = ctx => true  //ctx.GetOverriddenUserAgent().Contains("Android") || ctx.GetOverriddenUserAgent().Contains("iPhone")
+            });
+
+            //// Generic mobile devices and ringscanners, use .mobile.cshtml
+            // RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
+            {
+                ContextCondition = ctx => ctx.GetOverriddenBrowser().IsMobileDevice || ctx.GetOverriddenUserAgent().IndexOf("Windows CE", StringComparison.InvariantCultureIgnoreCase) >= 0
+            });
+
+            // If no specific extension is found, simply use the .cshtml extension
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode()
+            {
+                ContextCondition = ctx => true
+            });
+
             ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
 
             // Suppress the error A potentially dangerous Request.Path value was detected from the client. This error occurs when the user types special characters such as <span> in the textbox.

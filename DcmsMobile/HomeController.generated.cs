@@ -103,6 +103,7 @@ namespace DcmsMobile.Controllers {
             public readonly string Categorized = "Categorized";
             public readonly string Launcher = "Launcher";
             public readonly string Launcher_Mobile = "Launcher.Mobile";
+            public readonly string Launcher_phone = "Launcher.phone";
             public readonly string RcLauncher = "RcLauncher";
             public readonly string RcLauncher_Mobile = "RcLauncher.Mobile";
             public readonly string Search = "Search";

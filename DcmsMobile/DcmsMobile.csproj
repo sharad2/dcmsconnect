@@ -185,9 +185,6 @@
     <Content Include="DcmsMobile\Content\Sounds\warning.wav" />
     <Content Include="DcmsMobile\Content\Sounds\success.wav" />
     <Content Include="DcmsMobile\Content\standardized.css" />
-    <Content Include="App_Browsers\Ringscanner.browser">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Content\themes\Start1.10.0\Stylesheets.chirp.config" />
     <Content Include="DcmsMobile\Scripts\launcher-desktop.min.js">
       <DependentUpon>launcher-desktop.js</DependentUpon>
@@ -220,6 +217,7 @@
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
@@ -256,6 +254,8 @@
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Home\RcLauncher.Mobile.cshtml" />
     <Content Include="Views\Home\Categorized.cshtml" />
+    <Content Include="Views\Home\Launcher.phone.cshtml" />
+    <Content Include="Views\Shared\_layoutMain.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Index.cshtml" />

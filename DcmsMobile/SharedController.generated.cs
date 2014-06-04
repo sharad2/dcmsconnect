@@ -30,6 +30,7 @@ namespace T4MVC {
         public class ViewNames {
             public readonly string _layoutMain = "_layoutMain";
             public readonly string _layoutMain_Mobile = "_layoutMain.Mobile";
+            public readonly string _layoutMain_phone = "_layoutMain.phone";
             public readonly string _soundPartial = "_soundPartial";
         }
     }
