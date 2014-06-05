@@ -113,7 +113,6 @@
     <Compile Include="Repository\Building.cs" />
     <Compile Include="Repository\CartonAreasRepository.cs" />
     <Compile Include="Repository\CartonAreasService.cs" />
-    <Compile Include="Repository\LocationCountMatrix.cs" />
     <Compile Include="Repository\PickingArea.cs" />
     <Compile Include="Repository\PickingLocation.cs" />
     <Compile Include="Repository\Sku.cs" />

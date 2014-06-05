@@ -55,10 +55,10 @@ namespace DcmsMobile.CartonAreas.ViewModels
             _counts = new BoolArrayTwoDimensional();
         }
 
-        internal LocationCountMatrixViewModel(string areaId,LocationCountMatrix area)
+        internal LocationCountMatrixViewModel(CartonArea area)
         {
             _counts = new BoolArrayTwoDimensional();
-            AreaId = areaId;
+            AreaId = area.AreaId;
             _counts[null, null] = area.TotalLocations;
             _counts[true, null] = area.CountAssignedLocations;
             _counts[true, true] = area.CountEmptyAssignedLocations;

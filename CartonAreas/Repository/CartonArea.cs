@@ -1,5 +1,4 @@
 ﻿
-using System;
 namespace DcmsMobile.CartonAreas.Repository
 {
     /// <summary>
@@ -15,30 +14,20 @@ namespace DcmsMobile.CartonAreas.Repository
 
         public bool UnusableInventory { get; set; }
 
-        public LocationCountMatrix LocationCounts { get; set; }
-
-        [Obsolete]
         public int? CountAssignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountUnassignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountNonemptyUnassignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountEmptyUnassignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountNonemptyAssignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountEmptyAssignedLocations { get; set; }
 
-        [Obsolete]
         public int? CountEmptyLocations { get; set; }
 
-        [Obsolete]
         public int? CountNonemptyLocations { get; set; }
     }
 }
