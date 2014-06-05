@@ -456,12 +456,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             var area = _service.GetPickingArea(areaId);
             if (area == null)
             {
+                ModelState.AddModelError("", string.Format("Area {0} not found.", areaId));
                 return Index();
             }
             var locations = _service.GetPickingAreaLocations(areaId, 500);
             if (locations.Count == 0)
             {
-                ModelState.AddModelError("", "No location found.");
+                ModelState.AddModelError("", string.Format("No location in area {0}.", areaId));
                 return RedirectToAction(this.Actions.PickingArea(area.BuildingId));
             }
             var model = new ManagePickingAreaViewModel
