@@ -281,7 +281,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManageCartonAreaViewModel
             {
-                Matrix = new LocationCountMatrixViewModel(area),
+                Matrix = new LocationCountMatrixViewModel(areaId, area.LocationCounts),
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId
             };
@@ -378,7 +378,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             //Response.StatusCode = 200;
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(areaId);
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(areaId, area.LocationCounts));
         }
 
         /// <summary>
@@ -394,7 +394,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             Response.StatusCode = 200;
             // Update carton area info in areaInfo table.
             var area = _service.GetCartonAreaInfo(areaId);
-            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(area));
+            return PartialView(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, new LocationCountMatrixViewModel(areaId, area.LocationCounts));
         }
 
         public virtual ActionResult PickingArea(string buildingId)

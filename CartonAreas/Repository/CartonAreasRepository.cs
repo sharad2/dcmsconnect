@@ -203,17 +203,20 @@ namespace DcmsMobile.CartonAreas.Repository
                 LocationNumberingFlag = row.GetString("LOCATION_NUMBERING_FLAG") == "Y",
                 IsPalletRequired = row.GetString("IS_PALLET_REQUIRED") == "Y",
                 UnusableInventory = row.GetString("UNUSABLE_INVENTORY") == "Y",
-                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
-                TotalLocations = row.GetInteger("LOCATION_COUNT") ?? 0,
+                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),                
                 ShortName = row.GetString("SHORT_NAME"),
-                CountEmptyLocations = row.GetInteger("empty_locations"),
-                CountNonemptyLocations = row.GetInteger("nonempty_locations"),
-                CountAssignedLocations = row.GetInteger("assigned_locations"),
-                CountEmptyUnassignedLocations = row.GetInteger("empty_unassigned_locations"),
-                CountUnassignedLocations = row.GetInteger("total_unassigned_locations"),
-                CountEmptyAssignedLocations = row.GetInteger("empty_assigned_locations"),
-                CountNonemptyAssignedLocations = row.GetInteger("nonempty_assigned_locations"),
-                CountNonemptyUnassignedLocations = row.GetInteger("nonempty_unassigned_locations")
+                LocationCounts = new LocationCountMatrix
+                {
+                    TotalLocations = row.GetInteger("LOCATION_COUNT") ?? 0,
+                    CountEmptyLocations = row.GetInteger("empty_locations"),
+                    CountNonemptyLocations = row.GetInteger("nonempty_locations"),
+                    CountAssignedLocations = row.GetInteger("assigned_locations"),
+                    CountEmptyUnassignedLocations = row.GetInteger("empty_unassigned_locations"),
+                    CountUnassignedLocations = row.GetInteger("total_unassigned_locations"),
+                    CountEmptyAssignedLocations = row.GetInteger("empty_assigned_locations"),
+                    CountNonemptyAssignedLocations = row.GetInteger("nonempty_assigned_locations"),
+                    CountNonemptyUnassignedLocations = row.GetInteger("nonempty_unassigned_locations")
+                }
             });
             binder.Parameter("AREA_ID", areaId).Parameter("WAREHOUSE_LOCATION_ID", buildingId);
             return _db.ExecuteReader(QUERY, binder);
