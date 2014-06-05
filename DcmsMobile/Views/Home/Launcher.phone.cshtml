@@ -9,21 +9,54 @@
 
     <div data-role="content">
         <h3>Programs</h3>
-        <ul data-role="listview" data-filter="true" data-inset="true">
+        <ul data-role="listview" data-inset="true">
             @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
             {
-                <li><a href="@choice.Url">@choice.Name</a></li>
+                if (choice.SubMenu == null)
+                {
+                    <li>
+                        <a href="@choice.Url"><h3>@choice.Name</h3><p>@choice.Description</p></a>
+                    </li>
+                }
+                else
+                {
+                    <li data-icon="plus">
+                        <a href="#choice_@choice.Name.GetHashCode().ToString()"><h3>@choice.Name</h3><p>@choice.Description</p></a>
+                    </li>
+                }
+
             }
         </ul>
+
         <h3>Options</h3>
         <ul data-role="listview" data-inset="true" data-theme="b">
             @foreach (var choice in Model.MasterMenuItems)
             {
                 <li><a href="@choice.Url"><small>@choice.Name</small></a></li>
             }
+            <li>
+                <a href="@Model.UrlRc"><small>Release Candidates</small></a>
+            </li>
         </ul>
     </div>
 </div>
-<aside>
-    <a href="@Model.UrlRc">Release Candidates</a>
-</aside>
+@foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized && p.SubMenu != null))
+{
+    <div data-role="page" id="choice_@choice.Name.GetHashCode().ToString()">
+        <div data-role="header" data-add-back-btn="true">
+            <h1><a href="@choice.Url">@choice.Name</a></h1>
+        </div>
+
+        <div data-role="content">
+            <ul data-role="listview" data-inset="true">
+                @foreach (var submenu in choice.SubMenu)
+                {
+                    <li>
+                        <a href="@submenu.Url"><h3>@submenu.Name</h3><p>@submenu.Description</p></a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </div>
+}
