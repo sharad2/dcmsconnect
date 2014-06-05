@@ -2,48 +2,39 @@
 @{
     ViewBag.Title = "Diagnostics";
 }
-<script type="text/javascript">
-    var _emptyOk = true;
-</script>
-@Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
+<div data-role="page">
+    @Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
 
-@using (Html.BeginForm(MVC_DcmsMobile.Diagnostic.CheckSound(), FormMethod.Get))
-{
-    @Html.LabelFor(m => m.Choice)
-    @Html.TextBoxFor(m => m.Choice) @Model.LastScan
-}
-<ul>
-    <li>1 character input for error scan.</li>
-    <li>2 character input for warning scan.</li>
-    <li>3 characters or more is a valid scan.</li>
-    <li>Enter to go back</li>
-</ul>
-<div>
-    <a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a>
-    @Html.ActionLink("Test E-mail", "Email", "Diagnostic")
+    <div data-role="content">
+        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))" data-role="button" data-inline="true">Error Sound</a>
+        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))" data-role="button" data-inline="true">Warning Sound</a>
+        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))" data-role="button" data-inline="true">Success Sound</a>
+    </div>
+    <div>
+        <a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a>
+        @Html.ActionLink("Test E-mail", "Email", "Diagnostic")
+    </div>
+    <fieldset>
+        <legend>Browser</legend>
+        IsMobile: @this.ViewContext.HttpContext.Request.Browser.IsMobileDevice
+        <br />
+        User Agent: <em>@ViewContext.HttpContext.GetOverriddenUserAgent()</em>
+        <br />
+        Platform: @this.ViewContext.HttpContext.Request.Browser.Platform
+        <br />
+        Id: @this.ViewContext.HttpContext.Request.Browser.Id
+        <br />
+        MajorVersion: @this.ViewContext.HttpContext.Request.Browser.MajorVersion
+        <br />
+        MinorVersion: @this.ViewContext.HttpContext.Request.Browser.MinorVersion
+    </fieldset>
+    <fieldset>
+        <legend>Connection Strings</legend>
+        @foreach (var conn in Model.ConnectionStrings)
+        {
+            <div>
+                <em>@conn.Name</em>: @conn.ProxyUserId@@@conn.DataSource
+            </div>
+        }
+    </fieldset>
 </div>
-<fieldset>
-    <legend>Browser</legend>
-    IsMobile: @this.ViewContext.HttpContext.Request.Browser.IsMobileDevice
-    <br />
-    User Agent: <em>@ViewContext.HttpContext.GetOverriddenUserAgent()</em>
-    <br />
-    Platform: @this.ViewContext.HttpContext.Request.Browser.Platform
-    <br />
-    Id: @this.ViewContext.HttpContext.Request.Browser.Id
-    <br />
-    MajorVersion: @this.ViewContext.HttpContext.Request.Browser.MajorVersion
-    <br />
-    MinorVersion: @this.ViewContext.HttpContext.Request.Browser.MinorVersion
-</fieldset>
-<fieldset>
-    <legend>Connection Strings</legend>
-    @foreach (var conn in Model.ConnectionStrings)
-    {
-        <div>
-            <em>@conn.Name</em>: @conn.ProxyUserId@@@conn.DataSource
-        </div>
-    }
-</fieldset>
-
-<script src="@Links_DcmsMobile.DcmsMobile.Scripts.launcher_mobile_js" type="text/javascript"></script>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.Common;
@@ -27,12 +28,6 @@ namespace DcmsMobile.Models
 
     public class DiagnosticModel : ViewModelBase
     {
-        [Display(Name = "Choice")]
-        [UIHint("scan")]
-        public string Choice { get; set; }
-
-        public string LastScan { get; set; }
-
         public char Sound { get; set; }
 
         public IEnumerable<ConnectionString> ConnectionStrings

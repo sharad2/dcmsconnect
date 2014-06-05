@@ -102,7 +102,7 @@ namespace DcmsMobile.Controllers {
         public ActionParamsClass_CheckSound CheckSoundParams { get { return s_params_CheckSound; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_CheckSound {
-            public readonly string model = "model";
+            public readonly string sound = "sound";
         }
         static readonly ActionParamsClass_Email s_params_Email = new ActionParamsClass_Email();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -138,9 +138,9 @@ namespace DcmsMobile.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CheckSound(DcmsMobile.Models.DiagnosticModel model) {
+        public override System.Web.Mvc.ActionResult CheckSound(char sound) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CheckSound);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sound", sound);
             return callInfo;
         }
 

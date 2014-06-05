@@ -38,26 +38,12 @@ namespace DcmsMobile.Controllers
             return View(model);
         }
 
-        public virtual ActionResult CheckSound(DiagnosticModel model)
+        public virtual ActionResult CheckSound(char sound)
         {
-            if (model.Choice == null)
+            var model = new DiagnosticModel
             {
-                return RedirectToAction(MVC_DcmsMobile.Home.Index());
-                //return RedirectToAction("Index", "Home");
-            }
-            model.LastScan = model.Choice;
-            switch (model.Choice.Length)
-            {
-                case 1:
-                    model.Sound = 'E';
-                    break;
-                case 2:
-                    model.Sound = 'W';
-                    break;
-                default:
-                    model.Sound = 'S';
-                    break;
-            }
+                Sound = sound
+            };
             return View(Views.Index, model);
         }
 
