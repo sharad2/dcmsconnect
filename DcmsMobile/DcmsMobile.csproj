@@ -245,10 +245,10 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Search.mobile.cshtml" />
     <Content Include="Views\Home\RcLauncher.cshtml" />
-    <Content Include="T4MVC.tt">
+    <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.t4" />
