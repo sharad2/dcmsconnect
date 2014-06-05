@@ -8,7 +8,6 @@
     </div>
 
     <div data-role="content">
-        <h3>Programs</h3>
         <ul data-role="listview" data-inset="true">
             @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
             {
@@ -42,7 +41,7 @@
 </div>
 @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized && p.SubMenu != null))
 {
-    <div data-role="page" id="choice_@choice.Name.GetHashCode().ToString()">
+    <div data-role="dialog" id="choice_@choice.Name.GetHashCode().ToString()">
         <div data-role="header" data-add-back-btn="true">
             <h1><a href="@choice.Url">@choice.Name</a></h1>
         </div>
