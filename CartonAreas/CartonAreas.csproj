@@ -131,7 +131,7 @@
     <Compile Include="ViewModels\CartonAreaViewModel.cs" />
     <Compile Include="ViewModels\EditAddressOfBuildingViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
-    <Compile Include="ViewModels\LocationCountMatrixViewModel.cs" />
+    <Compile Include="ViewModels\CartonAreaLocationCountMatrixViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />
     <Compile Include="ViewModels\ManagePickingAreaViewModel.cs" />
     <Compile Include="ViewModels\PickingAreaViewModel.cs" />
@@ -206,7 +206,7 @@
     <None Include="Areas\CartonAreas\Scripts\AutoComplete.partial.js" />
     <None Include="Areas\CartonAreas\Scripts\ManageCartonAreas.partial.js" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.js" />
-    <Content Include="Areas\CartonAreas\Views\Home\_locationCountMatrixPartial.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\_cartonAreaLocationCountMatrixPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\_assignSkuDialogPartial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />

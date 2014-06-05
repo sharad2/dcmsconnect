@@ -6,7 +6,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
     /// <summary>
     /// Used to display the counts of empty/assigned locations in a specific area
     /// </summary>
-    public class LocationCountMatrixViewModel
+    public class CartonAreaLocationCountMatrixViewModel
     {
         /// <summary>
         /// This is a 3 by 3 2D array. Traditional 2D arrays require int indexes. Elements in this specialized array can be accessed using a bool? index.
@@ -50,12 +50,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// </summary>
         private readonly BoolArrayTwoDimensional _counts;
 
-        public LocationCountMatrixViewModel()
+        public CartonAreaLocationCountMatrixViewModel()
         {
             _counts = new BoolArrayTwoDimensional();
         }
 
-        internal LocationCountMatrixViewModel(CartonArea area)
+        internal CartonAreaLocationCountMatrixViewModel(CartonArea area)
         {
             _counts = new BoolArrayTwoDimensional();
             AreaId = area.AreaId;

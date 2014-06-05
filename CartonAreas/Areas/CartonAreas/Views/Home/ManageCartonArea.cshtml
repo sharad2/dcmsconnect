@@ -100,7 +100,7 @@
             Start by selecting the type of locations you wish to see in the location list
         </p>
         <div id="divupdatefilter">
-            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._locationCountMatrixPartial, Model.Matrix)
+            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._cartonAreaLocationCountMatrixPartial, Model.Matrix)
         </div>
         @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(), FormMethod.Get))
         {

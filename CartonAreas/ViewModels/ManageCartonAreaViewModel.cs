@@ -127,7 +127,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public IList<LocationModel> Locations { get; set; }
 
-        public LocationCountMatrixViewModel Matrix { get; set; }
+        public CartonAreaLocationCountMatrixViewModel Matrix { get; set; }
 
         /// <summary>
         /// The location pattern which was used to filter the list
