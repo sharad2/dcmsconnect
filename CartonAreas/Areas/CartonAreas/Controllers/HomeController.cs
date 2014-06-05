@@ -477,7 +477,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                             SkuId = item.AssignedSku.SkuId,
                                             UpcCode = item.AssignedSku.UpcCode
                                         },
-                                        TotalPieces = item.TotalPieces
+                                        TotalPieces = item.TotalPieces,
+                                        MaxAssignedPieces = item.MaxAssignedPieces
                                     }).ToArray(),
                 CountTotalLocations = locations.Select(p => p.CountTotalLocations).First()
             };

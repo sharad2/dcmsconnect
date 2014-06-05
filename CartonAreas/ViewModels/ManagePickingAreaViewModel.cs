@@ -30,11 +30,25 @@ namespace DcmsMobile.CartonAreas.ViewModels
     {
         public string LocationId { get; set; }
 
-        public int? TotalPieces { get; set; }
+        public int TotalPieces { get; set; }
 
         public PickingAreaSkuModel AssignedSku { get; set; }
 
-        public string AssignedVwhId { get; set; }        
+        public string AssignedVwhId { get; set; }
+
+        public int MaxAssignedPieces { get; set; }
+       
+        public int PercentFullLocation
+        {
+            get
+            {
+                if (TotalPieces == 0 || MaxAssignedPieces == 0)
+                {
+                    return 0;
+                }
+                return TotalPieces * 100 / MaxAssignedPieces;
+            }
+        }
     }
 
     public class ManagePickingAreaViewModel

@@ -418,19 +418,20 @@ count(*) over() as count_total_locations
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        internal IList<Location> GetPickingAreaLocations(string areaId, int maxRows)
+        internal IList<PickingLocation> GetPickingAreaLocations(string areaId, int maxRows)
         {
             const string QUERY = @"
-                                SELECT COUNT(*) OVER()          AS TOTAL_LOCATION,
-                                       I.LOCATION_ID            AS LOCATION_ID,
-                                       MAX(I.ASSIGNED_UPC_CODE) AS ASSIGNED_UPC_CODE_,
-                                       MAX(MS.STYLE)            AS STYLE_,
-                                       MAX(MS.COLOR)            AS COLOR_,
-                                       MAX(MS.DIMENSION)        AS DIMENSION_,
-                                       MAX(MS.SKU_SIZE)         AS SKU_SIZE_,
-                                       MAX(MS.SKU_ID)           AS SKU_ID,
-                                       MAX(I.VWH_ID)            AS VWH_ID,
-                                       SUM(IL.NUMBER_OF_UNITS)  AS NUMBER_OF_UNITS
+                                SELECT COUNT(*) OVER()                  AS TOTAL_LOCATION,
+                                       I.LOCATION_ID                    AS LOCATION_ID,
+                                       MAX(I.ASSIGNED_UPC_MAX_PIECES)   AS ASSIGNED_UPC_MAX_PIECES,
+                                       MAX(I.ASSIGNED_UPC_CODE)         AS ASSIGNED_UPC_CODE_,
+                                       MAX(MS.STYLE)                    AS STYLE_,
+                                       MAX(MS.COLOR)                    AS COLOR_,
+                                       MAX(MS.DIMENSION)                AS DIMENSION_,
+                                       MAX(MS.SKU_SIZE)                 AS SKU_SIZE_,
+                                       MAX(MS.SKU_ID)                   AS SKU_ID,
+                                       MAX(I.VWH_ID)                    AS VWH_ID,
+                                       SUM(IL.NUMBER_OF_UNITS)          AS NUMBER_OF_UNITS
                                   FROM <proxy />IALOC I
                                   LEFT OUTER JOIN <proxy />IALOC_CONTENT IL
                                     ON IL.LOCATION_ID = I.LOCATION_ID
@@ -439,11 +440,12 @@ count(*) over() as count_total_locations
                                  WHERE I.IA_ID = :IA_ID
                                  GROUP BY I.LOCATION_ID
                                     ";
-            var binder = SqlBinder.Create(row => new Location()
+            var binder = SqlBinder.Create(row => new PickingLocation()
             {
                 LocationId = row.GetString("LOCATION_ID"),
-                TotalPieces = row.GetInteger("NUMBER_OF_UNITS"),
+                TotalPieces = row.GetInteger("NUMBER_OF_UNITS") ?? 0,
                 AssignedVwhId = row.GetString("VWH_ID"),
+                MaxAssignedPieces = row.GetInteger("ASSIGNED_UPC_MAX_PIECES") ?? 0,
                 AssignedSku = row.GetInteger("SKU_ID") == null ? null : new Sku
                 {
                     Style = row.GetString("STYLE_"),
