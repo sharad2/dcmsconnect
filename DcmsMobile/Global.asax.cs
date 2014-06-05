@@ -66,8 +66,8 @@ namespace DcmsMobile
             // RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
             {
-                ContextCondition = ctx => ctx.GetOverriddenBrowser().IsMobileDevice || 
-                    phones.Concat(new[] { "Windows CE" }).Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                ContextCondition = ctx => ctx.GetOverriddenBrowser().IsMobileDevice || ctx.Request.Browser.Platform == "WinCE" ||
+                    phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
             });
 
             // If no specific extension is found, simply use the .cshtml extension
