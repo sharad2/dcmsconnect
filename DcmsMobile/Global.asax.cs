@@ -59,7 +59,7 @@ namespace DcmsMobile
             //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
             {
-                ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0) || true
             });
 
             // Generic mobile devices and ringscanners, use .mobile.cshtml. Phones also qualify as mobile device. If there is no .phone file, then .mobile file will be used

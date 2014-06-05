@@ -1,22 +1,29 @@
-﻿
-@model DcmsMobile.Models.LauncherViewModel
+﻿@model DcmsMobile.Models.LauncherViewModel
 @{
     ViewBag.Title = "DCMS Connect Home";
 }
+<div data-role="page">
+    <div data-role="header">
+        <h1>DCMS Main Menu</h1>
+    </div>
 
-<h2>DCMS Main Menu</h2>
-<ol>
-    @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
-    {
-        <li><a href="@choice.Url">@choice.Name</a></li>
-    }
-</ol>
-<ul>
-    @foreach (var choice in Model.MasterMenuItems)
-    {
-        <li><a href="@choice.Url"><small>@choice.Name</small></a></li>
-    }
-</ul>
+    <div data-role="content">
+        <h3>Programs</h3>
+        <ul data-role="listview" data-filter="true" data-inset="true">
+            @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
+            {
+                <li><a href="@choice.Url">@choice.Name</a></li>
+            }
+        </ul>
+        <h3>Options</h3>
+        <ul data-role="listview" data-inset="true" data-theme="b">
+            @foreach (var choice in Model.MasterMenuItems)
+            {
+                <li><a href="@choice.Url"><small>@choice.Name</small></a></li>
+            }
+        </ul>
+    </div>
+</div>
 <aside>
     <a href="@Model.UrlRc">Release Candidates</a>
 </aside>
