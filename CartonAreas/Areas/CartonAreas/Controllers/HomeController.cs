@@ -499,7 +499,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                         };
             model.Matrix.AssignedLocationsFilter = assignedLocation;
             model.Matrix.EmptyLocationsFilter = emptyLocations;
-            var locations = _service.GetPickingAreaLocations(areaId, 500);
+            var locations = _service.GetPickingAreaLocationsOfFilters(areaId, assignedLocation, emptyLocations, 500);
             model.PickingLocations = (from item in locations
                                       select new PickingLocationModel(item)).ToArray();
             if (locations.Count > 0)

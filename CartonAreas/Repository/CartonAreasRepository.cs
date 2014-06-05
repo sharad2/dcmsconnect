@@ -480,7 +480,7 @@ count(*) over() as count_total_locations
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        internal IList<PickingLocation> GetPickingAreaLocations(string areaId, int maxRows)
+        internal IList<PickingLocation> GetPickingAreaLocations(string areaId, bool? assignedLocations, bool? emptyLocations, int maxRows)
         {
             const string QUERY = @"
                                 SELECT COUNT(*) OVER()                  AS TOTAL_LOCATION,
@@ -499,7 +499,24 @@ count(*) over() as count_total_locations
                                     ON IL.LOCATION_ID = I.LOCATION_ID
                                   LEFT OUTER JOIN <proxy />MASTER_SKU MS
                                     ON MS.UPC_CODE = I.ASSIGNED_UPC_CODE
-                                 WHERE I.IA_ID = :IA_ID
+                                 WHERE 1 = 1
+                                <if>
+                                AND I.IA_ID = :IA_ID
+                                </if>
+                                <if c=""$EMPTY_LOCATION_FLAG = 'true' "">
+                                       AND NOT EXISTS
+                                        (SELECT 1 FROM <proxy/>IALOC_CONTENT ILCON WHERE ILCON.LOCATION_ID = I.LOCATION_ID)
+                                   </if>
+                               <if c=""$EMPTY_LOCATION_FLAG = 'false' "">
+                                   AND I.LOCATION_ID IN
+                                    (SELECT LOCATION_ID FROM <proxy/>IALOC_CONTENT ILCON WHERE ILCON.IA_ID = :IA_ID)
+                               </if>
+                               <if c=""$ASSIGNED_FLAG ='true' "">
+                                  AND I.ASSIGNED_UPC_CODE IS NOT NULL
+                               </if>
+                               <if c=""$ASSIGNED_FLAG ='false' "">
+                                AND I.ASSIGNED_UPC_CODE IS NULL
+                               </if>                            
                                  GROUP BY I.LOCATION_ID
                                     ";
             var binder = SqlBinder.Create(row => new PickingLocation()
@@ -518,7 +535,9 @@ count(*) over() as count_total_locations
                     UpcCode = row.GetString("ASSIGNED_UPC_CODE_")
                 },
                 CountTotalLocations = row.GetInteger("TOTAL_LOCATION") ?? 0
-            }).Parameter("IA_ID", areaId);
+            }).Parameter("IA_ID", areaId)
+            .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())
+               .Parameter("ASSIGNED_FLAG", string.Format("{0}", assignedLocations).ToLower());
             return _db.ExecuteReader(QUERY, binder, maxRows);
         }
 
