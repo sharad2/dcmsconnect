@@ -509,7 +509,7 @@ count(*) over() as count_total_locations
                                    </if>
                                <if c=""$EMPTY_LOCATION_FLAG = 'false' "">
                                    AND I.LOCATION_ID IN
-                                    (SELECT LOCATION_ID FROM <proxy/>IALOC_CONTENT ILCON WHERE ILCON.IA_ID = :IA_ID)
+                                    (SELECT LOCATION_ID FROM <proxy/>IALOC_CONTENT)
                                </if>
                                <if c=""$ASSIGNED_FLAG ='true' "">
                                   AND I.ASSIGNED_UPC_CODE IS NOT NULL
