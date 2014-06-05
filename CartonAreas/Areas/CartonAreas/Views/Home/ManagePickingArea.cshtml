@@ -1,6 +1,62 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.ManagePickingAreaViewModel
 @{
-    ViewBag.Title = "ManagePickingArea";
+    ViewBag.Title = "Manage Picking Area";
 }
-
-<h2>ManagePickingArea</h2>
+<div class="boxContent">
+    <table>
+        <caption>
+            @Model.PickingLocations.Count of @Model.CountTotalLocations Locations Displayed
+        </caption>
+        <thead>
+            <tr>
+                <th rowspan="2">
+                    #
+                </th>
+                <th rowspan="2">
+                    Location
+                </th>
+                <th colspan="3" style="text-align: center">
+                    Assigned
+                </th>
+            </tr>
+            <tr>
+                <th style="text-align: center">
+                    SKU
+                </th>
+                <th>
+                    VWH
+                </th>
+                <th>
+                    # Pieces
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.PickingLocations.Count; i++)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.PickingLocations[i].LocationId)
+                    </td>
+                    <td style="white-space: nowrap">
+                        @if (Model.PickingLocations[i].AssignedSku != null)
+                        {
+                            <span title="@Model.PickingLocations[i].AssignedSku.UpcCode">
+                                @Html.DisplayFor(m => m.PickingLocations[i].AssignedSku.DisplaySku)
+                            </span>
+                        }
+                    </td>
+                    <td style="text-align: right">
+                        @Html.DisplayFor(m => m.PickingLocations[i].AssignedVwhId)
+                    </td>
+                    <td style="text-align: right">
+                        @Html.DisplayFor(m => m.PickingLocations[i].TotalPieces)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

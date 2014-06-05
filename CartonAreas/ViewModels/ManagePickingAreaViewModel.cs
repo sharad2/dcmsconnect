@@ -34,9 +34,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public PickingAreaSkuModel AssignedSku { get; set; }
 
-        public string AssignedVwhId { get; set; }
-
-        public int CountTotalLocations { get; set; }
+        public string AssignedVwhId { get; set; }        
     }
 
     public class ManagePickingAreaViewModel
@@ -45,6 +43,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public string AreaId { get; set; }
 
         public string ShortName { get; set; }
+
+        public int CountTotalLocations { get; set; }
 
         public IList<PickingLocationModel> PickingLocations { get; set; }
     }

@@ -453,16 +453,22 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return Index();
             }
+            var locations = _service.GetPickingAreaLocations(areaId, 500);
+            if (locations.Count == 0)
+            {
+                ModelState.AddModelError("", "No location found.");
+                return Index();
+            }
             var model = new ManagePickingAreaViewModel
             {
                 AreaId = areaId,
                 //ShortName = //TODO
-                PickingLocations = (from item in _service.GetPickingAreaLocations(areaId, 500)
+                PickingLocations = (from item in locations
                                     select new PickingLocationModel
                                     {
                                         LocationId = item.LocationId,
                                         AssignedVwhId = item.AssignedVwhId,
-                                        AssignedSku =  new PickingAreaSkuModel
+                                        AssignedSku = new PickingAreaSkuModel
                                         {
                                             Style = item.AssignedSku.Style,
                                             Color = item.AssignedSku.Color,
@@ -471,9 +477,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                             SkuId = item.AssignedSku.SkuId,
                                             UpcCode = item.AssignedSku.UpcCode
                                         },
-                                        TotalPieces = item.TotalPieces,
-                                        CountTotalLocations = item.CountTotalLocations
-                                    }).ToArray()
+                                        TotalPieces = item.TotalPieces
+                                    }).ToArray(),
+                CountTotalLocations = locations.Select(p => p.CountTotalLocations).First()
             };
             return View(Views.ManagePickingArea, model);
         }
