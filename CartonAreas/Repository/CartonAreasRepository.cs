@@ -396,10 +396,60 @@ count(*) over() as count_total_locations
                                        MAX(I.PICKING_AREA_FLAG)     AS PICKING_AREA_FLAG,
                                        MAX(I.RESOCK_AREA_FLAG)      AS RESOCK_AREA_FLAG,
                                        MAX(I.DEFAULT_IA_LOCATION)   AS LOCATION_NUMBERING_FLAG,
-                                       COUNT(UNIQUE IL.LOCATION_ID) AS LOCATION_COUNT
+                                       COUNT(UNIQUE IL.LOCATION_ID) AS LOCATION_COUNT,
+                                       <if c='$IA_ID'>
+                                        COUNT(UNIQUE CASE
+                                                       WHEN ILC.LOCATION_ID IS NULL THEN
+                                                        IL.LOCATION_ID
+                                                     END) AS EMPTY_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN ILC.LOCATION_ID IS NOT NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS NONEMPTY_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NOT NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS TOTAL_ASSIGNED_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS TOTAL_UNASSIGNED_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NOT NULL AND ILC.LOCATION_ID IS NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS EMPTY_ASSIGNED_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NOT NULL AND
+                                                    ILC.LOCATION_ID IS NOT NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS NONEMPTY_ASSIGNED_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NULL AND ILC.LOCATION_ID IS NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS EMPTY_UNASSIGNED_LOCATIONS,
+                                       COUNT(UNIQUE CASE
+                                               WHEN IL.ASSIGNED_UPC_CODE IS NULL AND ILC.LOCATION_ID IS NOT NULL THEN
+                                                IL.LOCATION_ID
+                                             END) AS NONEMPTY_UNASSIGNED_LOCATIONS
+                                       </if>
+                                        <else>
+                                               CAST(NULL AS NUMBER) as EMPTY_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as NONEMPTY_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as TOTAL_ASSIGNED_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as TOTAL_UNASSIGNED_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as EMPTY_ASSIGNED_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as NONEMPTY_ASSIGNED_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as EMPTY_UNASSIGNED_LOCATIONS,
+                                               CAST(NULL AS NUMBER) as NONEMPTY_UNASSIGNED_LOCATIONS
+                                               
+                                        </else>
                                   FROM <proxy />IA I
                                   LEFT OUTER JOIN <proxy />IALOC IL
                                     ON IL.IA_ID = I.IA_ID
+                                   <if c='$IA_ID'>
+                                    LEFT OUTER JOIN <proxy />IALOC_CONTENT ILC
+                                        ON ILC.LOCATION_ID = IL.LOCATION_ID
+                                   </if>
                                  WHERE 1 = 1
                                   <if>AND I.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID</if>
                                   <if>AND I.IA_ID = :IA_ID</if>
@@ -415,7 +465,15 @@ count(*) over() as count_total_locations
                 IsPickingArea = row.GetString("PICKING_AREA_FLAG") == "Y",
                 IsRestockArea = row.GetString("RESOCK_AREA_FLAG") == "Y",
                 IsShippingArea = row.GetString("SHIPPING_AREA_FLAG") == "Y",
-                LocationCount = row.GetInteger("LOCATION_COUNT") ?? 0
+                LocationCount = row.GetInteger("LOCATION_COUNT") ?? 0,
+                CountEmptyLocations = row.GetInteger("EMPTY_LOCATIONS"),
+                CountNonemptyLocations = row.GetInteger("NONEMPTY_LOCATIONS"),
+                CountAssignedLocations = row.GetInteger("TOTAL_ASSIGNED_LOCATIONS"),
+                CountEmptyUnassignedLocations = row.GetInteger("EMPTY_UNASSIGNED_LOCATIONS"),
+                CountUnassignedLocations = row.GetInteger("TOTAL_UNASSIGNED_LOCATIONS"),
+                CountEmptyAssignedLocations = row.GetInteger("EMPTY_ASSIGNED_LOCATIONS"),
+                CountNonemptyAssignedLocations = row.GetInteger("NONEMPTY_ASSIGNED_LOCATIONS"),
+                CountNonemptyUnassignedLocations = row.GetInteger("NONEMPTY_UNASSIGNED_LOCATIONS")
             });
             binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId)
                 .Parameter("IA_ID", areaId);
