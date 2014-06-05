@@ -145,6 +145,7 @@ namespace DcmsMobile.Controllers {
             public readonly string GetNewPassword = "GetNewPassword";
             public readonly string Index = "Index";
             public readonly string Index_Mobile = "Index.Mobile";
+            public readonly string Index_phone = "Index.phone";
         }
     }
 

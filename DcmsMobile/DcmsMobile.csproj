@@ -256,6 +256,7 @@
     <Content Include="Views\Home\Categorized.cshtml" />
     <Content Include="Views\Home\Launcher.phone.cshtml" />
     <Content Include="Views\Shared\_layoutMain.phone.cshtml" />
+    <Content Include="Views\Logon\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Index.cshtml" />

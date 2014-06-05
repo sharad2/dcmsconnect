@@ -1,0 +1,19 @@
+﻿@using EclipseLibrary.Mvc.Helpers
+@model DcmsMobile.Models.LogonModel
+@{
+    ViewBag.Title = "DCMS Web Login";
+}
+<p>
+    To login, enter your user name and password
+</p>
+@using (Html.BeginForm(MVC_DcmsMobile.Logon.Login()))
+{
+    <input type="text" name="@Model.NameFor(m => m.UserName)" placeholder="User Name" required="required" /><sup>*</sup>
+    <br />
+    <input type="password" name="@Model.NameFor(m => m.Password)" placeholder="Password" />
+    <p>
+        <input type="submit" value="Log On" />
+    </p>
+    @Html.HiddenFor(m => m.ReturnUrl)
+}
+
