@@ -452,8 +452,30 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             if (string.IsNullOrEmpty(areaId))
             {
                 return Index();
-            }          
-            return View(Views.ManagePickingArea);
+            }
+            var model = new ManagePickingAreaViewModel
+            {
+                AreaId = areaId,
+                //ShortName = //TODO
+                PickingLocations = (from item in _service.GetPickingAreaLocations(areaId, 500)
+                                    select new PickingLocationModel
+                                    {
+                                        LocationId = item.LocationId,
+                                        AssignedVwhId = item.AssignedVwhId,
+                                        AssignedSku =  new PickingAreaSkuModel
+                                        {
+                                            Style = item.AssignedSku.Style,
+                                            Color = item.AssignedSku.Color,
+                                            Dimension = item.AssignedSku.Dimension,
+                                            SkuSize = item.AssignedSku.SkuSize,
+                                            SkuId = item.AssignedSku.SkuId,
+                                            UpcCode = item.AssignedSku.UpcCode
+                                        },
+                                        TotalPieces = item.TotalPieces,
+                                        CountTotalLocations = item.CountTotalLocations
+                                    }).ToArray()
+            };
+            return View(Views.ManagePickingArea, model);
         }
     }
 }
