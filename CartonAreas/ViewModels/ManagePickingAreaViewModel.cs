@@ -61,6 +61,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountTotalLocations { get; set; }
 
+        public PickingAreaLocationCountMatrixViewModel Matrix { get; set; }
+
         public IList<PickingLocationModel> PickingLocations { get; set; }
 
         [Display(Name = "Building")]

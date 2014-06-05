@@ -467,6 +467,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             var model = new ManagePickingAreaViewModel
             {
+                Matrix = new PickingAreaLocationCountMatrixViewModel(area),
                 AreaId = areaId,
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId,

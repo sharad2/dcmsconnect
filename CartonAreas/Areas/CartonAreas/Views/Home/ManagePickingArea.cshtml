@@ -17,6 +17,19 @@
     </div>
 }
 <h2>Picking Area : @Html.DisplayFor(m => m.ShortName)</h2>
+
+<div class="box">
+    <div class="boxContent designForm">
+        <p>
+            Start by selecting the type of locations you wish to see in the location list
+        </p>
+        <div id="divupdatefilter">
+            @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._pickingAreaLocationCountMatrixPartial, Model.Matrix)
+        </div>
+        <p>Then you can refine the list further.</p>        
+    </div>
+</div>
+
 <div class="boxContent">
     <table id="tblLocationList">
         <caption>
@@ -55,38 +68,38 @@
         <tbody>
             @for (var i = 0; i < Model.PickingLocations.Count; i++)
             {
-                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                    <td>
-                        @(i + 1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.PickingLocations[i].LocationId)
-                    </td>
-                    <td style="white-space: nowrap; text-align: center">
-                        @if (Model.PickingLocations[i].AssignedSku != null)
+            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.PickingLocations[i].LocationId)
+                </td>
+                <td style="white-space: nowrap; text-align: center">
+                    @if (Model.PickingLocations[i].AssignedSku != null)
                         {
-                            <span title="@Model.PickingLocations[i].AssignedSku.UpcCode">
-                                @Html.DisplayFor(m => m.PickingLocations[i].AssignedSku.DisplaySku)
-                            </span>
+                        <span title="@Model.PickingLocations[i].AssignedSku.UpcCode">
+                            @Html.DisplayFor(m => m.PickingLocations[i].AssignedSku.DisplaySku)
+                        </span>
                         }
-                    </td>
-                    <td style="text-align: right">
-                        @Html.DisplayFor(m => m.PickingLocations[i].AssignedVwhId)
-                    </td>
-                    <td style="text-align: right">
-                        @Html.DisplayFor(m => m.PickingLocations[i].TotalPieces)
-                    </td>
-                    <td style="text-align: right">
-                        @Html.DisplayFor(m => m.PickingLocations[i].MaxAssignedPieces)
-                    </td>
-                    <td style="text-align: right" title="@Model.PickingLocations[i].PercentFullLocation% full">
-                        <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
-                            <div style="width: @Model.PickingLocations[i].PercentFullLocation%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                                @Html.DisplayFor(m => m.PickingLocations[i].TotalPieces)
-                            </div>
+                </td>
+                <td style="text-align: right">
+                    @Html.DisplayFor(m => m.PickingLocations[i].AssignedVwhId)
+                </td>
+                <td style="text-align: right">
+                    @Html.DisplayFor(m => m.PickingLocations[i].TotalPieces)
+                </td>
+                <td style="text-align: right">
+                    @Html.DisplayFor(m => m.PickingLocations[i].MaxAssignedPieces)
+                </td>
+                <td style="text-align: right" title="@Model.PickingLocations[i].PercentFullLocation% full">
+                    <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                        <div style="width: @Model.PickingLocations[i].PercentFullLocation%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                            @Html.DisplayFor(m => m.PickingLocations[i].TotalPieces)
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
