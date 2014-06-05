@@ -152,7 +152,12 @@ namespace DcmsMobile.CartonAreas.Repository
 
         internal IList<PickingArea> GetPickingAreas(string buildingId)
         {
-            return _repos.GetPickingAreas(buildingId);
+            return _repos.GetPickingAreas(buildingId, null);
+        }
+
+        internal PickingArea GetPickingArea(string areaId)
+        {
+            return _repos.GetPickingAreas(null, areaId).FirstOrDefault();
         }
 
         internal IList<PickingLocation> GetPickingAreaLocations(string areaId, int maxRows)

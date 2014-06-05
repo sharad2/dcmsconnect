@@ -453,16 +453,22 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 return Index();
             }
+            var area = _service.GetPickingArea(areaId);
+            if (area == null)
+            {
+                return Index();
+            }
             var locations = _service.GetPickingAreaLocations(areaId, 500);
             if (locations.Count == 0)
             {
                 ModelState.AddModelError("", "No location found.");
-                return Index();
+                return RedirectToAction(this.Actions.PickingArea(area.BuildingId));
             }
             var model = new ManagePickingAreaViewModel
             {
                 AreaId = areaId,
-                //ShortName = //TODO
+                ShortName = area.ShortName,
+                BuildingId = area.BuildingId,
                 PickingLocations = (from item in locations
                                     select new PickingLocationModel
                                     {

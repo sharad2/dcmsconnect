@@ -385,28 +385,31 @@ count(*) over() as count_total_locations
 
         }
 
-        internal IList<PickingArea> GetPickingAreas(string buildingId)
+        internal IList<PickingArea> GetPickingAreas(string buildingId, string areaId)
         {
             const string QUERY = @"
-                                 SELECT I.IA_ID AS IA_ID,
-                                       MAX(I.SHORT_DESCRIPTION) AS SHORT_DESCRIPTION,
-                                       MAX(I.SHORT_NAME) AS SHORT_NAME,
-                                       MAX(I.SHIPPING_AREA_FLAG) AS SHIPPING_AREA_FLAG,
-                                       MAX(I.PICKING_AREA_FLAG) AS PICKING_AREA_FLAG,
-                                       MAX(I.RESOCK_AREA_FLAG) AS RESOCK_AREA_FLAG,
-                                       MAX(I.DEFAULT_IA_LOCATION) AS LOCATION_NUMBERING_FLAG,
+                                 SELECT I.IA_ID                     AS IA_ID,
+                                        I.WAREHOUSE_LOCATION_ID     AS WAREHOUSE_LOCATION_ID,
+                                       MAX(I.SHORT_DESCRIPTION)     AS SHORT_DESCRIPTION,
+                                       MAX(I.SHORT_NAME)            AS SHORT_NAME,
+                                       MAX(I.SHIPPING_AREA_FLAG)    AS SHIPPING_AREA_FLAG,
+                                       MAX(I.PICKING_AREA_FLAG)     AS PICKING_AREA_FLAG,
+                                       MAX(I.RESOCK_AREA_FLAG)      AS RESOCK_AREA_FLAG,
+                                       MAX(I.DEFAULT_IA_LOCATION)   AS LOCATION_NUMBERING_FLAG,
                                        COUNT(UNIQUE IL.LOCATION_ID) AS LOCATION_COUNT
                                   FROM <proxy />IA I
                                   LEFT OUTER JOIN <proxy />IALOC IL
                                     ON IL.IA_ID = I.IA_ID
                                  WHERE 1 = 1
                                   <if>AND I.WAREHOUSE_LOCATION_ID = :WAREHOUSE_LOCATION_ID</if>
+                                  <if>AND I.IA_ID = :IA_ID</if>
                                  GROUP BY I.WAREHOUSE_LOCATION_ID, I.IA_ID
                             ";
             var binder = SqlBinder.Create(row => new PickingArea
             {
                 AreaId = row.GetString("IA_ID"),
                 Description = row.GetString("SHORT_DESCRIPTION"),
+                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
                 LocationNumberingFlag = string.IsNullOrWhiteSpace(row.GetString("LOCATION_NUMBERING_FLAG")) ? true : false,
                 ShortName = row.GetString("SHORT_NAME"),
                 IsPickingArea = row.GetString("PICKING_AREA_FLAG") == "Y",
@@ -414,7 +417,8 @@ count(*) over() as count_total_locations
                 IsShippingArea = row.GetString("SHIPPING_AREA_FLAG") == "Y",
                 LocationCount = row.GetInteger("LOCATION_COUNT") ?? 0
             });
-            binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId);
+            binder.Parameter("WAREHOUSE_LOCATION_ID", buildingId)
+                .Parameter("IA_ID", areaId);
             return _db.ExecuteReader(QUERY, binder);
         }
 

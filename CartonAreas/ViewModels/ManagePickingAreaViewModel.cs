@@ -37,7 +37,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         public string AssignedVwhId { get; set; }
 
         public int MaxAssignedPieces { get; set; }
-       
+
         public int PercentFullLocation
         {
             get
@@ -58,8 +58,12 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public string ShortName { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountTotalLocations { get; set; }
 
         public IList<PickingLocationModel> PickingLocations { get; set; }
+
+        [Display(Name = "Building")]
+        public string BuildingId { get; set; }
     }
 }

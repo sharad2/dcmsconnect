@@ -2,10 +2,25 @@
 @{
     ViewBag.Title = "Manage Picking Area";
 }
+
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <ul>
+                <li>
+                    @Html.LabelFor(m => m.BuildingId)
+                    @Html.DisplayFor(m => m.BuildingId)
+                </li>
+            </ul>
+            @Html.ActionLink("Back to Picking Area List", MVC_CartonAreas.CartonAreas.Home.Actions.PickingArea(Model.BuildingId))
+        </div>
+    </div>
+}
+<h2>Picking Area : @Html.DisplayFor(m => m.ShortName)</h2>
 <div class="boxContent">
     <table id="tblLocationList">
         <caption>
-            @Model.PickingLocations.Count of @Model.CountTotalLocations Locations Displayed
+            @Model.PickingLocations.Count of @Html.DisplayFor(m => m.CountTotalLocations) Locations Displayed
         </caption>
         <thead>
             <tr>
