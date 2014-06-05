@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.CartonAreas.Repository;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.CartonAreas.ViewModels
@@ -28,6 +29,30 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
     public class PickingLocationModel
     {
+        public PickingLocationModel()
+        {
+
+        }
+
+        internal PickingLocationModel(PickingLocation entity)
+        {
+            if (entity.AssignedSku != null)
+            {
+                AssignedSku = new PickingAreaSkuModel
+                        {
+                            Style = entity.AssignedSku.Style,
+                            Color = entity.AssignedSku.Color,
+                            Dimension = entity.AssignedSku.Dimension,
+                            SkuSize = entity.AssignedSku.SkuSize,
+                            SkuId = entity.AssignedSku.SkuId,
+                            UpcCode = entity.AssignedSku.UpcCode
+                        };
+            }
+            AssignedVwhId = entity.AssignedVwhId;
+            TotalPieces = entity.TotalPieces;
+            LocationId = entity.LocationId;
+            MaxAssignedPieces = entity.MaxAssignedPieces;
+        }
         public string LocationId { get; set; }
 
         public int TotalPieces { get; set; }

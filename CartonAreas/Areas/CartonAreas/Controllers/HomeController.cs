@@ -472,24 +472,40 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ShortName = area.ShortName,
                 BuildingId = area.BuildingId,
                 PickingLocations = (from item in locations
-                                    select new PickingLocationModel
-                                    {
-                                        LocationId = item.LocationId,
-                                        AssignedVwhId = item.AssignedVwhId,
-                                        AssignedSku = new PickingAreaSkuModel
-                                        {
-                                            Style = item.AssignedSku.Style,
-                                            Color = item.AssignedSku.Color,
-                                            Dimension = item.AssignedSku.Dimension,
-                                            SkuSize = item.AssignedSku.SkuSize,
-                                            SkuId = item.AssignedSku.SkuId,
-                                            UpcCode = item.AssignedSku.UpcCode
-                                        },
-                                        TotalPieces = item.TotalPieces,
-                                        MaxAssignedPieces = item.MaxAssignedPieces
-                                    }).ToArray(),
+                                    select new PickingLocationModel(item)).ToArray(),
                 CountTotalLocations = locations.Select(p => p.CountTotalLocations).First()
             };
+            return View(Views.ManagePickingArea, model);
+        }
+
+        public virtual ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations)
+        {
+            if (string.IsNullOrWhiteSpace(areaId))
+            {
+                return RedirectToAction(Actions.Index());
+            }
+            var area = _service.GetPickingArea(areaId);
+            if (area == null)
+            {
+                ModelState.AddModelError("", string.Format("Area {0} not found.", areaId));
+                return Index();
+            }
+            var model = new ManagePickingAreaViewModel
+                        {
+                            Matrix = new PickingAreaLocationCountMatrixViewModel(area),
+                            AreaId = areaId,
+                            ShortName = area.ShortName,
+                            BuildingId = area.BuildingId
+                        };
+            model.Matrix.AssignedLocationsFilter = assignedLocation;
+            model.Matrix.EmptyLocationsFilter = emptyLocations;
+            var locations = _service.GetPickingAreaLocations(areaId, 500);
+            model.PickingLocations = (from item in locations
+                                      select new PickingLocationModel(item)).ToArray();
+            if (locations.Count > 0)
+            {
+                model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+            }
             return View(Views.ManagePickingArea, model);
         }
     }
