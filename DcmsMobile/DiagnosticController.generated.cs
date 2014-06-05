@@ -47,6 +47,11 @@ namespace DcmsMobile.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult CheckSound() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.CheckSound);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Email() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Email);
         }
@@ -71,6 +76,7 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
+            public readonly string CheckSound = "CheckSound";
             public readonly string Email = "Email";
             public readonly string SendEmail = "SendEmail";
         }
@@ -78,6 +84,7 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
+            public const string CheckSound = "CheckSound";
             public const string Email = "Email";
             public const string SendEmail = "SendEmail";
         }
@@ -89,6 +96,12 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Index {
             public readonly string emulateMobile = "emulateMobile";
+        }
+        static readonly ActionParamsClass_CheckSound s_params_CheckSound = new ActionParamsClass_CheckSound();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CheckSound CheckSoundParams { get { return s_params_CheckSound; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CheckSound {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Email s_params_Email = new ActionParamsClass_Email();
@@ -125,8 +138,8 @@ namespace DcmsMobile.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Index(DcmsMobile.Models.DiagnosticModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        public override System.Web.Mvc.ActionResult CheckSound(DcmsMobile.Models.DiagnosticModel model) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CheckSound);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;
         }

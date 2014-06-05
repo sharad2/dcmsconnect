@@ -38,8 +38,7 @@ namespace DcmsMobile.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public virtual ActionResult Index(DiagnosticModel model)
+        public virtual ActionResult CheckSound(DiagnosticModel model)
         {
             if (model.Choice == null)
             {
@@ -59,7 +58,7 @@ namespace DcmsMobile.Controllers
                     model.Sound = 'S';
                     break;
             }
-            return View(model);
+            return View(Views.Index, model);
         }
 
         #region Email

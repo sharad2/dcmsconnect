@@ -5,9 +5,9 @@
 <script type="text/javascript">
     var _emptyOk = true;
 </script>
-@Html.Partial("_soundPartial", Model.Sound)
+@Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
 
-@using (Html.BeginForm("Index", "Diagnostic"))
+@using (Html.BeginForm(MVC_DcmsMobile.Diagnostic.CheckSound(), FormMethod.Get))
 {
     @Html.LabelFor(m => m.Choice)
     @Html.TextBoxFor(m => m.Choice) @Model.LastScan
@@ -23,7 +23,10 @@
     @Html.ActionLink("Test E-mail", "Email", "Diagnostic")
 </div>
 <fieldset>
-    <legend>Browser</legend>IsMobile: @this.ViewContext.HttpContext.Request.Browser.IsMobileDevice
+    <legend>Browser</legend>
+    IsMobile: @this.ViewContext.HttpContext.Request.Browser.IsMobileDevice
+    <br />
+    User Agent: <em>@ViewContext.HttpContext.GetOverriddenUserAgent()</em>
     <br />
     Platform: @this.ViewContext.HttpContext.Request.Browser.Platform
     <br />
