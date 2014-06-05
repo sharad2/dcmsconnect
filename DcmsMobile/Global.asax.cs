@@ -71,10 +71,7 @@ namespace DcmsMobile
             });
 
             // If no specific extension is found, simply use the .cshtml extension
-            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode()
-            {
-                ContextCondition = ctx => true
-            });
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode());
 
             ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
 
