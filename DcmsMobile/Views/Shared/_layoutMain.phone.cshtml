@@ -1,4 +1,4 @@
-﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@ 
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
 @model DcmsMobile.Models.ViewModelBase
 <!DOCTYPE html>
 <html>
@@ -10,15 +10,28 @@
     <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
 
     <script src=jquery.mobile/jquery.mobile.js></script>
+    @RenderSection("head", false)
 </head>
 <body>
-    <aside>
-        @Html.StatusSummary()
-        @Html.ValidationSummary()
-    </aside>
-    <section>
-        @RenderBody()
-    </section>
+    <div data-role="page">
+        <header data-role="header">
+            <h1>DCMS Main Menu</h1>
+            @foreach (var choice in Model.MasterMenuItems)
+            {
+                <a href="@choice.Url"><small>@choice.Name</small></a>
+            }
+        </header>
+        <section data-role="content">
+            <aside>
+                @Html.StatusSummary()
+                @Html.ValidationSummary()
+            </aside>
+            @RenderBody()
+        </section>
+        @RenderSection("footer", false)
+    </div>
+
+    @*Can add capability to render other pages here*@
 </body>
 </html>
 

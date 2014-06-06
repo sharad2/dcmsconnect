@@ -2,39 +2,68 @@
 @{
     ViewBag.Title = "Diagnostics";
 }
-<div data-role="page">
-    @Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
 
-    <div data-role="content">
-        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))" data-role="button" data-inline="true">Error Sound</a>
-        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))" data-role="button" data-inline="true">Warning Sound</a>
-        <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))" data-role="button" data-inline="true">Success Sound</a>
-    </div>
-    <div>
-        <a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a>
-        @Html.ActionLink("Test E-mail", "Email", "Diagnostic")
-    </div>
-    <fieldset>
-        <legend>Browser</legend>
-        IsMobile: @this.ViewContext.HttpContext.Request.Browser.IsMobileDevice
-        <br />
-        User Agent: <em>@ViewContext.HttpContext.GetOverriddenUserAgent()</em>
-        <br />
-        Platform: @this.ViewContext.HttpContext.Request.Browser.Platform
-        <br />
-        Id: @this.ViewContext.HttpContext.Request.Browser.Id
-        <br />
-        MajorVersion: @this.ViewContext.HttpContext.Request.Browser.MajorVersion
-        <br />
-        MinorVersion: @this.ViewContext.HttpContext.Request.Browser.MinorVersion
-    </fieldset>
-    <fieldset>
-        <legend>Connection Strings</legend>
-        @foreach (var conn in Model.ConnectionStrings)
-        {
-            <div>
-                <em>@conn.Name</em>: @conn.ProxyUserId@@@conn.DataSource
-            </div>
+@section head {
+    <style>
+       dl.ui-body dt {
+            display: inline-block;
+            width: 7em;
         }
-    </fieldset>
+
+        dl.ui-body dd {
+            display: inline;
+            font-style:italic;
+        }
+
+            dd:after {
+                content: '\A';
+                white-space: pre;
+            }
+    </style>
+}
+
+@Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
+
+<div>
+    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))" data-role="button" data-inline="true">Error Sound</a>
+    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))" data-role="button" data-inline="true">Warning Sound</a>
+    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))" data-role="button" data-inline="true">Success Sound</a>
 </div>
+
+
+<h3 class="ui-bar ui-bar-a">Browser Identification</h3>
+
+<dl class="ui-body">
+    <dt>IsMobile</dt>
+    <dd>@this.ViewContext.HttpContext.Request.Browser.IsMobileDevice</dd>
+    <dt>User Agent</dt>
+    <dd>@ViewContext.HttpContext.GetOverriddenUserAgent()</dd>
+    <dt>Platform</dt>
+    <dd>@this.ViewContext.HttpContext.Request.Browser.Platform</dd>
+    <dt>Browser Id</dt>
+    <dd>@this.ViewContext.HttpContext.Request.Browser.Id</dd>
+    <dt>MajorVersion</dt>
+    <dd>@this.ViewContext.HttpContext.Request.Browser.MajorVersion</dd>
+    <dt>MinorVersion</dt>
+    <dd>@this.ViewContext.HttpContext.Request.Browser.MinorVersion</dd>
+</dl>
+
+<h3 class="ui-bar ui-bar-a">Connection Strings</h3>
+
+<dl class="ui-body">
+    @foreach (var conn in Model.ConnectionStrings)
+    {
+        <dt>
+            @conn.Name
+        </dt>
+        <dd>@conn.ProxyUserId@@@conn.DataSource</dd>
+    }
+</dl>
+
+@section footer {
+    <div data-role="footer">
+        <a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a>
+        @Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())
+    </div>
+}
+
