@@ -86,6 +86,10 @@ namespace DcmsMobile.Models
             {
                 // Logon
                 this.LoginUrl = url.Action(MVC_DcmsMobile.Logon.Index());
+                if (string.Compare(LoginUrl, ctx.HttpContext.Request.Url.AbsolutePath, true) == 0)
+                {
+                    LoginUrl = null;
+                }
                 list.Add(new UtilityLink
                 {
                     Name = "Login",
