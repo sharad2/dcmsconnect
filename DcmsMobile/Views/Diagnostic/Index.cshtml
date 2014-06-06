@@ -5,29 +5,33 @@
 
 @section head {
     <style>
-       dl.ui-body dt {
+        dl.ui-body dt {
             display: inline-block;
             width: 7em;
         }
 
         dl.ui-body dd {
             display: inline;
-            font-style:italic;
+            font-style: italic;
         }
 
-            dd:after {
-                content: '\A';
-                white-space: pre;
-            }
+        dd:after {
+            content: '\A';
+            white-space: pre;
+        }
     </style>
 }
 
 @Html.Partial(@MVC_DcmsMobile.Shared.Views._soundPartial, Model.Sound)
 
-<div>
-    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))" data-role="button" data-inline="true">Error Sound</a>
-    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))" data-role="button" data-inline="true">Warning Sound</a>
-    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))" data-role="button" data-inline="true">Success Sound</a>
+<div data-role="navbar">
+    <ul>
+        <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))">Error Sound</a></li>
+        <li>
+            <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))">Warning Sound</a>
+        </li>
+        <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))">Success Sound</a></li>
+    </ul>
 </div>
 
 
@@ -60,10 +64,13 @@
     }
 </dl>
 
-@section footer {
-    <div data-role="footer">
-        <a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a>
-        @Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())
-    </div>
-}
+<div data-role="navbar">
+    <ul>
+        <li><a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a></li>
+        <li>
+            @Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())
+        </li>
+    </ul>
+</div>
+
 

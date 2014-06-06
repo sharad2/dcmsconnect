@@ -15,12 +15,21 @@
 <body>
     <div data-role="page">
         <header data-role="header">
-            <h1>DCMS Main Menu</h1>
-            @foreach (var choice in Model.MasterMenuItems)
+            <h1>@ViewBag.Title</h1>
+            @if (!string.IsNullOrWhiteSpace(Model.HomeUrl))
             {
-                <a href="@choice.Url"><small>@choice.Name</small></a>
+                <a href="@Model.HomeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.LoginUrl))
+            {
+                <a href="@Model.LoginUrl" class="ui-btn ui-icon-user ui-btn-icon-left">Login</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.LogoffUrl))
+            {
+                <a href="@Model.LogoffUrl">Logoff @ViewContext.HttpContext.User.Identity.Name</a>
             }
         </header>
+
         <section data-role="content">
             <aside>
                 @Html.StatusSummary()
@@ -28,10 +37,20 @@
             </aside>
             @RenderBody()
         </section>
-        @RenderSection("footer", false)
+        <div data-role="footer">
+            <span class="ui-title"></span>
+            @if (!string.IsNullOrWhiteSpace(Model.DiagnosticUrl))
+            {
+                <a href="@Model.DiagnosticUrl">Diagnostics</a>
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.PasswordUrl))
+            {
+                <a href="@Model.PasswordUrl">Change Password</a>
+            }
+        </div>
+
     </div>
 
     @*Can add capability to render other pages here*@
 </body>
 </html>
-
