@@ -2,83 +2,50 @@
 @{
     ViewBag.Title = "DCMS Connect Home";
 }
-@*<style type="text/css">
-    .ui-li-static.ui-collapsible > .ui-collapsible-heading {
-        margin: 0;
-    }
-
-    .ui-li-static.ui-collapsible {
-        padding: 0;
-    }
-
-        .ui-li-static.ui-collapsible > .ui-collapsible-heading > .ui-btn {
-            border-top-width: 0;
-        }
-
-        .ui-li-static.ui-collapsible > .ui-collapsible-heading.ui-collapsible-heading-collapsed > .ui-btn,
-        .ui-li-static.ui-collapsible > .ui-collapsible-content {
-            border-bottom-width: 0;
-        }
-</style>*@
 <div data-role="page">
     <div data-role="header">
         <h1>DCMS Main Menu</h1>
+        @foreach (var choice in Model.MasterMenuItems)
+        {
+            <a href="@choice.Url"><small>@choice.Name</small></a>
+        }
     </div>
 
     <div data-role="content">
-        <ul data-role="listview" data-inset="true">
-            @foreach (var choice in Model.MenuItems.Where(p => p.IsMobileOptimized))
+        <div class="ui-grid-a ui-responsive" data-filter="true">
+            @foreach (var item in Model.MenuItems.Where(p => p.IsMobileOptimized).OrderBy(p => p.SubMenu == null ? 0 : 1)
+                .ThenBy(p => p.Order)
+                .Select((p, i) => new
             {
-                if (choice.SubMenu == null)
-                {
-                    <li>
-                        <a href="@choice.Url"><h3>@choice.Name</h3><p>@choice.Description</p></a>
-                    </li>
-                }
-                else
-                {
-                    <li data-role="list-divider" style="font-size:large">
-                        <a href="@choice.Url"><h2>@choice.Name</h2></a>
-                        <p>@choice.Description</p>
-                    </li>
-                    foreach (var submenu in choice.SubMenu)
-                    {
-
-                        <li style="font-size:small" data-theme="a">
-                            <a href="@submenu.Url">@submenu.Name<p>@submenu.Description</p></a>
-                        </li>
-
-                    }
-                    @*<li data-role="collapsible" data-inset="false" data-iconpos="right">
-                        <h2>@choice.Name</h2>
-                        <ul data-role="listview">
-                            <li data-role="list-divider">
-                                <a href="@choice.Url"><h3>@choice.Name Menu</h3><p>@choice.Description</p></a>
-                            </li>
-                            @foreach (var submenu in choice.SubMenu)
-                            {
-
-                                <li>
-                                    <a href="@submenu.Url"><h3>@submenu.Name</h3><p>@submenu.Description</p></a>
-                                </li>
-
-                            }
-                        </ul>
-                    </li>*@
-                }
-
-            }
-        </ul>
-
-        <h3>Options</h3>
-        <ul data-role="listview" data-inset="true" data-theme="b">
-            @foreach (var choice in Model.MasterMenuItems)
+                Index = i,
+                MenuItem = p
+            }))
             {
-                <li><a href="@choice.Url"><small>@choice.Name</small></a></li>
+                <div class="ui-block-@(item.Index % 2 == 0 ? "a" : "b")">
+                    <div class="ui-body ui-body-a ui-corner-all">
+                        <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">@item.MenuItem.Name</a>
+                        <p class="ui-mini">@item.MenuItem.Description</p>
+                        @if (item.MenuItem.SubMenu != null)
+                        {
+                            <div class="ui-content">
+                                <ul data-role="listview">
+                                    @foreach (var submenu in item.MenuItem.SubMenu)
+                                    {
+                                        <li class="ui-mini">
+                                            <a href="@submenu.Url">@submenu.Name<p>@submenu.Description</p></a>
+                                        </li>
+
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
             }
-            <li>
-                <a href="@Model.UrlRc"><small>Release Candidates</small></a>
-            </li>
-        </ul>
+        </div>
+    </div>
+
+    <div data-role="footer">
+        <a href="@Model.UrlRc" data-role="button"><small>Release Candidates</small></a>
     </div>
 </div>
