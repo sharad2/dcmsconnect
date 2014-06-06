@@ -2,7 +2,38 @@
 @{
     ViewBag.Title = "Manage Picking Area";
 }
+@helper TableCaption()
+{
 
+    @Model.PickingLocations.Count
+    @:of
+    @Model.CountTotalLocations
+    if (Model.Matrix.AssignedLocationsFilter.HasValue)
+    {
+        if (Model.Matrix.AssignedLocationsFilter.Value)
+        {
+            @:Assigned
+        }
+        else
+        {
+            @:Unassigned
+        }
+    }
+
+    if (Model.Matrix.EmptyLocationsFilter.HasValue)
+    {
+        if (Model.Matrix.EmptyLocationsFilter.Value)
+        {
+            @:Empty
+        }
+        else
+        {
+            @:Non Empty
+        }
+    }
+
+    @:Locations Displayed
+}
 @section sidebar {
     <div class="box boxA">
         <div class="boxContent">
@@ -33,7 +64,7 @@
 <div class="boxContent">
     <table id="tblLocationList">
         <caption>
-            @Model.PickingLocations.Count of @Html.DisplayFor(m => m.CountTotalLocations) Locations Displayed
+            @TableCaption()
         </caption>
         <thead>
             <tr>
