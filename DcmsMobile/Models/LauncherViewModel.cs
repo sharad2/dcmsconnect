@@ -79,6 +79,9 @@ namespace DcmsMobile.Models
             set;
         }
 
+        /// <summary>
+        /// This list is ordered for display
+        /// </summary>
         public IEnumerable<MenuItem> MenuItems { get; set; }
 
     }

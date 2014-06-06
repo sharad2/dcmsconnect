@@ -12,9 +12,8 @@
     </div>
 
     <div data-role="content">
-        <div class="ui-grid-a ui-responsive" data-filter="true">
-            @foreach (var item in Model.MenuItems.Where(p => p.IsMobileOptimized).OrderBy(p => p.SubMenu == null ? 0 : 1)
-                .ThenBy(p => p.Order)
+        <div class="ui-grid-a ui-responsive">
+            @foreach (var item in Model.MenuItems.Where(p => p.IsMobileOptimized)
                 .Select((p, i) => new
             {
                 Index = i,
@@ -22,13 +21,26 @@
             }))
             {
                 <div class="ui-block-@(item.Index % 2 == 0 ? "a" : "b")">
-                    <div class="ui-body ui-body-a ui-corner-all">
-                        <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">@item.MenuItem.Name</a>
-                        <p class="ui-mini">@item.MenuItem.Description</p>
-                        @if (item.MenuItem.SubMenu != null)
+                    <div class="ui-body ui-body-a ui-corner-all" @Html.Raw(item.MenuItem.SubMenu == null ? "" : "data-role='collapsible'")>
+
+                        @if (item.MenuItem.SubMenu == null)
                         {
+                            <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">
+                                @item.MenuItem.Name
+                                <span class="ui-mini" style="font-weight:normal">@item.MenuItem.Description</span>
+                            </a>
+
+                        }
+                        else
+                        {
+                            <h4>@item.MenuItem.Name <span class="ui-mini" style="font-weight:normal">@item.MenuItem.Description</span></h4>
                             <div class="ui-content">
                                 <ul data-role="listview">
+                                    <li>
+                                        <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">
+                                            @item.MenuItem.Name Menu
+                                        </a>
+                                    </li>
                                     @foreach (var submenu in item.MenuItem.SubMenu)
                                     {
                                         <li class="ui-mini">
