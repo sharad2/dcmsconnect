@@ -162,12 +162,16 @@ namespace DcmsMobile.CartonAreas.Repository
 
         internal IList<PickingLocation> GetPickingAreaLocations(string areaId, int maxRows)
         {
-            return _repos.GetPickingAreaLocations(areaId, null, null, maxRows);
+            return _repos.GetPickingAreaLocations(areaId, null, null, null, null, maxRows);
         }
 
-        internal IList<PickingLocation> GetPickingAreaLocationsOfFilters(string areaId, bool? assignedLocations, bool? emptyLocations, int maxRows)
+        internal IList<PickingLocation> GetPickingAreaLocationsOfFilters(string areaId, bool? assignedLocations, bool? emptyLocations, int? assignedSkuId, string locationPattern, int maxRows)
         {
-            return _repos.GetPickingAreaLocations(areaId, assignedLocations, emptyLocations, maxRows);
+            if (!string.IsNullOrWhiteSpace(locationPattern))
+            {
+                locationPattern = locationPattern.Replace('*', '%');
+            }
+            return _repos.GetPickingAreaLocations(areaId, assignedLocations, emptyLocations, assignedSkuId, locationPattern, maxRows);
         }
 
 

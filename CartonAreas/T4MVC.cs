@@ -163,6 +163,8 @@ namespace Links_CartonAreas {
                               
                 public static readonly string ManageCartonAreas_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageCartonAreas-all.min.js") ? Url("ManageCartonAreas-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonAreas-all.js") : Url("ManageCartonAreas-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonAreas-all.js");
                               
+                public static readonly string ManagePickingAreas_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManagePickingAreas-all.min.js") ? Url("ManagePickingAreas-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManagePickingAreas-all.js") : Url("ManagePickingAreas-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/ManagePickingAreas-all.js");
+                              
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

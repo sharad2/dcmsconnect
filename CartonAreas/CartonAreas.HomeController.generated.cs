@@ -267,6 +267,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string areaId = "areaId";
             public readonly string assignedLocation = "assignedLocation";
             public readonly string emptyLocations = "emptyLocations";
+            public readonly string assignedSkuId = "assignedSkuId";
+            public readonly string locationId = "locationId";
         }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -390,11 +392,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations) {
+        public override System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations, int? assignedSkuId, string locationId) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyPickingAreaLocationFilter);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedLocation", assignedLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emptyLocations", emptyLocations);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuId", assignedSkuId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
             return callInfo;
         }
 

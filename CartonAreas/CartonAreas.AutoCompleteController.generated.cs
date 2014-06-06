@@ -44,6 +44,11 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult SkusAssignedToPickingLocations() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.SkusAssignedToPickingLocations);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult SkusAll() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.SkusAll);
         }
@@ -63,6 +68,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string SkusAssignedToCartonLocations = "SkusAssignedToCartonLocations";
+            public readonly string SkusAssignedToPickingLocations = "SkusAssignedToPickingLocations";
             public readonly string SkusAll = "SkusAll";
             public readonly string ValidateSku = "ValidateSku";
         }
@@ -70,6 +76,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string SkusAssignedToCartonLocations = "SkusAssignedToCartonLocations";
+            public const string SkusAssignedToPickingLocations = "SkusAssignedToPickingLocations";
             public const string SkusAll = "SkusAll";
             public const string ValidateSku = "ValidateSku";
         }
@@ -80,6 +87,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public ActionParamsClass_SkusAssignedToCartonLocations SkusAssignedToCartonLocationsParams { get { return s_params_SkusAssignedToCartonLocations; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_SkusAssignedToCartonLocations {
+            public readonly string term = "term";
+            public readonly string extra = "extra";
+        }
+        static readonly ActionParamsClass_SkusAssignedToPickingLocations s_params_SkusAssignedToPickingLocations = new ActionParamsClass_SkusAssignedToPickingLocations();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SkusAssignedToPickingLocations SkusAssignedToPickingLocationsParams { get { return s_params_SkusAssignedToPickingLocations; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SkusAssignedToPickingLocations {
             public readonly string term = "term";
             public readonly string extra = "extra";
         }
@@ -104,6 +119,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
 
         public override System.Web.Mvc.ActionResult SkusAssignedToCartonLocations(string term, string extra) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SkusAssignedToCartonLocations);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "extra", extra);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.ActionResult SkusAssignedToPickingLocations(string term, string extra) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SkusAssignedToPickingLocations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "extra", extra);
             return callInfo;

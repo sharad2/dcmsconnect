@@ -9,7 +9,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
     {
         private object Map(Sku src)
         {
-            return new 
+            return new
             {
                 label = string.Format("{0},{1},{2},{3}", src.Style, src.Color, src.Dimension, src.SkuSize),
                 value = src.SkuId.ToString(),
@@ -47,17 +47,29 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// method for Autocomplete
         /// </summary>
         /// <param name="term"></param>
-        /// <param name="extra">The returned list will include SKUs assigned to locations in this area. The name of this parameter should not be changed</param>
+        /// <param name="extra">The returned list will include SKUs assigned to locations in this carton area. The name of this parameter should not be changed</param>
         /// <returns></returns>
         public virtual ActionResult SkusAssignedToCartonLocations(string term, string extra)
         {
-            var data = _repos.UpcAutoComplete(term.ToUpper(), extra);
+            var data = _repos.UpcAutoComplete(term.ToUpper(), extra, null);
+            return Json(data.Select(p => Map(p)), JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// method for Autocomplete
+        /// </summary>
+        /// <param name="term"></param>
+        /// <param name="extra">The returned list will include SKUs assigned to locations in this picking area. The name of this parameter should not be changed</param>
+        /// <returns></returns>
+        public virtual ActionResult SkusAssignedToPickingLocations(string term, string extra)
+        {
+            var data = _repos.UpcAutoComplete(term.ToUpper(), null, extra);
             return Json(data.Select(p => Map(p)), JsonRequestBehavior.AllowGet);
         }
 
         public virtual ActionResult SkusAll(string term)
         {
-            var data = _repos.UpcAutoComplete(term.ToUpper(), null);
+            var data = _repos.UpcAutoComplete(term.ToUpper(), null, null);
             return Json(data.Select(p => Map(p)), JsonRequestBehavior.AllowGet);
         }
 
@@ -84,6 +96,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             return Json(Map(sku), JsonRequestBehavior.AllowGet);
         }
-     }
+    }
 }
 //$Id$

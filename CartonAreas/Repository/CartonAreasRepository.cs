@@ -480,7 +480,7 @@ count(*) over() as count_total_locations
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        internal IList<PickingLocation> GetPickingAreaLocations(string areaId, bool? assignedLocations, bool? emptyLocations, int maxRows)
+        internal IList<PickingLocation> GetPickingAreaLocations(string areaId, bool? assignedLocations, bool? emptyLocations, int? assignedSkuId, string locationPattern, int maxRows)
         {
             const string QUERY = @"
                                 SELECT COUNT(*) OVER()                  AS TOTAL_LOCATION,
@@ -503,9 +503,13 @@ count(*) over() as count_total_locations
                                 <if>
                                 AND I.IA_ID = :IA_ID
                                 </if>
+                                <if>AND I.LOCATION_ID = :LOCATION_ID</if>
+                               <if>AND I.LOCATION_ID LIKE :SEARCHLOCATION</if>
+                               <if>AND MS.SKU_ID = :SKU_ID</if>
                                 <if c=""$EMPTY_LOCATION_FLAG = 'true' "">
                                        AND NOT EXISTS
-                                        (SELECT 1 FROM <proxy/>IALOC_CONTENT ILCON WHERE ILCON.LOCATION_ID = I.LOCATION_ID)
+                                        (SELECT 1 FROM <proxy/>IALOC_CONTENT ILCON WHERE ILCON.LOCATION_ID = I.LOCATION_ID
+                                            <if>AND ILCON.LOCATION_ID = :LOCATION_ID</if>)
                                    </if>
                                <if c=""$EMPTY_LOCATION_FLAG = 'false' "">
                                    AND I.LOCATION_ID IN
@@ -517,8 +521,7 @@ count(*) over() as count_total_locations
                                <if c=""$ASSIGNED_FLAG ='false' "">
                                 AND I.ASSIGNED_UPC_CODE IS NULL
                                </if>                            
-                                 GROUP BY I.LOCATION_ID
-                                    ";
+                                 GROUP BY I.LOCATION_ID";
             var binder = SqlBinder.Create(row => new PickingLocation()
             {
                 LocationId = row.GetString("LOCATION_ID"),
@@ -536,8 +539,24 @@ count(*) over() as count_total_locations
                 },
                 CountTotalLocations = row.GetInteger("TOTAL_LOCATION") ?? 0
             }).Parameter("IA_ID", areaId)
-            .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())
-               .Parameter("ASSIGNED_FLAG", string.Format("{0}", assignedLocations).ToLower());
+              .Parameter("EMPTY_LOCATION_FLAG", string.Format("{0}", emptyLocations).ToLower())
+              .Parameter("ASSIGNED_FLAG", string.Format("{0}", assignedLocations).ToLower())
+              .Parameter("SKU_ID", assignedSkuId);
+            if (string.IsNullOrWhiteSpace(locationPattern))
+            {
+                binder.Parameter("LOCATION_ID", string.Empty)
+                    .Parameter("SEARCHLOCATION", string.Empty);
+            }
+            else if (locationPattern.Contains("%"))
+            {
+                binder.Parameter("LOCATION_ID", string.Empty)
+                    .Parameter("SEARCHLOCATION", locationPattern);
+            }
+            else
+            {
+                binder.Parameter("LOCATION_ID", locationPattern)
+                    .Parameter("SEARCHLOCATION", string.Empty);
+            }
             return _db.ExecuteReader(QUERY, binder, maxRows);
         }
 
@@ -556,7 +575,8 @@ count(*) over() as count_total_locations
                                     MS.DIMENSION AS DIMENSION,
                                     MS.SKU_SIZE AS SKU_SIZE
                                 FROM <proxy />MASTER_SKU MS
-                              WHERE MS.SKU_ID = :SKU_ID";
+                              WHERE MS.SKU_ID = :SKU_ID
+                            ";
 
             var binder = SqlBinder.Create(row => new Sku
                 {

@@ -92,5 +92,15 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         [Display(Name = "Building")]
         public string BuildingId { get; set; }
+
+        /// <summary>
+        /// The location pattern which was used to filter the list
+        /// </summary>
+        public string LocationPatternFilter { get; set; }
+
+        /// <summary>
+        /// This will be non null if the Assigned to SKU filter has been used
+        /// </summary>
+        public PickingAreaSkuModel AssignedToSkuFilter { get; set; }
     }
 }

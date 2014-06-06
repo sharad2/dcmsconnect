@@ -478,7 +478,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             return View(Views.ManagePickingArea, model);
         }
 
-        public virtual ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations)
+        public virtual ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations, int? assignedSkuId, string locationId)
         {
             if (string.IsNullOrWhiteSpace(areaId))
             {
@@ -499,12 +499,28 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                         };
             model.Matrix.AssignedLocationsFilter = assignedLocation;
             model.Matrix.EmptyLocationsFilter = emptyLocations;
-            var locations = _service.GetPickingAreaLocationsOfFilters(areaId, assignedLocation, emptyLocations, 500);
+            var locations = _service.GetPickingAreaLocationsOfFilters(areaId, assignedLocation, emptyLocations, assignedSkuId, locationId, 500);
             model.PickingLocations = (from item in locations
                                       select new PickingLocationModel(item)).ToArray();
             if (locations.Count > 0)
             {
                 model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
+            }
+            if (assignedSkuId != null)
+            {
+                var sku = _service.GetSku(assignedSkuId.Value);
+                model.AssignedToSkuFilter = new PickingAreaSkuModel
+                {
+                    Style = sku.Style,
+                    Color = sku.Color,
+                    Dimension = sku.Dimension,
+                    SkuSize = sku.SkuSize,
+                    UpcCode = sku.UpcCode
+                };
+            }
+            if (!string.IsNullOrWhiteSpace(locationId))
+            {
+                model.LocationPatternFilter = locationId;
             }
             return View(Views.ManagePickingArea, model);
         }

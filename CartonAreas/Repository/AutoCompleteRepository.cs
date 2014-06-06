@@ -69,7 +69,7 @@ namespace DcmsMobile.CartonAreas.Repository
         /// <param name="term"></param>
         /// <param name="cartonAreaId">If passed, the list will include only those SKUs which are assigned to locations in this area</param>
         /// <returns></returns>
-        public IEnumerable<Sku> UpcAutoComplete(string term, string cartonAreaId)
+        public IEnumerable<Sku> UpcAutoComplete(string term, string cartonAreaId, string pickingAreaId)
         {
             const string QUERY =
                 @"
@@ -118,11 +118,17 @@ namespace DcmsMobile.CartonAreas.Repository
         <if c='not($TERM)'>0</if> AS RELEVANCE
         FROM <proxy />MASTER_SKU MS
         WHERE 1 = 1
-<if>
-and ms.sku_id in (
-select assigned_sku_id from <proxy/>master_storage_location where assigned_sku_id is not null and storage_area = :carton_area_id
-)
-</if>
+                    <if>
+                    and ms.sku_id in (
+                    select assigned_sku_id from <proxy/>master_storage_location where assigned_sku_id is not null and storage_area = :carton_area_id
+                    )
+                    </if>
+                    <if>
+                    and ms.sku_id in (
+                    SELECT MSKU.SKU_ID FROM <proxy/>IALOC I INNER JOIN <proxy/>MASTER_SKU MSKU
+                        ON MSKU.UPC_CODE = I.ASSIGNED_UPC_CODE WHERE I.ASSIGNED_UPC_CODE IS NOT NULL AND I.IA_ID = :IA_ID
+                    )
+                    </if>
         <a pre=' AND ' sep=' OR '>
         (MS.STYLE LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR  MS.COLOR LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR MS.DIMENSION LIKE '%' || CAST(:TERM AS VARCHAR2(255)) || '%' OR
         MS.SKU_SIZE LIKE '%' || CAST(:TERM AS VARCHAR2(255))  || '%' OR MS.UPC_CODE LIKE '%' || CAST(:TERM AS VARCHAR2(255))  || '%')
@@ -154,10 +160,8 @@ select assigned_sku_id from <proxy/>master_storage_location where assigned_sku_i
                 SkuSize = row.GetString("SKU_SIZE"),
                 UpcCode = row.GetString("UPC_CODE")
             }).Parameter("TERM", term)
-                .Parameter("carton_area_id", cartonAreaId);
-
-
-
+                .Parameter("carton_area_id", cartonAreaId)
+                .Parameter("IA_ID", pickingAreaId);
             return _db.ExecuteReader(QUERY, binder);
         }
 
