@@ -7,13 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
     <link rel="stylesheet" href="@Links_DcmsMobile.Content.jquery_mobile_1_4_2_css" />
     <script src="@Links_DcmsMobile.Scripts.jquery_1_8_2_js"></script>
+    <script type="text/javascript">
+        $(document).on("mobileinit", function () {
+            //http://api.jquerymobile.com/global-config/
+            $.mobile.ajaxEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>
     <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
 
     <script src=jquery.mobile/jquery.mobile.js></script>
     @RenderSection("head", false)
 </head>
 <body>
-    <div data-role="page">
+    <div data-role="page" data-dom-cache="false">
         <header data-role="header">
             <h1>@ViewBag.Title</h1>
             @if (!string.IsNullOrWhiteSpace(Model.HomeUrl))
@@ -38,7 +45,6 @@
             @RenderBody()
         </section>
         <div data-role="footer">
-            <span class="ui-title"></span>
             @if (!string.IsNullOrWhiteSpace(Model.DiagnosticUrl))
             {
                 <a href="@Model.DiagnosticUrl">Diagnostics</a>

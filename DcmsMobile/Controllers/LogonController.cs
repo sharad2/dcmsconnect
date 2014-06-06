@@ -33,6 +33,11 @@ namespace DcmsMobile.Controllers
             return View(this.Views.Index, model);
         }
 
+        /// <summary>
+        /// Called from the ring scanner view. Simply remembers the user name entered by the user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public virtual ActionResult SetUser(LogonModel model)
         {
