@@ -46,10 +46,12 @@ namespace DcmsMobile
             // Conditions are checked in the order they are added
             DisplayModeProvider.Instance.Modes.Clear();
 
+            // Smartphones are detected if the user agent contains one of these strings
             var phones = new[] {
                 "Android",
                 "iPhone"
             };
+
             // Smart Phones will use the .phone.cshtml extension
             // Deepak's phone User Agent for Samsung Galaxy Y
             //  Mozilla/5.0 (Linux; U; Android 2.3.6; en-gb; GT-S5360 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
@@ -59,7 +61,7 @@ namespace DcmsMobile
             //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
             {
-                ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0) || true
+                ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
             });
 
             // Generic mobile devices and ringscanners, use .mobile.cshtml. Phones also qualify as mobile device. If there is no .phone file, then .mobile file will be used
@@ -69,6 +71,12 @@ namespace DcmsMobile
                 ContextCondition = ctx => ctx.GetOverriddenBrowser().IsMobileDevice ||
                     string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0 ||
                     phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            });
+
+            // If a .desktop.cshtml file exists, it will be served to non mobile user agents
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")
+            {
+                ContextCondition = ctx => !ctx.GetOverriddenBrowser().IsMobileDevice
             });
 
             // If no specific extension is found, simply use the .cshtml extension

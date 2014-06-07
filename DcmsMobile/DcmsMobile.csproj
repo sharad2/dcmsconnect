@@ -459,7 +459,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_layoutMain.Mobile.cshtml" />
-    <Content Include="Views\Shared\_layoutMain.cshtml" />
+    <Content Include="Views\Shared\_layoutMain.desktop.cshtml" />
     <Content Include="Views\Diagnostic\Email.cshtml" />
     <Content Include="Views\Home\Launcher.Mobile.cshtml" />
     <Content Include="Views\Logon\GetNewPassword.cshtml" />
@@ -476,8 +476,8 @@
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Home\RcLauncher.Mobile.cshtml" />
     <Content Include="Views\Home\Categorized.cshtml" />
-    <Content Include="Views\Home\Launcher.phone.cshtml" />
-    <Content Include="Views\Shared\_layoutMain.phone.cshtml" />
+    <Content Include="Views\Home\Launcher.cshtml" />
+    <Content Include="Views\Shared\_layoutMain.cshtml" />
     <Content Include="Views\Logon\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -509,7 +509,7 @@
     <Content Include="Views\Shared\_soundPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Launcher.cshtml" />
+    <Content Include="Views\Home\Launcher.desktop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
