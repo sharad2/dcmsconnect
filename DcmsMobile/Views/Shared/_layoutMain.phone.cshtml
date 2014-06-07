@@ -30,21 +30,9 @@
             <a href="#popupLayout" data-rel="popup" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-notext ui-btn-a">.</a>
             <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
                 <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                    @if (!string.IsNullOrWhiteSpace(Model.LoginUrl))
+                    @foreach (var item in Model.MasterMenuItems)
                     {
-                        <li><a href="@Model.LoginUrl">Login</a></li>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.LogoffUrl))
-                    {
-                        <li><a href="@Model.LogoffUrl">Logoff @ViewContext.HttpContext.User.Identity.Name</a></li>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.PasswordUrl))
-                    {
-                        <li><a href="@Model.PasswordUrl">Change Password</a></li>
-                    }
-                    @if (!string.IsNullOrWhiteSpace(Model.DiagnosticUrl))
-                    {
-                        <li><a href="@Model.DiagnosticUrl">Diagnostics</a></li>
+                            <li><a href="@item.Url">@item.Name</a></li>
                     }
                 </ul>
             </div>
