@@ -33,6 +33,18 @@
     }
 
     @:Locations Displayed
+
+    if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
+    {
+        @: Matching Pattern
+        @Html.DisplayFor(m => m.LocationPatternFilter)
+    }
+
+    if (Model.AssignedToSkuFilter != null)
+    {
+        @:Assigned to SKU
+        @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
+    }
 }
 @section sidebar {
     <div class="box boxA">

@@ -47,7 +47,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// method for Autocomplete
         /// </summary>
         /// <param name="term"></param>
-        /// <param name="extra">The returned list will include SKUs assigned to locations in this carton area. The name of this parameter should not be changed</param>
+        /// <param name="extra">The returned list will include SKUs assigned to locations in this carton area. 
+        /// The name of this parameter should not be changed.
+        /// </param>
         /// <returns></returns>
         public virtual ActionResult SkusAssignedToCartonLocations(string term, string extra)
         {
@@ -59,7 +61,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// method for Autocomplete
         /// </summary>
         /// <param name="term"></param>
-        /// <param name="extra">The returned list will include SKUs assigned to locations in this picking area. The name of this parameter should not be changed</param>
+        /// <param name="extra">
+        /// The returned list will include SKUs assigned to locations in this picking area. 
+        /// The name of this parameter should not be changed.
+        /// </param>
         /// <returns></returns>
         public virtual ActionResult SkusAssignedToPickingLocations(string term, string extra)
         {
@@ -79,7 +84,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <returns></returns>
         /// <remarks>
         /// The name of the posted field name is not predictable. So we simply use the first form value.
-        /// The method must be called via GET since we rely on the value to get passed via query string
+        /// The method must be called via GET since we rely on the value to get passed via query string.
         /// </remarks>
         [HttpGet]
         public virtual JsonResult ValidateSku()
