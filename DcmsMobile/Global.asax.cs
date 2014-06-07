@@ -42,6 +42,7 @@ namespace DcmsMobile
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new Microsoft.Web.Mvc.FixedRazorViewEngine());
 
+            #region Display Modes
             // Sharad: Code which makes extensions .mobile.cshtml and .phone.cshtml recognizable
             // Conditions are checked in the order they are added
             DisplayModeProvider.Instance.Modes.Clear();
@@ -52,7 +53,7 @@ namespace DcmsMobile
                 "iPhone"
             };
 
-            // Smart Phones will use the .phone.cshtml extension
+            // Known Smart Phones will use the .phone.cshtml extension
             // Deepak's phone User Agent for Samsung Galaxy Y
             //  Mozilla/5.0 (Linux; U; Android 2.3.6; en-gb; GT-S5360 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1
             // Ankit's phone user agent Samsung Galaxy Note
@@ -64,23 +65,22 @@ namespace DcmsMobile
                 ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
             });
 
-            // Generic mobile devices and ringscanners, use .mobile.cshtml. Phones also qualify as mobile device. If there is no .phone file, then .mobile file will be used
+            // .mobile file is to be used only for ringscanners
             // RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
             {
-                ContextCondition = ctx => ctx.GetOverriddenBrowser().IsMobileDevice ||
-                    string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0 ||
-                    phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
+                ContextCondition = ctx => string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0
             });
 
-            // If a .desktop.cshtml file exists, it will be served to non mobile user agents
+            // If a .desktop.cshtml file exists, it will be served to non phone user agents
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")
             {
-                ContextCondition = ctx => !ctx.GetOverriddenBrowser().IsMobileDevice
+                ContextCondition = ctx => !phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
             });
 
             // If no specific extension is found, simply use the .cshtml extension
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode());
+            #endregion
 
             ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
 
