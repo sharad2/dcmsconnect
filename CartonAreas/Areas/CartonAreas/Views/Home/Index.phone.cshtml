@@ -57,34 +57,24 @@
                     <div>@Html.DisplayFor(m => m.Buildings[i].InsertDate) by @Html.DisplayFor(m => m.Buildings[i].InsertedBy)</div>
                 </div>
                 <div class="ui-field-contain">
-                    <label>Carton Areas</label>
-                    <div>
-                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))" class="ui-btn ui-icon-carat-r ui-btn-icon-right">
-                            @Html.DisplayFor(m => m.Buildings[i].CountCartonArea)
-                        </a>
-                    </div>
-                </div>
-                <div class="ui-field-contain">
                     <label>Numbered<br />Carton Areas</label>
                     <div>
                         @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) <small><em>@Html.DisplayFor(m => m.Buildings[i].CountLocation) locations</em></small>
                     </div>
                 </div>
-                <div class="ui-field-contain">
-                    <label>Forward Stock Areas</label>
-                    <div>
-                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))" class="ui-btn  ui-icon-carat-r ui-btn-icon-right">
-                            @Html.DisplayFor(m => m.Buildings[i].CountPickingAreas)
-                        </a>
-                    </div>
+                <div>
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))" class="ui-btn ui-icon-carat-r ui-btn-icon-right">
+                        @Html.DisplayFor(m => m.Buildings[i].CountCartonArea) Carton Areas
+                    </a>
                 </div>
-                <div class="ui-field-contain">
-                    <label>Max Cartons on Pallet</label>
-                    <div>
-                        @Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)
-                        <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit"
-                           data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-btn-inline  ui-icon-edit ui-btn-icon-left ui-mini">Edit</a>
-                    </div>
+                <div>
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))" class="ui-btn  ui-icon-carat-r ui-btn-icon-right">
+                        @Html.DisplayFor(m => m.Buildings[i].CountPickingAreas) Forward Stock Areas
+                    </a>
+                </div>
+                <div>
+                    <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit"
+                       data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-icon-edit ui-btn-icon-right ui-mini">Max Cartons on Pallet 39</a>
                 </div>
             </li>
         }
