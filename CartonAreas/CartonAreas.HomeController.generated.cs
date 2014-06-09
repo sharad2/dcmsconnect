@@ -282,6 +282,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string AddBuilding = "AddBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
+            public readonly string EditAddressOfBuilding_phone = "EditAddressOfBuilding.phone";
             public readonly string Index = "Index";
             public readonly string Index_phone = "Index.phone";
             public readonly string ManageCartonArea = "ManageCartonArea";
