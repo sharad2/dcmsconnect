@@ -185,7 +185,10 @@
     <Content Include="Areas\CartonAreas\Scripts\ManagePickingAreas-all.min.js.map">
       <DependentUpon>ManagePickingAreas-all.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\CartonAreas\Views\Shared\_layoutCartonAreas.phone.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\Index.phone.cshtml" />
     <None Include="Doc\Roles.txt" />
+    <Content Include="Content\jquery.mobile-1.4.2.css" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
@@ -227,8 +230,12 @@
     <Content Include="Areas\CartonAreas\Views\Home\ManageCartonArea.cshtml" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
