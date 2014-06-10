@@ -25,7 +25,7 @@
        })
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40, id = "tbAddress1" })
             <sup>*</sup>
-           
+
             <label></label>
             <div class="ui-body-inherit">
                 @Html.ValidationMessageFor(m => m.Address1)
@@ -57,18 +57,28 @@
         </li>
 
         <li class="ui-field-contain">
-            <label for="tbCity">City/State/Zip</label>
+            <label for="tbCity">City</label>
             @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40, id = "tbCity" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.City)
-
-            <label for="tbState"></label>
-            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
-
-            <label for="tbZip"></label>
-            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
-            @Html.ValidationMessageFor(m => m.ZipCode)
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
         </li>
+        <li class="ui-field-contain">
+            <label for="tbState">State</label>
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
+        </li>
+        <li class="ui-field-contain">
+            <label for="tbZip">Zip</label>
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
+            <sup>*</sup>
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.ZipCode)
+            </div>
+        </li>
+
         <li class="ui-field-contain">
             @Html.LabelFor(m => m.CountryCode, new
        {
