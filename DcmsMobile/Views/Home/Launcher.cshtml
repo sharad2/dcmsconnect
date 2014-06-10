@@ -18,21 +18,22 @@
                     <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
                 }
                 <h2>@Html.DisplayFor(m => m.MenuItems[i].Name) @Html.DisplayFor(m => m.MenuItems[i].ShortName) Menu</h2>
+                <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
             </a>
         </li>
 
         if (Model.MenuItems[i].SubMenu != null)
         {
-            foreach (var submenu in Model.MenuItems[i].SubMenu)
+            for (var j = 0; j < Model.MenuItems[i].SubMenu.Count; ++j)
             {
                 <li>
-                    <a href="@submenu.Url">
-                        @if (submenu.IsMobileOptimized)
+                    <a href="@Model.MenuItems[i].SubMenu[j].Url">
+                        @if (Model.MenuItems[i].SubMenu[j].IsMobileOptimized)
                         {
                             <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
                         }
-                        <h2>@submenu.Name [@submenu.ShortName]</h2>
-                        <p>@submenu.Description</p>
+                        <h2>@Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].Name) @Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].ShortName)</h2>
+                        <p>@Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].Description)</p>
                     </a>
                 </li>
 

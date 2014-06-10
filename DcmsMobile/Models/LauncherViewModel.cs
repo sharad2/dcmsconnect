@@ -8,7 +8,7 @@ namespace DcmsMobile.Models
 
     public class MenuItem
     {
-        private readonly IEnumerable<MenuItem> _submenu;
+        private readonly IList<MenuItem> _submenu;
 
         /// <summary>
         /// Populates its properties based on the passed area
@@ -26,12 +26,13 @@ namespace DcmsMobile.Models
             Description = area.Description;
             if (area.SubAreas != null)
             {
-                _submenu = from subarea in area.SubAreas
-                           select new MenuItem(subarea, url);
+                _submenu = (from subarea in area.SubAreas
+                           orderby subarea.Order, subarea.Name
+                           select new MenuItem(subarea, url)).ToArray();
             }
         }
 
-        public IEnumerable<MenuItem> SubMenu
+        public IList<MenuItem> SubMenu
         {
             get
             {
