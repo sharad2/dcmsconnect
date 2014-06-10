@@ -29,14 +29,14 @@ namespace DcmsMobile.Controllers
             return View(this.Views.Launcher, model);
         }
 
-        public virtual ActionResult Categorized()
-        {
-            var model = new CategorizedViewModel
-            {
-                MenuItems = AreaItem.Areas.Where(p => !string.IsNullOrWhiteSpace(p.ShortName)).ToDictionary(p => p.ShortName, p => new MenuItem(p, Url))
-            };
-            return View(this.Views.Categorized, model);
-        }
+        //public virtual ActionResult Categorized()
+        //{
+        //    var model = new CategorizedViewModel
+        //    {
+        //        MenuItems = AreaItem.Areas.Where(p => !string.IsNullOrWhiteSpace(p.ShortName)).ToDictionary(p => p.ShortName, p => new MenuItem(p, Url))
+        //    };
+        //    return View(this.Views.Categorized, model);
+        //}
 
         private const string SESSION_KEY_MAINSITEURL = "DcmsMobile_RcLauncher_MainSiteUrl";
 

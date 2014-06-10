@@ -136,7 +136,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AreaItem.cs" />
-    <Compile Include="Models\CategorizedViewModel.cs" />
     <Compile Include="Models\DiagnosticModel.cs" />
     <Compile Include="Models\LauncherViewModel.cs" />
     <Compile Include="Models\LogonModel.cs" />
@@ -476,7 +475,6 @@
     <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Home\RcLauncher.Mobile.cshtml" />
-    <Content Include="Views\Home\Categorized.cshtml" />
     <Content Include="Views\Home\Launcher.cshtml" />
     <Content Include="Views\Shared\_layoutMain.cshtml" />
     <Content Include="Views\Logon\Index.phone.cshtml" />
