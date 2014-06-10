@@ -73,10 +73,10 @@ namespace DcmsMobile
             });
 
             // If a .desktop.cshtml file exists, it will be served to non phone user agents
-            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")
-            {
-                ContextCondition = ctx => !phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
-            });
+            //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")
+            //{
+            //    ContextCondition = ctx => !phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
+            //});
 
             // If no specific extension is found, simply use the .cshtml extension
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode());

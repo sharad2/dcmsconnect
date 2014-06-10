@@ -23,14 +23,6 @@ namespace DcmsMobile.Models
     {
         private IList<UtilityLink> _masterMenuItems;
 
-        //public string LoginUrl { get; set; }
-
-        //public string LogoffUrl { get; set; }
-
-        //public string PasswordUrl { get; set; }
-
-        //public string DiagnosticUrl { get; set; }
-
         public string HomeUrl { get; set; }
 
         /// <summary>
@@ -52,9 +44,13 @@ namespace DcmsMobile.Models
 
             // Home
             var str = url.Action(MVC_DcmsMobile.Home.Index());
-            if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) != 0)
+            if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) == 0)
             {
                 // Home Url not needed when we are on the home page
+                HomeUrl = "#";
+            }
+            else
+            {
                 HomeUrl = str;
             }
 
