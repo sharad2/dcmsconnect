@@ -3,7 +3,7 @@
     ViewBag.Title = "DCMS Connect Home";
 }
 
-<div class="ui-grid-a ui-responsive">
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Search Menu">
     @foreach (var item in Model.MenuItems.Where(p => p.IsMobileOptimized)
                 .Select((p, i) => new
             {
@@ -11,42 +11,27 @@
                 MenuItem = p
             }))
     {
-        <div class="ui-block-@(item.Index % 2 == 0 ? "a" : "b")">
-            <div class="ui-body ui-body-a ui-corner-all" @Html.Raw(item.MenuItem.SubMenu == null ? "" : "data-role='collapsible'")>
+        <li data-role="list-divider">
+            <a href="@item.MenuItem.Url">
+                @item.MenuItem.Name
+            </a>
+        </li>
 
-                @if (item.MenuItem.SubMenu == null)
-                {
-                    <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">
-                        @item.MenuItem.Name
-                        <span class="ui-mini" style="font-weight:normal">@item.MenuItem.Description</span>
+        if (item.MenuItem.SubMenu != null)
+        {
+            foreach (var submenu in item.MenuItem.SubMenu)
+            {
+                <li>
+                    <a href="@submenu.Url">
+                        <h2>@submenu.Name</h2>
+                        <p>@submenu.Description</p>
                     </a>
+                </li>
 
-                }
-                else
-                {
-                    <h4>@item.MenuItem.Name <span class="ui-mini" style="font-weight:normal">@item.MenuItem.Description</span></h4>
-                    <div class="ui-content">
-                        <ul data-role="listview">
-                            <li>
-                                <a href="@item.MenuItem.Url" class="ui-btn ui-shadow ui-btn-a ui-icon-carat-r ui-btn-icon-right">
-                                    @item.MenuItem.Name Menu
-                                </a>
-                            </li>
-                            @foreach (var submenu in item.MenuItem.SubMenu)
-                            {
-                                <li class="ui-mini">
-                                    <a href="@submenu.Url">@submenu.Name<p>@submenu.Description</p></a>
-                                </li>
-
-                            }
-                        </ul>
-                    </div>
-                }
-            </div>
-        </div>
+            }
+        }
     }
-</div>
-
+</ul>
 
 <div data-role="navbar">
     <a href="@Model.UrlRc" data-role="button"><small>Release Candidates</small></a>
