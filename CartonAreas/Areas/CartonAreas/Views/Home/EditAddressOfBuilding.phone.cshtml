@@ -26,7 +26,11 @@
        })
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40, id = "tbAddress1" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.Address1)
+           
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.Address1)
+            </div>
         </li>
 
         <li class="ui-field-contain">
