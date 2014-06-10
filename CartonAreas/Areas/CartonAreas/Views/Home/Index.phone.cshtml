@@ -6,87 +6,87 @@
 @Html.ValidationSummary()
 <div data-role="fieldcontain">
     <label> There are @Model.Buildings.Count Buildings.</label>
-    @Html.ActionLink("Add Building", MVC_CartonAreas.CartonAreas.Home.AddNewBuilding())
+    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.AddNewBuilding())" class="ui-btn ui-icon-plus ui-btn-icon-right">Add Building</a>
 </div>
 <div id="buildinglist">
     <ul data-role="listview">
         @for (var i = 0; i < Model.Buildings.Count; i++)
         {
-        <li data-role="list-divider">
-            @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
-        </li>
-        <li>
-            <div class="ui-grid-a ui-responsive">
-                <div class="ui-block-a">
-                    <div class="ui-field-contain">
-                        <label>
-                            Address
-                        </label>
-                        <div>
-                            @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address1))
-                                {
-
-                                @Html.DisplayFor(m => m.Buildings[i].Address1)
-                                @*<br />*@
-                                }
-                            @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address2))
-                                {
-                                @:,
-                                @Html.DisplayFor(m => m.Buildings[i].Address2)
-                                @*<br />*@
-                                }
-
-                            @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address3))
-                                {
-                                @:,
-                                @Html.DisplayFor(m => m.Buildings[i].Address3)
-                                @*<br />*@
-                                }
-                            @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address4))
-                                {
-                                @:,
-                                @Html.DisplayFor(m => m.Buildings[i].Address4)
-                                @*<br />*@
-                                }
+            <li data-role="list-divider">
+                @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
+            </li>
+            <li>
+                <div class="ui-grid-a ui-responsive">
+                    <div class="ui-block-a">
+                        <div class="ui-field-contain">
+                            <label>
+                                Address
+                            </label>
                             <div>
-                                @Html.DisplayFor(m => m.Buildings[i].City)
-                                @Html.DisplayFor(m => m.Buildings[i].State),
-                                @Html.DisplayFor(m => m.Buildings[i].ZipCode)
-                                @Html.DisplayFor(m => m.Buildings[i].CountryCode)
-                                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId))"
-                                   class="ui-btn ui-btn-inline  ui-icon-edit ui-btn-icon-left ui-mini">Edit</a>
+                                @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address1))
+                                {
+
+                                    @Html.DisplayFor(m => m.Buildings[i].Address1)
+                                    @*<br />*@
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address2))
+                                {
+                                    @:,
+                                    @Html.DisplayFor(m => m.Buildings[i].Address2)
+                                    @*<br />*@
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address3))
+                                {
+                                    @:,
+                                    @Html.DisplayFor(m => m.Buildings[i].Address3)
+                                    @*<br />*@
+                                }
+                                @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address4))
+                                {
+                                    @:,
+                                    @Html.DisplayFor(m => m.Buildings[i].Address4)
+                                    @*<br />*@
+                                }
+                                <div>
+                                    @Html.DisplayFor(m => m.Buildings[i].City)
+                                    @Html.DisplayFor(m => m.Buildings[i].State),
+                                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)
+                                    @Html.DisplayFor(m => m.Buildings[i].CountryCode)
+                                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId))"
+                                       class="ui-btn ui-btn-inline  ui-icon-edit ui-btn-icon-left ui-mini">Edit</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="ui-field-contain">
-                        <label>Numbered<br />Carton Areas</label>
-                        <div>
-                            @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) <small><em>@Html.DisplayFor(m => m.Buildings[i].CountLocation) locations</em></small>
+                        <div class="ui-field-contain">
+                            <label>Numbered<br />Carton Areas</label>
+                            <div>
+                                @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) <small><em>@Html.DisplayFor(m => m.Buildings[i].CountLocation) locations</em></small>
+                            </div>
+                        </div>
+                        <div class="ui-field-contain">
+                            <label>Created</label>
+                            <div>@Html.DisplayFor(m => m.Buildings[i].InsertDate) by @Html.DisplayFor(m => m.Buildings[i].InsertedBy)</div>
                         </div>
                     </div>
-                    <div class="ui-field-contain">
-                        <label>Created</label>
-                        <div>@Html.DisplayFor(m => m.Buildings[i].InsertDate) by @Html.DisplayFor(m => m.Buildings[i].InsertedBy)</div>
+                    <div class="ui-block-b">
+                        <div>
+                            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))" class="ui-btn ui-icon-carat-r ui-btn-icon-right">
+                                @Html.DisplayFor(m => m.Buildings[i].CountCartonArea) Carton Areas
+                            </a>
+                        </div>
+                        <div>
+                            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))" class="ui-btn  ui-icon-carat-r ui-btn-icon-right">
+                                @Html.DisplayFor(m => m.Buildings[i].CountPickingAreas) Forward Stock Areas
+                            </a>
+                        </div>
+                        <div>
+                            <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit"
+                               data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-icon-edit ui-btn-icon-right">Max Cartons on Pallet 39</a>
+                        </div>
                     </div>
                 </div>
-                <div class="ui-block-b">
-                    <div>
-                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))" class="ui-btn ui-icon-carat-r ui-btn-icon-right">
-                            @Html.DisplayFor(m => m.Buildings[i].CountCartonArea) Carton Areas
-                        </a>
-                    </div>
-                    <div>
-                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))" class="ui-btn  ui-icon-carat-r ui-btn-icon-right">
-                            @Html.DisplayFor(m => m.Buildings[i].CountPickingAreas) Forward Stock Areas
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit"
-                           data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-icon-edit ui-btn-icon-right">Max Cartons on Pallet 39</a>
-                    </div>
-                </div>
-            </div>
-        </li>
+            </li>
         }
     </ul>
 </div>
@@ -95,14 +95,14 @@
 
     @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post))
     {
-    <div class="ui-field-contain">
-        <label for="tbEditPalletLimit">New Pallet Limit</label>
-        <input id="tbEditPalletLimit" type="number" size="4"
-               name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" required="required" />
-    </div>
-    <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId">
-    <button class="ui-btn ui-btn-inline" type="submit">Submit</button>
-    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+        <div class="ui-field-contain">
+            <label for="tbEditPalletLimit">New Pallet Limit</label>
+            <input id="tbEditPalletLimit" type="number" size="4"
+                   name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" required="required" />
+        </div>
+        <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId">
+        <button class="ui-btn ui-btn-inline" type="submit">Submit</button>
+        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
     }
     @*Receivers will receive a warning when this pallet limit is reached,
         but they will still be able to place more cartons on the pallet.*@
