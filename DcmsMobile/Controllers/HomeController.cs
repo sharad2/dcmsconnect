@@ -165,11 +165,11 @@ namespace DcmsMobile.Controllers
         private void PopulateModel(LauncherViewModel model)
         {
             model.Init(this.ControllerContext, this.Url);
-            model.MenuItems = from item in AreaItem.Areas
+            model.MenuItems = (from item in AreaItem.Areas
                               orderby item.Order, item.Name
-                              select new MenuItem(item, Url);
+                              select new MenuItem(item, Url)).ToArray();
 
-            model.MenuItems = model.MenuItems.OrderBy(p => p.Order);
+            //model.MenuItems = model.MenuItems.OrderBy(p => p.Order);
             //model.UrlRc = ConfigurationManager.AppSettings["RcUrl"] + "?returnUrl=" + Url.Encode(this.Request.Url.AbsoluteUri);
             model.UrlRc = RcActionSelectorAttribute.UrlRc + "?returnUrl=" + Url.Encode(this.Request.Url.AbsoluteUri);
             return;

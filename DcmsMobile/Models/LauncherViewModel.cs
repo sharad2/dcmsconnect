@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -47,6 +48,7 @@ namespace DcmsMobile.Models
         /// <summary>
         /// Guaranteed to never return null.
         /// </summary>
+        [DisplayFormat(DataFormatString="[{0}]")]
         public string ShortName
         {
             get
@@ -82,7 +84,7 @@ namespace DcmsMobile.Models
         /// <summary>
         /// This list is ordered for display
         /// </summary>
-        public IEnumerable<MenuItem> MenuItems { get; set; }
+        public IList<MenuItem> MenuItems { get; set; }
 
     }
 

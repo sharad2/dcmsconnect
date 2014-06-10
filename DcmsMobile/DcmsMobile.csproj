@@ -398,6 +398,7 @@
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
     <Content Include="DcmsMobile\Content\Images\a1.gif" />
     <Content Include="DcmsMobile\Content\Images\MFLogo.jpg" />
+    <Content Include="DcmsMobile\Content\Images\wifi.jpg" />
     <Content Include="DcmsMobile\Content\SiteMobile.css" />
     <Content Include="DcmsMobile\Content\Sounds\Error.wav" />
     <Content Include="DcmsMobile\Content\Site.css" />

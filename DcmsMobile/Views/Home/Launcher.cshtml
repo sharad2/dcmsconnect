@@ -3,33 +3,42 @@
     ViewBag.Title = "DCMS Connect Home";
 }
 
-<ul data-role="listview" data-filter="true" data-filter-placeholder="Search Menu">
-    @foreach (var item in Model.MenuItems.Where(p => p.IsMobileOptimized)
-                .Select((p, i) => new
-            {
-                Index = i,
-                MenuItem = p
-            }))
+<ul data-role="listview" data-filter="true" data-filter-placeholder="Search Menu" data-inset="true">
+    @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li data-role="list-divider">
-            <a href="@item.MenuItem.Url">
-                @item.MenuItem.Name
+            @Html.DisplayFor(m => m.MenuItems[i].Name)
+        </li>
+
+
+        <li>
+            <a href="@Model.MenuItems[i].Url">
+                @if (Model.MenuItems[i].IsMobileOptimized)
+                {
+                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
+                }
+                <h2>@Html.DisplayFor(m => m.MenuItems[i].Name) @Html.DisplayFor(m => m.MenuItems[i].ShortName) Menu</h2>
             </a>
         </li>
 
-        if (item.MenuItem.SubMenu != null)
+        if (Model.MenuItems[i].SubMenu != null)
         {
-            foreach (var submenu in item.MenuItem.SubMenu)
+            foreach (var submenu in Model.MenuItems[i].SubMenu)
             {
                 <li>
                     <a href="@submenu.Url">
-                        <h2>@submenu.Name</h2>
+                        @if (submenu.IsMobileOptimized)
+                        {
+                            <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
+                        }
+                        <h2>@submenu.Name [@submenu.ShortName]</h2>
                         <p>@submenu.Description</p>
                     </a>
                 </li>
 
             }
         }
+
     }
 </ul>
 

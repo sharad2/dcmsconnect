@@ -263,6 +263,7 @@ namespace Links_DcmsMobile {
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string a1_gif = Url("a1.gif");
                 public static readonly string MFLogo_jpg = Url("MFLogo.jpg");
+                public static readonly string wifi_jpg = Url("wifi.jpg");
             }
         
             public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
