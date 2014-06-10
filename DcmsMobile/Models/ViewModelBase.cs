@@ -93,6 +93,12 @@ namespace DcmsMobile.Models
                     Url = str
                 });
             }
+
+            list.Add(new UtilityLink
+            {
+                Name = "Trace",
+                Url = url.Content("~/trace.axd")
+            });
             _masterMenuItems = list;
         }
     }

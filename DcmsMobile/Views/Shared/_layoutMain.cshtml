@@ -15,8 +15,6 @@
         });
     </script>
     <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
-
-    <script src=jquery.mobile/jquery.mobile.js></script>
     @RenderSection("head", false)
 </head>
 <body>
@@ -29,7 +27,7 @@
                 <ul data-role="listview" data-inset="true" style="min-width:210px;">
                     @foreach (var item in Model.MasterMenuItems)
                     {
-                        <li data-icon="false"><a href="@item.Url">@item.Name</a></li>
+                        <li ><a href="@item.Url">@item.Name</a></li>
                     }
                 </ul>
             </div>
