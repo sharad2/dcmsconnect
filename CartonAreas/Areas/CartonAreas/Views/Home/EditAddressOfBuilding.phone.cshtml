@@ -18,7 +18,6 @@
        })
             @Html.TextBoxFor(m => m.Description, new { size = 30, maxlength = 40, id = "tbDescription" })
         </li>
-
         <li class="ui-field-contain">
             @Html.LabelFor(m => m.Address1, new
        {
@@ -90,4 +89,28 @@
     {
     <script src="@Links_CartonAreas.Scripts.jquery_validate_js" type="text/javascript"></script>
     <script src="@Links_CartonAreas.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <style type="text/css">
+        /* Validation styles for Index Page */
+        .field-validation-error {
+            color: #ff0000;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        li.ui-field-contain .input-validation-error {
+            border: 1px solid #ff0000;
+            background-color: #ffeeee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
 }
