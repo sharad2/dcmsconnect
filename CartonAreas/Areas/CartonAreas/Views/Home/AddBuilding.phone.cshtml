@@ -17,7 +17,10 @@
        })
             @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase", id = "tbBuildingId" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.BuildingId)
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.BuildingId)
+            </div>
         </li>
 
         <li class="ui-field-contain">
@@ -34,7 +37,10 @@
        })
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40, id = "tbAddress1" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.Address1)
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.Address1)
+            </div>
         </li>
 
         <li class="ui-field-contain">
@@ -62,17 +68,27 @@
         </li>
 
         <li class="ui-field-contain">
-            <label for="tbCity">City/State/Zip</label>
+            <label for="tbCity">City</label>
             @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40, id = "tbCity" })
             <sup>*</sup>
-            @Html.ValidationMessageFor(m => m.City)
 
-            <label for="tbState"></label>
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+        </li>
+        <li class="ui-field-contain">
+            <label for="tbState">State</label>
             @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
-
-            <label for="tbZip"></label>
+        </li>
+        <li class="ui-field-contain">
+            <label for="tbZip">Zip</label>
             @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
-            @Html.ValidationMessageFor(m => m.ZipCode)
+            <sup>*</sup>
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.ZipCode)
+            </div>
         </li>
 
         <li class="ui-field-contain">
@@ -93,4 +109,28 @@
 @section scripts {
     <script src="@Links_CartonAreas.Scripts.jquery_validate_js" type="text/javascript"></script>
     <script src="@Links_CartonAreas.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <style type="text/css">
+        /* Validation styles for Index Page */
+        .field-validation-error {
+            color: #ff0000;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        li.ui-field-contain .input-validation-error {
+            border: 1px solid #ff0000;
+            background-color: #ffeeee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
 }
