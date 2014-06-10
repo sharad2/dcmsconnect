@@ -3,48 +3,61 @@
     ViewBag.Title = "DCMS Connect Home";
 }
 
-<ul data-role="listview" data-filter="true" data-filter-placeholder="Search Menu" data-inset="true">
+<ol data-role="listview" data-filter="true" data-filter-placeholder="Search Menu" data-inset="true">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
-        <li data-role="list-divider">
-            @Html.DisplayFor(m => m.MenuItems[i].Name)
-        </li>
-
-
-        <li>
+        <li data-icon="@Html.Raw(Model.MenuItems[i].SubMenu == null ? "carat-r" : "bullets")">
             <a href="@Model.MenuItems[i].Url">
                 @if (Model.MenuItems[i].IsMobileOptimized)
                 {
-                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
+                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
                 }
                 <h2>@Html.DisplayFor(m => m.MenuItems[i].Name) @Html.DisplayFor(m => m.MenuItems[i].ShortName) Menu</h2>
                 <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
+                @if (Model.MenuItems[i].SubMenu != null)
+                {
+                    <span class="ui-li-count">@Model.MenuItems[i].SubMenu.Count</span>
+                }
             </a>
+            @if (Model.MenuItems[i].SubMenu != null)
+            {
+                <a href="#@Model.MenuItems[i].UniqueId">
+                    More
+                </a>
+            }
         </li>
 
-        if (Model.MenuItems[i].SubMenu != null)
-        {
-            for (var j = 0; j < Model.MenuItems[i].SubMenu.Count; ++j)
-            {
-                <li>
-                    <a href="@Model.MenuItems[i].SubMenu[j].Url">
-                        @if (Model.MenuItems[i].SubMenu[j].IsMobileOptimized)
-                        {
-                            <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" />
-                        }
-                        <h2>@Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].Name) @Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].ShortName)</h2>
-                        <p>@Html.DisplayFor(m => m.MenuItems[i].SubMenu[j].Description)</p>
-                    </a>
-                </li>
-
-            }
-        }
-
     }
-</ul>
+</ol>
+
+
 
 <div data-role="navbar">
     <a href="@Model.UrlRc" data-role="button"><small>Release Candidates</small></a>
 </div>
-
+@section panels {
+    @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
+    {
+        <div data-role="panel" id="@item.UniqueId" data-display="overlay" data-position-fixed="true">
+            <ol data-role="listview">
+                @for (var j = 0; j < item.SubMenu.Count; ++j)
+                {
+                    <li>
+                        <a href="@item.SubMenu[j].Url">
+                            @if (item.SubMenu[j].IsMobileOptimized)
+                            {
+                                <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
+                            }
+                            <p>@Html.DisplayFor(m => item.SubMenu[j].Name) @Html.DisplayFor(m => item.SubMenu[j].ShortName)</p>
+                            <p>@Html.DisplayFor(m => item.SubMenu[j].Description)</p>
+                        </a>
+                    </li>
+                }
+                <li data-icon="delete">
+                    <a href="#mainpage" data-rel="close">Close</a>
+                </li>
+            </ol>
+        </div><!-- /panel -->
+    }
+}
 

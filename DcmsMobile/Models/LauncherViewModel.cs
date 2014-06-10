@@ -9,6 +9,9 @@ namespace DcmsMobile.Models
     public class MenuItem
     {
         private readonly IList<MenuItem> _submenu;
+        private readonly string _uniqueId;
+
+        private static int __idSequence;
 
         /// <summary>
         /// Populates its properties based on the passed area
@@ -20,7 +23,7 @@ namespace DcmsMobile.Models
             //this.Url = url.Content(string.Format("~/{0}", area.AreaName));
             this.Url = url.RouteUrl(area.RouteValues);
             Name = area.Name;
-            ShortName = area.ShortName;
+            ShortName = area.ShortName ?? "";
             IsMobileOptimized = area.IsMobileOptimized;
             IsDesktopOptimized = area.IsDesktopOptimized;
             Description = area.Description;
@@ -30,6 +33,7 @@ namespace DcmsMobile.Models
                            orderby subarea.Order, subarea.Name
                            select new MenuItem(subarea, url)).ToArray();
             }
+            _uniqueId = string.Format("id_{0}_{1}", area.ShortName, __idSequence++);
         }
 
         public IList<MenuItem> SubMenu
@@ -40,35 +44,35 @@ namespace DcmsMobile.Models
             }
         }
 
-        public string Url { get; set; }
+        public string Url { get; private set; }
 
-        public string Name { get; set; }
-
-        string _shortName = string.Empty;
+        public string Name { get; private set; }
 
         /// <summary>
         /// Guaranteed to never return null.
         /// </summary>
-        [DisplayFormat(DataFormatString="[{0}]")]
+        [DisplayFormat(DataFormatString = "[{0}]")]
         public string ShortName
+        {
+            get;
+            private set;
+        }
+
+        public bool IsMobileOptimized { get; private set; }
+
+        public string Description { get; private set; }
+
+        public int Order { get; private set; }
+
+        public bool IsDesktopOptimized { get; private set; }
+
+        public string UniqueId
         {
             get
             {
-                return _shortName;
-            }
-            set
-            {
-                _shortName = (value ?? string.Empty).Trim();
+                return _uniqueId;
             }
         }
-
-        public bool IsMobileOptimized { get; set; }
-
-        public string Description { get; set; }
-
-        public int Order { get; set; }
-
-        public bool IsDesktopOptimized { get; set; }
     }
 
     /// <summary>
