@@ -5,8 +5,6 @@
     ViewBag.Title = string.Format("Edit Address and Description Of {0}", Model.BuildingId);
 }
 
-@Html.ValidationSummary()
-
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateAddress(), FormMethod.Post))
 {
     @Html.HiddenFor(m => m.BuildingId)
@@ -19,13 +17,24 @@
             @Html.TextBoxFor(m => m.Description, new { size = 30, maxlength = 40, id = "tbDescription" })
         </li>
         <li class="ui-field-contain">
-            @Html.LabelFor(m => m.Address1, new
-       {
-           @for = "tbAddress1"
-       })
+            <label for="tbAddress1">Address Line 1<sup>*</sup></label>
             @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40, id = "tbAddress1" })
-            <sup>*</sup>
+            @Html.LabelFor(m => m.Address2, new
+       {
+           @for = "tbAddress2"
+       })
+            @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40, id = "tbAddress2" })
+            @Html.LabelFor(m => m.Address3, new
+       {
+           @for = "tbAddress3"
+       })
+            @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40, id = "tbAddress3" })
 
+            @Html.LabelFor(m => m.Address4, new
+       {
+           @for = "tbAddress4"
+       })
+            @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40, id = "tbAddress4" })
             <label></label>
             <div class="ui-body-inherit">
                 @Html.ValidationMessageFor(m => m.Address1)
@@ -33,52 +42,22 @@
         </li>
 
         <li class="ui-field-contain">
-            @Html.LabelFor(m => m.Address2, new
-       {
-           @for = "tbAddress2"
-       })
-            @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40, id = "tbAddress2" })
-        </li>
-
-        <li class="ui-field-contain">
-            @Html.LabelFor(m => m.Address3, new
-       {
-           @for = "tbAddress3"
-       })
-            @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40, id = "tbAddress3" })
-        </li>
-
-        <li class="ui-field-contain">
-            @Html.LabelFor(m => m.Address4, new
-       {
-           @for = "tbAddress4"
-       })
-            @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40, id = "tbAddress4" })
-        </li>
-
-        <li class="ui-field-contain">
-            <label for="tbCity">City</label>
+            <label for="tbCity">City<sup>*</sup></label>
             @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40, id = "tbCity" })
-            <sup>*</sup>
+            <label for="tbState">State</label>
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
+            <label for="tbZip">Zip<sup>*</sup></label>
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
             <label></label>
             <div class="ui-body-inherit">
                 @Html.ValidationMessageFor(m => m.City)
+                @*@Html.ValidationMessageFor(m => m.ZipCode)*@
             </div>
-        </li>
-        <li class="ui-field-contain">
-            <label for="tbState">State</label>
-            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
-        </li>
-        <li class="ui-field-contain">
-            <label for="tbZip">Zip</label>
-            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
-            <sup>*</sup>
             <label></label>
             <div class="ui-body-inherit">
                 @Html.ValidationMessageFor(m => m.ZipCode)
             </div>
         </li>
-
         <li class="ui-field-contain">
             @Html.LabelFor(m => m.CountryCode, new
        {

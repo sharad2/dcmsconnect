@@ -28,14 +28,15 @@
         <section data-role="content">
             <aside>
                 @Html.StatusSummary()
+                @Html.ValidationSummary()
                 @RenderSection("sidebar", false)
             </aside>
             @RenderBody()
         </section>
         <footer data-role="footer">
-                Copyright &copy; 2011 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">
-    http://www.eclsys.com
-</a>
+            Copyright &copy; 2014 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">
+                http://www.eclsys.com
+            </a>
         </footer>
 
         <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
@@ -48,7 +49,7 @@
                 <li data-icon="info"><a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Tutorial())">Tutorial</a></li>
                 @if (ViewContext.HttpContext.Trace.IsEnabled)
                 {
-                    <li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace">Trace</a> </li>
                 }
             </ul>
         </div>
