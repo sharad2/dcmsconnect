@@ -71,7 +71,7 @@
     "GenerateSourceMaps": false,
     "GzipMinifiedFiles": false,
     "LintOnBuild": false,
-    "LintOnSave": true,
+    "LintOnSave": false,
     "LintResultLocation": "Message"
   },
   "Less": {
