@@ -40,7 +40,7 @@
                     <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
                 }
                 <h6>@Html.DisplayFor(m => m.MenuItems[i].Name)</h6>
-                <p>@Html.DisplayFor(m => m.MenuItems[i].ShortName) @Html.DisplayFor(m => m.MenuItems[i].Description)</p>
+                <p><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Description)</p>
                 @if (Model.MenuItems[i].SubMenu != null)
                 {
                     <span class="ui-li-count">@Model.MenuItems[i].SubMenu.Count</span>
@@ -76,7 +76,7 @@
                                 <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
                             }
                             <p>@Html.DisplayFor(m => item.SubMenu[j].Name)</p>
-                            <p class="hideinsearch">@Html.DisplayFor(m => item.SubMenu[j].ShortName) @Html.DisplayFor(m => item.SubMenu[j].Description)</p>
+                            <p><em>@Html.DisplayFor(m => item.SubMenu[j].ShortName)</em> @Html.DisplayFor(m => item.SubMenu[j].Description)</p>
                         </a>
                     </li>
                 }
