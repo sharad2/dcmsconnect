@@ -123,11 +123,10 @@ namespace DcmsMobile.CartonAreas.Repository
         {
             return _repos.GetBuildings(null);
         }
-
+        
         internal Building GetBuilding(string buildingId)
         {
-            var building = _repos.GetBuildings(buildingId);
-            return building.Count == 0 ? null : building.First();
+            return _repos.GetBuildings(buildingId).First();
         }
 
         public void UpdatePalletLimit(string buildingId, int? palletLimit)
@@ -140,9 +139,9 @@ namespace DcmsMobile.CartonAreas.Repository
             _repos.UpdateAddress(buildingId, description, address);
         }
 
-        public void AddBuilding(Building building)
+        public void AddBuilding(string buildingId, string description, Address address)
         {
-            _repos.AddBuilding(building);
+            _repos.AddBuilding(buildingId, description, address);
         }
 
         internal IList<CodeDescriptionModel> GetCountryList()

@@ -5,7 +5,7 @@
     var editBuilding = !string.IsNullOrWhiteSpace(Model.BuildingId);
     if (editBuilding)
     {
-        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);      
+        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
     }
     else
     {
@@ -80,7 +80,6 @@
             <label></label>
             <div class="ui-body-inherit">
                 @Html.ValidationMessageFor(m => m.City)
-                @*@Html.ValidationMessageFor(m => m.ZipCode)*@
             </div>
             <label></label>
             <div class="ui-body-inherit">
@@ -92,7 +91,7 @@
        {
            @for = "tbCountryCode"
        })
-            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, new { id = "tbCountryCode" })
+            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, "Please Select", new { id = "tbCountryCode" })
         </li>
         <li class="ui-body ui-body-b">
             <fieldset class="ui-grid-a">

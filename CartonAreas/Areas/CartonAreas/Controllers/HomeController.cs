@@ -98,34 +98,35 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="buildingId"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult EditAddressOfBuilding(string buildingId)
+        public virtual ActionResult EditBuilding(string buildingId)
         {
-            var building = _service.GetBuilding(buildingId);
-            if (building == null)
+            var model = new EditAddressOfBuildingViewModel();
+            if (!string.IsNullOrWhiteSpace(buildingId))
             {
-                ModelState.AddModelError("", string.Format("Invalid building {0}", buildingId));
-                return RedirectToAction(this.Actions.Index());
+                var building = _service.GetBuilding(buildingId);
+                if (building == null)
+                {
+                    ModelState.AddModelError("", string.Format("Invalid building {0}", buildingId));
+                    return RedirectToAction(this.Actions.Index());
+                }
+                model.BuildingId = building.BuildingId;
+                model.Description = building.Description;
+                model.Address1 = building.Address.Address1;
+                model.Address2 = building.Address.Address2;
+                model.Address3 = building.Address.Address3;
+                model.Address4 = building.Address.Address4;
+                model.City = building.Address.City;
+                model.State = building.Address.State;
+                model.ZipCode = building.Address.ZipCode;
+                model.CountryCode = building.Address.CountryCode;
             }
-            var model = new EditAddressOfBuildingViewModel
-            {
-                BuildingId = buildingId,
-                Description = building.Description,
-                Address1 = building.Address.Address1,
-                Address2 = building.Address.Address2,
-                Address3 = building.Address.Address3,
-                Address4 = building.Address.Address4,
-                City = building.Address.City,
-                State = building.Address.State,
-                ZipCode = building.Address.ZipCode,
-                CountryCode = building.Address.CountryCode,
-                CountryCodeList = (from item in _service.GetCountryList()
-                                   select new SelectListItem
-                                   {
-                                       Text = item.Code + " : " + item.Description,
-                                       Value = item.Code,
-                                       Selected = item.Code == building.Address.CountryCode
-                                   }).ToArray()
-            };
+            model.CountryCodeList = (from item in _service.GetCountryList()
+                                     select new SelectListItem
+                                     {
+                                         Text = item.Code + " : " + item.Description,
+                                         Value = item.Code,
+                                         Selected = item.Code == model.CountryCode
+                                     }).ToArray();
             return View(Views.EditBuilding, model);
         }
 
@@ -157,7 +158,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             {
                 if (create)
                 {
-                    throw new NotImplementedException();
+                    _service.AddBuilding(model.BuildingId, model.Description, address);
+                    this.AddStatusMessage(string.Format("New Building {0} created.", model.BuildingId));
                 }
                 else
                 {
@@ -172,63 +174,6 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
             }
             return RedirectToAction(this.Actions.Index());
         }
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Obsolete]
-        //public virtual ActionResult AddNewBuilding()
-        //{
-        //    var model = new AddBuildingViewModel
-        //    {
-        //        CountryCodeList = (from item in _service.GetCountryList()
-        //                           select new SelectListItem
-        //                           {
-        //                               Text = item.Code + " : " + item.Description,
-        //                               Value = item.Code
-        //                           }).ToArray()
-        //    };
-        //    return View(Views.AddBuilding, model);
-        //}
-
-        //[HttpPost]
-        //[Obsolete]
-        //public virtual ActionResult AddBuilding(AddBuildingViewModel modal)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(Views.AddBuilding, modal);
-        //    }
-        //    modal.BuildingId = modal.BuildingId.ToUpper();
-        //    try
-        //    {
-        //        _service.AddBuilding(new Building
-        //        {
-        //            BuildingId = modal.BuildingId,
-        //            Description = modal.Description,
-        //            Address = new Address
-        //            {
-        //                Address1 = modal.Address1,
-        //                Address2 = modal.Address2,
-        //                Address3 = modal.Address3,
-        //                Address4 = modal.Address4,
-        //                City = modal.City,
-        //                State = modal.State,
-        //                ZipCode = modal.ZipCode,
-        //                CountryCode = modal.CountryCode
-        //            }
-        //        });
-        //        this.AddStatusMessage(string.Format("New Building {0} added sucessfully.", modal.BuildingId));
-        //    }
-        //    catch (DbException ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //        return RedirectToAction(this.Actions.AddNewBuilding());
-        //    }
-        //    return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
-        //}
 
         public virtual ActionResult CartonArea(string buildingId)
         {

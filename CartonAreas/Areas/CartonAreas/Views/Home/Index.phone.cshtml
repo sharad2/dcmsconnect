@@ -6,7 +6,7 @@
 @Html.ValidationSummary()
 <div data-role="fieldcontain">
     <label> There are @Model.Buildings.Count Buildings.</label>
-    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.AddNewBuilding())" class="ui-btn ui-icon-plus ui-btn-icon-right">Add Building</a>
+    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditBuilding())" class="ui-btn ui-icon-plus ui-btn-icon-right">Add Building</a>
 </div>
 <div id="buildinglist">
     <ul data-role="listview">
@@ -27,33 +27,29 @@
                                 {
 
                                     @Html.DisplayFor(m => m.Buildings[i].Address1)
-                                    @*<br />*@
                                 }
                                 @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address2))
                                 {
                                     @:,
                                     @Html.DisplayFor(m => m.Buildings[i].Address2)
-                                    @*<br />*@
                                 }
 
                                 @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address3))
                                 {
                                     @:,
                                     @Html.DisplayFor(m => m.Buildings[i].Address3)
-                                    @*<br />*@
                                 }
                                 @if (!string.IsNullOrWhiteSpace(Model.Buildings[i].Address4))
                                 {
                                     @:,
                                     @Html.DisplayFor(m => m.Buildings[i].Address4)
-                                    @*<br />*@
                                 }
                                 <div>
                                     @Html.DisplayFor(m => m.Buildings[i].City)
                                     @Html.DisplayFor(m => m.Buildings[i].State),
                                     @Html.DisplayFor(m => m.Buildings[i].ZipCode)
                                     @Html.DisplayFor(m => m.Buildings[i].CountryCode)
-                                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId))"
+                                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditBuilding(Model.Buildings[i].BuildingId))"
                                        class="ui-btn ui-btn-inline  ui-icon-edit ui-btn-icon-left ui-mini">Edit</a>
                                 </div>
                             </div>
@@ -81,8 +77,9 @@
                             </a>
                         </div>
                         <div>
-                            <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit"
-                               data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-icon-edit ui-btn-icon-right">Max Cartons on Pallet @Model.Buildings[i].ReceivingPalletLimit</a>
+                            <a href="#editPalletLimit" data-rel="popup" data-limit="@Model.Buildings[i].ReceivingPalletLimit" data-building="@Model.Buildings[i].BuildingId" class="ui-btn ui-icon-edit ui-btn-icon-right">
+                                Max Cartons on Pallet @Model.Buildings[i].ReceivingPalletLimit
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -53,10 +53,10 @@
         </div>
         <div>
             @Html.LabelFor(m => m.CountryCode)
-            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList)
+            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList,"Please Select")
         </div>
         <div>
-            <button type="submit" id="btnUpdate">Update</button>
+            <button type="submit" id="btnUpdate">Submit</button>
             <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
         </div>
     }

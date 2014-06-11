@@ -5,7 +5,7 @@
 @section sidebar {
     There are @Model.Buildings.Count Buildings.
     <br />
-    @Html.ActionLink("Add Building", MVC_CartonAreas.CartonAreas.Home.AddNewBuilding())
+    @Html.ActionLink("Add Building", MVC_CartonAreas.CartonAreas.Home.EditBuilding())
 }
 @Html.ValidationSummary()
 <h1>List of Buildings</h1>
@@ -19,7 +19,7 @@
             <div style="margin-left: 1em">
 
                 When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address
-                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditAddressOfBuilding(Model.Buildings[i].BuildingId))">Edit</a>
+                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditBuilding(Model.Buildings[i].BuildingId))">Edit</a>
                 <br />
                 <em>
                     @Html.DisplayFor(m => m.Buildings[i].Address1)

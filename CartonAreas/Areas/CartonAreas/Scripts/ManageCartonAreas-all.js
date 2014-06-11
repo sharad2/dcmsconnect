@@ -117,8 +117,8 @@ $(document).ready(function () {
 /*
 $Id: ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $ 
 $Revision: 24663 $
-$URL: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
+$URL: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
+$Header: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
 $Author: spandey $
 $Date: 2014-06-03 15:16:17 +0530 (Tue, 03 Jun 2014) $
 */

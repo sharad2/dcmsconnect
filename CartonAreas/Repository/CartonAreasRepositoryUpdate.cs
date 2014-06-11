@@ -123,7 +123,7 @@ namespace DcmsMobile.CartonAreas.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        public void AddBuilding(Building building)
+        public void AddBuilding(string buildingId, string description, Address address)
         {
             const string QUERY = @" 
                     BEGIN
@@ -155,16 +155,16 @@ namespace DcmsMobile.CartonAreas.Repository
                         END;
                              ";
             var binder = SqlBinder.Create()
-                .Parameter("WAREHOUSE_LOCATION_ID", building.BuildingId)
-                .Parameter("ADDRESS_1", building.Address.Address1)
-                .Parameter("ADDRESS_2", building.Address.Address2)
-                .Parameter("ADDRESS_3", building.Address.Address3)
-                .Parameter("ADDRESS_4", building.Address.Address4)
-                .Parameter("CITY", building.Address.City)
-                .Parameter("STATE", building.Address.State)
-                .Parameter("ZIP_CODE", building.Address.ZipCode)
-                .Parameter("DESCRIPTION", building.Description)
-                .Parameter("COUNTRY_CODE", building.Address.CountryCode);
+                .Parameter("WAREHOUSE_LOCATION_ID", buildingId)
+                .Parameter("ADDRESS_1", address.Address1)
+                .Parameter("ADDRESS_2", address.Address2)
+                .Parameter("ADDRESS_3", address.Address3)
+                .Parameter("ADDRESS_4", address.Address4)
+                .Parameter("CITY", address.City)
+                .Parameter("STATE", address.State)
+                .Parameter("ZIP_CODE", address.ZipCode)
+                .Parameter("DESCRIPTION", description)
+                .Parameter("COUNTRY_CODE", address.CountryCode);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
