@@ -2,27 +2,27 @@
 @{
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
-    var editBuilding = !string.IsNullOrWhiteSpace(Model.BuildingId);
-    if (editBuilding)
+    var createBuilding = string.IsNullOrWhiteSpace(Model.BuildingId);
+    if (createBuilding)
     {
-        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
+        ViewBag.Title = "Create New Building";
     }
     else
     {
-        ViewBag.Title = "Create New Building";
+        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
     }
 
 }
 
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateBuilding(), FormMethod.Post))
 {
-    if (editBuilding)
+    if (!createBuilding)
     {
         @Html.HiddenFor(m => m.BuildingId)
     }
-    <input name="@MVC_CartonAreas.CartonAreas.Home.UpdateBuildingParams.create" value="@(!editBuilding)" type="hidden" />
+    <input name="@MVC_CartonAreas.CartonAreas.Home.UpdateBuildingParams.create" value="@createBuilding.ToString()" type="hidden" />
     <ul data-role="listview" data-inset="true">
-        @if (!editBuilding)
+        @if (createBuilding)
         {
             <li class="ui-field-contain">
                 @Html.LabelFor(m => m.BuildingId, new
