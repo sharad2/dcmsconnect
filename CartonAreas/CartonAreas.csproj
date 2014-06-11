@@ -186,6 +186,7 @@
     <Content Include="Areas\CartonAreas\Views\Shared\_layoutCartonAreas.phone.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\Index.phone.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\EditBuilding.phone.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\CartonArea.phone.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />

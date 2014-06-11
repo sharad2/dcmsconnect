@@ -265,6 +265,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _pickingAreaLocationCountMatrixPartial = "_pickingAreaLocationCountMatrixPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
             public readonly string CartonArea = "CartonArea";
+            public readonly string CartonArea_phone = "CartonArea.phone";
             public readonly string EditBuilding = "EditBuilding";
             public readonly string EditBuilding_phone = "EditBuilding.phone";
             public readonly string Index = "Index";
