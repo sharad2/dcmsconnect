@@ -2,7 +2,7 @@
 @{
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
-    ViewBag.Title = string.Format("Edit Address and Description Of {0}", Model.BuildingId);
+    ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
 }
 
 @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateAddress(), FormMethod.Post))
@@ -65,12 +65,15 @@
        })
             @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, new { id = "tbCountryCode" })
         </li>
+        <li class="ui-body ui-body-b">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><button type="submit" class="ui-btn ui-corner-all">Submit</button></div>
+                <div class="ui-block-b">
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())" class="ui-btn ui-corner-all">Cancel</a>
+                </div>
+            </fieldset>
+        </li>
     </ul>
-
-    <div>
-        <button type="submit" class="ui-btn ui-btn-inline">Update</button>
-        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())" class="ui-btn ui-btn-inline">Cancel</a>
-    </div>
 }
 @*<img src="@Links_CartonAreas.Areas.CartonAreas.Content.images.BOL_jpg" />*@
 

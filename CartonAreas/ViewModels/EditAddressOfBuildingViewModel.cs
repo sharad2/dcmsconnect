@@ -36,7 +36,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         [Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
 
-        [Display(Name = "Country Code")]
+        [Display(Name = "Country")]
         public string CountryCode { get; set; }
 
         public IList<SelectListItem> CountryCodeList { get; set; }
