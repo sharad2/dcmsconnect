@@ -1,79 +1,99 @@
 ﻿@model DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel
-    @{
-        Html.EnableClientValidation();
-        Html.EnableUnobtrusiveJavaScript();
-        ViewBag.Title = string.Format("Edit Address and Description Of {0}", Model.BuildingId);
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var createBuilding = string.IsNullOrWhiteSpace(Model.BuildingId);
+    if (createBuilding)
+    {
+        ViewBag.Title = "Create New Building";
     }
-    @section sidebar {
-        <div class="box boxA">
-            <div class="boxContent">
-                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
-            </div>
+    else
+    {
+        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
+    }
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
         </div>
-        <div>
-            The address you define here will print on the Bill of Lading
-        </div>
+    </div>
+    <div>
+        The address you define here will print on the Bill of Lading
+    </div>
 
-    }
-    @Html.ValidationSummary()
-    <div class="boxContent">
-        @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateBuilding(), FormMethod.Post))
+}
+@Html.ValidationSummary()
+<div class="boxContent">
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateBuilding(), FormMethod.Post))
+    {
+        if (createBuilding)
         {
-            @Html.HiddenFor(m => m.BuildingId)
             <div>
-                @Html.LabelFor(m => m.Description)
-                @Html.TextBoxFor(m => m.Description, new { size = 30, maxlength = 40 })
-            </div>
-            <div>
-                @Html.LabelFor(m => m.Address1)
-                @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40 })<sup>*</sup>
-                @Html.ValidationMessageFor(m => m.Address1)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.Address2)
-                @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40 })
-            </div>
-            <div>
-                @Html.LabelFor(m => m.Address3)
-                @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40 })
-            </div>
-            <div>
-                @Html.LabelFor(m => m.Address4)
-                @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40 })
-            </div>
-            <div>
-                <label>City/State/Zip</label>
-                @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40 })<sup>*</sup>
-                @Html.ValidationMessageFor(m => m.City)
-
-                @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
-
-                @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10 })<sup>*</sup>
-                @Html.ValidationMessageFor(m => m.ZipCode)
-            </div>
-            <div>
-                @Html.LabelFor(m => m.CountryCode)
-                @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, "Please Select")
-            </div>
-            <div>
-                <button type="submit" id="btnUpdate">Submit</button>
-                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
+                @Html.LabelFor(m => m.BuildingId)
+                @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase" })<sup>*</sup>
+                @Html.ValidationMessageFor(m => m.BuildingId)
             </div>
         }
-        <img src="@Links_CartonAreas.Areas.CartonAreas.Content.images.BOL_jpg" />
-    </div>
-    @section scripts
-{
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#btnUpdate').button();
-            });
-        </script>
-        <style type="text/css">
-            div > label {
-                width: 12em;
-                display: inline-block;
-                vertical-align: top;
-            }
-        </style>
+        else
+        {
+            @Html.HiddenFor(m => m.BuildingId)
+        }
+        <input name="@MVC_CartonAreas.CartonAreas.Home.UpdateBuildingParams.create" value="@createBuilding.ToString()" type="hidden" />
+        <div>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new { size = 30, maxlength = 40 })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address1)
+            @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40 })<sup>*</sup>
+            @Html.ValidationMessageFor(m => m.Address1)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address2)
+            @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40 })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address3)
+            @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40 })
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Address4)
+            @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40 })
+        </div>
+        <div>
+            <label>City/State/Zip</label>
+            @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40 })<sup>*</sup>
+            @Html.ValidationMessageFor(m => m.City)
+
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2 })
+
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10 })<sup>*</sup>
+            @Html.ValidationMessageFor(m => m.ZipCode)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.CountryCode)
+            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, "Please Select")
+        </div>
+        <div>
+            <button type="submit" id="btnUpdate">Submit</button>
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Cancel</a>
+        </div>
     }
+    <img src="@Links_CartonAreas.Areas.CartonAreas.Content.images.BOL_jpg" />
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btnUpdate').button();
+        });
+    </script>
+    <style type="text/css">
+        div > label {
+            width: 12em;
+            display: inline-block;
+            vertical-align: top;
+        }
+    </style>
+}
