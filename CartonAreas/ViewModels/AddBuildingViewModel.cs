@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -7,6 +8,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
     /// <summary>
     /// View model for the page which adds a building
     /// </summary>
+    [Obsolete]
     public class AddBuildingViewModel
     {
         [Display(Name = "Building")]

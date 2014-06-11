@@ -2,13 +2,42 @@
 @{
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
-    ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
+    var editBuilding = !string.IsNullOrWhiteSpace(Model.BuildingId);
+    if (editBuilding)
+    {
+        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);      
+    }
+    else
+    {
+        ViewBag.Title = "Create New Building";
+    }
+
 }
 
-@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateAddress(), FormMethod.Post))
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateBuilding(), FormMethod.Post))
 {
-    @Html.HiddenFor(m => m.BuildingId)
+    if (editBuilding)
+    {
+        @Html.HiddenFor(m => m.BuildingId)
+    }
+    <input name="@MVC_CartonAreas.CartonAreas.Home.UpdateBuildingParams.create" value="@(!editBuilding)" type="hidden" />
     <ul data-role="listview" data-inset="true">
+        @if (!editBuilding)
+        {
+            <li class="ui-field-contain">
+                @Html.LabelFor(m => m.BuildingId, new
+       {
+           @for = "tbBuildingId"
+       })
+                @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase", id = "tbBuildingId" })
+                <sup>*</sup>
+                <label></label>
+                <div class="ui-body-inherit">
+                    @Html.ValidationMessageFor(m => m.BuildingId)
+                </div>
+            </li>
+        }
+
         <li class="ui-field-contain">
             @Html.LabelFor(m => m.Description, new
        {

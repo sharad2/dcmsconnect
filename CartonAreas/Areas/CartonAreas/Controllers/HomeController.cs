@@ -126,98 +126,109 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                                        Selected = item.Code == building.Address.CountryCode
                                    }).ToArray()
             };
-            return View(Views.EditAddressOfBuilding, model);
+            return View(Views.EditBuilding, model);
         }
 
         /// <summary>
         /// Update address of passed building
         /// </summary>
         /// <param name="model"></param>
+        /// <param name="create">If true, then the building will be created, otherwise it will be updated</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult UpdateAddress(EditAddressOfBuildingViewModel model)
+        public virtual ActionResult UpdateBuilding(EditAddressOfBuildingViewModel model, bool create)
         {
             if (!ModelState.IsValid)
             {
-                return View(Views.EditAddressOfBuilding, model);
+                return View(Views.EditBuilding, model);
             }
+            var address = new Address
+            {
+                Address1 = model.Address1,
+                Address2 = model.Address2,
+                Address3 = model.Address3,
+                Address4 = model.Address4,
+                City = model.City,
+                State = model.State,
+                ZipCode = model.ZipCode,
+                CountryCode = model.CountryCode
+            };
             try
             {
-                _service.UpdateAddress(model.BuildingId, model.Description, new Address
-                                                        {
-                                                            Address1 = model.Address1,
-                                                            Address2 = model.Address2,
-                                                            Address3 = model.Address3,
-                                                            Address4 = model.Address4,
-                                                            City = model.City,
-                                                            State = model.State,
-                                                            ZipCode = model.ZipCode,
-                                                            CountryCode = model.CountryCode
-                                                        });
-                this.AddStatusMessage(string.Format("Adderess/Description of building {0} has been sucessfully updated.", model.BuildingId));
+                if (create)
+                {
+                    throw new NotImplementedException();
+                }
+                else
+                {
+                    _service.UpdateAddress(model.BuildingId, model.Description, address);
+                    this.AddStatusMessage(string.Format("Building {0} updated.", model.BuildingId));
+                }
             }
             catch (DbException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return View(Views.EditAddressOfBuilding, model);
+                return View(Views.EditBuilding, model);
             }
             return RedirectToAction(this.Actions.Index());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public virtual ActionResult AddNewBuilding()
-        {
-            var model = new AddBuildingViewModel
-            {
-                CountryCodeList = (from item in _service.GetCountryList()
-                                   select new SelectListItem
-                                   {
-                                       Text = item.Code + " : " + item.Description,
-                                       Value = item.Code
-                                   }).ToArray()
-            };
-            return View(Views.AddBuilding, model);
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Obsolete]
+        //public virtual ActionResult AddNewBuilding()
+        //{
+        //    var model = new AddBuildingViewModel
+        //    {
+        //        CountryCodeList = (from item in _service.GetCountryList()
+        //                           select new SelectListItem
+        //                           {
+        //                               Text = item.Code + " : " + item.Description,
+        //                               Value = item.Code
+        //                           }).ToArray()
+        //    };
+        //    return View(Views.AddBuilding, model);
+        //}
 
-        [HttpPost]
-        public virtual ActionResult AddBuilding(AddBuildingViewModel modal)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(Views.AddBuilding, modal);
-            }
-            modal.BuildingId = modal.BuildingId.ToUpper();
-            try
-            {
-                _service.AddBuilding(new Building
-                {
-                    BuildingId = modal.BuildingId,
-                    Description = modal.Description,
-                    Address = new Address
-                    {
-                        Address1 = modal.Address1,
-                        Address2 = modal.Address2,
-                        Address3 = modal.Address3,
-                        Address4 = modal.Address4,
-                        City = modal.City,
-                        State = modal.State,
-                        ZipCode = modal.ZipCode,
-                        CountryCode = modal.CountryCode
-                    }
-                });
-                this.AddStatusMessage(string.Format("New Building {0} added sucessfully.", modal.BuildingId));
-            }
-            catch (DbException ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.AddNewBuilding());
-            }
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
-        }
+        //[HttpPost]
+        //[Obsolete]
+        //public virtual ActionResult AddBuilding(AddBuildingViewModel modal)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(Views.AddBuilding, modal);
+        //    }
+        //    modal.BuildingId = modal.BuildingId.ToUpper();
+        //    try
+        //    {
+        //        _service.AddBuilding(new Building
+        //        {
+        //            BuildingId = modal.BuildingId,
+        //            Description = modal.Description,
+        //            Address = new Address
+        //            {
+        //                Address1 = modal.Address1,
+        //                Address2 = modal.Address2,
+        //                Address3 = modal.Address3,
+        //                Address4 = modal.Address4,
+        //                City = modal.City,
+        //                State = modal.State,
+        //                ZipCode = modal.ZipCode,
+        //                CountryCode = modal.CountryCode
+        //            }
+        //        });
+        //        this.AddStatusMessage(string.Format("New Building {0} added sucessfully.", modal.BuildingId));
+        //    }
+        //    catch (DbException ex)
+        //    {
+        //        ModelState.AddModelError("", ex.Message);
+        //        return RedirectToAction(this.Actions.AddNewBuilding());
+        //    }
+        //    return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.Index());
+        //}
 
         public virtual ActionResult CartonArea(string buildingId)
         {

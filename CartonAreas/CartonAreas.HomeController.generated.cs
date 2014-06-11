@@ -49,13 +49,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateAddress() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateAddress);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AddBuilding() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
+        public System.Web.Mvc.ActionResult UpdateBuilding() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateBuilding);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -125,9 +120,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string Index = "Index";
             public readonly string EditPalletLimit = "EditPalletLimit";
             public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
-            public readonly string UpdateAddress = "UpdateAddress";
-            public readonly string AddNewBuilding = "AddNewBuilding";
-            public readonly string AddBuilding = "AddBuilding";
+            public readonly string UpdateBuilding = "UpdateBuilding";
             public readonly string CartonArea = "CartonArea";
             public readonly string UpdateArea = "UpdateArea";
             public readonly string ManageCartonArea = "ManageCartonArea";
@@ -146,9 +139,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public const string Index = "Index";
             public const string EditPalletLimit = "EditPalletLimit";
             public const string EditAddressOfBuilding = "EditAddressOfBuilding";
-            public const string UpdateAddress = "UpdateAddress";
-            public const string AddNewBuilding = "AddNewBuilding";
-            public const string AddBuilding = "AddBuilding";
+            public const string UpdateBuilding = "UpdateBuilding";
             public const string CartonArea = "CartonArea";
             public const string UpdateArea = "UpdateArea";
             public const string ManageCartonArea = "ManageCartonArea";
@@ -178,19 +169,13 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ActionParamsClass_EditAddressOfBuilding {
             public readonly string buildingId = "buildingId";
         }
-        static readonly ActionParamsClass_UpdateAddress s_params_UpdateAddress = new ActionParamsClass_UpdateAddress();
+        static readonly ActionParamsClass_UpdateBuilding s_params_UpdateBuilding = new ActionParamsClass_UpdateBuilding();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_UpdateAddress UpdateAddressParams { get { return s_params_UpdateAddress; } }
+        public ActionParamsClass_UpdateBuilding UpdateBuildingParams { get { return s_params_UpdateBuilding; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateAddress {
+        public class ActionParamsClass_UpdateBuilding {
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_AddBuilding s_params_AddBuilding = new ActionParamsClass_AddBuilding();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AddBuilding AddBuildingParams { get { return s_params_AddBuilding; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AddBuilding {
-            public readonly string modal = "modal";
+            public readonly string create = "create";
         }
         static readonly ActionParamsClass_CartonArea s_params_CartonArea = new ActionParamsClass_CartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -279,11 +264,9 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string _cartonAreaLocationCountMatrixPartial = "_cartonAreaLocationCountMatrixPartial";
             public readonly string _pickingAreaLocationCountMatrixPartial = "_pickingAreaLocationCountMatrixPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
-            public readonly string AddBuilding = "AddBuilding";
-            public readonly string AddBuilding_phone = "AddBuilding.phone";
             public readonly string CartonArea = "CartonArea";
-            public readonly string EditAddressOfBuilding = "EditAddressOfBuilding";
-            public readonly string EditAddressOfBuilding_phone = "EditAddressOfBuilding.phone";
+            public readonly string EditBuilding = "EditBuilding";
+            public readonly string EditBuilding_phone = "EditBuilding.phone";
             public readonly string Index = "Index";
             public readonly string Index_phone = "Index.phone";
             public readonly string ManageCartonArea = "ManageCartonArea";
@@ -315,20 +298,10 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateAddress(DcmsMobile.CartonAreas.ViewModels.EditAddressOfBuildingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateAddress);
+        public override System.Web.Mvc.ActionResult UpdateBuilding(DcmsMobile.CartonAreas.ViewModels.EditAddressOfBuildingViewModel model, bool create) {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateBuilding);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult AddNewBuilding() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddNewBuilding);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult AddBuilding(DcmsMobile.CartonAreas.ViewModels.AddBuildingViewModel modal) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AddBuilding);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "modal", modal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "create", create);
             return callInfo;
         }
 

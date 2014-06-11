@@ -176,8 +176,7 @@
     <Content Include="Areas\CartonAreas\Scripts\ManageCartonAreas-all.min.js.map">
       <DependentUpon>ManageCartonAreas-all.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\CartonAreas\Views\Home\EditAddressOfBuilding.cshtml" />
-    <Content Include="Areas\CartonAreas\Views\Home\AddBuilding.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\EditBuilding.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\PickingArea.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\ManagePickingArea.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\_pickingAreaLocationCountMatrixPartial.cshtml" />
@@ -187,8 +186,7 @@
     </Content>
     <Content Include="Areas\CartonAreas\Views\Shared\_layoutCartonAreas.phone.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\Index.phone.cshtml" />
-    <Content Include="Areas\CartonAreas\Views\Home\EditAddressOfBuilding.phone.cshtml" />
-    <Content Include="Areas\CartonAreas\Views\Home\AddBuilding.phone.cshtml" />
+    <Content Include="Areas\CartonAreas\Views\Home\EditBuilding.phone.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
