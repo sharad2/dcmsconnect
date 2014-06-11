@@ -3,7 +3,34 @@
     ViewBag.Title = "DCMS Connect Home";
 }
 
-<ol data-role="listview" data-filter="true" data-filter-placeholder="Search Menu" data-inset="true">
+@*@section head {
+    <script type="text/javascript">
+        $(document).on('pageinit', '#mainpage', function () {
+            alert('Hi2');
+            $(this).on('filterablefilter', '#menulist', function (event, ui) {
+                alert('Hi');
+                $('#topmenu').hide();
+            });
+        });
+    </script>
+}*@
+<input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
+<ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
+    @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
+    {
+        <li data-filtertext="@item.ShortName;@item.Description">
+            <a href="@item.Url">
+                @if (item.IsMobileOptimized)
+                {
+                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
+                }
+                @item.Name
+            </a>
+        </li>
+    }
+</ol>
+
+<ol data-role="listview" data-inset="true" id="topmenu">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li data-icon="@Html.Raw(Model.MenuItems[i].SubMenu == null ? "carat-r" : "bullets")">
@@ -49,7 +76,7 @@
                                 <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
                             }
                             <p>@Html.DisplayFor(m => item.SubMenu[j].Name)</p>
-                            <p>@Html.DisplayFor(m => item.SubMenu[j].ShortName) @Html.DisplayFor(m => item.SubMenu[j].Description)</p>
+                            <p class="hideinsearch">@Html.DisplayFor(m => item.SubMenu[j].ShortName) @Html.DisplayFor(m => item.SubMenu[j].Description)</p>
                         </a>
                     </li>
                 }
