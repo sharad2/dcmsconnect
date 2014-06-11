@@ -25,12 +25,10 @@
         @if (createBuilding)
         {
             <li class="ui-field-contain">
-                @Html.LabelFor(m => m.BuildingId, new
-       {
-           @for = "tbBuildingId"
-       })
+                <label for="tbBuildingId">
+                    Building<sup>*</sup>
+                </label>
                 @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase", id = "tbBuildingId" })
-                <sup>*</sup>
                 <label></label>
                 <div class="ui-body-inherit">
                     @Html.ValidationMessageFor(m => m.BuildingId)
@@ -71,11 +69,17 @@
         </li>
 
         <li class="ui-field-contain">
-            <label for="tbCity">City<sup>*</sup></label>
+            <label for="tbCity">
+                City<sup>*</sup>
+            </label>
             @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40, id = "tbCity" })
-            <label for="tbState">State</label>
+            <label for="tbState">
+                State
+            </label>
             @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
-            <label for="tbZip">Zip<sup>*</sup></label>
+            <label for="tbZip">
+                Zip<sup>*</sup>
+            </label>
             @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
             <label></label>
             <div class="ui-body-inherit">

@@ -6,7 +6,8 @@ namespace DcmsMobile.CartonAreas.ViewModels
 {
     public class EditAddressOfBuildingViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Building is required")]
+        [Display(Name = "Building")]
         public string BuildingId { get; set; }
 
         [Display(Name = "Description")]
