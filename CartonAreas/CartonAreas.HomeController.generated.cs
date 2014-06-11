@@ -298,7 +298,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateBuilding(DcmsMobile.CartonAreas.ViewModels.EditAddressOfBuildingViewModel model, bool create) {
+        public override System.Web.Mvc.ActionResult UpdateBuilding(DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel model, bool create) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateBuilding);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "create", create);

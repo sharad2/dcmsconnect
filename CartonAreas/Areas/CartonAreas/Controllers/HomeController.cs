@@ -100,7 +100,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [HttpGet]
         public virtual ActionResult EditBuilding(string buildingId)
         {
-            var model = new EditAddressOfBuildingViewModel();
+            var model = new EditBuildingViewModel();
             if (!string.IsNullOrWhiteSpace(buildingId))
             {
                 var building = _service.GetBuilding(buildingId);
@@ -137,7 +137,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="create">If true, then the building will be created, otherwise it will be updated</param>
         /// <returns></returns>
         [HttpPost]
-        public virtual ActionResult UpdateBuilding(EditAddressOfBuildingViewModel model, bool create)
+        public virtual ActionResult UpdateBuilding(EditBuildingViewModel model, bool create)
         {
             if (!ModelState.IsValid)
             {

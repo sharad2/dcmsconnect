@@ -126,10 +126,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AddBuildingViewModel.cs" />
     <Compile Include="ViewModels\AssignSkuViewModel.cs" />
     <Compile Include="ViewModels\CartonAreaViewModel.cs" />
-    <Compile Include="ViewModels\EditAddressOfBuildingViewModel.cs" />
+    <Compile Include="ViewModels\EditBuildingViewModel.cs" />
     <Compile Include="ViewModels\IndexViewModel.cs" />
     <Compile Include="ViewModels\CartonAreaLocationCountMatrixViewModel.cs" />
     <Compile Include="ViewModels\ManageCartonAreaViewModel.cs" />

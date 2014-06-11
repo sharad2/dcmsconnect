@@ -4,7 +4,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.CartonAreas.ViewModels
 {
-    public class EditAddressOfBuildingViewModel
+    public class EditBuildingViewModel
     {
         [Required(ErrorMessage = "Building is required")]
         [Display(Name = "Building")]
