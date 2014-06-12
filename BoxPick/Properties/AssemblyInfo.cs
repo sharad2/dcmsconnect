@@ -85,7 +85,7 @@ using System.Runtime.InteropServices;
  */
 
 /* Change Log 1.1.0.0 -> ? (Redmine task #1697)
- * Dependency on PKG_BOXPICK.GET_PALLET_INFO function. It will return new colomn area short name.
+ * We now support short name in BoxPick. Dependency on PKG_BOXPICK.GET_PALLET_INFO function.
  */
 
 [assembly: AssemblyProduct("Allow picking any carton which is valid for the pallet.")]
