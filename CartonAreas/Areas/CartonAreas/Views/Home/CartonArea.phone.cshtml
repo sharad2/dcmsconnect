@@ -3,66 +3,81 @@
     ViewBag.Title = "Carton Areas in Building " + @Model.BuildingId;
 }
 
-<table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
-    <thead>
-        <tr>
-            <th>Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
-            <th data-priority="1">Description</th>
-            <th># Locations</th>
-            <th data-priority="2">Numbered</th>
-            <th data-priority="3">Pallet Required</th>
-            <th data-priority="4">Unusable Inventory</th>
-            <th>Change</th>
-        </tr>
-
-    </thead>
-    <tbody>
-        @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
-        {
+<div id="AreaList">
+    <table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.CartonAreaList[i].Description)
-                </td>
-                <td>
-                    @if (Model.CartonAreaList[i].LocationNumberingFlag)
+                <th>Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
+                <th data-priority="1">Description</th>
+                <th># Locations</th>
+                <th data-priority="2">Numbered</th>
+                <th data-priority="3">Pallet Required</th>
+                <th data-priority="4">Unusable Inventory</th>
+                <th>Change</th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.CartonAreaList[i].Description)
+                    </td>
+                    <td>
+                        @if (Model.CartonAreaList[i].LocationNumberingFlag)
                     {
-                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId))">@Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)</a>
+                            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId))">@Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)</a>
                     }
                     else
                     {
-                        @Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)
+                            @Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)
                     }
-                </td>
-                <td>
-                    <span class="@(Model.CartonAreaList[i].LocationNumberingFlag ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Numbered Location"></span>
-                </td>
-                <td>
-                    <span class="@(Model.CartonAreaList[i].IsPalletRequired ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Pallet required"></span>
-                </td>
-                <td>
-                    <span class="@(Model.CartonAreaList[i].UnusableInventory ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Unusable Inventory"></span>
-                </td>
-                <td>
-                    @Html.HiddenFor(m => m.CartonAreaList[i].AreaId)
-                    <span class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" title='Update area @Model.CartonAreaList[i].ShortName' style="cursor: pointer;" />
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <span class="@(Model.CartonAreaList[i].LocationNumberingFlag ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Numbered Location"></span>
+                    </td>
+                    <td>
+                        <span class="@(Model.CartonAreaList[i].IsPalletRequired ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Pallet required"></span>
+                    </td>
+                    <td>
+                        <span class="@(Model.CartonAreaList[i].UnusableInventory ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Unusable Inventory"></span>
+                    </td>
+                    <td>
+                        @Html.HiddenFor(m => m.CartonAreaList[i].AreaId)
+                        <a href="#editArea" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" data-area="@Model.CartonAreaList[i].AreaId"
+                           data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
+                           title='Update area @Model.CartonAreaList[i].ShortName'>
+                        </a>
+                    </td>
+                </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+
+<div data-role="popup" id="editArea">
+    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial_phone, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel())
+</div>
 
 
-
-
-
-@*<div id="divUpdateAreaDialog">
-        @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel())
-    </div>*@
 @section scripts
 {
-    @*<script src="@Links_CartonAreas.Areas.CartonAreas.Scripts.CartonArea_all_js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // When edit pallet limit is clicked, populate values in the dialog
+            $('#AreaList').on('click', 'a[href="#editArea"]', function (e) {
+                $('#editArea')
+                    .find('h3 span').text($(this).attr('data-area-short-name'))
+                    .end()
+                    .find('#tbDescription').val($(this).attr('data-description'))
+                    .end()
+                    .find('input:hidden').val($(this).attr('data-area'));
+                ;
+            });
+        });
+    </script>
 }
-@*$Id$*@

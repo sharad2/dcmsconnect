@@ -188,6 +188,7 @@ namespace Links_CartonAreas {
                     public static readonly string _cartonAreaLocationCountMatrixPartial_cshtml = Url("_cartonAreaLocationCountMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonAreaLocationCountMatrixPartial.cshtml");
                     public static readonly string _pickingAreaLocationCountMatrixPartial_cshtml = Url("_pickingAreaLocationCountMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_pickingAreaLocationCountMatrixPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.cshtml");
+                    public static readonly string _updateFlagDialogPartial_phone_cshtml = Url("_updateFlagDialogPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.phone.cshtml");
                     public static readonly string CartonArea_cshtml = Url("CartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea.cshtml");
                     public static readonly string CartonArea_phone_cshtml = Url("CartonArea.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CartonArea.phone.cshtml");
                     public static readonly string EditBuilding_cshtml = Url("EditBuilding.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/EditBuilding.cshtml");
