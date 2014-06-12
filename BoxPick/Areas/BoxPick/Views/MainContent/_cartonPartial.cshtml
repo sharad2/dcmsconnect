@@ -3,7 +3,7 @@
     var grid = Html.GridFor(m => m.BoxesOnPallet);
     grid.AddColumn(m => m.UccId);
     grid.AddColumn(m => m.Pieces);
-    grid.AddColumn().CellHtml(@<span>@(string.IsNullOrEmpty(@item.ViewData.Model.IaId) ? "Picked" : "To pick")</span>).HeaderHtml("Status");
+    grid.AddColumn().CellHtml(@<span>@(string.IsNullOrEmpty(@item.ViewData.Model.IaId) ? "To pick" : "Picked")</span>).HeaderHtml("Status");
     grid.AddColumn(m => m.VwhId);
     grid.AddColumn(m => m.QualityCode);
     grid.AddColumn(m => m.AssociatedCartonId).CellHtml(@<span>@(string.Format("{0} contains SKU {1}", item.ViewData.Model.AssociatedCartonId, item.ViewData.Model.SkuInCarton))</span>);
