@@ -220,7 +220,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
                 ModelState.AddModelError("", ex.Message);
             }
             //TODO : pass building also
-            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(entity.BuildingId));
+            return RedirectToAction(MVC_CartonAreas.CartonAreas.Home.CartonArea(cam.BuildingId));
         }
 
         /// <summary>

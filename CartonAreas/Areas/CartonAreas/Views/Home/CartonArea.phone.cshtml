@@ -60,7 +60,7 @@
 </div>
 
 <div data-role="popup" id="editArea">
-    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial_phone, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel())
+    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial_phone, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel { BuildingId = Model.BuildingId })
 </div>
 
 
@@ -75,7 +75,7 @@
                     .end()
                     .find('#tbDescription').val($(this).attr('data-description'))
                     .end()
-                    .find('input:hidden').val($(this).attr('data-area'));
+                    .find('#hfAreaId').val($(this).attr('data-area'));
                 ;
             });
         });

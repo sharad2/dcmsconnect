@@ -33,6 +33,11 @@ namespace DcmsMobile.CartonAreas.ViewModels
 
         public string AreaId { get; set; }
 
+        /// <summary>
+        /// For only post value
+        /// </summary>
+        public string BuildingId { get; set; }
+
         public bool LocationNumberingFlag { get; set; }
 
         public bool IsPalletRequired { get; set; }
