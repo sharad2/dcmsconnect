@@ -3,7 +3,6 @@
     ViewBag.Title = "Buildings";
 }
 
-@Html.ValidationSummary()
 <div data-role="fieldcontain">
     <label> There are @Model.Buildings.Count Buildings.</label>
     <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditBuilding())" class="ui-btn ui-icon-plus ui-btn-icon-right">Add Building</a>
