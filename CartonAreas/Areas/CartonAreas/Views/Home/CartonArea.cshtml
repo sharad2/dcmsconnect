@@ -56,7 +56,7 @@
                             <span class="ui-icon ui-icon-pencil" title='Update area @Model.CartonAreaList[i].ShortName' style="display: inline-block; cursor: pointer;" />
                         </td>
                     </tr>
-                           
+
                 }
             </tbody>
         </table>
@@ -65,7 +65,7 @@
 
 </div>
 <div id="divUpdateAreaDialog">
-    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel())
+    @Html.Partial(MVC_CartonAreas.CartonAreas.Home.Views._updateFlagDialogPartial, new DcmsMobile.CartonAreas.ViewModels.CartonAreaModel { BuildingId = Model.BuildingId })
 </div>
 @section scripts
 {

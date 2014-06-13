@@ -3,6 +3,7 @@
 {
     <div class="designForm">
         @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
+        <input type="hidden" name="@Html.NameFor(m => m.BuildingId)" value="@Model.BuildingId" />
         @Html.LabelFor(m => m.LocationNumberingFlag)
         @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
         <br />
