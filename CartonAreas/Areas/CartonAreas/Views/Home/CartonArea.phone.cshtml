@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
-        {
+            {
                 <tr>
                     <td>
                         @Html.DisplayFor(m => m.CartonAreaList[i].ShortName)
@@ -29,13 +29,13 @@
                     </td>
                     <td>
                         @if (Model.CartonAreaList[i].LocationNumberingFlag)
-                    {
+                        {
                             <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId))">@Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)</a>
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
                             @Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations)
-                    }
+                        }
                     </td>
                     <td>
                         <span class="@(Model.CartonAreaList[i].LocationNumberingFlag ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Numbered Location"></span>
@@ -50,11 +50,11 @@
                         @Html.HiddenFor(m => m.CartonAreaList[i].AreaId)
                         <a href="#editArea" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" data-area="@Model.CartonAreaList[i].AreaId"
                            data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
-                           title='Update area @Model.CartonAreaList[i].ShortName'>
+                           data-locationnumberingflag="@Model.CartonAreaList[i].LocationNumberingFlag" title='Update area @Model.CartonAreaList[i].ShortName'>
                         </a>
                     </td>
                 </tr>
-        }
+            }
         </tbody>
     </table>
 </div>
@@ -76,7 +76,12 @@
                     .find('#tbDescription').val($(this).attr('data-description'))
                     .end()
                     .find('#hfAreaId').val($(this).attr('data-area'));
-                ;
+                if ($(this).attr('data-locationnumberingflag') == "True") {
+                    $('#cbLocationNumberingFlag').attr('CHECKED', 'checked');
+                }
+                else {
+                    $('#cbLocationNumberingFlag').removeAttr('CHECKED');
+                }
             });
         });
     </script>
