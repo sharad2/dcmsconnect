@@ -40,126 +40,150 @@
         }
     </div>
 </div>
-<div>
-    @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter) || Model.AssignedToSkuFilter != null)
+@if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter) || Model.AssignedToSkuFilter != null)
+{
+    <div style="font-size : 1.2em;">
+        Filter applied
+        @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
+        {
+            @:Location :  @Html.DisplayFor(m => m.LocationPatternFilter)
+            }
+        @if (Model.AssignedToSkuFilter != null)
+        {
+            @:Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
+            }
+        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
+    </div>
+}
+
+<table data-role="table" id="location-table" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="columntoggle" class="ui-responsive table-stroke">
+    <thead>
+        <tr class="th-groups">
+            <th rowspan="2" data-priority="4">#</th>
+            <th rowspan="2">
+                Location
+            </th>
+            <th colspan="3" data-priority="1">
+                Assigned
+            </th>
+            <th colspan="4" data-priority="3">
+                Content
+            </th>
+            <th rowspan="2" data-priority="2">
+                Change
+            </th>
+        </tr>
+        <tr>
+            <th>
+                SKU
+            </th>
+            <th>
+                Capacity(Cartons)
+            </th>
+            <th>
+                VWH
+            </th>
+            <th>
+                # Pieces
+            </th>
+            <th>
+                # Cartons
+            </th>
+            <th>
+                SKU
+            </th>
+            <th>
+                # Pallets
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.Locations.Count; i++)
+        {
+            <tr>
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Locations[i].LocationId)
+                </td>
+                <td>
+                    @if (Model.Locations[i].AssignedSku != null)
+                    {
+                        <span title="@Model.Locations[i].AssignedSku.UpcCode">
+                            @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
+                        </span>
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(m => m.Locations[i].MaxAssignedCartons)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Locations[i].AssignedVwhId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Locations[i].TotalPieces)
+                </td>
+                <td>
+                    @Model.Locations[i].PercentFull%
+                </td>
+                <td>
+                    @if (Model.Locations[i].CartonSku != null)
+                    {
+                        <span title="@Model.Locations[i].CartonSku.UpcCode">
+                            @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
+                        </span>
+                        if (Model.Locations[i].CartonSkuCount > 1)
+                        {
+                            <span class="ui-priority-primary">
+                                and @(Model.Locations[i].CartonSkuCount - 1)
+                                more
+                            </span>
+
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Locations[i].PalletCount)
+                </td>
+                <td>
+                    <a href="#assignedLoc" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>
+                    <a class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-inline"></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div data-role="popup" id="assignedLoc">
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateLocation(), FormMethod.Post, new
     {
-        <div style="font-size : 1.2em;">
-            Filter applied
-            @if (!string.IsNullOrWhiteSpace(Model.LocationPatternFilter))
-            {
-                @:Location :  @Html.DisplayFor(m => m.LocationPatternFilter)
-            }
-            @if (Model.AssignedToSkuFilter != null)
-            {
-                @:Sku :  @Html.DisplayFor(m => m.AssignedToSkuFilter.DisplaySku)
-            }
-            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.Matrix.AreaId))">Clear Filter</a>
-        </div>
-    }
-
-
-    <div>
-        <table data-role="table" id="location-table" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="columntoggle" class="ui-responsive table-stroke">
-            <thead>
-                <tr class="th-groups">
-                    <th rowspan="2" data-priority="4">#</th>
-                    <th rowspan="2">
-                        Location
-                    </th>
-                    <th colspan="3" data-priority="1">
-                        Assigned
-                    </th>
-                    <th colspan="4" data-priority="3">
-                        Content
-                    </th>
-                    <th rowspan="2" data-priority="2">
-                        Change
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        SKU
-                    </th>
-                    <th>
-                        Capacity(Cartons)
-                    </th>
-                    <th>
-                        VWH
-                    </th>
-                    <th>
-                        # Pieces
-                    </th>
-                    <th>
-                        # Cartons
-                    </th>
-                    <th>
-                        SKU
-                    </th>
-                    <th>
-                        # Pallets
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (var i = 0; i < Model.Locations.Count; i++)
-                {
-                    <tr>
-                        <td>
-                            @(i + 1)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.Locations[i].LocationId)
-                        </td>
-                        <td>
-                            @if (Model.Locations[i].AssignedSku != null)
-                            {
-                                <span title="@Model.Locations[i].AssignedSku.UpcCode">
-                                    @Html.DisplayFor(m => m.Locations[i].AssignedSku.DisplaySku)
-                                </span>
-                            }
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(m => m.Locations[i].MaxAssignedCartons)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.Locations[i].AssignedVwhId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.Locations[i].TotalPieces)
-                        </td>
-                        <td>
-                            @Model.Locations[i].PercentFull%
-                        </td>
-                        <td>
-                            @if (Model.Locations[i].CartonSku != null)
-                            {
-                                <span title="@Model.Locations[i].CartonSku.UpcCode">
-                                    @Html.DisplayFor(m => m.Locations[i].CartonSku.DisplaySku)
-                                </span>
-                                if (Model.Locations[i].CartonSkuCount > 1)
-                                {
-                                    <span class="ui-priority-primary">
-                                        and @(Model.Locations[i].CartonSkuCount - 1)
-                                        more
-                                    </span>
-
-                                }
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.Locations[i].PalletCount)
-                        </td>
-                        <td>
-                            <a class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"></a>
-                            <a class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-inline"></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        id = "frmEditLocation"
+    }))
+    {   <div class="designForm">
+        @Html.HiddenFor(m => m.AssignedSku.LocationId, new { id = "hfCurrentLocationId" })
+        <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.HiddenFor(m => m.AssignedSku.SkuId)
+        @Html.TextBoxFor(m => m.AssignedSku.SkuBarCode, new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAll())},
+         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
+         {"id", "tbSku"}
+   })<sup>&darr;*</sup>
+        <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSku.SkuBarCode)" class="sku-display"></span>
+        <br />
+        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.DropDownListFor(m => m.AssignedSku.AssignedVwhId, Model.AssignedSku.VwhList, "Please select", new { id = "tbAssignedVwh" })<sup>*</sup>
+        <br />
+        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Max Cartons <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.TextBoxFor(m => m.AssignedSku.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })<sup>*</sup>
+        <br />
+        <span id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count*@</span> cartons</span>
+        @Html.ValidationSummary()
 
     </div>
+    }
 </div>
 
 @section scripts {
