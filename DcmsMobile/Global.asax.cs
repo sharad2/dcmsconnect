@@ -50,7 +50,8 @@ namespace DcmsMobile
             // Smartphones are detected if the user agent contains one of these strings
             var phones = new[] {
                 "Android",
-                "iPhone"
+                "iPhone",
+                "iPad"
             };
 
             // Known Smart Phones will use the .phone.cshtml extension
@@ -60,6 +61,10 @@ namespace DcmsMobile
             //  Mozilla/5.0 (Linux; U; Android 4.1.2; en-gb; GT-N7000 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
             // iPhone 5 UserAgent when using Safari:
             //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
+            // iPad 2 User agent Safari
+            //   Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
+            // iPad 2 User agent Chrome
+            //   Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/35.0.1916.38 Mobile/11D201 Safari/9537.53
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
             {
                 ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
