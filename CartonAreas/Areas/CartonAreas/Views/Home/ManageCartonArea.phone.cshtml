@@ -161,28 +161,32 @@
     {
         id = "frmEditLocation"
     }))
-    {   <div class="designForm">
-        @Html.HiddenFor(m => m.AssignedSku.LocationId, new { id = "hfCurrentLocationId" })
-        <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
-        @Html.HiddenFor(m => m.AssignedSku.SkuId)
-        @Html.TextBoxFor(m => m.AssignedSku.SkuBarCode, new Dictionary<string, object>
-   {
-           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAll())},
-         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
-         {"id", "tbSku"}
-   })<sup>&darr;*</sup>
-        <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSku.SkuBarCode)" class="sku-display"></span>
-        <br />
-        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
-        @Html.DropDownListFor(m => m.AssignedSku.AssignedVwhId, Model.AssignedSku.VwhList, "Please select", new { id = "tbAssignedVwh" })<sup>*</sup>
-        <br />
-        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Max Cartons <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
-        @Html.TextBoxFor(m => m.AssignedSku.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })<sup>*</sup>
-        <br />
-        <span id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count*@</span> cartons</span>
-        @Html.ValidationSummary()
-
-    </div>
+    {
+        <div class="ui-field-contain">
+            @Html.HiddenFor(m => m.AssignedSku.LocationId, new { id = "hfCurrentLocationId" })
+            <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+            @Html.HiddenFor(m => m.AssignedSku.SkuId)
+            @Html.TextBoxFor(m => m.AssignedSku.SkuBarCode, new Dictionary<string, object>
+                                   {
+                                           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAll())},
+                                         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
+                                         {"id", "tbSku"}
+                                   })<sup>&darr;*</sup>
+            <span data-ac-msg-for="@Html.NameFor(m => m.AssignedSku.SkuBarCode)" class="sku-display"></span>
+        </div>
+        <div class="ui-field-contain">
+            <label for="tbAssignedVwh">Assigned Vwh<sup>*</sup></label>
+            @Html.DropDownListFor(m => m.AssignedSku.AssignedVwhId, Model.AssignedSku.VwhList, "Please select", new { id = "tbAssignedVwh" })
+        </div>
+        <div class="ui-field-contain">
+            <label for="tbMaxAssignedCarton">Max Cartons<sup>*</sup></label>
+            @Html.TextBoxFor(m => m.AssignedSku.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
+        </div>
+        <div class="ui-field-contain">
+            <label></label>
+            <div id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count*@</span> cartons</div>
+            @Html.ValidationSummary()
+        </div>
     }
 </div>
 
