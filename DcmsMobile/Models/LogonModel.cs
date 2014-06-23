@@ -31,7 +31,7 @@ namespace DcmsMobile.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Retype Password")]
-        [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "The passwords do not match. Please try again")]
+        [Compare("NewPassword", ErrorMessage = "The passwords do not match. Please try again")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -52,7 +52,7 @@ namespace DcmsMobile.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Retype Password")]
-        [System.Web.Mvc.Compare("NewPassword", ErrorMessage = "The passwords do not match. Please try again")]
+        [Compare("NewPassword", ErrorMessage = "The passwords do not match. Please try again")]
         [Required]
         public string ConfirmPassword { get; set; }
     }
