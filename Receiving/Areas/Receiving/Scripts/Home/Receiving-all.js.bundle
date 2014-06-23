@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="Receiving-all.js">
+  <!--The order of the <file> elements determines the order of them when bundled.-->
+  <file>/Areas/Receiving/Scripts/Home/HandleScan.partial.js</file>
+  <file>/Areas/Receiving/Scripts/Home/PalletTabs.partial.js</file>
+  <file>/Areas/Receiving/Scripts/Home/PrintCarton.partial.js</file>
+  <file>/Areas/Receiving/Scripts/Home/Receiving.partial.js</file>
+</bundle>

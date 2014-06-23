@@ -1,0 +1,79 @@
+﻿@* Contract 
+   1. CSS Class recv-carton: We get cartonId when unreceiving.
+
+*@
+@model DcmsMobile.Receiving.ViewModels.Home.PalletViewModel
+@{ 
+    var cartonCount = Model.Cartons.Count;
+    var skuCount = Model.Cartons.Select(c => c.Sku.SkuId).Distinct().Count();
+    var width = (Model.Cartons.Count * 100) / Model.PalletLimit;
+    var grid = Html.GridFor(m => m.Cartons);
+    grid.SelectedIndex = Model.SelectedCartonIndex;
+    grid.AddColumn().HeaderHtml("#").CellStyle(c => c.RowIndex == 0, "ui-state-highlight").CellHtml(@<span>@(cartonCount--)</span>);
+    grid.AddColumn(m => m.CartonId).CellHtml(@<span class="recv-carton">@item.Html.DisplayFor(m => m.CartonId)</span>);
+    grid.AddColumn(m => m.Sku.Style).HeaderHtml("SKU").HeaderStyle("centered");
+    grid.AddColumn(m => m.Sku.Color).SpanHeader();
+    grid.AddColumn(m => m.Sku.Dimension).SpanHeader();
+    grid.AddColumn(m => m.Sku.SkuSize).SpanHeader();
+    grid.AddColumn(m => m.Sku.SkuPrice).CellAttribute("style", "font-weight : bold ; text-align: right");
+    grid.AddColumn(m => m.ReceivedDate);
+    grid.AddColumn().HeaderHtml("Print").CellStyle("centered").CellHtml(@<div class="ui-icon ui-icon-print"
+        title="Print carton ticket" style="display: inline-block">
+    </div>);
+    grid.AddColumn().HeaderHtml("Remove from Pallet").CellStyle("centered").CellHtml(@<div
+        class="ui-icon ui-icon-close" title="Remove carton from pallet" style="display: inline-block">
+    </div>);                     
+}
+@helper ProgressState(int width)
+    {
+        if (width > 90)
+        {
+    @:ui-state-error
+    }
+        else if (width > 80)
+        {
+    @:ui-state-highlight
+    }
+}
+@if (this.ViewContext.RequestContext.HttpContext.Request.IsAjaxRequest() && Model.Cartons.Count >= Model.PalletLimit)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            PlaySound('warning');
+        });
+    </script>
+}
+@if (HttpContext.Current.IsDebuggingEnabled)
+{
+    <div>
+        Debug Info: @Model.QueryCount queries executed
+    </div>
+}
+<a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details" >
+    Pallet @Html.DisplayFor(m => m.PalletId) Report</a>
+@Html.StatusSummary()
+@Html.ValidationSummary()
+@if (Model.Cartons.Count > 0)
+{
+    if (@skuCount > 1)
+    { <span style="font-weight: bold; color: Red;"> Mixed Pallet(@skuCount SKUs)</span>
+    }
+    else
+    {
+    <span style="font-weight: bold; color: Blue;">Pure Pallet</span>       
+    }
+    @Html.DisplayFor(m => m.Cartons[0].DestinationArea, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.Cartons[0].VwhId, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)  
+    @Html.DisplayFor(m => m.PalletLimit, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        <div style="width: @(width > 100 ? 100 : width)%;" class="ui-progressbar-value ui-widget-header ui-corner-left @ProgressState(width)">
+        </div>
+    </div>
+    @grid.GetHtml(
+        caption: "Received Cartons Details",
+        rowStyle: "rowA",
+        alternatingRowStyle: "rowB",
+            selectedRowStyle: "ui-state-highlight"
+    )
+}
+<!--$Id$-->

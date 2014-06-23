@@ -1,0 +1,152 @@
+﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel
+@{
+    ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+<style type="text/css">
+    #processForm br {
+        line-height: 2.2em;
+    }
+
+    #processForm label {
+        display: inline-block;
+        width: 15em;
+    }
+</style>
+@section sidebar{
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
+            </span>@Html.ActionLink("Recent Process", MVC_Receiving.Receiving.Home.Index())
+        </div>
+    </div>
+}
+@using (Html.BeginForm(MVC_Receiving.Receiving.Home.EditProcess(), FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ProcessId)
+    <div id="processForm">
+        @Html.LabelFor(m => m.DestinationCartonStorageArea)
+        @Html.GroupDropListFor(m => m.ReceivingAreaId, Model.ReceivingAreasList, "(Select Any Area)", new { id = "ddlReceivingArea" })<span>*</span>
+        <br />
+        @Html.LabelFor(m => m.SpotCheckAreaId)
+        @Html.DropDownListFor(m => m.SpotCheckAreaId, Model.SpotCheckAreasList, "(Select Any Area)", new { id = "ddlSpotCheckArea", data_source_url = Url.Action(MVC_Receiving.Receiving.Home.SpotCheckAreaList("X")) })<span>*</span>
+        <br />
+        @Html.LabelFor(m => m.PriceSeasonCode)
+        @Html.DropDownListFor(m => m.PriceSeasonCode, Model.PriceSeasonCodeList, "(No Change)")
+        <br />
+        @Html.LabelFor(m => m.ExpectedCartons)
+        @Html.TextBoxFor(m => m.ExpectedCartons, new { maxlength = "5" })<span>*</span>
+        <br />
+        @Html.LabelFor(m => m.PalletLimit)
+        @Html.TextBoxFor(m => m.PalletLimit, new { maxlength = "4" })
+        <br />
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.TextBoxFor(m => m.ProNumber, new { maxlength = "25" })<span>*</span>
+        <br />
+        <label for="tbProDate">@ModelMetadata.FromLambdaExpression(m => m.ProDate, this.ViewData).DisplayName</label>
+        <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)" id="tbProDate" size="10" maxlength="10" />
+        <span>*</span>
+        <br />
+        @Html.LabelFor(m => m.CarrierId)
+        @Html.TextBoxFor(m => m.CarrierId, new
+   {
+       id = "tbCarrier",
+       size = 15,
+       maxlength = 4,
+       data_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers())
+   })
+        <sup>&darr;*</sup>
+        @Html.ValidationSummary()
+    </div>
+    if (Model.ProcessId.HasValue)
+    {
+        @Html.HiddenFor(m => m.ProcessId)
+        <input type="submit" value="Save" />
+        @Html.ActionLink("Continue without saving", MVC_Receiving.Receiving.Home.Receiving(Model.ProcessId))
+    }
+    else
+    {
+        <input type="submit" value="Create New" />
+    }
+}
+@section scripts {
+    <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input:submit').button();
+            $("#tbProDate").datepicker({
+                showOn: "button",
+                buttonImage: '@Links_Receiving.Areas.Receiving.Content.images.calendar_gif',
+                buttonImageOnly: true,
+                dateFormat: 'm/d/yy',
+                onSelect: function () { this.focus(); }
+            });
+
+            // Select SpotCheck area based on the selection of receiving area.
+            $('#ddlReceivingArea').change(function () {
+                var building = $('#ddlReceivingArea').val();
+                var items;
+                $.getJSON($('#ddlSpotCheckArea').attr('data-source-url').replace("X", building), function (data) {
+                    if (data.length != 1) {
+                        items = '<option value ="">(Please Select)</option>';
+                    }
+                    var $select = $('#ddlSpotCheckArea');
+                    $.each(data, function (i, area) {
+                        items += "<option value='" + area.Value + "'>" + area.Text + "</option>";
+                    });
+                    $select.html(items);
+                });
+            });
+
+            // The autocomplete widget must trigger th change event even if the value in the text box has not changed
+            $.widget("ui.autocomplete", $.ui.autocomplete, {
+                _change: function (event) {
+                    //if (this.previous !== this._value()) {
+                    this._trigger("change", event, { item: this.selectedItem });
+                    //}
+                },
+            });
+
+            $('#tbCarrier', this).each(function (i, elem) {
+                $(elem).autocomplete({
+                    delay: 2000,
+                    minLength: 1,
+                    source: $(elem).attr('data-url'),
+                    change: function (event, ui) {
+                        var formval = ('#processForm');
+                        var $label = $('span[data-valmsg-for=' + this.name + ']', formval)
+                            .removeClass('field-validation-valid field-validation-error')
+                            .addClass('field-validation-description')
+                            .empty();
+                        var val = $(this).val();
+                        if (!val) {
+                            // Text box is empty. No description needed
+                            $('span[data-valmsg-for=' + this.name + ']', formval).removeClass('field-validation-description').addClass('field-validation-error');
+                            return;
+                        }
+
+                        if (ui.item && ui.item.value == val) {
+                            // User chose from the list
+                            $label.text(ui.item.label);
+                            return;
+                        }
+
+                        // User scanned the UPC without selecting from list. Get description via ajax call
+                        $.getJSON($(this).autocomplete('option', 'source'), { term: val }, $.proxy(function (data) {
+                            if (data && data.length > 0 && data[0].value == this.val) {
+                                $label.text(data[0].label);
+                            } else {
+                                $label.text('Bad choice');
+                            }
+                        }, { val: val }));
+                    }
+                }).on('dblclick', function (e) {
+                    $(this).autocomplete('option', 'minLength', 0).autocomplete('search', '').autocomplete('option', 'minLength', 1);
+                });
+            });
+        });
+    </script>
+}
+<!--$Id: _processPartial.cshtml 11704 2012-01-21 06:12:33Z rkandari $-->

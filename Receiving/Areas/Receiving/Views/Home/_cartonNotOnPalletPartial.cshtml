@@ -1,0 +1,52 @@
+﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel          
+@{ 
+    var nonPalletizeCartonCount = Model.NonPalletizeCartonList.Count();
+    var rowIndex = 1;
+}
+@if (nonPalletizeCartonCount > 0)
+{ 
+    <table>
+        <thead>
+            <tr style="text-align: left; font-weight: bold; padding: 0.5em; color: #444; background-color: #acf;">
+                <th style="text-align: center">
+                    #
+                </th>
+                <th style="text-align: center">
+                    Carton
+                </th>
+                <th style="text-align: center">
+                    Vwh
+                </th>
+                <th style="text-align: center">
+                    Area
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.NonPalletizeCartonList)
+            {
+                <tr style="@(rowIndex % 2 == 0 ? "background-color: #ccc; color: inherit;" : "color: inherit;")">
+                    <td style="text-align: center">
+                        @(rowIndex)
+                    </td>
+                    <td style="text-align: center">
+                        @item.CartonId
+                    </td>
+                    <td style="text-align: center">
+                        @item.VWHId
+                    </td>
+                    <td style="text-align: center">
+                        @item.AreaId
+                    </td>
+                </tr>
+                ++rowIndex;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div id="dlgError">
+       No carton available that’s need to be palletize.
+    </div>
+}
