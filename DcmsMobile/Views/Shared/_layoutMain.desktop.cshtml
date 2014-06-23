@@ -18,13 +18,13 @@
                 {
                     foreach (var item in Model.MasterMenuItems)
                     {
-                    <li><a href="@item.Url">@item.Name</a></li>
+                        <li><a href="@item.Url">@item.Name</a></li>
                     }
                 }
-                <li><a href="@Url.Content("~/Doc/Tutorial.pptx")" target="_blank" >Tutorial</a></li>
+                <li><a href="@Url.Content("~/Doc/Tutorial.pptx")" target="_blank">Tutorial</a></li>
                 @if (ViewContext.HttpContext.Trace.IsEnabled)
                 {
-                    <li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace">Trace</a> </li>
                 }
             </ul>
         </div>
@@ -34,11 +34,11 @@
                 <div class="box">
                     <div class="boxContent ui-state-error">
                         This site is best viewed in <mark>Internet Explorer 9</mark> or higher, although IE8 and other
-                       modern browsers work well too. Your browser is old and upgrading is strongly recommended.
-                       The site may not be fully functional in your browser.
+                        modern browsers work well too. Your browser is old and upgrading is strongly recommended.
+                        The site may not be fully functional in your browser.
                     </div>
                 </div>
-                    
+
             }
             @if (ViewContext.HttpContext.IsDebuggingEnabled)
             {
@@ -71,14 +71,9 @@
             </div>
         </div>
     </div>
-    @if (ViewContext.HttpContext.Request.Browser.Browser.Trim().ToUpperInvariant() == "IE" && ViewContext.HttpContext.Request.Browser.MajorVersion <= 8)
-    {
-        <script src="@Links_DcmsMobile.Scripts.jquery_1_8_2_js"  type="text/javascript"></script>
-    }
-    else
-    { 
-        <script src="@Links_DcmsMobile.Scripts.jquery_2_0_3_js"  type="text/javascript"></script>
-    }
+
+    <script src="@Links_DcmsMobile.Scripts.jquery_2_0_3_js" type="text/javascript"></script>
+
     <script>$.uiBackCompat = false;</script>
     <script type="text/javascript" src="@Links_DcmsMobile.Scripts.jquery_ui_1_10_0_js"></script>
     <script type="text/javascript">
