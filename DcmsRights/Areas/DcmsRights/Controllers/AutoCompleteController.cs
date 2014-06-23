@@ -32,7 +32,7 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
                 int totalRecords;
                 var users = Membership.FindUsersByName("%" + term + "%", 0, int.MaxValue, out totalRecords);
                 //return Json(Mapper.Map<IEnumerable<AutocompleteItem>>(users), JsonRequestBehavior.AllowGet);
-                return Json(users.Cast<MembershipUser>().Select(p => new AutocompleteItem
+                return Json(users.Cast<MembershipUser>().Select(p => new 
                 {
                     label = p.UserName,
                     value = p.UserName
@@ -40,7 +40,7 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new[] { new AutocompleteItem {
+                return Json(new[] { new  {
                      label = ex.Message
                 }}, JsonRequestBehavior.AllowGet);
             }
