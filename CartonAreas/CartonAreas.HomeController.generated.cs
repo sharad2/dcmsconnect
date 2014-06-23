@@ -262,6 +262,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         public class ViewNames {
             public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
             public readonly string _cartonAreaLocationCountMatrixPartial = "_cartonAreaLocationCountMatrixPartial";
+            public readonly string _cartonAreaLocationCountMatrixPartial_phone = "_cartonAreaLocationCountMatrixPartial.phone";
             public readonly string _pickingAreaLocationCountMatrixPartial = "_pickingAreaLocationCountMatrixPartial";
             public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
             public readonly string _updateFlagDialogPartial_phone = "_updateFlagDialogPartial.phone";
@@ -272,6 +273,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
             public readonly string Index = "Index";
             public readonly string Index_phone = "Index.phone";
             public readonly string ManageCartonArea = "ManageCartonArea";
+            public readonly string ManageCartonArea_phone = "ManageCartonArea.phone";
             public readonly string ManagePickingArea = "ManagePickingArea";
             public readonly string PickingArea = "PickingArea";
             public readonly string Tutorial = "Tutorial";

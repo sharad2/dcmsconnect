@@ -186,6 +186,7 @@ namespace Links_CartonAreas {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _assignSkuDialogPartial_cshtml = Url("_assignSkuDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_assignSkuDialogPartial.cshtml");
                     public static readonly string _cartonAreaLocationCountMatrixPartial_cshtml = Url("_cartonAreaLocationCountMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonAreaLocationCountMatrixPartial.cshtml");
+                    public static readonly string _cartonAreaLocationCountMatrixPartial_phone_cshtml = Url("_cartonAreaLocationCountMatrixPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonAreaLocationCountMatrixPartial.phone.cshtml");
                     public static readonly string _pickingAreaLocationCountMatrixPartial_cshtml = Url("_pickingAreaLocationCountMatrixPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_pickingAreaLocationCountMatrixPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_cshtml = Url("_updateFlagDialogPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.cshtml");
                     public static readonly string _updateFlagDialogPartial_phone_cshtml = Url("_updateFlagDialogPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_updateFlagDialogPartial.phone.cshtml");
@@ -196,6 +197,7 @@ namespace Links_CartonAreas {
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                     public static readonly string Index_phone_cshtml = Url("Index.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.phone.cshtml");
                     public static readonly string ManageCartonArea_cshtml = Url("ManageCartonArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonArea.cshtml");
+                    public static readonly string ManageCartonArea_phone_cshtml = Url("ManageCartonArea.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManageCartonArea.phone.cshtml");
                     public static readonly string ManagePickingArea_cshtml = Url("ManagePickingArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ManagePickingArea.cshtml");
                     public static readonly string PickingArea_cshtml = Url("PickingArea.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/PickingArea.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");
