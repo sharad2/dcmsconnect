@@ -430,8 +430,6 @@
     <Content Include="Global.asax" />
     <None Include="DcmsMobile\Scripts\mobile.partial.js" />
     <Content Include="MvcDiagnostics.aspx" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
