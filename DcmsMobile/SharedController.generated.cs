@@ -29,8 +29,6 @@ namespace T4MVC {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string _layoutMain = "_layoutMain";
-            public readonly string _layoutMain_desktop = "_layoutMain.desktop";
-            public readonly string _layoutMain_Mobile = "_layoutMain.Mobile";
             public readonly string _soundPartial = "_soundPartial";
         }
     }

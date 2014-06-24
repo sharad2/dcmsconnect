@@ -394,31 +394,10 @@
     <Content Include="DcmsMobile\Content\Images\a1.gif" />
     <Content Include="DcmsMobile\Content\Images\MFLogo.jpg" />
     <Content Include="DcmsMobile\Content\Images\wifi.jpg" />
-    <Content Include="DcmsMobile\Content\SiteMobile.css" />
     <Content Include="DcmsMobile\Content\Sounds\Error.wav" />
-    <Content Include="DcmsMobile\Content\Site.css" />
     <Content Include="DcmsMobile\Content\Sounds\warning.wav" />
     <Content Include="DcmsMobile\Content\Sounds\success.wav" />
-    <Content Include="DcmsMobile\Content\standardized.css" />
     <Content Include="Content\themes\Start1.10.0\Stylesheets.chirp.config" />
-    <Content Include="DcmsMobile\Scripts\launcher-desktop.min.js">
-      <DependentUpon>launcher-desktop.js</DependentUpon>
-    </Content>
-    <Content Include="DcmsMobile\Scripts\launcher-desktop.min.js.map">
-      <DependentUpon>launcher-desktop.js</DependentUpon>
-    </Content>
-    <None Include="DcmsMobile\Scripts\launcher-mobile.js.bundle" />
-    <Content Include="DcmsMobile\Scripts\launcher-mobile.min.js.map">
-      <DependentUpon>launcher-mobile.js.bundle</DependentUpon>
-    </Content>
-    <None Include="DcmsMobile\Scripts\RedirectToChoice.partial.js" />
-    <Content Include="DcmsMobile\Scripts\launcher-desktop.js" />
-    <Content Include="DcmsMobile\Scripts\launcher-mobile.js">
-      <DependentUpon>launcher-mobile.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="DcmsMobile\Scripts\launcher-mobile.min.js">
-      <DependentUpon>launcher-mobile.js.bundle</DependentUpon>
-    </Content>
     <Content Include="Doc\Tutorial.pptx" />
     <None Include="Doc\Steps to make a new App.txt" />
     <None Include="DcmsMobile.Publish.xml">
@@ -428,7 +407,6 @@
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Steps to publish a pluggable app.txt" />
     <Content Include="Global.asax" />
-    <None Include="DcmsMobile\Scripts\mobile.partial.js" />
     <Content Include="MvcDiagnostics.aspx" />
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
@@ -453,13 +431,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_layoutMain.Mobile.cshtml" />
-    <Content Include="Views\Shared\_layoutMain.desktop.cshtml" />
     <Content Include="Views\Diagnostic\Email.cshtml" />
-    <Content Include="Views\Home\Launcher.Mobile.cshtml" />
     <Content Include="Views\Logon\GetNewPassword.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\Search.mobile.cshtml" />
     <Content Include="Views\Home\RcLauncher.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
     <None Include="T4MVC.tt">
@@ -467,9 +441,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Scripts\jquery-2.0.3.min.map" />
-    <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.t4" />
-    <Content Include="Views\Home\RcLauncher.Mobile.cshtml" />
     <Content Include="Views\Home\Launcher.cshtml" />
     <Content Include="Views\Shared\_layoutMain.cshtml" />
     <Content Include="Views\Logon\Index.phone.cshtml" />
@@ -494,16 +466,10 @@
     <Content Include="Views\Diagnostic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Logon\Index.Mobile.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_soundPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Launcher.desktop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />

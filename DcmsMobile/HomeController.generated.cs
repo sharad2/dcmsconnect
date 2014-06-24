@@ -99,12 +99,8 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string Launcher = "Launcher";
-            public readonly string Launcher_desktop = "Launcher.desktop";
-            public readonly string Launcher_Mobile = "Launcher.Mobile";
             public readonly string RcLauncher = "RcLauncher";
-            public readonly string RcLauncher_Mobile = "RcLauncher.Mobile";
             public readonly string Search = "Search";
-            public readonly string Search_mobile = "Search.mobile";
         }
     }
 

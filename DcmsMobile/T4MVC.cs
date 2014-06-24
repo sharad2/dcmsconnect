@@ -264,10 +264,6 @@ namespace Links_DcmsMobile {
                 public static readonly string wifi_jpg = Url("wifi.jpg");
             }
         
-            public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
-                 
-            public static readonly string SiteMobile_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.min.css") ? Url("SiteMobile.min.css") : Url("SiteMobile.css");
-                 
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Sounds {
                 private const string URLPATH = "~/DcmsMobile/Content/Sounds";
@@ -278,23 +274,6 @@ namespace Links_DcmsMobile {
                 public static readonly string warning_wav = Url("warning.wav");
             }
         
-            public static readonly string standardized_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.min.css") ? Url("standardized.min.css") : Url("standardized.css");
-                 
-        }
-    
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Scripts {
-            private const string URLPATH = "~/DcmsMobile/Scripts";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string launcher_desktop_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/launcher-desktop.min.js") ? Url("launcher-desktop.min.js") : Url("launcher-desktop.js");
-                          
-            public static readonly string launcher_mobile_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/launcher-mobile.min.js") ? Url("launcher-mobile.min.js") : Url("launcher-mobile.js");
-                          
-            public static readonly string mobile_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/mobile.partial.min.js") ? Url("mobile.partial.min.js") : Url("mobile.partial.js");
-                          
-            public static readonly string RedirectToChoice_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RedirectToChoice.partial.min.js") ? Url("RedirectToChoice.partial.min.js") : Url("RedirectToChoice.partial.js");
-                          
         }
     
     }
