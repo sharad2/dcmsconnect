@@ -24,16 +24,16 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             this.CreateProcess = new ReceivingProcessModel();
         }
 
-        private IEnumerable<ReceivingProcessModel> _recentProcesses;
+        private IList<ReceivingProcessModel> _recentProcesses;
 
         /// <summary>
         /// This will never be null
         /// </summary>
-        public IEnumerable<ReceivingProcessModel> RecentProcesses
+        public IList<ReceivingProcessModel> RecentProcesses
         {
             get
             {
-                return _recentProcesses ?? Enumerable.Empty<ReceivingProcessModel>();
+                return _recentProcesses ?? new ReceivingProcessModel[0];
             }
             set
             {

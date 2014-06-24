@@ -137,7 +137,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             var ivm = new IndexViewModel
              {
-                 RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p))
+                 RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
              };
             return View(Views.Index, ivm);
         }
@@ -318,7 +318,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var ivm = new IndexViewModel
                           {
                               SelectProcess = info,
-                              RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p))
+                              RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
                           };
 
             return View(Views.Index, ivm);

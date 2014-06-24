@@ -64,9 +64,16 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 if (ReceivingEndDate != null && ReceivingStartDate != null)
                 {
                     var interval = ReceivingEndDate.Value.Subtract(ReceivingStartDate.Value).Duration();
-                    return string.Format("{0}:{1}:{2} Hours", (int)interval.TotalHours, interval.Minutes, interval.Seconds);
+                    if (interval.TotalDays > 1)
+                    {
+                        return string.Format("{0:N0} days", interval.TotalDays);
+                    }
+                    else
+                    {
+                        return string.Format("{0:N0} hrs", interval.TotalHours);
+                    }
                 }
-                return new TimeSpan().ToString();
+                return string.Empty;
             }
         }
 

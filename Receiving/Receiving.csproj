@@ -184,6 +184,8 @@
     </Content>
     <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
     <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.phone.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Receiving.desktop.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Index.phone.cshtml" />
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\Receiving\Content\Autocomplete.partial.css" />
     <Content Include="Areas\Receiving\Content\images\ajax-loader.gif" />
@@ -302,7 +304,7 @@
   <ItemGroup>
     <None Include="Areas\Receiving\Scripts\Home\HandleScan.partial.js" />
     <Content Include="Areas\Receiving\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Receiving.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Receiving.phone.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Tutorial.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\_palletPartial.cshtml" />
     <Content Include="Areas\Receiving\Views\Web.config">
