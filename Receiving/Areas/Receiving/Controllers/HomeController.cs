@@ -378,7 +378,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var pallets = _service.GetPalletsOfProcess(processId.Value);
 
             rvm.Pallets = pallets.Select(p => Map(p)).ToArray();
-            if (rvm.Pallets.Length > 0)
+            if (rvm.Pallets.Count > 0)
             {
                 // Make first pallet the active pallet
                 rvm.ScanModel.PalletId = rvm.Pallets[0].PalletId;

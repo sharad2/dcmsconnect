@@ -1,0 +1,55 @@
+﻿@model DcmsMobile.Receiving.ViewModels.Home.PalletViewModel
+@{ 
+    var cartonCount = Model.Cartons.Count;
+    var x = Model.Cartons.Take(10);
+    Model.Cartons = x.ToList();
+    var rowIndex = 0;
+}
+
+@if (Model.Cartons.Count > 0)
+{
+    @Html.DisplayFor(m => m.Cartons[0].DestinationArea, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.Cartons[0].VwhId, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+
+    <table>
+        <caption>
+            <header>Recently Received Cartons</header>
+        </caption>
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Carton
+                </th>
+                <th colspan="3" style="text-align: center">
+                    SKU
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cartons)
+            {
+                <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                    <td>
+                        @(cartonCount--)
+                    </td>
+                    <td>
+                        @item.CartonId
+                    </td>
+                    <td style="white-space: nowrap">
+                        <span>
+                            @item.Sku.Style,
+                            @item.Sku.Color,
+                            @item.Sku.Dimension,
+                            @item.Sku.SkuSize
+                        </span>
+                    </td>
+                </tr>
+                ++rowIndex;
+            }
+        </tbody>
+    </table>
+}
+<!--$Id$-->

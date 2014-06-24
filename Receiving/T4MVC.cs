@@ -75,15 +75,15 @@ namespace Links_Receiving {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js") : Url("jquery-2.0.3.js");
+        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js") : Url("jquery-2.0.3.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js");
                       
-        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
+        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js") : Url("jquery-ui-1.10.0.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
                       
-        public static readonly string jquery_mobile_1_4_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.js") ? Url("jquery.mobile-1.4.2.min.js") : Url("jquery.mobile-1.4.2.js");
+        public static readonly string jquery_mobile_1_4_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.js") ? Url("jquery.mobile-1.4.2.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.mobile-1.4.2.js") : Url("jquery.mobile-1.4.2.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.mobile-1.4.2.js");
                       
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
+        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js") : Url("jquery.validate.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.js");
                       
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
+        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
                       
     }
 
@@ -92,7 +92,7 @@ namespace Links_Receiving {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string jquery_mobile_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.css") ? Url("jquery.mobile-1.4.2.min.css") : Url("jquery.mobile-1.4.2.css");
+        public static readonly string jquery_mobile_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.css") ? Url("jquery.mobile-1.4.2.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.mobile-1.4.2.css") : Url("jquery.mobile-1.4.2.css")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery.mobile-1.4.2.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class themes {
@@ -111,7 +111,7 @@ namespace Links_Receiving {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }
             
-                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
+                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui.min.css");
             }
         
         }
@@ -133,43 +133,43 @@ namespace Links_Receiving {
                 private const string URLPATH = "~/Areas/Receiving/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Guided_Receiving_pps = Url("Guided Receiving.pps");
+                public static readonly string Guided_Receiving_pps = Url("Guided Receiving.pps")+"?"+T4Extensions.TimestampString(URLPATH + "/Guided Receiving.pps");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
                     private const string URLPATH = "~/Areas/Receiving/Content/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
-                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
-                    public static readonly string calendar_gif = Url("calendar.gif");
+                    public static readonly string a1_gif = Url("a1.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/a1.gif");
+                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/ajax-loader.gif");
+                    public static readonly string calendar_gif = Url("calendar.gif")+"?"+T4Extensions.TimestampString(URLPATH + "/calendar.gif");
                 }
             
-                public static readonly string Receiving_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.css") ? Url("Receiving-all.min.css") : Url("Receiving-all.css");
+                public static readonly string Receiving_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.css") ? Url("Receiving-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-all.css") : Url("Receiving-all.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-all.css");
                      
-                public static readonly string Receiving_all_min_css = Url("Receiving-all.min.css");
-                public static readonly string Receiving_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-mobile-all.min.css") ? Url("Receiving-mobile-all.min.css") : Url("Receiving-mobile-all.css");
+                public static readonly string Receiving_all_min_css = Url("Receiving-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-all.min.css");
+                public static readonly string Receiving_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-mobile-all.min.css") ? Url("Receiving-mobile-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-mobile-all.css") : Url("Receiving-mobile-all.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-mobile-all.css");
                      
-                public static readonly string Receiving_mobile_all_min_css = Url("Receiving-mobile-all.min.css");
+                public static readonly string Receiving_mobile_all_min_css = Url("Receiving-mobile-all.min.css")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-mobile-all.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Receiving/Content/Sounds";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _1_mp3 = Url("1.mp3");
-                    public static readonly string _10_mp3 = Url("10.mp3");
-                    public static readonly string _2_mp3 = Url("2.mp3");
-                    public static readonly string _3_mp3 = Url("3.mp3");
-                    public static readonly string _4_mp3 = Url("4.mp3");
-                    public static readonly string _5_mp3 = Url("5.mp3");
-                    public static readonly string _6_mp3 = Url("6.mp3");
-                    public static readonly string _7_mp3 = Url("7.mp3");
-                    public static readonly string _8_mp3 = Url("8.mp3");
-                    public static readonly string _9_mp3 = Url("9.mp3");
-                    public static readonly string error_wav = Url("error.wav");
-                    public static readonly string PalletChange_wav = Url("PalletChange.wav");
-                    public static readonly string palletscan_wav = Url("palletscan.wav");
-                    public static readonly string scan_wav = Url("scan.wav");
-                    public static readonly string warning_wav = Url("warning.wav");
+                    public static readonly string _1_mp3 = Url("1.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/1.mp3");
+                    public static readonly string _10_mp3 = Url("10.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/10.mp3");
+                    public static readonly string _2_mp3 = Url("2.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/2.mp3");
+                    public static readonly string _3_mp3 = Url("3.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/3.mp3");
+                    public static readonly string _4_mp3 = Url("4.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/4.mp3");
+                    public static readonly string _5_mp3 = Url("5.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/5.mp3");
+                    public static readonly string _6_mp3 = Url("6.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/6.mp3");
+                    public static readonly string _7_mp3 = Url("7.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/7.mp3");
+                    public static readonly string _8_mp3 = Url("8.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/8.mp3");
+                    public static readonly string _9_mp3 = Url("9.mp3")+"?"+T4Extensions.TimestampString(URLPATH + "/9.mp3");
+                    public static readonly string error_wav = Url("error.wav")+"?"+T4Extensions.TimestampString(URLPATH + "/error.wav");
+                    public static readonly string PalletChange_wav = Url("PalletChange.wav")+"?"+T4Extensions.TimestampString(URLPATH + "/PalletChange.wav");
+                    public static readonly string palletscan_wav = Url("palletscan.wav")+"?"+T4Extensions.TimestampString(URLPATH + "/palletscan.wav");
+                    public static readonly string scan_wav = Url("scan.wav")+"?"+T4Extensions.TimestampString(URLPATH + "/scan.wav");
+                    public static readonly string warning_wav = Url("warning.wav")+"?"+T4Extensions.TimestampString(URLPATH + "/warning.wav");
                 }
             
             }
@@ -186,14 +186,14 @@ namespace Links_Receiving {
                 private const string URLPATH = "~/Areas/Receiving/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string AutoComplete_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.min.js") ? Url("AutoComplete.min.js") : Url("AutoComplete.js");
+                public static readonly string AutoComplete_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.min.js") ? Url("AutoComplete.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/AutoComplete.js") : Url("AutoComplete.js")+"?"+T4Extensions.TimestampString(URLPATH + "/AutoComplete.js");
                               
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/Receiving/Scripts/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Receiving_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.js") ? Url("Receiving-all.min.js") : Url("Receiving-all.js");
+                    public static readonly string Receiving_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.js") ? Url("Receiving-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-all.js") : Url("Receiving-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving-all.js");
                                   
                 }
             
@@ -202,7 +202,7 @@ namespace Links_Receiving {
                     private const string URLPATH = "~/Areas/Receiving/Scripts/Rad";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Rad_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Rad-all.min.js") ? Url("Rad-all.min.js") : Url("Rad-all.js");
+                    public static readonly string Rad_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Rad-all.min.js") ? Url("Rad-all.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Rad-all.js") : Url("Rad-all.js")+"?"+T4Extensions.TimestampString(URLPATH + "/Rad-all.js");
                                   
                 }
             
@@ -213,22 +213,24 @@ namespace Links_Receiving {
                 private const string URLPATH = "~/Areas/Receiving/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml");
+                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_ViewStart.cshtml");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/Receiving/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _cartonNotOnPalletPartial_cshtml = Url("_cartonNotOnPalletPartial.cshtml");
-                    public static readonly string _palletPartial_cshtml = Url("_palletPartial.cshtml");
-                    public static readonly string _palletPartial_Mobile_cshtml = Url("_palletPartial.Mobile.cshtml");
-                    public static readonly string CreateProcess_cshtml = Url("CreateProcess.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
-                    public static readonly string Index_Mobile_cshtml = Url("Index.Mobile.cshtml");
-                    public static readonly string Receiving_cshtml = Url("Receiving.cshtml");
-                    public static readonly string Receiving_Mobile_cshtml = Url("Receiving.Mobile.cshtml");
-                    public static readonly string ShipmentList_cshtml = Url("ShipmentList.cshtml");
-                    public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml");
+                    public static readonly string _cartonNotOnPalletPartial_cshtml = Url("_cartonNotOnPalletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonNotOnPalletPartial.cshtml");
+                    public static readonly string _palletPartial_cshtml = Url("_palletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.cshtml");
+                    public static readonly string _palletPartial_Mobile_cshtml = Url("_palletPartial.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.Mobile.cshtml");
+                    public static readonly string CreateProcess_cshtml = Url("CreateProcess.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateProcess.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
+                    public static readonly string Index_Mobile_cshtml = Url("Index.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.Mobile.cshtml");
+                    public static readonly string Index_phone_cshtml = Url("Index.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.phone.cshtml");
+                    public static readonly string Receiving_cshtml = Url("Receiving.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.cshtml");
+                    public static readonly string Receiving_Mobile_cshtml = Url("Receiving.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.Mobile.cshtml");
+                    public static readonly string Receiving_phone_cshtml = Url("Receiving.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.phone.cshtml");
+                    public static readonly string ShipmentList_cshtml = Url("ShipmentList.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ShipmentList.cshtml");
+                    public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -236,10 +238,10 @@ namespace Links_Receiving {
                     private const string URLPATH = "~/Areas/Receiving/Views/Rad";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _addSpotCheckPartial_cshtml = Url("_addSpotCheckPartial.cshtml");
-                    public static readonly string _editSpotCheckPartial_cshtml = Url("_editSpotCheckPartial.cshtml");
-                    public static readonly string _spotCheckListPartial_cshtml = Url("_spotCheckListPartial.cshtml");
-                    public static readonly string Index_cshtml = Url("Index.cshtml");
+                    public static readonly string _addSpotCheckPartial_cshtml = Url("_addSpotCheckPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_addSpotCheckPartial.cshtml");
+                    public static readonly string _editSpotCheckPartial_cshtml = Url("_editSpotCheckPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_editSpotCheckPartial.cshtml");
+                    public static readonly string _spotCheckListPartial_cshtml = Url("_spotCheckListPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_spotCheckListPartial.cshtml");
+                    public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -247,15 +249,15 @@ namespace Links_Receiving {
                     private const string URLPATH = "~/Areas/Receiving/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _layoutReceiving_cshtml = Url("_layoutReceiving.cshtml");
-                    public static readonly string _layoutReceiving_Mobile_cshtml = Url("_layoutReceiving.Mobile.cshtml");
-                    public static readonly string _layoutReceiving_phone_cshtml = Url("_layoutReceiving.phone.cshtml");
+                    public static readonly string _layoutReceiving_cshtml = Url("_layoutReceiving.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.cshtml");
+                    public static readonly string _layoutReceiving_Mobile_cshtml = Url("_layoutReceiving.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.Mobile.cshtml");
+                    public static readonly string _layoutReceiving_phone_cshtml = Url("_layoutReceiving.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.phone.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/Receiving/Views/Shared/DisplayTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string ValueWithShortName_cshtml = Url("ValueWithShortName.cshtml");
+                        public static readonly string ValueWithShortName_cshtml = Url("ValueWithShortName.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ValueWithShortName.cshtml");
                     }
                 
                 }

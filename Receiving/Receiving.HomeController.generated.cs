@@ -49,11 +49,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult SelectProcess() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.SelectProcess);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public System.Web.Mvc.ActionResult Receiving() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Receiving);
         }
@@ -120,7 +115,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
             public readonly string Index = "Index";
             public readonly string CreateProcess = "CreateProcess";
             public readonly string EditProcess = "EditProcess";
-            public readonly string SelectProcess = "SelectProcess";
             public readonly string Receiving = "Receiving";
             public readonly string Tutorial = "Tutorial";
             public readonly string HandleScan = "HandleScan";
@@ -140,7 +134,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
             public const string Index = "Index";
             public const string CreateProcess = "CreateProcess";
             public const string EditProcess = "EditProcess";
-            public const string SelectProcess = "SelectProcess";
             public const string Receiving = "Receiving";
             public const string Tutorial = "Tutorial";
             public const string HandleScan = "HandleScan";
@@ -169,13 +162,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_EditProcess {
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_SelectProcess s_params_SelectProcess = new ActionParamsClass_SelectProcess();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SelectProcess SelectProcessParams { get { return s_params_SelectProcess; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SelectProcess {
-            public readonly string info = "SelectProcess";
         }
         static readonly ActionParamsClass_Receiving s_params_Receiving = new ActionParamsClass_Receiving();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -262,8 +248,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
             public readonly string CreateProcess = "CreateProcess";
             public readonly string Index = "Index";
             public readonly string Index_Mobile = "Index.Mobile";
+            public readonly string Index_phone = "Index.phone";
             public readonly string Receiving = "Receiving";
             public readonly string Receiving_Mobile = "Receiving.Mobile";
+            public readonly string Receiving_phone = "Receiving.phone";
             public readonly string ShipmentList = "ShipmentList";
             public readonly string Tutorial = "Tutorial";
         }
@@ -287,12 +275,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         public override System.Web.Mvc.ActionResult EditProcess(DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditProcess);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult SelectProcess(DcmsMobile.Receiving.ViewModels.Home.SelectProcessModel info) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SelectProcess);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "SelectProcess", info);
             return callInfo;
         }
 
