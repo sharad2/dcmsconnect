@@ -15,6 +15,17 @@
         });
     </script>
     <script src="@Links_Receiving.Scripts.jquery_mobile_1_4_2_js"></script>
+    <style type="text/css">
+        .validation-summary-errors {
+            color: Red;
+        }
+
+        .ui-state-highlight {
+            border: 1px solid #fcd113;
+            background: #f8da4e;
+            color: #915608;
+        }
+    </style>
     @RenderSection("scripts", false)
 </head>
 <body>
@@ -33,9 +44,9 @@
         <section data-role="content">
             <aside>
                 @*<form action="Sharad" method="get" class="ui-field-contain">
-                    <label>Search DCMS</label>
-                    <input type="search" placeholder="Scan something" name="@MVC_Inquiry.Inquiry.Home.IndexParams.id" autofocus="autofocus" />
-                </form>*@
+                        <label>Search DCMS</label>
+                        <input type="search" placeholder="Scan something" name="@MVC_Inquiry.Inquiry.Home.IndexParams.id" autofocus="autofocus" />
+                    </form>*@
                 @Html.StatusSummary()
                 @Html.ValidationSummary()
             </aside>
@@ -43,7 +54,7 @@
         </section>
         <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
             <ul data-role="listview" data-inset="true">
-                @RenderSection("headerrightbuttons", false)
+                <li><a href="@Url.Content(Links_Receiving.Areas.Receiving.Content.Guided_Receiving_pps)">Tutorial (PPT)</a></li>
                 <li><a href="@(Url.Content("~/Logon"))">Login</a></li>
                 <li data-icon="home"><a href="@Url.Content("~")">DCMS Connect</a></li>
 
@@ -54,11 +65,11 @@
             </ul>
         </div>
         @*<div data-role="popup" id="searchlayout">
-            <form action="@Url.Action(MVC_Inquiry.Inquiry.Home.Index())" method="get">
-                <label>Search DCMS</label>
-                <input type="search" placeholder="Scan something" name="@MVC_Inquiry.Inquiry.Home.IndexParams.id" autofocus="autofocus" />
-            </form>
-        </div>*@
+                <form action="@Url.Action(MVC_Inquiry.Inquiry.Home.Index())" method="get">
+                    <label>Search DCMS</label>
+                    <input type="search" placeholder="Scan something" name="@MVC_Inquiry.Inquiry.Home.IndexParams.id" autofocus="autofocus" />
+                </form>
+            </div>*@
     </div>
     @*Can add capability to render other pages here*@
 </body>

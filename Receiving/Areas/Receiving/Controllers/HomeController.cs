@@ -309,6 +309,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// </para>
         /// </remarks>
         [HttpPost]
+        [Obsolete]
         public virtual ActionResult SelectProcess([Bind(Prefix = "SelectProcess")] SelectProcessModel info)
         {
             if (ModelState.IsValid)
