@@ -65,7 +65,7 @@
                 <p>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</p>
                 <span class="ui-li-count">
                     @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
-                    ctn 6 pallets
+                    ctn @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
                 </span>
             </a>
         </li>
