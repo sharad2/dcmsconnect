@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/Receiving/Scripts/Rad/ListEdit.partial.js
+/// <reference path="../../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 /*
@@ -269,6 +270,7 @@ $(document).ready(function () {
 
 
 //$Id: ListEdit.partial.js 21155 2013-06-11 11:29:45Z rverma $
+///#source 1 1 /Areas/Receiving/Scripts/AutoComplete.js
 /*
 *This file is used in RAD module.
 */
@@ -420,6 +422,3 @@ $.validator.setDefaults({
 $(document).ready(function () {
     $("input[data-ac-list-url]").autocompleteEx();
 });
-
-
-

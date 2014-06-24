@@ -183,6 +183,7 @@
       <DependentUpon>Rad-all.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
+    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.phone.cshtml" />
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\Receiving\Content\Autocomplete.partial.css" />
     <Content Include="Areas\Receiving\Content\images\ajax-loader.gif" />
@@ -242,6 +243,7 @@
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
     <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
+    <Content Include="Content\jquery.mobile-1.4.2.css" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Receiving.pubxml" />
@@ -256,11 +258,12 @@
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="Scripts\jquery-1.8.2.js" />
-    <None Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
-    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
     <Content Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>

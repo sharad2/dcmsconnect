@@ -30,6 +30,7 @@ namespace T4MVC.Receiving {
         public class ViewNames {
             public readonly string _layoutReceiving = "_layoutReceiving";
             public readonly string _layoutReceiving_Mobile = "_layoutReceiving.Mobile";
+            public readonly string _layoutReceiving_phone = "_layoutReceiving.phone";
             static readonly _DisplayTemplates s_DisplayTemplates = new _DisplayTemplates();
             public _DisplayTemplates DisplayTemplates { get { return s_DisplayTemplates; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

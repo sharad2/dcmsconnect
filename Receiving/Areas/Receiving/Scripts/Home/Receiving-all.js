@@ -1,4 +1,5 @@
-﻿/// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/Receiving/Scripts/Home/HandleScan.partial.js
+/// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="~/Areas/Receiving/Scripts/Home/Receiving.partial.js" />
 /// Contract with home controller.
 /// The outcome is indicated by an appropriate status code within the 200 range
@@ -275,6 +276,7 @@
 })(jQuery);
 
 //$Id: HandleScan.partial.js 23873 2014-04-24 10:00:11Z dbhatt $
+///#source 1 1 /Areas/Receiving/Scripts/Home/PalletTabs.partial.js
 /// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="~/Areas/Receiving/Scripts/Home/ReceivingCore.partial.js" />
 /// <reference path="~/Areas/Receiving/Scripts/Home/Receiving.partial.js" />
@@ -364,6 +366,7 @@ $(document).ready(function () {
 
 
 //$Id: PalletTabs.partial.js 23873 2014-04-24 10:00:11Z dbhatt $
+///#source 1 1 /Areas/Receiving/Scripts/Home/PrintCarton.partial.js
 ///<reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 ///<reference path="~/Areas/Receiving/Scripts/Home/ReceivingCore.partial.js" />
 ///Print Carton ticket dialog
@@ -462,6 +465,7 @@ $(document).ready(function () {
 
 
 //$Id: $
+///#source 1 1 /Areas/Receiving/Scripts/Home/Receiving.partial.js
 $(document).ready(function () {
     // Function trigger on user enter on scan textbox.
     // Set initial focus on scan text box
