@@ -193,7 +193,9 @@
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
