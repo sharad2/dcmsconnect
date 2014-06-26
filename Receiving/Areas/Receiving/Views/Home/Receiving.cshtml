@@ -176,7 +176,7 @@ Reviewed by: Deepak Bhatt 10th August 2011.
 </div>
 </form>
 <div class="widget-container">
-    <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Length == 0 ? "ui-helper-hidden" : "")">
+    <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Count == 0 ? "ui-helper-hidden" : "")">
         <ul>
             @foreach (var pallet in Model.Pallets)
             {

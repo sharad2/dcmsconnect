@@ -21,7 +21,8 @@
     }
 }
 @*@Html.ValidationSummary()*@
-<bgsound src="@sound" loop="1" />
+@*<bgsound src="@sound" loop="1" />*@
+<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
     <div>
@@ -48,6 +49,7 @@
                 <text>
                     [@Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
                     [@Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
+                    (@Model.Pallets[i].Cartons.Count)
                 </text>
             }
             else
@@ -62,10 +64,6 @@
     </div>
 }
 
-@*@if (Model.Pallets.Count > 0)
-    {
-        @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[0])
-    }*@
 
 
 

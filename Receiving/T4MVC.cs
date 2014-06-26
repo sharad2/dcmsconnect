@@ -222,6 +222,7 @@ namespace Links_Receiving {
                     public static readonly string _cartonNotOnPalletPartial_cshtml = Url("_cartonNotOnPalletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonNotOnPalletPartial.cshtml");
                     public static readonly string _palletPartial_cshtml = Url("_palletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.cshtml");
                     public static readonly string _palletPartial_Mobile_cshtml = Url("_palletPartial.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.Mobile.cshtml");
+                    public static readonly string _palletPartial_phone_cshtml = Url("_palletPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.phone.cshtml");
                     public static readonly string CreateProcess_cshtml = Url("CreateProcess.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateProcess.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
                     public static readonly string Index_Mobile_cshtml = Url("Index.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.Mobile.cshtml");

@@ -245,6 +245,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
             public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
             public readonly string _palletPartial = "_palletPartial";
             public readonly string _palletPartial_Mobile = "_palletPartial.Mobile";
+            public readonly string _palletPartial_phone = "_palletPartial.phone";
             public readonly string CreateProcess = "CreateProcess";
             public readonly string Index = "Index";
             public readonly string Index_Mobile = "Index.Mobile";
