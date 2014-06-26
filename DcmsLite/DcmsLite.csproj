@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{4976D91D-666B-481B-BFB7-538ECC34A6F8}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DcmsMobile.DcmsLite</RootNamespace>
@@ -182,7 +182,9 @@
     </Content>
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
-    <None Include="Areas\DcmsLite\Content\DcmsLite-all.css.bundle" />
+    <None Include="Areas\DcmsLite\Content\DcmsLite-all.css.bundle">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Areas\DcmsLite\Content\standardized.partial.css" />
     <None Include="Areas\DcmsLite\Content\DcmsLite.partial.css" />
     <Content Include="Areas\DcmsLite\Content\images\ajax-loader.gif" />
