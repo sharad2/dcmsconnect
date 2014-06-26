@@ -81,7 +81,7 @@ namespace DcmsMobile.Models
                                    PlatformFlags.DesktopOptimized : PlatformFlags.Default),
                                 AreaName = area.AreaName,
                                 Order = displayAttr.GetOrder() ?? 0,
-                                ScanUrlFormatString = displayFormatAttr == null ? string.Empty : displayFormatAttr.DataFormatString,
+                                //ScanUrlFormatString = displayFormatAttr == null ? string.Empty : displayFormatAttr.DataFormatString,
                                 ChangeLog = attrProduct == null ? string.Empty : attrProduct.Product,
                                 PostDate = System.IO.File.GetCreationTime(assembly.Location),
                                 ShortName = displayAttr.ShortName,
@@ -233,6 +233,7 @@ namespace DcmsMobile.Models
         /// <summary>
         /// If provided, unrecognized menu choices are passed to this URL
         /// </summary>
+        [Obsolete]
         internal string ScanUrlFormatString { get; set; }
 
         /// <summary>

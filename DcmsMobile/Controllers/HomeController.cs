@@ -88,12 +88,12 @@ namespace DcmsMobile.Controllers
                     return ar;
                 }
 
-                var handler = AreaItem.Areas.FirstOrDefault(p => !string.IsNullOrEmpty(p.ScanUrlFormatString));
-                if (handler != null)
-                {
-                    // This means that Inquiry is installed and we will pass the choice to Inquiry
-                    return Redirect(string.Format(handler.ScanUrlFormatString, handler.AreaName, choice));
-                }
+                //var handler = AreaItem.Areas.FirstOrDefault(p => !string.IsNullOrEmpty(p.ScanUrlFormatString));
+                //if (handler != null)
+                //{
+                //    // This means that Inquiry is installed and we will pass the choice to Inquiry
+                //    return Redirect(string.Format(handler.ScanUrlFormatString, handler.AreaName, choice));
+                //}
                 return RedirectToAction(this.Actions.Index());
         }
 
@@ -154,11 +154,11 @@ namespace DcmsMobile.Controllers
                 Results = results
             };
 
-            var x = AreaItem.Areas.Where(p => !string.IsNullOrEmpty(p.ScanUrlFormatString)).FirstOrDefault();
-            if (x != null)
-            {
-                model.InquiryUrl = Url.Content(string.Format(x.ScanUrlFormatString, x.AreaName, searchText));
-            }
+            //var x = AreaItem.Areas.Where(p => !string.IsNullOrEmpty(p.ScanUrlFormatString)).FirstOrDefault();
+            //if (x != null)
+            //{
+            //    model.InquiryUrl = Url.Content(string.Format(x.ScanUrlFormatString, x.AreaName, searchText));
+            //}
             return View(Views.Search, model);
         }
 
