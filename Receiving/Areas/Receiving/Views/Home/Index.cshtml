@@ -37,17 +37,19 @@
 @section sidebar {
     <div class="box boxA">
         <div class="boxContent">
-            @using (Html.BeginForm(MVC_Receiving.Receiving.Home.SelectProcess()))
+            @using (Html.BeginForm(MVC_Receiving.Receiving.Home.Receiving()))
             {
                 <div>
                     <label>
                         Continue existing process
                     </label>
                     <span style="white-space: nowrap">
-                        @Html.TextBoxFor(m => m.SelectProcess.ProcessId, new
+                        <input name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId" type="text" size="12" />
+                        @*@Html.TextBoxFor(m => m.SelectProcess.ProcessId, new
                    {
                        size = "12"
-                   })<span>*</span>
+                   })*@
+                        <span>*</span>
                     </span>
                     <input type="submit" value="Select" />
                 </div>
@@ -60,17 +62,17 @@
             <ul>
                 <li>
                     @Html.ActionLink("Create New Process", MVC_Receiving.Receiving.Home.CreateProcess())
-            </li>
-            <li>
-                First time user?
-                <a href="@Url.Content(Links_Receiving.Areas.Receiving.Content.Guided_Receiving_pps)">View Presentation</a>
-            </li>
-            <li>
-                @Html.ActionLink("Open Shipments", MVC_Receiving.Receiving.Home.ShipmentList())
-            </li>
-        </ul>
+                </li>
+                <li>
+                    First time user?
+                    <a href="@Url.Content(Links_Receiving.Areas.Receiving.Content.Guided_Receiving_pps)">View Presentation</a>
+                </li>
+                <li>
+                    @Html.ActionLink("Open Shipments", MVC_Receiving.Receiving.Home.ShipmentList())
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 }
 @Html.StatusSummary()
 @section scripts {

@@ -244,14 +244,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         public class ViewNames {
             public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
             public readonly string _palletPartial = "_palletPartial";
-            public readonly string _palletPartial_Mobile = "_palletPartial.Mobile";
             public readonly string _palletPartial_phone = "_palletPartial.phone";
             public readonly string CreateProcess = "CreateProcess";
             public readonly string Index = "Index";
-            public readonly string Index_Mobile = "Index.Mobile";
             public readonly string Index_phone = "Index.phone";
             public readonly string Receiving = "Receiving";
-            public readonly string Receiving_Mobile = "Receiving.Mobile";
             public readonly string Receiving_phone = "Receiving.phone";
             public readonly string ShipmentList = "ShipmentList";
             public readonly string Tutorial = "Tutorial";

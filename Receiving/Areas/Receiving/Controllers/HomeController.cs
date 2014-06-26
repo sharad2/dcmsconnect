@@ -308,23 +308,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// Output: If passed process id valid, then intiate receiving. Else redisplay index view after populating recent processes.
         /// </para>
         /// </remarks>
-        [HttpPost]
-        [Obsolete]
-        public virtual ActionResult SelectProcess([Bind(Prefix = "SelectProcess")] SelectProcessModel info)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(info.ProcessId));
-            }
-            var ivm = new IndexViewModel
-                          {
-                              SelectProcess = info,
-                              RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
-                          };
+        //[HttpPost]
+        //[Obsolete]
+        //public virtual ActionResult SelectProcess([Bind(Prefix = "SelectProcess")] SelectProcessModel info)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(info.ProcessId));
+        //    }
+        //    var ivm = new IndexViewModel
+        //                  {
+        //                      SelectProcess = info,
+        //                      RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
+        //                  };
 
-            return View(Views.Index, ivm);
+        //    return View(Views.Index, ivm);
 
-        }
+        //}
 
         /// <summary>
         /// Displays the receiving page for the passed process id.

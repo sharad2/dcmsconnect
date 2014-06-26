@@ -221,14 +221,11 @@ namespace Links_Receiving {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _cartonNotOnPalletPartial_cshtml = Url("_cartonNotOnPalletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonNotOnPalletPartial.cshtml");
                     public static readonly string _palletPartial_cshtml = Url("_palletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.cshtml");
-                    public static readonly string _palletPartial_Mobile_cshtml = Url("_palletPartial.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.Mobile.cshtml");
                     public static readonly string _palletPartial_phone_cshtml = Url("_palletPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.phone.cshtml");
                     public static readonly string CreateProcess_cshtml = Url("CreateProcess.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateProcess.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
-                    public static readonly string Index_Mobile_cshtml = Url("Index.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.Mobile.cshtml");
                     public static readonly string Index_phone_cshtml = Url("Index.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.phone.cshtml");
                     public static readonly string Receiving_cshtml = Url("Receiving.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.cshtml");
-                    public static readonly string Receiving_Mobile_cshtml = Url("Receiving.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.Mobile.cshtml");
                     public static readonly string Receiving_phone_cshtml = Url("Receiving.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.phone.cshtml");
                     public static readonly string ShipmentList_cshtml = Url("ShipmentList.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ShipmentList.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");

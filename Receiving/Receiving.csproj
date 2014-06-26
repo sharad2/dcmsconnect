@@ -223,9 +223,6 @@
     <Content Include="Areas\Receiving\Views\Rad\_spotCheckListPartial.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\_addSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\_editSpotCheckPartial.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Index.Mobile.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Receiving.Mobile.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\_palletPartial.Mobile.cshtml" />
     <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.Mobile.cshtml">
       <SubType>Code</SubType>
     </Content>
