@@ -9,7 +9,7 @@ namespace DcmsMobile.Models
     public class MenuItem
     {
         private readonly IList<MenuItem> _submenu;
-        private readonly string _uniqueId;
+        private readonly string _panelId;
 
         //private static int __idSequence;
 
@@ -33,7 +33,7 @@ namespace DcmsMobile.Models
                            orderby subarea.Order, subarea.Name
                            select new MenuItem(subarea, url)).ToArray();
             }
-            _uniqueId = string.Format("panel_{0}", area.UniqueId);
+            _panelId = string.Format("panel_{0}", area.UniqueId);
         }
 
         public IList<MenuItem> SubMenu
@@ -66,11 +66,11 @@ namespace DcmsMobile.Models
 
         public bool IsDesktopOptimized { get; private set; }
 
-        public string UniqueId
+        public string PanelId
         {
             get
             {
-                return _uniqueId;
+                return _panelId;
             }
         }
     }

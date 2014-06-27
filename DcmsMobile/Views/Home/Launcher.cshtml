@@ -41,6 +41,7 @@
                 }
                 <h6>@Html.DisplayFor(m => m.MenuItems[i].Name)</h6>
                 <p><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Description)</p>
+                <p class="ui-li-aside">XXX</p>
                 @if (Model.MenuItems[i].SubMenu != null)
                 {
                     <span class="ui-li-count">@Model.MenuItems[i].SubMenu.Count</span>
@@ -48,7 +49,7 @@
             </a>
             @if (Model.MenuItems[i].SubMenu != null)
             {
-                <a href="#@Model.MenuItems[i].UniqueId">
+                <a href="#@Model.MenuItems[i].PanelId">
                     More
                 </a>
             }
@@ -65,7 +66,7 @@
 @section panels {
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
     {
-        <div data-role="panel" id="@item.UniqueId" data-display="overlay" data-position-fixed="true">
+        <div data-role="panel" id="@item.PanelId" data-display="overlay" data-position-fixed="true">
             <ol data-role="listview">
                 @for (var j = 0; j < item.SubMenu.Count; ++j)
                 {
