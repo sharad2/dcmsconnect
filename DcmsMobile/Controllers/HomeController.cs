@@ -20,26 +20,36 @@ namespace DcmsMobile.Controllers
         /// It is important to order the menu choices, otherwise they can display in different order each time;
         /// </summary>
         /// <returns></returns>
-        [ActionName("Index")]
-        [RcActionSelector(IsRcAction = false)]
         public virtual ActionResult Index()
         {
             var model = new LauncherViewModel();
-            PopulateModel(model);
+            model.Init(this.ControllerContext, this.Url);
+            model.MenuItems = (from item in AreaItem.Areas
+                               orderby item.Order, item.Name
+                               select new MenuItem(item, Url)).ToArray();
+            //             model.UrlRc = RcActionSelectorAttribute.UrlRc + "?returnUrl=" + Url.Encode(this.Request.Url.AbsoluteUri);
             return View(this.Views.Launcher, model);
         }
 
 
 
-        private void PopulateModel(LauncherViewModel model)
-        {
-            model.Init(this.ControllerContext, this.Url);
-            model.MenuItems = (from item in AreaItem.Areas
-                              orderby item.Order, item.Name
-                              select new MenuItem(item, Url)).ToArray();
+        //private void PopulateModel(LauncherViewModel model)
+        //{
+        //    model.Init(this.ControllerContext, this.Url);
+        //    model.MenuItems = (from item in AreaItem.Areas
+        //                      orderby item.Order, item.Name
+        //                      select new MenuItem(item, Url)).ToArray();
 
-            model.UrlRc = RcActionSelectorAttribute.UrlRc + "?returnUrl=" + Url.Encode(this.Request.Url.AbsoluteUri);
-            return;
+
+        //    return;
+        //}
+
+        [HttpPost]
+        public virtual ActionResult RcItems()
+        {
+            return Json(AreaItem.Areas.Select(p => new MenuItem(p, Url)).Select(p => new {
+                itemid = p.ItemId
+            }));
         }
 
     }

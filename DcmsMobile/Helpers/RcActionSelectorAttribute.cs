@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.Helpers
 {
+    [Obsolete]
     public class RcActionSelectorAttribute:ActionMethodSelectorAttribute
     {
         ///// <summary>

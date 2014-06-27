@@ -4,16 +4,22 @@
 }
 
 @section script {
-        <script type="text/javascript">
-            $(document).on('pageinit', '#mainpage', function () {
-                alert('Hi2');
-                $(this).on('filterablefilter', '#menulist', function (event, ui) {
-                    alert('Hi');
-                    $('#topmenu').hide();
+    <script type="text/javascript">
+        $(document).on('pageinit', '#mainpage', function () {
+            alert('Hi2');
+            $.ajax($('#topmenu').attr('data-rc-url'), {
+                type: 'POST'
+            }).done(function (data, textStatus, jqXHR) {
+                alert(data.length);
+                $.each(data, function () {
+                    $('#' + this.itemid).show();
                 });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
             });
-        </script>
-    }
+        });
+    </script>
+}
 <input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
 <ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
@@ -30,7 +36,7 @@
     }
 </ol>
 
-<ul data-role="listview" data-inset="true" id="topmenu">
+<ul data-role="listview" data-inset="true" id="topmenu" data-rc-url="@Url.Action(MVC_DcmsMobile.Home.RcItems())">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li>
@@ -45,7 +51,7 @@
                 {
                     <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
                 }
-                <a href="#" class="ui-btn ui-corner-all ui-btn-b">Release Candidate</a>
+                <a href="#" class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].ItemId" style="display:none">Release Candidate</a>
             </div>
             <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
         </li>
