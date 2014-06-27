@@ -3,17 +3,17 @@
     ViewBag.Title = "DCMS Connect Home";
 }
 
-@*@section head {
-    <script type="text/javascript">
-        $(document).on('pageinit', '#mainpage', function () {
-            alert('Hi2');
-            $(this).on('filterablefilter', '#menulist', function (event, ui) {
-                alert('Hi');
-                $('#topmenu').hide();
+@section script {
+        <script type="text/javascript">
+            $(document).on('pageinit', '#mainpage', function () {
+                alert('Hi2');
+                $(this).on('filterablefilter', '#menulist', function (event, ui) {
+                    alert('Hi');
+                    $('#topmenu').hide();
+                });
             });
-        });
-    </script>
-}*@
+        </script>
+    }
 <input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
 <ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
@@ -30,33 +30,27 @@
     }
 </ol>
 
-<ol data-role="listview" data-inset="true" id="topmenu">
+<ul data-role="listview" data-inset="true" id="topmenu">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
-        <li data-icon="@Html.Raw(Model.MenuItems[i].SubMenu == null ? "carat-r" : "bullets")">
-            <a href="@Model.MenuItems[i].Url">
-                @if (Model.MenuItems[i].IsMobileOptimized)
-                {
-                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
-                }
-                <h6>@Html.DisplayFor(m => m.MenuItems[i].Name)</h6>
-                <p><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Description)</p>
-                <p class="ui-li-aside">XXX</p>
+        <li>
+            @if (Model.MenuItems[i].IsMobileOptimized)
+            {
+                <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
+            }
+            <div data-role="controlgroup" data-type="horizontal">
+
+                <a href="#" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><small>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</small> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
                 @if (Model.MenuItems[i].SubMenu != null)
                 {
-                    <span class="ui-li-count">@Model.MenuItems[i].SubMenu.Count</span>
+                    <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
                 }
-            </a>
-            @if (Model.MenuItems[i].SubMenu != null)
-            {
-                <a href="#@Model.MenuItems[i].PanelId">
-                    More
-                </a>
-            }
+                <a href="#" class="ui-btn ui-corner-all ui-btn-b">Release Candidate</a>
+            </div>
+            <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
         </li>
-
     }
-</ol>
+</ul>
 
 
 

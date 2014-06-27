@@ -51,7 +51,7 @@ namespace DcmsMobile.Models
         /// <summary>
         /// Guaranteed to never return null.
         /// </summary>
-        [DisplayFormat(DataFormatString = "[{0}]")]
+        [DisplayFormat(DataFormatString = "{0}")]
         public string ShortName
         {
             get;
