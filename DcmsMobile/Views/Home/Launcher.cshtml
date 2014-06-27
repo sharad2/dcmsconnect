@@ -6,9 +6,13 @@
 @section script {
     <script type="text/javascript">
         $(document).on('pageinit', '#mainpage', function () {
+            // Get a list of items available on the release candidate site and show the RC link for each of the items available
             $.ajax($('#topmenu').attr('data-rc-url'), {
                 type: 'POST'
             }).done(function (data, textStatus, jqXHR) {
+                // The call to RC was successful. Show the RC link at the bottom of the page
+                $('#rcNavBar').show();
+                // Show the rc link against each menu items
                 $.each(data, function () {
                     $('#' + this.itemid).show();
                 });
@@ -58,7 +62,7 @@
 
 
 
-<div data-role="navbar">
+<div data-role="navbar" style="display:none" id="rcNavBar">
     <a href="@Model.UrlRc" data-role="button"><small>Release Candidates</small></a>
 </div>
 @section panels {
