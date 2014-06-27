@@ -91,11 +91,13 @@ namespace DcmsMobile.Models
     /// </summary>
     public class LauncherViewModel : ViewModelBase
     {
-        [Obsolete]
+        /// <summary>
+        /// URL to retrieve the list of items from the RC site
+        /// </summary>
         public string UrlRc
         {
             get;
-            set;
+            internal set;
         }
 
         /// <summary>

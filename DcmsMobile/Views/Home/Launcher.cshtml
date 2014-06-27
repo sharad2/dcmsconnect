@@ -6,16 +6,14 @@
 @section script {
     <script type="text/javascript">
         $(document).on('pageinit', '#mainpage', function () {
-            alert('Hi2');
             $.ajax($('#topmenu').attr('data-rc-url'), {
                 type: 'POST'
             }).done(function (data, textStatus, jqXHR) {
-                alert(data.length);
                 $.each(data, function () {
                     $('#' + this.itemid).show();
                 });
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText);
+                alert('Call to Release Candidate Website returned Http error ' + jqXHR.status);
             });
         });
     </script>
@@ -36,7 +34,7 @@
     }
 </ol>
 
-<ul data-role="listview" data-inset="true" id="topmenu" data-rc-url="@Url.Action(MVC_DcmsMobile.Home.RcItems())">
+<ul data-role="listview" data-inset="true" id="topmenu" data-rc-url="@Model.UrlRc">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li>

@@ -43,7 +43,7 @@ namespace DcmsMobile.Controllers
         {
             if (string.IsNullOrWhiteSpace(model.UserName))
             {
-                return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
             }
             return View(this.Views.Index, model);
         }
@@ -66,7 +66,7 @@ namespace DcmsMobile.Controllers
             if (string.IsNullOrWhiteSpace(model.UserName) || string.IsNullOrWhiteSpace(model.Password))
             {
                 this.AddStatusMessage("Login cancelled");
-                return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
             }
 
             try
@@ -78,7 +78,7 @@ namespace DcmsMobile.Controllers
                     AddStatusMessage(string.Format("Logged in as {0}", model.UserName));
                     if (string.IsNullOrEmpty(model.ReturnUrl))
                     {
-                        return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                        return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
                     }
                     else
                     {
@@ -136,7 +136,7 @@ namespace DcmsMobile.Controllers
                 // Old Password not entered. Just navigate to home page.
                 ModelState.Clear();
                 AddStatusMessage("Password not changed");
-                return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
             }
 
             if (!ModelState.IsValid)
@@ -151,7 +151,7 @@ namespace DcmsMobile.Controllers
                 {
                     // This is the success case
                     this.AddStatusMessage("Your password has been changed");
-                    return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                    return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
                 }
 
                 // We should never get here
@@ -177,7 +177,7 @@ namespace DcmsMobile.Controllers
             if (string.IsNullOrWhiteSpace(model.NewPassword) && string.IsNullOrWhiteSpace(model.ConfirmPassword))
             {
                 // Password not entered. Just navigate to home page.
-                return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
             }
             if (!ModelState.IsValid)
             {
@@ -196,7 +196,7 @@ namespace DcmsMobile.Controllers
                     this.AddStatusMessage(string.Format("Password for {0} successfully changed", model.UserName));
                     if (string.IsNullOrEmpty(model.ReturnUrl))
                     {
-                        return RedirectToAction(MVC_DcmsMobile.Home.Index());
+                        return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
                     }
                     else
                     {
@@ -231,7 +231,7 @@ namespace DcmsMobile.Controllers
                 Session.Abandon();
             }
             FormsService.SignOut();
-            return RedirectToAction(MVC_DcmsMobile.Home.Index());
+            return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
