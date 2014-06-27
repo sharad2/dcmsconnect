@@ -11,7 +11,7 @@ namespace DcmsMobile.Models
         private readonly IList<MenuItem> _submenu;
         private readonly string _uniqueId;
 
-        private static int __idSequence;
+        //private static int __idSequence;
 
         /// <summary>
         /// Populates its properties based on the passed area
@@ -33,7 +33,7 @@ namespace DcmsMobile.Models
                            orderby subarea.Order, subarea.Name
                            select new MenuItem(subarea, url)).ToArray();
             }
-            _uniqueId = string.Format("id_{0}_{1}", area.ShortName, __idSequence++);
+            _uniqueId = string.Format("panel_{0}", area.UniqueId);
         }
 
         public IList<MenuItem> SubMenu
