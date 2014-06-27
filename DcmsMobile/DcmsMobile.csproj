@@ -136,8 +136,6 @@
     <Compile Include="Models\LauncherViewModel.cs" />
     <Compile Include="Models\LogonModel.cs" />
     <Compile Include="Models\LogonServices.cs" />
-    <Compile Include="Models\RcLauncherViewModel.cs" />
-    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedController.generated.cs">
@@ -434,8 +432,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Diagnostic\Email.cshtml" />
     <Content Include="Views\Logon\GetNewPassword.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
-    <Content Include="Views\Home\RcLauncher.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

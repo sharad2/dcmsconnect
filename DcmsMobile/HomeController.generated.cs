@@ -40,16 +40,6 @@ namespace DcmsMobile.Controllers {
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RcIndex() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RcIndex);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AcceptChoice() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AcceptChoice);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_DcmsMobile.Home; } }
@@ -66,41 +56,20 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
             public readonly string Index = "Index";
-            public readonly string RcIndex = "Index";
-            public readonly string AcceptChoice = "AcceptChoice";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string Index = "Index";
-            public const string RcIndex = "Index";
-            public const string AcceptChoice = "AcceptChoice";
         }
 
 
-        static readonly ActionParamsClass_RcIndex s_params_RcIndex = new ActionParamsClass_RcIndex();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_RcIndex RcIndexParams { get { return s_params_RcIndex; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RcIndex {
-            public readonly string returnUrl = "returnUrl";
-        }
-        static readonly ActionParamsClass_AcceptChoice s_params_AcceptChoice = new ActionParamsClass_AcceptChoice();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AcceptChoice AcceptChoiceParams { get { return s_params_AcceptChoice; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AcceptChoice {
-            public readonly string choice = "choice";
-            public readonly string isMobile = "isMobile";
-        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
             public readonly string Launcher = "Launcher";
-            public readonly string RcLauncher = "RcLauncher";
-            public readonly string Search = "Search";
         }
     }
 
@@ -110,19 +79,6 @@ namespace DcmsMobile.Controllers {
 
         public override System.Web.Mvc.ActionResult Index() {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult RcIndex(string returnUrl) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RcIndex);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            return callInfo;
-        }
-
-        public override System.Web.Mvc.ActionResult AcceptChoice(string choice, bool isMobile) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AcceptChoice);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "choice", choice);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "isMobile", isMobile);
             return callInfo;
         }
 

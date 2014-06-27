@@ -209,9 +209,6 @@ namespace DcmsMobile.Models
             return string.Format("{0}: {1}", this.ShortName, this.Name);
         }
 
-        //[Obsolete]
-        //internal PropertyInfo PropertyToCall { get; set; }
-
         /// <summary>
         /// The route values which can be used to construct the URL to this area as in 
         /// var url = Url.RouteUrl(area.RouteValues),
@@ -229,12 +226,6 @@ namespace DcmsMobile.Models
         /// </summary>
         public DateTime? PostDate { get; set; }
         #endregion
-
-        /// <summary>
-        /// If provided, unrecognized menu choices are passed to this URL
-        /// </summary>
-        [Obsolete]
-        internal string ScanUrlFormatString { get; set; }
 
         /// <summary>
         /// Name of the area. Obtained by evaluating property AreaRegistration.AreaName
