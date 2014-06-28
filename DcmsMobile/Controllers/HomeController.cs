@@ -55,7 +55,6 @@ namespace DcmsMobile.Controllers
         /// jsonp data type is used to enable cross domain jquery requests as described in
         /// http://www.pureexample.com/jquery/cross-domain-ajax.html
         /// </remarks>
-        [HttpPost]
         public virtual ActionResult RcItems()
         {
             var query = AreaItem.Areas.Select(p => new MenuItem(p, Url))

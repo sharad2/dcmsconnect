@@ -11,9 +11,8 @@
             var urlItems = urlBase +  $('#linkRc').attr('data-url-rcitem');
             alert(urlItems);
             $.ajax(urlItems, {
-                type: 'POST',
-                dataType: 'jsonp'
-                //crossDomain: true
+                dataType: 'jsonp',
+                crossDomain: true
             }).done(function (data, textStatus, jqXHR) {
                 // The call to RC was successful. Show the RC link at the bottom of the page
                 $('#rcNavBar').show();
