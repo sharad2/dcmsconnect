@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -22,8 +21,14 @@ namespace DcmsMobile.Models
         /// <param name="url"></param>
         internal MenuItem(AreaItem area, UrlHelper url)
         {
-            //this.Url = url.Content(string.Format("~/{0}", area.AreaName));
-            this.Url = url.RouteUrl(area.RouteValues);
+            if (area.RouteValues == null)
+            {
+                this.Url = url.Content(string.Format("~/{0}", area.AreaName));
+            }
+            else
+            {
+                this.Url = url.RouteUrl(area.RouteValues);
+            }
             Name = area.Name;
             ShortName = area.ShortName ?? "";
             IsMobileOptimized = area.IsMobileOptimized;
@@ -32,8 +37,8 @@ namespace DcmsMobile.Models
             if (area.SubAreas != null)
             {
                 _submenu = (from subarea in area.SubAreas
-                           orderby subarea.Order, subarea.Name
-                           select new MenuItem(subarea, url)).ToArray();
+                            orderby subarea.Order, subarea.Name
+                            select new MenuItem(subarea, url)).ToArray();
             }
             _panelId = string.Format("panel_{0}", area.UniqueId);
             _itemId = string.Format("item_{0}", area.UniqueId);
@@ -92,9 +97,9 @@ namespace DcmsMobile.Models
     public class LauncherViewModel : ViewModelBase
     {
         /// <summary>
-        /// URL to retrieve the list of items from the RC site
+        /// Base URL of the RC site
         /// </summary>
-        public string UrlRc
+        public string UrlRcBase
         {
             get;
             internal set;

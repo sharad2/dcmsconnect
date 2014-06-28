@@ -26,139 +26,6 @@ namespace DcmsMobile.Models
         DesktopOptimized = 0x2
     }
 
-    ///// <summary>
-    ///// The key of the area item is ShortName
-    ///// </summary>
-    //[Obsolete]
-    //public class AreaItemCollection : KeyedCollection<string, AreaItem>
-    //{
-    //    private static IEnumerable<Type> GetExportedTypesExceptionSafe(Assembly ass)
-    //    {
-    //        try
-    //        {
-    //            return ass.GetExportedTypes();
-    //        }
-    //        catch (TypeLoadException ex)
-    //        {
-    //            // Trace then ignore
-    //            if (HttpContext.Current != null && HttpContext.Current.Trace != null)
-    //            {
-    //                HttpContext.Current.Trace.Warn("GetPublicTypesOfAssembly", string.Format("DCMS Mobile was unable to include the assembly {0} within its menu", ass.FullName), ex);
-    //            }
-    //            return Enumerable.Empty<Type>();
-    //        }
-    //    }
-
-
-    //    private readonly bool _initializing;
-    //    /// <summary>
-    //    /// Populate the collection when constructed
-    //    /// </summary>
-    //    public AreaItemCollection()
-    //    {
-    //        _initializing = true;
-    //        // Sharad 9 AUg 2013: Ignore signed assemblies
-    //        var query = from assembly in AppDomain.CurrentDomain.GetAssemblies()
-    //                    where !assembly.GlobalAssemblyCache && !assembly.IsDynamic && assembly.GetName().GetPublicKey().Length == 0
-    //                    let attrProduct = assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false).Cast<AssemblyProductAttribute>().FirstOrDefault()
-    //                    from type in GetExportedTypesExceptionSafe(assembly)
-    //                    where typeof(AreaRegistration).IsAssignableFrom(type) && !type.IsAbstract
-    //                    let metadataAttr = type.GetCustomAttributes(typeof(MetadataTypeAttribute), false).Cast<MetadataTypeAttribute>().FirstOrDefault()
-    //                    let allAttr = type.GetProperty("AreaName").GetCustomAttributes(false)
-    //                    let displayAttr = allAttr.OfType<DisplayAttribute>().FirstOrDefault()
-    //                    where displayAttr != null
-    //                    let area = (AreaRegistration)Activator.CreateInstance(type)
-    //                    let displayFormatAttr = allAttr.OfType<DisplayFormatAttribute>().FirstOrDefault()
-    //                    select new
-    //                    {
-    //                        MetadataClassType = metadataAttr == null ? null : metadataAttr.MetadataClassType,
-    //                        Area = new AreaItem
-    //                        {
-    //                            Description = displayAttr.Description,
-    //                            Name = displayAttr.Name,
-    //                            Platforms = (allAttr.OfType<UIHintAttribute>().Any(p => p.PresentationLayer == "DcmsMobile" && p.UIHint == "mobile") ?
-    //                               PlatformFlags.MobileOptimized : PlatformFlags.Default) |
-    //                               (allAttr.OfType<UIHintAttribute>().Any(p => p.PresentationLayer == "DcmsMobile" && p.UIHint == "desktop") ?
-    //                               PlatformFlags.DesktopOptimized : PlatformFlags.Default),
-    //                            AreaName = area.AreaName,
-    //                            Order = displayAttr.GetOrder() ?? 0,
-    //                            //ScanUrlFormatString = displayFormatAttr == null ? string.Empty : displayFormatAttr.DataFormatString,
-    //                            ChangeLog = attrProduct == null ? string.Empty : attrProduct.Product,
-    //                            PostDate = System.IO.File.GetCreationTime(assembly.Location),
-    //                            ShortName = displayAttr.ShortName,
-    //                            RouteValues = new RouteValueDictionary {
-    //                                {"area", area.AreaName}
-    //                         }
-    //                        }
-    //                    };
-
-    //        foreach (var item in query)
-    //        {
-    //            if (item.MetadataClassType != null)
-    //            {
-    //                item.Area.SubAreas = (from prop in item.MetadataClassType.GetProperties(BindingFlags.Public | BindingFlags.Static)
-    //                                      let allAttr = prop.GetCustomAttributes(false).Cast<Attribute>()
-    //                                      let displayAttr = allAttr.OfType<DisplayAttribute>().FirstOrDefault()
-    //                                      let uihintAttr = allAttr.OfType<UIHintAttribute>().Where(p => p.PresentationLayer == "DcmsMobile")
-    //                                      where displayAttr != null
-    //                                      select new AreaItem
-    //                                      {
-    //                                          Description = displayAttr.Description,
-    //                                          Name = displayAttr.Name,
-    //                                          Order = displayAttr.GetOrder() ?? 0,
-    //                                          Platforms = (uihintAttr.Any(p => p.UIHint == "mobile") ? PlatformFlags.MobileOptimized : PlatformFlags.Default) |
-    //                                             (uihintAttr.Any(p => p.UIHint == "desktop") ? PlatformFlags.DesktopOptimized : PlatformFlags.Default),
-    //                                          ShortName = displayAttr.ShortName,
-    //                                          RouteValues = (RouteValueDictionary)prop.GetValue(null, null)
-    //                                      }).ToArray();
-    //            }
-    //            Add(item.Area);
-    //        }
-    //        _initializing = false;
-    //    }
-
-    //    protected override string GetKeyForItem(AreaItem item)
-    //    {
-    //        return item.ShortName;
-    //    }
-
-    //    protected override void InsertItem(int index, AreaItem item)
-    //    {
-    //        if (!_initializing)
-    //        {
-    //            throw new NotSupportedException("This is a readonly collection");
-    //        }
-    //        base.InsertItem(index, item);
-    //    }
-
-    //    protected override void ClearItems()
-    //    {
-    //        if (!_initializing)
-    //        {
-    //            throw new NotSupportedException("This is a readonly collection");
-    //        }
-    //        base.ClearItems();
-    //    }
-
-    //    protected override void RemoveItem(int index)
-    //    {
-    //        if (!_initializing)
-    //        {
-    //            throw new NotSupportedException("This is a readonly collection");
-    //        }
-    //        base.RemoveItem(index);
-    //    }
-
-    //    protected override void SetItem(int index, AreaItem item)
-    //    {
-    //        if (!_initializing)
-    //        {
-    //            throw new NotSupportedException("This is a readonly collection");
-    //        }
-    //        base.SetItem(index, item);
-    //    }
-    //}
-
     public class AreaItem
     {
         /// <summary>
@@ -211,8 +78,9 @@ namespace DcmsMobile.Models
         }
 
         /// <summary>
-        /// The route values which can be used to construct the URL to this area as in 
+        /// The route values which can be used to construct the URL to this item
         /// var url = Url.RouteUrl(area.RouteValues),
+        /// If this is null, then we should use the format /AreaName
         /// </summary>
         public RouteValueDictionary RouteValues { get; set; }
 
@@ -281,10 +149,7 @@ namespace DcmsMobile.Models
                                 //ScanUrlFormatString = displayFormatAttr == null ? string.Empty : displayFormatAttr.DataFormatString,
                                 ChangeLog = attrProduct == null ? string.Empty : attrProduct.Product,
                                 PostDate = System.IO.File.GetCreationTime(assembly.Location),
-                                ShortName = displayAttr.ShortName,
-                                RouteValues = new RouteValueDictionary {
-                                    {"area", area.AreaName}
-                             }
+                                ShortName = displayAttr.ShortName
                             }
                         };
 

@@ -72,3 +72,20 @@ Changelog provided in AssemblyInfo.cs file:
 
 
 
+Sharad 28 Jun 2014: Release Candidate support reimagined
+--------------------------------------------
+Specify a URL for the RC site in web.config
+<add key="RcUrl" value="~/ReleaseCandidate" lockItem="true" />
+
+Now DCMSMobile layout page will display link to this Release Candidate URL. If the URL of the currently running site is same as RCUrl, then a heading will inform the user that this
+is a Release Candidates site.
+
+A link to the RC program is available against each top level menu item for which an RC version is available. The link to the RC site is available at the bottom of the home page only if
+the RC site could be succesfully accessed.
+
+
+
+Provide link on the desktop layout page.
+
+Changelog provided in AssemblyInfo.cs file:
+[assembly: AssemblyProduct("This should be the change log")]

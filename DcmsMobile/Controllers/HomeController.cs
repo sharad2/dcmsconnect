@@ -15,6 +15,21 @@ namespace DcmsMobile.Controllers
     public partial class HomeController : EclipseController
     {
         /// <summary>
+        /// Without the trailing /
+        /// </summary>
+        private string UrlRcBase
+        {
+            get
+            {
+                var urlRcBase = ConfigurationManager.AppSettings["RcUrl"];
+                if (!string.IsNullOrWhiteSpace(urlRcBase))
+                {
+                    urlRcBase = urlRcBase.TrimEnd(' ', '/').Trim();
+                }
+                return urlRcBase;
+            }
+        }
+        /// <summary>
         /// It is important to order the menu choices, otherwise they can display in different order each time;
         /// </summary>
         /// <returns></returns>
@@ -25,11 +40,8 @@ namespace DcmsMobile.Controllers
             model.MenuItems = (from item in AreaItem.Areas
                                orderby item.Order, item.Name
                                select new MenuItem(item, Url)).ToArray();
-            var rcUrl = ConfigurationManager.AppSettings["RcUrl"];
-            if (!string.IsNullOrWhiteSpace(rcUrl))
-            {
-                model.UrlRc = rcUrl.TrimEnd(' ', '/').Trim() + Url.Action(Actions.RcItems());
-            }
+            model.UrlRcBase = this.UrlRcBase;
+
             return View(this.Views.Launcher, model);
         }
 
@@ -40,10 +52,13 @@ namespace DcmsMobile.Controllers
         [HttpPost]
         public virtual ActionResult RcItems()
         {
-            return Json(AreaItem.Areas.Select(p => new MenuItem(p, Url)).Select(p => new
-            {
-                itemid = p.ItemId
-            }));
+            var query = AreaItem.Areas.Select(p => new MenuItem(p, Url))
+                .Select(p => new
+                {
+                    itemid = p.ItemId,
+                    url = p.Url
+                });
+            return Json(query);
         }
 
     }

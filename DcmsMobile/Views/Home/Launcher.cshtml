@@ -5,16 +5,19 @@
 
 @section script {
     <script type="text/javascript">
+        // Get a list of items available on the release candidate site and show the RC link for each of the items available
         $(document).on('pageinit', '#mainpage', function () {
-            // Get a list of items available on the release candidate site and show the RC link for each of the items available
-            $.ajax($('#topmenu').attr('data-rc-url'), {
+            var urlBase = $('#linkRc').attr('href');
+            var urlItems = urlBase + '/' + $('#linkRc').attr('data-url-rcitem');
+            alert(urlItems);
+            $.ajax(urlItems, {
                 type: 'POST'
             }).done(function (data, textStatus, jqXHR) {
                 // The call to RC was successful. Show the RC link at the bottom of the page
                 $('#rcNavBar').show();
                 // Show the rc link against each menu items
                 $.each(data, function () {
-                    $('#' + this.itemid).show();
+                    $('#' + this.itemid).attr('href', urlBase + this.url).show();
                 });
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 alert('Call to Release Candidate Website returned Http error ' + jqXHR.status);
@@ -38,7 +41,7 @@
     }
 </ol>
 
-<ul data-role="listview" data-inset="true" id="topmenu" data-rc-url="@Model.UrlRc">
+<ul data-role="listview" data-inset="true" id="topmenu">
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li>
@@ -48,7 +51,7 @@
             }
             <div data-role="controlgroup" data-type="horizontal">
 
-                <a href="#" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><small>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</small> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
+                <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><small>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</small> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
                 @if (Model.MenuItems[i].SubMenu != null)
                 {
                     <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
@@ -63,7 +66,7 @@
 
 
 <div data-role="navbar" style="display:none" id="rcNavBar">
-    <a href="@Model.UrlRc" data-role="button"><small>Release Candidates</small></a>
+    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems())"><small>Release Candidates</small></a>
 </div>
 @section panels {
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
