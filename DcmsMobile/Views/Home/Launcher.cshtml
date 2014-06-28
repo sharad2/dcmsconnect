@@ -6,7 +6,7 @@
 @section script {
     <script type="text/javascript">
         // Get a list of items available on the release candidate site and show the RC link for each of the items available
-        $(document).on('pageinit', '#mainpage', function () {
+        $(document).on('pagecreate', '#mainpage', function () {
             var urlBase = $('#linkRc').attr('href');
             var urlItems = urlBase + '/' + $('#linkRc').attr('data-url-rcitem');
             alert(urlItems);
