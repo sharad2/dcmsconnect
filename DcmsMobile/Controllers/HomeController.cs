@@ -2,7 +2,9 @@
 using EclipseLibrary.Mvc.Controllers;
 using System.Configuration;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace DcmsMobile.Controllers
 {
@@ -49,6 +51,10 @@ namespace DcmsMobile.Controllers
         /// Called from the main site to retrieve the list of programs available on RC
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// jsonp data type is used to enable cross domain jquery requests as described in
+        /// http://www.pureexample.com/jquery/cross-domain-ajax.html
+        /// </remarks>
         [HttpPost]
         public virtual ActionResult RcItems()
         {
@@ -58,7 +64,17 @@ namespace DcmsMobile.Controllers
                     itemid = p.ItemId,
                     url = p.Url
                 });
-            return Json(query);
+
+            var sb = new StringBuilder(Request["callback"]);
+            sb.Append("(");
+            var ser = new JavaScriptSerializer();
+            ser.Serialize(query, sb);
+            sb.Append(")");
+            return new ContentResult
+            {
+                 Content = sb.ToString(),
+                 ContentType = "jsonp"
+            };
         }
 
     }
