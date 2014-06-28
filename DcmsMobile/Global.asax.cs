@@ -24,9 +24,6 @@ namespace DcmsMobile
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // Enabling Attribute routing
-            routes.MapMvcAttributeRoutes();
-
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
@@ -38,6 +35,10 @@ namespace DcmsMobile
 
         protected void Application_Start()
         {
+
+            // Enabling Attribute routing
+            RouteTable.Routes.MapMvcAttributeRoutes();
+
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
