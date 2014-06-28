@@ -24,10 +24,13 @@ namespace DcmsMobile
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Enabling Attribute routing
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
-                new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Launcher, id = UrlParameter.Optional }, // Parameter defaults
+                new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
                 new string[] { typeof(DcmsMobile.Controllers.HomeController).Namespace }
             );
 

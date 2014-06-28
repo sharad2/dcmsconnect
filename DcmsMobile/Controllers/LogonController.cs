@@ -8,6 +8,11 @@ using EclipseLibrary.Mvc.Controllers;
 
 namespace DcmsMobile.Controllers
 {
+    /// <summary>
+    /// Default action for this controller is Index
+    /// </summary>
+    [RoutePrefix("Logon")]
+    [Route("{action=index}")]
     public partial class LogonController : EclipseController
     {
         private const string OLD_PASSWORD = "LogonController_OldPassword";
@@ -23,7 +28,6 @@ namespace DcmsMobile.Controllers
             base.Initialize(requestContext);
         }
 
-        [HttpGet]
         public virtual ActionResult Index(string returnUrl)
         {
             var model = new LogonModel
@@ -43,7 +47,7 @@ namespace DcmsMobile.Controllers
         {
             if (string.IsNullOrWhiteSpace(model.UserName))
             {
-                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                return RedirectToAction(MVC_DcmsMobile.Home.Index());
             }
             return View(this.Views.Index, model);
         }
@@ -66,7 +70,7 @@ namespace DcmsMobile.Controllers
             if (string.IsNullOrWhiteSpace(model.UserName) || string.IsNullOrWhiteSpace(model.Password))
             {
                 this.AddStatusMessage("Login cancelled");
-                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                return RedirectToAction(MVC_DcmsMobile.Home.Index());
             }
 
             try
@@ -78,7 +82,7 @@ namespace DcmsMobile.Controllers
                     AddStatusMessage(string.Format("Logged in as {0}", model.UserName));
                     if (string.IsNullOrEmpty(model.ReturnUrl))
                     {
-                        return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                        return RedirectToAction(MVC_DcmsMobile.Home.Index());
                     }
                     else
                     {
@@ -136,7 +140,7 @@ namespace DcmsMobile.Controllers
                 // Old Password not entered. Just navigate to home page.
                 ModelState.Clear();
                 AddStatusMessage("Password not changed");
-                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                return RedirectToAction(MVC_DcmsMobile.Home.Index());
             }
 
             if (!ModelState.IsValid)
@@ -151,7 +155,7 @@ namespace DcmsMobile.Controllers
                 {
                     // This is the success case
                     this.AddStatusMessage("Your password has been changed");
-                    return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                    return RedirectToAction(MVC_DcmsMobile.Home.Index());
                 }
 
                 // We should never get here
@@ -177,7 +181,7 @@ namespace DcmsMobile.Controllers
             if (string.IsNullOrWhiteSpace(model.NewPassword) && string.IsNullOrWhiteSpace(model.ConfirmPassword))
             {
                 // Password not entered. Just navigate to home page.
-                return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                return RedirectToAction(MVC_DcmsMobile.Home.Index());
             }
             if (!ModelState.IsValid)
             {
@@ -196,7 +200,7 @@ namespace DcmsMobile.Controllers
                     this.AddStatusMessage(string.Format("Password for {0} successfully changed", model.UserName));
                     if (string.IsNullOrEmpty(model.ReturnUrl))
                     {
-                        return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+                        return RedirectToAction(MVC_DcmsMobile.Home.Index());
                     }
                     else
                     {
@@ -231,7 +235,7 @@ namespace DcmsMobile.Controllers
                 Session.Abandon();
             }
             FormsService.SignOut();
-            return RedirectToAction(MVC_DcmsMobile.Home.Launcher());
+            return RedirectToAction(MVC_DcmsMobile.Home.Index());
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)

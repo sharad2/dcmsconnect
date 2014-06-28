@@ -43,7 +43,7 @@ namespace DcmsMobile.Models
             var list = new List<UtilityLink>();
 
             // Home
-            var str = url.Action(MVC_DcmsMobile.Home.Launcher());
+            var str = url.Action(MVC_DcmsMobile.Home.Index());
             if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) == 0)
             {
                 // Home Url not needed when we are on the home page

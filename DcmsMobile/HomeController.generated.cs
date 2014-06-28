@@ -60,13 +60,13 @@ namespace DcmsMobile.Controllers {
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass {
-            public readonly string Launcher = "Launcher";
+            public readonly string Index = "Index";
             public readonly string RcItems = "RcItems";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
-            public const string Launcher = "Launcher";
+            public const string Index = "Index";
             public const string RcItems = "RcItems";
         }
 
@@ -83,7 +83,7 @@ namespace DcmsMobile.Controllers {
         public ViewNames Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ViewNames {
-            public readonly string Launcher = "Launcher";
+            public readonly string Index = "Index";
         }
     }
 
@@ -91,8 +91,8 @@ namespace DcmsMobile.Controllers {
     public class T4MVC_HomeController: DcmsMobile.Controllers.HomeController {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Launcher() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Launcher);
+        public override System.Web.Mvc.ActionResult Index() {
+            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
             return callInfo;
         }
 

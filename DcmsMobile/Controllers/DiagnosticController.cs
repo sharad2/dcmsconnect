@@ -33,7 +33,7 @@ namespace DcmsMobile.Controllers
                     HttpContext.ClearOverriddenBrowser();
                 }
                 //MobileEmulation.EmulateMobile(this.ControllerContext, emulateMobile.Value);
-                return RedirectToAction(MVC_DcmsMobile.Home.Actions.Launcher());
+                return RedirectToAction(MVC_DcmsMobile.Home.Actions.Index());
             }
             return View(model);
         }

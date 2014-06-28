@@ -36,7 +36,7 @@ namespace DcmsMobile.Controllers
         /// It is important to order the menu choices, otherwise they can display in different order each time;
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult Launcher()
+        public virtual ActionResult Index()
         {
             var model = new LauncherViewModel();
             model.Init(this.ControllerContext, this.Url);
@@ -45,7 +45,7 @@ namespace DcmsMobile.Controllers
                                select new MenuItem(item, Url)).ToArray();
             model.UrlRcBase = this.UrlRcBase;
 
-            return View(this.Views.Launcher, model);
+            return View(this.Views.Index, model);
         }
 
         /// <summary>
