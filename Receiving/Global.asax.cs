@@ -72,7 +72,7 @@ namespace DcmsMobile.Receiving
             // Change this to true to use .desktp files
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")
             {
-                ContextCondition = ctx => true
+                ContextCondition = ctx => false
             });
 
             // If no specific extension is found, simply use the .cshtml extension

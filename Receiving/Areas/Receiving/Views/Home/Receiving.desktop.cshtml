@@ -1,0 +1,216 @@
+﻿@*  Contract
+
+Reviewed by: Deepak Bhatt 10th August 2011.
+
+1. Following attribs are used in our code
+   data-disposition: We keep pallet disposition in it.
+   data-palletid: We keep pallet id on it.
+   data-remove-carton: We keep URL of unreceive function.
+   data-ajax-url: We keep URL of handle scan.
+   data-print-url: URL for printing function which prints carton ticket.
+   data-getprinters-url: URL of the web method which fills list of printers.
+   hfExpectedCartonsCount, hfReceivedCartonsCount: Hidden fields value are read by script to update the progress bar when carton is unreceived.
+
+   CSS class
+1. recv-processId: We read processId during unreceiving of carton and when we pass processId as parameter to ajax for find out List on Non Palletize Cartons.
+
+ *@
+@using DcmsMobile.Receiving.ViewModels.Home
+@model ReceivingViewModel
+@{
+    ViewBag.Title = "Receiving";
+    var percentReceivedCartons = Model.CartonCount * 100 / (Model.ExpectedCartons.HasValue && Model.ExpectedCartons.Value > 0 ? Model.ExpectedCartons.Value : 1);
+}
+@section scripts {
+    <script src="@Links_Receiving.Areas.Receiving.Scripts.Home.Receiving_all_js" type="text/javascript"></script>
+}
+@section sidebar {
+    <div class="box boxA">
+        <h2>
+            @Html.DisplayFor(m => m.CarrierId) : @Html.DisplayFor(m => m.CarrierDescription)</h2>
+        <div class="boxContent" style="white-space: nowrap">
+            @Html.LabelFor(m => m.ExpectedCartons)
+            @Html.DisplayFor(m => m.ExpectedCartons)
+            <br />
+            @Html.LabelFor(m => m.ProcessId)
+            <span class="recv-processId">@Html.DisplayFor(m => m.ProcessId)</span>
+            <br />
+            @Html.LabelFor(m => m.ProNumber)
+            @Html.DisplayFor(m => m.ProNumber)
+            <br />
+            @Html.LabelFor(m => m.ProDate)
+            @Html.DisplayFor(m => m.ProDate)
+            <br />
+            @Html.LabelFor(m => m.PriceSeasonCode)
+            @Html.DisplayFor(m => m.PriceSeasonCode)<br />
+            @Html.LabelFor(m => m.OperatorName)
+            @Html.DisplayFor(m => m.OperatorName)<br />
+            <div style="text-align: right; padding-top: 1em;">
+                @Html.ActionLink("Change Process", MVC_Receiving.Receiving.Home.Index())<br />
+                @Html.ActionLink("Edit Process", MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))
+            </div>
+        </div>
+    </div>
+    <div class="box boxB ">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
+            </span><a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)" title = "Receiving Detail for the selected Process 
+" target="_blank">Report 40.103: Summary of shipments and cartons received</a><br />
+        </div>
+    </div>
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a>
+        </div>
+    </div>
+    <div class="box">
+        <h3>
+            Sound Test</h3>
+        <div class="boxContent">
+            <div id="sound_success">
+                Carton Received
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav' autostart="false" height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_palletscan">
+                Pallet Scan
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds.palletscan_wav' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_1">
+                First Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_2">
+                Second Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._2_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_3">
+                Third Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._3_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_4">
+                Fourth Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._4_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_5">
+                Fifth Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._5_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_6">
+                Sixth Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._6_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_7">
+                Seventh Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._7_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_8">
+                Eight Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._8_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_9">
+                Ninth Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._9_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_10">
+                Tenth Pallet
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds._10_mp3' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_warning">
+                Warning
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds.warning_wav' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+            <div id="sound_error">
+                Error: Scan Ignored
+                <div>
+                    <embed src='@Links_Receiving.Areas.Receiving.Content.Sounds.error_wav' autostart="false"  height="32" width="128" style="background-color:transparent" /></div>
+            </div>
+        </div>
+    </div>
+}
+<label for="scan">
+    Scan Carton or Pallet</label>
+@Html.TextBoxFor(m => m.ScanModel.ScanText, new Dictionary<string, object>
+       {
+           {"style", "text-transform: uppercase; font-size: 2em;"},
+           {"data-ajax-url", Url.Action(MVC_Receiving.Receiving.Home.HandleScan())},
+           {"id", "scan"},
+           {"autocomplete", "off"}
+       })
+<button id="btnNewPallet" type="button" data-new-pallet="@ReceivingViewModel.SCAN_NEWPALLET">
+    New Pallet</button>
+<div id="receivingProgress" class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="position: relative; height: 1.5em; white-space: nowrap; margin-top:1em; margin-bottom:1em;" title="@string.Format("{0}% completed", @percentReceivedCartons), @Model.cartonsOnPallet cartons out of @(Model.ExpectedCartons ?? 0) expected cartons received">
+    <div style="width: @string.Format("{0}%", (percentReceivedCartons) > 100 ? 100 : percentReceivedCartons); position: absolute; left: 0px; top: 0px" class="ui-progressbar-value ui-widget-header ui-corner-left @string.Format("{0}", @percentReceivedCartons > 100 ? "ui-state-error" : "ui-state-active")">
+    </div>
+    <div class="ui-progressbar-value" style="width: 100%; position: absolute; font-size: 0.8em;
+        margin-top: 3px; margin-left: 1%">
+        <span>
+            @string.Format("{0}%", @percentReceivedCartons)
+[@Model.cartonsOnPallet of @(Model.ExpectedCartons ?? 0) cartons] </span><span style="margin-top: 3px;
+                margin-left: 35%; font-style: italic; font-weight: bold; color: darkslategrey">Receiving
+                progress</span>
+    </div>
+</div>
+<form id="frmScan" method="post" action="#">
+<div>
+    <input type="hidden" name='@Html.NameFor(m => m.ScanModel.ProcessId)' value='@Model.ScanModel.ProcessId' />
+    <input type="hidden" name='@Html.NameFor(m => m.ReceivingAreaId)' value='@Model.ReceivingAreaId' />
+    <input type="hidden" name='@Html.NameFor(m => m.SpotCheckAreaId)' value='@Model.SpotCheckAreaId' />
+    <input type="hidden" name='@Html.NameFor(m => m.CartonCount)' value='@Model.CartonCount' id = "hfReceivedCartonsCount" />
+    <input type="hidden" name='@Html.NameFor(m => m.ExpectedCartons)' value='@Model.ExpectedCartons' id = "hfExpectedCartonsCount" />
+    <input type="hidden" name='@Html.NameFor(m => m.ScanModel.PalletId)' value='@Model.ScanModel.PalletId'  id="tbPalletId"/>
+    <div id="spanErrorMessage" class="ui-state-error ui-helper-hidden">
+    </div>
+</div>
+</form>
+<div class="widget-container">
+    <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Count == 0 ? "ui-helper-hidden" : "")">
+        <ul>
+            @foreach (var pallet in Model.Pallets)
+            {
+                <li data-palletid='@pallet.PalletId' data-disposition='@pallet.DispositionId'><a href='#Pallet_@(pallet.PalletId)'
+                    title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a><span title="Remove Pallet" class='ui-icon ui-icon-close'></span></li>
+            }
+        </ul>
+        @foreach (var pallet in Model.Pallets)
+        {
+            <div id="Pallet_@(pallet.PalletId)">
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
+            </div>
+        }
+    </div>
+</div>
+<div id="dialog-print">
+    <form id="frmprint" method="post" action="#" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+    <div>
+        @Html.Label("Carton ID") <strong><span id="CartonToPrint" class="ui-state-highlight">
+        </span></strong>
+        <br />
+        <br />
+        @Html.Label("Select Printer")
+        <select id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' style="width:16em">
+        </select><br />
+        <span id="dlgError" class="ui-state-error"></span>
+    </div>
+    </form>
+</div>
+<div id="dlgScanCartonsStatus" title="Receiving Progress">
+    <ol id="statusList" style="padding-left: 1em">
+    </ol>
+</div>
+<div id="divCartonsDialog" data-list-url="@Url.Action(MVC_Receiving.Receiving.Home.NonpalletizedCartons())">
+    @Html.Partial(MVC_Receiving.Receiving.Home.Views._cartonNotOnPalletPartial)
+</div>
+<!--$Id$-->

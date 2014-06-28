@@ -183,11 +183,11 @@
       <DependentUpon>Rad-all.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
-    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.phone.cshtml" />
+    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Receiving.desktop.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Index.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Receiving.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Index.phone.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Receiving.phone.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\_palletPartial.phone.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\_palletPartial.cshtml" />
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\Receiving\Content\Autocomplete.partial.css" />
     <Content Include="Areas\Receiving\Content\images\ajax-loader.gif" />
@@ -302,15 +302,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Areas\Receiving\Scripts\Home\HandleScan.partial.js" />
-    <Content Include="Areas\Receiving\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\Index.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Tutorial.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\_palletPartial.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\_palletPartial.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Web.config">
       <SubType>
       </SubType>
     </Content>
     <Content Include="Areas\Receiving\Views\Shared\DisplayTemplates\ValueWithShortName.cshtml" />
-    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.cshtml" />
+    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.desktop.cshtml" />
     <None Include="Models\Models.cd" />
     <Content Include="Areas\Receiving\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\Index.cshtml" />

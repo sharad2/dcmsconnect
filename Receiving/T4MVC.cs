@@ -221,12 +221,12 @@ namespace Links_Receiving {
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _cartonNotOnPalletPartial_cshtml = Url("_cartonNotOnPalletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_cartonNotOnPalletPartial.cshtml");
                     public static readonly string _palletPartial_cshtml = Url("_palletPartial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.cshtml");
-                    public static readonly string _palletPartial_phone_cshtml = Url("_palletPartial.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.phone.cshtml");
+                    public static readonly string _palletPartial_desktop_cshtml = Url("_palletPartial.desktop.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_palletPartial.desktop.cshtml");
                     public static readonly string CreateProcess_cshtml = Url("CreateProcess.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/CreateProcess.cshtml");
                     public static readonly string Index_cshtml = Url("Index.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.cshtml");
-                    public static readonly string Index_phone_cshtml = Url("Index.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.phone.cshtml");
+                    public static readonly string Index_desktop_cshtml = Url("Index.desktop.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Index.desktop.cshtml");
                     public static readonly string Receiving_cshtml = Url("Receiving.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.cshtml");
-                    public static readonly string Receiving_phone_cshtml = Url("Receiving.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.phone.cshtml");
+                    public static readonly string Receiving_desktop_cshtml = Url("Receiving.desktop.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Receiving.desktop.cshtml");
                     public static readonly string ShipmentList_cshtml = Url("ShipmentList.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/ShipmentList.cshtml");
                     public static readonly string Tutorial_cshtml = Url("Tutorial.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/Tutorial.cshtml");
                 }
@@ -248,8 +248,8 @@ namespace Links_Receiving {
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _layoutReceiving_cshtml = Url("_layoutReceiving.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.cshtml");
+                    public static readonly string _layoutReceiving_desktop_cshtml = Url("_layoutReceiving.desktop.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.desktop.cshtml");
                     public static readonly string _layoutReceiving_Mobile_cshtml = Url("_layoutReceiving.Mobile.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.Mobile.cshtml");
-                    public static readonly string _layoutReceiving_phone_cshtml = Url("_layoutReceiving.phone.cshtml")+"?"+T4Extensions.TimestampString(URLPATH + "/_layoutReceiving.phone.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/Receiving/Views/Shared/DisplayTemplates";
