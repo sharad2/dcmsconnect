@@ -113,12 +113,6 @@ namespace DcmsMobile.Models
             }
         }
 
-        /// <summary>
-        /// This UniqueId is used to match the items on RC website with the items on the main website. For this reason, this id must be generated such that it will evaluate to the
-        /// same value on both websites. We are using the pattern AreaName_ShortName
-        /// </summary>
-        public string UniqueId { get; set; }
-
         private static IList<AreaItem> GenerateAreaItems()
         {
             // Sharad 9 AUg 2013: Ignore signed assemblies
@@ -178,13 +172,13 @@ namespace DcmsMobile.Models
                 list.Add(item.Area);
             }
 
-            // Assigne a unique sequence to each area item
-            var seq = 0;
-            foreach (var item in list.Where(p => p.SubAreas != null).SelectMany(p => p.SubAreas).Concat(list))
-            {
-                item.UniqueId = string.Format("{0}_{1}", item.AreaName, item.ShortName);
-                ++seq;
-            }
+            //// Assigne a unique sequence to each area item
+            //var seq = 0;
+            //foreach (var item in list.Where(p => p.SubAreas != null).SelectMany(p => p.SubAreas).Concat(list))
+            //{
+            //    item.UniqueId = string.Format("{0}_{1}", item.AreaName, item.ShortName);
+            //    ++seq;
+            //}
             return list;
         }
 

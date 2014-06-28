@@ -7,9 +7,8 @@
     <script type="text/javascript">
         // Get a list of items available on the release candidate site and show the RC link for each of the items available
         $(document).on('pagecreate', '#mainpage', function () {
-            var urlBase = $('#linkRc').attr('href');
+            var urlBase = $('#linkRc').attr('href');  // Must not have a trailing slash
             var urlItems = urlBase +  $('#linkRc').attr('data-url-rcitem');
-            alert(urlItems);
             $.ajax(urlItems, {
                 dataType: 'jsonp',
                 crossDomain: true
@@ -18,10 +17,10 @@
                 $('#rcNavBar').show();
                 // Show the rc link against each menu items
                 $.each(data, function () {
-                    $('#' + this.itemid).attr('href', urlBase + this.url).show();
+                    $('#' + this.area).attr('href', urlBase + this.url).show();
                 });
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert('Call to Release Candidate Website returned Http error ' + jqXHR.status);
+                alert('Call to Release Candidate Website ' + urlItems + ' returned Http error ' + jqXHR.status);
             });
         });
     </script>
@@ -57,7 +56,7 @@
                 {
                     <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
                 }
-                <a href="#" class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].ItemId" style="display:none">Release Candidate</a>
+                <a href="#" class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
             </div>
             <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
         </li>
@@ -67,7 +66,7 @@
 
 
 <div data-role="navbar" style="display:none" id="rcNavBar">
-    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems())"><small>Release Candidates</small></a>
+    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems(1))"><small>Release Candidates</small></a>
 </div>
 @section panels {
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))

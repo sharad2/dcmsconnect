@@ -40,6 +40,11 @@ namespace DcmsMobile.Controllers {
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.ActionResult RcItems() {
+            return new T4MVC_ActionResult(Area, Name, ActionNames.RcItems);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_DcmsMobile.Home; } }
@@ -66,6 +71,13 @@ namespace DcmsMobile.Controllers {
         }
 
 
+        static readonly ActionParamsClass_RcItems s_params_RcItems = new ActionParamsClass_RcItems();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_RcItems RcItemsParams { get { return s_params_RcItems; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RcItems {
+            public readonly string version = "version";
+        }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewNames Views { get { return s_views; } }
@@ -84,8 +96,9 @@ namespace DcmsMobile.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RcItems() {
+        public override System.Web.Mvc.ActionResult RcItems(int version) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RcItems);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "version", version);
             return callInfo;
         }
 

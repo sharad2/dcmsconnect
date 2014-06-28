@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,7 +11,6 @@ namespace DcmsMobile.Models
     {
         private readonly IList<MenuItem> _submenu;
         private readonly string _panelId;
-        private readonly string _itemId;
 
         //private static int __idSequence;
 
@@ -40,8 +40,8 @@ namespace DcmsMobile.Models
                             orderby subarea.Order, subarea.Name
                             select new MenuItem(subarea, url)).ToArray();
             }
-            _panelId = string.Format("panel_{0}", area.UniqueId);
-            _itemId = string.Format("item_{0}", area.UniqueId);
+            _panelId = string.Format("panel_{0}", area.AreaName);
+            this.AreaName = area.AreaName;
         }
 
         public IList<MenuItem> SubMenu
@@ -82,13 +82,15 @@ namespace DcmsMobile.Models
             }
         }
 
-        public string ItemId
+        /// <summary>
+        /// The area to which this menu item belongs
+        /// </summary>
+        public string AreaName
         {
-            get
-            {
-                return _itemId;
-            }
+            get;
+            private set;
         }
+
     }
 
     /// <summary>
