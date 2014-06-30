@@ -56,7 +56,7 @@
     </div>
 }
 
-<table data-role="table" id="location-table" data-column-btn-theme="b" data-column-popup-theme="a" data-mode="columntoggle" class="ui-responsive table-stroke">
+<table data-role="table" id="location-table" data-mode="columntoggle" class="ui-responsive table-stroke">
     <thead>
         <tr class="th-groups">
             <th rowspan="2" data-priority="4">#</th>
@@ -164,7 +164,7 @@
     {
         <div class="ui-field-contain">
             @Html.HiddenFor(m => m.AssignedSku.LocationId, new { id = "hfCurrentLocationId" })
-            <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+            <label for="tbSku" id="lblSku">SKU</label>
             @Html.HiddenFor(m => m.AssignedSku.SkuId)
             @Html.TextBoxFor(m => m.AssignedSku.SkuBarCode, new Dictionary<string, object>
                                    {
@@ -176,17 +176,20 @@
         </div>
         <div class="ui-field-contain">
             <label for="tbAssignedVwh">Assigned Vwh<sup>*</sup></label>
-            @Html.DropDownListFor(m => m.AssignedSku.AssignedVwhId, Model.AssignedSku.VwhList, "Please select", new { id = "tbAssignedVwh" })
+            @Html.DropDownListFor(m => m.AssignedSku.AssignedVwhId, Model.AssignedSku.VwhList, "Please select", new { id = "tbAssignedVwh", required = "required" })
         </div>
         <div class="ui-field-contain">
             <label for="tbMaxAssignedCarton">Max Cartons<sup>*</sup></label>
-            @Html.TextBoxFor(m => m.AssignedSku.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })
+            @Html.TextBoxFor(m => m.AssignedSku.MaxAssignedCarton, new { id = "tbMaxAssignedCarton", required = "required" })
         </div>
-        <div class="ui-field-contain">
-            <label></label>
-            <div id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count*@</span> cartons</div>
-            @Html.ValidationSummary()
-        </div>
+        @*<div class="ui-field-contain">
+                <label></label>
+                <div id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count</span> cartons</div>
+                @Html.ValidationSummary()
+            </div>*@
+        
+        <button class="ui-btn ui-btn-inline" type="submit">Update</button>
+        <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
     }
 </div>
 
@@ -196,23 +199,6 @@
             text-align: center;
             background-color: rgba(0,0,0,.1);
             border-right: 1px solid #fff;
-        }
-
-            .th-groups th.totals {
-                background-color: rgba(0,0,0,.5);
-                color: #fff;
-                text-shadow: none;
-            }
-
-        /* Manually hidden */
-        th.ui-table-cell-hidden,
-        td.ui-table-cell-hidden {
-            display: none;
-        }
-        /* Manually shown */
-        th.ui-table-cell-visible,
-        td.ui-table-cell-visible {
-            display: table-cell;
         }
     </style>
 }
