@@ -53,9 +53,6 @@ namespace DcmsMobile.CartonAreas.Repository
         public void UpdateArea(CartonArea model)
         {
             const string QUERY = @"
-                DECLARE
-                  LSHORT_NAME            VARCHAR(3);
-                  LWAREHOUSE_LOCATION_ID VARCHAR(5);
                 BEGIN
                     UPDATE <proxy />TAB_INVENTORY_AREA TIA
                        SET TIA.LOCATION_NUMBERING_FLAG = :LOCATION_NUMBERING_FLAG,
@@ -63,7 +60,7 @@ namespace DcmsMobile.CartonAreas.Repository
                            TIA.DESCRIPTION             = :DESCRIPTION,
                            TIA.UNUSABLE_INVENTORY      = :UNUSABLE_INVENTORY
                            WHERE TIA.INVENTORY_STORAGE_AREA =:INVENTORY_STORAGE_AREA
-                  RETURNING TIA.SHORT_NAME, TIA.WAREHOUSE_LOCATION_ID INTO LSHORT_NAME, LWAREHOUSE_LOCATION_ID;
+                  RETURNING TIA.SHORT_NAME, TIA.WAREHOUSE_LOCATION_ID INTO :LSHORT_NAME, :LWAREHOUSE_LOCATION_ID;
                 END;
 
 ";

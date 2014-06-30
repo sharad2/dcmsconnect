@@ -104,13 +104,10 @@
                     .end()
                     .find('#tbDescription').val($(this).attr('data-description'))
                     .end()
-                    .find('#hfAreaId').val($(this).attr('data-area'))
-                    .end()
-                .find('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
-                .checkboxradio('refresh');
+                    .find('#hfAreaId').val($(this).attr('data-area'));
 
-                //$('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
-                //    .checkboxradio('refresh');
+                $('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
+                  .checkboxradio('refresh');
                 $('#cbPalletRequired').prop('checked', $(this).attr('data-palletrequiredflag') == "True")
                    .checkboxradio('refresh');
                 $('#cbUnusableInventory').prop('checked', $(this).attr('data-unusableinventoryflag') == "True")
