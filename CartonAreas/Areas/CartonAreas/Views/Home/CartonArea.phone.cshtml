@@ -92,8 +92,7 @@
 @section scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            // When edit pallet limit is clicked, populate values in the dialog
+        $(document).ready(function () {           
             $('#AreaList').on('click', 'a[href="#editArea"]', function (e) {
                 $('#editArea')
                     .find('h3 span').text($(this).attr('data-area-short-name'))
