@@ -61,12 +61,12 @@
             <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">
                 <h3><em>@(i + 1).</em> @Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</h3>
                 <p><strong>PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate)</strong></p>
-                <p class="ui-li-aside">@Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)</em></p>
+                <p class="ui-li-aside">Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)</em></p>
                 <p>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</p>
                 <span class="ui-li-count">
                     @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
                     ctn @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
-                </span>
+                </span>                
             </a>
         </li>
     }
