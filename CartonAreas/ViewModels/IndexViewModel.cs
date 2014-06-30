@@ -11,6 +11,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
     {
         public string BuildingId { get; set; }
 
+        [DisplayFormat(NullDisplayText="(Not Specified)")]
         public string Description { get; set; }
 
         public DateTime? InsertDate { get; set; }
