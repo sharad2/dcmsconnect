@@ -46,7 +46,8 @@ namespace DcmsMobile.Receiving
             // Smartphones are detected if the user agent contains one of these strings
             var phones = new[] {
                 "Android",
-                "iPhone"
+                "iPhone",
+                "iPad"
             };
 
             // Known Smart Phones will use the .phone.cshtml extension
@@ -56,17 +57,17 @@ namespace DcmsMobile.Receiving
             //  Mozilla/5.0 (Linux; U; Android 4.1.2; en-gb; GT-N7000 Build/JZO54K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30
             // iPhone 5 UserAgent when using Safari:
             //   Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/537.51.2 (KHTML, like Gecko) Version/7.0 Mobile/11D201 Safari/9537.53
-            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
-            {
-                ContextCondition = ctx =>  true
-            });
-
-            //// .mobile file is to be used only for ringscanners
-            //// RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
-            //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
+            //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
             //{
-            //    ContextCondition = ctx => string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0
+            //    ContextCondition = ctx =>  true
             //});
+
+            // .mobile file is to be used only for ringscanners
+            // RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
+            {
+                ContextCondition = ctx => string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0
+            });
 
             // If a .desktop.cshtml file exists, it will be served to non phone user agents
             // Change this to true to use .desktp files
