@@ -20,7 +20,6 @@
         sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
     }
 }
-
 @*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
@@ -28,6 +27,7 @@
         <span class="ui-bar ui-bar-a">
             <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
             <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
+            <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
             @*<a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Slide down</a>*@
         </span>
         <label for="scan">
@@ -95,6 +95,17 @@
         </ul>
 
     </div>
+</div>
+<div data-role="popup" id="processMenu">
+    <ul data-role="listview" data-inset="true" style="min-width:210px;">
+        <li data-role="list-divider">Choose an action</li>
+        <li>@Html.ActionLink("Edit Process", MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))</li>
+        <li>
+            <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)" title="Receiving Detail for the selected Process
+" target="_blank">Received shipments and cartons summary report</a>
+        </li>
+        <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>        
+    </ul>
 </div>
 
 
