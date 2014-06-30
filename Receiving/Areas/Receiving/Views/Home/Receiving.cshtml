@@ -55,6 +55,7 @@
                     [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
                     [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
                     [#Ctn @Model.Pallets[i].Cartons.Count]
+                    [Pallet Limit @Model.Pallets[i].PalletLimit]
                     @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
                 </text>
             }
