@@ -20,9 +20,8 @@
         sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
     }
 }
-@*@Html.ValidationSummary()*@
-@*<bgsound src="@sound" loop="1" />*@
-<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>
+
+@*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
     <div>

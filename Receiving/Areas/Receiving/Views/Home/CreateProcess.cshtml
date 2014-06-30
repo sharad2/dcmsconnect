@@ -1,5 +1,6 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel
 @{
+    Layout = "~/Areas/Receiving/Views/Shared/_layoutReceiving.desktop.cshtml";
     ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
