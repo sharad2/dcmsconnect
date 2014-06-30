@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.CartonAreas.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -36,6 +37,7 @@ namespace DcmsMobile.CartonAreas.ViewModels
         /// <summary>
         /// For only post value
         /// </summary>
+        [Obsolete]
         public string BuildingId { get; set; }
 
         public bool LocationNumberingFlag { get; set; }
