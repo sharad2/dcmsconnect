@@ -26,7 +26,9 @@
 {
     <div>
         <span class="ui-bar ui-bar-a">
-            <em>Process </em>@Html.DisplayFor(m => m.ProcessId) <a class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>            
+            <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
+            <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
+            @*<a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Slide down</a>*@
         </span>
         <label for="scan">
             Scan Carton or Pallet
@@ -65,6 +67,35 @@
         </div>
     </div>
 }
+<div data-role="popup" id="processInfo">
+    <div class="boxContent" style="white-space: nowrap">
+        <ul data-role="listview" data-inset="true">
+            <li>
+                Carrier @Html.DisplayFor(m => m.CarrierId) : @Html.DisplayFor(m => m.CarrierDescription)
+            </li>
+            <li>
+                Exp Ctns @Html.DisplayFor(m => m.ExpectedCartons)
+            </li>
+            <li>
+                Pro #
+                @Html.DisplayFor(m => m.ProNumber)
+            </li>
+            <li>
+                Pro Date
+                @Html.DisplayFor(m => m.ProDate)
+            </li>
+            <li>
+                Season Code
+                @Html.DisplayFor(m => m.PriceSeasonCode)
+            </li>
+            <li>
+                Received By
+                @Html.DisplayFor(m => m.OperatorName)
+            </li>
+        </ul>
+
+    </div>
+</div>
 
 
 
