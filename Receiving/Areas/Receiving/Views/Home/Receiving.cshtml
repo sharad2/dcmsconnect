@@ -52,9 +52,10 @@
             @if (Model.Pallets[i].Cartons.Count > 0)
             {
                 <text>
-                    [@Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
-                    [@Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
-                    (@Model.Pallets[i].Cartons.Count)
+                    [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
+                    [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
+                    [#Ctn @Model.Pallets[i].Cartons.Count]
+                    @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
                 </text>
             }
             else
