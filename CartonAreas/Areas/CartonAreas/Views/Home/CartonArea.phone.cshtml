@@ -3,8 +3,101 @@
     ViewBag.Title = "Carton Areas in Building " + @Model.BuildingId;
 }
 
+@helper EditLink(int i)
+{
+    var aLocList = new TagBuilder("a");
+    aLocList.Attributes.Add("href", Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId)));
+
+
+    aLocList.InnerHtml = string.Format("<h3>Sharad {0} {1}</h3>", Html.DisplayFor(m => m.CartonAreaList[i].ShortName), Html.DisplayFor(m => m.CartonAreaList[i].Description));
+
+    if (Model.CartonAreaList[i].IsPalletRequired)
+    {
+        aLocList.InnerHtml += "<p>Pallet Area</p>";
+    }
+
+    if (Model.CartonAreaList[i].UnusableInventory)
+    {
+        var aside = new TagBuilder("p");
+        aside.AddCssClass("ui-li-aside");
+        aside.InnerHtml = "Unusable Inventory";
+
+        aLocList.InnerHtml += aside.ToString();
+    }
+
+    var aEdit = new TagBuilder("a");
+    aEdit.Attributes.Add("href", "#editArea");
+    aEdit.Attributes.Add("data-rel", "popup");
+    // TODO: Set attribues of aEdit
+
+    if (Model.CartonAreaList[i].LocationNumberingFlag)
+    {
+        var count = new TagBuilder("p");
+        count.AddCssClass("ui-li-count");
+        count.InnerHtml = string.Format("{0} Locations", Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations));
+
+        aLocList.InnerHtml += count.ToString();
+        @Html.Raw(aLocList)
+        @Html.Raw(aEdit)
+    }
+    else
+    {
+        aEdit.InnerHtml = aLocList.InnerHtml;
+        @Html.Raw(aEdit)
+    }
+}
 <div id="AreaList">
-    <table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
+    <ul data-role="listview" data-split-icon="edit" data-icon="edit">
+        @for (var i = 0; i < Model.CartonAreaList.Count(); i++)
+        {
+            //if (Model.CartonAreaList[i].LocationNumberingFlag)
+            //{
+            @*<li>
+
+                        <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.CartonAreaList[i].AreaId))">
+                            <h3>@Html.DisplayFor(m => m.CartonAreaList[i].ShortName) @Html.DisplayFor(m => m.CartonAreaList[i].Description)</h3>
+                            @if (Model.CartonAreaList[i].UnusableInventory)
+                            {
+                                <span>Unusable Inventory</span>
+                                <span>Unusable Inventory 2</span>
+                            }
+                            <p class="ui-li-count">@Html.DisplayFor(m => m.CartonAreaList[i].TotalLocations) Locations</p>
+                        </a>
+                        <a href="#editArea" data-rel="popup"
+                           data-area="@Model.CartonAreaList[i].AreaId"
+                           data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
+                           data-locationnumberingflag="@Model.CartonAreaList[i].LocationNumberingFlag"
+                           data-palletrequiredflag="@Model.CartonAreaList[i].IsPalletRequired"
+                           data-unusableinventoryflag="@Model.CartonAreaList[i].UnusableInventory" title='Update area @Model.CartonAreaList[i].ShortName'>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li data-icon="edit">
+                        <a href="#editArea" data-rel="popup"
+                           data-area="@Model.CartonAreaList[i].AreaId"
+                           data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
+                           data-locationnumberingflag="@Model.CartonAreaList[i].LocationNumberingFlag"
+                           data-palletrequiredflag="@Model.CartonAreaList[i].IsPalletRequired"
+                           data-unusableinventoryflag="@Model.CartonAreaList[i].UnusableInventory" title='Update area @Model.CartonAreaList[i].ShortName'>
+                            <h3>@Html.DisplayFor(m => m.CartonAreaList[i].ShortName) @Html.DisplayFor(m => m.CartonAreaList[i].Description)</h3>
+                            @if (Model.CartonAreaList[i].UnusableInventory)
+                            {
+                                <p class="ui-li-aside">
+                                    Unusable Inventory
+                                </p>
+                            }
+                        </a>
+                    </li>
+                }*@
+            <li>
+                @EditLink(i)
+            </li>
+        }
+    </ul>
+
+    @*<table data-role="table" id="table-column-toggle" data-mode="columntoggle" class="ui-responsive table-stroke">
         <thead>
             <tr>
                 <th>Area<span style="display:inline-block;" class="ui-icon ui-icon-triangle-1-n"></span></th>
@@ -47,7 +140,6 @@
                         <span class="@(Model.CartonAreaList[i].UnusableInventory ? "ui-nodisc-icon ui-alt-icon ui-btn ui-corner-all ui-icon-check ui-btn-icon-notext ui-btn-inline" : "")" title="Unusable Inventory"></span>
                     </td>
                     <td>
-                        @Html.HiddenFor(m => m.CartonAreaList[i].AreaId)
                         <a href="#editArea" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"
                            data-area="@Model.CartonAreaList[i].AreaId"
                            data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
@@ -59,7 +151,8 @@
                 </tr>
             }
         </tbody>
-    </table>
+    </table>*@
+
 </div>
 
 <div data-role="popup" id="editArea">
@@ -86,7 +179,7 @@
             <input id="cbUnusableInventory" type="checkbox"
                    name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.CartonAreas.ViewModels.CartonAreaModel m) => m.UnusableInventory)" value="true" />
         </div>
-    <input id="hfAreaId" type="hidden" name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.CartonAreas.ViewModels.CartonAreaModel m) => m.AreaId)" />
+        <input id="hfAreaId" type="hidden" name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.CartonAreas.ViewModels.CartonAreaModel m) => m.AreaId)" />
         <button class="ui-btn ui-btn-inline" type="submit">Update</button>
         <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
     }
@@ -98,7 +191,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // When edit pallet limit is clicked, populate values in the dialog
-            $('#AreaList').on('click', 'a[href="#editArea"]', function (e) {                
+            $('#AreaList').on('click', 'a[href="#editArea"]', function (e) {
                 $('#editArea')
                     .find('h3 span').text($(this).attr('data-area-short-name'))
                     .end()
