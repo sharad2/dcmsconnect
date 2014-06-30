@@ -48,9 +48,12 @@
                     </td>
                     <td>
                         @Html.HiddenFor(m => m.CartonAreaList[i].AreaId)
-                        <a href="#editArea" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline" data-area="@Model.CartonAreaList[i].AreaId"
+                        <a href="#editArea" data-rel="popup" class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext ui-btn-inline"
+                           data-area="@Model.CartonAreaList[i].AreaId"
                            data-area-short-name="@Model.CartonAreaList[i].ShortName" data-description="@Model.CartonAreaList[i].Description"
-                           data-locationnumberingflag="@Model.CartonAreaList[i].LocationNumberingFlag" title='Update area @Model.CartonAreaList[i].ShortName'>
+                           data-locationnumberingflag="@Model.CartonAreaList[i].LocationNumberingFlag"
+                           data-palletrequiredflag="@Model.CartonAreaList[i].IsPalletRequired"
+                           data-unusableinventoryflag="@Model.CartonAreaList[i].UnusableInventory" title='Update area @Model.CartonAreaList[i].ShortName'>
                         </a>
                     </td>
                 </tr>
@@ -64,7 +67,7 @@
     {
         <div class="ui-field-contain">
             <label for="tbDescription">Description</label>
-            <input type="text" name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.CartonAreas.ViewModels.CartonAreaModel m) => m.Description )"
+            <input type="text" name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.CartonAreas.ViewModels.CartonAreaModel m) => m.Description)"
                    id="tbDescription" maxlength="40" size=" 30" />
             @*@Html.TextBoxFor(m => m.Description, new { id = "tbDescription", maxlength = 40, size = 30 })*@
 
@@ -102,9 +105,17 @@
                     .end()
                     .find('#tbDescription').val($(this).attr('data-description'))
                     .end()
-                    .find('#hfAreaId').val($(this).attr('data-area'));
-                $('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
-                    .checkboxradio('refresh');
+                    .find('#hfAreaId').val($(this).attr('data-area'))
+                    .end()
+                .find('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
+                .checkboxradio('refresh');
+
+                //$('#cbLocationNumberingFlag').prop('checked', $(this).attr('data-locationnumberingflag') == "True")
+                //    .checkboxradio('refresh');
+                $('#cbPalletRequired').prop('checked', $(this).attr('data-palletrequiredflag') == "True")
+                   .checkboxradio('refresh');
+                $('#cbUnusableInventory').prop('checked', $(this).attr('data-unusableinventoryflag') == "True")
+                   .checkboxradio('refresh')
             });
         });
     </script>
