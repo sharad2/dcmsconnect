@@ -24,17 +24,18 @@
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
     <div>
-        <span class="ui-bar ui-bar-a">
+        <span class="ui-bar ui-bar-a">           
             <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
             <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
             <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
-            @*<a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline" data-rel="popup">Slide down</a>*@
+            <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+                   style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
         </span>
-        <label for="scan">
+        @*<label for="scan">
             Scan Carton or Pallet
-        </label>
-        <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-               style="text-transform: uppercase" size="12" autocomplete="off" />
+        </label>*@
+        @*<input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+               style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />*@
         @Html.HiddenFor(m => m.ScanModel.ProcessId)
         @Html.HiddenFor(m => m.ReceivingAreaId)
         @Html.HiddenFor(m => m.SpotCheckAreaId)
@@ -60,8 +61,7 @@
             {
                 @:[NEW]
             }
-        </h4>
-
+        </h4>        
         <div>
             @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
         </div>

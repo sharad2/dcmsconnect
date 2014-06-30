@@ -6,17 +6,29 @@
     //var rowIndex = 0;
 }
 
-<table>
+<table data-role="table" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive">
     <thead>
         <tr>
-            <th>
+            <th data-priority="6">
                 #
             </th>
-            <th>
+            <th data-priority="1">
                 Carton
             </th>
-            <th colspan="3" style="text-align: center">
+            <th colspan="4" style="text-align: center">
                 SKU
+            </th>
+            <th data-priority="3">
+                Retail Price($)
+            </th>
+            <th data-priority="2">
+                Receive Date
+            </th>
+            <th data-priority="5">
+                Print
+            </th>
+            <th data-priority="4">
+                Remove
             </th>
         </tr>
     </thead>
@@ -41,6 +53,18 @@
                 </td>
                 <td>
                     @Html.DisplayFor(m => m.Cartons[i].Sku.SkuSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
+                </td>
+                <td>
+                    <a class="ui-btn ui-btn-icon-notext ui-icon-printer ui-corner-all"></a>
+                </td>
+                <td>
+                    <a class="ui-btn ui-btn-icon-notext ui-icon-delete ui-corner-all"></a>
                 </td>
             </tr>
         }
