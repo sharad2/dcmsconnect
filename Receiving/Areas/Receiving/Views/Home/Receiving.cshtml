@@ -25,6 +25,9 @@
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
     <div>
+        <span class="ui-bar ui-bar-a">
+            <em>Process </em>@Html.DisplayFor(m => m.ProcessId) <a class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext"></a>            
+        </span>
         <label for="scan">
             Scan Carton or Pallet
         </label>
