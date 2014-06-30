@@ -76,8 +76,6 @@ namespace Links_CartonAreas {
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js") : Url("_references.js")+"?"+T4Extensions.TimestampString(URLPATH + "/_references.js");
                       
-        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-1.8.2.js") : Url("jquery-1.8.2.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-1.8.2.js");
-                      
         public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js") : Url("jquery-2.0.3.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-2.0.3.js");
                       
         public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js") : Url("jquery-ui-1.10.0.js")+"?"+T4Extensions.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");

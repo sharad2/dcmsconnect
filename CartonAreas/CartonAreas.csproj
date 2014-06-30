@@ -236,8 +236,6 @@
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
     <Content Include="Areas\CartonAreas\Views\Home\ManageCartonArea.cshtml" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
