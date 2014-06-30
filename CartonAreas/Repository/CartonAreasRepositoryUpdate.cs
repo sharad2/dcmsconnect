@@ -53,13 +53,18 @@ namespace DcmsMobile.CartonAreas.Repository
         public void UpdateArea(CartonArea model)
         {
             const string QUERY = @"
+                DECLARE
+                  LSHORT_NAME            VARCHAR(3);
+                  LWAREHOUSE_LOCATION_ID VARCHAR(5);
+                BEGIN
                     UPDATE <proxy />TAB_INVENTORY_AREA TIA
                        SET TIA.LOCATION_NUMBERING_FLAG = :LOCATION_NUMBERING_FLAG,
                            TIA.IS_PALLET_REQUIRED      = :IS_PALLET_REQUIRED,
                            TIA.DESCRIPTION             = :DESCRIPTION,
                            TIA.UNUSABLE_INVENTORY      = :UNUSABLE_INVENTORY
                            WHERE TIA.INVENTORY_STORAGE_AREA =:INVENTORY_STORAGE_AREA
-                RETURNING tia.short_name INTO :short_name
+                  RETURNING TIA.SHORT_NAME, TIA.WAREHOUSE_LOCATION_ID INTO LSHORT_NAME, LWAREHOUSE_LOCATION_ID;
+                END;
 
 ";
             var binder = SqlBinder.Create()
@@ -68,7 +73,8 @@ namespace DcmsMobile.CartonAreas.Repository
             .Parameter("IS_PALLET_REQUIRED", model.IsPalletRequired ? "Y" : string.Empty)
             .Parameter("UNUSABLE_INVENTORY", model.UnusableInventory ? "Y" : string.Empty)
             .Parameter("DESCRIPTION", model.Description)
-            .OutParameter("short_name", p => model.ShortName = p);
+            .OutParameter("LSHORT_NAME", p => model.ShortName = p)
+            .OutParameter("LWAREHOUSE_LOCATION_ID", p => model.BuildingId = p);
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
