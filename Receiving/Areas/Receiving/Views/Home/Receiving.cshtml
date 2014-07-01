@@ -36,6 +36,8 @@
     @Html.HiddenFor(m => m.ScanModel.ProcessId)
     @Html.HiddenFor(m => m.ReceivingAreaId)
     @Html.HiddenFor(m => m.SpotCheckAreaId)
+    @Html.HiddenFor(m => m.CartonCount)
+    @Html.HiddenFor(m => m.ExpectedCartons)
     @Html.HiddenFor(m => m.ScanModel.PalletId)
     @Html.HiddenFor(m => m.ScanModel.PalletDispos)
 </form>
@@ -107,6 +109,9 @@
         <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
     </ul>
 </div>
+<div data-role="popup" id="errPopup">
+
+</div>
 @section scripts{
     <script type="text/javascript">
     $(document).ready(function () {
@@ -129,6 +134,10 @@
                             var palletCollapsible = "<div data-role='collapsible' id='" + scannedPallet + "'><h3>" + scannedPallet + "</h3><div>" + data + "</div></div>";
                             $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
                             
+                        },
+                        203: function (data, textStatus, jqXHR) {                        
+                            $('#errPopup').html(data).popup("open").popup("option", "positionTo",$('#scan'));
+
                         }
                     }
                 });
