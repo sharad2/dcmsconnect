@@ -21,54 +21,52 @@
     }
 }
 @*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
-@using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
-{
-    <div>
-        <span class="ui-bar ui-bar-a">           
-            <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
-            <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
-            <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
-            <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                   style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
-        </span>
-        @*<label for="scan">
-            Scan Carton or Pallet
-        </label>*@
-        @*<input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-               style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />*@
-        @Html.HiddenFor(m => m.ScanModel.ProcessId)
-        @Html.HiddenFor(m => m.ReceivingAreaId)
-        @Html.HiddenFor(m => m.SpotCheckAreaId)
-        @Html.HiddenFor(m => m.ScanModel.PalletId)
-
-        @Html.HiddenFor(m => m.ScanModel.PalletDispos)
-    </div>
-}
-@for (var i = 0; i < Model.Pallets.Count; ++i)
-{
-    <div data-role="collapsible">
-        <h4>
-            @Html.DisplayFor(m => m.Pallets[i].PalletId)
-            @if (Model.Pallets[i].Cartons.Count > 0)
+@*@using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
+    {*@
+<div>
+    <span class="ui-bar ui-bar-a">
+        <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
+        <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
+        <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
+        <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+               data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
+    </span>
+</div>
+<form id="frmScan" method="post" action="#">
+    @Html.HiddenFor(m => m.ScanModel.ProcessId)
+    @Html.HiddenFor(m => m.ReceivingAreaId)
+    @Html.HiddenFor(m => m.SpotCheckAreaId)
+    @Html.HiddenFor(m => m.ScanModel.PalletId)
+    @Html.HiddenFor(m => m.ScanModel.PalletDispos)
+</form>
+@*}*@
+<div data-role="collapsible-set" id="palletSet">
+    @for (var i = 0; i < Model.Pallets.Count; ++i)
+    {
+        <div data-role="collapsible">
+            <h4>
+                @Html.DisplayFor(m => m.Pallets[i].PalletId)
+                @if (Model.Pallets[i].Cartons.Count > 0)
             {
-                <text>
-                    [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
-                    [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
-                    [#Ctn @Model.Pallets[i].Cartons.Count]
-                    [Pallet Limit @Model.Pallets[i].PalletLimit]
-                    @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
-                </text>
+            <text>
+                [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
+                [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
+                [#Ctn @Model.Pallets[i].Cartons.Count]
+                [Pallet Limit @Model.Pallets[i].PalletLimit]
+                @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
+            </text>
             }
             else
             {
-                @:[NEW]
+            @:[NEW]
             }
-        </h4>        
-        <div>
-            @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+            </h4>
+            <div>
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 <div data-role="popup" id="processInfo">
     <div class="boxContent" style="white-space: nowrap">
         <ul data-role="listview" data-inset="true">
@@ -106,11 +104,33 @@
             <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)" title="Receiving Detail for the selected Process
 " target="_blank">Received shipments and cartons summary report</a>
         </li>
-        <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>        
+        <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
     </ul>
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $scan = $('#scan');
+            $scan.keypress(function (e) {
+                //e.stopPropagation();
+                if (e.which == $.ui.keyCode.ENTER) {
+                    $.ajax({
+                        url: $scan.attr('data-ajax-url'),
+                        type: 'POST',
+                        data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
+                        statusCode: {
+                            202: function (data, textStatus, jqXHR) {
+                                var palletCollapsible = "<div data-role='collapsible'><h3>" + jqXHR.getResponseHeader("PalletId") + "</h3><p>TODO</p></div>";
+                                $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
+                            }
+                        }
+                    });
 
-
+                }
+            });
+        });
+    </script>
+}
 
 
 
