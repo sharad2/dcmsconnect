@@ -43,7 +43,7 @@
 <div data-role="collapsible-set" id="palletSet">
     @for (var i = 0; i < Model.Pallets.Count; ++i)
     {
-        <div data-role="collapsible">
+        <div data-role="collapsible" id="@Model.Pallets[i].PalletId">
             <h4>
                 @Html.DisplayFor(m => m.Pallets[i].PalletId)
                 @if (Model.Pallets[i].Cartons.Count > 0)
@@ -119,8 +119,14 @@
                     type: 'POST',
                     data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
                     statusCode: {
-                        202: function (data, textStatus, jqXHR) {                            
-                            var palletCollapsible = "<div data-role='collapsible'><h3>" + jqXHR.getResponseHeader("PalletId") + "</h3><div>"+ data + "</div></div>";
+                        202: function (data, textStatus, jqXHR) {
+                            var scannedPallet = jqXHR.getResponseHeader("PalletId");
+                            if ($('div#' + scannedPallet).length > 0)
+                            {
+                                $('#' + scannedPallet).collapsible("expand");
+                                return ;
+                            }
+                            var palletCollapsible = "<div data-role='collapsible' id='" + scannedPallet + "'><h3>" + scannedPallet + "</h3><div>" + data + "</div></div>";
                             $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
                             
                         }
