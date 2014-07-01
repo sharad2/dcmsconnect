@@ -109,26 +109,27 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            $scan = $('#scan');
-            $scan.keypress(function (e) {
-                //e.stopPropagation();
-                if (e.which == $.ui.keyCode.ENTER) {
-                    $.ajax({
-                        url: $scan.attr('data-ajax-url'),
-                        type: 'POST',
-                        data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
-                        statusCode: {
-                            202: function (data, textStatus, jqXHR) {
-                                var palletCollapsible = "<div data-role='collapsible'><h3>" + jqXHR.getResponseHeader("PalletId") + "</h3><p>TODO</p></div>";
-                                $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
-                            }
+    $(document).ready(function () {
+        $scan = $('#scan');
+        $scan.keypress(function (e) {
+            //e.stopPropagation();
+            if (e.which == $.ui.keyCode.ENTER) {
+                $.ajax({
+                    url: $scan.attr('data-ajax-url'),
+                    type: 'POST',
+                    data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
+                    statusCode: {
+                        202: function (data, textStatus, jqXHR) {                            
+                            var palletCollapsible = "<div data-role='collapsible'><h3>" + jqXHR.getResponseHeader("PalletId") + "</h3><div>"+ data + "</div></div>";
+                            $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
+                            
                         }
-                    });
+                    }
+                });
 
-                }
-            });
+            }
         });
+    });
     </script>
 }
 
