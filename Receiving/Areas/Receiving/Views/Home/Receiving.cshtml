@@ -38,8 +38,11 @@
     @Html.HiddenFor(m => m.SpotCheckAreaId)
     @Html.HiddenFor(m => m.CartonCount)
     @Html.HiddenFor(m => m.ExpectedCartons)
-    @Html.HiddenFor(m => m.ScanModel.PalletId)
-    @Html.HiddenFor(m => m.ScanModel.PalletDispos)   
+    @Html.HiddenFor(m => m.ScanModel.PalletId, new
+{
+    id="hfPalletid"
+})
+    @Html.HiddenFor(m => m.ScanModel.PalletDispos)
 </form>
 @*}*@
 <div data-role="collapsible-set" id="palletSet">
@@ -114,10 +117,25 @@
 @section scripts{
     <script type="text/javascript">
     $(document).ready(function () {
-        $scan = $('#scan');        
+        $scan = $('#scan');
+        //$('#palletSet').find('div[data-role="collapsible"]').bind('expand', function () {
+        //    alert('Expanded');
+        //    //$('#hfPalletid').val(this.attr('id'));            
+        //   // alert('hi');
+        //});   
+
+        $('#palletSet').find('div[data-role="collapsible"]').collapsible({
+            expand: function () {
+                $('#hfPalletid').val($(this).attr('id'));
+                //alert($('#hfPalletid').val());
+            }
+        })
+
+     
+
         $scan.keypress(function (e) {
             //e.stopPropagation();
-            if (e.which == $.ui.keyCode.ENTER) {
+            if (e.which == $.ui.keyCode.ENTER) {                
                 $.ajax({
                     url: $scan.attr('data-ajax-url'),
                     type: 'POST',
@@ -133,6 +151,7 @@
                             }
                             var palletCollapsible = "<div data-role='collapsible' id='" + scannedPallet + "'><h3>" + scannedPallet + "</h3><div>" + data + "</div></div>";
                             $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
+                            $('#hfPalletid').val(scannedPallet);
                             
                         },
                         // this to handle when a carton scanned before a pallet
