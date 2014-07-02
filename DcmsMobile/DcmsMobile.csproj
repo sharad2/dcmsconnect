@@ -440,7 +440,6 @@
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_layoutMain.cshtml" />
-    <Content Include="Views\Logon\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Index.cshtml" />
