@@ -39,7 +39,7 @@
     @Html.HiddenFor(m => m.CartonCount)
     @Html.HiddenFor(m => m.ExpectedCartons)
     @Html.HiddenFor(m => m.ScanModel.PalletId)
-    @Html.HiddenFor(m => m.ScanModel.PalletDispos)
+    @Html.HiddenFor(m => m.ScanModel.PalletDispos)   
 </form>
 @*}*@
 <div data-role="collapsible-set" id="palletSet">
@@ -109,13 +109,12 @@
         <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
     </ul>
 </div>
-<div data-role="popup" id="errPopup">
-
+<div data-role="popup" id="errPopup">    
 </div>
 @section scripts{
     <script type="text/javascript">
     $(document).ready(function () {
-        $scan = $('#scan');
+        $scan = $('#scan');        
         $scan.keypress(function (e) {
             //e.stopPropagation();
             if (e.which == $.ui.keyCode.ENTER) {
@@ -124,6 +123,7 @@
                     type: 'POST',
                     data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
                     statusCode: {
+                        // this is for handling pallet scan
                         202: function (data, textStatus, jqXHR) {
                             var scannedPallet = jqXHR.getResponseHeader("PalletId");
                             if ($('div#' + scannedPallet).length > 0)
@@ -135,9 +135,13 @@
                             $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
                             
                         },
+                        // this to handle when a carton scanned before a pallet
                         203: function (data, textStatus, jqXHR) {                        
                             $('#errPopup').html(data).popup("open").popup("option", "positionTo",$('#scan'));
-
+                        },
+                        // Carton disposition does not match active pallet disposition
+                        250: function (data, textStatus, jqXHR) {
+                            $('#errPopup').html(jqXHR.getResponseHeader("ErrorMsg")).popup("open").popup("option", "positionTo", $('#scan'));                            
                         }
                     }
                 });
