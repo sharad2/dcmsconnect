@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,82 +21,110 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
-    public partial class HomeController {
+namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+{
+    public partial class HomeController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateProcess() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateProcess);
+        public virtual System.Web.Mvc.ActionResult CreateProcess()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateProcess);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult EditProcess() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.EditProcess);
+        public virtual System.Web.Mvc.ActionResult EditProcess()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditProcess);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Receiving() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Receiving);
+        public virtual System.Web.Mvc.ActionResult Receiving()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Receiving);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Tutorial() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Tutorial);
+        public virtual System.Web.Mvc.ActionResult Tutorial()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult HandleScan() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.HandleScan);
+        public virtual System.Web.Mvc.ActionResult HandleScan()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleScan);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult HandleMobileScan() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.HandleMobileScan);
+        public virtual System.Web.Mvc.ActionResult HandleMobileScan()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleMobileScan);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UnPalletizeCarton() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UnPalletizeCarton);
+        public virtual System.Web.Mvc.ActionResult UnPalletizeCarton()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnPalletizeCarton);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PrintCarton() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PrintCarton);
+        public virtual System.Web.Mvc.ActionResult PrintCarton()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintCarton);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult NonpalletizedCartons() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
+        public virtual System.Web.Mvc.ActionResult NonpalletizedCartons()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.JsonResult SpotCheckAreaList() {
-            return new T4MVC_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
+        public virtual System.Web.Mvc.JsonResult SpotCheckAreaList()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CloseShipment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CloseShipment);
+        public virtual System.Web.Mvc.ActionResult CloseShipment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CloseShipment);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ReOpenShipment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ReOpenShipment);
+        public virtual System.Web.Mvc.ActionResult ReOpenShipment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReOpenShipment);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -111,7 +140,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string CreateProcess = "CreateProcess";
             public readonly string EditProcess = "EditProcess";
@@ -130,7 +160,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string CreateProcess = "CreateProcess";
             public const string EditProcess = "EditProcess";
@@ -153,49 +184,56 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreateProcess CreateProcessParams { get { return s_params_CreateProcess; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateProcess {
+        public class ActionParamsClass_CreateProcess
+        {
             public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_EditProcess s_params_EditProcess = new ActionParamsClass_EditProcess();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_EditProcess EditProcessParams { get { return s_params_EditProcess; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditProcess {
+        public class ActionParamsClass_EditProcess
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Receiving s_params_Receiving = new ActionParamsClass_Receiving();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Receiving ReceivingParams { get { return s_params_Receiving; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Receiving {
+        public class ActionParamsClass_Receiving
+        {
             public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_Tutorial s_params_Tutorial = new ActionParamsClass_Tutorial();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Tutorial TutorialParams { get { return s_params_Tutorial; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Tutorial {
+        public class ActionParamsClass_Tutorial
+        {
             public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_HandleScan s_params_HandleScan = new ActionParamsClass_HandleScan();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_HandleScan HandleScanParams { get { return s_params_HandleScan; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HandleScan {
+        public class ActionParamsClass_HandleScan
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_HandleMobileScan s_params_HandleMobileScan = new ActionParamsClass_HandleMobileScan();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_HandleMobileScan HandleMobileScanParams { get { return s_params_HandleMobileScan; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HandleMobileScan {
+        public class ActionParamsClass_HandleMobileScan
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_UnPalletizeCarton s_params_UnPalletizeCarton = new ActionParamsClass_UnPalletizeCarton();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UnPalletizeCarton UnPalletizeCartonParams { get { return s_params_UnPalletizeCarton; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UnPalletizeCarton {
+        public class ActionParamsClass_UnPalletizeCarton
+        {
             public readonly string cartonId = "cartonId";
             public readonly string processId = "processId";
         }
@@ -203,7 +241,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PrintCarton PrintCartonParams { get { return s_params_PrintCarton; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PrintCarton {
+        public class ActionParamsClass_PrintCarton
+        {
             public readonly string cartonId = "cartonId";
             public readonly string printer = "printer";
         }
@@ -211,21 +250,24 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_NonpalletizedCartons NonpalletizedCartonsParams { get { return s_params_NonpalletizedCartons; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_NonpalletizedCartons {
+        public class ActionParamsClass_NonpalletizedCartons
+        {
             public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_SpotCheckAreaList s_params_SpotCheckAreaList = new ActionParamsClass_SpotCheckAreaList();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SpotCheckAreaList SpotCheckAreaListParams { get { return s_params_SpotCheckAreaList; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SpotCheckAreaList {
+        public class ActionParamsClass_SpotCheckAreaList
+        {
             public readonly string areaId = "areaId";
         }
         static readonly ActionParamsClass_CloseShipment s_params_CloseShipment = new ActionParamsClass_CloseShipment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CloseShipment CloseShipmentParams { get { return s_params_CloseShipment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CloseShipment {
+        public class ActionParamsClass_CloseShipment
+        {
             public readonly string shipmentId = "shipmentId";
             public readonly string poId = "poId";
         }
@@ -233,120 +275,228 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ReOpenShipment ReOpenShipmentParams { get { return s_params_ReOpenShipment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ReOpenShipment {
+        public class ActionParamsClass_ReOpenShipment
+        {
             public readonly string shipmentId = "shipmentId";
             public readonly string poId = "poId";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
-            public readonly string _palletPartial = "_palletPartial";
-            public readonly string _palletPartial_desktop = "_palletPartial.desktop";
-            public readonly string CreateProcess = "CreateProcess";
-            public readonly string Index = "Index";
-            public readonly string Index_desktop = "Index.desktop";
-            public readonly string Receiving = "Receiving";
-            public readonly string Receiving_desktop = "Receiving.desktop";
-            public readonly string ShipmentList = "ShipmentList";
-            public readonly string Tutorial = "Tutorial";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
+                public readonly string _palletPartial = "_palletPartial";
+                public readonly string _palletPartial_desktop = "_palletPartial.desktop";
+                public readonly string CreateProcess = "CreateProcess";
+                public readonly string Index = "Index";
+                public readonly string Index_desktop = "Index.desktop";
+                public readonly string Receiving = "Receiving";
+                public readonly string Receiving_desktop = "Receiving.desktop";
+                public readonly string ShipmentList = "ShipmentList";
+                public readonly string Tutorial = "Tutorial";
+            }
+            public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Views/Home/_cartonNotOnPalletPartial.cshtml";
+            public readonly string _palletPartial = "~/Areas/Receiving/Views/Home/_palletPartial.cshtml";
+            public readonly string _palletPartial_desktop = "~/Areas/Receiving/Views/Home/_palletPartial.desktop.cshtml";
+            public readonly string CreateProcess = "~/Areas/Receiving/Views/Home/CreateProcess.cshtml";
+            public readonly string Index = "~/Areas/Receiving/Views/Home/Index.cshtml";
+            public readonly string Index_desktop = "~/Areas/Receiving/Views/Home/Index.desktop.cshtml";
+            public readonly string Receiving = "~/Areas/Receiving/Views/Home/Receiving.cshtml";
+            public readonly string Receiving_desktop = "~/Areas/Receiving/Views/Home/Receiving.desktop.cshtml";
+            public readonly string ShipmentList = "~/Areas/Receiving/Views/Home/ShipmentList.cshtml";
+            public readonly string Tutorial = "~/Areas/Receiving/Views/Home/Tutorial.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_HomeController: DcmsMobile.Receiving.Areas.Receiving.Controllers.HomeController {
+    public partial class T4MVC_HomeController : DcmsMobile.Receiving.Areas.Receiving.Controllers.HomeController
+    {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateProcess(int? processId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateProcess);
+        [NonAction]
+        partial void CreateProcessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CreateProcess(int? processId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateProcess);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            CreateProcessOverride(callInfo, processId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditProcess(DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditProcess);
+        [NonAction]
+        partial void EditProcessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditProcess(DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditProcess);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditProcessOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Receiving(int? processId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Receiving);
+        [NonAction]
+        partial void ReceivingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Receiving(int? processId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Receiving);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            ReceivingOverride(callInfo, processId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Tutorial(int? processId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Tutorial);
+        [NonAction]
+        partial void TutorialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Tutorial(int? processId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            TutorialOverride(callInfo, processId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult HandleScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.HandleScan);
+        [NonAction]
+        partial void HandleScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HandleScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            HandleScanOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult HandleMobileScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.HandleMobileScan);
+        [NonAction]
+        partial void HandleMobileScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HandleMobileScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleMobileScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            HandleMobileScanOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UnPalletizeCarton(string cartonId, int processId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnPalletizeCarton);
+        [NonAction]
+        partial void UnPalletizeCartonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string cartonId, int processId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnPalletizeCarton(string cartonId, int processId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnPalletizeCarton);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cartonId", cartonId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            UnPalletizeCartonOverride(callInfo, cartonId, processId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PrintCarton(string cartonId, string printer) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PrintCarton);
+        [NonAction]
+        partial void PrintCartonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string cartonId, string printer);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PrintCarton(string cartonId, string printer)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintCarton);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cartonId", cartonId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printer", printer);
+            PrintCartonOverride(callInfo, cartonId, printer);
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult GetPrinters() {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.GetPrinters);
+        [NonAction]
+        partial void GetPrintersOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult GetPrinters()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetPrinters);
+            GetPrintersOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult NonpalletizedCartons(int? processId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
+        [NonAction]
+        partial void NonpalletizedCartonsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult NonpalletizedCartons(int? processId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            NonpalletizedCartonsOverride(callInfo, processId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult SpotCheckAreaList(string areaId) {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
+        [NonAction]
+        partial void SpotCheckAreaListOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string areaId);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult SpotCheckAreaList(string areaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
+            SpotCheckAreaListOverride(callInfo, areaId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ShipmentList() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ShipmentList);
+        [NonAction]
+        partial void ShipmentListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ShipmentList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ShipmentList);
+            ShipmentListOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CloseShipment(string shipmentId, long? poId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CloseShipment);
+        [NonAction]
+        partial void CloseShipmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string shipmentId, long? poId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CloseShipment(string shipmentId, long? poId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CloseShipment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "shipmentId", shipmentId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "poId", poId);
+            CloseShipmentOverride(callInfo, shipmentId, poId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ReOpenShipment(string shipmentId, long? poId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ReOpenShipment);
+        [NonAction]
+        partial void ReOpenShipmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string shipmentId, long? poId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ReOpenShipment(string shipmentId, long? poId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReOpenShipment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "shipmentId", shipmentId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "poId", poId);
+            ReOpenShipmentOverride(callInfo, shipmentId, poId);
             return callInfo;
         }
 

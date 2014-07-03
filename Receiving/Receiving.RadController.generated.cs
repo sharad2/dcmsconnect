@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,32 +21,50 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
-    public partial class RadController {
+namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+{
+    public partial class RadController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected RadController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult SetSpotCheckPercentage() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.SetSpotCheckPercentage);
+        public virtual System.Web.Mvc.ActionResult SetSpotCheckPercentage()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetSpotCheckPercentage);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeleteSpotCheckPercentage() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
+        public virtual System.Web.Mvc.ActionResult DeleteSpotCheckPercentage()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -61,14 +80,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public readonly string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public const string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
@@ -79,46 +100,77 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SetSpotCheckPercentage SetSpotCheckPercentageParams { get { return s_params_SetSpotCheckPercentage; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SetSpotCheckPercentage {
+        public class ActionParamsClass_SetSpotCheckPercentage
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_DeleteSpotCheckPercentage s_params_DeleteSpotCheckPercentage = new ActionParamsClass_DeleteSpotCheckPercentage();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DeleteSpotCheckPercentage DeleteSpotCheckPercentageParams { get { return s_params_DeleteSpotCheckPercentage; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteSpotCheckPercentage {
+        public class ActionParamsClass_DeleteSpotCheckPercentage
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _addSpotCheckPartial = "_addSpotCheckPartial";
-            public readonly string _editSpotCheckPartial = "_editSpotCheckPartial";
-            public readonly string _spotCheckListPartial = "_spotCheckListPartial";
-            public readonly string Index = "Index";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _addSpotCheckPartial = "_addSpotCheckPartial";
+                public readonly string _editSpotCheckPartial = "_editSpotCheckPartial";
+                public readonly string _spotCheckListPartial = "_spotCheckListPartial";
+                public readonly string Index = "Index";
+            }
+            public readonly string _addSpotCheckPartial = "~/Areas/Receiving/Views/Rad/_addSpotCheckPartial.cshtml";
+            public readonly string _editSpotCheckPartial = "~/Areas/Receiving/Views/Rad/_editSpotCheckPartial.cshtml";
+            public readonly string _spotCheckListPartial = "~/Areas/Receiving/Views/Rad/_spotCheckListPartial.cshtml";
+            public readonly string Index = "~/Areas/Receiving/Views/Rad/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_RadController: DcmsMobile.Receiving.Areas.Receiving.Controllers.RadController {
+    public partial class T4MVC_RadController : DcmsMobile.Receiving.Areas.Receiving.Controllers.RadController
+    {
         public T4MVC_RadController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult SetSpotCheckPercentage(DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SetSpotCheckPercentage);
+        [NonAction]
+        partial void SetSpotCheckPercentageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SetSpotCheckPercentage(DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetSpotCheckPercentage);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            SetSpotCheckPercentageOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeleteSpotCheckPercentage(DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
+        [NonAction]
+        partial void DeleteSpotCheckPercentageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteSpotCheckPercentage(DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            DeleteSpotCheckPercentageOverride(callInfo, model);
             return callInfo;
         }
 
