@@ -112,6 +112,9 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DiagnosticController.cs" />
@@ -388,8 +391,6 @@
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
-    <Content Include="DcmsMobile\Content\Images\a1.gif" />
-    <Content Include="DcmsMobile\Content\Images\MFLogo.jpg" />
     <Content Include="DcmsMobile\Content\Images\wifi.jpg" />
     <Content Include="DcmsMobile\Content\Sounds\Error.wav" />
     <Content Include="DcmsMobile\Content\Sounds\warning.wav" />
@@ -419,6 +420,7 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="T4MVC.tt.settings.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -432,14 +434,16 @@
     <Content Include="Views\Diagnostic\Email.cshtml" />
     <Content Include="Views\Logon\GetNewPassword.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="T4MVC.tt.settings.t4" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_layoutMain.cshtml" />
+    <Content Include="Views\Home\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Logon\Index.cshtml" />

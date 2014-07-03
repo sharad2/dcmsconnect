@@ -70,10 +70,10 @@ namespace DcmsMobile
             //   Mozilla/5.0 (iPad; CPU OS 7_1_1 like Mac OS X) AppleWebKit/537.51.1 (KHTML, like Gecko) CriOS/35.0.1916.38 Mobile/11D201 Safari/9537.53
             // Dinesh's phone Lenovo S720
             //  Mozilla/5.0 (Linux; Android 4.0.4; Lenovo S720 Build/IMM76D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19
-            //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
-            //{
-            //    ContextCondition = ctx => phones.Any(p => ctx.GetOverriddenUserAgent().IndexOf(p, StringComparison.InvariantCultureIgnoreCase) >= 0)
-            //});
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("phone")
+            {
+                ContextCondition = ctx => true
+            });
 
             //// .mobile file is to be used only for ringscanners
             //// RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)

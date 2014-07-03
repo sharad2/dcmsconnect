@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,16 +21,26 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace T4MVC {
-    public class SharedController {
+namespace T4MVC
+{
+    public class SharedController
+    {
 
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _layoutMain = "_layoutMain";
-            public readonly string _soundPartial = "_soundPartial";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _layoutMain = "_layoutMain";
+                public readonly string _soundPartial = "_soundPartial";
+            }
+            public readonly string _layoutMain = "~/Views/Shared/_layoutMain.cshtml";
+            public readonly string _soundPartial = "~/Views/Shared/_soundPartial.cshtml";
         }
     }
 

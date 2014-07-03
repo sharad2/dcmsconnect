@@ -45,7 +45,7 @@ namespace DcmsMobile.Controllers
                                select new MenuItem(item, Url)).ToArray();
             model.UrlRcBase = this.UrlRcBase;
 
-            return View(this.Views.Index, model);
+            return View(this.Views.ViewNames.Index, model);
         }
 
         /// <summary>

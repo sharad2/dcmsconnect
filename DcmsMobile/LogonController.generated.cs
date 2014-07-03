@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,8 +21,10 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Controllers {
-    public partial class LogonController {
+namespace DcmsMobile.Controllers
+{
+    public partial class LogonController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public LogonController() { }
 
@@ -29,41 +32,60 @@ namespace DcmsMobile.Controllers {
         protected LogonController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Index() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult SetUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.SetUser);
+        public virtual System.Web.Mvc.ActionResult SetUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Login() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Login);
+        public virtual System.Web.Mvc.ActionResult Login()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ChangePassword() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ChangePassword);
+        public virtual System.Web.Mvc.ActionResult ChangePassword()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ChangeExpiredPassword() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ChangeExpiredPassword);
+        public virtual System.Web.Mvc.ActionResult ChangeExpiredPassword()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeExpiredPassword);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -79,7 +101,8 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string SetUser = "SetUser";
             public readonly string Login = "Login";
@@ -90,7 +113,8 @@ namespace DcmsMobile.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string SetUser = "SetUser";
             public const string Login = "Login";
@@ -105,89 +129,146 @@ namespace DcmsMobile.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index {
+        public class ActionParamsClass_Index
+        {
             public readonly string returnUrl = "returnUrl";
         }
         static readonly ActionParamsClass_SetUser s_params_SetUser = new ActionParamsClass_SetUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SetUser SetUserParams { get { return s_params_SetUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SetUser {
+        public class ActionParamsClass_SetUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Login s_params_Login = new ActionParamsClass_Login();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Login LoginParams { get { return s_params_Login; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Login {
+        public class ActionParamsClass_Login
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ChangePassword {
+        public class ActionParamsClass_ChangePassword
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ChangeExpiredPassword s_params_ChangeExpiredPassword = new ActionParamsClass_ChangeExpiredPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ChangeExpiredPassword ChangeExpiredPasswordParams { get { return s_params_ChangeExpiredPassword; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ChangeExpiredPassword {
+        public class ActionParamsClass_ChangeExpiredPassword
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string ChangeExpiredPassword = "ChangeExpiredPassword";
-            public readonly string GetNewPassword = "GetNewPassword";
-            public readonly string Index = "Index";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string ChangeExpiredPassword = "ChangeExpiredPassword";
+                public readonly string GetNewPassword = "GetNewPassword";
+                public readonly string Index = "Index";
+            }
+            public readonly string ChangeExpiredPassword = "~/Views/Logon/ChangeExpiredPassword.cshtml";
+            public readonly string GetNewPassword = "~/Views/Logon/GetNewPassword.cshtml";
+            public readonly string Index = "~/Views/Logon/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_LogonController: DcmsMobile.Controllers.LogonController {
+    public partial class T4MVC_LogonController : DcmsMobile.Controllers.LogonController
+    {
         public T4MVC_LogonController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(string returnUrl) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string returnUrl);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index(string returnUrl)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
+            IndexOverride(callInfo, returnUrl);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult SetUser(DcmsMobile.Models.LogonModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.SetUser);
+        [NonAction]
+        partial void SetUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.LogonModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SetUser(DcmsMobile.Models.LogonModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            SetUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Login(DcmsMobile.Models.LogonModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
+        [NonAction]
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.LogonModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Login(DcmsMobile.Models.LogonModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LoginOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult GetNewPassword() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetNewPassword);
+        [NonAction]
+        partial void GetNewPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GetNewPassword()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetNewPassword);
+            GetNewPasswordOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ChangePassword(DcmsMobile.Models.GetNewPasswordViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ChangePassword);
+        [NonAction]
+        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.GetNewPasswordViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangePassword(DcmsMobile.Models.GetNewPasswordViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ChangePasswordOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ChangeExpiredPassword(DcmsMobile.Models.ChangeExpiredPasswordModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ChangeExpiredPassword);
+        [NonAction]
+        partial void ChangeExpiredPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.ChangeExpiredPasswordModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ChangeExpiredPassword(DcmsMobile.Models.ChangeExpiredPasswordModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeExpiredPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ChangeExpiredPasswordOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Logoff() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Logoff);
+        [NonAction]
+        partial void LogoffOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Logoff()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Logoff);
+            LogoffOverride(callInfo);
             return callInfo;
         }
 
