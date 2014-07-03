@@ -338,7 +338,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <para>
         /// Output: Process id is queried for validity. If valid process id, receiving view is displayed. All pallets and cartons of the process are selected
         /// so that they can be displayed in the view.
-        /// Otherwise, redirect to index view.
+        /// Otherwise, redirect to index view.        
+        /// 
         /// </para>
         /// </remarks>
         [HttpGet]
@@ -558,6 +559,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 switch (ctx.Result)
                 {
                     case ScanResult.PalletScan:
+                        model.Pallets = new[] { Map(pallet) };
                         // Pallet was scanned
                         break;
 
@@ -607,7 +609,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 }
             }
             Debug.Assert(pallet != null, "pallet != null");
-            model.Pallets = new[] { Map(pallet) };
+            // Handling Code
+            var pm = _service.GetProcessInfo(model.ScanModel.ProcessId.Value, true);            
+                model.CarrierId = pm.Carrier.CarrierId;
+                model.ProDate = pm.ProDate;
+                model.ProNumber = pm.ProNumber;
+                model.OperatorName = pm.OperatorName;
+                model.ReceivingAreaId = pm.ReceivingAreaId;
+                model.SpotCheckAreaId = pm.SpotCheckAreaId;
+                model.ProcessId = pm.ProcessId;
+                model.CartonCount = pm.CartonCount;
+                model.ExpectedCartons = pm.ExpectedCartons;
+                model.PalletLimit = pm.PalletLimit;
+                model.PriceSeasonCode = pm.PriceSeasonCode;  
+                
+                var allPallets = _service.GetPalletsOfProcess(model.ScanModel.ProcessId.Value);
+                model.Pallets = model.Pallets.Concat(allPallets.Select(p => Map(p))).ToArray();
+                //model.Pallets = allPallets.Select(p => Map(p)).ToArray();
+                model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
+            
+
             // If the model state is not valid, we would like the hidden fields in the view to retain their old values.
             // We do not change the state of the view in case of any validation problem.
             if (ModelState.IsValid)
@@ -617,7 +638,24 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 model.ScanModel.PalletId = model.Pallets[0].PalletId;
                 model.ScanModel.PalletDispos = model.Pallets[0].DispositionId;
             }
-            return View(Views.Receiving, model);
+            return View(Views.Receiving, model);            
+
+            //var pallets = _service.GetPalletsOfProcess(processId.Value);
+
+            //rvm.Pallets = pallets.Select(p => Map(p)).ToArray();
+            //if (rvm.Pallets.Count > 0)
+            //{
+            //    // Make first pallet the active pallet
+            //    rvm.ScanModel.PalletId = rvm.Pallets[0].PalletId;
+            //    rvm.ScanModel.PalletDispos = rvm.Pallets[0].Cartons[0].DispositionId;
+            //    foreach (var pallet in rvm.Pallets)
+            //    {
+            //        pallet.PalletLimit = pallet.PalletLimit;
+            //    }
+            //}
+            //rvm.cartonsOnPallet = _service.GetCartonsOfProcess(processId);
+
+
         }
 
         #endregion

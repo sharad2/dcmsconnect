@@ -21,8 +21,8 @@
     }
 }
 @*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
-@*@using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
-    {*@
+@using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
+{
 <div>
     <span class="ui-bar ui-bar-a">
         <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
@@ -32,19 +32,14 @@
                data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
     </span>
 </div>
-<form id="frmScan" method="post" action="#">
     @Html.HiddenFor(m => m.ScanModel.ProcessId)
     @Html.HiddenFor(m => m.ReceivingAreaId)
     @Html.HiddenFor(m => m.SpotCheckAreaId)
     @Html.HiddenFor(m => m.CartonCount)
     @Html.HiddenFor(m => m.ExpectedCartons)
-    @Html.HiddenFor(m => m.ScanModel.PalletId, new
-{
-    id="hfPalletid"
-})
+    @Html.HiddenFor(m => m.ScanModel.PalletId)
     @Html.HiddenFor(m => m.ScanModel.PalletDispos)
-</form>
-@*}*@
+}
 <div data-role="collapsible-set" id="palletSet">
     @for (var i = 0; i < Model.Pallets.Count; ++i)
     {
@@ -114,7 +109,7 @@
 </div>
 <div data-role="popup" id="errPopup">    
 </div>
-@section scripts{
+@*@section scripts{
     <script type="text/javascript">
     $(document).ready(function () {
         $scan = $('#scan');
@@ -169,7 +164,7 @@
         });
     });
     </script>
-}
+}*@
 
 
 
