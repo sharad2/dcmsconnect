@@ -260,16 +260,17 @@ namespace DcmsMobile.Receiving.Repository
 
         public IEnumerable<Pallet> GetPalletsOfProcess(int processId)
         {
-            var list = _repos.GetReceivedCartons2(null, processId, null);
+            var list = _repos.GetReceivedCartons2(null, processId, null);          
             var query = from carton in list
                         group carton by carton.PalletId into g
-                        orderby g.Key
+                        orderby g.Max(p => p.ReceivedDate) descending
                         select new Pallet
                         {
                             PalletId = g.Key,
                             PalletLimit = GetPalletLimit(processId), // ProcessId 
                             Cartons = g.ToList()
                         };
+                        
 
             return query.Take(10);
         }
