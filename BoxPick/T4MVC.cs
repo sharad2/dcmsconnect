@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -22,14 +23,17 @@ using System.Web.Routing;
 using T4MVC;
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public static class MVC_BoxPick {
+public static partial class MVC_BoxPick
+{
     static readonly BoxPickClass s_BoxPick = new BoxPickClass();
     public static BoxPickClass BoxPick { get { return s_BoxPick; } }
 }
 
-namespace T4MVC {
+namespace T4MVC
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class BoxPickClass {
+    public class BoxPickClass
+    {
         public readonly string Name = "BoxPick";
         public DcmsMobile.BoxPick.Areas.BoxPick.Controllers.ConfirmController Confirm = new DcmsMobile.BoxPick.Areas.BoxPick.Controllers.T4MVC_ConfirmController();
         public DcmsMobile.BoxPick.Areas.BoxPick.Controllers.HelpController Help = new DcmsMobile.BoxPick.Areas.BoxPick.Controllers.T4MVC_HelpController();
@@ -39,13 +43,21 @@ namespace T4MVC {
     }
 }
 
-  
-
-  
+namespace T4MVC
+{
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class Dummy
+    {
+        private Dummy() { }
+        public static Dummy Instance = new Dummy();
+    }
+}
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
-    public T4MVC_ActionResult(string area, string controller, string action, string protocol = null): base()  {
+internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
+    {
         this.InitMVCT4Result(area, controller, action, protocol);
     }
      
@@ -59,20 +71,21 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
 
 
 
-namespace Links_BoxPick {
+namespace Links_BoxPick
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Scripts {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
-                      
+        public static readonly string jquery_1_8_2_min_js = Url("jquery-1.8.2.min.js");
         public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
-                      
+        public static readonly string jquery_ui_1_10_0_min_js = Url("jquery-ui-1.10.0.min.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-                      
+        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-                      
+        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -95,6 +108,22 @@ namespace Links_BoxPick {
                     private const string URLPATH = "~/Content/themes/Start1.10.0/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string ui_bg_flat_55_999999_40x100_png = Url("ui-bg_flat_55_999999_40x100.png");
+                    public static readonly string ui_bg_flat_75_aaaaaa_40x100_png = Url("ui-bg_flat_75_aaaaaa_40x100.png");
+                    public static readonly string ui_bg_glass_45_0078ae_1x400_png = Url("ui-bg_glass_45_0078ae_1x400.png");
+                    public static readonly string ui_bg_glass_55_f8da4e_1x400_png = Url("ui-bg_glass_55_f8da4e_1x400.png");
+                    public static readonly string ui_bg_glass_75_79c9ec_1x400_png = Url("ui-bg_glass_75_79c9ec_1x400.png");
+                    public static readonly string ui_bg_gloss_wave_45_e14f1c_500x100_png = Url("ui-bg_gloss-wave_45_e14f1c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_50_6eac2c_500x100_png = Url("ui-bg_gloss-wave_50_6eac2c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_75_2191c0_500x100_png = Url("ui-bg_gloss-wave_75_2191c0_500x100.png");
+                    public static readonly string ui_bg_inset_hard_100_fcfdfd_1x100_png = Url("ui-bg_inset-hard_100_fcfdfd_1x100.png");
+                    public static readonly string ui_icons_0078ae_256x240_png = Url("ui-icons_0078ae_256x240.png");
+                    public static readonly string ui_icons_056b93_256x240_png = Url("ui-icons_056b93_256x240.png");
+                    public static readonly string ui_icons_d8e7f3_256x240_png = Url("ui-icons_d8e7f3_256x240.png");
+                    public static readonly string ui_icons_e0fdff_256x240_png = Url("ui-icons_e0fdff_256x240.png");
+                    public static readonly string ui_icons_f5e175_256x240_png = Url("ui-icons_f5e175_256x240.png");
+                    public static readonly string ui_icons_f7a50d_256x240_png = Url("ui-icons_f7a50d_256x240.png");
+                    public static readonly string ui_icons_fcd113_256x240_png = Url("ui-icons_fcd113_256x240.png");
                 }
             
                 public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
@@ -149,8 +178,12 @@ namespace Links_BoxPick {
                 private const string URLPATH = "~/Areas/BoxPick/Scripts";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string BoxPick_all_js_bundle = Url("BoxPick-all.js.bundle");
                 public static readonly string BoxPick_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.js") ? Url("BoxPick-all.min.js") : Url("BoxPick-all.js");
-                              
+                public static readonly string BoxPick_all_min_js = Url("BoxPick-all.min.js");
+                public static readonly string BoxPick_all_min_js_map = Url("BoxPick-all.min.js.map");
+                public static readonly string scan_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scan.partial.min.js") ? Url("scan.partial.min.js") : Url("scan.partial.js");
+                public static readonly string session_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/session.partial.min.js") ? Url("session.partial.min.js") : Url("session.partial.js");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -158,17 +191,11 @@ namespace Links_BoxPick {
                 private const string URLPATH = "~/Areas/BoxPick/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Confirm {
                     private const string URLPATH = "~/Areas/BoxPick/Views/Confirm";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string ADRPallet_cshtml = Url("ADRPallet.cshtml");
-                    public static readonly string ConfirmSuspenseCarton_cshtml = Url("ConfirmSuspenseCarton.cshtml");
-                    public static readonly string PartialPickPallet_cshtml = Url("PartialPickPallet.cshtml");
-                    public static readonly string Print_cshtml = Url("Print.cshtml");
-                    public static readonly string SkipUcc_cshtml = Url("SkipUcc.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -176,11 +203,6 @@ namespace Links_BoxPick {
                     private const string URLPATH = "~/Areas/BoxPick/Views/Help";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string CartonHelp_cshtml = Url("CartonHelp.cshtml");
-                    public static readonly string PalletHelp_cshtml = Url("PalletHelp.cshtml");
-                    public static readonly string PartialPickPalletHelp_cshtml = Url("PartialPickPalletHelp.cshtml");
-                    public static readonly string SkipUccHelp_cshtml = Url("SkipUccHelp.cshtml");
-                    public static readonly string UccHelp_cshtml = Url("UccHelp.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -188,10 +210,6 @@ namespace Links_BoxPick {
                     private const string URLPATH = "~/Areas/BoxPick/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Building_cshtml = Url("Building.cshtml");
-                    public static readonly string Carton_cshtml = Url("Carton.cshtml");
-                    public static readonly string Pallet_cshtml = Url("Pallet.cshtml");
-                    public static readonly string Ucc_cshtml = Url("Ucc.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -199,8 +217,6 @@ namespace Links_BoxPick {
                     private const string URLPATH = "~/Areas/BoxPick/Views/MainContent";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _buildingPartial_cshtml = Url("_buildingPartial.cshtml");
-                    public static readonly string _cartonPartial_cshtml = Url("_cartonPartial.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -208,19 +224,11 @@ namespace Links_BoxPick {
                     private const string URLPATH = "~/Areas/BoxPick/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _bottomPartial_cshtml = Url("_bottomPartial.cshtml");
-                    public static readonly string _BoxList_cshtml = Url("_BoxList.cshtml");
-                    public static readonly string _layoutBoxPick_cshtml = Url("_layoutBoxPick.cshtml");
-                    public static readonly string _layoutBoxPick_mobile_cshtml = Url("_layoutBoxPick.mobile.cshtml");
-                    public static readonly string _PalletStatus_cshtml = Url("_PalletStatus.cshtml");
-                    public static readonly string _soundPartial_cshtml = Url("_soundPartial.cshtml");
-                    public static readonly string _tabsPartial_cshtml = Url("_tabsPartial.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/BoxPick/Views/Shared/DisplayTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string ValueWithShortName_cshtml = Url("ValueWithShortName.cshtml");
                     }
                 
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -228,11 +236,11 @@ namespace Links_BoxPick {
                         private const string URLPATH = "~/Areas/BoxPick/Views/Shared/EditorTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string scan_cshtml = Url("scan.cshtml");
                     }
                 
                 }
             
+                public static readonly string Web_config = Url("Web.config");
             }
         
         }
@@ -240,11 +248,37 @@ namespace Links_BoxPick {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static partial class bundles {
+    public static partial class Bundles
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class scripts {}
+        public static partial class Scripts {}
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class styles {}
+        public static partial class Styles {}
+    }
+}
+
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal static class T4MVCHelpers {
+    // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
+    // e.g. you can prepend a domain, or append a query string:
+    //      return "http://localhost" + path + "?foo=bar";
+    private static string ProcessVirtualPathDefault(string virtualPath) {
+        // The path that comes in starts with ~/ and must first be made absolute
+        string path = VirtualPathUtility.ToAbsolute(virtualPath);
+        
+        // Add your own modifications here before returning the path
+        return path;
+    }
+
+    // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
+    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
+
+    // Calling T4Extension.TimestampString through delegate to allow it to be replaced for unit testing and other purposes
+    public static Func<string, string> TimestampString = System.Web.Mvc.T4Extensions.TimestampString;
+
+    // Logic to determine if the app is running in production or dev environment
+    public static bool IsProduction() { 
+        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
     }
 }
 

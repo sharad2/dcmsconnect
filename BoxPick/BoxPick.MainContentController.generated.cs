@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,27 +21,44 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers {
-    public partial class MainContentController {
+namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
+{
+    public partial class MainContentController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected MainContentController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Carton() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Carton);
+        public virtual System.Web.Mvc.ActionResult Carton()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Carton);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -56,13 +74,15 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Building = "Building";
             public readonly string Carton = "Carton";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Building = "Building";
             public const string Carton = "Carton";
         }
@@ -72,31 +92,53 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Carton CartonParams { get { return s_params_Carton; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Carton {
+        public class ActionParamsClass_Carton
+        {
             public readonly string palletId = "palletId";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _buildingPartial = "_buildingPartial";
-            public readonly string _cartonPartial = "_cartonPartial";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _buildingPartial = "_buildingPartial";
+                public readonly string _cartonPartial = "_cartonPartial";
+            }
+            public readonly string _buildingPartial = "~/Areas/BoxPick/Views/MainContent/_buildingPartial.cshtml";
+            public readonly string _cartonPartial = "~/Areas/BoxPick/Views/MainContent/_cartonPartial.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_MainContentController: DcmsMobile.BoxPick.Areas.BoxPick.Controllers.MainContentController {
+    public partial class T4MVC_MainContentController : DcmsMobile.BoxPick.Areas.BoxPick.Controllers.MainContentController
+    {
         public T4MVC_MainContentController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Building() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Building);
+        [NonAction]
+        partial void BuildingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Building()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Building);
+            BuildingOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Carton(string palletId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Carton);
+        [NonAction]
+        partial void CartonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string palletId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Carton(string palletId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Carton);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletId", palletId);
+            CartonOverride(callInfo, palletId);
             return callInfo;
         }
 
