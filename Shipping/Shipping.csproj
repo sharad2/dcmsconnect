@@ -214,7 +214,9 @@
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\Shipping\Scripts\Appointment.min.js.map">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
