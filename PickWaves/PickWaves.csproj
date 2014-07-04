@@ -93,6 +93,9 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\PickWaves\Controllers\AutoCompleteController.cs">
@@ -222,6 +225,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\PickWaves\Content\BucketModel-Display.partial.css" />
     <None Include="Areas\PickWaves\Content\BucketModel-Editor.partial.css" />
     <None Include="Areas\PickWaves\Content\Config.css" />
@@ -438,6 +442,7 @@
     <None Include="Scripts\jquery-ui-1.10.0.js" />
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Scripts\_references.js" />
+    <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>

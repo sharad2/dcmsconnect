@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,37 +21,56 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
-    public partial class BoxPickPalletController {
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+{
+    public partial class BoxPickPalletController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected BoxPickPalletController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Index() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreatePallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreatePallet);
+        public virtual System.Web.Mvc.ActionResult CreatePallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreatePallet);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RemoveUnPickedBoxesFromPallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RemoveUnPickedBoxesFromPallet);
+        public virtual System.Web.Mvc.ActionResult RemoveUnPickedBoxesFromPallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveUnPickedBoxesFromPallet);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -66,14 +86,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string CreatePallet = "CreatePallet";
             public readonly string RemoveUnPickedBoxesFromPallet = "RemoveUnPickedBoxesFromPallet";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string CreatePallet = "CreatePallet";
             public const string RemoveUnPickedBoxesFromPallet = "RemoveUnPickedBoxesFromPallet";
@@ -84,53 +106,82 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index {
+        public class ActionParamsClass_Index
+        {
             public readonly string bucketId = "bucketId";
         }
         static readonly ActionParamsClass_CreatePallet s_params_CreatePallet = new ActionParamsClass_CreatePallet();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreatePallet CreatePalletParams { get { return s_params_CreatePallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreatePallet {
+        public class ActionParamsClass_CreatePallet
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_RemoveUnPickedBoxesFromPallet s_params_RemoveUnPickedBoxesFromPallet = new ActionParamsClass_RemoveUnPickedBoxesFromPallet();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RemoveUnPickedBoxesFromPallet RemoveUnPickedBoxesFromPalletParams { get { return s_params_RemoveUnPickedBoxesFromPallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RemoveUnPickedBoxesFromPallet {
+        public class ActionParamsClass_RemoveUnPickedBoxesFromPallet
+        {
             public readonly string bucketId = "bucketId";
             public readonly string palletId = "palletId";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string Index = "Index";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Areas/PickWaves/Views/BoxPickPallet/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_BoxPickPalletController: DcmsMobile.PickWaves.Areas.PickWaves.Controllers.BoxPickPalletController {
+    public partial class T4MVC_BoxPickPalletController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.BoxPickPalletController
+    {
         public T4MVC_BoxPickPalletController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(int? bucketId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? bucketId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index(int? bucketId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            IndexOverride(callInfo, bucketId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreatePallet(DcmsMobile.PickWaves.ViewModels.BoxPickPallet.BoxPickPalletViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreatePallet);
+        [NonAction]
+        partial void CreatePalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.BoxPickPallet.BoxPickPalletViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CreatePallet(DcmsMobile.PickWaves.ViewModels.BoxPickPallet.BoxPickPalletViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreatePallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CreatePalletOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RemoveUnPickedBoxesFromPallet(int? bucketId, string palletId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RemoveUnPickedBoxesFromPallet);
+        [NonAction]
+        partial void RemoveUnPickedBoxesFromPalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? bucketId, string palletId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RemoveUnPickedBoxesFromPallet(int? bucketId, string palletId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveUnPickedBoxesFromPallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletId", palletId);
+            RemoveUnPickedBoxesFromPalletOverride(callInfo, bucketId, palletId);
             return callInfo;
         }
 

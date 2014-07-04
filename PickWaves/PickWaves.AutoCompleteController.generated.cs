@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,32 +21,50 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
-    public partial class AutoCompleteController {
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+{
+    public partial class AutoCompleteController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected AutoCompleteController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CustomerAutocomplete() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
+        public virtual System.Web.Mvc.ActionResult CustomerAutocomplete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult StyleAutoComplete() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
+        public virtual System.Web.Mvc.ActionResult StyleAutoComplete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -61,7 +80,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string CustomerAutocomplete = "CustomerAutocomplete";
             public readonly string StyleAutoComplete = "StyleAutoComplete";
             public readonly string ValidateCustomer = "ValidateCustomer";
@@ -69,7 +89,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string CustomerAutocomplete = "CustomerAutocomplete";
             public const string StyleAutoComplete = "StyleAutoComplete";
             public const string ValidateCustomer = "ValidateCustomer";
@@ -81,47 +102,80 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CustomerAutocomplete CustomerAutocompleteParams { get { return s_params_CustomerAutocomplete; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CustomerAutocomplete {
+        public class ActionParamsClass_CustomerAutocomplete
+        {
             public readonly string term = "term";
         }
         static readonly ActionParamsClass_StyleAutoComplete s_params_StyleAutoComplete = new ActionParamsClass_StyleAutoComplete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_StyleAutoComplete StyleAutoCompleteParams { get { return s_params_StyleAutoComplete; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_StyleAutoComplete {
+        public class ActionParamsClass_StyleAutoComplete
+        {
             public readonly string term = "term";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+            }
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_AutoCompleteController: DcmsMobile.PickWaves.Areas.PickWaves.Controllers.AutoCompleteController {
+    public partial class T4MVC_AutoCompleteController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.AutoCompleteController
+    {
         public T4MVC_AutoCompleteController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult CustomerAutocomplete(string term) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
+        [NonAction]
+        partial void CustomerAutocompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CustomerAutocomplete(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            CustomerAutocompleteOverride(callInfo, term);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult StyleAutoComplete(string term) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
+        [NonAction]
+        partial void StyleAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult StyleAutoComplete(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            StyleAutoCompleteOverride(callInfo, term);
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult ValidateCustomer() {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.ValidateCustomer);
+        [NonAction]
+        partial void ValidateCustomerOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult ValidateCustomer()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ValidateCustomer);
+            ValidateCustomerOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.JsonResult ValidateStyle() {
-            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.ValidateStyle);
+        [NonAction]
+        partial void ValidateStyleOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult ValidateStyle()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ValidateStyle);
+            ValidateStyleOverride(callInfo);
             return callInfo;
         }
 
