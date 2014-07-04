@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,87 +21,116 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
-    public partial class HomeController {
+namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
+{
+    public partial class HomeController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult EditPalletLimit() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.EditPalletLimit);
+        public virtual System.Web.Mvc.ActionResult EditPalletLimit()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPalletLimit);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult EditBuilding() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.EditBuilding);
+        public virtual System.Web.Mvc.ActionResult EditBuilding()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditBuilding);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateBuilding() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateBuilding);
+        public virtual System.Web.Mvc.ActionResult UpdateBuilding()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateBuilding);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CartonArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
+        public virtual System.Web.Mvc.ActionResult CartonArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CartonArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateArea);
+        public virtual System.Web.Mvc.ActionResult UpdateArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ManageCartonArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ManageCartonArea);
+        public virtual System.Web.Mvc.ActionResult ManageCartonArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageCartonArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ApplyCartonAreaLocationFilter() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ApplyCartonAreaLocationFilter);
+        public virtual System.Web.Mvc.ActionResult ApplyCartonAreaLocationFilter()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApplyCartonAreaLocationFilter);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateLocation() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateLocation);
+        public virtual System.Web.Mvc.ActionResult UpdateLocation()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateLocation);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UnassignLocation() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UnassignLocation);
+        public virtual System.Web.Mvc.ActionResult UnassignLocation()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnassignLocation);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PickingArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PickingArea);
+        public virtual System.Web.Mvc.ActionResult PickingArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PickingArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdatePickingArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
+        public virtual System.Web.Mvc.ActionResult UpdatePickingArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ManagePickingArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ManagePickingArea);
+        public virtual System.Web.Mvc.ActionResult ManagePickingArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManagePickingArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ApplyPickingAreaLocationFilter);
+        public virtual System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApplyPickingAreaLocationFilter);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,7 +146,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string EditPalletLimit = "EditPalletLimit";
             public readonly string EditBuilding = "EditBuilding";
@@ -135,7 +166,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string EditPalletLimit = "EditPalletLimit";
             public const string EditBuilding = "EditBuilding";
@@ -158,7 +190,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_EditPalletLimit EditPalletLimitParams { get { return s_params_EditPalletLimit; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditPalletLimit {
+        public class ActionParamsClass_EditPalletLimit
+        {
             public readonly string buildingId = "buildingId";
             public readonly string palletLimit = "palletLimit";
         }
@@ -166,14 +199,16 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_EditBuilding EditBuildingParams { get { return s_params_EditBuilding; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditBuilding {
+        public class ActionParamsClass_EditBuilding
+        {
             public readonly string buildingId = "buildingId";
         }
         static readonly ActionParamsClass_UpdateBuilding s_params_UpdateBuilding = new ActionParamsClass_UpdateBuilding();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateBuilding UpdateBuildingParams { get { return s_params_UpdateBuilding; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateBuilding {
+        public class ActionParamsClass_UpdateBuilding
+        {
             public readonly string model = "model";
             public readonly string create = "create";
         }
@@ -181,28 +216,32 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CartonArea CartonAreaParams { get { return s_params_CartonArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CartonArea {
+        public class ActionParamsClass_CartonArea
+        {
             public readonly string buildingId = "buildingId";
         }
         static readonly ActionParamsClass_UpdateArea s_params_UpdateArea = new ActionParamsClass_UpdateArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateArea UpdateAreaParams { get { return s_params_UpdateArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateArea {
+        public class ActionParamsClass_UpdateArea
+        {
             public readonly string cam = "cam";
         }
         static readonly ActionParamsClass_ManageCartonArea s_params_ManageCartonArea = new ActionParamsClass_ManageCartonArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ManageCartonArea ManageCartonAreaParams { get { return s_params_ManageCartonArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ManageCartonArea {
+        public class ActionParamsClass_ManageCartonArea
+        {
             public readonly string areaId = "areaId";
         }
         static readonly ActionParamsClass_ApplyCartonAreaLocationFilter s_params_ApplyCartonAreaLocationFilter = new ActionParamsClass_ApplyCartonAreaLocationFilter();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ApplyCartonAreaLocationFilter ApplyCartonAreaLocationFilterParams { get { return s_params_ApplyCartonAreaLocationFilter; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ApplyCartonAreaLocationFilter {
+        public class ActionParamsClass_ApplyCartonAreaLocationFilter
+        {
             public readonly string areaId = "areaId";
             public readonly string assignedSkuId = "assignedSkuId";
             public readonly string locationId = "locationId";
@@ -213,172 +252,292 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateLocation UpdateLocationParams { get { return s_params_UpdateLocation; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateLocation {
+        public class ActionParamsClass_UpdateLocation
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_UnassignLocation s_params_UnassignLocation = new ActionParamsClass_UnassignLocation();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UnassignLocation UnassignLocationParams { get { return s_params_UnassignLocation; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UnassignLocation {
+        public class ActionParamsClass_UnassignLocation
+        {
             public readonly string locationId = "locationId";
         }
         static readonly ActionParamsClass_PickingArea s_params_PickingArea = new ActionParamsClass_PickingArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PickingArea PickingAreaParams { get { return s_params_PickingArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PickingArea {
+        public class ActionParamsClass_PickingArea
+        {
             public readonly string buildingId = "buildingId";
         }
         static readonly ActionParamsClass_UpdatePickingArea s_params_UpdatePickingArea = new ActionParamsClass_UpdatePickingArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdatePickingArea UpdatePickingAreaParams { get { return s_params_UpdatePickingArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdatePickingArea {
+        public class ActionParamsClass_UpdatePickingArea
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ManagePickingArea s_params_ManagePickingArea = new ActionParamsClass_ManagePickingArea();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ManagePickingArea ManagePickingAreaParams { get { return s_params_ManagePickingArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ManagePickingArea {
+        public class ActionParamsClass_ManagePickingArea
+        {
             public readonly string areaId = "areaId";
         }
         static readonly ActionParamsClass_ApplyPickingAreaLocationFilter s_params_ApplyPickingAreaLocationFilter = new ActionParamsClass_ApplyPickingAreaLocationFilter();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ApplyPickingAreaLocationFilter ApplyPickingAreaLocationFilterParams { get { return s_params_ApplyPickingAreaLocationFilter; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ApplyPickingAreaLocationFilter {
+        public class ActionParamsClass_ApplyPickingAreaLocationFilter
+        {
             public readonly string areaId = "areaId";
             public readonly string assignedLocation = "assignedLocation";
             public readonly string emptyLocations = "emptyLocations";
             public readonly string assignedSkuId = "assignedSkuId";
             public readonly string locationId = "locationId";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
-            public readonly string _cartonAreaLocationCountMatrixPartial = "_cartonAreaLocationCountMatrixPartial";
-            public readonly string _cartonAreaLocationCountMatrixPartial_phone = "_cartonAreaLocationCountMatrixPartial.phone";
-            public readonly string _pickingAreaLocationCountMatrixPartial = "_pickingAreaLocationCountMatrixPartial";
-            public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
-            public readonly string _updateFlagDialogPartial_phone = "_updateFlagDialogPartial.phone";
-            public readonly string CartonArea = "CartonArea";
-            public readonly string CartonArea_phone = "CartonArea.phone";
-            public readonly string EditBuilding = "EditBuilding";
-            public readonly string EditBuilding_phone = "EditBuilding.phone";
-            public readonly string Index = "Index";
-            public readonly string Index_phone = "Index.phone";
-            public readonly string ManageCartonArea = "ManageCartonArea";
-            public readonly string ManageCartonArea_phone = "ManageCartonArea.phone";
-            public readonly string ManagePickingArea = "ManagePickingArea";
-            public readonly string PickingArea = "PickingArea";
-            public readonly string Tutorial = "Tutorial";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _assignSkuDialogPartial = "_assignSkuDialogPartial";
+                public readonly string _cartonAreaLocationCountMatrixPartial = "_cartonAreaLocationCountMatrixPartial";
+                public readonly string _cartonAreaLocationCountMatrixPartial_phone = "_cartonAreaLocationCountMatrixPartial.phone";
+                public readonly string _pickingAreaLocationCountMatrixPartial = "_pickingAreaLocationCountMatrixPartial";
+                public readonly string _updateFlagDialogPartial = "_updateFlagDialogPartial";
+                public readonly string _updateFlagDialogPartial_phone = "_updateFlagDialogPartial.phone";
+                public readonly string CartonArea = "CartonArea";
+                public readonly string CartonArea_phone = "CartonArea.phone";
+                public readonly string EditBuilding = "EditBuilding";
+                public readonly string EditBuilding_phone = "EditBuilding.phone";
+                public readonly string Index = "Index";
+                public readonly string Index_phone = "Index.phone";
+                public readonly string ManageCartonArea = "ManageCartonArea";
+                public readonly string ManageCartonArea_phone = "ManageCartonArea.phone";
+                public readonly string ManagePickingArea = "ManagePickingArea";
+                public readonly string PickingArea = "PickingArea";
+                public readonly string Tutorial = "Tutorial";
+            }
+            public readonly string _assignSkuDialogPartial = "~/Areas/CartonAreas/Views/Home/_assignSkuDialogPartial.cshtml";
+            public readonly string _cartonAreaLocationCountMatrixPartial = "~/Areas/CartonAreas/Views/Home/_cartonAreaLocationCountMatrixPartial.cshtml";
+            public readonly string _cartonAreaLocationCountMatrixPartial_phone = "~/Areas/CartonAreas/Views/Home/_cartonAreaLocationCountMatrixPartial.phone.cshtml";
+            public readonly string _pickingAreaLocationCountMatrixPartial = "~/Areas/CartonAreas/Views/Home/_pickingAreaLocationCountMatrixPartial.cshtml";
+            public readonly string _updateFlagDialogPartial = "~/Areas/CartonAreas/Views/Home/_updateFlagDialogPartial.cshtml";
+            public readonly string _updateFlagDialogPartial_phone = "~/Areas/CartonAreas/Views/Home/_updateFlagDialogPartial.phone.cshtml";
+            public readonly string CartonArea = "~/Areas/CartonAreas/Views/Home/CartonArea.cshtml";
+            public readonly string CartonArea_phone = "~/Areas/CartonAreas/Views/Home/CartonArea.phone.cshtml";
+            public readonly string EditBuilding = "~/Areas/CartonAreas/Views/Home/EditBuilding.cshtml";
+            public readonly string EditBuilding_phone = "~/Areas/CartonAreas/Views/Home/EditBuilding.phone.cshtml";
+            public readonly string Index = "~/Areas/CartonAreas/Views/Home/Index.cshtml";
+            public readonly string Index_phone = "~/Areas/CartonAreas/Views/Home/Index.phone.cshtml";
+            public readonly string ManageCartonArea = "~/Areas/CartonAreas/Views/Home/ManageCartonArea.cshtml";
+            public readonly string ManageCartonArea_phone = "~/Areas/CartonAreas/Views/Home/ManageCartonArea.phone.cshtml";
+            public readonly string ManagePickingArea = "~/Areas/CartonAreas/Views/Home/ManagePickingArea.cshtml";
+            public readonly string PickingArea = "~/Areas/CartonAreas/Views/Home/PickingArea.cshtml";
+            public readonly string Tutorial = "~/Areas/CartonAreas/Views/Home/Tutorial.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_HomeController: DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers.HomeController {
+    public partial class T4MVC_HomeController : DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers.HomeController
+    {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditPalletLimit(string buildingId, int? palletLimit) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditPalletLimit);
+        [NonAction]
+        partial void EditPalletLimitOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string buildingId, int? palletLimit);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditPalletLimit(string buildingId, int? palletLimit)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPalletLimit);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletLimit", palletLimit);
+            EditPalletLimitOverride(callInfo, buildingId, palletLimit);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult EditBuilding(string buildingId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.EditBuilding);
+        [NonAction]
+        partial void EditBuildingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string buildingId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditBuilding(string buildingId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditBuilding);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            EditBuildingOverride(callInfo, buildingId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateBuilding(DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel model, bool create) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateBuilding);
+        [NonAction]
+        partial void UpdateBuildingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel model, bool create);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateBuilding(DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel model, bool create)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateBuilding);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "create", create);
+            UpdateBuildingOverride(callInfo, model, create);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CartonArea(string buildingId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CartonArea);
+        [NonAction]
+        partial void CartonAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string buildingId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CartonArea(string buildingId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CartonArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            CartonAreaOverride(callInfo, buildingId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateArea(DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateArea);
+        [NonAction]
+        partial void UpdateAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateArea(DcmsMobile.CartonAreas.ViewModels.CartonAreaModel cam)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cam", cam);
+            UpdateAreaOverride(callInfo, cam);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ManageCartonArea(string areaId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ManageCartonArea);
+        [NonAction]
+        partial void ManageCartonAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ManageCartonArea(string areaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageCartonArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
+            ManageCartonAreaOverride(callInfo, areaId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyCartonAreaLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyCartonAreaLocationFilter);
+        [NonAction]
+        partial void ApplyCartonAreaLocationFilterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ApplyCartonAreaLocationFilter(string areaId, int? assignedSkuId, string locationId, bool? assignedLocation, bool? emptyLocations)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApplyCartonAreaLocationFilter);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuId", assignedSkuId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedLocation", assignedLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emptyLocations", emptyLocations);
+            ApplyCartonAreaLocationFilterOverride(callInfo, areaId, assignedSkuId, locationId, assignedLocation, emptyLocations);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateLocation(DcmsMobile.CartonAreas.ViewModels.AssignSkuViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateLocation);
+        [NonAction]
+        partial void UpdateLocationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.CartonAreas.ViewModels.AssignSkuViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateLocation(DcmsMobile.CartonAreas.ViewModels.AssignSkuViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UpdateLocationOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UnassignLocation(string locationId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnassignLocation);
+        [NonAction]
+        partial void UnassignLocationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string locationId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnassignLocation(string locationId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnassignLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
+            UnassignLocationOverride(callInfo, locationId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PickingArea(string buildingId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PickingArea);
+        [NonAction]
+        partial void PickingAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string buildingId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PickingArea(string buildingId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PickingArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingId", buildingId);
+            PickingAreaOverride(callInfo, buildingId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Tutorial() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Tutorial);
+        [NonAction]
+        partial void TutorialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Tutorial()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
+            TutorialOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdatePickingArea(DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
+        [NonAction]
+        partial void UpdatePickingAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdatePickingArea(DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdatePickingArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UpdatePickingAreaOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ManagePickingArea(string areaId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ManagePickingArea);
+        [NonAction]
+        partial void ManagePickingAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ManagePickingArea(string areaId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManagePickingArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
+            ManagePickingAreaOverride(callInfo, areaId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations, int? assignedSkuId, string locationId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ApplyPickingAreaLocationFilter);
+        [NonAction]
+        partial void ApplyPickingAreaLocationFilterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId, bool? assignedLocation, bool? emptyLocations, int? assignedSkuId, string locationId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ApplyPickingAreaLocationFilter(string areaId, bool? assignedLocation, bool? emptyLocations, int? assignedSkuId, string locationId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ApplyPickingAreaLocationFilter);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedLocation", assignedLocation);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emptyLocations", emptyLocations);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "assignedSkuId", assignedSkuId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "locationId", locationId);
+            ApplyPickingAreaLocationFilterOverride(callInfo, areaId, assignedLocation, emptyLocations, assignedSkuId, locationId);
             return callInfo;
         }
 

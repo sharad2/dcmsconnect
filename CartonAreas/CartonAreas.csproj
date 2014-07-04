@@ -91,6 +91,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\CartonAreas\Controllers\AutoCompleteController.cs" />
@@ -168,6 +171,7 @@
     </Content>
     <Content Include="Areas\CartonAreas\Views\Home\_updateFlagDialogPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\Tutorial.cshtml" />
+    <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\CartonAreas\Content\CartonAreas-all.css.bundle" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js.map">
       <DependentUpon>CartonArea-all.js</DependentUpon>
@@ -243,10 +247,11 @@
     <Content Include="Scripts\jquery.mobile-1.4.2.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="T4MVC.tt">
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="T4MVC.tt.settings.t4" />
     <None Include="Web.config" />
     <None Include="Web.Debug.config">
