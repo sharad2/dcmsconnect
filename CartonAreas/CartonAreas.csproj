@@ -171,7 +171,9 @@
     </Content>
     <Content Include="Areas\CartonAreas\Views\Home\_updateFlagDialogPartial.cshtml" />
     <Content Include="Areas\CartonAreas\Views\Home\Tutorial.cshtml" />
-    <None Include="T4MVC.tt.settings.xml" />
+    <None Include="T4MVC.tt.settings.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Areas\CartonAreas\Content\CartonAreas-all.css.bundle" />
     <Content Include="Areas\CartonAreas\Scripts\CartonArea-all.min.js.map">
       <DependentUpon>CartonArea-all.js</DependentUpon>
