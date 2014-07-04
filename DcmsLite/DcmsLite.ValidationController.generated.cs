@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,8 +21,10 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
-    public partial class ValidationController {
+namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
+{
+    public partial class ValidationController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ValidationController() { }
 
@@ -29,21 +32,36 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         protected ValidationController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ValidateBox() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ValidateBox);
+        public virtual System.Web.Mvc.ActionResult ValidateBox()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateBox);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -59,13 +77,15 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string ValidateBox = "ValidateBox";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string ValidateBox = "ValidateBox";
         }
@@ -75,7 +95,8 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index {
+        public class ActionParamsClass_Index
+        {
             public readonly string lastScan = "lastScan";
             public readonly string sound = "sound";
         }
@@ -83,32 +104,53 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ValidateBox ValidateBoxParams { get { return s_params_ValidateBox; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateBox {
+        public class ActionParamsClass_ValidateBox
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string Index = "Index";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+            }
+            public readonly string Index = "~/Areas/DcmsLite/Views/Validation/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_ValidationController: DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.ValidationController {
+    public partial class T4MVC_ValidationController : DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.ValidationController
+    {
         public T4MVC_ValidationController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(string lastScan, char sound) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string lastScan, char sound);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index(string lastScan, char sound)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "lastScan", lastScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sound", sound);
+            IndexOverride(callInfo, lastScan, sound);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ValidateBox(DcmsMobile.DcmsLite.ViewModels.Validation.IndexViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ValidateBox);
+        [NonAction]
+        partial void ValidateBoxOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsLite.ViewModels.Validation.IndexViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ValidateBox(DcmsMobile.DcmsLite.ViewModels.Validation.IndexViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateBox);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ValidateBoxOverride(callInfo, model);
             return callInfo;
         }
 

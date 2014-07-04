@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,8 +21,10 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
-    public partial class PickController {
+namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
+{
+    public partial class PickController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public PickController() { }
 
@@ -29,46 +32,66 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         protected PickController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Index() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        public virtual System.Web.Mvc.ActionResult Index()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Wave() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Wave);
+        public virtual System.Web.Mvc.ActionResult Wave()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wave);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PrintNewBatch() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PrintNewBatch);
+        public virtual System.Web.Mvc.ActionResult PrintNewBatch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintNewBatch);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ReprintBatch() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ReprintBatch);
+        public virtual System.Web.Mvc.ActionResult ReprintBatch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReprintBatch);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Batch() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Batch);
+        public virtual System.Web.Mvc.ActionResult Batch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Batch);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PrintBoxLabel() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PrintBoxLabel);
+        public virtual System.Web.Mvc.ActionResult PrintBoxLabel()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintBoxLabel);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,7 +107,8 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string Wave = "Wave";
             public readonly string PrintNewBatch = "PrintNewBatch";
@@ -94,7 +118,8 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string Wave = "Wave";
             public const string PrintNewBatch = "PrintNewBatch";
@@ -108,21 +133,24 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index {
+        public class ActionParamsClass_Index
+        {
             public readonly string customerId = "customerId";
         }
         static readonly ActionParamsClass_Wave s_params_Wave = new ActionParamsClass_Wave();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Wave WaveParams { get { return s_params_Wave; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Wave {
+        public class ActionParamsClass_Wave
+        {
             public readonly string bucketId = "bucketId";
         }
         static readonly ActionParamsClass_PrintNewBatch s_params_PrintNewBatch = new ActionParamsClass_PrintNewBatch();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PrintNewBatch PrintNewBatchParams { get { return s_params_PrintNewBatch; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PrintNewBatch {
+        public class ActionParamsClass_PrintNewBatch
+        {
             public readonly string bucketId = "bucketId";
             public readonly string printer = "printer";
             public readonly string batchSize = "batchSize";
@@ -132,7 +160,8 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ReprintBatch ReprintBatchParams { get { return s_params_ReprintBatch; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ReprintBatch {
+        public class ActionParamsClass_ReprintBatch
+        {
             public readonly string batchId = "batchId";
             public readonly string printer = "printer";
         }
@@ -140,70 +169,118 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Batch BatchParams { get { return s_params_Batch; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Batch {
+        public class ActionParamsClass_Batch
+        {
             public readonly string batchId = "batchId";
         }
         static readonly ActionParamsClass_PrintBoxLabel s_params_PrintBoxLabel = new ActionParamsClass_PrintBoxLabel();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PrintBoxLabel PrintBoxLabelParams { get { return s_params_PrintBoxLabel; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PrintBoxLabel {
+        public class ActionParamsClass_PrintBoxLabel
+        {
             public readonly string uccId = "uccId";
             public readonly string printer = "printer";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string Batch = "Batch";
-            public readonly string Index = "Index";
-            public readonly string Wave = "Wave";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Batch = "Batch";
+                public readonly string Index = "Index";
+                public readonly string Wave = "Wave";
+            }
+            public readonly string Batch = "~/Areas/DcmsLite/Views/Pick/Batch.cshtml";
+            public readonly string Index = "~/Areas/DcmsLite/Views/Pick/Index.cshtml";
+            public readonly string Wave = "~/Areas/DcmsLite/Views/Pick/Wave.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_PickController: DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.PickController {
+    public partial class T4MVC_PickController : DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers.PickController
+    {
         public T4MVC_PickController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index(string customerId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index(string customerId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
+            IndexOverride(callInfo, customerId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Wave(int bucketId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Wave);
+        [NonAction]
+        partial void WaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Wave(int bucketId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            WaveOverride(callInfo, bucketId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PrintNewBatch(int? bucketId, string printer, int? batchSize, bool clearCookie) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PrintNewBatch);
+        [NonAction]
+        partial void PrintNewBatchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? bucketId, string printer, int? batchSize, bool clearCookie);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PrintNewBatch(int? bucketId, string printer, int? batchSize, bool clearCookie)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintNewBatch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printer", printer);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "batchSize", batchSize);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "clearCookie", clearCookie);
+            PrintNewBatchOverride(callInfo, bucketId, printer, batchSize, clearCookie);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ReprintBatch(string batchId, string printer) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ReprintBatch);
+        [NonAction]
+        partial void ReprintBatchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string batchId, string printer);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ReprintBatch(string batchId, string printer)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReprintBatch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "batchId", batchId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printer", printer);
+            ReprintBatchOverride(callInfo, batchId, printer);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Batch(string batchId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Batch);
+        [NonAction]
+        partial void BatchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string batchId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Batch(string batchId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Batch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "batchId", batchId);
+            BatchOverride(callInfo, batchId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PrintBoxLabel(string uccId, string printer) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PrintBoxLabel);
+        [NonAction]
+        partial void PrintBoxLabelOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string uccId, string printer);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PrintBoxLabel(string uccId, string printer)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintBoxLabel);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "uccId", uccId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printer", printer);
+            PrintBoxLabelOverride(callInfo, uccId, printer);
             return callInfo;
         }
 
