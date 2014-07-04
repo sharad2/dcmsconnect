@@ -36,7 +36,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 Cartons = src.Cartons,
                 PalletId = src.PalletId,
-                PalletLimit = src.PalletLimit
+                PalletLimit = src.PalletLimit,
+                ProcessId = src.ProcessId
             };
         }
 
@@ -700,7 +701,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <remarks>
         /// 200 (Success): Pallet HTML is provided as data. PalletDisposition provided in header
         /// </remarks>
-        [HttpPost]
+        //[HttpPost]
         //[HandleAjaxError]
         public virtual ActionResult UnPalletizeCarton(string cartonId, int processId)
         {
@@ -713,7 +714,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 pvm.PalletId = pallet.PalletId;
                 pvm.PalletLimit = pallet.PalletLimit;
                 this.Response.AppendHeader("Disposition", pvm.DispositionId);
-                return PartialView(Views._palletPartial, pvm);
+                //return PartialView(Views._palletPartial, pvm);
+                return RedirectToAction(this.Actions.Receiving(processId));
             }
             catch (Exception ex)
             {

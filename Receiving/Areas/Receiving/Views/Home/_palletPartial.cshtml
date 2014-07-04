@@ -61,10 +61,10 @@
                     @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
                 </td>
                 <td>
-                    <a class="ui-btn ui-btn-icon-notext ui-icon-printer ui-corner-all"></a>
+                    <a class="ui-btn ui-btn-icon-notext ui-icon-printer ui-corner-all" ></a>
                 </td>
                 <td>
-                    <a class="ui-btn ui-btn-icon-notext ui-icon-delete ui-corner-all"></a>
+                    <a class="ui-btn ui-btn-icon-notext ui-icon-delete ui-corner-all" href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
                 </td>
             </tr>
         }

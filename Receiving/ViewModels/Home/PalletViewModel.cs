@@ -8,6 +8,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
     public class PalletViewModel
     {
 
+        public int ProcessId { get; set; }
+
         [Display(Name="Pallet")]
         public string PalletId { get; set; }
 

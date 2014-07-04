@@ -10,6 +10,8 @@ namespace DcmsMobile.Receiving.Models
 
         public int PalletLimit { get; set; }
 
+        public int ProcessId { get; set; }
+
         public IList<ReceivedCarton> Cartons { get; set; }
     }
 }

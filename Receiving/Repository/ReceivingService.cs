@@ -268,7 +268,8 @@ namespace DcmsMobile.Receiving.Repository
                         {
                             PalletId = g.Key,
                             PalletLimit = GetPalletLimit(processId), // ProcessId 
-                            Cartons = g.ToList()
+                            Cartons = g.ToList(),
+                            ProcessId = processId
                         };
                         
 
