@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,137 +21,176 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
-    public partial class HomeController {
+namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
+{
+    public partial class HomeController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RoutingSummaryAll() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RoutingSummaryAll);
+        public virtual System.Web.Mvc.ActionResult RoutingSummaryAll()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummaryAll);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RoutingSummary() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RoutingSummary);
+        public virtual System.Web.Mvc.ActionResult RoutingSummary()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummary);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Unrouted() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Unrouted);
+        public virtual System.Web.Mvc.ActionResult Unrouted()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Unrouted);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PrepareToRoute() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PrepareToRoute);
+        public virtual System.Web.Mvc.ActionResult PrepareToRoute()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrepareToRoute);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Routing() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Routing);
+        public virtual System.Web.Mvc.ActionResult Routing()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Routing);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UndoRouting() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UndoRouting);
+        public virtual System.Web.Mvc.ActionResult UndoRouting()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UndoRouting);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateRouting() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateRouting);
+        public virtual System.Web.Mvc.ActionResult UpdateRouting()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateRouting);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ValidateDC() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ValidateDC);
+        public virtual System.Web.Mvc.ActionResult ValidateDC()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateDC);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Routed() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Routed);
+        public virtual System.Web.Mvc.ActionResult Routed()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Routed);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateBol() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateBol);
+        public virtual System.Web.Mvc.ActionResult CreateBol()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateBol);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AllAppointments() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AllAppointments);
+        public virtual System.Web.Mvc.ActionResult AllAppointments()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AllAppointments);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Appointment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Appointment);
+        public virtual System.Web.Mvc.ActionResult Appointment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Appointment);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateUpdateAppointment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateUpdateAppointment);
+        public virtual System.Web.Mvc.ActionResult CreateUpdateAppointment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateAppointment);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeleteAppointment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteAppointment);
+        public virtual System.Web.Mvc.ActionResult DeleteAppointment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteAppointment);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult GetAppointments() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointments);
+        public virtual System.Web.Mvc.ActionResult GetAppointments()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointments);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult GetAppointmentByNumber() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointmentByNumber);
+        public virtual System.Web.Mvc.ActionResult GetAppointmentByNumber()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointmentByNumber);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UpdateTruckArrival() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UpdateTruckArrival);
+        public virtual System.Web.Mvc.ActionResult UpdateTruckArrival()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateTruckArrival);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult GetAppointmentsForBol() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointmentsForBol);
+        public virtual System.Web.Mvc.ActionResult GetAppointmentsForBol()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointmentsForBol);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult AssignAppointmentToBol() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.AssignAppointmentToBol);
+        public virtual System.Web.Mvc.ActionResult AssignAppointmentToBol()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignAppointmentToBol);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Bol() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Bol);
+        public virtual System.Web.Mvc.ActionResult Bol()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bol);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeleteBol() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteBol);
+        public virtual System.Web.Mvc.ActionResult DeleteBol()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteBol);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PoSearch() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PoSearch);
+        public virtual System.Web.Mvc.ActionResult PoSearch()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PoSearch);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PoSearchResults() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PoSearchResults);
+        public virtual System.Web.Mvc.ActionResult PoSearchResults()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PoSearchResults);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -166,7 +206,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string RoutingSummaryAll = "RoutingSummaryAll";
             public readonly string RoutingSummary = "RoutingSummary";
@@ -194,7 +235,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string RoutingSummaryAll = "RoutingSummaryAll";
             public const string RoutingSummary = "RoutingSummary";
@@ -226,56 +268,64 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RoutingSummaryAll RoutingSummaryAllParams { get { return s_params_RoutingSummaryAll; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RoutingSummaryAll {
+        public class ActionParamsClass_RoutingSummaryAll
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_RoutingSummary s_params_RoutingSummary = new ActionParamsClass_RoutingSummary();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RoutingSummary RoutingSummaryParams { get { return s_params_RoutingSummary; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RoutingSummary {
+        public class ActionParamsClass_RoutingSummary
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Unrouted s_params_Unrouted = new ActionParamsClass_Unrouted();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Unrouted UnroutedParams { get { return s_params_Unrouted; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Unrouted {
+        public class ActionParamsClass_Unrouted
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_PrepareToRoute s_params_PrepareToRoute = new ActionParamsClass_PrepareToRoute();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PrepareToRoute PrepareToRouteParams { get { return s_params_PrepareToRoute; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PrepareToRoute {
+        public class ActionParamsClass_PrepareToRoute
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Routing s_params_Routing = new ActionParamsClass_Routing();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Routing RoutingParams { get { return s_params_Routing; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Routing {
+        public class ActionParamsClass_Routing
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_UndoRouting s_params_UndoRouting = new ActionParamsClass_UndoRouting();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UndoRouting UndoRoutingParams { get { return s_params_UndoRouting; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UndoRouting {
+        public class ActionParamsClass_UndoRouting
+        {
             public readonly string key = "key";
         }
         static readonly ActionParamsClass_UpdateRouting s_params_UpdateRouting = new ActionParamsClass_UpdateRouting();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateRouting UpdateRoutingParams { get { return s_params_UpdateRouting; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateRouting {
+        public class ActionParamsClass_UpdateRouting
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ValidateDC s_params_ValidateDC = new ActionParamsClass_ValidateDC();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ValidateDC ValidateDCParams { get { return s_params_ValidateDC; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ValidateDC {
+        public class ActionParamsClass_ValidateDC
+        {
             public readonly string customerId = "customerId";
             public readonly string customerDC = "customerDC";
         }
@@ -283,49 +333,56 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Routed RoutedParams { get { return s_params_Routed; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Routed {
+        public class ActionParamsClass_Routed
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_CreateBol s_params_CreateBol = new ActionParamsClass_CreateBol();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreateBol CreateBolParams { get { return s_params_CreateBol; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateBol {
+        public class ActionParamsClass_CreateBol
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_AllAppointments s_params_AllAppointments = new ActionParamsClass_AllAppointments();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_AllAppointments AllAppointmentsParams { get { return s_params_AllAppointments; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AllAppointments {
+        public class ActionParamsClass_AllAppointments
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Appointment s_params_Appointment = new ActionParamsClass_Appointment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Appointment AppointmentParams { get { return s_params_Appointment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Appointment {
+        public class ActionParamsClass_Appointment
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_CreateUpdateAppointment s_params_CreateUpdateAppointment = new ActionParamsClass_CreateUpdateAppointment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreateUpdateAppointment CreateUpdateAppointmentParams { get { return s_params_CreateUpdateAppointment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateUpdateAppointment {
+        public class ActionParamsClass_CreateUpdateAppointment
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_DeleteAppointment s_params_DeleteAppointment = new ActionParamsClass_DeleteAppointment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DeleteAppointment DeleteAppointmentParams { get { return s_params_DeleteAppointment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteAppointment {
+        public class ActionParamsClass_DeleteAppointment
+        {
             public readonly string appointmentId = "appointmentId";
         }
         static readonly ActionParamsClass_GetAppointments s_params_GetAppointments = new ActionParamsClass_GetAppointments();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetAppointments GetAppointmentsParams { get { return s_params_GetAppointments; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetAppointments {
+        public class ActionParamsClass_GetAppointments
+        {
             public readonly string start = "start";
             public readonly string end = "end";
             public readonly string buildingIdList = "buildingIdList";
@@ -339,14 +396,16 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetAppointmentByNumber GetAppointmentByNumberParams { get { return s_params_GetAppointmentByNumber; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetAppointmentByNumber {
+        public class ActionParamsClass_GetAppointmentByNumber
+        {
             public readonly string appointmentNumber = "appointmentNumber";
         }
         static readonly ActionParamsClass_UpdateTruckArrival s_params_UpdateTruckArrival = new ActionParamsClass_UpdateTruckArrival();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UpdateTruckArrival UpdateTruckArrivalParams { get { return s_params_UpdateTruckArrival; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UpdateTruckArrival {
+        public class ActionParamsClass_UpdateTruckArrival
+        {
             public readonly string id = "id";
             public readonly string truckArrivalTime = "truckArrivalTime";
             public readonly string appointmentTime = "appointmentTime";
@@ -355,7 +414,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GetAppointmentsForBol GetAppointmentsForBolParams { get { return s_params_GetAppointmentsForBol; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetAppointmentsForBol {
+        public class ActionParamsClass_GetAppointmentsForBol
+        {
             public readonly string start = "start";
             public readonly string end = "end";
         }
@@ -363,21 +423,24 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_AssignAppointmentToBol AssignAppointmentToBolParams { get { return s_params_AssignAppointmentToBol; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AssignAppointmentToBol {
+        public class ActionParamsClass_AssignAppointmentToBol
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Bol s_params_Bol = new ActionParamsClass_Bol();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Bol BolParams { get { return s_params_Bol; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Bol {
+        public class ActionParamsClass_Bol
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_DeleteBol s_params_DeleteBol = new ActionParamsClass_DeleteBol();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DeleteBol DeleteBolParams { get { return s_params_DeleteBol; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteBol {
+        public class ActionParamsClass_DeleteBol
+        {
             public readonly string customerId = "customerId";
             public readonly string shippingIdList = "shippingIdList";
         }
@@ -385,132 +448,248 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PoSearch PoSearchParams { get { return s_params_PoSearch; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PoSearch {
+        public class ActionParamsClass_PoSearch
+        {
             public readonly string poId = "poId";
         }
         static readonly ActionParamsClass_PoSearchResults s_params_PoSearchResults = new ActionParamsClass_PoSearchResults();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PoSearchResults PoSearchResultsParams { get { return s_params_PoSearchResults; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PoSearchResults {
+        public class ActionParamsClass_PoSearchResults
+        {
             public readonly string poPattern = "poPattern";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _bolAppointmentHtmlPartial = "_bolAppointmentHtmlPartial";
-            public readonly string _dayHtmlPartial = "_dayHtmlPartial";
-            public readonly string _monthHtmlPartial = "_monthHtmlPartial";
-            public readonly string Appointment = "Appointment";
-            public readonly string Bol = "Bol";
-            public readonly string Index = "Index";
-            public readonly string Index_mobile = "Index.mobile";
-            public readonly string PoSearchResults = "PoSearchResults";
-            public readonly string Routed = "Routed";
-            public readonly string Routing = "Routing";
-            public readonly string RoutingSummary = "RoutingSummary";
-            public readonly string Unrouted = "Unrouted";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _bolAppointmentHtmlPartial = "_bolAppointmentHtmlPartial";
+                public readonly string _dayHtmlPartial = "_dayHtmlPartial";
+                public readonly string _monthHtmlPartial = "_monthHtmlPartial";
+                public readonly string Appointment = "Appointment";
+                public readonly string Bol = "Bol";
+                public readonly string Index = "Index";
+                public readonly string Index_mobile = "Index.mobile";
+                public readonly string PoSearchResults = "PoSearchResults";
+                public readonly string Routed = "Routed";
+                public readonly string Routing = "Routing";
+                public readonly string RoutingSummary = "RoutingSummary";
+                public readonly string Unrouted = "Unrouted";
+            }
+            public readonly string _bolAppointmentHtmlPartial = "~/Areas/Shipping/Views/Home/_bolAppointmentHtmlPartial.cshtml";
+            public readonly string _dayHtmlPartial = "~/Areas/Shipping/Views/Home/_dayHtmlPartial.cshtml";
+            public readonly string _monthHtmlPartial = "~/Areas/Shipping/Views/Home/_monthHtmlPartial.cshtml";
+            public readonly string Appointment = "~/Areas/Shipping/Views/Home/Appointment.cshtml";
+            public readonly string Bol = "~/Areas/Shipping/Views/Home/Bol.cshtml";
+            public readonly string Index = "~/Areas/Shipping/Views/Home/Index.cshtml";
+            public readonly string Index_mobile = "~/Areas/Shipping/Views/Home/Index.mobile.cshtml";
+            public readonly string PoSearchResults = "~/Areas/Shipping/Views/Home/PoSearchResults.cshtml";
+            public readonly string Routed = "~/Areas/Shipping/Views/Home/Routed.cshtml";
+            public readonly string Routing = "~/Areas/Shipping/Views/Home/Routing.cshtml";
+            public readonly string RoutingSummary = "~/Areas/Shipping/Views/Home/RoutingSummary.cshtml";
+            public readonly string Unrouted = "~/Areas/Shipping/Views/Home/Unrouted.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_HomeController: DcmsMobile.Shipping.Areas.Shipping.Controllers.HomeController {
+    public partial class T4MVC_HomeController : DcmsMobile.Shipping.Areas.Shipping.Controllers.HomeController
+    {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RoutingSummaryAll(DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RoutingSummaryAll);
+        [NonAction]
+        partial void RoutingSummaryAllOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RoutingSummaryAll(DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummaryAll);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RoutingSummaryAllOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RoutingSummary(DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RoutingSummary);
+        [NonAction]
+        partial void RoutingSummaryOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RoutingSummary(DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummary);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RoutingSummaryOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Unrouted(DcmsMobile.Shipping.ViewModels.UnroutedViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Unrouted);
+        [NonAction]
+        partial void UnroutedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.UnroutedViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Unrouted(DcmsMobile.Shipping.ViewModels.UnroutedViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Unrouted);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UnroutedOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PrepareToRoute(DcmsMobile.Shipping.ViewModels.UnroutedViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PrepareToRoute);
+        [NonAction]
+        partial void PrepareToRouteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.UnroutedViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PrepareToRoute(DcmsMobile.Shipping.ViewModels.UnroutedViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrepareToRoute);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PrepareToRouteOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Routing(DcmsMobile.Shipping.ViewModels.RoutingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Routing);
+        [NonAction]
+        partial void RoutingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutingViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Routing(DcmsMobile.Shipping.ViewModels.RoutingViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Routing);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RoutingOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UndoRouting(string key) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UndoRouting);
+        [NonAction]
+        partial void UndoRoutingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string key);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UndoRouting(string key)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UndoRouting);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "key", key);
+            UndoRoutingOverride(callInfo, key);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateRouting(DcmsMobile.Shipping.ViewModels.RoutingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateRouting);
+        [NonAction]
+        partial void UpdateRoutingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutingViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateRouting(DcmsMobile.Shipping.ViewModels.RoutingViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateRouting);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UpdateRoutingOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ValidateDC(string customerId, string customerDC) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ValidateDC);
+        [NonAction]
+        partial void ValidateDCOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, string customerDC);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ValidateDC(string customerId, string customerDC)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ValidateDC);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerDC", customerDC);
+            ValidateDCOverride(callInfo, customerId, customerDC);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Routed(DcmsMobile.Shipping.ViewModels.RoutedViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Routed);
+        [NonAction]
+        partial void RoutedOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutedViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Routed(DcmsMobile.Shipping.ViewModels.RoutedViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Routed);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RoutedOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateBol(DcmsMobile.Shipping.ViewModels.RoutedViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateBol);
+        [NonAction]
+        partial void CreateBolOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.RoutedViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CreateBol(DcmsMobile.Shipping.ViewModels.RoutedViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateBol);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CreateBolOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AllAppointments(DcmsMobile.Shipping.ViewModels.AppointmentViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AllAppointments);
+        [NonAction]
+        partial void AllAppointmentsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.AppointmentViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AllAppointments(DcmsMobile.Shipping.ViewModels.AppointmentViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AllAppointments);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AllAppointmentsOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Appointment(DcmsMobile.Shipping.ViewModels.AppointmentViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Appointment);
+        [NonAction]
+        partial void AppointmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.AppointmentViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Appointment(DcmsMobile.Shipping.ViewModels.AppointmentViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Appointment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AppointmentOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateUpdateAppointment(DcmsMobile.Shipping.ViewModels.AppointmentModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateUpdateAppointment);
+        [NonAction]
+        partial void CreateUpdateAppointmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.AppointmentModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CreateUpdateAppointment(DcmsMobile.Shipping.ViewModels.AppointmentModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateAppointment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CreateUpdateAppointmentOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeleteAppointment(int? appointmentId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteAppointment);
+        [NonAction]
+        partial void DeleteAppointmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? appointmentId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteAppointment(int? appointmentId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteAppointment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "appointmentId", appointmentId);
+            DeleteAppointmentOverride(callInfo, appointmentId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult GetAppointments(System.DateTimeOffset start, System.DateTimeOffset end, string[] buildingIdList, string customerId, string carrierId, DcmsMobile.Shipping.ViewModels.CalendarViewName? viewName, bool? scheduled, bool? shipped) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointments);
+        [NonAction]
+        partial void GetAppointmentsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.DateTimeOffset start, System.DateTimeOffset end, string[] buildingIdList, string customerId, string carrierId, DcmsMobile.Shipping.ViewModels.CalendarViewName? viewName, bool? scheduled, bool? shipped);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GetAppointments(System.DateTimeOffset start, System.DateTimeOffset end, string[] buildingIdList, string customerId, string carrierId, DcmsMobile.Shipping.ViewModels.CalendarViewName? viewName, bool? scheduled, bool? shipped)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointments);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "start", start);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "end", end);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "buildingIdList", buildingIdList);
@@ -519,58 +698,107 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewName", viewName);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "scheduled", scheduled);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "shipped", shipped);
+            GetAppointmentsOverride(callInfo, start, end, buildingIdList, customerId, carrierId, viewName, scheduled, shipped);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult GetAppointmentByNumber(int appointmentNumber) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointmentByNumber);
+        [NonAction]
+        partial void GetAppointmentByNumberOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int appointmentNumber);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GetAppointmentByNumber(int appointmentNumber)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointmentByNumber);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "appointmentNumber", appointmentNumber);
+            GetAppointmentByNumberOverride(callInfo, appointmentNumber);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UpdateTruckArrival(int id, System.DateTimeOffset? truckArrivalTime, System.DateTimeOffset appointmentTime) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UpdateTruckArrival);
+        [NonAction]
+        partial void UpdateTruckArrivalOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, System.DateTimeOffset? truckArrivalTime, System.DateTimeOffset appointmentTime);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UpdateTruckArrival(int id, System.DateTimeOffset? truckArrivalTime, System.DateTimeOffset appointmentTime)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateTruckArrival);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "truckArrivalTime", truckArrivalTime);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "appointmentTime", appointmentTime);
+            UpdateTruckArrivalOverride(callInfo, id, truckArrivalTime, appointmentTime);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult GetAppointmentsForBol(System.DateTimeOffset start, System.DateTimeOffset end) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GetAppointmentsForBol);
+        [NonAction]
+        partial void GetAppointmentsForBolOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.DateTimeOffset start, System.DateTimeOffset end);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GetAppointmentsForBol(System.DateTimeOffset start, System.DateTimeOffset end)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetAppointmentsForBol);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "start", start);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "end", end);
+            GetAppointmentsForBolOverride(callInfo, start, end);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult AssignAppointmentToBol(DcmsMobile.Shipping.ViewModels.BolViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.AssignAppointmentToBol);
+        [NonAction]
+        partial void AssignAppointmentToBolOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.BolViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AssignAppointmentToBol(DcmsMobile.Shipping.ViewModels.BolViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignAppointmentToBol);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            AssignAppointmentToBolOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Bol(DcmsMobile.Shipping.ViewModels.BolViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Bol);
+        [NonAction]
+        partial void BolOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.BolViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Bol(DcmsMobile.Shipping.ViewModels.BolViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Bol);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            BolOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeleteBol(string customerId, string shippingIdList) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteBol);
+        [NonAction]
+        partial void DeleteBolOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, string shippingIdList);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteBol(string customerId, string shippingIdList)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteBol);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "shippingIdList", shippingIdList);
+            DeleteBolOverride(callInfo, customerId, shippingIdList);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PoSearch(string poId) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PoSearch);
+        [NonAction]
+        partial void PoSearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string poId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PoSearch(string poId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PoSearch);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "poId", poId);
+            PoSearchOverride(callInfo, poId);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PoSearchResults(string poPattern) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PoSearchResults);
+        [NonAction]
+        partial void PoSearchResultsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string poPattern);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PoSearchResults(string poPattern)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PoSearchResults);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "poPattern", poPattern);
+            PoSearchResultsOverride(callInfo, poPattern);
             return callInfo;
         }
 

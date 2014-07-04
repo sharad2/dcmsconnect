@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,37 +21,56 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
-    public partial class ScanToTruckController {
+namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
+{
+    public partial class ScanToTruckController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected ScanToTruckController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Appointment() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Appointment);
+        public virtual System.Web.Mvc.ActionResult Appointment()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Appointment);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Pallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Pallet);
+        public virtual System.Web.Mvc.ActionResult Pallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pallet);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UnloadPallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UnloadPallet);
+        public virtual System.Web.Mvc.ActionResult UnloadPallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnloadPallet);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -66,7 +86,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string Appointment = "Appointment";
             public readonly string Pallet = "Pallet";
@@ -74,7 +95,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string Appointment = "Appointment";
             public const string Pallet = "Pallet";
@@ -86,58 +108,95 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Appointment AppointmentParams { get { return s_params_Appointment; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Appointment {
+        public class ActionParamsClass_Appointment
+        {
             public readonly string ivm = "ivm";
         }
         static readonly ActionParamsClass_Pallet s_params_Pallet = new ActionParamsClass_Pallet();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Pallet PalletParams { get { return s_params_Pallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Pallet {
+        public class ActionParamsClass_Pallet
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_UnloadPallet s_params_UnloadPallet = new ActionParamsClass_UnloadPallet();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UnloadPallet UnloadPalletParams { get { return s_params_UnloadPallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UnloadPallet {
+        public class ActionParamsClass_UnloadPallet
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string Index = "Index";
-            public readonly string Pallet = "Pallet";
-            public readonly string UnloadPallet = "UnloadPallet";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+                public readonly string Pallet = "Pallet";
+                public readonly string UnloadPallet = "UnloadPallet";
+            }
+            public readonly string Index = "~/Areas/Shipping/Views/ScanToTruck/Index.cshtml";
+            public readonly string Pallet = "~/Areas/Shipping/Views/ScanToTruck/Pallet.cshtml";
+            public readonly string UnloadPallet = "~/Areas/Shipping/Views/ScanToTruck/UnloadPallet.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_ScanToTruckController: DcmsMobile.Shipping.Areas.Shipping.Controllers.ScanToTruckController {
+    public partial class T4MVC_ScanToTruckController : DcmsMobile.Shipping.Areas.Shipping.Controllers.ScanToTruckController
+    {
         public T4MVC_ScanToTruckController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Appointment(DcmsMobile.Shipping.ViewModels.ScanToTruck.IndexViewModel ivm) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Appointment);
+        [NonAction]
+        partial void AppointmentOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.ScanToTruck.IndexViewModel ivm);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Appointment(DcmsMobile.Shipping.ViewModels.ScanToTruck.IndexViewModel ivm)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Appointment);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ivm", ivm);
+            AppointmentOverride(callInfo, ivm);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Pallet(DcmsMobile.Shipping.ViewModels.ScanToTruck.PalletViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Pallet);
+        [NonAction]
+        partial void PalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.ScanToTruck.PalletViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Pallet(DcmsMobile.Shipping.ViewModels.ScanToTruck.PalletViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PalletOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UnloadPallet(DcmsMobile.Shipping.ViewModels.ScanToTruck.UnloadPalletViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnloadPallet);
+        [NonAction]
+        partial void UnloadPalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Shipping.ViewModels.ScanToTruck.UnloadPalletViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnloadPallet(DcmsMobile.Shipping.ViewModels.ScanToTruck.UnloadPalletViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnloadPallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UnloadPalletOverride(callInfo, model);
             return callInfo;
         }
 
