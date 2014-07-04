@@ -74,21 +74,6 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
 namespace Links_BoxPick
 {
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Scripts {
-        private const string URLPATH = "~/Scripts";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
-        public static readonly string jquery_1_8_2_min_js = Url("jquery-1.8.2.min.js");
-        public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
-        public static readonly string jquery_ui_1_10_0_min_js = Url("jquery-ui-1.10.0.min.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-        public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-        public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
-    }
-
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
