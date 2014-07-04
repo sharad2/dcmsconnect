@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -22,27 +23,38 @@ using System.Web.Routing;
 using T4MVC;
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public static class MVC_PalletLocating {
+public static partial class MVC_PalletLocating
+{
     static readonly PalletLocatingClass s_PalletLocating = new PalletLocatingClass();
     public static PalletLocatingClass PalletLocating { get { return s_PalletLocating; } }
 }
 
-namespace T4MVC {
+namespace T4MVC
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class PalletLocatingClass {
+    public class PalletLocatingClass
+    {
         public readonly string Name = "PalletLocating";
         public DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers.HomeController Home = new DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers.T4MVC_HomeController();
         public T4MVC.PalletLocating.SharedController Shared = new T4MVC.PalletLocating.SharedController();
     }
 }
 
-  
-
-  
+namespace T4MVC
+{
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class Dummy
+    {
+        private Dummy() { }
+        public static Dummy Instance = new Dummy();
+    }
+}
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult {
-    public T4MVC_ActionResult(string area, string controller, string action, string protocol = null): base()  {
+internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
+    {
         this.InitMVCT4Result(area, controller, action, protocol);
     }
      
@@ -56,18 +68,18 @@ public class T4MVC_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResul
 
 
 
-namespace Links_PalletLocating {
+namespace Links_PalletLocating
+{
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Scripts {
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
-                      
-        public static readonly string jquery_1_8_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-1.8.2.min.js") ? Url("jquery-1.8.2.min.js") : Url("jquery-1.8.2.js");
-                      
+        public static readonly string jquery_2_0_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.0.3.min.js") ? Url("jquery-2.0.3.min.js") : Url("jquery-2.0.3.js");
+        public static readonly string jquery_2_0_3_min_js = Url("jquery-2.0.3.min.js");
         public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
-                      
+        public static readonly string jquery_ui_1_10_0_min_js = Url("jquery-ui-1.10.0.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -90,6 +102,22 @@ namespace Links_PalletLocating {
                     private const string URLPATH = "~/Content/themes/Start1.10.0/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string ui_bg_flat_55_999999_40x100_png = Url("ui-bg_flat_55_999999_40x100.png");
+                    public static readonly string ui_bg_flat_75_aaaaaa_40x100_png = Url("ui-bg_flat_75_aaaaaa_40x100.png");
+                    public static readonly string ui_bg_glass_45_0078ae_1x400_png = Url("ui-bg_glass_45_0078ae_1x400.png");
+                    public static readonly string ui_bg_glass_55_f8da4e_1x400_png = Url("ui-bg_glass_55_f8da4e_1x400.png");
+                    public static readonly string ui_bg_glass_75_79c9ec_1x400_png = Url("ui-bg_glass_75_79c9ec_1x400.png");
+                    public static readonly string ui_bg_gloss_wave_45_e14f1c_500x100_png = Url("ui-bg_gloss-wave_45_e14f1c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_50_6eac2c_500x100_png = Url("ui-bg_gloss-wave_50_6eac2c_500x100.png");
+                    public static readonly string ui_bg_gloss_wave_75_2191c0_500x100_png = Url("ui-bg_gloss-wave_75_2191c0_500x100.png");
+                    public static readonly string ui_bg_inset_hard_100_fcfdfd_1x100_png = Url("ui-bg_inset-hard_100_fcfdfd_1x100.png");
+                    public static readonly string ui_icons_0078ae_256x240_png = Url("ui-icons_0078ae_256x240.png");
+                    public static readonly string ui_icons_056b93_256x240_png = Url("ui-icons_056b93_256x240.png");
+                    public static readonly string ui_icons_d8e7f3_256x240_png = Url("ui-icons_d8e7f3_256x240.png");
+                    public static readonly string ui_icons_e0fdff_256x240_png = Url("ui-icons_e0fdff_256x240.png");
+                    public static readonly string ui_icons_f5e175_256x240_png = Url("ui-icons_f5e175_256x240.png");
+                    public static readonly string ui_icons_f7a50d_256x240_png = Url("ui-icons_f7a50d_256x240.png");
+                    public static readonly string ui_icons_fcd113_256x240_png = Url("ui-icons_fcd113_256x240.png");
                 }
             
                 public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
@@ -123,12 +151,15 @@ namespace Links_PalletLocating {
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
+                public static readonly string PalletLocating_all_css_bundle = Url("PalletLocating-all.css.bundle");
                 public static readonly string PalletLocating_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PalletLocating-all.min.css") ? Url("PalletLocating-all.min.css") : Url("PalletLocating-all.css");
                      
                 public static readonly string PalletLocating_all_min_css = Url("PalletLocating-all.min.css");
                 public static readonly string PalletLocating_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PalletLocating-mobile-all.min.css") ? Url("PalletLocating-mobile-all.min.css") : Url("PalletLocating-mobile-all.css");
                      
                 public static readonly string PalletLocating_mobile_all_min_css = Url("PalletLocating-mobile-all.min.css");
+                public static readonly string PalletLocating_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PalletLocating.partial.min.css") ? Url("PalletLocating.partial.min.css") : Url("PalletLocating.partial.css");
+                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/PalletLocating/Content/Sounds";
@@ -140,6 +171,8 @@ namespace Links_PalletLocating {
                 }
             
                 public static readonly string Specifications_htm = Url("Specifications.htm");
+                public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
+                     
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -155,7 +188,8 @@ namespace Links_PalletLocating {
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string PalletLocating_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PalletLocating-all.min.js") ? Url("PalletLocating-all.min.js") : Url("PalletLocating-all.js");
-                              
+                public static readonly string PalletLocating_all_min_js = Url("PalletLocating-all.min.js");
+                public static readonly string PalletLocating_all_min_js_map = Url("PalletLocating-all.min.js.map");
             }
         
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -163,28 +197,11 @@ namespace Links_PalletLocating {
                 private const string URLPATH = "~/Areas/PalletLocating/Views";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _ViewStart_cshtml = Url("_ViewStart.cshtml");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/PalletLocating/Views/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _areaFormPartial_cshtml = Url("_areaFormPartial.cshtml");
-                    public static readonly string _buildingFormPartial_cshtml = Url("_buildingFormPartial.cshtml");
-                    public static readonly string _confirmLocationPartial_cshtml = Url("_confirmLocationPartial.cshtml");
-                    public static readonly string _locationFormPartial_cshtml = Url("_locationFormPartial.cshtml");
-                    public static readonly string _palletFormPartial_cshtml = Url("_palletFormPartial.cshtml");
-                    public static readonly string Area_cshtml = Url("Area.cshtml");
-                    public static readonly string Area_Mobile_cshtml = Url("Area.Mobile.cshtml");
-                    public static readonly string Building_cshtml = Url("Building.cshtml");
-                    public static readonly string Building_Mobile_cshtml = Url("Building.Mobile.cshtml");
-                    public static readonly string ConfirmLocation_cshtml = Url("ConfirmLocation.cshtml");
-                    public static readonly string ConfirmLocation_Mobile_cshtml = Url("ConfirmLocation.Mobile.cshtml");
-                    public static readonly string Location_cshtml = Url("Location.cshtml");
-                    public static readonly string Location_Mobile_cshtml = Url("Location.Mobile.cshtml");
-                    public static readonly string Pallet_cshtml = Url("Pallet.cshtml");
-                    public static readonly string Pallet_Mobile_cshtml = Url("Pallet.Mobile.cshtml");
-                    public static readonly string PalletLocatingInfo_cshtml = Url("PalletLocatingInfo.cshtml");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -192,19 +209,16 @@ namespace Links_PalletLocating {
                     private const string URLPATH = "~/Areas/PalletLocating/Views/Shared";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _layoutPalletLocating_cshtml = Url("_layoutPalletLocating.cshtml");
-                    public static readonly string _layoutPalletLocating_Mobile_cshtml = Url("_layoutPalletLocating.Mobile.cshtml");
-                    public static readonly string _soundPartial_cshtml = Url("_soundPartial.cshtml");
                     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                     public static class DisplayTemplates {
                         private const string URLPATH = "~/Areas/PalletLocating/Views/Shared/DisplayTemplates";
                         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string ValueWithShortName_cshtml = Url("ValueWithShortName.cshtml");
                     }
                 
                 }
             
+                public static readonly string Web_config = Url("Web.config");
             }
         
         }
@@ -212,11 +226,37 @@ namespace Links_PalletLocating {
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static partial class bundles {
+    public static partial class Bundles
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class scripts {}
+        public static partial class Scripts {}
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class styles {}
+        public static partial class Styles {}
+    }
+}
+
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal static class T4MVCHelpers {
+    // You can change the ProcessVirtualPath method to modify the path that gets returned to the client.
+    // e.g. you can prepend a domain, or append a query string:
+    //      return "http://localhost" + path + "?foo=bar";
+    private static string ProcessVirtualPathDefault(string virtualPath) {
+        // The path that comes in starts with ~/ and must first be made absolute
+        string path = VirtualPathUtility.ToAbsolute(virtualPath);
+        
+        // Add your own modifications here before returning the path
+        return path;
+    }
+
+    // Calling ProcessVirtualPath through delegate to allow it to be replaced for unit testing
+    public static Func<string, string> ProcessVirtualPath = ProcessVirtualPathDefault;
+
+    // Calling T4Extension.TimestampString through delegate to allow it to be replaced for unit testing and other purposes
+    public static Func<string, string> TimestampString = System.Web.Mvc.T4Extensions.TimestampString;
+
+    // Logic to determine if the app is running in production or dev environment
+    public static bool IsProduction() { 
+        return (HttpContext.Current != null && !HttpContext.Current.IsDebuggingEnabled); 
     }
 }
 

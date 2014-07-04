@@ -90,6 +90,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\PalletLocating\Controllers\HomeController.cs" />
@@ -153,6 +156,7 @@
     <Content Include="Areas\PalletLocating\Scripts\PalletLocating-all.min.js.map">
       <DependentUpon>PalletLocating-all.js</DependentUpon>
     </Content>
+    <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\PalletLocating\Content\PalletLocating-all.css.bundle" />
     <None Include="Doc\Role.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
@@ -198,16 +202,17 @@
     <None Include="Global.asax" />
     <Content Include="Areas\PalletLocating\Views\Home\Pallet.cshtml" />
     <Content Include="Areas\PalletLocating\Views\Home\Area.cshtml" />
-    <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="T4MVC.tt">
+    <Content Include="packages.config" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </Content>
-    <Content Include="packages.config" />
+    </None>
     <None Include="T4MVC.tt.settings.t4" />
     <None Include="Web.config">
       <SubType>Designer</SubType>

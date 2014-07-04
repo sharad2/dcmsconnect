@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,52 +21,74 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers {
-    public partial class HomeController {
+namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
+{
+    public partial class HomeController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PalletOrArea() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PalletOrArea);
+        public virtual System.Web.Mvc.ActionResult PalletOrArea()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PalletOrArea);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult PalletLink() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.PalletLink);
+        public virtual System.Web.Mvc.ActionResult PalletLink()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PalletLink);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Pallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Pallet);
+        public virtual System.Web.Mvc.ActionResult Pallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pallet);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult Location() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.Location);
+        public virtual System.Web.Mvc.ActionResult Location()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Location);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult LocatePallet() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.LocatePallet);
+        public virtual System.Web.Mvc.ActionResult LocatePallet()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LocatePallet);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult LocatingActivity() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.LocatingActivity);
+        public virtual System.Web.Mvc.ActionResult LocatingActivity()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LocatingActivity);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -81,7 +104,8 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Building = "Building";
             public readonly string PalletOrArea = "PalletOrArea";
             public readonly string PalletLink = "PalletLink";
@@ -92,7 +116,8 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Building = "Building";
             public const string PalletOrArea = "PalletOrArea";
             public const string PalletLink = "PalletLink";
@@ -107,14 +132,16 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PalletOrArea PalletOrAreaParams { get { return s_params_PalletOrArea; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PalletOrArea {
+        public class ActionParamsClass_PalletOrArea
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_PalletLink s_params_PalletLink = new ActionParamsClass_PalletLink();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PalletLink PalletLinkParams { get { return s_params_PalletLink; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PalletLink {
+        public class ActionParamsClass_PalletLink
+        {
             public readonly string areaId = "areaId";
             public readonly string useCache = "useCache";
         }
@@ -122,97 +149,166 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Pallet PalletParams { get { return s_params_Pallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Pallet {
+        public class ActionParamsClass_Pallet
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_Location s_params_Location = new ActionParamsClass_Location();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Location LocationParams { get { return s_params_Location; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Location {
+        public class ActionParamsClass_Location
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_LocatePallet s_params_LocatePallet = new ActionParamsClass_LocatePallet();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_LocatePallet LocatePalletParams { get { return s_params_LocatePallet; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LocatePallet {
+        public class ActionParamsClass_LocatePallet
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_LocatingActivity s_params_LocatingActivity = new ActionParamsClass_LocatingActivity();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_LocatingActivity LocatingActivityParams { get { return s_params_LocatingActivity; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LocatingActivity {
+        public class ActionParamsClass_LocatingActivity
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _areaFormPartial = "_areaFormPartial";
-            public readonly string _buildingFormPartial = "_buildingFormPartial";
-            public readonly string _confirmLocationPartial = "_confirmLocationPartial";
-            public readonly string _locationFormPartial = "_locationFormPartial";
-            public readonly string _palletFormPartial = "_palletFormPartial";
-            public readonly string Area = "Area";
-            public readonly string Area_Mobile = "Area.Mobile";
-            public readonly string Building = "Building";
-            public readonly string Building_Mobile = "Building.Mobile";
-            public readonly string ConfirmLocation = "ConfirmLocation";
-            public readonly string ConfirmLocation_Mobile = "ConfirmLocation.Mobile";
-            public readonly string Location = "Location";
-            public readonly string Location_Mobile = "Location.Mobile";
-            public readonly string Pallet = "Pallet";
-            public readonly string Pallet_Mobile = "Pallet.Mobile";
-            public readonly string PalletLocatingInfo = "PalletLocatingInfo";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _areaFormPartial = "_areaFormPartial";
+                public readonly string _buildingFormPartial = "_buildingFormPartial";
+                public readonly string _confirmLocationPartial = "_confirmLocationPartial";
+                public readonly string _locationFormPartial = "_locationFormPartial";
+                public readonly string _palletFormPartial = "_palletFormPartial";
+                public readonly string Area = "Area";
+                public readonly string Area_Mobile = "Area.Mobile";
+                public readonly string Building = "Building";
+                public readonly string Building_Mobile = "Building.Mobile";
+                public readonly string ConfirmLocation = "ConfirmLocation";
+                public readonly string ConfirmLocation_Mobile = "ConfirmLocation.Mobile";
+                public readonly string Location = "Location";
+                public readonly string Location_Mobile = "Location.Mobile";
+                public readonly string Pallet = "Pallet";
+                public readonly string Pallet_Mobile = "Pallet.Mobile";
+                public readonly string PalletLocatingInfo = "PalletLocatingInfo";
+            }
+            public readonly string _areaFormPartial = "~/Areas/PalletLocating/Views/Home/_areaFormPartial.cshtml";
+            public readonly string _buildingFormPartial = "~/Areas/PalletLocating/Views/Home/_buildingFormPartial.cshtml";
+            public readonly string _confirmLocationPartial = "~/Areas/PalletLocating/Views/Home/_confirmLocationPartial.cshtml";
+            public readonly string _locationFormPartial = "~/Areas/PalletLocating/Views/Home/_locationFormPartial.cshtml";
+            public readonly string _palletFormPartial = "~/Areas/PalletLocating/Views/Home/_palletFormPartial.cshtml";
+            public readonly string Area = "~/Areas/PalletLocating/Views/Home/Area.cshtml";
+            public readonly string Area_Mobile = "~/Areas/PalletLocating/Views/Home/Area.Mobile.cshtml";
+            public readonly string Building = "~/Areas/PalletLocating/Views/Home/Building.cshtml";
+            public readonly string Building_Mobile = "~/Areas/PalletLocating/Views/Home/Building.Mobile.cshtml";
+            public readonly string ConfirmLocation = "~/Areas/PalletLocating/Views/Home/ConfirmLocation.cshtml";
+            public readonly string ConfirmLocation_Mobile = "~/Areas/PalletLocating/Views/Home/ConfirmLocation.Mobile.cshtml";
+            public readonly string Location = "~/Areas/PalletLocating/Views/Home/Location.cshtml";
+            public readonly string Location_Mobile = "~/Areas/PalletLocating/Views/Home/Location.Mobile.cshtml";
+            public readonly string Pallet = "~/Areas/PalletLocating/Views/Home/Pallet.cshtml";
+            public readonly string Pallet_Mobile = "~/Areas/PalletLocating/Views/Home/Pallet.Mobile.cshtml";
+            public readonly string PalletLocatingInfo = "~/Areas/PalletLocating/Views/Home/PalletLocatingInfo.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_HomeController: DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers.HomeController {
+    public partial class T4MVC_HomeController : DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers.HomeController
+    {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Building() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Building);
+        [NonAction]
+        partial void BuildingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Building()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Building);
+            BuildingOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PalletOrArea(DcmsMobile.PalletLocating.ViewModels.BuildingViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PalletOrArea);
+        [NonAction]
+        partial void PalletOrAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PalletLocating.ViewModels.BuildingViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PalletOrArea(DcmsMobile.PalletLocating.ViewModels.BuildingViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PalletOrArea);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PalletOrAreaOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult PalletLink(string areaId, bool useCache) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.PalletLink);
+        [NonAction]
+        partial void PalletLinkOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId, bool useCache);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult PalletLink(string areaId, bool useCache)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PalletLink);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "useCache", useCache);
+            PalletLinkOverride(callInfo, areaId, useCache);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Pallet(DcmsMobile.PalletLocating.ViewModels.AreaViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Pallet);
+        [NonAction]
+        partial void PalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PalletLocating.ViewModels.AreaViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Pallet(DcmsMobile.PalletLocating.ViewModels.AreaViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Pallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            PalletOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Location(DcmsMobile.PalletLocating.ViewModels.PalletViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Location);
+        [NonAction]
+        partial void LocationOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PalletLocating.ViewModels.PalletViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Location(DcmsMobile.PalletLocating.ViewModels.PalletViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Location);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LocationOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult LocatePallet(DcmsMobile.PalletLocating.ViewModels.LocationViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LocatePallet);
+        [NonAction]
+        partial void LocatePalletOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PalletLocating.ViewModels.LocationViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LocatePallet(DcmsMobile.PalletLocating.ViewModels.LocationViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LocatePallet);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LocatePalletOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult LocatingActivity(DcmsMobile.PalletLocating.ViewModels.PalletinfoViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LocatingActivity);
+        [NonAction]
+        partial void LocatingActivityOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PalletLocating.ViewModels.PalletinfoViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LocatingActivity(DcmsMobile.PalletLocating.ViewModels.PalletinfoViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LocatingActivity);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LocatingActivityOverride(callInfo, model);
             return callInfo;
         }
 
