@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,77 +21,104 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers {
-    public partial class HomeController {
+namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
+{
+    public partial class HomeController
+    {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected HomeController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToAction(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoute(callInfo.RouteValueDictionary);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result) {
+        protected RedirectToRouteResult RedirectToAction(Task<ActionResult> taskResult)
+        {
+            return RedirectToAction(taskResult.Result);
+        }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(ActionResult result)
+        {
             var callInfo = result.GetT4MVCResult();
             return RedirectToRoutePermanent(callInfo.RouteValueDictionary);
         }
 
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        protected RedirectToRouteResult RedirectToActionPermanent(Task<ActionResult> taskResult)
+        {
+            return RedirectToActionPermanent(taskResult.Result);
+        }
+
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult CreateUsers() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.CreateUsers);
+        public virtual System.Web.Mvc.ActionResult CreateUsers()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUsers);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult GrantRolesToUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.GrantRolesToUser);
+        public virtual System.Web.Mvc.ActionResult GrantRolesToUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GrantRolesToUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RevokeRolesFromUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RevokeRolesFromUser);
+        public virtual System.Web.Mvc.ActionResult RevokeRolesFromUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RevokeRolesFromUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UsersInRole() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UsersInRole);
+        public virtual System.Web.Mvc.ActionResult UsersInRole()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UsersInRole);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult RemoveUsersFromRole() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.RemoveUsersFromRole);
+        public virtual System.Web.Mvc.ActionResult RemoveUsersFromRole()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveUsersFromRole);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ManageUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ManageUser);
+        public virtual System.Web.Mvc.ActionResult ManageUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult UnlockUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.UnlockUser);
+        public virtual System.Web.Mvc.ActionResult UnlockUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnlockUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult LockedUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.LockedUser);
+        public virtual System.Web.Mvc.ActionResult LockedUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LockedUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult ResetPassword() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.ResetPassword);
+        public virtual System.Web.Mvc.ActionResult ResetPassword()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult DeleteUser() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.DeleteUser);
+        public virtual System.Web.Mvc.ActionResult DeleteUser()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteUser);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public System.Web.Mvc.ActionResult KillSession() {
-            return new T4MVC_ActionResult(Area, Name, ActionNames.KillSession);
+        public virtual System.Web.Mvc.ActionResult KillSession()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.KillSession);
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -106,7 +134,8 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNamesClass {
+        public class ActionNamesClass
+        {
             public readonly string Index = "Index";
             public readonly string CreateUsers = "CreateUsers";
             public readonly string UserList = "UserList";
@@ -124,7 +153,8 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers {
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionNameConstants {
+        public class ActionNameConstants
+        {
             public const string Index = "Index";
             public const string CreateUsers = "CreateUsers";
             public const string UserList = "UserList";
@@ -146,173 +176,279 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreateUsers CreateUsersParams { get { return s_params_CreateUsers; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateUsers {
+        public class ActionParamsClass_CreateUsers
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_GrantRolesToUser s_params_GrantRolesToUser = new ActionParamsClass_GrantRolesToUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_GrantRolesToUser GrantRolesToUserParams { get { return s_params_GrantRolesToUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GrantRolesToUser {
+        public class ActionParamsClass_GrantRolesToUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_RevokeRolesFromUser s_params_RevokeRolesFromUser = new ActionParamsClass_RevokeRolesFromUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RevokeRolesFromUser RevokeRolesFromUserParams { get { return s_params_RevokeRolesFromUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RevokeRolesFromUser {
+        public class ActionParamsClass_RevokeRolesFromUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_UsersInRole s_params_UsersInRole = new ActionParamsClass_UsersInRole();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UsersInRole UsersInRoleParams { get { return s_params_UsersInRole; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UsersInRole {
+        public class ActionParamsClass_UsersInRole
+        {
             public readonly string roleName = "roleName";
         }
         static readonly ActionParamsClass_RemoveUsersFromRole s_params_RemoveUsersFromRole = new ActionParamsClass_RemoveUsersFromRole();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_RemoveUsersFromRole RemoveUsersFromRoleParams { get { return s_params_RemoveUsersFromRole; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RemoveUsersFromRole {
+        public class ActionParamsClass_RemoveUsersFromRole
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ManageUser s_params_ManageUser = new ActionParamsClass_ManageUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ManageUser ManageUserParams { get { return s_params_ManageUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ManageUser {
+        public class ActionParamsClass_ManageUser
+        {
             public readonly string userName = "userName";
         }
         static readonly ActionParamsClass_UnlockUser s_params_UnlockUser = new ActionParamsClass_UnlockUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_UnlockUser UnlockUserParams { get { return s_params_UnlockUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_UnlockUser {
+        public class ActionParamsClass_UnlockUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_LockedUser s_params_LockedUser = new ActionParamsClass_LockedUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_LockedUser LockedUserParams { get { return s_params_LockedUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_LockedUser {
+        public class ActionParamsClass_LockedUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_ResetPassword s_params_ResetPassword = new ActionParamsClass_ResetPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ResetPassword ResetPasswordParams { get { return s_params_ResetPassword; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_ResetPassword {
+        public class ActionParamsClass_ResetPassword
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_DeleteUser s_params_DeleteUser = new ActionParamsClass_DeleteUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_DeleteUser DeleteUserParams { get { return s_params_DeleteUser; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteUser {
+        public class ActionParamsClass_DeleteUser
+        {
             public readonly string model = "model";
         }
         static readonly ActionParamsClass_KillSession s_params_KillSession = new ActionParamsClass_KillSession();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_KillSession KillSessionParams { get { return s_params_KillSession; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_KillSession {
+        public class ActionParamsClass_KillSession
+        {
             public readonly string model = "model";
         }
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string Index = "Index";
-            public readonly string ManageUser = "ManageUser";
-            public readonly string UserList = "UserList";
-            public readonly string UsersInRole = "UsersInRole";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string Index = "Index";
+                public readonly string ManageUser = "ManageUser";
+                public readonly string UserList = "UserList";
+                public readonly string UsersInRole = "UsersInRole";
+            }
+            public readonly string Index = "~/Areas/DcmsRights/Views/Home/Index.cshtml";
+            public readonly string ManageUser = "~/Areas/DcmsRights/Views/Home/ManageUser.cshtml";
+            public readonly string UserList = "~/Areas/DcmsRights/Views/Home/UserList.cshtml";
+            public readonly string UsersInRole = "~/Areas/DcmsRights/Views/Home/UsersInRole.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public class T4MVC_HomeController: DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers.HomeController {
+    public partial class T4MVC_HomeController : DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers.HomeController
+    {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
-        public override System.Web.Mvc.ActionResult Index() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Index);
+        [NonAction]
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Index()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
+            IndexOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult CreateUsers(DcmsMobile.DcmsRights.ViewModels.IndexViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.CreateUsers);
+        [NonAction]
+        partial void CreateUsersOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.IndexViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CreateUsers(DcmsMobile.DcmsRights.ViewModels.IndexViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUsers);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            CreateUsersOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UserList() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UserList);
+        [NonAction]
+        partial void UserListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UserList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserList);
+            UserListOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult LockedUserList() {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LockedUserList);
+        [NonAction]
+        partial void LockedUserListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LockedUserList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LockedUserList);
+            LockedUserListOverride(callInfo);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult GrantRolesToUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.GrantRolesToUser);
+        [NonAction]
+        partial void GrantRolesToUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult GrantRolesToUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GrantRolesToUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            GrantRolesToUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RevokeRolesFromUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RevokeRolesFromUser);
+        [NonAction]
+        partial void RevokeRolesFromUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RevokeRolesFromUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RevokeRolesFromUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RevokeRolesFromUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UsersInRole(string roleName) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UsersInRole);
+        [NonAction]
+        partial void UsersInRoleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string roleName);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UsersInRole(string roleName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UsersInRole);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "roleName", roleName);
+            UsersInRoleOverride(callInfo, roleName);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult RemoveUsersFromRole(DcmsMobile.DcmsRights.ViewModels.UsersInRoleViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.RemoveUsersFromRole);
+        [NonAction]
+        partial void RemoveUsersFromRoleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.UsersInRoleViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult RemoveUsersFromRole(DcmsMobile.DcmsRights.ViewModels.UsersInRoleViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemoveUsersFromRole);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            RemoveUsersFromRoleOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ManageUser(string userName) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ManageUser);
+        [NonAction]
+        partial void ManageUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string userName);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ManageUser(string userName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
+            ManageUserOverride(callInfo, userName);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult UnlockUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.UnlockUser);
+        [NonAction]
+        partial void UnlockUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnlockUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnlockUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            UnlockUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult LockedUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LockedUser);
+        [NonAction]
+        partial void LockedUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LockedUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LockedUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            LockedUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ResetPassword(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ResetPassword);
+        [NonAction]
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult ResetPassword(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ResetPasswordOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult DeleteUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.DeleteUser);
+        [NonAction]
+        partial void DeleteUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeleteUser(DcmsMobile.DcmsRights.ViewModels.ManageUserViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            DeleteUserOverride(callInfo, model);
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult KillSession(DcmsMobile.DcmsRights.ViewModels.UserSession model) {
-            var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.KillSession);
+        [NonAction]
+        partial void KillSessionOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.DcmsRights.ViewModels.UserSession model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult KillSession(DcmsMobile.DcmsRights.ViewModels.UserSession model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.KillSession);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            KillSessionOverride(callInfo, model);
             return callInfo;
         }
 
