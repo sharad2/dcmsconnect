@@ -77,10 +77,10 @@ namespace DcmsMobile
 
             //// .mobile file is to be used only for ringscanners
             //// RingScanner User Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows CE)
-            //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
-            //{
-            //    ContextCondition = ctx => string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0
-            //});
+            DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("mobile")
+            {
+                ContextCondition = ctx => string.Compare(ctx.Request.Browser.Platform, "WinCE", StringComparison.InvariantCultureIgnoreCase) == 0
+            });
 
             // If a .desktop.cshtml file exists, it will be served to non phone user agents
             //DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode("desktop")

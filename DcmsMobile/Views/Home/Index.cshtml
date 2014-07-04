@@ -8,19 +8,19 @@
         // Get a list of items available on the release candidate site and show the RC link for each of the items available
         $(document).on('pagecreate', '#mainpage', function () {
             var urlBase = $('#linkRc').attr('href');  // Must not have a trailing slash
-            var urlItems = urlBase +  $('#linkRc').attr('data-url-rcitem');
+            var urlItems = urlBase + $('#linkRc').attr('data-url-rcitem');
             $.ajax(urlItems, {
                 dataType: 'jsonp',
                 crossDomain: true
             }).done(function (data, textStatus, jqXHR) {
                 // The call to RC was successful. Show the RC link at the bottom of the page
-                $('#rcNavBar').show();
+                $('#rcNavBar small').hide();
                 // Show the rc link against each menu items
                 $.each(data, function () {
                     $('#' + this.area).attr('href', urlBase + this.url).show();
                 });
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                alert('Call to Release Candidate Website ' + urlItems + ' returned Http error ' + jqXHR.status);
+                $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
             });
         });
     </script>
@@ -33,7 +33,7 @@
             <a href="@item.Url">
                 @if (item.IsMobileOptimized)
                 {
-                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for moble screens" />
+                    <img src="@Links_DcmsMobile.DcmsMobile.Content.Images.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
                 }
                 @item.Name
             </a>
@@ -65,8 +65,11 @@
 
 
 
-<div data-role="navbar" style="display:none" id="rcNavBar">
-    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems(1))"><small>Release Candidates</small></a>
+<div data-role="navbar" id="rcNavBar" class="ui-mini">
+    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems(1))">
+        Release Candidates
+        <small>Contacting...</small>
+    </a>
 </div>
 @section panels {
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
