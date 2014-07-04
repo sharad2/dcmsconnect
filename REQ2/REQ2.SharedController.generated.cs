@@ -13,6 +13,7 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
@@ -20,16 +21,26 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace T4MVC.REQ2 {
-    public class SharedController {
+namespace T4MVC.REQ2
+{
+    public class SharedController
+    {
 
-        static readonly ViewNames s_views = new ViewNames();
+        static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ViewNames Views { get { return s_views; } }
+        public ViewsClass Views { get { return s_views; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ViewNames {
-            public readonly string _layoutReq = "_layoutReq";
-            public readonly string _layoutReq_Mobile = "_layoutReq.Mobile";
+        public class ViewsClass
+        {
+            static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+            public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+            public class _ViewNamesClass
+            {
+                public readonly string _layoutReq = "_layoutReq";
+                public readonly string _layoutReq_Mobile = "_layoutReq.Mobile";
+            }
+            public readonly string _layoutReq = "~/Areas/REQ2/Views/Shared/_layoutReq.cshtml";
+            public readonly string _layoutReq_Mobile = "~/Areas/REQ2/Views/Shared/_layoutReq.Mobile.cshtml";
         }
     }
 
