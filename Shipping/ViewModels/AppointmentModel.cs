@@ -1,14 +1,13 @@
-﻿using System;
+﻿using DcmsMobile.Shipping.Helpers;
+using DcmsMobile.Shipping.Repository;
+using EclipseLibrary.Mvc.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using DcmsMobile.Shipping.Helpers;
-using DcmsMobile.Shipping.Repository;
-using EclipseLibrary.Mvc.Helpers;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
