@@ -330,9 +330,7 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
-
 XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-
 XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
