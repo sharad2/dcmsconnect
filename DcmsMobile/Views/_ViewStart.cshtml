@@ -7,7 +7,7 @@ Determines the path of the layout page based on device specific rules.
     if (string.IsNullOrEmpty(this.Layout))
     {
         // If layout has already been set by the view, do not change it
-        var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, MVC_DcmsMobile.Shared.Views._layoutMain);
+        var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, MVC_DcmsMobile.SharedViews.Views.ViewNames._layoutMain);
         var layoutView = (RazorView)layoutResult.View;
         Layout = layoutView == null ? null : layoutView.ViewPath;
     }

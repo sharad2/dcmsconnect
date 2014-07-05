@@ -390,17 +390,20 @@
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css">
+      <DependentUpon>jquery-ui.css.bundle</DependentUpon>
+    </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css">
-      <DependentUpon>Stylesheets.chirp.config</DependentUpon>
+      <DependentUpon>jquery-ui.css</DependentUpon>
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
-    <Content Include="Content\themes\Start1.10.0\Stylesheets.chirp.config" />
     <Content Include="DcmsMobile\Home\wifi.jpg" />
     <Content Include="DcmsMobile\SharedViews\Sounds\Error.wav" />
     <Content Include="DcmsMobile\SharedViews\Sounds\success.wav" />
     <Content Include="DcmsMobile\SharedViews\Sounds\warning.wav" />
     <Content Include="Doc\Tutorial.pptx" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css.bundle" />
     <None Include="Doc\Steps to make a new App.txt" />
     <None Include="DcmsMobile.Publish.xml">
       <SubType>Designer</SubType>

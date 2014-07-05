@@ -136,11 +136,13 @@ namespace Links_DcmsMobile
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }
             
+                public static readonly string jquery_ui_css_bundle = Url("jquery-ui.css.bundle");
+                public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
+                     
                 public static readonly string jquery_ui_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.partial.min.css") ? Url("jquery-ui.partial.min.css") : Url("jquery-ui.partial.css");
                      
                 public static readonly string jquery_ui_theme_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.theme.partial.min.css") ? Url("jquery.ui.theme.partial.min.css") : Url("jquery.ui.theme.partial.css");
                      
-                public static readonly string Stylesheets_chirp_config = Url("Stylesheets.chirp.config");
             }
         
         }
