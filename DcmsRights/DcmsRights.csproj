@@ -138,6 +138,7 @@
     <Content Include="Areas\DcmsRights\Scripts\DcmsRights-all.min.js">
       <DependentUpon>DcmsRights-all.js</DependentUpon>
     </Content>
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
