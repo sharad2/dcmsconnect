@@ -249,6 +249,7 @@
     <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
     <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Receiving.pubxml" />
