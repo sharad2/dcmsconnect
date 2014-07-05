@@ -168,6 +168,7 @@
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.min.js">
       <DependentUpon>BoxPick-all.js.bundle</DependentUpon>
     </Content>
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\BoxPick\Scripts\BoxPick-all.js.bundle" />
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.min.js.map">
