@@ -1,0 +1,38 @@
+﻿Sharad 5 July 2014
+------------------
+This note lists the features provided by this DcmsMobile Application
+
+Release Candidate Support
+-------------------------
+RC support is triggered only if web.config contains the URL of the rc site. If this key is not present, there will be no trace of RC support.
+
+The design goal was to highlight to the user that a new RC is available against the menu item which the user normally clicks on the main menu.
+This should encourage the use of the RC site.
+
+<appSettings>
+  <add key="RcUrl" value="http://w8ethiopia/rctest" lockItem="true" />
+</appSettings>
+
+When the home page Home/Index.cshtml runs, it has javascript which tries to invoke the URL <RcUrl>/RcItems. This URL is implemented
+in the action HomeController.RcItems. It returns an array of areas for which a release candidate is available. The array includes area name along with the URL to reach that area.
+
+Index.cshtml normally displays a menu item corresponding to each area installed. When a response from <RcUrl>/RcItems is received, an additional release candidate link appears
+against each area for which RC is available. This link, when clicked, will navigate directly to the corresponding area in the RC site.
+
+At the bottom of the home page, a link to the RC website is displayed. This link will navigate to the home page of the RC site. This link is visible only if RcUrl was
+specified in web.config.
+
+After the home page load, this link also displays the status of the contact with the site. It starts out by saying Contacting... Once the contact is successful, this message
+disappears. If there is an error, this message is replaced with the error message.
+
+
+Feature Folder Support
+----------------------
+
+
+Pluggable Area Support
+----------------------
+
+Diagnostics Framework
+---------------------
+

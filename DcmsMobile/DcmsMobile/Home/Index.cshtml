@@ -4,26 +4,27 @@
 }
 
 @section script {
-    <script type="text/javascript">
-        // Get a list of items available on the release candidate site and show the RC link for each of the items available
-        $(document).on('pagecreate', '#mainpage', function () {
-            var urlBase = $('#linkRc').attr('href');  // Must not have a trailing slash
-            var urlItems = urlBase + $('#linkRc').attr('data-url-rcitem');
-            $.ajax(urlItems, {
-                dataType: 'jsonp',
-                crossDomain: true
-            }).done(function (data, textStatus, jqXHR) {
-                // The call to RC was successful. Show the RC link at the bottom of the page
-                $('#rcNavBar small').hide();
-                // Show the rc link against each menu items
-                $.each(data, function () {
-                    $('#' + this.area).attr('href', urlBase + this.url).show();
+    @if (!string.IsNullOrWhiteSpace(Model.UrlRcBase))
+    {
+        <script type="text/javascript">
+            // Get a list of items available on the release candidate site and show the RC link for each of the items available
+            $(document).on('pagecreate', '#mainpage', function () {
+                $.ajax('@(Model.UrlRcBase + Url.Action(MVC_DcmsMobile.Home.RcItems(1)))', {
+                    dataType: 'jsonp',
+                    crossDomain: true
+                }).done(function (data, textStatus, jqXHR) {
+                    // The call to RC was successful. Show the RC link at the bottom of the page
+                    $('#rcNavBar small').hide();
+                    // Show the rc link against each menu items
+                    $.each(data, function () {
+                        $('#' + this.area).attr('href', '@Model.UrlRcBase' + this.url).show();
+                    });
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
                 });
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
             });
-        });
-    </script>
+        </script>
+    }
 }
 <input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
 <ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
@@ -42,7 +43,7 @@
 </ol>
 
 <ul data-role="listview" data-inset="true" id="topmenu">
-    <li data-icon="info"><a href="@Links_DcmsMobile.DcmsMobile.Home.Tutorial_pptx" >Introduction to DCMS (PPTX 3.5Mb)</a></li>
+    <li data-icon="info"><a href="@Links_DcmsMobile.DcmsMobile.Home.Tutorial_pptx">Introduction to DCMS (PPTX 3.5Mb)</a></li>
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li>
@@ -57,7 +58,7 @@
                 {
                     <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
                 }
-                <a href="#" class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
+                <a class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
             </div>
             <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
         </li>
@@ -67,7 +68,7 @@
 
 
 <div data-role="navbar" id="rcNavBar" class="ui-mini">
-    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems(1))">
+    <a id="linkRc" data-role="button">
         Release Candidates
         <small>Contacting...</small>
     </a>

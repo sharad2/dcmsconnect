@@ -1,18 +1,18 @@
-﻿using System;
+﻿using DcmsMobile.Models;
+using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Diagnostics.Contracts;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using DcmsMobile.Models;
-using EclipseLibrary.Mvc.Controllers;
 
 namespace DcmsMobile.Controllers
 {
     /// <summary>
     /// Default action for this controller is Index
     /// </summary>
-    //[RoutePrefix("Logon")]
-    //[Route("{action=index}")]
+    [RoutePrefix("Logon")]
+    [Route("{action=index}")]
     public partial class LogonController : EclipseController
     {
         private const string OLD_PASSWORD = "LogonController_OldPassword";

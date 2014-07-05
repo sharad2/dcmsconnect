@@ -411,6 +411,7 @@
     <None Include="Doc\Programming Conventions.txt" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Steps to publish a pluggable app.txt" />
+    <Content Include="Doc\Features.txt" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />

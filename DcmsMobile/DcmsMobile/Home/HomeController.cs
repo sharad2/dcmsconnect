@@ -34,8 +34,10 @@ namespace DcmsMobile.Controllers
         }
         /// <summary>
         /// It is important to order the menu choices, otherwise they can display in different order each time;
+        /// This is the action for the home page and is the default route
         /// </summary>
         /// <returns></returns>
+        [Route()]
         public virtual ActionResult Index()
         {
             var model = new LauncherViewModel();
@@ -50,6 +52,7 @@ namespace DcmsMobile.Controllers
 
         /// <summary>
         /// Called from the main site to retrieve the list of programs available on RC
+        /// The route to this action is public since it is used when main site contacts the RC site. Therefore the Route attribute should be changed with great caution.
         /// </summary>
         /// <param name="version">This parameter exists to support evlution of this function. The value can be used to determine which format the results should be returned in</param>
         /// <returns></returns>
@@ -57,6 +60,7 @@ namespace DcmsMobile.Controllers
         /// jsonp data type is used to enable cross domain jquery requests as described in
         /// http://www.pureexample.com/jquery/cross-domain-ajax.html
         /// </remarks>
+        [Route("RcItems")]
         public virtual ActionResult RcItems(int version)
         {
             if (version != 1)
