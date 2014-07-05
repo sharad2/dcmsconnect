@@ -93,25 +93,8 @@ namespace Links_BoxPick
                     private const string URLPATH = "~/Content/themes/Start1.10.0/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string ui_bg_flat_55_999999_40x100_png = Url("ui-bg_flat_55_999999_40x100.png");
-                    public static readonly string ui_bg_flat_75_aaaaaa_40x100_png = Url("ui-bg_flat_75_aaaaaa_40x100.png");
-                    public static readonly string ui_bg_glass_45_0078ae_1x400_png = Url("ui-bg_glass_45_0078ae_1x400.png");
-                    public static readonly string ui_bg_glass_55_f8da4e_1x400_png = Url("ui-bg_glass_55_f8da4e_1x400.png");
-                    public static readonly string ui_bg_glass_75_79c9ec_1x400_png = Url("ui-bg_glass_75_79c9ec_1x400.png");
-                    public static readonly string ui_bg_gloss_wave_45_e14f1c_500x100_png = Url("ui-bg_gloss-wave_45_e14f1c_500x100.png");
-                    public static readonly string ui_bg_gloss_wave_50_6eac2c_500x100_png = Url("ui-bg_gloss-wave_50_6eac2c_500x100.png");
-                    public static readonly string ui_bg_gloss_wave_75_2191c0_500x100_png = Url("ui-bg_gloss-wave_75_2191c0_500x100.png");
-                    public static readonly string ui_bg_inset_hard_100_fcfdfd_1x100_png = Url("ui-bg_inset-hard_100_fcfdfd_1x100.png");
-                    public static readonly string ui_icons_0078ae_256x240_png = Url("ui-icons_0078ae_256x240.png");
-                    public static readonly string ui_icons_056b93_256x240_png = Url("ui-icons_056b93_256x240.png");
-                    public static readonly string ui_icons_d8e7f3_256x240_png = Url("ui-icons_d8e7f3_256x240.png");
-                    public static readonly string ui_icons_e0fdff_256x240_png = Url("ui-icons_e0fdff_256x240.png");
-                    public static readonly string ui_icons_f5e175_256x240_png = Url("ui-icons_f5e175_256x240.png");
-                    public static readonly string ui_icons_f7a50d_256x240_png = Url("ui-icons_f7a50d_256x240.png");
-                    public static readonly string ui_icons_fcd113_256x240_png = Url("ui-icons_fcd113_256x240.png");
                 }
             
-                public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
             }
         
         }
@@ -135,7 +118,6 @@ namespace Links_BoxPick
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string BoxPick_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.css") ? Url("BoxPick-all.min.css") : Url("BoxPick-all.css");
                      
-                public static readonly string BoxPick_all_min_css = Url("BoxPick-all.min.css");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/BoxPick/Content/Sounds";
@@ -165,7 +147,6 @@ namespace Links_BoxPick
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string BoxPick_all_js_bundle = Url("BoxPick-all.js.bundle");
                 public static readonly string BoxPick_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.js") ? Url("BoxPick-all.min.js") : Url("BoxPick-all.js");
-                public static readonly string BoxPick_all_min_js = Url("BoxPick-all.min.js");
                 public static readonly string BoxPick_all_min_js_map = Url("BoxPick-all.min.js.map");
                 public static readonly string scan_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scan.partial.min.js") ? Url("scan.partial.min.js") : Url("scan.partial.js");
                 public static readonly string session_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/session.partial.min.js") ? Url("session.partial.min.js") : Url("session.partial.js");
