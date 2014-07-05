@@ -43,7 +43,7 @@ namespace DcmsMobile
             RegisterRoutes(RouteTable.Routes);
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new FeatureFolderViewEngine());
+            ViewEngines.Engines.Add(new FeatureFolderViewEngine(typeof(Links_DcmsMobile.MainArea).Name));
             //ViewEngines.Engines.Add(new RazorViewEngine());
 
             #region Display Modes

@@ -2,9 +2,19 @@
 
 namespace DcmsMobile.Helpers
 {
-    public class FeatureFolderViewEngine : RazorViewEngine
+    /// <summary>
+    /// Inspired by T4MVC documentation https://t4mvc.codeplex.com/documentation
+    /// </summary>
+    internal class FeatureFolderViewEngine : RazorViewEngine
     {
-        public FeatureFolderViewEngine()
+        /// <summary>
+        /// Allows organization of MVC files based on feature as described in T4MVC docs.
+        /// If you have some areas organized in the conventional way, then you must use the default RazorViewEngine also.
+        /// </summary>
+        /// <param name="mainFeatureFolder">Name of the top level folder in which the views of the main application are organized.
+        /// If not specified, then top level views are not supported. You must use the default RazorViewEngine to access top level views.
+        /// </param>
+        public FeatureFolderViewEngine(string mainFeatureFolder)
         {
 
             // {0} ActionName; {1} ControllerName; {2} AreaName
@@ -17,15 +27,22 @@ namespace DcmsMobile.Helpers
                 AreaMasterLocationFormats =
                 AreaPartialViewLocationFormats = locs;
 
-            locs = new[]
+            if (string.IsNullOrEmpty(mainFeatureFolder))
+            {
+                locs = new string[0];   // Empty
+            }
+            {
+                locs = new[]
                                     {
-                                        "~/DcmsMobile/{1}/{0}.cshtml",
-                                        "~/DcmsMobile/SharedViews/{0}.cshtml", // Replacement for "Views/Shared"
+                                        string.Format("~/{0}/{{1}}/{{0}}.cshtml", mainFeatureFolder),
+                                        string.Format("~/{0}/SharedViews/{{0}}.cshtml", mainFeatureFolder), // Replacement for "Views/Shared"
                                     };
+            }
 
             ViewLocationFormats =
                 MasterLocationFormats =
                 PartialViewLocationFormats = locs;
+
 
             FileExtensions = new[] { "cshtml" };
         }
