@@ -1,5 +1,4 @@
 ﻿using DcmsMobile.Helpers;
-using EclipseLibrary.Mvc.ModelBinding;
 using System;
 using System.Web;
 using System.Web.Mvc;
@@ -93,7 +92,7 @@ namespace DcmsMobile
             DisplayModeProvider.Instance.Modes.Add(new DefaultDisplayMode());
             #endregion
 
-            ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
+           // ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
 
             // Suppress the error A potentially dangerous Request.Path value was detected from the client. This error occurs when the user types special characters such as <span> in the textbox.
             // Addidng this entry suppresses the error as suggested by http://stackoverflow.com/questions/9232213/a-potentially-dangerous-request-form-value-was-detected-from-the-client
