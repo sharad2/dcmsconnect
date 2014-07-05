@@ -15,7 +15,7 @@
     <!--<Area></Area>-->
   </PortableAreas>
   <!--Name of folder in your project root that follows the FeatureFolder convention (controllers and views are placed within the same folder)-->
-  <FeatureFolderRootArea>DcmsMobile</FeatureFolderRootArea>
+  <FeatureFolderRootArea>MainArea</FeatureFolderRootArea>
   <!--Names of areas which follow the FeatureFolder convention (controllers and views are placed within the same folder).
 Use <Area>*</Area> if you only use Areas with FeatureFolders-->
   <FeatureFolderAreas>
@@ -55,7 +55,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
   <StaticFilesFolders>
     <FileFolder>Scripts</FileFolder>
     <FileFolder>Content</FileFolder>
-    <FileFolder>DcmsMobile</FileFolder>
+    <FileFolder>MainArea</FileFolder>
   </StaticFilesFolders>
   <!--If true, static file helpers are generated for all view folders. See https://t4mvc.codeplex.com/discussions/445358-->
   <AddAllViewsFoldersToStaticFilesFolders>False</AddAllViewsFoldersToStaticFilesFolders>

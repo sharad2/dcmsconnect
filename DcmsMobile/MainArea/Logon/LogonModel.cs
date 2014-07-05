@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.Models
+namespace DcmsMobile.MainArea.Logon
 {
     public class LogonModel:ViewModelBase
     {

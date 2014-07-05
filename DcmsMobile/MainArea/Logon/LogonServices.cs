@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Security;
 
-namespace DcmsMobile.Models
+namespace DcmsMobile.MainArea.Logon
 {
     #region FormsAuthenticationService
     public interface IFormsAuthenticationService

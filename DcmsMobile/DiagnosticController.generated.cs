@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Controllers
+namespace DcmsMobile.MainArea.Diagnostic
 {
     public partial class DiagnosticController
     {
@@ -158,13 +158,13 @@ namespace DcmsMobile.Controllers
                 public readonly string Email = "Email";
                 public readonly string Index = "Index";
             }
-            public readonly string Email = "~/DcmsMobile/Diagnostic/Email.cshtml";
-            public readonly string Index = "~/DcmsMobile/Diagnostic/Index.cshtml";
+            public readonly string Email = "~/MainArea/Diagnostic/Email.cshtml";
+            public readonly string Index = "~/MainArea/Diagnostic/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_DiagnosticController : DcmsMobile.Controllers.DiagnosticController
+    public partial class T4MVC_DiagnosticController : DcmsMobile.MainArea.Diagnostic.DiagnosticController
     {
         public T4MVC_DiagnosticController() : base(Dummy.Instance) { }
 
@@ -193,10 +193,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void EmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.DiagnosticModel model);
+        partial void EmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Diagnostic.DiagnosticModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Email(DcmsMobile.Models.DiagnosticModel model)
+        public override System.Web.Mvc.ActionResult Email(DcmsMobile.MainArea.Diagnostic.DiagnosticModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Email);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -205,10 +205,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void SendEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.DiagnosticEmailModel model);
+        partial void SendEmailOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Diagnostic.DiagnosticEmailModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SendEmail(DcmsMobile.Models.DiagnosticEmailModel model)
+        public override System.Web.Mvc.ActionResult SendEmail(DcmsMobile.MainArea.Diagnostic.DiagnosticEmailModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SendEmail);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

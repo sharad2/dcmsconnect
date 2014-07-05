@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace DcmsMobile.Models
+namespace DcmsMobile.MainArea
 {
     /// <summary>
     /// A link to utility functions such as logn, diagnostics etc.

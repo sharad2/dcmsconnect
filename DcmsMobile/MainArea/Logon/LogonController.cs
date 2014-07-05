@@ -1,4 +1,4 @@
-﻿using DcmsMobile.Models;
+﻿
 using EclipseLibrary.Mvc.Controllers;
 using System;
 using System.Diagnostics.Contracts;
@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 
-namespace DcmsMobile.Controllers
+namespace DcmsMobile.MainArea.Logon
 {
     /// <summary>
     /// Default action for this controller is Index

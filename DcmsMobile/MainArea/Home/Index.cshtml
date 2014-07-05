@@ -1,4 +1,4 @@
-﻿@model DcmsMobile.Models.LauncherViewModel
+﻿@model DcmsMobile.MainArea.Home.LauncherViewModel
 @{
     ViewBag.Title = "DCMS Connect Home";
 }
@@ -34,7 +34,7 @@
             <a href="@item.Url">
                 @if (item.IsMobileOptimized)
                 {
-                    <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
+                    <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
                 }
                 @item.Name
             </a>
@@ -43,13 +43,13 @@
 </ol>
 
 <ul data-role="listview" data-inset="true" id="topmenu">
-    <li data-icon="info"><a href="@Links_DcmsMobile.DcmsMobile.Home.Tutorial_pptx">Introduction to DCMS (PPTX 3.5Mb)</a></li>
+    <li data-icon="info"><a href="@Links_DcmsMobile.MainArea.Home.Tutorial_pptx">Introduction to DCMS (PPTX 3.5Mb)</a></li>
     @for (var i = 0; i < Model.MenuItems.Count; ++i)
     {
         <li>
             @if (Model.MenuItems[i].IsMobileOptimized)
             {
-                <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
+                <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
             }
             <div data-role="controlgroup" data-type="horizontal" class="ui-mini">
 
@@ -84,7 +84,7 @@
                         <a href="@item.SubMenu[j].Url">
                             @if (item.SubMenu[j].IsMobileOptimized)
                             {
-                                <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
+                                <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
                             }
                             <p>@Html.DisplayFor(m => item.SubMenu[j].Name)</p>
                             <p><em>@Html.DisplayFor(m => item.SubMenu[j].ShortName)</em> @Html.DisplayFor(m => item.SubMenu[j].Description)</p>

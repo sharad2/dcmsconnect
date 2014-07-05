@@ -39,8 +39,8 @@ namespace T4MVC
                 public readonly string _layoutMain = "_layoutMain";
                 public readonly string _soundPartial = "_soundPartial";
             }
-            public readonly string _layoutMain = "~/DcmsMobile/SharedViews/_layoutMain.cshtml";
-            public readonly string _soundPartial = "~/DcmsMobile/SharedViews/_soundPartial.cshtml";
+            public readonly string _layoutMain = "~/MainArea/SharedViews/_layoutMain.cshtml";
+            public readonly string _soundPartial = "~/MainArea/SharedViews/_soundPartial.cshtml";
             static readonly _SoundsClass s_Sounds = new _SoundsClass();
             public _SoundsClass Sounds { get { return s_Sounds; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -54,9 +54,9 @@ namespace T4MVC
                     public readonly string success = "success";
                     public readonly string warning = "warning";
                 }
-                public readonly string Error = "~/DcmsMobile/SharedViews/Sounds/Error.wav";
-                public readonly string success = "~/DcmsMobile/SharedViews/Sounds/success.wav";
-                public readonly string warning = "~/DcmsMobile/SharedViews/Sounds/warning.wav";
+                public readonly string Error = "~/MainArea/SharedViews/Sounds/Error.wav";
+                public readonly string success = "~/MainArea/SharedViews/Sounds/success.wav";
+                public readonly string warning = "~/MainArea/SharedViews/Sounds/warning.wav";
             }
         }
     }

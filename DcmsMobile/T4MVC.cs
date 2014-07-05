@@ -25,9 +25,9 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC_DcmsMobile
 {
-    public static DcmsMobile.Controllers.DiagnosticController Diagnostic = new DcmsMobile.Controllers.T4MVC_DiagnosticController();
-    public static DcmsMobile.Controllers.HomeController Home = new DcmsMobile.Controllers.T4MVC_HomeController();
-    public static DcmsMobile.Controllers.LogonController Logon = new DcmsMobile.Controllers.T4MVC_LogonController();
+    public static DcmsMobile.MainArea.Diagnostic.DiagnosticController Diagnostic = new DcmsMobile.MainArea.Diagnostic.T4MVC_DiagnosticController();
+    public static DcmsMobile.MainArea.Home.HomeController Home = new DcmsMobile.MainArea.Home.T4MVC_HomeController();
+    public static DcmsMobile.MainArea.Logon.LogonController Logon = new DcmsMobile.MainArea.Logon.T4MVC_LogonController();
     public static T4MVC.SharedViewsController SharedViews = new T4MVC.SharedViewsController();
 }
 
@@ -150,20 +150,20 @@ namespace Links_DcmsMobile
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class DcmsMobile {
-        private const string URLPATH = "~/DcmsMobile";
+    public static class MainArea {
+        private const string URLPATH = "~/MainArea";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Diagnostic {
-            private const string URLPATH = "~/DcmsMobile/Diagnostic";
+            private const string URLPATH = "~/MainArea/Diagnostic";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Home {
-            private const string URLPATH = "~/DcmsMobile/Home";
+            private const string URLPATH = "~/MainArea/Home";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string Tutorial_pptx = Url("Tutorial.pptx");
@@ -172,19 +172,19 @@ namespace Links_DcmsMobile
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Logon {
-            private const string URLPATH = "~/DcmsMobile/Logon";
+            private const string URLPATH = "~/MainArea/Logon";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class SharedViews {
-            private const string URLPATH = "~/DcmsMobile/SharedViews";
+            private const string URLPATH = "~/MainArea/SharedViews";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Sounds {
-                private const string URLPATH = "~/DcmsMobile/SharedViews/Sounds";
+                private const string URLPATH = "~/MainArea/SharedViews/Sounds";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Error_wav = Url("Error.wav");

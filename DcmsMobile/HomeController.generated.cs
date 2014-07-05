@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Controllers
+namespace DcmsMobile.MainArea.Home
 {
     public partial class HomeController
     {
@@ -113,14 +113,14 @@ namespace DcmsMobile.Controllers
                 public readonly string Tutorial = "Tutorial";
                 public readonly string wifi = "wifi";
             }
-            public readonly string Index = "~/DcmsMobile/Home/Index.cshtml";
-            public readonly string Tutorial = "~/DcmsMobile/Home/Tutorial.pptx";
-            public readonly string wifi = "~/DcmsMobile/Home/wifi.jpg";
+            public readonly string Index = "~/MainArea/Home/Index.cshtml";
+            public readonly string Tutorial = "~/MainArea/Home/Tutorial.pptx";
+            public readonly string wifi = "~/MainArea/Home/wifi.jpg";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : DcmsMobile.Controllers.HomeController
+    public partial class T4MVC_HomeController : DcmsMobile.MainArea.Home.HomeController
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 

@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Controllers
+namespace DcmsMobile.MainArea.Logon
 {
     public partial class LogonController
     {
@@ -179,14 +179,14 @@ namespace DcmsMobile.Controllers
                 public readonly string GetNewPassword = "GetNewPassword";
                 public readonly string Index = "Index";
             }
-            public readonly string ChangeExpiredPassword = "~/DcmsMobile/Logon/ChangeExpiredPassword.cshtml";
-            public readonly string GetNewPassword = "~/DcmsMobile/Logon/GetNewPassword.cshtml";
-            public readonly string Index = "~/DcmsMobile/Logon/Index.cshtml";
+            public readonly string ChangeExpiredPassword = "~/MainArea/Logon/ChangeExpiredPassword.cshtml";
+            public readonly string GetNewPassword = "~/MainArea/Logon/GetNewPassword.cshtml";
+            public readonly string Index = "~/MainArea/Logon/Index.cshtml";
         }
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_LogonController : DcmsMobile.Controllers.LogonController
+    public partial class T4MVC_LogonController : DcmsMobile.MainArea.Logon.LogonController
     {
         public T4MVC_LogonController() : base(Dummy.Instance) { }
 
@@ -203,10 +203,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void SetUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.LogonModel model);
+        partial void SetUserOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Logon.LogonModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SetUser(DcmsMobile.Models.LogonModel model)
+        public override System.Web.Mvc.ActionResult SetUser(DcmsMobile.MainArea.Logon.LogonModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetUser);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -215,10 +215,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.LogonModel model);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Logon.LogonModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Login(DcmsMobile.Models.LogonModel model)
+        public override System.Web.Mvc.ActionResult Login(DcmsMobile.MainArea.Logon.LogonModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -238,10 +238,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.GetNewPasswordViewModel model);
+        partial void ChangePasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Logon.GetNewPasswordViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ChangePassword(DcmsMobile.Models.GetNewPasswordViewModel model)
+        public override System.Web.Mvc.ActionResult ChangePassword(DcmsMobile.MainArea.Logon.GetNewPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangePassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -250,10 +250,10 @@ namespace DcmsMobile.Controllers
         }
 
         [NonAction]
-        partial void ChangeExpiredPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Models.ChangeExpiredPasswordModel model);
+        partial void ChangeExpiredPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.MainArea.Logon.ChangeExpiredPasswordModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ChangeExpiredPassword(DcmsMobile.Models.ChangeExpiredPasswordModel model)
+        public override System.Web.Mvc.ActionResult ChangeExpiredPassword(DcmsMobile.MainArea.Logon.ChangeExpiredPasswordModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ChangeExpiredPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace DcmsMobile.Models
+namespace DcmsMobile.MainArea.Home
 {
 
     public class MenuItem

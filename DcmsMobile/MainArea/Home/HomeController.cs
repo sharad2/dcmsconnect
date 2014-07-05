@@ -1,4 +1,4 @@
-﻿using DcmsMobile.Models;
+﻿
 using EclipseLibrary.Mvc.Controllers;
 using System;
 using System.Configuration;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
-namespace DcmsMobile.Controllers
+namespace DcmsMobile.MainArea.Home
 {
     /// <summary>
     /// Provides the list of menu choices and handles the postback of the selected choice

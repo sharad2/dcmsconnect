@@ -1,11 +1,11 @@
-﻿using System;
+﻿using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.WebPages;
-using DcmsMobile.Models;
-using EclipseLibrary.Mvc.Controllers;
 
-namespace DcmsMobile.Controllers
+
+namespace DcmsMobile.MainArea.Diagnostic
 {
     public partial class DiagnosticController : EclipseController
     {
