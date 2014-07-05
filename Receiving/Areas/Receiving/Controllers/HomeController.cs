@@ -540,8 +540,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var lastCartonId = string.Empty;
             if (!ModelState.IsValid)
             {
-                AddStatusMessage("");
-                return View(Views.Receiving, model);
+                return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(model.ScanModel.ProcessId));               
             }
 
             var scan = model.ScanModel.ScanText.ToUpper();
