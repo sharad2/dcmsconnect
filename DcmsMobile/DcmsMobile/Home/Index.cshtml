@@ -50,9 +50,9 @@
             {
                 <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
             }
-            <div data-role="controlgroup" data-type="horizontal">
+            <div data-role="controlgroup" data-type="horizontal" class="ui-mini">
 
-                <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><small>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</small> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
+                <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
                 @if (Model.MenuItems[i].SubMenu != null)
                 {
                     <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
