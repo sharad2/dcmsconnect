@@ -21,17 +21,19 @@
     }
 }
 @*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
+<div @*data-role="popup"*@ style="display:none" id="divValidation">
+</div>
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
-<div>
-    <span class="ui-bar ui-bar-a">
-        <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
-        <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
-        <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
-        <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-               data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
-    </span>
-</div>
+    <div>
+        <span class="ui-bar ui-bar-a">
+            <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
+            <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
+            <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
+            <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+                   data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
+        </span>
+    </div>
     @Html.HiddenFor(m => m.ScanModel.ProcessId)
     @Html.HiddenFor(m => m.ReceivingAreaId)
     @Html.HiddenFor(m => m.SpotCheckAreaId)
@@ -47,20 +49,20 @@
             <h4>
                 @Html.DisplayFor(m => m.Pallets[i].PalletId)
                 @if (Model.Pallets[i].Cartons.Count > 0)
-            {
-            <text>
-                [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
-                [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
-                [#Ctn @Model.Pallets[i].Cartons.Count]
-                [Pallet Limit @Model.Pallets[i].PalletLimit]
-                @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
-            </text>
+                {
+                    <text>
+                        [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
+                        [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
+                        [#Ctn @Model.Pallets[i].Cartons.Count]
+                        [Pallet Limit @Model.Pallets[i].PalletLimit]
+                        @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
+                    </text>
+                }
+                else
+                {
+                    @:[NEW]
             }
-            else
-            {
-            @:[NEW]
-            }                
-            </h4>           
+            </h4>
             <div>
                 @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
             </div>
@@ -107,64 +109,102 @@
         <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
     </ul>
 </div>
-<div data-role="popup" id="errPopup">    
+@*<div data-role="panel" id="printPopup" data-display="overlay">
+
+    @using (Html.BeginForm(MVC_Receiving.Receiving.Home.PrintCarton(), FormMethod.Post, new
+    {
+        id = "frmPrint"
+    }))
+    {       
+    <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId"/>
+    <select required id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer">
+        <option>Please Select Printer</option>
+    </select>
+        <div data-role="controlgroup" data-type="horizontal">
+            <input value="Print" id="btnPrint" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <a data-rel="close" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</a>
+        </div>
+
+    }
+</div>*@
+<div data-role="panel" id="printPanel" data-display="overlay">
+
+    <form id="frmPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+        <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
+        <select required id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer">
+            <option value="">Please Select Printer</option>
+        </select>
+        <div data-role="controlgroup" data-type="horizontal">
+            @*<input value="Print" id="btnPrint" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">*@
+            <a id="btnPrint" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Print</a>
+            <a data-rel="close" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</a>
+        </div>
+        <div id="divErr" style="display:none"></div>
+    </form>
+    
 </div>
-@*@section scripts{
+@section scripts{
     <script type="text/javascript">
-    $(document).ready(function () {
-        $scan = $('#scan');
-        //$('#palletSet').find('div[data-role="collapsible"]').bind('expand', function () {
-        //    alert('Expanded');
-        //    //$('#hfPalletid').val(this.attr('id'));            
-        //   // alert('hi');
-        //});   
-
-        $('#palletSet').find('div[data-role="collapsible"]').collapsible({
-            expand: function () {
-                $('#hfPalletid').val($(this).attr('id'));
-                //alert($('#hfPalletid').val());
-            }
-        })
-
-     
-
-        $scan.keypress(function (e) {
-            //e.stopPropagation();
-            if (e.which == $.ui.keyCode.ENTER) {                
-                $.ajax({
-                    url: $scan.attr('data-ajax-url'),
-                    type: 'POST',
-                    data: $('#frmScan').serialize() + "&ScanModel.ScanText=" + $scan.val(),
-                    statusCode: {
-                        // this is for handling pallet scan
-                        202: function (data, textStatus, jqXHR) {
-                            var scannedPallet = jqXHR.getResponseHeader("PalletId");
-                            if ($('div#' + scannedPallet).length > 0)
-                            {
-                                $('#' + scannedPallet).collapsible("expand");
-                                return ;
-                            }
-                            var palletCollapsible = "<div data-role='collapsible' id='" + scannedPallet + "'><h3>" + scannedPallet + "</h3><div>" + data + "</div></div>";
-                            $("#palletSet").append(palletCollapsible).collapsibleset("refresh");
-                            $('#hfPalletid').val(scannedPallet);
-                            
-                        },
-                        // this to handle when a carton scanned before a pallet
-                        203: function (data, textStatus, jqXHR) {                        
-                            $('#errPopup').html(data).popup("open").popup("option", "positionTo",$('#scan'));
-                        },
-                        // Carton disposition does not match active pallet disposition
-                        250: function (data, textStatus, jqXHR) {
-                            $('#errPopup').html(jqXHR.getResponseHeader("ErrorMsg")).popup("open").popup("option", "positionTo", $('#scan'));                            
+        $(document).ready(function () {
+            $('#printPanel').panel({
+                beforeopen: function (event, ui) {
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        url: $('#ddlprinters').attr('data-getprinters-url'),
+                        dataType: "json",
+                        success: function (printers, textStatus, jqXHR) {
+                            var selected = jqXHR.getResponseHeader("Selected");
+                            $.each(printers, function (i, printer) {
+                                var x = $('<option></option>').val(printer.Name).html(printer.Name + ' : ' + printer.Description);
+                                if (printer.Name === selected) {
+                                    x.attr('selected', 'selected');
+                                }
+                                $('#ddlprinters').append(x);
+                            });
                         }
+                    });
+                }
+            });
+
+            $('a.btnPrintPanelOpen').click(function () {
+                $('#hfCartonToPrint').val($(this).attr('data-carton-print'));              
+            });
+
+            $('#btnPrint').click(function () {
+              //  alert($('#hfCartonToPrint').val());
+                $.ajax({
+                    url: $('#frmPrint').attr('data-print-url'),
+                    type: 'POST',
+                    context: this,
+                    data: {
+                        cartonId: $('#hfCartonToPrint').val(),
+                        printer: $('#ddlprinters').val()
+                    },
+                    statusCode: {
+                        200: function (data, textStatus, jqXHR) {
+                            //$('#errPopup').popup("open").html(data + "  ");                            
+                            $('#divValidation').show().html(data + "  ");
+                            $('#printPanel').panel("close");
+                        },
+                        203: function (data, textStatus, jqXHR) {
+                            //Some error, show them in screen and play error sound.
+                            $('#divErr').show().html(data);
+                            //$('#printPanel').panel("close");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                        $('#printPanel').panel("close");
                     }
                 });
+            })
 
-            }
         });
-    });
+
+       
     </script>
-}*@
+}
 
 
 

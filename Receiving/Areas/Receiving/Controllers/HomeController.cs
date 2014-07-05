@@ -739,7 +739,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         //[HandleAjaxError]
         public virtual ActionResult PrintCarton(string cartonId, string printer)
         {
-
             var errors = new List<string>();
             if (string.IsNullOrEmpty(printer))
             {
@@ -754,9 +753,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 this.Response.StatusCode = 203;
                 return Content(string.Join("; ", errors));
             }
-            var cookie = new HttpCookie(KEY_SELECTED_PRINTER, printer) { Expires = DateTime.Now.AddDays(1) };
-            // Remember for 1 day sliding
-            this.Response.Cookies.Add(cookie);
+            //var cookie = new HttpCookie(KEY_SELECTED_PRINTER, printer) { Expires = DateTime.Now.AddDays(1) };
+            //// Remember for 1 day sliding
+            //this.Response.Cookies.Add(cookie);
             try
             {
                 _service.PrintCarton(cartonId, printer);
@@ -782,7 +781,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {
-                this.Response.AppendHeader("Selected", cookie.Value);
+                //this.Response.AppendHeader("Selected", cookie.Value);
             }
             var results = _service.GetPrinters();
             return Json(results);
