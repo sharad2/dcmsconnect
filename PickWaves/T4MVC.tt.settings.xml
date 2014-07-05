@@ -65,6 +65,14 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.cshtml</Extension>
     <Extension>.aspx</Extension>
     <Extension>.ascx</Extension>
+    <Extension>.png</Extension>
+    <Extension>.svg</Extension>
+    <Extension>.min.css</Extension>
+    <Extension>.min.js</Extension>
+    <Extension>.min.map</Extension>
+    <Extension>.intellisense.js</Extension>
+    <Extension>.validate-vsdoc.js</Extension>
+    <Extension>_references.js</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>
