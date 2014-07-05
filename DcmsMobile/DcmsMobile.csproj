@@ -120,9 +120,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DiagnosticController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogonController.cs" />
+    <Compile Include="DcmsMobile\Diagnostic\DiagnosticController.cs" />
+    <Compile Include="DcmsMobile\Home\HomeController.cs" />
+    <Compile Include="DcmsMobile\Logon\LogonController.cs" />
     <Compile Include="DiagnosticController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -130,20 +130,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApplicationErrorEvent.cs" />
+    <Compile Include="Helpers\FeatureFolderViewEngine.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="LogonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AreaItem.cs" />
-    <Compile Include="Models\DiagnosticModel.cs" />
-    <Compile Include="Models\LauncherViewModel.cs" />
-    <Compile Include="Models\LogonModel.cs" />
-    <Compile Include="Models\LogonServices.cs" />
+    <Compile Include="DcmsMobile\Home\AreaItem.cs" />
+    <Compile Include="DcmsMobile\Diagnostic\DiagnosticModel.cs" />
+    <Compile Include="DcmsMobile\Home\LauncherViewModel.cs" />
+    <Compile Include="DcmsMobile\Logon\LogonModel.cs" />
+    <Compile Include="DcmsMobile\Logon\LogonServices.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharedController.generated.cs">
+    <Compile Include="SharedViewsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -394,11 +395,11 @@
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
-    <Content Include="DcmsMobile\Content\Images\wifi.jpg" />
-    <Content Include="DcmsMobile\Content\Sounds\Error.wav" />
-    <Content Include="DcmsMobile\Content\Sounds\warning.wav" />
-    <Content Include="DcmsMobile\Content\Sounds\success.wav" />
     <Content Include="Content\themes\Start1.10.0\Stylesheets.chirp.config" />
+    <Content Include="DcmsMobile\Home\wifi.jpg" />
+    <Content Include="DcmsMobile\SharedViews\Sounds\Error.wav" />
+    <Content Include="DcmsMobile\SharedViews\Sounds\success.wav" />
+    <Content Include="DcmsMobile\SharedViews\Sounds\warning.wav" />
     <Content Include="Doc\Tutorial.pptx" />
     <None Include="Doc\Steps to make a new App.txt" />
     <None Include="DcmsMobile.Publish.xml">
@@ -423,7 +424,9 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="T4MVC.tt.settings.xml" />
+    <None Include="T4MVC.tt.settings.xml">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -433,9 +436,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\Diagnostic\Email.cshtml" />
-    <Content Include="Views\Logon\GetNewPassword.cshtml" />
+    <Content Include="DcmsMobile\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="DcmsMobile\Diagnostic\Email.cshtml" />
+    <Content Include="DcmsMobile\Logon\GetNewPassword.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
     <Content Include="Scripts\jquery-2.0.3.min.map" />
     <None Include="T4MVC.tt.hooks.t4" />
@@ -443,12 +448,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_layoutMain.cshtml" />
-    <Content Include="Views\Home\Index.phone.cshtml" />
+    <Content Include="DcmsMobile\Home\Index.cshtml" />
+    <Content Include="DcmsMobile\SharedViews\_layoutMain.cshtml" />
+    <Content Include="DcmsMobile\Home\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Logon\Index.cshtml" />
+    <Content Include="DcmsMobile\Logon\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
@@ -461,19 +466,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Logon\ChangeExpiredPassword.cshtml" />
+    <Content Include="DcmsMobile\Logon\ChangeExpiredPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Diagnostic\Index.cshtml" />
+    <Content Include="DcmsMobile\Diagnostic\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Shared\_soundPartial.cshtml" />
+    <Content Include="DcmsMobile\SharedViews\_soundPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="DcmsMobile\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

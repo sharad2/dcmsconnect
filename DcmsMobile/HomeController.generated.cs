@@ -111,9 +111,11 @@ namespace DcmsMobile.Controllers
             {
                 public readonly string Index = "Index";
                 public readonly string Index_phone = "Index.phone";
+                public readonly string wifi = "wifi";
             }
-            public readonly string Index = "~/Views/Home/Index.cshtml";
-            public readonly string Index_phone = "~/Views/Home/Index.phone.cshtml";
+            public readonly string Index = "~/DcmsMobile/Home/Index.cshtml";
+            public readonly string Index_phone = "~/DcmsMobile/Home/Index.phone.cshtml";
+            public readonly string wifi = "~/DcmsMobile/Home/wifi.jpg";
         }
     }
 

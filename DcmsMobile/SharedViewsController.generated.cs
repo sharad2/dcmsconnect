@@ -23,7 +23,7 @@ using System.Web.Routing;
 using T4MVC;
 namespace T4MVC
 {
-    public class SharedController
+    public class SharedViewsController
     {
 
         static readonly ViewsClass s_views = new ViewsClass();
@@ -39,8 +39,25 @@ namespace T4MVC
                 public readonly string _layoutMain = "_layoutMain";
                 public readonly string _soundPartial = "_soundPartial";
             }
-            public readonly string _layoutMain = "~/Views/Shared/_layoutMain.cshtml";
-            public readonly string _soundPartial = "~/Views/Shared/_soundPartial.cshtml";
+            public readonly string _layoutMain = "~/DcmsMobile/SharedViews/_layoutMain.cshtml";
+            public readonly string _soundPartial = "~/DcmsMobile/SharedViews/_soundPartial.cshtml";
+            static readonly _SoundsClass s_Sounds = new _SoundsClass();
+            public _SoundsClass Sounds { get { return s_Sounds; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SoundsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string Error = "Error";
+                    public readonly string success = "success";
+                    public readonly string warning = "warning";
+                }
+                public readonly string Error = "~/DcmsMobile/SharedViews/Sounds/Error.wav";
+                public readonly string success = "~/DcmsMobile/SharedViews/Sounds/success.wav";
+                public readonly string warning = "~/DcmsMobile/SharedViews/Sounds/warning.wav";
+            }
         }
     }
 

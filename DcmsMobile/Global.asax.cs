@@ -43,7 +43,8 @@ namespace DcmsMobile
             RegisterRoutes(RouteTable.Routes);
 
             ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
+            ViewEngines.Engines.Add(new FeatureFolderViewEngine());
+            //ViewEngines.Engines.Add(new RazorViewEngine());
 
             #region Display Modes
             // Sharad: Code which makes extensions .mobile.cshtml and .phone.cshtml recognizable

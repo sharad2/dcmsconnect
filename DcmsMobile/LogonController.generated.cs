@@ -179,9 +179,9 @@ namespace DcmsMobile.Controllers
                 public readonly string GetNewPassword = "GetNewPassword";
                 public readonly string Index = "Index";
             }
-            public readonly string ChangeExpiredPassword = "~/Views/Logon/ChangeExpiredPassword.cshtml";
-            public readonly string GetNewPassword = "~/Views/Logon/GetNewPassword.cshtml";
-            public readonly string Index = "~/Views/Logon/Index.cshtml";
+            public readonly string ChangeExpiredPassword = "~/DcmsMobile/Logon/ChangeExpiredPassword.cshtml";
+            public readonly string GetNewPassword = "~/DcmsMobile/Logon/GetNewPassword.cshtml";
+            public readonly string Index = "~/DcmsMobile/Logon/Index.cshtml";
         }
     }
 

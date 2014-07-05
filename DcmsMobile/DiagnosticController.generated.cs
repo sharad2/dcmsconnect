@@ -158,8 +158,8 @@ namespace DcmsMobile.Controllers
                 public readonly string Email = "Email";
                 public readonly string Index = "Index";
             }
-            public readonly string Email = "~/Views/Diagnostic/Email.cshtml";
-            public readonly string Index = "~/Views/Diagnostic/Index.cshtml";
+            public readonly string Email = "~/DcmsMobile/Diagnostic/Email.cshtml";
+            public readonly string Index = "~/DcmsMobile/Diagnostic/Index.cshtml";
         }
     }
 
