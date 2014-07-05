@@ -1,9 +1,8 @@
-﻿using System;
+﻿using EclipseLibrary.Oracle.Web.Security;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EclipseLibrary.Mvc.ModelBinding;
-using EclipseLibrary.Oracle.Web.Security;
 
 namespace DcmsMobile.DcmsRights.ViewModels
 {
@@ -27,7 +26,6 @@ namespace DcmsMobile.DcmsRights.ViewModels
         }
 
 
-        [BindUpperCase]
         [Display(Name = "User Name")]
         [Required]
         public string UserName { get; set; }
