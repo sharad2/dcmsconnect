@@ -39,13 +39,19 @@
     @Html.HiddenFor(m => m.SpotCheckAreaId)
     @Html.HiddenFor(m => m.CartonCount)
     @Html.HiddenFor(m => m.ExpectedCartons)
-    @Html.HiddenFor(m => m.ScanModel.PalletId)
-    @Html.HiddenFor(m => m.ScanModel.PalletDispos)
+    @Html.HiddenFor(m => m.ScanModel.PalletId, new
+{
+    id = "hfScannedPallet"
+})
+    @Html.HiddenFor(m => m.ScanModel.PalletDispos, new
+    {
+        id="hfScannedDispoid"
+    })
 }
 <div data-role="collapsible-set" id="palletSet">
     @for (var i = 0; i < Model.Pallets.Count; ++i)
     {
-        <div data-role="collapsible" id="@Model.Pallets[i].PalletId">
+        <div data-role="collapsible" id="@Model.Pallets[i].PalletId" data-disposition="@Model.Pallets[i].Cartons.Max(c => c.DispositionId)">
             <h4>
                 @Html.DisplayFor(m => m.Pallets[i].PalletId)
                 @if (Model.Pallets[i].Cartons.Count > 0)
@@ -123,7 +129,7 @@
         </div>
         <div id="divErr" style="display:none"></div>
     </form>
-    
+
 </div>
 @section scripts{
     <script type="text/javascript">
@@ -150,7 +156,7 @@
             });
 
             $('a.btnPrintPanelOpen').click(function () {
-                $('#hfCartonToPrint').val($(this).attr('data-carton-print'));              
+                $('#hfCartonToPrint').val($(this).attr('data-carton-print'));
             });
 
             $('#btnPrint').click(function () {
@@ -180,9 +186,27 @@
                 });
             })
 
+            $('#scan').keypress(function (e) {
+                //e.stopPropagation();
+                if (e.which == $.ui.keyCode.ENTER) {
+                    var palletToOpen = $('#palletSet').find('div#' + $(this).val().toUpperCase())
+                    if (palletToOpen.length > 0) {
+                        palletToOpen.collapsible("expand");
+                        return false;
+                    }
+                }
+            });
+
+            $('#palletSet').find('div[data-role="collapsible"]').collapsible({
+                expand: function () {
+                     $('#hfScannedPallet').val($(this).attr('id'));
+                     $('#hfScannedDispoid').val($(this).attr('data-disposition'));
+                }
+            })
+
         });
 
-       
+
     </script>
 }
 
