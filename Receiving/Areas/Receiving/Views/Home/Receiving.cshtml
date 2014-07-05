@@ -206,7 +206,10 @@
                     $('#hfScannedDispoid').val($(this).attr('data-disposition'));
                 }
             });
-
+           
+            if ($('#hfScannedPallet').val() != "") {
+                $('#palletSet').find('div#' + $('#hfScannedPallet').val()).collapsible("expand");
+            }
         });
 
 
