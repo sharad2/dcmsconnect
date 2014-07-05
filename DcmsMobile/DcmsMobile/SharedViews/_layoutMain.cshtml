@@ -1,0 +1,57 @@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+@model DcmsMobile.Models.ViewModelBase
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
+    <link rel="stylesheet" href="@Links_DcmsMobile.Content.jquery_mobile_1_4_2_css" />
+    <script src="@Links_DcmsMobile.Scripts.jquery_2_0_3_js "></script>
+    <script type="text/javascript">
+        $(document).on("mobileinit", function () {
+            //http://api.jquerymobile.com/global-config/
+            $.mobile.ajaxEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>
+    <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
+    <style type="text/css">
+        .validation-summary-errors {
+            color: Red;
+        }
+        .ui-state-highlight {
+            border: 1px solid #fcd113;
+            background: #f8da4e;
+            color: #915608;
+        }
+    </style>
+    @RenderSection("script", false)
+</head>
+<body>
+    <div data-role="page" id="mainpage">
+        <header data-role="header">
+            <h1>@ViewBag.Title</h1>
+            <a href="@Model.HomeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            <a href="#popupLayout" data-rel="popup" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-notext ui-btn-a">.</a>
+        </header>
+
+        <section data-role="content">
+            <aside>
+                @Html.StatusSummary()
+                @Html.ValidationSummary()
+            </aside>
+            @RenderBody()
+        </section>
+        <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                @foreach (var item in Model.MasterMenuItems)
+                {
+                    <li><a href="@item.Url">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+        @RenderSection("panels", false)
+    </div>
+    @*Can add capability to render other pages here*@
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿@model DcmsMobile.Models.DiagnosticEmailModel
+@{
+    ViewBag.Title = "Email";
+}
+
+@using (Html.BeginForm("SendEmail", "Diagnostic"))
+{
+    <ul data-role="listview" data-inset="true">
+        <li data-role="list-divider">web.config Settings</li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.From)
+            @Html.DisplayFor(m => m.From)
+        </li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.HostName)
+            @Html.DisplayFor(m => m.HostName)
+        </li>
+        <li data-role="list-divider">Send Test e-mail</li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.To)
+            @Html.TextBoxFor(m => m.To)*
+        </li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.Subject)
+            @Html.TextBoxFor(m => m.Subject, new
+   {
+       size = 40
+   })*
+        </li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.Body)
+            @Html.TextAreaFor(m => m.Body, new
+   {
+       rows = 10,
+       cols = 40
+   })*
+        </li>
+        <li>
+            <button type="submit">
+                Send Email
+            </button>
+        </li>
+    </ul>
+
+    @*<h3>
+        Send Test E-mail to validate your settings
+    </h3>
+    <p>
+        @Html.LabelFor(m => m.To)
+        @Html.TextBoxFor(m => m.To)*
+        <br />
+        @Html.LabelFor(m => m.Subject)
+        @Html.TextBoxFor(m => m.Subject, new
+   {
+       size = 40
+   })*
+        <br />
+        @Html.LabelFor(m => m.Body)
+        @Html.TextAreaFor(m => m.Body, new
+   {
+       rows = 10,
+       cols = 40
+   })*
+        <br />
+        <button type="submit">
+            Send Email
+        </button>
+    </p>*@
+
+}
+

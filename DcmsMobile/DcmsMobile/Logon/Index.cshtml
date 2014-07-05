@@ -1,0 +1,25 @@
+﻿@model DcmsMobile.Models.LogonModel
+@{
+    ViewBag.Title = "DCMS Web Login";
+}
+
+@using (Html.BeginForm(MVC_DcmsMobile.Logon.Login()))
+{
+    @Html.HiddenFor(m => m.ReturnUrl)
+    <div class="ui-field-contain">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName)
+    </div>
+    <div class="ui-field-contain">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+    </div>
+
+    <div data-role="controlgroup">
+        <input type="submit" value="Log On" />
+        <a class="ui-btn ui-btn-a" href="@(string.IsNullOrWhiteSpace(Model.ReturnUrl) ? Url.Content("~") : Model.ReturnUrl)">Skip</a>
+    </div>
+
+}
+
+

@@ -1,0 +1,99 @@
+﻿@model DcmsMobile.Models.LauncherViewModel
+@{
+    ViewBag.Title = "DCMS Connect Home";
+}
+
+@section script {
+    <script type="text/javascript">
+        // Get a list of items available on the release candidate site and show the RC link for each of the items available
+        $(document).on('pagecreate', '#mainpage', function () {
+            var urlBase = $('#linkRc').attr('href');  // Must not have a trailing slash
+            var urlItems = urlBase + $('#linkRc').attr('data-url-rcitem');
+            $.ajax(urlItems, {
+                dataType: 'jsonp',
+                crossDomain: true
+            }).done(function (data, textStatus, jqXHR) {
+                // The call to RC was successful. Show the RC link at the bottom of the page
+                $('#rcNavBar small').hide();
+                // Show the rc link against each menu items
+                $.each(data, function () {
+                    $('#' + this.area).attr('href', urlBase + this.url).show();
+                });
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
+            });
+        });
+    </script>
+}
+<input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
+<ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
+    @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
+    {
+        <li data-filtertext="@item.ShortName;@item.Description">
+            <a href="@item.Url">
+                @if (item.IsMobileOptimized)
+                {
+                    <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
+                }
+                @item.Name
+            </a>
+        </li>
+    }
+</ol>
+
+<ul data-role="listview" data-inset="true" id="topmenu">
+    @for (var i = 0; i < Model.MenuItems.Count; ++i)
+    {
+        <li>
+            @if (Model.MenuItems[i].IsMobileOptimized)
+            {
+                <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
+            }
+            <div data-role="controlgroup" data-type="horizontal">
+
+                <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><small>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</small> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
+                @if (Model.MenuItems[i].SubMenu != null)
+                {
+                    <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
+                }
+                <a href="#" class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
+            </div>
+            <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
+        </li>
+    }
+</ul>
+
+
+
+<div data-role="navbar" id="rcNavBar" class="ui-mini">
+    <a id="linkRc" href="@Model.UrlRcBase" data-role="button" data-url-rcitem="@Url.Action(MVC_DcmsMobile.Home.RcItems(1))">
+        Release Candidates
+        <small>Contacting...</small>
+    </a>
+</div>
+@section panels {
+    @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
+    {
+        <div data-role="panel" id="@item.PanelId" data-display="overlay" data-position-fixed="true">
+            <ol data-role="listview">
+                @for (var j = 0; j < item.SubMenu.Count; ++j)
+                {
+                    <li>
+                        <a href="@item.SubMenu[j].Url">
+                            @if (item.SubMenu[j].IsMobileOptimized)
+                            {
+                                <img src="@Links_DcmsMobile.DcmsMobile.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
+                            }
+                            <p>@Html.DisplayFor(m => item.SubMenu[j].Name)</p>
+                            <p><em>@Html.DisplayFor(m => item.SubMenu[j].ShortName)</em> @Html.DisplayFor(m => item.SubMenu[j].Description)</p>
+                        </a>
+                    </li>
+                }
+                <li data-icon="delete">
+                    <a href="#mainpage" data-rel="close">Close</a>
+                </li>
+            </ol>
+        </div><!-- /panel -->
+    }
+}
+
