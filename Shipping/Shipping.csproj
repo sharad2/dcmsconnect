@@ -329,7 +329,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <None Include="T4MVC.tt.settings.t4" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
