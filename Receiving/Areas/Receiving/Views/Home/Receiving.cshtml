@@ -21,7 +21,7 @@
     }
 }
 @*<audio src="@Links_Receiving.Areas.Receiving.Content.Sounds._1_mp3" controls autoplay></audio>*@
-<div @*data-role="popup"*@ style="display:none" id="divValidation">
+<div style="display:none" id="divValidation">
 </div>
 @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
 {
@@ -109,24 +109,7 @@
         <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
     </ul>
 </div>
-@*<div data-role="panel" id="printPopup" data-display="overlay">
 
-    @using (Html.BeginForm(MVC_Receiving.Receiving.Home.PrintCarton(), FormMethod.Post, new
-    {
-        id = "frmPrint"
-    }))
-    {       
-    <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId"/>
-    <select required id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer">
-        <option>Please Select Printer</option>
-    </select>
-        <div data-role="controlgroup" data-type="horizontal">
-            <input value="Print" id="btnPrint" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-            <a data-rel="close" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</a>
-        </div>
-
-    }
-</div>*@
 <div data-role="panel" id="printPanel" data-display="overlay">
 
     <form id="frmPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
@@ -135,7 +118,6 @@
             <option value="">Please Select Printer</option>
         </select>
         <div data-role="controlgroup" data-type="horizontal">
-            @*<input value="Print" id="btnPrint" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">*@
             <a id="btnPrint" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Print</a>
             <a data-rel="close" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</a>
         </div>
@@ -172,7 +154,6 @@
             });
 
             $('#btnPrint').click(function () {
-              //  alert($('#hfCartonToPrint').val());
                 $.ajax({
                     url: $('#frmPrint').attr('data-print-url'),
                     type: 'POST',
@@ -183,13 +164,12 @@
                     },
                     statusCode: {
                         200: function (data, textStatus, jqXHR) {
-                            //$('#errPopup').popup("open").html(data + "  ");                            
-                            $('#divValidation').show().html(data + "  ");
+                            $('#divValidation').show().html(data + "  ").addClass('ui-state-highlight');
                             $('#printPanel').panel("close");
                         },
                         203: function (data, textStatus, jqXHR) {
                             //Some error, show them in screen and play error sound.
-                            $('#divErr').show().html(data);
+                            $('#divErr').show().html(data).addClass('validation-summary-errors');
                             //$('#printPanel').panel("close");
                         }
                     },
