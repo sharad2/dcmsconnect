@@ -214,6 +214,7 @@
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
