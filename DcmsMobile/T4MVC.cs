@@ -166,6 +166,7 @@ namespace Links_DcmsMobile
             private const string URLPATH = "~/DcmsMobile/Home";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string Tutorial_pptx = Url("Tutorial.pptx");
             public static readonly string wifi_jpg = Url("wifi.jpg");
         }
     

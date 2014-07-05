@@ -46,7 +46,7 @@
             <ul data-role="listview" data-inset="true" style="min-width:210px;">
                 @foreach (var item in Model.MasterMenuItems)
                 {
-                    <li><a href="@item.Url">@item.Name</a></li>
+                    <li><a href="@item.Url" target="@item.Target">@item.Name</a></li>
                 }
             </ul>
         </div>

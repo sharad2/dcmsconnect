@@ -110,11 +110,11 @@ namespace DcmsMobile.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string Index_phone = "Index.phone";
+                public readonly string Tutorial = "Tutorial";
                 public readonly string wifi = "wifi";
             }
             public readonly string Index = "~/DcmsMobile/Home/Index.cshtml";
-            public readonly string Index_phone = "~/DcmsMobile/Home/Index.phone.cshtml";
+            public readonly string Tutorial = "~/DcmsMobile/Home/Tutorial.pptx";
             public readonly string wifi = "~/DcmsMobile/Home/wifi.jpg";
         }
     }

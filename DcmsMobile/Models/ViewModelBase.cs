@@ -14,6 +14,11 @@ namespace DcmsMobile.Models
         public string Name { get; set; }
 
         public int Order { get; set; }
+
+        /// <summary>
+        /// Whether the link should open in a new window
+        /// </summary>
+        public string Target { get; set; }
     }
 
     /// <summary>
@@ -61,13 +66,15 @@ namespace DcmsMobile.Models
                 list.Add(new UtilityLink
                 {
                     Name = string.Format("Log off {0}", ctx.HttpContext.User.Identity.Name),
-                    Url = url.Action(MVC_DcmsMobile.Logon.Logoff())
+                    Url = url.Action(MVC_DcmsMobile.Logon.Logoff()),
+                    //NewWindow = false
                 });
                 //PasswordUrl = url.Action(MVC_DcmsMobile.Logon.GetNewPassword());
                 list.Add(new UtilityLink
                 {
                     Name = "Change Password",
-                    Url = url.Action(MVC_DcmsMobile.Logon.GetNewPassword())
+                    Url = url.Action(MVC_DcmsMobile.Logon.GetNewPassword()),
+                    //NewWindow = false
                 });
             }
             else
@@ -80,7 +87,8 @@ namespace DcmsMobile.Models
                     list.Add(new UtilityLink
                     {
                         Name = "Login",
-                        Url = str
+                        Url = str,
+                        //NewWindow = false
                     });
                 }
             }
@@ -90,14 +98,16 @@ namespace DcmsMobile.Models
                 list.Add(new UtilityLink
                 {
                     Name = "Diagnostic",
-                    Url = str
+                    Url = str,
+                    //NewWindow = false
                 });
             }
 
             list.Add(new UtilityLink
             {
                 Name = "Trace",
-                Url = url.Content("~/trace.axd")
+                Url = url.Content("~/trace.axd"),
+                Target = "trace"
             });
             _masterMenuItems = list;
         }

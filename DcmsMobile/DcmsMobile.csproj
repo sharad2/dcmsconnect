@@ -402,7 +402,7 @@
     <Content Include="DcmsMobile\SharedViews\Sounds\Error.wav" />
     <Content Include="DcmsMobile\SharedViews\Sounds\success.wav" />
     <Content Include="DcmsMobile\SharedViews\Sounds\warning.wav" />
-    <Content Include="Doc\Tutorial.pptx" />
+    <Content Include="DcmsMobile\Home\Tutorial.pptx" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css.bundle" />
     <None Include="Doc\Steps to make a new App.txt" />
     <None Include="DcmsMobile.Publish.xml">
@@ -453,7 +453,6 @@
     </None>
     <Content Include="DcmsMobile\Home\Index.cshtml" />
     <Content Include="DcmsMobile\SharedViews\_layoutMain.cshtml" />
-    <Content Include="DcmsMobile\Home\Index.phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DcmsMobile\Logon\Index.cshtml" />
