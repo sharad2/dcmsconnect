@@ -97,8 +97,6 @@
     <Compile Include="Controllers\EclipseController.cs" />
     <Compile Include="Controllers\AuthorizeExAttribute.cs" />
     <Compile Include="Html\GroupDropListFor.cs" />
-    <Compile Include="ModelBinding\BindUpperCaseAttribute.cs" />
-    <Compile Include="ModelBinding\DefaultModelBinderEx.cs" />
     <Compile Include="Helpers\ReflectionHelpers.cs" />
     <Compile Include="Html\StatusSummary.cs" />
     <Compile Include="Html\WebGridCellEx.cs">
