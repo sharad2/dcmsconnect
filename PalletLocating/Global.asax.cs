@@ -1,7 +1,5 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
-using EclipseLibrary.Mvc;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.PalletLocating
 {
@@ -34,7 +32,7 @@ namespace DcmsMobile.PalletLocating
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
+            //ModelBinders.Binders.DefaultBinder = new DefaultModelBinderEx();
 
             //ViewEngines.Engines.Clear();
             //ViewEngines.Engines.Add(new MobileCapableRazorViewEngine());

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.PalletLocating.ViewModels
 {
@@ -12,7 +11,6 @@ namespace DcmsMobile.PalletLocating.ViewModels
         /// Always returns uppercase
         /// </summary>
         [Display(Name = "Building")]
-        [BindUpperCase]
         public string BuildingId { get; set; }
 
         public event EventHandler<EventArgs> AreaChoicesRequested;

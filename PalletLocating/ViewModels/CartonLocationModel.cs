@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.PalletLocating.ViewModels
 {
@@ -9,7 +8,6 @@ namespace DcmsMobile.PalletLocating.ViewModels
     public class CartonLocationModel
     {
         [Display(Name = "Area")]
-        [BindUpperCase]
         public string AreaId { get; set; }
 
 

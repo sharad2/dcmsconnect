@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.PalletLocating.ViewModels
 {
@@ -10,11 +9,9 @@ namespace DcmsMobile.PalletLocating.ViewModels
 
         [Display(Name = "Location")]
         [Required(ErrorMessage = "Location is required")]
-        [BindUpperCase]
         public string LocationId { get; set; }
 
         [Required(ErrorMessage = "This message should be never shown that PalletId is always required")]
-        [BindUpperCase]
         public string PalletId { get; set; }
 
         [Display(Name = "Cartons on Pallet")]
@@ -58,7 +55,6 @@ namespace DcmsMobile.PalletLocating.ViewModels
         /// The location entered by the user to confirm to locate the pallet.
         /// This is checked if confirmation is needed.
         /// </summary>
-        [BindUpperCase]
         public string ConfirmLocationId { get; set; }
         
         /// <summary>

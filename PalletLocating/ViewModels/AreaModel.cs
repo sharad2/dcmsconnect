@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using DcmsMobile.PalletLocating.Models;
-using EclipseLibrary.Mvc.ModelBinding;
+﻿using DcmsMobile.PalletLocating.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PalletLocating.ViewModels
 {
@@ -15,7 +14,6 @@ namespace DcmsMobile.PalletLocating.ViewModels
             ReplenishAreaShortName = area.ReplenishAreaShortName;
         }
 
-        [BindUpperCase]
         [Required(ErrorMessage = "Area is required")]
         public string AreaId { get; set; }
 

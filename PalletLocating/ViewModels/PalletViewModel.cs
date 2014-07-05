@@ -1,10 +1,9 @@
-﻿using System;
+﻿using DcmsMobile.PalletLocating.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
-using DcmsMobile.PalletLocating.Models;
-using EclipseLibrary.Mvc.ModelBinding;
 
 namespace DcmsMobile.PalletLocating.ViewModels
 {
@@ -24,10 +23,8 @@ namespace DcmsMobile.PalletLocating.ViewModels
 
         [Required(ErrorMessage = "Pallet is required")]
         [Display(Name = "Pallet/Carton")]
-        [BindUpperCase]
         public string PalletOrCartonId { get; set; }
 
-        [BindUpperCase]
         [DisplayFormat(NullDisplayText = "Multiple Bldg")]
         public string BuildingId { get; set; }
 
