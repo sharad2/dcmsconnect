@@ -15,48 +15,53 @@
     <br />
     <fieldset>
         <legend>Style</legend>
-        <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle"/>Specific Style
-        @Html.AutocompleteFor(m => m.Style, Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()), Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()), new
-{
-    style = "text-transform: uppercase;",
-    size = 15,
-    id = "tbStyle"
-})
+        <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />Specific Style
+
+        @Html.TextBoxFor(m => m.Style, new
+   {
+       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
+       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
+       autocomplete = "off",
+       style = "text-transform: uppercase",
+       size = "15",
+       id = "tbStyle"
+   })
+        <span title="Double click to quickly see suggestions">↓</span>
         <br />
 
 
         <input id="rbAllStyle" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
         <span>All styles &nbsp;</span>
         <br />
-        @Html.AutocompleteDescriptionFor(m => m.Style, new { id = "lblStyleDesc" })
-    </fieldset>  
+        <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
+    </fieldset>
     <br />
     <fieldset>
         <legend>Color</legend>
         <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
         Specific Color
-    @Html.AutocompleteFor(m => m.Color, Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()), Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()), new
+        @Html.AutocompleteFor(m => m.Color, Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()), Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()), new
 {
     style = "text-transform: uppercase;",
     size = 15,
     id = "tbColor"
 })
         <br />
-        <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor"/>
+        <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
         <span>All Colors &nbsp;</span>
         <br />
         @Html.AutocompleteDescriptionFor(m => m.Color, new { id = "lblColorDesc" })
     </fieldset>
- 
+
     @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>@*
 
-    @Html.CheckBoxFor(m => m.IsSpotCheckEnabled, new { id = "cbIsSpotCheckEnable" ,'checked'=checked})*@
+        @Html.CheckBoxFor(m => m.IsSpotCheckEnabled, new { id = "cbIsSpotCheckEnable" ,'checked'=checked})*@
     <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
     <br />
     <div>
         @Html.LabelFor(m => m.SpotCheckPercent)
     </div>
-    
+
     @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent" })<span>*</span>
     @Html.ValidationSummary()
 }
