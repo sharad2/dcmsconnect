@@ -96,7 +96,7 @@ namespace DcmsMobile.MainArea.Home
     /// <summary>
     /// View model for the launcher view
     /// </summary>
-    public class LauncherViewModel : ViewModelBase
+    public class LauncherViewModel
     {
         /// <summary>
         /// Base URL of the RC site

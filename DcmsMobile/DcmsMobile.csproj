@@ -142,7 +142,6 @@
     <Compile Include="MainArea\Home\LauncherViewModel.cs" />
     <Compile Include="MainArea\Logon\LogonModel.cs" />
     <Compile Include="MainArea\Logon\LogonServices.cs" />
-    <Compile Include="MainArea\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedViewsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

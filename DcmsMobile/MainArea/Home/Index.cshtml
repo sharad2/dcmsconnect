@@ -7,73 +7,79 @@
     @if (!string.IsNullOrWhiteSpace(Model.UrlRcBase))
     {
         <script type="text/javascript">
-            // Get a list of items available on the release candidate site and show the RC link for each of the items available
-            $(document).on('pagecreate', '#mainpage', function () {
-                $.ajax('@(Model.UrlRcBase + Url.Action(MVC_DcmsMobile.Home.RcItems(1)))', {
-                    dataType: 'jsonp',
-                    crossDomain: true
-                }).done(function (data, textStatus, jqXHR) {
-                    // The call to RC was successful. Show the RC link at the bottom of the page
-                    $('#rcNavBar small').hide();
-                    // Show the rc link against each menu items
-                    $.each(data, function () {
-                        $('#' + this.area).attr('href', '@Model.UrlRcBase' + this.url).show();
+            $(document).ready(function () {
+                $("#footermenu").toolbar({ theme: "a" });
+                // Get a list of items available on the release candidate site and show the RC link for each of the items available
+                $(document).on('pagecreate', '#mainpage', function () {
+                    $.ajax('@(Model.UrlRcBase + Url.Action(MVC_DcmsMobile.Home.RcItems(1)))', {
+                        dataType: 'jsonp',
+                        crossDomain: true
+                    }).done(function (data, textStatus, jqXHR) {
+                        // The call to RC was successful. Show the RC link at the bottom of the page
+                        $('#rcNavBar small').hide();
+                        // Show the rc link against each menu items
+                        $.each(data, function () {
+                            $('#' + this.area).attr('href', '@Model.UrlRcBase' + this.url).show();
+                        });
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
                     });
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
                 });
             });
+
         </script>
     }
 }
-<input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
-<ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
-    @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
-    {
-        <li data-filtertext="@item.ShortName;@item.Description">
-            <a href="@item.Url">
-                @if (item.IsMobileOptimized)
-                {
-                    <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
-                }
-                @item.Name
-            </a>
-        </li>
-    }
-</ol>
-
-<ul data-role="listview" data-inset="true" id="topmenu">
-    <li data-icon="info"><a href="@Links_DcmsMobile.MainArea.Home.Tutorial_pptx">Introduction to DCMS (PPTX 3.5Mb)</a></li>
-    @for (var i = 0; i < Model.MenuItems.Count; ++i)
-    {
-        <li>
-            @if (Model.MenuItems[i].IsMobileOptimized)
+<div data-role="page" id="mainpage">
+    <div data-role="content">
+        <input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
+        <ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
+            @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
             {
-                <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
+                <li data-filtertext="@item.ShortName;@item.Description">
+                    <a href="@item.Url">
+                        @if (item.IsMobileOptimized)
+                        {
+                            <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" class="ui-li-icon" alt="Optimized for mobile screens" />
+                        }
+                        @item.Name
+                    </a>
+                </li>
             }
-            <div data-role="controlgroup" data-type="horizontal" class="ui-mini">
+        </ol>
 
-                <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
-                @if (Model.MenuItems[i].SubMenu != null)
-                {
-                    <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
-                }
-                <a class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
-            </div>
-            <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
-        </li>
-    }
-</ul>
+        <ul data-role="listview" data-inset="true" id="topmenu">
+            <li data-icon="info"><a href="@Links_DcmsMobile.MainArea.Home.Tutorial_pptx">Introduction to DCMS (PPTX 3.5Mb)</a></li>
+            @for (var i = 0; i < Model.MenuItems.Count; ++i)
+            {
+                <li>
+                    @if (Model.MenuItems[i].IsMobileOptimized)
+                    {
+                        <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" alt="Optimized for mobile screens" class="ui-li-icon" />
+                    }
+                    <div data-role="controlgroup" data-type="horizontal" class="ui-mini">
+
+                        <a href="@Model.MenuItems[i].Url" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right"><em>@Html.DisplayFor(m => m.MenuItems[i].ShortName)</em> @Html.DisplayFor(m => m.MenuItems[i].Name)</a>
+                        @if (Model.MenuItems[i].SubMenu != null)
+                        {
+                            <a href="#@Model.MenuItems[i].PanelId" class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-notext">More</a>
+                        }
+                        <a class="ui-btn ui-corner-all ui-btn-b ui-icon-carat-r ui-btn-icon-right" id="@Model.MenuItems[i].AreaName" style="display:none">Release Candidate</a>
+                    </div>
+                    <p>@Html.DisplayFor(m => m.MenuItems[i].Description)</p>
+                </li>
+            }
+        </ul>
 
 
 
-<div data-role="navbar" id="rcNavBar" class="ui-mini">
-    <a id="linkRc" data-role="button">
-        Release Candidates
-        <small>Contacting...</small>
-    </a>
-</div>
-@section panels {
+        <div data-role="navbar" id="rcNavBar" class="ui-mini">
+            <a id="linkRc" data-role="button">
+                Release Candidates
+                <small>Contacting...</small>
+            </a>
+        </div>
+    </div>
     @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null))
     {
         <div data-role="panel" id="@item.PanelId" data-display="overlay" data-position-fixed="true">
@@ -97,5 +103,17 @@
             </ol>
         </div><!-- /panel -->
     }
-}
-
+</div>
+<div data-role="page" id="page1">
+    Page 1
+</div>
+<div data-role="footer" data-position="fixed" data-theme="a" id="footermenu">
+    <div data-role="navbar">
+        <ul>
+            <li><a href="#mainpage" data-transition="fade">Pick</a></li>
+            <li><a href="#page1" data-transition="flip">Ship</a></li>
+            <li><a href="page-c.html" data-transition="turn">Receive</a></li>
+            <li><a href="page-d.html" data-transition="slide">Inventory</a></li>
+        </ul>
+    </div><!-- /navbar -->
+</div><!-- /footer -->

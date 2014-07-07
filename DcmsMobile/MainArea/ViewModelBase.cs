@@ -26,17 +26,18 @@ namespace DcmsMobile.MainArea
     /// </summary>
     public class ViewModelBase
     {
-        private IList<UtilityLink> _masterMenuItems;
+        //private IList<UtilityLink> _masterMenuItems;
 
-        public string HomeUrl { get; set; }
 
-        /// <summary>
-        /// Contains information about login/logoff/changepassword/diagnostic links
-        /// </summary>
-        public IList<UtilityLink> MasterMenuItems
-        {
-            get { return _masterMenuItems; }
-        }
+        //public string HomeUrl { get; set; }
+
+        ///// <summary>
+        ///// Contains information about login/logoff/changepassword/diagnostic links
+        ///// </summary>
+        //public IList<UtilityLink> MasterMenuItems
+        //{
+        //    get { return _masterMenuItems; }
+        //}
 
         /// <summary>
         /// Populates the master menu items depending on whether the user is logged in or not
@@ -45,71 +46,71 @@ namespace DcmsMobile.MainArea
         /// <param name="url"></param>
         public virtual void Init(ControllerContext ctx, UrlHelper url)
         {
-            var list = new List<UtilityLink>();
+            //var list = new List<UtilityLink>();
 
-            // Home
-            var str = url.Action(MVC_DcmsMobile.Home.Index());
-            if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) == 0)
-            {
-                // Home Url not needed when we are on the home page
-                HomeUrl = "#";
-            }
-            else
-            {
-                HomeUrl = str;
-            }
+            //// Home
+            //var str = url.Action(MVC_DcmsMobile.Home.Index());
+            //if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) == 0)
+            //{
+            //    // Home Url not needed when we are on the home page
+            //    HomeUrl = "#";
+            //}
+            //else
+            //{
+            //    HomeUrl = str;
+            //}
 
-            if (ctx.HttpContext.User.Identity.IsAuthenticated)
-            {
-                // Logoff
-                //LogoffUrl = url.Action(MVC_DcmsMobile.Logon.Logoff());
-                list.Add(new UtilityLink
-                {
-                    Name = string.Format("Log off {0}", ctx.HttpContext.User.Identity.Name),
-                    Url = url.Action(MVC_DcmsMobile.Logon.Logoff()),
-                    //NewWindow = false
-                });
-                //PasswordUrl = url.Action(MVC_DcmsMobile.Logon.GetNewPassword());
-                list.Add(new UtilityLink
-                {
-                    Name = "Change Password",
-                    Url = url.Action(MVC_DcmsMobile.Logon.GetNewPassword()),
-                    //NewWindow = false
-                });
-            }
-            else
-            {
-                // Logon
-                str = url.Action(MVC_DcmsMobile.Logon.Index());
-                if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) != 0)
-                {
+            //if (ctx.HttpContext.User.Identity.IsAuthenticated)
+            //{
+            //    // Logoff
+            //    //LogoffUrl = url.Action(MVC_DcmsMobile.Logon.Logoff());
+            //    list.Add(new UtilityLink
+            //    {
+            //        Name = string.Format("Log off {0}", ctx.HttpContext.User.Identity.Name),
+            //        Url = url.Action(MVC_DcmsMobile.Logon.Logoff()),
+            //        //NewWindow = false
+            //    });
+            //    //PasswordUrl = url.Action(MVC_DcmsMobile.Logon.GetNewPassword());
+            //    list.Add(new UtilityLink
+            //    {
+            //        Name = "Change Password",
+            //        Url = url.Action(MVC_DcmsMobile.Logon.GetNewPassword()),
+            //        //NewWindow = false
+            //    });
+            //}
+            //else
+            //{
+            //    // Logon
+            //    str = url.Action(MVC_DcmsMobile.Logon.Index());
+            //    if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) != 0)
+            //    {
 
-                    list.Add(new UtilityLink
-                    {
-                        Name = "Login",
-                        Url = str,
-                        //NewWindow = false
-                    });
-                }
-            }
-            str = url.Action(MVC_DcmsMobile.Diagnostic.Index());
-            if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) != 0)
-            {
-                list.Add(new UtilityLink
-                {
-                    Name = "Diagnostic",
-                    Url = str,
-                    //NewWindow = false
-                });
-            }
+            //        list.Add(new UtilityLink
+            //        {
+            //            Name = "Login",
+            //            Url = str,
+            //            //NewWindow = false
+            //        });
+            //    }
+            //}
+            //str = url.Action(MVC_DcmsMobile.Diagnostic.Index());
+            //if (string.Compare(str, ctx.HttpContext.Request.Url.AbsolutePath, true) != 0)
+            //{
+            //    list.Add(new UtilityLink
+            //    {
+            //        Name = "Diagnostic",
+            //        Url = str,
+            //        //NewWindow = false
+            //    });
+            //}
 
-            list.Add(new UtilityLink
-            {
-                Name = "Trace",
-                Url = url.Content("~/trace.axd"),
-                Target = "trace"
-            });
-            _masterMenuItems = list;
+            //list.Add(new UtilityLink
+            //{
+            //    Name = "Trace",
+            //    Url = url.Content("~/trace.axd"),
+            //    Target = "trace"
+            //});
+            //_masterMenuItems = list;
         }
     }
 }

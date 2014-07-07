@@ -238,19 +238,19 @@ namespace DcmsMobile.MainArea.Logon
             return RedirectToAction(MVC_DcmsMobile.Home.Index());
         }
 
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            var vr = filterContext.Result as ViewResult;
-            if (vr != null)
-            {
-                var model = vr.Model as ViewModelBase;
-                if (model != null)
-                {
-                    model.Init(this.ControllerContext, this.Url);
-                }
-            }
-            base.OnActionExecuted(filterContext);
-        }
+        //protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        //{
+        //    var vr = filterContext.Result as ViewResult;
+        //    if (vr != null)
+        //    {
+        //        var model = vr.Model as ViewModelBase;
+        //        if (model != null)
+        //        {
+        //            model.Init(this.ControllerContext, this.Url);
+        //        }
+        //    }
+        //    base.OnActionExecuted(filterContext);
+        //}
     }
 }
 

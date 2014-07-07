@@ -26,7 +26,7 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
     }
 
-    public class DiagnosticModel : ViewModelBase
+    public class DiagnosticModel
     {
         public char Sound { get; set; }
 
@@ -49,7 +49,7 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
     }
 
-    public class DiagnosticEmailModel : ViewModelBase
+    public class DiagnosticEmailModel
     {
         public DiagnosticEmailModel()
         {

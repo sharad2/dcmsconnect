@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.MainArea.Logon
 {
-    public class LogonModel:ViewModelBase
+    public class LogonModel
     {
         [Display(Name = "User Name")]
         [UIHint("scan")]
@@ -18,7 +18,7 @@ namespace DcmsMobile.MainArea.Logon
         public string ReturnUrl { get; set; }
     }
 
-    public class ChangeExpiredPasswordModel:ViewModelBase
+    public class ChangeExpiredPasswordModel
     {
         [Display(Name = "User Name")]
         public string UserName { get; set; }
@@ -39,7 +39,7 @@ namespace DcmsMobile.MainArea.Logon
     /// <summary>
     /// To change the password of the logged in user
     /// </summary>
-    public class GetNewPasswordViewModel:ViewModelBase
+    public class GetNewPasswordViewModel
     {
         [DataType(DataType.Password)]
         [Display(Name = "Password")]

@@ -3,7 +3,7 @@
     ViewBag.Title = "Diagnostics";
 }
 
-@section head {
+@section script {
     <style>
         dl.ui-body dt {
             display: inline-block;
@@ -22,56 +22,62 @@
     </style>
 }
 
-@Html.Partial(@MVC_DcmsMobile.SharedViews.Views._soundPartial, Model.Sound)
+<div data-role="page">
+    <div data-role="content">
+        @Html.Partial(@MVC_DcmsMobile.SharedViews.Views._soundPartial, Model.Sound)
 
-<div data-role="navbar">
-    <ul>
-        <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))">Error Sound</a></li>
-        <li>
-            <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))">Warning Sound</a>
-        </li>
-        <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))">Success Sound</a></li>
-    </ul>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))">Error Sound</a></li>
+                <li>
+                    <a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('W'))">Warning Sound</a>
+                </li>
+                <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))">Success Sound</a></li>
+            </ul>
+        </div>
+
+
+        <h3 class="ui-bar ui-bar-a">Browser Identification</h3>
+
+        <dl class="ui-body">
+            <dt>IsMobile</dt>
+            <dd>@this.ViewContext.HttpContext.Request.Browser.IsMobileDevice</dd>
+            <dt>User Agent</dt>
+            <dd>@ViewContext.HttpContext.GetOverriddenUserAgent()</dd>
+            <dt>Platform</dt>
+            <dd>@this.ViewContext.HttpContext.Request.Browser.Platform</dd>
+            <dt>Browser Id</dt>
+            <dd>@this.ViewContext.HttpContext.Request.Browser.Id</dd>
+            <dt>MajorVersion</dt>
+            <dd>@this.ViewContext.HttpContext.Request.Browser.MajorVersion</dd>
+            <dt>MinorVersion</dt>
+            <dd>@this.ViewContext.HttpContext.Request.Browser.MinorVersion</dd>
+        </dl>
+
+        <h3 class="ui-bar ui-bar-a">Connection Strings</h3>
+
+        <dl class="ui-body">
+            @foreach (var conn in Model.ConnectionStrings)
+            {
+                <dt>
+                    @conn.Name
+                </dt>
+                <dd>@conn.ProxyUserId@@@conn.DataSource</dd>
+            }
+        </dl>
+
+        <div data-role="navbar">
+            <ul>
+                <li><a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a></li>
+                <li>
+                    @Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())
+                </li>
+                @if (ViewContext.HttpContext.Trace.IsEnabled)
+                {
+                    <li><a href="@Url.Content("~/trace.axd")">Trace</a></li>
+                }
+            </ul>
+        </div>
+
+    </div>
 </div>
-
-
-<h3 class="ui-bar ui-bar-a">Browser Identification</h3>
-
-<dl class="ui-body">
-    <dt>IsMobile</dt>
-    <dd>@this.ViewContext.HttpContext.Request.Browser.IsMobileDevice</dd>
-    <dt>User Agent</dt>
-    <dd>@ViewContext.HttpContext.GetOverriddenUserAgent()</dd>
-    <dt>Platform</dt>
-    <dd>@this.ViewContext.HttpContext.Request.Browser.Platform</dd>
-    <dt>Browser Id</dt>
-    <dd>@this.ViewContext.HttpContext.Request.Browser.Id</dd>
-    <dt>MajorVersion</dt>
-    <dd>@this.ViewContext.HttpContext.Request.Browser.MajorVersion</dd>
-    <dt>MinorVersion</dt>
-    <dd>@this.ViewContext.HttpContext.Request.Browser.MinorVersion</dd>
-</dl>
-
-<h3 class="ui-bar ui-bar-a">Connection Strings</h3>
-
-<dl class="ui-body">
-    @foreach (var conn in Model.ConnectionStrings)
-    {
-        <dt>
-            @conn.Name
-        </dt>
-        <dd>@conn.ProxyUserId@@@conn.DataSource</dd>
-    }
-</dl>
-
-<div data-role="navbar">
-    <ul>
-        <li><a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a></li>
-        <li>
-            @Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())
-        </li>
-        <li><a href="@Url.Content("~/trace.axd")">Trace</a></li>
-    </ul>
-</div>
-
-

@@ -41,7 +41,7 @@ namespace DcmsMobile.MainArea.Home
         public virtual ActionResult Index()
         {
             var model = new LauncherViewModel();
-            model.Init(this.ControllerContext, this.Url);
+            //model.Init(this.ControllerContext, this.Url);
             model.MenuItems = (from item in AreaItem.Areas
                                orderby item.Order, item.Name
                                select new MenuItem(item, Url)).ToArray();

@@ -7,6 +7,8 @@ using System.Web.WebPages;
 
 namespace DcmsMobile.MainArea.Diagnostic
 {
+    [RoutePrefix("Diagnostic")]
+    [Route("{action=index}")]
     public partial class DiagnosticController : EclipseController
     {
         /// <summary>
@@ -98,19 +100,19 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
         #endregion
 
-        protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        {
-            var vr = filterContext.Result as ViewResult;
-            if (vr != null)
-            {
-                var model = vr.Model as ViewModelBase;
-                if (model != null)
-                {
-                    model.Init(this.ControllerContext, this.Url);
-                }
-            }
-            base.OnActionExecuted(filterContext);
-        }
+        //protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        //{
+        //    var vr = filterContext.Result as ViewResult;
+        //    if (vr != null)
+        //    {
+        //        var model = vr.Model as ViewModelBase;
+        //        if (model != null)
+        //        {
+        //            model.Init(this.ControllerContext, this.Url);
+        //        }
+        //    }
+        //    base.OnActionExecuted(filterContext);
+        //}
     }
 }
 
