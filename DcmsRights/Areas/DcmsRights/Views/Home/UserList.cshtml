@@ -1,14 +1,7 @@
 ﻿@model DcmsMobile.DcmsRights.ViewModels.UserListViewModel
 @{
-    ViewBag.Title = "List of all users";    
-    var grid = Html.GridFor(m => m.UsersList);
-    grid.AddColumn().CellHtml(item => item.RowIndex + 1).CellAttribute("style", "text-align:right");
-    grid.AddColumn(m => m.UserName).CellHtml(item => item.Html.ActionLink(item.Model.UserName, MVC_DcmsRights.DcmsRights.Home.ManageUser(item.Model.UserName)))
-        .CellHtml(c => c.Html.ViewData.Model.IsLocked, @<text><div class="ui-icon ui-icon-locked"
-            title="@string.Format("Account has been locked on {0}", item.Model.LastLockoutDate)" style="display: inline-block">
-        </div>@item.Html.ActionLink(item.Model.UserName, MVC_DcmsRights.DcmsRights.Home.ManageUser(item.Model.UserName))</text>);
-    grid.AddColumn(m => m.CreateDate);
-    grid.AddColumn(m => m.PasswordExpiryDate).CellStyle(m => m.Model.PasswordExpired, "ui-state-error");    
+    ViewBag.Title = "List of all users";
+    var rowIndex = 0;   
 }
 @section sidebar {
     <div class="box boxB">
@@ -30,6 +23,40 @@
 }
 
 
+<div>
+    <table>
+        <caption>Pending Activities</caption>
+        <thead>
+            <tr>
+                <th>#</th> 
+                <th>User Name</th>
+                <th>Create Date</th>
+                <th>Password Expiring on</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.UsersList)
+            {
+                <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                    <td style="text-align:right">@(rowIndex + 1) </td>
+                    <td>
+                        @if (item.IsLocked)
+                        {
+                            <span class="ui-icon ui-icon-locked"
+                                  title="@string.Format("Account has been locked on {0}", item.LastLockoutDate)" style="display: inline-block"></span>
+                        }
+                        @Html.ActionLink(item.UserName, MVC_DcmsRights.DcmsRights.Home.ManageUser(item.UserName))
+                    </td>
+                    <td>@item.CreateDate</td>
+                    <td class="@(item.PasswordExpired ?"ui-state-error":"")">@item.PasswordExpiryDate</td>
+                </tr>
+                        ++rowIndex;
+            }
+
+        </tbody>
+    </table>
+</div>
+
 
 
 
@@ -47,9 +74,4 @@
     });
 </script>
 
-@grid.GetHtml(
-rowStyle : "rowA",
-alternatingRowStyle : "rowB",
-emptyDataHtml : "No user found."
-)
 
