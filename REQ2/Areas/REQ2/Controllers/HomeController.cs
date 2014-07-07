@@ -444,7 +444,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
 
                 //getting list of added all SKUs to request.
                 var skus = _service.GetRequestSKUs(model.CurrentRequest.Header.ResvId);
-                model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p));
+                model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
                 return PartialView(Views._manageSkuListPartial, model);
             }
             catch (Exception ex)
@@ -477,7 +477,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
                 var model = new ManageSkuViewModel();
                 //Getting all remaining SKUs of Request
                 var skus = _service.GetRequestSKUs(resvId);
-                model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p));
+                model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
                 return PartialView(MVC_REQ2.REQ2.Home.Views._manageSkuListPartial, model);
             }
             catch (Exception ex)

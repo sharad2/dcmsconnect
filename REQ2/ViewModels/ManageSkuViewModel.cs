@@ -57,16 +57,17 @@ namespace DcmsMobile.REQ2.ViewModels
         [Display(Name = "Target")]
         public RequestViewModel CurrentRequest { get; set; }
 
-        private IEnumerable<RequestSkuViewModel> _requestedSkus;
+        private IList<RequestSkuViewModel> _requestedSkus;
 
         /// <summary>
         /// We never return null.
         /// </summary>
-        public IEnumerable<RequestSkuViewModel> RequestedSkus
+        public IList<RequestSkuViewModel> RequestedSkus
         {
             get
             {
-                return _requestedSkus ?? Enumerable.Empty<RequestSkuViewModel>();
+                return _requestedSkus ??  Enumerable.Empty<RequestSkuViewModel>().ToList();                
+                //return _requestedSkus;
             }
             set
             {
