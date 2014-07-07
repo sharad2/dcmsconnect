@@ -4,7 +4,7 @@ namespace DcmsMobile.BoxPick.ViewModels.MainContent
 {
     public class CartonViewModel
     {
-        public IEnumerable<BoxModel> BoxesOnPallet { get; set; }
+        public IList<BoxModel> BoxesOnPallet { get; set; }
     }
 }
 
