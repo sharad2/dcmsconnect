@@ -35,7 +35,7 @@ namespace DcmsMobile.REQ2.ViewModels
         /// <summary>
         /// We never return null.
         /// </summary>
-        public IEnumerable<CartonListViewModel> CartonList { get; set; }
+        public IList<CartonListViewModel> CartonList { get; set; }
 
     }
 }

@@ -74,7 +74,7 @@ namespace DcmsMobile.REQ2.ViewModels
             }
         }
 
-        public IEnumerable<AssignedCartonViewModel> AssignedCartonInfo { get; set; }
+        public IList<AssignedCartonViewModel> AssignedCartonInfo { get; set; }
 
         public IEnumerable<SelectListItem> SewingPlantCodes { get; set; }
 

@@ -364,7 +364,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
                     SkuId = row.Sku.SkuId,
                     UpcCode = row.Sku.UpcCode
                 }
-            });
+            }).ToList();
             model.SelectedTab = selectedTab;
 
             return View(Views.ManageSku, model);
@@ -393,7 +393,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
                                     CtnresvId = p.CtnresvId,
                                     Quantity = p.Quantity,
                                     VwhId = p.VwhId
-                                }),
+                                }).ToList(),
                                 CtnresvId = ctnresvId
                             };
             if (model.CartonList.Any())

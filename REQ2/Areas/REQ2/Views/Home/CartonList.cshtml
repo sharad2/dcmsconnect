@@ -3,15 +3,6 @@
     ViewBag.Title = "Carton List";
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
-    var grid = Html.GridFor(m => m.CartonList);
-    grid.AddColumn(m => m.CartonId);
-    grid.AddColumn(m => m.PalletId);
-    grid.AddColumn(m => m.Quantity);
-    grid.AddColumn().HeaderHtml("Area")
-        .CellHtml(@<span>@item.Html.DisplayFor(m => m.StoregeArea) &rarr; @item.Html.DisplayFor(m => m.AreaDescription)</span>);
-    grid.AddColumn(m => m.VwhId);
-    grid.AddColumn(m => m.QualityCode);
-   
 }
 @section sidebar {
     <div class="box boxB">
@@ -30,14 +21,56 @@
 <div>
     @Html.HiddenFor(m => m.CtnresvId)
 </div>
-@grid.GetHtml(
-    rowStyle: "rowA",
-    alternatingRowStyle: "rowB",
-    emptyDataHtml: "<span class='ui-state-highlight'>No cartons have been assigned yet.</span>",
-        caption: string.Format("Cartons in Request <strong>#{0}</strong>", @Html.DisplayFor(m => m.ReqId))
-)
-@if (Model.CartonList.Count() >= 500)
-{
-    <div class="ui-state-active">Showing only 500 cartons.</div>
-}
+
+<table>
+    <caption>Cartons in Request <strong>#@Model.ReqId (Showing Max 500)</strong></caption>
+    <thead>
+        <tr>
+            <th style="text-align:center">
+                Carton
+            </th>
+            <th style="text-align:center">
+                Pallet
+            </th>
+            <th style="text-align:center">
+                Pieces
+            </th>
+            <th style="text-align:center">
+                Area
+            </th>
+            <th style="text-align:center">
+                VWh
+            </th>
+            <th style="text-align:center">
+                Quality
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(int i = 0; i < Model.CartonList.Count() ; i++)
+        {
+            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td>
+                    @Html.DisplayFor(m => m.CartonList[i].CartonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.CartonList[i].PalletId)
+                </td>
+                <td style="text-align:right">
+                    @Html.DisplayFor(m => m.CartonList[i].Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.CartonList[i].StoregeArea) &rarr;  @Html.DisplayFor(m => m.CartonList[i].AreaDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.CartonList[i].VwhId)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.CartonList[i].Quantity)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
 @*$Id$*@
