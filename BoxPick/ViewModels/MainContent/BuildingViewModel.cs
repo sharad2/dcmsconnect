@@ -5,7 +5,7 @@ namespace DcmsMobile.BoxPick.ViewModels.MainContent
 {
     public class BuildingViewModel
     {
-        public IEnumerable<ActivityModel> PendingActivities { get; set; }
+        public IList<ActivityModel> PendingActivities { get; set; }
     }
 
     public class ActivityModel

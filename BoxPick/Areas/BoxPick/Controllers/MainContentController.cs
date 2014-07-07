@@ -58,7 +58,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
                     AreaShortName = p.AreaShortName,
                     PickableBoxCount = p.PickableBoxCount,
                     PickModeText = p.PickModeText
-                })
+                }).ToList()
             };
             return PartialView(Views._buildingPartial, model);
         }
