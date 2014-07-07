@@ -7,14 +7,11 @@
         <div class="boxContent">
             @using (Html.BeginForm(MVC_DcmsRights.DcmsRights.Home.ManageUser(), FormMethod.Get))
             {
-                @Html.LabelFor(m => m.User.UserName)   
-                @Html.AutocompleteFor(m => m.User.UserName, Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete()),
-                                null, new
-                                {
-                                    style = "text-transform: uppercase",
-                                    size = 14,
-                                    name = "userName"
-                                })
+                @Html.LabelFor(m => m.User.UserName)             
+                <input name="userName" class="ui-autocomplete-input" style="text-transform: uppercase;"
+                       type="text" size="14" data-ac-list-url="@Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete())"
+                       autocomplete="off" />
+                <span title="Double click to quickly see suggestions">↓</span>
                 <input type="submit" value="Go" id="btnGo" />
             }
         </div>
@@ -76,20 +73,24 @@
     <table>
         <tbody>
             <tr>
-                <td>@Html.LabelFor(m => m.User.CreateDate)
+                <td>
+                    @Html.LabelFor(m => m.User.CreateDate)
                 </td>
-                <td>@Html.DisplayFor(m => m.User.CreateDate)
+                <td>
+                    @Html.DisplayFor(m => m.User.CreateDate)
                 </td>
                 @if (Model.IsEditable.Value)
                 {
                     <td>
-                        <button type="submit" id ="btnDelete" name="@MVC_DcmsRights.DcmsRights.Home.ActionNames.DeleteUser">
-                            Delete User</button>
+                        <button type="submit" id="btnDelete" name="@MVC_DcmsRights.DcmsRights.Home.ActionNames.DeleteUser">
+                            Delete User
+                        </button>
                     </td>
                 }
             </tr>
             <tr>
-                <td>@Html.LabelFor(m => m.User.LastLockoutDate)
+                <td>
+                    @Html.LabelFor(m => m.User.LastLockoutDate)
                 </td>
                 <td @Html.Raw(Model.User.IsLocked ? "class=\"ui-state-error\"" : "")>
                     @Html.DisplayFor(m => m.User.LastLockoutDate)
@@ -100,18 +101,21 @@
                         @if (Model.User.IsLocked)
                         {
                             <button type="submit" name="@MVC_DcmsRights.DcmsRights.Home.ActionNames.UnlockUser">
-                                Unlock</button>
+                                Unlock
+                            </button>
                         }
                         else
                         {
                             <button type="submit" name="@MVC_DcmsRights.DcmsRights.Home.ActionNames.LockedUser">
-                                Locked</button> 
+                                Locked
+                            </button>
                         }
                     </td>
                 }
             </tr>
             <tr>
-                <td>@Html.LabelFor(m => m.User.PasswordExpiryDate)
+                <td>
+                    @Html.LabelFor(m => m.User.PasswordExpiryDate)
                 </td>
                 <td @Html.Raw(Model.User.PasswordExpired ? "class=\"ui-state-error\"" : "")>
                     @Html.DisplayFor(m => m.User.PasswordExpiryDate)
@@ -120,7 +124,8 @@
                 {
                     <td>
                         <button type="submit" name="@MVC_DcmsRights.DcmsRights.Home.ActionNames.ResetPassword">
-                            Reset Password</button>
+                            Reset Password
+                        </button>
                     </td>
                 }
             </tr>
@@ -143,24 +148,33 @@
     </script>
     <table>
         <caption>
-            Current Sessions</caption>
+            Current Sessions
+        </caption>
         <thead>
             <tr>
-                <th>Logon Time
+                <th>
+                    Logon Time
                 </th>
-                <th>Machine Name
+                <th>
+                    Machine Name
                 </th>
-                <th>OS User
+                <th>
+                    OS User
                 </th>
-                <th>Executable
+                <th>
+                    Executable
                 </th>
-                <th>Module
+                <th>
+                    Module
                 </th>
-                <th>Action
+                <th>
+                    Action
                 </th>
-                <th>Client Info
+                <th>
+                    Client Info
                 </th>
-                <th>State
+                <th>
+                    State
                 </th>
                 <th></th>
             </tr>
@@ -198,10 +212,10 @@
                         {
                             using (Html.BeginForm(MVC_DcmsRights.DcmsRights.Home.KillSession(), FormMethod.Post))
                             {
-                            <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.SessionId)" value="@item.SessionId" />
-                            <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.SerialNumber)" value="@item.SerialNumber" />
-                            <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.UserName)" value="@Model.User.UserName" />
-                            <button type="button">Kill</button>
+                                <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.SessionId)" value="@item.SessionId" />
+                                <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.SerialNumber)" value="@item.SerialNumber" />
+                                <input type="hidden" name="@ReflectionHelpers.NameFor((DcmsMobile.DcmsRights.ViewModels.UserSession m) => m.UserName)" value="@Model.User.UserName" />
+                                <button type="button">Kill</button>
                             }
                         }
                     </td>
@@ -231,55 +245,58 @@ else
                 id = "frmRevokeRole"
             }))
             {
-            @Html.HiddenFor(m => m.User.UserName)
+                @Html.HiddenFor(m => m.User.UserName)
 
-            <table>
-                @if (Model.IsEditable.Value)
-                {
-                    <caption>
-                        Select roles below to
-                        <input type="button" id="btnRevokeRoles" value="Revoke..." />
-                    </caption>
-                }
-                <thead>
-                    <tr>
-                        <th>Program
-                        </th>
-                        <th>Granted Role
-                        </th>
-                        @if (Model.IsEditable.Value)
-                        {
-                            <th></th>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.AssignedRoles)
+                <table>
+                    @if (Model.IsEditable.Value)
                     {
+                        <caption>
+                            Select roles below to
+                            <input type="button" id="btnRevokeRoles" value="Revoke..." />
+                        </caption>
+                    }
+                    <thead>
                         <tr>
-                            <td>
-                                <ul>
-                                    @foreach (var area in item.Areas)
-                                    {
-                                        <li><span style="font-weight: bold">@area.AreaName </span>: @area.Purpose
-                                        </li>
-                                    }
-                                </ul>
-                            </td>
-                            <td>
-                                @Html.ActionLink(item.RoleName, MVC_DcmsRights.DcmsRights.Home.UsersInRole(item.RoleName))
-                            </td>
+                            <th>
+                                Program
+                            </th>
+                            <th>
+                                Granted Role
+                            </th>
                             @if (Model.IsEditable.Value)
                             {
-                                <td>
-                                    <input type="checkbox" name='@Html.NameFor(m => m.SelectedRoles)' value='@item.RoleName'/>
-                                </td>
+                                <th></th>
                             }
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.AssignedRoles)
+                        {
+                            <tr>
+                                <td>
+                                    <ul>
+                                        @foreach (var area in item.Areas)
+                                        {
+                                            <li>
+                                                <span style="font-weight: bold">@area.AreaName </span>: @area.Purpose
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>
+                                    @Html.ActionLink(item.RoleName, MVC_DcmsRights.DcmsRights.Home.UsersInRole(item.RoleName))
+                                </td>
+                                @if (Model.IsEditable.Value)
+                                {
+                                    <td>
+                                        <input type="checkbox" name='@Html.NameFor(m => m.SelectedRoles)' value='@item.RoleName' />
+                                    </td>
+                                }
+                            </tr>
+                        }
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
             }
         }
@@ -304,9 +321,11 @@ else
                 }
                 <thead>
                     <tr>
-                        <th>Program
+                        <th>
+                            Program
                         </th>
-                        <th>Grantable Role
+                        <th>
+                            Grantable Role
                         </th>
                         @if (Model.IsEditable.Value)
                         {
@@ -322,7 +341,8 @@ else
                                 <ul>
                                     @foreach (var area in item.Areas)
                                     {
-                                        <li><span style="font-weight: bold">@area.AreaName </span>: @area.Purpose
+                                        <li>
+                                            <span style="font-weight: bold">@area.AreaName </span>: @area.Purpose
                                         </li>
                                     }
                                 </ul>
@@ -347,19 +367,26 @@ else
         <table>
             <thead>
                 <tr>
-                    <th>Action
+                    <th>
+                        Action
                     </th>
-                    <th>Time
+                    <th>
+                        Time
                     </th>
-                    <th>Oracle User
+                    <th>
+                        Oracle User
                     </th>
-                    <th>OS User
+                    <th>
+                        OS User
                     </th>
-                    <th>Role Name
+                    <th>
+                        Role Name
                     </th>
-                    <th>Terminal
+                    <th>
+                        Terminal
                     </th>
-                    <th>Result
+                    <th>
+                        Result
                     </th>
                 </tr>
             </thead>
