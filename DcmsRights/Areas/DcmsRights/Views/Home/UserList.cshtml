@@ -16,16 +16,7 @@
             @using (Html.BeginForm(MVC_DcmsRights.DcmsRights.Home.ManageUser(), FormMethod.Get))
             {
                 @Html.LabelFor(m => m.Users.UserName)   
-                <br />
-                @*@Html.AutocompleteFor(m => m.Users.UserName, Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete()),
-                                null, new
-                                {
-                                    style = "text-transform: uppercase",
-                                    size = 10,
-                                    name = "userName",
-                                    maxlength = 30
-                                })*@
-   
+                <br />  
                 <input name="userName" class="ui-autocomplete-input" style="text-transform: uppercase;"
                        type="text" size="14" data-ac-list-url="@Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete())"
                        autocomplete="off" />
