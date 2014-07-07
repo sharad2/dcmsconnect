@@ -17,20 +17,37 @@
             {
                 @Html.LabelFor(m => m.Users.UserName)   
                 <br />
-                @Html.AutocompleteFor(m => m.Users.UserName, Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete()),
+                @*@Html.AutocompleteFor(m => m.Users.UserName, Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete()),
                                 null, new
                                 {
                                     style = "text-transform: uppercase",
                                     size = 10,
                                     name = "userName",
                                     maxlength = 30
-                                })
+                                })*@
+   
+                <input name="userName" class="ui-autocomplete-input" style="text-transform: uppercase;"
+                       type="text" size="14" data-ac-list-url="@Url.Action(MVC_DcmsRights.DcmsRights.AutoComplete.UserAutocomplete())"
+                       autocomplete="off" />
+                <span title="Double click to quickly see suggestions">↓</span>
+                <span class="success-display" data-ac-msg-for="userName"></span>
                 <input type="submit" value="Go" id="btnGo" />
             }
             @Html.ActionLink("Show locked users", MVC_DcmsRights.DcmsRights.Home.LockedUserList())
         </div>
     </div>
 }
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript" src="@Links_DcmsRights.Areas.DcmsRights.Scripts.DcmsRights_all_js"></script>
 <link href="@Links_DcmsRights.Areas.DcmsRights.Content.DcmsRights_all_css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
