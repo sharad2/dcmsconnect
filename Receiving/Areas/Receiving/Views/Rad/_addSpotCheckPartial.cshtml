@@ -40,17 +40,20 @@
         <legend>Color</legend>
         <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
         Specific Color
-        @Html.AutocompleteFor(m => m.Color, Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()), Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()), new
-{
-    style = "text-transform: uppercase;",
-    size = 15,
-    id = "tbColor"
-})
+        @Html.TextBoxFor(m => m.Color, new
+   {
+       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
+       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
+       autocomplete = "off",
+       style = "text-transform: uppercase",
+       size = "15",
+       id = "tbColor"
+   })
         <br />
         <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
         <span>All Colors &nbsp;</span>
-        <br />
-        @Html.AutocompleteDescriptionFor(m => m.Color, new { id = "lblColorDesc" })
+        <br />        
+        <span id="lblColorDesc" data-ac-msg-for="@Html.NameFor(m => m.Color)"></span>
     </fieldset>
 
     @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>@*
