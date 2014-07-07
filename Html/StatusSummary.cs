@@ -34,11 +34,29 @@ namespace EclipseLibrary.Mvc.Html
         /// Status messages are added using <see cref="Controllers.EclipseController.AddStatusMessage"/>
         /// </para>
         /// </remarks>
+        [Obsolete("Use StatusMessages instead")]
         public static MvcHtmlString StatusSummary(this HtmlHelper helper)
         {
             var sb = new StringBuilder();
             StatusSummaryImpl(helper.ViewContext.TempData, sb);
             return MvcHtmlString.Create(sb.ToString());
+        }
+
+        /// <summary>
+        /// We do not want to generate markup in compiled code. So this function returns the list of messages which you can format any way you want.
+        /// </summary>
+        /// <param name="helper"></param>
+        /// <returns></returns>
+        public static IList<string> StatusMessages(HtmlHelper helper)
+        {
+            return GetStatusList(helper.ViewContext.TempData);
+        }
+
+        public static IList<string> ErrorMessages(HtmlHelper helper)
+        {
+            var list = GetErrorList(helper.ViewContext.TempData);
+            list.AddRange(helper.ViewContext.ViewData.ModelState.SelectMany(p => p.Value.Errors).Select(p => p.Exception == null ? p.ErrorMessage : p.Exception.Message));
+            return list;
         }
         #endregion
 
@@ -104,21 +122,5 @@ namespace EclipseLibrary.Mvc.Html
             }
             return;
         }
-
-        ///// <summary>
-        ///// If inner exceptions exist, displays messages from all inner exceptions
-        ///// </summary>
-        ///// <param name="error"></param>
-        ///// <returns></returns>
-        //private static string BuildErrorMessage(ModelError error)
-        //{
-        //    List<string> messages = new List<string>();
-        //    messages.Add(error.ErrorMessage);
-        //    for (Exception ex = error.Exception; ex != null; ex = ex.InnerException)
-        //    {
-        //        messages.Add(ex.Message);
-        //    }
-        //    return string.Join("|", messages.Where(p => !string.IsNullOrWhiteSpace(p)));
-        //}
     }
 }
