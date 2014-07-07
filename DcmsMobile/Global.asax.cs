@@ -26,8 +26,15 @@ namespace DcmsMobile
             //    "Default", // Route name
             //    "{controller}/{action}/{id}", // URL with parameters
             //    new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
-            //    new string[] { typeof(DcmsMobile.Controllers.HomeController).Namespace }
+            //    new string[] { typeof(DcmsMobile.MainArea.Home.HomeController).Namespace }
             //);
+
+            routes.MapRoute(
+                "Default", // Route name
+                "", // URL with parameters
+                new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Index }, // Parameter defaults
+                new string[] { typeof(DcmsMobile.MainArea.Home.HomeController).Namespace }
+            );
 
         }
 

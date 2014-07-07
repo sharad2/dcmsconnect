@@ -16,8 +16,7 @@ namespace DcmsMobile.MainArea.Home
     /// <remarks>
     /// Menu choices are built by reflecting all assemblies in the bin directory looking for Area information
     /// </remarks>
-    [RoutePrefix("")]
-    [Route("{action=" + HomeController.ActionNameConstants.Index + "}")]
+    [RoutePrefix("home")]
     public partial class HomeController : EclipseController
     {
         /// <summary>
@@ -52,6 +51,7 @@ namespace DcmsMobile.MainArea.Home
             return View(this.Views.ViewNames.Index, model);
         }
 
+        [Route("search")]
         public virtual ActionResult Search(string id)
         {
             if (string.IsNullOrWhiteSpace(id))
@@ -59,7 +59,7 @@ namespace DcmsMobile.MainArea.Home
                 return RedirectToAction(Actions.Index());
             }
             //var x = RouteTable.Routes.GetRouteData(ToArray();
-            throw new NotImplementedException();
+            throw new NotImplementedException(id);
         }
 
         /// <summary>
