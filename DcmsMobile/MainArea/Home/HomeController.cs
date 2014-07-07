@@ -5,16 +5,19 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Script.Serialization;
 
 namespace DcmsMobile.MainArea.Home
 {
     /// <summary>
-    /// Provides the list of menu choices and handles the postback of the selected choice
+    /// Provides the list of menu choices and handles the postback of the selected choice. This is the default controller so it has no route prefix
     /// </summary>
     /// <remarks>
     /// Menu choices are built by reflecting all assemblies in the bin directory looking for Area information
     /// </remarks>
+    [RoutePrefix("")]
+    [Route("{action=" + HomeController.ActionNameConstants.Index + "}")]
     public partial class HomeController : EclipseController
     {
         /// <summary>
@@ -37,7 +40,6 @@ namespace DcmsMobile.MainArea.Home
         /// This is the action for the home page and is the default route
         /// </summary>
         /// <returns></returns>
-        [Route()]
         public virtual ActionResult Index()
         {
             var model = new LauncherViewModel();
@@ -48,6 +50,16 @@ namespace DcmsMobile.MainArea.Home
             model.UrlRcBase = this.UrlRcBase;
 
             return View(this.Views.ViewNames.Index, model);
+        }
+
+        public virtual ActionResult Search(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return RedirectToAction(Actions.Index());
+            }
+            //var x = RouteTable.Routes.GetRouteData(ToArray();
+            throw new NotImplementedException();
         }
 
         /// <summary>

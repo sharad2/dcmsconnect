@@ -59,6 +59,12 @@ namespace DcmsMobile.MainArea.Home
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Search()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult RcItems()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RcItems);
@@ -80,6 +86,7 @@ namespace DcmsMobile.MainArea.Home
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Search = "Search";
             public readonly string RcItems = "RcItems";
         }
 
@@ -87,17 +94,20 @@ namespace DcmsMobile.MainArea.Home
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Search = "Search";
             public const string RcItems = "RcItems";
         }
 
 
-        static readonly ActionParamsClass_RcItems s_params_RcItems = new ActionParamsClass_RcItems();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_RcItems RcItemsParams { get { return s_params_RcItems; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_RcItems
+        public class SearchParams
         {
-            public readonly string version = "version";
+            public const string id = "id";
+        }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class RcItemsParams
+        {
+            public const string version = "version";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -132,6 +142,18 @@ namespace DcmsMobile.MainArea.Home
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Search(string id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            SearchOverride(callInfo, id);
             return callInfo;
         }
 

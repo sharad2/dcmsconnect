@@ -7,8 +7,8 @@ using System.Web.WebPages;
 
 namespace DcmsMobile.MainArea.Diagnostic
 {
-    [RoutePrefix("Diagnostic")]
-    [Route("{action=index}")]
+    [RoutePrefix(DiagnosticController.NameConst)]
+    [Route("{action=" + DiagnosticController.ActionNameConstants.Index + "}")]
     public partial class DiagnosticController : EclipseController
     {
         /// <summary>

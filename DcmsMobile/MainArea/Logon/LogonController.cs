@@ -11,8 +11,8 @@ namespace DcmsMobile.MainArea.Logon
     /// <summary>
     /// Default action for this controller is Index
     /// </summary>
-    [RoutePrefix("Logon")]
-    [Route("{action=index}")]
+    [RoutePrefix(LogonController.NameConst)]
+    [Route("{action=" + LogonController.ActionNameConstants.Index + "}")]
     public partial class LogonController : EclipseController
     {
         private const string OLD_PASSWORD = "LogonController_OldPassword";

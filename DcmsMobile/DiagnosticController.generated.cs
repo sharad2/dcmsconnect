@@ -113,37 +113,25 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
 
 
-        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Index
+        public class IndexParams
         {
-            public readonly string emulateMobile = "emulateMobile";
+            public const string emulateMobile = "emulateMobile";
         }
-        static readonly ActionParamsClass_CheckSound s_params_CheckSound = new ActionParamsClass_CheckSound();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CheckSound CheckSoundParams { get { return s_params_CheckSound; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CheckSound
+        public class CheckSoundParams
         {
-            public readonly string sound = "sound";
+            public const string sound = "sound";
         }
-        static readonly ActionParamsClass_Email s_params_Email = new ActionParamsClass_Email();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Email EmailParams { get { return s_params_Email; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Email
+        public class EmailParams
         {
-            public readonly string model = "model";
+            public const string model = "model";
         }
-        static readonly ActionParamsClass_SendEmail s_params_SendEmail = new ActionParamsClass_SendEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SendEmail SendEmailParams { get { return s_params_SendEmail; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SendEmail
+        public class SendEmailParams
         {
-            public readonly string model = "model";
+            public const string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

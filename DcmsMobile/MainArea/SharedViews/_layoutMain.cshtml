@@ -34,18 +34,30 @@
             background: #f8da4e;
             color: #915608;
         }
+
+        .controlgroup-textinput {
+            padding-top: .22em;
+            padding-bottom: .22em;
+        }
     </style>
     @RenderSection("script", false)
 </head>
 <body>
     <header data-role="header" id="layout_header">
         <h1>@ViewBag.Title</h1>
-        @if (string.Compare(homeUrl, ViewContext.HttpContext.Request.Url.AbsolutePath, true) != 0)
-        {
-            <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-left ui-mini">
+
+        <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-left ui-mini">
+            @if (string.Compare(homeUrl, ViewContext.HttpContext.Request.Url.AbsolutePath, true) != 0)
+            {
                 <a href="@homeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
-            </div>
-        }
+            }
+            <form action="@Url.Action(MVC_DcmsMobile.Home.Search())" method="get">
+                <input 
+                       name="@DcmsMobile.MainArea.Home.HomeController.SearchParams.id"
+                       type="search" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="Search DCMS" required />
+            </form>
+        </div>
+
         <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-right ui-mini">
             @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
             {
