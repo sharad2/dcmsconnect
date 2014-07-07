@@ -1,10 +1,11 @@
 ﻿@model DcmsMobile.PalletLocating.ViewModels.BuildingViewModel
-@{  
+@{
     ViewBag.Title = "Enter Building";
-    var grid = Html.GridFor(m => m.AreaChoices);
-    grid.AddColumn(m => m.BuildingId);
-    grid.AddColumn(m => m.AreaShortName).CellHtml(item => item.Html.ActionLink(item.Model.AreaShortName, MVC_PalletLocating.PalletLocating.Home.PalletLink(item.Model.AreaId, true)));
-    grid.AddColumn(m => m.ReplenishAreaShortName);
+    //var grid = Html.GridFor(m => m.AreaChoices);
+    //grid.AddColumn(m => m.BuildingId);
+    //grid.AddColumn(m => m.AreaShortName).CellHtml(item => item.Html.ActionLink(item.Model.AreaShortName, MVC_PalletLocating.PalletLocating.Home.PalletLink(item.Model.AreaId, true)));
+    //grid.AddColumn(m => m.ReplenishAreaShortName);
+    var i = 0;
 }
 @section sidebar {
     <div class="box boxA">
@@ -45,13 +46,39 @@
             we will suggest suitable locations in your chosen area where the pallet should be
             located. You are free to ignore the suggestions and locate whatever you want.
         </p>
-        @grid.GetHtml(rowStyle: "rowA",
+        @*@grid.GetHtml(rowStyle: "rowA",
             alternatingRowStyle: "rowB",
-            caption: "Pallet Areas")
+            caption: "Pallet Areas")*@        
+            <table class="box">
+                <caption>Pallet Areas</caption>
+                <thead>
+                    <tr>
+                        <th> Building</th>
+                        <th> Area</th>
+                        <th> Replenished From</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AreaChoices)
+                    {
+                         <tr class="@(i % 2 == 0 ? "rowA":"rowB")">
+
+                            <td>@item.BuildingId</td>
+                            <td>@Html.ActionLink(item.AreaShortName, MVC_PalletLocating.PalletLocating.Home.PalletLink(item.AreaId, true))</td>
+                            <td>@item.ReplenishAreaShortName</td>
+
+                        </tr>
+                        i++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
+
 @*
-    $Id$ 
+    $Id$
     $Revision$
     $URL$
     $Header$
