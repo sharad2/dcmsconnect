@@ -169,6 +169,21 @@
       <DependentUpon>BoxPick-all.js.bundle</DependentUpon>
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.js" />
+    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\BoxPick\Scripts\BoxPick-all.js.bundle" />
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.min.js.map">
