@@ -96,6 +96,7 @@
     <Compile Include="Controllers\MvcErrorEvent.cs" />
     <Compile Include="Controllers\EclipseController.cs" />
     <Compile Include="Controllers\AuthorizeExAttribute.cs" />
+    <Compile Include="Html\Autocomplete.cs" />
     <Compile Include="Html\GroupDropListFor.cs" />
     <Compile Include="Helpers\ReflectionHelpers.cs" />
     <Compile Include="Html\StatusSummary.cs" />
