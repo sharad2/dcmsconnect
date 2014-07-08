@@ -37,6 +37,12 @@ Pluggable areas can support some well known routes which DcmsMobile will display
 
 DcmsConnect_Search. This route must accept id as the query string. It should search for id and display search results. If id is not passed, it should display the search home screen.
 
+DcmsConnect_ScanToPallet. This is the URL to the main page of the scan to pallet program.
+
+DcmsConnect_MoveBoxPallet. This is the URL to the main page of the program which moves a box pallet from one location to another.
+
+DcmsConnect_ApplyVasToBox. This program should provide the UI for applying VAS to boxes.
+
 Diagnostics Framework
 ---------------------
 
