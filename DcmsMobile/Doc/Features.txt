@@ -71,6 +71,8 @@ DcmsConnect_BoxPickPallet. This is the URL for creating boxpick pallets.
 
 DcmsConnect_ManagePickWave. This is the URL for creating and managing pickwave.
 
+DcmsConnect_CartonAreas. This is the URL for managing SKU assignment at carton locations
+
 Diagnostics Framework
 ---------------------
 
