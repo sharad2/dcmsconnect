@@ -67,6 +67,10 @@ DcmsConnect_ScanToTruck. This is the URl for loading boxes on truck to ensure ac
 
 DcmsConnect_Restock. This is the URL for restocking cartons.
 
+DcmsConnect_BoxPickPallet. This is the URL for creating boxpick pallets.
+
+DcmsConnect_ManagePickWave. This is the URL for creating and managing pickwave.
+
 Diagnostics Framework
 ---------------------
 
