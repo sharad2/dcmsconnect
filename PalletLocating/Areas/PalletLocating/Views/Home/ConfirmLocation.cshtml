@@ -1,11 +1,11 @@
 ﻿@model DcmsMobile.PalletLocating.ViewModels.LocationViewModel
 @{
     ViewBag.Title = "Confirm Location";
-    var grid = Html.GridFor(m => m.SuggestedLocations);
+    @*var grid = Html.GridFor(m => m.SuggestedLocations);
     grid.AddColumn(m => m.LocationId).Presorted().CellHtml(p => p.RowIndex == 0, @<span
         style="font-weight: bold">@item.Model.LocationId</span>);
     //grid.AddColumn(m => m.AssignedSku.DisplaySku).HeaderHtml("Assigned SKU");
-    grid.AddColumn(m => m.DisplayCartonCount);
+    grid.AddColumn(m => m.DisplayCartonCount);*@
 }
 @section sidebar {
     <div class="box boxA">
@@ -41,12 +41,39 @@
     @Html.StatusSummary()
     @Html.ValidationSummary()
     <div class="boxContent">
-        @grid.GetHtml(
+        @*@grid.GetHtml(
             rowStyle: "rowA",
             alternatingRowStyle: "rowB",
             emptyDataHtml: "<span class='ui-state-highlight'>No Locations found</span>",
             caption: string.Format("Suggested loc in <strong>{0}</strong>", Model.SuggestedAreaShortName)
-            )
+            )*@
+        @if (Model.SuggestedLocations.Count() > 0)
+        {
+            <table>
+                <caption>@string.Format("Suggested loc in {0}", Model.SuggestedAreaShortName)</caption>
+                <thead>
+                    <tr>
+                        <th>Location<span style="display:inline-block" class="ui-icon ui-icon-triangle-1-n"></span></th>
+                        <th>Cartons at Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.SuggestedLocations.Count(); i++)
+                    {
+                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                            <td style="@(Model.SuggestedLocations[i].DisplayCartonCount.Count() > 0 ? "font-weight:bold" : "")">@Html.DisplayFor(m => m.SuggestedLocations[i].LocationId)</td>
+                            <td style="text-align:right">@Html.DisplayFor(mbox => mbox.SuggestedLocations[i].DisplayCartonCount)</td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+        }
+        else
+        {
+            <span class='ui-state-highlight'>No Locations found</span>
+        }
     </div>
 </div>
 
