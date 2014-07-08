@@ -121,6 +121,15 @@
     </div>
 </div>
 
+<div data-role="page" id="page_order_processing">
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="@Model.UrlOf(Url, "DcmsConnect_ManagePickWave")">Manage PickWave</a></li>
+            <li><a href="@Model.UrlOf(Url, "DcmsConnect_BoxPickPallet")">Create Box Pick Pallet</a></li>            
+        </ul>
+    </div>
+</div>
+
 <div data-role="footer" data-position="fixed" data-theme="a" id="footermenu">
     <div data-role="navbar" id="navbarFixed">
         <ul>
@@ -129,6 +138,7 @@
             <li><a href="#page_ship" data-transition="flip">Ship</a></li>
             <li><a href="page-c.html" data-transition="turn">Receive</a></li>
             <li><a href="#page_inventory" data-transition="flip">Inventory</a></li>
+            <li><a href="#page_order_processing" data-transition="flip">Order Processing</a></li>
         </ul>
     </div><!-- /navbar -->
 </div><!-- /footer -->
