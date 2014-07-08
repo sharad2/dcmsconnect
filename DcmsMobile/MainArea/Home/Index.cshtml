@@ -12,7 +12,7 @@
 }
 <div data-role="page" id="mainpage">
     <div data-role="content">
-        <input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
+        @*<input type="search" id="searchInMenu" placeholder="Search in menu" data-theme="b" />
         <ol data-filter="true" id="menulist" data-input="#searchInMenu" data-role="listview" data-inset="true" data-filter-reveal="true" data-theme="b">
             @foreach (var item in Model.MenuItems.Where(p => p.SubMenu != null).SelectMany(p => p.SubMenu).Concat(Model.MenuItems))
             {
@@ -26,7 +26,7 @@
                     </a>
                 </li>
             }
-        </ol>
+        </ol>*@
 
         <ul data-role="listview" data-inset="true" id="topmenu">
             @for (var i = 0; i < Model.MenuItems.Count; ++i)
@@ -140,7 +140,7 @@
                 {
                     <li>
                         <a href="@Model.Categories[i].MenuItems[j].Url">
-                            <h3>@Html.DisplayFor(m => m.Categories[i].MenuItems[j].Name)</h3>
+                            <h3><small>@Html.DisplayFor(m => m.Categories[i].MenuItems[j].ShortCut)</small> @Html.DisplayFor(m => m.Categories[i].MenuItems[j].Name)</h3>
                             <p>@Html.DisplayFor(m => m.Categories[i].MenuItems[j].Description)</p>
                         </a>
                     </li>

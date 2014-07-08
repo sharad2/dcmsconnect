@@ -21,6 +21,11 @@ namespace DcmsMobile.MainArea.Home
     [RoutePrefix("home")]
     public partial class HomeController : EclipseController
     {
+
+        private readonly XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
+
+        private const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
+
         /// <summary>
         /// Without the trailing /
         /// </summary>
@@ -51,19 +56,40 @@ namespace DcmsMobile.MainArea.Home
 
             model.UrlRcBase = this.UrlRcBase;
 
-            model.Categories = CreateMenu();
+            model.Categories = CreateMenu().ToArray();
 
             return View(this.Views.ViewNames.Index, model);
         }
 
+        /// <summary>
+        /// If the passed string is one of the menu item short custs, then redirect to that menu item.
+        /// Otherwise, pass the string to Inquiry
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Route(HomeController.ActionNameConstants.Search)]
         public virtual ActionResult Search(string id)
         {
-            //if (string.IsNullOrWhiteSpace(id))
-            //{
-            //    return RedirectToAction(Actions.Index());
-            //}
-            //TODO: Check whether id represents a program code like INQ
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                // See whether it is one of the link shortcuts. If it is, then just redirect to that link
+                var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
+                XDocument xdoc = XDocument.Load(path);
+
+                var link = xdoc.Root.Descendants(_ns + "item")
+                    .FirstOrDefault(p => string.Compare((string)p.Attribute("shortcut"), id, true) == 0);
+
+                if (link != null)
+                {
+                    var routeName = (string)link.Attribute("id");
+                    if (Url.RouteCollection[routeName] != null)
+                    {
+                        // Redirect only if the route really exists, otherwise RedirectToRoute raises exception
+                        return RedirectToRoute(routeName);
+                    }
+                }
+            }
+
             return Redirect(Url.RouteUrl("DcmsConnect_Search", new
             {
                 id = id
@@ -103,39 +129,38 @@ namespace DcmsMobile.MainArea.Home
             sb.Append(")");
             return new ContentResult
             {
-                 Content = sb.ToString(),
-                 ContentType = "jsonp"
+                Content = sb.ToString(),
+                ContentType = "jsonp"
             };
         }
 
-        private IList<MenuCategory> CreateMenu()
+        private IEnumerable<MenuCategory> CreateMenu()
         {
-            var path = HttpContext.Server.MapPath("~/App_Data/MenuItems.xml");
+            var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
             XDocument xdoc = XDocument.Load(path);
-            const string ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
-            var categories = (from cat in xdoc.Root.Element(XName.Get("categories", ns)).Elements(XName.Get("category", ns))
-                                let catId = (string)cat.Attribute("id")
-                                select new MenuCategory
-                                {
-                                    Id = catId,
-                                    Name = (string)cat.Attribute("name"),
-                                    MenuItems = (from item in xdoc.Root.Element(XName.Get("items", ns)).Elements(XName.Get("item", ns))
-                                                 let itemCatId = (string)item.Attribute("categoryId")
-                                                 where itemCatId == catId
-                                                 let itemId = (string)item.Attribute("id")
-                                                 let route = Url.RouteCollection[itemId]
-                                                 let elemDescription = item.Element(XName.Get("description", ns))
-                                                 //where route != null
-                                                 select new MenuLink
-                                                 {
-                                                     Id = itemId,
-                                                     ShortCut = (string)item.Attribute("shortcut"),
-                                                     Name = (string)item.Attribute("name"),
-                                                     Description = elemDescription == null ? string.Empty : elemDescription.Value,
-                                                     //Mobile = (bool)item.Attribute("mobile"),
-                                                     Url = Url.RouteUrl(itemId)
-                                                 }).ToArray()
-                                }).ToArray();
+            var categories = from cat in xdoc.Root.Element(_ns + "categories").Elements(_ns + "category")
+                             let catId = (string)cat.Attribute("id")
+                             select new MenuCategory
+                             {
+                                 Id = catId,
+                                 Name = (string)cat.Attribute("name"),
+                                 MenuItems = (from item in xdoc.Root.Element(_ns + "items").Elements(_ns + "item")
+                                              let itemCatId = (string)item.Attribute("categoryId")
+                                              where itemCatId == catId
+                                              let itemId = (string)item.Attribute("id")
+                                              let route = Url.RouteCollection[itemId]
+                                              where route != null  // If the route does not exist, do not show the link
+                                              let elemDescription = item.Element(_ns + "description")
+                                              select new MenuLink
+                                              {
+                                                  Id = itemId,
+                                                  ShortCut = (string)item.Attribute("shortcut"),
+                                                  Name = (string)item.Attribute("name"),
+                                                  Description = elemDescription == null ? string.Empty : elemDescription.Value,
+                                                  //Mobile = (bool)item.Attribute("mobile"),
+                                                  Url = Url.RouteUrl(itemId)
+                                              }).ToArray()
+                             };
             return categories;
         }
 

@@ -16,7 +16,6 @@
     </item>-->
     <item id="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
-     
     </item>
     <item id="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
     </item>

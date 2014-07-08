@@ -33,6 +33,25 @@ Feature Folder Support
 Pluggable Area Support
 ----------------------
 
+You can puplish a link from your area simply by adding an entry in the App_Data\MenuItems.xml file.
+
+    <item id="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
+      <description>Add orders to pick waves so that they can be picked and shipped</description>
+    </item>
+
+DcmsConnect_ManagePickWave is the name of a route which will be used to generate the URL for your link. Example Action method:
+[Route(HomeController.ActionNameConstants.Index, Name= "DcmsConnect_ManagePickWave")]
+public virtual ActionResult Index()
+{
+    return ShowHomePage(SearchTextType.Unknown, null);
+}
+
+SELECTPO is the shortcut which the use can type in the Search box to reach your url. Make this short and easy to remember.
+The name and description are displaed along with your link.
+categoryId defines the category in which your link will display. It should reference one of the categories defined in the XML file. You can add more categories if needed, but
+do keep the number of categories single digit.
+
+
 Pluggable areas can support some well known routes which DcmsMobile will display at special positions on the menu screen.
 
 DcmsConnect_Search. This route must accept id as the query string. It should search for id and display search results. If id is not passed, it should display the search home screen.
