@@ -124,13 +124,15 @@ namespace DcmsMobile.MainArea.Home
                                                  where itemCatId == catId
                                                  let itemId = (string)item.Attribute("id")
                                                  let route = Url.RouteCollection[itemId]
-                                                 where route != null
+                                                 let elemDescription = item.Element(XName.Get("description", ns))
+                                                 //where route != null
                                                  select new MenuLink
                                                  {
                                                      Id = itemId,
                                                      ShortCut = (string)item.Attribute("shortcut"),
                                                      Name = (string)item.Attribute("name"),
-                                                     Mobile = (bool)item.Attribute("mobile"),
+                                                     Description = elemDescription == null ? string.Empty : elemDescription.Value,
+                                                     //Mobile = (bool)item.Attribute("mobile"),
                                                      Url = Url.RouteUrl(itemId)
                                                  }).ToArray()
                                 }).ToArray();

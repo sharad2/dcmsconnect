@@ -1,16 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
   <categories>
-    <category id="picking" name="Picking">
-
-    </category>
+    <category id="pick" name="Pick" />
+    <category id="ship" name="Ship" />
+    <!--<category id="receive" name="Receive" />-->
+    <category id="inventory" name="Inventory" />
   </categories>
+  <!--Item represents a Menu Link-->
   <items>
-    <item id="DcmsConnect_Search" categoryId="picking" shortcut="INQ" name="Search DCMS" mobile="true">
+    <!--<item id="DcmsConnect_Search" categoryId="pick" shortcut="INQ" name="Search DCMS">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
       </keywords>
+    </item>-->
+    <item id="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
+      <description>Add orders to pick waves so that they can be picked and shipped</description>
+     
+    </item>
+    <item id="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
     </item>
   </items>
 </root>

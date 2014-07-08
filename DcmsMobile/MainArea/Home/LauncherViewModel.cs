@@ -109,6 +109,8 @@ namespace DcmsMobile.MainArea.Home
         public bool Mobile { get; set; }
 
         public string Url { get; set; }
+
+        public string Description { get; set; }
     }
 
 

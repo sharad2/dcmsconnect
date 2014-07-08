@@ -83,7 +83,7 @@
         </div><!-- /panel -->
     }
 </div>
-<div data-role="page" id="page_ship">
+<div data-role="page" id="page_ship1">
     <div data-role="content">
         <ul data-role="listview">
             <li><a href="@Model.UrlOf(Url, "DcmsConnect_ApplyVasToBox")">Apply VAS to Boxes</a></li>
@@ -98,7 +98,7 @@
     </div>
 </div>
 
-<div data-role="page" id="pick_page">
+<div data-role="page" id="page_pick1">
     <div data-role="content">
         <ul data-role="listview">
             <li><a href="@Model.UrlOf(Url, "DcmsConnect_BoxPick")">Box Pick</a></li>
@@ -108,7 +108,7 @@
     </div>
 </div>
 
-<div data-role="page" id="page_inventory">
+<div data-role="page" id="page_inventory1">
     <div data-role="content">
         <ul data-role="listview">
             <li><a href="@Model.UrlOf(Url, "DcmsConnect_AbondonRework")">Abondon Rework</a></li>
@@ -122,24 +122,47 @@
     </div>
 </div>
 
-<div data-role="page" id="page_order_processing">
+@*<div data-role="page" id="page_orders1">
     <div data-role="content">
         <ul data-role="listview">
             <li><a href="@Model.UrlOf(Url, "DcmsConnect_ManagePickWave")">Manage PickWave</a></li>
             <li><a href="@Model.UrlOf(Url, "DcmsConnect_BoxPickPallet")">Create Box Pick Pallet</a></li>            
         </ul>
     </div>
-</div>
+</div>*@
+
+@for (var i = 0; i < Model.Categories.Count; ++i)
+{
+    <div data-role="page" id="page_@Model.Categories[i].Id">
+        <div data-role="content">
+            <ul data-role="listview">
+                @for (var j = 0; j < Model.Categories[i].MenuItems.Count; ++j)
+                {
+                    <li>
+                        <a href="@Model.Categories[i].MenuItems[j].Url">
+                            <h3>@Html.DisplayFor(m => m.Categories[i].MenuItems[j].Name)</h3>
+                            <p>@Html.DisplayFor(m => m.Categories[i].MenuItems[j].Description)</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
 
 <div data-role="footer" data-position="fixed" data-theme="a" id="footermenu">
     <div data-role="navbar" id="navbarFixed">
         <ul>
             <li><a href="#mainpage" data-transition="fade" class="ui-btn ui-btn-active">Home</a></li>
-            <li><a href="#pick_page" data-transition="fade">Pick</a></li>
+            @for (var i = 0; i < Model.Categories.Count; ++i)
+            {
+                <li><a href="#page_@Model.Categories[i].Id" data-transition="flip">@Html.DisplayFor(m => m.Categories[i].Name)</a></li>
+            }
+            @*<li><a href="#page_pick" data-transition="flip">Pick</a></li>
             <li><a href="#page_ship" data-transition="flip">Ship</a></li>
-            <li><a href="page-c.html" data-transition="turn">Receive</a></li>
             <li><a href="#page_inventory" data-transition="flip">Inventory</a></li>
-            <li><a href="#page_order_processing" data-transition="flip">Order Processing</a></li>
+            <li><a href="#page_orders" data-transition="flip">Order Processing</a></li>*@
         </ul>
+
     </div><!-- /navbar -->
 </div><!-- /footer -->

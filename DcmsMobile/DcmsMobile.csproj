@@ -408,6 +408,9 @@
     <Content Include="MainArea\SharedViews\Sounds\warning.wav" />
     <Content Include="MainArea\Home\Tutorial.pptx" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css.bundle" />
+    <None Include="App_Data\MenuItems.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Doc\Steps to make a new App.txt" />
     <None Include="DcmsMobile.Publish.xml">
       <SubType>Designer</SubType>
