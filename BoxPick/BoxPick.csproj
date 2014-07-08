@@ -98,7 +98,6 @@
     <Compile Include="Areas\BoxPick\Controllers\ConfirmController.cs" />
     <Compile Include="Areas\BoxPick\Controllers\HelpController.cs" />
     <Compile Include="Areas\BoxPick\Controllers\HomeController.cs" />
-    <Compile Include="Areas\BoxPick\BoxPickAreaRegistration.cs" />
     <Compile Include="Areas\BoxPick\Controllers\MainContentController.cs" />
     <Compile Include="BoxPick.ConfirmController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

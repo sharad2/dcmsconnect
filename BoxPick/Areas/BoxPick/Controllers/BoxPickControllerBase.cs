@@ -13,6 +13,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
     [SessionState(System.Web.SessionState.SessionStateBehavior.Required)]
     [AuthorizeEx("Box picking requires {0} role", Roles = "DCMS8_BOXPICK")]
     [BoxPickContextCheck]
+    [RouteArea("BoxPick")]
     public abstract class BoxPickControllerBase : EclipseController
     {
         #region Initialize
