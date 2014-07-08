@@ -65,6 +65,8 @@ DcmsConnect_Appointment. This is the URL for creating and manageing appointment.
 
 DcmsConnect_ScanToTruck. This is the URl for loading boxes on truck to ensure accuracy of shipment.(Ship Tab)
 
+DcmsConnect_Restock. This is the URL for restocking cartons.
+
 Diagnostics Framework
 ---------------------
 
