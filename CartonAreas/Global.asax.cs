@@ -30,6 +30,8 @@ namespace DcmsMobile.CartonAreas
 
         protected void Application_Start()
         {
+            // Enabling Attribute routing
+            RouteTable.Routes.MapMvcAttributeRoutes();
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

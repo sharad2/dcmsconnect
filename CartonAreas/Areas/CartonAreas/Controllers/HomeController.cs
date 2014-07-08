@@ -11,6 +11,7 @@ using System.Web.Routing;
 namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
 {
     [AuthorizeEx("CAM requires Role {0}", Roles = "SRC_CAM_MGR")]
+    [RouteArea("CartonAreas")]  
     public partial class HomeController : EclipseController
     {
         #region Intialization
@@ -49,7 +50,8 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <summary>
         /// Displays home page which shows buildings
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>        
+        [Route(Name = "DcmsConnect_CartonAreas")]
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel
