@@ -667,16 +667,12 @@ SELECT CPK.LOCATION_ID
        CFD.LOCATION_ID             AS CFD_LOCATION_ID,
        CFD.COUNT_CARTONS_ON_PALLET AS CFD_COUNT_CARTONS_ON_PALLET,
        CFD.PALLET_ID               AS PALLET_ID,
-       CFD.INSERT_DATE             AS INSERT_DATE,
        MSKU.STYLE                  AS STYLE,
        MSKU.COLOR                  AS COLOR,
        MSKU.DIMENSION              AS DIMENSION,
        MSKU.SKU_SIZE               AS SKU_SIZE,
        CFD.VWH_ID                  AS VWH_ID,
-       DS.QUANTITY_ORDERED,
-       DS.QUANTITY_RESERVED,
        DS.DEMAND_PIECES            AS DEMAND_PIECES,
-       DS.PRIORITY                 AS PRIORITY,
        SYSDATE                     AS QUERY_TIME
   FROM CPK_LOCATIONS CPK
  INNER JOIN CFD_PALLETS CFD

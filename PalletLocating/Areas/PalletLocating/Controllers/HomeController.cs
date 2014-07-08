@@ -354,7 +354,7 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
                                   CartonCount = p.CartonCount,
                                   MaxCartons = p.MaxCartons,
                                   SkuCount = p.SkuCount
-                              }),
+                              }).ToList(),
                               PalletSku = pallet.PalletSku == null ? null : new SkuModel(pallet.PalletSku),
                               TargetAreaId = areaId,
                               SuggestedAreaShortName = suggestedLocations == null ? null : suggestedLocations.Max(p => p.Area.ShortName),

@@ -5,7 +5,7 @@ namespace DcmsMobile.PalletLocating.ViewModels
 {
     public class LocationViewModel : ViewModelBase
     {
-        public IEnumerable<CartonLocationModel> SuggestedLocations { get; set; }
+        public IList<CartonLocationModel> SuggestedLocations { get; set; }
 
         [Display(Name = "Location")]
         [Required(ErrorMessage = "Location is required")]
