@@ -12,6 +12,10 @@ using EclipseLibrary.Mvc.Controllers;
 
 namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 {
+
+    [RouteArea("Shipping")]
+    [RoutePrefix(ScanToTruckController.NameConst)]
+  
     //Reviewed By: Ravneet, Binod and Deepak 15 Dec 2012
     //Rajesh Kandari 26 Dec 2012: Removed area choice for loading pallets.
     [AuthorizeEx("Scan To Truck requires Role {0}", Roles = "DCMS8_SCANTOTRUCK", Purpose = "Enables you to load boxes on truck.")]
@@ -103,6 +107,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// Show Index view.
         /// </summary>
         /// <returns></returns>
+          [Route(ScanToTruckController.ActionNameConstants.Index, Name = "DcmsConnect_ScanToTruck")]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new IndexViewModel());

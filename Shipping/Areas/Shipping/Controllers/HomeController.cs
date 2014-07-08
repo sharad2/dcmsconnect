@@ -17,6 +17,11 @@ using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 {
+
+    [RouteArea("Shipping")]
+    [RoutePrefix(HomeController.NameConst)]
+
+
     // Reviewed By: Deepak Bhatt, Ritesh Verma and Rajesh Kandari on 12-4-2012
     public partial class HomeController : EclipseController
     {
@@ -189,6 +194,8 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+
+        [Route(HomeController.ActionNameConstants.RoutingSummaryAll, Name = "DcmsConnect_RoutingSummary")]
         public virtual ActionResult RoutingSummaryAll(RoutingSummaryViewModel model)
         {
            
@@ -678,6 +685,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// Dislays appointment view
         /// </summary>
         /// <returns></returns>
+        [Route(HomeController.ActionNameConstants.AllAppointments, Name = "DcmsConnect_Appointment")]
         public virtual ActionResult AllAppointments(AppointmentViewModel model)
         {
             model.BuildingList = _service.GetBuildingList().Select(p => Map(p));
