@@ -4,41 +4,11 @@
 }
 
 @section script {
-    @if (!string.IsNullOrWhiteSpace(Model.UrlRcBase))
-    {
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#footermenu").toolbar({ theme: "a" });
-                // Get a list of items available on the release candidate site and show the RC link for each of the items available
-                $(document).on('pagecreate', '#mainpage', function () {
-                    $.ajax('@(Model.UrlRcBase + Url.Action(MVC_DcmsMobile.Home.RcItems(1)))', {
-                        dataType: 'jsonp',
-                        crossDomain: true
-                    }).done(function (data, textStatus, jqXHR) {
-                        // The call to RC was successful. Show the RC link at the bottom of the page
-                        $('#rcNavBar small').hide();
-                        // Show the rc link against each menu items
-                        $.each(data, function () {
-                            $('#' + this.area).attr('href', '@Model.UrlRcBase' + this.url).show();
-                        });
-                    }).fail(function (jqXHR, textStatus, errorThrown) {
-                        $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
-                    });
-                }).on("pagecontainershow", function (event, ui) {
-                    // Code taken from View source of page http://demos.jquerymobile.com/1.4.3/toolbar-fixed-persistent/
-                    // Find the id of the page which is currently active
-                    var curpageId = $("div.ui-page-active").attr('id');
-                    //alert(curpageId);
-                    // Remove active class from nav buttons
-                    $("#navbarFixed a.ui-btn-active").removeClass("ui-btn-active");
-                    // Add active class to nav button of current page.
-                    // We find the button whose href points to the id of the current page
-                    $("#navbarFixed a[href='#" + curpageId + "']").addClass("ui-btn-active");
-                });
-            });
-
-        </script>
-    }
+    <script type="text/javascript">
+        var _rcBaseUrl = '@Model.UrlRcBase';
+        var _rcItemsUrl = '@Url.Action(MVC_DcmsMobile.Home.RcItems(1))';
+    </script>
+    <script src="@Links_DcmsMobile.MainArea.Home.Index_js" type="text/javascript"></script>
 }
 <div data-role="page" id="mainpage">
     <div data-role="content">

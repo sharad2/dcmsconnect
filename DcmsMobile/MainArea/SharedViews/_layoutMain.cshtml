@@ -13,10 +13,6 @@
     <link rel="stylesheet" href="@Links_DcmsMobile.Content.jquery_mobile_1_4_2_css" />
     <script src="@Links_DcmsMobile.Scripts.jquery_2_0_3_js "></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#layout_header').toolbar({ theme: "a" });
-            $("#popupLayout,#layoutPopupSignoff").enhanceWithin().popup();
-        });
         $(document).on("mobileinit", function () {
             //http://api.jquerymobile.com/global-config/
             $.mobile.ajaxEnabled = false;
@@ -24,6 +20,12 @@
         });
     </script>
     <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#layout_header').toolbar({ theme: "a" });
+            $("#popupLayout,#layoutPopupSignoff").enhanceWithin().popup();
+        });
+    </script>
     <style type="text/css">
         .validation-summary-errors {
             color: Red;

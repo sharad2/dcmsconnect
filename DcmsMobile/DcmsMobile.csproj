@@ -397,6 +397,10 @@
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
+    <Content Include="MainArea\Home\Index.js" />
+    <Content Include="MainArea\Home\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="MainArea\Home\wifi.jpg" />
     <Content Include="MainArea\SharedViews\Sounds\Error.wav" />
     <Content Include="MainArea\SharedViews\Sounds\success.wav" />
