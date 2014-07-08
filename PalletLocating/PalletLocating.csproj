@@ -156,6 +156,7 @@
     <Content Include="Areas\PalletLocating\Scripts\PalletLocating-all.min.js.map">
       <DependentUpon>PalletLocating-all.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PalletLocating\Views\Shared\_layoutPalletLocating.cshtml" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\PalletLocating\Content\PalletLocating-all.css.bundle" />
     <None Include="Doc\Role.txt" />
@@ -229,7 +230,6 @@
     <Content Include="Areas\PalletLocating\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PalletLocating\Views\Shared\_layoutPalletLocating.cshtml" />
     <Content Include="Areas\PalletLocating\Views\_ViewStart.cshtml" />
     <Content Include="Areas\PalletLocating\Views\Shared\_layoutPalletLocating.Mobile.cshtml" />
     <Content Include="Areas\PalletLocating\Views\Home\Building.cshtml" />
