@@ -1,12 +1,14 @@
 ﻿
 using EclipseLibrary.Mvc.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace DcmsMobile.MainArea.Home
 {
@@ -46,7 +48,10 @@ namespace DcmsMobile.MainArea.Home
             model.MenuItems = (from item in AreaItem.Areas
                                orderby item.Order, item.Name
                                select new MenuItem(item, Url)).ToArray();
+
             model.UrlRcBase = this.UrlRcBase;
+
+            model.Categories = CreateMenu();
 
             return View(this.Views.ViewNames.Index, model);
         }
@@ -101,6 +106,35 @@ namespace DcmsMobile.MainArea.Home
                  Content = sb.ToString(),
                  ContentType = "jsonp"
             };
+        }
+
+        private IList<MenuCategory> CreateMenu()
+        {
+            var path = HttpContext.Server.MapPath("~/App_Data/MenuItems.xml");
+            XDocument xdoc = XDocument.Load(path);
+            const string ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
+            var categories = (from cat in xdoc.Root.Element(XName.Get("categories", ns)).Elements(XName.Get("category", ns))
+                                let catId = (string)cat.Attribute("id")
+                                select new MenuCategory
+                                {
+                                    Id = catId,
+                                    Name = (string)cat.Attribute("name"),
+                                    MenuItems = (from item in xdoc.Root.Element(XName.Get("items", ns)).Elements(XName.Get("item", ns))
+                                                 let itemCatId = (string)item.Attribute("categoryId")
+                                                 where itemCatId == catId
+                                                 let itemId = (string)item.Attribute("id")
+                                                 let route = Url.RouteCollection[itemId]
+                                                 where route != null
+                                                 select new MenuLink
+                                                 {
+                                                     Id = itemId,
+                                                     ShortCut = (string)item.Attribute("shortcut"),
+                                                     Name = (string)item.Attribute("name"),
+                                                     Mobile = (bool)item.Attribute("mobile"),
+                                                     Url = Url.RouteUrl(itemId)
+                                                 }).ToArray()
+                                }).ToArray();
+            return categories;
         }
 
     }

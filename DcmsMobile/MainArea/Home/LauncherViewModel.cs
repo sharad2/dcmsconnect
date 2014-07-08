@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,13 +7,16 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.MainArea.Home
 {
-
+    [Obsolete("Superseded by MenuLink")]
     public class MenuItem
     {
         private readonly IList<MenuItem> _submenu;
         private readonly string _panelId;
 
-        //private static int __idSequence;
+        internal MenuItem()
+        {
+
+        }
 
         /// <summary>
         /// Populates its properties based on the passed area
@@ -52,7 +56,7 @@ namespace DcmsMobile.MainArea.Home
             }
         }
 
-        public string Url { get; private set; }
+        public string Url { get; set; }
 
         public string Name { get; private set; }
 
@@ -63,10 +67,10 @@ namespace DcmsMobile.MainArea.Home
         public string ShortName
         {
             get;
-            private set;
+            set;
         }
 
-        public bool IsMobileOptimized { get; private set; }
+        public bool IsMobileOptimized { get; set; }
 
         public string Description { get; private set; }
 
@@ -93,6 +97,31 @@ namespace DcmsMobile.MainArea.Home
 
     }
 
+    public class MenuLink
+    {
+
+        public string Id { get; set; }
+
+        public string ShortCut { get; set; }
+
+        public string Name { get; set; }
+
+        public bool Mobile { get; set; }
+
+        public string Url { get; set; }
+    }
+
+
+
+    public class MenuCategory
+    {
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+
+        public IList<MenuLink> MenuItems { get; set; }
+    }
+
     /// <summary>
     /// View model for the launcher view
     /// </summary>
@@ -110,8 +139,12 @@ namespace DcmsMobile.MainArea.Home
         /// <summary>
         /// This list is ordered for display
         /// </summary>
+        [Obsolete("Use Categories instead")]
         public IList<MenuItem> MenuItems { get; set; }
 
+        public IList<MenuCategory> Categories { get; internal set; }
+
+        [Obsolete]
         public string UrlOf(UrlHelper helper, string routeName)
         {
             var route = helper.RouteCollection[routeName];
@@ -119,6 +152,7 @@ namespace DcmsMobile.MainArea.Home
             {
                 return null;
             }
+
             return helper.RouteUrl(routeName);
         }
 

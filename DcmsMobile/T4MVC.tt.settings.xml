@@ -73,7 +73,8 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.intellisense.js</Extension>
     <Extension>.validate-vsdoc.js</Extension>
     <Extension>_references.js</Extension>
-    <Extension>_references.config</Extension>
+    <Extension>.config</Extension>
+    <Extension>.xsd</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>

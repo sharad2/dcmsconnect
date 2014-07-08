@@ -195,7 +195,6 @@ namespace Links_DcmsMobile
         
         }
     
-        public static readonly string Web_config = Url("Web.config")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Web.config");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

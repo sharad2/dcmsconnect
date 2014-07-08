@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
+  <categories>
+    <category id="picking" name="Picking">
+
+    </category>
+  </categories>
+  <items>
+    <item id="DcmsConnect_Search" categoryId="picking" shortcut="INQ" name="Search DCMS" mobile="true">
+      <keywords>
+        <keyword>search</keyword>
+        <keyword>inquiry</keyword>
+      </keywords>
+    </item>
+  </items>
+</root>
