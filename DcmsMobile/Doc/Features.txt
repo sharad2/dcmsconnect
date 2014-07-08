@@ -47,7 +47,13 @@ DcmsConnect_AbondonRework. This is the URL for the UI that let the system know i
 
 DcmsConnect_BulkUpdateCarton.  This is the URL for the advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated.(Inventory Tab)
 
-DcmsConnect_CartonEditor. URL for the Carton to edit in inventory tab.
+DcmsConnect_CartonEditor. This is the URL for the Carton to edit in inventory tab.
+
+DcmsConnect_CartonLocating. This is the URL for Locating cartons in numbered bin locations(Inventory tab)
+
+DcmsConnect_CartonToPallet. This is the URL for the UI which place cartons on a pallet(Inventory tab)
+
+DcmsConnect_MarkReworkComplete. This is the URL for the UI that Mark Rework Complete of those Cartons on which rework has to be done.
 
 Diagnostics Framework
 ---------------------
