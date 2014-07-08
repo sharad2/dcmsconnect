@@ -55,6 +55,10 @@ DcmsConnect_CartonToPallet. This is the URL for the UI which place cartons on a 
 
 DcmsConnect_MarkReworkComplete. This is the URL for the UI that Mark Rework Complete of those Cartons on which rework has to be done.
 
+DcmsConnect_PieceReplenish. This is the URL for main page to Manage Forward Pick Area.
+
+DcmsConnect_BoxPick. This is the URL for starting Box Picking.
+
 Diagnostics Framework
 ---------------------
 
