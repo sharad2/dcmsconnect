@@ -10,6 +10,8 @@ using EclipseLibrary.Mvc.Controllers;
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
     [AuthorizeEx("Create pallet requires role {0}", Roles = ROLE_EXPEDITE_BOXES)]
+    [RouteArea("PickWaves")]
+    [RoutePrefix(BoxPickPalletController.NameConst)]
     public partial class BoxPickPalletController : PickWavesControllerBase
     {
 
@@ -61,6 +63,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
+        [Route(BoxPickPalletController.ActionNameConstants.Index, Name = "DcmsConnect_BoxPickPallet")]
         public virtual ActionResult Index(int? bucketId)
         {
             var model = new BoxPickPalletViewModel();
