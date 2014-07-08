@@ -59,6 +59,12 @@ DcmsConnect_PieceReplenish. This is the URL for main page to Manage Forward Pick
 
 DcmsConnect_BoxPick. This is the URL for starting Box Picking.
 
+DcmsConnect_RoutingSummary. This is the URL for the creating EDI 753 to route customer orders(Ship Tab)
+
+DcmsConnect_Appointment. This is the URL for creating and manageing appointment.(Ship Tab)
+
+DcmsConnect_ScanToTruck. This is the URl for loading boxes on truck to ensure accuracy of shipment.(Ship Tab)
+
 Diagnostics Framework
 ---------------------
 
