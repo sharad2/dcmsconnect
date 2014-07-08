@@ -24,6 +24,16 @@
                     }).fail(function (jqXHR, textStatus, errorThrown) {
                         $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
                     });
+                }).on("pagecontainershow", function (event, ui) {
+                    // Code taken from View source of page http://demos.jquerymobile.com/1.4.3/toolbar-fixed-persistent/
+                    // Find the id of the page which is currently active
+                    var curpageId = $("div.ui-page-active").attr('id');
+                    //alert(curpageId);
+                    // Remove active class from nav buttons
+                    $("#navbarFixed a.ui-btn-active").removeClass("ui-btn-active");
+                    // Add active class to nav button of current page.
+                    // We find the button whose href points to the id of the current page
+                    $("#navbarFixed a[href='#" + curpageId + "']").addClass("ui-btn-active");
                 });
             });
 
@@ -103,14 +113,19 @@
         </div><!-- /panel -->
     }
 </div>
-<div data-role="page" id="page1">
-    Page 1
+<div data-role="page" id="page_ship">
+    <div data-role="content">
+        <ul data-role="listview">
+            <li><a href="@Model.UrlOf(Url, "DcmsConnect_ScanToPallet")">Scan To Pallet</a></li>
+        </ul>
+    </div>
 </div>
 <div data-role="footer" data-position="fixed" data-theme="a" id="footermenu">
-    <div data-role="navbar">
+    <div data-role="navbar" id="navbarFixed">
         <ul>
-            <li><a href="#mainpage" data-transition="fade">Pick</a></li>
-            <li><a href="#page1" data-transition="flip">Ship</a></li>
+            <li><a href="#mainpage" data-transition="fade" class="ui-btn ui-btn-active">Home</a></li>
+            <li><a href="#pick_page" data-transition="fade">Pick</a></li>
+            <li><a href="#page_ship" data-transition="flip">Ship</a></li>
             <li><a href="page-c.html" data-transition="turn">Receive</a></li>
             <li><a href="page-d.html" data-transition="slide">Inventory</a></li>
         </ul>

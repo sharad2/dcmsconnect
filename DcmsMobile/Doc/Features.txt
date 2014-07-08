@@ -33,6 +33,10 @@ Feature Folder Support
 Pluggable Area Support
 ----------------------
 
+Pluggable areas can support some well known routes which DcmsMobile will display at special positions on the menu screen.
+
+DcmsConnect_Search. This route must accept id as the query string. It should search for id and display search results. If id is not passed, it should display the search home screen.
+
 Diagnostics Framework
 ---------------------
 

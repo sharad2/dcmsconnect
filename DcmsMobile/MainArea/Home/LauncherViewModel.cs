@@ -112,6 +112,16 @@ namespace DcmsMobile.MainArea.Home
         /// </summary>
         public IList<MenuItem> MenuItems { get; set; }
 
+        public string UrlOf(UrlHelper helper, string routeName)
+        {
+            var route = helper.RouteCollection[routeName];
+            if (route == null)
+            {
+                return null;
+            }
+            return helper.RouteUrl(routeName);
+        }
+
     }
 
 }

@@ -51,15 +51,20 @@ namespace DcmsMobile.MainArea.Home
             return View(this.Views.ViewNames.Index, model);
         }
 
-        [Route("search")]
+        [Route(HomeController.ActionNameConstants.Search)]
         public virtual ActionResult Search(string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            //if (string.IsNullOrWhiteSpace(id))
+            //{
+            //    return RedirectToAction(Actions.Index());
+            //}
+            //TODO: Check whether id represents a program code like INQ
+            return Redirect(Url.RouteUrl("DcmsConnect_Search", new
             {
-                return RedirectToAction(Actions.Index());
-            }
+                id = id
+            }));
             //var x = RouteTable.Routes.GetRouteData(ToArray();
-            throw new NotImplementedException(id);
+            //throw new NotImplementedException(id);
         }
 
         /// <summary>
