@@ -56,7 +56,8 @@ namespace DcmsMobile.MainArea.Home
 
             model.UrlRcBase = this.UrlRcBase;
 
-            model.Categories = CreateMenu().ToArray();
+            // Load only those categories which have some menu items
+            model.Categories = CreateMenu().Where(p => p.MenuItems.Count > 0).ToArray();
 
             return View(this.Views.ViewNames.Index, model);
         }
