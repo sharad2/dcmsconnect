@@ -43,6 +43,12 @@ DcmsConnect_MoveBoxPallet. This is the URL to the main page of the program which
 
 DcmsConnect_ApplyVasToBox. This program should provide the UI for applying VAS to boxes.
 
+DcmsConnect_AbondonRework. This is the URL for the UI that let the system know if you no longer want to perform rework on Cartons which had been marked for rework (Inventory Tab)
+
+DcmsConnect_BulkUpdateCarton.  This is the URL for the advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated.(Inventory Tab)
+
+DcmsConnect_CartonEditor. URL for the Carton to edit in inventory tab.
+
 Diagnostics Framework
 ---------------------
 
