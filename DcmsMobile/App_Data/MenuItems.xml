@@ -88,5 +88,8 @@
     <item id="DcmsConnect_Repack" categoryId="misc"  shortcut="RPK" name="Repack">
       <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
     </item>
+    <item id="DcmsConnect_Rights" categoryId="misc"  shortcut="" name="DcmsRights">
+      <description>Create DCMS Users and assign rights to run DCMS programs.</description>
+    </item>
   </items>
 </root>
