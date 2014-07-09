@@ -47,9 +47,9 @@ namespace DcmsMobile.MainArea.Home
         {
             var model = new LauncherViewModel();
             //model.Init(this.ControllerContext, this.Url);
-            model.MenuItems = (from item in AreaItem.Areas
-                               orderby item.Order, item.Name
-                               select new MenuItem(item, Url)).ToArray();
+            //model.MenuItems = (from item in AreaItem.Areas
+            //                   orderby item.Order, item.Name
+            //                   select new MenuItem(item, Url)).ToArray();
 
             model.UrlRcBase = this.UrlRcBase;
 
@@ -107,17 +107,18 @@ namespace DcmsMobile.MainArea.Home
             {
                 throw new NotSupportedException("Only version 1 is supported");
             }
-            var query = from area in AreaItem.Areas
-                        select new
-                        {
-                            area = area.AreaName,
-                            url = string.Format("/{0}", area.AreaName)
-                        };
+            //var query = from area in AreaItem.Areas
+            //            select new
+            //            {
+            //                area = area.AreaName,
+            //                url = string.Format("/{0}", area.AreaName)
+            //            };
+            throw new NotImplementedException();
 
             var sb = new StringBuilder(Request["callback"]);
             sb.Append("(");
             var ser = new JavaScriptSerializer();
-            ser.Serialize(query, sb);
+            //ser.Serialize(query, sb);
             sb.Append(")");
             return new ContentResult
             {

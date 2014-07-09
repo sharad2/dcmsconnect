@@ -132,7 +132,6 @@
     <Compile Include="LogonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainArea\Home\AreaItem.cs" />
     <Compile Include="MainArea\Diagnostic\DiagnosticModel.cs" />
     <Compile Include="MainArea\Home\LauncherViewModel.cs" />
     <Compile Include="MainArea\Logon\LogonModel.cs" />
