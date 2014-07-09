@@ -13,6 +13,8 @@ using EclipseLibrary.Mvc.Controllers;
 namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
 {
     [AuthorizeEx("Pallet Locating requires Roles {0}", Roles = "SRC_LOCATING")]
+    [RouteArea("PalletLocating")]
+    [RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : EclipseController
     {
         #region Intialization
@@ -72,6 +74,7 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
         /// Renders the Building view
         /// </summary>
         /// <returns></returns>
+        [Route(HomeController.ActionNameConstants.Building, Name = "DcmsConnect_PalletLocating")]
         public virtual ActionResult Building()
         {
             //if (mobileView.HasValue)
