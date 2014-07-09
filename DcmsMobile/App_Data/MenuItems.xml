@@ -72,9 +72,11 @@
     <item id="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
-    <item id="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="BPK" name="DcmsLite">
-      <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
+    <item id="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="PLOC" name="DcmsLite">
+      <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
     </item>    
-
+    <item id="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
+      <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
+    </item> 
   </items>
 </root>
