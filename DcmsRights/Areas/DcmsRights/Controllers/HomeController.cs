@@ -13,7 +13,8 @@ using EclipseLibrary.Oracle.Web.Security;
 
 namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
 {
-
+    [RouteArea("DcmsRights")]
+    [RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : EclipseController
     {
         static HomeController()
@@ -100,6 +101,7 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
         /// <returns></returns>
         /// <remarks>
         /// </remarks>
+        [Route(HomeController.ActionNameConstants.Index, Name = "DcmsConnect_Rights")]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new IndexViewModel());
