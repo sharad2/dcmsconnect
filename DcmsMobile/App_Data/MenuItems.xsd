@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.eclsys.com/dcmsconnect/menuitems">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.eclsys.com/dcmsconnect/menuitems"
+           xmlns:ns0="http://schemas.eclsys.com/dcmsconnect/menuitems" xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems"
+           >
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
@@ -10,7 +12,13 @@
                 <xs:complexType>
                   <xs:simpleContent>
                     <xs:extension base="xs:string">
-                      <xs:attribute name="id" type="xs:ID" use="required" />
+                      <xs:attribute name="id" type="xs:NCName" use="required">
+                        <xs:annotation>
+                          <xs:documentation>This should be a string suitable for use as an id within HTML. Each category must have a unique id.
+                          Items reference this id to indicate their category.
+                          </xs:documentation>
+                        </xs:annotation>
+                      </xs:attribute>
                       <xs:attribute name="name" type="xs:string" use="required" />
                     </xs:extension>
                   </xs:simpleContent>
@@ -18,6 +26,10 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
+          <xs:key name="catid_pk">
+            <xs:selector xpath="ns0:category" />
+            <xs:field xpath="@id" />
+          </xs:key>          
         </xs:element>
         <xs:element name="items">
           <xs:complexType>
@@ -34,8 +46,8 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:string" use="required" />
-                  <xs:attribute name="categoryId" type="xs:IDREF" use="required" />
+                  <xs:attribute name="id" type="xs:NCName" use="required" />
+                  <xs:attribute name="categoryId" type="xs:NCName" use="required" />
                   <xs:attribute name="shortcut" type="xs:string" use="required" />
                   <xs:attribute name="name" type="xs:string" use="required" />
                 </xs:complexType>
@@ -45,5 +57,9 @@
         </xs:element>
       </xs:sequence>
     </xs:complexType>
+    <!--<xs:keyref name="item_cat_fk" refer="catid_pk">
+      <xs:selector xpath="categories/category"></xs:selector>
+      <xs:field xpath="@id"></xs:field>
+    </xs:keyref>-->
   </xs:element>
 </xs:schema>
