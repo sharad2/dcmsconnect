@@ -8,6 +8,7 @@ using System.Web.Routing;
 
 namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
 {
+    [RouteArea("DcmsLite")]
     public class DcmsLiteControllerBase<TService> : EclipseController where TService : DcmsLiteServiceBase, new()
     {
         protected TService _service;

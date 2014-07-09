@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
 {
+    
     public partial class HomeController : DcmsLiteControllerBase<HomeService>
     {
+        [Route(Name = "DcmsConnect_DcmsLite")]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new ViewModelBase());
