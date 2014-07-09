@@ -14,6 +14,8 @@ using EclipseLibrary.Mvc.Html;
 namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
 {
     [AuthorizeEx("REQ2 requires Role {0}", Roles = "DCMS8_REQUEST")]
+    [RouteArea("REQ2")]
+    [RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : EclipseController
     {
         private const string COOKIE_BUILDING = "Building";
@@ -79,6 +81,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route(HomeController.ActionNameConstants.Index, Name = "DcmsConnect_REQ2")]
         public virtual ActionResult Index()
         {
             var requests = _service.GetRequests();
