@@ -68,6 +68,10 @@
     <item id="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
+    
+    <item id="DcmsConnect_REQ2" categoryId="inventory"  shortcut="REQ" name="Pull Request">
+      <description>Managing SKU assignment at carton locations</description>
+    </item>
       <!-- Miscelaneous components-->
     <item id="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
