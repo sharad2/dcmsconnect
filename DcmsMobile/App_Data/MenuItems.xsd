@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.eclsys.com/dcmsconnect/menuitems"
-           xmlns:ns0="http://schemas.eclsys.com/dcmsconnect/menuitems" xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems"
-           >
+           xmlns:ns0="http://schemas.eclsys.com/dcmsconnect/menuitems">
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
@@ -14,8 +13,9 @@
                     <xs:extension base="xs:string">
                       <xs:attribute name="id" type="xs:NCName" use="required">
                         <xs:annotation>
-                          <xs:documentation>This should be a string suitable for use as an id within HTML. Each category must have a unique id.
-                          Items reference this id to indicate their category.
+                          <xs:documentation>
+                            This should be a string suitable for use as an id within HTML. Each category must have a unique id.
+                            Items reference this id to indicate their category.
                           </xs:documentation>
                         </xs:annotation>
                       </xs:attribute>
@@ -26,10 +26,6 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
-          <xs:key name="catid_pk">
-            <xs:selector xpath="ns0:category" />
-            <xs:field xpath="@id" />
-          </xs:key>          
         </xs:element>
         <xs:element name="items">
           <xs:complexType>
@@ -54,12 +50,29 @@
               </xs:element>
             </xs:sequence>
           </xs:complexType>
+          <xs:key name="item_route_pk">
+            <xs:annotation>
+              <xs:documentation>Item routes must be unique</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="ns0:item" />
+            <xs:field xpath="@id" />
+          </xs:key>          
         </xs:element>
       </xs:sequence>
     </xs:complexType>
-    <!--<xs:keyref name="item_cat_fk" refer="catid_pk">
-      <xs:selector xpath="categories/category"></xs:selector>
-      <xs:field xpath="@id"></xs:field>
-    </xs:keyref>-->
+    <xs:key name="catid_pk">
+      <xs:annotation>
+        <xs:documentation>Category ids must be unique</xs:documentation>
+      </xs:annotation>
+      <xs:selector xpath="ns0:categories/ns0:category" />
+      <xs:field xpath="@id" />
+    </xs:key> 
+    <xs:keyref name="item_cat_fk" refer="ns0:catid_pk">
+      <xs:annotation>
+        <xs:documentation>categoryId of item must refer to a valid category id</xs:documentation>
+      </xs:annotation>      
+      <xs:selector xpath="ns0:items/ns0:item"></xs:selector>
+      <xs:field xpath="@categoryId"></xs:field>
+    </xs:keyref>
   </xs:element>
 </xs:schema>
