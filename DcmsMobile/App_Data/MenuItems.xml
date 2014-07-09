@@ -20,10 +20,10 @@
     <item id="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
       <description>Creating boxpick pallets</description>
     </item>
-    <item id="DcmsConnect_BoxPick" categoryId="pick"  shortcut="XXX" name="Box Pick">
+    <item id="DcmsConnect_BoxPick" categoryId="pick"  shortcut="BPI" name="Box Pick">
       <description>Starting Box Picking</description>
     </item>
-    <item id="DcmsConnect_PieceReplenish" categoryId="pick"  shortcut="XXX" name="Piece Replenish">
+    <item id="DcmsConnect_PieceReplenish" categoryId="pick"  shortcut="PUL" name="Piece Replenish">
       <description>Manage Forward Pick Area</description>
     </item>
     <item id="DcmsConnect_Restock" categoryId="pick"  shortcut="RST" name="Restock">
