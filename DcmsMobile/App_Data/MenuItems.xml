@@ -81,6 +81,9 @@
     </item>    
     <item id="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
-    </item> 
+    </item>
+    <item id="DcmsConnect_Receving" categoryId="misc"  shortcut="REC" name="Receiving">
+      <description>Receive cartons against an ASN.</description>
+    </item>
   </items>
 </root>
