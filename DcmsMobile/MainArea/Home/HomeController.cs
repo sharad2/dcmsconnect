@@ -113,7 +113,13 @@ namespace DcmsMobile.MainArea.Home
             //                area = area.AreaName,
             //                url = string.Format("/{0}", area.AreaName)
             //            };
-            throw new NotImplementedException();
+            var query = from cat in GetMenuItems()
+                        from item in cat.MenuItems
+                        select new
+                        {
+                            id = item.Id,
+                            url = item.Url
+                        };
 
             var sb = new StringBuilder(Request["callback"]);
             sb.Append("(");
