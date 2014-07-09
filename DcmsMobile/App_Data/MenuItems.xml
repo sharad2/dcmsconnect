@@ -72,6 +72,9 @@
     <item id="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
+    <item id="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="BPK" name="DcmsLite">
+      <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
+    </item>    
 
   </items>
 </root>
