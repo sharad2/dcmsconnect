@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -57,7 +58,7 @@ namespace DcmsMobile.MainArea.Home
             model.UrlRcBase = this.UrlRcBase;
 
             // Load only those categories which have some menu items
-            model.Categories = CreateMenu().Where(p => p.MenuItems.Count > 0).ToArray();
+            model.Categories = GetMenuItems();
 
             return View(this.Views.ViewNames.Index, model);
         }
@@ -77,17 +78,14 @@ namespace DcmsMobile.MainArea.Home
                 var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
                 XDocument xdoc = XDocument.Load(path);
 
-                var link = xdoc.Root.Descendants(_ns + "item")
-                    .FirstOrDefault(p => string.Compare((string)p.Attribute("shortcut"), id, true) == 0);
+                var link = (from cat in GetMenuItems()
+                            from item in cat.MenuItems
+                            where string.Compare((string)item.ShortCut, id, true) == 0
+                            select item).FirstOrDefault();
 
                 if (link != null)
                 {
-                    var routeName = (string)link.Attribute("id");
-                    if (Url.RouteCollection[routeName] != null)
-                    {
-                        // Redirect only if the route really exists, otherwise RedirectToRoute raises exception
-                        return RedirectToRoute(routeName);
-                    }
+                    return RedirectToRoute(link.Url);
                 }
             }
 
@@ -135,33 +133,53 @@ namespace DcmsMobile.MainArea.Home
             };
         }
 
-        private IEnumerable<MenuCategory> CreateMenu()
+        private IList<MenuCategory> GetMenuItems()
         {
-            var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
-            XDocument xdoc = XDocument.Load(path);
-            var categories = from cat in xdoc.Root.Element(_ns + "categories").Elements(_ns + "category")
-                             let catId = (string)cat.Attribute("id")
-                             select new MenuCategory
-                             {
-                                 Id = catId,
-                                 Name = (string)cat.Attribute("name"),
-                                 MenuItems = (from item in xdoc.Root.Element(_ns + "items").Elements(_ns + "item")
-                                              let itemCatId = (string)item.Attribute("categoryId")
-                                              where itemCatId == catId
-                                              let itemId = (string)item.Attribute("id")
-                                              let route = Url.RouteCollection[itemId]
-                                              where route != null  // If the route does not exist, do not show the link
-                                              let elemDescription = item.Element(_ns + "description")
-                                              select new MenuLink
-                                              {
-                                                  Id = itemId,
-                                                  ShortCut = (string)item.Attribute("shortcut"),
-                                                  Name = (string)item.Attribute("name"),
-                                                  Description = elemDescription == null ? string.Empty : elemDescription.Value,
-                                                  //Mobile = (bool)item.Attribute("mobile"),
-                                                  Url = Url.RouteUrl(itemId)
-                                              }).ToArray()
-                             };
+            // MENUITEMS_XML_FILE_NAME is also used as the key
+            var categories = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as IList<MenuCategory>;
+            if (categories == null)
+            {
+                var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
+                XDocument xdoc = XDocument.Load(path);
+                categories = (from cat in xdoc.Root.Element(_ns + "categories").Elements(_ns + "category")
+                              let catId = (string)cat.Attribute("id")
+                              select new MenuCategory
+                              {
+                                  Id = catId,
+                                  Name = (string)cat.Attribute("name"),
+                                  MenuItems = (from item in xdoc.Root.Element(_ns + "items").Elements(_ns + "item")
+                                               let itemCatId = (string)item.Attribute("categoryId")
+                                               where itemCatId == catId
+                                               let itemId = (string)item.Attribute("id")
+                                               let route = Url.RouteCollection[itemId]
+                                               where route != null  // If the route does not exist, do not show the link
+                                               let elemDescription = item.Element(_ns + "description")
+                                               select new MenuLink
+                                               {
+                                                   Id = itemId,
+                                                   ShortCut = (string)item.Attribute("shortcut"),
+                                                   Name = (string)item.Attribute("name"),
+                                                   Description = elemDescription == null ? string.Empty : elemDescription.Value,
+                                                   //Mobile = (bool)item.Attribute("mobile"),
+                                                   Url = Url.RouteUrl(itemId)
+                                               }).ToArray()
+                              }).Where(p => p.MenuItems.Count > 0).ToArray();
+
+                CacheItemPolicy policy = new CacheItemPolicy
+                {
+                    Priority = CacheItemPriority.Default,
+                    SlidingExpiration = TimeSpan.FromMinutes(30)
+                };
+
+                List<string> filePaths = new List<string>();
+                filePaths.Add(path);
+
+                policy.ChangeMonitors.Add(new
+                HostFileChangeMonitor(filePaths));
+
+                MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, categories, policy);
+
+            }
             return categories;
         }
 
