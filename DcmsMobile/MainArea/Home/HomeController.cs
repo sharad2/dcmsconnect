@@ -78,7 +78,7 @@ namespace DcmsMobile.MainArea.Home
 
                 if (link != null)
                 {
-                    return RedirectToRoute(link.Url);
+                    return Redirect(link.Url);
                 }
             }
 
