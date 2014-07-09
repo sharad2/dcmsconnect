@@ -42,7 +42,7 @@
                       </xs:complexType>
                     </xs:element>
                   </xs:sequence>
-                  <xs:attribute name="id" type="xs:NCName" use="required" />
+                  <xs:attribute name="route" type="xs:NCName" use="required" />
                   <xs:attribute name="categoryId" type="xs:NCName" use="required" />
                   <xs:attribute name="shortcut" type="xs:string" use="required" />
                   <xs:attribute name="name" type="xs:string" use="required" />
@@ -55,7 +55,7 @@
               <xs:documentation>Item routes must be unique</xs:documentation>
             </xs:annotation>
             <xs:selector xpath="ns0:item" />
-            <xs:field xpath="@id" />
+            <xs:field xpath="@route" />
           </xs:key>          
         </xs:element>
       </xs:sequence>

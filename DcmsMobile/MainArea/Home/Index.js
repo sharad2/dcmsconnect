@@ -19,6 +19,7 @@ $(document).on('pagecreate', '#mainpage', function () {
         crossDomain: true
     }).done(function (data, textStatus, jqXHR) {
         // The call to RC was successful. Show the RC link at the bottom of the page
+        // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
         $('#rcNavBar small').hide();
         // Show the rc link against each menu items
         $.each(data, function () {

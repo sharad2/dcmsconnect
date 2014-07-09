@@ -100,7 +100,7 @@ namespace DcmsMobile.MainArea.Home
     public class MenuLink
     {
 
-        public string Id { get; set; }
+        public string RouteName { get; set; }
 
         public string ShortCut { get; set; }
 

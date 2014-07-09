@@ -117,7 +117,7 @@ namespace DcmsMobile.MainArea.Home
                         from item in cat.MenuItems
                         select new
                         {
-                            id = item.Id,
+                            route = item.RouteName,
                             url = item.Url
                         };
 
@@ -153,18 +153,18 @@ namespace DcmsMobile.MainArea.Home
                                   MenuItems = (from item in xdoc.Root.Element(_ns + "items").Elements(_ns + "item")
                                                let itemCatId = (string)item.Attribute("categoryId")
                                                where itemCatId == catId
-                                               let itemId = (string)item.Attribute("id")
-                                               let route = Url.RouteCollection[itemId]
+                                               let routeName = (string)item.Attribute("route")
+                                               let route = Url.RouteCollection[routeName]
                                                where route != null  // If the route does not exist, do not show the link
                                                let elemDescription = item.Element(_ns + "description")
                                                select new MenuLink
                                                {
-                                                   Id = itemId,
+                                                   RouteName = routeName,
                                                    ShortCut = (string)item.Attribute("shortcut"),
                                                    Name = (string)item.Attribute("name"),
                                                    Description = elemDescription == null ? string.Empty : elemDescription.Value,
                                                    //Mobile = (bool)item.Attribute("mobile"),
-                                                   Url = Url.RouteUrl(itemId)
+                                                   Url = Url.RouteUrl(routeName)
                                                }).ToArray()
                               }).Where(p => p.MenuItems.Count > 0).ToArray();
 

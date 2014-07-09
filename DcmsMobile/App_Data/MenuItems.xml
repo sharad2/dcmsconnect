@@ -8,87 +8,87 @@
   </categories>
   <!--Item represents a Menu Link-->
   <items>
-    <!--<item id="DcmsConnect_Search" categoryId="pick" shortcut="INQ" name="Search DCMS">
+    <!--<item route="DcmsConnect_Search" categoryId="pick" shortcut="INQ" name="Search DCMS">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
       </keywords>
     </item>-->
-    <item id="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
+    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
     </item>
-    <item id="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
+    <item route="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
       <description>Creating boxpick pallets</description>
     </item>
-    <item id="DcmsConnect_BoxPick" categoryId="pick"  shortcut="BPI" name="Box Pick">
+    <item route="DcmsConnect_BoxPick" categoryId="pick"  shortcut="BPI" name="Box Pick">
       <description>Starting Box Picking</description>
     </item>
-    <item id="DcmsConnect_PieceReplenish" categoryId="pick"  shortcut="PUL" name="Piece Replenish">
+    <item route="DcmsConnect_PieceReplenish" categoryId="pick"  shortcut="PUL" name="Piece Replenish">
       <description>Manage Forward Pick Area</description>
     </item>
-    <item id="DcmsConnect_Restock" categoryId="pick"  shortcut="RST" name="Restock">
+    <item route="DcmsConnect_Restock" categoryId="pick"  shortcut="RST" name="Restock">
       <description>Restocking cartons</description>
     </item>
-    <item id="DcmsConnect_ApplyVasToBox" categoryId="ship"  shortcut="V2P" name="Apply VAS to Boxes">
+    <item route="DcmsConnect_ApplyVasToBox" categoryId="ship"  shortcut="V2P" name="Apply VAS to Boxes">
       <description>Applying VAS to boxes</description>
     </item>
-    <item id="DcmsConnect_ScanToPallet" categoryId="ship"  shortcut="STP" name="Scan To Pallet">
+    <item route="DcmsConnect_ScanToPallet" categoryId="ship"  shortcut="STP" name="Scan To Pallet">
       <description>Scan to pallet program</description>
     </item>
-    <item id="DcmsConnect_MoveBoxPallet" categoryId="ship"  shortcut="MP" name="Move Pallet">
+    <item route="DcmsConnect_MoveBoxPallet" categoryId="ship"  shortcut="MP" name="Move Pallet">
       <description>Moves a box pallet from one location to another</description>
     </item>
-    <item id="DcmsConnect_RoutingSummary" categoryId="ship"  shortcut="COR" name="Customer Order Routing">
+    <item route="DcmsConnect_RoutingSummary" categoryId="ship"  shortcut="COR" name="Customer Order Routing">
       <description>Creating EDI 753 to route customer orders</description>
     </item>
-    <item id="DcmsConnect_Appointment" categoryId="ship"  shortcut="APP" name="Manage Appointment">
+    <item route="DcmsConnect_Appointment" categoryId="ship"  shortcut="APP" name="Manage Appointment">
       <description>Creating and manageing appointment</description>
     </item>
-    <item id="DcmsConnect_ScanToTruck" categoryId="ship"  shortcut="STT" name="Scan To Truck">
+    <item route="DcmsConnect_ScanToTruck" categoryId="ship"  shortcut="STT" name="Scan To Truck">
       <description>Loading boxes on truck to ensure accuracy of shipment</description>
     </item>
-    <item id="DcmsConnect_AbondonRework" categoryId="inventory"  shortcut="ARW" name="Abondon Rework">
+    <item route="DcmsConnect_AbondonRework" categoryId="inventory"  shortcut="ARW" name="Abondon Rework">
       <description>Let the system know if you no longer want to perform rework on Cartons which had been marked for rework </description>
     </item>
-    <item id="DcmsConnect_BulkUpdateCarton" categoryId="inventory"  shortcut="BCED" name="Bulk Update Carton">
+    <item route="DcmsConnect_BulkUpdateCarton" categoryId="inventory"  shortcut="BCED" name="Bulk Update Carton">
       <description>Advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated</description>
     </item>
-    <item id="DcmsConnect_CartonEditor" categoryId="inventory"  shortcut="CED" name="Carton Editor">
+    <item route="DcmsConnect_CartonEditor" categoryId="inventory"  shortcut="CED" name="Carton Editor">
       <description>Carton to edit in inventory tab</description>
     </item>
-    <item id="DcmsConnect_CartonLocating" categoryId="inventory"  shortcut="CLOC" name="Carton Locating">
+    <item route="DcmsConnect_CartonLocating" categoryId="inventory"  shortcut="CLOC" name="Carton Locating">
       <description>Locating cartons in numbered bin locations</description>
     </item>
-    <item id="DcmsConnect_CartonToPallet" categoryId="inventory"  shortcut="C2P" name="Carton To Pallet">
+    <item route="DcmsConnect_CartonToPallet" categoryId="inventory"  shortcut="C2P" name="Carton To Pallet">
       <description>Place cartons on a pallet</description>
     </item>
-    <item id="DcmsConnect_MarkReworkComplete" categoryId="inventory"  shortcut="MRC" name="Mark Rework Complete">
+    <item route="DcmsConnect_MarkReworkComplete" categoryId="inventory"  shortcut="MRC" name="Mark Rework Complete">
       <description>Mark Rework Complete of those Cartons on which rework has to be done</description>
     </item>
-    <item id="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
+    <item route="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
     
-    <item id="DcmsConnect_REQ2" categoryId="inventory"  shortcut="REQ" name="Pull Request">
+    <item route="DcmsConnect_REQ2" categoryId="inventory"  shortcut="REQ" name="Pull Request">
       <description>Managing SKU assignment at carton locations</description>
     </item>
       <!-- Miscelaneous components-->
-    <item id="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
+    <item route="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
-    <item id="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="PLOC" name="DcmsLite">
+    <item route="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="PLOC" name="DcmsLite">
       <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
     </item>    
-    <item id="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
+    <item route="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
     </item>
-    <item id="DcmsConnect_Receving" categoryId="misc"  shortcut="REC" name="Receiving">
+    <item route="DcmsConnect_Receving" categoryId="misc"  shortcut="REC" name="Receiving">
       <description>Receive cartons against an ASN.</description>
     </item>
-    <item id="DcmsConnect_Repack" categoryId="misc"  shortcut="RPK" name="Repack">
+    <item route="DcmsConnect_Repack" categoryId="misc"  shortcut="RPK" name="Repack">
       <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
     </item>
-    <item id="DcmsConnect_Rights" categoryId="misc"  shortcut="" name="DcmsRights">
+    <item route="DcmsConnect_Rights" categoryId="misc"  shortcut="" name="DcmsRights">
       <description>Create DCMS Users and assign rights to run DCMS programs.</description>
     </item>
   </items>
