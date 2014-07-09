@@ -23,10 +23,6 @@ namespace DcmsMobile.MainArea.Home
     public partial class HomeController : EclipseController
     {
 
-        private readonly XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
-
-        private const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
-
         /// <summary>
         /// Without the trailing /
         /// </summary>
@@ -75,9 +71,6 @@ namespace DcmsMobile.MainArea.Home
             if (!string.IsNullOrWhiteSpace(id))
             {
                 // See whether it is one of the link shortcuts. If it is, then just redirect to that link
-                var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
-                XDocument xdoc = XDocument.Load(path);
-
                 var link = (from cat in GetMenuItems()
                             from item in cat.MenuItems
                             where string.Compare((string)item.ShortCut, id, true) == 0
@@ -135,6 +128,9 @@ namespace DcmsMobile.MainArea.Home
 
         private IList<MenuCategory> GetMenuItems()
         {
+            XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
+            const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
+
             // MENUITEMS_XML_FILE_NAME is also used as the key
             var categories = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as IList<MenuCategory>;
             if (categories == null)
