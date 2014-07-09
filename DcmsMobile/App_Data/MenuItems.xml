@@ -2,9 +2,9 @@
 <root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
   <categories>
     <category id="pick" name="Pick" />
-    <category id="ship" name="Ship" />
-    <!--<category id="receive" name="Receive" />-->
+    <category id="ship" name="Ship" />    
     <category id="inventory" name="Inventory" />
+  <category id="misc" name="Miscellaneous" />
   </categories>
   <!--Item represents a Menu Link-->
   <items>
@@ -68,5 +68,10 @@
     <item id="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
+      <!-- Miscelaneous components-->
+    <item id="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
+      <description>Configuration UI for VAS</description>
+    </item>
+
   </items>
 </root>
