@@ -18,6 +18,8 @@ using EclipseLibrary.Mvc.Html;
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
     [AuthorizeEx("Receiving requires Role {0}", Roles = "SRC_RECEIVING")]
+    [RouteArea("Receving")]
+    [RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : EclipseController
     {
         private GroupSelectListItem Map(CartonArea src)
@@ -133,6 +135,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// </remarks>
         [ActionName("Index")]
         [HttpGet]
+        [Route(HomeController.ActionNameConstants.Index, Name = "DcmsConnect_Receving")]
         public virtual ActionResult Index()
         {
 
