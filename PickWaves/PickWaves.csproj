@@ -109,6 +109,7 @@
     <Compile Include="Helpers\BoxState.cs" />
     <Compile Include="Helpers\BucketActivityType.cs" />
     <Compile Include="Helpers\DateRange.cs" />
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\ProgressStage.cs" />
     <Compile Include="Helpers\PickWaveHelpers.cs" />
     <Compile Include="Helpers\PickWavesControllerBase.cs" />
@@ -526,7 +527,8 @@
   <PropertyGroup>
     <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
 XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I</PreBuildEvent>
+XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I
+XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers

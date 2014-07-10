@@ -50,7 +50,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Showing list of bucket summary for all customer.
         /// </summary>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Index, Name= "DcmsConnect_ManagePickWave")]
+        [Route(HomeController.ActionNameConstants.Index, Name= DcmsPublicRoutes.DcmsConnect_ManagePickWave)]
         public virtual ActionResult Index()
         {
             return ShowHomePage(SearchTextType.Unknown, null);
