@@ -2,24 +2,26 @@
 @{
     ViewBag.Title = "DCMS Web Login";
 }
+<div data-role="page">
+    <div data-role="content">
+        @using (Html.BeginForm(MVC_DcmsMobile.Logon.Login()))
+        {
+            @Html.HiddenFor(m => m.ReturnUrl)
+            <div class="ui-field-contain">
+                @Html.LabelFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName)
+            </div>
+            <div class="ui-field-contain">
+                @Html.LabelFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password)
+            </div>
 
-@using (Html.BeginForm(MVC_DcmsMobile.Logon.Login()))
-{
-    @Html.HiddenFor(m => m.ReturnUrl)
-    <div class="ui-field-contain">
-        @Html.LabelFor(m => m.UserName)
-        @Html.TextBoxFor(m => m.UserName)
+
+            <button type="submit">Sign in</button>
+            <a class="ui-btn ui-btn-a" href="@(string.IsNullOrWhiteSpace(Model.ReturnUrl) ? Url.Content("~") : Model.ReturnUrl)">Skip</a>
+
+
+        }
     </div>
-    <div class="ui-field-contain">
-        @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password)
-    </div>
-
-    <div data-role="controlgroup">
-        <input type="submit" value="Log On" />
-        <a class="ui-btn ui-btn-a" href="@(string.IsNullOrWhiteSpace(Model.ReturnUrl) ? Url.Content("~") : Model.ReturnUrl)">Skip</a>
-    </div>
-
-}
-
+</div>
 

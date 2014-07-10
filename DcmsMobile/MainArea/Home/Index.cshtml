@@ -52,7 +52,7 @@
                             @Html.DisplayFor(m => m.Categories[i].MenuItems[j].Description)
                         </div>
                         <div style="display:inline-block">
-                            <div class="@Model.Categories[i].MenuItems[j].RouteName" data-role="controlgroup" data-type="horizontal">
+                            <div class="@Model.Categories[i].MenuItems[j].RouteName ui-mini" data-role="controlgroup" data-type="horizontal">
                                 <a href="@Model.Categories[i].MenuItems[j].Url" class="ui-btn">
                                     @Html.DisplayFor(m => m.Categories[i].MenuItems[j].ShortCut)
                                 </a>
@@ -73,7 +73,7 @@
             @for (var i = 0; i < Model.Categories.Count; ++i)
             {
                 <li><a href="#page_@Model.Categories[i].Id" data-transition="flip">@Html.DisplayFor(m => m.Categories[i].Name)</a></li>
-            }            
+            }
         </ul>
 
     </div><!-- /navbar -->

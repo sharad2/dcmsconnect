@@ -54,8 +54,7 @@
                 <a href="@homeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
             }
             <form action="@Url.Action(MVC_DcmsMobile.Home.Search())" method="get">
-                <input 
-                       name="@DcmsMobile.MainArea.Home.HomeController.SearchParams.id"
+                <input name="@DcmsMobile.MainArea.Home.HomeController.SearchParams.id"
                        type="search" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="Search DCMS" />
             </form>
         </div>
@@ -88,7 +87,7 @@
                     <li>@errors[i]</li>
                 }
             </ol>
-        }        
+        }
     </header>
 
     @RenderBody()
@@ -101,16 +100,19 @@
         </ul>
     </div>
 
-    <div data-role="popup" id="layoutPopupSignoff" data-theme="b" class="ui-mini">
-        <ul data-role="listview" data-inset="true">
-            <li>
-                <a href="@Url.Action(MVC_DcmsMobile.Logon.Logoff())" class="ui-btn ui-icon-user ui-btn-icon-left">Sign out</a>
-            </li>
-            <li>
-                <a href="@Url.Action(MVC_DcmsMobile.Logon.GetNewPassword())" class="ui-btn">Change Password</a>
-            </li>
-        </ul>
-    </div>
+    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+    {
+        <div data-role="popup" id="layoutPopupSignoff" data-theme="b" class="ui-mini">
+            <ul data-role="listview" data-inset="true">
+                <li>
+                    <a href="@Url.Action(MVC_DcmsMobile.Logon.Logoff())" class="ui-btn ui-icon-user ui-btn-icon-left">Sign out</a>
+                </li>
+                <li>
+                    <a href="@Url.Action(MVC_DcmsMobile.Logon.GetNewPassword())" class="ui-btn">Change Password</a>
+                </li>
+            </ul>
+        </div>
+    }
 
 </body>
 </html>
