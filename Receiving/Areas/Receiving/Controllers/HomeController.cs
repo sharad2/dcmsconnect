@@ -135,7 +135,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// </remarks>
         [ActionName("Index")]
         [HttpGet]
-        [Route(HomeController.ActionNameConstants.Index, Name = "DcmsConnect_Receving")]
+        [Route(HomeController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_Receving)]
         public virtual ActionResult Index()
         {
 
