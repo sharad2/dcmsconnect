@@ -112,6 +112,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ButtonActionAttribute.cs" />
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\DcmsRightsResource.Designer.cs">
       <AutoGen>True</AutoGen>
