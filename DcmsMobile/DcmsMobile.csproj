@@ -115,6 +115,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainArea\Home\MenuLink.cs" />
+    <Compile Include="MainArea\Home\MenuCategory.cs" />
     <Compile Include="SharedCode\DcmsPublicRoutes.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

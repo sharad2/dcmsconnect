@@ -45,10 +45,29 @@ namespace DcmsMobile.MainArea.Home
         /// <returns></returns>
         public virtual ActionResult Index()
         {
+            var query = from cat in this.MenuCategories
+                        select new MenuCategoryModel
+                        {
+                            Id = cat.Id,
+                            Name = cat.Name,
+                            MenuItems = (from link in this.MenuLinks
+                                         where link.CategoryId == cat.Id && (!link.Visible.HasValue || link.Visible.Value)
+                                         let route = Url.RouteCollection[link.RouteName]
+                                         where route != null
+                                         select new MenuLinkModel
+                                         {
+                                             Description = link.Description,
+                                             Mobile = link.Mobile ?? false,
+                                             Name = link.Name,
+                                             RouteName = link.RouteName,
+                                             ShortCut = link.ShortCut,
+                                             Url = Url.RouteUrl(link.RouteName)
+                                         }).ToArray()
+                        };
             var model = new LauncherViewModel
             {
                 UrlRcBase = this.UrlRcBase,
-                Categories = GetMenuItems()
+                Categories = query.Where(p => p.MenuItems.Count > 0).ToArray()
             };
 
             return View(this.Views.ViewNames.Index, model);
@@ -66,14 +85,15 @@ namespace DcmsMobile.MainArea.Home
             if (!string.IsNullOrWhiteSpace(id))
             {
                 // See whether it is one of the link shortcuts. If it is, then just redirect to that link
-                var link = (from cat in GetMenuItems()
-                            from item in cat.MenuItems
+                var link = (from item in this.MenuLinks
                             where string.Compare((string)item.ShortCut, id, true) == 0
-                            select item).FirstOrDefault();
+                            let route = Url.RouteCollection[item.RouteName]
+                            where route != null
+                            select Url.RouteUrl(item.RouteName)).FirstOrDefault();
 
                 if (link != null)
                 {
-                    return Redirect(link.Url);
+                    return Redirect(link);
                 }
             }
 
@@ -101,12 +121,12 @@ namespace DcmsMobile.MainArea.Home
             {
                 throw new NotSupportedException("Only version 1 is supported");
             }
-            var query = from cat in GetMenuItems()
-                        from item in cat.MenuItems
+            var query = from item in MenuLinks
+                        where Url.RouteCollection[item.RouteName] != null
                         select new
                         {
                             route = item.RouteName,
-                            url = item.Url
+                            url = Url.RouteUrl(item.RouteName)
                         };
 
             var sb = new StringBuilder(Request["callback"]);
@@ -122,62 +142,106 @@ namespace DcmsMobile.MainArea.Home
 
         }
 
-        private IList<MenuCategory> GetMenuItems()
+        #region XML File
+        private const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
+        private IList<MenuCategory> MenuCategories
         {
-            XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
-            const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
-
-            // MENUITEMS_XML_FILE_NAME is also used as the key
-            var categories = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as IList<MenuCategory>;
-            if (categories == null)
+            get
             {
-                var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
-                XDocument xdoc = XDocument.Load(path);
-                categories = (from cat in xdoc.Root.Element(_ns + "categories").Elements(_ns + "category")
-                              let catId = (string)cat.Attribute("id")
-                              select new MenuCategory
-                              {
-                                  Id = catId,
-                                  Name = (string)cat.Attribute("name"),
-                                  MenuItems = (from item in xdoc.Root.Element(_ns + "items").Elements(_ns + "item")
-                                               let itemCatId = (string)item.Attribute("categoryId")
-                                               where itemCatId == catId
-                                               let routeName = (string)item.Attribute("route")
-                                               let route = Url.RouteCollection[routeName]
-                                               where route != null  // If the route does not exist, do not show the link
-                                               let elemDescription = item.Element(_ns + "description")
-                                               select new MenuLink
-                                               {
-                                                   RouteName = routeName,
-                                                   ShortCut = (string)item.Attribute("shortcut"),
-                                                   Name = (string)item.Attribute("name"),
-                                                   Description = elemDescription == null ? string.Empty : elemDescription.Value,
-                                                   Mobile = ((bool?)item.Attribute("mobile")) ?? false,
-                                                   Visible = ((bool?)item.Attribute("visible")) ?? false,
-                                                   Url = Url.RouteUrl(routeName),
-                                                   Order = ((int?)item.Attribute("order")) ?? 10000,
-                                                   CategoryId = catId
-                                               }).ToArray()
-                              }).Where(p => p.MenuItems.Count > 0).ToArray();
-
-                CacheItemPolicy policy = new CacheItemPolicy
+                var tuple = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
+                if (tuple == null)
                 {
-                    Priority = CacheItemPriority.Default,
-                    SlidingExpiration = TimeSpan.FromMinutes(30)
-                };
-
-                List<string> filePaths = new List<string>();
-                filePaths.Add(path);
-
-                policy.ChangeMonitors.Add(new
-                HostFileChangeMonitor(filePaths));
-
-                MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, categories, policy);
-
+                    tuple = ReadMenuXml();
+                }
+                return tuple.Item1;
             }
-            return categories;
         }
 
+        private IList<MenuLink> MenuLinks
+        {
+            get
+            {
+                var tuple = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
+                if (tuple == null)
+                {
+                    tuple = ReadMenuXml();
+                }
+                return tuple.Item2;
+            }
+        }
+
+        private Tuple<IList<MenuCategory>, IList<MenuLink>> ReadMenuXml()
+        {
+            XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
+
+            var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
+            var root = XElement.Load(path);
+
+            IList<MenuCategory> cats = (from cat in root.Element(_ns + "categories").Elements(_ns + "category")
+                                        select new MenuCategory
+                                        {
+                                            Id = (string)cat.Attribute("id"),
+                                            Name = (string)cat.Attribute("name")
+                                        }).ToArray();
+
+            IList<MenuLink> links = (from item in root.Element(_ns + "items").Elements(_ns + "item")
+                                     let elemDescription = item.Element(_ns + "description")
+                                     select new MenuLink
+                                     {
+                                         RouteName = (string)item.Attribute("route"),
+                                         ShortCut = (string)item.Attribute("shortcut"),
+                                         Name = (string)item.Attribute("name"),
+                                         Description = elemDescription == null ? string.Empty : elemDescription.Value,
+                                         Mobile = (bool?)item.Attribute("mobile"),
+                                         Visible = (bool?)item.Attribute("visible"),
+                                         Order = (int?)item.Attribute("order"),
+                                         CategoryId = (string)item.Attribute("categoryId")
+                                     }).ToArray();
+
+            //categories = (from cat in root.Element(_ns + "categories").Elements(_ns + "category")
+            //              let catId = (string)cat.Attribute("id")
+            //              select new MenuCategoryModel
+            //              {
+            //                  Id = catId,
+            //                  Name = (string)cat.Attribute("name"),
+            //                  MenuItems = (from item in root.Element(_ns + "items").Elements(_ns + "item")
+            //                               let itemCatId = (string)item.Attribute("categoryId")
+            //                               where itemCatId == catId
+            //                               let routeName = (string)item.Attribute("route")
+            //                               let route = Url.RouteCollection[routeName]
+            //                               where route != null  // If the route does not exist, do not show the link
+            //                               let elemDescription = item.Element(_ns + "description")
+            //                               select new MenuLinkModel
+            //                               {
+            //                                   RouteName = routeName,
+            //                                   ShortCut = (string)item.Attribute("shortcut"),
+            //                                   Name = (string)item.Attribute("name"),
+            //                                   Description = elemDescription == null ? string.Empty : elemDescription.Value,
+            //                                   Mobile = ((bool?)item.Attribute("mobile")) ?? false,
+            //                                   Visible = ((bool?)item.Attribute("visible")) ?? false,
+            //                                   Url = Url.RouteUrl(routeName),
+            //                                   Order = ((int?)item.Attribute("order")) ?? 10000,
+            //                                   CategoryId = catId
+            //                               }).ToArray()
+            //              }).Where(p => p.MenuItems.Count > 0).ToArray();
+
+            CacheItemPolicy policy = new CacheItemPolicy
+            {
+                Priority = CacheItemPriority.Default,
+                SlidingExpiration = TimeSpan.FromMinutes(30)
+            };
+
+            List<string> filePaths = new List<string>();
+            filePaths.Add(path);
+
+            policy.ChangeMonitors.Add(new HostFileChangeMonitor(filePaths));
+
+            var tuple = Tuple.Create(cats, links);
+            MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, tuple, policy);
+
+            return tuple;
+        }
+        #endregion
     }
 }
 

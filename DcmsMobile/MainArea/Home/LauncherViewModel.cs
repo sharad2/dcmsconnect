@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DcmsMobile.MainArea.Home
 {
-    public class MenuLink
+    public class MenuLinkModel
     {
         public string RouteName { get; set; }
 
@@ -17,22 +17,22 @@ namespace DcmsMobile.MainArea.Home
 
         public string Description { get; set; }
 
-        public int Order { get; set; }
+        //public int Order { get; set; }
 
-        public string CategoryId { get; set; }
+        //public string CategoryId { get; set; }
 
         public bool Visible { get; set; }
     }
 
 
 
-    public class MenuCategory
+    public class MenuCategoryModel
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
 
-        public IList<MenuLink> MenuItems { get; set; }
+        public IList<MenuLinkModel> MenuItems { get; set; }
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace DcmsMobile.MainArea.Home
             internal set;
         }
 
-        public IList<MenuCategory> Categories { get; internal set; }
+        public IList<MenuCategoryModel> Categories { get; internal set; }
 
     }
 
