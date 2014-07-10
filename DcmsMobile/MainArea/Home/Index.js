@@ -14,22 +14,25 @@ $(document).one('pagecreate', function () {
     if (!_rcBaseUrl) {
         // No RC URL specified. Nothing to do
     }
-   $.ajax(_rcBaseUrl + _rcItemsUrl, {
+    //TODO: Show Contacting on RC button
+    $.ajax(_rcBaseUrl + _rcItemsUrl, {
         dataType: 'jsonp',
         crossDomain: true
     }).done(function (data, textStatus, jqXHR) {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
-        $('#rcNavBar small').hide();
         // Show the rc link against each menu items
-        var pageToShow;
         $.each(data, function (e, ui) {
-            $('<a class="ui-btn"></a>').attr('href', _rcBaseUrl + this.url).text('RC').appendTo($('div.' + ui.route));
-            //$('#' + ui.route).attr('href', _rcBaseUrl + this.url).show();                          
-            pageToShow = ui.route;
+            var $a = $('<a></a>').attr({
+                href: _rcBaseUrl + this.url,
+                class: 'ui-btn'
+            }).text('RC');
+            $('div.' + ui.route + ' a:last').after($a);
         });        
-        $('div.' + pageToShow).controlgroup("refresh");
+        $('div.ui-page-active div[data-role="controlgroup"]').controlgroup("refresh");
+        //TODO: Show item count on RC button
     }).fail(function (jqXHR, textStatus, errorThrown) {
+        // TODO: Show error on RC button
         $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
     });     
 }).on("pagecontainershow", function (event, ui) {
