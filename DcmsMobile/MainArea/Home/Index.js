@@ -15,7 +15,7 @@ $(document).one('pagecreate', function () {
         // No RC URL specified. Nothing to do
         $('#rclink').hide();
     }
-    $('#rclink').attr('href', _rcBaseUrl);
+   
     //TODO: Show Contacting on RC button
     $.ajax(_rcBaseUrl + _rcItemsUrl, {
         dataType: 'jsonp',
@@ -24,7 +24,7 @@ $(document).one('pagecreate', function () {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
         // Show the rc link against each menu items
-        $('#rclink').text('Release Candidates (' + data.length + ' new)');
+        $('#rclink').attr('href', _rcBaseUrl).text('Release Candidates (' + data.length + ' new)');
         $.each(data, function (e, ui) {
             var $a = $('<a></a>').attr({
                 href: _rcBaseUrl + this.url,
