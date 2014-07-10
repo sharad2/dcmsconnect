@@ -99,6 +99,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Models\AssignedCarton.cs" />
     <Compile Include="Models\CartonArea.cs" />
     <Compile Include="Models\CartonList.cs" />
@@ -300,7 +301,8 @@
   <PropertyGroup>
     <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
 XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I</PreBuildEvent>
+XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I
+XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf *.partial.* *.chirp.config *.cs /XD Controllers
