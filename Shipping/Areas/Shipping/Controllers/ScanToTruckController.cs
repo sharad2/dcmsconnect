@@ -107,7 +107,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// Show Index view.
         /// </summary>
         /// <returns></returns>
-          [Route(ScanToTruckController.ActionNameConstants.Index, Name = "DcmsConnect_ScanToTruck")]
+          [Route(ScanToTruckController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_ScanToTruck)]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new IndexViewModel());

@@ -195,7 +195,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
 
-        [Route(HomeController.ActionNameConstants.RoutingSummaryAll, Name = "DcmsConnect_RoutingSummary")]
+        [Route(HomeController.ActionNameConstants.RoutingSummaryAll, Name = DcmsPublicRoutes.DcmsConnect_RoutingSummary)]
         public virtual ActionResult RoutingSummaryAll(RoutingSummaryViewModel model)
         {
            
@@ -685,7 +685,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// Dislays appointment view
         /// </summary>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.AllAppointments, Name = "DcmsConnect_Appointment")]
+        [Route(HomeController.ActionNameConstants.AllAppointments, Name = DcmsPublicRoutes.DcmsConnect_Appointment)]
         public virtual ActionResult AllAppointments(AppointmentViewModel model)
         {
             model.BuildingList = _service.GetBuildingList().Select(p => Map(p));
