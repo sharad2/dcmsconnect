@@ -2,19 +2,19 @@
 <root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
   <categories>
     <category id="pick" name="Pick" />
-    <category id="ship" name="Ship" />    
+    <category id="ship" name="Ship" />
     <category id="inventory" name="Inventory" />
-  <category id="misc" name="Miscellaneous" />
+    <category id="misc" name="Miscellaneous" />
   </categories>
   <!--Item represents a Menu Link-->
   <items>
-    <!--<item route="DcmsConnect_Search" categoryId="pick" shortcut="INQ" name="Search DCMS">
+    <item route="DcmsConnect_Search" categoryId="misc" shortcut="INQ" name="Search DCMS" visible="false">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
       </keywords>
-    </item>-->
-    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
+    </item>
+    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves" order="10">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
     </item>
     <item route="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">
@@ -68,17 +68,17 @@
     <item route="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
-    
+
     <item route="DcmsConnect_REQ2" categoryId="inventory"  shortcut="REQ" name="Pull Request">
       <description>Managing SKU assignment at carton locations</description>
     </item>
-      <!-- Miscelaneous components-->
+    <!-- Miscelaneous components-->
     <item route="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
     <item route="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="PLOC" name="DcmsLite">
       <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
-    </item>    
+    </item>
     <item route="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
     </item>
@@ -88,7 +88,7 @@
     <item route="DcmsConnect_Repack" categoryId="misc"  shortcut="RPK" name="Repack">
       <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
     </item>
-    <item route="DcmsConnect_Rights" categoryId="misc"  shortcut="" name="DcmsRights">
+    <item route="DcmsConnect_Rights" categoryId="misc"  shortcut="DRI" name="DcmsRights">
       <description>Create DCMS Users and assign rights to run DCMS programs.</description>
     </item>
   </items>

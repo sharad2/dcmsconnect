@@ -152,7 +152,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MenuItems.xml" />
+    <Content Include="App_Data\MenuItems.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\icons-18-black.png" />

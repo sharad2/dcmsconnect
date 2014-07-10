@@ -45,16 +45,11 @@ namespace DcmsMobile.MainArea.Home
         /// <returns></returns>
         public virtual ActionResult Index()
         {
-            var model = new LauncherViewModel();
-            //model.Init(this.ControllerContext, this.Url);
-            //model.MenuItems = (from item in AreaItem.Areas
-            //                   orderby item.Order, item.Name
-            //                   select new MenuItem(item, Url)).ToArray();
-
-            model.UrlRcBase = this.UrlRcBase;
-
-            // Load only those categories which have some menu items
-            model.Categories = GetMenuItems();
+            var model = new LauncherViewModel
+            {
+                UrlRcBase = this.UrlRcBase,
+                Categories = GetMenuItems()
+            };
 
             return View(this.Views.ViewNames.Index, model);
         }
@@ -86,8 +81,6 @@ namespace DcmsMobile.MainArea.Home
             {
                 id = id
             }));
-            //var x = RouteTable.Routes.GetRouteData(ToArray();
-            //throw new NotImplementedException(id);
         }
 
         /// <summary>
@@ -103,17 +96,11 @@ namespace DcmsMobile.MainArea.Home
         [Route("RcItems")]
         public virtual ActionResult RcItems(int version)
         {
-            
+
             if (version != 1)
             {
                 throw new NotSupportedException("Only version 1 is supported");
             }
-            //var query = from area in AreaItem.Areas
-            //            select new
-            //            {
-            //                area = area.AreaName,
-            //                url = string.Format("/{0}", area.AreaName)
-            //            };
             var query = from cat in GetMenuItems()
                         from item in cat.MenuItems
                         select new
@@ -140,11 +127,6 @@ namespace DcmsMobile.MainArea.Home
             XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
             const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
 
-            var x = System.Xml.Linq.XDocument.Load(HttpContext.Server.MapPath("~/App_Data/MenuItems.xml"))
-                .Root.Descendants(XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
-                .Select(p => (string)p.Attribute("route")).ToArray();
-
-
             // MENUITEMS_XML_FILE_NAME is also used as the key
             var categories = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as IList<MenuCategory>;
             if (categories == null)
@@ -170,8 +152,11 @@ namespace DcmsMobile.MainArea.Home
                                                    ShortCut = (string)item.Attribute("shortcut"),
                                                    Name = (string)item.Attribute("name"),
                                                    Description = elemDescription == null ? string.Empty : elemDescription.Value,
-                                                   //Mobile = (bool)item.Attribute("mobile"),
-                                                   Url = Url.RouteUrl(routeName)
+                                                   Mobile = ((bool?)item.Attribute("mobile")) ?? false,
+                                                   Visible = ((bool?)item.Attribute("visible")) ?? false,
+                                                   Url = Url.RouteUrl(routeName),
+                                                   Order = ((int?)item.Attribute("order")) ?? 10000,
+                                                   CategoryId = catId
                                                }).ToArray()
                               }).Where(p => p.MenuItems.Count > 0).ToArray();
 
