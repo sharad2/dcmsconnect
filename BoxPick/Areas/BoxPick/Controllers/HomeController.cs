@@ -54,7 +54,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
         /// </para>
         /// </remarks>
         [ActionName("Index")]
-        [Route(Name = "DcmsConnect_BoxPick")]
+        [Route(Name = DcmsPublicRoutes.DcmsConnect_BoxPick)]
         public virtual ActionResult AcceptBuilding(BuildingViewModel model)
         {
             string currentBuildingId;
