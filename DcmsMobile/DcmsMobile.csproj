@@ -495,9 +495,6 @@
     <Content Include="MainArea\SharedViews\_soundPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MainArea\_ViewStart.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
