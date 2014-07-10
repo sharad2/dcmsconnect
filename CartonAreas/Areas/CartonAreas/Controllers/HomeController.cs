@@ -51,7 +51,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// Displays home page which shows buildings
         /// </summary>
         /// <returns></returns>        
-        [Route(Name = "DcmsConnect_CartonAreas")]
+        [Route(Name = DcmsPublicRoutes.DcmsConnect_CartonAreas)]
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel
