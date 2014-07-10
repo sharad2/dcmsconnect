@@ -115,6 +115,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SharedCode\DcmsPublicRoutes.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DcmsPublicRoutes.tt</DependentUpon>
+    </Compile>
     <Compile Include="MainArea\Diagnostic\DiagnosticController.cs" />
     <Compile Include="MainArea\Home\HomeController.cs" />
     <Compile Include="MainArea\Logon\LogonController.cs" />
@@ -414,6 +419,10 @@
     <None Include="Doc\Steps to publish a pluggable app.txt" />
     <Content Include="Doc\Features.txt" />
     <Content Include="Global.asax" />
+    <Content Include="SharedCode\DcmsPublicRoutes.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DcmsPublicRoutes.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="MvcDiagnostics.aspx" />

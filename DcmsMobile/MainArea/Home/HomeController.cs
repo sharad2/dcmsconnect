@@ -138,6 +138,11 @@ namespace DcmsMobile.MainArea.Home
             XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
             const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
 
+            var x = System.Xml.Linq.XDocument.Load(HttpContext.Server.MapPath("~/App_Data/MenuItems.xml"))
+                .Root.Descendants(XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
+                .Select(p => (string)p.Attribute("route")).ToArray();
+
+
             // MENUITEMS_XML_FILE_NAME is also used as the key
             var categories = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as IList<MenuCategory>;
             if (categories == null)
