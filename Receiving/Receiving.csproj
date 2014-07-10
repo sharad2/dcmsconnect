@@ -362,6 +362,7 @@ xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</Post
   <PropertyGroup>
     <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
 XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I</PreBuildEvent>
+XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I
+XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I</PreBuildEvent>
   </PropertyGroup>
 </Project>
