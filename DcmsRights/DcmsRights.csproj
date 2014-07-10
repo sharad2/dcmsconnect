@@ -281,6 +281,7 @@ XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I</
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
-xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
+xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
+xcopy /Y /F "$(ProjectDir)App_Data\*.xml" "$(SolutionDir)DcmsMobile\App_Data"</PostBuildEvent>
   </PropertyGroup>
 </Project>
