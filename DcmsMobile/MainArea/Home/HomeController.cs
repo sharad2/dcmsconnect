@@ -103,6 +103,7 @@ namespace DcmsMobile.MainArea.Home
         [Route("RcItems")]
         public virtual ActionResult RcItems(int version)
         {
+            
             if (version != 1)
             {
                 throw new NotSupportedException("Only version 1 is supported");
@@ -124,13 +125,14 @@ namespace DcmsMobile.MainArea.Home
             var sb = new StringBuilder(Request["callback"]);
             sb.Append("(");
             var ser = new JavaScriptSerializer();
-            //ser.Serialize(query, sb);
+            ser.Serialize(query, sb);
             sb.Append(")");
             return new ContentResult
             {
                 Content = sb.ToString(),
                 ContentType = "jsonp"
             };
+
         }
 
         private IList<MenuCategory> GetMenuItems()

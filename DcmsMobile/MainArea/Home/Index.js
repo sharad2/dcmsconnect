@@ -6,15 +6,15 @@ _rcItemsUrl: URL which will return the json array of RC items. This should be a 
 */
 
 $(document).ready(function () {
-    $("#footermenu").toolbar({ theme: "a" });
+    $("#footermenu").toolbar({ theme: "a" });   
 });
 
 // Get a list of items available on the release candidate site and show the RC link for each of the items available
-$(document).on('pagecreate', '#mainpage', function () {
+$(document).one('pagecreate', function () {
     if (!_rcBaseUrl) {
         // No RC URL specified. Nothing to do
     }
-    $.ajax(_rcBaseUrl + _rcItemsUrl, {
+   $.ajax(_rcBaseUrl + _rcItemsUrl, {
         dataType: 'jsonp',
         crossDomain: true
     }).done(function (data, textStatus, jqXHR) {
@@ -22,12 +22,16 @@ $(document).on('pagecreate', '#mainpage', function () {
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
         $('#rcNavBar small').hide();
         // Show the rc link against each menu items
-        $.each(data, function () {
-            $('#' + this.area).attr('href', _rcBaseUrl + this.url).show();
-        });
+        var pageToShow;
+        $.each(data, function (e, ui) {
+            $('<a class="ui-btn"></a>').attr('href', _rcBaseUrl + this.url).text('RC').appendTo($('div.' + ui.route));
+            //$('#' + ui.route).attr('href', _rcBaseUrl + this.url).show();                          
+            pageToShow = ui.route;
+        });        
+        $('div.' + pageToShow).controlgroup("refresh");
     }).fail(function (jqXHR, textStatus, errorThrown) {
         $('#linkRc small').text('Contact failed with error ' + jqXHR.status);
-    });
+    });     
 }).on("pagecontainershow", function (event, ui) {
     // Code taken from View source of page http://demos.jquerymobile.com/1.4.3/toolbar-fixed-persistent/
     // Find the id of the page which is currently active
@@ -39,4 +43,6 @@ $(document).on('pagecreate', '#mainpage', function () {
     // We find the button whose href points to the id of the current page
     $("#navbarFixed a[href='#" + curpageId + "']").addClass("ui-btn-active");
 });
+
+
 
