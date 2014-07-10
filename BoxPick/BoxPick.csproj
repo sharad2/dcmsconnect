@@ -114,6 +114,7 @@
     <Compile Include="BoxPick.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\FormActionSelectorAttribute.cs" />
     <Compile Include="Models\Box.cs" />
     <Compile Include="Models\Carton.cs" />
