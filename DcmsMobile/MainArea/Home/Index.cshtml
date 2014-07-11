@@ -37,7 +37,7 @@
 @for (var i = 0; i < Model.Categories.Count; ++i)
 {
     <div data-role="page" id="page_@Model.Categories[i].Id">
-        <div data-role="content">
+        <div class="ui-content">
             @for (var j = 0; j < Model.Categories[i].MenuItems.Count; ++j)
             {
                 <div class="ui-corner-all custom-corners">
@@ -62,8 +62,6 @@
                     </div>
                 </div>
             }
-
-
         </div>
     </div>
 }

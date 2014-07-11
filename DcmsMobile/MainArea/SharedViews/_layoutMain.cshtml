@@ -1,4 +1,28 @@
 ﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+
+@*This layout is designed to be used as the main layout of every Area.
+    It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
+    It also displays status summary and validation errors.
+
+    <html>
+    <head>
+        <title></title>
+        <link />
+        <script></script>
+        @RenderSection("script", false)
+    </head>
+    <body>
+        <header data-role="header">
+
+        </header>
+
+        @RenderBody()
+
+        <!-- Header Popups -->
+    </body>
+    </html>
+
+*@
 @using System.Linq
 @{
     var messages = StatusSummaryExtensions.StatusMessages(Html);
@@ -14,6 +38,7 @@
     <script src="@Links_DcmsMobile.Scripts.jquery_2_0_3_js "></script>
     <script type="text/javascript">
         $(document).on("mobileinit", function () {
+            // External pages should be loaded as normal and not via link hijacking.
             //http://api.jquerymobile.com/global-config/
             $.mobile.ajaxEnabled = false;
             $.mobile.pushStateEnabled = false;
@@ -22,6 +47,7 @@
     <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            // Since the header is outside of all pages, it must be manually declared as toolbar.
             $('#layout_header').toolbar({ theme: "a" });
             $("#popupLayout,#layoutPopupSignoff").enhanceWithin().popup();
         });
@@ -46,11 +72,12 @@
 </head>
 <body>
     <header data-role="header" id="layout_header">
-        <h1>@ViewBag.Title</h1>
+        <h1>DCMS Connect</h1>
 
         <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-left ui-mini">
             @if (string.Compare(homeUrl, ViewContext.HttpContext.Request.Url.AbsolutePath, true) != 0)
             {
+                @* Do not show the home icon if we are on home page*@
                 <a href="@homeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
             }
             <form action="@Url.Action(MVC_DcmsMobile.Home.Search())" method="get">
@@ -59,6 +86,7 @@
             </form>
         </div>
 
+        @* Anonymous users get a button to login. Logged in users get a pop down to login or change password. *@
         <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-right ui-mini">
             @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
             {

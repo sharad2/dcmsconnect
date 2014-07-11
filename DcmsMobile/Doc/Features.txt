@@ -92,6 +92,12 @@ DcmsConnect_ManagePickWave. This is the URL for creating and managing pickwave.
 
 DcmsConnect_CartonAreas. This is the URL for managing SKU assignment at carton locations
 
+Displaying DCMS Connect header on top of area views
+---------------------------------------------------
+1. Do not use View Start. Set the layout in each view like this: 
+ Layout = MVC_Inquiry.Inquiry.Shared.Views._layoutInquiry;
+
+
 Diagnostics Framework
 ---------------------
 
