@@ -22,7 +22,6 @@ namespace DcmsMobile.MainArea.Home
     [RoutePrefix("home")]
     public partial class HomeController : EclipseController
     {
-
         /// <summary>
         /// Without the trailing /
         /// </summary>
@@ -50,6 +49,7 @@ namespace DcmsMobile.MainArea.Home
                         {
                             Id = cat.Id,
                             Name = cat.Name,
+                            Description = cat.Description,
                             MenuItems = (from link in this.MenuLinks
                                          where link.CategoryId == cat.Id && (!link.Visible.HasValue || link.Visible.Value)
                                          let route = Url.RouteCollection[link.RouteName]
@@ -182,7 +182,8 @@ namespace DcmsMobile.MainArea.Home
                                         select new MenuCategory
                                         {
                                             Id = (string)cat.Attribute("id"),
-                                            Name = (string)cat.Attribute("name")
+                                            Name = (string)cat.Attribute("name"),
+                                            Description = (string)cat.Element(_ns + "description")
                                         }).ToArray();
 
             IList<MenuLink> links = (from item in root.Element(_ns + "items").Elements(_ns + "item")

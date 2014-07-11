@@ -1,10 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
   <categories>
-    <category id="pick" name="Pick" />
-    <category id="ship" name="Ship" />
-    <category id="inventory" name="Inventory" />
-    <category id="misc" name="Miscellaneous" />
+    <category id="pick" name="Pick">
+      <description>Pick, Pack and Ship Process</description>
+    </category>
+    <category id="ship" name="Ship">
+      <description>Ship after you pack</description>
+    </category>
+    <category id="inventory" name="Inventory">
+      <description>Manage Inventory</description>
+    </category>
+    <category id="misc" name="Miscellaneous">
+      <description>Unclassified</description>
+    </category>
   </categories>
   <!--Item represents a Menu Link-->
   <items>

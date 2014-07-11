@@ -9,19 +9,18 @@
             <xs:sequence>
               <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="xs:string">
-                      <xs:attribute name="id" type="xs:NCName" use="required">
-                        <xs:annotation>
-                          <xs:documentation>
-                            This should be a string suitable for use as an id within HTML. Each category must have a unique id.
-                            Items reference this id to indicate their category.
-                          </xs:documentation>
-                        </xs:annotation>
-                      </xs:attribute>
-                      <xs:attribute name="name" type="xs:string" use="required" />
-                    </xs:extension>
-                  </xs:simpleContent>
+                  <xs:sequence>
+                    <xs:element name="description" minOccurs="0" maxOccurs="1" type="xs:string"></xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:NCName" use="required">
+                    <xs:annotation>
+                      <xs:documentation>
+                        This should be a string suitable for use as an id within HTML. Each category must have a unique id.
+                        Items reference this id to indicate their category.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="name" type="xs:string" use="required" />
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -33,7 +32,7 @@
               <xs:element name="item" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="description" minOccurs="0" maxOccurs="1"></xs:element>
+                    <xs:element name="description" minOccurs="0" maxOccurs="1" type="xs:string"></xs:element>
                     <xs:element name="keywords" minOccurs="0" maxOccurs="1">
                       <xs:complexType>
                         <xs:sequence>
@@ -51,7 +50,7 @@
                       <xs:documentation>Does this link display a mobile optimized screen?</xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-                  
+
                   <xs:attribute name="visible" type="xs:boolean" use="optional" default="true">
                     <xs:annotation>
                       <xs:documentation>
@@ -66,8 +65,8 @@
                         The rating of this item. Higher rated items display earlier in search results
                       </xs:documentation>
                     </xs:annotation>
-                  </xs:attribute>                  
-                  
+                  </xs:attribute>
+
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -78,7 +77,7 @@
             </xs:annotation>
             <xs:selector xpath="ns0:item" />
             <xs:field xpath="@route" />
-          </xs:key>          
+          </xs:key>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
@@ -88,11 +87,11 @@
       </xs:annotation>
       <xs:selector xpath="ns0:categories/ns0:category" />
       <xs:field xpath="@id" />
-    </xs:key> 
+    </xs:key>
     <xs:keyref name="item_cat_fk" refer="ns0:catid_pk">
       <xs:annotation>
         <xs:documentation>categoryId of item must refer to a valid category id</xs:documentation>
-      </xs:annotation>      
+      </xs:annotation>
       <xs:selector xpath="ns0:items/ns0:item"></xs:selector>
       <xs:field xpath="@categoryId"></xs:field>
     </xs:keyref>

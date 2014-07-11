@@ -37,7 +37,12 @@
 @for (var i = 0; i < Model.Categories.Count; ++i)
 {
     <div data-role="page" id="page_@Model.Categories[i].Id">
+        <div data-role="header">
+            <h1>@Html.DisplayFor(m => m.Categories[i].Description)</h1>
+            <a class="ui-btn ui-btn-right rclink" style="display:none" href="@Model.UrlRcBase">Release Candidates <span></span></a>
+        </div>
         <div class="ui-content">
+            <p></p>
             @for (var j = 0; j < Model.Categories[i].MenuItems.Count; ++j)
             {
                 <div class="ui-corner-all custom-corners">
@@ -62,7 +67,6 @@
                     </div>
                 </div>
             }
-            <a class="ui-bar ui-bar-a ui-btn rclink" style="display:none" href="@Model.UrlRcBase">Release Candidates <span></span></a>
         </div>
 
     </div>

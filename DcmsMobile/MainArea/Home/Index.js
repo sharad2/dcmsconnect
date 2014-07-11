@@ -24,7 +24,7 @@ $(document).one('pagecreate', function () {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
         // Show the rc link against each menu items
-        $('a.rclink').show().find('span').text('(' + data.length + ' new)');
+        $('a.rclink').show().find('span').text('(' + data.length + ')');
         $.each(data, function (e, ui) {
             var $a = $('<a></a>').attr({
                 href: _rcBaseUrl + this.url,
