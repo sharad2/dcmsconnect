@@ -9,6 +9,7 @@ using DcmsMobile.Shipping.Repository.ScanToTruck;
 using DcmsMobile.Shipping.ViewModels;
 using DcmsMobile.Shipping.ViewModels.ScanToTruck;
 using EclipseLibrary.Mvc.Controllers;
+using DcmsMobile.Dcms.Routes;
 
 namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 {
