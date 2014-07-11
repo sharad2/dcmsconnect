@@ -5,6 +5,8 @@
 */
 internal static class DcmsPublicRoutes {
   // Generated code:
+  public const string DcmsConnect_Search = "DcmsConnect_Search";
+  // Generated code:
   public const string DcmsConnect_ManagePickWave = "DcmsConnect_ManagePickWave";
   // Generated code:
   public const string DcmsConnect_BoxPickPallet = "DcmsConnect_BoxPickPallet";
