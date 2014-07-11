@@ -19,9 +19,16 @@ The route names are read from the file ~/App_Data/MenuItems.xml.
 <#@ output extension=".cs" #>
 
 <#
-var routes = System.Xml.Linq.XDocument.Load(this.Host.ResolvePath("../App_Data/MenuItems.xml")).Root
-	.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
-	.Select(p => (string)p.Attribute("route")).Where(p => p != null);
+
+var query = from item in System.Xml.Linq.XDocument.Load(this.Host.ResolvePath("../App_Data/MenuItems.xml")).Root.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
+            select new
+            {
+                Route = (string)item.Attribute("route"),
+				Name = (string)item.Attribute("name")
+            };
+
+
+
 
 
  #>
@@ -31,10 +38,10 @@ var routes = System.Xml.Linq.XDocument.Load(this.Host.ResolvePath("../App_Data/M
 namespace DcmsMobile.Dcms.Routes {
 	internal static class DcmsPublicRoutes {
 	<# // This code runs in the text template:
-	  foreach (string route in routes) 
+	  foreach (var item in query) 
 	  { #>
-	  // Generated code:
-	  public const string <#= route #> = "<#= route #>";
+	  // Generated code: <#= item.Name #>
+		public const string <#= item.Route #> = "<#= item.Route #>";
 	<# } #>
 	}
 }

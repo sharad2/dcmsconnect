@@ -212,8 +212,18 @@ namespace DcmsMobile.MainArea.Home
             var tuple = Tuple.Create(cats, links);
             MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, tuple, policy);
 
+
+            // this.Host.ResolvePath("../App_Data/MenuItems.xml")
+            //var query = from item in System.Xml.Linq.XDocument.Load("").Root.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
+            //            select new
+            //            {
+            //                Route = (string)p.Attribute("route")
+            //            };
+
             return tuple;
         }
+
+
         #endregion
     }
 }
