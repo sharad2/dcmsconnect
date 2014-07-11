@@ -8,6 +8,7 @@ using DcmsMobile.PalletLocating.Models;
 using DcmsMobile.PalletLocating.Repository;
 using DcmsMobile.PalletLocating.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using DcmsMobile.Dcms.Routes;
 
 
 namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
