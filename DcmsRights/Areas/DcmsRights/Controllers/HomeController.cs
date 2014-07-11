@@ -10,6 +10,7 @@ using DcmsMobile.DcmsRights.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Oracle;
 using EclipseLibrary.Oracle.Web.Security;
+using DcmsMobile.Dcms.Routes;
 
 namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
 {
