@@ -1,4 +1,5 @@
-﻿using DcmsMobile.PickWaves.Helpers;
+﻿using DcmsMobile.Dcms.Routes;
+using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository.Home;
 using DcmsMobile.PickWaves.ViewModels.Home;
 using System;

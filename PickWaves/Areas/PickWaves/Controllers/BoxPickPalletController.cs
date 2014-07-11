@@ -6,6 +6,7 @@ using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository.BoxPickPallet;
 using DcmsMobile.PickWaves.ViewModels.BoxPickPallet;
 using EclipseLibrary.Mvc.Controllers;
+using DcmsMobile.Dcms.Routes;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
