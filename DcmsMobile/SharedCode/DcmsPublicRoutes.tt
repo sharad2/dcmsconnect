@@ -28,11 +28,13 @@ var routes = System.Xml.Linq.XDocument.Load(this.Host.ResolvePath("../App_Data/M
 /*
   This is automatically generated code which lists constants for DCMS public routes. Do not modify it manually
 */
-internal static class DcmsPublicRoutes {
-<# // This code runs in the text template:
-  foreach (string route in routes) 
-  { #>
-  // Generated code:
-  public const string <#= route #> = "<#= route #>";
-<# } #>
+namespace DcmsMobile.Dcms.Routes {
+	internal static class DcmsPublicRoutes {
+	<# // This code runs in the text template:
+	  foreach (string route in routes) 
+	  { #>
+	  // Generated code:
+	  public const string <#= route #> = "<#= route #>";
+	<# } #>
+	}
 }
