@@ -13,7 +13,7 @@ $(document).ready(function () {
 $(document).one('pagecreate', function () {
     if (!_rcBaseUrl) {
         // No RC URL specified. Nothing to do
-        $('#rclink').hide();
+        //$('#rclink').hide();
     }
    
     //TODO: Show Contacting on RC button
@@ -24,12 +24,12 @@ $(document).one('pagecreate', function () {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
         // Show the rc link against each menu items
-        $('#rclink').attr('href', _rcBaseUrl).text('Release Candidates (' + data.length + ' new)');
+        $('a.rclink').show().find('span').text('(' + data.length + ' new)');
         $.each(data, function (e, ui) {
             var $a = $('<a></a>').attr({
                 href: _rcBaseUrl + this.url,
-                class: 'ui-btn'
-            }).text('RC');
+                class: 'ui-btn ui-icon-comment ui-btn-icon-left'
+            }).html('<em>RC</em>');
             $('div.' + ui.route + ' a:last').after($a);
         });        
         $('div.ui-page-active div[data-role="controlgroup"]').controlgroup("refresh");
