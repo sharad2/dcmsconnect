@@ -17,7 +17,10 @@ namespace DcmsMobile.MainArea.Home
 
         public string Description { get; set; }
 
-        public int? Order { get; set; }
+        /// <summary>
+        /// Higher rating means that the link will show up first within results
+        /// </summary>
+        public int? Rating { get; set; }
 
         public string CategoryId { get; set; }
 

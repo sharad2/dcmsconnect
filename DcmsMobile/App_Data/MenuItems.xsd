@@ -60,10 +60,10 @@
                     </xs:annotation>
                   </xs:attribute>
 
-                  <xs:attribute name="order" type="xs:integer" use="optional" default="100000">
+                  <xs:attribute name="rating" type="xs:integer" use="optional" default="100000">
                     <xs:annotation>
                       <xs:documentation>
-                        The display order of this item. Items for which order is not specified are displayed in the end
+                        The rating of this item. Higher rated items display earlier in search results
                       </xs:documentation>
                     </xs:annotation>
                   </xs:attribute>                  

@@ -14,7 +14,7 @@
         <keyword>inquiry</keyword>
       </keywords>
     </item>
-    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves" order="10">
+    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves" rating="10">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
     </item>
     <item route="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking">

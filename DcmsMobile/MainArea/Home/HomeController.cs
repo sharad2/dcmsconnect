@@ -54,6 +54,7 @@ namespace DcmsMobile.MainArea.Home
                                          where link.CategoryId == cat.Id && (!link.Visible.HasValue || link.Visible.Value)
                                          let route = Url.RouteCollection[link.RouteName]
                                          where route != null
+                                         orderby link.Rating ?? 0 descending, link.ShortCut
                                          select new MenuLinkModel
                                          {
                                              Description = link.Description,
@@ -185,45 +186,17 @@ namespace DcmsMobile.MainArea.Home
                                         }).ToArray();
 
             IList<MenuLink> links = (from item in root.Element(_ns + "items").Elements(_ns + "item")
-                                     let elemDescription = item.Element(_ns + "description")
                                      select new MenuLink
                                      {
                                          RouteName = (string)item.Attribute("route"),
                                          ShortCut = (string)item.Attribute("shortcut"),
                                          Name = (string)item.Attribute("name"),
-                                         Description = elemDescription == null ? string.Empty : elemDescription.Value,
+                                         Description = (string)item.Element(_ns + "description"),
                                          Mobile = (bool?)item.Attribute("mobile"),
                                          Visible = (bool?)item.Attribute("visible"),
-                                         Order = (int?)item.Attribute("order"),
+                                         Rating = (int?)item.Attribute("rating"),
                                          CategoryId = (string)item.Attribute("categoryId")
                                      }).ToArray();
-
-            //categories = (from cat in root.Element(_ns + "categories").Elements(_ns + "category")
-            //              let catId = (string)cat.Attribute("id")
-            //              select new MenuCategoryModel
-            //              {
-            //                  Id = catId,
-            //                  Name = (string)cat.Attribute("name"),
-            //                  MenuItems = (from item in root.Element(_ns + "items").Elements(_ns + "item")
-            //                               let itemCatId = (string)item.Attribute("categoryId")
-            //                               where itemCatId == catId
-            //                               let routeName = (string)item.Attribute("route")
-            //                               let route = Url.RouteCollection[routeName]
-            //                               where route != null  // If the route does not exist, do not show the link
-            //                               let elemDescription = item.Element(_ns + "description")
-            //                               select new MenuLinkModel
-            //                               {
-            //                                   RouteName = routeName,
-            //                                   ShortCut = (string)item.Attribute("shortcut"),
-            //                                   Name = (string)item.Attribute("name"),
-            //                                   Description = elemDescription == null ? string.Empty : elemDescription.Value,
-            //                                   Mobile = ((bool?)item.Attribute("mobile")) ?? false,
-            //                                   Visible = ((bool?)item.Attribute("visible")) ?? false,
-            //                                   Url = Url.RouteUrl(routeName),
-            //                                   Order = ((int?)item.Attribute("order")) ?? 10000,
-            //                                   CategoryId = catId
-            //                               }).ToArray()
-            //              }).Where(p => p.MenuItems.Count > 0).ToArray();
 
             CacheItemPolicy policy = new CacheItemPolicy
             {
