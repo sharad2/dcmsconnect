@@ -54,7 +54,7 @@ namespace DcmsMobile.MainArea.Home
                                          where link.CategoryId == cat.Id && (!link.Visible.HasValue || link.Visible.Value)
                                          let route = Url.RouteCollection[link.RouteName]
                                          where route != null
-                                         orderby link.Rating ?? 0 descending, link.ShortCut
+                                         orderby link.Rating ?? 0 descending, link.Sequence ?? 10000, link.ShortCut
                                          select new MenuLinkModel
                                          {
                                              Description = link.Description,
@@ -196,7 +196,8 @@ namespace DcmsMobile.MainArea.Home
                                          Mobile = (bool?)item.Attribute("mobile"),
                                          Visible = (bool?)item.Attribute("visible"),
                                          Rating = (int?)item.Attribute("rating"),
-                                         CategoryId = (string)item.Attribute("categoryId")
+                                         CategoryId = (string)item.Attribute("categoryId"),
+                                         Sequence = (int?)item.Attribute("sequence")
                                      }).ToArray();
 
             CacheItemPolicy policy = new CacheItemPolicy

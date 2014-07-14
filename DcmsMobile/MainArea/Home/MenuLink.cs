@@ -25,5 +25,10 @@ namespace DcmsMobile.MainArea.Home
         public string CategoryId { get; set; }
 
         public bool? Visible { get; set; }
+
+        /// <summary>
+        /// During normal operations, what is the sequence of this activity
+        /// </summary>
+        public int? Sequence { get; set; }
     }
 }

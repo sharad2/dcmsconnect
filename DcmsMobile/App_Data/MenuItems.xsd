@@ -66,7 +66,13 @@
                       </xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
-
+                  <xs:attribute name="sequence" type="xs:integer" use="optional" default="100000">
+                    <xs:annotation>
+                      <xs:documentation>
+                        The sequence of this item in the course of normal operations.
+                      </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
