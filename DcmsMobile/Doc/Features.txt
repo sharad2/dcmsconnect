@@ -25,6 +25,9 @@ specified in web.config.
 After the home page load, this link also displays the status of the contact with the site. It starts out by saying Contacting... Once the contact is successful, this message
 disappears. If there is an error, this message is replaced with the error message.
 
+If the RcUrl matches the URL of the home page, then site is assumed to be the RC site, and we do not query any other RC site. The header will display
+Release Candidates to make it clear that this is the RC site.
+
 
 Feature Folder Support
 ----------------------

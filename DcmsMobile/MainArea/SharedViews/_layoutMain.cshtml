@@ -28,6 +28,9 @@
     var messages = StatusSummaryExtensions.StatusMessages(Html);
     var errors = StatusSummaryExtensions.ErrorMessages(Html);
     var homeUrl = Url.Action(MVC_DcmsMobile.Home.Index());
+
+    // We are the RC site if our URL is specified in web.config
+    var isRc = ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(DcmsMobile.MainArea.Home.HomeController.UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
 }
 <!DOCTYPE html>
 <html>
@@ -72,7 +75,14 @@
 </head>
 <body>
     <header data-role="header" id="layout_header">
-        <h1>DCMS Connect</h1>
+        <h1>
+            DCMS Connect
+
+            @if (isRc)
+            {
+                @:- Release Candidates
+            }
+        </h1>
 
         <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-left ui-mini">
             @if (string.Compare(homeUrl, ViewContext.HttpContext.Request.Url.AbsolutePath, true) != 0)

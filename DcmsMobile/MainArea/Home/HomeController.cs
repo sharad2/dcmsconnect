@@ -23,9 +23,9 @@ namespace DcmsMobile.MainArea.Home
     public partial class HomeController : EclipseController
     {
         /// <summary>
-        /// Without the trailing /
+        /// Without the trailing /. Public because it is also accessed by layout view
         /// </summary>
-        private string UrlRcBase
+        public static string UrlRcBase
         {
             get
             {
@@ -66,9 +66,13 @@ namespace DcmsMobile.MainArea.Home
                                              Url = Url.RouteUrl(link.RouteName)
                                          }).ToArray()
                         };
+
+            // If we are the RC site, then our RC URL is null. This turns off all RC handling in the view.
+            var isRc = HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
+
             var model = new LauncherViewModel
             {
-                UrlRcBase = this.UrlRcBase,
+                UrlRcBase = isRc ? string.Empty : UrlRcBase,
                 Categories = query.Where(p => p.MenuItems.Count > 0).ToArray()
             };
 

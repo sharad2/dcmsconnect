@@ -83,9 +83,12 @@
                     </div>
                 }
             </div>
-            <div data-role="navbar" class="ui-mini">
-                <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
-            </div>
+            @if (!string.IsNullOrEmpty(Model.UrlRcBase))
+            {
+                <div data-role="navbar" class="ui-mini">
+                    <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
+                </div>
+            }
         </div>
 
     </div>
