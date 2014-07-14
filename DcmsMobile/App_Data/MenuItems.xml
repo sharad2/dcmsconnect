@@ -93,7 +93,7 @@
     <item route="DcmsConnect_PalletLocating" processidref="recv"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
     </item>
-    <item route="DcmsConnect_Receving" processidref="recv"  shortcut="REC" name="Receiving" sequence="10">
+    <item route="DcmsConnect_Receving" processidref="recv"  shortcut="REC" name="Receiving" sequence="10" mobile="true">
       <description>Receive cartons against an ASN.</description>
     </item>
     <item route="DcmsConnect_Repack" processidref="inventory"  shortcut="RPK" name="Repack">
