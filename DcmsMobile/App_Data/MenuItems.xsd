@@ -4,10 +4,10 @@
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="categories">
+        <xs:element name="processes">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="category" minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="process" minOccurs="1" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="description" minOccurs="0" maxOccurs="1" type="xs:string"></xs:element>
@@ -21,6 +21,7 @@
                     </xs:annotation>
                   </xs:attribute>
                   <xs:attribute name="name" type="xs:string" use="required" />
+                  <xs:attribute name="sequence" type="xs:integer" use="optional" default="100000"></xs:attribute>
                 </xs:complexType>
               </xs:element>
             </xs:sequence>
@@ -42,7 +43,7 @@
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute name="route" type="xs:NCName" use="required" />
-                  <xs:attribute name="categoryId" type="xs:NCName" use="required" />
+                  <xs:attribute name="processidref" type="xs:NCName" use="required" />
                   <xs:attribute name="shortcut" type="xs:string" use="required" />
                   <xs:attribute name="name" type="xs:string" use="required" />
                   <xs:attribute name="mobile" type="xs:boolean" use="optional">
@@ -69,7 +70,7 @@
                   <xs:attribute name="sequence" type="xs:integer" use="optional" default="100000">
                     <xs:annotation>
                       <xs:documentation>
-                        The sequence of this item in the course of normal operations.
+                        The sequence of this item within the process in the course of normal operations.
                       </xs:documentation>
                     </xs:annotation>
                   </xs:attribute>
@@ -96,10 +97,10 @@
     </xs:key>
     <xs:keyref name="item_cat_fk" refer="ns0:catid_pk">
       <xs:annotation>
-        <xs:documentation>categoryId of item must refer to a valid category id</xs:documentation>
+        <xs:documentation>processidref of item must refer to a valid category id</xs:documentation>
       </xs:annotation>
       <xs:selector xpath="ns0:items/ns0:item"></xs:selector>
-      <xs:field xpath="@categoryId"></xs:field>
+      <xs:field xpath="@processidref"></xs:field>
     </xs:keyref>
   </xs:element>
 </xs:schema>

@@ -1,102 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
-  <categories>
-    <category id="pick" name="Pick">
-      <description>Pick, Pack and Ship Process</description>
-    </category>
-    <category id="ship" name="Ship">
+  <processes>
+    <process id="pick" name="Pick" sequence="10">
+      <description>Pick, Pack and Ship</description>
+    </process>
+    <process id="ship" name="Ship" sequence="20">
       <description>Ship after you pack</description>
-    </category>
-    <category id="inventory" name="Inventory">
+    </process>
+    <process id="inventory" name="Inventory" sequence="30">
       <description>Manage Inventory</description>
-    </category>
-    <category id="misc" name="Miscellaneous">
+    </process>
+    <process id="misc" name="Miscellaneous" sequence="40">
       <description>Unclassified</description>
-    </category>
-  </categories>
+    </process>
+  </processes>
   <!--Item represents a Menu Link-->
   <items>
-    <item route="DcmsConnect_Search" categoryId="misc" shortcut="INQ" name="Search DCMS" visible="false">
+    <item route="DcmsConnect_Search" processidref="misc" shortcut="INQ" name="Search DCMS" visible="false">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
       </keywords>
     </item>
-    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves" rating="10" sequence="10">
+    <item route="DcmsConnect_ManagePickWave" processidref="pick" shortcut="SELECTPO" name="Manage PickWaves" rating="10" sequence="10">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
     </item>
-    <item route="DcmsConnect_BoxPickPallet" categoryId="pick" shortcut="BPP" name="Create Pallets for Box Picking" sequence="30">
+    <item route="DcmsConnect_BoxPickPallet" processidref="pick" shortcut="BPP" name="Create Pallets for Box Picking" sequence="30">
       <description>Creating boxpick pallets</description>
     </item>
-    <item route="DcmsConnect_BoxPick" categoryId="pick"  shortcut="BPI" name="Box Pick" sequence="20">
+    <item route="DcmsConnect_BoxPick" processidref="pick"  shortcut="BPI" name="Box Pick" sequence="20">
       <description>Starting Box Picking</description>
     </item>
-    <item route="DcmsConnect_PieceReplenish" categoryId="pick"  shortcut="PUL" name="Piece Replenish" sequence="100">
+    <item route="DcmsConnect_PieceReplenish" processidref="pick"  shortcut="PUL" name="Piece Replenish" sequence="100">
       <description>Manage Forward Pick Area</description>
     </item>
-    <item route="DcmsConnect_Restock" categoryId="inventory"  shortcut="RST" name="Restock">
+    <item route="DcmsConnect_Restock" processidref="inventory"  shortcut="RST" name="Restock">
       <description>Restocking cartons</description>
     </item>
-    <item route="DcmsConnect_ApplyVasToBox" categoryId="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
+    <item route="DcmsConnect_ApplyVasToBox" processidref="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
       <description>Applying VAS to boxes</description>
     </item>
-    <item route="DcmsConnect_ScanToPallet" categoryId="ship"  shortcut="STP" name="Scan To Pallet" sequence="20">
+    <item route="DcmsConnect_ScanToPallet" processidref="ship"  shortcut="STP" name="Scan To Pallet" sequence="20">
       <description>Scan to pallet program</description>
     </item>
-    <item route="DcmsConnect_MoveBoxPallet" categoryId="ship"  shortcut="MP" name="Move Pallet" sequence="30">
+    <item route="DcmsConnect_MoveBoxPallet" processidref="ship"  shortcut="MP" name="Move Pallet" sequence="30">
       <description>Moves a box pallet from one location to another</description>
     </item>
-    <item route="DcmsConnect_RoutingSummary" categoryId="ship"  shortcut="COR" name="Customer Order Routing" sequence="10">
+    <item route="DcmsConnect_RoutingSummary" processidref="ship"  shortcut="COR" name="Customer Order Routing" sequence="10">
       <description>Creating EDI 753 to route customer orders</description>
     </item>
-    <item route="DcmsConnect_Appointment" categoryId="ship"  shortcut="APP" name="Manage Appointments" sequence="40">
+    <item route="DcmsConnect_Appointment" processidref="ship"  shortcut="APP" name="Manage Appointments" sequence="40">
       <description>Creating and manageing appointment</description>
     </item>
-    <item route="DcmsConnect_ScanToTruck" categoryId="ship"  shortcut="STT" name="Scan To Truck">
+    <item route="DcmsConnect_ScanToTruck" processidref="ship"  shortcut="STT" name="Scan To Truck">
       <description>Loading boxes on truck to ensure accuracy of shipment</description>
     </item>
-    <item route="DcmsConnect_AbondonRework" categoryId="inventory"  shortcut="ARW" name="Abondon Rework">
+    <item route="DcmsConnect_AbondonRework" processidref="inventory"  shortcut="ARW" name="Abondon Rework">
       <description>Let the system know if you no longer want to perform rework on Cartons which had been marked for rework </description>
     </item>
-    <item route="DcmsConnect_BulkUpdateCarton" categoryId="inventory"  shortcut="BCED" name="Bulk Update Carton">
+    <item route="DcmsConnect_BulkUpdateCarton" processidref="inventory"  shortcut="BCED" name="Bulk Update Carton">
       <description>Advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated</description>
     </item>
-    <item route="DcmsConnect_CartonEditor" categoryId="inventory"  shortcut="CED" name="Carton Editor">
+    <item route="DcmsConnect_CartonEditor" processidref="inventory"  shortcut="CED" name="Carton Editor">
       <description>Carton to edit in inventory tab</description>
     </item>
-    <item route="DcmsConnect_CartonLocating" categoryId="inventory"  shortcut="CLOC" name="Carton Locating">
+    <item route="DcmsConnect_CartonLocating" processidref="inventory"  shortcut="CLOC" name="Carton Locating">
       <description>Locating cartons in numbered bin locations</description>
     </item>
-    <item route="DcmsConnect_CartonToPallet" categoryId="inventory"  shortcut="C2P" name="Carton To Pallet">
+    <item route="DcmsConnect_CartonToPallet" processidref="inventory"  shortcut="C2P" name="Carton To Pallet">
       <description>Place cartons on a pallet</description>
     </item>
-    <item route="DcmsConnect_MarkReworkComplete" categoryId="inventory"  shortcut="MRC" name="Mark Rework Complete">
+    <item route="DcmsConnect_MarkReworkComplete" processidref="inventory"  shortcut="MRC" name="Mark Rework Complete">
       <description>Mark Rework Complete of those Cartons on which rework has to be done</description>
     </item>
-    <item route="DcmsConnect_CartonAreas" categoryId="inventory"  shortcut="CAM" name="Carton Areas">
+    <item route="DcmsConnect_CartonAreas" processidref="inventory"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
 
-    <item route="DcmsConnect_REQ2" categoryId="inventory"  shortcut="REQ" name="Pull Request">
+    <item route="DcmsConnect_REQ2" processidref="inventory"  shortcut="REQ" name="Pull Request">
       <description>Managing SKU assignment at carton locations</description>
     </item>
     <!-- Miscelaneous components-->
-    <item route="DcmsConnect_VASConfigration" categoryId="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
+    <item route="DcmsConnect_VASConfigration" processidref="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
-    <item route="DcmsConnect_DcmsLite" categoryId="misc"  shortcut="PLOC" name="DcmsLite">
+    <item route="DcmsConnect_DcmsLite" processidref="misc"  shortcut="PLOC" name="DcmsLite">
       <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
     </item>
-    <item route="DcmsConnect_PalletLocating" categoryId="misc"  shortcut="BPK" name="Pallet Locating">
+    <item route="DcmsConnect_PalletLocating" processidref="misc"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
     </item>
-    <item route="DcmsConnect_Receving" categoryId="misc"  shortcut="REC" name="Receiving">
+    <item route="DcmsConnect_Receving" processidref="misc"  shortcut="REC" name="Receiving">
       <description>Receive cartons against an ASN.</description>
     </item>
-    <item route="DcmsConnect_Repack" categoryId="misc"  shortcut="RPK" name="Repack">
+    <item route="DcmsConnect_Repack" processidref="misc"  shortcut="RPK" name="Repack">
       <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
     </item>
-    <item route="DcmsConnect_Rights" categoryId="misc"  shortcut="DRI" name="DcmsRights">
+    <item route="DcmsConnect_Rights" processidref="misc"  shortcut="DRI" name="DcmsRights">
       <description>Create DCMS Users and assign rights to run DCMS programs.</description>
     </item>
   </items>

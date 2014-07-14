@@ -38,8 +38,19 @@
 {
     <div data-role="page" id="page_@Model.Categories[i].Id">
         <div data-role="header">
-            <h1>@Html.DisplayFor(m => m.Categories[i].Description)</h1>
+            <h1>@(i + 1). @Html.DisplayFor(m => m.Categories[i].Description)</h1>
             <a class="ui-btn ui-btn-right rclink" style="display:none" href="@Model.UrlRcBase">Release Candidates <span></span></a>
+            <div data-role="navbar" class="ui-mini">
+                <ul>
+                    @for (var j = 0; j < Model.Categories.Count; ++j)
+                    {
+                        if (i != j)
+                        {
+                            <li><a href="#page_@Model.Categories[j].Id" data-transition="flip">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Name)</a></li>
+                        }
+                    }
+                </ul>
+            </div>
         </div>
         <div class="ui-content">
             <p></p>
@@ -72,14 +83,3 @@
     </div>
 }
 
-<div data-role="footer" data-position="fixed" data-theme="a" id="footermenu">
-    <div data-role="navbar" id="navbarFixed">
-        <ul>
-            @for (var i = 0; i < Model.Categories.Count; ++i)
-            {
-                <li><a href="#page_@Model.Categories[i].Id" data-transition="flip">@Html.DisplayFor(m => m.Categories[i].Name)</a></li>
-            }
-        </ul>
-
-    </div><!-- /navbar -->
-</div><!-- /footer -->

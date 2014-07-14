@@ -45,6 +45,7 @@ namespace DcmsMobile.MainArea.Home
         public virtual ActionResult Index()
         {
             var query = from cat in this.MenuCategories
+                        orderby cat.Sequence ?? 10000
                         select new MenuCategoryModel
                         {
                             Id = cat.Id,
@@ -178,12 +179,13 @@ namespace DcmsMobile.MainArea.Home
             var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
             var root = XElement.Load(path);
 
-            IList<MenuCategory> cats = (from cat in root.Element(_ns + "categories").Elements(_ns + "category")
+            IList<MenuCategory> cats = (from cat in root.Element(_ns + "processes").Elements(_ns + "process")
                                         select new MenuCategory
                                         {
                                             Id = (string)cat.Attribute("id"),
                                             Name = (string)cat.Attribute("name"),
-                                            Description = (string)cat.Element(_ns + "description")
+                                            Description = (string)cat.Element(_ns + "description"),
+                                            Sequence = (int?)cat.Element(_ns + "sequence")
                                         }).ToArray();
 
             IList<MenuLink> links = (from item in root.Element(_ns + "items").Elements(_ns + "item")
@@ -196,7 +198,7 @@ namespace DcmsMobile.MainArea.Home
                                          Mobile = (bool?)item.Attribute("mobile"),
                                          Visible = (bool?)item.Attribute("visible"),
                                          Rating = (int?)item.Attribute("rating"),
-                                         CategoryId = (string)item.Attribute("categoryId"),
+                                         CategoryId = (string)item.Attribute("processidref"),
                                          Sequence = (int?)item.Attribute("sequence")
                                      }).ToArray();
 
@@ -213,14 +215,6 @@ namespace DcmsMobile.MainArea.Home
 
             var tuple = Tuple.Create(cats, links);
             MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, tuple, policy);
-
-
-            // this.Host.ResolvePath("../App_Data/MenuItems.xml")
-            //var query = from item in System.Xml.Linq.XDocument.Load("").Root.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
-            //            select new
-            //            {
-            //                Route = (string)p.Attribute("route")
-            //            };
 
             return tuple;
         }
