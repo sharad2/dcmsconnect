@@ -7,16 +7,19 @@
     <process id="ship" name="Ship" sequence="20">
       <description>Ship after you pack</description>
     </process>
+    <process id="recv" name="Receiving" sequence="25">
+      <description>Receive Inventory</description>
+    </process>        
     <process id="inventory" name="Inventory" sequence="30">
       <description>Manage Inventory</description>
     </process>
-    <process id="misc" name="Miscellaneous" sequence="40">
-      <description>Unclassified</description>
+    <process id="config" name="Configure">
+      <description>Configure DCMS</description>
     </process>
   </processes>
   <!--Item represents a Menu Link-->
   <items>
-    <item route="DcmsConnect_Search" processidref="misc" shortcut="INQ" name="Search DCMS" visible="false">
+    <item route="DcmsConnect_Search" shortcut="INQ" name="Search DCMS" visible="false">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
@@ -34,7 +37,7 @@
     <item route="DcmsConnect_PieceReplenish" processidref="pick"  shortcut="PUL" name="Piece Replenish" sequence="100">
       <description>Manage Forward Pick Area</description>
     </item>
-    <item route="DcmsConnect_Restock" processidref="inventory"  shortcut="RST" name="Restock">
+    <item route="DcmsConnect_Restock" processidref="pick"  shortcut="RST" name="Restock">
       <description>Restocking cartons</description>
     </item>
     <item route="DcmsConnect_ApplyVasToBox" processidref="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
@@ -64,16 +67,16 @@
     <item route="DcmsConnect_CartonEditor" processidref="inventory"  shortcut="CED" name="Carton Editor">
       <description>Carton to edit in inventory tab</description>
     </item>
-    <item route="DcmsConnect_CartonLocating" processidref="inventory"  shortcut="CLOC" name="Carton Locating">
+    <item route="DcmsConnect_CartonLocating" processidref="recv"  shortcut="CLOC" name="Carton Locating" sequence="20">
       <description>Locating cartons in numbered bin locations</description>
     </item>
-    <item route="DcmsConnect_CartonToPallet" processidref="inventory"  shortcut="C2P" name="Carton To Pallet">
+    <item route="DcmsConnect_CartonToPallet" processidref="recv"  shortcut="C2P" name="Carton To Pallet">
       <description>Place cartons on a pallet</description>
     </item>
     <item route="DcmsConnect_MarkReworkComplete" processidref="inventory"  shortcut="MRC" name="Mark Rework Complete">
       <description>Mark Rework Complete of those Cartons on which rework has to be done</description>
     </item>
-    <item route="DcmsConnect_CartonAreas" processidref="inventory"  shortcut="CAM" name="Carton Areas">
+    <item route="DcmsConnect_CartonAreas" processidref="config"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
 
@@ -81,22 +84,22 @@
       <description>Managing SKU assignment at carton locations</description>
     </item>
     <!-- Miscelaneous components-->
-    <item route="DcmsConnect_VASConfigration" processidref="misc"  shortcut="V2PCONFIG" name="VAS Configuration">
+    <item route="DcmsConnect_VASConfigration" processidref="config"  shortcut="V2PCONFIG" name="VAS Configuration">
       <description>Configuration UI for VAS</description>
     </item>
-    <item route="DcmsConnect_DcmsLite" processidref="misc"  shortcut="PLOC" name="DcmsLite">
+    <item route="DcmsConnect_DcmsLite" shortcut="PLOC" name="DcmsLite">
       <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
     </item>
-    <item route="DcmsConnect_PalletLocating" processidref="misc"  shortcut="BPK" name="Pallet Locating">
+    <item route="DcmsConnect_PalletLocating" processidref="recv"  shortcut="BPK" name="Pallet Locating">
       <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
     </item>
-    <item route="DcmsConnect_Receving" processidref="misc"  shortcut="REC" name="Receiving">
+    <item route="DcmsConnect_Receving" processidref="recv"  shortcut="REC" name="Receiving" sequence="10">
       <description>Receive cartons against an ASN.</description>
     </item>
-    <item route="DcmsConnect_Repack" processidref="misc"  shortcut="RPK" name="Repack">
+    <item route="DcmsConnect_Repack" processidref="inventory"  shortcut="RPK" name="Repack">
       <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
     </item>
-    <item route="DcmsConnect_Rights" processidref="misc"  shortcut="DRI" name="DcmsRights">
+    <item route="DcmsConnect_Rights" processidref="config"  shortcut="DRI" name="DcmsRights">
       <description>Create DCMS Users and assign rights to run DCMS programs.</description>
     </item>
   </items>

@@ -43,7 +43,7 @@
                     </xs:element>
                   </xs:sequence>
                   <xs:attribute name="route" type="xs:NCName" use="required" />
-                  <xs:attribute name="processidref" type="xs:NCName" use="required" />
+                  <xs:attribute name="processidref" type="xs:NCName" use="optional" />
                   <xs:attribute name="shortcut" type="xs:string" use="required" />
                   <xs:attribute name="name" type="xs:string" use="required" />
                   <xs:attribute name="mobile" type="xs:boolean" use="optional">
@@ -92,7 +92,7 @@
       <xs:annotation>
         <xs:documentation>Category ids must be unique</xs:documentation>
       </xs:annotation>
-      <xs:selector xpath="ns0:categories/ns0:category" />
+      <xs:selector xpath="ns0:processes/ns0:process" />
       <xs:field xpath="@id" />
     </xs:key>
     <xs:keyref name="item_cat_fk" refer="ns0:catid_pk">
