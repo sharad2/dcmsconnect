@@ -25,7 +25,7 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_MoveBoxPallet = "DcmsConnect_MoveBoxPallet";
 		  // Generated code: Customer Order Routing
 		public const string DcmsConnect_RoutingSummary = "DcmsConnect_RoutingSummary";
-		  // Generated code: Manage Appointment
+		  // Generated code: Manage Appointments
 		public const string DcmsConnect_Appointment = "DcmsConnect_Appointment";
 		  // Generated code: Scan To Truck
 		public const string DcmsConnect_ScanToTruck = "DcmsConnect_ScanToTruck";
@@ -35,6 +35,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_BulkUpdateCarton = "DcmsConnect_BulkUpdateCarton";
 		  // Generated code: Carton Editor
 		public const string DcmsConnect_CartonEditor = "DcmsConnect_CartonEditor";
+		  // Generated code: Edit Carton
+		public const string DcmsConnect_EditCarton1 = "DcmsConnect_EditCarton1";
 		  // Generated code: Carton Locating
 		public const string DcmsConnect_CartonLocating = "DcmsConnect_CartonLocating";
 		  // Generated code: Carton To Pallet

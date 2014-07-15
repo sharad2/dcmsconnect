@@ -67,6 +67,9 @@
     <item route="DcmsConnect_CartonEditor" processidref="inventory"  shortcut="CED" name="Carton Editor">
       <description>Carton to edit in inventory tab</description>
     </item>
+    <item route="DcmsConnect_EditCarton1" name="Edit Carton" shortcut="XXX">
+      <description>Edit the passed carton</description>
+    </item>
     <item route="DcmsConnect_CartonLocating" processidref="recv"  shortcut="CLOC" name="Carton Locating" sequence="20">
       <description>Locating cartons in numbered bin locations</description>
     </item>

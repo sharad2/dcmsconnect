@@ -54,6 +54,9 @@ The name and description are displaed along with your link.
 categoryId defines the category in which your link will display. It should reference one of the categories defined in the XML file. You can add more categories if needed, but
 do keep the number of categories single digit.
 
+Sharad 15 Jul 2014: Routes which accept parameters should be suffixed with the number of parameters, e.g. DcmsConnect_EditCarton1. The name of the first parameter is presumed to be
+  id for all routes.
+
 
 Pluggable areas can support some well known routes which DcmsMobile will display at special positions on the menu screen.
 
