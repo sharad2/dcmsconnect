@@ -6,7 +6,7 @@
 namespace DcmsMobile.Dcms.Routes {
 	internal static class DcmsPublicRoutes {
 		  // Generated code: Search DCMS
-		public const string DcmsConnect_Search = "DcmsConnect_Search";
+		public const string DcmsConnect_Search1 = "DcmsConnect_Search1";
 		  // Generated code: Manage PickWaves
 		public const string DcmsConnect_ManagePickWave = "DcmsConnect_ManagePickWave";
 		  // Generated code: Create Pallets for Box Picking
