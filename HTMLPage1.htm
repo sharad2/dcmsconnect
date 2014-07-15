@@ -1,18 +1,22 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <title>Untitled Page</title>
+    <title>Responsive Mobile Menu</title>
+    <link rel="stylesheet" href="rmm-css/responsivemobilemenu.css" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="rmm-js/responsivemobilemenu.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 </head>
 <body>
-    <ul style="list-style-position: outside">
-        <li style="display: inline">Created (status null and available_for_pitching null)</li>
-        <li style="display: inline">Available (highlighted if status null and available_for_pitching
-            not null</li>
-        <li style="display: inline">Pulling (visible only if pull_to_dock = 'Y'. highlighted
-            if status = readyforpull)</li>
-        <li style="display: inline">Pitching (visible only if pick_mode = pitching)</li>
-        <li style="display: inline">Checked (visible only if pick_mode = checking)</li>
-        <li style="display: inline">Validated</li>
-    </ul>
+    <div class="rmm">
+        <ul>
+            <li><a href='#home'>Home</a></li>
+            <li><a href='#about-me'>About me</a></li>
+            <li><a href='#gallery'>Gallery</a></li>
+            <li><a href='#blog'>Blog</a></li>
+            <li><a href='#links'>Links</a></li>
+            <li><a href='#sitemap'>Sitemap</a></li>
+        </ul>
+    </div>
 </body>
 </html>
