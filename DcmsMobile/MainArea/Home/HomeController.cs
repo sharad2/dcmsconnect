@@ -103,7 +103,7 @@ namespace DcmsMobile.MainArea.Home
                 }
             }
 
-            return Redirect(Url.RouteUrl("DcmsConnect_Search", new
+            return Redirect(Url.RouteUrl(Dcms.Routes.DcmsPublicRoutes.DcmsConnect_Search1, new
             {
                 id = id
             }));

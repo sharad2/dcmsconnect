@@ -19,7 +19,7 @@
   </processes>
   <!--Item represents a Menu Link-->
   <items>
-    <item route="DcmsConnect_Search" shortcut="INQ" name="Search DCMS" visible="false">
+    <item route="DcmsConnect_Search1" shortcut="INQ" name="Search DCMS" visible="false">
       <keywords>
         <keyword>search</keyword>
         <keyword>inquiry</keyword>
