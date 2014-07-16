@@ -226,6 +226,7 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\PickWaves\Content\BucketModel-Display.partial.css" />
     <None Include="Areas\PickWaves\Content\BucketModel-Editor.partial.css" />
@@ -438,9 +439,6 @@
     <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <None Include="Scripts\jquery-2.0.3.js" />
-    <None Include="Scripts\jquery-2.0.3.min.js" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Scripts\_references.js" />
@@ -535,7 +533,6 @@ XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)He
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
 </PostBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup>
     <CleanDependsOn>
       $(CleanDependsOn);
