@@ -382,6 +382,8 @@
     <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\Sounds\Error.mp3" />
+    <Content Include="Content\Sounds\success.mp3" />
+    <Content Include="Content\Sounds\warning.mp3" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\rmm-js\responsivemobilemenu.js" />

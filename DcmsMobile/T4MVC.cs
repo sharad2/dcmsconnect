@@ -148,6 +148,8 @@ namespace Links_DcmsMobile
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string Error_mp3 = Url("Error.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Error.mp3");
+            public static readonly string success_mp3 = Url("success.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/success.mp3");
+            public static readonly string warning_mp3 = Url("warning.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/warning.mp3");
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
