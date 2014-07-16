@@ -222,8 +222,7 @@
     <Content Include="Areas\Shipping\Scripts\Appointment.min.js.map">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
@@ -410,7 +409,6 @@ XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)He
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup>
     <CleanDependsOn>
       $(CleanDependsOn);
