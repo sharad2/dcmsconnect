@@ -310,4 +310,14 @@ xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
 
 </PostBuildEvent>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      RemoveDir;
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveDir">
+    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts" />
+  </Target>
 </Project>
