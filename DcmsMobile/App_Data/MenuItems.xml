@@ -40,6 +40,9 @@
     <item route="DcmsConnect_Restock" processidref="pick"  shortcut="RST" name="Restock">
       <description>Restocking cartons</description>
     </item>
+    <item route="DcmsConnect_Restock1" shortcut="XXX" name="Carton Restock">
+      <description>Restock the passed cartons</description>
+    </item>
     <item route="DcmsConnect_ApplyVasToBox" processidref="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
       <description>Applying VAS to boxes</description>
     </item>
