@@ -40,14 +40,14 @@ namespace DcmsMobile.MainArea.Diagnostic
             return View(model);
         }
 
-        public virtual ActionResult CheckSound(char sound)
-        {
-            var model = new DiagnosticModel
-            {
-                Sound = sound
-            };
-            return View(Views.Index, model);
-        }
+        //public virtual ActionResult CheckSound(char sound)
+        //{
+        //    var model = new DiagnosticModel
+        //    {
+        //        Sound = sound
+        //    };
+        //    return View(Views.Index, model);
+        //}
 
         #region Email
         /// <summary>

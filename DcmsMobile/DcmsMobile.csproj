@@ -381,6 +381,7 @@
     <Content Include="Content\rmm-img\graphite-menu-bg.png" />
     <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\rmm-js\responsivemobilemenu.js" />
@@ -497,9 +498,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MainArea\SharedViews\_soundPartial.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -543,7 +541,6 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup>
     <CleanDependsOn>
       $(CleanDependsOn);

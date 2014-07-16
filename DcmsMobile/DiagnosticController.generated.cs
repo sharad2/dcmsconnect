@@ -65,12 +65,6 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CheckSound()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CheckSound);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Email()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Email);
@@ -98,7 +92,6 @@ namespace DcmsMobile.MainArea.Diagnostic
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
-            public readonly string CheckSound = "CheckSound";
             public readonly string Email = "Email";
             public readonly string SendEmail = "SendEmail";
         }
@@ -107,7 +100,6 @@ namespace DcmsMobile.MainArea.Diagnostic
         public class ActionNameConstants
         {
             public const string Index = "Index";
-            public const string CheckSound = "CheckSound";
             public const string Email = "Email";
             public const string SendEmail = "SendEmail";
         }
@@ -117,11 +109,6 @@ namespace DcmsMobile.MainArea.Diagnostic
         public class IndexParams
         {
             public const string emulateMobile = "emulateMobile";
-        }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class CheckSoundParams
-        {
-            public const string sound = "sound";
         }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class EmailParams
@@ -165,18 +152,6 @@ namespace DcmsMobile.MainArea.Diagnostic
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "emulateMobile", emulateMobile);
             IndexOverride(callInfo, emulateMobile);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CheckSoundOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, char sound);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CheckSound(char sound)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CheckSound);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sound", sound);
-            CheckSoundOverride(callInfo, sound);
             return callInfo;
         }
 

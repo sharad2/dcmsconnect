@@ -25,9 +25,14 @@
 
 <div data-role="page">
     <div class="ui-content">
-        @Html.Partial(@MVC_DcmsMobile.SharedViews.Views._soundPartial, Model.Sound)
-
-        <div data-role="navbar">
+        @*@Html.Partial(@MVC_DcmsMobile.SharedViews.Views._soundPartial, Model.Sound)*@
+        <div class="ui-field-contain">
+            <label>Error Sound</label>
+            <audio src="@Links_DcmsMobile.Content.Sounds.Error_mp3" controls="controls">
+                Your browser does not support sounds
+            </audio>
+        </div>
+        @*<div data-role="navbar">
             <ul>
                 <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('E'))">Error Sound</a></li>
                 <li>
@@ -35,7 +40,7 @@
                 </li>
                 <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.CheckSound('S'))">Success Sound</a></li>
             </ul>
-        </div>
+        </div>*@
 
 
         <h3 class="ui-bar ui-bar-a">Browser Identification</h3>

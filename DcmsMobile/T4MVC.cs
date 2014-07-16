@@ -143,6 +143,14 @@ namespace Links_DcmsMobile
         }
     
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class Sounds {
+            private const string URLPATH = "~/Content/Sounds";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            public static readonly string Error_mp3 = Url("Error.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Error.mp3");
+        }
+    
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class themes {
             private const string URLPATH = "~/Content/themes";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }

@@ -39,23 +39,6 @@
 {
     <div data-role="page" id="page_@Model.Categories[i].Id">
         <div data-role="header">
-            @*<div data-role="navbar" class="ui-mini">
-                <ul>
-                    @for (var j = 0; j < Model.Categories.Count; ++j)
-                    {
-                        if (i == j)
-                        {
-                            <li><a class="ui-btn ui-btn-active" href="#page_@Model.Categories[j].Id" data-transition="flip">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Description)</a></li>
-                        }
-                        else
-                        {
-                            <li><a href="#page_@Model.Categories[j].Id" data-transition="flip">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Name)</a></li>
-                        }
-                    }
-                </ul>
-
-            </div>*@
-
             <div class="rmm" data-menu-style="minimal" data-menu-title="@Model.Categories[i].Name">
                 <ul>
                     @for (var j = 0; j < Model.Categories.Count; ++j)
@@ -71,12 +54,11 @@
                     }
                 </ul>
             </div>
-
-
         </div>
 
 
         <div class="ui-content">
+            
             <div>
                 @for (var j = 0; j < Model.Categories[i].MenuItems.Count; ++j)
                 {
