@@ -17,6 +17,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_PieceReplenish = "DcmsConnect_PieceReplenish";
 		  // Generated code: Restock
 		public const string DcmsConnect_Restock = "DcmsConnect_Restock";
+		  // Generated code: Carton Restock
+		public const string DcmsConnect_Restock1 = "DcmsConnect_Restock1";
 		  // Generated code: Apply VAS to Boxes
 		public const string DcmsConnect_ApplyVasToBox = "DcmsConnect_ApplyVasToBox";
 		  // Generated code: Scan To Pallet
