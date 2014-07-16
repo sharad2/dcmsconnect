@@ -286,4 +286,14 @@ XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)He
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
 xcopy /Y /F "$(ProjectDir)App_Data\*.xml" "$(SolutionDir)DcmsMobile\App_Data"</PostBuildEvent>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      RemoveDir;
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveDir">
+    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts" />
+  </Target>
 </Project>
