@@ -244,8 +244,7 @@
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
     <Content Include="Areas\CartonAreas\Views\Home\ManageCartonArea.cshtml" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.js" />
@@ -339,4 +338,13 @@ XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)He
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      RemoveDir;
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveDir">
+    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts" />
+  </Target>
 </Project>
