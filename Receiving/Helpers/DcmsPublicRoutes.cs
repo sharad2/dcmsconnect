@@ -30,7 +30,7 @@ namespace DcmsMobile.Dcms.Routes {
 		  // Generated code: Scan To Truck
 		public const string DcmsConnect_ScanToTruck = "DcmsConnect_ScanToTruck";
 		  // Generated code: Abondon Rework
-		public const string DcmsConnect_AbondonRework = "DcmsConnect_AbondonRework";
+		public const string DcmsConnect_AbandonRework = "DcmsConnect_AbandonRework";
 		  // Generated code: Bulk Update Carton
 		public const string DcmsConnect_BulkUpdateCarton = "DcmsConnect_BulkUpdateCarton";
 		  // Generated code: Carton Editor
