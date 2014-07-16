@@ -107,3 +107,23 @@ Displaying DCMS Connect header on top of area views
 Diagnostics Framework
 ---------------------
 
+
+Using Script and Content folders of DcmsMobile
+----------------------------------------------
+
+PreBuild event copies script and content folders from DcmsMobile.
+
+Clean event removes the script and content folders in the project
+
+<Project>
+  ...
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      RemoveDir;
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveDir">
+    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts"/>
+  </Target>
+</Project>
