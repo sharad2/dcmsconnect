@@ -267,8 +267,7 @@
     <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
     <None Include="T4MVC.tt.hooks.t4" />
@@ -366,7 +365,6 @@ XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
 XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I
 XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup>
     <CleanDependsOn>
       $(CleanDependsOn);
