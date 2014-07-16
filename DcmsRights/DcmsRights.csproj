@@ -140,8 +140,7 @@
       <DependentUpon>DcmsRights-all.js</DependentUpon>
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -286,7 +285,6 @@ XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)He
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
 xcopy /Y /F "$(ProjectDir)App_Data\*.xml" "$(SolutionDir)DcmsMobile\App_Data"</PostBuildEvent>
   </PropertyGroup>
-
   <PropertyGroup>
     <CleanDependsOn>
       $(CleanDependsOn);
