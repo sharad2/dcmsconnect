@@ -55,6 +55,9 @@
     <item route="DcmsConnect_ScanToPallet" processidref="ship"  shortcut="STP" name="Scan To Pallet" sequence="20">
       <description>Scan to pallet program</description>
     </item>
+    <item route="DcmsConnect_ScanToPallet1" shortcut="XXX" name="Scan To Pallet">
+      <description>Scan to pallet</description>
+    </item>
     <item route="DcmsConnect_MoveBoxPallet" processidref="ship"  shortcut="MP" name="Move Pallet" sequence="30">
       <description>Moves a box pallet from one location to another</description>
     </item>
