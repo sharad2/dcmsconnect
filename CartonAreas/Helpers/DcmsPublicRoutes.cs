@@ -49,6 +49,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_EditCarton1 = "DcmsConnect_EditCarton1";
 		  // Generated code: Carton Locating
 		public const string DcmsConnect_CartonLocating = "DcmsConnect_CartonLocating";
+		  // Generated code: Carton Locating
+		public const string DcmsConnect_CartonLocating1 = "DcmsConnect_CartonLocating1";
 		  // Generated code: Carton To Pallet
 		public const string DcmsConnect_CartonToPallet = "DcmsConnect_CartonToPallet";
 		  // Generated code: Mark Rework Complete
