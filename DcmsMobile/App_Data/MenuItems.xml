@@ -97,7 +97,7 @@
     <item route="DcmsConnect_CartonAreas" processidref="config"  shortcut="CAM" name="Carton Areas">
       <description>Managing SKU assignment at carton locations</description>
     </item>
-    <item route="DcmsConnect_ManageCartonArea" shortcut="XXX" name="Manage Area">
+    <item route="DcmsConnect_ManageCartonArea1" shortcut="XXX" name="Manage Area">
       <description>Manage Carton Area</description>
     </item>
     <item route="DcmsConnect_REQ2" processidref="inventory"  shortcut="REQ" name="Pull Request">
