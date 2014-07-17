@@ -1,14 +1,10 @@
-﻿@*
-    Contract:
-    1. data-autocomplete-url: Needed for attaching auto complete on Carrier.
-
+﻿@*    Contract:
+     1. data-autocomplete-url: Needed for attaching auto complete on Carrier.
 *@
+
 @model DcmsMobile.Receiving.ViewModels.Home.IndexViewModel
 @{
-    ViewBag.Title = "Home";
-    Html.EnableClientValidation();
-    Html.EnableUnobtrusiveJavaScript();
-    
+    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
 }
 @section script {
     <style type="text/css">
@@ -21,14 +17,13 @@
 
 <div data-role="page">
     <div data-role="header">
-        <h1>Receving-Index Page</h1>
+        <h1>Receving-Home</h1>
         </div>
         <div class="ui-content">
             @using (Html.BeginForm(MVC_Receiving.Receiving.Home.Receiving(), FormMethod.Get))
             {
                 <fieldset data-role="controlgroup" data-type="horizontal">
-                    <legend>Select Process</legend>
-                    @*<input type="text" id="search-control-group" data-wrapper-class="controlgroup-textinput ui-btn">*@
+                    <legend>Select Process</legend>                   
                     <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
                            data-wrapper-class="controlgroup-textinput ui-btn" autofocus />
                     <button>Submit</button>
@@ -36,7 +31,6 @@
                     <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right">Open Shipments</a>
                 </fieldset>
             }
-
             <ul data-role="listview" data-inset="true" data-filter="true" data-input="#search">
                 @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
                 {
@@ -54,7 +48,5 @@
                     </li>
                 }
             </ul>
-
         </div>
-
     </div>

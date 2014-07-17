@@ -4,7 +4,7 @@
 *@
 @model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
-    ViewBag.Title = "Scan Now";
+    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;   
     string sound;
     if (!this.ViewData.ModelState.IsValid)
     {
@@ -17,16 +17,8 @@
         sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
     }
 }
-
-
-
-<div data-role="page">
-    <div data-role="header">
-        <h1>Receving-Receving Page</h1>
-    </div>
-    <div class="ui-content">
-        @section script{
-            <script type="text/javascript">
+@section script{
+    <script type="text/javascript">
         $(document).ready(function () {
             $('#printPanel').panel({
                 beforeopen: function (event, ui) {
@@ -107,21 +99,28 @@
         });
 
 
-            </script>
-        }
+    </script>
+}
+
+
+<div data-role="page">
+    <div data-role="header">
+        <h1>Scan Now</h1>
+    </div>
+    <div class="ui-content">       
         <div style="display:none" id="divValidation">
         </div>
         @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
         {
-            <div>
-                <span class="ui-bar ui-bar-a">
+         
+            
                     <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
                     <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
                     <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
                     <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
                            data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
-                </span>
-            </div>
+             
+          
             @Html.HiddenFor(m => m.ScanModel.ProcessId)
             @Html.HiddenFor(m => m.ReceivingAreaId)
             @Html.HiddenFor(m => m.SpotCheckAreaId)
@@ -203,7 +202,6 @@
                 <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
             </ul>
         </div>
-
         <div data-role="panel" id="printPanel" data-display="overlay">
 
             <form id="frmPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
