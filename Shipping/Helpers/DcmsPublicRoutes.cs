@@ -27,6 +27,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_ApplyVasToBox1 = "DcmsConnect_ApplyVasToBox1";
 		  // Generated code: Scan To Pallet
 		public const string DcmsConnect_ScanToPallet = "DcmsConnect_ScanToPallet";
+		  // Generated code: Scan To Pallet
+		public const string DcmsConnect_ScanToPallet1 = "DcmsConnect_ScanToPallet1";
 		  // Generated code: Move Pallet
 		public const string DcmsConnect_MoveBoxPallet = "DcmsConnect_MoveBoxPallet";
 		  // Generated code: Customer Order Routing
