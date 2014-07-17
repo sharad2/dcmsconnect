@@ -72,7 +72,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="searchText">Should be BucketId,CustomerId,UserName</param>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Search, Name = DcmsPublicRoutes.DcmsConnect_CustomerOrder1)]
+        [Route(HomeController.ActionNameConstants.Search, Name = DcmsPublicRoutes.DcmsConnect_CustomerBucket1)]
         public virtual ActionResult Search(string id)
         {
             var search = SearchTextType.Unknown;
