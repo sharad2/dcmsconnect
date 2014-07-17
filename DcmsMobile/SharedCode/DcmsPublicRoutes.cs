@@ -7,6 +7,8 @@ namespace DcmsMobile.Dcms.Routes {
 	internal static class DcmsPublicRoutes {
 		  // Generated code: Search DCMS
 		public const string DcmsConnect_Search1 = "DcmsConnect_Search1";
+		  // Generated code: List of Intransit Shipments
+		public const string DcmsConnect_IntransitShipment = "DcmsConnect_IntransitShipment";
 		  // Generated code: Manage PickWaves
 		public const string DcmsConnect_ManagePickWave = "DcmsConnect_ManagePickWave";
 		  // Generated code: Customer Order
