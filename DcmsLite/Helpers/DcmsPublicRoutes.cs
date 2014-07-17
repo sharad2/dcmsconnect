@@ -10,7 +10,7 @@ namespace DcmsMobile.Dcms.Routes {
 		  // Generated code: Manage PickWaves
 		public const string DcmsConnect_ManagePickWave = "DcmsConnect_ManagePickWave";
 		  // Generated code: Customer Order
-		public const string DcmsConnect_CustomerBucket1 = "DcmsConnect_CustomerBucket1";
+		public const string DcmsConnect_ManagePickWave1 = "DcmsConnect_ManagePickWave1";
 		  // Generated code: Create Pallets for Box Picking
 		public const string DcmsConnect_BoxPickPallet = "DcmsConnect_BoxPickPallet";
 		  // Generated code: Box Pick
