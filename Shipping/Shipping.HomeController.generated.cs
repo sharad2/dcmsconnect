@@ -62,6 +62,12 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CustomerOrderRouting()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerOrderRouting);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult RoutingSummary()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummary);
@@ -210,6 +216,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         {
             public readonly string Index = "Index";
             public readonly string RoutingSummaryAll = "RoutingSummaryAll";
+            public readonly string CustomerOrderRouting = "CustomerOrderRouting";
             public readonly string RoutingSummary = "RoutingSummary";
             public readonly string Unrouted = "Unrouted";
             public readonly string PrepareToRoute = "PrepareToRoute";
@@ -239,6 +246,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         {
             public const string Index = "Index";
             public const string RoutingSummaryAll = "RoutingSummaryAll";
+            public const string CustomerOrderRouting = "CustomerOrderRouting";
             public const string RoutingSummary = "RoutingSummary";
             public const string Unrouted = "Unrouted";
             public const string PrepareToRoute = "PrepareToRoute";
@@ -271,6 +279,14 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         public class ActionParamsClass_RoutingSummaryAll
         {
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_CustomerOrderRouting s_params_CustomerOrderRouting = new ActionParamsClass_CustomerOrderRouting();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CustomerOrderRouting CustomerOrderRoutingParams { get { return s_params_CustomerOrderRouting; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CustomerOrderRouting
+        {
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_RoutingSummary s_params_RoutingSummary = new ActionParamsClass_RoutingSummary();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -523,6 +539,18 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RoutingSummaryAll);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             RoutingSummaryAllOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CustomerOrderRoutingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CustomerOrderRouting(string id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerOrderRouting);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            CustomerOrderRoutingOverride(callInfo, id);
             return callInfo;
         }
 
