@@ -234,7 +234,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ManageCartonArea
         {
-            public readonly string areaId = "areaId";
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_ApplyCartonAreaLocationFilter s_params_ApplyCartonAreaLocationFilter = new ActionParamsClass_ApplyCartonAreaLocationFilter();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -427,14 +427,14 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         }
 
         [NonAction]
-        partial void ManageCartonAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string areaId);
+        partial void ManageCartonAreaOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult ManageCartonArea(string areaId)
+        public override System.Web.Mvc.ActionResult ManageCartonArea(string id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ManageCartonArea);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
-            ManageCartonAreaOverride(callInfo, areaId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ManageCartonAreaOverride(callInfo, id);
             return callInfo;
         }
 
