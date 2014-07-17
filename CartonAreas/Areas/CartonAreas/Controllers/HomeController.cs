@@ -263,7 +263,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assigned"></param>
         /// <param name="emptyLocations"></param>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.ManageCartonArea,Name=DcmsPublicRoutes.DcmsConnect_ManageCartonArea)]
+        [Route(HomeController.ActionNameConstants.ManageCartonArea,Name=DcmsPublicRoutes.DcmsConnect_ManageCartonArea1)]
         public virtual ActionResult ManageCartonArea(string id)
         {
             if (string.IsNullOrEmpty(id))
