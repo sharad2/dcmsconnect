@@ -28,6 +28,9 @@
     <item route="DcmsConnect_ManagePickWave" processidref="pick" shortcut="SELECTPO" name="Manage PickWaves" rating="10" sequence="10">
       <description>Add orders to pick waves so that they can be picked and shipped</description>
     </item>
+    <item route="DcmsConnect_CustomerOrder1" shortcut="XXX" name="Customer Order">
+      <description>List of Cusotmer Orders</description>
+    </item>
     <item route="DcmsConnect_BoxPickPallet" processidref="pick" shortcut="BPP" name="Create Pallets for Box Picking" sequence="30">
       <description>Creating boxpick pallets</description>
     </item>
