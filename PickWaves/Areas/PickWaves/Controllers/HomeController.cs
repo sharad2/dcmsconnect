@@ -72,22 +72,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="searchText">Should be BucketId,CustomerId,UserName</param>
         /// <returns></returns>
-        public virtual ActionResult Search(string searchText)
+        [Route(HomeController.ActionNameConstants.Search, Name = DcmsPublicRoutes.DcmsConnect_CustomerOrder1)]
+        public virtual ActionResult Search(string id)
         {
             var search = SearchTextType.Unknown;
-            if (!string.IsNullOrEmpty(searchText))
+            if (!string.IsNullOrEmpty(id))
             {
-                searchText = searchText.Trim().ToUpper();
-                search = _service.ParseSearchText(searchText);
+                id = id.Trim().ToUpper();
+                search = _service.ParseSearchText(id);
             }
 
             switch (search)
             {
                 // When search text is unknown.
                 case SearchTextType.Unknown:
-                    if (!string.IsNullOrEmpty(searchText))
+                    if (!string.IsNullOrEmpty(id))
                     {
-                        AddStatusMessage(string.Format("Search text {0} was not understood and is being ignored", searchText));
+                        AddStatusMessage(string.Format("Search text {0} was not understood and is being ignored", id));
                     }
                     if (Request.UrlReferrer != null)
                     {
@@ -97,7 +98,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
                 // When search text is bucket id.
                 case SearchTextType.BucketId:
-                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(int.Parse(searchText),
+                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(int.Parse(id),
                          DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain)));
 
                 // When search text is customer id.
@@ -116,7 +117,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     break;
 #endif
             }
-            return ShowHomePage(search, searchText);
+            return ShowHomePage(search, id);
         }
 
         /// <summary>
