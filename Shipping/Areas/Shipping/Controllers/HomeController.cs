@@ -211,6 +211,21 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                                            select new CustomerSummaryModel(customer);
             return View(Views.RoutingSummary, model);
         }
+
+        [Route("RoutingSummary",Name= DcmsPublicRoutes.DcmsConnect_CustomerRoutingSummary1)]
+        public virtual ActionResult CustomerOrderRouting(string id)
+        {
+            if(string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentNullException();
+            }
+            var model = new RoutingSummaryViewModel
+            {
+                PostedCustomerId = id
+            };
+            return RoutingSummary(model);
+        }
+
         /// <summary>
         ///  Returns routing details per customer. 
         /// </summary>
