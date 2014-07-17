@@ -41,6 +41,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_Appointment = "DcmsConnect_Appointment";
 		  // Generated code: Scan To Truck
 		public const string DcmsConnect_ScanToTruck = "DcmsConnect_ScanToTruck";
+		  // Generated code: Scan To Truck
+		public const string DcmsConnect_ScanToTruck1 = "DcmsConnect_ScanToTruck1";
 		  // Generated code: Abondon Rework
 		public const string DcmsConnect_AbandonRework = "DcmsConnect_AbandonRework";
 		  // Generated code: Bulk Update Carton
