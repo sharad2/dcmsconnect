@@ -110,7 +110,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Search
         {
-            public readonly string searchText = "searchText";
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -157,14 +157,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string searchText);
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Search(string searchText)
+        public override System.Web.Mvc.ActionResult Search(string id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "searchText", searchText);
-            SearchOverride(callInfo, searchText);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            SearchOverride(callInfo, id);
             return callInfo;
         }
 
