@@ -58,6 +58,9 @@
     <item route="DcmsConnect_RoutingSummary" processidref="ship"  shortcut="COR" name="Customer Order Routing" sequence="10">
       <description>Creating EDI 753 to route customer orders</description>
     </item>
+    <item route="DcmsConnect_CustomerRoutingSummary1" shortcut="XXX" name="Customer Order Routing">
+      <description>Customer Orders</description>
+    </item>
     <item route="DcmsConnect_Appointment" processidref="ship"  shortcut="APP" name="Manage Appointments" sequence="40">
       <description>Creating and manageing appointment</description>
     </item>
