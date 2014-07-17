@@ -263,14 +263,15 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assigned"></param>
         /// <param name="emptyLocations"></param>
         /// <returns></returns>
-        public virtual ActionResult ManageCartonArea(string areaId)
+        [Route(HomeController.ActionNameConstants.ManageCartonArea,Name=DcmsPublicRoutes.DcmsConnect_ManageCartonArea)]
+        public virtual ActionResult ManageCartonArea(string id)
         {
-            if (string.IsNullOrEmpty(areaId))
+            if (string.IsNullOrEmpty(id))
             {
                 return Index();
             }
-            var model = CreateManageCartonAreaViewModel(areaId);
-            var locations = _service.GetCartonAreaLocations(areaId, 500);
+            var model = CreateManageCartonAreaViewModel(id);
+            var locations = _service.GetCartonAreaLocations(id, 500);
             model.Locations = locations.Select(p => new LocationModel(p)).ToArray();
             model.CountTotalLocations = locations.Select(p => p.CountTotalLocations).First();
             return View(Views.ManageCartonArea, model);
