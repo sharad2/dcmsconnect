@@ -88,6 +88,9 @@
     <item route="DcmsConnect_CartonLocating" processidref="recv"  shortcut="CLOC" name="Carton Locating" sequence="20">
       <description>Locating cartons in numbered bin locations</description>
     </item>
+    <item route="DcmsConnect_CartonLocating1"  shortcut="XXX" name="Carton Locating">
+      <description>This Url post the id of the pallet to carton locating page.</description>
+    </item>
     <item route="DcmsConnect_CartonToPallet" processidref="recv"  shortcut="C2P" name="Carton To Pallet">
       <description>Place cartons on a pallet</description>
     </item>

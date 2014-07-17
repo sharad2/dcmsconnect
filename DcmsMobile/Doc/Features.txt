@@ -76,6 +76,8 @@ DcmsConnect_CartonEditor. This is the URL for the Carton to edit in inventory ta
 
 DcmsConnect_CartonLocating. This is the URL for Locating cartons in numbered bin locations(Inventory tab)
 
+DcmsConnect_CartonLocating1. This Url post the pallet id to the carton pallet page of the shipping module.
+
 DcmsConnect_CartonToPallet. This is the URL for the UI which place cartons on a pallet(Inventory tab)
 
 DcmsConnect_MarkReworkComplete. This is the URL for the UI that Mark Rework Complete of those Cartons on which rework has to be done.
