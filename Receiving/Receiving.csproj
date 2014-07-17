@@ -177,6 +177,7 @@
       <DependentUpon>AutoComplete.js</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Content\Guided Receiving.pps" />
+    <Content Include="MainArea\SharedViews\_layoutMain.cshtml" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\Receiving\Content\Receiving-all.css.bundle" />
     <None Include="Areas\Receiving\Scripts\Home\Receiving-all.js.bundle" />
