@@ -56,7 +56,7 @@ namespace DcmsMobile.Dcms.Routes {
 		  // Generated code: Carton Areas
 		public const string DcmsConnect_CartonAreas = "DcmsConnect_CartonAreas";
 		  // Generated code: Manage Area
-		public const string DcmsConnect_ManageCartonArea = "DcmsConnect_ManageCartonArea";
+		public const string DcmsConnect_ManageCartonArea1 = "DcmsConnect_ManageCartonArea1";
 		  // Generated code: Pull Request
 		public const string DcmsConnect_REQ2 = "DcmsConnect_REQ2";
 		  // Generated code: VAS Configuration
