@@ -49,6 +49,9 @@
     <item route="DcmsConnect_ApplyVasToBox" processidref="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
       <description>Applying VAS to boxes</description>
     </item>
+    <item route="DcmsConnect_ApplyVasToBox1" shortcut="XXX" name="Apply VAS to Boxes">
+      <description>Applying VAS to boxes</description>
+    </item>
     <item route="DcmsConnect_ScanToPallet" processidref="ship"  shortcut="STP" name="Scan To Pallet" sequence="20">
       <description>Scan to pallet program</description>
     </item>

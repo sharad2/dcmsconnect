@@ -23,6 +23,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_Restock1 = "DcmsConnect_Restock1";
 		  // Generated code: Apply VAS to Boxes
 		public const string DcmsConnect_ApplyVasToBox = "DcmsConnect_ApplyVasToBox";
+		  // Generated code: Apply VAS to Boxes
+		public const string DcmsConnect_ApplyVasToBox1 = "DcmsConnect_ApplyVasToBox1";
 		  // Generated code: Scan To Pallet
 		public const string DcmsConnect_ScanToPallet = "DcmsConnect_ScanToPallet";
 		  // Generated code: Move Pallet
