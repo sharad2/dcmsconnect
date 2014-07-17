@@ -61,6 +61,9 @@
     <item route="DcmsConnect_MoveBoxPallet" processidref="ship"  shortcut="MP" name="Move Pallet" sequence="30">
       <description>Moves a box pallet from one location to another</description>
     </item>
+    <item route="DcmsConnect_MoveBoxPallet1" shortcut="XXX" name="Move Pallet">
+      <description>Moves a box pallet from one location to another</description>
+    </item>
     <item route="DcmsConnect_RoutingSummary" processidref="ship"  shortcut="COR" name="Customer Order Routing" sequence="10">
       <description>Creating EDI 753 to route customer orders</description>
     </item>
