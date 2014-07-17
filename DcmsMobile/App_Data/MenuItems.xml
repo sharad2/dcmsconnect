@@ -76,6 +76,9 @@
     <item route="DcmsConnect_ScanToTruck" processidref="ship"  shortcut="STT" name="Scan To Truck">
       <description>Loading boxes on truck to ensure accuracy of shipment</description>
     </item>
+    <item route="DcmsConnect_ScanToTruck1" shortcut="XXX" name="Scan To Truck">
+      <description>Loading boxes on truck to ensure accuracy of shipment</description>
+    </item>    
     <item route="DcmsConnect_AbandonRework" processidref="inventory"  shortcut="ARW" name="Abondon Rework">
       <description>Let the system know if you no longer want to perform rework on Cartons which had been marked for rework </description>
     </item>
