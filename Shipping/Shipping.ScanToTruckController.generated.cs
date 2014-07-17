@@ -56,6 +56,12 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult LoadTruck()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoadTruck);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Appointment()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Appointment);
@@ -89,6 +95,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string LoadTruck = "LoadTruck";
             public readonly string Appointment = "Appointment";
             public readonly string Pallet = "Pallet";
             public readonly string UnloadPallet = "UnloadPallet";
@@ -98,12 +105,21 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string LoadTruck = "LoadTruck";
             public const string Appointment = "Appointment";
             public const string Pallet = "Pallet";
             public const string UnloadPallet = "UnloadPallet";
         }
 
 
+        static readonly ActionParamsClass_LoadTruck s_params_LoadTruck = new ActionParamsClass_LoadTruck();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_LoadTruck LoadTruckParams { get { return s_params_LoadTruck; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_LoadTruck
+        {
+            public readonly string id = "id";
+        }
         static readonly ActionParamsClass_Appointment s_params_Appointment = new ActionParamsClass_Appointment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Appointment AppointmentParams { get { return s_params_Appointment; } }
@@ -161,6 +177,18 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void LoadTruckOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult LoadTruck(int? id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.LoadTruck);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            LoadTruckOverride(callInfo, id);
             return callInfo;
         }
 

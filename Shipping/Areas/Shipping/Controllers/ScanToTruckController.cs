@@ -114,6 +114,22 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             return View(Views.Index, new IndexViewModel());
         }
 
+        [Route(ScanToTruckController.ActionNameConstants.LoadTruck, Name = DcmsPublicRoutes.DcmsConnect_ScanToTruck1)]
+        public virtual ActionResult LoadTruck(int? id)
+          {
+            if(id == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var model = new IndexViewModel
+            {
+                AppointmentNo = id
+            };
+
+            return Appointment(model);
+          }
+
         /// <summary>
         /// Gets details of appointment for passed building and area.
         /// </summary>
