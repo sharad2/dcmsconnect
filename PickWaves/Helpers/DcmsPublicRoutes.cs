@@ -29,6 +29,8 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_MoveBoxPallet = "DcmsConnect_MoveBoxPallet";
 		  // Generated code: Customer Order Routing
 		public const string DcmsConnect_RoutingSummary = "DcmsConnect_RoutingSummary";
+		  // Generated code: Customer Order Routing
+		public const string DcmsConnect_CustomerRoutingSummary1 = "DcmsConnect_CustomerRoutingSummary1";
 		  // Generated code: Manage Appointments
 		public const string DcmsConnect_Appointment = "DcmsConnect_Appointment";
 		  // Generated code: Scan To Truck
