@@ -96,7 +96,7 @@ namespace DcmsMobile.Dcms.Routes {
 		  // Generated code: TODO
 		public const string DcmsConnect_SearchCartonLocation1 = "DcmsConnect_SearchCartonLocation1";
 		  // Generated code: TODO
-		public const string DcmsConnect_SearchPo1 = "DcmsConnect_SearchPo1";
+		public const string DcmsConnect_SearchPo3 = "DcmsConnect_SearchPo3";
 		  // Generated code: TODO
 		public const string DcmsConnect_SearchPickslip1 = "DcmsConnect_SearchPickslip1";
 		  // Generated code: TODO
