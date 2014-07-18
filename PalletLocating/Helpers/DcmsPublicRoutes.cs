@@ -8,7 +8,7 @@ namespace DcmsMobile.Dcms.Routes {
 		  // Generated code: Search DCMS
 		public const string DcmsConnect_Search1 = "DcmsConnect_Search1";
 		  // Generated code: List of Intransit Shipments
-		public const string DcmsConnect_IntransitShipment = "DcmsConnect_IntransitShipment";
+		public const string DcmsConnect_IntransitShipmentList = "DcmsConnect_IntransitShipmentList";
 		  // Generated code: Manage PickWaves
 		public const string DcmsConnect_ManagePickWave = "DcmsConnect_ManagePickWave";
 		  // Generated code: Customer Order
@@ -77,7 +77,49 @@ namespace DcmsMobile.Dcms.Routes {
 		public const string DcmsConnect_Receving = "DcmsConnect_Receving";
 		  // Generated code: Repack
 		public const string DcmsConnect_Repack = "DcmsConnect_Repack";
-		  // Generated code: DcmsRights
+		  // Generated code: Manage Dcms Security
 		public const string DcmsConnect_Rights = "DcmsConnect_Rights";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCustomer1 = "DcmsConnect_SearchCustomer1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchUcc1 = "DcmsConnect_SearchUcc1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchBoxPallet1 = "DcmsConnect_SearchBoxPallet1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchWave1 = "DcmsConnect_SearchWave1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCarton1 = "DcmsConnect_SearchCarton1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCartonArea1 = "DcmsConnect_SearchCartonArea1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCartonPallet1 = "DcmsConnect_SearchCartonPallet1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCartonLocation1 = "DcmsConnect_SearchCartonLocation1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchPo3 = "DcmsConnect_SearchPo3";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchPickslip1 = "DcmsConnect_SearchPickslip1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchUpc1 = "DcmsConnect_SearchUpc1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchStyle1 = "DcmsConnect_SearchStyle1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchLabel1 = "DcmsConnect_SearchLabel1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchSkuArea1 = "DcmsConnect_SearchSkuArea1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchSkuLocation1 = "DcmsConnect_SearchSkuLocation1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchIntransitShipment1 = "DcmsConnect_SearchIntransitShipment1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchOutboundShipment1 = "DcmsConnect_SearchOutboundShipment1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchCustomerSku1 = "DcmsConnect_SearchCustomerSku1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchAppointmentNumber1 = "DcmsConnect_SearchAppointmentNumber1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchReturnNumber1 = "DcmsConnect_SearchReturnNumber1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchMasterBol1 = "DcmsConnect_SearchMasterBol1";
 		}
 }
