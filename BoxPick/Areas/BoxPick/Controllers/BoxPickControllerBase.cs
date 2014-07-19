@@ -18,13 +18,13 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
     {
         #region Initialize
 
-        protected BoxPickRepository _repos;
+        protected Lazy<BoxPickRepository> _repos;
 
-        public BoxPickRepository Repository
-        {
-            get { return _repos; }
-            set { _repos = value; }
-        }
+        //public BoxPickRepository Repository
+        //{
+        //    get { return _repos; }
+        //    set { _repos = value; }
+        //}
 
         /// <summary>
         /// Create the database connection
@@ -37,7 +37,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
         {
             if (_repos == null)
             {
-                _repos = new BoxPickRepository(requestContext);
+                _repos = new Lazy<BoxPickRepository>(() => new BoxPickRepository(requestContext));
             }
             base.Initialize(requestContext);
         }
@@ -48,10 +48,9 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
         /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            var dis = _repos as IDisposable;
-            if (dis != null)
+            if (_repos != null && _repos.IsValueCreated)
             {
-                dis.Dispose();
+                _repos.Value.Dispose();
             }
             _repos = null;
             base.Dispose(disposing);

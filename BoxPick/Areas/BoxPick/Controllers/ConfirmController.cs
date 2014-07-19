@@ -70,7 +70,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             }
             try
             {
-                var removed = _repos.RemoveRemainingBoxesFromPallet(model.ConfirmPalletId);
+                var removed = _repos.Value.RemoveRemainingBoxesFromPallet(model.ConfirmPalletId);
                 this.AddStatusMessage(string.Format("{0} boxes removed from Pallet {1}. Scan new Pallet.",
                     removed, model.ConfirmPalletId));
 
@@ -174,7 +174,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
 
             try
             {
-                _repos.RemoveBoxFromPallet(model.ConfirmScan, model.CurrentPalletId);
+                _repos.Value.RemoveBoxFromPallet(model.ConfirmScan, model.CurrentPalletId);
                 this.AddStatusMessage(string.Format("UCC {0} removed from Pallet {1}. Please place a red dot on the UCC label.",
                     model.ConfirmScan, model.CurrentPalletId));
             }
@@ -194,7 +194,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             Pallet pallet = null;
             try
             {
-                pallet = _repos.RetrievePalletInfo(model.CurrentPalletId);
+                pallet = _repos.Value.RetrievePalletInfo(model.CurrentPalletId);
                 //TODO : Needs to define
                 if (pallet == null)
                 {
@@ -292,7 +292,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             //Create pallet for ADR
             try
             {
-                int rowsAffected = _repos.CreateADRPallet(model.ConfirmPalletId, model.CurrentBuildingId, model.CurrentDestinationArea);
+                int rowsAffected = _repos.Value.CreateADRPallet(model.ConfirmPalletId, model.CurrentBuildingId, model.CurrentDestinationArea);
                 if (rowsAffected == 0)
                 {
                     this.AddStatusMessage(string.Format("No cartons to pick for building {0}{1}", model.CurrentBuildingId,
@@ -315,7 +315,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             Pallet pallet = null;
             try
             {
-                pallet = _repos.RetrievePalletInfo(model.ConfirmPalletId);
+                pallet = _repos.Value.RetrievePalletInfo(model.ConfirmPalletId);
                 if (pallet == null)
                 {
                     ModelState.AddModelError("", "No cartons to pick");
@@ -398,7 +398,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             if (model.ConfirmCartonId == "1")
             {
                 this.AddStatusMessage(string.Format("Carton {0} put in suspense.", model.CartonIdToPick));
-                _repos.MarkCartonInSuspense(model.CartonIdToPick);
+                _repos.Value.MarkCartonInSuspense(model.CartonIdToPick);
             }
             else
             {
@@ -456,7 +456,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             try
             {
                 string labelPrinter = string.Empty;
-                string printers = _repos.GetPrinter(model.PalletToPrint);
+                string printers = _repos.Value.GetPrinter(model.PalletToPrint);
                 //TC 35 : When no printer found
                 if (string.IsNullOrWhiteSpace(printers))
                 {
@@ -477,7 +477,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    _repos.Print(model.PalletToPrint, labelPrinter);
+                    _repos.Value.Print(model.PalletToPrint, labelPrinter);
                     this.AddStatusMessage(string.Format("Pallet {0} printed on {1} printer.", model.PalletToPrint, labelPrinter));
                 }
             }

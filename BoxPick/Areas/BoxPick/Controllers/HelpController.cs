@@ -45,7 +45,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
         public virtual ActionResult ShowCartonHelp()
         {
             var model = new CartonViewModel(this.Session);
-            model.AlternateLocations = _repos.GetAlternateLocations(model.CartonIdToPick);
+            model.AlternateLocations = _repos.Value.GetAlternateLocations(model.CartonIdToPick);
             return View(Views.CartonHelp, model);
         }
 

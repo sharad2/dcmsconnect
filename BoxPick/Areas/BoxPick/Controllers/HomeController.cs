@@ -87,7 +87,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             var fieldName = model.NameFor(m => m.ScannedBuildingOrArea);
             try
             {
-                PickContext pickContext = _repos.GetPickContext(model.ScannedBuildingOrArea);
+                PickContext pickContext = _repos.Value.GetPickContext(model.ScannedBuildingOrArea);
                 //TC3 : Scan invlaid building or area.
                 if (pickContext == null)
                 {
@@ -201,7 +201,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             var fieldScannedPalletId = mm.NameFor(m => m.ScannedPalletId);
             try
             {
-                pallet = _repos.RetrievePalletInfo(mm.ScannedPalletId);
+                pallet = _repos.Value.RetrievePalletInfo(mm.ScannedPalletId);
                 //TC7 : Scan a new pallet to create ADR pallet.
                 if (pallet == null)
                 {
@@ -297,7 +297,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             model.ScannedCartonId = model.ScannedCartonId.ToUpper();
             // Validate carton. If box is returned as null then carton was not pickable.
 
-            var box = _repos.GetBoxForCarton(model.ScannedCartonId, model.CurrentPalletId, model.UccIdToPick);
+            var box = _repos.Value.GetBoxForCarton(model.ScannedCartonId, model.CurrentPalletId, model.UccIdToPick);
 
             //TC14 : If no information of scanned carton found
             //  Check whether the scanned carton can be placed in current pallet.  
@@ -425,7 +425,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             try
             {
                 // Pick box now
-                _repos.PickCarton(model.ScannedUccId, model.LastCartonId, model.ProductivityStartTime.Value);
+                _repos.Value.PickCarton(model.ScannedUccId, model.LastCartonId, model.ProductivityStartTime.Value);
                 if (model.CountRequiredVAS > 0)
                 {
                     this.AddStatusMessage(string.Format("Carton {0} associated with Box {1} picked.VAS required on this box please take this box to VAS area", model.LastCartonId, model.ScannedUccId));
@@ -454,7 +454,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             var fieldCurrentPallet = model.NameFor(m => m.CurrentPalletId);
             try
             {
-                pallet = _repos.RetrievePalletInfo(model.CurrentPalletId);
+                pallet = _repos.Value.RetrievePalletInfo(model.CurrentPalletId);
                 //TC20 : Pick a pallet that is available for only one box.
                 if (pallet == null)
                 {
