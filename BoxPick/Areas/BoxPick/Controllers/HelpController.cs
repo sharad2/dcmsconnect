@@ -7,6 +7,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
     /// All actions normally expect to get invoked via GET. None of the methods take any parameters which means that
     /// these will get invoked regardless of the state of the context.
     /// </summary>
+    [Route("help/{action}")]
     public partial class HelpController : BoxPickControllerBase
     {
         /// <summary>

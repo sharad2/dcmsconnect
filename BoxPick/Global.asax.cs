@@ -18,12 +18,12 @@ namespace BoxPick
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
-                new string[] { "DcmsMobile.BoxPick.Areas.BoxPick.Controllers" }
-            ).DataTokens.Add("area", "BoxPick");
+            //routes.MapRoute(
+            //    "Default", // Route name
+            //    "{controller}/{action}/{id}", // URL with parameters
+            //    new { controller = "Home", action = "Index", id = UrlParameter.Optional }, // Parameter defaults
+            //    new string[] { "DcmsMobile.BoxPick.Areas.BoxPick.Controllers" }
+            //).DataTokens.Add("area", "BoxPick");
 
         }
 

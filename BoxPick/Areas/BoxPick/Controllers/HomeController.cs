@@ -32,6 +32,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
     /// part of productivity. All times are database server times. Any successful skipping activity resets the time.
     /// </para>
     /// </remarks>
+    [Route("{action}")]
     public partial class HomeController : BoxPickControllerBase
     {
         #region Building

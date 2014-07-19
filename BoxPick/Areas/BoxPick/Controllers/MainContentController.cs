@@ -7,7 +7,8 @@ using System.Linq;
 
 namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
 {
-    public partial class MainContentController : EclipseController
+    [Route("main/{action}")]
+    public partial class MainContentController : BoxPickControllerBase
     {
 
         #region Intialization
@@ -44,6 +45,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
         /// This function invokes when we Scan Building from desktop view 
         /// </summary>
         /// <returns></returns>
+        //[Route("Sharad")]
         public virtual ActionResult Building()
         {
             //var model = new BuildingViewModel { PendingActivities = Mapper.Map<IEnumerable<ActivityModel>>(_service.GetPendingActivity()) };
@@ -72,7 +74,7 @@ namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
             var boxes = _service.GetBoxesOnPallet(palletId);
             var model = new CartonViewModel
             {
-                BoxesOnPallet = boxes== null ? null :boxes.Select(p => new BoxModel
+                BoxesOnPallet = boxes == null ? null : boxes.Select(p => new BoxModel
                 {
                     AssociatedCartonId = p.AssociatedCarton.CartonId == null ? null : p.AssociatedCarton.CartonId,
                     CartonLocationId = p.AssociatedCarton.LocationId == null ? null : p.AssociatedCarton.LocationId,

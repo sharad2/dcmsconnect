@@ -8,6 +8,7 @@ using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.BoxPick.Areas.BoxPick.Controllers
 {
+    [Route("confirm/{action}")]
     public partial class ConfirmController : BoxPickControllerBase
     {
         #region PartialPickPallet
