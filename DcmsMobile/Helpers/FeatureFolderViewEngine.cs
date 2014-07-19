@@ -6,11 +6,10 @@ using System.Web.Mvc;
 namespace DcmsMobile.Helpers
 {
     [Flags]
-    public enum RazorViewEngineFolders
+    public enum AreaFolderOrganization
     {
-        AreaFeatureFolders = 0x1,
-        ProjectFeatureFolders = 0x2,
-        AreaConventionalFolders = 0x4
+        FeatureFolders = 0x1,
+        ConventionalFolders = 0x2
     }
     /// <summary>
     /// Inspired by T4MVC feature folder documentation https://t4mvc.codeplex.com/documentation
@@ -20,25 +19,40 @@ namespace DcmsMobile.Helpers
     ///  1. We never look for area views with the DcmsMobile Views folder. This ensures that DCMSMobile views do not get accidentally in place of missing area views.
     ///  2. It allows the areas to be organized using the feature folder convention and/or regular MVC convention.
     ///  3. It looks for cshtml extensions only.
+    ///  
+    /// Sample usage in global.asax
+    /// <code>
+    ///     ViewEngines.Engines.Clear();
+    ///     // DcmsMobile folders follow feature folder convention
+    ///     ViewEngines.Engines.Add(new FeatureFolderViewEngine(typeof(Links_DcmsMobile.MainArea).Name));
+    ///
+    ///     // Some Area folders follow MVC conventions, while others follow feature folder convention
+    ///     ViewEngines.Engines.Add(new FeatureFolderViewEngine(RazorViewEngineFolders.AreaConventionalFolders | RazorViewEngineFolders.AreaFeatureFolders));
+    /// </code>
     /// </remarks>
     internal class FeatureFolderViewEngine : RazorViewEngine
     {
+        /// <summary>
+        /// Whether this display engine is for servicing areas
+        /// </summary>
+        private bool _isAreaEngine;
+
         /// <summary>
         /// This constructor expects each area to be organized using feature folder convention.
         /// It clears out all view locations so that views of the main project do not serve as a default for area views
         /// </summary>
         /// <param name="eFolders">You can pass multiple flags if some of your areas are organized conventionally and some are organized using feature format</param>
-        public FeatureFolderViewEngine(RazorViewEngineFolders eFolders)
+        public FeatureFolderViewEngine(AreaFolderOrganization eFolders)
         {
             // {0} ActionName; {1} ControllerName; {2} AreaName
 
             var list = new List<string>();
-            if (eFolders.HasFlag(RazorViewEngineFolders.AreaConventionalFolders))
+            if (eFolders.HasFlag(AreaFolderOrganization.ConventionalFolders))
             {
                 // If conventional support is needed, add the current area folders
                 list.AddRange(this.AreaViewLocationFormats.Where(p => p.EndsWith(".cshtml")));
             }
-            if (eFolders.HasFlag(RazorViewEngineFolders.AreaFeatureFolders))
+            if (eFolders.HasFlag(AreaFolderOrganization.FeatureFolders))
             {
                 var locs = new[]
                                     {
@@ -57,6 +71,8 @@ namespace DcmsMobile.Helpers
             ViewLocationFormats =
                 MasterLocationFormats =
                 PartialViewLocationFormats = new string[0];
+
+            _isAreaEngine = true;
             FileExtensions = new[] { "cshtml" };
         }
 
@@ -95,26 +111,38 @@ namespace DcmsMobile.Helpers
 
         public override ViewEngineResult FindView(ControllerContext controllerContext, string viewName, string masterName, bool useCache)
         {
-            var hasArea = controllerContext.RouteData.DataTokens.ContainsKey("area");
-            if ((hasArea && AreaViewLocationFormats.Length == 0) || (!hasArea && ViewLocationFormats.Length == 0))
+            if (_isAreaEngine != controllerContext.RouteData.DataTokens.ContainsKey("area"))
             {
-                // Prevent the base class complains that ViewLocationFormats cannot be null or empty.
+                // Area engine will do nothing for non area views.
+                // Similarly, non-area engine will do nothing for non area views
                 return new ViewEngineResult(Enumerable.Empty<string>());
             }
-            var x =  base.FindView(controllerContext, viewName, masterName, useCache);
-            return x;
+            //var hasArea = controllerContext.RouteData.DataTokens.ContainsKey("area");
+            //if ((hasArea && AreaViewLocationFormats.Length == 0) || (!hasArea && ViewLocationFormats.Length == 0))
+            //{
+            //    // Prevent the base class complaint that ViewLocationFormats cannot be null or empty.
+            //    return new ViewEngineResult(Enumerable.Empty<string>());
+            //}
+            return  base.FindView(controllerContext, viewName, masterName, useCache);
         }
 
         public override ViewEngineResult FindPartialView(ControllerContext controllerContext, string partialViewName, bool useCache)
         {
-            var hasArea = controllerContext.RouteData.DataTokens.ContainsKey("area");
-            if ((hasArea && AreaPartialViewLocationFormats.Length == 0) || (!hasArea && PartialViewLocationFormats.Length == 0))
+            if (_isAreaEngine != controllerContext.RouteData.DataTokens.ContainsKey("area"))
             {
-                // Prevent the base class complains that PartialViewLocationFormats cannot be null or empty.
+                // Area engine will do nothing for non area views.
+                // Similarly, non-area engine will do nothing for area views
                 return new ViewEngineResult(Enumerable.Empty<string>());
             }
+            //var hasArea = controllerContext.RouteData.DataTokens.ContainsKey("area");
+            //if ((hasArea && AreaPartialViewLocationFormats.Length == 0) || (!hasArea && PartialViewLocationFormats.Length == 0))
+            //{
+            //    // Prevent the base class complaint that PartialViewLocationFormats cannot be null or empty.
+            //    return new ViewEngineResult(Enumerable.Empty<string>());
+            //}
             return base.FindPartialView(controllerContext, partialViewName, useCache);
         }
 
     }
+
 }

@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.Helpers;
+using EclipseLibrary.Mvc;
 using System;
 using System.Web;
 using System.Web.Mvc;
@@ -52,8 +53,8 @@ namespace DcmsMobile
             // DcmsMobile folders follow feature folder convention
             ViewEngines.Engines.Add(new FeatureFolderViewEngine(typeof(Links_DcmsMobile.MainArea).Name));
 
-            // Area folders follow MVC conventions
-            ViewEngines.Engines.Add(new FeatureFolderViewEngine(RazorViewEngineFolders.AreaConventionalFolders));
+            // Some Area folders follow MVC conventions, while others follow feature folder convention
+            ViewEngines.Engines.Add(new FeatureFolderViewEngine(AreaFolderOrganization.ConventionalFolders | AreaFolderOrganization.FeatureFolders));
 
             #region Display Modes
             // Sharad: Code which makes extensions .mobile.cshtml and .phone.cshtml recognizable
