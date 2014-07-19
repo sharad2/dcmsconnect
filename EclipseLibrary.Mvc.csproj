@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="Html\WebGridColumnEx.cs" />
     <Compile Include="Html\WebGridEx.cs" />
+    <Compile Include="FeatureFolderViewEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
