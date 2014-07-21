@@ -346,14 +346,14 @@ namespace EclipseLibrary.Oracle
             return this;
         }
 
-        [Obsolete("Use the nullable int setter")]
-        public SqlBinder OutParameter(string parameterName, Action<int> setter)
-        {
-            var param = GetBindParameter(parameterName, ParameterDirection.Output);
-            param.OracleDbType = OracleDbType.Int32;
-            param.SetOutputValueUpdater((OracleDecimal val) => setter(val.IsNull ? 0 : val.ToInt32()));
-            return this;
-        }
+        //[Obsolete("Use the nullable int setter")]
+        //public SqlBinder OutParameter(string parameterName, Action<int> setter)
+        //{
+        //    var param = GetBindParameter(parameterName, ParameterDirection.Output);
+        //    param.OracleDbType = OracleDbType.Int32;
+        //    param.SetOutputValueUpdater((OracleDecimal val) => setter(val.IsNull ? 0 : val.ToInt32()));
+        //    return this;
+        //}
 
         public SqlBinder OutParameter(string parameterName, Action<DateTime?> setter)
         {
