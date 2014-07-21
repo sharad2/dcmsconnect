@@ -15,7 +15,7 @@ namespace DcmsMobile.DcmsLite.Repository.Validation
         internal Tuple<ValidationStatus, string> ValidateBox(string uccId, string postVerificationAreaId, string badVerificationAreaId)
         {
             var message = string.Empty;
-            var status = -1;
+            int? status = null;
             const string QUERY = @"
             DECLARE 
                 LRESULT <proxy />PKG_VALIDATE_BOX.INFO_REC;
