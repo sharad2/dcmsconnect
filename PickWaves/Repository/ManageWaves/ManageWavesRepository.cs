@@ -146,7 +146,7 @@ group by PD.SKU_ID, P.VWH_ID
                                     FROM <proxy />SRC_CARTON_DETAIL SCD
                                    INNER JOIN <proxy />SRC_CARTON SC
                                       ON SC.CARTON_ID = SCD.CARTON_ID
-                                   INNER JOIN <proxy />MASTER_STORAGE_LOCATION MSL
+                                   LEFT OUTER JOIN <proxy />MASTER_STORAGE_LOCATION MSL
                                       ON SC.LOCATION_ID = MSL.LOCATION_ID
                                      AND SC.CARTON_STORAGE_AREA = MSL.STORAGE_AREA
                                    INNER JOIN <proxy />TAB_INVENTORY_AREA TIA
@@ -741,7 +741,6 @@ WHERE 1 = 1
                                     LEFT OUTER JOIN ORDERED_SKU OS
                                       ON OS.SKU_ID = CTNDET.SKU_ID
                                      AND OS.VWH_ID = CTN.VWH_ID
-                                   WHERE CTN.LOCATION_ID IS NOT NULL
                                    GROUP BY CTN.CARTON_STORAGE_AREA),
                         PICK_AREAS AS
                             (SELECT IALOC.IA_ID, COUNT(UNIQUE OS.SKU_ID) AS COUNT_SKU
