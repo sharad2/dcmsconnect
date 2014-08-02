@@ -363,6 +363,9 @@
     <Content Include="Content\images\icons-svg\video-black.svg" />
     <Content Include="Content\images\icons-svg\video-white.svg" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
+    <Content Include="Content\jquery.mobile-1.4.2.min.css">
+      <DependentUpon>jquery.mobile-1.4.2.css</DependentUpon>
+    </Content>
     <Content Include="Content\jquery.mobile.external-png-1.4.2.css" />
     <Content Include="Content\jquery.mobile.external-png-1.4.2.min.css" />
     <Content Include="Content\jquery.mobile.icons-1.4.2.css" />
