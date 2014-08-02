@@ -53,6 +53,15 @@ namespace EclipseLibrary.Mvc.Hosting
     /// </para>
     /// <para>
     /// T4MVC Notes:
+    /// 
+    /// Even though your Script and Content folders will no longer have any files in them, you must still add the file names you intend to use within your project.
+    /// This is so that T4MVC can generate constants for the file names which you will use in your views. Visual Studio will show a warning icon indicating that the files
+    /// do not exist, but this is not a problem.
+    /// Typically you will add the following nonexistent files to your project:
+    /// Content\jquery.mobile-1.4.2.css
+    /// Script\jquery-2.1.1.js
+    /// Script\jquery.mobile-1.4.2.js
+    /// 
     ///   Because .min.js and .min.css files no longer exist in the Content and Script directories of the application, T4MVC will never request minified files.
     ///   This is not good because we want to use minified files in production environment.
     ///   Therefore you should modify the T4MVC.tt.hooks.t4 file so that it requests minified files in production
