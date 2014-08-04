@@ -1,5 +1,7 @@
-﻿using System;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
@@ -33,6 +35,11 @@ namespace DcmsMobile.Receiving
 
         protected void Application_Start()
         {
+
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+                Links_Receiving.Content.Url(),
+                Links_Receiving.Scripts.Url()
+              }));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

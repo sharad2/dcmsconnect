@@ -114,13 +114,6 @@ namespace Links_Receiving
                 private const string URLPATH = "~/Content/themes/Start1.10.0";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class images {
-                    private const string URLPATH = "~/Content/themes/Start1.10.0/images";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
                 public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
                      
             }
@@ -292,6 +285,17 @@ internal static class T4MVCHelpers {
         string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
         // Add your own modifications here before returning the path
+        if (IsProduction())
+        {
+            if (virtualPath.EndsWith(".js") && !virtualPath.EndsWith(".min.js"))
+            {
+                path = path.Replace(".js", ".min.js");
+            }
+            else if (virtualPath.EndsWith(".css") && !virtualPath.EndsWith(".min.css"))
+            {
+                path = path.Replace(".css", ".min.css");
+            }
+        }
         return path;
     }
 
