@@ -97,13 +97,6 @@ namespace Links_DcmsRights
                 private const string URLPATH = "~/Content/themes/Start1.10.0";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class images {
-                    private const string URLPATH = "~/Content/themes/Start1.10.0/images";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
                 public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
                      
             }
@@ -134,15 +127,6 @@ namespace Links_DcmsRights
                      
                 public static readonly string DcmsRights_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DcmsRights.partial.min.css") ? Url("DcmsRights.partial.min.css") : Url("DcmsRights.partial.css");
                      
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class images {
-                    private const string URLPATH = "~/Areas/DcmsRights/Content/images";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
-                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
-                }
-            
                 public static readonly string RestrictedPrograms_PDF = Url("RestrictedPrograms.PDF");
                 public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
                      
