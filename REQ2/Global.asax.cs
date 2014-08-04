@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System.Web.Hosting;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DcmsMobile.REQ2
@@ -27,6 +29,10 @@ namespace DcmsMobile.REQ2
 
         protected void Application_Start()
         {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+        Links_REQ2.Content.Url(),
+        Links_REQ2.Scripts.Url()
+      }));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);

@@ -213,7 +213,18 @@ internal static class T4MVCHelpers {
         // The path that comes in starts with ~/ and must first be made absolute
         string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
-        // Add your own modifications here before returning the path
+        // Add your own modifications here before returning the path		 
+		 if (IsProduction())
+		 {
+		     if (virtualPath.EndsWith(".js") && !virtualPath.EndsWith(".min.js"))
+		     {
+		         path = path.Replace(".js", ".min.js");
+		     }
+		     else if (virtualPath.EndsWith(".css") && !virtualPath.EndsWith(".min.css"))
+		     {
+		         path = path.Replace(".css", ".min.css");
+		     }
+		 }
         return path;
     }
 
