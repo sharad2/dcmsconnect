@@ -1,0 +1,714 @@
+﻿@model int?
+@{
+    Layout = "~/Areas/Repack/Views/Shared/_layoutRepack.cshtml";
+}
+<h2 style="text-align:center">
+    <u>Repack Tutorial</u></h2>
+<br />
+<h3>
+    Target audience
+</h3>
+<p>
+    This document is meant for warehouse managers; repack module users and development
+    team concerned with this module.
+</p>
+<h3>
+    Business Need
+</h3>
+<p>
+    The purpose of the RPK2 program is to make cartons from loose SKU inventory. The
+    need for repacking will arise in the following scenarios.
+</p>
+<ol>
+    <li>The boxes in the Inventory Reserve (BIR) have one type of SKU per carton philosophy.
+        If the box contains multiple SKUs then contents of such boxes need to be repacked.</li>
+    <li>If the box does not fit in the Inventory Reserve due to size then contents of such
+        boxes needs to be repacked.</li>
+    <li>If the box quantity is less than' minimum carton quantity' in the BIR then the contents
+        need to be repacked.</li>
+    <li>If an unexpected SKU is found in any shelf location and pitching supervisor cannot
+        resolve it to its correct location, then this SKU is transferred to repacking Area.</li>
+    <li>Over pitched SKUs, which are detected at validation scan or while checking box contents,
+        can be added to the Repacking area.</li>
+    <li>If you did not receive ASN for the cartons arriving in the warehouse then you can
+        receive cartons using repack module.</li>
+</ol>
+<p>
+    All such SKUs have to be relocated in the Inventory Reserve (BIR) so that inventory
+    can be added back to the BIR and can be used for future processing.
+</p>
+<h3>
+    Functional Specifications
+</h3>
+<h4>
+    Create Carton and Repacking
+</h4>
+<p>
+    In order to create a carton the needs to supply the following information. Multiple
+    UIs are available for Repack to minimize the need to supply all of this information.</p>
+<ol>
+    <li>Carton ID (optional) – Scan or key in carton ID displayed in the carton label which
+        is being received. If not specified or scanned then carton id will be system generated.</li>
+    <li>Select Source Area from where SKUs are to be picked. Source area to be defined as
+        any area where SKUs are stored as stated in the column dcms4.tab_inventory_area.stores_what
+        = ‘SKU’. Bundles areas will be excluded by filtering out areas whose track_bundle_flag
+        = ‘M’.</li>
+    <li>Select Destination Area where this carton will be placed. Destination area to be
+        defined as any area where cartons are stored as stated in the column dcms4.tab_inventory_area.
+        stores_what = ‘CTN’ but it should not be a numbered area, i.e. there can be at most
+        one location for this area in dcms4.master_storage_location.</li>
+    <li>Select Printer where carton tickets will be printed once repacking is complete.
+        Printers of type ZEBRA are fetched from table tab_printer.</li>
+    <li>Enter Virtual Warehouse of the carton to be created.</li>
+    <li>Enter Quality of the SKU. By default, the lowest tab_quality_code. default_receiving_quality
+        will be proposed. Changing the quality will require DCMSWEB_SUPERUSER privilege.
+    </li>
+    <li>Enter price_season_code which is optional.</li>
+    <li>Pallet is required only if dcms4.tab_inventory_area.is_pallet_required = ‘Y’ for the selected
+        destination area. You can however enter pallet even if it is not required for an area. </li>
+    <li>Shipment ID (optional) - Enter the shipment ID against which this consignment is
+        received.</li>
+    <li>Scanned UPC code – The SKU of needs to be put in carton.</li>
+    <li>Pieces to be packed in carton - On each scan of UPC code we increment the number
+        of pieces by 1 which is to be contained in the carton. However, the privileged user
+        can specify number of pieces to be contained in the carton at one go. The privilege
+        needed for this operation is – “ALLOW_QUICK_PITCH”.</li>
+</ol>
+<h4>
+    Repack for Conversion
+</h4>
+<ol>
+    <li>
+        In addition to the data elements for repacking data, we can specify following data
+        -
+        <ol type="a">
+            <li>Target SKU</li>
+            <li>Target Virtual warehouse.</li>
+            <li>Target Quality Code</li>
+        </ol>
+    </li>
+</ol>
+<h4>
+    Repack Cancelled Box
+</h4>
+<p>
+    Sometimes boxes belonging to an outbound order are cancelled. In such a scenario,
+    you would like to locate the picked cartons back to reserve area. To do this you
+    need to convert your box to carton. Use this UI to achieve it in a single step.
+</p>
+<ol>
+    <li>
+        Repack will allow for repacking from CAN area directly.
+        <ol type="a">
+            <li>
+                <b>Scan a box:</b> Which is in CAN area and give Destination area where you want
+                to put the carton created. Your box will be converted to carton.
+            </li>
+            <li>
+                <b>Print carton ticket: </b>Select the printer where you want to print carton ticket.
+                After printing the carton ticket paste it on the created carton. Do not forget to
+                remove the existing UCC and CCL labels and remove the shipping documents from the
+                box.
+            </li>
+            <li>
+                In the specified area The box must already be cancelled. It must have single SKU.
+                Use the carton ID which was originally pulled.
+            </li>
+        </ol>
+    </li>
+</ol>
+<h3>
+    Graphical user interface
+</h3>
+<p>
+    To simplify day to day task of repacking, several UI modes are available. Each UI
+    mode is designed for a specialized task.
+</p>
+<ol>
+    <li>Repack from Shelf Stock. This is optimized for repacking shelf stock inventory.
+        For source area, only repack areas are displayed (tab_inventory_area.is_repack_area
+        = ‘Y’). Any pallet or non pallet area can be the destination. Virtual warehouse
+        and sewing plant must be selected. Each SKU to be packed must be individually scanned.</li>
+    <li>Repack for Conversion. In this UI for source area, only repack areas are displayed
+        (tab_inventory_area.is_repack_area = ‘Y’). The destination area must be an unnumbered
+        Area. Printing carton tickets is required. Virtual warehouse must be selected. Conversion
+        information must be supplied. Each SKU to be converted must be individually scanned.</li>
+    <li>Receive Cartons. This UI allows user to receive cartons. The Destination area must
+        be unnumbered,usable and any pallet or non pallet area. Sewing plant and Virtual
+        warehouse are must .Shipment ID and Carton ID is optional.</li>
+    <li>Bulk Repack for Conversion. This UI allows user to convert multiple similar type
+        of cartons. In this UI for source area, only repack areas are displayed (tab_inventory_area.is_repack_area
+        = ‘Y’).The destination area must be an unnumbered Area. Printing carton tickets
+        is optional. Virtual warehouse must be selected. User can scan UPC to convert and
+        provide number of pieces and cartons. Conversion information must be supplied which
+        includes target sku, target virtual warehouse and target quality code.</li>
+    <li>Advanced UI.This UI is available to a privileged user only. Source area contains
+        all sku areas while destination has all carton areas. User can receive cartons,
+        convert cartons, and repack them using this. But it allows scanning of each individual
+        UPC.</li>
+    <li>Bulk Advanced UI. Same as Advanced UI except that user does not have to scan each
+        individual UPC.</li>
+    <li>Repack Cancelled Box. This is optimized for repacking cancelled area inventory.
+        For source area, only cancelled area. Any pallet or non-pallet area can be the destination.
+        It will take box scan to convert it carton.</li>
+</ol>
+<p>
+    *Areas which have consolidated UPC flag set, or for which bundle tracking is mandatory
+    are never displayed.
+</p>
+<p>
+    *Only active and makeable SKUs are allowed.
+</p>
+<h4>
+    Proposed Choices for Data Elements</h4>
+<table border="1">
+    <tr>
+        <th rowspan="2">
+            Data Elements
+        </th>
+        <th colspan="7">
+            <font style="text-align:center">Screens</font>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            Repack Cancelled Box
+        </th>
+        <th>
+            Advanced UI(Role DCMSWEB_SUPERUSER)
+        </th>
+        <th>
+            Bulk Advanced UI(Role DCMSWEB_SUPERUSER)
+        </th>
+        <th>
+            Repack from Shelf Stock(Role SRC_RPK)
+        </th>
+        <th>
+            Receive Cartons(Role SRC_RPK)
+        </th>
+        <th>
+            Repack for Conversion(Role SRC_RPK
+        </th>
+        <th>
+            Bulk Repack for Conversion(Role DCMSWEB_SUPERUSER)
+        </th>
+    </tr>
+    <tr>
+        <td>
+            Source Area. Required.
+        </td>
+        <td>
+            No Source area provided to user
+        </td>
+        <td>
+            All (With CAN area)
+        </td>
+        <td>
+            All SKU inventory areas which are repacking areas
+        </td>
+        <td>
+            Non Received ,Repack area
+        </td>
+        <td>
+            No Source area provided to user
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Destination Area. Required
+        </td>
+        <td>
+            Receiving area
+        </td>
+        <td>
+            All carton areas, whose bundle flag is not set to ‘M’ (meant for bundle areas, and
+            is de-supported)
+        </td>
+        <td>
+            All unnumbered carton areas, whose bundle flag is not set to ‘M’ (meant for bundle
+            areas, and is de-supported)
+        </td>
+        <td>
+            Receiving area
+        </td>
+        <td>
+            All unnumbered carton areas designated for conversion and whose bundle flag is not
+            set to ‘M’ (meant for bundle areas, and is de-supported)
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Pallet
+        </td>
+        <td>
+            Required depending on destination area selected
+        </td>
+        <td>
+            Required depending on destination area selected
+        </td>
+        <td>
+            Required depending on destination area selected
+        </td>
+        <td>
+            Not Visible
+        </td>
+        <td>
+            Required depending on destination area selected
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Virtual Warehouse
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Price Season Code
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Quality Code. Required.
+        </td>
+        <td>
+            Not visible. Ordered quality is assumed.
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            Not visible. Ordered quality is assumed.
+        </td>
+        <td>
+            Not visible. Receiving quality is assumed.
+        </td>
+        <td>
+            Not visible. Ordered quality is assumed.
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Sewing Plant. Required.
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            Not visible. Null is assumed.
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Shipment Id
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Carton Id
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            optional
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            Key in / Scanned
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            UPC Code
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            All
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Pieces
+        </td>
+        <td>
+            Key in
+        </td>
+        <td>
+            Auto increment
+        </td>
+        <td>
+            Key in
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            Key in
+        </td>
+        <td>
+            Auto increment
+        </td>
+        <td>
+            Key In
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Number of cartons
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional. Defaults to 1.
+        </td>
+        <td>
+            Key In
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            1 by default
+        </td>
+        <td>
+            Required
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Convert to SKU(target SKUs)
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Change Virtual Warehouse(target VWh)
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Change Quality Code(Target Quality Code)
+        </td>
+        <td>
+            Not visible
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            None
+        </td>
+        <td>
+            Optional
+        </td>
+        <td>
+            Optional
+        </td>
+    </tr>
+</table>
+<h3>
+    Security Configurations
+</h3>
+<ul>
+    <li>
+        Quick Create Mode
+        <ul type="circle">
+            <li>
+                ALLOW_QUICK_PITCH - Read value for quantity mode from upriv. Users without this
+                privilege, scans each piece to be put in the carton.
+            </li>
+        </ul>
+    </li>
+</ul>
+<h3>
+    Technical Specifications (subject to change)</h3>
+<br />
+<br />
+<h3>
+    Questions</h3>
+<br />
+<br />
+<h3>
+    Change History:</h3>
+<table border="1">
+    <tr>
+        <th>
+            S. No.
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Modified By
+        </th>
+        <th>
+            Modified By Description
+        </th>
+    </tr>
+    <tr>
+        <td>
+            1.
+        </td>
+        <td>
+            September 27, 2010
+        </td>
+        <td>
+            Deepak Bhatt
+        </td>
+        <td>
+            Original Document
+        </td>
+    </tr>
+    <tr>
+        <td>
+            2.
+        </td>
+        <td>
+            October 9, 2010
+        </td>
+        <td>
+            Gitesh Paul
+        </td>
+        <td>
+            Added few point and raised his concerns in “Repack Carton”.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            3.
+        </td>
+        <td>
+            October 12th , 2010
+        </td>
+        <td>
+            Gyaneshwar Lal
+        </td>
+        <td>
+            Addressed to raised concerns from Gitesh and added few points in the functional
+            specs of “Repack Carton” .
+        </td>
+    </tr>
+    <tr>
+        <td>
+            4.
+        </td>
+        <td>
+            October 16th, 2010
+        </td>
+        <td>
+            Gyaneshwar Lal
+        </td>
+        <td>
+            Finalized functional specifications.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            5.
+        </td>
+        <td>
+            November 25th, 2010
+        </td>
+        <td>
+            Gyaneshwar Lal
+        </td>
+        <td>
+            Introduced proposed choices and values for the data elements.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            6.
+        </td>
+        <td>
+            July 23, 2012
+        </td>
+        <td>
+            Shiva Pandey
+        </td>
+        <td>
+            Add new feature to Repack Cancelled Box.
+        </td>
+    </tr>
+</table>

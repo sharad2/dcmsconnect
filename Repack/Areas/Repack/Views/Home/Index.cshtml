@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Repack UI Selection";
+    ViewBag.Subtitle = "Work efficiently by selecting the task you want to perform";
+    Layout = "~/Areas/Repack/Views/Shared/_layoutRepack.cshtml";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@*@section scripts {
+    <script type="text/javascript">
+        $('#divAccordion').accordion({ active: 1 });
+    </script>
+}*@
+<div class="box">
+    <h3>Organize Inventory</h3>
+    <div class="boxContent">
+        <blockquote>
+            <ol>
+                <li>
+                    @Html.ActionLink("Repack from Shelf Stock or SSS", MVC_Repack.Repack.Home.RepackStorage()).
+                    Select this if you are repacking existing inventory. </li>
+                <li>
+                    @Html.ActionLink("Blind Receiving", MVC_Repack.Repack.Home.RepackReceive()). Use
+                    this if you are receiving cartons for which no ASN has been received. You will be
+                    allowed to scan cartons. </li>
+            </ol>
+        </blockquote>
+    </div>
+</div>
+<div class="box">
+    <h3>Conversion</h3>
+    <div class="boxContent">
+        <p>
+            To convert SKUs in SHL, you normally have to repack them, locate them to BIR and then create a conversion pull request to pull them. Using the links below you can bypass all these steps
+            and create cartons which can be directly taken to the conversion area. Conversion information means one or more of Target SKU, Target Virtual Warehous and Target Quality Code.
+        </p>
+        <blockquote>
+            <ol>
+                <li>
+                    @Html.ActionLink("Repack for Conversion", MVC_Repack.Repack.Home.RepackConversion()). This is useful when you have few pieces each of a large number of SKUs.
+
+                </li>
+                <li>
+                    @Html.ActionLink("Bulk Repack for Conversion", MVC_Repack.Repack.Home.RepackBulkConversion()). Use this when you need to convert a large number of pieces of a few SKUs.
+You will be able to quickly create multiple identical cartons.
+                </li>
+
+            </ol>
+        </blockquote>
+    </div>
+</div>
+<div class="box">
+    <h3>Advanced</h3>
+    <div class="boxContent">
+        <p>
+            This UI will make all repack options available. Choose this only if you are performing
+            a specialized one time task.
+        </p>
+        <p>
+            @Html.ActionLink("Advanced UI", MVC_Repack.Repack.Home.RepackAdvanced()) which requires
+            scanning of each piece or
+            @Html.ActionLink("Bulk Advanced UI", MVC_Repack.Repack.Home.RepackBulkAdvanced())
+            where you can create multiple similar cartons quickly.
+        </p>
+    </div>
+</div>
+@*<div class="box" id="divAccordion">
+    <h3>
+        <a href="#divConv">See also</a></h3>
+    <div id="divConv" class="box">
+        @Html.ActionLink("Bulk Repack for Conversion", MVC_Repack.Repack.Home.RepackBulkConversion()).
+        This is also for repacking existing inventory but it additionally allows you to
+        specify conversion information. You can quickly create multiple identical cartons.
+        <br />
+        @Html.ActionLink("Repack for Conversion", MVC_Repack.Repack.Home.RepackConversion()).
+        This is also for repacking existing inventory but it additionally allows you to
+        specify conversion information.
+    </div>
+</div>*@
+@*$Id$*@

@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EB73E251-E6B3-4479-AF8D-5A565045CF3F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DcmsMobile.Repack</RootNamespace>
+    <AssemblyName>DcmsMobile.Repack</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <ExcludeApp_Data>true</ExcludeApp_Data>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MvcBuildViews>true</MvcBuildViews>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Repack\Controllers\AutoCompleteController.cs" />
+    <Compile Include="Areas\Repack\Controllers\HomeController.cs" />
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
+    <Compile Include="Models\Autocomplete.cs" />
+    <Compile Include="Models\CartonRepackInfo.cs" />
+    <Compile Include="Models\InventoryArea.cs" />
+    <Compile Include="Models\PriceSeason.cs" />
+    <Compile Include="Models\Printers.cs" />
+    <Compile Include="Models\Quality.cs" />
+    <Compile Include="Repack.AutoCompleteController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repack.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repack.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\AutoCompleteRepository.cs" />
+    <Compile Include="Repository\RepackRepository.cs" />
+    <Compile Include="Models\SewingPlant.cs" />
+    <Compile Include="Models\Sku.cs" />
+    <Compile Include="Models\VirtualWarehouse.cs" />
+    <Compile Include="Areas\Repack\RepackAreaRegistration.cs" />
+    <Compile Include="Repository\RepackService.cs" />
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RepackViewModel.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\RequiredForUiAttribute.cs" />
+    <Compile Include="Helpers\RequiredIfAttribute.cs" />
+    <Compile Include="Helpers\UiHintForUiAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Repack\Content\Repack-all.css">
+      <DependentUpon>Repack-all.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Repack\Scripts\RepackBox-all.min.js">
+      <DependentUpon>RepackBox-all.js</DependentUpon>
+    </Content>
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
+    <Content Include="packages.config" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <None Include="T4MVC.tt.settings.xml" />
+    <None Include="Areas\Repack\Content\Repack-all.css.bundle" />
+    <None Include="Areas\Repack\Scripts\Repack-all.js.bundle" />
+    <Content Include="Areas\Repack\Scripts\Repack-all.min.js.map">
+      <DependentUpon>Repack-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Repack\Scripts\RepackBox-all.min.js.map">
+      <DependentUpon>RepackBox-all.js</DependentUpon>
+    </Content>
+    <None Include="Areas\Repack\Content\Autocomplete.partial.css" />
+    <Content Include="Areas\Repack\Content\images\ajax-loader.gif" />
+    <Content Include="Areas\Repack\Content\Repack-all.min.css">
+      <DependentUpon>Repack-all.css.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\Repack\Content\RepackView.partial.css" />
+    <None Include="Areas\Repack\Content\Layout.partial.css" />
+    <Content Include="Areas\Repack\Content\Sounds\Ding.wav" />
+    <None Include="Areas\Repack\Scripts\CreateDialog.partial.js" />
+    <None Include="Areas\Repack\Scripts\RepackBox-all.js" />
+    <Content Include="Areas\Repack\Scripts\Repack-all.js">
+      <DependentUpon>Repack-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Repack\Scripts\Repack-all.min.js">
+      <DependentUpon>Repack-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Repack\Content\images\a1.gif" />
+    <None Include="Areas\Repack\Content\standardized.partial.css" />
+    <Content Include="Areas\Repack\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Repack\Views\Shared\EditorTemplates\CheckBox.cshtml" />
+    <Content Include="Areas\Repack\Views\Shared\EditorTemplates\TextBox.cshtml" />
+    <Content Include="Areas\Repack\Views\Shared\EditorTemplates\PieceScan.cshtml" />
+    <Content Include="Areas\Repack\Views\Home\Tutorial.cshtml" />
+    <None Include="Doc\RPK2.docx" />
+    <None Include="Global.asax" />
+    <None Include="Doc\Readme.txt" />
+    <None Include="Doc\SampleLayout.html" />
+    <None Include="Doc\Roles.txt" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
+    <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
+    <None Include="Scripts\jquery.validate.js" />
+    <None Include="Scripts\jquery.validate.min.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Areas\Repack\Scripts\conditional-validation.partial.js" />
+    <None Include="Areas\Repack\Scripts\Repack.partial.js" />
+    <None Include="Scripts\jquery-ui-1.10.0.js" />
+    <None Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <None Include="Scripts\_references.js" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Repack\Views\Web.config">
+      <SubType>
+      </SubType>
+    </Content>
+    <Content Include="Areas\Repack\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Repack\Views\Home\Repack.cshtml" />
+    <Content Include="Areas\Repack\Views\Shared\_layoutRepack.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
+      <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
+      <Name>EclipseLibrary.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj">
+      <Project>{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}</Project>
+      <Name>EclipseLibrary.Oracle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Repack\Views\Shared\EditorTemplates\DropDownList.cshtml" />
+    <Content Include="Areas\Repack\Views\Shared\_validationPartial.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1226</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
+xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
+</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
+  </PropertyGroup> 
+</Project>

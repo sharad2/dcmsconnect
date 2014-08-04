@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repack", "Repack\Repack.csproj", "{EB73E251-E6B3-4479-AF8D-5A565045CF3F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Core", "EclipseLibrary.Core\EclipseLibrary.Core.csproj", "{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{063E58A1-7B20-4BEA-9C53-F7622B775D42}"
+	ProjectSection(SolutionItems) = preProject
+		DcmsMobile.Repack.vsmdi = DcmsMobile.Repack.vsmdi
+		HTMLPage1.htm = HTMLPage1.htm
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repack.Test", "Repack.Test\Repack.Test.csproj", "{B0D47044-7E77-484F-8D37-0BA3D0DB7ECE}"
+EndProject
+Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = DcmsMobile.Repack.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EB73E251-E6B3-4479-AF8D-5A565045CF3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB73E251-E6B3-4479-AF8D-5A565045CF3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB73E251-E6B3-4479-AF8D-5A565045CF3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB73E251-E6B3-4479-AF8D-5A565045CF3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D47044-7E77-484F-8D37-0BA3D0DB7ECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D47044-7E77-484F-8D37-0BA3D0DB7ECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D47044-7E77-484F-8D37-0BA3D0DB7ECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D47044-7E77-484F-8D37-0BA3D0DB7ECE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
