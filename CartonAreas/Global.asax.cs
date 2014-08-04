@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
 using System.Linq;
+using System.Web.Hosting;
+using EclipseLibrary.Mvc.Hosting;
 
 namespace DcmsMobile.CartonAreas
 {
@@ -30,6 +32,10 @@ namespace DcmsMobile.CartonAreas
 
         protected void Application_Start()
         {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+                Links_CartonAreas.Content.Url(),
+                Links_CartonAreas.Scripts.Url()
+              }));
             // Enabling Attribute routing
             RouteTable.Routes.MapMvcAttributeRoutes();
             AreaRegistration.RegisterAllAreas();
