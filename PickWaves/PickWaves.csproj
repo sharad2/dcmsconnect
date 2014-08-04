@@ -402,7 +402,6 @@
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
-    <EmbeddedResource Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <Content Include="Doc\PickWaveManager.doc" />
     <Content Include="Areas\PickWaves\Views\Shared\DisplayTemplates\BucketModel.cshtml" />
@@ -436,11 +435,8 @@
     <None Include="Global.asax" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery.validate.js" />
-    <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
-    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
-    <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
