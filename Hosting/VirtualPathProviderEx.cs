@@ -67,6 +67,7 @@ namespace EclipseLibrary.Mvc.Hosting
     ///   Therefore you should modify the T4MVC.tt.hooks.t4 file so that it requests minified files in production
     ///   
     ///<code>
+    ///<![CDATA[
     ///private static string ProcessVirtualPathDefault(string virtualPath) {
     ///    // The path that comes in starts with ~/ and must first be made absolute
     ///    string path = VirtualPathUtility.ToAbsolute(virtualPath);
@@ -84,6 +85,7 @@ namespace EclipseLibrary.Mvc.Hosting
     ///    }
     ///    return path;
     ///}
+    ///]]>
     /// </code>
     /// </para>
     /// </remarks>
