@@ -104,7 +104,7 @@ namespace EclipseLibrary.Mvc.Hosting
             public override Stream Open()
             {
                 HttpContext.Current.Trace.Write(this.GetType().FullName, string.Format("Opening file at {0} for virtual path {1}", _physicalPath, this.VirtualPath));
-                var x = File.Open(_physicalPath, FileMode.OpenOrCreate);
+                var x = File.Open(_physicalPath, FileMode.Open);
                 return x;
             }
         }
