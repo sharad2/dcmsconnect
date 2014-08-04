@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System.Web.Hosting;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves
@@ -27,6 +29,10 @@ namespace DcmsMobile.PickWaves
 
         protected void Application_Start()
         {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+              Links_PickWaves.Content.Url(),
+              Links_PickWaves.Scripts.Url()
+            }));
             // Enabling Attribute routing
             RouteTable.Routes.MapMvcAttributeRoutes();
 
