@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System.Web.Hosting;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DcmsMobile.PalletLocating
@@ -27,6 +29,10 @@ namespace DcmsMobile.PalletLocating
 
         protected void Application_Start()
         {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+              Links_PalletLocating.Content.Url(),
+              Links_PalletLocating.Scripts.Url()
+            }));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
