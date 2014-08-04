@@ -25,7 +25,7 @@ internal static class T4MVCHelpers {
         string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
         // Add your own modifications here before returning the path
-		 if (IsProduction())
+	if (IsProduction())
         {
             if (virtualPath.EndsWith(".js") && !virtualPath.EndsWith(".min.js"))
             {
