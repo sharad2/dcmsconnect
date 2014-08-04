@@ -185,11 +185,11 @@
       <DependentUpon>layout.js</DependentUpon>
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
-    <Content Include="Content\themes\Start1.10.0\jquery-ui.css.bundle" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\DcmsLite\Content\DcmsLite-all.css.bundle">
       <SubType>Designer</SubType>
@@ -245,23 +245,6 @@
     <Content Include="Areas\DcmsLite\Scripts\Wave.min.js.map">
       <DependentUpon>Wave.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
-    <Content Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Doc\DCMS Lite Flow.vsd" />
     <Content Include="Areas\DcmsLite\Views\Ship\Index.cshtml" />
     <None Include="Doc\Readme.txt" />
@@ -272,11 +255,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\Lite.pubxml" />
-    <None Include="Scripts\jquery.validate.js" />
-    <None Include="Scripts\jquery.validate.min.js" />
-    <None Include="Scripts\jquery.validate.unobtrusive.js" />
-    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -359,24 +337,10 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
-XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\Scripts" "$(ProjectDir)Scripts" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
+    <PreBuildEvent>XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
 xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"</PostBuildEvent>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <CleanDependsOn>
-      $(CleanDependsOn);
-      RemoveDir;
-    </CleanDependsOn>
-  </PropertyGroup>
-  <Target Name="RemoveDir">
-    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts"/>
-  </Target>
-  
 </Project>

@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System.Web.Hosting;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace DcmsMobile.DcmsLite
@@ -28,7 +30,10 @@ namespace DcmsMobile.DcmsLite
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+                Links_DcmsLite.Content.Url(),
+                Links_DcmsLite.Scripts.Url()
+              }));
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
