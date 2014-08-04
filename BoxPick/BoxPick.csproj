@@ -162,6 +162,9 @@
     <Content Include="Areas\BoxPick\Content\Sounds\Error.wav" />
     <Content Include="Areas\BoxPick\Content\Sounds\success.wav" />
     <Content Include="Areas\BoxPick\Content\Sounds\warning.wav" />
+    <Content Include="Areas\BoxPick\Content\standardized.min.css">
+      <DependentUpon>standardized.css</DependentUpon>
+    </Content>
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.js">
       <DependentUpon>BoxPick-all.js.bundle</DependentUpon>
     </Content>
@@ -309,17 +312,6 @@ xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(SolutionDir)DcmsMobile\bin"
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>@echo *** Synchronizing Scripts and Content folders ***
-XCOPY "$(SolutionDir)DcmsMobile\Content" "$(ProjectDir)Content" /E /D /C /Y /I
-XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
+    <PreBuildEvent>XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
   </PropertyGroup>
-  <PropertyGroup>
-    <CleanDependsOn>
-      $(CleanDependsOn);
-      RemoveDir;
-    </CleanDependsOn>
-  </PropertyGroup>
-  <Target Name="RemoveDir">
-    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts" />
-  </Target>
 </Project>

@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using EclipseLibrary.Mvc.Hosting;
+using System.Web.Hosting;
+using System.Web.Mvc;
 using System.Web.Routing;
 
 
@@ -29,6 +31,10 @@ namespace BoxPick
 
         protected void Application_Start()
         {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+                Links_BoxPick.Content.Url(),
+                //Links_BoxPick.Scripts.Url()
+              }));
             // Enabling Attribute routing
             RouteTable.Routes.MapMvcAttributeRoutes();
             AreaRegistration.RegisterAllAreas();
