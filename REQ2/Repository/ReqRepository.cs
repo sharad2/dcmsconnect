@@ -371,7 +371,7 @@ namespace DcmsMobile.REQ2.Repository
                      MAX(T.REMARKS)                                AS REMARKS,
                      MAX(T.INSERTED_BY)                            AS INSERTED_BY,
                      MAX(T.IS_CONVERSION_REQUEST)                  AS IS_CONVERSION_REQUEST,
-                     MAX(REQDET.REQDET.REQ_PROCESS_ID)             AS REQ_PROCESS_ID
+                     MAX(REQDET.REQ_PROCESS_ID)             AS REQ_PROCESS_ID
                 FROM <proxy />CTNRESV T
                 LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
                   ON T.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
