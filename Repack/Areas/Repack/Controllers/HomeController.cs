@@ -52,7 +52,7 @@ namespace DcmsMobile.Repack.Areas.Repack.Controllers
         /// Before redirecting we ensure that the user has rights to access the UI
         /// </remarks>
         [ActionName("Index")]
-        [Route(HomeController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_Repack)]
+        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Repack)]
         public virtual ActionResult Index()
         {
             var cookie = this.HttpContext.Request.Cookies[RepackViewModel.KEY_UISTYLE];
