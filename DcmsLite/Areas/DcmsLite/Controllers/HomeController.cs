@@ -10,7 +10,7 @@ namespace DcmsMobile.DcmsLite.Areas.DcmsLite.Controllers
     
     public partial class HomeController : DcmsLiteControllerBase<HomeService>
     {
-        [Route(Name = DcmsPublicRoutes.DcmsConnect_DcmsLite)]
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_DcmsLite)]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new ViewModelBase());
