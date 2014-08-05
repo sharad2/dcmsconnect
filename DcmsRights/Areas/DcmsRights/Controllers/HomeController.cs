@@ -102,7 +102,7 @@ namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
         /// <returns></returns>
         /// <remarks>
         /// </remarks>
-        [Route(HomeController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_Rights)]
+        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Rights)]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new IndexViewModel());
