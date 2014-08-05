@@ -82,7 +82,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route(HomeController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_REQ2)]
+        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_REQ2)]
         public virtual ActionResult Index()
         {
             var requests = _service.GetRequests();
