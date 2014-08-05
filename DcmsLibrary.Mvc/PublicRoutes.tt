@@ -6,13 +6,14 @@ This template generates the file DcmsPublicRoutes.cs which contains constants fo
 A prebuild event should xcopy this file into your project, and then use these constants to name your routes.
 This strategy allows for compile time check of your route names.
 
-The route names are read from the file ~/App_Data/MenuItems.xml.
+The route names are read from the file MenuItems.xml in the same directory.
 
 */
 #>
 <#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
 <#@ assembly name="System.Xml" #>
 <#@ assembly name="System.Xml.Linq" #>
 
@@ -20,7 +21,9 @@ The route names are read from the file ~/App_Data/MenuItems.xml.
 
 <#
 
-var query = from item in System.Xml.Linq.XDocument.Load(this.Host.ResolvePath("../App_Data/MenuItems.xml")).Root.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
+var query = from item in System.Xml.Linq.XDocument.Load(
+Path.Combine(Path.GetDirectoryName(Host.TemplateFile), "MenuItems.xml")
+).Root.Descendants(System.Xml.Linq.XName.Get("item", "http://schemas.eclsys.com/dcmsconnect/menuitems"))
             select new
             {
                 Route = (string)item.Attribute("route"),
@@ -35,13 +38,12 @@ var query = from item in System.Xml.Linq.XDocument.Load(this.Host.ResolvePath(".
 /*
   This is automatically generated code which lists constants for DCMS public routes. Do not modify it manually
 */
-namespace DcmsMobile.Dcms.Routes {
-	internal static class DcmsPublicRoutes {
+namespace DcmsLibrary.Mvc {
+	public static class PublicRoutes {
 	<# // This code runs in the text template:
 	  foreach (var item in query) 
 	  { #>
 	  // Generated code: <#= item.Name #>
-		[System.Obsolete]
 		public const string <#= item.Route #> = "<#= item.Route #>";
 	<# } #>
 	}

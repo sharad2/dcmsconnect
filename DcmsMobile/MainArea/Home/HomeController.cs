@@ -103,7 +103,7 @@ namespace DcmsMobile.MainArea.Home
                 }
             }
 
-            return Redirect(Url.RouteUrl(Dcms.Routes.DcmsPublicRoutes.DcmsConnect_Search1, new
+            return Redirect(Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
             {
                 id = id
             }));
@@ -181,7 +181,10 @@ namespace DcmsMobile.MainArea.Home
             XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
 
             var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
-            var root = XElement.Load(path);
+
+            var root = XElement.Parse(DcmsLibrary.Mvc.Resources.MenuItems);
+
+            var root2 = XElement.Load(path);
 
             IList<MenuCategory> cats = (from cat in root.Element(_ns + "processes").Elements(_ns + "process")
                                         select new MenuCategory

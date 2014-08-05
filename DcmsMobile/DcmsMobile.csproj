@@ -489,6 +489,10 @@
     <Content Include="MainArea\Logon\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj">
+      <Project>{1fc7fe1f-ff9a-46ae-afb8-38e7f74204c0}</Project>
+      <Name>DcmsLibrary.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
       <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
       <Name>EclipseLibrary.Mvc</Name>
