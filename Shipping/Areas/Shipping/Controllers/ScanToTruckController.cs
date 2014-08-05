@@ -108,13 +108,13 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
         /// Show Index view.
         /// </summary>
         /// <returns></returns>
-          [Route(ScanToTruckController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_ScanToTruck)]
+          [Route(ScanToTruckController.ActionNameConstants.Index, Name =DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ScanToTruck)]
         public virtual ActionResult Index()
         {
             return View(Views.Index, new IndexViewModel());
         }
 
-        [Route(ScanToTruckController.ActionNameConstants.LoadTruck, Name = DcmsPublicRoutes.DcmsConnect_ScanToTruck1)]
+        [Route(ScanToTruckController.ActionNameConstants.LoadTruck, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ScanToTruck1)]
         public virtual ActionResult LoadTruck(int? id)
           {
             if(id == null)
