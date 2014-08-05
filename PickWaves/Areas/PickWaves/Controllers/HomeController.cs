@@ -51,7 +51,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Showing list of bucket summary for all customer.
         /// </summary>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Index, Name= DcmsPublicRoutes.DcmsConnect_ManagePickWave)]
+        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
         public virtual ActionResult Index()
         {
             return ShowHomePage(SearchTextType.Unknown, null);
@@ -72,7 +72,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="searchText">Should be BucketId,CustomerId,UserName</param>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Search, Name = DcmsPublicRoutes.DcmsConnect_ManagePickWave1)]
+        [Route(HomeController.ActionNameConstants.Search, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave1)]
         public virtual ActionResult Search(string id)
         {
             var search = SearchTextType.Unknown;

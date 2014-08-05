@@ -64,7 +64,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        [Route(BoxPickPalletController.ActionNameConstants.Index, Name = DcmsPublicRoutes.DcmsConnect_BoxPickPallet)]
+        [Route(BoxPickPalletController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_BoxPickPallet)]
         public virtual ActionResult Index(int? bucketId)
         {
             var model = new BoxPickPalletViewModel();
