@@ -75,7 +75,7 @@ namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
         /// Renders the Building view
         /// </summary>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Building, Name = DcmsPublicRoutes.DcmsConnect_PalletLocating)]
+        [Route(HomeController.ActionNameConstants.Building, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_PalletLocating)]
         public virtual ActionResult Building()
         {
             //if (mobileView.HasValue)
