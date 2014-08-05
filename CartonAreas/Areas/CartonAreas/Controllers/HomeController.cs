@@ -52,7 +52,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// Displays home page which shows buildings
         /// </summary>
         /// <returns></returns>        
-        [Route(Name = DcmsPublicRoutes.DcmsConnect_CartonAreas)]
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_CartonAreas)]
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel
@@ -263,7 +263,7 @@ namespace DcmsMobile.CartonAreas.Areas.CartonAreas.Controllers
         /// <param name="assigned"></param>
         /// <param name="emptyLocations"></param>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.ManageCartonArea,Name=DcmsPublicRoutes.DcmsConnect_ManageCartonArea1)]
+        [Route(HomeController.ActionNameConstants.ManageCartonArea,Name=DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManageCartonArea1)]
         public virtual ActionResult ManageCartonArea(string id)
         {
             if (string.IsNullOrEmpty(id))

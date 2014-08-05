@@ -257,6 +257,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj">
+      <Project>{1fc7fe1f-ff9a-46ae-afb8-38e7f74204c0}</Project>
+      <Name>DcmsLibrary.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
       <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
       <Name>EclipseLibrary.Mvc</Name>
@@ -308,7 +312,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>XCOPY "$(SolutionDir)DcmsMobile\SharedCode\DcmsPublicRoutes.cs" "$(ProjectDir)Helpers" /E /D /C /Y /I /R</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(SolutionDir)DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers
