@@ -1,16 +1,16 @@
-﻿using System;
+﻿using DcmsMobile.DcmsRights.Helpers;
+using DcmsMobile.DcmsRights.ViewModels;
+using EclipseLibrary.Mvc.Controllers;
+using EclipseLibrary.Oracle;
+using EclipseLibrary.Oracle.Web.Security;
+using System;
 using System.Configuration;
 using System.Configuration.Provider;
 using System.Data.Common;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
-using DcmsMobile.DcmsRights.Helpers;
-using DcmsMobile.DcmsRights.ViewModels;
-using EclipseLibrary.Mvc.Controllers;
-using EclipseLibrary.Oracle;
-using EclipseLibrary.Oracle.Web.Security;
-using DcmsMobile.Dcms.Routes;
+
 
 namespace DcmsMobile.DcmsRights.Areas.DcmsRights.Controllers
 {
