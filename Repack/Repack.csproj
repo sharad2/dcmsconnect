@@ -102,7 +102,6 @@
   <ItemGroup>
     <Compile Include="Areas\Repack\Controllers\AutoCompleteController.cs" />
     <Compile Include="Areas\Repack\Controllers\HomeController.cs" />
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Models\Autocomplete.cs" />
     <Compile Include="Models\CartonRepackInfo.cs" />
     <Compile Include="Models\InventoryArea.cs" />
