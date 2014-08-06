@@ -114,7 +114,6 @@
     <Compile Include="BoxPick.SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\FormActionSelectorAttribute.cs" />
     <Compile Include="Models\Box.cs" />
     <Compile Include="Models\Carton.cs" />
@@ -193,7 +192,6 @@
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <None Include="Doc\standardized.html" />
     <None Include="Doc\UI Design Philosophy.txt" />
     <Content Include="Areas\BoxPick\Views\Shared\DisplayTemplates\ValueWithShortName.cshtml" />
