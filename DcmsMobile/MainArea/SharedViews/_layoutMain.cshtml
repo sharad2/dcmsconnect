@@ -4,41 +4,40 @@
     It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
     It also displays status summary and validation errors.
 
-    <html>
-    <head>
-        <title></title>
-        <link />
-        <script></script>
-        @RenderSection("script", false)
-    </head>
-    <body>
-        <header data-role="header">
-
-        </header>
-
-        @RenderBody()
-
-        <!-- Header Popups -->
-    </body>
-    </html>
+    This page should be compilatble without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
 
 *@
+@inherits System.Web.Mvc.WebViewPage
 @using System.Linq
+@using System.Web.Mvc
 @{
-    var messages = StatusSummaryExtensions.StatusMessages(Html);
-    var errors = StatusSummaryExtensions.ErrorMessages(Html);
-    var homeUrl = Url.Action(MVC_DcmsMobile.Home.Index());
+    // Include file URLs. We cannot use T4MVC here because our objective is to have no dependence on DcmsMobile.dll
+    var url_jquery_mobile_css = Url.Content("~/Content/jquery.mobile-1.4.2.css");
+    var url_jquery_js = Url.Content("~/Scripts/jquery-2.1.1.js");
+    var url_jquery_mobile_js = Url.Content("~/Scripts/jquery.mobile-1.4.2.js");
+
+    var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
+    var messages = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.StatusMessages(Html);
+    var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
+    var homeUrl = Url.Content("~");
 
     // We are the RC site if our URL is specified in web.config
-    var isRc = ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(DcmsMobile.MainArea.Home.HomeController.UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
+    var isRc = !string.IsNullOrWhiteSpace(urlRcBase) && ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(urlRcBase, StringComparison.InvariantCultureIgnoreCase);
+}
+@helper PublicUrl(string routeName)
+{
+    if (Url.RouteCollection[routeName] != null)
+    {
+        @Url.RouteUrl(routeName)
+    }
 }
 <!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
-    <link rel="stylesheet" href="@Links_DcmsMobile.Content.jquery_mobile_1_4_2_css" />
-    <script src="@Links_DcmsMobile.Scripts.jquery_2_1_1_js "></script>
+    <link rel="stylesheet" href="@url_jquery_mobile_css" />
+    <script src="@url_jquery_js"></script>
     <script type="text/javascript">
         $(document).on("mobileinit", function () {
             // External pages should be loaded as normal and not via link hijacking.
@@ -47,7 +46,7 @@
             $.mobile.pushStateEnabled = false;
         });
     </script>
-    <script src="@Links_DcmsMobile.Scripts.jquery_mobile_1_4_2_js"></script>
+    <script src="@url_jquery_mobile_js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             // Since the header is outside of all pages, it must be manually declared as toolbar.
@@ -76,7 +75,7 @@
 <body>
     <header data-role="header" id="layout_header">
         <h1>
-            DCMS Connect
+            DCMS Connect xx
 
             @if (isRc)
             {
@@ -90,8 +89,8 @@
                 @* Do not show the home icon if we are on home page*@
                 <a href="@homeUrl" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
             }
-            <form action="@Url.Action(MVC_DcmsMobile.Home.Search())" method="get">
-                <input name="@DcmsMobile.MainArea.Home.HomeController.SearchParams.id"
+            <form action="@PublicUrl("DcmsMobile_Search")" method="get">
+                <input name="id"
                        type="search" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="Search DCMS" />
             </form>
         </div>
@@ -104,7 +103,7 @@
             }
             else
             {
-                <a href="@Url.Action(MVC_DcmsMobile.Logon.Index())" class="ui-btn ui-icon-user ui-btn-icon-left">Sign In</a>
+                <a href="@PublicUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon)" class="ui-btn ui-icon-user ui-btn-icon-left">Sign In</a>
             }
             <a href="#popupLayout" data-rel="popup" data-transition="slidedown" class="ui-btn ui-icon-gear ui-btn-icon-notext">.</a>
         </div>
@@ -132,8 +131,8 @@
 
     <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
         <ul data-role="listview" data-inset="true">
-            <li data-icon="info"><a href="@Links_DcmsMobile.MainArea.Home.Tutorial_pptx">Introduction (PPTX 3.5Mb)</a></li>
-            <li><a href="@Url.Action(MVC_DcmsMobile.Diagnostic.Index())">Diagnostics</a></li>
+            @*<li data-icon="info"><a href="@Links_DcmsMobile.MainArea.Home.Tutorial_pptx">Introduction (PPTX 3.5Mb)</a></li>*@
+            <li><a href="@PublicUrl("DcmsMobile_Diagnostic")">Diagnostics</a></li>
             <li><a href="@Url.Content("~/trace.axd")" target="_trace">Trace Output</a></li>
         </ul>
     </div>
@@ -143,10 +142,10 @@
         <div data-role="popup" id="layoutPopupSignoff" data-theme="b" class="ui-mini">
             <ul data-role="listview" data-inset="true">
                 <li>
-                    <a href="@Url.Action(MVC_DcmsMobile.Logon.Logoff())" class="ui-btn ui-icon-user ui-btn-icon-left">Sign out</a>
+                    <a href="@PublicUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon)" class="ui-btn ui-icon-user ui-btn-icon-left">Sign out</a>
                 </li>
                 <li>
-                    <a href="@Url.Action(MVC_DcmsMobile.Logon.GetNewPassword())" class="ui-btn">Change Password</a>
+                    <a href="@PublicUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword)" class="ui-btn">Change Password</a>
                 </li>
             </ul>
         </div>

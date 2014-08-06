@@ -121,5 +121,11 @@ namespace DcmsLibrary.Mvc {
 		public const string DcmsConnect_SearchReturnNumber1 = "DcmsConnect_SearchReturnNumber1";
 		  // Generated code: TODO
 		public const string DcmsConnect_SearchMasterBol1 = "DcmsConnect_SearchMasterBol1";
+		  // Generated code: TODO
+		public const string DcmsConnect_Logon = "DcmsConnect_Logon";
+		  // Generated code: TODO
+		public const string DcmsConnect_ChangePassword = "DcmsConnect_ChangePassword";
+		  // Generated code: TODO
+		public const string DcmsConnect_Logoff = "DcmsConnect_Logoff";
 		}
 }

@@ -21,6 +21,7 @@ namespace DcmsMobile.MainArea.Diagnostic
         /// The parameter names must not be changed. launcher.cshtml calls this action with hardwired parameter names
         /// </remarks>
         [HttpGet]
+        [Route(Name="DcmsMobile_Diagnostic")]
         public virtual ActionResult Index(bool? emulateMobile)
         {
             DiagnosticModel model = new DiagnosticModel();
@@ -39,15 +40,6 @@ namespace DcmsMobile.MainArea.Diagnostic
             }
             return View(model);
         }
-
-        //public virtual ActionResult CheckSound(char sound)
-        //{
-        //    var model = new DiagnosticModel
-        //    {
-        //        Sound = sound
-        //    };
-        //    return View(Views.Index, model);
-        //}
 
         #region Email
         /// <summary>
@@ -100,19 +92,6 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
         #endregion
 
-        //protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        //{
-        //    var vr = filterContext.Result as ViewResult;
-        //    if (vr != null)
-        //    {
-        //        var model = vr.Model as ViewModelBase;
-        //        if (model != null)
-        //        {
-        //            model.Init(this.ControllerContext, this.Url);
-        //        }
-        //    }
-        //    base.OnActionExecuted(filterContext);
-        //}
     }
 }
 

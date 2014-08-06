@@ -12,7 +12,7 @@ namespace DcmsMobile.MainArea.Logon
     /// Default action for this controller is Index
     /// </summary>
     [RoutePrefix(LogonController.NameConst)]
-    [Route("{action=" + LogonController.ActionNameConstants.Index + "}")]
+    //[Route("{action=" + LogonController.ActionNameConstants.Index + "}")]
     public partial class LogonController : EclipseController
     {
         private const string OLD_PASSWORD = "LogonController_OldPassword";
@@ -28,6 +28,7 @@ namespace DcmsMobile.MainArea.Logon
             base.Initialize(requestContext);
         }
 
+        [Route("Logon", Name=DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon)]
         public virtual ActionResult Index(string returnUrl)
         {
             var model = new LogonModel
@@ -43,6 +44,7 @@ namespace DcmsMobile.MainArea.Logon
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("user")]
         public virtual ActionResult SetUser(LogonModel model)
         {
             if (string.IsNullOrWhiteSpace(model.UserName))
@@ -62,6 +64,7 @@ namespace DcmsMobile.MainArea.Logon
         /// user is already logged in.
         /// </remarks>
         [HttpPost]
+        [Route("mobilelogin")]
         public virtual ActionResult Login(LogonModel model)
         {
             Contract.Requires(model != null, "The passed model should never be null");
@@ -120,6 +123,7 @@ namespace DcmsMobile.MainArea.Logon
         /// </summary>
         /// <returns></returns>
         [Authorize]
+        [Route("password", Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword)]
         public virtual ActionResult GetNewPassword()
         {
             var cpmodel = new GetNewPasswordViewModel();
@@ -133,6 +137,7 @@ namespace DcmsMobile.MainArea.Logon
         /// <returns></returns>
         [HttpPost]
         [Authorize]
+        [Route("changepassword")]
         public virtual ActionResult ChangePassword(GetNewPasswordViewModel model)
         {
             if (string.IsNullOrWhiteSpace(model.OldPassword))
@@ -176,6 +181,7 @@ namespace DcmsMobile.MainArea.Logon
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("ChangeExpiredPassword")]
         public virtual ActionResult ChangeExpiredPassword(ChangeExpiredPasswordModel model)
         {
             if (string.IsNullOrWhiteSpace(model.NewPassword) && string.IsNullOrWhiteSpace(model.ConfirmPassword))
@@ -227,6 +233,7 @@ namespace DcmsMobile.MainArea.Logon
             }
         }
 
+        [Route("Logoff", Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff)]
         public virtual ActionResult Logoff()
         {
             if (this.Session != null)
@@ -237,20 +244,6 @@ namespace DcmsMobile.MainArea.Logon
             FormsService.SignOut();
             return RedirectToAction(MVC_DcmsMobile.Home.Index());
         }
-
-        //protected override void OnActionExecuted(ActionExecutedContext filterContext)
-        //{
-        //    var vr = filterContext.Result as ViewResult;
-        //    if (vr != null)
-        //    {
-        //        var model = vr.Model as ViewModelBase;
-        //        if (model != null)
-        //        {
-        //            model.Init(this.ControllerContext, this.Url);
-        //        }
-        //    }
-        //    base.OnActionExecuted(filterContext);
-        //}
     }
 }
 

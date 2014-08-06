@@ -182,7 +182,11 @@
     </item>
     <item route="DcmsConnect_SearchMasterBol1" name="TODO">
     </item>
-
-
+    <item route="DcmsConnect_Logon" name="TODO">
+    </item>
+    <item route="DcmsConnect_ChangePassword" name="TODO">
+    </item>
+    <item route="DcmsConnect_Logoff" name="TODO">
+    </item>  
   </items>
 </root>

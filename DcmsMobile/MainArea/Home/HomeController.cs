@@ -85,7 +85,7 @@ namespace DcmsMobile.MainArea.Home
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Search)]
+        [Route("search", Name="DcmsMobile_Search")]
         public virtual ActionResult Search(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
