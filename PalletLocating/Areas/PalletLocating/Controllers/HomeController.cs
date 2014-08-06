@@ -1,14 +1,14 @@
-﻿using System;
+﻿using DcmsMobile.PalletLocating.Models;
+using DcmsMobile.PalletLocating.Repository;
+using DcmsMobile.PalletLocating.ViewModels;
+using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.PalletLocating.Models;
-using DcmsMobile.PalletLocating.Repository;
-using DcmsMobile.PalletLocating.ViewModels;
-using EclipseLibrary.Mvc.Controllers;
-using DcmsMobile.Dcms.Routes;
+
 
 
 namespace DcmsMobile.PalletLocating.Areas.PalletLocating.Controllers
