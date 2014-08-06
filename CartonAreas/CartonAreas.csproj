@@ -111,7 +111,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Repository\Area.cs" />
     <Compile Include="Repository\CartonArea.cs" />
     <Compile Include="Repository\CartonAreasRepositoryUpdate.cs" />
