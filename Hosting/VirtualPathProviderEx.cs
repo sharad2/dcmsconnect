@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Hosting;
 
 namespace EclipseLibrary.Mvc.Hosting
@@ -169,14 +171,22 @@ namespace EclipseLibrary.Mvc.Hosting
         }
 
 
-        //public override System.Web.Caching.CacheDependency GetCacheDependency(string virtualPath, System.Collections.IEnumerable virtualPathDependencies, DateTime utcStart)
-        //{
-        //    if (!IsAlternatePath(virtualPath))
-        //    {
-        //        return Previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
-        //    }
-        //    return base.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
-        //}
+        /// <summary>
+        /// This override ensures that changes to _layoutMain.cshtml are visible even without recompiling the project.
+        /// </summary>
+        /// <param name="virtualPath"></param>
+        /// <param name="virtualPathDependencies"></param>
+        /// <param name="utcStart"></param>
+        /// <returns></returns>
+        public override CacheDependency GetCacheDependency(string virtualPath, System.Collections.IEnumerable virtualPathDependencies, DateTime utcStart)
+        {
+            if (!IsAlternatePath(virtualPath))
+            {
+                return Previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
+            }
+            var physPath = GetAltPhysicalPath(virtualPath);
+            return new CacheDependency(physPath);
+        }
 
         /// <summary>
         /// If the virtual path begins with any of the directories passed in the constructor, then it is an alternate path
