@@ -99,7 +99,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Models\AssignedCarton.cs" />
     <Compile Include="Models\CartonArea.cs" />
     <Compile Include="Models\CartonList.cs" />

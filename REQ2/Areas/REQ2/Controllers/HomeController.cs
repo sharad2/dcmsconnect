@@ -1,16 +1,16 @@
-﻿using System;
+﻿using DcmsMobile.REQ2.Models;
+using DcmsMobile.REQ2.Repository;
+using DcmsMobile.REQ2.ViewModels;
+using EclipseLibrary.Mvc.Controllers;
+using EclipseLibrary.Mvc.Html;
+using System;
 using System.Configuration.Provider;
 using System.Data.Common;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.REQ2.Models;
-using DcmsMobile.REQ2.Repository;
-using DcmsMobile.REQ2.ViewModels;
-using EclipseLibrary.Mvc.Controllers;
-using EclipseLibrary.Mvc.Html;
-using DcmsMobile.Dcms.Routes;
+
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
 {
