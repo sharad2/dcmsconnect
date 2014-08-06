@@ -38,7 +38,8 @@ namespace DcmsMobile.Receiving
 
             HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
                 Links_Receiving.Content.Url(),
-                Links_Receiving.Scripts.Url()
+                Links_Receiving.Scripts.Url(),
+                T4MVCHelpers.ProcessVirtualPath("~/MainArea")
               }));
             AreaRegistration.RegisterAllAreas();
 
