@@ -1,4 +1,9 @@
-﻿using System;
+﻿using DcmsMobile.Shipping.Helpers;
+using DcmsMobile.Shipping.Repository;
+using DcmsMobile.Shipping.ViewModels;
+using EclipseLibrary.Mvc.Controllers;
+using EclipseLibrary.Mvc.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,12 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.Shipping.Helpers;
-using DcmsMobile.Shipping.Repository;
-using DcmsMobile.Shipping.ViewModels;
-using EclipseLibrary.Mvc.Controllers;
-using EclipseLibrary.Mvc.Helpers;
-using DcmsMobile.Dcms.Routes;
+
 
 namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 {

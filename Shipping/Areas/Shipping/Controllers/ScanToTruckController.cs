@@ -1,15 +1,15 @@
-﻿﻿using System;
+﻿﻿using DcmsMobile.Shipping.Repository.ScanToTruck;
+using DcmsMobile.Shipping.ViewModels;
+using DcmsMobile.Shipping.ViewModels.ScanToTruck;
+using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Configuration;
 using System.Data.Common;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
-using DcmsMobile.Shipping.Repository.ScanToTruck;
-using DcmsMobile.Shipping.ViewModels;
-using DcmsMobile.Shipping.ViewModels.ScanToTruck;
-using EclipseLibrary.Mvc.Controllers;
-using DcmsMobile.Dcms.Routes;
+
 
 namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
 {
