@@ -109,7 +109,6 @@
     <Compile Include="Helpers\BoxState.cs" />
     <Compile Include="Helpers\BucketActivityType.cs" />
     <Compile Include="Helpers\DateRange.cs" />
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\ProgressStage.cs" />
     <Compile Include="Helpers\PickWaveHelpers.cs" />
     <Compile Include="Helpers\PickWavesControllerBase.cs" />
