@@ -121,7 +121,6 @@
     <Compile Include="DcmsLite.ValidationController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Repository\Ship\PO.cs" />
     <Compile Include="Repository\Ship\ShipRepository.cs" />
     <Compile Include="Repository\Ship\ShipService.cs" />
