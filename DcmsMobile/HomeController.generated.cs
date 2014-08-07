@@ -99,15 +99,21 @@ namespace DcmsMobile.MainArea.Home
         }
 
 
+        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class SearchParams
+        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Search
         {
-            public const string id = "id";
+            public readonly string id = "id";
         }
+        static readonly ActionParamsClass_RcItems s_params_RcItems = new ActionParamsClass_RcItems();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class RcItemsParams
+        public ActionParamsClass_RcItems RcItemsParams { get { return s_params_RcItems; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_RcItems
         {
-            public const string version = "version";
+            public readonly string version = "version";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

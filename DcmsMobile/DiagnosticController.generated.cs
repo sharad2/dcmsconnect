@@ -105,20 +105,29 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class IndexParams
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
         {
-            public const string emulateMobile = "emulateMobile";
+            public readonly string emulateMobile = "emulateMobile";
         }
+        static readonly ActionParamsClass_Email s_params_Email = new ActionParamsClass_Email();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class EmailParams
+        public ActionParamsClass_Email EmailParams { get { return s_params_Email; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Email
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
+        static readonly ActionParamsClass_SendEmail s_params_SendEmail = new ActionParamsClass_SendEmail();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class SendEmailParams
+        public ActionParamsClass_SendEmail SendEmailParams { get { return s_params_SendEmail; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SendEmail
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

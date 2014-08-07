@@ -125,30 +125,45 @@ namespace DcmsMobile.MainArea.Logon
         }
 
 
+        static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class IndexParams
+        public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Index
         {
-            public const string returnUrl = "returnUrl";
+            public readonly string returnUrl = "returnUrl";
         }
+        static readonly ActionParamsClass_SetUser s_params_SetUser = new ActionParamsClass_SetUser();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class SetUserParams
+        public ActionParamsClass_SetUser SetUserParams { get { return s_params_SetUser; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SetUser
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
+        static readonly ActionParamsClass_Login s_params_Login = new ActionParamsClass_Login();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class LoginParams
+        public ActionParamsClass_Login LoginParams { get { return s_params_Login; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Login
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
+        static readonly ActionParamsClass_ChangePassword s_params_ChangePassword = new ActionParamsClass_ChangePassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ChangePasswordParams
+        public ActionParamsClass_ChangePassword ChangePasswordParams { get { return s_params_ChangePassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChangePassword
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
+        static readonly ActionParamsClass_ChangeExpiredPassword s_params_ChangeExpiredPassword = new ActionParamsClass_ChangeExpiredPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ChangeExpiredPasswordParams
+        public ActionParamsClass_ChangeExpiredPassword ChangeExpiredPasswordParams { get { return s_params_ChangeExpiredPassword; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ChangeExpiredPassword
         {
-            public const string model = "model";
+            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

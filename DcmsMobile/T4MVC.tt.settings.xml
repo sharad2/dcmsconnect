@@ -91,7 +91,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
   <!--Set this to false to omit the generation of parameters for action methods.-->
   <GenerateParamsForActionMethods>True</GenerateParamsForActionMethods>
   <!--Set this to true to omit the generation of parameters for action methods as constants.  Choose this or GenerateParamsForActionMethods.-->
-  <GenerateParamsAsConstantsForActionMethods>True</GenerateParamsAsConstantsForActionMethods>
+  <GenerateParamsAsConstantsForActionMethods>False</GenerateParamsAsConstantsForActionMethods>
   <!--The suffix added to action method names for the property containing the parameters, for example ImportParams
 for the Import action method.-->
   <ParamsPropertySuffix>Params</ParamsPropertySuffix>
