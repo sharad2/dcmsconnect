@@ -31,28 +31,29 @@
             }
     </style>
 
-<link rel="stylesheet" href="@Links_DcmsMobile.Content.rmm_css.responsivemobilemenu_css" type="text/css" />
-<script type="text/javascript" src="@Links_DcmsMobile.Scripts.rmm_js.responsivemobilemenu_js"></script>
+@*<link rel="stylesheet" href="@Links_DcmsMobile.Content.rmm_css.responsivemobilemenu_css" type="text/css" />
+<script type="text/javascript" src="@Links_DcmsMobile.Scripts.rmm_js.responsivemobilemenu_js"></script>*@
 }
 
 @for (var i = 0; i < Model.Categories.Count; ++i)
 {
     <div data-role="page" id="page_@Model.Categories[i].Id">
         <div data-role="header">
-            <div class="rmm" data-menu-style="minimal" data-menu-title="@Model.Categories[i].Name">
-                <ul>
+            <div class="responsivegroup">
+                <h3>@Model.Categories[i].Name</h3>
+                <div data-role="controlgroup" data-type="horizontal" style="text-align:center">
                     @for (var j = 0; j < Model.Categories.Count; ++j)
                     {
                         if (i == j)
                         {
-                            <li><a class="ui-btn ui-btn-active">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Description)</a></li>
+                            <a class="ui-btn ui-btn-active">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Description)</a>
                         }
                         else
                         {
-                            <li><a href="#page_@Model.Categories[j].Id" data-transition="flip">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Name)</a></li>
+                            <a href="#page_@Model.Categories[j].Id" data-transition="flip" class="ui-btn">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Name)</a>
                         }
                     }
-                </ul>
+                </div>
             </div>
         </div>
 

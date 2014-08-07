@@ -170,7 +170,6 @@ namespace Links_DcmsMobile
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 }
             
-                public static readonly string jquery_ui_css_bundle = Url("jquery-ui.css.bundle")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.css.bundle");
                 public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.min.css") : Url("jquery-ui.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.css");
                      
                 public static readonly string jquery_ui_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.partial.min.css") ? Url("jquery-ui.partial.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.partial.min.css") : Url("jquery-ui.partial.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.partial.css");
@@ -201,6 +200,8 @@ namespace Links_DcmsMobile
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
+                    public static readonly string Index_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.partial.min.js") ? Url("Index.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.partial.min.js") : Url("Index.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.partial.js");
+                    public static readonly string responsivegroup_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsivegroup.partial.min.js") ? Url("responsivegroup.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivegroup.partial.min.js") : Url("responsivegroup.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivegroup.partial.js");
                     public static readonly string Tutorial_pptx = Url("Tutorial.pptx")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Tutorial.pptx");
             public static readonly string wifi_jpg = Url("wifi.jpg")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/wifi.jpg");
         }

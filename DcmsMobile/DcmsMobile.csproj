@@ -377,12 +377,20 @@
     <Content Include="Content\rmm-img\graphite-menu-bg-hover.png" />
     <Content Include="Content\rmm-img\graphite-menu-bg.png" />
     <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
+    <Content Include="MainArea\Home\Index.js">
+      <DependentUpon>Index.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="MainArea\Home\Index.js.bundle" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
     <Content Include="Content\Sounds\warning.mp3" />
+    <Content Include="MainArea\Home\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="MainArea\Home\responsivegroup.partial.js" />
     <Content Include="Scripts\rmm-js\responsivemobilemenu.js" />
     <Content Include="Content\themes\Readme.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
@@ -409,10 +417,7 @@
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
-    <Content Include="MainArea\Home\Index.js" />
-    <Content Include="MainArea\Home\Index.min.js">
-      <DependentUpon>Index.js</DependentUpon>
-    </Content>
+    <Content Include="MainArea\Home\Index.partial.js" />
     <Content Include="MainArea\Home\wifi.jpg" />
     <Content Include="MainArea\SharedViews\Sounds\Error.wav" />
     <Content Include="MainArea\SharedViews\Sounds\success.wav" />

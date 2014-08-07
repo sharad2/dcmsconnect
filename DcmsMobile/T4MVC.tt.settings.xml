@@ -75,6 +75,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>_references.js</Extension>
     <Extension>.config</Extension>
     <Extension>.xsd</Extension>
+    <Extension>.bundle</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>
@@ -82,6 +83,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.master</Extension>
     <Extension>.js</Extension>
     <Extension>.css</Extension>
+    <Extension>.bundle</Extension>
   </ExcludedViewExtensions>
   <!--When creating links with T4MVC, it can force them to HTTPS if the action method you are linking to requires Http.-->
   <AttributeIndicatingHttps>System.Web.Mvc.RequireHttpsAttribute</AttributeIndicatingHttps>
