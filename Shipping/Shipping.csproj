@@ -247,7 +247,6 @@
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Shipping.pubxml" />
-    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
@@ -264,9 +263,7 @@
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
     <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
-    <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Areas\Shipping\Scripts\selectable.partial.js" />
     <Content Include="Areas\Shipping\Scripts\Unrouted.js">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
@@ -314,7 +311,6 @@
     <Content Include="Areas\Shipping\Views\Home\Index.mobile.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\Appointment.cshtml" />
     <None Include="Scripts\jquery.validate.js" />
-    <None Include="Scripts\jquery.validate.min.js" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
