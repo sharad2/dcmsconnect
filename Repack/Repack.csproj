@@ -95,8 +95,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,10 @@
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.1.1.js" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\Repack\Content\Repack-all.css.bundle" />
     <None Include="Areas\Repack\Scripts\Repack-all.js.bundle" />
@@ -212,10 +217,6 @@
     <None Include="Scripts\jquery-ui-1.10.0.min.js" />
     <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.hooks.t4" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
