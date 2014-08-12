@@ -67,7 +67,7 @@ $(document).on('pagecontainertransition', function (event, ui) {
             var x;
             var wrapped = false;
             $(".ui-controlgroup-controls >", this.element).each(function () {
-                var top = Math.round((this).position().top);
+                var top = Math.round($(this).position().top);
                 if (x == null) {
                     x = top
                 } else if (x != top) {
