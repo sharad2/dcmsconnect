@@ -149,12 +149,12 @@ namespace DcmsMobile.MainArea.Home
         }
 
         #region XML File
-        private const string MENUITEMS_XML_FILE_NAME = "~/App_Data/MenuItems.xml";
+        private const string CACHE_XML_KEY = "App_Data/MenuItems.xml";
         private IList<MenuCategory> MenuCategories
         {
             get
             {
-                var tuple = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
+                var tuple = MemoryCache.Default[CACHE_XML_KEY] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
                 if (tuple == null)
                 {
                     tuple = ReadMenuXml();
@@ -167,7 +167,7 @@ namespace DcmsMobile.MainArea.Home
         {
             get
             {
-                var tuple = MemoryCache.Default[MENUITEMS_XML_FILE_NAME] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
+                var tuple = MemoryCache.Default[CACHE_XML_KEY] as Tuple<IList<MenuCategory>, IList<MenuLink>>;
                 if (tuple == null)
                 {
                     tuple = ReadMenuXml();
@@ -180,7 +180,7 @@ namespace DcmsMobile.MainArea.Home
         {
             XNamespace _ns = "http://schemas.eclsys.com/dcmsconnect/menuitems";
 
-            var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
+            //var path = HttpContext.Server.MapPath(MENUITEMS_XML_FILE_NAME);
 
             var root = XElement.Parse(DcmsLibrary.Mvc.Resources.MenuItems);
 
@@ -213,13 +213,13 @@ namespace DcmsMobile.MainArea.Home
                 SlidingExpiration = TimeSpan.FromMinutes(30)
             };
 
-            List<string> filePaths = new List<string>();
-            filePaths.Add(path);
+            //List<string> filePaths = new List<string>();
+            //filePaths.Add(path);
 
-            policy.ChangeMonitors.Add(new HostFileChangeMonitor(filePaths));
+            //policy.ChangeMonitors.Add(new HostFileChangeMonitor(filePaths));
 
             var tuple = Tuple.Create(cats, links);
-            MemoryCache.Default.Set(MENUITEMS_XML_FILE_NAME, tuple, policy);
+            MemoryCache.Default.Set(CACHE_XML_KEY, tuple, policy);
 
             return tuple;
         }
