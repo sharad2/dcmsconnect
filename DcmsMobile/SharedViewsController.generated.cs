@@ -3,8 +3,8 @@
 // Don't change it directly as your change would get overwritten.  Instead, make changes
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
-// Make sure the compiler doesn't complain about missing Xml comments
-#pragma warning disable 1591
+// Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
+#pragma warning disable 1591, 3008, 3009
 #region T4MVC
 
 using System;
@@ -36,8 +36,10 @@ namespace T4MVC
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutMain = "_layoutMain";
             }
+            public readonly string _layoutBootstrap = "~/MainArea/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutMain = "~/MainArea/SharedViews/_layoutMain.cshtml";
             static readonly _SoundsClass s_Sounds = new _SoundsClass();
             public _SoundsClass Sounds { get { return s_Sounds; } }
@@ -62,4 +64,4 @@ namespace T4MVC
 }
 
 #endregion T4MVC
-#pragma warning restore 1591
+#pragma warning restore 1591, 3008, 3009

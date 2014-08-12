@@ -110,29 +110,30 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainArea\Home\MenuLink.cs" />
-    <Compile Include="MainArea\Home\MenuCategory.cs" />
-    <Compile Include="MainArea\Diagnostic\DiagnosticController.cs" />
-    <Compile Include="MainArea\Home\HomeController.cs" />
-    <Compile Include="MainArea\Logon\LogonController.cs" />
     <Compile Include="DiagnosticController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\ApplicationErrorEvent.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="LogonController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainArea\Home\MenuLink.cs" />
+    <Compile Include="MainArea\Home\MenuCategory.cs" />
+    <Compile Include="MainArea\Diagnostic\DiagnosticController.cs" />
+    <Compile Include="MainArea\Home\HomeController.cs" />
+    <Compile Include="MainArea\Logon\LogonController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ApplicationErrorEvent.cs" />
     <Compile Include="MainArea\Diagnostic\DiagnosticModel.cs" />
     <Compile Include="MainArea\Home\LauncherViewModel.cs" />
     <Compile Include="MainArea\Logon\LogonModel.cs" />
@@ -148,6 +149,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\ajax-loader.png" />
     <Content Include="Content\images\icons-18-black.png" />
@@ -377,10 +382,19 @@
     <Content Include="Content\rmm-img\graphite-menu-bg-hover.png" />
     <Content Include="Content\rmm-img\graphite-menu-bg.png" />
     <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="MainArea\Home\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
     <Content Include="MainArea\Home\Index.js.bundle" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="MainArea\Home\Index_o.cshtml" />
+    <Content Include="MainArea\Home\Index - Copy.cshtml" />
+    <Content Include="MainArea\SharedViews\_layoutBootstrap.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
@@ -388,6 +402,8 @@
     <Content Include="MainArea\Home\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="MainArea\Home\responsivegroup.partial.js" />
@@ -449,6 +465,11 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
@@ -467,11 +488,6 @@
     <Content Include="MainArea\Diagnostic\Email.cshtml" />
     <Content Include="MainArea\Logon\GetNewPassword.cshtml" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.map" />
-    <None Include="T4MVC.tt.hooks.t4" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <Content Include="MainArea\Home\Index.cshtml" />
     <Content Include="MainArea\SharedViews\_layoutMain.cshtml" />
   </ItemGroup>
@@ -506,7 +522,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -1,102 +1,45 @@
 ﻿@model DcmsMobile.MainArea.Home.LauncherViewModel
 @{
-    ViewBag.Title = "DCMS Connect Home";
-    Layout = @MVC_DcmsMobile.SharedViews.Views._layoutMain;
+    Layout = @MVC_DcmsMobile.SharedViews.Views._layoutBootstrap;
 }
 
-@section script {
-    <script type="text/javascript">
-        var _rcBaseUrl = '@Model.UrlRcBase';
-        var _rcItemsUrl = '@Url.Action(MVC_DcmsMobile.Home.RcItems(1))';
-    </script>
-    <script src="@Links_DcmsMobile.MainArea.Home.Index_js" type="text/javascript"></script>
-    <style type="text/css">
-        .custom-corners {
-            margin-bottom: 1mm;
+
+<div class="container">
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        @for (var i = 0; i < Model.Categories.Count; ++i)
+        {
+            <li class="@(i == 0 ? "active" : (string)null)"><a href="#@Model.Categories[i].Id" role="tab" data-toggle="tab">@Model.Categories[i].Name</a></li>
         }
+    </ul>
 
-            .custom-corners .ui-bar {
-                -webkit-border-top-left-radius: inherit;
-                border-top-left-radius: inherit;
-                -webkit-border-top-right-radius: inherit;
-                border-top-right-radius: inherit;
-            }
+    <div class="tab-content">
 
-            .custom-corners .ui-body {
-                border-top-width: 0;
-                -webkit-border-bottom-left-radius: inherit;
-                border-bottom-left-radius: inherit;
-                -webkit-border-bottom-right-radius: inherit;
-                border-bottom-right-radius: inherit;
-            }
-    </style>
-
-@*<link rel="stylesheet" href="@Links_DcmsMobile.Content.rmm_css.responsivemobilemenu_css" type="text/css" />
-<script type="text/javascript" src="@Links_DcmsMobile.Scripts.rmm_js.responsivemobilemenu_js"></script>*@
-}
-
-@for (var i = 0; i < Model.Categories.Count; ++i)
-{
-    <div data-role="page" id="page_@Model.Categories[i].Id">
-        <div data-role="header">
-            <div class="responsivegroup">
-                <h3>@Model.Categories[i].Name</h3>
-                <div data-role="controlgroup" data-type="horizontal" style="text-align:center">
-                    @for (var j = 0; j < Model.Categories.Count; ++j)
-                    {
-                        if (i == j)
-                        {
-                            <a class="ui-btn ui-btn-active">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Description)</a>
-                        }
-                        else
-                        {
-                            <a href="#page_@Model.Categories[j].Id" data-transition="flip" class="ui-btn">@(j + 1). @Html.DisplayFor(m => m.Categories[j].Name)</a>
-                        }
-                    }
+        @for (var i = 0; i < Model.Categories.Count; ++i)
+        {
+            <div class="tab-pane @(i == 0 ? "active" : "")" id="@Model.Categories[i].Id">
+                <div class="page-header">
+                    <h3>@Html.DisplayFor(m => m.Categories[i].Description)</h3>
                 </div>
-            </div>
-        </div>
 
-
-        <div class="ui-content">
-            
-            <div>
-                @for (var j = 0; j < Model.Categories[i].MenuItems.Count; ++j)
+                @for (var j = 0; j < Model.Categories[i].MenuItems.Count; j += 4)
                 {
-                    <div>
-                        <div class="ui-corner-all custom-corners">
-                            <div data-role="header">
-                                <h3>@(j + 1). @Html.DisplayFor(m => m.Categories[i].MenuItems[j].Name)</h3>
-                                <div class="@Model.Categories[i].MenuItems[j].RouteName ui-mini ui-btn ui-btn-left" data-role="controlgroup" data-type="horizontal" style="display:none">
-                                    <a href="@Model.Categories[i].MenuItems[j].Url" class="ui-btn ui-icon-comment ui-btn-icon-left">
-                                        RC
-                                    </a>
-                                </div>
-                                <div class="ui-mini ui-btn ui-btn-right" data-role="controlgroup" data-type="horizontal">
-                                    <a href="@Model.Categories[i].MenuItems[j].Url" class="ui-btn ui-icon-carat-r ui-btn-icon-right">
-                                        @Html.DisplayFor(m => m.Categories[i].MenuItems[j].ShortCut)
-                                    </a>
+                    <div class="row">
+                        @for (var k = 0; k < 4 && (j + k) < Model.Categories[i].MenuItems.Count; ++k)
+                        {
+                            <div class="thumbnail col-md-3">
+                                <div class="caption">
+                                    <h3>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Name)</h3>
+                                    <p>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Description)</p>
+                                    <p><a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a></p>
                                 </div>
                             </div>
-                            <div class="ui-body ui-body-a">
-                                @if (Model.Categories[i].MenuItems[j].Mobile)
-                                {
-                                    <img src="@Links_DcmsMobile.MainArea.Home.wifi_jpg" alt="Wifi symbol indicating that the program is mobile optimized" />
-                                }
-                                @Html.DisplayFor(m => m.Categories[i].MenuItems[j].Description)
-                            </div>
-                        </div>
+                        }
                     </div>
                 }
-            </div>
-            @if (!string.IsNullOrEmpty(Model.UrlRcBase))
-            {
-                <div data-role="navbar" class="ui-mini">
-                    <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
-                </div>
-            }
-        </div>
 
+            </div>
+        }
     </div>
-}
+
+</div>
 

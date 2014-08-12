@@ -3,8 +3,8 @@
 // Don't change it directly as your change would get overwritten.  Instead, make changes
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
-// Make sure the compiler doesn't complain about missing Xml comments
-#pragma warning disable 1591
+// Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
+#pragma warning disable 1591, 3008, 3009
 #region T4MVC
 
 using System;
@@ -125,11 +125,15 @@ namespace DcmsMobile.MainArea.Home
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Index___Copy = "Index - Copy";
                 public readonly string Index = "Index";
+                public readonly string Index_o = "Index_o";
                 public readonly string Tutorial = "Tutorial";
                 public readonly string wifi = "wifi";
             }
+            public readonly string Index___Copy = "~/MainArea/Home/Index - Copy.cshtml";
             public readonly string Index = "~/MainArea/Home/Index.cshtml";
+            public readonly string Index_o = "~/MainArea/Home/Index_o.cshtml";
             public readonly string Tutorial = "~/MainArea/Home/Tutorial.pptx";
             public readonly string wifi = "~/MainArea/Home/wifi.jpg";
         }
@@ -179,4 +183,4 @@ namespace DcmsMobile.MainArea.Home
 }
 
 #endregion T4MVC
-#pragma warning restore 1591
+#pragma warning restore 1591, 3008, 3009
