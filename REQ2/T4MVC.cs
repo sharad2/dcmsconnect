@@ -3,8 +3,8 @@
 // Don't change it directly as your change would get overwritten.  Instead, make changes
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
-// Make sure the compiler doesn't complain about missing Xml comments
-#pragma warning disable 1591
+// Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
+#pragma warning disable 1591, 3008, 3009
 #region T4MVC
 
 using System;
@@ -213,18 +213,7 @@ internal static class T4MVCHelpers {
         // The path that comes in starts with ~/ and must first be made absolute
         string path = VirtualPathUtility.ToAbsolute(virtualPath);
         
-        // Add your own modifications here before returning the path		 
-		 if (IsProduction())
-		 {
-		     if (virtualPath.EndsWith(".js") && !virtualPath.EndsWith(".min.js"))
-		     {
-		         path = path.Replace(".js", ".min.js");
-		     }
-		     else if (virtualPath.EndsWith(".css") && !virtualPath.EndsWith(".min.css"))
-		     {
-		         path = path.Replace(".css", ".min.css");
-		     }
-		 }
+        // Add your own modifications here before returning the path
         return path;
     }
 
@@ -245,6 +234,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591
+#pragma warning restore 1591, 3008, 3009
 
 
