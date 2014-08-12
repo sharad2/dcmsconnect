@@ -89,8 +89,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,10 @@
       <DependentUpon>BoxPick-all.js.bundle</DependentUpon>
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\BoxPick\Scripts\BoxPick-all.js.bundle" />
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.min.js.map">
@@ -208,10 +213,6 @@
     <None Include="Areas\BoxPick\Scripts\scan.partial.js" />
     <None Include="Areas\BoxPick\Scripts\session.partial.js" />
     <None Include="T4MVC.tt.hooks.t4" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
