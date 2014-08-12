@@ -383,25 +383,19 @@
     <Content Include="Content\rmm-img\graphite-menu-bg.png" />
     <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="MainArea\Home\Index.js">
-      <DependentUpon>Index.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="MainArea\Home\Index.js.bundle" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="MainArea\Home\Index_o.cshtml" />
-    <Content Include="MainArea\Home\Index - Copy.cshtml" />
+    <Content Include="MainArea\Home\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="MainArea\SharedViews\_layoutBootstrap.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
     <Content Include="Content\Sounds\warning.mp3" />
-    <Content Include="MainArea\Home\Index.min.js">
-      <DependentUpon>Index.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -433,7 +427,7 @@
     </Content>
     <Content Include="Content\themes\Start1.10.0\jquery-ui.partial.css" />
     <Content Include="Content\themes\Start1.10.0\jquery.ui.theme.partial.css" />
-    <Content Include="MainArea\Home\Index.partial.js" />
+    <Content Include="MainArea\Home\Index.js" />
     <Content Include="MainArea\Home\wifi.jpg" />
     <Content Include="MainArea\SharedViews\Sounds\Error.wav" />
     <Content Include="MainArea\SharedViews\Sounds\success.wav" />
