@@ -184,8 +184,6 @@ namespace DcmsMobile.MainArea.Home
 
             var root = XElement.Parse(DcmsLibrary.Mvc.Resources.MenuItems);
 
-            var root2 = XElement.Load(path);
-
             IList<MenuCategory> cats = (from cat in root.Element(_ns + "processes").Elements(_ns + "process")
                                         select new MenuCategory
                                         {
