@@ -91,8 +91,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +178,10 @@
       <DependentUpon>AutoComplete.js</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Content\Guided Receiving.pps" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Areas\Receiving\Content\Receiving-all.css.bundle" />
     <None Include="Areas\Receiving\Scripts\Home\Receiving-all.js.bundle" />
@@ -255,10 +260,6 @@
     <Content Include="Scripts\jquery.mobile-1.4.2.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.min.js" />
     <None Include="T4MVC.tt.hooks.t4" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
