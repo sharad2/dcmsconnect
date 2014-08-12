@@ -400,7 +400,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="MainArea\Home\responsivegroup.partial.js" />
     <Content Include="Scripts\rmm-js\responsivemobilemenu.js" />
     <Content Include="Content\themes\Readme.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />

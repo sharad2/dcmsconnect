@@ -207,7 +207,6 @@ namespace Links_DcmsMobile
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
-                    public static readonly string responsivegroup_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsivegroup.partial.min.js") ? Url("responsivegroup.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivegroup.partial.min.js") : Url("responsivegroup.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivegroup.partial.js");
                     public static readonly string Tutorial_pptx = Url("Tutorial.pptx")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Tutorial.pptx");
             public static readonly string wifi_jpg = Url("wifi.jpg")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/wifi.jpg");
         }

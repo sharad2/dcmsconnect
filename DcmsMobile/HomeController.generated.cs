@@ -126,12 +126,10 @@ namespace DcmsMobile.MainArea.Home
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
-                public readonly string Index_o = "Index_o";
                 public readonly string Tutorial = "Tutorial";
                 public readonly string wifi = "wifi";
             }
             public readonly string Index = "~/MainArea/Home/Index.cshtml";
-            public readonly string Index_o = "~/MainArea/Home/Index_o.cshtml";
             public readonly string Tutorial = "~/MainArea/Home/Tutorial.pptx";
             public readonly string wifi = "~/MainArea/Home/wifi.jpg";
         }
