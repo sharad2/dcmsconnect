@@ -1,22 +1,1849 @@
-﻿<!DOCTYPE html>
+﻿
+
+
+
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Responsive Mobile Menu</title>
-    <link rel="stylesheet" href="rmm-css/responsivemobilemenu.css" type="text/css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-    <script type="text/javascript" src="rmm-js/responsivemobilemenu.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
+    <link rel="stylesheet" href="/Content/jquery.mobile-1.4.2.css" />
+    <script src="/Scripts/jquery-2.1.1.js"></script>
+    <script type="text/javascript">
+        $(document).on("mobileinit", function () {
+            // External pages should be loaded as normal and not via link hijacking.
+            //http://api.jquerymobile.com/global-config/
+            $.mobile.ajaxEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>
+    <script src="/Scripts/jquery.mobile-1.4.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Since the header is outside of all pages, it must be manually declared as toolbar.
+            $('#layout_header').toolbar({ theme: "a" });
+            $("#popupLayout,#layoutPopupSignoff").enhanceWithin().popup();
+        });
+    </script>
+    <style type="text/css">
+        .validation-summary-errors {
+            color: Red;
+        }
+
+        .ui-state-highlight {
+            border: 1px solid #fcd113;
+            background: #f8da4e;
+            color: #915608;
+        }
+
+        .controlgroup-textinput {
+            padding-top: .22em;
+            padding-bottom: .22em;
+        }
+    </style>
+
+    <style type="text/css">
+        /*for table header*/
+        .ui-table th {
+            text-align: center;
+            background-color: rgba(0,0,0,.1);
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+
+        tfoot td {
+            background-color: rgba(0,0,0,.1);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            font-weight: bold;
+        }
+
+        tbody tr td {
+            border-right-color: rgba(0,0,0,0.05);
+            border-right-width: 1px;
+            border-right-style: solid;
+        }
+
+        .h3-aside {
+            float: right;
+            background-color: rgb(42, 42, 42);
+            border: 1px solid #1d1d1d;
+            border-radius: .31em;
+            font-weight: normal;
+            font-size: small;
+            color: white;
+        }
+
+        .ui-state-highlight {
+            border: 1px solid #fcd113;
+            background: #f8da4e;
+            color: #915608;
+        }
+    </style>
+
+    <link href="/Areas/Inquiry/IntransitEntity/IntransitShipmentList.css" rel="stylesheet" />
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script type="text/javascript">
+        // We remove this string from posted query string names
+        var _prefix = 'Filters' + '.';
+    </script>
+    <script src="/Areas/Inquiry/IntransitEntity/IntransitShipmentList.js"></script>
+
+
+
 </head>
 <body>
-    <div class="rmm">
-        <ul>
-            <li><a href='#home'>Home</a></li>
-            <li><a href='#about-me'>About me</a></li>
-            <li><a href='#gallery'>Gallery</a></li>
-            <li><a href='#blog'>Blog</a></li>
-            <li><a href='#links'>Links</a></li>
-            <li><a href='#sitemap'>Sitemap</a></li>
+    <header data-role="header" id="layout_header">
+        <h1>
+            DCMS Connect xx
+
+        </h1>
+
+        <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-left ui-mini">
+            <a href="/" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            <form action="" method="get">
+                <input name="id"
+                       type="search" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="Search DCMS" />
+            </form>
+        </div>
+
+
+        <div data-role="controlgroup" data-type="horizontal" class="ui-btn ui-btn-right ui-mini">
+            <a href="" class="ui-btn ui-icon-user ui-btn-icon-left">Sign In</a>
+            <a href="#popupLayout" data-rel="popup" data-transition="slidedown" class="ui-btn ui-icon-gear ui-btn-icon-notext">.</a>
+        </div>
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+    <div data-role="page" id="mypage">
+        <div data-role="header">
+            <h1>Inbound Shipment Summary</h1>
+            <div data-role="controlgroup" data-type="horizontal" style="text-align:center">
+                <a href="/Inquiry/itr/skulist" class="ui-btn">Shipment SKU</a>
+                <button id="btnExcel" class="ui-btn" data-url="/Inquiry/itr/excel">Excel</button>
+            </div>
+        </div>
+
+
+        <div id="responsivegroup" data-url="/Inquiry/itr/list" data-collapsed-icon="bars" class="ui-nodisc-icon ui-alt-icon">
+            <h3>TODO: One line summary of applied filters</h3>
+            <div id="fsShipmentTypes" data-role="controlgroup" data-type="horizontal" style="text-align:center">
+                <select id="Filters_Source" name="Filters.Source">
+                    <option selected="selected" value="">All Types</option>
+                    <option value="0">Vendor</option>
+                    <option value="1">Transfer</option>
+                </select>
+                <select id="Filters_SewingPlantCode" name="Filters.SewingPlantCode">
+                    <option value="">(Sewing Plant)</option>
+                    <option value="14">14:APEX LINGERIE LIMITED</option>
+                    <option value="16">16:FOUR H FASHIONS LTD.</option>
+                    <option value="162">162:BADGETEX APPARELS LIMITED.</option>
+                    <option value="191">191:JIN SHAN UNDERWEAR MFG ZHONG</option>
+                    <option value="34">34:MEI LI GARMENT FACTORY</option>
+                    <option value="341">341:LISSOM UNDERWEAR</option>
+                    <option value="343">343:MAGIC LINK GARMENT(THAILAND)</option>
+                    <option value="350">350:PT FAST MANUFACTURING</option>
+                    <option value="356">356:PT. STAR ALLIANCE INTIMATES</option>
+                    <option value="358">358:PT. INTI CITRA SEKAWAN</option>
+                    <option value="39">39:CHUNG TAI</option>
+                    <option value="52">52:JIN SHAN UNDERWEAR MANUFACT</option>
+                    <option value="81">81:REGINA MIRACLE INTIMATE</option>
+                    <option value="ZH">ZH:ZH</option>
+                </select>
+                <label for="cbVarianceOnly">Variance Only</label>
+                <input type="checkbox" name="Filters.VariancesOnly"
+                       data-role="flipswitch" data-on-text="Variances" data-off-text="All" data-wrapper-class="custom-size-flipswitch"
+                       value="true" id="cbVarianceOnly" />
+                <a href="#statusPopup" data-rel="popup" data-transition="slideup" class="ui-btn ui-btn-icon-right ui-nodisc-icon ui-alt-icon ui-icon-carat-r">Open</a>
+            </div>
+        </div>
+
+        <input data-val="true" data-val-required="The Status field is required." id="hfStatus" name="Filters.Status" type="hidden" value="Open" />
+        <div class="ui-content">
+            <ul data-role="listview" data-inset="true">
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            1.
+                            AL00042
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 522
+
+                                <strong>(-522)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                17,621
+                                <strong>(-17,621)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: AL </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/14/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            2.
+                            7X00167
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 104
+
+                                <strong>(-104)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                6,812
+                                <strong>(-6,812)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 7X </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/16/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            3.
+                            7X00165
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 38
+
+                                <strong>(-38)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                2,769
+                                <strong>(-2,769)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 7X </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/16/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            4.
+                            Z800005
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 10
+                                of 11
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: 6/23/2014 6:40:15 PM to 6:41:20 PM</div>
+                            <div class="ui-block-a">
+                                Pieces
+                                460 of
+                                490
+                                <strong>(-30)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: Z8 </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">3/11/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            5.
+                            5Z00017
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                270
+                                <strong>(-270)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 5Z </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">2/28/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            6.
+                            AL00610
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 4
+
+                                <strong>(-4)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                192
+                                <strong>(-192)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: AL </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">2/14/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            7.
+                            5Z00014
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                90
+                                <strong>(-90)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 5Z </div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">2/14/2014</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            8.
+                            1000020657
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 3
+                                of 3
+
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: 5/14/2014 2:13:18 PM to 2:14:47 PM</div>
+                            <div class="ui-block-a">
+                                Pieces
+                                144 of
+                                144
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 162 BADGETEX APPARELS LIMITED.</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">12/17/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            9.
+                            75022
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 260
+
+                                <strong>(-260)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                19,705
+                                <strong>(-19,705)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/29/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            10.
+                            74686
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 184
+
+                                <strong>(-184)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                14,343
+                                <strong>(-14,343)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 39 CHUNG TAI</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/25/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            11.
+                            74943
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 38
+
+                                <strong>(-38)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1,610
+                                <strong>(-1,610)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/18/2013</p>
+                        <p class="ui-li-count">To ERP: 11/7/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            12.
+                            74982
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 49
+
+                                <strong>(-49)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                2,905
+                                <strong>(-2,905)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 350 PT FAST MANUFACTURING</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/18/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            13.
+                            74599
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 20
+
+                                <strong>(-20)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                324
+                                <strong>(-324)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 191 JIN SHAN UNDERWEAR MFG ZHONG</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/18/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            14.
+                            74837
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 345
+
+                                <strong>(-345)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                28,636
+                                <strong>(-28,636)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 14 APEX LINGERIE LIMITED</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/17/2013</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            15.
+                            51693
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">1/19/2012</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            16.
+                            52003
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 41
+
+                                <strong>(-41)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                397
+                                <strong>(-397)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 14 APEX LINGERIE LIMITED</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">1/17/2012</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            17.
+                            51165
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 77
+
+                                <strong>(-77)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                77
+                                <strong>(-77)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">1/4/2012</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            18.
+                            48942
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 11
+
+                                <strong>(-11)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                11
+                                <strong>(-11)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">11/1/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            19.
+                            47869
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 10
+
+                                <strong>(-10)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                10
+                                <strong>(-10)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">10/3/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            20.
+                            46892
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 23
+
+                                <strong>(-23)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                23
+                                <strong>(-23)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">8/29/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            21.
+                            46991
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 4
+                                of 4
+
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: 6/26/2014 2:44:59 PM to 2:45:17 PM</div>
+                            <div class="ui-block-a">
+                                Pieces
+                                4 of
+                                4
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 14 APEX LINGERIE LIMITED</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">8/25/2011</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            22.
+                            46741
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 14 APEX LINGERIE LIMITED</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">8/22/2011</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            23.
+                            46364
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 870
+                                of 911
+
+                                <strong>(-41)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: 9/22/2011 9:05:04 AM to 9/22/2011 10:45:18 AM</div>
+                            <div class="ui-block-a">
+                                Pieces
+                                31,523 of
+                                31,564
+                                <strong>(-41)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">8/17/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            24.
+                            45132
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                3
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/19/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            25.
+                            45019
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 29
+
+                                <strong>(-29)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                29
+                                <strong>(-29)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/15/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            26.
+                            44065
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 50
+
+                                <strong>(-50)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                50
+                                <strong>(-50)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">6/28/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            27.
+                            43613
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 26
+
+                                <strong>(-26)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                26
+                                <strong>(-26)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">6/14/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            28.
+                            43215
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 11
+
+                                <strong>(-11)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                11
+                                <strong>(-11)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">6/1/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            29.
+                            42980
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 5
+
+                                <strong>(-5)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                5
+                                <strong>(-5)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">6/1/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            30.
+                            42793
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                3
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/24/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            31.
+                            42744
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 18
+
+                                <strong>(-18)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                18
+                                <strong>(-18)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/24/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            32.
+                            42655
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 17
+
+                                <strong>(-17)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                17
+                                <strong>(-17)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/17/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            33.
+                            42650
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 2
+                                of 2
+
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: 6/26/2014 1:54:36 PM to 6/26/2014 2:40:38 PM</div>
+                            <div class="ui-block-a">
+                                Pieces
+                                2 of
+                                2
+                                <strong>(0)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/17/2011</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            34.
+                            42388
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 9
+
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                9
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/10/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            35.
+                            42387
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 5
+
+                                <strong>(-5)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                5
+                                <strong>(-5)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/10/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            36.
+                            41806
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 9
+
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                9
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">5/3/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            37.
+                            41797
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 22
+
+                                <strong>(-22)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                22
+                                <strong>(-22)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/28/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            38.
+                            41746
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 24
+
+                                <strong>(-24)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                24
+                                <strong>(-24)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/26/2011</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            39.
+                            31380
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 343 MAGIC LINK GARMENT(THAILAND)</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">9/28/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            40.
+                            31272
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 11
+
+                                <strong>(-11)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                519
+                                <strong>(-519)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 34 MEI LI GARMENT FACTORY</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/22/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            41.
+                            sid123456
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 34 MEI LI GARMENT FACTORY</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/15/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            42.
+                            8s31102
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 601
+
+                                <strong>(-601)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                601
+                                <strong>(-601)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 34 MEI LI GARMENT FACTORY</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/15/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            43.
+                            3110401
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 600
+
+                                <strong>(-600)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                600
+                                <strong>(-600)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 34 MEI LI GARMENT FACTORY</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">7/15/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            44.
+                            3065011
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 240
+
+                                <strong>(-240)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                240
+                                <strong>(-240)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 356 PT. STAR ALLIANCE INTIMATES</div>
+                        </div>
+                        <p>
+                            94 cartons were received after closing against Shipment 3065001.
+
+                        </p>
+                        <p class="ui-li-aside">7/6/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            45.
+                            2996602
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 218
+
+                                <strong>(-218)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                5,214
+                                <strong>(-5,214)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 356 PT. STAR ALLIANCE INTIMATES</div>
+                        </div>
+                        <p>
+                            172 cartons were received after closing against Shipment 2996601.
+
+                        </p>
+                        <p class="ui-li-aside">6/13/2010</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            46.
+                            25423
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 1
+
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                1
+                                <strong>(-1)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 81 REGINA MIRACLE INTIMATE</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">2/11/2010</p>
+                        <p class="ui-li-count">To ERP: 7/30/2013</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            47.
+                            H6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                131
+                                <strong>(-131)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: 2/11/2014</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            48.
+                            BOB6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 9
+
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                455
+                                <strong>(-455)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            49.
+                            ITI6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                180
+                                <strong>(-180)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            50.
+                            K6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 9
+
+                                <strong>(-9)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                455
+                                <strong>(-455)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            51.
+                            MC6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                180
+                                <strong>(-180)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            52.
+                            SG6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                180
+                                <strong>(-180)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            53.
+                            SS6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                470
+                                <strong>(-470)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="T4MVC_System_Web_Mvc_ActionResult">
+                        <h3>
+                            54.
+                            AA6596
+                        </h3>
+                        <div class="ui-grid-a ui-responsive">
+                            <div class="ui-block-a">
+                                Cartons 0
+                                of 3
+
+                                <strong>(-3)</strong>
+                            </div>
+                            <div class="ui-block-b">Received: </div>
+                            <div class="ui-block-a">
+                                Pieces
+                                0 of
+                                180
+                                <strong>(-180)</strong>
+                            </div>
+                            <div class="ui-block-b">Sewing Plant: 358 PT. INTI CITRA SEKAWAN</div>
+                        </div>
+                        <p>
+
+
+                        </p>
+                        <p class="ui-li-aside">4/14/2008</p>
+                        <p class="ui-li-count">To ERP: </p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+    <div data-role="popup" id="statusPopup" data-theme="a">
+        <ul data-role="listview" data-inset="true" style="min-width:210px;">
+            <li data-role="list-divider">Filter by Type</li>
+            <li><a data-value="Open">Open</a></li>
+            <li><a data-value="Closed">Closed</a></li>
+            <li><a href="#datesPopup" data-rel="popup">Dates</a></li>
         </ul>
     </div>
+
+    <div data-role="popup" id="datesPopup" data-position="right" data-display="overlay" data-theme="a">
+        <div data-role="header">
+            <h1>  Shipment Close Dates</h1>
+        </div>
+        <form action="/Inquiry/itr/list" method="post">
+            <ul data-role="listview" data-inset="true">
+                <li>
+                    <label>
+                        From
+                        <input data-val="true" data-val-date="The field MinClosedDate must be a date." data-val-regex="The field MinClosedDate must match the regular expression &#39;^((((0[13578])|([13578])|(1[02]))[\/](([1-9])|([0-2][0-9])|(3[01])))|(((0[469])|([469])|(11))[\/](([1-9])|([0-2][0-9])|(30)))|((2|02)[\/](([1-9])|([0-2][0-9]))))[\/]\d{4}$|^\d{4}$&#39;." data-val-regex-pattern="^((((0[13578])|([13578])|(1[02]))[\/](([1-9])|([0-2][0-9])|(3[01])))|(((0[469])|([469])|(11))[\/](([1-9])|([0-2][0-9])|(30)))|((2|02)[\/](([1-9])|([0-2][0-9]))))[\/]\d{4}$|^\d{4}$" id="Filters_MinClosedDate" name="Filters.MinClosedDate" placeholder="mm/dd/yyyy" type="date" value="" />
+                    </label>
+                    <span class="field-validation-valid" data-valmsg-for="Filters.MinClosedDate" data-valmsg-replace="true"></span>
+                </li>
+                <li>
+                    <label>
+                        To
+                        <input data-val="true" data-val-date="The field MaxClosedDate must be a date." data-val-regex="The field MaxClosedDate must match the regular expression &#39;^((((0[13578])|([13578])|(1[02]))[\/](([1-9])|([0-2][0-9])|(3[01])))|(((0[469])|([469])|(11))[\/](([1-9])|([0-2][0-9])|(30)))|((2|02)[\/](([1-9])|([0-2][0-9]))))[\/]\d{4}$|^\d{4}$&#39;." data-val-regex-pattern="^((((0[13578])|([13578])|(1[02]))[\/](([1-9])|([0-2][0-9])|(3[01])))|(((0[469])|([469])|(11))[\/](([1-9])|([0-2][0-9])|(30)))|((2|02)[\/](([1-9])|([0-2][0-9]))))[\/]\d{4}$|^\d{4}$" id="Filters_MaxClosedDate" name="Filters.MaxClosedDate" placeholder="mm/dd/yyyy" type="date" value="" />
+                    </label>
+                    <span class="field-validation-valid" data-valmsg-for="Filters.MaxClosedDate" data-valmsg-replace="true"></span>
+                </li>
+                <li>
+                    <button id="btnApplyFilter"
+                            data-status-value="Closed">
+                        Apply
+                    </button>
+                    <button>Cancel</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+
+
+    <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
+        <ul data-role="listview" data-inset="true">
+
+            <li><a href="">Diagnostics</a></li>
+            <li><a href="/trace.axd" target="_trace">Trace Output</a></li>
+        </ul>
+    </div>
+
+
 </body>
 </html>
