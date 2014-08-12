@@ -92,7 +92,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\T4MVCExtensions.3.9.1\lib\net40\T4MVCExtensions.dll</HintPath>
+      <HintPath>..\packages\T4MVCExtensions.3.9.2\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -222,7 +222,11 @@
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
@@ -311,10 +315,6 @@
     <Content Include="Areas\Shipping\Views\Home\Index.mobile.cshtml" />
     <Content Include="Areas\Shipping\Views\Home\Appointment.cshtml" />
     <None Include="Scripts\jquery.validate.js" />
-    <None Include="T4MVC.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>T4MVC.cs</LastGenOutput>
-    </None>
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
