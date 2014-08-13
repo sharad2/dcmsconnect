@@ -63,14 +63,19 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <form action="@PublicUrl("DcmsMobile_Search")" method="get" class="navbar-form navbar-left" role="search">
                     <div class="form-group">
-                        <input name="id" type="search" class="form-control" placeholder="Search DCMS" />
-                    </div><span class="glyphicon glyphicon-search"></span>
+                        <div class="input-group">
+                            <input name="id" type="search" class="form-control" placeholder="Search DCMS" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@ViewContext.HttpContext.User.Identity.Name XX <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@ViewContext.HttpContext.User.Identity.Name<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="@PublicUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon)">Sign out</a>
