@@ -396,8 +396,6 @@
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
     <Content Include="Content\Sounds\warning.mp3" />
-    <Content Include="Scripts\bloodhound.js" />
-    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -468,10 +466,6 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Scripts\typeahead.bundle.js" />
-    <Content Include="Scripts\typeahead.bundle.min.js" />
-    <Content Include="Scripts\typeahead.jquery.js" />
-    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
