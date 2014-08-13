@@ -101,25 +101,42 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+        @if (messages.Count > 0 || errors.Count > 0)
+        {
+            <ol class="list-group">
+                @for (var i = 0; i < messages.Count; ++i)
+                {
+                    <li class="list-group-item list-group-item-info">@messages[i]</li>
+                }
+                @for (var i = 0; i < errors.Count; ++i)
+                {
+                    <li class="list-group-item list-group-item-danger">@errors[i]</li>
+                }
+            </ol>
+        }
 
-    @if (messages.Count > 0)
+    @*@if (messages.Count > 0)
     {
-        <div>
-            @for (var i = 0; i < messages.Count; ++i)
-            {
-                <span class="label label-info">@messages[i]</span>
-            }
+        <div class="alert alert-info" role="alert">
+            <ol>
+                @for (var i = 0; i < messages.Count; ++i)
+                {
+                    <li>@messages[i]</li>
+                }
+            </ol>
         </div>
     }
     @if (errors.Count > 0)
     {
-        <ol class="validation-summary-errors ui-mini">
-            @for (var i = 0; i < errors.Count; ++i)
-            {
-                <li><span class="label label-danger">@errors[i]</span></li>
-            }
-        </ol>
-    }
+        <div class="alert alert-danger" role="alert">
+            <ol>
+                @for (var i = 0; i < errors.Count; ++i)
+                {
+                    <li>@errors[i]</li>
+                }
+            </ol>
+        </div>
+    }*@
     @RenderBody()
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
