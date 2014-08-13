@@ -70,7 +70,8 @@ namespace Links_DcmsMobile
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
+        public static readonly string bloodhound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bloodhound.min.js") ? Url("bloodhound.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bloodhound.min.js") : Url("bloodhound.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bloodhound.js");
+                public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
                 public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.min.js") : Url("jquery-2.1.1.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.js");
                 public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
                 public static readonly string jquery_mobile_1_4_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.js") ? Url("jquery.mobile-1.4.2.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.min.js") : Url("jquery.mobile-1.4.2.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.js");
@@ -84,7 +85,9 @@ namespace Links_DcmsMobile
             public static readonly string responsivemobilemenu_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsivemobilemenu.min.js") ? Url("responsivemobilemenu.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.min.js") : Url("responsivemobilemenu.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.js");
                     }
     
-    }
+        public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.bundle.min.js") : Url("typeahead.bundle.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.bundle.js");
+                public static readonly string typeahead_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.jquery.min.js") ? Url("typeahead.jquery.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.jquery.min.js") : Url("typeahead.jquery.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.jquery.js");
+                }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
