@@ -66,7 +66,7 @@ namespace DcmsMobile.MainArea.Diagnostic
         }
 
         [Required(ErrorMessage = "{0} is required")]
-        [Display(Name = "E-mail Address")]
+        [Display(Name = "To")]
         public string To { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
