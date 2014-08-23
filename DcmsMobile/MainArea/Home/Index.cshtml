@@ -3,8 +3,85 @@
     Layout = @MVC_DcmsMobile.SharedViews.Views._layoutBootstrap;
 }
 
-
 <div class="container">
+    <nav class="navbar" role="navigation">
+        @*<div class="container-fluid">*@
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle pull-left" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                <span class="sr-only">Toggle navigation</span>
+                <strong class="text-success">DCMS Modules <span class="caret"></span></strong>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+                @for (var i = 0; i < Model.Categories.Count; ++i)
+                {
+
+                    <li class="@(i == 0 ? "active" : (string)null)">
+                        <a href="#@Model.Categories[i].Id" role="tab" data-toggle="tab">
+                            <strong>@Model.Categories[i].Name</strong>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        @*</div>*@
+    </nav>
+    <div class="tab-content">
+        @for (var i = 0; i < Model.Categories.Count; ++i)
+        {
+            <div class="tab-pane @(i == 0 ? "active" : "")" id="@Model.Categories[i].Id">
+                <div class="page-header">
+                    <h3>@Html.DisplayFor(m => m.Categories[i].Description)</h3>
+                </div>
+
+                @for (var j = 0; j < Model.Categories[i].MenuItems.Count; j += 4)
+                {
+
+                    <div class="row">
+                        @for (var k = 0; k < 4 && (j + k) < Model.Categories[i].MenuItems.Count; ++k)
+                        {
+                            <div class="col-md-3">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h2 class="panel-title">
+                                            @Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Name)
+
+                                        </h2>
+                                        <small>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Description)</small>
+                                    </div>
+                                    @*<div class="panel-body">*@
+                                    <div class="btn-group btn-group-justified">
+                                        <a class="btn btn-default" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
+                                        <a class="btn btn-default" role="button" id="@Model.Categories[i].MenuItems[j].RouteName">RC</a>
+                                    </div>
+                                    @*</div>*@
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="footer-brand">
+                <a class="rclink " href="@Model.UrlRcBase">
+                    <strong class="text-info"><span class="glyphicon glyphicon-pushpin"></span>  Release Candidates</strong>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="container">
     <ul class="nav nav-tabs nav-justified" role="tablist">
         @for (var i = 0; i < Model.Categories.Count; ++i)
         {
@@ -47,7 +124,7 @@
             <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
         </div>
     </div>
-</div>
+</div>*@
 
 @section script {
     <script type="text/javascript">

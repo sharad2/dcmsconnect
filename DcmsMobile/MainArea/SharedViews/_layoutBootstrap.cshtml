@@ -70,29 +70,30 @@
                     </div>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    @if (!ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@ViewContext.HttpContext.User.Identity.Name<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><strong> @ViewContext.HttpContext.User.Identity.Name</strong> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff})">Sign out</a>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff})"><span class="glyphicon glyphicon glyphicon-log-out"></span> Sign out</a>
                                 </li>
                                 <li>
-                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword})">Change Password</a>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword})"><span class="glyphicon glyphicon-wrench"></span> Change Password</a>
                                 </li>
                             </ul>
                         </li>
                     }
                     else
                     {
-                        <li><a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})" class="ui-btn ui-icon-user ui-btn-icon-left">Sign In</a></li>
+                        <li><a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})"><span class="glyphicon glyphicon glyphicon-log-in"></span><strong> Sign In</strong></a></li>
+
                     }
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})">Diagnostics</a></li>
-                            <li><a href="@Url.Content("~/trace.axd")" target="_trace">Trace Output</a></li>
+                            <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
+                            <li><a href="@Url.Content("~/trace.axd")" target="_trace"><span class ="glyphicon glyphicon-record"></span> Trace Output</a></li>
                         </ul>
                     </li>
                 </ul>
