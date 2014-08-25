@@ -309,10 +309,19 @@ namespace EclipseLibrary.Oracle.Helpers
             {
                 obj = _values[_reader.GetOrdinal(fieldName)];
             }
+#if DEBUG
             catch (IndexOutOfRangeException ex)
             {
+                // Reraise the exception with a clearer message
                 throw new IndexOutOfRangeException(fieldName, ex);
             }
+#else
+            catch (IndexOutOfRangeException)
+            {
+                // Eat the exception to prevent the application from crashing because some column was dropped.
+                obj = null;
+            }
+#endif
             if (obj == null)
             {
                 return default(T);
