@@ -177,7 +177,9 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <None Include="Areas\BoxPick\Scripts\BoxPick-all.js.bundle" />
+    <None Include="Areas\BoxPick\Scripts\BoxPick-all.js.bundle">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Areas\BoxPick\Scripts\BoxPick-all.min.js.map">
       <DependentUpon>BoxPick-all.js.bundle</DependentUpon>
     </Content>

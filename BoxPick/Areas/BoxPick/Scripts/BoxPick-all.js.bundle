@@ -10,7 +10,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>Areas/BoxPick/Scripts/session.partial.js</file>
-    <file>Areas/BoxPick/Scripts/scan.partial.js</file>
+    <file>/Areas/BoxPick/Scripts/session.partial.js</file>
+    <file>/Areas/BoxPick/Scripts/scan.partial.js</file>
   </files>
 </bundle>
