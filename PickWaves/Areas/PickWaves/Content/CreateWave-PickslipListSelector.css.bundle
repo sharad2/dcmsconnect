@@ -12,8 +12,8 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>Areas/PickWaves/Content/BucketModel-Display.partial.css</file>
-    <file>Areas/PickWaves/Content/Home-CustomerSummary.css</file>
-    <file>Areas/PickWaves/Content/CreateWave-PickslipListSelector.partial.css</file>
+    <file>/Areas/PickWaves/Content/BucketModel-Display.partial.css</file>
+    <file>/Areas/PickWaves/Content/Home-CustomerSummary.css</file>
+    <file>/Areas/PickWaves/Content/CreateWave-PickslipListSelector.partial.css</file>
   </files>
 </bundle>
