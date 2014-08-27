@@ -55,7 +55,7 @@
                                     @*<div class="panel-body">*@
                                     <div class="btn-group btn-group-justified">
                                         <a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
-                                        <a class="btn btn-default" role="button" id="@Model.Categories[i].MenuItems[j].RouteName"><span class="glyphicon glyphicon-comment"></span> RC</a>
+                                        <a class="btn hidden" role="button" id="@Model.Categories[i].MenuItems[j].RouteName"><span class="glyphicon glyphicon-comment text-info"></span> RC</a>
                                     </div>
                                     @*</div>*@
                                 </div>
@@ -71,8 +71,8 @@
     <div class="row">
         <div class="col-xs-12">
             <span class="footer-brand">
-                <a class="rclink " href="@Model.UrlRcBase">
-                    <strong class="text-info"><span class="glyphicon glyphicon-pushpin"></span>  Release Candidates</strong>
+                <a class="rclink btn btn-link" href="@Model.UrlRcBase">
+                    <span class="glyphicon glyphicon-comment"></span>  <span id="rclinkText"></span>Release Candidates
                 </a>
             </span>
         </div>
