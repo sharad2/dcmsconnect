@@ -375,13 +375,6 @@
     <Content Include="Content\jquery.mobile.structure-1.4.2.min.css" />
     <Content Include="Content\jquery.mobile.theme-1.4.2.css" />
     <Content Include="Content\jquery.mobile.theme-1.4.2.min.css" />
-    <Content Include="Content\rmm-css\responsivemobilemenu.css" />
-    <Content Include="Content\rmm-css\responsivemobilemenu.min.css">
-      <DependentUpon>responsivemobilemenu.css</DependentUpon>
-    </Content>
-    <Content Include="Content\rmm-img\graphite-menu-bg-hover.png" />
-    <Content Include="Content\rmm-img\graphite-menu-bg.png" />
-    <Content Include="Content\rmm-img\sapphire-menu-bg.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -400,7 +393,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
-    <Content Include="Scripts\rmm-js\responsivemobilemenu.js" />
     <Content Include="Content\themes\Readme.txt" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
     <Content Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
@@ -442,9 +434,6 @@
     <None Include="Doc\Steps to publish a pluggable app.txt" />
     <Content Include="Doc\Features.txt" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\rmm-js\responsivemobilemenu.min.js">
-      <DependentUpon>responsivemobilemenu.js</DependentUpon>
-    </Content>
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
     <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />

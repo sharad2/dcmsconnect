@@ -76,15 +76,7 @@ namespace Links_DcmsMobile
                 public static readonly string jquery_mobile_1_4_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.js") ? Url("jquery.mobile-1.4.2.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.min.js") : Url("jquery.mobile-1.4.2.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.js");
                 public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.min.js") : Url("jquery.validate.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.js");
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class rmm_js {
-            private const string URLPATH = "~/Scripts/rmm-js";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string responsivemobilemenu_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsivemobilemenu.min.js") ? Url("responsivemobilemenu.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.min.js") : Url("responsivemobilemenu.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.js");
-                    }
-    
-    }
+                }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
@@ -133,22 +125,6 @@ namespace Links_DcmsMobile
              
         public static readonly string jquery_mobile_theme_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.theme-1.4.2.min.css") ? Url("jquery.mobile.theme-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.theme-1.4.2.min.css") : Url("jquery.mobile.theme-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.theme-1.4.2.css");
              
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class rmm_css {
-            private const string URLPATH = "~/Content/rmm-css";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string responsivemobilemenu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/responsivemobilemenu.min.css") ? Url("responsivemobilemenu.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.min.css") : Url("responsivemobilemenu.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/responsivemobilemenu.css");
-                 
-        }
-    
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class rmm_img {
-            private const string URLPATH = "~/Content/rmm-img";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        }
-    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Sounds {
             private const string URLPATH = "~/Content/Sounds";
