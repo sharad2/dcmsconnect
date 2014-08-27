@@ -12,8 +12,8 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>Areas/CartonAreas/Content/Autocomplete.partial.css</file>
-    <file>Areas/CartonAreas/Content/CartonAreas.partial.css</file>
-    <file>Areas/CartonAreas/Content/standardized.partial.css</file>
+    <file>/Areas/CartonAreas/Content/Autocomplete.partial.css</file>
+    <file>/Areas/CartonAreas/Content/CartonAreas.partial.css</file>
+    <file>/Areas/CartonAreas/Content/standardized.partial.css</file>
   </files>
 </bundle>
