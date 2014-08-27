@@ -21,11 +21,6 @@ $(document).ready(function () {
     }).done(function (data, textStatus, jqXHR) {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
-        alert('done');
-        //$('#rcSiteLink').find('.progress').addClass('hidden')
-        //    .end()
-        //    .find('> a').removeClass('hidden')
-        //    .find('#rclinkText').text(data.length);
 
         // Show the rc link against each menu items
         // $('a.rclink').show().find('span').text('(' + data.length + ')');
@@ -44,8 +39,6 @@ $(document).ready(function () {
             .addClass('progress-bar-warning')
             .removeClass('progress-bar-striped active')
             .find(' > span').text('Contact failed with error ' + jqXHR.status);
-        //$('a.rclink span').text('Contact failed with error ' + jqXHR.status)
-        //    .addClass('validation-summary-errors');
     });
 });
 

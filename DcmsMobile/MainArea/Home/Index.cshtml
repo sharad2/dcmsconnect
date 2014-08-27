@@ -66,7 +66,7 @@
                                         <a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
                                         @if (!Model.IsRcSite)
                                         {
-                                            <a class="btn hidden" role="button" id="@Model.Categories[i].MenuItems[j].RouteName"><span class="glyphicon glyphicon-comment text-info"></span> RC</a>
+                                            <a class="btn hidden" role="button" id="@Model.Categories[i].MenuItems[j + k].RouteName"><span class="glyphicon glyphicon-comment text-info"></span> RC</a>
                                         }
                                     </div>
                                     @*</div>*@

@@ -44,6 +44,33 @@ namespace DcmsMobile.MainArea.Home
         /// <returns></returns>
         public virtual ActionResult Index()
         {
+
+
+            // If we are the RC site, then our RC URL is null. This turns off all RC handling in the view.
+            var isRc = HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
+            if (isRc)
+            {
+                HttpContext.Trace.Write("RC", string.Format("This is an RC site. All RC links will be invisible", isRc));
+            }
+            else
+            {
+                HttpContext.Trace.Write("RC", string.Format("This is a production site. RC links will be invisible", isRc));
+            }
+
+
+            var model = new LauncherViewModel
+            {
+                UrlRcBase = UrlRcBase,
+                //Categories = query.Where(p => p.MenuItems.Count > 0).ToArray(),
+                Categories = CreateMenuCategories().ToList(),
+                IsRcSite = !isRc
+            };
+
+            return View(this.Views.ViewNames.Index, model);
+        }
+
+        private IEnumerable<MenuCategoryModel> CreateMenuCategories()
+        {
             var query = from cat in this.MenuCategories
                         orderby cat.Sequence ?? 10000
                         select new MenuCategoryModel
@@ -67,26 +94,7 @@ namespace DcmsMobile.MainArea.Home
                                          }).ToArray()
                         };
 
-            // If we are the RC site, then our RC URL is null. This turns off all RC handling in the view.
-            var isRc = HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
-            if (isRc)
-            {
-                HttpContext.Trace.Write("RC", string.Format("This is an RC site. All RC links will be invisible", isRc));
-            }
-            else
-            {
-                HttpContext.Trace.Write("RC", string.Format("This is a production site. RC links will be invisible", isRc));
-            }
-            
-
-            var model = new LauncherViewModel
-            {
-                UrlRcBase = UrlRcBase,
-                Categories = query.Where(p => p.MenuItems.Count > 0).ToArray(),
-                IsRcSite = !isRc
-            };
-
-            return View(this.Views.ViewNames.Index, model);
+            return query.Where(p => p.MenuItems.Count > 0);
         }
 
         /// <summary>
@@ -95,7 +103,7 @@ namespace DcmsMobile.MainArea.Home
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("search", Name="DcmsMobile_Search")]
+        [Route("search", Name = "DcmsMobile_Search")]
         public virtual ActionResult Search(string id)
         {
             if (!string.IsNullOrWhiteSpace(id))
@@ -137,13 +145,12 @@ namespace DcmsMobile.MainArea.Home
             {
                 throw new NotSupportedException("Only version 1 is supported");
             }
-            var query = from item in MenuLinks
-                        where Url.RouteCollection[item.RouteName] != null
-                        select new
-                        {
-                            route = item.RouteName,
-                            url = Url.RouteUrl(item.RouteName)
-                        };
+
+            var query = CreateMenuCategories().SelectMany(p => p.MenuItems).Select(p => new
+            {
+                route = p.RouteName,
+                url = Url.RouteUrl(p.RouteName)
+            });
 
             var sb = new StringBuilder(Request["callback"]);
             sb.Append("(");
