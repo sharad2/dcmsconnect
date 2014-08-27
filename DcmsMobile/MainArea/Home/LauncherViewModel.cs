@@ -43,7 +43,7 @@ namespace DcmsMobile.MainArea.Home
     public class LauncherViewModel
     {
         /// <summary>
-        /// Base URL of the RC site
+        /// Base URL of the RC site.
         /// </summary>
         public string UrlRcBase
         {
@@ -52,6 +52,8 @@ namespace DcmsMobile.MainArea.Home
         }
 
         public IList<MenuCategoryModel> Categories { get; internal set; }
+
+        public bool IsRcSite { get; set; }
 
     }
 

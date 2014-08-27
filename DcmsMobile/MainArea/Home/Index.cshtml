@@ -1,9 +1,20 @@
 ﻿@model DcmsMobile.MainArea.Home.LauncherViewModel
 @{
     Layout = @MVC_DcmsMobile.SharedViews.Views._layoutBootstrap;
+    ViewBag.Title = "DCMS Connect Home";
 }
 
 <div class="container">
+    <div class="page-header">
+
+        <h1>
+            @ViewBag.Title
+            @if (Model.IsRcSite)
+            {
+                <small>Release Candidates</small>
+            }
+        </h1>
+    </div>
     <nav class="navbar" role="navigation">
         @*<div class="container-fluid">*@
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -27,7 +38,6 @@
                 }
             </ul>
         </div>
-        @*</div>*@
     </nav>
     <div class="tab-content">
         @for (var i = 0; i < Model.Categories.Count; ++i)
@@ -39,7 +49,6 @@
 
                 @for (var j = 0; j < Model.Categories[i].MenuItems.Count; j += 4)
                 {
-
                     <div class="row">
                         @for (var k = 0; k < 4 && (j + k) < Model.Categories[i].MenuItems.Count; ++k)
                         {
@@ -55,7 +64,10 @@
                                     @*<div class="panel-body">*@
                                     <div class="btn-group btn-group-justified">
                                         <a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
-                                        <a class="btn hidden" role="button" id="@Model.Categories[i].MenuItems[j].RouteName"><span class="glyphicon glyphicon-comment text-info"></span> RC</a>
+                                        @if (!Model.IsRcSite)
+                                        {
+                                            <a class="btn hidden" role="button" id="@Model.Categories[i].MenuItems[j].RouteName"><span class="glyphicon glyphicon-comment text-info"></span> RC</a>
+                                        }
                                     </div>
                                     @*</div>*@
                                 </div>
@@ -64,72 +76,76 @@
                         }
                     </div>
                 }
-
             </div>
         }
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <span class="footer-brand">
-                <a class="rclink btn btn-link" href="@Model.UrlRcBase">
-                    <span class="glyphicon glyphicon-comment"></span>  <span id="rclinkText"></span>Release Candidates
-                </a>
-            </span>
+
+    <div id="rcSiteLink">
+        <div class="progress hidden">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span>Contacting RC Site</span>
+            </div>
         </div>
+        <a href="@Model.UrlRcBase" class="hidden">
+            <span class="glyphicon glyphicon-comment"></span>  <span id="rclinkText"></span> Release Candidates Available
+        </a>
     </div>
 </div>
 
 
 
 @*<div class="container">
-    <ul class="nav nav-tabs nav-justified" role="tablist">
-        @for (var i = 0; i < Model.Categories.Count; ++i)
-        {
-            <li class="@(i == 0 ? "active" : (string)null)"><a href="#@Model.Categories[i].Id" role="tab" data-toggle="tab">@Model.Categories[i].Name</a></li>
-        }
-    </ul>
+        <ul class="nav nav-tabs nav-justified" role="tablist">
+            @for (var i = 0; i < Model.Categories.Count; ++i)
+            {
+                <li class="@(i == 0 ? "active" : (string)null)"><a href="#@Model.Categories[i].Id" role="tab" data-toggle="tab">@Model.Categories[i].Name</a></li>
+            }
+        </ul>
 
-    <div class="tab-content">
-        @for (var i = 0; i < Model.Categories.Count; ++i)
-        {
-            <div class="tab-pane @(i == 0 ? "active" : "")" id="@Model.Categories[i].Id">
-                <div class="page-header">
-                    <h3>@Html.DisplayFor(m => m.Categories[i].Description)</h3>
-                </div>
+        <div class="tab-content">
+            @for (var i = 0; i < Model.Categories.Count; ++i)
+            {
+                <div class="tab-pane @(i == 0 ? "active" : "")" id="@Model.Categories[i].Id">
+                    <div class="page-header">
+                        <h3>@Html.DisplayFor(m => m.Categories[i].Description)</h3>
+                    </div>
 
-                @for (var j = 0; j < Model.Categories[i].MenuItems.Count; j += 4)
-                {
-                    <div class="row">
-                        @for (var k = 0; k < 4 && (j + k) < Model.Categories[i].MenuItems.Count; ++k)
-                        {
-                            <div class="thumbnail col-md-3">
-                                <div class="caption">
-                                    <h3>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Name)</h3>
-                                    <p>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Description)</p>
-                                    <div class="btn-group">
-                                        <a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
-                                        <a class="btn btn-default invisible" role="button" id="@Model.Categories[i].MenuItems[j].RouteName">RC</a>
+                    @for (var j = 0; j < Model.Categories[i].MenuItems.Count; j += 4)
+                    {
+                        <div class="row">
+                            @for (var k = 0; k < 4 && (j + k) < Model.Categories[i].MenuItems.Count; ++k)
+                            {
+                                <div class="thumbnail col-md-3">
+                                    <div class="caption">
+                                        <h3>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Name)</h3>
+                                        <p>@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].Description)</p>
+                                        <div class="btn-group">
+                                            <a class="btn btn-primary" role="button" href="@Model.Categories[i].MenuItems[j + k].Url">@Html.DisplayFor(m => m.Categories[i].MenuItems[j + k].ShortCut) </a>
+                                            <a class="btn btn-default invisible" role="button" id="@Model.Categories[i].MenuItems[j].RouteName">RC</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
-                    </div>
-                }
+                            }
+                        </div>
+                    }
 
-            </div>
-        }
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
+                </div>
+            }
         </div>
-    </div>
-</div>*@
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="rclink" href="@Model.UrlRcBase">Release Candidates <span></span></a>
+            </div>
+        </div>
+    </div>*@
 
 @section script {
-    <script type="text/javascript">
-        var _rcBaseUrl = '@Model.UrlRcBase';
-        var _rcItemsUrl = '@Url.Action(MVC_DcmsMobile.Home.RcItems(1))';
-    </script>
-    <script src="@Links_DcmsMobile.MainArea.Home.Index_js" type="text/javascript"></script>
+    @if (!Model.IsRcSite)
+    {
+        <script type="text/javascript">
+            var _rcBaseUrl = '@Model.UrlRcBase';
+            var _rcItemsUrl = '@Url.Action(MVC_DcmsMobile.Home.RcItems(1))';
+        </script>
+        <script src="@Links_DcmsMobile.MainArea.Home.Index_js" type="text/javascript"></script>
+    }
 }

@@ -16,12 +16,12 @@
     var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.1.1.js") : Url.Content("~/Scripts/jquery-2.1.1.min.js");
     var url_bootstrap_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/bootstrap.js") : Url.Content("~/Scripts/bootstrap.min.js");
 
-    var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
+    //var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
     var messages = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.StatusMessages(Html);
     var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
 
     // We are the RC site if our URL is specified in web.config
-    var isRc = !string.IsNullOrWhiteSpace(urlRcBase) && ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(urlRcBase, StringComparison.InvariantCultureIgnoreCase);
+    //var isRc = !string.IsNullOrWhiteSpace(urlRcBase) && ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(urlRcBase, StringComparison.InvariantCultureIgnoreCase);
 }
 @helper PublicUrl(string[] routeNames)
 {

@@ -69,11 +69,21 @@ namespace DcmsMobile.MainArea.Home
 
             // If we are the RC site, then our RC URL is null. This turns off all RC handling in the view.
             var isRc = HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
+            if (isRc)
+            {
+                HttpContext.Trace.Write("RC", string.Format("This is an RC site. All RC links will be invisible", isRc));
+            }
+            else
+            {
+                HttpContext.Trace.Write("RC", string.Format("This is a production site. RC links will be invisible", isRc));
+            }
+            
 
             var model = new LauncherViewModel
             {
-                UrlRcBase = isRc ? string.Empty : UrlRcBase,
-                Categories = query.Where(p => p.MenuItems.Count > 0).ToArray()
+                UrlRcBase = UrlRcBase,
+                Categories = query.Where(p => p.MenuItems.Count > 0).ToArray(),
+                IsRcSite = !isRc
             };
 
             return View(this.Views.ViewNames.Index, model);
@@ -140,6 +150,7 @@ namespace DcmsMobile.MainArea.Home
             var ser = new JavaScriptSerializer();
             ser.Serialize(query, sb);
             sb.Append(")");
+            HttpContext.Trace.Write("RcItems", sb.ToString());
             return new ContentResult
             {
                 Content = sb.ToString(),

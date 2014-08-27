@@ -12,25 +12,41 @@ $(document).ready(function () {
         // No RC URL specified. Nothing to do
         return;
     }
-   
-    $('#rclinkText').text('Contacting...');
-    return;
+
+    //$('#rclinkText').text('Contacting...');
+    $('#rcSiteLink .progress').removeClass('hidden');
     $.ajax(_rcBaseUrl + _rcItemsUrl, {
         dataType: 'jsonp',
         crossDomain: true
     }).done(function (data, textStatus, jqXHR) {
         // The call to RC was successful. Show the RC link at the bottom of the page
         // data is an array of {route: "DCMSConnect_App1", url: "/Inquiry/Home/Index"}
+        alert('done');
+        //$('#rcSiteLink').find('.progress').addClass('hidden')
+        //    .end()
+        //    .find('> a').removeClass('hidden')
+        //    .find('#rclinkText').text(data.length);
+
         // Show the rc link against each menu items
-        $('a.rclink').show().find('span').text('(' + data.length + ')');
+        // $('a.rclink').show().find('span').text('(' + data.length + ')');
+        var count = 0;
         $.each(data, function (e, ui) {
-            $('#' + ui.route).attr('href', _rcBaseUrl + this.url).removeClass('invisible');
+            count += $('#' + ui.route).attr('href', _rcBaseUrl + this.url).removeClass('hidden').length;
         });
+
+        $('#rcSiteLink').find('.progress').addClass('hidden')
+            .end()
+            .find('> a').removeClass('hidden')
+            .find('#rclinkText').text(count);
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        // TODO: Show error on RC button
-        $('a.rclink span').text('Contact failed with error ' + jqXHR.status)
-            .addClass('validation-summary-errors');
-    });     
+        // Indicate that contact with RC site has failed
+        $('#rcSiteLink .progress-bar')
+            .addClass('progress-bar-warning')
+            .removeClass('progress-bar-striped active')
+            .find(' > span').text('Contact failed with error ' + jqXHR.status);
+        //$('a.rclink span').text('Contact failed with error ' + jqXHR.status)
+        //    .addClass('validation-summary-errors');
+    });
 });
 
 
