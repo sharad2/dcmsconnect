@@ -231,7 +231,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Areas\Shipping\Content\Appointment.css.bundle" />
-    <None Include="Areas\Shipping\Content\Shipping-all.css.bundle" />
+    <None Include="Areas\Shipping\Content\Shipping-all.css.bundle">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Areas\Shipping\Content\Shipping-mobile-all.css.bundle" />
     <None Include="Areas\Shipping\Scripts\Bol.js.bundle" />
     <Content Include="Areas\Shipping\Scripts\Bol.min.js.map">
