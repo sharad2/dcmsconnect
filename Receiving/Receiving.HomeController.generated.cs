@@ -110,12 +110,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult SpotCheckAreaList()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CloseShipment()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CloseShipment);
@@ -153,7 +147,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string PrintCarton = "PrintCarton";
             public readonly string GetPrinters = "GetPrinters";
             public readonly string NonpalletizedCartons = "NonpalletizedCartons";
-            public readonly string SpotCheckAreaList = "SpotCheckAreaList";
             public readonly string ShipmentList = "ShipmentList";
             public readonly string CloseShipment = "CloseShipment";
             public readonly string ReOpenShipment = "ReOpenShipment";
@@ -173,7 +166,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string PrintCarton = "PrintCarton";
             public const string GetPrinters = "GetPrinters";
             public const string NonpalletizedCartons = "NonpalletizedCartons";
-            public const string SpotCheckAreaList = "SpotCheckAreaList";
             public const string ShipmentList = "ShipmentList";
             public const string CloseShipment = "CloseShipment";
             public const string ReOpenShipment = "ReOpenShipment";
@@ -253,14 +245,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public class ActionParamsClass_NonpalletizedCartons
         {
             public readonly string processId = "processId";
-        }
-        static readonly ActionParamsClass_SpotCheckAreaList s_params_SpotCheckAreaList = new ActionParamsClass_SpotCheckAreaList();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SpotCheckAreaList SpotCheckAreaListParams { get { return s_params_SpotCheckAreaList; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SpotCheckAreaList
-        {
-            public readonly string areaId = "areaId";
         }
         static readonly ActionParamsClass_CloseShipment s_params_CloseShipment = new ActionParamsClass_CloseShipment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -448,18 +432,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
             NonpalletizedCartonsOverride(callInfo, processId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SpotCheckAreaListOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string areaId);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult SpotCheckAreaList(string areaId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.SpotCheckAreaList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "areaId", areaId);
-            SpotCheckAreaListOverride(callInfo, areaId);
             return callInfo;
         }
 

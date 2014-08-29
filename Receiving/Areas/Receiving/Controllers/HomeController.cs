@@ -804,43 +804,43 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
         }
 
-        /// <summary>
-        /// Populate SpotCheck area drop down based on selection in Receiving area drop down.
-        /// </summary>
-        /// <param name="areaId">Selected receiving area</param>
-        /// <returns></returns>
-        public virtual JsonResult SpotCheckAreaList(string areaId)
-        {
-            IEnumerable<CartonArea> selectedAreas;
-            var cartonAreas = _service.GetCartonAreas().Where(p => !p.IsNumberedArea).ToArray();
-            // There's no spot check area defined ,show all areas
-            if (cartonAreas.All(p => !p.IsSpotCheckArea))
-            {
-                var data = cartonAreas.Select(Map);
-                return Json(data, JsonRequestBehavior.AllowGet);
-            }
-            var building = cartonAreas.Where(p => p.AreaId == areaId).Select(p => p.BuildingId).FirstOrDefault();
+        ///// <summary>
+        ///// Populate SpotCheck area drop down based on selection in Receiving area drop down.
+        ///// </summary>
+        ///// <param name="areaId">Selected receiving area</param>
+        ///// <returns></returns>
+        //public virtual JsonResult SpotCheckAreaList(string areaId)
+        //{
+        //    IEnumerable<CartonArea> selectedAreas;
+        //    var cartonAreas = _service.GetCartonAreas().Where(p => !p.IsNumberedArea).ToArray();
+        //    // There's no spot check area defined ,show all areas
+        //    if (cartonAreas.All(p => !p.IsSpotCheckArea))
+        //    {
+        //        var data = cartonAreas.Select(Map);
+        //        return Json(data, JsonRequestBehavior.AllowGet);
+        //    }
+        //    var building = cartonAreas.Where(p => p.AreaId == areaId).Select(p => p.BuildingId).FirstOrDefault();
 
-            // Selected receiving area has building
-            if (!string.IsNullOrWhiteSpace(building))
-            {
-                // Get spotcheck area of building
-                selectedAreas = cartonAreas.Where(p => p.BuildingId == building && p.IsSpotCheckArea).ToList();
-                // if building has no spotCheck area defined, show all areas
-                if (!selectedAreas.Any())
-                {
+        //    // Selected receiving area has building
+        //    if (!string.IsNullOrWhiteSpace(building))
+        //    {
+        //        // Get spotcheck area of building
+        //        selectedAreas = cartonAreas.Where(p => p.BuildingId == building && p.IsSpotCheckArea).ToList();
+        //        // if building has no spotCheck area defined, show all areas
+        //        if (!selectedAreas.Any())
+        //        {
 
-                    selectedAreas = cartonAreas;
-                }
-            }
-            //if selected receiving area has no building ,show all areas
-            else
-            {
-                selectedAreas = cartonAreas;
-            }
-            var data1 = selectedAreas.Select(Map);
-            return Json(data1, JsonRequestBehavior.AllowGet);
-        }
+        //            selectedAreas = cartonAreas;
+        //        }
+        //    }
+        //    //if selected receiving area has no building ,show all areas
+        //    else
+        //    {
+        //        selectedAreas = cartonAreas;
+        //    }
+        //    var data1 = selectedAreas.Select(Map);
+        //    return Json(data1, JsonRequestBehavior.AllowGet);
+        //}
 
         /// <summary>
         /// Get the shipment list

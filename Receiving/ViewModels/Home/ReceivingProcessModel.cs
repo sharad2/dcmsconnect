@@ -118,7 +118,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// <summary>
         /// The  number of cartons that can be received in a pallet in current process.
         /// </summary>
-        [Display(Name = "Pallet Limit")]
+        [Display(Name = "Max Cartons Per Pallet")]
         public int? PalletLimit { get; set; }
 
         [Display(Name = "Receive in")]
