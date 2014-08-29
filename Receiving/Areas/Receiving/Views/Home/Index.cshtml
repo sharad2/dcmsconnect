@@ -5,66 +5,54 @@
 @model DcmsMobile.Receiving.ViewModels.Home.IndexViewModel
 @{
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
-}
-@section script {
-    <style type="text/css">
-        .controlgroup-textinput {
-            padding-top: .22em;
-            padding-bottom: .22em;
-        }
-    </style>
+    ViewBag.Title = "Receiving Home";
 }
 
 <div class="container">
-    <form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
-        <div class="form-group">
-            <div class="input-group">
-                <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
-                       class="form-control" autofocus />
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
+    <div class="page-header">
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div class="well well-sm">
+        <p>To begin receivng, Select or Create a Receiving Process</p>
+        <form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
+                           class="form-control" autofocus />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
             </div>
-        </div>
-        <div class="btn-group">
-            <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create</a>
-            <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Open Shipments</a>
-        </div>
-    </form>
+            <div class="btn-group">
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create</a>
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Open Shipments</a>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="list-group">
+        @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
+        {
+            <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))" class="list-group-item">
+                <span class="badge ">
+                    @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
+                    ctn on @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
+                </span>
+
+                <h4 class="list-group-item-heading">@Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) <small>by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</small></h4>
+                <p class="pull-right label label-info list-group-item-text" style="font-size:1.05em">
+                    Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)
+                </p>
+                <p class="list-group-item-text">
+
+                    PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate) <mark>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</mark>
+                </p>
+
+            </a>
+        }
+    </div>
 </div>
 
-<div data-role="page">
-    <div data-role="header">
-        <h1>Receving-Home</h1>
-    </div>
-    <div class="ui-content">
-        @using (Html.BeginForm(MVC_Receiving.Receiving.Home.Receiving(), FormMethod.Get))
-        {
-            <fieldset data-role="controlgroup" data-type="horizontal">
-                <legend>Select Process</legend>
-                <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
-                       data-wrapper-class="controlgroup-textinput ui-btn" autofocus />
-                <button>Submit</button>
-                <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-left">Create</a>
-                <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right">Open Shipments</a>
-            </fieldset>
-        }
-        <ul data-role="listview" data-inset="true" data-filter="true" data-input="#search">
-            @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
-            {
-                <li data-filtertext="@Model.RecentProcesses[i].ProcessId">
-                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">
-                        <h3><em>@(i + 1).</em> @Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</h3>
-                        <p><strong>PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate)</strong></p>
-                        <p class="ui-li-aside">Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)</em></p>
-                        <p>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</p>
-                        <span class="ui-li-count">
-                            @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
-                            ctn @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
-                        </span>
-                    </a>
-                </li>
-            }
-        </ul>
-    </div>
-</div>
+
