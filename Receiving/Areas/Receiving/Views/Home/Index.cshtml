@@ -1,5 +1,5 @@
 ﻿@*    Contract:
-     1. data-autocomplete-url: Needed for attaching auto complete on Carrier.
+    1. data-autocomplete-url: Needed for attaching auto complete on Carrier.
 *@
 
 @model DcmsMobile.Receiving.ViewModels.Home.IndexViewModel
@@ -15,38 +15,56 @@
     </style>
 }
 
+<div class="container">
+    <form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
+                       class="form-control" autofocus />
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
+        </div>
+        <div class="btn-group">
+            <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Create</a>
+            <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Open Shipments</a>
+        </div>
+    </form>
+</div>
+
 <div data-role="page">
     <div data-role="header">
         <h1>Receving-Home</h1>
-        </div>
-        <div class="ui-content">
-            @using (Html.BeginForm(MVC_Receiving.Receiving.Home.Receiving(), FormMethod.Get))
-            {
-                <fieldset data-role="controlgroup" data-type="horizontal">
-                    <legend>Select Process</legend>                   
-                    <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
-                           data-wrapper-class="controlgroup-textinput ui-btn" autofocus />
-                    <button>Submit</button>
-                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-left">Create</a>
-                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right">Open Shipments</a>
-                </fieldset>
-            }
-            <ul data-role="listview" data-inset="true" data-filter="true" data-input="#search">
-                @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
-                {
-                    <li data-filtertext="@Model.RecentProcesses[i].ProcessId">
-                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">
-                            <h3><em>@(i + 1).</em> @Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</h3>
-                            <p><strong>PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate)</strong></p>
-                            <p class="ui-li-aside">Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)</em></p>
-                            <p>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</p>
-                            <span class="ui-li-count">
-                                @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
-                                ctn @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
-                            </span>
-                        </a>
-                    </li>
-                }
-            </ul>
-        </div>
     </div>
+    <div class="ui-content">
+        @using (Html.BeginForm(MVC_Receiving.Receiving.Home.Receiving(), FormMethod.Get))
+        {
+            <fieldset data-role="controlgroup" data-type="horizontal">
+                <legend>Select Process</legend>
+                <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
+                       data-wrapper-class="controlgroup-textinput ui-btn" autofocus />
+                <button>Submit</button>
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="ui-btn ui-corner-all ui-icon-plus ui-btn-icon-left">Create</a>
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right">Open Shipments</a>
+            </fieldset>
+        }
+        <ul data-role="listview" data-inset="true" data-filter="true" data-input="#search">
+            @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
+            {
+                <li data-filtertext="@Model.RecentProcesses[i].ProcessId">
+                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">
+                        <h3><em>@(i + 1).</em> @Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</h3>
+                        <p><strong>PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate)</strong></p>
+                        <p class="ui-li-aside">Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) <em>@Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)</em></p>
+                        <p>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</p>
+                        <span class="ui-li-count">
+                            @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
+                            ctn @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
+                        </span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
