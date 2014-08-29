@@ -97,7 +97,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\ReceivingAreaRegistration.cs" />
     <Compile Include="Areas\Receiving\Controllers\AutoCompleteController.cs" />
     <Compile Include="Areas\Receiving\Controllers\HomeController.cs" />
     <Compile Include="Areas\Receiving\Controllers\RadController.cs" />
