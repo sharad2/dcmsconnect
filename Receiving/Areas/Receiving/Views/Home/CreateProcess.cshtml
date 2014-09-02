@@ -146,14 +146,14 @@
     <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('input:submit').button();
+            @*$('input:submit').button();
             $("#tbProDate").datepicker({
                 showOn: "button",
                 buttonImage: '@Links_Receiving.Areas.Receiving.Content.images.calendar_gif',
                 buttonImageOnly: true,
                 dateFormat: 'm/d/yy',
                 onSelect: function () { this.focus(); }
-            });
+            });*@
 
             // Select SpotCheck area based on the selection of receiving area.
             $('#ddlReceivingArea').change(function () {
