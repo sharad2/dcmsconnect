@@ -32,6 +32,10 @@ Release Candidates to make it clear that this is the RC site.
 Feature Folder Support
 ----------------------
 
+It is recommended that you organize view files using the feature folder pattern. To serve images from view folders, see
+http://stackoverflow.com/questions/604883/where-to-put-view-specific-javascript-files-in-an-asp-net-mvc-application
+
+
 
 Pluggable Area Support
 ----------------------
