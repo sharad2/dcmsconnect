@@ -65,8 +65,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>..\packages\odp.net.managed.121.1.2\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -102,6 +102,7 @@
     <None Include="Doc\Ask Tom On Top-n and Pagination Queries.mht" />
     <None Include="Doc\EclipseLibrary.shfbproj" />
     <None Include="Doc\Regular Expression Based Token Replacement in ASP_NET.mht" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Doc\Oracle Security.txt" />

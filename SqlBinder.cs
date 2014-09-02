@@ -4,8 +4,8 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using EclipseLibrary.Oracle.Helpers;
-using Oracle.DataAccess.Client;
-using Oracle.DataAccess.Types;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace EclipseLibrary.Oracle
 {
