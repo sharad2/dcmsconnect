@@ -8,7 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using EclipseLibrary.Oracle.Extensions;
 using EclipseLibrary.Oracle.Helpers.XPath;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 
 namespace EclipseLibrary.Oracle.Helpers
 {

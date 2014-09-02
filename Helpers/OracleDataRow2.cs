@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Oracle.DataAccess.Client;
-using Oracle.DataAccess.Types;
+using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 
 namespace EclipseLibrary.Oracle.Helpers
 {
@@ -65,14 +65,16 @@ namespace EclipseLibrary.Oracle.Helpers
         /// </summary>
         /// <param name="fieldName"></param>
         /// <returns></returns>
+        [Obsolete("Use GetString instead")]
         public XElement GetXml(string fieldName)
         {
-            var val = GetValueAs<OracleXmlType>(fieldName);
-            if (val.IsNull)
-            {
-                return null;
-            }
-            return XElement.Parse(val.Value);
+            //var val = GetValueAs<OracleXmlType>(fieldName);
+            //if (val.IsNull)
+            //{
+            //    return null;
+            //}
+            //return XElement.Parse(val.Value);
+            throw new NotImplementedException();
         }
 
         public int? GetInteger(string fieldName)

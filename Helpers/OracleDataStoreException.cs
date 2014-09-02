@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Web.Management;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 
 namespace EclipseLibrary.Oracle.Helpers
 {

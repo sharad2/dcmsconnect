@@ -7,7 +7,7 @@ using System.Configuration.Provider;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 using EclipseLibrary.Oracle.Helpers;
 
 namespace EclipseLibrary.Oracle.Web.Security

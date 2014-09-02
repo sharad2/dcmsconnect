@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Authentication;
 using System.Web;
 using EclipseLibrary.Oracle.Helpers;
-using Oracle.DataAccess.Client;
+using Oracle.ManagedDataAccess.Client;
 using System.Text.RegularExpressions;
 
 namespace EclipseLibrary.Oracle
