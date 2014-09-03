@@ -72,9 +72,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EPPlus">
-      <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -484,10 +481,6 @@
     <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
       <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
       <Name>EclipseLibrary.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj">
-      <Project>{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}</Project>
-      <Name>EclipseLibrary.Oracle</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
