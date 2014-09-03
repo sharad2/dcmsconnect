@@ -58,6 +58,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </param>
         /// <returns></returns>
         [AllowAnonymous]
+        [Route("index")]
         public virtual ActionResult Index(IndexViewModel model)
         {
             if (!ModelState.IsValid)
@@ -88,6 +89,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [AllowAnonymous]
+        [Route("wave")]
         public virtual ActionResult Wave(WaveViewModel model)
         {
             var bucket = _service.GetBucket(model.Bucket.BucketId);
@@ -117,6 +119,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
+        [Route("editable")]
         public virtual ActionResult EditableWave(WaveViewModel model)
         {
             if (!ModelState.IsValid)
@@ -232,6 +235,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// For ease of debugging, prevent caching of the results
         /// </remarks>
         [AllowAnonymous]
+        [Route("wavesku")]
         public virtual ActionResult WaveSkus(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
         {
             var skuList = (from item in _service.GetBucketSkuList(bucketId, stateFilter, activityFilter)
@@ -307,6 +311,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         /// <remarks></remarks>     
         [AllowAnonymous]
+        [Route("waveboxes")]
         public virtual ActionResult WaveBoxes(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
         {
             var model = new WaveBoxListModel
@@ -341,6 +346,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="bucketId"></param>
         /// <returns></returns>
         [AllowAnonymous]
+        [Route("wavepickslip")]
         public virtual ActionResult WavePickslips(int bucketId)
         {
             var model = new WavePickslipsViewModel
@@ -372,6 +378,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("editwave")]
         public virtual ActionResult EditWave(WaveViewModel model)
         {
             if (!ModelState.IsValid)
@@ -506,6 +513,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="bucketId"></param>
         /// <returns>Returns the value of the updated priority</returns>
         [HttpPost]
+        [Route("priority")]
         public virtual ActionResult IncrementPriority(int bucketId)
         {
             var bucket = _service.IncrementPriority(bucketId);
@@ -518,6 +526,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="bucketId"></param>
         /// <returns>Returns the value of the updated priority</returns>
         [HttpPost]
+        [Route("decpriority")]
         public virtual ActionResult DecrementPriority(int bucketId)
         {
             var bucket = _service.DecrementPriority(bucketId);
@@ -532,6 +541,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="displayEditable">Whether we should redirect to ediateble wave or read only wave</param>
         /// <returns></returns>
         [HttpPost]
+        [Route("freeze")]
         public virtual ActionResult FreezeBucket(int bucketId, bool freeze, bool displayEditable = false)
         {
             try
@@ -571,6 +581,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="bucketId"></param>
         /// <param name="pickslipId"></param>
         /// <returns></returns>
+        [Route("removepsformbucket")]
         public virtual ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId)
         {
             try

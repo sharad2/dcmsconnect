@@ -181,6 +181,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// SelectedDimension,CustomerId
         /// </param>       
         /// <returns></returns>
+        [Route("index")]
         public virtual ActionResult Index(IndexViewModel model)
         {
             //Showing only those area where order of customer are available.
@@ -300,6 +301,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Need to refresh the pickslip list every time after wave creation. i.e [OutputCache(Duration = 0)]
         /// </remarks>
         [OutputCache(Duration = 0)]
+        [Route("refpickslipmatrix")]
         public virtual ActionResult RefreshPickslipMatrix(PickslipMatrixPartialViewModel model)
         {
             PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
@@ -319,6 +321,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </param>
         /// <returns></returns>
         [HttpPost]
+        [Route("pickslipofdim")]
         public virtual ActionResult AddPickslipsOfDim(IndexViewModel model, string viewPickslips)
         {
             if (model.ColDimVal != null || model.RowDimVal != null)
@@ -405,6 +408,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// model.CustomerId, model.RowDimIndex, model.ColDimIndex, model.RowDimVal, model.ColDimVal,model.BucketId
         /// </param
         /// <returns></returns>
+        [Route("picksliplst")]
         public virtual ActionResult PickslipList(PickslipListViewModel model)
         {
             if (string.IsNullOrEmpty(model.CustomerId))
@@ -445,6 +449,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"> </param>
         /// <returns></returns>
         [HttpPost]
+        [Route("pickslipbucket")]
         public virtual ActionResult AddPickslipsToBucket(PickslipListViewModel model)
         {
             if (model.BucketId == 0)

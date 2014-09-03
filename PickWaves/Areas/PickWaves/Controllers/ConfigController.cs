@@ -262,6 +262,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("skucase")]
         public virtual ActionResult SkuCaseAddPartial()
         {
 
@@ -444,6 +445,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
 
         [HttpPost]
+        [Route("updatecust")]
         public virtual ActionResult UpdateCustomerConstraints(string customerId, CustomerConstraintEditorModel constraints, int? activeTab)
         {
             //TC3: You will get here if required feild does not passed.
