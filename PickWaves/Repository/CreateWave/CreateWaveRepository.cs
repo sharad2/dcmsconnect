@@ -196,18 +196,23 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
                WHERE T.PS_STATUS_ID = 1
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
              <if>AND T.VWH_ID = :VWH_ID</if>)
-            SELECT *
+            SELECT PICKSLIP_DIMENSION, {3}, CAST(DIM_COL_XML AS VARCHAR2(4000)) AS DIM_COL_XML
               FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT,SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION
         ";
 
 
-            var array = new List<string>();
-            foreach (var item in dimMap)
-            {
-                array.Add(string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", item.Value.Item1, item.Key.ToString()));
-            }
-            var query = string.Format(QUERY, dimMap[col1].Item1, dimMap[col2].Item1, string.Join(", ", array));
+            //var array = new List<string>();
+            //foreach (var item in dimMap)
+            //{
+            //    array.Add(string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", item.Value.Item1, item.Key.ToString()));
+            //}
+            var query = string.Format(QUERY,
+                dimMap[col1].Item1,    //{0}
+                dimMap[col2].Item1,    //{1}
+                string.Join(", ", dimMap.Select(p => string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", p.Value.Item1, p.Key.ToString()))),    //{2}
+                string.Join(", ", dimMap.Select(p => p.Key.ToString()))    //{3}
+                );
             /* The value of query will look something like this
 WITH Q1 AS
  (SELECT t.PICKSLIP_ID,
@@ -251,7 +256,7 @@ SELECT *
                 return new
             {
                 RowValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                ColValues = MapOrderSummaryXml(row.GetXml("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
+                ColValues = MapOrderSummaryXml(row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
             };
             });
             binder.Parameter("CUSTOMER_ID", customerId)
@@ -291,8 +296,9 @@ SELECT *
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<object, CellValue> MapOrderSummaryXml(XElement xml, bool isColDate)
+        private IDictionary<object, CellValue> MapOrderSummaryXml(string data, bool isColDate)
         {
+            var xml = XElement.Parse(data);
             var query = (from item in xml.Elements("item")
                          let column = item.Elements("column")
                          select new
