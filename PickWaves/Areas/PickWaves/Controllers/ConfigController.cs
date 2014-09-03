@@ -10,6 +10,7 @@ using EclipseLibrary.Mvc.Controllers;
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
     [AuthorizeEx("Managing Pick Waves requires role {0}", Roles = ROLE_WAVE_MANAGER)]
+    [RoutePrefix("config")]
     public partial class ConfigController : PickWavesControllerBase
     {
         #region Intialization
@@ -85,6 +86,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         #endregion
 
         [AllowAnonymous]
+        [Route]
         public virtual ActionResult Index()
         {
             var skuCaseList = _service.GetSkuCaseList().ToArray();
@@ -114,6 +116,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="activeTab">Index of active tab</param>
         /// <returns></returns>
         [HttpPost]
+        [Route("delcaseconstraint")]
         public virtual ActionResult DeleteCustomerSkuCaseConstraint(string caseId, string customerId, int? activeTab)
         {
             try
@@ -136,6 +139,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="activeTab">Index of active tab</param>
         /// <returns></returns>
         [HttpPost]
+        [Route("addpref")]
         public virtual ActionResult AddCustomerSkuCasePreference(CustomerSkuCaseModel model, int? activeTab)
         {
             try
@@ -158,6 +162,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("updateskucase")]
         public virtual ActionResult AddOrUpdateSkuCase(SkuCaseModel model)
         {
             //TC1:You will get here if required feild not passed.
@@ -186,6 +191,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
+        [Route("skucase")]
         public virtual ActionResult SkuCase(int? activeTab)
         {
             var skuCases = _service.GetSkuCaseList().ToArray();
@@ -231,6 +237,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="skuCaseId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Route("skucaseeditor")]
         public virtual ActionResult GetSkuCaseEditor(string skuCaseId)
         {
             //TC3: If sku case does not passed. this will not come in normal user practise.
@@ -267,6 +274,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("prefeditor")]
         public virtual ActionResult CustSkuCasePreferenceEditor(string customerId)
         {
             var skuCaseList = _service.GetSkuCaseList();
@@ -287,6 +295,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="activeTab"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("delpackingrule")]
         public virtual ActionResult DelPackingRule(string style, string caseId, int? activeTab)
         {
             try
@@ -307,6 +316,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Route("addview")]
         public virtual ActionResult PackingRuleAddView(string style, string caseId, bool? ignoreFlag)
         {
             var skuCaseList = _service.GetSkuCaseList();
@@ -328,6 +338,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="activeTab"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("updaterule")]
         public virtual ActionResult AddPackingRule(PackingRulesModel model, int? activeTab)
         {
             //TC5: If required feild does not passed.
@@ -360,6 +371,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
+        [Route("constraint")]
         public virtual ActionResult Constraint(int? selectedTab)
         {
             var constraints = _service.GetDefaultConstraints();
@@ -395,6 +407,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        [Route("editview")]
         public virtual ActionResult CustomerConstraintEditView(string customerId)
         {
             //TC1: Invalid customer Id passed.
@@ -422,6 +435,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Add new customer and its constraint.
         /// </summary>
         /// <returns></returns>
+        [Route("addview")]
         public virtual ActionResult CustomerConstraintAddView()
         {
             var html = RenderPartialViewToString(Views._addCustomerConstraintPartial, new CustomerConstraintEditorModel());

@@ -11,8 +11,7 @@ using EclipseLibrary.Mvc.Controllers;
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
     [AuthorizeEx("Create pallet requires role {0}", Roles = ROLE_EXPEDITE_BOXES)]
-    [RouteArea("PickWaves")]
-    [RoutePrefix(BoxPickPalletController.NameConst)]
+    [RoutePrefix("pallet")]
     public partial class BoxPickPalletController : PickWavesControllerBase
     {
 
@@ -64,7 +63,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        [Route(BoxPickPalletController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_BoxPickPallet)]
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_BoxPickPallet)]
         public virtual ActionResult Index(int? bucketId)
         {
             var model = new BoxPickPalletViewModel();
@@ -111,6 +110,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("create")]
         public virtual ActionResult CreatePallet(BoxPickPalletViewModel model)
         {
             model.PalletId = model.PalletId.ToUpper();
@@ -166,6 +166,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="palletId"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("unpicked")]
         public virtual ActionResult RemoveUnPickedBoxesFromPallet(int? bucketId, string palletId)
         {
             //TC8: Pallet or bucket is not passed

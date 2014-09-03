@@ -10,8 +10,8 @@ using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
-    [RouteArea("PickWaves")]
-    [RoutePrefix(HomeController.NameConst)]
+    
+    //[RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : PickWavesControllerBase
     {
 
@@ -51,7 +51,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Showing list of bucket summary for all customer.
         /// </summary>
         /// <returns></returns>
-        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
         public virtual ActionResult Index()
         {
             return ShowHomePage(SearchTextType.Unknown, null);
@@ -62,6 +62,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
+        [Route("customer")]
         public virtual ActionResult Customer(string customerId)
         {
             return ShowHomePage(SearchTextType.CustomerId, customerId);

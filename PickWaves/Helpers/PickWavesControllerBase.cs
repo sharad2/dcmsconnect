@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Helpers
 {
-
+    [RouteArea("PickWaves")]
     public abstract class PickWavesControllerBase : EclipseController
     {
         protected const string ROLE_WAVE_MANAGER = "DCMS8_SELECTPO";

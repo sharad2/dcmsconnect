@@ -14,6 +14,7 @@ using System.Web.Routing;
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
     [AuthorizeEx("Managing Pick Waves requires role {0}", Roles = ROLE_WAVE_MANAGER)]
+    [RoutePrefix("create")]
     public partial class CreateWaveController : PickWavesControllerBase
     {
         #region Intialization
