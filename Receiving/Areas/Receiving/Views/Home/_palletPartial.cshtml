@@ -5,6 +5,72 @@
     //Model.Cartons = x.ToList();
     //var rowIndex = 0;
 }
+<div class="table-responsive">
+    <table class="table table-striped table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    #
+                </th>
+                <th>
+                    Carton
+                </th>
+                <th colspan="4" style="text-align: center">
+                    SKU
+                </th>
+                <th>
+                    Retail Price($)
+                </th>
+                <th>
+                    Receive Date
+                </th>
+                <th>
+                    Print
+                </th>
+                <th>
+                    Remove
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
+            {
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].CartonId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].Sku.Style)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].Sku.Color)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].Sku.Dimension)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuSize)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
+                    </td>
+                    <td>
+                        <a data-carton-print="@Model.Cartons[i].CartonId" class="btnPrintPanelOpen ui-btn ui-btn-icon-notext ui-icon-action ui-alt-icon ui-corner-all" href="#printPanel"></a>
+                    </td>
+                    <td>
+                        <a class="ui-btn ui-btn-icon-notext ui-icon-delete ui-alt-icon ui-corner-all" href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <table data-role="table" data-mode="columntoggle" class="ui-body-d ui-shadow table-stripe ui-responsive">
     <thead>
