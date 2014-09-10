@@ -172,6 +172,10 @@
     <Content Include="Areas\Receiving\Scripts\AutoComplete.min.js">
       <DependentUpon>AutoComplete.js</DependentUpon>
     </Content>
+    <Content Include="Areas\Receiving\Scripts\bootstrap3-typeahead.js" />
+    <Content Include="Areas\Receiving\Scripts\bootstrap3-typeahead.min.js">
+      <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
+    </Content>
     <Content Include="Areas\Receiving\Views\Home\_cartonNotOnPalletPartial.cshtml" />
     <Content Include="Areas\Receiving\Scripts\AutoComplete.min.js.map">
       <DependentUpon>AutoComplete.js</DependentUpon>

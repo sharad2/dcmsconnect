@@ -197,6 +197,7 @@ namespace Links_Receiving
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string AutoComplete_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.min.js") ? Url("AutoComplete.min.js") : Url("AutoComplete.js");
                 public static readonly string AutoComplete_min_js_map = Url("AutoComplete.min.js.map");
+                public static readonly string bootstrap3_typeahead_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-typeahead.min.js") ? Url("bootstrap3-typeahead.min.js") : Url("bootstrap3-typeahead.js");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/Receiving/Scripts/Home";
