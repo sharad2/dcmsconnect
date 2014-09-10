@@ -177,6 +177,7 @@
       <DependentUpon>AutoComplete.js</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Content\Guided Receiving.pps" />
+    <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
@@ -191,7 +192,7 @@
     <Content Include="Areas\Receiving\Scripts\Rad\Rad-all.min.js.map">
       <DependentUpon>Rad-all.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
+    <Content Include="Areas\Receiving\Views\Home\ShipmentList.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Receiving.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Index.cshtml" />
