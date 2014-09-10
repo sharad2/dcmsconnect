@@ -1,7 +1,7 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel
 @{
-    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;  
-    ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);   
+    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
+    ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
 }
 
 
@@ -30,7 +30,7 @@
                 {
                     id = "ddlReceivingArea",
                     @class = "form-control"
-                    
+
                 })
             </div>
         </div>
@@ -41,7 +41,7 @@
            {
                id = "ddlSpotCheckArea",
                @class = "form-control"
-              
+
            })
             </div>
         </div>
@@ -101,20 +101,27 @@
                 @ModelMetadata.FromLambdaExpression(m => m.ProDate, this.ViewData).DisplayName <sup><i class="glyphicon glyphicon-asterisk"></i></sup>
             </label>
             <div class="col-sm-10">
-                <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)" id="tbProDate" size="10" maxlength="10" class="form-control" type="date" required />
+                <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)"
+                       placeholder="mm/dd/yyyy" id="tbProDate" size="10" maxlength="10" class="form-control" type="date" required />
             </div>
         </div>
         <div class="form-group">
             <label for="tbCarrier" class="col-sm-2 control-label">Carrier <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="col-sm-10">
                 <div class="input-group">
-                    <input type="text" name="@MVC_Receiving.Receiving.AutoComplete.GetCarriersParams.term"
-                           class="form-control" placeholder="Carrier"  id="tbCarrier"
-                           data-url-list="@Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers())" required>
+                    @Html.TextBoxFor(m=>m.CarrierId, new
+                           {
+                               id = "tbCarrier",
+                               @class = "form-control",
+                               maxlength = 4,
+                               data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers()),
+                               @required = "required"
+                           })
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
+
             </div>
         </div>
 
