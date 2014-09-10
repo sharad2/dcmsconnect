@@ -3,28 +3,86 @@
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
     ViewBag.Title = "Shipment List";
 }
+@section script {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Post call to remove pickslip action method
+            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-remove', function (e) {
+                var $tr = $(e.target).closest('tr');
+                if (confirm('Are you sure, you want to close Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
+                    $.ajax($(this).attr('data-shipment-close-url'), {
+                        type: 'POST',
+                        success: function (data, textStatus, jqXHR) {
+                            // handling validation error
+                            if (jqXHR.status == 203) {
+                                alert(jqXHR.responseText);
+                                return;
+                            }
+                            //Success message
+                            $tr.addClass('text-success bg-warning').css("text-decoration", "line-through");
+                            $tr.find('a').addClass('disabled');
+                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus');
+                            $('#message').html(data).addClass('bg-info');
+                            return false;
 
-<div class="container">
+                        }
+                    }).error(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    });
+                }
+                else {
+                    $tr.removeClass('ui-state-highlight').css("text-decoration", "none").css("color", "black");
+                    return;
+                }
+            });
+            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-plus', function (e) {
+                var $tr = $(e.target).closest('tr');
+                if (confirm('Are you sure, you want to re-open Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
+                    $.ajax($(this).attr('data-shipment-reopen-url'), {
+                        type: 'POST',
+                        success: function (data, textStatus, jqXHR) {
+                            if (jqXHR.status == 203) {
+                                alert(jqXHR.responseText);
+                                return;
+                            }
+                            //Success message
+                            $tr.removeClass('text-success bg-warning').css("text-decoration", "none");
+                            $tr.find('a').removeClass('disabled');
+                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove');
+                            $('#message').html(data).addClass('bg-info');
+                            return false;
+                        }
+                    }).error(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    });
+                };
+            });
+        });
+    </script>
+}
+<div class="container">    
+    <div id="message"></div>
     <div class="page-header">
         <h2>
             @ViewBag.Title
         </h2>
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped table-condensed table-bordered">
+    <small class="text-success"><span class="glyphicon glyphicon-hand-right"></span> To update Shipment List please refresh the page.</small>
+    <div class="table-responsive" id="divShipmentList">      
+        <table class="table table-condensed table-bordered">
             <caption class="h4">List of open shipments(Max 200)</caption>
             <thead>
                 <tr>
                     <th rowspan="2" style="text-align:center">#</th>
-                    <th rowspan="2" style="text-align:center">Shipment#</th>
-                    <th rowspan="2" style="text-align:center">PO#</th>
-                    <th rowspan="2" style="text-align:center">Shipment Date<span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
-                    <th rowspan="2" style="text-align:center">Receiving Process <span class="ui-icon ui-icon-triangle-1-s" style="display:inline-block"></span><sup>2</sup></th>
+                    <th rowspan="2" style="text-align:center">Shipment #</th>
+                    <th rowspan="2" style="text-align:center">PO #</th>
+                    <th rowspan="2" style="text-align:center">Shipment Date</th>
+                    <th rowspan="2" style="text-align:center">Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
                     <th rowspan="2" style="text-align:center">ERP</th>
                     <th rowspan="2" style="text-align:center">Order Type</th>
                     <th colspan="2" style="text-align:center"># Pieces</th>
                     <th colspan="2" style="text-align:center"># Carton</th>
-                    <th rowspan="2" style="text-align:center">Last Received on <span class="glyphicon glyphicon-sort-by-order-alt" style="display:inline-block"></span> </th>
+                    <th rowspan="2" style="text-align:center">Last Received on <span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
                     <th rowspan="2" style="text-align:center">Close</th>
                 </tr>
                 <tr>
@@ -37,10 +95,11 @@
             <tbody>
                 @for (int i = 0; i < Model.ShipmentList.Count; i++)
                 {
-                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <tr>
                         <td>@(i + 1)</td>
                         <td>
-                            <a href="@Url.Content(string.Format("~/Inquiry/IntransitShipment/{0}", Model.ShipmentList[i].ShipmentId))" target="_blank" title="Shipment Details">
+                            <a href="@Url.Content(string.Format("~/Inquiry/IntransitShipment/{0}", Model.ShipmentList[i].ShipmentId))"                              
+                               class="btn btn-link" target="_blank" title="Shipment Details">
                                 @Html.DisplayFor(m => m.ShipmentList[i].ShipmentId)
                             </a>
                         </td>
@@ -74,7 +133,7 @@
                             @Html.DisplayFor(m => m.ShipmentList[i].MaxReceiveDate)
                         </td>
                         <td>
-                            <span class="ui-icon ui-icon-close " style="cursor:pointer;" data-shipment-val="@Model.ShipmentList[i].ShipmentId"
+                            <span class="glyphicon glyphicon-remove" style="cursor:pointer;" data-shipment-val="@Model.ShipmentList[i].ShipmentId"
                                   data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
                                   data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
                                   title="Close shipment"></span>

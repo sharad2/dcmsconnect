@@ -283,6 +283,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 public readonly string Receiving = "Receiving";
                 public readonly string Receiving_desktop = "Receiving.desktop";
                 public readonly string ShipmentList = "ShipmentList";
+                public readonly string ShipmentList_desktop = "ShipmentList.desktop";
                 public readonly string Tutorial = "Tutorial";
             }
             public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Views/Home/_cartonNotOnPalletPartial.cshtml";
@@ -294,6 +295,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string Receiving = "~/Areas/Receiving/Views/Home/Receiving.cshtml";
             public readonly string Receiving_desktop = "~/Areas/Receiving/Views/Home/Receiving.desktop.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Views/Home/ShipmentList.cshtml";
+            public readonly string ShipmentList_desktop = "~/Areas/Receiving/Views/Home/ShipmentList.desktop.cshtml";
             public readonly string Tutorial = "~/Areas/Receiving/Views/Home/Tutorial.cshtml";
         }
     }
