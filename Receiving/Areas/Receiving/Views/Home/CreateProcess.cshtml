@@ -5,26 +5,18 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-@*<style type="text/css">
-        #processForm br {
-            line-height: 2.2em;
-        }
 
-        #processForm label {
-            display: inline-block;
-            width: 15em;
-        }
-    </style>*@
-@*@section sidebar{
-        <div class="box boxB">
-            <div class="boxContent">
-                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
-                </span>@Html.ActionLink("Recent Process", MVC_Receiving.Receiving.Home.Index())
-            </div>
-        </div>
-    }*@
 
 <div class="container">
+    <div class="page-header">
+        <span class="pull-right">
+            <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())">
+                <span class="glyphicon glyphicon-link"></span>
+                Recent Process
+            </a>
+        </span>
+        <h2>Create Process</h2>
+    </div>
     @using (Html.BeginForm(MVC_Receiving.Receiving.Home.EditProcess(), FormMethod.Post, new
     {
         @class = "form-horizontal",
@@ -33,56 +25,49 @@
     {
         @Html.HiddenFor(m => m.ProcessId)
         <div class="form-group">
-            <label for="ddlReceivingArea" class="col-sm-2 control-label">Receive In <sup>*</sup></label>
+            <label for="ddlReceivingArea" class="col-sm-2 control-label">Receive In <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="col-sm-10">
-                @Html.GroupDropListFor(m => m.ReceivingAreaId, Model.ReceivingAreasList, "(Select Any Area)", new { id = "ddlReceivingArea", @class = "form-control" })<span>*</span>
+                @Html.GroupDropListFor(m => m.ReceivingAreaId, Model.ReceivingAreasList, "(Select Any Area)", new { id = "ddlReceivingArea", @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
-            <label for="ddlSpotCheckArea" class="col-sm-2 control-label">Spot Check Area</label>
+            <label for="ddlSpotCheckArea" class="col-sm-2 control-label">Spot Check Area <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.SpotCheckAreaId, Model.SpotCheckAreasList, "(Select Any Area)", new
            {
                id = "ddlSpotCheckArea",
                @class = "form-control"
-           })<span>*</span>
+           })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.PriceSeasonCode, new
-       {
-           @class = "col-sm-2 control-label"
-       })
+            <label for="ddlPriceSeasonCode" class="col-sm-2 control-label">Season Code</label>
             <div class="col-sm-10">
                 @Html.DropDownListFor(m => m.PriceSeasonCode, Model.PriceSeasonCodeList, "(No Change)", new
            {
+               id = "ddlPriceSeasonCode",
                @class = "form-control"
            })
             </div>
         </div>
         <div class="form-group has-feedback">
-            @Html.LabelFor(m => m.ExpectedCartons, new
-       {
-           @class = "col-sm-2 control-label"
-       })
+            <label for="txtboxExpectedCarton" class="col-sm-2 control-label">Expected Cartons <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.ExpectedCartons, new
            {
+               id = "txtboxExpectedCarton",
                maxlength = "5",
                @class = "form-control",
                type = "number"
            })
-                <span class="glyphicon glyphicon-asterisk form-control-feedback" title="Required"></span>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.PalletLimit, new
-       {
-           @class = "col-sm-2 control-label"
-       })
+            <label for="txtBoxPalletLimit" class="col-sm-2 control-label">Max Cartons Per Pallet</label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.PalletLimit, new
            {
+               id = "txtBoxPalletLimit",
                maxlength = 4,
                @class = "form-control",
                type = "number",
@@ -91,27 +76,29 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.ProNumber, new
-       {
-           @class = "col-sm-2 control-label"
-       })
+            <label for="txtBoxPro" class="col-sm-2 control-label">Pro # <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
+
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.ProNumber, new
            {
+               id = "txtBoxPro",
                maxlength = "25",
                @class = "form-control"
-           })<span>*</span>
+           })
+
             </div>
         </div>
 
         <div class="form-group">
-            <label for="tbProDate" class="col-sm-2 control-label">@ModelMetadata.FromLambdaExpression(m => m.ProDate, this.ViewData).DisplayName</label>
+            <label for="tbProDate" class="col-sm-2 control-label">
+                @ModelMetadata.FromLambdaExpression(m => m.ProDate, this.ViewData).DisplayName <sup><i class="glyphicon glyphicon-asterisk"></i></sup>
+            </label>
             <div class="col-sm-10">
                 <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)" id="tbProDate" size="10" maxlength="10" class="form-control" type="date" />
             </div>
         </div>
         <div class="form-group">
-            <label for="tbCarrier" class="col-sm-2 control-label">Carrier</label>
+            <label for="tbCarrier" class="col-sm-2 control-label">Carrier <sup>&darr;<i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.CarrierId, new
    {
@@ -121,12 +108,11 @@
        @class = "form-control",
        data_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers())
    })
-                <sup>&darr;*</sup>
+
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @*<button type="submit" class="btn btn-default">Sign in</button>*@
+            <div class="col-sm-offset-2 col-sm-10">             
                 @if (Model.ProcessId.HasValue)
                 {
                     <button type="submit" class="btn btn-default">Save and Continue</button>
@@ -145,16 +131,7 @@
     <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
     <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            @*$('input:submit').button();
-            $("#tbProDate").datepicker({
-                showOn: "button",
-                buttonImage: '@Links_Receiving.Areas.Receiving.Content.images.calendar_gif',
-                buttonImageOnly: true,
-                dateFormat: 'm/d/yy',
-                onSelect: function () { this.focus(); }
-            });*@
-
+        $(document).ready(function () {            
             // Select SpotCheck area based on the selection of receiving area.
             $('#ddlReceivingArea').change(function () {
                 var building = $('#ddlReceivingArea').val();
