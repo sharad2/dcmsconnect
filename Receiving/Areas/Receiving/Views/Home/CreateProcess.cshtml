@@ -112,16 +112,14 @@
                     @Html.TextBoxFor(m=>m.CarrierId, new
                            {
                                id = "tbCarrier",
-                               @class = "form-control",
-                               maxlength = 4,
+                               @class = "form-control",                               
                                data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers()),
-                               @required = "required"
-                           })
+                               @required = "required"                              
+                           })                   
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                     </span>
                 </div>
-
             </div>
         </div>
 

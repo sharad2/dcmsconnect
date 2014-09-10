@@ -224,7 +224,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 PopulateIndexViewModel(model);
                 return View(Views.CreateProcess, model);
             }
-            var carrier = _service.GetCarrier(model.CarrierId);
+
+            var id = model.CarrierId;
+            id = id.Substring(0, id.IndexOf(" "));
+            var carrier = _service.GetCarrier(id);
+
+
             if (carrier == null)
             {
                 ModelState.AddModelError("", string.Format("{0} is invalid Carrier", model.CarrierId));
@@ -237,7 +242,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ProNumber = model.ProNumber,
                 Carrier = new Carrier
                 {
-                    CarrierId = model.CarrierId,
+                    CarrierId = id,
                     Description = model.CarrierDescription
                 },
                 ReceivingAreaId = model.ReceivingAreaId,
@@ -544,7 +549,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var lastCartonId = string.Empty;
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(model.ScanModel.ProcessId));               
+                return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(model.ScanModel.ProcessId));
             }
 
             var scan = model.ScanModel.ScanText.ToUpper();
@@ -614,24 +619,24 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
             Debug.Assert(pallet != null, "pallet != null");
             // Handling Code
-            var pm = _service.GetProcessInfo(model.ScanModel.ProcessId.Value, true);            
-                model.CarrierId = pm.Carrier.CarrierId;
-                model.ProDate = pm.ProDate;
-                model.ProNumber = pm.ProNumber;
-                model.OperatorName = pm.OperatorName;
-                model.ReceivingAreaId = pm.ReceivingAreaId;
-                model.SpotCheckAreaId = pm.SpotCheckAreaId;
-                model.ProcessId = pm.ProcessId;
-                model.CartonCount = pm.CartonCount;
-                model.ExpectedCartons = pm.ExpectedCartons;
-                model.PalletLimit = pm.PalletLimit;
-                model.PriceSeasonCode = pm.PriceSeasonCode;  
-                
-                var allPallets = _service.GetPalletsOfProcess(model.ScanModel.ProcessId.Value);
-                model.Pallets = model.Pallets.Concat(allPallets.Select(p => Map(p))).ToArray();
-                //model.Pallets = allPallets.Select(p => Map(p)).ToArray();
-                model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
-            
+            var pm = _service.GetProcessInfo(model.ScanModel.ProcessId.Value, true);
+            model.CarrierId = pm.Carrier.CarrierId;
+            model.ProDate = pm.ProDate;
+            model.ProNumber = pm.ProNumber;
+            model.OperatorName = pm.OperatorName;
+            model.ReceivingAreaId = pm.ReceivingAreaId;
+            model.SpotCheckAreaId = pm.SpotCheckAreaId;
+            model.ProcessId = pm.ProcessId;
+            model.CartonCount = pm.CartonCount;
+            model.ExpectedCartons = pm.ExpectedCartons;
+            model.PalletLimit = pm.PalletLimit;
+            model.PriceSeasonCode = pm.PriceSeasonCode;
+
+            var allPallets = _service.GetPalletsOfProcess(model.ScanModel.ProcessId.Value);
+            model.Pallets = model.Pallets.Concat(allPallets.Select(p => Map(p))).ToArray();
+            //model.Pallets = allPallets.Select(p => Map(p)).ToArray();
+            model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
+
 
             // If the model state is not valid, we would like the hidden fields in the view to retain their old values.
             // We do not change the state of the view in case of any validation problem.
@@ -642,7 +647,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 model.ScanModel.PalletId = model.Pallets[0].PalletId;
                 model.ScanModel.PalletDispos = model.Pallets[0].DispositionId;
             }
-            return View(Views.Receiving, model);                     
+            return View(Views.Receiving, model);
 
         }
 
@@ -852,17 +857,17 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 ShipmentList = (from item in _service.GetShipmentList()
                                 select new ShipmentListModel
-                                {                                   
-                                    PoNumber=item.PoNumber,
+                                {
+                                    PoNumber = item.PoNumber,
                                     IntransitType = item.IntransitType,
                                     MaxReceiveDate = item.MaxReceiveDate,
                                     ShipmentId = item.ShipmentId,
-                                    ReceivedQuantity=item.ReceivedQuantity,                                    
-                                    ExpectedQuantity=item.ExpectedQuantity,
-                                    ErpType=item.ErpType,
-                                    CartonCount=item.CartonCount,
-                                    CartonReceived=item.CartonReceived,
-                                    ProcessNumber=item.ProcessNumber,
+                                    ReceivedQuantity = item.ReceivedQuantity,
+                                    ExpectedQuantity = item.ExpectedQuantity,
+                                    ErpType = item.ErpType,
+                                    CartonCount = item.CartonCount,
+                                    CartonReceived = item.CartonReceived,
+                                    ProcessNumber = item.ProcessNumber,
                                     ShipmentDate = item.ShipmentDate
                                 }).ToArray()
             };
@@ -879,7 +884,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             try
             {
-                _service.CloseShipment(shipmentId,poId);
+                _service.CloseShipment(shipmentId, poId);
             }
             catch (DbException exception)
             {
@@ -913,8 +918,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 this.Response.StatusCode = 203;
                 return Content(exception.Message);
-            }            
-            
+            }
+
         }
 
     }
