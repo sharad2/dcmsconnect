@@ -3,9 +3,6 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-
-
-
 <form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
     <div class="modal-body">
         <div class="form-group">
@@ -19,10 +16,11 @@
                 <label for="rbAllStyle">All styles</label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle"  />
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" />
                 <label for="rbSpecificStyle">Specific Style</label>
             </div>
-            @Html.TextBoxFor(m => m.Style, new
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.Style, new
    {
        data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
        data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
@@ -33,18 +31,23 @@
        //@disabled="disabled",
        //placeholder="Search by specific style"
    })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
         </div>
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" />
-                <label for="rbAllColors">All Colors</label> 
+                <label for="rbAllColors">All Colors</label>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" />
-                <label for="rbSpecificColor">Specific Color</label>  
+                <label for="rbSpecificColor">Specific Color</label>
             </div>
-            @Html.TextBoxFor(m => m.Color, new
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.Color, new
    {
        data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
        data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
@@ -55,6 +58,10 @@
        //@disabled = "disabled",
        //placeholder = "Search by specific color"
    })
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div>
         </div>
         <div class="checkbox">
             <label>
