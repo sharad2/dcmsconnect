@@ -67,10 +67,13 @@
                             <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifiedBy</td>
                             @if (!enableEditing)
                             {
-                                <td style="cursor: pointer">
-                                    <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
-                                    &nbsp;
-                                    <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
+                                <td>
+                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                        <i class="glyphicon glyphicon-edit" title="Edit Spot Check"></i>
+                                    </button>
+                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnRemoveSpotCheck">
+                                        <i class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></i>
+                                    </button>
                                 </td>
 
                             }
@@ -85,64 +88,5 @@
         </div>
 
 
-
-        @*<table>
-                    <thead>
-                        <tr>
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.SewingPlantId)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.SewingPlantId)">Sewing PlantId
-                            </th>
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.PlantName)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.PlantName)">Plant Name
-                            </th>
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.Style)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.Style)">Style
-                            </th>
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.Color)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.Color)">Color
-                            </th>
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.SpotCheckPercent)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.SpotCheckPercent)">Spot Check %
-                            <th data-name="@ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.IsSpotCheckEnabled)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((SpotCheckViewModel m) => m.IsSpotCheckEnabled)" class="ui-helper-hidden">Spot Check %
-                            </th>
-                            <th>Created Date</th>
-                            <th>Created By</th>
-                            <th>Modify Date</th>
-                            <th>Modified By</th>
-            @if (enableEditing)
-            {             <th>Change</th>
-            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr title="Disabled row implies that SpotCheck will not be performed for these settings." data-key="@item.ConfigurationKey" class="@(i%2==0?" rowA" : "rowB") @(key==@item.ConfigurationKey ? "ui-state-highlight" :"")"    >
-                                <td  data-val="@item.SewingPlantId" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.SewingPlantId</td>
-
-
-                                <td data-val="@item.PlantName" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.PlantName</td>
-
-
-                                <td data-val="@item.Style" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.Style</td>
-
-                                <td data-val="@item.Color" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.Color</td>
-
-                                <td data-val="@item.SpotCheckPercent" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.SpotCheckPercent</td>
-                                <td data-val="@item.IsSpotCheckEnabled" class="ui-helper-hidden"></td>
-
-                                <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.CreationDateDispaly</td>
-                                <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.CreatedBy</td>
-                                <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifyDateDispaly</td>
-                                <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifiedBy</td>
-                                @if(enableEditing)
-                                {
-                                <td style="float: left; cursor: pointer" ><span class="ui-icon ui-icon-pencil" title="Edit Spot Check"></span></td>
-                                <td style="float: right; cursor: pointer"><span class="ui-icon ui-icon-close" title="Remove Spot Check Percent"></span></td>
-                                }
-
-                            </tr>
-                            i++;
-                        }
-
-                    </tbody>
-
-                </table>*@
     }
 }
-<!--$Id$-->

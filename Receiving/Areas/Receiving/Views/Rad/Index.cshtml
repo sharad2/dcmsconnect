@@ -20,74 +20,90 @@
             <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())"><span class="glyphicon glyphicon-link" style="display: inline-block"></span> Receive Cartons</a>
         </span>
         <h2>Receiving Configuration</h2>
+        <small class="text-info h6">
+            <span class="glyphicon glyphicon-info-sign" style="display: inline-block"></span>
+            Disabled configuration settings will not be honored during receiving.
+        </small>
     </div>
+
     @if (Model.SpotCheckAreaList.Count != 0)
     {
-        <div class="h3 text-info">
+        <div class="well well-sm">
             Available Spot Check Areas
             (Area
             <span class="glyphicon glyphicon-arrow-right"></span>
             Building)
-          
+
             @for (int i = 0; i < Model.SpotCheckAreaList.Count(); i++)
-            {
-                <span class="h4 text-success">
-                    &nbsp; &nbsp; &nbsp;
-                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
-                    <span class="glyphicon glyphicon-arrow-right"></span>
-                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
-                </span>
-            }
+                    {
+                    <span class="h4 text-success">
+                        &nbsp; &nbsp; &nbsp;
+                        @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
+                        <span class="glyphicon glyphicon-arrow-right"></span>
+                        @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
+                    </span>
+                    }
         </div>
     }
     else
     {
         <div class="alert alert-info">No Spot Check Areas defined</div>
     }
-    <div class="text-info h6">
-        <span class="glyphicon glyphicon-info-sign" style="display: inline-block"></span>
-        Disabled configuration settings will not be honored during receiving.
-    </div>
-
 
     <div id="divSpotCheck">
+        @if (!Model.EnableEditing)
+        {
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
+                Add Spot Check...
+            </button>
+        }
         <div id="divSpotCheckList" data-delete-ajax-url="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())" data-edit-dialog="#dlgEditSpotCheck"
              data-add-button="#btnAddSpotCheck" data-add-dialog="#divAddSpotCheck">
             @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
         </div>
-        @if (Model.EnableEditing)
-        {
-            <button id="btnAddSpotCheck">
-                Add Spot Check...
-            </button>
-        }
     </div>
 
 
-    @*In the Dialog box all the data-name attribute must be matched with SpotCheckViewModel properties name*@
-    <div id="dlgEditSpotCheck" title="Edit Spot Check Percentage">
-        @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())
+    <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->
+    <div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">asdasd</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="divAddSpotCheck" title="Add Spot Check Percentage">
-        @Html.Partial(MVC_Receiving.Receiving.Rad.Views._addSpotCheckPartial, new SpotCheckViewModel
+
+    <!-- Modal for remove spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
+    <div class="modal fade" id="btnAddSpotCheck" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._addSpotCheckPartial, new SpotCheckViewModel
 {
     SewingPlantList = Model.SpotCheckViewModel.SewingPlantList
 })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
