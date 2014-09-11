@@ -22,17 +22,17 @@
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Style, new
    {
-       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
-       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
+       //data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
+       data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
        id = "tbStyle",
        @class = "form-control",
-       //@disabled="disabled",
-       //placeholder="Search by specific style"
+       @disabled = "disabled",
+       placeholder = "ALL STYLES"
    })
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             </div>
         </div>
@@ -49,17 +49,17 @@
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Color, new
    {
-       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
-       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
+       //data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
+       data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
        id = "tbColor",
        @class = "form-control",
-       //@disabled = "disabled",
-       //placeholder = "Search by specific color"
+       @disabled = "disabled",
+       placeholder = "ALL COLOR"
    })
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
                 </span>
             </div>
         </div>
@@ -100,74 +100,69 @@
 
 
 
-
-
-
-
-
 @*@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post, new
-{
-    id = "frmAddSpotCheck"
-}))
-{
-    <fieldset>
-        <legend>Sewing Plant</legend>
-        @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant" })
-    </fieldset>
-    <br />
-    <fieldset>
-        <legend>Style</legend>
-        <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />Specific Style
-
-        @Html.TextBoxFor(m => m.Style, new
-   {
-       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
-       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
-       autocomplete = "off",
-       style = "text-transform: uppercase",
-       size = "15",
-       id = "tbStyle"
-   })
-        <span title="Double click to quickly see suggestions">↓</span>
+    {
+        id = "frmAddSpotCheck"
+    }))
+    {
+        <fieldset>
+            <legend>Sewing Plant</legend>
+            @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant" })
+        </fieldset>
         <br />
+        <fieldset>
+            <legend>Style</legend>
+            <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />Specific Style
+
+            @Html.TextBoxFor(m => m.Style, new
+       {
+           data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
+           data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
+           autocomplete = "off",
+           style = "text-transform: uppercase",
+           size = "15",
+           id = "tbStyle"
+       })
+            <span title="Double click to quickly see suggestions">↓</span>
+            <br />
 
 
-        <input id="rbAllStyle" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
-        <span>All styles &nbsp;</span>
+            <input id="rbAllStyle" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
+            <span>All styles &nbsp;</span>
+            <br />
+            <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
+        </fieldset>
         <br />
-        <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
-    </fieldset>
-    <br />
-    <fieldset>
-        <legend>Color</legend>
-        <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
-        Specific Color
-        @Html.TextBoxFor(m => m.Color, new
-   {
-       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
-       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
-       autocomplete = "off",
-       style = "text-transform: uppercase",
-       size = "15",
-       id = "tbColor"
-   })
+        <fieldset>
+            <legend>Color</legend>
+            <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
+            Specific Color
+            @Html.TextBoxFor(m => m.Color, new
+       {
+           data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
+           data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
+           autocomplete = "off",
+           style = "text-transform: uppercase",
+           size = "15",
+           id = "tbColor"
+       })
+            <br />
+            <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
+            <span>All Colors &nbsp;</span>
+            <br />
+            <span id="lblColorDesc" data-ac-msg-for="@Html.NameFor(m => m.Color)"></span>
+        </fieldset>
+
+        @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>
+
+
+        <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
         <br />
-        <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
-        <span>All Colors &nbsp;</span>
-        <br />        
-        <span id="lblColorDesc" data-ac-msg-for="@Html.NameFor(m => m.Color)"></span>
-    </fieldset>
+        <div>
+            @Html.LabelFor(m => m.SpotCheckPercent)
+        </div>
 
-    @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>
-
-       
-    <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
-    <br />
-    <div>
-        @Html.LabelFor(m => m.SpotCheckPercent)
-    </div>
-
-    @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent" })<span>*</span>
-    @Html.ValidationSummary()
-    <button type="submit">hhh</button>
-}*@
+        @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent" })<span>*</span>
+        @Html.ValidationSummary()
+        <button type="submit">hhh</button>
+    }*@

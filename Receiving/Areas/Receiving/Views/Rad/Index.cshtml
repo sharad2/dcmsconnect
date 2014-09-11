@@ -102,3 +102,39 @@
 </div>
 
 
+@section script {
+    <script src="@Links_Receiving.Areas.Receiving.Scripts.bootstrap3_typeahead_js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[data-url-list]').typeahead({
+                source: function (query, cb) {
+                    $.ajax({
+                        url: this.$element.attr("data-url-list"),
+                        context: this.$element,
+                        data: {
+                            term: query
+                        }
+                    }).then(function (response) {
+                        // Extract the label from each result in the array.
+                        // Store the value in a global map
+                        var x = $.map(response, function (val, i) {
+                            return val.label;
+                        });
+                        cb(x);
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert("error" + jqXHR.responseText);
+                    });
+                },
+                matcher: function (item) {
+                    return true;
+                }
+                
+            });
+
+        });
+    </script>
+}
+
+
+
