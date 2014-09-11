@@ -15,11 +15,11 @@
         <div class="form-group ">
             <label>Style</label>
             <div class="form-inline">
-                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
+                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" />
                 <label for="rbAllStyle">All styles</label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle"  />
                 <label for="rbSpecificStyle">Specific Style</label>
             </div>
             @Html.TextBoxFor(m => m.Style, new
@@ -37,11 +37,11 @@
         <div class="form-group">
             <label>Color</label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
+                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" />
                 <label for="rbAllColors">All Colors</label> 
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" />
                 <label for="rbSpecificColor">Specific Color</label>  
             </div>
             @Html.TextBoxFor(m => m.Color, new
