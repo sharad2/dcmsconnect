@@ -13,7 +13,7 @@
             @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant", @class = "form-control" })
         </div>
         <div class="form-group ">
-            <label>Style</label>
+            <label>Style<sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" />
                 <label for="rbAllStyle">All styles</label>
@@ -35,7 +35,7 @@
    })
         </div>
         <div class="form-group">
-            <label>Color</label>
+            <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" />
                 <label for="rbAllColors">All Colors</label> 
@@ -63,7 +63,7 @@
             </label>
         </div>
         <div class="form-group">
-            <label for="tbSpotCheckPercent">Spot Check Percent</label>
+            <label for="tbSpotCheckPercent">Spot Check Percent <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent", @class = "form-control" })
         </div>
     </div>
