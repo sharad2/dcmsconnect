@@ -36,7 +36,7 @@ var key =string.Empty;
                         <th>Created By</th>
                         <th>Modify Date</th>
                         <th>Modified By</th>
-                        @if (enableEditing)
+                        @if (!enableEditing)
                         {
                             <th>Change</th>
                         }
@@ -65,8 +65,12 @@ var key =string.Empty;
                             <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifiedBy</td>
                             @if (!enableEditing)
                             {
-                                <td style="float: left; cursor: pointer"><span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span></td>
-                                <td style="float: right; cursor: pointer"><span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span></td>
+                                <td style="cursor: pointer">
+                                    <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
+                                    &nbsp;
+                                    <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
+                                </td>
+                               
                             }
 
                         </tr>
