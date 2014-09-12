@@ -57,8 +57,7 @@
                 Add Spot Check...
             </button>
         }
-        <div id="divSpotCheckList" data-delete-ajax-url="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())" data-edit-dialog="#dlgEditSpotCheck"
-             data-add-button="#btnAddSpotCheck" data-add-dialog="#divAddSpotCheck">
+        <div>
             @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
         </div>
     </div>

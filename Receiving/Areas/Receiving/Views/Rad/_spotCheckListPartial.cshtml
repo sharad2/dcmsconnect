@@ -47,27 +47,27 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr title="Disabled row implies that SpotCheck will not be performed for these settings." data-key="@item.ConfigurationKey" class="@(i%2==0?" rowA" : "rowB") @(key==@item.ConfigurationKey ? "ui-state-highlight" :"")">
-                            <td data-val="@item.SewingPlantId" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.SewingPlantId</td>
+                        <tr title="Disabled row implies that SpotCheck will not be performed for these settings." data-key="@item.ConfigurationKey" class="@(key==@item.ConfigurationKey ? "bg-success" :"")">
+                            <td data-val="@item.SewingPlantId" class="@(item.IsSpotCheckEnabled ? "" : "bg-info" )">@item.SewingPlantId</td>
 
 
-                            <td data-val="@item.PlantName" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.PlantName</td>
+                            <td data-val="@item.PlantName" class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.PlantName</td>
 
 
-                            <td data-val="@item.Style" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.Style</td>
+                            <td data-val="@item.Style" class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.Style</td>
 
-                            <td data-val="@item.Color" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.Color</td>
+                            <td data-val="@item.Color" class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.Color</td>
 
-                            <td data-val="@item.SpotCheckPercent" class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.SpotCheckPercent</td>
+                            <td data-val="@item.SpotCheckPercent" class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.SpotCheckPercent</td>
                             <td data-val="@item.IsSpotCheckEnabled" style="display:none"></td>
 
-                            <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.CreationDateDispaly</td>
-                            <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.CreatedBy</td>
-                            <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifyDateDispaly</td>
-                            <td class="@(item.IsSpotCheckEnabled ? "" : "ui-state-disabled" )">@item.ModifiedBy</td>
+                            <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.CreationDateDispaly</td>
+                            <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.CreatedBy</td>
+                            <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.ModifyDateDispaly</td>
+                            <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.ModifiedBy</td>
                             @if (!enableEditing)
                             {
-                                <td>
+                                <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">
                                     <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
                                         <i class="glyphicon glyphicon-edit" title="Edit Spot Check"></i>
                                     </button>
