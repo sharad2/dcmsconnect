@@ -112,6 +112,9 @@
                 $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "");
             });
 
+            $('#Style,#Color').change(function (e) {
+                $('#tbSpecific' + $(this).attr('id')).attr("disabled", true).attr('placeholder', "ALL");
+            });
 
             //auto-complete for the _addspotCheckPartial Page.
             $('input[data-url-list]').typeahead({

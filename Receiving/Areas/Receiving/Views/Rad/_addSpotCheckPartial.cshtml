@@ -12,8 +12,8 @@
         <div class="form-group ">
             <label>Style<sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" checked="checked"  required/>
-                <label for="rbAllStyle">All styles</label>
+                <input id="Style" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" checked="checked"  required/>
+                <label for="Style">All styles</label>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="SpecificStyle" />
@@ -29,7 +29,7 @@
        id = "tbSpecificStyle",
        @class = "form-control",
        @disabled = "disabled",
-       placeholder = "ALL STYLES"
+       placeholder = "ALL"
    })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
@@ -39,8 +39,8 @@
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" checked="checked" required />
-                <label for="rbAllColors">All Colors</label>
+                <input type="radio" class="radio" id="Color" name="@Html.NameFor(m => m.AllColors)" checked="checked" required />
+                <label for="Color">All Colors</label>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor"  />
@@ -56,7 +56,7 @@
        id = "tbSpecificColor",
        @class = "form-control",
        @disabled = "disabled",
-       placeholder = "ALL COLOR"
+       placeholder = "ALL"
    })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
