@@ -20,16 +20,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             return new SpotCheckViewModel
                 {
-                    Style = src.Style =="." ? "All" :src.Style,
+                    Style = src.Style == "." ? "All" : src.Style,
                     SewingPlantId = src.SewingPlantId == "." ? "All" : src.SewingPlantId,
                     PlantName = src.PlantName,
                     SpotCheckPercent = src.SpotCheckPercent,
                     Color = src.Color == "." ? "All" : src.Color,
-                    IsSpotCheckEnabled=src.IsSpotCheckEnable.Value,
-                    CreatedDate=src.CreatedDate,
-                    CreatedBy=src.CreatedBy,
-                    ModifiedDate=src.ModifiedDate,
-                    ModifiedBy=src.ModifiedBy
+                    IsSpotCheckEnabled = src.IsSpotCheckEnable.Value,
+                    CreatedDate = src.CreatedDate,
+                    CreatedBy = src.CreatedBy,
+                    ModifiedDate = src.ModifiedDate,
+                    ModifiedBy = src.ModifiedBy
                 };
 
         }
@@ -46,12 +46,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             return new SpotCheckConfiguration
                 {
-                    Style = string.IsNullOrEmpty(src.Style) || src.Style=="All" ? "." : src.Style,
-                    SewingPlantId = string.IsNullOrEmpty(src.SewingPlantId) || src.SewingPlantId=="All" ? "." : src.SewingPlantId,
+                    Style = string.IsNullOrEmpty(src.Style) || src.Style == "All" ? "." : src.Style,
+                    SewingPlantId = string.IsNullOrEmpty(src.SewingPlantId) || src.SewingPlantId == "All" ? "." : src.SewingPlantId,
                     SpotCheckPercent = src.SpotCheckPercent,
                     PlantName = src.PlantName,
                     Color = string.IsNullOrEmpty(src.Color) || src.Color == "All" ? "." : src.Color,
-                    IsSpotCheckEnable=src.IsSpotCheckEnabled
+                    IsSpotCheckEnable = src.IsSpotCheckEnabled
                 };
         }
 
@@ -96,8 +96,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                     SewingPlantList = plantlist
                 };
 
-            model.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);            
-            model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p=>Map(p)).ToList();
+            model.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
+            model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => Map(p)).ToList();
             ViewBag.EnableEditing = model.EnableEditing;
 
             return View(Views.Index, model);
@@ -115,24 +115,36 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
             {
-                this.Response.StatusCode = 203;
-                return Content("Please provide value for style.");
+                //this.Response.StatusCode = 203;  
+                //return Content("Please provide value for style.");
+                this.AddStatusMessage(string.Format("Please provide value for style."));
+                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+
             }
             if (model.SpotCheckPercent == null)
             {
-                this.Response.StatusCode = 203;
-                return Content("Please provide value for spotcheck %");
+                // this.Response.StatusCode = 203;
+                //return Content("Please provide value for spotcheck %");
+                this.AddStatusMessage(string.Format("Please provide value for spotcheck %"));
+                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+
             }
             if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
-                this.Response.StatusCode = 203;
-                return Content("Please provide value for color.");
+                // this.Response.StatusCode = 203;
+                //  return Content("Please provide value for color.");
+                this.AddStatusMessage(string.Format("Please provide value for color."));
+                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+
             }
             if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
-                this.Response.StatusCode = 203;
-                return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
-            }           
+                // this.Response.StatusCode = 203;
+                //  return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
+                this.AddStatusMessage(string.Format("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one."));
+                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+
+            }
             try
             {
                 //Extra safety check.
@@ -143,11 +155,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 }
                 if (model.AllColors.HasValue && model.AllColors.Value)
                 {
-                    model.Color= null;
+                    model.Color = null;
                 }
                 _service.SetSpotCheckPercentage(Map(model));
                 var sd = _service.GetSpotCheckList();
-                var list = sd.Select(p => Map(p)).ToList();             
+                var list = sd.Select(p => Map(p)).ToList();
                 ViewBag.key = model.ConfigurationKey;
                 ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
                 return PartialView(Views._spotCheckListPartial, list);
@@ -160,7 +172,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
         }
 
-        [HttpPost]     
+        [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
         public virtual ActionResult DeleteSpotCheckPercentage(SpotCheckViewModel model)
         {
@@ -175,7 +187,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 _service.SetSpotCheckPercentage(dto);
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();
-                ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);             
+                ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
                 return PartialView(Views._spotCheckListPartial, list);
             }
             catch (Exception ex)

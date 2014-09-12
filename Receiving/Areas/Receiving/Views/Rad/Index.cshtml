@@ -7,10 +7,10 @@
 }
 
 @*@section script {
-    <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
-    <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
-    <script src="@Links_Receiving.Areas.Receiving.Scripts.Rad.Rad_all_js" type="text/javascript"></script>
-}*@
+        <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
+        <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+        <script src="@Links_Receiving.Areas.Receiving.Scripts.Rad.Rad_all_js" type="text/javascript"></script>
+    }*@
 
 
 <div class="container">
@@ -36,12 +36,12 @@
 
             @for (int i = 0; i < Model.SpotCheckAreaList.Count(); i++)
                     {
-                    <span class="h4 text-success">
-                        &nbsp; &nbsp; &nbsp;
-                        @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
-                        <span class="glyphicon glyphicon-arrow-right"></span>
-                        @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
-                    </span>
+                <span class="h4 text-success">
+                    &nbsp; &nbsp; &nbsp;
+                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
+                </span>
                     }
         </div>
     }
@@ -73,7 +73,7 @@
                     <h4 class="modal-title" id="myModalLabel">asdasd</h4>
                 </div>
                 <div class="modal-body">
-                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())
+                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())                   
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -90,12 +90,12 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Add Spot Check</h4>
-                </div>               
-                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._addSpotCheckPartial, new SpotCheckViewModel
+                </div>
+                @Html.Partial(MVC_Receiving.Receiving.Rad.Views._addSpotCheckPartial, new SpotCheckViewModel
 {
     SewingPlantList = Model.SpotCheckViewModel.SewingPlantList
-})          
-                
+})
+
             </div>
         </div>
     </div>
@@ -108,12 +108,11 @@
     <script type="text/javascript">
         $(document).ready(function () {
             //Enabel auto-complete textbox for the specific style and color in the add spot check popup in _addSpotCheckPartial Page.
-            $('#SpecificStyle,#SpecificColor').on('change', function (e) { 
-                $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "");
+            $('#SpecificStyle,#SpecificColor').on('change', function (e) {
+                $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "").attr('required', true);
             });
-
             $('#Style,#Color').change(function (e) {
-                $('#tbSpecific' + $(this).attr('id')).attr("disabled", true).attr('placeholder', "ALL");
+                $('#tbSpecific' + $(this).attr('id')).attr('required', false).attr("disabled", true).attr('placeholder', "ALL");
             });
 
             //auto-complete for the _addspotCheckPartial Page.
@@ -139,7 +138,7 @@
                 matcher: function (item) {
                     return true;
                 }
-                
+
             });
 
         });

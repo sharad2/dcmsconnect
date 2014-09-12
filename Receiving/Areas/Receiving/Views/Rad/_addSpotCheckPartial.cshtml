@@ -1,8 +1,8 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
-@{
+@*@{
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
-}
+}*@
 <form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
     <div class="modal-body">
         <div class="form-group">
@@ -12,12 +12,12 @@
         <div class="form-group ">
             <label>Style<sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input id="Style" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" checked="checked"  required/>
-                <label for="Style">All styles</label>
+                <input id="Style" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="true" checked="checked" />
+                <label>All styles</label>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="SpecificStyle" />
-                <label for="SpecificStyle">Specific Style</label>
+                <label>Specific Style</label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Style, new
@@ -39,12 +39,12 @@
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="Color" name="@Html.NameFor(m => m.AllColors)" checked="checked" required />
-                <label for="Color">All Colors</label>
+                <input type="radio" class="radio" id="Color" name="@Html.NameFor(m => m.AllColors)" value="true" checked="checked" />
+                <label>All Colors</label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor"  />
-                <label for="SpecificColor">Specific Color</label>
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor" />
+                <label>Specific Color</label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Color, new
@@ -65,13 +65,13 @@
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
+                <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="true" checked="checked" id="cbIsSpotCheckEnable" />
                 @Html.LabelFor(m => m.IsSpotCheckEnabled, new { id = "cbIsSpotCheckEnable" })
             </label>
         </div>
         <div class="form-group">
             <label for="tbSpotCheckPercent">Spot Check Percent <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent", @class = "form-control",@required="required" })
+            @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent", @class = "form-control", @required = "required" })
         </div>
     </div>
     <div class="modal-footer">
@@ -100,69 +100,77 @@
 
 
 
-@*@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post, new
-    {
-        id = "frmAddSpotCheck"
-    }))
-    {
-        <fieldset>
-            <legend>Sewing Plant</legend>
-            @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant" })
-        </fieldset>
-        <br />
-        <fieldset>
-            <legend>Style</legend>
-            <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />Specific Style
-
-            @Html.TextBoxFor(m => m.Style, new
-       {
-           data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
-           data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
-           autocomplete = "off",
-           style = "text-transform: uppercase",
-           size = "15",
-           id = "tbStyle"
-       })
-            <span title="Double click to quickly see suggestions">↓</span>
-            <br />
 
 
-            <input id="rbAllStyle" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
-            <span>All styles &nbsp;</span>
-            <br />
-            <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
-        </fieldset>
-        <br />
-        <fieldset>
-            <legend>Color</legend>
-            <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
-            Specific Color
-            @Html.TextBoxFor(m => m.Color, new
-       {
-           data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
-           data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
-           autocomplete = "off",
-           style = "text-transform: uppercase",
-           size = "15",
-           id = "tbColor"
-       })
-            <br />
-            <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
-            <span>All Colors &nbsp;</span>
-            <br />
-            <span id="lblColorDesc" data-ac-msg-for="@Html.NameFor(m => m.Color)"></span>
-        </fieldset>
-
-        @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>
 
 
-        <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
-        <br />
-        <div>
-            @Html.LabelFor(m => m.SpotCheckPercent)
-        </div>
 
-        @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent" })<span>*</span>
-        @Html.ValidationSummary()
-        <button type="submit">hhh</button>
-    }*@
+
+
+
+            @*@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post, new
+                {
+                    id = "frmAddSpotCheck"
+                }))
+                {
+                    <fieldset>
+                        <legend>Sewing Plant</legend>
+                        @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant" })
+                    </fieldset>
+                    <br />
+                    <fieldset>
+                        <legend>Style</legend>
+                        <input type="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />Specific Style
+
+                        @Html.TextBoxFor(m => m.Style, new
+                   {
+                       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateStyle()),
+                       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
+                       autocomplete = "off",
+                       style = "text-transform: uppercase",
+                       size = "15",
+                       id = "tbStyle"
+                   })
+                        <span title="Double click to quickly see suggestions">↓</span>
+                        <br />
+
+
+                        <input id="rbAllStyle" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" data-attr-disabletb="tbStyle" />
+                        <span>All styles &nbsp;</span>
+                        <br />
+                        <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
+                    </fieldset>
+                    <br />
+                    <fieldset>
+                        <legend>Color</legend>
+                        <input type="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" data-attr-enabletb="tbColor" />
+                        Specific Color
+                        @Html.TextBoxFor(m => m.Color, new
+                   {
+                       data_ac_validate_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ValidateColor()),
+                       data_ac_list_url = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
+                       autocomplete = "off",
+                       style = "text-transform: uppercase",
+                       size = "15",
+                       id = "tbColor"
+                   })
+                        <br />
+                        <input type="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
+                        <span>All Colors &nbsp;</span>
+                        <br />
+                        <span id="lblColorDesc" data-ac-msg-for="@Html.NameFor(m => m.Color)"></span>
+                    </fieldset>
+
+                    @Html.LabelFor(m => m.IsSpotCheckEnabled)<span>&nbsp;</span>
+
+
+                    <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" checked="checked" id="cbIsSpotCheckEnable" />
+                    <br />
+                    <div>
+                        @Html.LabelFor(m => m.SpotCheckPercent)
+                    </div>
+
+                    @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent" })<span>*</span>
+                    @Html.ValidationSummary()
+                    <button type="submit">hhh</button>
+                }*@
