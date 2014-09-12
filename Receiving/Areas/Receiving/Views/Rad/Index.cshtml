@@ -112,7 +112,7 @@
                 $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "").attr('required', true);
             });
             $('#Style,#Color').change(function (e) {
-                $('#tbSpecific' + $(this).attr('id')).attr('required', false).attr("disabled", true).attr('placeholder', "ALL");
+                $('#tbSpecific' + $(this).attr('id')).attr('required', false).val('').attr("disabled", true).attr('placeholder', "ALL");
             });
 
             //auto-complete for the _addspotCheckPartial Page.
