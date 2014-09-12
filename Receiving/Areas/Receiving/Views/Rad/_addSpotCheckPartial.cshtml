@@ -12,12 +12,12 @@
         <div class="form-group ">
             <label>Style<sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" />
+                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="@Model.AllStyles" checked="checked"  required/>
                 <label for="rbAllStyle">All styles</label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="rbSpecificStyle" />
-                <label for="rbSpecificStyle">Specific Style</label>
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="SpecificStyle" />
+                <label for="SpecificStyle">Specific Style</label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Style, new
@@ -26,7 +26,7 @@
        data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
-       id = "tbStyle",
+       id = "tbSpecificStyle",
        @class = "form-control",
        @disabled = "disabled",
        placeholder = "ALL STYLES"
@@ -39,12 +39,12 @@
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" />
+                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" checked="checked" required />
                 <label for="rbAllColors">All Colors</label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" />
-                <label for="rbSpecificColor">Specific Color</label>
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor"  />
+                <label for="SpecificColor">Specific Color</label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Color, new
@@ -53,7 +53,7 @@
        data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
-       id = "tbColor",
+       id = "tbSpecificColor",
        @class = "form-control",
        @disabled = "disabled",
        placeholder = "ALL COLOR"
@@ -71,7 +71,7 @@
         </div>
         <div class="form-group">
             <label for="tbSpotCheckPercent">Spot Check Percent <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent", @class = "form-control" })
+            @Html.TextBoxFor(m => m.SpotCheckPercent, new { id = "tbSpotCheckPercent", @class = "form-control",@required="required" })
         </div>
     </div>
     <div class="modal-footer">
