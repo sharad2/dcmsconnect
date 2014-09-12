@@ -10,14 +10,14 @@
             @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant", @class = "form-control" })
         </div>
         <div class="form-group ">
-            <label>Style<sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
+            <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <input id="Style" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="true" checked="checked" />
-                <label>All styles</label>
+                <span>All Styles</span>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="SpecificStyle" />
-                <label>Specific Style</label>
+                <span>Specific Style</span>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Style, new
@@ -40,11 +40,11 @@
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <input type="radio" class="radio" id="Color" name="@Html.NameFor(m => m.AllColors)" value="true" checked="checked" />
-                <label>All Colors</label>
+                <span>All Colors</span>
             </div>
             <div class="form-inline">
                 <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor" />
-                <label>Specific Color</label>
+                <span>Specific Color</span>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Color, new
