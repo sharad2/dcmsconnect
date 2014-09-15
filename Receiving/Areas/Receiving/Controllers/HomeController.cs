@@ -225,9 +225,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 return View(Views.CreateProcess, model);
             }
 
-            var id = model.CarrierId;
-            id = id.Substring(0, id.IndexOf(" "));
-            var carrier = _service.GetCarrier(id);
+            //var id = model.CarrierId;
+            //id = id.Substring(0, id.IndexOf(" "));
+            var carrier = _service.GetCarrier(model.CarrierId);
 
 
             if (carrier == null)
@@ -242,7 +242,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ProNumber = model.ProNumber,
                 Carrier = new Carrier
                 {
-                    CarrierId = id,
+                    CarrierId = model.CarrierId,
                     Description = model.CarrierDescription
                 },
                 ReceivingAreaId = model.ReceivingAreaId,
