@@ -3,36 +3,81 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 @model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
-<fieldset>
+<div>
+    <fieldset>
+        <legend>Configuration</legend>
+        <dl class="dl-horizontal">
+            <dt>@Html.LabelFor(m => m.Style)</dt>
+            <dd>@Html.DisplayFor(m => m.Style)</dd>
+            <dt>@Html.LabelFor(m => m.Color)</dt>
+            <dd>@Html.DisplayFor(m => m.Color)</dd>
+            <dt>@Html.LabelFor(m => m.SewingPlantId)</dt>
+            <dd>@Html.DisplayFor(m => m.SewingPlantId)</dd>
+            <dt>@Html.LabelFor(m => m.SpotCheckPercent)</dt>
+            <dd>@Html.DisplayFor(m => m.SpotCheckPercent)</dd>
+
+        </dl>
+        </fieldset>
+
+        <form class="form-horizontal" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" role="form">
+            @Html.HiddenFor(m => m.Style)
+            @Html.HiddenFor(m => m.SewingPlantId)
+            @Html.HiddenFor(m => m.Color)
+            <fieldset>
+                <legend>Edit</legend>
+                <div class="form-group">
+                    <div class="checkbox">
+
+                    <label class="col-sm-4 control-label">
+                        Enable Configuration
+                    </label>
+
+                    <div class="col-sm-8">
+                        <input type="checkbox">
+                    </div>
+                </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">New Percentage </label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="inputEmail3">
+                    </div>
+                </div>
+            </fieldset>
+
+
+        </form>
+</div>
+@*<fieldset>
     <legend>Configuration</legend>
-@Html.LabelFor(m => m.Style): <span data-name="@Html.NameFor(m => m.Style)" 
-    data-val=""></span>
-<br />
-@Html.LabelFor(m => m.Color): <span data-name="@Html.NameFor(m => m.Color)" 
-    data-val=""></span>
-<br />
+    @Html.LabelFor(m => m.Style): <span data-name="@Html.NameFor(m => m.Style)"
+                                        data-val=""></span>
+    <br />
+    @Html.LabelFor(m => m.Color): <span data-name="@Html.NameFor(m => m.Color)"
+                                        data-val=""></span>
+    <br />
 
 
-@Html.LabelFor(m => m.SewingPlantId): <span data-name="@Html.NameFor(m => m.SewingPlantId)" 
-    data-val=""></span>
-<br />
+    @Html.LabelFor(m => m.SewingPlantId): <span data-name="@Html.NameFor(m => m.SewingPlantId)"
+                                                data-val=""></span>
+    <br />
 
-@Html.LabelFor(m => m.SpotCheckPercent): <span  data-name="@Html.NameFor(m => m.SpotCheckPercent)" 
-    data-val=""></span>
-<br />
-</fieldset>
-@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post))
+    @Html.LabelFor(m => m.SpotCheckPercent): <span data-name="@Html.NameFor(m => m.SpotCheckPercent)"
+                                                   data-val=""></span>
+    <br />
+</fieldset>*@
+@*@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post))
 {
     @Html.HiddenFor(m => m.Style)
-    @Html.HiddenFor(m => m.SewingPlantId) 
-    @Html.HiddenFor(m => m.Color)  
+    @Html.HiddenFor(m => m.SewingPlantId)
+    @Html.HiddenFor(m => m.Color)
     <fieldset>
         <legend>Edit</legend>
-    <span>Enable Configuration :</span>  
-    <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" id="cbEditIsSpotCheckEnable" />
-    <br />
-    <span>New Percentage:</span> @Html.TextBoxFor(m => m.SpotCheckPercent, new  { size=4})
+        <span>Enable Configuration :</span>
+        <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" id="cbEditIsSpotCheckEnable" />
+        <br />
+        <span>New Percentage:</span> @Html.TextBoxFor(m => m.SpotCheckPercent, new  { size=4})
     </fieldset>
     @Html.ValidationSummary()
-}
+}*@
 <!--$Id$-->
