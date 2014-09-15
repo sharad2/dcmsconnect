@@ -36,7 +36,7 @@
                         <th style="text-align:center">Created By</th>
                         <th style="text-align:center">Modify Date</th>
                         <th style="text-align:center">Modified By</th>
-                        @if (!enableEditing)
+                        @if (enableEditing)
                         {
 
 
@@ -65,7 +65,8 @@
                             <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.CreatedBy</td>
                             <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.ModifyDateDispaly</td>
                             <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">@item.ModifiedBy</td>
-                            @if (!enableEditing)
+
+                            @if (enableEditing)
                             {
                                 <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">
                                     <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
