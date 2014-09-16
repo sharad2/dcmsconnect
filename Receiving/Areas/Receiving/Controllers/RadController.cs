@@ -162,7 +162,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 var list = sd.Select(p => Map(p)).ToList();
                 ViewBag.key = model.ConfigurationKey;
                 ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
-                return PartialView(Views._spotCheckListPartial, list);
+                //return PartialView(Views._spotCheckListPartial, list);
+                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
             }
             catch (Exception ex)
             {

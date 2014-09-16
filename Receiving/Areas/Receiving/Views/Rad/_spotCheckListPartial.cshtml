@@ -2,6 +2,8 @@
 @using EclipseLibrary.Mvc.Helpers
 @model IList<SpotCheckViewModel>
 @{
+
+
     bool enableEditing = (bool)ViewBag.EnableEditing;
     var key = string.Empty;
     if (ViewBag.key != null)
@@ -14,7 +16,7 @@
 
         <div class="table-responsive" id="divSpotCheckList">
             <table class="table  table-condensed table-bordered">
-                <thead>
+                <thead class="bg-success">
                     <tr>
                         <th style="text-align:center">
                             Sewing PlantId
@@ -52,9 +54,9 @@
                             data-sewingplant-id="@item.SewingPlantId"
                             data-spotcheck-percent="@item.SpotCheckPercent"
                             data-is-spotcheck-enabled="@item.IsSpotCheckEnabled"
-                            data-key="@item.ConfigurationKey"
+                            @*data-key="@item.ConfigurationKey"*@
                             @*class="@(key==@item.ConfigurationKey ? "bg-success" :"")"*@
-                            class="@(item.IsSpotCheckEnabled ? "" : "text-muted active")">
+                            class="@(item.IsSpotCheckEnabled ? "bg-info" : "text-muted active")">
 
                             <td>@item.SewingPlantId</td>
 
@@ -70,7 +72,7 @@
                                 @item.SpotCheckPercent
 
                                 <span class="@(item.IsSpotCheckEnabled ? "" : "glyphicon glyphicon-ban-circle pull-right")"></span>
-                            </td>                           
+                            </td>
                             <td>@item.CreationDateDispaly</td>
                             <td>@item.CreatedBy</td>
                             <td>@item.ModifyDateDispaly</td>
