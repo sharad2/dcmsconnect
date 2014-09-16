@@ -12,7 +12,7 @@
     {
         var i = 0;
 
-        <div class="table-responsive">
+        <div class="table-responsive" id="divSpotCheckList">
             <table class="table table-striped table-condensed table-bordered">
                 <thead>
                     <tr>
@@ -47,7 +47,13 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr title="Disabled row implies that SpotCheck will not be performed for these settings." data-key="@item.ConfigurationKey" class="@(key==@item.ConfigurationKey ? "bg-success" :"")">
+                        <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
+                            data-style="@item.Style"
+                            data-color="@item.Color"
+                            data-sewingplant-id="@item.SewingPlantId"
+                            data-spotcheck-percent="@item.SpotCheckPercent"
+                            data-key="@item.ConfigurationKey" class="@(key==@item.ConfigurationKey ? "bg-success" :"")">
+
                             <td data-val="@item.SewingPlantId" class="@(item.IsSpotCheckEnabled ? "" : "bg-info" )">@item.SewingPlantId</td>
 
 
@@ -70,10 +76,10 @@
                             {
                                 <td class="@(item.IsSpotCheckEnabled ? "" : "bg-info")">
                                     <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
-                                        <i class="glyphicon glyphicon-edit" title="Edit Spot Check"></i>
+                                        <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
                                     </button>
                                     <button class="btn btn-link" data-toggle="modal" data-target="#btnRemoveSpotCheck">
-                                        <i class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></i>
+                                        <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
                                     </button>
                                 </td>
 

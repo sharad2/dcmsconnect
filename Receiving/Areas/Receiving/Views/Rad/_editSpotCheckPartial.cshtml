@@ -3,20 +3,22 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 @model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
-<div class="modal-body">
+<div class="modal-body" id="divEditSpotCheck">
     <small class="text-info">
         <span class="glyphicon glyphicon-info-sign"></span>
         @Html.LabelFor(m => m.Style)
-        @Html.DisplayFor(m => m.Style)
+        <span data-name="style"> </span>
+       
         &bull;
         @Html.LabelFor(m => m.Color)
-        @Html.DisplayFor(m => m.Color)
+        <span data-name="color"> </span>
+   
         &bull;
         @Html.LabelFor(m => m.SewingPlantId)
-        @Html.DisplayFor(m => m.SewingPlantId)
+        <span data-name="sewingPlantId"> </span>
         &bull;
         @Html.LabelFor(m => m.SpotCheckPercent)
-        @Html.DisplayFor(m => m.SpotCheckPercent)
+        <span data-name="spotCheckPercent"> </span>
     </small>
 </div>
     <form class="form-horizontal" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" role="form">
