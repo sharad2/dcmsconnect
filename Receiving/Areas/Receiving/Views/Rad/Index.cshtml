@@ -35,14 +35,14 @@
             Building)
 
             @for (int i = 0; i < Model.SpotCheckAreaList.Count(); i++)
-                    {
+            {
                 <span class="h4 text-success">
                     &nbsp; &nbsp; &nbsp;
                     @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
                     <span class="glyphicon glyphicon-arrow-right"></span>
                     @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
                 </span>
-                    }
+            }
         </div>
     }
     else
@@ -71,9 +71,9 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">Edit Spot Check</h4>
                 </div>
-               
-                    @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())                   
-              
+
+                @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())
+
             </div>
         </div>
     </div>
@@ -116,7 +116,9 @@
                 $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
                 $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
                 $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
-                var checked = $tr.attr('data-is-spotcheck-enabled');                
+                $('#newPercent').val($tr.attr('data-spotcheck-percent'));
+
+                var checked = $tr.attr('data-is-spotcheck-enabled');
                 if (checked == "True") {
                     $('#cbEditIsSpotCheckEnable').attr('checked', 'checked');
                 }
