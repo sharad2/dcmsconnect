@@ -117,8 +117,11 @@
                 $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
                 $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
                 $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
-                $('#newPercent').val($tr.attr('data-spotcheck-percent'));
 
+                $('#newPercent').val($tr.attr('data-spotcheck-percent'));
+                $('input[data-name="style"]').val($tr.attr('data-style'));
+                $('input[data-name="color"]').val($tr.attr('data-color'));
+                $('input[data-name="sewingPlantId"]').val($tr.attr('data-sewingplant-id'));
                 var checked = $tr.attr('data-is-spotcheck-enabled');       
                 if (checked == "True") {
                     $('#cbEditIsSpotCheckEnable').prop('checked', 'checked');

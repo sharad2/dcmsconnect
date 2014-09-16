@@ -22,9 +22,10 @@
     </small>
 </div>
     <form class="form-horizontal" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" role="form">
-        @Html.HiddenFor(m => m.Style)
-        @Html.HiddenFor(m => m.SewingPlantId)
-        @Html.HiddenFor(m => m.Color)
+        @Html.HiddenFor(m => m.Style, new { data_name="style" })
+        
+        @Html.HiddenFor(m => m.SewingPlantId, new { data_name = "sewingPlantId" })
+        @Html.HiddenFor(m => m.Color, new { data_name = "color" })
        
         <div class="form-group">
             <label  class="col-sm-3 control-label" for="newPercent">New Percentage</label>
