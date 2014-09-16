@@ -119,9 +119,9 @@
                 $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
                 $('#newPercent').val($tr.attr('data-spotcheck-percent'));
 
-                var checked = $tr.attr('data-is-spotcheck-enabled');
+                var checked = $tr.attr('data-is-spotcheck-enabled');       
                 if (checked == "True") {
-                    $('#cbEditIsSpotCheckEnable').attr('checked', 'checked');
+                    $('#cbEditIsSpotCheckEnable').prop('checked', 'checked');
                 }
                 else {
                     $('#cbEditIsSpotCheckEnable').removeAttr('checked', 'checked')
