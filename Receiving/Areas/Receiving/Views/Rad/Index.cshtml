@@ -116,7 +116,13 @@
                 $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
                 $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
                 $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
-                //alert($tr.attr('data-style'));
+                var checked = $tr.attr('data-is-spotcheck-enabled');                
+                if (checked == "True") {
+                    $('#cbEditIsSpotCheckEnable').attr('checked', 'checked');
+                }
+                else {
+                    $('#cbEditIsSpotCheckEnable').removeAttr('checked', 'checked')
+                }
 
 
             });
