@@ -113,6 +113,7 @@
             //Insert values of style,color,sewingPlant and spotCheckPercent in the _editSpotCheckPartial  from _spotCheckListPartial
             $('#divSpotCheckList').on('click', 'table tbody tr td button[data-target="#btnEditSpotCheck"]', function (e) {
                 var $tr = $(e.target).closest('tr');
+                $tr.removeClass('bg-info active text-muted').addClass('bg-success');
                 $('#divEditSpotCheck').find('span[data-name="style"]').text($tr.attr('data-style'));
                 $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
                 $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
@@ -129,9 +130,8 @@
                 else {
                     $('#cbEditIsSpotCheckEnable').removeAttr('checked', 'checked')
                 }
-
-
             });
+           
             //auto-complete for the _addspotCheckPartial Page.
             $('input[data-url-list]').typeahead({
                 source: function (query, cb) {
