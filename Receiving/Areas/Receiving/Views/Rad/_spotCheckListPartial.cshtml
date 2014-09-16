@@ -54,8 +54,7 @@
                             data-sewingplant-id="@item.SewingPlantId"
                             data-spotcheck-percent="@item.SpotCheckPercent"
                             data-is-spotcheck-enabled="@item.IsSpotCheckEnabled"
-                            data-key="@item.ConfigurationKey"
-                            @*class="@(key==@item.ConfigurationKey ? "bg-success" :"")"*@
+                            data-key="@item.ConfigurationKey"                          
                             class="@(item.IsSpotCheckEnabled ? "bg-info" : "text-muted active")">
 
                             <td>@item.SewingPlantId</td>
