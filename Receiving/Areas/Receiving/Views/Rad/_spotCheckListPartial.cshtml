@@ -30,12 +30,7 @@
                         </th>
                         <th style="text-align:center">
                             Spot Check %
-                            @*<th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)" data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)" style="display:none">
-                            Spot Check %
-                        </th>*@
-                            @*<th >
-                            Spot Check %
-                        </th>*@
+                        </th>
                         <th style="text-align:center">Created Date</th>
                         <th style="text-align:center">Created By</th>
                         <th style="text-align:center">Modify Date</th>
@@ -75,18 +70,7 @@
                                 @item.SpotCheckPercent
 
                                 <span class="@(item.IsSpotCheckEnabled ? "" : "glyphicon glyphicon-ban-circle pull-right")"></span>
-                            </td>
-                            @*<td data-val="@item.IsSpotCheckEnabled" style="display:none"></td>*@
-                            @*<td style="display:none"></td>*@
-                            @*@if (item.IsSpotCheckEnabled == true)
-                        {
-                            <td>Checked</td>
-                        }
-                        else
-                        {
-
-                            <td>not checked</td>
-                        }*@
+                            </td>                           
                             <td>@item.CreationDateDispaly</td>
                             <td>@item.CreatedBy</td>
                             <td>@item.ModifyDateDispaly</td>
