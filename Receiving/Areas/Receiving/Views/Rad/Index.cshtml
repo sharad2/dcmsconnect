@@ -192,7 +192,7 @@
                             msg += $.validator.format("{0} : {1}; ", displayName, $(this).html());
                         }
                     });
-                    alert($(e.target).attr('data-delete-ajax-url'));
+                   // alert($(e.target).attr('data-delete-ajax-url'));
                     var result = confirm(msg);
                     if (result) {
                         $.ajax({
