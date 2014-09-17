@@ -2,8 +2,6 @@
 @using EclipseLibrary.Mvc.Helpers
 @model IList<SpotCheckViewModel>
 @{
-
-
     bool enableEditing = (bool)ViewBag.EnableEditing;
     var key = string.Empty;
     if (ViewBag.key != null)
@@ -13,35 +11,43 @@
     if (Model.Count() != 0)
     {
         var i = 0;
-
         <div class="table-responsive">
-            <table class="table  table-condensed table-bordered">
+            <table class="table table-condensed table-bordered">
                 <thead class="bg-success">
                     <tr>
-                        <th style="text-align:center">
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)">
                             Sewing PlantId
                         </th>
-                        <th style="text-align:center">
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)">
                             Plant Name
                         </th>
-                        <th style="text-align:center">
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Style)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Style)">
                             Style
                         </th>
-                        <th style="text-align:center">
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Color)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Color)">
                             Color
                         </th>
-                        <th style="text-align:center">
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SpotCheckPercent)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SpotCheckPercent)">
                             Spot Check %
                         </th>
-                        <th style="text-align:center">Created Date</th>
-                        <th style="text-align:center">Created By</th>
-                        <th style="text-align:center">Modify Date</th>
-                        <th style="text-align:center">Modified By</th>
+                        <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)"
+                            data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)" style="display:none">
+                            Spot Check %
+                        </th>
+                        <th>Created Date</th>
+                        <th>Created By</th>
+                        <th>Modify Date</th>
+                        <th>Modified By</th>
                         @if (!enableEditing)
                         {
 
 
-                            <th style="text-align:center">Change</th>
+                            <th>Change</th>
                         }
                     </tr>
                 </thead>
@@ -49,32 +55,32 @@
                     @foreach (var item in Model)
                     {
                         <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
-                            data-style="@item.Style"
-                            data-color="@item.Color"
-                            data-sewingplant-id="@item.SewingPlantId"
-                            data-sewingplant-name="@item.PlantName"
-                            data-spotcheck-percent="@item.SpotCheckPercent"
-                            data-is-spotcheck-enabled="@item.IsSpotCheckEnabled"
                             data-key="@item.ConfigurationKey"
-                            class="@(item.IsSpotCheckEnabled ? "bg-info" : "text-muted active")">
+                            @*class="@(key==@item.ConfigurationKey ? "bg-warning" :"")"*@
+                            class="@(item.IsSpotCheckEnabled ? "bg-info" : "text-muted" )">
+                            <td data-val="@item.SewingPlantId">@item.SewingPlantId</td>
 
-                            <td>@item.SewingPlantId</td>
-                            <td>@item.PlantName</td>
-                            <td>@item.Style</td>
-                            <td>@item.Color</td>
-                            <td>
+
+                            <td data-val="@item.PlantName">@item.PlantName</td>
+
+
+                            <td data-val="@item.Style">@item.Style</td>
+
+                            <td data-val="@item.Color">@item.Color</td>
+
+                            <td data-val="@item.SpotCheckPercent">
                                 @item.SpotCheckPercent
-                                <span class="@(item.IsSpotCheckEnabled ? "" : "glyphicon glyphicon-ban-circle pull-right")"></span>
                             </td>
+                            <td data-val="@item.IsSpotCheckEnabled" style="display:none"></td>
+
                             <td>@item.CreationDateDispaly</td>
                             <td>@item.CreatedBy</td>
                             <td>@item.ModifyDateDispaly</td>
                             <td>@item.ModifiedBy</td>
-
                             @if (!enableEditing)
                             {
                                 <td>
-                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck" >
+                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
                                         <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
                                     </button>
                                     <button class="btn btn-link" data-toggle="modal"
@@ -83,7 +89,6 @@
                                         <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
                                     </button>
                                 </td>
-
                             }
 
                         </tr>
@@ -91,10 +96,7 @@
                     }
 
                 </tbody>
-
             </table>
         </div>
-
-
     }
 }

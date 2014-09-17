@@ -3,88 +3,51 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 @model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
+
 <div class="modal-body" id="divEditSpotCheck">
     <small class="text-info">
         <span class="glyphicon glyphicon-info-sign"></span>
         @Html.LabelFor(m => m.Style)
-        <span data-name="style"> </span>
-       
+        <span data-name="@Html.NameFor(m => m.Style)"
+              data-val=""></span>
+
         &bull;
         @Html.LabelFor(m => m.Color)
-        <span data-name="color"> </span>
-   
+        <span data-name="@Html.NameFor(m => m.Color)"
+              data-val=""></span>
+
         &bull;
         @Html.LabelFor(m => m.SewingPlantId)
-        <span data-name="sewingPlantId"> </span>
+        <span data-name="@Html.NameFor(m => m.SewingPlantId)"
+              data-val=""></span>
         &bull;
         @Html.LabelFor(m => m.SpotCheckPercent)
-        <span data-name="spotCheckPercent"> </span>
+        <span data-name="@Html.NameFor(m => m.SpotCheckPercent)"
+              data-val=""></span>
     </small>
 </div>
-    <form class="form-horizontal" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" role="form">
-        @Html.HiddenFor(m => m.Style, new { data_name="style" })
-        
-        @Html.HiddenFor(m => m.SewingPlantId, new { data_name = "sewingPlantId" })
-        @Html.HiddenFor(m => m.Color, new { data_name = "color" })
-       
-        <div class="form-group">
-            <label  class="col-sm-3 control-label" for="newPercent">New Percentage</label>
-            <div class="col-sm-9">
-                <input id="newPercent" name="@Html.NameFor(m=>m.SpotCheckPercent)" type="text" class="form-control" size="4" required>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-3 col-sm-9">
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="true" id="cbEditIsSpotCheckEnable"> Enable Configuration
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Ok</button>
-        </div>
-    </form>
-
-
-
-    
-
-
-
-
-@*<fieldset>
-    <legend>Configuration</legend>
-    @Html.LabelFor(m => m.Style): <span data-name="@Html.NameFor(m => m.Style)"
-                                        data-val=""></span>
-    <br />
-    @Html.LabelFor(m => m.Color): <span data-name="@Html.NameFor(m => m.Color)"
-                                        data-val=""></span>
-    <br />
-
-
-    @Html.LabelFor(m => m.SewingPlantId): <span data-name="@Html.NameFor(m => m.SewingPlantId)"
-                                                data-val=""></span>
-    <br />
-
-    @Html.LabelFor(m => m.SpotCheckPercent): <span data-name="@Html.NameFor(m => m.SpotCheckPercent)"
-                                                   data-val=""></span>
-    <br />
-</fieldset>*@
-@*@using (Html.BeginForm(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage(), FormMethod.Post))
-{
+<form class="form-horizontal" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" role="form">
     @Html.HiddenFor(m => m.Style)
     @Html.HiddenFor(m => m.SewingPlantId)
     @Html.HiddenFor(m => m.Color)
-    <fieldset>
-        <legend>Edit</legend>
-        <span>Enable Configuration :</span>
-        <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" id="cbEditIsSpotCheckEnable" />
-        <br />
-        <span>New Percentage:</span> @Html.TextBoxFor(m => m.SpotCheckPercent, new  { size=4})
-    </fieldset>
-    @Html.ValidationSummary()
-}*@
-<!--$Id$-->
+
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="newPercent">New Percentage</label>
+        <div class="col-sm-9">
+            @Html.TextBoxFor(m => m.SpotCheckPercent, new { size = 4 })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="" id="cbEditIsSpotCheckEnable" /> Enable Configuration
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary">Ok</button>
+    </div>
+</form>

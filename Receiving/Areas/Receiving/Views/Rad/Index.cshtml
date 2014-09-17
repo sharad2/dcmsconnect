@@ -36,12 +36,12 @@
 
             @for (int i = 0; i < Model.SpotCheckAreaList.Count(); i++)
             {
-                <span class="h4 text-success">
-                    &nbsp; &nbsp; &nbsp;
-                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
-                    <span class="glyphicon glyphicon-arrow-right"></span>
-                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
-                </span>
+            <span class="h4 text-success">
+                &nbsp; &nbsp; &nbsp;
+                @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
+                <span class="glyphicon glyphicon-arrow-right"></span>
+                @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
+            </span>
             }
         </div>
     }
@@ -99,9 +99,19 @@
 
 @section script {
     <script src="@Links_Receiving.Areas.Receiving.Scripts.bootstrap3_typeahead_js" type="text/javascript"></script>
+    <!-- Need for post the values from _spotCheckListpartial.cshtml page to _editSpotCheckPartial.cshtml -->
+    <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+
+
+
             //Enabel auto-complete textbox for the specific style and color in the add spot check popup in _addSpotCheckPartial Page.
             $('#SpecificStyle,#SpecificColor').on('change', function (e) {
                 $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "").attr('required', true);
@@ -110,56 +120,111 @@
                 $('#tbSpecific' + $(this).attr('id')).attr('required', false).val('').attr("disabled", true).attr('placeholder', "ALL");
             });
 
-            //Insert values of style,color,sewingPlant and spotCheckPercent in the _editSpotCheckPartial  from _spotCheckListPartial
-            $('#divSpotCheckList').on('click', 'table tbody tr td button[data-target="#btnEditSpotCheck"]', function (e) {
-                var $tr = $(e.target).closest('tr');
-                $tr.removeClass('bg-info active text-muted').addClass('bg-success');
-                $('#divEditSpotCheck').find('span[data-name="style"]').text($tr.attr('data-style'));
-                $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
-                $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
-                $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
 
-                $('#newPercent').val($tr.attr('data-spotcheck-percent'));
-                $('input[data-name="style"]').val($tr.attr('data-style'));
-                $('input[data-name="color"]').val($tr.attr('data-color'));
-                $('input[data-name="sewingPlantId"]').val($tr.attr('data-sewingplant-id'));
-                var checked = $tr.attr('data-is-spotcheck-enabled');       
-                if (checked == "True") {
-                    $('#cbEditIsSpotCheckEnable').prop('checked', 'checked');
+            $('#divSpotCheckList').click(function (e) {
+           
+                var $dlg = $(this).find($(e.target)).attr('data-target');
+                var $tr = $(e.target).closest('tr');            
+                $tr.addClass('bg-success');
+
+                if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {                  
+                    var $th = $(e.target).closest('table').find('thead > tr > th');                  
+                    $tr.addClass('bg-success').find('td').each(function (index) {
+                           //Binding all the values of span on the dialog box
+                           // Populate the visible spans
+                           var name = $th.eq(index).attr('data-name');
+                           if (name) {
+                               var selector = $.validator.format("span[data-name='{0}']", name);
+                               $(selector, $dlg).html($(this).html());
+                               // Populate the hidden fields
+                               selector = $.validator.format("input[name='{0}']", name);
+                               var inputType = $(selector, $dlg).attr('type');
+                               if (inputType == 'checkbox') {
+                                   var val = $(this).attr('data-val');
+                                   if (val == "True") {
+                                       $(selector, $dlg).prop('checked', 'checked');
+                                   }
+                                   else {
+                                       $(selector, $dlg).removeAttr('checked', 'checked')
+                                   }
+                               }
+                               $(selector, $dlg).val($(this).attr('data-val'));
+                           }
+                       });
                 }
                 else {
-                    $('#cbEditIsSpotCheckEnable').removeAttr('checked', 'checked')
+                    alert('glyphicon-remove');
                 }
-            }).on('click', 'table tbody tr td button[data-target="#btnRemoveSpotCheck"]', function (e) {
-                var $tr = $(e.target).closest('tr');
-                if (confirm('Remove Spot Check Percent for Sewing Plant '
-                    + $tr.attr('data-sewingplant-id') + ':'
-                    + $tr.attr('data-sewingplant-name')
-                    + '; Style: '
-                    + $tr.attr('data-style')
-                    + '; Color: '
-                    + $tr.attr('data-color')
-                    + '; SpotCheck Percent: '
-                    + $tr.attr('data-spotcheck-percent')
-                     + '; SpotCheck enabled: '
-                    + $tr.attr('data-is-spotcheck-enabled'))) {
-                    $.ajax($(e.target).attr('data-delete-ajax-url'), {
-                        type: 'POST',
-                        success: function (data, textStatus, jqXHR) {
-                            // handling validation error
-                            if (jqXHR.status == 203) {
-                                alert(jqXHR.responseText);
-                                return;
-                            }
-                            return false;
 
-                        }
-                    }).error(function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    });
-                }
             });
-           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ////Insert values of style,color,sewingPlant and spotCheckPercent in the _editSpotCheckPartial  from _spotCheckListPartial
+            //$('#divSpotCheckList').on('click', 'table tbody tr td button[data-target="#btnEditSpotCheck"]', function (e) {
+
+
+            //    var $tr = $(e.target).closest('tr');
+            //    $tr.removeClass('bg-info active text-muted').addClass('bg-success');
+            //    $('#divEditSpotCheck').find('span[data-name="style"]').text($tr.attr('data-style'));
+            //    $('#divEditSpotCheck').find('span[data-name="color"]').text($tr.attr('data-color'));
+            //    $('#divEditSpotCheck').find('span[data-name="sewingPlantId"]').text($tr.attr('data-sewingplant-id'));
+            //    $('#divEditSpotCheck').find('span[data-name="spotCheckPercent"]').text($tr.attr('data-spotcheck-percent'));
+
+            //    $('#newPercent').val($tr.attr('data-spotcheck-percent'));
+            //    $('input[data-name="style"]').val($tr.attr('data-style'));
+            //    $('input[data-name="color"]').val($tr.attr('data-color'));
+            //    $('input[data-name="sewingPlantId"]').val($tr.attr('data-sewingplant-id'));
+            //    var checked = $tr.attr('data-is-spotcheck-enabled');
+            //    if (checked == "True") {
+            //        $('#cbEditIsSpotCheckEnable').prop('checked', 'checked');
+            //    }
+            //    else {
+            //        $('#cbEditIsSpotCheckEnable').removeAttr('checked', 'checked')
+            //    }
+            //}).on('click', 'table tbody tr td button[data-target="#btnRemoveSpotCheck"]', function (e) {
+            //    var $tr = $(e.target).closest('tr');
+            //    if (confirm('Remove Spot Check Percent for Sewing Plant '
+            //        + $tr.attr('data-sewingplant-id') + ':'
+            //        + $tr.attr('data-sewingplant-name')
+            //        + '; Style: '
+            //        + $tr.attr('data-style')
+            //        + '; Color: '
+            //        + $tr.attr('data-color')
+            //        + '; SpotCheck Percent: '
+            //        + $tr.attr('data-spotcheck-percent')
+            //         + '; SpotCheck enabled: '
+            //        + $tr.attr('data-is-spotcheck-enabled'))) {
+            //        $.ajax($(e.target).attr('data-delete-ajax-url'), {
+            //            type: 'POST',
+            //            success: function (data, textStatus, jqXHR) {
+            //                // handling validation error
+            //                if (jqXHR.status == 203) {
+            //                    alert(jqXHR.responseText);
+            //                    return;
+            //                }
+            //                return false;
+
+            //            }
+            //        }).error(function (jqXHR, textStatus, errorThrown) {
+            //            alert(jqXHR.responseText);
+            //        });
+            //    }
+            //});
+
             //auto-complete for the _addspotCheckPartial Page.
             $('input[data-url-list]').typeahead({
                 source: function (query, cb) {
