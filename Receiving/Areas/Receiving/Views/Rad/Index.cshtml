@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Modal for remove spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
+    <!-- Modal for add spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
     <div class="modal fade" id="btnAddSpotCheck" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -92,6 +92,24 @@
     SewingPlantList = Model.SpotCheckViewModel.SewingPlantList
 })
 
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal for remove spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
+    <div class="modal fade" id="btnRemoveSpotCheck" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Remove Spot Check</h4>
+                </div>
+                <div class="modal-body">
+                    <span class="text-info" id="detailSpotCheck"><span class="glyphicon glyphicon-info-sign"></span></span>
+                </div>
+                <div class="modal-footer">
+                </div>
             </div>
         </div>
     </div>
@@ -122,9 +140,8 @@
             });
 
 
-            $('#divSpotCheckList').click(function (e) {
-           
-                var $dlg = $(this).find($(e.target)).attr('data-target');
+            $('#divSpotCheckList').click(function (e) {           
+                var $dlg = $(this).find($(e.target)).attr('data-target');      
                 var $tr = $(e.target).closest('tr');            
                 $('tr', this).removeClass('bg-success');
 
@@ -155,6 +172,18 @@
                 }
                 else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
                     $tr.addClass('bg-success');
+                    var $th = $(e.target).closest('table').find('thead > tr > th');
+                    $(e.target).closest('tr').find('td').each(function (index) {
+                        var name = $th.eq(index).attr('data-name');
+                        if (name) {
+                          var dataVal = $(this).attr('data-val');
+                        }                       
+                        var displayName = $th.eq(index).attr('data-display-name');
+                        if (displayName) {
+                            var output = $.validator.format("{0}: {1}; ", displayName, dataVal);
+                        }                       
+                            $("#detailSpotCheck").append(output);
+                    });
                 }
 
             });
