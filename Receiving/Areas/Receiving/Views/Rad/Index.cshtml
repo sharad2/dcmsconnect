@@ -36,12 +36,12 @@
 
             @for (int i = 0; i < Model.SpotCheckAreaList.Count(); i++)
             {
-            <span class="h4 text-success">
-                &nbsp; &nbsp; &nbsp;
-                @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
-                <span class="glyphicon glyphicon-arrow-right"></span>
-                @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)               
-            </span>
+                <span class="h4 text-success">
+                    &nbsp; &nbsp; &nbsp;
+                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
+                </span>
             }
         </div>
     }
@@ -49,20 +49,20 @@
     {
         <div class="alert alert-info">No Spot Check Areas defined</div>
     }
-   
-       
-        <div id="divSpotCheckList">
-            @if (!Model.EnableEditing)
-            {
-                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
-                    Add Spot Check...
-                </button>
-            }
-            <div>
-                @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
-            </div>
+
+
+    <div id="divSpotCheckList">
+        @if (!Model.EnableEditing)
+        {
+            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
+                Add Spot Check...
+            </button>
+        }
+        <div>
+            @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
         </div>
-  
+    </div>
+
 
     <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->
     <div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
@@ -98,21 +98,28 @@
 
 
     <!-- Modal for remove spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
-    <div class="modal fade" id="btnRemoveSpotCheck" tabindex="-1" role="dialog">
+    @*<div class="modal fade" id="btnRemoveSpotCheck" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Remove Spot Check</h4>
                 </div>
-                <div class="modal-body">
-                    <span class="text-info" id="detailSpotCheck"><span class="glyphicon glyphicon-info-sign"></span></span>
-                </div>
-                <div class="modal-footer">
-                </div>
+                <form action="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())" method="post">
+                    <div class="modal-body">
+                        <span class="text-info" id="detailSpotCheck">
+                            <span class="glyphicon glyphicon-info-sign">
+                            </span>
+                        </span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Ok</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
+    </div>*@
 </div>
 
 
@@ -140,50 +147,78 @@
             });
 
 
-            $('#divSpotCheckList').click(function (e) {           
-                var $dlg = $(this).find($(e.target)).attr('data-target');      
-                var $tr = $(e.target).closest('tr');            
+            $('#divSpotCheckList').click(function (e) {
+                var $tr = $(e.target).closest('tr');
                 $('tr', this).removeClass('bg-success');
-
-                if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {                  
-                    var $th = $(e.target).closest('table').find('thead > tr > th');                  
+                if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {
+                    var $dlg = $(this).find($(e.target)).attr('data-target');                  
+                    var $th = $(e.target).closest('table').find('thead > tr > th');
                     $tr.addClass('bg-success').find('td').each(function (index) {
-                           //Binding all the values of span on the dialog box
-                           // Populate the visible spans
-                           var name = $th.eq(index).attr('data-name');
-                           if (name) {
-                               var selector = $.validator.format("span[data-name='{0}']", name);
-                               $(selector, $dlg).html($(this).html());
-                               // Populate the hidden fields
-                               selector = $.validator.format("input[name='{0}']", name);
-                               var inputType = $(selector, $dlg).attr('type');
-                               if (inputType == 'checkbox') {
-                                   var val = $(this).attr('data-val');
-                                   if (val == "True") {
-                                       $(selector, $dlg).prop('checked', 'checked');
-                                   }
-                                   else {
-                                       $(selector, $dlg).removeAttr('checked', 'checked')
-                                   }
-                               }
-                               $(selector, $dlg).val($(this).attr('data-val'));
-                           }
-                       });
+                        //Binding all the values of span on the dialog box
+                        // Populate the visible spans
+                        var name = $th.eq(index).attr('data-name');
+                        if (name) {
+                            var selector = $.validator.format("span[data-name='{0}']", name);
+                            $(selector, $dlg).html($(this).html());
+                            // Populate the hidden fields
+                            selector = $.validator.format("input[name='{0}']", name);
+                            var inputType = $(selector, $dlg).attr('type');
+                            if (inputType == 'checkbox') {
+                                var val = $(this).attr('data-val');
+                                if (val == "True") {
+                                    $(selector, $dlg).prop('checked', 'checked');
+                                }
+                                else {
+                                    $(selector, $dlg).removeAttr('checked', 'checked')
+                                }
+                            }
+                            $(selector, $dlg).val($(this).attr('data-val'));
+                        }
+                    });
                 }
                 else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
                     $tr.addClass('bg-success');
+                    var dialogData = new Object();
+                    var msg = $(e.target).find('span').attr('title') + ' for ';
+                    //Collecting details for Delete
                     var $th = $(e.target).closest('table').find('thead > tr > th');
                     $(e.target).closest('tr').find('td').each(function (index) {
                         var name = $th.eq(index).attr('data-name');
                         if (name) {
-                          var dataVal = $(this).attr('data-val');
-                        }                       
+                            dialogData[name] = $(this).attr('data-val');
+                        }
                         var displayName = $th.eq(index).attr('data-display-name');
                         if (displayName) {
-                            var output = $.validator.format("{0}: {1}; ", displayName, dataVal);
-                        }                       
-                            $("#detailSpotCheck").append(output);
+                            msg += $.validator.format("{0} : {1}; ", displayName, $(this).html());
+                        }
                     });
+                    alert($(e.target).attr('data-delete-ajax-url'));
+                    var result = confirm(msg);
+                    if (result) {
+                        $.ajax({
+                            url: $(e.target).attr('data-delete-ajax-url'),
+                            type: 'POST',
+                            context: this,
+                            data: dialogData,
+                            statusCode: {
+                                // Success
+                                200: function (data, textStatus, jqXHR) {
+                                    //updating the list with updated data
+                                    $(this).html(data);
+                                },
+                                // Error
+                                203: function (data, textStatus, jqXHR) {
+                                    //alert(data);
+                                    $('div[data-valmsg-summary]').html(data)
+                                       .removeClass('validation-summary-valid')
+                                        .addClass('validation-summary-errors');
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(jqXHR.responseText);
+                            }
+                        });
+                    }
                 }
 
             });
