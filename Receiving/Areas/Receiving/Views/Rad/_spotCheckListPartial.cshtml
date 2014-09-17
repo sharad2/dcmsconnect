@@ -14,7 +14,7 @@
     {
         var i = 0;
 
-        <div class="table-responsive" id="divSpotCheckList">
+        <div class="table-responsive">
             <table class="table  table-condensed table-bordered">
                 <thead class="bg-success">
                     <tr>
@@ -52,24 +52,18 @@
                             data-style="@item.Style"
                             data-color="@item.Color"
                             data-sewingplant-id="@item.SewingPlantId"
+                            data-sewingplant-name="@item.PlantName"
                             data-spotcheck-percent="@item.SpotCheckPercent"
                             data-is-spotcheck-enabled="@item.IsSpotCheckEnabled"
-                            data-key="@item.ConfigurationKey"                          
+                            data-key="@item.ConfigurationKey"
                             class="@(item.IsSpotCheckEnabled ? "bg-info" : "text-muted active")">
 
                             <td>@item.SewingPlantId</td>
-
-
                             <td>@item.PlantName</td>
-
-
                             <td>@item.Style</td>
-
                             <td>@item.Color</td>
-
                             <td>
                                 @item.SpotCheckPercent
-
                                 <span class="@(item.IsSpotCheckEnabled ? "" : "glyphicon glyphicon-ban-circle pull-right")"></span>
                             </td>
                             <td>@item.CreationDateDispaly</td>
@@ -80,10 +74,12 @@
                             @if (!enableEditing)
                             {
                                 <td>
-                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck" >
                                         <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
                                     </button>
-                                    <button class="btn btn-link" data-toggle="modal" data-target="#btnRemoveSpotCheck">
+                                    <button class="btn btn-link" data-toggle="modal"
+                                            data-delete-ajax-url="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())"
+                                            data-target="#btnRemoveSpotCheck">
                                         <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
                                     </button>
                                 </td>
