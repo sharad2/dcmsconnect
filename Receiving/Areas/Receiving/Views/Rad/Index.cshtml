@@ -40,7 +40,7 @@
                 &nbsp; &nbsp; &nbsp;
                 @Html.DisplayFor(m => m.SpotCheckAreaList[i].AreaId)
                 <span class="glyphicon glyphicon-arrow-right"></span>
-                @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)
+                @Html.DisplayFor(m => m.SpotCheckAreaList[i].BuildingId)               
             </span>
             }
         </div>
@@ -49,19 +49,20 @@
     {
         <div class="alert alert-info">No Spot Check Areas defined</div>
     }
-
-    <div id="divSpotCheckList">
-        @if (!Model.EnableEditing)
-        {
-            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
-                Add Spot Check...
-            </button>
-        }
-        <div>
-            @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
+   
+       
+        <div id="divSpotCheckList">
+            @if (!Model.EnableEditing)
+            {
+                <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
+                    Add Spot Check...
+                </button>
+            }
+            <div>
+                @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
+            </div>
         </div>
-    </div>
-
+  
 
     <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->
     <div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
@@ -125,7 +126,7 @@
            
                 var $dlg = $(this).find($(e.target)).attr('data-target');
                 var $tr = $(e.target).closest('tr');            
-                $tr.addClass('bg-success');
+                $('tr', this).removeClass('bg-success');
 
                 if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {                  
                     var $th = $(e.target).closest('table').find('thead > tr > th');                  
@@ -152,8 +153,8 @@
                            }
                        });
                 }
-                else {
-                    alert('glyphicon-remove');
+                else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
+                    $tr.addClass('bg-success');
                 }
 
             });
