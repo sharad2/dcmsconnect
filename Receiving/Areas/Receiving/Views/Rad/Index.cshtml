@@ -101,21 +101,35 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            //Enabel auto-complete textbox for the specific style and color in the add spot check popup in _addSpotCheckPartial Page.
-            $('#SpecificStyle,#SpecificColor').on('change', function (e) {
-                $('#tb' + $(this).attr('id')).attr("disabled", false).attr('placeholder', "").attr('required', true);
+            // Handle change event of radio button for All styles and AllColors.
+            // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
+            // Id of textbox for style,color and value for data-attr-disabletb must be same.
+            $('#rbAllStyle,#rbAllColors').change(function (e) {
+                var checked = $(this).is(':checked')
+                $(this).prop('val',!checked)
+                $('#' + $(this).attr('data-attr-disabletb')).val("").attr('disabled', checked).attr('placeholder', checked ? "ALL" : "");
             });
-            $('#Style,#Color').change(function (e) {
-                $('#tbSpecific' + $(this).attr('id')).attr('required', false).val('').attr("disabled", true).attr('placeholder', "ALL");
+            
+            // Hanlde change event of radio button for specific style and color
+            // Id of textbox for style,color and value of data-attr-enabletb must be same.
+            $('#rbSpecificStyle,#rbSpecificColor').change(function (e) {
+                var checked = $(this).is(':checked');
+                var tb = $(this).attr('data-attr-enabletb')
+                if (checked) {
+                    $('#' + tb).attr('disabled', !checked).val("").attr('placeholder', checked ? "" : "ALL");
+                }
             });
 
 
             // Handle change event of checkfor enable/disbale SpotCheck
             // Initialize value for check box based on checked state in _editSpotCheckPartial page.
-            $('#cbEditIsSpotCheckEnable').change(function (e) {             
+            $('#cbEditIsSpotCheckEnable').change(function (e) {
                 $(this).val($(this).is(':checked'));
             });
 
+
+
+         
             $('#divSpotCheckList').click(function (e) {
                 var $tr = $(e.target).closest('tr');
                 var $th = $(e.target).closest('table').find('thead > tr > th');
@@ -182,7 +196,6 @@
                 }
 
             });
-
 
             //auto-complete for the _addspotCheckPartial Page.
             $('input[data-url-list]').typeahead({

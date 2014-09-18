@@ -4,6 +4,8 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 <form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
+    <input id="rbAllStyle" class="radio" type="hidden" name="@Html.NameFor(m => m.AllStyles)" value="false" />
+    <input id="rbAllColors"  type="hidden" class="radio" name="@Html.NameFor(m => m.AllColors)" value="false" />
     <div class="modal-body">
         <div class="form-group">
             <label for="ddlSewingPlant">Sewing Plant</label>
@@ -12,11 +14,12 @@
         <div class="form-group ">
             <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input id="Style" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" value="true" checked="checked" />
+                
+                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)"   data-attr-disabletb="tbStyle" />
                 <span>All Styles</span>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" id="SpecificStyle" />
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" checked="checked" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />
                 <span>Specific Style</span>
             </div>
             <div class="input-group">
@@ -26,24 +29,25 @@
        data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
-       id = "tbSpecificStyle",
-       @class = "form-control",
-       @disabled = "disabled",
-       placeholder = "ALL"
+       id = "tbStyle",
+       @class = "form-control"
+       
    })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
+
             </div>
+            <span id="lblStyleDesc" data-ac-msg-for="@Html.NameFor(m => m.Style)"></span>
         </div>
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="Color" name="@Html.NameFor(m => m.AllColors)" value="true" checked="checked" />
+                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
                 <span>All Colors</span>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="SpecificColor" />
+                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" checked="checked" data-attr-enabletb="tbColor" />
                 <span>Specific Color</span>
             </div>
             <div class="input-group">
@@ -53,10 +57,9 @@
        data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete()),
        autocomplete = "off",
        style = "text-transform: uppercase",
-       id = "tbSpecificColor",
-       @class = "form-control",
-       @disabled = "disabled",
-       placeholder = "ALL"
+       id = "tbColor",
+       @class = "form-control"
+    
    })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
