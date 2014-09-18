@@ -149,10 +149,11 @@
 
             $('#divSpotCheckList').click(function (e) {
                 var $tr = $(e.target).closest('tr');
+                var $th = $(e.target).closest('table').find('thead > tr > th');
                 $('tr', this).removeClass('bg-success');
                 if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {
                     var $dlg = $(this).find($(e.target)).attr('data-target');                  
-                    var $th = $(e.target).closest('table').find('thead > tr > th');
+                    //var $th = $(e.target).closest('table').find('thead > tr > th');
                     $tr.addClass('bg-success').find('td').each(function (index) {
                         //Binding all the values of span on the dialog box
                         // Populate the visible spans
@@ -181,7 +182,7 @@
                     var dialogData = new Object();
                     var msg = $(e.target).find('span').attr('title') + ' for ';
                     //Collecting details for Delete
-                    var $th = $(e.target).closest('table').find('thead > tr > th');
+                    //var $th = $(e.target).closest('table').find('thead > tr > th');
                     $(e.target).closest('tr').find('td').each(function (index) {
                         var name = $th.eq(index).attr('data-name');
                         if (name) {
