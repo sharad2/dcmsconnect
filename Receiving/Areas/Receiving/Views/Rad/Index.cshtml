@@ -112,14 +112,8 @@
 
             // Handle change event of checkfor enable/disbale SpotCheck
             // Initialize value for check box based on checked state in _editSpotCheckPartial page.
-            $('#cbEditIsSpotCheckEnable').change(function (e) {
-                var checked = $(this).is(':checked');
-                if (checked) {
-                    $(this).val(true);
-                }
-                else {
-                    $(this).val(false)
-                }
+            $('#cbEditIsSpotCheckEnable').change(function (e) {             
+                $(this).val($(this).is(':checked'));
             });
 
             $('#divSpotCheckList').click(function (e) {
