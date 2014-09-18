@@ -39,14 +39,16 @@
         <div class="alert alert-info">No Spot Check Areas defined</div>
     }
 
-    <div id="divSpotCheckList">
+
+
+    <div>
         @if (!Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
             </button>
         }
-        <div>
+        <div id="divSpotCheckList">
             @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model.SpotCheckList)
         </div>
     </div>
@@ -111,9 +113,9 @@
             $('#divSpotCheckList').click(function (e) {
                 var $tr = $(e.target).closest('tr');
                 var $th = $(e.target).closest('table').find('thead > tr > th');
-                $('tr', this).removeClass('bg-info');              
+                $('tr', this).removeClass('bg-info');
                 if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {
-                    var $dlg = $(this).find($(e.target)).attr('data-target');  
+                    var $dlg = $(this).find($(e.target)).attr('data-target');
                     $tr.addClass('bg-info').find('td').each(function (index) {
                         //Binding all the values of span on the dialog box
                         // Populate the visible spans
