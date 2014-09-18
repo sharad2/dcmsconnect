@@ -13,8 +13,8 @@
         var i = 0;
         <div class="table-responsive">
             <table class="table table-condensed table-bordered">
-                <thead class="bg-success">
-                    <tr>
+                <thead>
+                    <tr class="success">
                         <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)"
                             data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)">
                             Sewing PlantId
@@ -57,7 +57,7 @@
                         <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
                             data-key="@item.ConfigurationKey"
                             @*class="@(key==@item.ConfigurationKey ? "bg-warning" :"")"*@
-                            class="@(item.IsSpotCheckEnabled ? "text-success  info" : "text-muted" )">
+                            class="@(item.IsSpotCheckEnabled ? "text-primary" : "text-muted" )">
                             <td data-val="@item.SewingPlantId">@item.SewingPlantId</td>
 
 
