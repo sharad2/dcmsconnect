@@ -1,8 +1,5 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
-@{
-    Html.EnableClientValidation();
-    Html.EnableUnobtrusiveJavaScript();
-}
+
 <form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
     <input id="rbAllStyle" class="radio" type="hidden" name="@Html.NameFor(m => m.AllStyles)" value="false" />
     <input id="rbAllColors"  type="hidden" class="radio" name="@Html.NameFor(m => m.AllColors)" value="false" />
@@ -83,7 +80,6 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="submit" class="btn btn-primary">Add</button>
     </div>
-    <span class="text-danger"> @Html.ValidationSummary();</span>
 </form>
 
 
