@@ -11,13 +11,16 @@
         <div class="form-group ">
             <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                
-                <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)"   data-attr-disabletb="tbStyle" />
-                <span>All Styles</span>
+                <label>
+                    <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" data-attr-disabletb="tbStyle" />
+                    All Styles
+                </label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" checked="checked" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />
-                <span>Specific Style</span>
+                <label>
+                    <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" checked="checked" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />
+                    Specific Style
+                </label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Style, new
@@ -41,12 +44,16 @@
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
-                <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
-                <span>All Colors</span>
+                <label>
+                    <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
+                    All Colors
+                </label>
             </div>
             <div class="form-inline">
-                <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" checked="checked" data-attr-enabletb="tbColor" />
-                <span>Specific Color</span>
+                <label>
+                    <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" checked="checked" data-attr-enabletb="tbColor" />
+                    Specific Color
+                </label>
             </div>
             <div class="input-group">
                 @Html.TextBoxFor(m => m.Color, new
@@ -68,7 +75,8 @@
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="true" checked="checked" id="cbIsSpotCheckEnable" />
-                @Html.LabelFor(m => m.IsSpotCheckEnabled, new { id = "cbIsSpotCheckEnable" })
+                @*@Html.LabelFor(m => m.IsSpotCheckEnabled, new { id = "cbIsSpotCheckEnable" })*@
+                SpotCheck Enabled
             </label>
         </div>
         <div class="form-group">
