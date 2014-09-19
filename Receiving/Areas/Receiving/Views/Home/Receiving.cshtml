@@ -1,223 +1,76 @@
-﻿@*  Contract Reviewed by: Binod Kumar 17th Sept 2011.
-     1. Following attribs are used in our code
-    data-ajax-url: We keep URL of handle scan.
-*@
-@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
+﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
-    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;   
-    string sound;
-    if (!this.ViewData.ModelState.IsValid)
-    {
-        // Validation error
-        sound = Links_Receiving.Areas.Receiving.Content.Sounds.error_wav;
-    }
-    else
-    {
-        // Carton was received
-        sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
-    }
-}
-@section script{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#printPanel').panel({
-                beforeopen: function (event, ui) {
-                    $.ajax({
-                        type: 'POST',
-                        contentType: 'application/json; charset=utf-8',
-                        url: $('#ddlprinters').attr('data-getprinters-url'),
-                        dataType: "json",
-                        success: function (printers, textStatus, jqXHR) {
-                            var selected = jqXHR.getResponseHeader("Selected");
-                            $.each(printers, function (i, printer) {
-                                var x = $('<option></option>').val(printer.Name).html(printer.Name + ' : ' + printer.Description);
-                                if (printer.Name === selected) {
-                                    x.attr('selected', 'selected');
-                                }
-                                $('#ddlprinters').append(x);
-                            });
-                        }
-                    });
-                }
-            });
+    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
 
-            $('a.btnPrintPanelOpen').click(function () {
-                $('#hfCartonToPrint').val($(this).attr('data-carton-print'));
-            });
-
-            $('#btnPrint').click(function () {
-                $.ajax({
-                    url: $('#frmPrint').attr('data-print-url'),
-                    type: 'POST',
-                    context: this,
-                    data: {
-                        cartonId: $('#hfCartonToPrint').val(),
-                        printer: $('#ddlprinters').val()
-                    },
-                    statusCode: {
-                        200: function (data, textStatus, jqXHR) {
-                            $('#divValidation').show().html(data + "  ").addClass('ui-state-highlight');
-                            $('#printPanel').panel("close");
-                        },
-                        203: function (data, textStatus, jqXHR) {
-                            //Some error, show them in screen and play error sound.
-                            $('#divErr').show().html(data).addClass('validation-summary-errors');
-                            //$('#printPanel').panel("close");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                        $('#printPanel').panel("close");
-                    }
-                });
-            })
-
-            $('#scan').keypress(function (e) {
-                //e.stopPropagation();
-                if (e.which == $.ui.keyCode.ENTER) {
-                    if ($(this).val() != "") {
-                        var palletToOpen = $('#palletSet').find('div#' + $(this).val().toUpperCase())
-                        if (palletToOpen.length > 0) {
-                            palletToOpen.collapsible("expand");
-                            return false;
-                        }
-                    }
-
-                }
-            });
-
-            $('#palletSet').find('div[data-role="collapsible"]').collapsible({
-                expand: function () {
-                    $('#hfScannedPallet').val($(this).attr('id'));
-                    $('#hfScannedDispoid').val($(this).attr('data-disposition'));
-                }
-            });
-
-            if ($('#hfScannedPallet').val() != "") {
-                $('#palletSet').find('div#' + $('#hfScannedPallet').val()).collapsible("expand");
-            }
-        });
-
-
-    </script>
 }
 
-
-<div data-role="page">
-    <div data-role="header">
-        <h1>Scan Now</h1>
+<div class="container">
+    <div class="page-header">
+        <span class="pull-right">
+            <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)"
+               title="Receiving Detail for the selected Process" target="_blank"
+               class=" btn btn-link">
+                <span class="glyphicon glyphicon-new-window"></span>
+                @*Report 40.103:*@ Cartons received and shipments summary
+            </a>
+        </span>
+        <h2>
+            Receiving
+            <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @Html.DisplayFor(m => m.CarrierDescription)</small>
+        </h2>
     </div>
-    <div class="ui-content">       
-        <div style="display:none" id="divValidation">
-        </div>
-        @using (Html.BeginForm(MVC_Receiving.Receiving.Home.HandleScan()))
-        {
-         
-            
-                    <em>Process </em>@Html.DisplayFor(m => m.ProcessId)
-                    <a href="#processInfo" data-transition="slidedown" class="ui-btn ui-corner-all ui-btn-inline ui-icon-info ui-btn-icon-notext" data-rel="popup"></a>
-                    <a href="#processMenu" data-transition="pop" class="ui-btn ui-corner-all ui-btn-inline ui-icon-bullets ui-btn-icon-notext" data-rel="popup"></a>
-                    <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                           data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" style="text-transform: uppercase" size="12" autocomplete="off" placeholder="Scan Carton or Pallet" />
-             
-          
-            @Html.HiddenFor(m => m.ScanModel.ProcessId)
-            @Html.HiddenFor(m => m.ReceivingAreaId)
-            @Html.HiddenFor(m => m.SpotCheckAreaId)
-            @Html.HiddenFor(m => m.CartonCount)
-            @Html.HiddenFor(m => m.ExpectedCartons)
-            @Html.HiddenFor(m => m.ScanModel.PalletId, new
-{
-    id = "hfScannedPallet"
-})
-            @Html.HiddenFor(m => m.ScanModel.PalletDispos, new
-    {
-        id = "hfScannedDispoid"
-    })
-        }
-        <div data-role="collapsible-set" id="palletSet">
-            @for (var i = 0; i < Model.Pallets.Count; ++i)
-            {
-                <div data-role="collapsible" id="@Model.Pallets[i].PalletId" data-disposition="@Model.Pallets[i].Cartons.Max(c => c.DispositionId)">
-                    <h4>
-                        @Html.DisplayFor(m => m.Pallets[i].PalletId)
-                        @if (Model.Pallets[i].Cartons.Count > 0)
-                        {
-                            <text>
-                                [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
-                                [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
-                                [#Ctn @Model.Pallets[i].Cartons.Count]
-                                [Pallet Limit @Model.Pallets[i].PalletLimit]
-                                @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
-                            </text>
-                        }
-                        else
-                        {
-                            @:[NEW]
-            }
-                    </h4>
-                    <div>
-                        @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+
+    <p class="text-success">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        @Html.LabelFor(m => m.ExpectedCartons)
+        @Html.DisplayFor(m => m.ExpectedCartons)
+
+        @Html.LabelFor(m => m.ProcessId)
+        @Html.DisplayFor(m => m.ProcessId)
+
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.DisplayFor(m => m.ProNumber)
+
+        @Html.LabelFor(m => m.ProDate)
+        @Html.DisplayFor(m => m.ProDate)
+
+        @Html.LabelFor(m => m.PriceSeasonCode)
+        @Html.DisplayFor(m => m.PriceSeasonCode)
+
+        @Html.LabelFor(m => m.OperatorName)
+        @Html.DisplayFor(m => m.OperatorName)
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Edit Process</a>
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Change Process</a>
+    </p>
+
+    <div class="panel panel-success" >
+        <div class="panel-heading">
+            <div class="row" style="margin-bottom:0px;">
+                <div class="col-md-4">
+                    <form class="form-inline" role="form" method="get">
+                        <div class="form-group">
+                            <div class="input-group input-group-lg">
+                                <input placeholder="Scan Carton or Pallet"
+                                       class="form-control" autofocus />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">New Pallet</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <span class="pull-right">
+                        <a href="#" id="linkShowCarton"><span class="glyphicon glyphicon-paperclip"></span> Cartons received but not on Pallet...</a>
+                    </span>
+                    Receiving progress
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                            0% [0 of 12 cartons]
+                        </div>
                     </div>
                 </div>
-            }
-        </div>
-        <div data-role="popup" id="processInfo">
-            <div class="boxContent" style="white-space: nowrap">
-                <ul data-role="listview" data-inset="true">
-                    <li>
-                        Carrier @Html.DisplayFor(m => m.CarrierId) : @Html.DisplayFor(m => m.CarrierDescription)
-                    </li>
-                    <li>
-                        Exp Ctns @Html.DisplayFor(m => m.ExpectedCartons)
-                    </li>
-                    <li>
-                        Pro #
-                        @Html.DisplayFor(m => m.ProNumber)
-                    </li>
-                    <li>
-                        Pro Date
-                        @Html.DisplayFor(m => m.ProDate)
-                    </li>
-                    <li>
-                        Season Code
-                        @Html.DisplayFor(m => m.PriceSeasonCode)
-                    </li>
-                    <li>
-                        Received By
-                        @Html.DisplayFor(m => m.OperatorName)
-                    </li>
-                </ul>
-
             </div>
         </div>
-        <div data-role="popup" id="processMenu">
-            <ul data-role="listview" data-inset="true" style="min-width:210px;">
-                <li data-role="list-divider">Choose an action</li>
-                <li>@Html.ActionLink("Edit Process", MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))</li>
-                <li>
-                    <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)" title="Receiving Detail for the selected Process
-" target="_blank">Received shipments and cartons summary report</a>
-                </li>
-                <li><a href="#" id="linkShowCarton">Cartons received but not on Pallet...</a></li>
-            </ul>
-        </div>
-        <div data-role="panel" id="printPanel" data-display="overlay">
-
-            <form id="frmPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
-                <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
-                <select required id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer">
-                    <option value="">Please Select Printer</option>
-                </select>
-                <div data-role="controlgroup" data-type="horizontal">
-                    <a id="btnPrint" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Print</a>
-                    <a data-rel="close" class="ui-btn ui-widget ui-state-default ui-corner-all ui-button-text-only">Cancel</a>
-                </div>
-                <div id="divErr" style="display:none"></div>
-            </form>
-
-        </div>
     </div>
-    </div>
-
-        <!--$Id$-->
+</div>

@@ -282,6 +282,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 public readonly string Index_desktop = "Index.desktop";
                 public readonly string Receiving = "Receiving";
                 public readonly string Receiving_desktop = "Receiving.desktop";
+                public readonly string Receiving_desktop1 = "Receiving.desktop1";
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string ShipmentList_desktop = "ShipmentList.desktop";
                 public readonly string Tutorial = "Tutorial";
@@ -294,6 +295,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string Index_desktop = "~/Areas/Receiving/Views/Home/Index.desktop.cshtml";
             public readonly string Receiving = "~/Areas/Receiving/Views/Home/Receiving.cshtml";
             public readonly string Receiving_desktop = "~/Areas/Receiving/Views/Home/Receiving.desktop.cshtml";
+            public readonly string Receiving_desktop1 = "~/Areas/Receiving/Views/Home/Receiving.desktop1.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Views/Home/ShipmentList.cshtml";
             public readonly string ShipmentList_desktop = "~/Areas/Receiving/Views/Home/ShipmentList.desktop.cshtml";
             public readonly string Tutorial = "~/Areas/Receiving/Views/Home/Tutorial.cshtml";
