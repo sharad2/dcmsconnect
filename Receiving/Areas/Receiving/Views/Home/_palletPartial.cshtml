@@ -2,13 +2,12 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
-            Pallet @Html.DisplayFor(m => m.PalletId) Report
-        </a>
-
         @if (Model.Cartons.Count > 0)
         {
             <h4>
+                <a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
+                    Pallet @Html.DisplayFor(m => m.PalletId) Report
+                </a>
                 @if (Model.SkuCount > 1)
                 {
                 <span class="text-warning"> Mixed Pallet(@Model.SkuCount SKUs)</span>
