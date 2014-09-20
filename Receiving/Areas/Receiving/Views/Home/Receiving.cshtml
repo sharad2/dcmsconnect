@@ -97,82 +97,57 @@
         </div>
     </div>
 
-    <form id="frmScan" method="post" action="#">
-        <div>
-            <input type="hidden" name='@Html.NameFor(m => m.ScanModel.ProcessId)' value='@Model.ScanModel.ProcessId' />
-            <input type="hidden" name='@Html.NameFor(m => m.ReceivingAreaId)' value='@Model.ReceivingAreaId' />
-            <input type="hidden" name='@Html.NameFor(m => m.SpotCheckAreaId)' value='@Model.SpotCheckAreaId' />
-            <input type="hidden" name='@Html.NameFor(m => m.CartonCount)' value='@Model.CartonCount' id="hfReceivedCartonsCount" />
-            <input type="hidden" name='@Html.NameFor(m => m.ExpectedCartons)' value='@Model.ExpectedCartons' id="hfExpectedCartonsCount" />
-            <input type="hidden" name='@Html.NameFor(m => m.ScanModel.PalletId)' value='@Model.ScanModel.PalletId' id="tbPalletId" />
-            <div id="spanErrorMessage" class="ui-state-error ui-helper-hidden">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        @foreach (var pallet in Model.Pallets)
+        {
+           
+                <li>
+                    <a class="active" href='#Pallet_@(pallet.PalletId)' role="tab" data-toggle="tab"
+                       title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a>
+                    @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
+                </li>
+        }
+    </ul>
+
+    <!-- Tab panes -->
+    @foreach (var pallet in Model.Pallets)
+    {
+        <div class="tab-content">
+            <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
             </div>
         </div>
-    </form>
-    <div>
-        <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Count == 0 ? "ui-helper-hidden" : "")">
-            <ul class="nav nav-tabs" role="tablist">
-                @foreach (var pallet in Model.Pallets)
-                {
-                    <li data-palletid='@pallet.PalletId' data-disposition='@pallet.DispositionId'>
-                        <a class="active" href='#Pallet_@(pallet.PalletId)'
-                           title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a><span title="Remove Pallet" class='ui-icon ui-icon-close'></span>
-                    </li>
-                }
-            </ul>
-            @foreach (var pallet in Model.Pallets)
-            {
-                <div id="Pallet_@(pallet.PalletId)">
-                    @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
-                </div>
-            }
-        </div>
-    </div>
+    }
 
 
-
-    <!-- Print Modal called from _palletPartialPage -->
-    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Print</h4>
-                </div>
-                <form id="frmprint" method="post" action="#" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
-                    <div class="modal-body">
-                        @Html.Label("Carton ID") <strong>
-                            <span id="CartonToPrint" class="ui-state-highlight">
-                            </span>
-                        </strong>
-                       
-                        @Html.Label("Select Printer")
-                        <select id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
-                    </div>
-                </form>
+<!-- Print Modal called from _palletPartialPage -->
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Print</h4>
             </div>
+            <form id="frmprint" method="post" action="#" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+                <div class="modal-body">
+                    @Html.Label("Carton ID") <strong>
+                        <span id="CartonToPrint" class="ui-state-highlight">
+                        </span>
+                    </strong>
+
+                    @Html.Label("Select Printer")
+                    <select id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
+                </div>
+            </form>
         </div>
     </div>
-
-    <div id="dialog-print">
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 
@@ -183,6 +158,17 @@
             //$('#btnAddPage').click(function () {
             //    $('#page' + pageNum).tab('show');
             //})
+            //$('#palletTabs ul li a').click(function (e) {
+            //    alert($(e.target).attr('href'));
+            //    alert('div' + $(e.target).attr('href'));
+            //    e.preventDefault()
+            //    $(this).show('div' + $(e.target).attr('href'))
+            //})
+            $('ul[role="tablist"]').on('click','li a',function (e) {
+                e.preventDefault()
+                alert($(e.target).attr('href'));
+                $(this).tab('show')
+            })
         });
     </script>
 }
