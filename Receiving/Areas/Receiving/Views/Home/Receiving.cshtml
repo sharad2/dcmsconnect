@@ -109,13 +109,13 @@
             </div>
         </div>
     </form>
-    <div class="widget-container">
+    <div>
         <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Count == 0 ? "ui-helper-hidden" : "")">
             <ul class="nav nav-tabs" role="tablist">
                 @foreach (var pallet in Model.Pallets)
                 {
                     <li data-palletid='@pallet.PalletId' data-disposition='@pallet.DispositionId'>
-                        <a class="active"  href='#Pallet_@(pallet.PalletId)'
+                        <a class="active" href='#Pallet_@(pallet.PalletId)'
                            title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a><span title="Remove Pallet" class='ui-icon ui-icon-close'></span>
                     </li>
                 }
@@ -128,7 +128,63 @@
             }
         </div>
     </div>
+
+
+
+    <!-- Print Modal called from _palletPartialPage -->
+    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Print</h4>
+                </div>
+                <form id="frmprint" method="post" action="#" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+                    <div class="modal-body">
+                        @Html.Label("Carton ID") <strong>
+                            <span id="CartonToPrint" class="ui-state-highlight">
+                            </span>
+                        </strong>
+                       
+                        @Html.Label("Select Printer")
+                        <select id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="dialog-print">
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 @section script{
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('#btnAddPage').click(function () {
+            //    $('#page' + pageNum).tab('show');
+            //})
+        });
+    </script>
 }
+
+

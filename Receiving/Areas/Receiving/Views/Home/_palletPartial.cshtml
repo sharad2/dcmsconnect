@@ -25,10 +25,7 @@
                     Receive Date
                 </th>
                 <th style="text-align: center">
-                    Print
-                </th>
-                <th style="text-align: center">
-                    Remove
+                    Action
                 </th>
             </tr>
         </thead>
@@ -61,11 +58,15 @@
                         @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
                     </td>
                     <td>
-                        <a data-carton-print="@Model.Cartons[i].CartonId" class="btnPrintPanelOpen glyphicon glyphicon-print" href="#printPanel"></a>
+                        <button class="btn btn-link" data-toggle="modal" data-target="#printModal">
+                            <span class="glyphicon glyphicon-print" title="Print"></span>
+                        </button>
+
+                        <a class="glyphicon glyphicon-remove btn btn-link" title="Remove"
+                           href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
+                        @*<a data-carton-print="@Model.Cartons[i].CartonId" class="btnPrintPanelOpen glyphicon glyphicon-print" href="#printPanel"></a>*@
                     </td>
-                    <td>
-                        <a class="glyphicon glyphicon-remove" href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
-                    </td>
+                   
                 </tr>
             }
         </tbody>
