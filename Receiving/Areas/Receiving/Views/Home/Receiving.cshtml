@@ -21,29 +21,48 @@
     </div>
 
     <p class="text-success">
-        <span class="glyphicon glyphicon-info-sign"></span>
+        <div class="btn-group">
+            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" style="padding:0px;">
+                @Html.LabelFor(m => m.ProcessId)   @Html.DisplayFor(m => m.ProcessId) <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))">Edit Process</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())">Change Process</a>
+                </li>
+
+            </ul>
+        </div>
+
+        &nbsp;
         @Html.LabelFor(m => m.ExpectedCartons)
         @Html.DisplayFor(m => m.ExpectedCartons)
-
-        @Html.LabelFor(m => m.ProcessId)
-        @Html.DisplayFor(m => m.ProcessId)
-
+        &nbsp;
         @Html.LabelFor(m => m.ProNumber)
         @Html.DisplayFor(m => m.ProNumber)
-
+        &nbsp;
         @Html.LabelFor(m => m.ProDate)
         @Html.DisplayFor(m => m.ProDate)
-
+        &nbsp;
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.DisplayFor(m => m.ProNumber)
+        &nbsp;
+        @Html.LabelFor(m => m.ProDate)
+        @Html.DisplayFor(m => m.ProDate)
+        &nbsp;
         @Html.LabelFor(m => m.PriceSeasonCode)
         @Html.DisplayFor(m => m.PriceSeasonCode)
-
+        &nbsp;
         @Html.LabelFor(m => m.OperatorName)
         @Html.DisplayFor(m => m.OperatorName)
-        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Edit Process</a>
-        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Change Process</a>
+        @*<a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Edit Process</a>
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Change Process</a>*@
     </p>
 
-    <div class="panel panel-success" >
+    <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row" style="margin-bottom:0px;">
                 <div class="col-md-4">
@@ -61,7 +80,7 @@
                 </div>
                 <div class="col-md-8">
                     <span class="pull-right">
-                        <a href="#" id="linkShowCarton"><span class="glyphicon glyphicon-paperclip"></span> Cartons received but not on Pallet...</a>
+                        See:<a href="#" id="linkShowCarton"> Cartons received but not on Pallet...</a>
                     </span>
                     Receiving progress
                     <div class="progress">
@@ -74,3 +93,5 @@
         </div>
     </div>
 </div>
+
+
