@@ -33,31 +33,31 @@
         </h2>
     </div>
 
-
-    @Html.LabelFor(m => m.ProcessId)
-    @Html.DisplayFor(m => m.ProcessId)
-    &nbsp;
-    @Html.LabelFor(m => m.ExpectedCartons)
-    @Html.DisplayFor(m => m.ExpectedCartons)
-    &nbsp;
-    @Html.LabelFor(m => m.ProNumber)
-    @Html.DisplayFor(m => m.ProNumber)
-    &nbsp;
-    @Html.LabelFor(m => m.ProDate)
-    @Html.DisplayFor(m => m.ProDate)
-    &nbsp;
-    @Html.LabelFor(m => m.ProNumber)
-    @Html.DisplayFor(m => m.ProNumber)
-    &nbsp;
-    @Html.LabelFor(m => m.ProDate)
-    @Html.DisplayFor(m => m.ProDate)
-    &nbsp;
-    @Html.LabelFor(m => m.PriceSeasonCode)
-    @Html.DisplayFor(m => m.PriceSeasonCode)
-    &nbsp;
-    @Html.LabelFor(m => m.OperatorName)
-    @Html.DisplayFor(m => m.OperatorName)
-
+    <p>
+        @Html.LabelFor(m => m.ProcessId)
+        @Html.DisplayFor(m => m.ProcessId)
+        &nbsp;
+        @Html.LabelFor(m => m.ExpectedCartons)
+        @Html.DisplayFor(m => m.ExpectedCartons)
+        &nbsp;
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.DisplayFor(m => m.ProNumber)
+        &nbsp;
+        @Html.LabelFor(m => m.ProDate)
+        @Html.DisplayFor(m => m.ProDate)
+        &nbsp;
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.DisplayFor(m => m.ProNumber)
+        &nbsp;
+        @Html.LabelFor(m => m.ProDate)
+        @Html.DisplayFor(m => m.ProDate)
+        &nbsp;
+        @Html.LabelFor(m => m.PriceSeasonCode)
+        @Html.DisplayFor(m => m.PriceSeasonCode)
+        &nbsp;
+        @Html.LabelFor(m => m.OperatorName)
+        @Html.DisplayFor(m => m.OperatorName)
+    </p>
 
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -96,8 +96,8 @@
             </div>
         </div>
     </div>
-</div>
-    @*<form id="frmScan" method="post" action="#">
+
+    <form id="frmScan" method="post" action="#">
         <div>
             <input type="hidden" name='@Html.NameFor(m => m.ScanModel.ProcessId)' value='@Model.ScanModel.ProcessId' />
             <input type="hidden" name='@Html.NameFor(m => m.ReceivingAreaId)' value='@Model.ReceivingAreaId' />
@@ -108,8 +108,27 @@
             <div id="spanErrorMessage" class="ui-state-error ui-helper-hidden">
             </div>
         </div>
-    </form>*@
-  
-    @section script{
-       
-    }
+    </form>
+    <div class="widget-container">
+        <div id="tabs" data-remove-carton="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" class="@(Model.Pallets.Count == 0 ? "ui-helper-hidden" : "")">
+            <ul class="nav nav-tabs" role="tablist">
+                @foreach (var pallet in Model.Pallets)
+                {
+                    <li data-palletid='@pallet.PalletId' data-disposition='@pallet.DispositionId'>
+                        <a class="active"  href='#Pallet_@(pallet.PalletId)'
+                           title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a><span title="Remove Pallet" class='ui-icon ui-icon-close'></span>
+                    </li>
+                }
+            </ul>
+            @foreach (var pallet in Model.Pallets)
+            {
+                <div id="Pallet_@(pallet.PalletId)">
+                    @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section script{
+
+}
