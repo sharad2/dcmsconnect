@@ -100,14 +100,13 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        @foreach (var pallet in Model.Pallets)
+        @for (var i=0; i< Model.Pallets[i].PalletId.Count(); i++)
         {
-           
-                <li>
-                    <a class="active" href='#Pallet_@(pallet.PalletId)' role="tab" data-toggle="tab"
-                       title='Pallet @pallet.PalletId'>@(pallet.PalletId)</a>
-                    @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
-                </li>
+            <li class="@(i == 0 ? "active" : "")">
+                <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
+                   title='Pallet @Model.Pallets[i].PalletId'>@(Model.Pallets[i].PalletId)</a>
+                @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
+            </li>
         }
     </ul>
 
