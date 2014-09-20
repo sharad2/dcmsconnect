@@ -10,7 +10,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public int ProcessId { get; set; }
 
-        [Display(Name="Pallet")]
+        [Display(Name = "Pallet")]
         public string PalletId { get; set; }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 return this.Cartons.First().DispositionId;
             }
         }
-        
+
         private IList<ReceivedCarton> _cartons;
         public IList<ReceivedCarton> Cartons
         {
@@ -44,9 +44,9 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// <remarks>
         /// After a carton is received, it becomes the last carton. At all other times this is null.
         /// </remarks>
-// ReSharper disable MemberCanBePrivate.Global
+        // ReSharper disable MemberCanBePrivate.Global
         public string LastCartonId { get; set; }
-// ReSharper restore MemberCanBePrivate.Global
+        // ReSharper restore MemberCanBePrivate.Global
 
         public int SelectedCartonIndex
         {
@@ -60,6 +60,14 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         public int PalletLimit { get; set; }
 
         public int QueryCount { get; set; }
+
+        public int SkuCount
+        {
+            get
+            {
+                return this.Cartons.Select(c => c.Sku.SkuId).Distinct().Count();
+            }
+        }
     }
 }
 

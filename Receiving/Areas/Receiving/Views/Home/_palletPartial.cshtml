@@ -4,7 +4,34 @@
     //var x = Model.Cartons.Take(10);
     //Model.Cartons = x.ToList();
     //var rowIndex = 0;
+    
 }
+
+
+
+<a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
+    Pallet @Html.DisplayFor(m => m.PalletId) Report
+</a>
+
+@if (Model.Cartons.Count > 0)
+{
+    if (@Model.SkuCount > 1)
+    { 
+        <span class="text-warning"> Mixed Pallet(@Model.SkuCount SKUs)</span>
+    }
+    else
+    {
+        <span class="text-info">Pure Pallet</span>
+    }
+    @Html.DisplayFor(m => m.Cartons[0].DestinationArea, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.Cartons[0].VwhId, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.PalletLimit, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @*<div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+        <div style="width: @(width > 100 ? 100 : width)%;" class="ui-progressbar-value ui-widget-header ui-corner-left @ProgressState(width)">
+        </div>
+    </div>*@
+}
+
 <div class="table-responsive">
     <table class="table table-striped table-condensed table-bordered">
         <thead>
