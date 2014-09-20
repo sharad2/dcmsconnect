@@ -100,7 +100,7 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        @for (var i=0; i< Model.Pallets[i].PalletId.Count(); i++)
+        @for (var i=0; i< Model.Pallets.Count(); i++)
         {
             <li class="@(i == 0 ? "active" : "")">
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
@@ -109,7 +109,6 @@
             </li>
         }
     </ul>
-
     <!-- Tab panes -->
     @foreach (var pallet in Model.Pallets)
     {
@@ -163,11 +162,11 @@
             //    e.preventDefault()
             //    $(this).show('div' + $(e.target).attr('href'))
             //})
-            $('ul[role="tablist"]').on('click','li a',function (e) {
-                e.preventDefault()
-                alert($(e.target).attr('href'));
-                $(this).tab('show')
-            })
+            //$('ul[role="tablist"]').on('click','li a',function (e) {
+            //    e.preventDefault()
+            //    alert($(e.target).attr('href'));
+            //    $(this).tab('show')
+            //})
         });
     </script>
 }
