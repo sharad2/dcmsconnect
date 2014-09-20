@@ -1,9 +1,22 @@
-﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
+﻿<!--  Contract Reviewed by: Binod Kumar 17th Sept 2011.
+     1. Following attribs are used in our code
+    data-ajax-url: We keep URL of handle scan.
+    -->
+@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
-
+    string sound;
+    if (!this.ViewData.ModelState.IsValid)
+    {
+        // Validation error
+        sound = Links_Receiving.Areas.Receiving.Content.Sounds.error_wav;
+    }
+    else
+    {
+        // Carton was received
+        sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
+    }
 }
-
 <div class="container">
     <div class="page-header">
         <span class="pull-right">
@@ -58,21 +71,36 @@
         &nbsp;
         @Html.LabelFor(m => m.OperatorName)
         @Html.DisplayFor(m => m.OperatorName)
-        @*<a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Edit Process</a>
-        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class=" btn btn-link"><span class="glyphicon glyphicon-link"></span> Change Process</a>*@
     </p>
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="row" style="margin-bottom:0px;">
                 <div class="col-md-4">
-                    <form class="form-inline" role="form" method="get">
+                    <form class="form-inline" action="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())" role="form" method="get">
+                        @Html.HiddenFor(m => m.ScanModel.ProcessId)
+                        @Html.HiddenFor(m => m.ReceivingAreaId)
+                        @Html.HiddenFor(m => m.SpotCheckAreaId)
+                        @Html.HiddenFor(m => m.CartonCount)
+                        @Html.HiddenFor(m => m.ExpectedCartons)
+                        @Html.HiddenFor(m => m.ScanModel.PalletId, new
+{
+    id = "hfScannedPallet"
+})
+                        @Html.HiddenFor(m => m.ScanModel.PalletDispos, new
+    {
+        id = "hfScannedDispoid"
+    })
                         <div class="form-group">
                             <div class="input-group input-group-lg">
-                                <input placeholder="Scan Carton or Pallet"
-                                       class="form-control" autofocus />
+                                <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+                                       class="form-control" autofocus
+                                       data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
+                                       autocomplete="off" placeholder="Scan Carton or Pallet" />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">New Pallet</button>
+                                    <button id="btnNewPallet" class="btn btn-primary" type="submit" data-new-pallet="@Model.ScanModel.ScanText">
+                                        New Pallet
+                                    </button>
                                 </span>
                             </div>
                         </div>
@@ -82,16 +110,50 @@
                     <span class="pull-right">
                         See:<a href="#" id="linkShowCarton"> Cartons received but not on Pallet...</a>
                     </span>
-                    Receiving progress
+                    Receiving progress <em>@Model.cartonsOnPallet of @(Model.ExpectedCartons ?? 0) cartons</em>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                            0% [0 of 12 cartons]
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@Model.percentReceivedCartons " aria-valuemin=" 0" aria-valuemax="100" style="width: @Model.percentReceivedCartons%;min-width:20px;">
+                            @Model.percentReceivedCartons%  
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
+
+
+    @*<div id="palletSet">
+        @for (var i = 0; i < Model.Pallets.Count; ++i)
+        {
+            <div data-role="collapsible" id="@Model.Pallets[i].PalletId" data-disposition="@Model.Pallets[i].Cartons.Max(c => c.DispositionId)">
+                <h4>
+                    @Html.DisplayFor(m => m.Pallets[i].PalletId)
+                    @if (Model.Pallets[i].Cartons.Count > 0)
+                    {
+                        <text>
+                            [Area @Html.DisplayFor(m => m.Pallets[i].Cartons[0].DestinationArea)]
+                            [Vwh @Html.DisplayFor(m => m.Pallets[i].Cartons[0].VwhId)]
+                            [#Ctn @Model.Pallets[i].Cartons.Count]
+                            [Pallet Limit @Model.Pallets[i].PalletLimit]
+                            @(Model.Pallets[i].Cartons.Select(c => c.Sku.SkuId).Distinct().Count() > 0 ? "[Mixed Pallet]" : "")
+                        </text>
+                    }
+                    else
+                    {
+                        @:[NEW]
+            }
+                </h4>
+                <div>
+                    @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+                </div>
+            </div>
+        }
+    </div>*@
+
 </div>
 
 

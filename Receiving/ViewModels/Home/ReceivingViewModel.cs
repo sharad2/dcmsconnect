@@ -95,6 +95,16 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_040/R40_103.aspx";
             }
         }
+
+        public int percentReceivedCartons
+        {
+            get
+            { 
+            return this.CartonCount * 100 / (this.ExpectedCartons.HasValue && this.ExpectedCartons.Value > 0 ? this.ExpectedCartons.Value : 1);
+
+            }
+        }
+
     }
 
     /// <summary>
