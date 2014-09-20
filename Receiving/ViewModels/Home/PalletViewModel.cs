@@ -68,6 +68,14 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 return this.Cartons.Select(c => c.Sku.SkuId).Distinct().Count();
             }
         }
+
+        public int PalletProgress
+        {
+            get
+            {
+                return this.Cartons.Count * 100 / this.PalletLimit;
+            }
+        }
     }
 }
 

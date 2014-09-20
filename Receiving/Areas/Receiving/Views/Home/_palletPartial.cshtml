@@ -1,103 +1,101 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.PalletViewModel
-@{
-    //var cartonCount = Model.Cartons.Count;
-    //var x = Model.Cartons.Take(10);
-    //Model.Cartons = x.ToList();
-    //var rowIndex = 0;
-    
-}
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
+            Pallet @Html.DisplayFor(m => m.PalletId) Report
+        </a>
 
+        @if (Model.Cartons.Count > 0)
+        {
+            <h4>
+                @if (Model.SkuCount > 1)
+                {
+                <span class="text-warning"> Mixed Pallet(@Model.SkuCount SKUs)</span>
+                }
+                else
+                {
+                <span class="text-info">Pure Pallet</span>
+                }
 
-<a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
-    Pallet @Html.DisplayFor(m => m.PalletId) Report
-</a>
+                @Html.DisplayFor(m => m.Cartons[0].DestinationArea, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+                @Html.DisplayFor(m => m.Cartons[0].VwhId, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+                @Html.DisplayFor(m => m.PalletLimit, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
+            </h4>
+            <div class="progress">
+                <div class="progress-bar progress-bar-@(Model.PalletProgress > 90 ? "danger" : (Model.PalletProgress > 80 ? "warning":"info"))" role="progressbar" aria-valuenow="@Model.PalletProgress" aria-valuemin="0" aria-valuemax="100" style="width:@Model.PalletProgress%;min-width:20px;">
+                    @Model.PalletProgress
+                </div>
+            </div>
+        }
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-condensed table-bordered">
+                <thead>
+                    <tr>
+                        <th style="text-align: center">
+                            #
+                        </th>
+                        <th style="text-align: center">
+                            Carton
+                        </th>
+                        <th colspan="4" style="text-align: center">
+                            SKU
+                        </th>
+                        <th style="text-align: center">
+                            Retail Price($)
+                        </th>
+                        <th style="text-align: center">
+                            Receive Date
+                        </th>
+                        <th style="text-align: center">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
+                    {
+                        <tr>
+                            <td>
+                                @(i + 1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].CartonId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].Sku.Style)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].Sku.Color)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].Sku.Dimension)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].Sku.SkuSize)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
+                            </td>
+                            <td>
 
-@if (Model.Cartons.Count > 0)
-{
-    if (@Model.SkuCount > 1)
-    { 
-        <span class="text-warning"> Mixed Pallet(@Model.SkuCount SKUs)</span>
-    }
-    else
-    {
-        <span class="text-info">Pure Pallet</span>
-    }
-    @Html.DisplayFor(m => m.Cartons[0].DestinationArea, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
-    @Html.DisplayFor(m => m.Cartons[0].VwhId, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
-    @Html.DisplayFor(m => m.PalletLimit, MVC_Receiving.Receiving.Shared.Views.DisplayTemplates.ValueWithShortName)
-    @*<div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
-        <div style="width: @(width > 100 ? 100 : width)%;" class="ui-progressbar-value ui-widget-header ui-corner-left @ProgressState(width)">
+                                <button class="btn btn-link" data-toggle="modal" data-target="#printModal">
+                                    <span class="glyphicon glyphicon-print" title="Print"></span>
+                                </button>
+                                <a class="glyphicon glyphicon-remove btn btn-link" title="Remove"
+                                   href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </div>*@
-}
-
-<div class="table-responsive">
-    <table class="table table-striped table-condensed table-bordered">
-        <thead>
-            <tr>
-                <th style="text-align: center">
-                    #
-                </th>
-                <th style="text-align: center">
-                    Carton
-                </th>
-                <th colspan="4" style="text-align: center">
-                    SKU
-                </th>
-                <th style="text-align: center">
-                    Retail Price($)
-                </th>
-                <th style="text-align: center">
-                    Receive Date
-                </th>
-                <th style="text-align: center">
-                    Action
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
-            {
-                <tr>
-                    <td>
-                        @(i + 1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].CartonId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Style)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Color)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Dimension)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuSize)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
-                    </td>
-                    <td>
-                      
-                            <button class="btn btn-link" data-toggle="modal" data-target="#printModal">
-                                <span class="glyphicon glyphicon-print" title="Print"></span>
-                            </button>
-                            <a class="glyphicon glyphicon-remove btn btn-link" title="Remove"
-                               href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
-                    </td>                   
-                </tr>
-            }
-        </tbody>
-    </table>
+    </div>
 </div>
-
-
 
 <!--$Id$-->
