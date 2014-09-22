@@ -103,13 +103,12 @@
         @for (var i = 0; i < Model.Pallets.Count(); i++)
         {
             <li>
+
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
                     @(Model.Pallets[i].PalletId)
-                    @*<span title="Remove Pallet" class='glyphicon glyphicon-remove btn btn-link'></span>*@
-
+                    <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
                 </a>
-                @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
             </li>
         }
     </ul>
@@ -117,56 +116,69 @@
     <div class="tab-content">
         @foreach (var pallet in Model.Pallets)
         {
-            <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
-                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
-            </div>
+        <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
+            @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
+        </div>
         }
     </div>
 
-<!-- Print Modal called from _palletPartialPage -->
-<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Print</h4>
-            </div>
-            <form id="frmprint" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())" @*data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"*@>
-                <div class="modal-body">
-                    @Html.Label("Carton ID") <strong>
-                    <span id="CartonToPrint" class="ui-state-highlight">
-                    </span>
-                </strong>
-                    <div>
-                        <label>Printer<abbr>*</abbr></label>
-                        @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
+    <!-- Print Modal called from _palletPartialPage -->
+    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Print</h4>
+                </div>
+                <form id="frmprint" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())" @*data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"*@>
+                    <div class="modal-body">
+                        @Html.Label("Carton ID") <strong>
+                            <span id="CartonToPrint" class="ui-state-highlight">
+                            </span>
+                        </strong>
+                        <div>
+                            <label>Printer<abbr>*</abbr></label>
+                            @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
                                 {
                                     id = "ddlPrinter",
                                     required = "required",
                                     @class = "form-control"
                                 })
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
 
 </div>
 
 @section script{
+    <style type="text/css">
+        .nav-tabs > li .glyphicon-remove-sign {
+            margin: -16px -15px 0px 10px;
+            font-size: 13px;
+            padding: 5px 0;
+            float: right;
+        }
+
+        .nav-tabs > li a[data-toggle=tab] {
+            float: left !important;
+        }
+    </style>
+
     <script type="text/javascript">
         $(document).ready(function () {
-           // Shows the first tab content by default
+            // Shows the first tab content by default
             $('ul[role="tablist"] li a:first').tab('show');
 
-           
+
         });
     </script>
 }
