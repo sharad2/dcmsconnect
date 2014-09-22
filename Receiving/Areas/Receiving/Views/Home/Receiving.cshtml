@@ -99,17 +99,20 @@
 
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        @for (var i=0; i< Model.Pallets.Count(); i++)
+    <ul class="nav nav-tabs bg-info" role="tablist">
+        @for (var i = 0; i < Model.Pallets.Count(); i++)
         {
-            <li class="@(i == 0 ? "active" : "")">
+            <li>
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
-                   title='Pallet @Model.Pallets[i].PalletId'>@(Model.Pallets[i].PalletId)</a>
+                   title='Pallet @Model.Pallets[i].PalletId'>
+                    @(Model.Pallets[i].PalletId)
+                    @*<span title="Remove Pallet" class='glyphicon glyphicon-remove btn btn-link'></span>*@
+
+                </a>
                 @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
             </li>
         }
     </ul>
-
     <!-- Tab panes -->
     <div class="tab-content">
         @foreach (var pallet in Model.Pallets)
@@ -156,33 +159,14 @@
 
 
 </div>
+
 @section script{
     <script type="text/javascript">
         $(document).ready(function () {
-          
-            //$('#btnAddPage').click(function () {
-            //    $('#page' + pageNum).tab('show');
-            //})
-            //$('#palletTabs ul li a').click(function (e) {
-            //    alert($(e.target).attr('href'));
-            //    alert('div' + $(e.target).attr('href'));
-            //    e.preventDefault()
-            //    $(this).show('div' + $(e.target).attr('href'))
-            //})
-            //$('ul[role="tablist"]').on('click','li a',function (e) {
-            //    e.preventDefault()
-            //    alert($(e.target).attr('href'));
-            //    $(this).tab('show')
-            //})
-            //$('ul[role="tablist"] li a:first').tab('show');
+           // Shows the first tab content by default
+            $('ul[role="tablist"] li a:first').tab('show');
 
-            //$('ul[role="tablist"]').click(function (e) {
-
-            //    alert($(e.target).attr('href'));
-            //    alert('div' + $(e.target).attr('href'));
-            //    e.preventDefault()
-            //    $('div' + $(e.target).attr('href')).tab('show');
-            //});
+           
         });
     </script>
 }
