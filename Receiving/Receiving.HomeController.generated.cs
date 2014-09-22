@@ -234,7 +234,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public class ActionParamsClass_PrintCarton
         {
             public readonly string cartonId = "cartonId";
-            public readonly string printer = "printer";
+            public readonly string printerId = "printerId";
+            public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_NonpalletizedCartons s_params_NonpalletizedCartons = new ActionParamsClass_NonpalletizedCartons();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -402,15 +403,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void PrintCartonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string cartonId, string printer);
+        partial void PrintCartonOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string cartonId, string printerId, int processId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PrintCarton(string cartonId, string printer)
+        public override System.Web.Mvc.ActionResult PrintCarton(string cartonId, string printerId, int processId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PrintCarton);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "cartonId", cartonId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printer", printer);
-            PrintCartonOverride(callInfo, cartonId, printer);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printerId", printerId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            PrintCartonOverride(callInfo, cartonId, printerId, processId);
             return callInfo;
         }
 
