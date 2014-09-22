@@ -133,6 +133,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
+                            <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.processId" />
                             <label class="col-sm-2 control-label">Carton</label>
                             <div class="col-sm-10">
                                 <p class="form-control-static">
@@ -149,7 +150,7 @@
                         id = "ddlPrinter",
                         required = "required",
                         @class = "form-control",
-                        @name = MVC_Receiving.Receiving.Home.PrintCartonParams.printer
+                        @name = MVC_Receiving.Receiving.Home.PrintCartonParams.printerId
                     })
 
                             </div>
