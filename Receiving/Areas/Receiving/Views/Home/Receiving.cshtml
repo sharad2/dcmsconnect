@@ -102,23 +102,23 @@
     <ul class="nav nav-tabs" role="tablist">
         @for (var i=0; i< Model.Pallets.Count(); i++)
         {
-            <li class="@(i == 0 ? "bg-success" : "")">
+            <li class="@(i == 0 ? "active" : "")">
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>@(Model.Pallets[i].PalletId)</a>
                 @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
             </li>
         }
     </ul>
+
     <!-- Tab panes -->
-    @foreach (var pallet in Model.Pallets)
-    {
-        <div class="tab-content">
+    <div class="tab-content">
+        @foreach (var pallet in Model.Pallets)
+        {
             <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
                 @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
             </div>
-        </div>
-    }
-
+        }
+    </div>
 
 <!-- Print Modal called from _palletPartialPage -->
 <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -174,6 +174,15 @@
             //    alert($(e.target).attr('href'));
             //    $(this).tab('show')
             //})
+            //$('ul[role="tablist"] li a:first').tab('show');
+
+            //$('ul[role="tablist"]').click(function (e) {
+
+            //    alert($(e.target).attr('href'));
+            //    alert('div' + $(e.target).attr('href'));
+            //    e.preventDefault()
+            //    $('div' + $(e.target).attr('href')).tab('show');
+            //});
         });
     </script>
 }
