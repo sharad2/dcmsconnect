@@ -128,15 +128,21 @@
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">Print</h4>
             </div>
-            <form id="frmprint" method="post" action="#" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+            <form id="frmprint" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())" @*data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"*@>
                 <div class="modal-body">
                     @Html.Label("Carton ID") <strong>
-                        <span id="CartonToPrint" class="ui-state-highlight">
-                        </span>
-                    </strong>
-
-                    @Html.Label("Select Printer")
-                    <select id="ddlprinters" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
+                    <span id="CartonToPrint" class="ui-state-highlight">
+                    </span>
+                </strong>
+                    <div>
+                        <label>Printer<abbr>*</abbr></label>
+                        @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
+                                {
+                                    id = "ddlPrinter",
+                                    required = "required",
+                                    @class = "form-control"
+                                })
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -153,6 +159,7 @@
 @section script{
     <script type="text/javascript">
         $(document).ready(function () {
+          
             //$('#btnAddPage').click(function () {
             //    $('#page' + pageNum).tab('show');
             //})
