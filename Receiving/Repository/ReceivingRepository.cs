@@ -282,7 +282,7 @@ namespace DcmsMobile.Receiving.Repository
         /// <summary>
         /// Gets printer for printing carton ticket.
         /// </summary>
-        public IEnumerable<Printer> GetPrinters()
+        public IList<Tuple<string, string>> GetPrinters()
         {
             const string QUERY = @"
                         select
@@ -292,11 +292,7 @@ namespace DcmsMobile.Receiving.Repository
                         where 1 = 1
                         AND upper(printer_type) = upper('zebra')
                         order by lower(name)";
-            var binder = SqlBinder.Create(row => new Printer()
-                {
-                    Name = row.GetString("name"),
-                    Description = row.GetString("description")
-                });
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("NAME"), row.GetString("DESCRIPTION")));
             ++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }

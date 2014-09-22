@@ -381,9 +381,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ExpectedCartons = pm.ExpectedCartons,
                 PalletLimit = pm.PalletLimit,
                 PriceSeasonCode = pm.PriceSeasonCode,
-                PrinterList = _service.GetPrinters().Select(p => new SelectListItem {
-                    Text = string.Format("{0}-{1}", p.Name, p.Description),
-                Value=p.Name
+                PrinterList = _service.GetPrinters().Select(p => new SelectListItem
+                {
+                    Text = string.Format("{0}-{1}", p.Item1, p.Item2),
+                    Value = p.Item1
                 }).ToList()
 
             };
@@ -391,7 +392,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {
                 rvm.PrinterId = cookie.Value;
-            
+
             }
             rvm.ProcessId = processId.Value;
             rvm.UserMismatch = ControllerContext.HttpContext.User.Identity.IsAuthenticated &&
@@ -779,7 +780,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// The selected printer is read from a cookie. The cookie is set when a carton is printed.
         /// </summary>
         /// <returns></returns>
-       [Obsolete]
+        [Obsolete]
         public virtual JsonResult GetPrinters()
         {
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];

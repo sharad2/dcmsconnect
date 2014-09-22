@@ -144,7 +144,6 @@
     <Compile Include="ViewModels\Home\PalletViewModel.cs" />
     <Compile Include="ViewModels\Home\ReceivingProcessModel.cs" />
     <Compile Include="ViewModels\Home\ReceivingViewModel.cs" />
-    <Compile Include="ViewModels\Home\selectlistitem.cs" />
     <Compile Include="ViewModels\Home\ShipmentListModel.cs" />
     <Compile Include="ViewModels\Home\ShipmentListViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

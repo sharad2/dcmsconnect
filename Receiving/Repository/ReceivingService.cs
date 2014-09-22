@@ -389,7 +389,7 @@ namespace DcmsMobile.Receiving.Repository
             _repos.PrintCarton(cartonId, printer);
         }
 
-        public IEnumerable<Printer> GetPrinters()
+        public IList<Tuple<string, string>> GetPrinters()
         {
             return _repos.GetPrinters();
         }

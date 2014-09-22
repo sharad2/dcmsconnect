@@ -61,12 +61,17 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 _nonPalletizeCarton = value;
             }
         }
+
         #region Printing 
+
         [Display(Name = "Printer")]
         public string PrinterId { get; set; }
 
         public IEnumerable<SelectListItem>PrinterList { get; set; }
+
         #endregion
+
+
         /// <summary>
         /// Becomes true if the logged in user does not match the user who created the process
         /// </summary>
