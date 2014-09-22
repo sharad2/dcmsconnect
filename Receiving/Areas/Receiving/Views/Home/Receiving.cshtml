@@ -116,12 +116,11 @@
     <div class="tab-content">
         @foreach (var pallet in Model.Pallets)
         {
-        <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
-            @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
-        </div>
+            <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
+            </div>
         }
     </div>
-
     <!-- Print Modal called from _palletPartialPage -->
     <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -130,59 +129,76 @@
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">Print</h4>
                 </div>
-                <form id="frmprint" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())" @*data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"*@>
+                <form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
                     <div class="modal-body">
-                        @Html.Label("Carton ID") <strong>
-                            <span id="CartonToPrint" class="ui-state-highlight">
-                            </span>
-                        </strong>
-                        <div>
-                            <label>Printer<abbr>*</abbr></label>
-                            @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
-                                {
-                                    id = "ddlPrinter",
-                                    required = "required",
-                                    @class = "form-control"
-                                })
+                        <div class="form-group">
+                            <input type="hidden" id="hfCartonToPrint" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
+                            <label class="col-sm-2 control-label">Carton</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static">
+                                    <span id="CartonToPrint">
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ddlPrinter" class="col-sm-2 control-label">Printer<abbr>*</abbr></label>
+                            <div class="col-sm-10">
+                                @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
+                    {
+                        id = "ddlPrinter",
+                        required = "required",
+                        @class = "form-control",
+                        @name = MVC_Receiving.Receiving.Home.PrintCartonParams.printer
+                    })
+
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>Print</button>
                     </div>
                 </form>
             </div>
+
         </div>
+
+
+
     </div>
 
+    @section script{
+        <!--Styles for making the tab with cross icons
+         http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
+        <style type="text/css">
+            .nav-tabs > li .glyphicon-remove-sign {
+                margin: -16px -15px 0px 10px;
+                font-size: 13px;
+                padding: 5px 0;
+                float: right;
+            }
+
+            .nav-tabs > li a[data-toggle=tab] {
+                float: left !important;
+            }
+        </style>
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // Shows the first tab content by default
+                $('ul[role="tablist"] li a:first').tab('show');
+
+                //Show values form _palletPartial page in print modal(Dilog Box)
+                $('button[data-target="#printModal"]').click(function (e) {
+                    var cartonId = $(this).attr('data-carton-print');
+                    $('#CartonToPrint').text(cartonId);
+                    $('#hfCartonToPrint').val(cartonId);
+                });
 
 
-</div>
-
-@section script{
-   <!--Styles for making the tab with cross icons
-    http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
-    <style type="text/css">
-        .nav-tabs > li .glyphicon-remove-sign {
-            margin: -16px -15px 0px 10px;
-            font-size: 13px;
-            padding: 5px 0;
-            float: right;
-        }
-
-        .nav-tabs > li a[data-toggle=tab] {
-            float: left !important;
-        }
-    </style>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Shows the first tab content by default
-            $('ul[role="tablist"] li a:first').tab('show');
-
-
-        });
-    </script>
-}
+            });
+        </script>
+    }
 
 
