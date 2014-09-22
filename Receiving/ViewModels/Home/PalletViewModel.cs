@@ -61,6 +61,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public int QueryCount { get; set; }
 
+      
+
         public int SkuCount
         {
             get

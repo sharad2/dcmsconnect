@@ -167,7 +167,7 @@
 
 
     </div>
-
+    </div>
     @section script{
         <!--Styles for making the tab with cross icons
          http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
@@ -188,15 +188,12 @@
             $(document).ready(function () {
                 // Shows the first tab content by default
                 $('ul[role="tablist"] li a:first').tab('show');
-
                 //Show values form _palletPartial page in print modal(Dilog Box)
                 $('button[data-target="#printModal"]').click(function (e) {
                     var cartonId = $(this).attr('data-carton-print');
                     $('#CartonToPrint').text(cartonId);
                     $('#hfCartonToPrint').val(cartonId);
                 });
-
-
             });
         </script>
     }

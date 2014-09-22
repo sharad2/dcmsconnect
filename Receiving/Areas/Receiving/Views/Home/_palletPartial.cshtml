@@ -42,7 +42,7 @@
                 <th style="text-align: center">
                     Carton
                 </th>
-                <th colspan="4" style="text-align: center">
+                <th style="text-align: center">
                     SKU
                 </th>
                 <th style="text-align: center">
@@ -67,16 +67,7 @@
                         @Html.DisplayFor(m => m.Cartons[i].CartonId)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Style)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Color)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.Dimension)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuSize)
+                        @Html.DisplayFor(m=>m.Cartons[i].DisplaySku)
                     </td>
                     <td>
                         @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
@@ -92,6 +83,7 @@
                         <a class="glyphicon glyphicon-remove btn btn-link" title="Remove"
                            href="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton(Model.Cartons[i].CartonId,Model.ProcessId))"></a>
                     </td>
+                   
                 </tr>
                     }
         </tbody>

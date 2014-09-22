@@ -64,6 +64,14 @@ namespace DcmsMobile.Receiving.Models
     public class ReceivedCarton : CartonBase
     {
         public string PalletId { get; set; }
+        public string DisplaySku
+        {
+            get
+            {
+                return string.Format("{0},{1},{2},{3}", this.Sku.Style, this.Sku.Color, this.Sku.Dimension, this.Sku.SkuSize);
+            }
+        }
+
     }
 
     public class IntransitCarton : CartonBase
