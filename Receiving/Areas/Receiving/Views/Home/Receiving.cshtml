@@ -102,7 +102,7 @@
     <ul class="nav nav-tabs" role="tablist">
         @for (var i=0; i< Model.Pallets.Count(); i++)
         {
-            <li class="@(i == 0 ? "active" : "")">
+            <li class="@(i == 0 ? "bg-success" : "")">
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>@(Model.Pallets[i].PalletId)</a>
                 @*<span title="Remove Pallet" class='glyphicon glyphicon-remove'></span>*@
