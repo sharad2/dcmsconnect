@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <div class="input-group input-group-lg">
                                 <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                                       class="form-control" autofocus
+                                       class="form-control" autofocus 
                                        data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
                                        autocomplete="off" placeholder="Scan Carton or Pallet" />
                                 <span class="input-group-btn">
@@ -111,6 +111,7 @@
                 </a>
             </li>
         }
+
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -225,6 +226,40 @@
                         }
                     }
                 });
+
+                $('#btnNewPallet').click(function (e) {
+                   
+                    var newTab = $('#scan').val().toUpperCase();
+                   
+                    $('ul[role="tablist"]').append('<li><a href="#Pallet_' + newTab + ' " ' + 'role="tab" data-toggle="tab"  title="' + newTab + '">' + newTab + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
+                    $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + newTab + '">Carton content in pallet' + newTab + '</div>');
+                  
+                });
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 //Show values form _palletPartial page in print modal(Dialog Box) and remove carton(Dialog Box)
                 $('table tbody td').on('click', 'button', function (e) {
