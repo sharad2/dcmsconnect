@@ -217,6 +217,8 @@
             // Shows the first tab content by default
             $('ul[role="tablist"] li a:first').tab('show');
             $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
+
+
             //IShows the tab on scan if already present
             $('#scan').keydown(function (e) {
                 //enter key
@@ -263,7 +265,13 @@
                 alert('auto increment tab with pallet id');
             });
 
+            $('.glyphicon-remove-sign').click(function (e) {
+                var tabId = $(this).parents('li').children('a').attr('href');
+                $(this).parents('li').remove('li');
+                $(tabId).remove();
+                $('ul[role="tablist"] li a:first').tab('show');
 
+            });
 
 
             //Show values form _palletPartial page in print modal(Dialog Box) and remove carton(Dialog Box)
