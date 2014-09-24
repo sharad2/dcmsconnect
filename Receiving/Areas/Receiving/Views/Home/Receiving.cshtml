@@ -67,7 +67,7 @@
                         <div class="form-group">
                             <div class="input-group input-group-lg">
                                 <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                                       class="form-control" autofocus 
+                                       class="form-control" autofocus
                                        data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
                                        autocomplete="off" placeholder="Scan Carton or Pallet" />
                                 <span class="input-group-btn">
@@ -97,12 +97,12 @@
         </div>
     </div>
 
-
+    <div class="divError alert alert-warning" style="display:none"></div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs bg-info" role="tablist">
         @for (var i = 0; i < Model.Pallets.Count(); i++)
         {
-            <li>
+            <li data-palletid='@Model.Pallets[i].PalletId' data-disposition='@Model.Pallets[i].DispositionId'>
 
                 <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
@@ -115,6 +115,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
+
         @foreach (var pallet in Model.Pallets)
         {
             <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
@@ -134,8 +135,8 @@
                 </div>
                 <form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
                     <div class="modal-body">
-                            <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
-                            <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.processId" />
+                        <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
+                        <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.processId" />
                         <div class="form-group">
                             <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                             <div class="col-sm-10">
@@ -175,7 +176,7 @@
                     <div class="modal-body">
                         <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId" />
                         <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />
-                        <span class="text-info">                        
+                        <span class="text-info">
                             Are you sure you want to remove carton<input type="button" id="cartonId" class="btn btn-link  btn-lg" disabled="disabled">
                             from Pallet<input type="button" id="palletId" class="btn btn-link  btn-lg" disabled="disabled">?
                         </span>
@@ -194,84 +195,88 @@
     </div>
 
 
-    </div>
-    @section script{
-        <!--Styles for making the tab with cross icons
-         http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
-        <style type="text/css">
-            .nav-tabs > li .glyphicon-remove-sign {
-                margin: -16px -15px 0px 10px;
-                font-size: 13px;
-                padding: 5px 0;
-                float: right;
-            }
+</div>
+@section script{
+    <!--Styles for making the tab with cross icons
+     http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
+    <style type="text/css">
+        .nav-tabs > li .glyphicon-remove-sign {
+            margin: -16px -15px 0px 10px;
+            font-size: 13px;
+            padding: 5px 0;
+            float: right;
+        }
 
-            .nav-tabs > li a[data-toggle=tab] {
-                float: left !important;
-            }
-        </style>
+        .nav-tabs > li a[data-toggle=tab] {
+            float: left !important;
+        }
+    </style>
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                // Shows the first tab content by default
-                $('ul[role="tablist"] li a:first').tab('show');
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Shows the first tab content by default
+            $('ul[role="tablist"] li a:first').tab('show');
+            $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
+            //IShows the tab on scan if already present
+            $('#scan').keydown(function (e) {
+                //enter key
+                if (e.keyCode == 13) {
+                    if ($(this).val() != "") {
+                        var tabToOpen = $(this).val().toUpperCase();
+                        var curPalletIndex = $('ul[role="tablist"] li.active').index();
 
-                //IShows the tab on scan if already present
-                $('#scan').keydown(function (e) {
-                    //enter key
-                    if (e.keyCode == 13) {
-                        if ($(this).val() != "") {
-                            var tabToOpen = $(this).val().toUpperCase();
-                            $('ul[role="tablist"] li a[href="#Pallet_' + tabToOpen +'"]').tab('show');
+                        //this checks weather the href is already been there in the page(ie.pallet on scan)
+                        var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li ');
+                        var index = $li.index();
+                        if (index == -1) {
+
+                            $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li ');
+                            var $palletId = $li.attr('data-palletid');
+                          
+                            if ($palletId) {
+                                $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
+                                return;
+                            }
+                            else {
+                                $('ul[role="tablist"]').append('<li><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
+                                $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + tabToOpen + '">Carton content in pallet' + tabToOpen + '</div>');
+                            }
+
+                        }
+                        else if ((index == curPalletIndex)) {
+                            // Pallet is already active
+
+                            $('.divError').show().html('Pallet Id is already active. Please scan a carton.');
+
+                        } else {
+                            // Activate the pallet
+                            $('.divError').hide();
+                            $('ul[role="tablist"] li a[href="#Pallet_' + tabToOpen + '"]').tab('show');
                         }
                     }
-                });
-
-                $('#btnNewPallet').click(function (e) {
-                   
-                    var newTab = $('#scan').val().toUpperCase();
-                   
-                    $('ul[role="tablist"]').append('<li><a href="#Pallet_' + newTab + ' " ' + 'role="tab" data-toggle="tab"  title="' + newTab + '">' + newTab + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
-                    $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + newTab + '">Carton content in pallet' + newTab + '</div>');
-                  
-                });
-               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                //Show values form _palletPartial page in print modal(Dialog Box) and remove carton(Dialog Box)
-                $('table tbody td').on('click', 'button', function (e) {
-                    var cartonId = $(e.delegateTarget).attr('data-carton');
-                    var palletId = $(e.delegateTarget).attr('data-pallet');
-                    $('#hfCartonId,#cartonId').val(cartonId);
-                    $('#palletId').val(palletId);
-                });
+                }
 
 
             });
-        </script>
-    }
+
+            $('#btnNewPallet').click(function (e) {
+                alert('auto increment tab with pallet id');
+            });
+
+
+
+
+            //Show values form _palletPartial page in print modal(Dialog Box) and remove carton(Dialog Box)
+            $('table tbody td').on('click', 'button', function (e) {
+                var cartonId = $(e.delegateTarget).attr('data-carton');
+                var palletId = $(e.delegateTarget).attr('data-pallet');
+                $('#hfCartonId,#cartonId').val(cartonId);
+                $('#palletId').val(palletId);
+            });
+
+
+        });
+    </script>
+}
 
 
