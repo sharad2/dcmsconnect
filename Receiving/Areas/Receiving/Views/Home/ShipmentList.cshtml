@@ -21,7 +21,7 @@
                             //Success message
                             $tr.addClass('text-success bg-warning').css("text-decoration", "line-through");
                             $tr.find('a').addClass('disabled');
-                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus');
+                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus').attr('title','Reopen Shipment');
                             $('#message').html(data).addClass('bg-info');
                             return false;
 
@@ -48,7 +48,7 @@
                             //Success message
                             $tr.removeClass('text-success bg-warning').css("text-decoration", "none");
                             $tr.find('a').removeClass('disabled');
-                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove');
+                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove').attr('title','Close Shipment');
                             $('#message').html(data).addClass('bg-info');
                             return false;
                         }
