@@ -228,19 +228,19 @@
                         var curPalletIndex = $('ul[role="tablist"] li.active').index();
 
                         //this checks weather the href is already been there in the page(ie.pallet on scan)
-                        var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li ');
+                        var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
                         var index = $li.index();
                         if (index == -1) {
 
-                            $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li ');
-                            var $palletId = $li.attr('data-palletid');
-                          
-                            if ($palletId) {
+                           var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
+                           var palletId = $li.attr('data-palletid');
+                       
+                            if (palletId) {
                                 $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
                                 return;
                             }
                             else {
-                                $('ul[role="tablist"]').append('<li><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
+                                $('ul[role="tablist"]').append('<li  data-palletid=' + tabToOpen + ' data-disposition=' + tabToOpen + '><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
                                 $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + tabToOpen + '">Carton content in pallet' + tabToOpen + '</div>');
                             }
 
