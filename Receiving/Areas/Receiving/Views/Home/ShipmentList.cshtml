@@ -3,63 +3,7 @@
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
     ViewBag.Title = "Shipment List";
 }
-@section script {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Post call to remove pickslip action method
-            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-remove', function (e) {
-                var $tr = $(e.target).closest('tr');
-                if (confirm('Are you sure, you want to close Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
-                    $.ajax($(this).attr('data-shipment-close-url'), {
-                        type: 'POST',
-                        success: function (data, textStatus, jqXHR) {
-                            // handling validation error
-                            if (jqXHR.status == 203) {
-                                alert(jqXHR.responseText);
-                                return;
-                            }
-                            //Success message
-                            $tr.addClass('text-success bg-warning').css("text-decoration", "line-through");
-                            $tr.find('a').addClass('disabled');
-                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus').attr('title','Reopen Shipment');
-                            $('#message').show().html(data).addClass('bg-info');
-                            return false;
 
-                        }
-                    }).error(function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    });
-                }
-                else {
-                    $tr.removeClass('ui-state-highlight').css("text-decoration", "none").css("color", "black");
-                    return;
-                }
-            });
-            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-plus', function (e) {
-                var $tr = $(e.target).closest('tr');
-                if (confirm('Are you sure, you want to re-open Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
-                    $.ajax($(this).attr('data-shipment-reopen-url'), {
-                        type: 'POST',
-                        success: function (data, textStatus, jqXHR) {
-                            if (jqXHR.status == 203) {
-                                alert(jqXHR.responseText);
-                                return;
-                            }
-                            //Success message
-                            $tr.removeClass('text-success bg-warning').css("text-decoration", "none");
-                            $tr.find('a').removeClass('disabled');
-                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove').attr('title','Close Shipment');
-                            $('#message').show().html(data).addClass('bg-info');
-                            return false;
-                        }
-                    }).error(function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    });
-                };
-            });
-        });
-    </script>
-}
 <div class="container">    
     <div id="message" class="alert alert-info" style="display:none"></div>
     <div class="page-header">      
@@ -151,3 +95,60 @@
 
     </div>
 </div>
+@section script {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Post call to remove pickslip action method
+            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-remove', function (e) {
+                var $tr = $(e.target).closest('tr');
+                if (confirm('Are you sure, you want to close Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
+                    $.ajax($(this).attr('data-shipment-close-url'), {
+                        type: 'POST',
+                        success: function (data, textStatus, jqXHR) {
+                            // handling validation error
+                            if (jqXHR.status == 203) {
+                                alert(jqXHR.responseText);
+                                return;
+                            }
+                            //Success message
+                            $tr.addClass('text-success bg-warning').css("text-decoration", "line-through");
+                            $tr.find('a').addClass('disabled');
+                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus').attr('title', 'Reopen Shipment');
+                            $('#message').show().html(data).addClass('bg-info');
+                            return false;
+
+                        }
+                    }).error(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    });
+                }
+                else {
+                    $tr.removeClass('ui-state-highlight').css("text-decoration", "none").css("color", "black");
+                    return;
+                }
+            });
+            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-plus', function (e) {
+                var $tr = $(e.target).closest('tr');
+                if (confirm('Are you sure, you want to re-open Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
+                    $.ajax($(this).attr('data-shipment-reopen-url'), {
+                        type: 'POST',
+                        success: function (data, textStatus, jqXHR) {
+                            if (jqXHR.status == 203) {
+                                alert(jqXHR.responseText);
+                                return;
+                            }
+                            //Success message
+                            $tr.removeClass('text-success bg-warning').css("text-decoration", "none");
+                            $tr.find('a').removeClass('disabled');
+                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove').attr('title', 'Close Shipment');
+                            $('#message').show().html(data).addClass('bg-info');
+                            return false;
+                        }
+                    }).error(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    });
+                };
+            });
+        });
+    </script>
+}
