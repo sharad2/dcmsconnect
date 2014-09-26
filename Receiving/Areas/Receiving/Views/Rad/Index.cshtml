@@ -4,7 +4,6 @@
     ViewBag.Title = "Receiving Configuration";
 }
 <div class="container">
-
     <div class="page-header">
         <span class="pull-right">
             <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())"><span class="glyphicon glyphicon-link" style="display: inline-block"></span> Receive Cartons</a>
@@ -42,7 +41,8 @@
 
 
     <div>
-        @if (!Model.EnableEditing)
+        <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
+        @if (Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
