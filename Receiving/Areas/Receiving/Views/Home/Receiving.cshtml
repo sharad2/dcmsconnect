@@ -216,10 +216,10 @@
         $(document).ready(function () {
             // Shows the first tab content by default
             $('ul[role="tablist"] li a:first').tab('show');
+            
             $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
 
 
-            //IShows the tab on scan if already present
             $('#scan').keydown(function (e) {
                 //enter key
                 if (e.keyCode == 13) {
@@ -265,6 +265,7 @@
                 alert('auto increment tab with pallet id');
             });
 
+            //cross icon on the tab get it hide from the UI
             $('.glyphicon-remove-sign').click(function (e) {
                 var tabId = $(this).parents('li').children('a').attr('href');
                 $(this).parents('li').remove('li');
