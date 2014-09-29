@@ -29,7 +29,8 @@
                 new
                 {
                     id = "ddlReceivingArea",
-                    @class = "form-control"
+                    @class = "form-control",
+                    @required = "required"
 
                 })
             </div>
@@ -40,7 +41,9 @@
                 @Html.DropDownListFor(m => m.SpotCheckAreaId, Model.SpotCheckAreasList, "(Select Any Area)", new
            {
                id = "ddlSpotCheckArea",
-               @class = "form-control"
+               @class = "form-control",
+               @required = "required"
+               
 
            })
             </div>
@@ -52,6 +55,7 @@
            {
                id = "ddlPriceSeasonCode",
                @class = "form-control"
+              
            })
             </div>
         </div>
