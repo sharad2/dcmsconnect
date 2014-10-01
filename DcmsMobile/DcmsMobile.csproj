@@ -386,6 +386,7 @@
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
     <Content Include="Content\Sounds\warning.mp3" />
+    <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -432,7 +433,6 @@
     <Content Include="Doc\Features.txt" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\DcmsMobile To China.pubxml" />
-    <Content Include="MvcDiagnostics.aspx" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery.mobile-1.4.2.js" />
