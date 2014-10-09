@@ -482,6 +482,10 @@
       <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
       <Name>EclipseLibrary.Mvc</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj">
+      <Project>{019ef3e3-b232-4a49-b05d-4c54ff73c4d0}</Project>
+      <Name>EclipseLibrary.Oracle</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainArea\Logon\ChangeExpiredPassword.cshtml" />
