@@ -117,10 +117,10 @@ $(document).ready(function () {
 /*
 $Id: ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $ 
 $Revision: 24663 $
-$URL: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server.eclipse.com/svn/dcmsconnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
+$URL: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
+$Header: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
 $Author: spandey $
-$Date: 2014-06-03 15:16:17 +0530 (Tue, 03 Jun 2014) $
+$Date: 2014-06-03 02:46:17 -0700 (Tue, 03 Jun 2014) $
 */
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
