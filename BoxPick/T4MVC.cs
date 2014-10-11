@@ -103,16 +103,36 @@ namespace Links_BoxPick
     
     }
 
+
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Areas {
+    public static partial class Areas {
         private const string URLPATH = "~/Areas";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class BoxPick {
+        public static partial class BoxPick {
             private const string URLPATH = "~/Areas/BoxPick";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/BoxPick/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string BoxPick_all_js_bundle = Url("BoxPick-all.js.bundle");
+                public static readonly string BoxPick_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.js") ? Url("BoxPick-all.min.js") : Url("BoxPick-all.js");
+                public static readonly string BoxPick_all_min_js_map = Url("BoxPick-all.min.js.map");
+                public static readonly string scan_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scan.partial.min.js") ? Url("scan.partial.min.js") : Url("scan.partial.js");
+                public static readonly string session_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/session.partial.min.js") ? Url("session.partial.min.js") : Url("session.partial.js");
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class BoxPick {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Content {
                 private const string URLPATH = "~/Areas/BoxPick/Content";
@@ -135,86 +155,8 @@ namespace Links_BoxPick
                      
             }
         
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Controllers {
-                private const string URLPATH = "~/Areas/BoxPick/Controllers";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Scripts {
-                private const string URLPATH = "~/Areas/BoxPick/Scripts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string BoxPick_all_js_bundle = Url("BoxPick-all.js.bundle");
-                public static readonly string BoxPick_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.js") ? Url("BoxPick-all.min.js") : Url("BoxPick-all.js");
-                public static readonly string BoxPick_all_min_js_map = Url("BoxPick-all.min.js.map");
-                public static readonly string scan_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/scan.partial.min.js") ? Url("scan.partial.min.js") : Url("scan.partial.js");
-                public static readonly string session_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/session.partial.min.js") ? Url("session.partial.min.js") : Url("session.partial.js");
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Views {
-                private const string URLPATH = "~/Areas/BoxPick/Views";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Confirm {
-                    private const string URLPATH = "~/Areas/BoxPick/Views/Confirm";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Help {
-                    private const string URLPATH = "~/Areas/BoxPick/Views/Help";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Home {
-                    private const string URLPATH = "~/Areas/BoxPick/Views/Home";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class MainContent {
-                    private const string URLPATH = "~/Areas/BoxPick/Views/MainContent";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Shared {
-                    private const string URLPATH = "~/Areas/BoxPick/Views/Shared";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                    public static class DisplayTemplates {
-                        private const string URLPATH = "~/Areas/BoxPick/Views/Shared/DisplayTemplates";
-                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    }
-                
-                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                    public static class EditorTemplates {
-                        private const string URLPATH = "~/Areas/BoxPick/Views/Shared/EditorTemplates";
-                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    }
-                
-                }
-            
-                public static readonly string Web_config = Url("Web.config");
-            }
-        
         }
-    
     }
-
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
