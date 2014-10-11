@@ -1,0 +1,21 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.Locating.PalletViewModel
+@{
+    ViewBag.Title = "Scan Pallet";
+}
+<div class="box">
+    @using (Html.BeginForm(MVC_CartonManager.CartonManager.Locating.AcceptPallet(), FormMethod.Post))
+    {
+        <div class="boxContent">
+            @Html.LabelFor(m => m.PalletId)
+            <input id="scan" type="text" name="@MVC_CartonManager.CartonManager.Locating.Actions.AcceptPalletParams.palletId" style="text-transform: uppercase" maxlength="8" />
+            <div>
+                Scanning a pallet is optional but highly recommended. It will enable the option to move unlocated cartons to suspense and will also display your locating progress.
+            </div>
+        </div>
+        @Html.ValidationSummary()
+        <div id="divStatusSummary">@Html.StatusSummary()</div>
+    }
+</div>
+@section scripts {
+    <script src="@Links_CartonManager.Areas.CartonManager.Scripts.InitScan_mobile_all_js" type="text/javascript"></script>
+}

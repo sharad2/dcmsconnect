@@ -1,0 +1,47 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.SoundModel
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Links_CartonManager.Areas.CartonManager.Content.CartonManager_mobile_all_css" rel="stylesheet" type="text/css" />
+    <link href="@Links_CartonManager.Content.themes.Start1_10_0.jquery_ui_css" rel="stylesheet" type="text/css" />
+</head>
+<body onkeydown="OnBodyKeyDown()" onkeypress="OnBodyKeyPress()">
+    <h1>
+        @ViewBag.Title
+    </h1>
+    @RenderBody()
+    <strong>
+        P1 to Change UI | P2 to Exit | <a href="@Url.Content("~")" accesskey="0">Home</a>
+        @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+        {
+            <span>Welcome @ViewContext.HttpContext.User.Identity.Name</span>
+        }
+    </strong>
+    <div>
+        @if (Model != null)
+        {
+            @Html.Partial(MVC_CartonManager.CartonManager.Shared.Views._soundPartial, Model.Sound)
+        }
+    </div>
+    <script type="text/javascript">
+        function OnBodyKeyDown() {
+            if (window.event.keyCode == 123) {
+                //  P1 is pressed
+                var url = "@Url.Action(MVC_CartonManager.CartonManager.Home.Index())";
+                window.location = url;
+
+            } else if (window.event.keyCode == 124) {
+                //  P2 is pressed
+                window.close();
+            }
+        }
+        function OnBodyKeyPress() {
+            // Do nothing. Index page will provide its own implementation
+        }
+    </script>
+    @RenderSection("scripts", false)
+</body>
+</html>
+@*$Id$*@ 

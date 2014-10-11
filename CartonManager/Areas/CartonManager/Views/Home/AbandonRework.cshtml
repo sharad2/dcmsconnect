@@ -1,0 +1,80 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.AbandonReworkViewModel
+@{
+    ViewBag.Title = "Abandon Rework";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+<p>
+    This UI abandons rework on Carton. Carton with rework qualify. Palletization of
+    such Cartons can also be done.
+</p>
+@using (Html.BeginForm(MVC_CartonManager.CartonManager.Home.UpdateCartonOrPallet(), FormMethod.Post, new
+{
+
+    id = "frmMain"
+
+}))
+{
+    @Html.HiddenFor(m => m.ViewModelType)
+    <audio id="sound_success" src="@Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav" >
+        <span class="ui-state-highlight">Your browser will not play sounds. IE9 or higher is
+            recommended. </span>
+    </audio>
+    <audio id="sound_error" src="@Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav">
+    </audio>
+    <div class="box">
+        <h3>
+            Step 1 Optional: Provide Area and Pallet to be created.</h3>
+        <div class="boxContent">
+            <p>
+                You need to enter this only if the Cartons must be moved to a different Pallet.
+            </p>
+            Area
+            @Html.GroupDropListFor(m => m.UpdatingRules.AreaId, Model.AreaList, "(Please select)", new
+       {
+           tabindex = 1,
+           id = "ddlArea"
+       })
+            @Html.ValidationMessageFor(m => m.UpdatingRules.AreaId)
+            for Pallet @Html.EditorFor(m => m.UpdatingRules.PalletId, MVC_CartonManager.CartonManager.Shared.Views.EditorTemplates.DestPallet, new
+                  {
+                      tabindex = 2
+                  })
+        </div>
+    </div>
+    <div class="box">
+        <h3>
+            Step 2: Scan Cartons</h3>
+        <div class="boxContent">
+            @Html.HiddenFor(m => m.ConfirmScanText, new { id = "tbConfirm" })
+            @Html.LabelFor(m => m.ScanText)
+            @Html.TextBoxFor(m => m.ScanText, new
+       {
+           id = "tbScan",
+           style = "text-transform: uppercase;",
+           tabindex = 3
+       })
+            <button type="button" id="btnGo">
+                Go</button>
+            <br />
+            Tip: Scan an existing Pallet or Carton requiring rework.
+        </div>
+        <div id="ajaxErrors">
+        </div>
+    </div>    
+
+}
+@section scripts{
+    <script src="@Links_CartonManager.Areas.CartonManager.Scripts.CommonPalletize_all_js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ddlArea').focus();
+            $('#tbPallet').keypress(function (e) {
+                if (e.keyCode === $.ui.keyCode.ENTER && $(this).val()) {
+                    $('#tbScan').focus();
+                    return false;
+                }
+            });
+        });
+    </script>
+}

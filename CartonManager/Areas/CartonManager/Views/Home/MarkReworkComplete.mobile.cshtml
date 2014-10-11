@@ -1,0 +1,33 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.MarkReworkCompleteViewModel
+@{
+    ViewBag.Title = "Mark Rework Complete";
+    var viewName = Path.GetFileNameWithoutExtension(((RazorView)this.ViewContext.View).ViewPath);
+    string sound;
+    if (!this.ViewData.ModelState.IsValid)
+    {
+        // Validation error
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav;
+    }
+    else
+    {
+        // Pallet or carton was scanned.
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav;
+    }
+}
+@using (Html.BeginForm(MVC_CartonManager.CartonManager.Home.UpdateCartonOrPallet(), FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.ViewModelType)
+    <input type="hidden" value="@viewName" name="@Html.NameFor(m => m.ViewName)" />
+    <input type="hidden" value="@Model.ViewModelType" name="@Html.NameFor(m => m.ViewModelType)" />
+    <input type="hidden" value="@Model.ScanText" name="@Html.NameFor(m => m.ConfirmScanText)" />
+    @Html.LabelFor(m => m.ScanText)
+    <input id="scan" type="text" name="@Html.NameFor(p => p.ScanText)" style="text-transform: uppercase" /><br />
+    <div class="ui-state-active">
+        Tip: Scan an existing Pallet or Carton requiring rework and mark rework status of Carton, complete.</div>
+}
+@Html.ValidationSummary()
+<div id="divStatusSummary">@Html.StatusSummary()</div>
+<bgsound src="@sound" loop="1" />
+@section scripts {
+    <script src="@Links_CartonManager.Areas.CartonManager.Scripts.InitScan_mobile_all_js" type="text/javascript"></script>
+}

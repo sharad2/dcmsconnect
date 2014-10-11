@@ -1,0 +1,62 @@
+﻿@model char
+@helper SoundFile()
+{
+    string filename;
+    switch (Model)
+    {
+        case '\0':
+            if (this.ViewData.ModelState.IsValid)
+            {
+                filename = @Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav;
+            }
+            else
+            {
+                filename = @Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav;
+            }
+            break;
+
+        case 'S':
+            filename = @Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav;
+            break;
+
+        case 'E':
+            filename = @Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav;
+            break;
+
+        case 'W':
+            filename = @Links_CartonManager.Areas.CartonManager.Content.Sounds.warning_wav;
+            break;
+
+        default:
+            throw new NotImplementedException();
+    }
+    @filename
+}
+@helper Loop()
+{
+    int loop = 0;
+    switch (Model)
+    {
+        case '\0':
+            if (!this.ViewData.ModelState.IsValid)
+            {
+                loop = 5;
+            }
+            break;
+
+        case 'E':
+            loop = 5;
+            break;
+
+        default:
+            break;
+    }
+    if (loop > 0)
+    {
+        string loopString = string.Format("loop={0}", loop);
+        @loopString
+    }
+
+}
+<bgsound src="@SoundFile()" @Loop() />
+
