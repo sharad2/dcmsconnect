@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Box Manager";
+}
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            <ul>
+                <li>First time user? <a href="@Url.Content(Links_BoxManager.Areas.BoxManager.Content.BoxManager_pptx)">View Presentation</a> </li>
+            </ul>
+        </div>
+    </div>
+}
+
+<ol>
+    @foreach (var item in DcmsMobile.BoxManager.Areas.BoxManager.SubAreas.GetMetaData(Url))
+    {
+        <li>
+            <a href="@item.Item2">@item.Item1.Name</a>. [@item.Item1.ShortName]
+            @if (item.Item3)
+            {
+                <span class="ui-icon ui-icon-signal" style="display: inline-block"></span>
+            }
+
+            @item.Item1.Description
+        </li>
+    }
+</ol>

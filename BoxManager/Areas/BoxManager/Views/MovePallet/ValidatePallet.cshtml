@@ -1,0 +1,27 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.MovePallet.ValidatePalletViewModel
+@{
+    ViewBag.Title = "Move Pallet";
+}
+<div class="ui-state-highlight">@string.Format("Please enter number of boxes on pallet {0} to validate it.", Model.SourcePalletId)</div>
+@using (Html.BeginForm(MVC_BoxManager.BoxManager.MovePallet.HandleBoxCount()))
+{
+    <input type="hidden" name="@Html.NameFor(p => p.SourcePalletId)" value="@Model.SourcePalletId" />
+    <input type="hidden" name="@Html.NameFor(p => p.IsConfirm)" value="@Model.IsConfirm.ToString()" />
+    <span>Enter boxes on pallet</span>
+    <input id="scan" type="text" name="@Html.NameFor(p => p.BoxCount)" size="20" maxlength ="10" />
+    if (Model.VerifiedBoxes > 0)
+    {
+    <span style="color: Red; font-size: medium;">&bull;</span>
+    }
+    else
+    {
+    <span style="color: Green; font-size: medium;">&bull;</span>
+    }
+}
+<div>
+    <strong>@Html.DisplayFor(m => m.SourcePalletId)</strong>
+    @Html.DisplayFor(m => m.SourcePalletAreaId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.SourcePalletLocationId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    @Html.DisplayFor(m => m.CustomerId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+</div>
+<span>Press Enter to start again.</span>

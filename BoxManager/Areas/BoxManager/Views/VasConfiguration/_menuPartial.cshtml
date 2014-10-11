@@ -1,0 +1,38 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.VasConfiguration.CustomerGroupedListModel
+<ul id="ulMenu" style="width: 16em; white-space: nowrap; padding-left: 2px;">
+    <li @Html.Raw(string.IsNullOrWhiteSpace(Model.CustomerId) ? "class='ui-state-active'" : "")>
+        <a href="@Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.Actions.Index())"><span class="ui-icon ui-icon-clipboard" style="display: inline-block"></span>Summary</a>
+    </li>
+    @foreach (var key in Model.CustomerGroupedList.Keys)
+        {
+        <li></li>
+        //var key = Model.CustomerGroupedList.Keys[i];
+        <li style="font-weight: bold; font-size: 0.8em; white-space:normal;">@Model.CustomerGroupedList[key][0].CustomerName</li>
+        for (var j = 0; j < Model.CustomerGroupedList[key].Count; ++j)
+        {
+        <li style="padding-left: 5px;" @Html.Raw(Model.CustomerGroupedList[key][j].CustomerId == Model.CustomerId && Model.CustomerGroupedList[key][j].VasId == Model.VasId ? "class='ui-state-active'" : "")>
+            @if (Model.CustomerGroupedList[key][j].InactiveFlag)
+            {
+                <a style="font-size:1em"  title="This configuration is not active now" href="@Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerVas(key, Model.CustomerGroupedList[key][j].VasId))">
+                    <span class="ui-state-disabled">
+                        <span class="ui-icon ui-icon-cancel" style="display: inline-block"></span>
+                        @Model.CustomerGroupedList[key][j].VasDescription
+                    </span>
+                </a>
+            }
+            else
+            {
+                <a style="font-size:1em" href="@Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerVas(key, Model.CustomerGroupedList[key][j].VasId))">
+                    <span class='ui-icon ui-icon-tag'></span>@Model.CustomerGroupedList[key][j].VasDescription
+                </a>
+                    
+            }
+        </li>
+        }
+    }
+</ul>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ulMenu').menu();
+    });
+</script>

@@ -1,0 +1,99 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.VasConfiguration.VerifyVasPatternViewModel
+@{
+    ViewBag.Title = "Verify VAS Pattern";
+}
+@section sidebar{
+    @Html.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerList(Model.CustomerId, Model.VasId))
+}
+
+
+<div class="boxContent">
+    <p>
+        <span class="ui-state-highlight">
+            <strong>@Model.CustomerName</strong> requires <strong>@Model.VasDescription</strong> for <em><strong>@Model.RegExDescription</strong></em>
+        </span>
+    </p>
+    <p>
+        After changes apply: 
+        <span class="ui-state-active"><strong>@Html.DisplayFor(m => m.CustomerName)</strong> will require <strong>@Html.DisplayFor(m => m.VasDescription)</strong> for <em><strong>@Html.DisplayFor(m => m.ConstructedRegExDescription)</strong></em></span>
+    </p>
+    @using (Html.BeginForm(MVC_BoxManager.BoxManager.VasConfiguration.UpdateConfiguration(), FormMethod.Post))
+    {
+        <input type="hidden" name='@Html.NameFor(m => m.CustomerId)' value="@Model.CustomerId"/>
+        <input type="hidden" name='@Html.NameFor(m => m.VasId)' value="@Model.VasId"/>
+        <input type="hidden" name='@Html.NameFor(m => m.Labels)' value="@Model.Labels"/>
+        <input type="hidden" name='@Html.NameFor(m => m.PoText)' value="@Model.PoText"/>
+        <input type="hidden" name='@Html.NameFor(m => m.PoTextType)' value="@Model.PoTextType"/>
+        <input type="hidden" name='@Html.NameFor(m => m.PoPatternType)' value="@Model.PoPatternType"/>
+        
+        <button type="submit" data-icon="ui-icon-disk">Save new configuration</button> 
+        @Html.ActionLink("Back", MVC_BoxManager.BoxManager.VasConfiguration.EditCustomerVas(Model.CustomerId, Model.VasId))
+    }
+</div>
+
+<div class="boxContent" style="display: inline-block; margin-right: 1.5em;">
+    <h3 title="Regular Expression:  @Html.DisplayFor(m => m.PatternRegEx)">Showing 20 POs, Based on your newly chosen VAS pattern.</h3>
+    <table style="width: 20em">
+        <caption>POs will Qualify for VAS</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>PO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.ListWillApply.Count(); ++i)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>@(i + 1)</td>
+                    <td>
+                        @Html.DisplayFor(m => m.ListWillApply[i].PoId)
+                        @if (Model.ListWillApply[i].IsNew)
+                        {
+                            <span>(<span class="ui-icon ui-icon-alert" style="display: inline-block"></span> New)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="boxContent" style="display: inline-block">
+    <h3 title="Regular Expression:  @Html.DisplayFor(m => m.ConstructedRegEx)">Showing 20 POs, Based on your newly chosen VAS pattern.</h3>
+    <table style="width: 20em">
+        <caption>POs will not Qualify for VAS</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>PO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.ListWillNotApply.Count(); ++i)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>@(i + 1)</td>
+                    <td>
+                        @Html.DisplayFor(m => m.ListWillNotApply[i].PoId)
+                        @if (Model.ListWillNotApply[i].IsNew)
+                        {
+                            <span>(<span class="ui-icon ui-icon-alert" style="display: inline-block"></span> New)</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-icon]').each(function () {
+                $(this).button({ icons: { primary: $(this).attr('data-icon') } });
+            });
+        })
+    </script>
+}

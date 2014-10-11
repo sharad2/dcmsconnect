@@ -1,0 +1,42 @@
+﻿@* Displays short name along with label. The label displays dimmed and the value class can be controlled by the caller 
+You can apply additional classes to model value by setting ViewBag.ValueClasses
+*@
+@helper LabelText()
+    {
+        if (!string.IsNullOrEmpty(ViewData.ModelMetadata.ShortDisplayName))
+        {
+    @ViewData.ModelMetadata.ShortDisplayName
+        }
+        else if (!string.IsNullOrEmpty(ViewData.ModelMetadata.DisplayName))
+        {
+    @ViewData.ModelMetadata.DisplayName
+        }
+        else
+        {
+    @ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)
+        }
+}
+@helper ValueClasses()
+    {
+        var list = new List<string>();
+        var str = (string)ViewBag.ValueClasses;
+        if (!string.IsNullOrEmpty(str))
+        {
+            list.AddRange(str.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+        }
+        if (!ViewData.ModelState.IsValidField(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)))
+        {
+            list.Add("ui-state-error");
+        }
+    if (Model == null || ViewData.ModelMetadata.IsComplexType || Model.ToString() == string.Empty)
+    {
+        list.Add("ui-priority-secondary");
+    }
+    <text>@string.Join(" ", list)</text>
+}
+<span class="ui-state-disabled">@LabelText()</span> <span class="@ValueClasses()"><strong>@ViewData.TemplateInfo.FormattedModelValue</strong></span>
+
+
+
+
+<!--$Id: ValueWithShortName.cshtml 10678 2011-12-14 12:23:09Z rkandari $-->

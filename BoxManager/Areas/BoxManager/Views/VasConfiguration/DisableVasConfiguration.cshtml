@@ -1,0 +1,84 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.VasConfiguration.DisableVasConfigurationViewModel
+@{
+    ViewBag.Title = "Disable VAS Configuration";
+}
+@section sidebar{
+    @Html.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerList(Model.CustomerId, Model.VasId))
+}
+<div class="box">
+    <div class="boxContent">
+        <div>
+            <span class="ui-state-highlight"><strong style="font-size: 1.4em;">@Model.CustomerName</strong> requires <strong>@Model.VasDescription</strong> for <em><strong>@Model.VasPatternDescription</strong></em></span>
+            <p><em>This VAS configuration is currently enabled and being applied on all qualifying POs</em></p>
+
+        </div>
+        <div id="accordion">
+            @if (Model.ListBeingApplied.Count > 0)
+            {
+                <h3>See POs on which this VAS configuration currently being applied / will apply.</h3>
+                <div>
+                    <p>Apply on these POs</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <td>PO</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (var i = 0; i < Model.ListBeingApplied.Count; i++)
+                            {
+                                <tr>
+                                    <td>@(i + 1)</td>
+                                    <td>@Model.ListBeingApplied[i]</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <h3>This VAS configuration is not currently being applied on any PO.</h3>
+                <div>
+                    <em>This VAS configuration is not currently being applied on any PO.</em>
+                </div>
+            }
+
+            <h3>Disable this configuration</h3>
+            <div>
+                @using (Html.BeginForm(MVC_BoxManager.BoxManager.VasConfiguration.DisableVasConfiguration(), FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.CustomerId)
+                    @Html.HiddenFor(m => m.VasId)
+                    @Html.HiddenFor(m => m.PatternRegEx)
+                    <p>To temporarily stop applying <em>@Model.VasDescription</em> for customer: <em>@Model.CustomerName</em>, you can disable this configuration.</p>
+                    <fieldset style="padding: 0.25em; margin-bottom: 1em; width: 40%">
+                        <legend>Disable this configuration for </legend>
+                        <ul style="list-style: none">
+                            @for (var i = 0; i < Model.OrderTypes.Count(); i++)
+                            {
+                                <li>
+                                    <input type="radio" id="@Model.OrderTypes[i].Value" name="@Html.NameFor(m => m.OrderType)" value="@Model.OrderTypes[i].Value" @Html.Raw(Model.OrderTypes[i].Selected ? "checked='checked'" : "")/>
+                                    <label for='@Model.OrderTypes[i].Value'>@Model.OrderTypes[i].Text</label>
+                                </li>
+                            }
+                        </ul>
+                    </fieldset>
+                    <button type="submit" data-icon="ui-icon-cancel">Disable Now</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#accordion').accordion({ active: 1, heightStyle: "content" });
+            $('[data-icon]').each(function () {
+                $(this).button({ icons: { primary: $(this).attr('data-icon') } });
+            });
+        })
+    </script>
+}

@@ -1,0 +1,21 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.MovePallet.ValidateBoxesViewModel
+@{
+    ViewBag.Title = "Move Pallet";
+}
+@using (Html.BeginForm(MVC_BoxManager.BoxManager.MovePallet.ScanBoxOfSourcePallet()))
+{
+    <input type="hidden" name="@Html.NameFor(p => p.SourcePalletId)" value="@Model.SourcePalletId" />
+    <input type="hidden" name="@Html.NameFor(p => p.IsConfirmScanText)" value="@Model.IsConfirmScanText.ToString()" />
+    <span>Scan Box</span>
+    <input id="scan" type="text" name="@Html.NameFor(p => p.ScanText)" size="20" />
+}
+<div>
+    @if (Model.ScanBoxCount > 0)
+    {
+        @Html.DisplayFor(m => m.ScanText, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.ScanBoxCount, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    }
+</div>
+<span class="ui-state-highlight">
+    @string.Format("Please scan boxes of pallet {0} one by one.When you are done, press Enter.", Model.SourcePalletId)
+</span>

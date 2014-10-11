@@ -1,0 +1,153 @@
+﻿--------------------------------------
+--                                  --
+--  Roles for Box Manager Module    --
+--                                  --
+---------------------------------------
+--LOG IN AS DCMS8 AND CREATE NEW SEQUENCE
+
+
+
+####################################
+      -- CREATE SEQUENCE 
+###################################
+CREATE SEQUENCE TEMPORARY_PALLET_SEQUENCE
+MINVALUE 0
+MAXVALUE 99990
+START WITH 1
+INCREMENT BY 1
+CACHE 20;
+
+
+--###################################################################
+                  -- CREATE THE ROLE 
+--###################################################################
+CREATE ROLE DCMS8_SCANTOPALLET;
+-- GRANT/REVOKE OBJECT PRIVILEGES 
+GRANT SELECT ON DCMS4.MASTER_CARRIER TO DCMS8_SCANTOPALLET;
+GRANT SELECT, UPDATE ON BOX TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON CUSTSPLH TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON IALOC TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON PS TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON SKUCASE TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON SPLH TO DCMS8_SCANTOPALLET;
+GRANT SELECT ON TEMPORARY_PALLET_SEQUENCE TO DCMS8_SCANTOPALLET;
+grant select on SHIP to DCMS8_SCANTOPALLET;
+grant select on APPOINTMENT to DCMS8_SCANTOPALLET;
+grant select on PS_VAS to DCMS8_SCANTOPALLET;
+--###################################################################
+
+
+
+
+
+
+###########################
+    --For testing 
+##########################
+
+--Get boxes which are not on any pallet 
+SELECT *
+  FROM BOX B
+ WHERE B.IA_ID = 'SHP'
+   AND B.PALLET_ID IS NULL
+   AND B.STOP_PROCESS_DATE IS NULL
+   AND B.VERIFY_DATE IS NOT NULL
+   AND B.PICKSLIP_ID IN (SELECT PS.PICKSLIP_ID
+                           FROM PS PS
+                              WHERE PS.CUSTOMER_ID = '10120'
+                              )
+
+--###################################################################
+                  -- CREATE THE ROLE 
+--###################################################################
+CREATE ROLE DCMS8_SCM;
+-- GRANT/REVOKE OBJECT PRIVILEGES 
+grant select on DCMS4.MASTER_SKU to DCMS8_SCM;
+grant select on DCMS4.MASTER_STYLE to DCMS8_SCM;
+grant select on DCMS4.SRC_CARTON to DCMS8_SCM;
+grant select on DCMS4.SRC_CARTON_DETAIL to DCMS8_SCM;
+grant select on DCMS4.TAB_PRINTER to DCMS8_SCM;
+grant select, update on BOX to DCMS8_SCM;
+grant select, update on BOXDET to DCMS8_SCM;
+grant select, update, delete on BOXDETCO to DCMS8_SCM;
+grant select on BUCKET to DCMS8_SCM;
+grant select on CUST to DCMS8_SCM;
+grant select on CUSTLBLSPLH to DCMS8_SCM;
+grant select on CUSTSPLH to DCMS8_SCM;
+grant select on DOC to DCMS8_SCM;
+grant select on IA to DCMS8_SCM;
+grant select on IACONFIG to DCMS8_SCM;
+grant select, update on IALOC to DCMS8_SCM;
+grant select on IALOC_CONTENT to DCMS8_SCM;
+grant select on IALOC_OBJECTS to DCMS8_SCM;
+grant execute on IALOC_T to DCMS8_SCM;
+grant select, update on MPC to DCMS8_SCM;
+grant select on MPCLOC to DCMS8_SCM;
+grant execute on PKG_MPC to DCMS8_SCM;
+grant execute on PKG_PICKSLIP to DCMS8_SCM;
+grant execute on PKG_PRINT_CCL to DCMS8_SCM;
+grant execute on PKG_PRINT_UCC to DCMS8_SCM;
+grant execute on PKG_RESV to DCMS8_SCM;
+grant select, update on PS to DCMS8_SCM;
+grant select on PSDET to DCMS8_SCM;
+grant execute on REMOVE_UNCONSUMED_RESV to DCMS8_SCM;
+grant select on RESVDET to DCMS8_SCM;
+grant select on SKUCASE to DCMS8_SCM;
+grant select on SKU_OBJECTS to DCMS8_SCM;
+
+--###################################################################
+        --NEW GRANT/REVOKE OBJECT PRIVILEGES to DCMS8_SCM role 
+--###################################################################
+
+GRANT EXECUTE ON  PKG_PICKSLIP TO DCMS8_SCM;
+GRANT EXECUTE ON  PKG_MPC TO DCMS8_SCM;
+GRANT EXECUTE ON  PKG_RESV TO DCMS8_SCM;
+Grant Select on ps_vas to DCMS8_SCM;
+Grant Select , Update on box_process to DCMS8_SCM; 
+
+--###################################################################
+        --NEW GRANT/REVOKE OBJECT PRIVILEGES to DCMS8_SCM role 
+--###################################################################
+
+grant select on MASTER_STORAGE_LOCATION to DCMS8_SCM;
+grant select on TAB_INVENTORY_AREA to DCMS8_SCM;
+
+--###################################################################
+        --NEW GRANT/REVOKE OBJECT PRIVILEGES to DCMS8_SCM role 
+--###################################################################
+grant select on IALOC to DCMS8_SCM;
+grant select on IALOC_CONTENT to DCMS8_SCM;
+grant select on TAB_QUALITY_CODE to DCMS8_SCM;
+
+--###################################################################
+        -- CREATE THE ROLE for V2P [DCMS8_VASTOPALLET]
+--###################################################################
+-- Create the role 
+create role DCMS8_VASTOPALLET;
+-- Grant/Revoke object privileges 
+grant select on DCMS4.MASTER_CARRIER to DCMS8_VASTOPALLET;
+grant select, update on BOX to DCMS8_VASTOPALLET;
+grant select on CUSTSPLH to DCMS8_VASTOPALLET;
+grant select on IALOC to DCMS8_VASTOPALLET;
+grant select on PS to DCMS8_VASTOPALLET;
+grant select on PS_VAS to DCMS8_VASTOPALLET;
+grant select on SKUCASE to DCMS8_VASTOPALLET;
+grant select on SHIP to DCMS8_VASTOPALLET;
+grant select on APPOINTMENT to DCMS8_VASTOPALLET;
+grant select,insert on BOX_VAS to DCMS8_VASTOPALLET;
+grant select on SPLH to DCMS8_VASTOPALLET;
+grant select on TEMPORARY_PALLET_SEQUENCE to DCMS8_VASTOPALLET;
+
+
+--###################################################################
+       -- CREATE THE ROLE for VAS CONFIGURATION [DCMS8_VAS]
+--###################################################################
+-- Create the role 
+create role DCMS8_VAS;
+-- Grant/Revoke object privileges 
+grant select on CUST to DCMS8_VAS;
+grant select, insert, update, delete on MASTER_CUSTOMER_VAS to DCMS8_VAS;
+grant select on TAB_VAS to DCMS8_VAS;
+grant select on TAB_STYLE_LABEL to DCMS8_VAS;
+grant select on PS to DCMS8_VAS;
+grant select, insert,delete on PS_VAS to DCMS8_VAS;
