@@ -105,16 +105,33 @@ namespace Links_DcmsRights
     
     }
 
+
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Areas {
+    public static partial class Areas {
         private const string URLPATH = "~/Areas";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class DcmsRights {
+        public static partial class DcmsRights {
             private const string URLPATH = "~/Areas/DcmsRights";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/DcmsRights/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string DcmsRights_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DcmsRights-all.min.js") ? Url("DcmsRights-all.min.js") : Url("DcmsRights-all.js");
+                public static readonly string DcmsRights_all_min_js_map = Url("DcmsRights-all.min.js.map");
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class DcmsRights {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Content {
                 private const string URLPATH = "~/Areas/DcmsRights/Content";
@@ -132,48 +149,8 @@ namespace Links_DcmsRights
                      
             }
         
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Controllers {
-                private const string URLPATH = "~/Areas/DcmsRights/Controllers";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Scripts {
-                private const string URLPATH = "~/Areas/DcmsRights/Scripts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string DcmsRights_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/DcmsRights-all.min.js") ? Url("DcmsRights-all.min.js") : Url("DcmsRights-all.js");
-                public static readonly string DcmsRights_all_min_js_map = Url("DcmsRights-all.min.js.map");
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Views {
-                private const string URLPATH = "~/Areas/DcmsRights/Views";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Home {
-                    private const string URLPATH = "~/Areas/DcmsRights/Views/Home";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Shared {
-                    private const string URLPATH = "~/Areas/DcmsRights/Views/Shared";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                public static readonly string Web_config = Url("Web.config");
-            }
-        
         }
-    
     }
-
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
