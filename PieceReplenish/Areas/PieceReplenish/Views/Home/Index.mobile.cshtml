@@ -1,0 +1,31 @@
+﻿@{
+
+    ViewBag.Title = "Piece Replenishment";
+}
+@Html.ValidationSummary()
+<span style="font-size: 0.8em">@Html.StatusSummary()
+</span>
+<div class="box">
+    <h3>Select the task you wish to perform</h3>
+    <input type="text" onkeypress="RedirectToChoice(event,this); this.value='';" id="scan" /><br />
+    1. @Html.ActionLink("Replenishment Pulling", MVC_PieceReplenish.PieceReplenish.Home.Actions.BuildingMobile(), new { id = @Html.Raw(string.Format("choice_{0}", 1)) })</><br />
+    2. @Html.ActionLink("Restock", MVC_PieceReplenish.PieceReplenish.Restock.Actions.Carton(), new { id = @Html.Raw(string.Format("choice_{0}", 2)) })</>  
+</div>
+@if (this.ViewContext.HttpContext.GetOverriddenBrowser().IsMobileDevice != this.ViewContext.HttpContext.Request.Browser.IsMobileDevice)
+{ 
+    <br />
+    @Html.ActionLink("Show Desktop View", MVC_PieceReplenish.PieceReplenish.Home.ToggleEmulation())
+}
+@section scripts {
+    <script src="@Links_PieceReplenish.Areas.PieceReplenish.Scripts.RedirectToChoice_js" type="text/javascript"></script>
+}
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@
+

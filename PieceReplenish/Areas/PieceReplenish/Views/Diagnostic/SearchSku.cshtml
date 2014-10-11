@@ -1,0 +1,340 @@
+﻿@model DcmsMobile.PieceReplenish.ViewModels.Diagnostic.SearchSkuViewModel
+@{
+    ViewBag.Title = "Search SKU";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@section sidebar{
+    <div class="box boxA">
+        <h3>Search your SKU here</h3>
+        <div class="boxContent">
+            @using (Html.BeginForm(MVC_PieceReplenish.PieceReplenish.Diagnostic.SearchSkuRequirement(), FormMethod.Get))
+            {
+                @Html.LabelFor(m => m.SkuId)
+                @Html.HiddenFor(m => m.SkuId)
+                @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_PieceReplenish.PieceReplenish.AutoComplete.SkuAutocomplete())},
+           {"size", "16"}
+   })<sup>&darr;*</sup>
+                <span class = "repack-display" data-ac-msg-for='@Html.NameFor(m => m.SkuBarCode)'></span>
+                <input type="hidden" name="@Html.NameFor(m => m.Context.Serialized)" value='@Model.Context.Serialized' />
+                <button type="submit" id="btnSearch">Search</button>
+            }
+        </div>
+    </div>
+    <div class="box">
+        <div class="boxContent">
+            <span class="ui-icon ui-icon-arrowreturnthick-1-w" style="display: inline-block"></span><a href="@Url.Action(MVC_PieceReplenish.PieceReplenish.Home.Pallet(Model.Context.Serialized))">Back to Pallet page</a>
+        </div>
+        <br />
+        <h3>Legend</h3>
+        <div class="boxContent">
+            <span class="ui-icon ui-icon-pause" style="display: inline-block"></span>Location is frozen<br />
+            <span class="ui-icon ui-icon-info" style="display: inline-block"></span>If carton or location does not belong to your building<br />
+            <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>Will appear with carton when 
+            <ul>
+                <li>Carton is damaged</li>
+                <li>Carton is marked for rework</li>
+                <li>Carton is marked in suspense</li>
+                <li>Quality of carton is not shippable</li>
+                <li>Carton does not belong to your building</li>
+            </ul>
+        </div>
+    </div>
+}
+<div class="box">
+    <h2>Building: @Model.Context.BuildingId &raquo; @Model.Context.ShortName</h2>
+    @if (!string.IsNullOrWhiteSpace(Model.SkuBarCode))
+    {
+        <h3>SKU - @Model.SkuBarCode [@string.Format("{0},{1},{2},{3}", Model.Style, Model.Color, Model.Dimension, Model.SkuSize)]</h3>
+    }
+    @if (!Model.GroupedSkuRequirements.Any() && !string.IsNullOrWhiteSpace(Model.SkuBarCode))
+    {
+        <div class="ui-state-error">
+            This SKU is not assigned at pick location in any building
+        </div>
+    }
+    @Html.ValidationSummary()
+    @Html.StatusSummary()
+    <div class="boxContent">
+        @if (!string.IsNullOrWhiteSpace(Model.SkuBarCode) && Model.AllGroups.Count > 0)
+        {
+            <div id="tabs">
+                <ul>
+                    @foreach (var group in Model.AllGroups)
+                    {
+                        <li><a href="#@(group.HtmlId)">@string.Format("{0}-{1}", group.BuildingId, group.VwhId)</a></li>
+                    }
+                </ul>
+
+                @for (var i = 0; i < Model.AllGroups.Count; i++)
+                {
+                    var group = Model.AllGroups[i];
+                    <div id="@group.HtmlId">
+                        <p>Summary detail of SKU pieces requirement and availability, Assuming that overpulling is not allowed.</p>
+                        <blockquote>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Requirement and Availability
+                                        </th>
+                                        <th>Pieces
+                                        </th>
+                                        <th>Cartons
+                                        </th>
+                                        <th>Reference
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Html.DisplayFor(m => m.AllGroups[i].LocationCount)</td>
+                                        <td style="text-align: right">@Html.DisplayFor(m => m.AllGroups[i].LocationCapacity)</td>
+                                        <td></td>
+                                        <td rowspan="2">
+                                            @if (Model.GroupedSkuRequirements.ContainsKey(group))
+                                            { 
+                                                <a href="@string.Format("#{0}_requirement", group.HtmlId)">Table 1</a>
+                                            }
+
+                                        </td>
+                                    </tr>
+                                    <tr class="rowB">
+                                        <td>Pieces at Locations</td>
+                                        <td style="text-align: right">@Html.DisplayFor(m => m.AllGroups[i].PiecesAtLocations)</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pieces available in Restock area  @Model.AllGroups[i].RestockAreaId</td>
+                                        <td style="text-align: right">@Html.DisplayFor(m => m.AllGroups[i].RestockCartonPieces)</td>
+                                        <td style="text-align: right">
+                                            @Html.DisplayFor(m => m.AllGroups[i].RestockCartonCount)
+                                        </td>
+                                        <td>
+                                            @if (Model.GroupedCartonsToRestock.ContainsKey(group))
+                                            {
+                                                <a href="@string.Format("#{0}_restock", group.HtmlId)">Table 2</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr class="rowB">
+                                        <td>To pull from @Model.AllGroups[i].ReplenishAreaId</td>
+                                        <td style="text-align: right; font-weight: bold; font-size: 1.2em">
+                                            @Html.DisplayFor(m => m.AllGroups[i].PiecesToPull)
+                                        </td>
+                                        <td style="text-align: right; font-weight: bold; font-size: 1.2em">@Model.AllGroups[i].PullableCartonCount</td>
+                                        <td>
+                                            @if (Model.GroupedCartonsToPull.ContainsKey(group))
+                                            {
+                                                <a href="@string.Format("#{0}_replenish", group.HtmlId)">Table 3</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                            @if (Model.AllGroups[i].PullableCartonCount == 0 && Model.AllGroups[i].PiecesRequiredAtLocation - (Model.AllGroups[i].RestockCartonPieces ?? 0) > 0)
+                            {
+                                <p class="ui-state-highlight">
+                                    There are no such cartons having at most @Model.AllGroups[i].PiecesToPull or fewer pieces in FIFO order.
+                                </p>
+                            }
+                        </blockquote>
+
+                        @if (Model.GroupedSkuRequirements.ContainsKey(group))
+                        {
+                            <h2 id="@string.Format("{0}_requirement", group.HtmlId)">Table 1: Requirement at locations</h2>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#
+                                        </th>
+                                        <th>Building
+                                        </th>
+                                        <th>Area
+                                        </th>
+                                        <th>Location
+                                        </th>
+                                        <th>Aisle
+                                        </th>
+                                        <th>Capacity
+                                        </th>
+                                        <th>Pieces at Location
+                                        </th>
+                                        <th>Pieces Required
+                                        </th>
+                                        <th>VWh
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var k = 0; k < Model.GroupedSkuRequirements[group].Count; k++)
+                                    {
+                                        <tr class="@(k % 2 == 0 ? "rowA" : "rowB")">
+                                            <td style="text-align: right">
+                                                @(k + 1)
+                                            </td>
+                                            <td>
+                                                @if (Model.Context.BuildingId != Model.GroupedSkuRequirements[group][k].BuildingId)
+                                                {
+                                                    <span class="ui-icon ui-icon-info" title="This is a different building" style="display: inline-block"></span>
+                                                }
+                                                @Model.GroupedSkuRequirements[group][k].BuildingId</td>
+                                            <td>
+                                                @Model.GroupedSkuRequirements[group][k].ShortName</td>
+                                            <td title="Location Type: @Model.GroupedSkuRequirements[group][k].LocationType">
+                                                @if (Model.GroupedSkuRequirements[group][k].IsFrozen)
+                                                {
+                                                    <span class="ui-icon ui-icon-pause" title="Location is frozen" style="display: inline-block"></span>
+                                                }
+                                                <a href="@Url.Content(string.Format("~/Inquiry/SkuLocation/{0}", Model.GroupedSkuRequirements[group][k].LocationId))" target="Inquiry">@Model.GroupedSkuRequirements[group][k].LocationId</a>
+                                            </td>
+                                            <td>@Model.GroupedSkuRequirements[group][k].RestockAisleId</td>
+                                            <td>@Html.DisplayFor(m => m.GroupedSkuRequirements[group][k].LocationCapacity)</td>
+                                            <td>@Model.GroupedSkuRequirements[group][k].PiecesAtLocation</td>
+                                            <td title="@string.Format("{0} - {1} = {2}", Model.GroupedSkuRequirements[group][k].LocationCapacity, Model.GroupedSkuRequirements[group][k].PiecesAtLocation, Model.GroupedSkuRequirements[group][k].PiecesRequiredAtLocation)">@Model.GroupedSkuRequirements[group][k].PiecesRequiredAtLocation</td>
+                                            <td>@Model.GroupedSkuRequirements[group][k].VwhId</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        @if (Model.GroupedCartonsToRestock.ContainsKey(group))
+                        {
+                            <h2 id="@string.Format("{0}_restock", group.HtmlId)">Table 2: Cartons in Restock Area @Model.AllGroups[i].RestockAreaId</h2>
+                            <table>
+                                <caption>VWh ID: @Html.DisplayFor(m => m.AllGroups[i].VwhId)</caption>
+                                <thead>
+                                    <tr>
+                                        <th>#
+                                        </th>
+                                        <th>Carton
+                                        </th>
+                                        <th>VWh
+                                        </th>
+                                        <th>Pieces
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var j = 0; j < Model.GroupedCartonsToRestock[group].Count; j++)
+                                    {
+                                        <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
+                                            <td style="text-align: right">
+                                                @(j + 1)
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Content(string.Format("~/Inquiry/Carton/{0}/1", Model.GroupedCartonsToRestock[group][j].CartonId))" target="Inquiry">@Html.DisplayFor(m => m.GroupedCartonsToRestock[group][j].CartonId)</a>
+                                            </td>
+                                            <td>@Html.DisplayFor(m => m.GroupedCartonsToRestock[group][j].VwhId)</td>
+                                            <td>@Html.DisplayFor(m => m.GroupedCartonsToRestock[group][j].Quantity)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="ui-state-active">
+                                        <td style="font-size: medium" colspan="3">Total</td>
+                                        <td>@Html.DisplayFor(m => m.AllGroups[i].RestockCartonPieces)</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        }
+                        @if (Model.GroupedCartonsToPull.ContainsKey(group))
+                        {
+                            <h2 id="@string.Format("{0}_replenish", group.HtmlId)">Table 3: Cartons available in @Model.AllGroups[i].ReplenishAreaId</h2>
+                            <table>
+                                <caption>VWh ID: @Html.DisplayFor(m => m.AllGroups[i].VwhId)</caption>
+                                <thead>
+                                    <tr>
+                                        <th>#
+                                        </th>
+                                        <th>Carton
+                                        </th>
+                                        <th>Location
+                                        </th>
+                                        <th>Building
+                                        </th>
+                                        <th>Pieces
+                                        </th>
+                                        <th>Cumulative Pieces
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (var j = 0; j < Model.GroupedCartonsToPull[group].Count; j++)
+                                    {
+                                        <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
+                                            <td style="text-align: right">
+                                                @(j + 1)
+                                            </td>
+                                            <td>
+                                                @if (Model.GroupedCartonsToPull[group][j].IsCartonDamage)
+                                                {
+                                                    <span class="ui-icon ui-icon-alert" title="Carton is damage" style="display: inline-block"></span>
+                                                }
+                                                @if (Model.GroupedCartonsToPull[group][j].IsCartonInSuspense)
+                                                {
+                                                    <span class="ui-icon ui-icon-alert" title="Carton marked in suspense" style="display: inline-block"></span>
+                                                }
+                                                @if (Model.GroupedCartonsToPull[group][j].IsWorkNeeded)
+                                                {
+                                                    <span class="ui-icon ui-icon-alert" title="Carton marked for rework" style="display: inline-block"></span>
+                                                }
+                                                @if (!Model.GroupedCartonsToPull[group][j].IsBestQalityCarton)
+                                                {
+                                                    <span class="ui-icon ui-icon-alert" title="Quality of carton is not shippable" style="display: inline-block"></span>
+                                                }
+                                                @if (Model.GroupedCartonsToPull[group][j].BuildingId != Model.Context.BuildingId)
+                                                {
+                                                    <span class="ui-icon ui-icon-info" title="Carton does not belong to your building" style="display: inline-block"></span>
+                                                }
+                                                <a href="@Url.Content(string.Format("~/Inquiry/Carton/{0}/1", Model.GroupedCartonsToPull[group][j].CartonId))" target="Inquiry">@Html.DisplayFor(m => m.GroupedCartonsToPull[group][j].CartonId)</a>
+                                            </td>
+                                            <td>
+                                                <a href="@Url.Content(string.Format("~/Inquiry/CartonLocation/{0}", Model.GroupedCartonsToPull[group][j].LocationId))" target="Inquiry">@Html.DisplayFor(m => m.GroupedCartonsToPull[group][j].LocationId)</a>
+                                            </td>
+                                            <td>@Html.DisplayFor(m => m.GroupedCartonsToPull[group][j].BuildingId)</td>
+                                            <td>@Html.DisplayFor(m => m.GroupedCartonsToPull[group][j].Quantity)</td>
+                                            <td>
+                                                @if (Model.GroupedCartonsToPull[group][j].CanPullCarton)
+                                                {
+                                                    @Model.GroupedCartonsToPull[group][j].CumPieces
+                                                }
+                                                else
+                                                {
+                                                    @:-
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="ui-state-highlight">
+                                Carton containing this SKU does not exist in pull area @Model.AllGroups[i].ReplenishAreaId.
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+<link href="@Links_PieceReplenish.Areas.PieceReplenish.Content.AutoComplete_css" rel="stylesheet" type="text/css" />
+@section scripts {
+    <script src="@Links_PieceReplenish.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_PieceReplenish.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <script src="@Links_PieceReplenish.Areas.PieceReplenish.Scripts.AutoComplete_js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs({
+                selected: '@Model.ActiveTabIndex'
+                });
+            $('#btnSearch').button({ icons: { primary: "ui-icon-search" } });
+        });
+    </script>
+}

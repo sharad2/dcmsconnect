@@ -1,0 +1,29 @@
+﻿@model DcmsMobile.PieceReplenish.ViewModels.BuildingViewModel
+@{
+    ViewBag.Title = "Select Building";
+    var i = 0;
+}
+@Html.ValidationSummary()
+<span style="font-size: 0.8em">@Html.StatusSummary()
+</span>
+<div>
+    Enter Choice Number
+    <input type="text" onkeypress="RedirectToChoice(event, this); this.value='';" id="scan" size="2" maxlength="2" />
+    @foreach (var choice in Model.BuildingAreaChoiceList)
+    {
+        ++i;
+        <div style="white-space: nowrap">
+            <a href="@Url.Action(MVC_PieceReplenish.PieceReplenish.Home.Pallet(choice.Serialized))" id="@Html.Raw(string.Format("choice_{0}", i))" class="ui-state-active">@i</a>@choice.BuildingId : @choice.CartonAreaId
+            => @choice.RestockAreaId <br /> @string.Format("({0:N0} cartons)", choice.CartonCount)
+        </div>
+    }
+</div>
+<script src="@Links_PieceReplenish.Areas.PieceReplenish.Scripts.RedirectToChoice_js" type="text/javascript"></script>
+@*
+    $Id: Building.mobile.cshtml 17725 2012-07-26 08:18:57Z bkumar $ 
+    $Revision: 17725 $
+    $URL: svn://vcs/net4/Projects/Mvc/DcmsMobile.Pull/trunk/Pull/Areas/PieceReplenish/Views/Home/Building.mobile.cshtml $
+    $Header: svn://vcs/net4/Projects/Mvc/DcmsMobile.Pull/trunk/Pull/Areas/PieceReplenish/Views/Home/Building.mobile.cshtml 17725 2012-07-26 08:18:57Z bkumar $
+    $Author: bkumar $
+    $Date: 2012-07-26 13:48:57 +0530 (Thu, 26 Jul 2012) $
+*@

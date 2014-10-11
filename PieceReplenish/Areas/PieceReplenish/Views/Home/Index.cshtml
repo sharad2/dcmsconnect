@@ -1,0 +1,41 @@
+﻿@{
+
+    ViewBag.Title = "Piece Replenishment";
+}
+@Html.StatusSummary()
+@Html.ValidationSummary()
+<div class="box">
+    <h2>Select the task you wish to perform</h2>
+    <div class="boxContent">
+        <blockquote>
+            <dl>
+                <dt>@Html.ActionLink("Replenishment Pulling", MVC_PieceReplenish.PieceReplenish.Home.Actions.Building(), new { id = "item1" })
+                </dt>
+                <dd>Manages Forward Pick replenishment. Includes guided mobile pulling of cartons for restock areas.
+                    You can monitor the progress of the SKUs being pulled. You can also  bump up the priority of the SKUs to pull them first.
+                </dd>
+                <dt>@Html.ActionLink("Restock", MVC_PieceReplenish.PieceReplenish.Restock.Actions.Carton(), new { id = "item2" })
+                </dt>
+                <dd>Restocking SKU in carton on a location where carton's SKU is assigned.
+                </dd>
+                @*<dt>@Html.ActionLink("Diagnostic", MVC_PieceReplenish.PieceReplenish.Diagnostic.Actions.SearchSku(), new { id = "item3" })
+                </dt>
+                <dd>Diagnose the availability and requirement of SKU at location.
+                </dd>*@
+            </dl>
+        </blockquote>
+
+         @Html.ActionLink("View Mobile Site",  MVC_PieceReplenish.PieceReplenish.Home.ToggleEmulation()). You can experience how this menu will appear on the ring scanner.
+    </div>
+</div>
+@section scripts {
+    <script src="@Links_PieceReplenish.Areas.PieceReplenish.Scripts.RedirectToChoice_js" type="text/javascript"></script>
+}
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

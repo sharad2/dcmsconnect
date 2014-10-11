@@ -1,0 +1,115 @@
+﻿@model DcmsMobile.PieceReplenish.ViewModels.BuildingViewModel
+@{
+    ViewBag.Title = "Piece Replenish - Select Building";
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_PieceReplenish.PieceReplenish.Home.Views.Building_mobile)
+        </div>
+    </div>
+    <div class="box">
+        <div class="boxContent">
+            <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
+            <span>Appears with puller name, if the old Pull program is being used.</span>
+        </div>
+    </div>
+    <div class="box">
+        <div class="boxContent">
+            <span>If puller is no longer pulling for the pallet, Suggestions will be discared after half an hour. You can discard now using <span class="ui-icon ui-icon-circle-close" style="display: inline-block"></span>this button from the Puller Activity table.</span>
+        </div>
+    </div>
+}
+<div class="box">
+    <div class="boxContent">
+        @if (Model.IsRefreshingNow)
+        {
+            <text>
+            Update is currently in progress..
+                        @Html.ActionLink("Refresh", MVC_PieceReplenish.PieceReplenish.Home.Actions.Building())
+            the page after 30 seconds to check the latest status.
+                    </text>
+        }
+        else
+        {
+            <em>Your building not listed as a choice?</em> <span>Only those buildings are listed which have cartons available to replenish.
+                        The carton requirements are updated every half an hour.
+            </span>
+            @Html.ActionLink("Recalculate Carton Requirements", MVC_PieceReplenish.PieceReplenish.Home.Actions.Building(true))@:.
+        }
+    </div>
+</div>
+<div class="box">
+    <h2>Puller Activity</h2>
+    <div class="boxContent">
+        @if (Model.PullerActivities.Any())
+        {
+            var i = 0;
+            <table>
+                <caption>
+                    Pullers pulling right now
+                </caption>
+                <thead>
+                    <tr>
+                        <th>Puller
+                        </th>
+                        <th>Building
+                        </th>
+                        <th>Pallet
+                        </th>
+                        <th>Aisle
+                        </th>
+                        <th>Assigned
+                        </th>
+                        <th>Discard Suggestion
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PullerActivities)
+                    {
+                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                            <td>
+                                @item.PullerName
+                                @if (!item.IsUsingReplenishmentModule)
+                                {<span class="ui-icon ui-icon-alert" style="display: inline-block" title="Using old Pull program" />}
+                            </td>
+                            <td>
+                                @item.BuildingId
+                            </td>
+                            <td title="Reserved @item.CartonCount cartons of styles @item.Styles for this pallet">
+                                @item.PalletId
+                            </td>
+                            <td>
+                                @item.RestockAisleId
+                            </td>
+                            <td>
+                                @item.MinAssignDate
+                            </td>
+                            <td align="center">
+                                <span @Html.Raw(string.IsNullOrWhiteSpace(item.PalletId) ? "style='display:None'" : "")>
+                                    <a href='@Html.Raw(Model.IsEditable ? Url.Action(MVC_PieceReplenish.PieceReplenish.Home.DiscardPalletSuggestion(item.PullerName, item.PalletId)) : "#")' class = 'ui-icon ui-icon-circle-close @Html.Raw(!Model.IsEditable ? "ui-state-disabled" : "")' title = '@string.Format("Remove remaining {0} cartons reserved for this pallet", item.CartonCount)'></a>
+                                </span>
+                            </td>
+                        </tr>
+                                ++i;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="ui-state-highlight">
+                No pulling is in progress
+            </div>
+        }
+    </div>
+</div>
+@*
+    $Id: Building.cshtml 17725 2012-07-26 08:18:57Z bkumar $ 
+    $Revision: 17725 $
+    $URL: svn://vcs/net4/Projects/Mvc/DcmsMobile.Pull/trunk/Pull/Areas/PieceReplenish/Views/Home/Building.cshtml $
+    $Header: svn://vcs/net4/Projects/Mvc/DcmsMobile.Pull/trunk/Pull/Areas/PieceReplenish/Views/Home/Building.cshtml 17725 2012-07-26 08:18:57Z bkumar $
+    $Author: bkumar $
+    $Date: 2012-07-26 13:48:57 +0530 (Thu, 26 Jul 2012) $
+*@ 

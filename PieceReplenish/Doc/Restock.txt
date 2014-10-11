@@ -1,0 +1,30 @@
+﻿Ankit 8 Aug 2012 
+
+Restock Carton is used to restock carton’s content i.e. SKU in carton on a location where carton's SKU is assigned. Restocking is available from all areas.
+All the locations where the SKU of carton can be restocked with in selected building will suggested to user and user can restock carton on any of suggested location.
+
+If a carton contains multiple SKU carton will put in suspense.
+
+
+
+1) Which cartons can be restocked ?
+
+  - Carton must not be opened carton.
+  - Carton must not have any work needed.
+  - Carton must have order quality.
+  - Carton must not have mixed SKU i.e. more than one sku
+  - Carton pieces must be in ratio to pieces per package of SKU.
+  - Cartons SKU must be assigned to a location.
+ 
+
+ 2) We are suggesting Locations ?
+
+  - Those have carton's SKU assigned on them , have same virtual warehouse and within selected building.
+  - In case of multiple location suggestions location that have largest empty space will be shown on top of the grid.
+
+
+  Future Enhancements : 
+
+  - We can think of quick restock scheme.
+  - We can provide several suggestions of cartons to get restocked on hungry locations.
+

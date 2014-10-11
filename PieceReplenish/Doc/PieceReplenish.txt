@@ -1,0 +1,100 @@
+﻿Sharad 1 Aug 2012
+
+1. In what order are SKUs replenished?
+
+The replenishment priority of the SKU is based on bucket priority.
+ - SKUs marked high my user or create mpc are top in the list. This priority is ephemeral. It automatically reverts back to normal 2 hrs after it was last tweaked.
+ - Next Max priority of each under process bucket to which the SKU belongs. More buckets an SKU belongs to, higher its priority.
+  An under process bucket is a bucket whose picking can begin and has not yet completed.
+ - Next is the number of buckets an SKU belongs to.
+
+
+ Location priority is ephemeral. It automatically reverts back to normal 2 hrs after it was last tweaked.
+
+When SKUs are selected for replenishment, they are ordered by 
+ - User specified location priority
+ - CreateMpc specified location priority
+ - User Specified Bucket priority.
+
+
+The location priority is stored in the database in ialoc.replenish_priority NUMBER(4) column. It is interpreted as bits. 
+The first bit is manipulated by CreateMpc. The second bit is manipulated by the User. 
+Virtual Columns ialoc.user_priority (= TRUNC(ialoc.replenish_priority / 2))
+and ialoc.mpc_priority (= MOD(ialoc.replenish_priority, 2)) have been added which provide access to each bit.
+
+ialoc.replenish_priority  ialoc.user_priority  ialoc.mpc_priority
+0                            0                      0
+1 =(B01)                     0                      1
+2 =(B10)                     1                      0
+3 =(B11)                     1                      1
+
+To update ialoc.replenishment_user_priority to x
+update ialoc
+set replenish_priority = 2 * x + NVL(replenishment_mpc_priority,0)
+
+To update ialoc.replenishment_mpc_priority to x
+update ialoc
+set replenish_priority = x + NVL(replenishment_user_priority * 2,0)
+
+CreateMPC should not touch priority, if user priority is already high. This prevents unnecessarily extending the expiry of user priority.
+
+Sharad 18 Aug 2012
+------------------
+The cartons assigned to pullers are maintained in temp_pull_carton. These cartons are expired whenever the suggestion materialized view is refreshed.
+The expiration is sliding. Each time we suggest, the expiry is set to 30 min from now.
+
+Sharad 23 Aug 2012: Skipping carton
+-----------------------------------
+To skip a carton, the puller can scan the location. After confirmation, we will put all cartons at that location suspense.
+
+Suggested carton gets pulled by someone else: It will be removed from this puller's list and the puller will be suggested another carton. If this new carton happens to be behind the puller's current
+position, back tracking could become necessary.
+
+
+Sharad 24 Aug 2012
+------------------
+PKG_REPLENISH
+IncreaseSkuPriority(string buildingId, string areaId, string upcCode). Return expiry time if some locations were affected, else null.
+DecreaseSkuPriority(string buildingId, string areaId, string upcCode). Return numbe of locations afected.
+GetRefreshStatus(). Returns a rec which contains:
+    public class JobRefresh
+    {
+        /// <summary>
+        /// When view last updated
+        /// </summary>
+        public DateTime? LastRefreshedTime { get; set; }
+
+        /// <summary>
+        /// Since when view is stale
+        /// </summary>
+        public DateTime? StaleSince { get; set; }
+
+        /// <summary>
+        /// Another info about view stalness, can help in some other senario
+        /// </summary>
+        public string Staleness { get; set; }
+
+        /// <summary>
+        /// job status will be either RUNNING or SCHEDULED
+        /// </summary>
+        public string Status { get; set; }
+
+        public DateTime? NextRunDate { get; set; }
+    }
+
+RefreshPullableCartons()
+
+GetBestRestockAisle(string buildingId, string pickAreaId, string restockAreaId, string cartonAreaId). Returns restock aisle id.
+
+RecordCartonSuggestion(string palletId, cartonId, string userName)
+
+RemoveCartonSuggestions(string userName, string cartonId)
+
+PullCartonForAisle(string cartonId, string palletId, string areaId, restockAisleId)
+
+MarkCartonInSuspense(string cartonId, string locationId)
+
+TODO: Remove all new columns added to temp_pull_carton
+
+
+
