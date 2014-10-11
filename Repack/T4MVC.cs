@@ -112,16 +112,39 @@ namespace Links_Repack
     
     }
 
+
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Areas {
+    public static partial class Areas {
         private const string URLPATH = "~/Areas";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+    
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class Repack {
+        public static partial class Repack {
             private const string URLPATH = "~/Areas/Repack";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class Scripts {
+                private const string URLPATH = "~/Areas/Repack/Scripts";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string conditional_validation_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/conditional-validation.partial.min.js") ? Url("conditional-validation.partial.min.js") : Url("conditional-validation.partial.js");
+                public static readonly string CreateDialog_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateDialog.partial.min.js") ? Url("CreateDialog.partial.min.js") : Url("CreateDialog.partial.js");
+                public static readonly string Repack_all_js_bundle = Url("Repack-all.js.bundle");
+                public static readonly string Repack_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Repack-all.min.js") ? Url("Repack-all.min.js") : Url("Repack-all.js");
+                public static readonly string Repack_all_min_js_map = Url("Repack-all.min.js.map");
+                public static readonly string Repack_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Repack.partial.min.js") ? Url("Repack.partial.min.js") : Url("Repack.partial.js");
+                public static readonly string RepackBox_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RepackBox-all.min.js") ? Url("RepackBox-all.min.js") : Url("RepackBox-all.js");
+                public static readonly string RepackBox_all_min_js_map = Url("RepackBox-all.min.js.map");
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class Repack {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Content {
                 private const string URLPATH = "~/Areas/Repack/Content";
@@ -157,61 +180,8 @@ namespace Links_Repack
                      
             }
         
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Controllers {
-                private const string URLPATH = "~/Areas/Repack/Controllers";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Scripts {
-                private const string URLPATH = "~/Areas/Repack/Scripts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string conditional_validation_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/conditional-validation.partial.min.js") ? Url("conditional-validation.partial.min.js") : Url("conditional-validation.partial.js");
-                public static readonly string CreateDialog_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateDialog.partial.min.js") ? Url("CreateDialog.partial.min.js") : Url("CreateDialog.partial.js");
-                public static readonly string Repack_all_js_bundle = Url("Repack-all.js.bundle");
-                public static readonly string Repack_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Repack-all.min.js") ? Url("Repack-all.min.js") : Url("Repack-all.js");
-                public static readonly string Repack_all_min_js_map = Url("Repack-all.min.js.map");
-                public static readonly string Repack_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Repack.partial.min.js") ? Url("Repack.partial.min.js") : Url("Repack.partial.js");
-                public static readonly string RepackBox_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RepackBox-all.min.js") ? Url("RepackBox-all.min.js") : Url("RepackBox-all.js");
-                public static readonly string RepackBox_all_min_js_map = Url("RepackBox-all.min.js.map");
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Views {
-                private const string URLPATH = "~/Areas/Repack/Views";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Home {
-                    private const string URLPATH = "~/Areas/Repack/Views/Home";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Shared {
-                    private const string URLPATH = "~/Areas/Repack/Views/Shared";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                    public static class EditorTemplates {
-                        private const string URLPATH = "~/Areas/Repack/Views/Shared/EditorTemplates";
-                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    }
-                
-                }
-            
-                public static readonly string Web_config = Url("Web.config");
-            }
-        
         }
-    
     }
-
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
