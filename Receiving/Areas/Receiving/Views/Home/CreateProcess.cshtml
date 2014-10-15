@@ -151,22 +151,6 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            // //Select SpotCheck area based on the selection of receiving area.
-            //$('#ddlReceivingArea').change(function () {
-            //    var building = $('#ddlReceivingArea').val();
-            //    var items;
-            //    $.getJSON($('#ddlSpotCheckArea').attr('data-source-url').replace("X", building), function (data) {
-            //        if (data.length != 1) {
-            //            items = '<option value ="">(Please Select)</option>';
-            //        }
-            //        var $select = $('#ddlSpotCheckArea');
-            //        $.each(data, function (i, area) {
-            //            items += "<option value='" + area.Value + "'>" + area.Text + "</option>";
-            //        });
-            //        $select.html(items);
-            //    });
-            //});
-
             $('input[data-url-list]').typeahead({
                 source: function (query, cb) {
                     $.ajax({

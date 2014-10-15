@@ -15,6 +15,7 @@ using DcmsMobile.Receiving.ViewModels.Home;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using DcmsMobile.Dcms.Routes;
+using System.Text.RegularExpressions;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
@@ -224,9 +225,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 PopulateIndexViewModel(model);
                 return View(Views.CreateProcess, model);
             }
-
-            //var id = model.CarrierId;
-            //id = id.Substring(0, id.IndexOf(" "));
+            var regexItem = new Regex(":");
+            if (regexItem.IsMatch(model.CarrierId))
+            {
+                 model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
+            }
+            
             var carrier = _service.GetCarrier(model.CarrierId);
 
 

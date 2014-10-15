@@ -43,7 +43,7 @@
                 </span>
 
                 <h4 class="list-group-item-heading">@Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) <small>by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</small></h4>
-                <p class="pull-right label label-info list-group-item-text" style="font-size:1.05em">
+                <p class="pull-right label label-info list-group-item-text" @*style="font-size:1.05em"*@>
                     Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) @Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)
                 </p>
                 <p class="list-group-item-text">

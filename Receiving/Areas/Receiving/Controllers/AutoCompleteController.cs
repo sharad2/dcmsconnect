@@ -16,7 +16,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             return new AutocompleteItem
             {
-               label = string.Format("{0} - {1}", src.CarrierId, src.Description),
+               label = string.Format("{0}: {1}", src.CarrierId, src.Description),
                value = src.CarrierId
             };
         }
@@ -65,7 +65,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //var data = Mapper.Map<IEnumerable<AutocompleteItem>>(_repos.GetStyles(term.ToUpper()));
             var data = _repos.GetStyles(term.ToUpper(),null).Select(p => new AutocompleteItem()
             {
-                label = string.Format("{0} - {1}", p.StyleId, p.Description),
+                label = string.Format("{0}: {1}", p.StyleId, p.Description),
                 value = p.StyleId
             }); 
             return Json(data, JsonRequestBehavior.AllowGet);
