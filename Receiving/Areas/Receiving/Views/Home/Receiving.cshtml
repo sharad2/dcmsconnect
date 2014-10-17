@@ -124,32 +124,22 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Print Carton<input type="button" class="btn btn-link btn-lg" id="cartonId" disabled="disabled">
+                        Print Carton <span class="cartonId">This will be replaced by the actual carton id when dialog is opened</span>
                     </h4>
                 </div>
-                <form1 class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
-                    <div class="modal-body">
-                        <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
-                        <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.processId" />
-                        <div class="form-group">
-                            <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
-                            <div class="col-sm-10">
-                                @*@Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
-                    {
-                        id = "ddlPrinter",
-                        required = "required",
-                        @class = "form-control",
-                        @name = MVC_Receiving.Receiving.Home.PrintCartonParams.printerId
-                    })*@
-                                <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
-                            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
+                        <div class="col-sm-10">
+                            <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" id="btnPrint"><span class="glyphicon glyphicon-print"></span> Print</button>
-                    </div>
-                </form1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
+                </div>
+
             </div>
 
         </div>
@@ -309,9 +299,56 @@
             }).on('show.bs.modal', function (e) {
                 // Update the carton id in the print dialog
                 //alert($(e.relatedTarget).closest('td').attr('data-carton'));
-                $('#hfCartonId,#cartonId').val($(e.relatedTarget).closest('td').attr('data-carton'));
+                $('#hfCartonId').val($(e.relatedTarget).closest('td').attr('data-carton'));
+                $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
             }).on('click', '#btnPrint', function (e) {
+                // Print the carton label
                 alert('Print');
+
+                var printerId = $('#ddlprinters').val();
+                if (!printerId) {
+                    // $('#dlgError').show().html('Select Printer first');
+                    alert('Select Printer first');
+                    return;
+                }
+
+                $.ajax({
+                    url: $(this).attr('data-print-url'),
+                    type: 'POST',
+                    context: this,
+                    data: {
+                        // TODO: Remove parameter name hardwiring
+                        cartonId: $('span.cartonId', e.delegateTarget).text(),
+                        printer: printerId
+                    },
+                    //dataType: 'json',
+                    statusCode: {
+                        200: function (data, textStatus, jqXHR) {
+                            //$('#spanErrorMessage').show().html(data + "  ").removeClass('ui-state-error').addClass('ui-state-highlight');
+                            alert('Printed');
+                            //$(this).dialog('close');
+                            $(e.delegateTarget).modal('hide');
+                        },
+                        203: function (data, textStatus, jqXHR) {
+                            //Some error, show them in screen and play error sound.
+                            //$('#dlgError').show().html(data);
+                            alert('Validation Error ' + data);
+                            //PlaySound('error');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                       // PlaySound('error');
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        setTimeout(function () {
+                            //$('#scan').val('').focus();
+                        }, 0);
+                    }
+                });
+
+
+
             });
 
         });

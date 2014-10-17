@@ -733,6 +733,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
         }
 
+
         /// <summary>
         /// Prints carton ticket. 
         /// If the call is sucessfull we return sucess message.
@@ -745,63 +746,36 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// 203 for error. data will be error
         /// </remarks>
         //[HandleAjaxError]
-        public virtual ActionResult PrintCarton(string cartonId, string printerId, int processId)
+        public virtual ActionResult PrintCarton(string cartonId, string printer)
         {
-            //var errors = new List<string>();
-            //if (string.IsNullOrEmpty(printerId))
-            //{
-            //    errors.Add("Printer is required");
-            //}
-            //if (string.IsNullOrEmpty(cartonId))
-            //{
-            //    errors.Add("Carton is required");
-            //}
-            //if (errors.Count > 0)
-            //{
-            //    this.Response.StatusCode = 203;
-            //    return Content(string.Join("; ", errors));
-            //}
-            ////var cookie = new HttpCookie(KEY_SELECTED_PRINTER, printer) { Expires = DateTime.Now.AddDays(1) };
-            ////// Remember for 1 day sliding
-            ////this.Response.Cookies.Add(cookie);
-            //try
-            //{
-            //    _service.PrintCarton(cartonId, printerId);
-
-            //    return Content("Carton ticket Printed on " + printerId + ".");
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Simulate the behavior of the obsolete HandleAjaxError attribute
-            //    this.Response.StatusCode = 203;
-            //    return Content(ex.Message);
-            //}
-         
-            if (string.IsNullOrEmpty(printerId))
+            var errors = new List<string>();
+            if (string.IsNullOrEmpty(printer))
             {
-                this.AddStatusMessage("Printer is required");
-                return RedirectToAction(Actions.Receiving(processId));
+                errors.Add("Printer is required");
             }
             if (string.IsNullOrEmpty(cartonId))
             {
-                
-                this.AddStatusMessage("Carton is required");
-                return RedirectToAction(Actions.Receiving(processId));
+                errors.Add("Carton is required");
             }
-            try
+            if (errors.Count > 0)
             {
-                _service.PrintCarton(cartonId, printerId);
-                this.AddStatusMessage("Carton ticket Printed on " + printerId + ".");
-              
+                this.Response.StatusCode = 203;
+                return Content(string.Join("; ", errors));
             }
-            catch (Exception ex)
-            {
-                this.ModelState.AddModelError("PrintException", ex.InnerException);
-            }
+            //var cookie = new HttpCookie(KEY_SELECTED_PRINTER, printer) { Expires = DateTime.Now.AddDays(1) };
+            //// Remember for 1 day sliding
+            //this.Response.Cookies.Add(cookie);
 
-            return RedirectToAction(Actions.Receiving(processId));
+                _service.PrintCarton(cartonId, printer);
+
+                return Content("Carton ticket Printed on " + printer + ".");
 
         }
+
+
+
+
+
 
         private const string KEY_SELECTED_PRINTER = "SelectedCartonTicketPrinter";
         /// <summary>
