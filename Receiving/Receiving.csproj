@@ -183,6 +183,7 @@
     <Content Include="Areas\Receiving\Views\Home\ShipmentList.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\Index.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Receiving.cshtml" />
+    <None Include="Scripts\_references.js" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -90,18 +90,31 @@
             </div>
         </div>
     </div>
-
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
+        <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+        <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+        <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane active" id="home">...</div>
+        <div class="tab-pane" id="profile">...</div>
+        <div class="tab-pane" id="messages">...</div>
+        <div class="tab-pane" id="settings">...</div>
+    </div>
     <div class="divError alert alert-warning" style="display:none"></div>
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs bg-info" role="tablist">
-        @for (var i = 0; i < Model.Pallets.Count(); i++)
+    <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
+        @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <li data-palletid='@Model.Pallets[i].PalletId' data-disposition='@Model.Pallets[i].DispositionId'>
+            <li data-palletid='@Model.Pallets[i].PalletId' data-disposition='@Model.Pallets[i].DispositionId' class="@(i==0? "active":"")">
 
-                <a class="active" href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
+                <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
                     @(Model.Pallets[i].PalletId)
-                    <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
+                     <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
                 </a>
             </li>
         }
@@ -110,10 +123,10 @@
     <!-- Tab panes -->
     <div class="tab-content">
 
-        @foreach (var pallet in Model.Pallets)
+        @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <div id="Pallet_@(pallet.PalletId)" class="tab-pane">
-                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, pallet)
+            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane">
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
             </div>
         }
     </div>
@@ -191,81 +204,87 @@
 
 </div>
 @section script{
-    <!--Styles for making the tab with cross icons
+    <!-- Closing tabs inspired from
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
-    <style type="text/css">
-        .nav-tabs > li .glyphicon-remove-sign {
-            margin: -16px -15px 0px 10px;
-            font-size: 13px;
-            padding: 5px 0;
-            float: right;
-        }
-
-        .nav-tabs > li a[data-toggle=tab] {
-            float: left !important;
-        }
-    </style>
 
     <script type="text/javascript">
         $(document).ready(function () {
             // Shows the first tab content by default
-            $('ul[role="tablist"] li a:first').tab('show');
+            //$('ul[role="tablist"] li a:first').tab('show');
             
             $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
 
 
-            $('#scan').keydown(function (e) {
-                //enter key
-                if (e.keyCode == 13) {
-                    if ($(this).val() != "") {
-                        var tabToOpen = $(this).val().toUpperCase();
-                        var curPalletIndex = $('ul[role="tablist"] li.active').index();
+            //$('#scan').keydown(function (e) {
+            //    //enter key
+            //    if (e.keyCode == 13) {
+            //        if ($(this).val() != "") {
+            //            var tabToOpen = $(this).val().toUpperCase();
+            //            var curPalletIndex = $('ul[role="tablist"] li.active').index();
 
-                        //this checks weather the href is already been there in the page(ie.pallet on scan)
-                        var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
-                        var index = $li.index();
-                        if (index == -1) {
+            //            //this checks weather the href is already been there in the page(ie.pallet on scan)
+            //            var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
+            //            var index = $li.index();
+            //            if (index == -1) {
 
-                           var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
-                           var palletId = $li.attr('data-palletid');
+            //               var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
+            //               var palletId = $li.attr('data-palletid');
                        
-                            if (palletId) {
-                                $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
-                                return;
-                            }
-                            else {
-                                $('ul[role="tablist"]').append('<li  data-palletid=' + tabToOpen + ' data-disposition=' + tabToOpen + '><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
-                                $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + tabToOpen + '">Carton content in pallet' + tabToOpen + '</div>');
-                            }
+            //                if (palletId) {
+            //                    $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
+            //                    return;
+            //                }
+            //                else {
+            //                    $('ul[role="tablist"]').append('<li  data-palletid=' + tabToOpen + ' data-disposition=' + tabToOpen + '><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
+            //                    $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + tabToOpen + '">Carton content in pallet' + tabToOpen + '</div>');
+            //                }
 
-                        }
-                        else if ((index == curPalletIndex)) {
-                            // Pallet is already active
+            //            }
+            //            else if ((index == curPalletIndex)) {
+            //                // Pallet is already active
 
-                            $('.divError').show().html('Pallet Id is already active. Please scan a carton.');
+            //                $('.divError').show().html('Pallet Id is already active. Please scan a carton.');
 
-                        } else {
-                            // Activate the pallet
-                            $('.divError').hide();
-                            $('ul[role="tablist"] li a[href="#Pallet_' + tabToOpen + '"]').tab('show');
-                        }
-                    }
-                }
+            //            } else {
+            //                // Activate the pallet
+            //                $('.divError').hide();
+            //                $('ul[role="tablist"] li a[href="#Pallet_' + tabToOpen + '"]').tab('show');
+            //            }
+            //        }
+            //    }
 
 
-            });
+            //});
 
             $('#btnNewPallet').click(function (e) {
                 alert('auto increment tab with pallet id');
             });
 
-            //cross icon on the tab get it hide from the UI
-            $('.glyphicon-remove-sign').click(function (e) {
-                var tabId = $(this).parents('li').children('a').attr('href');
-                $(this).parents('li').remove('li');
-                $(tabId).remove();
-                $('ul[role="tablist"] li a:first').tab('show');
+            // Close pallet tab when close icon is clicked
+            $('#palletTabs').on('click', '.glyphicon-remove-sign', function (e) {
+                var $li = $(this).closest('li');
 
+                if ($li.is('.active')) {
+                    // If the visible tab is being removed, first make something else visible
+                    //alert('TODO: Show another tab' + $('li:first', e.delegateTarget).length);
+                    // Try to show the next tab
+                    var $nextli = $li.next();
+                    if ($nextli.length == 0) {
+                        // If no next, then show first
+                        $nextli = $('li:first', e.delegateTarget);
+                    }
+                    $('a', $nextli).tab('show');
+                }
+                //var $nextli = $li.next('li');
+              
+             
+                // Remove content first
+                var contentSelector = $('a', $li).attr('href');  // e.g. #tab2
+                $(contentSelector).remove();
+
+                // Now remove tab
+                $li.remove();
+                //alert("Removed " + contentSelector);
             });
 
 
