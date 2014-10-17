@@ -56,6 +56,9 @@
                 <th style="text-align: center">
                     Action
                 </th>
+                <th style="text-align: center">
+                    Action
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -84,6 +87,22 @@
                         <button class="btn btn-link" data-toggle="modal" data-target="#removeModal">
                             <span class="glyphicon glyphicon-remove" title="Remove"></span>
                         </button>
+
+                    </td>
+                    <td>
+                        <!-- Single button -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>                                    
+                                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())" data-toggle="modal" data-target="#printModal">&nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print...</a>
+                                </li>
+                                <li><a href="#"><span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet</a></li>
+
+                            </ul>
+                        </div>
 
                     </td>
 

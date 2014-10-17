@@ -145,6 +145,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string HandleMobileScan = "HandleScan";
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
             public readonly string PrintCarton = "PrintCarton";
+            public readonly string GetPrinters = "GetPrinters";
             public readonly string NonpalletizedCartons = "NonpalletizedCartons";
             public readonly string ShipmentList = "ShipmentList";
             public readonly string CloseShipment = "CloseShipment";
@@ -163,6 +164,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string HandleMobileScan = "HandleScan";
             public const string UnPalletizeCarton = "UnPalletizeCarton";
             public const string PrintCarton = "PrintCarton";
+            public const string GetPrinters = "GetPrinters";
             public const string NonpalletizedCartons = "NonpalletizedCartons";
             public const string ShipmentList = "ShipmentList";
             public const string CloseShipment = "CloseShipment";
@@ -413,6 +415,17 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "printerId", printerId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
             PrintCartonOverride(callInfo, cartonId, printerId, processId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetPrintersOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult GetPrinters()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetPrinters);
+            GetPrintersOverride(callInfo);
             return callInfo;
         }
 

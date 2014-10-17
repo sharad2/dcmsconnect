@@ -808,17 +808,21 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// Returns an array of Printer objects. The id of the selected printer is passed in the "Selected" header.
         /// The selected printer is read from a cookie. The cookie is set when a carton is printed.
         /// </summary>
-        /// <returns></returns>
-        [Obsolete]
+        /// <returns></returns>  
         public virtual JsonResult GetPrinters()
         {
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {
-                //this.Response.AppendHeader("Selected", cookie.Value);
+                this.Response.AppendHeader("Selected", cookie.Value);
             }
             var results = _service.GetPrinters();
-            return Json(results);
+            return Json(from result in results
+                        select new
+                        {
+                            Name = result.Item1,
+                            Description = result.Item2
+                        });
         }
 
         /// <summary>

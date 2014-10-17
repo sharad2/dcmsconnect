@@ -45,7 +45,7 @@
         &nbsp;
         @Html.LabelFor(m => m.ProNumber)
         @Html.DisplayFor(m => m.ProNumber)
-        &nbsp;    
+        &nbsp;
         @Html.LabelFor(m => m.PriceSeasonCode)
         @Html.DisplayFor(m => m.PriceSeasonCode)
         &nbsp;
@@ -90,20 +90,7 @@
             </div>
         </div>
     </div>
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
-        <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-        <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-        <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div class="tab-pane active" id="home">...</div>
-        <div class="tab-pane" id="profile">...</div>
-        <div class="tab-pane" id="messages">...</div>
-        <div class="tab-pane" id="settings">...</div>
-    </div>
+
     <div class="divError alert alert-warning" style="display:none"></div>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
@@ -114,7 +101,7 @@
                 <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
                     @(Model.Pallets[i].PalletId)
-                     <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
+                    <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
                 </a>
             </li>
         }
@@ -140,29 +127,29 @@
                         Print Carton<input type="button" class="btn btn-link btn-lg" id="cartonId" disabled="disabled">
                     </h4>
                 </div>
-                <form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
+                <form1 class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())">
                     <div class="modal-body">
                         <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId" />
                         <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.PrintCartonParams.processId" />
                         <div class="form-group">
                             <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                             <div class="col-sm-10">
-                                @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
+                                @*@Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Select Printer...", new
                     {
                         id = "ddlPrinter",
                         required = "required",
                         @class = "form-control",
                         @name = MVC_Receiving.Receiving.Home.PrintCartonParams.printerId
-                    })
-
+                    })*@
+                                <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Print</button>
+                        <button class="btn btn-primary" id="btnPrint"><span class="glyphicon glyphicon-print"></span> Print</button>
                     </div>
-                </form>
+                </form1>
             </div>
 
         </div>
@@ -211,7 +198,6 @@
         $(document).ready(function () {
             // Shows the first tab content by default
             //$('ul[role="tablist"] li a:first').tab('show');
-            
             $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
 
 
@@ -229,7 +215,7 @@
 
             //               var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
             //               var palletId = $li.attr('data-palletid');
-                       
+
             //                if (palletId) {
             //                    $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
             //                    return;
@@ -276,8 +262,8 @@
                     $('a', $nextli).tab('show');
                 }
                 //var $nextli = $li.next('li');
-              
-             
+
+
                 // Remove content first
                 var contentSelector = $('a', $li).attr('href');  // e.g. #tab2
                 $(contentSelector).remove();
@@ -289,13 +275,44 @@
 
 
             //Show values form _palletPartial page in print modal(Dialog Box) and remove carton(Dialog Box)
-            $('table tbody td').on('click', 'button', function (e) {
-                var cartonId = $(e.delegateTarget).attr('data-carton');
-                var palletId = $(e.delegateTarget).attr('data-pallet');
-                $('#hfCartonId,#cartonId').val(cartonId);
-                $('#palletId').val(palletId);
-            });
+            //$('table tbody td').on('click', 'button', function (e) {
+            //    var cartonId = $(e.delegateTarget).attr('data-carton');
+            //    var palletId = $(e.delegateTarget).attr('data-pallet');
+            //    $('#hfCartonId,#cartonId').val(cartonId);
+            //    $('#palletId').val(palletId);
+            //});
 
+            $('#printModal').one('show.bs.modal', function (e) {
+                // Populate the printer drop down when shown first time
+                var $ddlPrinters = $('#ddlprinters');
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: $ddlPrinters.attr('data-getprinters-url'),
+                    dataType: "json",
+                    success: function (printers, textStatus, jqXHR) {
+                        var selected = jqXHR.getResponseHeader("Selected");
+                        $.each(printers, function (i, printer) {
+                            var x = $('<option></option>').val(printer.Name).html(printer.Name + ' : ' + printer.Description);
+                            if (printer.Name === selected) {
+                                x.attr('selected', 'selected');
+                            }
+                            $ddlPrinters.append(x);
+                        });
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        setTimeout(function () {
+                            // $('#scan').val('').focus();
+                        }, 0);
+                    }
+                });
+            }).on('show.bs.modal', function (e) {
+                // Update the carton id in the print dialog
+                //alert($(e.relatedTarget).closest('td').attr('data-carton'));
+                $('#hfCartonId,#cartonId').val($(e.relatedTarget).closest('td').attr('data-carton'));
+            }).on('click', '#btnPrint', function (e) {
+                alert('Print');
+            });
 
         });
     </script>

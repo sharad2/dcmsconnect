@@ -64,9 +64,11 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         #region Printing 
 
+        [Obsolete]
         [Display(Name = "Printer")]
         public string PrinterId { get; set; }
 
+        [Obsolete]
         public IEnumerable<SelectListItem>PrinterList { get; set; }
 
         #endregion
