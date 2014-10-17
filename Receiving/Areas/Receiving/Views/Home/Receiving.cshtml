@@ -124,14 +124,15 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Print Carton <span class="cartonId">This will be replaced by the actual carton id when dialog is opened</span>
+                        Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
                     </h4>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                         <div class="col-sm-10">
-                            <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'></select>
+                            <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'
+                                     name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer"></select>
                         </div>
                     </div>
                 </div>
@@ -289,9 +290,9 @@
                 $.ajax({
                     url: $(this).attr('data-url'),
                     type: 'POST',
-                    data: JSON.stringify(data),
+                    data:data,
                     context: this,
-                    contentType: 'application/json; charset=utf-8',
+                    //contentType: 'application/json; charset=utf-8',
                     statusCode: {
                         // Some error, show them in screen and play error sound.
                         203: function (data, textStatus, jqXHR) {
@@ -357,22 +358,24 @@
                 // Print the carton label
                 alert('Print');
 
-                var printerId = $('#ddlprinters').val();
-                if (!printerId) {
+               // var printerId = $('#ddlprinters').val();
+                if (!$('#ddlprinters').val()) {
                     // $('#dlgError').show().html('Select Printer first');
                     alert('Select Printer first');
                     return;
                 }
-
+                var data = new Object();
+                $('span[data-name]', e.delegateTarget).each(function () {
+                    //alert($(this).attr('data-name') + $(this).text());
+                    data[$(this).attr('data-name')] = $(this).text();
+                });
+                data[$('#ddlprinters').attr('name')] = $('#ddlprinters').val();
+                alert(JSON.stringify(data));
                 $.ajax({
                     url: $(this).attr('data-print-url'),
                     type: 'POST',
                     context: this,
-                    data: {
-                        // TODO: Remove parameter name hardwiring
-                        cartonId: $('span.cartonId', e.delegateTarget).text(),
-                        printer: printerId
-                    },
+                    data: data,
                     //dataType: 'json',
                     statusCode: {
                         200: function (data, textStatus, jqXHR) {
@@ -411,7 +414,7 @@
             var val = parseInt($bar.attr('aria-valuenow')) + increment;
             var maxval = parseInt($bar.attr('aria-valuemax'));
             var pct = Math.round(val * 100 / maxval);
-            alert(pct);
+            //alert(pct);
             $bar.attr('aria-valuenow', val)
                 .css('width', pct + '%')
                 .find('span').text(pct);
