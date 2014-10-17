@@ -39,9 +39,10 @@ namespace DcmsMobile.MainArea.Home
         }
         /// <summary>
         /// It is important to order the menu choices, otherwise they can display in different order each time;
-        /// This is the action for the home page and is the default route
+        /// This is the action for the home page and is the default route. ~/ Overrides [RoutePrefix("home")] set on the controller
         /// </summary>
         /// <returns></returns>
+        [Route("~/")]
         public virtual ActionResult Index()
         {
 

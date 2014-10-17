@@ -30,12 +30,12 @@ namespace DcmsMobile
             //    new string[] { typeof(DcmsMobile.MainArea.Home.HomeController).Namespace }
             //);
 
-            routes.MapRoute(
-                "Default", // Route name
-                "", // URL with parameters
-                new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Index }, // Parameter defaults
-                new string[] { typeof(DcmsMobile.MainArea.Home.HomeController).Namespace }
-            );
+            //routes.MapRoute(
+            //    "Default", // Route name
+            //    "", // URL with parameters
+            //    new { controller = MVC_DcmsMobile.Home.Name, action = MVC_DcmsMobile.Home.ActionNames.Index }, // Parameter defaults
+            //    new string[] { typeof(DcmsMobile.MainArea.Home.HomeController).Namespace }
+            //);
 
         }
 
