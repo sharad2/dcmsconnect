@@ -502,6 +502,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                         }
                         if (!string.IsNullOrEmpty(pvm.DispositionId))
                         {
+                            // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
                             this.Response.AppendHeader("Disposition", pvm.DispositionId);
                         }
                         this.Response.StatusCode = 202;

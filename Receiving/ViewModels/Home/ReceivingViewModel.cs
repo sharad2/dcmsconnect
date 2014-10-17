@@ -112,8 +112,12 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         public int percentReceivedCartons
         {
             get
-            { 
-            return this.CartonCount * 100 / (this.ExpectedCartons.HasValue && this.ExpectedCartons.Value > 0 ? this.ExpectedCartons.Value : 1);
+            {
+                if ((this.ExpectedCartons ?? 0) <= 0)
+                {
+                    return 0;
+                }
+            return (int)Math.Round(this.CartonCount * 100.0 / this.ExpectedCartons.Value);
 
             }
         }

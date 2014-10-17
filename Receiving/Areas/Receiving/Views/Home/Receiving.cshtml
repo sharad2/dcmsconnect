@@ -82,10 +82,10 @@
                     </div>
                 </div>
             </div>
-            Receiving progress <em>@Model.cartonsOnPallet of @(Model.ExpectedCartons ?? 0) cartons</em>
-            <div class="progress" style="margin-bottom:0px;">
-                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.percentReceivedCartons " aria-valuemin=" 0" aria-valuemax="100" style="width: @Model.percentReceivedCartons%;min-width:20px;">
-                    @Model.percentReceivedCartons%
+            Receiving progress <em>@Model.CartonCount of @(Model.ExpectedCartons ?? 0) cartons</em>
+            <div class="progress" style="margin-bottom:0px;" id="progressCartons">
+                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
+                    <span>@Model.percentReceivedCartons</span>%
                 </div>
             </div>
         </div>
@@ -96,7 +96,7 @@
     <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
         @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <li data-palletid='@Model.Pallets[i].PalletId' data-disposition='@Model.Pallets[i].DispositionId' class="@(i==0? "active":"")">
+            <li class="@(i==0? "active":"")">
 
                 <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
@@ -112,7 +112,7 @@
 
         @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane">
+            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane" data-pallet="@Model.Pallets[i].PalletId">
                 @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
             </div>
         }
@@ -160,17 +160,17 @@
                     </h4>
                 </div>
                 @*<form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())">*@
-                    <div class="modal-body">
-                        @*<input type="hidden" value="@Model.ProcessId" id="hfProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />*@
-                        <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
-                        <span class="text-info">
-                            If you have just received this carton, it will also be unreceived. Press Ok to confirm.
-                        </span>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
-                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
+                <div class="modal-body">
+                    @*<input type="hidden" value="@Model.ProcessId" id="hfProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />*@
+                    <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
+                    <span class="text-info">
+                        If you have just received this carton, it will also be unreceived. Press Ok to confirm.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
                 @*</form>*@
             </div>
 
@@ -190,7 +190,7 @@
         $(document).ready(function () {
             // Shows the first tab content by default
             //$('ul[role="tablist"] li a:first').tab('show');
-            $('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
+            //$('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
 
 
             //$('#scan').keydown(function (e) {
@@ -244,7 +244,6 @@
 
                 if ($li.is('.active')) {
                     // If the visible tab is being removed, first make something else visible
-                    //alert('TODO: Show another tab' + $('li:first', e.delegateTarget).length);
                     // Try to show the next tab
                     var $nextli = $li.next();
                     if ($nextli.length == 0) {
@@ -277,58 +276,54 @@
             // Supply carton id to modals before they open
             $('#removeModal').on('show.bs.modal', function (e) {
                 $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
-                $('span.palletId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-pallet'));
+                //$('span.palletId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-pallet'));
+                $('span.palletId', e.delegateTarget).text($('#palletTabContent div.active').attr('data-pallet'));
             }).on('click', '#btnRemove', function (e) {
-               
-               
                 //remove the carton from pallet.
+                // The text of all spans with data-name attribute will be posted
                 var data = new Object();
                 $('span[data-name]', e.delegateTarget).each(function () {
                     data[$(this).attr('data-name')] = $(this).text();
                 });
                 //data[$('span.cartonId', e.delegateTarget).attr('data-name')] = ('span.cartonId', e.delegateTarget).text();
-                    $.ajax({
-                        url: $(this).attr('data-url'),
-                        type: 'POST',
-                        data: JSON.stringify(data),
-                        context: this,
-                        contentType: 'application/json; charset=utf-8',
-                        statusCode: {
-                            // Some error, show them in screen and play error sound.
-                            203: function (data, textStatus, jqXHR) {
-                                //$('#spanErrorMessage').show().html(data);
-                                //PlaySound('error');
-                                alert('Error ' + data);
-                            },
-                            // Unreceive success
-                            200: function (data, textStatus, jqXHR) {
-                               
-                                $('#palletTabContent div.active').html(data);
-                                $(e.delegateTarget).modal('hide');
-                                return;
-                                var dispos = jqXHR.getResponseHeader("Disposition") || '';
-                                //populateActiveTab(data, getActiveTab());
+                $.ajax({
+                    url: $(this).attr('data-url'),
+                    type: 'POST',
+                    data: JSON.stringify(data),
+                    context: this,
+                    contentType: 'application/json; charset=utf-8',
+                    statusCode: {
+                        // Some error, show them in screen and play error sound.
+                        203: function (data, textStatus, jqXHR) {
+                            //$('#spanErrorMessage').show().html(data);
+                            //PlaySound('error');
+                            alert('Error ' + data);
+                        },
+                        // Unreceive success
+                        200: function (data, textStatus, jqXHR) {
 
-                                $('> ul.ui-tabs-nav > li.ui-state-active', this).attr('data-disposition', dispos);
-                                //Decreasing the value of hidden field for Received Cartons Count.
-                                var receivedCartonsCount = parseInt($('#hfReceivedCartonsCount').val()) - 1;
-                                $('#hfReceivedCartonsCount').val(receivedCartonsCount);
-                                //Updating the Over all receiving progressbar.
-                                updateReceivingProgressBar(receivedCartonsCount, $('#hfExpectedCartonsCount').val());
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert('error' + jqXHR.responseText);
-                           // $('> div.ui-tabs-panel:not(.ui-tabs-hide)', this).html(jqXHR.responseText);
-                           // PlaySound('error');
-                        },
-                        complete: function (jqXHR, textStatus) {
-                            setTimeout(function () {
-                              //  $('#scan').val('').focus();
-                            }, 0);
+                            $('#palletTabContent div.active').html(data);
+                            $(e.delegateTarget).modal('hide');
+
+                            UpdateProgressBar(-1);
+                            return;
+                            //$('#hfReceivedCartonsCount').val(receivedCartonsCount);
+                            //Updating the Over all receiving progressbar.
+                            //updateReceivingProgressBar(receivedCartonsCount, $('#hfExpectedCartonsCount').val());
                         }
-                    });
-              
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('error' + jqXHR.responseText);
+                        // $('> div.ui-tabs-panel:not(.ui-tabs-hide)', this).html(jqXHR.responseText);
+                        // PlaySound('error');
+                    },
+                    complete: function (jqXHR, textStatus) {
+                        setTimeout(function () {
+                            //  $('#scan').val('').focus();
+                        }, 0);
+                    }
+                });
+
 
             });
 
@@ -395,7 +390,7 @@
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(jqXHR.responseText);
-                       // PlaySound('error');
+                        // PlaySound('error');
                     },
                     complete: function (jqXHR, textStatus) {
                         setTimeout(function () {
@@ -409,6 +404,19 @@
             });
 
         });
+
+        // Pass negative for decrement
+        function UpdateProgressBar(increment) {
+            var $bar = $('#progressCartons div.progress-bar');
+            var val = parseInt($bar.attr('aria-valuenow')) + increment;
+            var maxval = parseInt($bar.attr('aria-valuemax'));
+            var pct = Math.round(val * 100 / maxval);
+            alert(pct);
+            $bar.attr('aria-valuenow', val)
+                .css('width', pct + '%')
+                .find('span').text(pct);
+
+        }
     </script>
 }
 
