@@ -108,7 +108,7 @@
 
     </ul>
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" id="palletTabContent">
 
         @for (var i = 0; i < Model.Pallets.Count; i++)
         {
@@ -154,22 +154,24 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Remove</h4>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Remove Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId"></span>
+                        from Pallet <span class="palletId"></span>
+                    </h4>
                 </div>
-                <form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())">
+                @*<form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())">*@
                     <div class="modal-body">
-                        <input type="hidden" id="hfCartonId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId" />
-                        <input type="hidden" value="@Model.ProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />
+                        @*<input type="hidden" value="@Model.ProcessId" id="hfProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />*@
+                        <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
                         <span class="text-info">
-                            Are you sure you want to remove carton<input type="button" id="cartonId" class="btn btn-link  btn-lg" disabled="disabled">
-                            from Pallet<input type="button" id="palletId" class="btn btn-link  btn-lg" disabled="disabled">?
+                            If you have just received this carton, it will also be unreceived. Press Ok to confirm.
                         </span>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                        <button type="submit" class="btn btn-primary">Yes</button>
+                        <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
+                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
-                </form>
+                @*</form>*@
             </div>
 
         </div>
@@ -272,6 +274,64 @@
             //    $('#palletId').val(palletId);
             //});
 
+            // Supply carton id to modals before they open
+            $('#removeModal').on('show.bs.modal', function (e) {
+                $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
+                $('span.palletId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-pallet'));
+            }).on('click', '#btnRemove', function (e) {
+               
+               
+                //remove the carton from pallet.
+                var data = new Object();
+                $('span[data-name]', e.delegateTarget).each(function () {
+                    data[$(this).attr('data-name')] = $(this).text();
+                });
+                //data[$('span.cartonId', e.delegateTarget).attr('data-name')] = ('span.cartonId', e.delegateTarget).text();
+                    $.ajax({
+                        url: $(this).attr('data-url'),
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        context: this,
+                        contentType: 'application/json; charset=utf-8',
+                        statusCode: {
+                            // Some error, show them in screen and play error sound.
+                            203: function (data, textStatus, jqXHR) {
+                                //$('#spanErrorMessage').show().html(data);
+                                //PlaySound('error');
+                                alert('Error ' + data);
+                            },
+                            // Unreceive success
+                            200: function (data, textStatus, jqXHR) {
+                               
+                                $('#palletTabContent div.active').html(data);
+                                $(e.delegateTarget).modal('hide');
+                                return;
+                                var dispos = jqXHR.getResponseHeader("Disposition") || '';
+                                //populateActiveTab(data, getActiveTab());
+
+                                $('> ul.ui-tabs-nav > li.ui-state-active', this).attr('data-disposition', dispos);
+                                //Decreasing the value of hidden field for Received Cartons Count.
+                                var receivedCartonsCount = parseInt($('#hfReceivedCartonsCount').val()) - 1;
+                                $('#hfReceivedCartonsCount').val(receivedCartonsCount);
+                                //Updating the Over all receiving progressbar.
+                                updateReceivingProgressBar(receivedCartonsCount, $('#hfExpectedCartonsCount').val());
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert('error' + jqXHR.responseText);
+                           // $('> div.ui-tabs-panel:not(.ui-tabs-hide)', this).html(jqXHR.responseText);
+                           // PlaySound('error');
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            setTimeout(function () {
+                              //  $('#scan').val('').focus();
+                            }, 0);
+                        }
+                    });
+              
+
+            });
+
             $('#printModal').one('show.bs.modal', function (e) {
                 // Populate the printer drop down when shown first time
                 var $ddlPrinters = $('#ddlprinters');
@@ -297,9 +357,6 @@
                     }
                 });
             }).on('show.bs.modal', function (e) {
-                // Update the carton id in the print dialog
-                //alert($(e.relatedTarget).closest('td').attr('data-carton'));
-                $('#hfCartonId').val($(e.relatedTarget).closest('td').attr('data-carton'));
                 $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
             }).on('click', '#btnPrint', function (e) {
                 // Print the carton label
