@@ -136,9 +136,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <div class="modal-footer">                   
                     <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
             </div>
@@ -160,9 +160,8 @@
                         from Pallet <span class="palletId"></span>
                     </h4>
                 </div>
-                @*<form class="form-horizontal" role="form" method="post" action="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())">*@
-                <div class="modal-body">
-                    @*<input type="hidden" value="@Model.ProcessId" id="hfProcessId" name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" />*@
+              
+                <div class="modal-body">              
                     <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
                     <span class="text-info">
                         If you have just received this carton, it will also be unreceived. Press Ok to confirm.
@@ -172,7 +171,6 @@
                     <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
                     <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
-                @*</form>*@
             </div>
 
         </div>
@@ -253,16 +251,12 @@
                     }
                     $('a', $nextli).tab('show');
                 }
-                //var $nextli = $li.next('li');
-
-
                 // Remove content first
                 var contentSelector = $('a', $li).attr('href');  // e.g. #tab2
                 $(contentSelector).remove();
-
                 // Now remove tab
                 $li.remove();
-                //alert("Removed " + contentSelector);
+                
             });
 
 
@@ -277,7 +271,6 @@
             // Supply carton id to modals before they open
             $('#removeModal').on('show.bs.modal', function (e) {
                 $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
-                //$('span.palletId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-pallet'));
                 $('span.palletId', e.delegateTarget).text($('#palletTabContent div.active').attr('data-pallet'));
             }).on('click', '#btnRemove', function (e) {
                 //remove the carton from pallet.
@@ -285,8 +278,7 @@
                 var data = new Object();
                 $('span[data-name]', e.delegateTarget).each(function () {
                     data[$(this).attr('data-name')] = $(this).text();
-                });
-                //data[$('span.cartonId', e.delegateTarget).attr('data-name')] = ('span.cartonId', e.delegateTarget).text();
+                });          
                 $.ajax({
                     url: $(this).attr('data-url'),
                     type: 'POST',
@@ -413,8 +405,7 @@
             var $bar = $('#progressCartons div.progress-bar');
             var val = parseInt($bar.attr('aria-valuenow')) + increment;
             var maxval = parseInt($bar.attr('aria-valuemax'));
-            var pct = Math.round(val * 100 / maxval);
-            //alert(pct);
+            var pct = Math.round(val * 100 / maxval);         
             $bar.attr('aria-valuenow', val)
                 .css('width', pct + '%')
                 .find('span').text(pct);
