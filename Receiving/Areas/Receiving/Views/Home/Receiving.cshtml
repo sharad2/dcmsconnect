@@ -19,116 +19,117 @@
 }
 <div class="container">
     <div id="spanErrorMessage"></div>
-        <div class="page-header">
-            <span class="pull-right">
-                <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)"
-                   title="Receiving Detail for the selected Process" target="_blank"
-                   class=" btn btn-link">
-                    <span class="glyphicon glyphicon-new-window"></span>
-                    @*Report 40.103:*@ Cartons received and shipments summary
-                </a>
-            </span>
-            <h2>
-                Receiving
-                <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @Html.DisplayFor(m => m.CarrierDescription)</small>
-            </h2>
-        </div>
+    <div class="page-header">
+        <span class="pull-right">
+            <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)"
+               title="Receiving Detail for the selected Process" target="_blank"
+               class=" btn btn-link">
+                <span class="glyphicon glyphicon-new-window"></span>
+                @*Report 40.103:*@ Cartons received and shipments summary
+            </a>
+        </span>
+        <h2>
+            Receiving
+            <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @Html.DisplayFor(m => m.CarrierDescription)</small>
+        </h2>
+    </div>
 
-        <p>
-            @Html.LabelFor(m => m.ProcessId)
-            @Html.DisplayFor(m => m.ProcessId)
-            &nbsp;
-            @Html.LabelFor(m => m.ExpectedCartons)
-            @Html.DisplayFor(m => m.ExpectedCartons)
-            &nbsp;
-            @Html.LabelFor(m => m.ProDate)
-            @Html.DisplayFor(m => m.ProDate)
-            &nbsp;
-            @Html.LabelFor(m => m.ProNumber)
-            @Html.DisplayFor(m => m.ProNumber)
-            &nbsp;
-            @Html.LabelFor(m => m.PriceSeasonCode)
-            @Html.DisplayFor(m => m.PriceSeasonCode)
-            &nbsp;
-            @Html.LabelFor(m => m.OperatorName)
-            @Html.DisplayFor(m => m.OperatorName)
-        </p>
+    <p>
+        @Html.LabelFor(m => m.ProcessId)
+        @Html.DisplayFor(m => m.ProcessId)
+        &nbsp;
+        @Html.LabelFor(m => m.ExpectedCartons)
+        @Html.DisplayFor(m => m.ExpectedCartons)
+        &nbsp;
+        @Html.LabelFor(m => m.ProDate)
+        @Html.DisplayFor(m => m.ProDate)
+        &nbsp;
+        @Html.LabelFor(m => m.ProNumber)
+        @Html.DisplayFor(m => m.ProNumber)
+        &nbsp;
+        @Html.LabelFor(m => m.PriceSeasonCode)
+        @Html.DisplayFor(m => m.PriceSeasonCode)
+        &nbsp;
+        @Html.LabelFor(m => m.OperatorName)
+        @Html.DisplayFor(m => m.OperatorName)
+    </p>
 
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <div class="row" style="margin-bottom:0px;">
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <div class="form-group">
-                                <div class="input-group input-group-lg">
-                                    <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                                           class="form-control" autofocus
-                                           data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
-                                           autocomplete="off" placeholder="Scan Carton or Pallet" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-primary" type="submit">Scan</button>
-                                    </span>
-                                </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="row" style="margin-bottom:0px;">
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <div class="form-group">
+                            <div class="input-group input-group-lg">
+                                <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
+                                       class="form-control" autofocus
+                                       data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
+                                       autocomplete="off" placeholder="Scan Carton or Pallet" />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="submit">Scan</button>
+                                </span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="btn-group">
-                            <button id="btnNewPallet" class="btn btn-default" type="button" data-new-pallet="@Model.ScanModel.ScanText">
-                                <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
-                            </button>
-                            <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit Process</a>
-                            <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Change Process</a>
-                            <a href="#" id="linkShowCarton" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Cartons received but not on Pallet...</a>
-                        </div>
-                    </div>
                 </div>
-                Receiving progress <em>@Model.CartonCount of @(Model.ExpectedCartons ?? 0) cartons</em>
-                <div class="progress" style="margin-bottom:0px;" id="progressCartons">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
-                        <span>@Model.percentReceivedCartons</span>%
+                <div class="col-md-8">
+                    <div class="btn-group">
+                        <button id="btnNewPallet" class="btn btn-default" type="button" data-new-pallet="@Model.ScanModel.ScanText">
+                            <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
+                        </button>
+                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit Process</a>
+                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Change Process</a>
+                        <a href="#" id="linkShowCarton" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Cartons received but not on Pallet...</a>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="divError alert alert-warning" style="display:none"></div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
-            @for (var i = 0; i < Model.Pallets.Count; i++)
-            {
-                <li class="@(i==0? "active":"")">
-
-                    <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
-                       title='Pallet @Model.Pallets[i].PalletId'>
-                        @(Model.Pallets[i].PalletId)
-                        <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
-                    </a>
-                </li>
-            }
-
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content" id="palletTabContent">
-
-            @for (var i = 0; i < Model.Pallets.Count; i++)
-            {
-                <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane" data-pallet="@Model.Pallets[i].PalletId">
-                    @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+            Receiving progress <em>@Model.CartonCount of @(Model.ExpectedCartons ?? 0) cartons</em>
+            <div class="progress" style="margin-bottom:0px;" id="progressCartons">
+                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
+                    <span>@Model.percentReceivedCartons</span>%
                 </div>
-            }
+            </div>
         </div>
-        <!-- Print Modal called from _palletPartialPage -->
-        <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
-                        </h4>
-                    </div>
-                    <div class="modal-body">
+    </div>
+
+    <div class="divError alert alert-warning" style="display:none"></div>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
+        @for (var i = 0; i < Model.Pallets.Count; i++)
+        {
+            <li class="@(i==0? "active":"")">
+
+                <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
+                   title='Pallet @Model.Pallets[i].PalletId'>
+                    @(Model.Pallets[i].PalletId)
+                    <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
+                </a>
+            </li>
+        }
+
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content" id="palletTabContent">
+
+        @for (var i = 0; i < Model.Pallets.Count; i++)
+        {
+            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane" data-pallet="@Model.Pallets[i].PalletId">
+                @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+            </div>
+        }
+    </div>
+    <!-- Print Modal called from _palletPartialPage -->
+    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
                         <div class="form-group">
                             <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                             <div class="col-sm-10">
@@ -137,48 +138,49 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
 
             </div>
 
-
-
         </div>
 
-        <!--Remove Carton Model(Pop-up)-->
-        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            Remove Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId"></span>
-                            from Pallet <span class="palletId"></span>
-                        </h4>
-                    </div>
 
-                    <div class="modal-body">
-                        <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
-                        <span class="text-info">
-                            If you have just received this carton, it will also be unreceived. Press Ok to confirm.
-                        </span>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
-                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
+
+    </div>
+
+    <!--Remove Carton Model(Pop-up)-->
+    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Remove Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId"></span>
+                        from Pallet <span class="palletId"></span>
+                    </h4>
                 </div>
 
+                <div class="modal-body">
+                    <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
+                    <span class="text-info">
+                        If you have just received this carton, it will also be unreceived. Press Ok to confirm.
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
+                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
 
-
-
         </div>
+
+
+
+    </div>
 
 
 </div>
@@ -256,7 +258,7 @@
                 $(contentSelector).remove();
                 // Now remove tab
                 $li.remove();
-                
+
             });
 
 
@@ -270,18 +272,18 @@
                 var data = new Object();
                 $('span[data-name]', e.delegateTarget).each(function () {
                     data[$(this).attr('data-name')] = $(this).text();
-                });          
+                });
                 $.ajax({
                     url: $(this).attr('data-url'),
                     type: 'POST',
-                    data:data,
+                    data: data,
                     context: this,
                     //contentType: 'application/json; charset=utf-8',
                     statusCode: {
                         // Some error, show them in screen and play error sound.
                         203: function (data, textStatus, jqXHR) {
                             $('#spanErrorMessage').show().html(data).addClass('alert alert-warning');
-                            //PlaySound('error');                           
+                            //PlaySound('error');
                         },
                         // Unreceive success
                         200: function (data, textStatus, jqXHR) {
@@ -289,11 +291,11 @@
                             $(e.delegateTarget).modal('hide');
                             UpdateProgressBar(-1);
                             $('#spanErrorMessage').show().html('Removed Carton Successfully').addClass('alert alert-success');
-                            return;                           
+                            return;
                         }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
-                        alert('error' + jqXHR.responseText);                       
+                        alert('error' + jqXHR.responseText);
                         // PlaySound('error');
                     },
                     complete: function (jqXHR, textStatus) {
@@ -349,7 +351,7 @@
                     context: this,
                     data: data,
                     statusCode: {
-                        200: function (data, textStatus, jqXHR) {                            
+                        200: function (data, textStatus, jqXHR) {
                             $("#spanErrorMessage").show().html(data + "  ").addClass('alert alert-success');
                             $(e.delegateTarget).modal('hide');
                         },
@@ -381,7 +383,7 @@
             var $bar = $('#progressCartons div.progress-bar');
             var val = parseInt($bar.attr('aria-valuenow')) + increment;
             var maxval = parseInt($bar.attr('aria-valuemax'));
-            var pct = Math.round(val * 100 / maxval);         
+            var pct = Math.round(val * 100 / maxval);
             $bar.attr('aria-valuenow', val)
                 .css('width', pct + '%')
                 .find('span').text(pct);
