@@ -749,6 +749,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         //[HandleAjaxError]
         public virtual ActionResult PrintCarton(string cartonId, string printer)
         {
+            //throw new Exception("Sharad");
             var errors = new List<string>();
             if (string.IsNullOrEmpty(printer))
             {
@@ -786,7 +787,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>  
         public virtual JsonResult GetPrinters()
         {
-            //throw new Exception("Sharad");
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {
@@ -798,7 +798,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                         {
                             Name = result.Item1,
                             Description = result.Item2
-                        });
+                        }, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

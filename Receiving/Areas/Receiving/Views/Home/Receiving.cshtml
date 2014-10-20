@@ -308,11 +308,7 @@
             $('#printModal').one('show.bs.modal', function (e) {
                 // Populate the printer drop down when shown first time
                 var $ddlPrinters = $('#ddlprinters');
-                $.ajax($ddlPrinters.attr('data-getprinters-url'), {
-                    type: 'POST',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: "json"
-                }).then(function (printers, textStatus, jqXHR) {
+                $.getJSON($ddlPrinters.attr('data-getprinters-url')).then(function (printers, textStatus, jqXHR) {
                     // Success. We have got the list of printers
                     var selected = jqXHR.getResponseHeader("Selected");
                     $.each(printers, function (i, printer) {
@@ -329,12 +325,16 @@
                     $ddlPrinters.append(x);
                 });
             }).on('show.bs.modal', function (e) {
+                // Update the carton id which will be printed
                 $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
                 $(".alert", e.delegateTarget).addClass('hidden');
             }).on('click', '#btnPrint', function (e) {
                 // Print the carton label
                 if (!$('#ddlprinters').val()) {
-                    $(".alert", e.delegateTarget).removeClass('hidden');
+                    $(".alert", e.delegateTarget).removeClass('hidden')
+                        .removeClass(function (index, css) {
+                            return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
+                        });
                     return;
                 }
                 var data = new Object();
@@ -342,32 +342,57 @@
                     data[$(this).attr('data-name')] = $(this).text();
                 });
                 data[$('#ddlprinters').attr('name')] = $('#ddlprinters').val();
-                $.ajax({
-                    url: $(this).attr('data-print-url'),
-                    type: 'POST',
-                    context: this,
+                $.ajax($(this).attr('data-print-url'), {
                     data: data,
-                    statusCode: {
-                        200: function (data, textStatus, jqXHR) {
-                            $("#spanErrorMessage").show().html(data + "  ").addClass('alert alert-success');
-                            $(e.delegateTarget).modal('hide');
-                        },
-                        203: function (data, textStatus, jqXHR) {
-                            //Some error, show them in screen and play error sound.
-                            $('#spanErrorMessage').show().html(data).addClass('alert alert-warning');
-                            //PlaySound('error');
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                        // PlaySound('error');
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        setTimeout(function () {
-                            //$('#scan').val('').focus();
-                        }, 0);
+                    type: 'POST',
+                    context: {
+                        alert: $(".alert", e.delegateTarget)
                     }
+                }).always(function () {
+                    // Remove alert-* classes from the alert. The appropriate class will be added later
+                    this.alert.removeClass(function (index, css) {
+                        return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
+                    }).removeClass('hidden');
+                }).then(function (data, textStatus, jqXHR) {
+                    this.alert.html(data);
+                    switch (jqXHR.status) {
+                        case 203:
+                            this.alert.addClass('alert-warning');
+                            break;
+
+                        default:
+                            this.alert.addClass('alert-success');
+                            break;
+                    }
+                }, function (jqXHR, textStatus, errorThrown) {
+                    this.alert.addClass('alert-danger').html(jqXHR.responseText);
                 });
+                //$.ajax($(this).attr('data-print-url'), {
+                //    //url: $(this).attr('data-print-url'),
+                //    type: 'POST',
+                //    context: this,
+                //    data: data,
+                //    statusCode: {
+                //        200: function (data, textStatus, jqXHR) {
+                //            $("#spanErrorMessage").show().html(data + "  ").addClass('alert alert-success');
+                //            $(e.delegateTarget).modal('hide');
+                //        },
+                //        203: function (data, textStatus, jqXHR) {
+                //            //Some error, show them in screen and play error sound.
+                //            $('#spanErrorMessage').show().html(data).addClass('alert alert-warning');
+                //            //PlaySound('error');
+                //        }
+                //    }
+                //    //error: function (jqXHR, textStatus, errorThrown) {
+                //    //    alert(jqXHR.responseText);
+                //    //    // PlaySound('error');
+                //    //}
+                //    //complete: function (jqXHR, textStatus) {
+                //    //    setTimeout(function () {
+                //    //        //$('#scan').val('').focus();
+                //    //    }, 0);
+                //    //}
+                //});
 
 
 
