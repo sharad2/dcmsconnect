@@ -330,11 +330,12 @@
                 $(".alert", e.delegateTarget).addClass('hidden');
             }).on('click', '#btnPrint', function (e) {
                 // Print the carton label
+                // Remove alert-* classes from the alert. The appropriate class will be added later
+                var $alert = $(".alert", e.delegateTarget).removeClass(function (index, css) {
+                    return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
+                }).removeClass('hidden');
                 if (!$('#ddlprinters').val()) {
-                    $(".alert", e.delegateTarget).removeClass('hidden')
-                        .removeClass(function (index, css) {
-                            return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
-                        });
+                    $alert.text("Please select a printer").addClass('alert-warning');
                     return;
                 }
                 var data = new Object();
@@ -346,14 +347,10 @@
                     data: data,
                     type: 'POST',
                     context: {
-                        alert: $(".alert", e.delegateTarget)
+                        alert: $alert
                     }
-                }).always(function () {
-                    // Remove alert-* classes from the alert. The appropriate class will be added later
-                    this.alert.removeClass(function (index, css) {
-                        return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
-                    }).removeClass('hidden');
                 }).then(function (data, textStatus, jqXHR) {
+                    // success
                     this.alert.html(data);
                     switch (jqXHR.status) {
                         case 203:
@@ -365,6 +362,7 @@
                             break;
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
+                    // Error
                     this.alert.addClass('alert-danger').html(jqXHR.responseText);
                 });
                 //$.ajax($(this).attr('data-print-url'), {
@@ -393,9 +391,6 @@
                 //    //    }, 0);
                 //    //}
                 //});
-
-
-
             });
 
         });
