@@ -786,7 +786,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>  
         public virtual JsonResult GetPrinters()
         {
-            throw new Exception("Sharad");
+            //throw new Exception("Sharad");
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {
