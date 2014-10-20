@@ -385,19 +385,19 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ExpectedCartons = pm.ExpectedCartons,
                 PalletLimit = pm.PalletLimit,
                 PriceSeasonCode = pm.PriceSeasonCode,
-                PrinterList = _service.GetPrinters().Select(p => new SelectListItem
-                {
-                    Text = string.Format("{0}-{1}", p.Item1, p.Item2),
-                    Value = p.Item1
-                }).ToList()
+                //PrinterList = _service.GetPrinters().Select(p => new SelectListItem
+                //{
+                //    Text = string.Format("{0}-{1}", p.Item1, p.Item2),
+                //    Value = p.Item1
+                //}).ToList()
 
             };
-            var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
-            if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
-            {
-                rvm.PrinterId = cookie.Value;
+            //var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
+            //if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
+            //{
+            //    rvm.PrinterId = cookie.Value;
 
-            }
+            //}
             rvm.ProcessId = processId.Value;
             rvm.UserMismatch = ControllerContext.HttpContext.User.Identity.IsAuthenticated &&
                 !string.IsNullOrEmpty(rvm.OperatorName) &&
@@ -786,6 +786,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>  
         public virtual JsonResult GetPrinters()
         {
+            throw new Exception("Sharad");
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
             if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
             {

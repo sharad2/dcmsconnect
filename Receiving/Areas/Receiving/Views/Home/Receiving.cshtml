@@ -304,33 +304,29 @@
                         }, 0);
                     }
                 });
-
-
             });
 
             $('#printModal').one('show.bs.modal', function (e) {
                 // Populate the printer drop down when shown first time
                 var $ddlPrinters = $('#ddlprinters');
-                $.ajax({
+                $.ajax($ddlPrinters.attr('data-getprinters-url'), {
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',
-                    url: $ddlPrinters.attr('data-getprinters-url'),
-                    dataType: "json",
-                    success: function (printers, textStatus, jqXHR) {
-                        var selected = jqXHR.getResponseHeader("Selected");
-                        $.each(printers, function (i, printer) {
-                            var x = $('<option></option>').val(printer.Name).html(printer.Name + ' : ' + printer.Description);
-                            if (printer.Name === selected) {
-                                x.attr('selected', 'selected');
-                            }
-                            $ddlPrinters.append(x);
-                        });
-                    },
-                    complete: function (jqXHR, textStatus) {
-                        setTimeout(function () {
-                            // $('#scan').val('').focus();
-                        }, 0);
-                    }
+                    dataType: "json"
+                }).then(function (printers, textStatus, jqXHR) {
+                    // Success. We have got the list of printers
+                    var selected = jqXHR.getResponseHeader("Selected");
+                    $.each(printers, function (i, printer) {
+                        var x = $('<option></option>').val(printer.Name).text(printer.Name + ' : ' + printer.Description);
+                        if (printer.Name === selected) {
+                            x.attr('selected', 'selected');
+                        }
+                        $ddlPrinters.append(x);
+                    });
+                }, function (jqXHR, textStatus, errorThrown) {
+                    // Some error
+                    var x = $('<option></option>').text('Could not retrieve printer list: ' + textStatus + ' ' + jqXHR.status);
+                    $ddlPrinters.append(x);
                 });
             }).on('show.bs.modal', function (e) {
                 $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));

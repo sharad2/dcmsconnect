@@ -62,16 +62,16 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             }
         }
 
-        #region Printing 
+        //#region Printing 
 
-        [Obsolete]
-        [Display(Name = "Printer")]
-        public string PrinterId { get; set; }
+        //[Obsolete]
+        //[Display(Name = "Printer")]
+        //public string PrinterId { get; set; }
 
-        [Obsolete]
-        public IEnumerable<SelectListItem>PrinterList { get; set; }
+        //[Obsolete]
+        //public IEnumerable<SelectListItem>PrinterList { get; set; }
 
-        #endregion
+        //#endregion
 
 
         /// <summary>
