@@ -78,6 +78,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 return this.Cartons.Count * 100 / this.PalletLimit;
             }
         }
+
+        public string StatusMessage { get; set; }
     }
 }
 

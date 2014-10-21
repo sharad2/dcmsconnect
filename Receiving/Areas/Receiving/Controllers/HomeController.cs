@@ -228,9 +228,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var regexItem = new Regex(":");
             if (regexItem.IsMatch(model.CarrierId))
             {
-                 model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
+                model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
             }
-            
+
             var carrier = _service.GetCarrier(model.CarrierId);
 
 
@@ -714,24 +714,19 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         //[HandleAjaxError]
         public virtual ActionResult UnPalletizeCarton(string cartonId, int processId)
         {
-            try
-            {
-                var pvm = new PalletViewModel();
-                string palletId;
-                var pallet = _service.RemoveFromPallet(cartonId, processId, out palletId);
-                pvm.Cartons = pallet.Cartons;
-                pvm.PalletId = pallet.PalletId;
-                pvm.PalletLimit = pallet.PalletLimit;
-                this.Response.AppendHeader("Disposition", pvm.DispositionId);
-                return PartialView(Views._palletPartial, pvm);
-                //return RedirectToAction(this.Actions.Receiving(processId));
-            }
-            catch (Exception ex)
-            {
-                // Simulate the behavior of the obsolete HandleAjaxError attribute
-                this.Response.StatusCode = 203;
-                return Content(ex.Message);
-            }
+
+            var pvm = new PalletViewModel();
+            string palletId;
+            var pallet = _service.RemoveFromPallet(cartonId, processId, out palletId);
+            pvm.Cartons = pallet.Cartons;
+            pvm.PalletId = pallet.PalletId;
+            pvm.PalletLimit = pallet.PalletLimit;
+
+            this.Response.AppendHeader("Disposition", pvm.DispositionId);
+
+            pvm.StatusMessage = string.Format("Carton {0} removed from Pallet {1}", cartonId, palletId);
+            return PartialView(Views._palletPartial, pvm);
+
         }
 
 
@@ -768,9 +763,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //// Remember for 1 day sliding
             //this.Response.Cookies.Add(cookie);
 
-                _service.PrintCarton(cartonId, printer);
+            _service.PrintCarton(cartonId, printer);
 
-                return Content(string.Format("Carton ticket Printed on {0} at {1}", printer, DateTime.Now));
+            return Content(string.Format("Carton ticket Printed on {0} at {1}", printer, DateTime.Now));
 
         }
 

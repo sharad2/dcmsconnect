@@ -260,74 +260,56 @@
 
             });
 
+        });
+
+
+
+        // Remove carton from pallet
+        $(document).ready(function () {
+            var $dlg = $('#removeModal');
+            $('#palletTabContent').on('click', '[data-action="remove"]', function (e) {
+                // Print button in the partial view clicked. Show print dialog
+                $('span.cartonId', $dlg).text($(this).closest('[data-carton]').data('carton'));
+                $('span.palletId', $dlg).text($('div.active', e.delegateTarget).data('pallet'));
+                $dlg.modal('show');
+            });
 
             // Supply carton id to modals before they open
-            $('#removeModal').on('show.bs.modal', function (e) {
-                $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
-                $('span.palletId', e.delegateTarget).text($('#palletTabContent div.active').attr('data-pallet'));
-            }).on('click', '#btnRemove', function (e) {
+            $dlg.on('click', '#btnRemove', function (e) {
                 //remove the carton from pallet.
                 // The text of all spans with data-name attribute will be posted
                 var data = new Object();
                 $('span[data-name]', e.delegateTarget).each(function () {
                     data[$(this).attr('data-name')] = $(this).text();
                 });
-                $.ajax($(this).attr('data-url'), {
-                    type: 'POST',
-                    data: data,
-                    context: this,
-                    statusCode: {
-                        // Some error, show them in screen and play error sound.
-                        203: function (data, textStatus, jqXHR) {
-                            $('#spanErrorMessage').show().html(data).addClass('alert alert-warning');
-                            //PlaySound('error');
-                        },
-                        // Unreceive success
-                        200: function (data, textStatus, jqXHR) {
-                            $('#palletTabContent div.active').html(data);
-                            $(e.delegateTarget).modal('hide');
-                            UpdateProgressBar(-1);
-                            $('#spanErrorMessage').show().html('Removed Carton Successfully').addClass('alert alert-success');
-                            return;
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
+                $.post($(this).data('url'), data)
+                    .then(function (data, textStatus, jqXHR) {
+                        $(this.dlg).modal('hide');
+                        $('#palletTabContent div.active').html(data);
+                        UpdateProgressBar(-1);
+                    }.bind({
+                        dlg: e.delegateTarget
+                    }), function (jqXHR, textStatus, errorThrown) {
                         alert('error' + jqXHR.responseText);
-                        // PlaySound('error');
-                    }
-                    //complete: function (jqXHR, textStatus) {
-                    //    setTimeout(function () {
-                    //        //  $('#scan').val('').focus();
-                    //    }, 0);
-                    //}
-                }).then(function (printers, textStatus, jqXHR) {
-                }, function (jqXHR, textStatus, errorThrown) {
-                });
+                    });
             });
 
+            // Pass negative for decrement
+            function UpdateProgressBar(increment) {
+                var $bar = $('#progressCartons div.progress-bar');
+                var val = parseInt($bar.attr('aria-valuenow')) + increment;
+                var maxval = parseInt($bar.attr('aria-valuemax'));
+                var pct = Math.round(val * 100 / maxval);
+                $bar.attr('aria-valuenow', val)
+                    .css('width', pct + '%')
+                    .find('span').text(pct);
 
-        });
-
-        // Pass negative for decrement
-        function UpdateProgressBar(increment) {
-            var $bar = $('#progressCartons div.progress-bar');
-            var val = parseInt($bar.attr('aria-valuenow')) + increment;
-            var maxval = parseInt($bar.attr('aria-valuemax'));
-            var pct = Math.round(val * 100 / maxval);
-            $bar.attr('aria-valuenow', val)
-                .css('width', pct + '%')
-                .find('span').text(pct);
-
-        }
-
-        // Remove carton from pallet
-        $(document).ready(function () {
-
+            }
         });
 
         // Print carton label
         $(document).ready(function () {
-            
+
             $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
                 // Print button in the partial view clicked. Show print dialog
                 $('#printModal')
