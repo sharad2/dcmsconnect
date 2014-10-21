@@ -770,7 +770,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
                 _service.PrintCarton(cartonId, printer);
 
-                return Content("Carton ticket Printed on " + printer + ".");
+                return Content(string.Format("Carton ticket Printed on {0} at {1}", printer, DateTime.Now));
 
         }
 
