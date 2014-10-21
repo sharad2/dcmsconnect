@@ -82,10 +82,10 @@
                     </div>
                 </div>
             </div>
-            Receiving progress <em>@Model.CartonCount of @(Model.ExpectedCartons ?? 0) cartons</em>
+            Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
             <div class="progress" style="margin-bottom:0px;" id="progressCartons">
                 <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
-                    <span>@Model.percentReceivedCartons</span>%
+                    <span>@Model.percentReceivedCartons</span>% 
                 </div>
             </div>
         </div>
@@ -156,17 +156,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title" id="myModalLabel">
                         Remove Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId"></span>
-                        from Pallet <span class="palletId"></span>
+                        from Pallet <span class="palletId"></span>?
                     </h4>
                 </div>
 
                 <div class="modal-body">
-                    <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId">@Model.ProcessId</span>
-                    <span class="text-info">
-                        If you have just received this carton, it will also be unreceived. Press Ok to confirm.
+                    <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId hidden">@Model.ProcessId</span>
+                    <span>
+                        Pallet <span class="palletId"></span> contains <span class="count"></span> cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
                     </span>
                 </div>
                 <div class="modal-footer">
@@ -267,12 +266,13 @@
         // Remove carton from pallet
         $(document).ready(function () {
             var $dlg = $('#removeModal');
-            $('#palletTabContent').on('click', '[data-action="remove"]', function (e) {
-                // Print button in the partial view clicked. Show print dialog
-                $('span.cartonId', $dlg).text($(this).closest('[data-carton]').data('carton'));
-                $('span.palletId', $dlg).text($('div.active', e.delegateTarget).data('pallet'));
+            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
+                // Print button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
+                $('span.cartonId', this).text($(e.target).closest('[data-carton]').data('carton'));
+                $('span.palletId', this).text($(e.target).closest('[data-pallet]').data('pallet'));
+                $('span.count', this).text($(e.target).closest('div.tab-pane').find('[data-carton]').length);
                 $dlg.modal('show');
-            });
+            }.bind($dlg));
 
             // Supply carton id to modals before they open
             $dlg.on('click', '#btnRemove', function (e) {
@@ -285,12 +285,15 @@
                 $.post($(this).data('url'), data)
                     .then(function (data, textStatus, jqXHR) {
                         $(this.dlg).modal('hide');
-                        $('#palletTabContent div.active').html(data);
-                        UpdateProgressBar(-1);
+                        var $pane = $('#palletTabContent div.active.tab-pane');
+                        var countOld = $('[data-carton]', $pane).length;
+                        $pane.html(data);
+                        var countNew = $('[data-carton]', $pane).length;
+                        UpdateProgressBar(countNew - countOld);
                     }.bind({
                         dlg: e.delegateTarget
                     }), function (jqXHR, textStatus, errorThrown) {
-                        alert('error' + jqXHR.responseText);
+                        alert('Error: ' + jqXHR.responseText);
                     });
             });
 
@@ -303,7 +306,8 @@
                 $bar.attr('aria-valuenow', val)
                     .css('width', pct + '%')
                     .find('span').text(pct);
-
+                var count = parseInt($('#receivedCount').text());
+                $('#receivedCount').text(count + increment);
             }
         });
 

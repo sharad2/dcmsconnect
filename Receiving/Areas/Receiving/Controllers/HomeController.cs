@@ -714,7 +714,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         //[HandleAjaxError]
         public virtual ActionResult UnPalletizeCarton(string cartonId, int processId)
         {
-
+            //throw new Exception("Sharad");
             var pvm = new PalletViewModel();
             string palletId;
             var pallet = _service.RemoveFromPallet(cartonId, processId, out palletId);

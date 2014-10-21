@@ -113,6 +113,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         [Required(ErrorMessageResourceType = typeof(Resources.Receiving), ErrorMessageResourceName = "RequiredErrorMessage")]
         [Display(Name = "Name_ExpectedCartons", ResourceType = typeof(Resources.Receiving))]
         [Range(1, 99999, ErrorMessageResourceType = typeof(Resources.Receiving), ErrorMessageResourceName = "RangeMinMaxErrorMessage")]
+        [DisplayFormat(DataFormatString="{0:N0}", NullDisplayText="??")]
         public int? ExpectedCartons { get; set; }
 
         /// <summary>
