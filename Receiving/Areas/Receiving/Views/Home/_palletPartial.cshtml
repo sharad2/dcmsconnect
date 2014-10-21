@@ -1,8 +1,12 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.PalletViewModel
 
 
-@if (Model.Cartons.Count > 0)
-{
+    @*
+        if data-action='print', then print dialog will be displayed by the calling page when the element is clicked.
+    One of the enclosing elements of the clicked element must specify the carton id in the attribute data-carton
+        *@
+
+
     <h5>
         <span class="pull-right">
             <a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
@@ -30,7 +34,7 @@
             @Model.PalletProgress%
         </div>
     </div>
-}
+
 
 <div class="table-responsive">
     
@@ -84,7 +88,7 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="#" data-toggle="modal" data-target="#printModal">
+                                    <a href="#" data-action="print">
                                         &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
                                     </a>
                                 </li>

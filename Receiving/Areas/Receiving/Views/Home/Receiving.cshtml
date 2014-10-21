@@ -320,39 +320,58 @@
 
         }
 
+        // Remove carton from pallet
+        $(document).ready(function () {
+
+        });
+
         // Print carton label
         $(document).ready(function () {
+            
+            $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
+                // Print button in the partial view clicked. Show print dialog
+                $('#printModal')
+                    .find('span.cartonId')
+                    .text($(this).closest('[data-carton]').data('carton'))
+                    .end()
+                    .find('.alert')
+                    .addClass('hidden')
+                    .removeClass(function (index, css) {
+                        // Remove alert-* classes from the alert. The appropriate class will be added later
+                        return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
+                    }).end()
+                    .modal('show');
+            });
+
             $('#printModal').one('show.bs.modal', function (e) {
                 // Populate the printer drop down when shown first time
                 var $ddlPrinters = $('#ddlprinters');
-                $.get($ddlPrinters.attr('data-getprinters-url'))
+                $.get($ddlPrinters.data('getprinters-url'))
                     .then(function (printers, textStatus, jqXHR) {
                         // Success. We have got the list of printers
-                        var selected = jqXHR.getResponseHeader("Selected");
-                        var y = this.ddl;
+                        //var selected = jqXHR.getResponseHeader("Selected");
                         $.each(printers, function (i, printer) {
                             var x = $('<option></option>').val(printer.Name).text(printer.Name + ' : ' + printer.Description);
-                            if (printer.Name === selected) {
+                            if (printer.Name === this.selected) {
                                 x.attr('selected', 'selected');
                             }
-                            this.append(x);
-                        }.bind(this));
-                    }.bind($ddlPrinters), function (jqXHR, textStatus, errorThrown) {
+                            this.ddl.append(x);
+                        }.bind({
+                            ddl: this.ddl,
+                            selected: jqXHR.getResponseHeader("Selected")
+                        }));
+                    }.bind({
+                        ddl: $ddlPrinters
+                    }), function (jqXHR, textStatus, errorThrown) {
                         // Some error
                         var x = $('<option></option>').val('')
                             .html('<span class="bg-danger">Could not retrieve printer list: ' + textStatus + ' ' + jqXHR.status + '</span>');
                         this.append(x);
                     }.bind(this));
-            }).on('show.bs.modal', function (e) {
-                // Update the carton id in the modal header. This carton will be printed
-                $('span.cartonId', e.delegateTarget).text($(e.relatedTarget).closest('td').attr('data-carton'));
-                $(".alert", e.delegateTarget).addClass('hidden');
             }).on('click', '#btnPrint', function (e) {
                 // Print the carton label
                 // Remove alert-* classes from the alert. The appropriate class will be added later
-                var $alert = $(".alert", e.delegateTarget).removeClass(function (index, css) {
-                    return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
-                }).removeClass('hidden');
+                var $alert = $(".alert", e.delegateTarget).removeClass('hidden');
                 var $ddl = $('#ddlprinters', e.delegateTarget);
                 if (!$ddl.val()) {
                     $alert.text("Please select a printer").addClass('alert-warning');
