@@ -86,6 +86,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult HandleCartonScan()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult HandleMobileScan()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleMobileScan);
@@ -142,6 +148,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string Receiving = "Receiving";
             public readonly string Tutorial = "Tutorial";
             public readonly string HandlePalletScan = "HandlePalletScan";
+            public readonly string HandleCartonScan = "HandleCartonScan";
             public readonly string HandleMobileScan = "HandleScan";
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
             public readonly string PrintCarton = "PrintCarton";
@@ -161,6 +168,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string Receiving = "Receiving";
             public const string Tutorial = "Tutorial";
             public const string HandlePalletScan = "HandlePalletScan";
+            public const string HandleCartonScan = "HandleCartonScan";
             public const string HandleMobileScan = "HandleScan";
             public const string UnPalletizeCarton = "UnPalletizeCarton";
             public const string PrintCarton = "PrintCarton";
@@ -209,6 +217,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public ActionParamsClass_HandlePalletScan HandlePalletScanParams { get { return s_params_HandlePalletScan; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_HandlePalletScan
+        {
+            public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_HandleCartonScan s_params_HandleCartonScan = new ActionParamsClass_HandleCartonScan();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_HandleCartonScan HandleCartonScanParams { get { return s_params_HandleCartonScan; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_HandleCartonScan
         {
             public readonly string model = "model";
         }
@@ -375,6 +391,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandlePalletScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             HandlePalletScanOverride(callInfo, model);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            HandleCartonScanOverride(callInfo, model);
             return callInfo;
         }
 

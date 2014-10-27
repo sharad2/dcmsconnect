@@ -482,8 +482,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //this.Response.StatusCode = 202;
 
             return PartialView(Views._palletPartial, pvm);
+        }
 
-
+        [HttpPost]
+        public virtual ActionResult HandleCartonScan(ScanViewModel model)
+        {
+            throw new NotImplementedException("Under construction");
         }
         /// <summary>
         /// <para>

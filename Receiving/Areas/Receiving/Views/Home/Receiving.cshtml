@@ -66,8 +66,9 @@
                         <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
                                   name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
                                   data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"
-                                  data-placement="auto" data-toggle="popover" data-trigger="focus" tabindex="0"
-                                  title="Tooltip on top"  data-content="And here's some amazing content. It's very engaging. Right?"></textarea>
+                                  data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
+                                  tabindex="0"
+                                  data-content="And here's some amazing content. It's very engaging. Right?"></textarea>
                     </div>
                 </div>
                 <div class="col-md-9">
@@ -222,7 +223,8 @@
                     if (tokens.length > 1) {
                         // Some cartons were scanned before this pallet
                         def = def.then(HandleCartons.bind({
-                            cartons: tokens.slice(0, tokens.length - 1)
+                            cartons: tokens.slice(0, tokens.length - 1),
+                            url: $(this).data('carton-url')
                         }));
                     }
                     def.then(ChangePallet.bind({
@@ -231,13 +233,20 @@
                     }));
                 } else {
                     _timer = setTimeout(HandleCartons.bind({
-                        tb: this,
-                        url: $(this).data('url'),
+                        url: $(this).data('carton-url'),
                         cartons: tokens
                     }), 3000);
                 }
             }).popover({
-                trigger: 'manual'
+                trigger: 'manual',
+                html: true,
+                title: '<span>Error Message</span><a class="close" href="#">&times;</a>',
+                placement: 'top'
+            });
+
+            $('#scanArea').on('click', '.close', function (e) {
+                alert('Trying to hide');
+                $('#tbScan').popover('hide');
             });
 
             // Expects this.palletId, this.url
@@ -258,21 +267,21 @@
                 });
             }
 
-            // Pass array of cartons. Returns ajax object so that we can chain functions to be executed after ajax call is complete
+            // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
+            // 
             function HandleCartons() {
                 //if (_timer) {
                 //    clearTimeout(_timer);
                 //    _timer = null;
                 //}
-                alert(this.cartons);
-                return $.ajax('/Sharad').then(function () {
+                alert(this.url);
+                var data;  //TODO
+                return $.post(this.url, data).then(function () {
                     alert('Carton receive success');
-                }, function () {
+                }, function (jqXHR, textStatus, errorThrown) {
                     //alert('Carton receive error');
-                    $('#tbScan').popover('show');
-                    $('.container').click(function () {
-                        $('#tbScan').popover('destroy');
-                    });
+                    $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
+
 
                 });
             }
@@ -280,52 +289,6 @@
         });
 
         $(document).ready(function () {
-            // Shows the first tab content by default
-            //$('ul[role="tablist"] li a:first').tab('show');
-            //$('ul[role="tablist"] li a').click(function () { $('.divError').hide(); });
-
-
-            //$('#scan').keydown(function (e) {
-            //    //enter key
-            //    if (e.keyCode == 13) {
-            //        if ($(this).val() != "") {
-            //            var tabToOpen = $(this).val().toUpperCase();
-            //            var curPalletIndex = $('ul[role="tablist"] li.active').index();
-
-            //            //this checks weather the href is already been there in the page(ie.pallet on scan)
-            //            var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
-            //            var index = $li.index();
-            //            if (index == -1) {
-
-            //               var $li = $('a[href="#Pallet_' + tabToOpen + '"]').closest('li');
-            //               var palletId = $li.attr('data-palletid');
-
-            //                if (palletId) {
-            //                    $('.divError').show().html('a[href="#Pallet_' + tabToOpen + 'has the same disposition. Ignoring pallet scan');
-            //                    return;
-            //                }
-            //                else {
-            //                    $('ul[role="tablist"]').append('<li  data-palletid=' + tabToOpen + ' data-disposition=' + tabToOpen + '><a href="#Pallet_' + tabToOpen + ' " ' + 'role="tab" data-toggle="tab"  title="Pallet ' + tabToOpen + '">' + tabToOpen + '<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span></a></li>')
-            //                    $('div.tab-content').append('<div class="tab-pane" id="Pallet_' + tabToOpen + '">Carton content in pallet' + tabToOpen + '</div>');
-            //                }
-
-            //            }
-            //            else if ((index == curPalletIndex)) {
-            //                // Pallet is already active
-
-            //                $('.divError').show().html('Pallet Id is already active. Please scan a carton.');
-
-            //            } else {
-            //                // Activate the pallet
-            //                $('.divError').hide();
-            //                $('ul[role="tablist"] li a[href="#Pallet_' + tabToOpen + '"]').tab('show');
-            //            }
-            //        }
-            //    }
-
-
-            //});
-
             $('#btnNewPallet').click(function (e) {
                 alert('auto increment tab with pallet id');
             });
