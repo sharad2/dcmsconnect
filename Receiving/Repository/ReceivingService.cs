@@ -537,7 +537,7 @@ namespace DcmsMobile.Receiving.Repository
         }
 
 
-        private Pallet HandlePalletScan(string scan, ScanContext ctx)
+        public Pallet HandlePalletScan(string scan, ScanContext ctx)
         {
             // Pallet was scanned. Ensure proper length of pallet
             // TODO: Handle this pallet length limit hardwiring in a more professional way

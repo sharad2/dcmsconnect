@@ -55,19 +55,20 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <div class="row" style="margin-bottom:0px;">
+            <div class="row">
                 <div class="col-md-4">
-                    <div class="input-group">
-                        <div class="form-group">
-                            <div class="input-group input-group-lg">
-                                <input type="text" id="scan" name="@Html.NameFor(m => m.ScanModel.ScanText)"
-                                       class="form-control" autofocus
-                                       data-ajax-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleScan())"
-                                       autocomplete="off" placeholder="Scan Carton or Pallet" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit">Scan</button>
-                                </span>
-                            </div>
+                    <div id="scanArea">
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
+                               value="@Model.ProcessId" />
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))" />
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))" />
+                        <div class="input-group">
+                            <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
+                                      name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
+                                      data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"></textarea>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -85,11 +86,12 @@
             Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
             <div class="progress" style="margin-bottom:0px;" id="progressCartons">
                 <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
-                    <span>@Model.percentReceivedCartons</span>% 
+                    <span>@Model.percentReceivedCartons</span>%
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
@@ -187,6 +189,90 @@
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
 
     <script type="text/javascript">
+
+        // Handle scan
+        $(document).ready(function () {
+
+            var _timer;
+
+            $('#tbScan').on('keypress', function (e) {
+                if (e.which != 13) {
+                    // We are interested only when enter key is pressed
+                    return;
+                }
+                if (_timer) {
+                    clearTimeout(_timer);
+                    _timer = null;
+                }
+
+                // Enter key was pressed. Was the last scan a pallet scan?
+                //var tokens = $(this).val().split('\n');
+                var tokens = $.grep($(this).val().split('\n'), function (txt, i) {
+                    return txt.trim() != '';
+                });
+                if (tokens.length == 0) {
+                    return;
+                }
+                var def = $.Deferred();
+                def.resolve();  // Initiate the function chain
+
+                var lastscan = tokens[tokens.length - 1];
+
+                if (lastscan.toUpperCase().indexOf('P') === 0) {
+                    // First process the cartons before this pallet
+                    if (tokens.length > 1) {
+                        // Some cartons were scanned before this pallet
+                       def = def.then(HandleCartons.bind({
+                            cartons: tokens.slice(0, tokens.length - 1)
+                        }));
+                    }
+                    def.then(ChangePallet.bind({
+                        url: $(this).data('pallet-url'),
+                        palletId: lastscan
+                    }));                   
+                } else {
+                    _timer = setTimeout(HandleCartons.bind({
+                        tb: this,
+                        url: $(this).data('url'),
+                        cartons: tokens
+                    }), 3000);
+                }
+            });
+
+            // Expects this.palletId, this.url
+            // Returns ajax object to enable further chaining
+            function ChangePallet() {
+                alert('Pallet ' + this.palletId);
+                //TODO: Ajax call to HandlePalletScan()
+                var data = $('#scanArea input').serialize();
+                data[$('#scanArea textarea').attr('name')] = this.palletId;
+                alert(data);
+                return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
+                    // data is pallet html
+                    // find whether this pallet is already one of the tabs. If it is, then close that tab.
+                    // Then create a new tab for this pallet and make it active.
+                    alert(data);
+                }, function (jqXHR, textStatus, errorThrown) {
+                    alert('Error: ' + jqXHR.responseText);
+                });
+            }
+
+            // Pass array of cartons. Returns ajax object so that we can chain functions to be executed after ajax call is complete
+            function HandleCartons() {
+                //if (_timer) {
+                //    clearTimeout(_timer);
+                //    _timer = null;
+                //}
+                alert(this.cartons);
+                return $.ajax('/Sharad').then(function () {
+                    alert('Carton receive success');
+                }, function () {
+                    alert('Carton receive error');
+                });
+            }
+
+        });
+
         $(document).ready(function () {
             // Shows the first tab content by default
             //$('ul[role="tablist"] li a:first').tab('show');

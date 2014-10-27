@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration.Provider;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DcmsMobile.Receiving.Helpers;
+﻿using DcmsMobile.Receiving.Helpers;
 using DcmsMobile.Receiving.Models;
 using DcmsMobile.Receiving.Repository;
 using DcmsMobile.Receiving.ViewModels;
 using DcmsMobile.Receiving.ViewModels.Home;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
-using DcmsMobile.Dcms.Routes;
+using System;
+using System.Collections.Generic;
+using System.Configuration.Provider;
+using System.Data.Common;
+using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
@@ -436,6 +435,56 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
         #region Scan handling
 
+        [HttpPost]
+        public virtual ActionResult HandlePalletScan(ScanViewModel model)
+        {
+            if (model == null) throw new ArgumentNullException("model");
+            if (!ModelState.IsValid)
+            {
+                return ValidationErrorResult();
+            }
+
+            //var scan = model.ScanModel.ScanText.ToUpper();
+            //if (scan == ReceivingViewModel.SCAN_NEWPALLET)
+            //{
+            //    scan = _service.CreateNewPalletId();
+            //}
+
+            Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
+            var ctx = new ScanContext
+            {
+                PalletId = model.PalletId,
+                DispositionId = model.PalletDispos,
+                ProcessId = model.ProcessId.Value
+            };
+            var pallet = _service.HandlePalletScan(model.ScanText, ctx);
+            Debug.Assert(pallet != null, "pallet != null");
+            var pvm = new PalletViewModel
+            {
+                Cartons = pallet.Cartons,
+                PalletLimit = pallet.PalletLimit,
+                PalletId = ctx.PalletId,
+                QueryCount = _service.QueryCount
+            };
+
+
+            //// Pallet was scanned
+            //// We check for null before adding header Otherwise the code breaks in IIS 6
+            //if (!string.IsNullOrEmpty(pvm.PalletId))
+            //{
+            //    this.Response.AppendHeader("PalletId", pvm.PalletId);
+            //}
+            //if (!string.IsNullOrEmpty(pvm.DispositionId))
+            //{
+            //    // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
+            //    this.Response.AppendHeader("Disposition", pvm.DispositionId);
+            //}
+            //this.Response.StatusCode = 202;
+
+            return PartialView(Views._palletPartial, pvm);
+
+
+        }
         /// <summary>
         /// <para>
         /// Determines what was scanned and takes appropriate action.
@@ -458,6 +507,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [HttpPost]
         [ActionName("HandleScan")]
         [HttpAjax(true)]
+        [Obsolete("Use HandlePalletScan or HandleCartonScan")]
         public virtual ActionResult HandleScan(ReceivingViewModel model)
         {
             if (model == null) throw new ArgumentNullException("model");
