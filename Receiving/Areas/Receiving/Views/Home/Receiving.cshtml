@@ -65,7 +65,7 @@
                         <div class="input-group">
                             <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
                                       name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
-                                      data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"></textarea>
+                                      data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())" title="My popover" data-content="And here's some amazing content. It's very engaging. Right?"></textarea>
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">Go!</button>
                             </span>
@@ -237,6 +237,8 @@
                         cartons: tokens
                     }), 3000);
                 }
+            }).popover({
+                trigger:'manual'
             });
 
             // Expects this.palletId, this.url
@@ -267,7 +269,8 @@
                 return $.ajax('/Sharad').then(function () {
                     alert('Carton receive success');
                 }, function () {
-                    alert('Carton receive error');
+                    //alert('Carton receive error');
+                    $('#tbScan').popover('show');
                 });
             }
 
