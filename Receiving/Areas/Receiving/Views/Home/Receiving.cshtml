@@ -56,23 +56,28 @@
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <strong class="text-info">Scan Carton or Pallet</strong>
                     <div id="scanArea">
                         <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
                                value="@Model.ProcessId" />
                         <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))" />
                         <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))" />
-                        <div class="input-group">
-                            <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
-                                      name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
-                                      data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())" title="My popover" data-content="And here's some amazing content. It's very engaging. Right?"></textarea>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Go!</button>
-                            </span>
-                        </div>
+                        <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
+                                  name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
+                                  data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"
+                                  data-placement="auto" data-toggle="popover" data-trigger="focus" tabindex="0"
+                                  title="Tooltip on top"  data-content="And here's some amazing content. It's very engaging. Right?"></textarea>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
+                    Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
+                    <div class="progress" style="margin-bottom:4px;" id="progressCartons">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
+                            <span>@Model.percentReceivedCartons</span>%
+                        </div>
+                    </div>
+
                     <div class="btn-group">
                         <button id="btnNewPallet" class="btn btn-default" type="button" data-new-pallet="@Model.ScanModel.ScanText">
                             <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
@@ -81,12 +86,6 @@
                         <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Change Process</a>
                         <a href="#" id="linkShowCarton" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Cartons received but not on Pallet...</a>
                     </div>
-                </div>
-            </div>
-            Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
-            <div class="progress" style="margin-bottom:0px;" id="progressCartons">
-                <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
-                    <span>@Model.percentReceivedCartons</span>%
                 </div>
             </div>
         </div>
@@ -222,14 +221,14 @@
                     // First process the cartons before this pallet
                     if (tokens.length > 1) {
                         // Some cartons were scanned before this pallet
-                       def = def.then(HandleCartons.bind({
+                        def = def.then(HandleCartons.bind({
                             cartons: tokens.slice(0, tokens.length - 1)
                         }));
                     }
                     def.then(ChangePallet.bind({
                         url: $(this).data('pallet-url'),
                         palletId: lastscan
-                    }));                   
+                    }));
                 } else {
                     _timer = setTimeout(HandleCartons.bind({
                         tb: this,
@@ -238,7 +237,7 @@
                     }), 3000);
                 }
             }).popover({
-                trigger:'manual'
+                trigger: 'manual'
             });
 
             // Expects this.palletId, this.url
@@ -271,6 +270,10 @@
                 }, function () {
                     //alert('Carton receive error');
                     $('#tbScan').popover('show');
+                    $('.container').click(function () {
+                        $('#tbScan').popover('destroy');
+                    });
+
                 });
             }
 
