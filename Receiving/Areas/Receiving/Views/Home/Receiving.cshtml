@@ -191,6 +191,11 @@
 
     <script type="text/javascript">
 
+        // Returns the active pallet id
+        function GetActivePalletId() {
+            return $('#palletTabContent .tab-pane.active').data('pallet');
+        }
+
         // Update the html content of the active tab. Also update progress bar based on the number of cartons in the new html
         function UpdateActivePallet(html) {
             // Private function for updating progress bar. Pass negative for decrement
@@ -272,7 +277,7 @@
                 data.push({ name: $('textarea', $form).attr('name'), value: this.cartons })
 
                 // Active pallet id
-                data.push({ name: $form.data('name-palletid'), value: $('#palletTabContent .tab-pane.active').data('pallet') })
+                data.push({ name: $form.data('name-palletid'), value: GetActivePalletId() })
 
                 // Disposition of active pallet
                 data.push({ name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') })
@@ -291,17 +296,21 @@
             // Returns ajax object to enable further chaining
             // Should be private
             function ChangePallet() {
-                alert('Pallet ' + this.palletId);
+                //alert('Pallet ' + this.palletId);
                 //TODO: Ajax call to HandlePalletScan()
-                var data = $('#scanArea input').serialize();
-                data[$('#scanArea textarea').attr('name')] = this.palletId;
+                var data = $('#scanArea input').serializeArray();
+
+                data.push({ name: $('#scanArea textarea').attr('name'), value: this.palletId });
                 alert(data);
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
                     // data is pallet html
                     // find whether this pallet is already one of the tabs. If it is, then close that tab.
                     // Then create a new tab for this pallet and make it active.
-                    alert(data);
-                }, function (jqXHR, textStatus, errorThrown) {
+                    alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));
+                    //alert(this.palletId + '*' + data);
+                }.bind({
+                    palletId: this.palletId
+                }), function (jqXHR, textStatus, errorThrown) {
                     alert('Error: ' + jqXHR.responseText);
                 });
             }
@@ -378,7 +387,7 @@
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
                 // Print button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
                 $('span.cartonId', this).text($(e.target).closest('[data-carton]').data('carton'));
-                $('span.palletId', this).text($(e.target).closest('[data-pallet]').data('pallet'));
+                $('span.palletId', this).text(GetActivePalletId());
                 $('span.count', this).text($(e.target).closest('div.tab-pane').find('[data-carton]').length);
                 $dlg.modal('show');
             }.bind($dlg));
