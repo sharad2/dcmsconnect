@@ -516,7 +516,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries))
             {
-                pallet = _service.HandleScan(cartonId, ctx);
+                pallet = _service.HandleScan(cartonId.Trim(), ctx);
             }
             
             var pvm = new PalletViewModel

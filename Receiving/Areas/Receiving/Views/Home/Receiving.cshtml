@@ -193,7 +193,24 @@
 
         // Update the html content of the active tab. Also update progress bar based on the number of cartons in the new html
         function UpdateActivePallet(html) {
+            // Private function for updating progress bar. Pass negative for decrement
+            function UpdateProgressBar(increment) {
+                var $bar = $('#progressCartons div.progress-bar');
+                var val = parseInt($bar.attr('aria-valuenow')) + increment;
+                var maxval = parseInt($bar.attr('aria-valuemax'));
+                var pct = Math.round(val * 100 / maxval);
+                $bar.attr('aria-valuenow', val)
+                    .css('width', pct + '%')
+                    .find('span').text(pct);
+                var count = parseInt($('#receivedCount').text());
+                $('#receivedCount').text(count + increment);
+            }
 
+            var $pane = $('#palletTabContent div.active.tab-pane');
+            var countOld = $('[data-carton]', $pane).length;
+            $pane.html(data);
+            var countNew = $('[data-carton]', $pane).length;
+            UpdateProgressBar(countNew - countOld);
         }
 
         // Handle scan
@@ -290,7 +307,8 @@
 
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
                     //$('#tbScan').attr('data-content', textStatus).popover('show');
-                    alert('Carton receive success ' + data);
+                    //alert('Carton receive success ' + data);
+                    UpdateActivePallet(data);
                 }, function (jqXHR, textStatus, errorThrown) {
                     //alert('Carton receive error');
                     $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
