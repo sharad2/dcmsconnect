@@ -55,7 +55,7 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <div class="row">        
+            <div class="row">
                 <div class="col-md-4">
                     <strong class="text-info">Scan Carton or Pallet</strong>
                     <div id="scanArea" class="input-group" data-name-palletid="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))"
@@ -98,7 +98,7 @@
     <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
         @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <li class="@(i==0? "active":"")">
+            <li class="@(i==0? "active":"")" data-palletid="@Model.Pallets[i].PalletId">
 
                 <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
                    title='Pallet @Model.Pallets[i].PalletId'>
@@ -114,7 +114,7 @@
 
         @for (var i = 0; i < Model.Pallets.Count; i++)
         {
-            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane" data-pallet="@Model.Pallets[i].PalletId">
+            <div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane">
                 @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
             </div>
         }
@@ -191,10 +191,53 @@
 
     <script type="text/javascript">
 
-        // Returns the active pallet id
+        // Returns the active pallet id.
         function GetActivePalletId() {
-            return $('#palletTabContent .tab-pane.active').data('pallet');
+            return $('#palletTabs > li.active').data('palletid');
         }
+
+        // Makes the passed pallet active, if possible. If a tab for this pallet does not exist, a new tab is created and is then made active with no content
+        function SetActivePallet(palletId) {
+            //alert($('#palletTabs > li[data-palletid="P3978"] > a').length);
+            var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+            //alert(x.length);
+            if (x.length > 0) {
+                // We were able to activate the pallet
+                return;
+            }
+            // No such pallet. Create a new tab at the end of the tabs
+
+            @*<li class="@(i==0? "active":"")" data-palletid="@Model.Pallets[i].PalletId">
+
+    <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
+            title='Pallet @Model.Pallets[i].PalletId'>
+             @(Model.Pallets[i].PalletId)
+             <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
+         </a>
+     </li>*@
+            // Insert the li
+            var y = $('<li></li>').attr('data-palletid', palletId)
+                .append(
+                    $('<a></a>').attr({
+                        href: '#Pallet_' + palletId,
+                        role: 'tab',
+                        "data-toggle": 'tab',
+                        title: 'Pallet ' + palletId
+                    }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+                ).appendTo('#palletTabs');
+
+            @*<div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane">
+        @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
+    </div>*@
+
+            //
+            $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane').text('Sharad')
+                .appendTo('#palletTabContent');
+
+            // Make the tab active
+            $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+        }
+
 
         // Update the html content of the active tab. Also update progress bar based on the number of cartons in the new html
         function UpdateActivePallet(html) {
@@ -306,7 +349,9 @@
                     // data is pallet html
                     // find whether this pallet is already one of the tabs. If it is, then close that tab.
                     // Then create a new tab for this pallet and make it active.
-                    alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));
+                    //alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));\
+                    SetActivePallet(this.palletId);
+                    UpdateActivePallet(data);
                     //alert(this.palletId + '*' + data);
                 }.bind({
                     palletId: this.palletId
@@ -329,7 +374,7 @@
                     return;
                 }
                 $(this).handleScan(3000);
-            }).on('click', 'button', function(e) {
+            }).on('click', 'button', function (e) {
                 $('textarea', e.delegateTarget).handleScan(0);
             }).find('textarea').popover({
                 trigger: 'manual',

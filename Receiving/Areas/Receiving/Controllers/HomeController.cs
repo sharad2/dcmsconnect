@@ -458,7 +458,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 DispositionId = model.PalletDispos,
                 ProcessId = model.ProcessId.Value
             };
-            var pallet = _service.HandlePalletScan(model.ScanText, ctx);
+            var pallet = _service.HandlePalletScan(model.ScanText.Trim().ToUpper(), ctx);
             Debug.Assert(pallet != null, "pallet != null");
             var pvm = new PalletViewModel
             {
@@ -516,7 +516,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries))
             {
-                pallet = _service.HandleScan(cartonId.Trim(), ctx);
+                pallet = _service.HandleScan(cartonId.Trim().ToUpper(), ctx);
             }
             
             var pvm = new PalletViewModel

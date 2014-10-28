@@ -80,6 +80,30 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         }
 
         public string StatusMessage { get; set; }
+
+        public string DestinationArea
+        {
+            get
+            {
+                if (Cartons == null || Cartons.Count == 0)
+                {
+                    return string.Empty;
+                }
+                return Cartons[0].DestinationArea;
+            }
+        }
+
+        public string VwhId
+        {
+            get
+            {
+                if (Cartons == null || Cartons.Count == 0)
+                {
+                    return string.Empty;
+                }
+                return Cartons[0].VwhId;
+            }
+        }
     }
 }
 
