@@ -55,25 +55,24 @@
 
     <div class="panel panel-info">
         <div class="panel-heading">
-            <div class="row">
+            <div class="row">        
                 <div class="col-md-4">
                     <strong class="text-info">Scan Carton or Pallet</strong>
-                    <div class="form-group">
-                        <div id="scanarea" class="input-group">
-                            <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
-                                   value="@Model.ProcessId" />
-                            <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))" />
-                            <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))" />
-                            <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
-                                      name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
-                                      data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"
-                                      data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
-                                      tabindex="0"></textarea>
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">Go!</button>
-                            </span>
-                        </div>
-                </div>   </div>
+                    <div id="scanArea" class="input-group">
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
+                               value="@Model.ProcessId" />
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))" />
+                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))" />
+                        <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
+                                  name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
+                                  data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"
+                                  data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
+                                  tabindex="0"></textarea>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Go!</button>
+                        </span>
+                    </div>
+                </div>
                 <div class="col-md-8">
                     Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
                     <div class="progress" style="margin-bottom:4px;" id="progressCartons">
@@ -271,7 +270,7 @@
             }
 
             // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
-            // 
+            //
             function HandleCartons() {
                 //if (_timer) {
                 //    clearTimeout(_timer);
