@@ -271,20 +271,20 @@
 
             // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
             //
-            function HandleCartons() {
-                //if (_timer) {
-                //    clearTimeout(_timer);
-                //    _timer = null;
-                //}
+            function HandleCartons() {             
                 alert(this.url);
-                var data;  //TODO
-                return $.post(this.url, data).then(function () {
+                var data = $('#scanArea input').serialize();
+                data[$('#scanArea textarea').attr('name')] = this.cartons;
+                alert(this.cartons);
+                return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
+
+                    $('#tbScan').attr('data-content', textStatus).popover('show');
                     alert('Carton receive success');
+
+
                 }, function (jqXHR, textStatus, errorThrown) {
                     //alert('Carton receive error');
                     $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
-
-
                 });
             }
 
