@@ -395,10 +395,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model);
+        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model)
+        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

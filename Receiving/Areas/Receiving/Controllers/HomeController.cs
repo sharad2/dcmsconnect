@@ -485,9 +485,56 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult HandleCartonScan(ScanViewModel model)
+        public virtual ActionResult HandleCartonScan(ReceivingViewModel model)
         {
-            throw new NotImplementedException("Under construction");
+            if (model == null) throw new ArgumentNullException("model");
+            if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanModel.ScanText))
+            {
+                return ValidationErrorResult();
+            }
+            try
+            {
+                // return RedirectToAction(MVC_Receiving.Receiving.Home.HandlePalletScan(model));
+                Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
+                var ctx = new ScanContext
+                {
+                    PalletId = model.ScanModel.PalletId,
+                    DispositionId = model.ScanModel.PalletDispos,
+                    ProcessId = model.ProcessId.Value
+                };
+                var pallet = _service.HandleScan(model.ScanModel.ScanText, ctx);
+                var pvm = new PalletViewModel
+                {
+                    Cartons = pallet.Cartons,
+                    PalletLimit = pallet.PalletLimit,
+                    PalletId = ctx.PalletId,
+                    QueryCount = _service.QueryCount
+                };
+                return PartialView(Views._palletPartial, pvm);
+
+            }
+            catch (DispositionMismatchException ex)
+            {
+                this.Response.StatusCode = 250;
+                this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} not put on pallet due to disposition mismatch, Scan a pallet for area:{1}, vwh:{2}", model.ScanModel.ScanText, ex.AreaId, ex.VwhId));
+
+                // We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
+                return Content(string.Format("{0}{1}", ex.VwhId, ex.AreaId));
+            }
+            catch (AlreadyReceivedCartonException ex)
+            {
+                //carton has already been received, send the specific status code 251 with Pallet ID as data, and error message in header against ErrorMsg
+                this.Response.StatusCode = 251;
+                this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} has already been received on Pallet {1} ", model.ScanModel.ScanText, ex.PalletId));
+                return Content(ex.PalletId);
+            }
+            catch (Exception ex)
+            {
+                // Simulate the behavior of the obsolete HandleAjaxError attribute
+                this.Response.StatusCode = 203;
+                return Content(ex.Message);
+            }
+
         }
         /// <summary>
         /// <para>
