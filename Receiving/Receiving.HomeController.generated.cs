@@ -92,12 +92,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HandleMobileScan()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleMobileScan);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult UnPalletizeCarton()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnPalletizeCarton);
@@ -149,7 +143,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string Tutorial = "Tutorial";
             public readonly string HandlePalletScan = "HandlePalletScan";
             public readonly string HandleCartonScan = "HandleCartonScan";
-            public readonly string HandleMobileScan = "HandleScan";
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
             public readonly string PrintCarton = "PrintCarton";
             public readonly string GetPrinters = "GetPrinters";
@@ -169,7 +162,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string Tutorial = "Tutorial";
             public const string HandlePalletScan = "HandlePalletScan";
             public const string HandleCartonScan = "HandleCartonScan";
-            public const string HandleMobileScan = "HandleScan";
             public const string UnPalletizeCarton = "UnPalletizeCarton";
             public const string PrintCarton = "PrintCarton";
             public const string GetPrinters = "GetPrinters";
@@ -225,14 +217,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public ActionParamsClass_HandleCartonScan HandleCartonScanParams { get { return s_params_HandleCartonScan; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_HandleCartonScan
-        {
-            public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_HandleMobileScan s_params_HandleMobileScan = new ActionParamsClass_HandleMobileScan();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HandleMobileScan HandleMobileScanParams { get { return s_params_HandleMobileScan; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HandleMobileScan
         {
             public readonly string model = "model";
         }
@@ -395,26 +379,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model);
+        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model)
+        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             HandleCartonScanOverride(callInfo, model);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HandleMobileScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HandleMobileScan(DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleMobileScan);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            HandleMobileScanOverride(callInfo, model);
             return callInfo;
         }
 

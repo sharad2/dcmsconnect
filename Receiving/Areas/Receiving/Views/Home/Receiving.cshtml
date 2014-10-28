@@ -58,11 +58,10 @@
             <div class="row">        
                 <div class="col-md-4">
                     <strong class="text-info">Scan Carton or Pallet</strong>
-                    <div id="scanArea" class="input-group">
+                    <div id="scanArea" class="input-group" data-name-palletid="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))"
+                         data-name-dispos="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))">
                         <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
                                value="@Model.ProcessId" />
-                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))" />
-                        <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))" />
                         <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
                                   name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))"
                                   data-pallet-url="@Url.Action(MVC_Receiving.Receiving.Home.HandlePalletScan())"
@@ -192,6 +191,11 @@
 
     <script type="text/javascript">
 
+        // Update the html content of the active tab. Also update progress bar based on the number of cartons in the new html
+        function UpdateActivePallet(html) {
+
+        }
+
         // Handle scan
         $(document).ready(function () {
 
@@ -273,15 +277,20 @@
             //
             function HandleCartons() {             
                 alert(this.url);
-                var data = $('#scanArea input').serialize();
-                data[$('#scanArea textarea').attr('name')] = this.cartons;
-                alert(this.cartons);
+                var $form = $('#scanArea');
+                var data = $('input', $form).serializeArray();
+                //data[$('#scanArea textarea').attr('name')] = this.cartons;
+                data.push({ name: $('textarea', $form).attr('name'), value: this.cartons })
+
+                // Active pallet id
+                data.push({ name: $form.data('name-palletid'), value: $('#palletTabContent .tab-pane.active').data('pallet') })
+
+                // Disposition of active pallet
+                data.push({ name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') })
+
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
-
-                    $('#tbScan').attr('data-content', textStatus).popover('show');
-                    alert('Carton receive success');
-
-
+                    //$('#tbScan').attr('data-content', textStatus).popover('show');
+                    alert('Carton receive success ' + data);
                 }, function (jqXHR, textStatus, errorThrown) {
                     //alert('Carton receive error');
                     $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
