@@ -213,29 +213,28 @@
             UpdateProgressBar(countNew - countOld);
         }
 
-        // Handle scan
-        $(document).ready(function () {
 
+
+        (function ($) {
             var _timer;
-
-            $('#tbScan').on('keypress', function (e) {
-                if (e.which != 13) {
-                    // We are interested only when enter key is pressed
-                    return;
-                }
+            // Handles the scans in the text area after the specified delay in milliseconds.
+            // this is the DOM element of the text area which contains the scans
+            // Called as: $('#mytextarea').handleScan(3000);
+            $.fn.handleScan = function (delay) {
                 if (_timer) {
                     clearTimeout(_timer);
                     _timer = null;
                 }
 
-                // Enter key was pressed. Was the last scan a pallet scan?
-                //var tokens = $(this).val().split('\n');
                 var tokens = $.grep($(this).val().split('\n'), function (txt, i) {
+                    // Ignore empty lines
                     return txt.trim() != '';
                 });
                 if (tokens.length == 0) {
+                    // Text box is empty. Nothing to do
                     return;
                 }
+
                 var def = $.Deferred();
                 def.resolve();  // Initiate the function chain
 
@@ -258,41 +257,14 @@
                     _timer = setTimeout(HandleCartons.bind({
                         url: $(this).data('carton-url'),
                         cartons: tokens
-                    }), 3000);
+                    }), delay);
                 }
-            }).popover({
-                trigger: 'manual',
-                html: true,
-                title: '<span>Error Message</span><a class="close" href="#">&times;</a>',
-                placement: 'top'
-            });
 
-            $('#scanArea').on('click', '.close', function (e) {
-                alert('Trying to hide');
-                $('#tbScan').popover('hide');
-            });
-
-            // Expects this.palletId, this.url
-            // Returns ajax object to enable further chaining
-            function ChangePallet() {
-                alert('Pallet ' + this.palletId);
-                //TODO: Ajax call to HandlePalletScan()
-                var data = $('#scanArea input').serialize();
-                data[$('#scanArea textarea').attr('name')] = this.palletId;
-                alert(data);
-                return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
-                    // data is pallet html
-                    // find whether this pallet is already one of the tabs. If it is, then close that tab.
-                    // Then create a new tab for this pallet and make it active.
-                    alert(data);
-                }, function (jqXHR, textStatus, errorThrown) {
-                    alert('Error: ' + jqXHR.responseText);
-                });
-            }
+            };
 
             // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
-            //
-            function HandleCartons() {             
+            // Should be private
+            function HandleCartons() {
                 //alert(this.url);
                 var $form = $('#scanArea');
                 var data = $('input', $form).serializeArray();
@@ -314,6 +286,59 @@
                     $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
                 });
             }
+
+            // Expects this.palletId, this.url
+            // Returns ajax object to enable further chaining
+            // Should be private
+            function ChangePallet() {
+                alert('Pallet ' + this.palletId);
+                //TODO: Ajax call to HandlePalletScan()
+                var data = $('#scanArea input').serialize();
+                data[$('#scanArea textarea').attr('name')] = this.palletId;
+                alert(data);
+                return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
+                    // data is pallet html
+                    // find whether this pallet is already one of the tabs. If it is, then close that tab.
+                    // Then create a new tab for this pallet and make it active.
+                    alert(data);
+                }, function (jqXHR, textStatus, errorThrown) {
+                    alert('Error: ' + jqXHR.responseText);
+                });
+            }
+
+            // End of closure.
+        })(jQuery);
+
+
+        // Handle scan
+        $(document).ready(function () {
+            var _timer;
+
+            $('#scanArea').on('keypress', 'textarea', function (e) {
+                if (e.which != 13) {
+                    // We are interested only when enter key is pressed
+                    return;
+                }
+                $(this).handleScan(3000);
+            }).on('click', 'button', function(e) {
+                $('textarea', e.delegateTarget).handleScan(0);
+            }).find('textarea').popover({
+                trigger: 'manual',
+                html: true,
+                title: '<span>Error Message</span><a class="close" href="#">&times;</a>',
+                placement: 'top',
+                container: 'body'
+            });
+
+            // Hide the popover when the X in the title is clicked
+            $(document).on('click', '.close', function (e) {
+                // alert('Trying to hide');
+                $('#tbScan').popover('hide');
+            });
+
+
+
+
 
         });
 
