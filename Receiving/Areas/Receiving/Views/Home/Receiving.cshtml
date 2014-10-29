@@ -338,10 +338,7 @@
                     //$('#tbScan').attr('data-content', textStatus).popover('show');
                     //alert('Carton receive success ' + data);
                     UpdateActivePallet(data);
-                }, function (jqXHR, textStatus, errorThrown) {
-                    PlayErrorSound();
-                    $('#tbScan').attr('data-content',jqXHR.responseText).popover('show');
-                });
+                }, DisplayAjaxError);
             }
 
             // Expects this.palletId, this.url
@@ -364,16 +361,27 @@
                     //alert(this.palletId + '*' + data);
                 }.bind({
                     palletId: this.palletId
-                }), function (jqXHR, textStatus, errorThrown) {
-                    PlayErrorSound();
-                    $('#tbScan').attr({
-                        'data-content': '<span class="text-danger glyphicon glyphicon-warning-sign"></span>  '
-                            + jqXHR.status + ': ' + jqXHR.responseText
-                }).popover('show');
-                   // alert('Error: ' + jqXHR.responseText);
-                });
+                }), DisplayAjaxError);
             }
 
+            function DisplayAjaxError(jqXHR, textStatus, errorThrown) {
+                PlayErrorSound();
+                var $tb = $('#tbScan');
+                switch (jqXHR.status) {
+                    case 500:
+                        // Some exception thrown by action
+                        $('#tbScan').attr('data-content', jqXHR.responseText);
+                        break;
+
+                    default:
+                        // Action was not found
+                        $('#tbScan').attr({
+                            'data-content': 'Error ' +  jqXHR.status + ': ' + errorThrown
+                        });
+                        break;
+                }
+                $tb.popover('show');
+            }
             // End of closure.
         })(jQuery);
 
@@ -395,15 +403,15 @@
             }).find('textarea').popover({
                 trigger: 'manual',
                 html: true,
-                title: '<strong class="text-danger">Error Message</strong><a class="close text-danger" href="#">&times;</a>',
+                title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
                 placement: 'top',
                 container: 'body'
             });
 
             // Hide the popover when the X in the title is clicked
             $(document).on('click', '.close', function (e) {
-              //hiding the error message popover and at the same doing empty textarea with focus.
-                $('#tbScan').popover('hide').empty().focus();                
+                //hiding the error message popover and at the same doing empty textarea with focus.
+                $('#tbScan').popover('hide').empty().focus();
             });
         });
 
