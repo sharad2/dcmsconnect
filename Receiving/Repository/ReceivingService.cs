@@ -436,7 +436,7 @@ namespace DcmsMobile.Receiving.Repository
              
             if (ctx.PalletId == null)
             {
-                throw new ProviderException(string.Format("Scan a Pallet first"));
+                throw new ProviderException(string.Format("Please Scan a Pallet first"));
             }
                   
             var cartonToReceive = this.GetIntransitCarton(scan, ctx.ProcessId);

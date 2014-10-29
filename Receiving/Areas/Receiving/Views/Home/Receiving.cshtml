@@ -353,7 +353,7 @@
                 var data = $('#scanArea input').serializeArray();
 
                 data.push({ name: $('#scanArea textarea').attr('name'), value: this.palletId });
-                alert(data);
+                //alert(data);
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
                     // data is pallet html
                     // find whether this pallet is already one of the tabs. If it is, then close that tab.
