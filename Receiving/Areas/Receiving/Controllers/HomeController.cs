@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -579,6 +580,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 return Content("Internal Error: Pallet Id was not passed");
             }
+            Thread.Sleep(3000);  // For debugging
             var pallet = _service.GetPallet(palletId.ToUpper().Trim(), processId);
             var pvm = new PalletViewModel
             {

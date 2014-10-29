@@ -101,7 +101,7 @@
         data-name-processid="@MVC_Receiving.Receiving.Home.GetPalletHtmlParams.processId">
         @for (var i = 0; i < Model.PalletIdList.Count; i++)
         {
-            <li class="@(i==0? "active":"")" data-palletid="@Model.PalletIdList[i]">
+            <li data-palletid="@Model.PalletIdList[i]">
 
                 <a href='#Pallet_@(Model.PalletIdList[i])' role="tab" data-toggle="tab"
                    title='Pallet @Model.PalletIdList[i]'>
@@ -117,7 +117,7 @@
 
         @for (var i = 0; i < Model.PalletIdList.Count; i++)
         {
-            <div id="Pallet_@(Model.PalletIdList[i])" class="@(i==0? "active":"") tab-pane">
+            <div id="Pallet_@(Model.PalletIdList[i])" class="tab-pane">
                 @*@Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.PalletIdList[i])*@
             </div>
         }
@@ -275,6 +275,7 @@
 
                 data.push({ name: $('#scanArea textarea').attr('name'), value: tabs.activePalletId() });
                 //alert(data);
+                tabs.html('Loading...');
                 return $.get($tabs.data('url-gethtml'), data).then(function (data, textStatus, jqXHR) {
                     // data is pallet html
                     // find whether this pallet is already one of the tabs. If it is, then close that tab.
@@ -345,11 +346,14 @@
                     //    cartons: tokens
                     //}), delay);
                 }
-                chain.always(function () {
+                chain = chain.always(function () {
                     //alert('Hide Ajax');
                     $('#scanArea button').find('img').addClass('hidden')
                         .end().find('span').removeClass('hidden');
                 });
+                chain.done(function() {
+                    $(this.tb).val('').focus();
+                }.bind({tb: this}));
                 _timer = setTimeout(function (def) {
                     def.resolve();  // Initiate the function chain
                 }, delay, def);
@@ -392,7 +396,7 @@
                 //TODO: Ajax call to HandlePalletScan()
                 //var data = $('#scanArea input').serializeArray();
                 tabs.show(this.palletId);
-                tabs.load();
+                //tabs.load();
                 //data.push({ name: $('#scanArea textarea').attr('name'), value: this.palletId });
                 ////alert(data);
                 //return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
@@ -457,7 +461,7 @@
             // Hide the popover when the X in the title is clicked
             $(document).on('click', '.close', function (e) {
                 //hiding the error message popover and at the same doing empty textarea with focus.
-                $('#tbScan').popover('hide').empty().focus();
+                $('#tbScan').popover('hide').focus();
             });
         });
 
@@ -486,8 +490,9 @@
                 $li.remove();
 
             }).on('shown.bs.tab', function (e) {
-                alert('shown.bs.tab');
-            });
+                //alert('shown.bs.tab ' + e.relatedTarget);
+                tabs.load();
+            }).find('li:first a').tab('show');
 
         });
 
