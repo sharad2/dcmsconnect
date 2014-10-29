@@ -17,6 +17,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Script.Serialization;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
@@ -403,7 +404,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             rvm.UserMismatch = ControllerContext.HttpContext.User.Identity.IsAuthenticated &&
                 !string.IsNullOrEmpty(rvm.OperatorName) &&
                 string.Compare(this.ControllerContext.HttpContext.User.Identity.Name, rvm.OperatorName, true) != 0;
-            rvm.PalletIdList = _service.GetPalletsOfProcess2(processId.Value);
+            var ser = new JavaScriptSerializer();
+            rvm.PalletIdListJson = ser.Serialize(_service.GetPalletsOfProcess2(processId.Value));
 
             //rvm.PalletIdList = pallets.Select(p => Map(p)).ToArray();
             //if (rvm.Pallets.Count > 0)

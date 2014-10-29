@@ -40,7 +40,10 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         [Obsolete("Use PalletIdList")]
         public IList<PalletViewModel> Pallets { get; set; }
 
-        public IList<string> PalletIdList { get; set; }
+        /// <summary>
+        /// Array of pallet ids in javascript format
+        /// </summary>
+        public string PalletIdListJson { get; set; }
 
         //This property keep the list of all NonPalletizeCartons.
         private IEnumerable<CartonNotOnPalletModel> _nonPalletizeCarton;

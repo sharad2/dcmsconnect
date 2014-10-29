@@ -68,7 +68,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         {
             get
             {
-                return this.Cartons.Select(c => c.Sku.SkuId).Distinct().Count();
+                return this.Cartons.Where(p => p.Sku != null).Select(c => c.Sku.SkuId).Distinct().Count();
             }
         }
 
