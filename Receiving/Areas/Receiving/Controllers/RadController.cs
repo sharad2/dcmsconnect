@@ -9,6 +9,7 @@ using DcmsMobile.Receiving.ViewModels.Rad;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
@@ -37,7 +38,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             return new GroupSelectListItem
             {
-                Text = src.SewingPlantCode + " : " + src.PlantName,
+                Text = src.SewingPlantCode + ": " + src.PlantName,
                 Value = src.SewingPlantCode,
                 GroupText = src.GroupingColumn + ":" + src.CountryName
             };
@@ -153,9 +154,27 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 {
                     model.Style = null;
                 }
+                else 
+                {
+                    var regexItem = new Regex(":");
+                    if (regexItem.IsMatch(model.Style))
+                    {
+                        model.Style = model.Style.Substring(0, model.Style.IndexOf(":"));
+                    }
+                
+                }
                 if (model.AllColors.HasValue && model.AllColors.Value)
                 {
                     model.Color = null;
+                }
+                else
+                {
+                    var regexItem = new Regex(":");
+                    if (regexItem.IsMatch(model.Color))
+                    {
+                        model.Color = model.Color.Substring(0, model.Color.IndexOf(":"));
+                    }
+
                 }
                 _service.SetSpotCheckPercentage(Map(model));
                 var sd = _service.GetSpotCheckList();

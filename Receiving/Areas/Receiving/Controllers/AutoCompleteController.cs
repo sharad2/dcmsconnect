@@ -85,7 +85,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }          
             var data = _repos.GetStyles(null,term.ToUpper()).Select(p => new AutocompleteItem()
             {
-                label = string.Format("{0} - {1}", p.StyleId, p.Description),
+                label = string.Format("{0}: {1}", p.StyleId, p.Description),
                 value = p.StyleId
             }).FirstOrDefault();
             if (data == null)
@@ -106,7 +106,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //var data = Mapper.Map<IEnumerable<AutocompleteItem>>(_repos.GetStyles(term.ToUpper()));
             var data = _repos.GetColors(term.ToUpper(),null).Select(p => new AutocompleteItem()
             {
-                label = string.Format("{0} - {1}", p.ColorId, p.Description),
+                label = string.Format("{0}: {1}", p.ColorId, p.Description),
                 value = p.ColorId
             });
             return Json(data, JsonRequestBehavior.AllowGet);
@@ -125,7 +125,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
            var data = _repos.GetColors(null,term.ToUpper()).Select(p => new AutocompleteItem()
             {
-                label = string.Format("{0} - {1}", p.ColorId, p.Description),
+                label = string.Format("{0}: {1}", p.ColorId, p.Description),
                 value = p.ColorId
             }).FirstOrDefault();
             if (data == null)
