@@ -53,6 +53,7 @@ namespace DcmsMobile.Receiving.Repository
         /// <summary>
         /// Total number of expected cartons against the process
         /// </summary>
+        [Obsolete]
         public int? CartonsOnPallet { get; set; }
     }
     public class AlreadyReceivedCartonException : Exception

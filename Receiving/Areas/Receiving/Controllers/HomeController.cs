@@ -405,16 +405,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var pallets = _service.GetPalletsOfProcess(processId.Value);
 
             rvm.Pallets = pallets.Select(p => Map(p)).ToArray();
-            if (rvm.Pallets.Count > 0)
-            {
-                // Make first pallet the active pallet
-                rvm.ScanModel.PalletId = rvm.Pallets[0].PalletId;
-                rvm.ScanModel.PalletDispos = rvm.Pallets[0].Cartons[0].DispositionId;
-                foreach (var pallet in rvm.Pallets)
-                {
-                    pallet.PalletLimit = pallet.PalletLimit;
-                }
-            }
+            //if (rvm.Pallets.Count > 0)
+            //{
+            //    // Make first pallet the active pallet
+            //    rvm.ScanModel.PalletId = rvm.Pallets[0].PalletId;
+            //    rvm.ScanModel.PalletDispos = rvm.Pallets[0].Cartons[0].DispositionId;
+            //    foreach (var pallet in rvm.Pallets)
+            //    {
+            //        pallet.PalletLimit = pallet.PalletLimit;
+            //    }
+            //}
             //rvm.cartonsOnPallet = _service.GetCartonsOfProcess(processId);
 
 

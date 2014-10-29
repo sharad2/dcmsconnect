@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.Receiving.ViewModels.Home
 {
-    public class ReceivingViewModel : ReceivingProcessModel
+    public class ReceivingViewModel : ViewModelBase
     {
         public const string SCAN_NEWPALLET = "PNEW";
 
@@ -16,36 +16,26 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             this.ScanModel = new ScanViewModel();
 
             // To prevent the Required Error
-            this.ProDate = DateTime.MinValue;
-            this.ProNumber = string.Empty;
-            this.ExpectedCartons = 1;
+            //this.ProDate = DateTime.MinValue;
+            //this.ProNumber = string.Empty;
+            //this.ExpectedCartons = 1;
         }
 
-        [Required(AllowEmptyStrings = true)]
-        public override string ProNumber
-        {
-            get
-            {
-                return base.ProNumber;
-            }
-            set
-            {
-                base.ProNumber = value;
-            }
-        }
+        public int? PalletLimit { get; set; }
 
-        [Required]
-        public override int? ProcessId
-        {
-            get
-            {
-                return this.ScanModel.ProcessId;
-            }
-            set
-            {
-                this.ScanModel.ProcessId = value;
-            }
-        }
+        public string PriceSeasonCode { get; set; }
+
+        public DateTime? ProDate { get; set; }
+
+        public string ProNumber{ get; set; }
+
+        public int? ProcessId {get; set; }
+
+        public string SpotCheckAreaId { get; set; }
+
+        public string OperatorName { get; set; }
+
+        public string ReceivingAreaId { get; set; }
 
         public IList<PalletViewModel> Pallets { get; set; }
 
@@ -80,20 +70,10 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// </remarks>
         public bool UserMismatch { get; set; }
 
+        [Obsolete]
         public ScanViewModel ScanModel { get; set; }
 
-        [Required(AllowEmptyStrings = true)]
-        public override string CarrierId
-        {
-            get
-            {
-                return base.CarrierId;
-            }
-            set
-            {
-                base.CarrierId = value;
-            }
-        }
+        public string CarrierId{get;set;}
 
         /// <summary>
         /// Url of Report 40.103: Summary of the Shipments as well as cartons received.
@@ -106,6 +86,10 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_040/R40_103.aspx";
             }
         }
+
+        public int? ExpectedCartons { get; set; }
+
+        public int CartonCount { get; set; }
 
         public int percentReceivedCartons
         {

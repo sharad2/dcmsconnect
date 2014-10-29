@@ -27,7 +27,7 @@
         </span>
         <h2>
             Receiving
-            <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @Html.DisplayFor(m => m.CarrierDescription)</small>
+            <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @*@Html.DisplayFor(m => m.CarrierDescription)*@</small>
         </h2>
     </div>
 
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button id="btnNewPallet" class="btn btn-default" type="button" data-new-pallet="@Model.ScanModel.ScanText">
+                        <button id="btnNewPallet" class="btn btn-default" type="button">
                             <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
                         </button>
                         <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit Process</a>
