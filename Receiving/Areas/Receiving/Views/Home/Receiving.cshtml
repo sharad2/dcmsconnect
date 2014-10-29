@@ -66,7 +66,7 @@
                                   data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
                                   tabindex="0"></textarea>
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit" style="height:5.61em;">Go!</button>
+                            <button class="btn btn-primary" type="submit" style="height:5.61em;"><img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden"/><span>Go</span></button>
                         </span>
 
                     </div>
@@ -292,30 +292,47 @@
                     return;
                 }
 
-                var def = $.Deferred();
-                def.resolve();  // Initiate the function chain
-
+                var def = $.Deferred(function () {
+                    //alert('Show Ajax');
+                    $('#scanArea button').find('img').removeClass('hidden')
+                        .end().find('span').addClass('hidden');
+                });
+                var chain = def;
                 var lastscan = tokens[tokens.length - 1];
 
                 if (lastscan.toUpperCase().indexOf('P') === 0) {
                     // First process the cartons before this pallet
                     if (tokens.length > 1) {
                         // Some cartons were scanned before this pallet
-                        def = def.then(HandleCartons.bind({
+                        chain = chain.then(HandleCartons.bind({
                             cartons: tokens.slice(0, tokens.length - 1),
                             url: $(this).data('carton-url')
                         }));
                     }
-                    def.then(ChangePallet.bind({
+                    chain = chain.then(ChangePallet.bind({
                         url: $(this).data('pallet-url'),
                         palletId: lastscan
                     }));
+                    delay = 0;  // Start ajax immediately
                 } else {
-                    _timer = setTimeout(HandleCartons.bind({
+                    chain = chain.then(HandleCartons.bind({
                         url: $(this).data('carton-url'),
                         cartons: tokens
-                    }), delay);
+                    }));
+                    //_timer = setTimeout(HandleCartons.bind({
+                    //    url: $(this).data('carton-url'),
+                    //    cartons: tokens
+                    //}), delay);
                 }
+                chain.always(function () {
+                    //alert('Hide Ajax');
+                    $('#scanArea button').find('img').addClass('hidden')
+                        .end().find('span').removeClass('hidden');
+                });
+                _timer = setTimeout(function (def) {
+                    def.resolve();  // Initiate the function chain
+                }, delay, def);
+                
 
             };
 
@@ -395,16 +412,17 @@
                     // We are interested only when enter key is pressed
                     return;
                 }
-                $('#soundSuccess')[0].play();
-                $(this).handleScan(3000);
-            }).on('click', 'button', function (e) {
                 PlaySuccessSound();
+                $(this).handleScan(3000);
+            }).on('click', 'button:has(span:visible)', function (e) {
+                // The click is accepted only if the Go text is visible on the button.
+                // This means to us that ajax call is not in progress.
                 $('textarea', e.delegateTarget).handleScan(0);
             }).find('textarea').popover({
                 trigger: 'manual',
                 html: true,
                 title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
-                placement: 'top',
+                placement: 'auto',
                 container: 'body'
             });
 
