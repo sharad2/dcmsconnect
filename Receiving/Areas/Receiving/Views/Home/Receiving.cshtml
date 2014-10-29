@@ -340,7 +340,7 @@
                     UpdateActivePallet(data);
                 }, function (jqXHR, textStatus, errorThrown) {
                     PlayErrorSound();
-                    $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
+                    $('#tbScan').attr('data-content',jqXHR.responseText).popover('show');
                 });
             }
 
@@ -366,7 +366,10 @@
                     palletId: this.palletId
                 }), function (jqXHR, textStatus, errorThrown) {
                     PlayErrorSound();
-                    $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
+                    $('#tbScan').attr({
+                        'data-content': '<span class="text-danger glyphicon glyphicon-warning-sign"></span>  '
+                            + jqXHR.status + ': ' + jqXHR.responseText
+                }).popover('show');
                    // alert('Error: ' + jqXHR.responseText);
                 });
             }
@@ -392,7 +395,7 @@
             }).find('textarea').popover({
                 trigger: 'manual',
                 html: true,
-                title: '<span class="text-danger"><span class="glyphicon glyphicon-warning-sign"></span> Error Message</span><a class="close text-danger" href="#">&times;</a>',
+                title: '<strong class="text-danger">Error Message</strong><a class="close text-danger" href="#">&times;</a>',
                 placement: 'top',
                 container: 'body'
             });
