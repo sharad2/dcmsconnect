@@ -440,9 +440,21 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public virtual ActionResult HandlePalletScan(ScanViewModel model)
         {
             if (model == null) throw new ArgumentNullException("model");
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return ValidationErrorResult();
+            //}
+            if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
             {
-                return ValidationErrorResult();
+                //return ValidationErrorResult();
+                var sb = new StringBuilder();
+                sb.Append("<ul>");
+                foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
+                {
+                    sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
+                }
+                sb.Append("</ul>");
+                throw new Exception(sb.ToString());
             }
 
             //var scan = model.ScanModel.ScanText.ToUpper();

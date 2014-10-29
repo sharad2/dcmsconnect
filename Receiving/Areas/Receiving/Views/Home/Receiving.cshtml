@@ -365,7 +365,9 @@
                 }.bind({
                     palletId: this.palletId
                 }), function (jqXHR, textStatus, errorThrown) {
-                    alert('Error: ' + jqXHR.responseText);
+                    PlayErrorSound();
+                    $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
+                   // alert('Error: ' + jqXHR.responseText);
                 });
             }
 
