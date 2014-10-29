@@ -54,8 +54,8 @@
     <div class="panel panel-info">
         <div class="panel-heading">
             <div class="row">
-                <div class="col-md-4">
-                    <strong class="text-info">Scan Carton or Pallet</strong>
+                <div class="col-md-3">
+                    <strong class="text-info"><span class="glyphicon glyphicon-barcode"></span> Scan Carton or Pallet</strong>
                     <div id="scanArea" class="input-group" data-name-palletid="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))"
                          data-name-dispos="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))">
                         <input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
@@ -66,11 +66,12 @@
                                   data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
                                   tabindex="0"></textarea>
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit">Go!</button>
+                            <button class="btn btn-primary" type="submit" style="height:5.61em;">Go!</button>
                         </span>
+
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
                     <div class="progress" style="margin-bottom:4px;" id="progressCartons">
                         <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
