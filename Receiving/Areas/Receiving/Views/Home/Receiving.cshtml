@@ -66,7 +66,7 @@
                                   data-carton-url="@Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan())"
                                   tabindex="0"></textarea>
                         <span class="input-group-btn">
-                            <button class="btn btn-primary" type="submit" style="height:5.61em;"><img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden"/><span>Go</span></button>
+                            <button class="btn btn-primary" type="submit" style="height:5.61em;"><img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden" /><span>Go</span></button>
                         </span>
 
                     </div>
@@ -189,86 +189,141 @@
 
     <script type="text/javascript">
 
-        // Plays the error sound twice
-        function PlayErrorSound() {
-            $('#soundError').one('ended', function (e) {
-                this.play();
-            })[0].play();
-        }
+        // Sound functions
+        var sound = {
+            error: function () {
+                $('#soundError').one('ended', function (e) {
+                    this.play();
+                })[0].play();
+            },
+            success: function () {
+                $('#soundSuccess')[0].play();
+            }
+        };
 
-        function PlaySuccessSound() {
-            $('#soundSuccess')[0].play();
-        }
+        // Functios to work with tabs. Tabs can be referenced by pallet id.
+        var tabs = {
+            // Returns the pallet id corresponding to the active tab
+            activePalletId: function () {
+                return $('#palletTabs > li.active').data('palletid');
+            },
+
+            // Activates the tab for the passed pallet id. Creates a new tab if necessary
+            show: function (palletId) {
+                var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+                if (x.length > 0) {
+                    // We were able to activate the pallet
+                    return;
+                }
+                // No such pallet. Create a new tab at the end of the tabs
+
+                // Insert the li
+                var y = $('<li></li>').attr('data-palletid', palletId)
+                    .append(
+                        $('<a></a>').attr({
+                            href: '#Pallet_' + palletId,
+                            role: 'tab',
+                            "data-toggle": 'tab',
+                            title: 'Pallet ' + palletId
+                        }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+                    ).appendTo('#palletTabs');
+
+
+                $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane').text('Sharad')
+                    .appendTo('#palletTabContent');
+
+                // Make the tab active
+                $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+            },
+            // Updates the content html of the active tab
+            html: function (html) {
+                function UpdateProgressBar(increment) {
+                    var $bar = $('#progressCartons div.progress-bar');
+                    var val = parseInt($bar.attr('aria-valuenow')) + increment;
+                    var maxval = parseInt($bar.attr('aria-valuemax'));
+                    var pct = Math.round(val * 100 / maxval);
+                    $bar.attr('aria-valuenow', val)
+                        .css('width', pct + '%')
+                        .find('span').text(pct);
+                    var count = parseInt($('#receivedCount').text());
+                    $('#receivedCount').text(count + increment);
+                }
+
+                var $pane = $('#palletTabContent div.active.tab-pane');
+                var countOld = $('[data-carton]', $pane).length;
+                $pane.html(html);
+                var countNew = $('[data-carton]', $pane).length;
+                UpdateProgressBar(countNew - countOld);
+            }
+        };
+
+        /***** Sound utility functions ****/
+        // Plays the error sound twice
+        //function PlayErrorSound() {
+        //    $('#soundError').one('ended', function (e) {
+        //        this.play();
+        //    })[0].play();
+        //}
+
+        //function PlaySuccessSound() {
+        //    $('#soundSuccess')[0].play();
+        //}
 
         // Returns the active pallet id.
-        function GetActivePalletId() {
-            return $('#palletTabs > li.active').data('palletid');
-        }
+        //function GetActivePalletId() {
+        //    return $('#palletTabs > li.active').data('palletid');
+        //}
 
         // Makes the passed pallet active, if possible. If a tab for this pallet does not exist, a new tab is created and is then made active with no content
-        function SetActivePallet(palletId) {
-            //alert($('#palletTabs > li[data-palletid="P3978"] > a').length);
-            var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
-            //alert(x.length);
-            if (x.length > 0) {
-                // We were able to activate the pallet
-                return;
-            }
-            // No such pallet. Create a new tab at the end of the tabs
+        //function SetActivePallet(palletId) {
+        //    var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+        //    if (x.length > 0) {
+        //        // We were able to activate the pallet
+        //        return;
+        //    }
+        //    // No such pallet. Create a new tab at the end of the tabs
 
-            @*<li class="@(i==0? "active":"")" data-palletid="@Model.Pallets[i].PalletId">
+        //    // Insert the li
+        //    var y = $('<li></li>').attr('data-palletid', palletId)
+        //        .append(
+        //            $('<a></a>').attr({
+        //                href: '#Pallet_' + palletId,
+        //                role: 'tab',
+        //                "data-toggle": 'tab',
+        //                title: 'Pallet ' + palletId
+        //            }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+        //        ).appendTo('#palletTabs');
 
-    <a href='#Pallet_@(Model.Pallets[i].PalletId)' role="tab" data-toggle="tab"
-            title='Pallet @Model.Pallets[i].PalletId'>
-             @(Model.Pallets[i].PalletId)
-             <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
-         </a>
-     </li>*@
-            // Insert the li
-            var y = $('<li></li>').attr('data-palletid', palletId)
-                .append(
-                    $('<a></a>').attr({
-                        href: '#Pallet_' + palletId,
-                        role: 'tab',
-                        "data-toggle": 'tab',
-                        title: 'Pallet ' + palletId
-                    }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
-                ).appendTo('#palletTabs');
 
-            @*<div id="Pallet_@(Model.Pallets[i].PalletId)" class="@(i==0? "active":"") tab-pane">
-        @Html.Partial(MVC_Receiving.Receiving.Home.Views._palletPartial, Model.Pallets[i])
-    </div>*@
+        //    $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane').text('Sharad')
+        //        .appendTo('#palletTabContent');
 
-            //
-            $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane').text('Sharad')
-                .appendTo('#palletTabContent');
-
-            // Make the tab active
-            $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
-        }
+        //    // Make the tab active
+        //    $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+        //}
 
 
         // Update the html content of the active tab. Also update progress bar based on the number of cartons in the new html
-        function UpdateActivePallet(html) {
-            // Private function for updating progress bar. Pass negative for decrement
-            function UpdateProgressBar(increment) {
-                var $bar = $('#progressCartons div.progress-bar');
-                var val = parseInt($bar.attr('aria-valuenow')) + increment;
-                var maxval = parseInt($bar.attr('aria-valuemax'));
-                var pct = Math.round(val * 100 / maxval);
-                $bar.attr('aria-valuenow', val)
-                    .css('width', pct + '%')
-                    .find('span').text(pct);
-                var count = parseInt($('#receivedCount').text());
-                $('#receivedCount').text(count + increment);
-            }
+        //function UpdateActivePallet(html) {
+        //    // Private function for updating progress bar. Pass negative for decrement
+        //    function UpdateProgressBar(increment) {
+        //        var $bar = $('#progressCartons div.progress-bar');
+        //        var val = parseInt($bar.attr('aria-valuenow')) + increment;
+        //        var maxval = parseInt($bar.attr('aria-valuemax'));
+        //        var pct = Math.round(val * 100 / maxval);
+        //        $bar.attr('aria-valuenow', val)
+        //            .css('width', pct + '%')
+        //            .find('span').text(pct);
+        //        var count = parseInt($('#receivedCount').text());
+        //        $('#receivedCount').text(count + increment);
+        //    }
 
-            var $pane = $('#palletTabContent div.active.tab-pane');
-            var countOld = $('[data-carton]', $pane).length;
-            $pane.html(html);
-            var countNew = $('[data-carton]', $pane).length;
-            UpdateProgressBar(countNew - countOld);
-        }
+        //    var $pane = $('#palletTabContent div.active.tab-pane');
+        //    var countOld = $('[data-carton]', $pane).length;
+        //    $pane.html(html);
+        //    var countNew = $('[data-carton]', $pane).length;
+        //    UpdateProgressBar(countNew - countOld);
+        //}
 
 
 
@@ -332,7 +387,7 @@
                 _timer = setTimeout(function (def) {
                     def.resolve();  // Initiate the function chain
                 }, delay, def);
-                
+
 
             };
 
@@ -346,7 +401,7 @@
                 data.push({ name: $('textarea', $form).attr('name'), value: this.cartons })
 
                 // Active pallet id
-                data.push({ name: $form.data('name-palletid'), value: GetActivePalletId() })
+                data.push({ name: $form.data('name-palletid'), value: tabs.activePalletId() })
 
                 // Disposition of active pallet
                 data.push({ name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') })
@@ -354,7 +409,7 @@
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
                     //$('#tbScan').attr('data-content', textStatus).popover('show');
                     //alert('Carton receive success ' + data);
-                    UpdateActivePallet(data);
+                    tabs.html(data);
                 }, DisplayAjaxError);
             }
 
@@ -373,8 +428,8 @@
                     // find whether this pallet is already one of the tabs. If it is, then close that tab.
                     // Then create a new tab for this pallet and make it active.
                     //alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));\
-                    SetActivePallet(this.palletId);
-                    UpdateActivePallet(data);
+                    tabs.show(this.palletId);
+                    tabs.html(data);
                     //alert(this.palletId + '*' + data);
                 }.bind({
                     palletId: this.palletId
@@ -382,7 +437,8 @@
             }
 
             function DisplayAjaxError(jqXHR, textStatus, errorThrown) {
-                PlayErrorSound();
+                //PlayErrorSound();
+                sound.error();
                 var $tb = $('#tbScan');
                 switch (jqXHR.status) {
                     case 500:
@@ -393,7 +449,7 @@
                     default:
                         // Action was not found
                         $('#tbScan').attr({
-                            'data-content': 'Error ' +  jqXHR.status + ': ' + errorThrown
+                            'data-content': 'Error ' + jqXHR.status + ': ' + errorThrown
                         });
                         break;
                 }
@@ -412,7 +468,7 @@
                     // We are interested only when enter key is pressed
                     return;
                 }
-                PlaySuccessSound();
+                sound.success();
                 $(this).handleScan(3000);
             }).on('click', 'button:has(span:visible)', function (e) {
                 // The click is accepted only if the Go text is visible on the button.
@@ -469,7 +525,7 @@
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
                 // Print button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
                 $('span.cartonId', this).text($(e.target).closest('[data-carton]').data('carton'));
-                $('span.palletId', this).text(GetActivePalletId());
+                $('span.palletId', this).text(tabs.activePalletId());
                 $('span.count', this).text($(e.target).closest('div.tab-pane').find('[data-carton]').length);
                 $dlg.modal('show');
             }.bind($dlg));
@@ -485,11 +541,11 @@
                 $.post($(this).data('url'), data)
                     .then(function (data, textStatus, jqXHR) {
                         $(this.dlg).modal('hide');
-                        UpdateActivePallet(data);
+                        tabs.html(data);
                     }.bind({
                         dlg: e.delegateTarget
                     }), function (jqXHR, textStatus, errorThrown) {
-                        PlayErrorSound();
+                        sound.error();
                         alert('Error: ' + jqXHR.responseText);
                     });
             });
