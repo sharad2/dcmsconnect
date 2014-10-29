@@ -12,8 +12,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public ReceivingViewModel()
         {
-            this.Pallets = new PalletViewModel[] { };
-            this.ScanModel = new ScanViewModel();
+            //this.Pallets = new PalletViewModel[] { };
+            //this.ScanModel = new ScanViewModel();
 
             // To prevent the Required Error
             //this.ProDate = DateTime.MinValue;
@@ -37,7 +37,10 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public string ReceivingAreaId { get; set; }
 
+        [Obsolete("Use PalletIdList")]
         public IList<PalletViewModel> Pallets { get; set; }
+
+        public IList<string> PalletIdList { get; set; }
 
         //This property keep the list of all NonPalletizeCartons.
         private IEnumerable<CartonNotOnPalletModel> _nonPalletizeCarton;
@@ -91,7 +94,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public int CartonCount { get; set; }
 
-        public int percentReceivedCartons
+        public int PercentReceivedCartons
         {
             get
             {

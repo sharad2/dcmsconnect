@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.Receiving.Models;
+using System;
 
 namespace DcmsMobile.Receiving.ViewModels.Home
 {
@@ -75,7 +76,11 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         {
             get
             {
-                return this.Cartons.Count * 100 / this.PalletLimit;
+                if (this.PalletLimit == 0)
+                {
+                    return 100;
+                }
+                return (int) Math.Round(this.Cartons.Count * 100.0 / this.PalletLimit);
             }
         }
 

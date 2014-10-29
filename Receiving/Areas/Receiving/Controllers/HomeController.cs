@@ -402,9 +402,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             rvm.UserMismatch = ControllerContext.HttpContext.User.Identity.IsAuthenticated &&
                 !string.IsNullOrEmpty(rvm.OperatorName) &&
                 string.Compare(this.ControllerContext.HttpContext.User.Identity.Name, rvm.OperatorName, true) != 0;
-            var pallets = _service.GetPalletsOfProcess(processId.Value);
+            rvm.PalletIdList = _service.GetPalletsOfProcess2(processId.Value);
 
-            rvm.Pallets = pallets.Select(p => Map(p)).ToArray();
+            //rvm.PalletIdList = pallets.Select(p => Map(p)).ToArray();
             //if (rvm.Pallets.Count > 0)
             //{
             //    // Make first pallet the active pallet
@@ -575,7 +575,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>
         public virtual ActionResult GetPalletHtml(string palletId, int? processId)
         {
-            var pallet = _service.GetPallet(palletId, processId);
+            if (string.IsNullOrWhiteSpace(palletId))
+            {
+                return Content("Internal Error: Pallet Id was not passed");
+            }
+            var pallet = _service.GetPallet(palletId.ToUpper().Trim(), processId);
             var pvm = new PalletViewModel
             {
                 Cartons = pallet.Cartons,

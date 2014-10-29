@@ -261,6 +261,7 @@ namespace DcmsMobile.Receiving.Repository
             return ctn;
         }
 
+        [Obsolete]
         public IEnumerable<Pallet> GetPalletsOfProcess(int processId)
         {
             var list = _repos.GetReceivedCartons2(null, processId, null);
@@ -277,6 +278,14 @@ namespace DcmsMobile.Receiving.Repository
 
 
             return query.Take(10);
+        }
+
+        public IList<string> GetPalletsOfProcess2(int processId)
+        {
+            // TODO: Use a more efficient function to get distinct pallets of the process
+            var list = _repos.GetReceivedCartons2(null, processId, null);
+            var query = list.Select(p => p.PalletId).Distinct().ToList();
+            return query;
         }
 
         /// <summary>
