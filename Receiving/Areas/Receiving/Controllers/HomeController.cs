@@ -524,21 +524,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ProcessId = model.ProcessId.Value
             };
 
-            Pallet pallet = null;
+            //Pallet pallet = null;
 
             foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries))
             {
-                pallet = _service.HandleScan(cartonId.Trim().ToUpper(), ctx);
+                _service.ReceiveCartons(cartonId.Trim().ToUpper(), ctx);
             }
-            
-            var pvm = new PalletViewModel
-            {
-                Cartons = pallet.Cartons,
-                PalletLimit = pallet.PalletLimit,
-                PalletId = ctx.PalletId,
-                QueryCount = _service.QueryCount
-            };
-            return PartialView(Views._palletPartial, pvm);
+
+            //var pallet = _service.GetPallet(ctx.PalletId, ctx.ProcessId);
+            //var pvm = new PalletViewModel
+            //{
+            //    Cartons = pallet.Cartons,
+            //    PalletLimit = pallet.PalletLimit,
+            //    PalletId = ctx.PalletId,
+            //    QueryCount = _service.QueryCount
+            //};
+            //return PartialView(Views._palletPartial, pvm);
+            return GetPalletHtml(ctx.PalletId, ctx.ProcessId);
 
             //}
             //catch (DispositionMismatchException ex)
@@ -563,6 +565,25 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //    return Content(ex.Message);
             //}
 
+        }
+
+        /// <summary>
+        /// Returns the List of cartons in the pallet in HTL format
+        /// </summary>
+        /// <param name="palletId"></param>
+        /// <param name="processId"></param>
+        /// <returns></returns>
+        public virtual ActionResult GetPalletHtml(string palletId, int? processId)
+        {
+            var pallet = _service.GetPallet(palletId, processId);
+            var pvm = new PalletViewModel
+            {
+                Cartons = pallet.Cartons,
+                PalletLimit = pallet.PalletLimit,
+                PalletId = palletId,
+                QueryCount = _service.QueryCount
+            };
+            return PartialView(Views._palletPartial, pvm);
         }
         /// <summary>
         /// <para>
