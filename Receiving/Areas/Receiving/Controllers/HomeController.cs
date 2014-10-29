@@ -415,7 +415,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                     pallet.PalletLimit = pallet.PalletLimit;
                 }
             }
-            rvm.cartonsOnPallet = _service.GetCartonsOfProcess(processId);
+            //rvm.cartonsOnPallet = _service.GetCartonsOfProcess(processId);
 
 
             return View(Views.Receiving, rvm);
@@ -782,7 +782,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var allPallets = _service.GetPalletsOfProcess(model.ScanModel.ProcessId.Value);
             model.Pallets = model.Pallets.Concat(allPallets.Select(p => Map(p))).ToArray();
             //model.Pallets = allPallets.Select(p => Map(p)).ToArray();
-            model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
+            //model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
 
 
             // If the model state is not valid, we would like the hidden fields in the view to retain their old values.

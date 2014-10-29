@@ -47,8 +47,6 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             }
         }
 
-        public int? cartonsOnPallet { get; set; }
-
         public IList<PalletViewModel> Pallets { get; set; }
 
         //This property keep the list of all NonPalletizeCartons.

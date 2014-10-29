@@ -353,6 +353,7 @@ namespace DcmsMobile.Receiving.Repository
         /// <param name="processId"></param>
         /// <returns>
         /// </returns>
+        [Obsolete]
         public int GetCartonsOfProcess(int? processId)
         {
             const string QUERY = @"

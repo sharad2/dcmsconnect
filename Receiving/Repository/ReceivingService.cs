@@ -135,6 +135,7 @@ namespace DcmsMobile.Receiving.Repository
             _repos = repos;
         }
 
+        [Obsolete]
         public int GetCartonsOfProcess(int? processId){
           return  _repos.GetCartonsOfProcess(processId);
     }
