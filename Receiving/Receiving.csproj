@@ -92,7 +92,7 @@
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="T4MVCExtensions">
-      <HintPath>..\..\Users\Ankit Sharma\Desktop\T4MVCExtensions.dll</HintPath>
+      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -202,9 +202,7 @@
     </Content>
     <Content Include="Areas\Receiving\Views\Home\ShipmentList.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Receiving.desktop.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Receiving\Views\Home\Receiving.desktop1.cshtml" />
     <Content Include="Areas\Receiving\Views\Home\_palletPartial.cshtml" />
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\Receiving\Content\Autocomplete.partial.css" />
@@ -248,7 +246,9 @@
     <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Receiving.pubxml" />
     <None Include="Areas\Receiving\Content\standardized.partial.css" />
