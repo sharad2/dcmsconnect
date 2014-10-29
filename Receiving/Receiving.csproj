@@ -168,6 +168,8 @@
     <Content Include="Areas\Receiving\Content\Sounds\7.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\8.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\9.mp3" />
+    <Content Include="Areas\Receiving\Content\Sounds\Error.mp3" />
+    <Content Include="Areas\Receiving\Content\Sounds\success.mp3" />
     <Content Include="Areas\Receiving\Scripts\AutoComplete.min.js">
       <DependentUpon>AutoComplete.js</DependentUpon>
     </Content>

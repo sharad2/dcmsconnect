@@ -216,10 +216,12 @@ namespace Links_Receiving
                     public static readonly string _7_mp3 = Url("7.mp3");
                     public static readonly string _8_mp3 = Url("8.mp3");
                     public static readonly string _9_mp3 = Url("9.mp3");
+                    public static readonly string Error_mp3 = Url("Error.mp3");
                     public static readonly string error_wav = Url("error.wav");
                     public static readonly string PalletChange_wav = Url("PalletChange.wav");
                     public static readonly string palletscan_wav = Url("palletscan.wav");
                     public static readonly string scan_wav = Url("scan.wav");
+                    public static readonly string success_mp3 = Url("success.mp3");
                     public static readonly string warning_wav = Url("warning.wav");
                 }
             

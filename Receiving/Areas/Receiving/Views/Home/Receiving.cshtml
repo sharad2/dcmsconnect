@@ -5,20 +5,18 @@
 @model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
-    string sound;
-    if (!this.ViewData.ModelState.IsValid)
-    {
-        // Validation error
-        sound = Links_Receiving.Areas.Receiving.Content.Sounds.error_wav;
-    }
-    else
-    {
-        // Carton was received
-        sound = Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav;
-    }
 }
+
+<audio id="soundSuccess" src="@Links_Receiving.Areas.Receiving.Content.Sounds.success_mp3">
+    Your browser does not support the HTML5 Audio element.
+</audio>
+<audio id="soundError" src="@Links_Receiving.Areas.Receiving.Content.Sounds.Error_mp3">
+    Your browser does not support the HTML5 Audio element.
+</audio>
+
 <div class="container">
     <div class="page-header">
+
         <span class="pull-right">
             <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)"
                title="Receiving Detail for the selected Process" target="_blank"
@@ -191,6 +189,17 @@
 
     <script type="text/javascript">
 
+        // Plays the error sound twice
+        function PlayErrorSound() {
+            $('#soundError').one('ended', function (e) {
+                this.play();
+            })[0].play();
+        }
+
+        function PlaySuccessSound() {
+            $('#soundSuccess')[0].play();
+        }
+
         // Returns the active pallet id.
         function GetActivePalletId() {
             return $('#palletTabs > li.active').data('palletid');
@@ -330,7 +339,7 @@
                     //alert('Carton receive success ' + data);
                     UpdateActivePallet(data);
                 }, function (jqXHR, textStatus, errorThrown) {
-                    //alert('Carton receive error');
+                    PlayErrorSound();
                     $('#tbScan').attr('data-content', jqXHR.responseText).popover('show');
                 });
             }
@@ -373,8 +382,10 @@
                     // We are interested only when enter key is pressed
                     return;
                 }
+                $('#soundSuccess')[0].play();
                 $(this).handleScan(3000);
             }).on('click', 'button', function (e) {
+                PlaySuccessSound();
                 $('textarea', e.delegateTarget).handleScan(0);
             }).find('textarea').popover({
                 trigger: 'manual',
@@ -449,30 +460,13 @@
                     .then(function (data, textStatus, jqXHR) {
                         $(this.dlg).modal('hide');
                         UpdateActivePallet(data);
-                        //var $pane = $('#palletTabContent div.active.tab-pane');
-                        //var countOld = $('[data-carton]', $pane).length;
-                        //$pane.html(data);
-                        //var countNew = $('[data-carton]', $pane).length;
-                        //UpdateProgressBar(countNew - countOld);
                     }.bind({
                         dlg: e.delegateTarget
                     }), function (jqXHR, textStatus, errorThrown) {
+                        PlayErrorSound();
                         alert('Error: ' + jqXHR.responseText);
                     });
             });
-
-            // Pass negative for decrement
-            //function UpdateProgressBar(increment) {
-            //    var $bar = $('#progressCartons div.progress-bar');
-            //    var val = parseInt($bar.attr('aria-valuenow')) + increment;
-            //    var maxval = parseInt($bar.attr('aria-valuemax'));
-            //    var pct = Math.round(val * 100 / maxval);
-            //    $bar.attr('aria-valuenow', val)
-            //        .css('width', pct + '%')
-            //        .find('span').text(pct);
-            //    var count = parseInt($('#receivedCount').text());
-            //    $('#receivedCount').text(count + increment);
-            //}
         });
 
         // Print carton label
