@@ -74,11 +74,10 @@
                 <div class="col-md-9">
                     Received <em><span style="font-size:2em" id="receivedCount">@Model.CartonCount</span> of @Html.DisplayFor(m => m.ExpectedCartons) cartons</em>
                     <div class="progress" style="margin-bottom:4px;" id="progressCartons">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
+                        <div class="progress-bar progress-bar-@(Model.percentReceivedCartons > 99  ? "success" : "")" role="progressbar" aria-valuenow="@Model.CartonCount " aria-valuemin=" 0" aria-valuemax="@Model.ExpectedCartons" style="width: @Model.percentReceivedCartons%;min-width:20px;">
                             <span>@Model.percentReceivedCartons</span>%
                         </div>
                     </div>
-
                     <div class="btn-group">
                         <button id="btnNewPallet" class="btn btn-default" type="button" data-new-pallet="@Model.ScanModel.ScanText">
                             <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
