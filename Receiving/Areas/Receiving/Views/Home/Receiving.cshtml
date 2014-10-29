@@ -399,14 +399,9 @@
 
             // Hide the popover when the X in the title is clicked
             $(document).on('click', '.close', function (e) {
-                // alert('Trying to hide');
-                $('#tbScan').popover('hide');
+              //hiding the error message popover and at the same doing empty textarea with focus.
+                $('#tbScan').popover('hide').empty().focus();                
             });
-
-
-
-
-
         });
 
         $(document).ready(function () {
