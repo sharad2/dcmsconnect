@@ -2,7 +2,7 @@
 "use strict";
 
 // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
-var Sound = (function() {
+var Sound = (function () {
     // All external dependencies should be part of options
     var _options = {
         // Selector to error sound audio element
@@ -11,17 +11,17 @@ var Sound = (function() {
         success: null
     };
 
-    var init = function(options) {
+    var init = function (options) {
         _options = $.extend(_options, options);
     };
 
-    var error = function() {
+    var error = function () {
         $(_options.error).one('ended', function (e) {
             this.play();
         })[0].play();
     };
 
-    var success = function() {
+    var success = function () {
         $(_options.success)[0].play();
     }
     // public API
@@ -46,7 +46,7 @@ var Progress = (function () {
     };
 
 
-    var update = function(increment) {
+    var update = function (increment) {
         var $bar = $(_options.bar + 'div.progress-bar');
         var val = parseInt($bar.attr('aria-valuenow')) + increment;
         var maxval = parseInt($bar.attr('aria-valuemax'));
@@ -64,7 +64,7 @@ var Progress = (function () {
 })();
 
 // Functios to work with tabs. Tabs can be referenced by pallet id.
-var Tabs = (function() {
+var Tabs = (function () {
 
     var _options = {
         // Selector for tab container
@@ -83,10 +83,10 @@ var Tabs = (function() {
     // This name is used to store the pallet id corresponding to the tab. Can be anything
     var _attrPalletId = "data-palletid";
 
-    var init = function(options) {
+    var init = function (options) {
         _options = $.extend(_options, options);
         var $li;
-        $.each(_options.pallets, function(i, val) {
+        $.each(_options.pallets, function (i, val) {
             var x = Tabs.create(val);
             if (i == 0) {
                 $li = x;
@@ -114,7 +114,7 @@ var Tabs = (function() {
 
         }).on('shown.bs.tab', function (e) {
             //alert('shown.bs.tab ' + e.relatedTarget);
-            load();
+            _load();
         }).find('li:first a').tab('show');
     };
 
@@ -125,7 +125,7 @@ var Tabs = (function() {
 
     // Creates a new tab. Does not ensure whether the tab for this pallet already exists.
     // Returns jquery object corresponding to the newly created li
-    var create = function(palletId) {
+    var create = function (palletId) {
         // Insert content div
         $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
             .appendTo(_options.contentContainer);
@@ -160,7 +160,7 @@ var Tabs = (function() {
     };
 
     // Updates the html of active pallet
-    var load = function () {
+    var _load = function () {
         Tabs.html('Loading...');
         return $.get(_options.loadUrl.replace('~', Tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
             Tabs.html(data);
@@ -173,7 +173,7 @@ var Tabs = (function() {
     return {
         init: init,
         create: create,
-        load: load,
+        //load: load,
         activePalletId: activePalletId,
         html: html,
         show: show
@@ -182,7 +182,7 @@ var Tabs = (function() {
 
 // Monitors the enter key in the text area. When pressed, it starts a timer and acts on the user scans
 // Errors are displayed in an associated popover
-var HandleScan = (function() {
+var HandleScan = (function () {
     var _timer;
 
     var _options = {
@@ -195,7 +195,7 @@ var HandleScan = (function() {
         cartonUrl: $('#tbScan').data('carton-url'),
         // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
         // by the function which will receive cartons
-        cartonPostdata: function(palletId, cartons) {
+        cartonPostdata: function (palletId, cartons) {
             // This is an example function. Not useful. Caller must pass it to init
             return [
                 { name: 'processId', value: _processId },
@@ -207,7 +207,7 @@ var HandleScan = (function() {
         delay: 3000   // Number of milliseconds delay after enter is pressed
     };
 
-    var init = function(options) {
+    var init = function (options) {
         _options = $.extend(_options, options);
         $(_options.textarea).on('keypress', function (e) {
             if (_timer) {
@@ -219,7 +219,7 @@ var HandleScan = (function() {
                 return;
             }
             Sound.success();
-            setTimeout(function() {
+            setTimeout(function () {
                 _act();  // Calling our private function
             }, _options.delay);
         }).popover({
@@ -244,7 +244,7 @@ var HandleScan = (function() {
     };
 
     // Called to immediately act on the text in text area
-    var _act = function() {
+    var _act = function () {
         // Clear the timer
         if (_timer) {
             clearTimeout(_timer);
@@ -282,9 +282,9 @@ var HandleScan = (function() {
             $(_options.button).find('img').addClass('hidden')
                 .end().find('span').removeClass('hidden');
         });
-        chain.done(function() {
+        chain.done(function () {
             $(this.tb).val('').focus();
-        }.bind({tb: _options.textarea}));
+        }.bind({ tb: _options.textarea }));
         def.resolve();  // Initiate the function chain
     };
 
@@ -337,7 +337,6 @@ $(document).ready(function () {
         alert('auto increment tab with pallet id');
     });
 });
-
 
 
 // Remove carton from pallet
