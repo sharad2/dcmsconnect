@@ -149,25 +149,24 @@
 
     </div>
 
-    <!--Remove Carton Model(Pop-up)-->
+    <!--Remove Carton Modal(Pop-up)-->
     <div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">
-                        Remove Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId"></span>
+                        Remove Carton <span class="cartonId"></span>
                         from Pallet <span class="palletId"></span>?
                     </h4>
                 </div>
 
                 <div class="modal-body">
-                    <span data-name="@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId" class="processId hidden">@Model.ProcessId</span>
                     <span>
                         Pallet <span class="palletId"></span> contains <span class="count"></span> cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
                     </span>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-url="@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())" id="btnRemove">Ok</button>
+                    <button class="btn btn-primary">Ok</button>
                     <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
@@ -189,6 +188,34 @@
         "use strict";
 
         $(document).ready(function() {
+
+            RemoveCarton.init({
+                // Dialog to open when remove button is clicked
+                dlg: '#removeModal',
+
+                // Data to post to remove the carton
+                postdata: function(cartonId) {
+                    return [
+                        {
+                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                            value: cartonId
+                        },
+                        {
+                            value: @Model.ProcessId,
+                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                        }
+                    ];
+                },
+
+                // URL to invoke for removing the carton
+                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
+            });
+
+            // Click handler for the remove button
+            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
+                RemoveCarton.show($(e.target).closest('[data-carton]').data('carton'));
+            });
+
             Sound.init({
                 // Selector to error sound audio element
                 error: '#soundError',
