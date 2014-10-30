@@ -100,27 +100,27 @@
         data-name-palletid="@MVC_Receiving.Receiving.Home.GetPalletHtmlParams.palletId"
         data-name-processid="@MVC_Receiving.Receiving.Home.GetPalletHtmlParams.processId">
         @*@for (var i = 0; i < Model.PalletIdList.Count; i++)
-        {
-            <li data-palletid="@Model.PalletIdList[i]">
+            {
+                <li data-palletid="@Model.PalletIdList[i]">
 
-                <a href='#Pallet_@(Model.PalletIdList[i])' role="tab" data-toggle="tab"
-                   title='Pallet @Model.PalletIdList[i]'>
-                    @(Model.PalletIdList[i])
-                    <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
-                </a>
-            </li>
-        }*@
+                    <a href='#Pallet_@(Model.PalletIdList[i])' role="tab" data-toggle="tab"
+                       title='Pallet @Model.PalletIdList[i]'>
+                        @(Model.PalletIdList[i])
+                        <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
+                    </a>
+                </li>
+            }*@
 
     </ul>
     <!-- Tab panes -->
     <div class="tab-content" id="palletTabContent">
 
         @*@for (var i = 0; i < Model.PalletIdList.Count; i++)
-        {
-            <div id="Pallet_@(Model.PalletIdList[i])" class="tab-pane">
-                
-            </div>
-        }*@
+            {
+                <div id="Pallet_@(Model.PalletIdList[i])" class="tab-pane">
+
+                </div>
+            }*@
     </div>
     <!-- Print Modal called from _palletPartialPage -->
     <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -197,23 +197,39 @@
         var _processId = @(Model.ProcessId.HasValue ? Model.ProcessId.Value.ToString() : "null");
         var _pallets = @Html.Raw(Model.PalletIdListJson);
 
+        // Create the initial set of pallet tabs. Content will be loaded when the tab is activated
         $(document).ready(function() {
             $.each(_pallets, function(i, val) {
                 tabs.create(val);
             });
         });
 
-        // Sound functions
-        var sound = {
-            error: function () {
-                $('#soundError').one('ended', function (e) {
+
+        // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
+        var sound = (function() {
+            // All external dependencies should be part of options
+            var options = {
+                // Selector to error sound audio element
+                error: '#soundError',
+                // Selector to success sound audio element
+                success: '#soundSuccess'
+            }
+
+            var success = function() {
+                $(options.error).one('ended', function (e) {
                     this.play();
                 })[0].play();
-            },
-            success: function () {
-                $('#soundSuccess')[0].play();
+            };
+
+            var success = function() {
+                $(options.success)[0].play();
             }
-        };
+            // public API
+            return {
+                error: error,
+                success: success
+            };
+        })();
 
         // Functios to work with tabs. Tabs can be referenced by pallet id.
         var tabs = {
