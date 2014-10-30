@@ -80,12 +80,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult HandlePalletScan()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandlePalletScan);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult HandleCartonScan()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
@@ -147,7 +141,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string EditProcess = "EditProcess";
             public readonly string Receiving = "Receiving";
             public readonly string Tutorial = "Tutorial";
-            public readonly string HandlePalletScan = "HandlePalletScan";
             public readonly string HandleCartonScan = "HandleCartonScan";
             public readonly string GetPalletHtml = "GetPalletHtml";
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
@@ -167,7 +160,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string EditProcess = "EditProcess";
             public const string Receiving = "Receiving";
             public const string Tutorial = "Tutorial";
-            public const string HandlePalletScan = "HandlePalletScan";
             public const string HandleCartonScan = "HandleCartonScan";
             public const string GetPalletHtml = "GetPalletHtml";
             public const string UnPalletizeCarton = "UnPalletizeCarton";
@@ -211,14 +203,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public class ActionParamsClass_Tutorial
         {
             public readonly string processId = "processId";
-        }
-        static readonly ActionParamsClass_HandlePalletScan s_params_HandlePalletScan = new ActionParamsClass_HandlePalletScan();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_HandlePalletScan HandlePalletScanParams { get { return s_params_HandlePalletScan; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_HandlePalletScan
-        {
-            public readonly string model = "model";
         }
         static readonly ActionParamsClass_HandleCartonScan s_params_HandleCartonScan = new ActionParamsClass_HandleCartonScan();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -376,18 +360,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
             TutorialOverride(callInfo, processId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void HandlePalletScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult HandlePalletScan(DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandlePalletScan);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            HandlePalletScanOverride(callInfo, model);
             return callInfo;
         }
 

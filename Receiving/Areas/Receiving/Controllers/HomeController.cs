@@ -439,66 +439,66 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
         #region Scan handling
 
-        [HttpPost]
-        public virtual ActionResult HandlePalletScan(ScanViewModel model)
-        {
-            if (model == null) throw new ArgumentNullException("model");
-            //if (!ModelState.IsValid)
-            //{
-            //    return ValidationErrorResult();
-            //}
-            if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
-            {
-                //return ValidationErrorResult();
-                var sb = new StringBuilder();
-                sb.Append("<ul>");
-                foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
-                {
-                    sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
-                }
-                sb.Append("</ul>");
-                throw new Exception(sb.ToString());
-            }
+        //[HttpPost]
+        //public virtual ActionResult HandlePalletScan(ScanViewModel model)
+        //{
+        //    if (model == null) throw new ArgumentNullException("model");
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    return ValidationErrorResult();
+        //    //}
+        //    if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
+        //    {
+        //        //return ValidationErrorResult();
+        //        var sb = new StringBuilder();
+        //        sb.Append("<ul>");
+        //        foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
+        //        {
+        //            sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
+        //        }
+        //        sb.Append("</ul>");
+        //        throw new Exception(sb.ToString());
+        //    }
 
-            //var scan = model.ScanModel.ScanText.ToUpper();
-            //if (scan == ReceivingViewModel.SCAN_NEWPALLET)
-            //{
-            //    scan = _service.CreateNewPalletId();
-            //}
+        //    //var scan = model.ScanModel.ScanText.ToUpper();
+        //    //if (scan == ReceivingViewModel.SCAN_NEWPALLET)
+        //    //{
+        //    //    scan = _service.CreateNewPalletId();
+        //    //}
 
-            Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-            var ctx = new ScanContext
-            {
-                PalletId = model.PalletId,
-                DispositionId = model.PalletDispos,
-                ProcessId = model.ProcessId.Value
-            };
-            var pallet = _service.HandlePalletScan(model.ScanText.Trim().ToUpper(), ctx);
-            Debug.Assert(pallet != null, "pallet != null");
-            var pvm = new PalletViewModel
-            {
-                Cartons = pallet.Cartons,
-                PalletLimit = pallet.PalletLimit,
-                PalletId = ctx.PalletId,
-                QueryCount = _service.QueryCount
-            };
+        //    Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
+        //    var ctx = new ScanContext
+        //    {
+        //        PalletId = model.PalletId,
+        //        DispositionId = model.PalletDispos,
+        //        ProcessId = model.ProcessId.Value
+        //    };
+        //    var pallet = _service.HandlePalletScan(model.ScanText.Trim().ToUpper(), ctx);
+        //    Debug.Assert(pallet != null, "pallet != null");
+        //    var pvm = new PalletViewModel
+        //    {
+        //        Cartons = pallet.Cartons,
+        //        PalletLimit = pallet.PalletLimit,
+        //        PalletId = ctx.PalletId,
+        //        QueryCount = _service.QueryCount
+        //    };
 
 
-            //// Pallet was scanned
-            //// We check for null before adding header Otherwise the code breaks in IIS 6
-            //if (!string.IsNullOrEmpty(pvm.PalletId))
-            //{
-            //    this.Response.AppendHeader("PalletId", pvm.PalletId);
-            //}
-            //if (!string.IsNullOrEmpty(pvm.DispositionId))
-            //{
-            //    // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
-            //    this.Response.AppendHeader("Disposition", pvm.DispositionId);
-            //}
-            //this.Response.StatusCode = 202;
+        //    //// Pallet was scanned
+        //    //// We check for null before adding header Otherwise the code breaks in IIS 6
+        //    //if (!string.IsNullOrEmpty(pvm.PalletId))
+        //    //{
+        //    //    this.Response.AppendHeader("PalletId", pvm.PalletId);
+        //    //}
+        //    //if (!string.IsNullOrEmpty(pvm.DispositionId))
+        //    //{
+        //    //    // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
+        //    //    this.Response.AppendHeader("Disposition", pvm.DispositionId);
+        //    //}
+        //    //this.Response.StatusCode = 202;
 
-            return PartialView(Views._palletPartial, pvm);
-        }
+        //    return PartialView(Views._palletPartial, pvm);
+        //}
 
         [HttpPost]
         public virtual ActionResult HandleCartonScan(ScanViewModel model)

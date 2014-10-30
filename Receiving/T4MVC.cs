@@ -153,6 +153,7 @@ namespace Links_Receiving
                     public static readonly string Receiving_all_js_bundle = Url("Receiving-all.js.bundle");
                     public static readonly string Receiving_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.js") ? Url("Receiving-all.min.js") : Url("Receiving-all.js");
                     public static readonly string Receiving_all_min_js_map = Url("Receiving-all.min.js.map");
+                    public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js") : Url("Receiving.js");
                     public static readonly string Receiving_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.partial.min.js") ? Url("Receiving.partial.min.js") : Url("Receiving.partial.js");
                     public static readonly string ReceivingCore_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ReceivingCore.partial.min.js") ? Url("ReceivingCore.partial.min.js") : Url("ReceivingCore.partial.js");
                 }
