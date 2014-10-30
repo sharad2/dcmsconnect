@@ -193,6 +193,7 @@
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
 
     <script type="text/javascript">
+        "use strict";
         // This global holds the current process id
         var _processId = @(Model.ProcessId.HasValue ? Model.ProcessId.Value.ToString() : "null");
         var _pallets = @Html.Raw(Model.PalletIdListJson);
@@ -208,40 +209,60 @@
         // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
         var sound = (function() {
             // All external dependencies should be part of options
-            var options = {
+            var _options = {
                 // Selector to error sound audio element
-                error: '#soundError',
+                error: null,
                 // Selector to success sound audio element
-                success: '#soundSuccess'
-            }
+                success: null
+            };
 
-            var success = function() {
-                $(options.error).one('ended', function (e) {
+            var init = function(options) {
+                _options = $.extend(_options, options);
+            };
+
+            var error = function() {
+                $(_options.error).one('ended', function (e) {
                     this.play();
                 })[0].play();
             };
 
             var success = function() {
-                $(options.success)[0].play();
+                $(_options.success)[0].play();
             }
             // public API
             return {
+                init: init,
                 error: error,
                 success: success
             };
         })();
 
         // Functios to work with tabs. Tabs can be referenced by pallet id.
-        var tabs = {
-            // Returns the pallet id corresponding to the active tab
-            activePalletId: function () {
-                return $('#palletTabs > li.active').data('palletid');
-            },
+        var tabs = (function() {
 
-            // Creates a new tab
-            create: function(palletId) {
-                // Insert the li
-                var y = $('<li></li>').attr('data-palletid', palletId)
+            var _options = {
+                // Selector for tab container
+                tabContainer: '#palletTabs',
+                // Selector to container containing tab content
+                contentContainer: '#palletTabContent',
+                // Name of the attribute of LI containing pallet id
+                attrPalletId: 'data-palletid'
+            };
+
+            // Returns the pallet id corresponding to the active tab
+            var activePalletId = function () {
+                return $('> li.active', _options.tabContainer).attr(_options.attrPalletId);
+            };
+
+            // Creates a new tab. Does not ensure whether the tab for this pallet already exists.
+            // Returns jquery object corresponding to the newly created li
+            var create = function(palletId) {
+                // Insert content div
+                $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
+                    .appendTo(_options.contentContainer);
+
+                // Insert the li and return it
+                return $('<li></li>').attr(_options.attrPalletId, palletId)
                     .append(
                         $('<a></a>').attr({
                             href: '#Pallet_' + palletId,
@@ -249,28 +270,26 @@
                             "data-toggle": 'tab',
                             title: 'Pallet ' + palletId
                         }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
-                    ).appendTo('#palletTabs');
+                    ).appendTo(_options.tabContainer);
 
 
-                $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
-                    .appendTo('#palletTabContent');
-            },
+                //$('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
+                //    .appendTo(_options.contentContainer);
+            };
 
             // Activates the tab for the passed pallet id. Creates a new tab if necessary
-            show: function (palletId) {
-                var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+            var show = function (palletId) {
+                var x = $('> li[' + _options.attrPalletId + '="' + palletId + '"] > a', _options.tabContainer).tab('show');
                 if (x.length > 0) {
                     // We were able to activate the pallet
                     return;
                 }
-                // No such pallet. Create a new tab at the end of the tabs
-                tabs.create(palletId);
+                // No such pallet. Create a new tab at the end of the tabs and make it active
+                tabs.create(palletId).find('a').tab('show');
+            };
 
-                // Make the tab active
-                $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
-            },
             // Updates the content html of the active tab
-            html: function (html) {
+            var html = function (html) {
                 function UpdateProgressBar(increment) {
                     var $bar = $('#progressCartons div.progress-bar');
                     var val = parseInt($bar.attr('aria-valuenow')) + increment;
@@ -283,17 +302,17 @@
                     $('#receivedCount').text(count + increment);
                 }
 
-                var $pane = $('#palletTabContent div.active.tab-pane');
+                var $pane = $('div.active.tab-pane', _options.contentContainer);
                 var countOld = $('[data-carton]', $pane).length;
                 $pane.html(html);
                 var countNew = $('[data-carton]', $pane).length;
                 UpdateProgressBar(countNew - countOld);
-            },
+            };
 
             // Updates the html of active pallet
-            load: function () {
+            var load = function () {
                 // Process id
-                var $tabs = $('#palletTabs');
+                var $tabs = $( _options.tabContainer);
                 //var data = $('#scanArea input').serializeArray();
                 var data = [
                     { name: $tabs.data('name-processid'), value: _processId },
@@ -316,8 +335,103 @@
                     //alert(textStatus);
                     tabs.html(jqXHR.responseText);
                 });
-            }
-        };
+            };
+            return {
+                create: create,
+                load: load,
+                activePalletId: activePalletId,
+                html: html,
+                show: show
+            };
+        })();
+
+        // Functios to work with tabs. Tabs can be referenced by pallet id.
+        //var tabs1 = {
+        //    // Returns the pallet id corresponding to the active tab
+        //    activePalletId: function () {
+        //        return $('#palletTabs > li.active').data('palletid');
+        //    },
+
+        //    // Creates a new tab
+        //    create: function(palletId) {
+        //        // Insert the li
+        //        var y = $('<li></li>').attr('data-palletid', palletId)
+        //            .append(
+        //                $('<a></a>').attr({
+        //                    href: '#Pallet_' + palletId,
+        //                    role: 'tab',
+        //                    "data-toggle": 'tab',
+        //                    title: 'Pallet ' + palletId
+        //                }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+        //            ).appendTo('#palletTabs');
+
+
+        //        $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
+        //            .appendTo('#palletTabContent');
+        //    },
+
+        //    // Activates the tab for the passed pallet id. Creates a new tab if necessary
+        //    show: function (palletId) {
+        //        var x = $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+        //        if (x.length > 0) {
+        //            // We were able to activate the pallet
+        //            return;
+        //        }
+        //        // No such pallet. Create a new tab at the end of the tabs
+        //        tabs.create(palletId);
+
+        //        // Make the tab active
+        //        $('#palletTabs > li[data-palletid="' + palletId + '"] > a').tab('show');
+        //    },
+        //    // Updates the content html of the active tab
+        //    html: function (html) {
+        //        function UpdateProgressBar(increment) {
+        //            var $bar = $('#progressCartons div.progress-bar');
+        //            var val = parseInt($bar.attr('aria-valuenow')) + increment;
+        //            var maxval = parseInt($bar.attr('aria-valuemax'));
+        //            var pct = Math.round(val * 100 / maxval);
+        //            $bar.attr('aria-valuenow', val)
+        //                .css('width', pct + '%')
+        //                .find('span').text(pct);
+        //            var count = parseInt($('#receivedCount').text());
+        //            $('#receivedCount').text(count + increment);
+        //        }
+
+        //        var $pane = $('#palletTabContent div.active.tab-pane');
+        //        var countOld = $('[data-carton]', $pane).length;
+        //        $pane.html(html);
+        //        var countNew = $('[data-carton]', $pane).length;
+        //        UpdateProgressBar(countNew - countOld);
+        //    },
+
+        //    // Updates the html of active pallet
+        //    load: function () {
+        //        // Process id
+        //        var $tabs = $('#palletTabs');
+        //        //var data = $('#scanArea input').serializeArray();
+        //        var data = [
+        //            { name: $tabs.data('name-processid'), value: _processId },
+        //            { name: $tabs.data('name-palletid'), value: tabs.activePalletId() }
+        //        ];
+
+        //        data.push({ name: $('#scanArea textarea').attr('name'), value: tabs.activePalletId() });
+        //        //alert(data);
+        //        tabs.html('Loading...');
+        //        return $.get($tabs.data('url-gethtml'), data).then(function (data, textStatus, jqXHR) {
+        //            // data is pallet html
+        //            // find whether this pallet is already one of the tabs. If it is, then close that tab.
+        //            // Then create a new tab for this pallet and make it active.
+        //            //alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));\
+        //            //tabs.show(this.palletId);
+        //            //alert(data);
+        //            tabs.html(data);
+        //            //alert(this.palletId + '*' + data);
+        //        }, function (jqXHR, textStatus, errorThrown) {
+        //            //alert(textStatus);
+        //            tabs.html(jqXHR.responseText);
+        //        });
+        //    }
+        //};
 
 
 
@@ -634,6 +748,17 @@
             });
 
         });
+
+
+        $(document).ready(function() {
+            sound.init({
+                // Selector to error sound audio element
+                error: '#soundError',
+                // Selector to success sound audio element
+                success: '#soundSuccess'            
+            });
+        });
+
     </script>
 }
 
