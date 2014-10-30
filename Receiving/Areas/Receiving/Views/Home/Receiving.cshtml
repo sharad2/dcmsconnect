@@ -96,9 +96,7 @@
 
 
     <!-- Nav tabs -->
-    <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs" data-url-gethtml="@Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml())"
-        data-name-palletid="@MVC_Receiving.Receiving.Home.GetPalletHtmlParams.palletId"
-        data-name-processid="@MVC_Receiving.Receiving.Home.GetPalletHtmlParams.processId">
+    <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
         @*@for (var i = 0; i < Model.PalletIdList.Count; i++)
             {
                 <li data-palletid="@Model.PalletIdList[i]">
@@ -196,14 +194,14 @@
         "use strict";
         // This global holds the current process id
         var _processId = @(Model.ProcessId.HasValue ? Model.ProcessId.Value.ToString() : "null");
-        var _pallets = @Html.Raw(Model.PalletIdListJson);
+        //var _pallets = @Html.Raw(Model.PalletIdListJson);
 
         // Create the initial set of pallet tabs. Content will be loaded when the tab is activated
-        $(document).ready(function() {
-            $.each(_pallets, function(i, val) {
-                tabs.create(val);
-            });
-        });
+        //$(document).ready(function() {
+        //    $.each(_pallets, function(i, val) {
+        //        tabs.create(val);
+        //    });
+        //});
 
 
         // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
@@ -242,11 +240,28 @@
 
             var _options = {
                 // Selector for tab container
-                tabContainer: '#palletTabs',
+                tabContainer: '', //'#palletTabs',
                 // Selector to container containing tab content
                 contentContainer: '#palletTabContent',
                 // Name of the attribute of LI containing pallet id
-                attrPalletId: 'data-palletid'
+                attrPalletId: 'data-palletid',
+                // The URL which is responsible for returning pallet html
+                // The URL should contain a placeholder ~ which will be replaced by the pallet id
+                loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))',
+                // Array of pallet ids for which tabs should be initially created
+                pallets: []
+            };
+
+            var init = function(options) {
+                _options = $.extend(_options, options);
+                var $li;
+                $.each(_options.pallets, function(i, val) {
+                    var x = tabs.create(val);
+                    if (i == 0) {
+                        $li = x;
+                    }
+                });
+                $('a', $li).tab('show');
             };
 
             // Returns the pallet id corresponding to the active tab
@@ -271,10 +286,6 @@
                             title: 'Pallet ' + palletId
                         }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
                     ).appendTo(_options.tabContainer);
-
-
-                //$('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
-                //    .appendTo(_options.contentContainer);
             };
 
             // Activates the tab for the passed pallet id. Creates a new tab if necessary
@@ -311,24 +322,8 @@
 
             // Updates the html of active pallet
             var load = function () {
-                // Process id
-                var $tabs = $( _options.tabContainer);
-                //var data = $('#scanArea input').serializeArray();
-                var data = [
-                    { name: $tabs.data('name-processid'), value: _processId },
-                    { name: $tabs.data('name-palletid'), value: tabs.activePalletId() }
-                ];
-
-                data.push({ name: $('#scanArea textarea').attr('name'), value: tabs.activePalletId() });
-                //alert(data);
                 tabs.html('Loading...');
-                return $.get($tabs.data('url-gethtml'), data).then(function (data, textStatus, jqXHR) {
-                    // data is pallet html
-                    // find whether this pallet is already one of the tabs. If it is, then close that tab.
-                    // Then create a new tab for this pallet and make it active.
-                    //alert($('#palletTabContent div.tab-pane[data-pallet="P3978"]').attr('id'));\
-                    //tabs.show(this.palletId);
-                    //alert(data);
+                return $.get(_options.loadUrl.replace('~', tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
                     tabs.html(data);
                     //alert(this.palletId + '*' + data);
                 }, function (jqXHR, textStatus, errorThrown) {
@@ -337,6 +332,7 @@
                 });
             };
             return {
+                init: init,
                 create: create,
                 load: load,
                 activePalletId: activePalletId,
@@ -755,7 +751,20 @@
                 // Selector to error sound audio element
                 error: '#soundError',
                 // Selector to success sound audio element
-                success: '#soundSuccess'            
+                success: '#soundSuccess'
+            });
+
+            tabs.init({
+                // Selector for tab container
+                tabContainer: '#palletTabs',
+                // Selector to container containing tab content
+                contentContainer: '#palletTabContent',
+                // Name of the attribute of LI containing pallet id
+                attrPalletId: 'data-palletid',
+                // The URL which is responsible for returning pallet html
+                // The URL should contain a placeholder ~ which will be replaced by the pallet id
+                loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))',
+                pallets:  @Html.Raw(Model.PalletIdListJson)
             });
         });
 
