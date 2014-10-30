@@ -235,6 +235,23 @@
             };
         })();
 
+        var progress = (function() {
+            var update = function(increment) {
+                var $bar = $('#progressCartons div.progress-bar');
+                var val = parseInt($bar.attr('aria-valuenow')) + increment;
+                var maxval = parseInt($bar.attr('aria-valuemax'));
+                var pct = Math.round(val * 100 / maxval);
+                $bar.attr('aria-valuenow', val)
+                    .css('width', pct + '%')
+                    .find('span').text(pct);
+                var count = parseInt($('#receivedCount').text());
+                $('#receivedCount').text(count + increment);
+            };
+            return {
+                update: update
+            };
+        })();
+
         // Functios to work with tabs. Tabs can be referenced by pallet id.
         var tabs = (function() {
 
@@ -301,23 +318,23 @@
 
             // Updates the content html of the active tab
             var html = function (html) {
-                function UpdateProgressBar(increment) {
-                    var $bar = $('#progressCartons div.progress-bar');
-                    var val = parseInt($bar.attr('aria-valuenow')) + increment;
-                    var maxval = parseInt($bar.attr('aria-valuemax'));
-                    var pct = Math.round(val * 100 / maxval);
-                    $bar.attr('aria-valuenow', val)
-                        .css('width', pct + '%')
-                        .find('span').text(pct);
-                    var count = parseInt($('#receivedCount').text());
-                    $('#receivedCount').text(count + increment);
-                }
+                //function UpdateProgressBar(increment) {
+                //    var $bar = $('#progressCartons div.progress-bar');
+                //    var val = parseInt($bar.attr('aria-valuenow')) + increment;
+                //    var maxval = parseInt($bar.attr('aria-valuemax'));
+                //    var pct = Math.round(val * 100 / maxval);
+                //    $bar.attr('aria-valuenow', val)
+                //        .css('width', pct + '%')
+                //        .find('span').text(pct);
+                //    var count = parseInt($('#receivedCount').text());
+                //    $('#receivedCount').text(count + increment);
+                //}
 
                 var $pane = $('div.active.tab-pane', _options.contentContainer);
-                var countOld = $('[data-carton]', $pane).length;
+                //var countOld = $('[data-carton]', $pane).length;
                 $pane.html(html);
-                var countNew = $('[data-carton]', $pane).length;
-                UpdateProgressBar(countNew - countOld);
+                //var countNew = $('[data-carton]', $pane).length;
+                //UpdateProgressBar(countNew - countOld);
             };
 
             // Updates the html of active pallet
@@ -519,10 +536,12 @@
                 //data.push({ name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') })
 
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
-                    //$('#tbScan').attr('data-content', textStatus).popover('show');
-                    //alert('Carton receive success ' + data);
+                    // Success
                     tabs.html(data);
-                }, DisplayAjaxError);
+                    progress.update(this.count);
+                }.bind({
+                    count: this.cartons.length
+                }), DisplayAjaxError);
             }
 
             // Expects this.palletId
@@ -658,6 +677,7 @@
                     .then(function (data, textStatus, jqXHR) {
                         $(this.dlg).modal('hide');
                         tabs.html(data);
+                        progress.update(-1);
                     }.bind({
                         dlg: e.delegateTarget
                     }), function (jqXHR, textStatus, errorThrown) {
