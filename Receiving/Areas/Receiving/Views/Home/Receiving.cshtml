@@ -343,10 +343,24 @@
 
             var _options = {
                 // Selector to the text area
-                textarea: '#scanArea textarea',
+                textarea: '', //'#scanArea textarea',
                 // Selector of a button which will cause immediate handling of the scans.
                 // It should have an ajax loading image which will be made visible while ajax calls are in progress
-                button: '#scanArea button',
+                button: '', //'#scanArea button',
+                // URL to invoke for receiving cartons
+                cartonUrl: $('#tbScan').data('carton-url'),
+                // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
+                // by the function which will receive cartons
+                cartonPostdata: function(palletId, cartons) {
+                    // This is an example function. Not useful. Caller must pass it to init
+                    var $form = $('#scanArea');
+                    return [
+                        { name: 'processId', value: _processId },
+                        { name: 'cartons', value: cartons },
+                        { name: 'palletId', value: palletId },
+                        { name: 'dispos', value: 'something' }
+                    ];
+                },
                 delay: 3000   // Number of milliseconds delay after enter is pressed
             };
 
@@ -361,7 +375,7 @@
                         // We are interested only when enter key is pressed
                         return;
                     }
-                    sound.success();
+                    Sound.success();
                     setTimeout(function() {
                         _act();  // Calling our private function
                     }, _options.delay);
@@ -404,7 +418,7 @@
 
                 var def = $.Deferred(function () {
                     //alert('Show Ajax');
-                    $('#scanArea button').find('img').removeClass('hidden')
+                    $(_options.button).find('img').removeClass('hidden')
                         .end().find('span').addClass('hidden');
                 });
                 var chain = def;
@@ -414,24 +428,15 @@
                     // First process the cartons before this pallet
                     if (tokens.length > 1) {
                         // Some cartons were scanned before this pallet
-                        chain = chain.then(HandleCartons.bind({
-                            cartons: tokens.slice(0, tokens.length - 1),
-                            url: $(_options.textarea).data('carton-url')
-                        }));
+                        chain = chain.then(_receiveCartons.bind(undefined, tokens.slice(0, tokens.length - 1)));
                     }
-                    chain = chain.then(ChangePallet.bind({
-                        url: $(_options.textarea).data('pallet-url'),
-                        palletId: lastscan
-                    }));
+                    chain = chain.then(_changePallet.bind(undefined, lastscan));
                 } else {
-                    chain = chain.then(HandleCartons.bind({
-                        url: $(_options.textarea).data('carton-url'),
-                        cartons: tokens
-                    }));
+                    chain = chain.then(_receiveCartons.bind(undefined, tokens));
                 }
                 chain = chain.always(function () {
                     //alert('Hide Ajax');
-                    $('#scanArea button').find('img').addClass('hidden')
+                    $(_options.button).find('img').addClass('hidden')
                         .end().find('span').removeClass('hidden');
                 });
                 chain.done(function() {
@@ -440,49 +445,38 @@
                 def.resolve();  // Initiate the function chain
             };
 
-            // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
+            // Returns ajax object so that we can chain functions to be executed after ajax call is complete
             // Should be private
-            var HandleCartons = function () {
-                //alert(this.url);
-                var $form = $('#scanArea');
-                //var data = $('input', $form).serializeArray();
-                var data = [
-                    { name: $form.data('name-processid'), value: _processId },
-                    { name: $('textarea', $form).attr('name'), value: this.cartons },
-                    { name: $form.data('name-palletid'), value: Tabs.activePalletId() },
-                    { name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
-                    //data - name - processid
-                ];
-
-                return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
+            var _receiveCartons = function (cartons) {
+                return $.post(_options.cartonUrl, _options.cartonPostdata(Tabs.activePalletId(), cartons)).then(function (data, textStatus, jqXHR) {
                     // Success
                     Tabs.html(data);
                     Progress.update(this.count);
                 }.bind({
-                    count: this.cartons.length
+                    count: cartons.length
                 }), DisplayAjaxError);
             };
 
             // Expects this.palletId
             // Returns ajax object to enable further chaining
             // Should be private
-            var ChangePallet = function () {
-                Tabs.show(this.palletId);
+            var _changePallet = function (palletId) {
+                Tabs.show(palletId);
             };
 
             var DisplayAjaxError = function (jqXHR, textStatus, errorThrown) {
                 //PlayErrorSound();
                 Sound.error();
-                var $tb = $('#tbScan');
+                var $tb = $(_options.textarea);
                 switch (jqXHR.status) {
                     case 500:
                         // Some exception thrown by action
-                        $('#tbScan').attr('data-content', jqXHR.responseText);
+                        $tb.attr('data-content', jqXHR.responseText);
                         break;
 
                     default:
                         // Action was not found
-                        $('#tbScan').attr({
+                        $tb.attr({
                             'data-content': 'Error ' + jqXHR.status + ': ' + errorThrown
                         });
                         break;
@@ -667,6 +661,19 @@
                 // Selector of a button which will cause immediate handling of the scans.
                 // It should have an ajax loading image which will be made visible while ajax calls are in progress
                 button: '#scanArea button',
+                // URL to invoke for receiving cartons
+                cartonUrl: $('#tbScan').data('carton-url'),
+                // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
+                // by the function which will receive cartons
+                cartonPostdata: function(palletId, cartons) {
+                    var $form = $('#scanArea');
+                    return [
+                        { name: $form.data('name-processid'), value: _processId },
+                        { name: $('textarea', $form).attr('name'), value: cartons },
+                        { name: $form.data('name-palletid'), value: palletId },
+                        { name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
+                    ];
+                },
                 delay: 3000   // Number of milliseconds delay after enter is pressed
             });
         });
