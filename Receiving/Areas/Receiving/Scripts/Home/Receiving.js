@@ -32,19 +32,33 @@ var Sound = (function() {
     };
 })();
 
-var Progress = (function() {
+var Progress = (function () {
+
+    var _options = {
+        //id of the progress bar
+        bar: '#progressCartons',
+        //id of the span to show recived carton count
+        receivedCount: '#receivedCount'
+    }
+
+    var init = function (options) {
+        _options = $.extend(_options, options);
+    };
+
+
     var update = function(increment) {
-        var $bar = $('#progressCartons div.progress-bar');
+        var $bar = $(_options.bar + 'div.progress-bar');
         var val = parseInt($bar.attr('aria-valuenow')) + increment;
         var maxval = parseInt($bar.attr('aria-valuemax'));
         var pct = Math.round(val * 100 / maxval);
         $bar.attr('aria-valuenow', val)
             .css('width', pct + '%')
             .find('span').text(pct);
-        var count = parseInt($('#receivedCount').text());
-        $('#receivedCount').text(count + increment);
+        var count = parseInt($(_options.receivedCount).text());
+        $(_options.receivedCount).text(count + increment);
     };
     return {
+        init: init,
         update: update
     };
 })();
