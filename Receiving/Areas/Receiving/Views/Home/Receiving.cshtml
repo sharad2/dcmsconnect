@@ -191,21 +191,13 @@
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
 
     <script type="text/javascript">
-    "use strict";
-    // This global holds the current process id
-    var _processId = @(Model.ProcessId.HasValue ? Model.ProcessId.Value.ToString() : "null");
-    //var _pallets = @Html.Raw(Model.PalletIdListJson);
-
-        // Create the initial set of pallet tabs. Content will be loaded when the tab is activated
-        //$(document).ready(function() {
-        //    $.each(_pallets, function(i, val) {
-        //        tabs.create(val);
-        //    });
-        //});
+        "use strict";
+        // This global holds the current process id
+        var _processId = @(Model.ProcessId.HasValue ? Model.ProcessId.Value.ToString() : "null");
 
 
         // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
-        var sound = (function() {
+        var Sound = (function() {
             // All external dependencies should be part of options
             var _options = {
                 // Selector to error sound audio element
@@ -235,7 +227,7 @@
             };
         })();
 
-        var progress = (function() {
+        var Progress = (function() {
             var update = function(increment) {
                 var $bar = $('#progressCartons div.progress-bar');
                 var val = parseInt($bar.attr('aria-valuenow')) + increment;
@@ -253,7 +245,7 @@
         })();
 
         // Functios to work with tabs. Tabs can be referenced by pallet id.
-        var tabs = (function() {
+        var Tabs = (function() {
 
             var _options = {
                 // Selector for tab container
@@ -274,7 +266,7 @@
                 _options = $.extend(_options, options);
                 var $li;
                 $.each(_options.pallets, function(i, val) {
-                    var x = tabs.create(val);
+                    var x = Tabs.create(val);
                     if (i == 0) {
                         $li = x;
                     }
@@ -314,7 +306,7 @@
                     return;
                 }
                 // No such pallet. Create a new tab at the end of the tabs and make it active
-                tabs.create(palletId).find('a').tab('show');
+                Tabs.create(palletId).find('a').tab('show');
             };
 
             // Updates the content html of the active tab
@@ -325,13 +317,13 @@
 
             // Updates the html of active pallet
             var load = function () {
-                tabs.html('Loading...');
-                return $.get(_options.loadUrl.replace('~', tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
-                    tabs.html(data);
+                Tabs.html('Loading...');
+                return $.get(_options.loadUrl.replace('~', Tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
+                    Tabs.html(data);
                     //alert(this.palletId + '*' + data);
                 }, function (jqXHR, textStatus, errorThrown) {
                     //alert(textStatus);
-                    tabs.html(jqXHR.responseText);
+                    Tabs.html(jqXHR.responseText);
                 });
             };
             return {
@@ -457,15 +449,15 @@
                 var data = [
                     { name: $form.data('name-processid'), value: _processId },
                     { name: $('textarea', $form).attr('name'), value: this.cartons },
-                    { name: $form.data('name-palletid'), value: tabs.activePalletId() },
+                    { name: $form.data('name-palletid'), value: Tabs.activePalletId() },
                     { name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
                     //data - name - processid
                 ];
 
                 return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
                     // Success
-                    tabs.html(data);
-                    progress.update(this.count);
+                    Tabs.html(data);
+                    Progress.update(this.count);
                 }.bind({
                     count: this.cartons.length
                 }), DisplayAjaxError);
@@ -475,12 +467,12 @@
             // Returns ajax object to enable further chaining
             // Should be private
             var ChangePallet = function () {
-                tabs.show(this.palletId);
+                Tabs.show(this.palletId);
             };
 
             var DisplayAjaxError = function (jqXHR, textStatus, errorThrown) {
                 //PlayErrorSound();
-                sound.error();
+                Sound.error();
                 var $tb = $('#tbScan');
                 switch (jqXHR.status) {
                     case 500:
@@ -502,157 +494,6 @@
             };
         })();
 
-
-        //(function ($) {
-        //    var _timer;
-        //    // Handles the scans in the text area after the specified delay in milliseconds.
-        //    // this is the DOM element of the text area which contains the scans
-        //    // Called as: $('#mytextarea').handleScan(3000);
-        //    $.fn.handleScan = function (delay) {
-        //        if (_timer) {
-        //            clearTimeout(_timer);
-        //            _timer = null;
-        //        }
-
-        //        var tokens = $.grep($(this).val().split('\n'), function (txt, i) {
-        //            // Ignore empty lines
-        //            return txt.trim() != '';
-        //        });
-        //        if (tokens.length == 0) {
-        //            // Text box is empty. Nothing to do
-        //            return;
-        //        }
-
-        //        var def = $.Deferred(function () {
-        //            //alert('Show Ajax');
-        //            $('#scanArea button').find('img').removeClass('hidden')
-        //                .end().find('span').addClass('hidden');
-        //        });
-        //        var chain = def;
-        //        var lastscan = tokens[tokens.length - 1];
-
-        //        if (lastscan.toUpperCase().indexOf('P') === 0) {
-        //            // First process the cartons before this pallet
-        //            if (tokens.length > 1) {
-        //                // Some cartons were scanned before this pallet
-        //                chain = chain.then(HandleCartons.bind({
-        //                    cartons: tokens.slice(0, tokens.length - 1),
-        //                    url: $(this).data('carton-url')
-        //                }));
-        //            }
-        //            chain = chain.then(ChangePallet.bind({
-        //                url: $(this).data('pallet-url'),
-        //                palletId: lastscan
-        //            }));
-        //            delay = 0;  // Start ajax immediately
-        //        } else {
-        //            chain = chain.then(HandleCartons.bind({
-        //                url: $(this).data('carton-url'),
-        //                cartons: tokens
-        //            }));
-        //            //_timer = setTimeout(HandleCartons.bind({
-        //            //    url: $(this).data('carton-url'),
-        //            //    cartons: tokens
-        //            //}), delay);
-        //        }
-        //        chain = chain.always(function () {
-        //            //alert('Hide Ajax');
-        //            $('#scanArea button').find('img').addClass('hidden')
-        //                .end().find('span').removeClass('hidden');
-        //        });
-        //        chain.done(function() {
-        //            $(this.tb).val('').focus();
-        //        }.bind({tb: this}));
-        //        _timer = setTimeout(function (def) {
-        //            def.resolve();  // Initiate the function chain
-        //        }, delay, def);
-        //    };
-
-        //    // Pass this.url. Returns ajax object so that we can chain functions to be executed after ajax call is complete
-        //    // Should be private
-        //    function HandleCartons() {
-        //        //alert(this.url);
-        //        var $form = $('#scanArea');
-        //        //var data = $('input', $form).serializeArray();
-        //        var data = [
-        //            { name: $form.data('name-processid'), value: _processId },
-        //            { name: $('textarea', $form).attr('name'), value: this.cartons },
-        //            { name: $form.data('name-palletid'), value: tabs.activePalletId() },
-        //            { name: $form.data('name-dispos'), value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
-        //            //data - name - processid
-        //        ];
-
-        //        return $.post(this.url, data).then(function (data, textStatus, jqXHR) {
-        //            // Success
-        //            tabs.html(data);
-        //            progress.update(this.count);
-        //        }.bind({
-        //            count: this.cartons.length
-        //        }), DisplayAjaxError);
-        //    }
-
-        //    // Expects this.palletId
-        //    // Returns ajax object to enable further chaining
-        //    // Should be private
-        //    function ChangePallet() {
-        //        tabs.show(this.palletId);
-        //    }
-
-        //    function DisplayAjaxError(jqXHR, textStatus, errorThrown) {
-        //        //PlayErrorSound();
-        //        sound.error();
-        //        var $tb = $('#tbScan');
-        //        switch (jqXHR.status) {
-        //            case 500:
-        //                // Some exception thrown by action
-        //                $('#tbScan').attr('data-content', jqXHR.responseText);
-        //                break;
-
-        //            default:
-        //                // Action was not found
-        //                $('#tbScan').attr({
-        //                    'data-content': 'Error ' + jqXHR.status + ': ' + errorThrown
-        //                });
-        //                break;
-        //        }
-        //        $tb.popover('show');
-        //    }
-        //    // End of closure.
-        //})(jQuery);
-
-
-        // Handle scan
-        //$(document).ready(function () {
-
-        //    $('#scanArea')
-        //        //.on('keypress', 'textarea', function (e) {
-        //        //if (e.which != 13) {
-        //        //    // We are interested only when enter key is pressed
-        //        //    return;
-        //        //}
-        //        //sound.success();
-        //        //$(this).handleScan(3000);
-        //        //})
-        //        .on('click', 'button:has(span:visible)', function (e) {
-        //        // The click is accepted only if the Go text is visible on the button.
-        //        // This means to us that ajax call is not in progress.
-        //        $('textarea', e.delegateTarget).handleScan(0);
-        //    })
-        //        //.find('textarea').popover({
-        //        //trigger: 'manual',
-        //        //html: true,
-        //        //title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
-        //        //placement: 'auto',
-        //        //container: 'body'
-        //        //})
-        //    ;
-
-        //    //// Hide the popover when the X in the title is clicked
-        //    //$(document).on('click', '.close', function (e) {
-        //    //    //hiding the error message popover and at the same doing empty textarea with focus.
-        //    //    $('#tbScan').popover('hide').focus();
-        //    //});
-        //});
 
         $(document).ready(function () {
             $('#btnNewPallet').click(function (e) {
@@ -680,7 +521,7 @@
 
             }).on('shown.bs.tab', function (e) {
                 //alert('shown.bs.tab ' + e.relatedTarget);
-                tabs.load();
+                Tabs.load();
             }).find('li:first a').tab('show');
 
         });
@@ -693,7 +534,7 @@
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
                 // Print button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
                 $('span.cartonId', this).text($(e.target).closest('[data-carton]').data('carton'));
-                $('span.palletId', this).text(tabs.activePalletId());
+                $('span.palletId', this).text(Tabs.activePalletId());
                 $('span.count', this).text($(e.target).closest('div.tab-pane').find('[data-carton]').length);
                 $dlg.modal('show');
             }.bind($dlg));
@@ -709,12 +550,12 @@
                 $.post($(this).data('url'), data)
                     .then(function (data, textStatus, jqXHR) {
                         $(this.dlg).modal('hide');
-                        tabs.html(data);
-                        progress.update(-1);
+                        Tabs.html(data);
+                        Progress.update(-1);
                     }.bind({
                         dlg: e.delegateTarget
                     }), function (jqXHR, textStatus, errorThrown) {
-                        sound.error();
+                        Sound.error();
                         alert('Error: ' + jqXHR.responseText);
                     });
             });
@@ -800,14 +641,14 @@
 
 
         $(document).ready(function() {
-            sound.init({
+            Sound.init({
                 // Selector to error sound audio element
                 error: '#soundError',
                 // Selector to success sound audio element
                 success: '#soundSuccess'
             });
 
-            tabs.init({
+            Tabs.init({
                 // Selector for tab container
                 tabContainer: '#palletTabs',
                 // Selector to container containing tab content
@@ -817,18 +658,18 @@
                 // The URL which is responsible for returning pallet html
                 // The URL should contain a placeholder ~ which will be replaced by the pallet id
                 loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))',
-            pallets:  @Html.Raw(Model.PalletIdListJson)
-            });
+                pallets:  @Html.Raw(Model.PalletIdListJson)
+                });
 
-        HandleScan.init({
-            // Selector to the text area
-            textarea: '#scanArea textarea',
-            // Selector of a button which will cause immediate handling of the scans.
-            // It should have an ajax loading image which will be made visible while ajax calls are in progress
-            button: '#scanArea button',
-            delay: 3000   // Number of milliseconds delay after enter is pressed
+            HandleScan.init({
+                // Selector to the text area
+                textarea: '#scanArea textarea',
+                // Selector of a button which will cause immediate handling of the scans.
+                // It should have an ajax loading image which will be made visible while ajax calls are in progress
+                button: '#scanArea button',
+                delay: 3000   // Number of milliseconds delay after enter is pressed
+            });
         });
-    });
 
     </script>
 }
