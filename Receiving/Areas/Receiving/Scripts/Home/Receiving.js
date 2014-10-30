@@ -92,7 +92,30 @@ var Tabs = (function() {
                 $li = x;
             }
         });
-        $('a', $li).tab('show');
+
+        // Remove the tab when the close icon is clicked
+        $(_options.tabContainer).on('click', '.glyphicon-remove-sign', function (e) {
+            var $li = $(this).closest('li');
+            if ($li.is('.active')) {
+                // If the visible tab is being removed, first make something else visible
+                // Try to show the next tab
+                var $nextli = $li.next();
+                if ($nextli.length == 0) {
+                    // If no next, then show first
+                    $nextli = $('li:first', e.delegateTarget);
+                }
+                $('a', $nextli).tab('show');
+            }
+            // Remove content first
+            var contentSelector = $('a', $li).attr('href');  // e.g. #tab2
+            $(contentSelector).remove();
+            // Now remove tab
+            $li.remove();
+
+        }).on('shown.bs.tab', function (e) {
+            //alert('shown.bs.tab ' + e.relatedTarget);
+            load();
+        }).find('li:first a').tab('show');
     };
 
     // Returns the pallet id corresponding to the active tab
@@ -313,31 +336,6 @@ $(document).ready(function () {
     $('#btnNewPallet').click(function (e) {
         alert('auto increment tab with pallet id');
     });
-
-    // Close pallet tab when close icon is clicked
-    $('#palletTabs').on('click', '.glyphicon-remove-sign', function (e) {
-        var $li = $(this).closest('li');
-        if ($li.is('.active')) {
-            // If the visible tab is being removed, first make something else visible
-            // Try to show the next tab
-            var $nextli = $li.next();
-            if ($nextli.length == 0) {
-                // If no next, then show first
-                $nextli = $('li:first', e.delegateTarget);
-            }
-            $('a', $nextli).tab('show');
-        }
-        // Remove content first
-        var contentSelector = $('a', $li).attr('href');  // e.g. #tab2
-        $(contentSelector).remove();
-        // Now remove tab
-        $li.remove();
-
-    }).on('shown.bs.tab', function (e) {
-        //alert('shown.bs.tab ' + e.relatedTarget);
-        Tabs.load();
-    }).find('li:first a').tab('show');
-
 });
 
 
