@@ -245,7 +245,7 @@ var HandleScan = (function () {
             $(_options.textarea).popover('hide').focus();
         });
 
-        $(_options.button).on('click', 'has(span:visible)', function (e) {
+        $(document).on('click', _options.button + ':has(span:visible)', function (e) {
             // The click is accepted only if the Go text is visible on the button.
             // This means to us that ajax call is not in progress.
             _act();
