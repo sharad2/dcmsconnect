@@ -222,13 +222,26 @@
                     });
 
             }).on('click', '[data-action="print"]', function (e) {
+
                 // Click handler for the print button
                 var $dlg = $('#printModal');
                 var cartonId = $(e.target).closest('[data-carton]').data('carton');
+
+                // Remove alert-* classes from the alert. The appropriate class will be added later
+                var $alert = $(".alert", $dlg);
+
                 $dlg.showModal().then(function () {
-                    alert('posting');
+
+                    //alert('posting');
                     var def = $.Deferred();
-                    return def.resolve('Sorry Charlie', 'Client Validation', {status: 203});
+
+                    return def.resolve('Carton '+ cartonId +' Printed on '+ $('#printModal select').val() + ' successfully'
+                        , 'Client Validation'
+                        , {status: 203}
+                        );
+                 
+                    return def.reject({status:''},'Client Validation','Please Select a printer');
+
                     return $.post('@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())', [
                             {
                                 name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId',
@@ -241,12 +254,13 @@
                     ]);
                 }).then(function(data, textStatus, jqXHR) {
                     // Success
-                    //this.html(data);
-                    alert(jqXHR.status + data);
-                }, function(jqXHR, textStatus, errorThrown) {
+                    //alert(jqXHR.status + data);
+                    this.html(data);
+                    this.removeClass('alert-warning hidden').addClass('alert-success');
+                }.bind($alert), function(jqXHR, textStatus, errorThrown) {
                     // error
-
-                });
+                    this.removeClass('hidden').addClass('alert-danger').html(jqXHR.responseText);
+                }.bind($alert));
             });
 
 
