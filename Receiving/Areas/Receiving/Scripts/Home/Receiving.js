@@ -180,7 +180,6 @@ var Tabs = (function () {
     return {
         init: init,
         create: create,
-        //load: load,
         activePalletId: activePalletId,
         html: html,
         show: show,
@@ -376,33 +375,60 @@ $(document).ready(function () {
 
 */
 
+//(function ($) {
+
+//    $.fn.showModal = function (options, cartonId) {
+//        // Remove button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
+//        $('span.cartonId', this).text(cartonId);
+//        $('span.palletId', this).text(Tabs.activePalletId());
+//        return this.on('showmodal.click', '.modal-footer button:not([data-dismiss])', _ajax.bind({ options: options }))
+//            .on('hide.bs.modal', function (e) {
+//                // unbind the button click handler
+//                $(e.delegateTarget).off('showmodal.click', '.modal-footer button:not([data-dismiss])');
+//            }).modal('show');
+
+//    };
+
+//    // this contains the options.
+//    // e.delegateTarget is the dialog. e.target is the button
+//    function _ajax(e) {
+//        $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
+//            .then(function (data, textStatus, jqXHR) {
+//                $(this.dlg).modal('hide');
+//                Tabs.html(data);
+//                Progress.update(-1);
+//            }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
+//                Sound.error();
+//                alert('Error: ' + jqXHR.responseText);
+//            });
+//    }
+//}(jQuery));
+
 (function ($) {
 
-    $.fn.showModal = function (options, cartonId) {
-        // Remove button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
-        $('span.cartonId', this).text(cartonId);
-        $('span.palletId', this).text(Tabs.activePalletId());
-        return this.on('showmodal.click', '.modal-footer button:not([data-dismiss])', _ajax.bind({ options: options }))
+    $.fn.showModal = function () {
+        var def = $.Deferred();
+        this.on('click.showModal', '.modal-footer button:not([data-dismiss])', def.resolve)
             .on('hide.bs.modal', function (e) {
                 // unbind the button click handler
-                $(e.delegateTarget).off('showmodal.click', '.modal-footer button:not([data-dismiss])');
+                $(e.delegateTarget).off('click.showModal', '.modal-footer button:not([data-dismiss])');
             }).modal('show');
-
+        return def;
     };
 
     // this contains the options.
     // e.delegateTarget is the dialog. e.target is the button
-    function _ajax(e) {
-        $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
-            .then(function (data, textStatus, jqXHR) {
-                $(this.dlg).modal('hide');
-                Tabs.html(data);
-                Progress.update(-1);
-            }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
-                Sound.error();
-                alert('Error: ' + jqXHR.responseText);
-            });
-    }
+    //function _ajax(e) {
+    //    $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
+    //        .then(function (data, textStatus, jqXHR) {
+    //            $(this.dlg).modal('hide');
+    //            Tabs.html(data);
+    //            Progress.update(-1);
+    //        }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
+    //            Sound.error();
+    //            alert('Error: ' + jqXHR.responseText);
+    //        });
+    //}
 }(jQuery));
 
 

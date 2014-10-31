@@ -187,26 +187,38 @@
         $(document).ready(function() {
             // Click handler for the remove button
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-                //RemoveCarton.show($(e.target).closest('[data-carton]').data('carton'));
-                $('#removeModal').showModal({
-                    // Data to post to remove the carton
-                    postdata: function(cartonId) {
-                        return [
-                            {
-                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
-                                value: cartonId
-                            },
-                            {
-                                value: @Model.ProcessId,
-                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
-                            }
-                        ];
-                    },
+                // Click handler for the remove button
+                var $dlg = $('#removeModal');
+                var cartonId = $(e.target).closest('[data-carton]').data('carton');
+                $('span.cartonId', $dlg).text(cartonId);
+                $('span.palletId', $dlg).text(Tabs.activePalletId);
+                $('span.count', $dlg).text($('[data-carton]', Tabs.activeContent).length);
+                $dlg.showModal()
+                    .then(function () {
+                        alert('posting');
+                        return $.post('@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())', [
+                                {
+                                    name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                                    value: cartonId
+                                },
+                                {
+                                    value: @Model.ProcessId,
+                                    name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                                }
+                        ]);
+                    }).then(function(data, textStatus, jqXHR) {
+                        // success
+                        $dlg.modal('hide');
+                        Tabs.html(data);
+                        Progress.update(-1);
+                    }, function(jqXHR, textStatus, errorThrown) {
+                        // error
+                        Sound.error();
+                        alert('Error: ' + jqXHR.responseText);
+                    });
 
-                    // URL to invoke for removing the carton
-                    url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
-                }, $(e.target).closest('[data-carton]').data('carton'))
             });
+
 
             Sound.init({
                 // Selector to error sound audio element
