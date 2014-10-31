@@ -23,16 +23,22 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public int? PalletLimit { get; set; }
 
+        [Display(Name = "Season Code")]
         public string PriceSeasonCode { get; set; }
 
+         [Display(Name = "Pro Date")]
+         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? ProDate { get; set; }
 
+        [Display(Name="Pro #")]
         public string ProNumber{ get; set; }
 
+        [Display(Name="Process")]
         public int? ProcessId {get; set; }
 
         public string SpotCheckAreaId { get; set; }
 
+        [Display(Name = "Received by")]
         public string OperatorName { get; set; }
 
         public string ReceivingAreaId { get; set; }
@@ -93,6 +99,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             }
         }
 
+        [Display(Name="Expected Cartons")]
         public int? ExpectedCartons { get; set; }
 
         public int CartonCount { get; set; }
