@@ -37,12 +37,8 @@ namespace T4MVC.Receiving
             public class _ViewNamesClass
             {
                 public readonly string _layoutReceiving = "_layoutReceiving";
-                public readonly string _layoutReceiving_desktop = "_layoutReceiving.desktop";
-                public readonly string _layoutReceiving_Mobile = "_layoutReceiving.Mobile";
             }
             public readonly string _layoutReceiving = "~/Areas/Receiving/Views/Shared/_layoutReceiving.cshtml";
-            public readonly string _layoutReceiving_desktop = "~/Areas/Receiving/Views/Shared/_layoutReceiving.desktop.cshtml";
-            public readonly string _layoutReceiving_Mobile = "~/Areas/Receiving/Views/Shared/_layoutReceiving.Mobile.cshtml";
             static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
             public _DisplayTemplatesClass DisplayTemplates { get { return s_DisplayTemplates; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

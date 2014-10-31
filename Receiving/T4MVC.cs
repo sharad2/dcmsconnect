@@ -190,18 +190,10 @@ namespace Links_Receiving
                     private const string URLPATH = "~/Areas/Receiving/Content/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
                     public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
-                public static readonly string Receiving_all_css_bundle = Url("Receiving-all.css.bundle");
-                public static readonly string Receiving_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.css") ? Url("Receiving-all.min.css") : Url("Receiving-all.css");
-                     
-                public static readonly string Receiving_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-mobile-all.min.css") ? Url("Receiving-mobile-all.min.css") : Url("Receiving-mobile-all.css");
-                     
-                public static readonly string Receiving_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.partial.min.css") ? Url("Receiving.partial.min.css") : Url("Receiving.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Receiving/Content/Sounds";
@@ -226,8 +218,6 @@ namespace Links_Receiving
                     public static readonly string warning_wav = Url("warning.wav");
                 }
             
-                public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
-                     
             }
         
         }

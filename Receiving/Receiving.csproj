@@ -155,15 +155,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Receiving\Content\images\calendar.gif" />
-    <Content Include="Areas\Receiving\Content\Receiving-all.css">
-      <DependentUpon>Receiving-all.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\Receiving\Content\Receiving-all.min.css">
-      <DependentUpon>Receiving-all.css.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\Receiving\Content\Receiving-mobile-all.min.css">
-      <DependentUpon>Receiving-mobile-all.css</DependentUpon>
-    </Content>
     <Content Include="Areas\Receiving\Content\Sounds\6.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\7.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\8.mp3" />
@@ -192,7 +183,6 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <None Include="Areas\Receiving\Content\Receiving-all.css.bundle" />
     <None Include="Areas\Receiving\Scripts\Home\Receiving-all.js.bundle" />
     <Content Include="Areas\Receiving\Scripts\Home\Receiving-all.min.js.map">
       <DependentUpon>Receiving-all.js.bundle</DependentUpon>
@@ -208,9 +198,6 @@
     <None Include="Doc\Roles.txt" />
     <None Include="Areas\Receiving\Content\Autocomplete.partial.css" />
     <Content Include="Areas\Receiving\Content\images\ajax-loader.gif" />
-    <None Include="Areas\Receiving\Content\Receiving-mobile-all.css" />
-    <Content Include="Areas\Receiving\Content\images\a1.gif" />
-    <None Include="Areas\Receiving\Content\Receiving.partial.css" />
     <Content Include="Areas\Receiving\Content\Sounds\1.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\10.mp3" />
     <Content Include="Areas\Receiving\Content\Sounds\2.mp3" />
@@ -240,9 +227,6 @@
     <Content Include="Areas\Receiving\Views\Rad\_spotCheckListPartial.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\_addSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\_editSpotCheckPartial.cshtml" />
-    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.Mobile.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Areas\Receiving\Views\Home\CreateProcess.cshtml" />
     <None Include="Content\themes\Start1.10.0\jquery-ui.min.css" />
     <Content Include="Content\jquery.mobile-1.4.2.css" />
@@ -252,7 +236,6 @@
     </Content>
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Receiving.pubxml" />
-    <None Include="Areas\Receiving\Content\standardized.partial.css" />
     <Content Include="Areas\Receiving\Content\Sounds\warning.wav" />
     <None Include="Areas\Receiving\Scripts\Home\PalletTabs.partial.js" />
     <None Include="Areas\Receiving\Scripts\Home\Receiving.partial.js" />
@@ -312,7 +295,6 @@
       </SubType>
     </Content>
     <Content Include="Areas\Receiving\Views\Shared\DisplayTemplates\ValueWithShortName.cshtml" />
-    <Content Include="Areas\Receiving\Views\Shared\_layoutReceiving.desktop.cshtml" />
     <None Include="Models\Models.cd" />
     <Content Include="Areas\Receiving\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Receiving\Views\Rad\Index.cshtml" />
