@@ -1,8 +1,10 @@
 ﻿
-"use strict";
+/* jshint settings as described in http://www.jshint.com/docs/
+/* jshint unused: false */
 
 // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
 var Sound = (function () {
+    "use strict";
     // All external dependencies should be part of options
     var _options = {
         // Selector to error sound audio element
@@ -23,7 +25,7 @@ var Sound = (function () {
 
     var success = function () {
         $(_options.success)[0].play();
-    }
+    };
     // public API
     return {
         init: init,
@@ -33,13 +35,13 @@ var Sound = (function () {
 })();
 
 var Progress = (function () {
-
+    "use strict";
     var _options = {
         //id of the progress bar
         bar: '#progressCartons',
         //id of the span to show recived carton count
         receivedCount: '#receivedCount'
-    }
+    };
 
     var init = function (options) {
         _options = $.extend(_options, options);
@@ -65,7 +67,7 @@ var Progress = (function () {
 
 // Functios to work with tabs. Tabs can be referenced by pallet id.
 var Tabs = (function () {
-
+    "use strict";
     var _options = {
         // Selector for tab container
         tabContainer: '', //'#palletTabs',
@@ -88,7 +90,7 @@ var Tabs = (function () {
         var $li;
         $.each(_options.pallets, function (i, val) {
             var x = Tabs.create(val);
-            if (i == 0) {
+            if (i === 0) {
                 $li = x;
             }
         });
@@ -100,7 +102,7 @@ var Tabs = (function () {
                 // If the visible tab is being removed, first make something else visible
                 // Try to show the next tab
                 var $nextli = $li.next();
-                if ($nextli.length == 0) {
+                if ($nextli.length === 0) {
                     // If no next, then show first
                     $nextli = $('li:first', e.delegateTarget);
                 }
@@ -189,6 +191,7 @@ var Tabs = (function () {
 // Monitors the enter key in the text area. When pressed, it starts a timer and acts on the user scans
 // Errors are displayed in an associated popover
 var HandleScan = (function () {
+    "use strict";
     var _timer;
 
     var _options = {
@@ -204,7 +207,7 @@ var HandleScan = (function () {
         cartonPostdata: function (palletId, cartons) {
             // This is an example function. Not useful. Caller must pass it to init
             return [
-                { name: 'processId', value: _processId },
+                { name: 'processId', value: 123 },
                 { name: 'cartons', value: cartons },
                 { name: 'palletId', value: palletId },
                 { name: 'dispos', value: 'something' }
@@ -220,7 +223,7 @@ var HandleScan = (function () {
                 clearTimeout(_timer);
                 _timer = null;
             }
-            if (e.which != 13) {
+            if (e.which !== 13) {
                 // We are interested only when enter key is pressed
                 return;
             }
@@ -258,9 +261,9 @@ var HandleScan = (function () {
         }
         var tokens = $.grep($(_options.textarea).val().split('\n'), function (txt, i) {
             // Ignore empty lines
-            return txt.trim().toUpperCase() != '';
+            return txt.trim().toUpperCase() !== '';
         });
-        if (tokens.length == 0) {
+        if (tokens.length === 0) {
             // Text box is empty. Nothing to do
             return;
         }
@@ -345,7 +348,7 @@ $(document).ready(function () {
 });
 
 var RemoveCarton = (function () {
-
+    "use strict";
     var _options = {
         // Selector to the remove modal dialog
         dlg: '',  //'#removeModal'
@@ -449,7 +452,7 @@ $(document).ready(function () {
             $alert.text("Please select a printer").addClass('alert-warning');
             return;
         }
-        var data = new Object();
+        var data = {};
         $('span[data-name]', e.delegateTarget).each(function (index, elem) {
             this[$(elem).attr('data-name')] = $(elem).text();
         }.bind(data));
