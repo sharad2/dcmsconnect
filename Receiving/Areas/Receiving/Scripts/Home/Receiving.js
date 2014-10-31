@@ -145,7 +145,7 @@ var Tabs = (function () {
                     role: 'tab',
                     "data-toggle": 'tab',
                     title: 'Pallet ' + palletId
-                }).text(palletId).append('<span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+                }).text(palletId).append(' <span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
             ).appendTo(_options.tabContainer);
     };
 
