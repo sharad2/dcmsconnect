@@ -479,38 +479,38 @@ $(document).ready(function () {
     });
 
 
-    $('#printModal').on('click', '#btnPrint', function (e) {
-        // Print the carton label
-        // Remove alert-* classes from the alert. The appropriate class will be added later
-        var $alert = $(".alert", e.delegateTarget).removeClass('hidden');
-        var $ddl = $('#ddlprinters', e.delegateTarget);
-        if (!$ddl.val()) {
-            $alert.text("Please select a printer").addClass('alert-warning');
-            return;
-        }
-        var data = {};
-        $('span[data-name]', e.delegateTarget).each(function (index, elem) {
-            this[$(elem).attr('data-name')] = $(elem).text();
-        }.bind(data));
-        data[$ddl.attr('name')] = $ddl.val();
-        $.post($(this).attr('data-print-url'), data)
-            .then(function (data, textStatus, jqXHR) {
-                // success
-                this.html(data);
-                switch (jqXHR.status) {
-                    case 203:
-                        this.addClass('alert-warning');
-                        break;
+    //$('#printModal').on('click', '#btnPrint', function (e) {
+    //    // Print the carton label
+    //    // Remove alert-* classes from the alert. The appropriate class will be added later
+    //    var $alert = $(".alert", e.delegateTarget).removeClass('hidden');
+    //    var $ddl = $('#ddlprinters', e.delegateTarget);
+    //    if (!$ddl.val()) {
+    //        $alert.text("Please select a printer").addClass('alert-warning');
+    //        return;
+    //    }
+    //    var data = {};
+    //    $('span[data-name]', e.delegateTarget).each(function (index, elem) {
+    //        this[$(elem).attr('data-name')] = $(elem).text();
+    //    }.bind(data));
+    //    data[$ddl.attr('name')] = $ddl.val();
+    //    $.post($(this).attr('data-print-url'), data)
+    //        .then(function (data, textStatus, jqXHR) {
+    //            // success
+    //            this.html(data);
+    //            switch (jqXHR.status) {
+    //                case 203:
+    //                    this.addClass('alert-warning');
+    //                    break;
 
-                    default:
-                        this.removeClass('alert-warning').addClass('alert-success');
-                        break;
-                }
-            }.bind($alert), function (jqXHR, textStatus, errorThrown) {
-                // Error
-                this.addClass('alert-danger').html(jqXHR.responseText);
-            }.bind($alert));
-    });
+    //                default:
+    //                    this.removeClass('alert-warning').addClass('alert-success');
+    //                    break;
+    //            }
+    //        }.bind($alert), function (jqXHR, textStatus, errorThrown) {
+    //            // Error
+    //            this.addClass('alert-danger').html(jqXHR.responseText);
+    //        }.bind($alert));
+    //});
 
 });
 

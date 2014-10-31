@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
+                <button class="btn btn-primary" id="btnPrint"><span class="glyphicon glyphicon-print"></span> Print</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 
@@ -200,7 +200,6 @@
                 $('span.count', $dlg).text($('[data-carton]', Tabs.activeContent).length);
                 $dlg.showModal()
                     .then(function () {
-                        alert('posting');
                         return $.post('@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())', [
                                 {
                                     name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
@@ -222,6 +221,32 @@
                         alert('Error: ' + jqXHR.responseText);
                     });
 
+            }).on('click', '[data-action="print"]', function (e) {
+                // Click handler for the print button
+                var $dlg = $('#printModal');
+                var cartonId = $(e.target).closest('[data-carton]').data('carton');
+                $dlg.showModal().then(function () {
+                    alert('posting');
+                    var def = $.Deferred();
+                    return def.resolve('Sorry Charlie', 'Client Validation', {status: 203});
+                    return $.post('@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())', [
+                            {
+                                name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId',
+                                value: cartonId
+                            },
+                            {
+                                value: $('#printModal select').val(),
+                                name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.printer'
+                            }
+                    ]);
+                }).then(function(data, textStatus, jqXHR) {
+                    // Success
+                    //this.html(data);
+                    alert(jqXHR.status + data);
+                }, function(jqXHR, textStatus, errorThrown) {
+                    // error
+
+                });
             });
 
 
