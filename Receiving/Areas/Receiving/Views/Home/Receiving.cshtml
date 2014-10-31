@@ -185,6 +185,11 @@
         "use strict";
 
         $(document).ready(function() {
+            // Populate the printer list whien dialog is first displayed
+            $('#printModal').one('show.bs.modal', {url: $('#printModal select').data('getprinters-url')}, LoadPrinters);
+
+
+
             // Click handler for the remove button
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
                 // Click handler for the remove button
