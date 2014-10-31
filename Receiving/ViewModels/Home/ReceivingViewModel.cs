@@ -27,7 +27,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         public string PriceSeasonCode { get; set; }
 
          [Display(Name = "Pro Date")]
-         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ProDate { get; set; }
 
         [Display(Name="Pro #")]
