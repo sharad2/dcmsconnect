@@ -26,15 +26,15 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         [Display(Name = "Season Code")]
         public string PriceSeasonCode { get; set; }
 
-         [Display(Name = "Pro Date")]
-         [DisplayFormat(DataFormatString = "{0:d}")]
+        [Display(Name = "Pro Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime? ProDate { get; set; }
 
-        [Display(Name="Pro #")]
-        public string ProNumber{ get; set; }
+        [Display(Name = "Pro #")]
+        public string ProNumber { get; set; }
 
-        [Display(Name="Process")]
-        public int? ProcessId {get; set; }
+        [Display(Name = "Process")]
+        public int? ProcessId { get; set; }
 
         public string SpotCheckAreaId { get; set; }
 
@@ -42,9 +42,6 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         public string OperatorName { get; set; }
 
         public string ReceivingAreaId { get; set; }
-
-        [Obsolete("Use PalletIdList")]
-        public IList<PalletViewModel> Pallets { get; set; }
 
         /// <summary>
         /// Array of pallet ids in javascript format
@@ -62,17 +59,6 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             }
         }
 
-        //#region Printing 
-
-        //[Obsolete]
-        //[Display(Name = "Printer")]
-        //public string PrinterId { get; set; }
-
-        //[Obsolete]
-        //public IEnumerable<SelectListItem>PrinterList { get; set; }
-
-        //#endregion
-
 
         /// <summary>
         /// Becomes true if the logged in user does not match the user who created the process
@@ -82,10 +68,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// </remarks>
         public bool UserMismatch { get; set; }
 
-        [Obsolete]
-        public ScanViewModel ScanModel { get; set; }
-
-        public string CarrierId{get;set;}
+        public string CarrierId { get; set; }
 
         /// <summary>
         /// Url of Report 40.103: Summary of the Shipments as well as cartons received.
@@ -99,7 +82,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
             }
         }
 
-        [Display(Name="Expected Cartons")]
+        [Display(Name = "Expected Cartons")]
         public int? ExpectedCartons { get; set; }
 
         public int CartonCount { get; set; }
@@ -112,7 +95,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
                 {
                     return 0;
                 }
-            return (int)Math.Round(this.CartonCount * 100.0 / this.ExpectedCartons.Value);
+                return (int)Math.Round(this.CartonCount * 100.0 / this.ExpectedCartons.Value);
 
             }
         }
