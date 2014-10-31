@@ -134,7 +134,9 @@
                         <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                         <div class="col-sm-10">
                             <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'
-                                    name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer" required></select>
+                                    name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer" required>
+                                <option disabled>(Select a printer)</option>
+                            </select>
                         </div>
                     </div>
                 </div>

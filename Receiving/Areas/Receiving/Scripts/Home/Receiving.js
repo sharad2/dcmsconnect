@@ -387,7 +387,7 @@ $(document).ready(function () {
                 // unbind the button click handler
                 $(e.delegateTarget).off('showmodal.click', '.modal-footer button:not([data-dismiss])');
             }).modal('show');
-                
+
     };
 
     // this contains the options.
@@ -473,7 +473,7 @@ $(document).ready(function () {
                         break;
 
                     default:
-                        this.addClass('alert-success');
+                        this.removeClass('alert-warning').addClass('alert-success');
                         break;
                 }
             }.bind($alert), function (jqXHR, textStatus, errorThrown) {
