@@ -259,7 +259,7 @@ var HandleScan = (function () {
             clearTimeout(_timer);
             _timer = null;
         }
-        var tokens = $.grep($(_options.textarea).val().split('\n'), function (txt, i) {
+        var tokens = $.grep($(_options.textarea).val().toUpperCase().split('\n'), function (txt, i) {
             // Ignore empty lines
             return txt.trim().toUpperCase() !== '';
         });
@@ -368,6 +368,7 @@ var RemoveCarton = (function () {
         $(_options.dlg).on('click', '.modal-footer button:not([data-dismiss])', function (e) {
             _ajax();
         });
+                
     };
 
     // make the ajax call
