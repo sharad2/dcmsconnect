@@ -114,71 +114,66 @@
                 </div>
             }*@
     </div>
-    <!-- Print Modal called from _palletPartialPage -->
-    <div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
-                    </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-danger hidden" role="alert">Please select a printer</div>
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
-                            <div class="col-sm-10">
-                                <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'
-                                        name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer" required></select>
-                            </div>
+
+</div>
+
+<!-- Print Modal called from _palletPartialPage -->
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger hidden" role="alert">Please select a printer</div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
+                        <div class="col-sm-10">
+                            <select id="ddlprinters" class="form-control" data-getprinters-url='@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())'
+                                    name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer" required></select>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="btnPrint" data-print-url="@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())"><span class="glyphicon glyphicon-print"></span> Print</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 
         </div>
 
-
-
     </div>
-
-    <!--Remove Carton Modal(Pop-up)-->
-    <div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">
-                        Remove Carton <span class="cartonId"></span>
-                        from Pallet <span class="palletId"></span>?
-                    </h4>
-                </div>
-
-                <div class="modal-body">
-                    <span>
-                        Pallet <span class="palletId"></span> contains <span class="count"></span> cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
-                    </span>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary">Ok</button>
-                    <button class="btn btn-default" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-
-        </div>
-
-
-
-    </div>
-
-
 </div>
+
+<!--Remove Carton Modal(Pop-up)-->
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    Remove Carton <span class="cartonId"></span>
+                    from Pallet <span class="palletId"></span>?
+                </h4>
+            </div>
+
+            <div class="modal-body">
+                <span>
+                    Pallet <span class="palletId"></span> contains <span class="count"></span> cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Ok</button>
+                <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 @section script{
     <!-- Closing tabs inspired from
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
@@ -188,32 +183,27 @@
         "use strict";
 
         $(document).ready(function() {
-
-            RemoveCarton.init({
-                // Dialog to open when remove button is clicked
-                dlg: '#removeModal',
-
-                // Data to post to remove the carton
-                postdata: function(cartonId) {
-                    return [
-                        {
-                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
-                            value: cartonId
-                        },
-                        {
-                            value: @Model.ProcessId,
-                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
-                        }
-                    ];
-                },
-
-                // URL to invoke for removing the carton
-                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
-            });
-
             // Click handler for the remove button
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-                RemoveCarton.show($(e.target).closest('[data-carton]').data('carton'));
+                //RemoveCarton.show($(e.target).closest('[data-carton]').data('carton'));
+                $('#removeModal').showModal({
+                    // Data to post to remove the carton
+                    postdata: function(cartonId) {
+                        return [
+                            {
+                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                                value: cartonId
+                            },
+                            {
+                                value: @Model.ProcessId,
+                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                            }
+                        ];
+                    },
+
+                    // URL to invoke for removing the carton
+                    url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
+                }, $(e.target).closest('[data-carton]').data('carton'))
             });
 
             Sound.init({

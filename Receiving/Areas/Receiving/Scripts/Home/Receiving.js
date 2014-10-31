@@ -347,59 +347,64 @@ $(document).ready(function () {
     });
 });
 
-var RemoveCarton = (function () {
-    "use strict";
-    var _options = {
-        // Selector to the remove modal dialog
-        dlg: '',  //'#removeModal'
-        // Function returning an array of name value pair objects which will be posted. The carton Id will be passed
-        postdata: function (cartonId) {
+/*
+  Provides an enhanced modal experience. You call it like so:
+  $('#mymodal').showModal(options, cartonId, palletId);
 
-        },
-        // URL which will be invoked to remove the carton
-        url: ''
-    };
+  Your modal must have spans with class cartonId or palletId. Their text will be replaced by the passed values.
+  In the footer of your modal you must have a button without the data-dismiss attribute. When this button is clicked, 
+    and ajax call will be made to the url you specify with the data you specify in options.
 
-    // If the modal footer contains a button without the data-dismiss attribute, clicking it will remove the carton
-    var init = function (options) {
-        _options = $.extend(_options, options);
+            $('#removeModal').showModal({
+                // Data to post to remove the carton
+                postdata: function(cartonId, palletId) {
+                    return [
+                        {
+                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                            value: cartonId
+                        },
+                        {
+                            value: @Model.ProcessId,
+                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                        }
+                    ];
+                },
 
-        // AJAX call to Remove the carton when remove button is clicked
-        $(_options.dlg).on('click', '.modal-footer button:not([data-dismiss])', function (e) {
-            _ajax();
-        });
+                // URL to invoke for removing the carton
+                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
+            });
+
+*/
+
+(function ($) {
+
+    $.fn.showModal = function (options, cartonId) {
+        // Remove button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
+        $('span.cartonId', this).text(cartonId);
+        $('span.palletId', this).text(Tabs.activePalletId());
+        return this.on('showmodal.click', '.modal-footer button:not([data-dismiss])', _ajax.bind({ options: options }))
+            .on('hide.bs.modal', function (e) {
+                // unbind the button click handler
+                $(e.delegateTarget).off('showmodal.click', '.modal-footer button:not([data-dismiss])');
+            }).modal('show');
                 
     };
 
-    // make the ajax call
-    var _ajax = function () {
-        $.post(_options.url, _options.postdata($('span.cartonId', _options.dlg).text()))
+    // this contains the options.
+    // e.delegateTarget is the dialog. e.target is the button
+    function _ajax(e) {
+        $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
             .then(function (data, textStatus, jqXHR) {
-                $(_options.dlg).modal('hide');
+                $(this.dlg).modal('hide');
                 Tabs.html(data);
                 Progress.update(-1);
-            }, function (jqXHR, textStatus, errorThrown) {
+            }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
                 Sound.error();
                 alert('Error: ' + jqXHR.responseText);
             });
-    };
+    }
+}(jQuery));
 
-    // call this to show the remove confirmation dialog for the passed carton
-    // The dialog can contain spans having class cartonId and PalletId. These will be populated with appropriate values
-    var show = function (cartonId, count) {
-        var $dlg = $('#removeModal');
-        // Remove button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
-        $('span.cartonId', $dlg).text(cartonId);
-        $('span.palletId', $dlg).text(Tabs.activePalletId());
-        $('span.count', $dlg).text(Tabs.activeContent().find('[data-carton]').length);
-        $dlg.modal('show');
-    };
-
-    return {
-        init: init,
-        show: show
-    };
-})();
 
 // Print carton label
 $(document).ready(function () {
