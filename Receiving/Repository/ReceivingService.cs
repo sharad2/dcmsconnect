@@ -50,11 +50,6 @@ namespace DcmsMobile.Receiving.Repository
         /// </summary>
         public int? ExpectedCartons { get; set; }
 
-        /// <summary>
-        /// Total number of expected cartons against the process
-        /// </summary>
-        [Obsolete]
-        public int? CartonsOnPallet { get; set; }
     }
     public class AlreadyReceivedCartonException : Exception
     {
@@ -136,11 +131,11 @@ namespace DcmsMobile.Receiving.Repository
             _repos = repos;
         }
 
-        [Obsolete]
-        public int GetCartonsOfProcess(int? processId)
-        {
-            return _repos.GetCartonsOfProcess(processId);
-        }
+        //[Obsolete]
+        //public int GetCartonsOfProcess(int? processId)
+        //{
+        //    return _repos.GetCartonsOfProcess(processId);
+        //}
 
         /// <summary>
         /// Used to store destination area of intransit cartons until they are received
@@ -261,24 +256,24 @@ namespace DcmsMobile.Receiving.Repository
             return ctn;
         }
 
-        [Obsolete]
-        public IEnumerable<Pallet> GetPalletsOfProcess(int processId)
-        {
-            var list = _repos.GetReceivedCartons2(null, processId, null);
-            var query = from carton in list
-                        group carton by carton.PalletId into g
-                        orderby g.Max(p => p.ReceivedDate) descending
-                        select new Pallet
-                        {
-                            PalletId = g.Key,
-                            PalletLimit = GetPalletLimit(processId), // ProcessId 
-                            Cartons = g.ToList(),
-                            ProcessId = processId
-                        };
+        //[Obsolete]
+        //public IEnumerable<Pallet> GetPalletsOfProcess(int processId)
+        //{
+        //    var list = _repos.GetReceivedCartons2(null, processId, null);
+        //    var query = from carton in list
+        //                group carton by carton.PalletId into g
+        //                orderby g.Max(p => p.ReceivedDate) descending
+        //                select new Pallet
+        //                {
+        //                    PalletId = g.Key,
+        //                    PalletLimit = GetPalletLimit(processId), // ProcessId 
+        //                    Cartons = g.ToList(),
+        //                    ProcessId = processId
+        //                };
 
 
-            return query.Take(10);
-        }
+        //    return query.Take(10);
+        //}
 
         public IList<string> GetPalletsOfProcess2(int processId)
         {
@@ -507,116 +502,116 @@ namespace DcmsMobile.Receiving.Repository
         }
 
 
-        /// <summary>
-        /// Returns outcome (Received, Pallet scan); List of cartons on pallet is returned; 
-        /// </summary>
-        /// <param name="scan"></param>
-        /// <param name="ctx"></param>
-        /// <returns>Active pallet info. This will never be null.</returns>
-        /// <exception cref="ProviderException">Generic message for any error condition</exception>
-        /// <exception cref="DispositionMismatchException">The carton disposition does not match the disposition of active pallet</exception>
-        /// <exception cref="AlreadyReceivedCartonException">The carton has already been received.</exception>
-        /// <exception cref="ArgumentNullException"></exception>
-        [Obsolete]
-        public Pallet HandleScan(string scan, ScanContext ctx)
-        {
-            if (string.IsNullOrWhiteSpace(scan))
-            {
-                throw new ArgumentNullException("scan");
-            }
+        ///// <summary>
+        ///// Returns outcome (Received, Pallet scan); List of cartons on pallet is returned; 
+        ///// </summary>
+        ///// <param name="scan"></param>
+        ///// <param name="ctx"></param>
+        ///// <returns>Active pallet info. This will never be null.</returns>
+        ///// <exception cref="ProviderException">Generic message for any error condition</exception>
+        ///// <exception cref="DispositionMismatchException">The carton disposition does not match the disposition of active pallet</exception>
+        ///// <exception cref="AlreadyReceivedCartonException">The carton has already been received.</exception>
+        ///// <exception cref="ArgumentNullException"></exception>
+        //[Obsolete]
+        //public Pallet HandleScan(string scan, ScanContext ctx)
+        //{
+        //    if (string.IsNullOrWhiteSpace(scan))
+        //    {
+        //        throw new ArgumentNullException("scan");
+        //    }
 
-            //var pallet = new Pallet();
-            if (scan.StartsWith("P"))
-            {
-                return HandlePalletScan(scan, ctx);
-            }
+        //    //var pallet = new Pallet();
+        //    if (scan.StartsWith("P"))
+        //    {
+        //        return HandlePalletScan(scan, ctx);
+        //    }
 
-            if (ctx.PalletId == null)
-            {
-                throw new ProviderException(string.Format("Please Scan a Pallet first"));
-            }
+        //    if (ctx.PalletId == null)
+        //    {
+        //        throw new ProviderException(string.Format("Please Scan a Pallet first"));
+        //    }
 
-            var cartonToReceive = this.GetIntransitCarton(scan, ctx.ProcessId);
-            if (cartonToReceive == null)
-            {
-                throw new ProviderException(string.Format("Carton {0} not recognized", scan));
-            }
+        //    var cartonToReceive = this.GetIntransitCarton(scan, ctx.ProcessId);
+        //    if (cartonToReceive == null)
+        //    {
+        //        throw new ProviderException(string.Format("Carton {0} not recognized", scan));
+        //    }
 
-            if (cartonToReceive.IsShipmentClosed)
-            {
-                // This carton is from an already closed shipment. check whether we can accept it.                 
-                if (_repos.AcceptCloseShipmentCtn(scan, ctx.ProcessId))
-                {
-                    // Carton acceptable nothing to do. 
+        //    if (cartonToReceive.IsShipmentClosed)
+        //    {
+        //        // This carton is from an already closed shipment. check whether we can accept it.                 
+        //        if (_repos.AcceptCloseShipmentCtn(scan, ctx.ProcessId))
+        //        {
+        //            // Carton acceptable nothing to do. 
 
-                }
-                else
-                {
+        //        }
+        //        else
+        //        {
 
-                    throw new ProviderException(string.Format("Carton {0} belongs to a closed shipment.Scan after carton for open shipment or use blind receiving.", scan));
-                }
-            }
+        //            throw new ProviderException(string.Format("Carton {0} belongs to a closed shipment.Scan after carton for open shipment or use blind receiving.", scan));
+        //        }
+        //    }
 
 
 
-            if (cartonToReceive.ReceivedDate != null)
-            {
-                // Carton already received.
-                var carton = _repos.GetReceivedCartons2(null, null, cartonToReceive.CartonId).FirstOrDefault();
-                // If the carton is recived and palletized we throw an error.
-                if (carton == null)
-                {
-                    throw new ProviderException(string.Format("Carton {0} already received on {1} but does not exist in src_carton. Contact administrator", cartonToReceive.CartonId, cartonToReceive.ReceivedDate));
-                }
-                if (!string.IsNullOrEmpty(carton.PalletId))
-                {
-                    //carton has already been received throw exception with pallet Id on which carton was put.
-                    throw new AlreadyReceivedCartonException(carton.PalletId);
-                }
-                // Put carton on pallet and check disposition. 
-                if (HandleDisposition(ctx.PalletId, carton.DispositionId))
-                {
-                    // Dipos ok put carton on pallet
-                    _repos.PutCartonOnPallet(ctx.PalletId, scan);
-                }
-                else
-                {
-                    // throw dispos mismatch exception.
-                    throw new DispositionMismatchException(carton.VwhId, carton.DestinationArea);
-                }
-            }
+        //    if (cartonToReceive.ReceivedDate != null)
+        //    {
+        //        // Carton already received.
+        //        var carton = _repos.GetReceivedCartons2(null, null, cartonToReceive.CartonId).FirstOrDefault();
+        //        // If the carton is recived and palletized we throw an error.
+        //        if (carton == null)
+        //        {
+        //            throw new ProviderException(string.Format("Carton {0} already received on {1} but does not exist in src_carton. Contact administrator", cartonToReceive.CartonId, cartonToReceive.ReceivedDate));
+        //        }
+        //        if (!string.IsNullOrEmpty(carton.PalletId))
+        //        {
+        //            //carton has already been received throw exception with pallet Id on which carton was put.
+        //            throw new AlreadyReceivedCartonException(carton.PalletId);
+        //        }
+        //        // Put carton on pallet and check disposition. 
+        //        if (HandleDisposition(ctx.PalletId, carton.DispositionId))
+        //        {
+        //            // Dipos ok put carton on pallet
+        //            _repos.PutCartonOnPallet(ctx.PalletId, scan);
+        //        }
+        //        else
+        //        {
+        //            // throw dispos mismatch exception.
+        //            throw new DispositionMismatchException(carton.VwhId, carton.DestinationArea);
+        //        }
+        //    }
 
-            else
-            {
-                // Unreceived carton.
-                _repos.ReceiveCarton(null, cartonToReceive.CartonId, cartonToReceive.DestinationArea, ctx.ProcessId);
-                //Getting the pallet dispostion, if this pallet does not contain cartons then disposition will be null.
-                if (HandleDisposition(ctx.PalletId, cartonToReceive.DispositionId))
-                {
-                    _repos.PutCartonOnPallet(ctx.PalletId, scan);
+        //    else
+        //    {
+        //        // Unreceived carton.
+        //        _repos.ReceiveCarton(null, cartonToReceive.CartonId, cartonToReceive.DestinationArea, ctx.ProcessId);
+        //        //Getting the pallet dispostion, if this pallet does not contain cartons then disposition will be null.
+        //        if (HandleDisposition(ctx.PalletId, cartonToReceive.DispositionId))
+        //        {
+        //            _repos.PutCartonOnPallet(ctx.PalletId, scan);
 
-                }
-                else
-                {
-                    throw new DispositionMismatchException(cartonToReceive.VwhId, cartonToReceive.DestinationArea);
+        //        }
+        //        else
+        //        {
+        //            throw new DispositionMismatchException(cartonToReceive.VwhId, cartonToReceive.DestinationArea);
 
-                }
+        //        }
 
-                ctx.Result = ScanResult.CartonReceived;
-            }
+        //        ctx.Result = ScanResult.CartonReceived;
+        //    }
 
-            var process = GetProcessInfo(ctx.ProcessId);
-            var pallet = this.GetPallet(ctx.PalletId, ctx.ProcessId);
-            if (!pallet.Cartons.Any(p => p.CartonId == cartonToReceive.CartonId))
-            {
-                throw new ProviderException(string.Format("Internal Error: Received carton {0} not found on pallet {1}", cartonToReceive.CartonId, ctx.PalletId));
-            }
+        //    var process = GetProcessInfo(ctx.ProcessId);
+        //    var pallet = this.GetPallet(ctx.PalletId, ctx.ProcessId);
+        //    if (!pallet.Cartons.Any(p => p.CartonId == cartonToReceive.CartonId))
+        //    {
+        //        throw new ProviderException(string.Format("Internal Error: Received carton {0} not found on pallet {1}", cartonToReceive.CartonId, ctx.PalletId));
+        //    }
 
-            ctx.Result = ScanResult.CartonReceived;
-            ctx.ExpectedCartons = process.ExpectedCartons;
-            ctx.CartonsOnPallet = GetCartonsOfProcess(ctx.ProcessId);
-            return pallet;
-        }
+        //    ctx.Result = ScanResult.CartonReceived;
+        //    ctx.ExpectedCartons = process.ExpectedCartons;
+        //    ctx.CartonsOnPallet = GetCartonsOfProcess(ctx.ProcessId);
+        //    return pallet;
+        //}
 
 
         // PalletId, ProcessId, destArea, cartonId, 

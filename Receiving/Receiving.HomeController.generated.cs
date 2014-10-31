@@ -277,10 +277,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
                 public readonly string _palletPartial = "_palletPartial";
-                public readonly string _palletPartial_desktop = "_palletPartial.desktop";
                 public readonly string CreateProcess = "CreateProcess";
                 public readonly string Index = "Index";
-                public readonly string Index_desktop = "Index.desktop";
                 public readonly string Receiving = "Receiving";
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string ShipmentList_desktop = "ShipmentList.desktop";
@@ -288,10 +286,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
             public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Views/Home/_cartonNotOnPalletPartial.cshtml";
             public readonly string _palletPartial = "~/Areas/Receiving/Views/Home/_palletPartial.cshtml";
-            public readonly string _palletPartial_desktop = "~/Areas/Receiving/Views/Home/_palletPartial.desktop.cshtml";
             public readonly string CreateProcess = "~/Areas/Receiving/Views/Home/CreateProcess.cshtml";
             public readonly string Index = "~/Areas/Receiving/Views/Home/Index.cshtml";
-            public readonly string Index_desktop = "~/Areas/Receiving/Views/Home/Index.desktop.cshtml";
             public readonly string Receiving = "~/Areas/Receiving/Views/Home/Receiving.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Views/Home/ShipmentList.cshtml";
             public readonly string ShipmentList_desktop = "~/Areas/Receiving/Views/Home/ShipmentList.desktop.cshtml";

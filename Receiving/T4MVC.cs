@@ -140,22 +140,13 @@ namespace Links_Receiving
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string AutoComplete_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.min.js") ? Url("AutoComplete.min.js") : Url("AutoComplete.js");
-                public static readonly string AutoComplete_min_js_map = Url("AutoComplete.min.js.map");
                 public static readonly string bootstrap3_typeahead_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-typeahead.min.js") ? Url("bootstrap3-typeahead.min.js") : Url("bootstrap3-typeahead.js");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Home {
                     private const string URLPATH = "~/Areas/Receiving/Scripts/Home";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string HandleScan_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/HandleScan.partial.min.js") ? Url("HandleScan.partial.min.js") : Url("HandleScan.partial.js");
-                    public static readonly string PalletTabs_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PalletTabs.partial.min.js") ? Url("PalletTabs.partial.min.js") : Url("PalletTabs.partial.js");
-                    public static readonly string PrintCarton_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PrintCarton.partial.min.js") ? Url("PrintCarton.partial.min.js") : Url("PrintCarton.partial.js");
-                    public static readonly string Receiving_all_js_bundle = Url("Receiving-all.js.bundle");
-                    public static readonly string Receiving_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving-all.min.js") ? Url("Receiving-all.min.js") : Url("Receiving-all.js");
-                    public static readonly string Receiving_all_min_js_map = Url("Receiving-all.min.js.map");
                     public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js") : Url("Receiving.js");
-                    public static readonly string Receiving_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.partial.min.js") ? Url("Receiving.partial.min.js") : Url("Receiving.partial.js");
-                    public static readonly string ReceivingCore_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ReceivingCore.partial.min.js") ? Url("ReceivingCore.partial.min.js") : Url("ReceivingCore.partial.js");
                 }
             
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -182,8 +173,6 @@ namespace Links_Receiving
                 private const string URLPATH = "~/Areas/Receiving/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Autocomplete_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Autocomplete.partial.min.css") ? Url("Autocomplete.partial.min.css") : Url("Autocomplete.partial.css");
-                     
                 public static readonly string Guided_Receiving_pps = Url("Guided Receiving.pps");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {

@@ -347,25 +347,25 @@ namespace DcmsMobile.Receiving.Repository
             return _db.ExecuteSingle(QUERY, binder);
         }
 
-        /// <summary>
-        /// Get received carton count
-        /// </summary>
-        /// <param name="processId"></param>
-        /// <returns>
-        /// </returns>
-        [Obsolete]
-        public int GetCartonsOfProcess(int? processId)
-        {
-            const string QUERY = @"
-                                    SELECT COUNT(CARTON_ID) AS CARTON_COUNT
-                      FROM <proxy />SRC_CARTON
-                    WHERE INSHIPMENT_ID = :inshipmentId
-                       AND PALLET_ID IS NOT NULL
-                ";
-            var binder = SqlBinder.Create(row => row.GetInteger("CARTON_COUNT").Value).Parameter("inshipmentId", processId);
-            ++_queryCount;
-            return _db.ExecuteSingle(QUERY, binder);
-        }
+//        /// <summary>
+//        /// Get received carton count
+//        /// </summary>
+//        /// <param name="processId"></param>
+//        /// <returns>
+//        /// </returns>
+//        [Obsolete]
+//        public int GetCartonsOfProcess(int? processId)
+//        {
+//            const string QUERY = @"
+//                                    SELECT COUNT(CARTON_ID) AS CARTON_COUNT
+//                      FROM <proxy />SRC_CARTON
+//                    WHERE INSHIPMENT_ID = :inshipmentId
+//                       AND PALLET_ID IS NOT NULL
+//                ";
+//            var binder = SqlBinder.Create(row => row.GetInteger("CARTON_COUNT").Value).Parameter("inshipmentId", processId);
+//            ++_queryCount;
+//            return _db.ExecuteSingle(QUERY, binder);
+//        }
 
         public IEnumerable<CartonArea> GetCartonAreas()
         {
