@@ -500,6 +500,15 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         //    return PartialView(Views._palletPartial, pvm);
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// It receives each carton in the passed array. If receiving of any carton fails, then the cartons before that have already been received.
+        /// If any carton is received, then this function will never throw an exception.
+        /// </remarks>
         [HttpPost]
         public virtual ActionResult HandleCartonScan(ScanViewModel model)
         {
@@ -530,21 +539,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             //Pallet pallet = null;
 
-            foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries))
+            var list = new List<Tuple<string, string>>();
+            foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))
             {
-                _service.ReceiveCartons(cartonId.Trim().ToUpper(), ctx);
+                try
+                {
+                    _service.ReceiveCartons(cartonId, ctx);
+                }
+                catch (Exception ex)
+                {
+                    list.Add(Tuple.Create(cartonId, ex.Message));
+                }
             }
 
-            //var pallet = _service.GetPallet(ctx.PalletId, ctx.ProcessId);
-            //var pvm = new PalletViewModel
-            //{
-            //    Cartons = pallet.Cartons,
-            //    PalletLimit = pallet.PalletLimit,
-            //    PalletId = ctx.PalletId,
-            //    QueryCount = _service.QueryCount
-            //};
-            //return PartialView(Views._palletPartial, pvm);
-            return GetPalletHtml(ctx.PalletId, ctx.ProcessId);
+            return Json(from item in list select new {
+                cartonId = item.Item1,
+                message = item.Item2
+            });
 
             //}
             //catch (DispositionMismatchException ex)

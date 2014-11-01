@@ -171,6 +171,7 @@ var Tabs = (function () {
 
     // Updates the html of active pallet
     var _load = function () {
+        //alert('Loading');
         Tabs.html('Loading...');
         return $.get(_options.loadUrl.replace('~', Tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
             Tabs.html(data);
@@ -186,7 +187,8 @@ var Tabs = (function () {
         activePalletId: activePalletId,
         html: html,
         show: show,
-        activeContent: activeContent
+        activeContent: activeContent,
+        load: _load
     };
 })();
 
@@ -256,7 +258,7 @@ var HandleScan = (function () {
         $(_options.button).prop('disabled', true)
             .find('img').removeClass('hidden');
         $(_options.textarea).prop('disabled', true);
-        _hideErrorButton();
+        _hideError();
     };
 
     // Hides the ajax loader image
@@ -265,11 +267,13 @@ var HandleScan = (function () {
         $(_options.textarea).prop('disabled', false);
     };
 
-    var _showErrorButton = function () {
+    var _showError = function (text) {
+        Sound.error();
+        $(_options.textarea).attr('data-content', text).popover('show');
         $(_options.button).next('button').removeClass('hidden');
     };
 
-    var _hideErrorButton = function () {
+    var _hideError = function () {
         $(_options.button).next('button').addClass('hidden');
         $(_options.textarea).popover('hide');
     };
@@ -331,8 +335,6 @@ var HandleScan = (function () {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
         chain = chain.always(_endAction)
-            .fail(_showErrorButton)
-            .done(_hideErrorButton)
             .always(function () {
                 $(_options.textarea).focus();
             });
@@ -344,11 +346,37 @@ var HandleScan = (function () {
     var _receiveCartons = function (cartons) {
         return $.post(_options.cartonUrl, _options.cartonPostdata(Tabs.activePalletId(), cartons)).then(function (data, textStatus, jqXHR) {
             // Success
-            Tabs.html(data);
+            if (data && data.length > 0) {
+                var $ul = $('<ul></ul>');
+                var cartons = [];
+                $.each(data, function (i, elem) {
+                    $('<li></li>').text(elem.cartonId + ': ' + elem.message).appendTo($ul);
+                    cartons.push(elem.cartonId);
+                });
+                _showError($ul[0].outerHTML);
+                $(_options.textarea).val(cartons.join('\n'));
+            } else {
+                // Clear the text box
+                $(_options.textarea).val();
+            }
+            Tabs.load();
             Progress.update(this.count);
         }.bind({
             count: cartons.length
-        }), DisplayAjaxError);
+        }), function (jqXHR, textStatus, errorThrown) {
+            switch (jqXHR.status) {
+                case 500:
+                    // Some exception thrown by action
+                    _showError(jqXHR.responseText);
+                    break;
+
+                default:
+                    // Action was not found
+                    _showError('Error ' + jqXHR.status + ': ' + errorThrown);
+                    break;
+            }
+
+        });
     };
 
     // Expects this.palletId
@@ -358,25 +386,7 @@ var HandleScan = (function () {
         Tabs.show(palletId);
     };
 
-    var DisplayAjaxError = function (jqXHR, textStatus, errorThrown) {
-        //PlayErrorSound();
-        Sound.error();
-        var $tb = $(_options.textarea);
-        switch (jqXHR.status) {
-            case 500:
-                // Some exception thrown by action
-                $tb.attr('data-content', jqXHR.responseText);
-                break;
 
-            default:
-                // Action was not found
-                $tb.attr({
-                    'data-content': 'Error ' + jqXHR.status + ': ' + errorThrown
-                });
-                break;
-        }
-        $tb.popover('show');
-    };
     return {
         init: init
     };

@@ -50,7 +50,7 @@ This breaks the Go To Definition function for async actions.-->
 This way, when the static file changes, the link changes and guarantees that the client will re-request the resource.
 e.g. when true, the link looks like: "/Content/nerd.jpg?2009-09-04T12:25:48"
 See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this feature-->
-  <AddTimestampToStaticLinks>False</AddTimestampToStaticLinks>
+  <AddTimestampToStaticLinks>True</AddTimestampToStaticLinks>
   <!--Folders containing static files for which links are generated (e.g. Links.Scripts.Map_js)-->
   <StaticFilesFolders>
     <FileFolder>Scripts</FileFolder>
