@@ -230,18 +230,13 @@
             // Remove alert-* classes from the alert. The appropriate class will be added later
             var $alert = $(".alert", $dlg);
             var $ddl = $('#ddlprinters', $dlg);
-            $dlg.showModal().then(function () {
-                var def = $.Deferred();
-                if ($ddl.val())
-                {
-
-                    return def.resolve('Carton '+ cartonId +' Printed on '+ $('#printModal select').val() + ' successfully'
-                        , 'Client Validation'
-                        , {status: 203}
-                        );
+            $dlg.showModal().then(function () {             
+                if (!$ddl.val())
+                {   
+                    var def = $.Deferred();
+                    return def.reject({status:'Default'},'Client Validation','Please Select a printer');                                      
                 }
-                return def.reject({status:'Default'},'Client Validation','Please Select a printer');
-
+               
                 return $.post('@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())', [
                         {
                             name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId',
@@ -253,10 +248,16 @@
                         }
                 ]);
             }).then(function(data, textStatus, jqXHR) {
-                // Success
-                //alert(jqXHR.status + data);
-                this.html(data);
-                this.removeClass('alert-warning hidden').addClass('alert-success');
+                // Success            
+                this.html(jqXHR.responseText);
+                            switch (jqXHR.status) {
+                                case 203:
+                                    this.addClass('alert-warning');
+                                    break;
+                                default:
+                                    this.removeClass('alert-warning hidden').addClass('alert-success');
+                                    break;
+                            } 
             }.bind($alert), function(jqXHR, textStatus, errorThrown) {
                 // error
                 this.removeClass('hidden').addClass('alert-danger').html(jqXHR.responseText);
