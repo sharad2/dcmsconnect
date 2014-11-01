@@ -475,6 +475,7 @@ function OnPrint(e) {
         DisplayPrintMessage.call(this.dlg, jqXHR.responseText, jqXHR.status == 203 ? 'alert-warning' : 'alert-success');
     }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
         // error
+        Sound.error();
         DisplayPrintMessage.call(this.dlg, jqXHR.responseText, 'alert-danger');
     }.bind({ dlg: e.delegateTarget }));
 }
