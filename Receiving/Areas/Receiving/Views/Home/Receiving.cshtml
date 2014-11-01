@@ -220,11 +220,9 @@
         // Remove carton
         $(document).ready(function() {
             // Click handler for the remove button
-            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-                alert('remove');
+            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {              
                 var $dlg = $('#removeModal');
-                var cartonId = $(e.target).closest('[data-carton]').data('carton');
-                alert(cartonId);
+                var cartonId = $(e.target).closest('[data-carton]').data('carton');               
                 $('span.cartonId', $dlg).text(cartonId);
                 $('span.palletId', $dlg).text(Tabs.activePalletId);
                 $('span.count', $dlg).text($('[data-carton]', Tabs.activeContent).length);
