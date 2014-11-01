@@ -35,9 +35,6 @@
         @Html.LabelFor(m => m.ProcessId)
         @Html.DisplayFor(m => m.ProcessId)
         &nbsp;
-        @Html.LabelFor(m => m.ExpectedCartons)
-        @Html.DisplayFor(m => m.ExpectedCartons)
-        &nbsp;
         @Html.LabelFor(m => m.ProDate)
         @Html.DisplayFor(m => m.ProDate)
         &nbsp;
@@ -183,16 +180,17 @@
     <script type="text/javascript">
         "use strict";
 
-        // Print carton Label
+        // Print carton Label. Retrieves current carton from the ancestor containing the data-carton attribute
         $(document).ready(function() {
 
             // Open the dialog when print button is clicked
             $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
                 // Click handler for the print button
-                var $dlg = $('#printModal');
                 var cartonId = $(e.target).closest('[data-carton]').data('carton');
-                $('span.cartonId', $dlg).text(cartonId);
-                $dlg.modal('show');
+                $('#printModal')
+                    .find('span.cartonId').text(cartonId)
+                    .end()
+                    .modal('show');
 
             });
 
@@ -221,12 +219,12 @@
         $(document).ready(function() {
             // Click handler for the remove button
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {              
-                var $dlg = $('#removeModal');
-                var cartonId = $(e.target).closest('[data-carton]').data('carton');               
-                $('span.cartonId', $dlg).text(cartonId);
-                $('span.palletId', $dlg).text(Tabs.activePalletId);
-                $('span.count', $dlg).text($('[data-carton]', Tabs.activeContent).length);
-                $dlg.modal('show')
+                var $cartons = $('[data-carton]', Tabs.activeContent);
+                $('#removeModal')
+                    .find('span.cartonId').text($cartons.has(e.target).data('carton')).end()
+                    .find('span.palletId').text(Tabs.activePalletId).end()
+                    .find('span.count').text($cartons.length).end()
+                    .modal('show');
             });
 
             $('#removeModal').on('click','button:not([data-dismiss])', {

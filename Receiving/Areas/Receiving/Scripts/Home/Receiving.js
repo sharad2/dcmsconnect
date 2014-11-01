@@ -1,5 +1,5 @@
 ﻿
-/* jshint settings as described in http://www.jshint.com/docs/
+/* These are jshint settings as described in http://www.jshint.com/docs/
 /* jshint unused: false */
 
 // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
@@ -34,6 +34,7 @@ var Sound = (function () {
     };
 })();
 
+// Functions to update the progress bar
 var Progress = (function () {
     "use strict";
     var _options = {
@@ -65,7 +66,9 @@ var Progress = (function () {
     };
 })();
 
-// Functios to work with tabs. Tabs can be referenced by pallet id.
+// Functios to work with tabs. Tabs can be referenced by pallet id. A tab can be activated or created.
+// Tab content is automatically loaded when a tab becomes active, or it can be manually loaded using html()
+// Initial set of tabs with empty content are created during init().
 var Tabs = (function () {
     "use strict";
     var _options = {
@@ -346,76 +349,6 @@ $(document).ready(function () {
     });
 });
 
-/*
-  Provides an enhanced modal experience. You call it like so:
-  $('#mymodal').showModal(options, cartonId, palletId);
-
-  Your modal must have spans with class cartonId or palletId. Their text will be replaced by the passed values.
-  In the footer of your modal you must have a button without the data-dismiss attribute. When this button is clicked, 
-    and ajax call will be made to the url you specify with the data you specify in options.
-
-            $('#removeModal').showModal({
-                // Data to post to remove the carton
-                postdata: function(cartonId, palletId) {
-                    return [
-                        {
-                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
-                            value: cartonId
-                        },
-                        {
-                            value: @Model.ProcessId,
-                            name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
-                        }
-                    ];
-                },
-
-                // URL to invoke for removing the carton
-                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())'
-            });
-
-*/
-
-//(function ($) {
-
-//    $.fn.showModal = function (options, cartonId) {
-//        // Remove button in the partial view clicked. Show print dialog. Also pupulate carton and pallet within the modal
-//        $('span.cartonId', this).text(cartonId);
-//        $('span.palletId', this).text(Tabs.activePalletId());
-//        return this.on('showmodal.click', '.modal-footer button:not([data-dismiss])', _ajax.bind({ options: options }))
-//            .on('hide.bs.modal', function (e) {
-//                // unbind the button click handler
-//                $(e.delegateTarget).off('showmodal.click', '.modal-footer button:not([data-dismiss])');
-//            }).modal('show');
-
-//    };
-
-//    // this contains the options.
-//    // e.delegateTarget is the dialog. e.target is the button
-//    function _ajax(e) {
-//        $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
-//            .then(function (data, textStatus, jqXHR) {
-//                $(this.dlg).modal('hide');
-//                Tabs.html(data);
-//                Progress.update(-1);
-//            }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
-//                Sound.error();
-//                alert('Error: ' + jqXHR.responseText);
-//            });
-//    }
-//}(jQuery));
-
-(function ($) {
-
-    $.fn.showModal = function () {
-        var def = $.Deferred();
-        this.on('click.showModal', '.modal-footer button:not([data-dismiss])', def.notify)
-            .on('hide.bs.modal', function (e) {
-                // unbind the button click handler
-                $(e.delegateTarget).off('click.showModal', '.modal-footer button:not([data-dismiss])');
-            }).modal('show');
-        return def.promise();
-    };
-}(jQuery));
 
 /*************** Printing functions ***********************/
 // expects e.data.url
@@ -472,7 +405,7 @@ function OnPrint(e) {
     e.data.postdata[1].value = printer;
     $.post(e.data.url, e.data.postdata).then(function (data, textStatus, jqXHR) {
         // Success
-        DisplayPrintMessage.call(this.dlg, jqXHR.responseText, jqXHR.status == 203 ? 'alert-warning' : 'alert-success');
+        DisplayPrintMessage.call(this.dlg, jqXHR.responseText, jqXHR.status === 203 ? 'alert-warning' : 'alert-success');
     }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
         // error
         Sound.error();
