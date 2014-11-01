@@ -192,7 +192,7 @@ var Tabs = (function () {
 
 
 // Monitors the enter key in the text area. When pressed, it starts a timer and acts on the user scans
-// Errors are displayed in an associated popover
+// Errors are displayed in an associated popover.
 var HandleScan = (function () {
     "use strict";
     var _timer;
@@ -205,6 +205,8 @@ var HandleScan = (function () {
         textarea: '', //'#scanArea textarea',
         // Selector of a button which will cause immediate handling of the scans.
         // It should have an ajax loading image which will be made visible while ajax calls are in progress
+        // It should also have a <span class='badge'></span> which will display the countdown timer
+        // Its next sibling will be shown when errors have been encountered.
         button: '', //'#scanArea button',
         // URL to invoke for receiving cartons
         cartonUrl: $('#tbScan').data('carton-url'),
@@ -234,8 +236,7 @@ var HandleScan = (function () {
     };
 
     var _startTimer = function () {
-        // If a new timer is being started, hide the error message
-        !_clearTimer() && $(_options.textarea).popover('hide');
+        _clearTimer();
         _ticker = _options.delay;
         $('span.badge', _options.button).removeClass('hidden').text('');
         _timer = setInterval(function () {
@@ -247,13 +248,15 @@ var HandleScan = (function () {
         }, 1000);
     };
 
-    // Displays the ajax loader image
+    // Displays the ajax loader image and hides the error message.
+    // Disables go button and text area
     var _startAction = function () {
         _clearTimer();
 
         $(_options.button).prop('disabled', true)
             .find('img').removeClass('hidden');
         $(_options.textarea).prop('disabled', true);
+        _hideErrorButton();
     };
 
     // Hides the ajax loader image
@@ -261,6 +264,16 @@ var HandleScan = (function () {
         $(_options.button).prop('disabled', false).find('img').addClass('hidden');
         $(_options.textarea).prop('disabled', false);
     };
+
+    var _showErrorButton = function () {
+        $(_options.button).next('button').removeClass('hidden');
+    };
+
+    var _hideErrorButton = function () {
+        $(_options.button).next('button').addClass('hidden');
+        $(_options.textarea).popover('hide');
+    };
+
 
     var init = function (options) {
         _options = $.extend(_options, options);
@@ -285,11 +298,8 @@ var HandleScan = (function () {
             //hiding the error message popover and at the same doing empty textarea with focus.
             $(_options.textarea).popover('hide').focus();
         });
-
-        $(document).on('click', _options.button, function (e) {
-            // The click is accepted only if the Go text is visible on the button.
-            // This means to us that ajax call is not in progress.
-            _act();
+        $(_options.button).on('click', _act).next('button').on('click', function (e) {
+            $(_options.textarea).popover('show');
         });
     };
 
@@ -320,10 +330,12 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
-        chain = chain.always(_endAction);
-        chain.always(function () {
-            $(_options.textarea).focus();
-        });
+        chain = chain.always(_endAction)
+            .fail(_showErrorButton)
+            .done(_hideErrorButton)
+            .always(function () {
+                $(_options.textarea).focus();
+            });
         def.resolve();  // Initiate the function chain
     };
 
