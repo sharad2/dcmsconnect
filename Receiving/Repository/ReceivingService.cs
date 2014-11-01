@@ -51,6 +51,8 @@ namespace DcmsMobile.Receiving.Repository
         public int? ExpectedCartons { get; set; }
 
     }
+
+    [Obsolete("Why should already receved be an error? We should simply change the pallet")]
     public class AlreadyReceivedCartonException : Exception
     {
         private readonly string _palletId;

@@ -503,6 +503,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [HttpPost]
         public virtual ActionResult HandleCartonScan(ScanViewModel model)
         {
+            Thread.Sleep(3000);  // For debugging
             if (model == null) throw new ArgumentNullException("model");
             if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
             {
@@ -582,7 +583,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 return Content("Internal Error: Pallet Id was not passed");
             }
-            //Thread.Sleep(3000);  // For debugging
+            Thread.Sleep(3000);  // For debugging
             var pallet = _service.GetPallet(palletId.ToUpper().Trim(), processId);
             var pvm = new PalletViewModel
             {

@@ -54,12 +54,14 @@
                 <div class="col-md-3">
                     <strong class="text-info"><span class="glyphicon glyphicon-barcode"></span> Scan Carton or Pallet</strong>
                     <div class="input-group">
-                        @*<input type="hidden" name="@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))"
-                            value="@Model.ProcessId" />*@
                         <textarea class="form-control" rows="4" spellcheck="false" id="tbScan" autofocus
                                   tabindex="0" style="text-transform:uppercase"></textarea>
                         <span class="input-group-btn">
-                            <button id="btnGo" class="btn btn-primary" type="submit" style="height:5.61em;"><img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden" /><span>Go</span></button>
+                            <button id="btnGo" class="btn btn-primary">
+                                <span class="badge"></span>
+                                <img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden" />
+                                <div>Go</div>
+                            </button>
                         </span>
 
                     </div>

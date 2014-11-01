@@ -190,11 +190,15 @@ var Tabs = (function () {
     };
 })();
 
+
 // Monitors the enter key in the text area. When pressed, it starts a timer and acts on the user scans
 // Errors are displayed in an associated popover
 var HandleScan = (function () {
     "use strict";
     var _timer;
+
+    // Number of milliseconds to go before the timer expires
+    var _ticker;
 
     var _options = {
         // Selector to the text area
@@ -218,21 +222,50 @@ var HandleScan = (function () {
         delay: 3000   // Number of milliseconds delay after enter is pressed
     };
 
+    var _clearTimer = function () {
+        if (_timer) {
+            clearInterval(_timer);
+            _timer = null;
+        }
+        $('span.badge', _options.button).addClass('hidden');
+    };
+
+    var _startTimer = function () {
+        _clearTimer();
+        _ticker = _options.delay;
+        $('span.badge', _options.button).removeClass('hidden').text('');
+        _timer = setInterval(function () {
+            _ticker -= 1000;
+            $('span.badge', _options.button).text(_ticker / 1000);
+            if (_ticker <= 0) {
+                _act();  // Calling our private function
+            }
+        }, 1000);
+    };
+
+    // Displays the ajax loader image
+    var _startAction = function () {
+        _clearTimer();
+
+        $(_options.button).prop('disabled', true)
+            .find('img').removeClass('hidden');
+    };
+
+    // Hides the ajax loader image
+    var _endAction = function () {
+        $(_options.button).prop('disabled', false).find('img').addClass('hidden');
+    };
+
     var init = function (options) {
         _options = $.extend(_options, options);
         $(_options.textarea).on('keypress', function (e) {
-            if (_timer) {
-                clearTimeout(_timer);
-                _timer = null;
-            }
+            _clearTimer();
             if (e.which !== 13) {
                 // We are interested only when enter key is pressed
                 return;
             }
             Sound.success();
-            _timer = setTimeout(function () {
-                _act();  // Calling our private function
-            }, _options.delay);
+            _startTimer();
         }).popover({
             trigger: 'manual',
             html: true,
@@ -247,7 +280,7 @@ var HandleScan = (function () {
             $(_options.textarea).popover('hide').focus();
         });
 
-        $(document).on('click', _options.button + ':has(span:visible)', function (e) {
+        $(document).on('click', _options.button, function (e) {
             // The click is accepted only if the Go text is visible on the button.
             // This means to us that ajax call is not in progress.
             _act();
@@ -256,11 +289,8 @@ var HandleScan = (function () {
 
     // Called to immediately act on the text in text area
     var _act = function () {
-        // Clear the timer
-        if (_timer) {
-            clearTimeout(_timer);
-            _timer = null;
-        }
+        _clearTimer();
+
         var tokens = $.grep($(_options.textarea).val().toUpperCase().split('\n'), function (txt, i) {
             // Ignore empty lines
             return txt.trim().toUpperCase() !== '';
@@ -270,11 +300,7 @@ var HandleScan = (function () {
             return;
         }
 
-        var def = $.Deferred(function () {
-            //alert('Show Ajax');
-            $(_options.button).find('img').removeClass('hidden')
-                .end().find('span').addClass('hidden');
-        });
+        var def = $.Deferred(_startAction);
         var chain = def;
         var lastscan = tokens[tokens.length - 1];
 
@@ -288,11 +314,7 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
-        chain = chain.always(function () {
-            //alert('Hide Ajax');
-            $(_options.button).find('img').addClass('hidden')
-                .end().find('span').removeClass('hidden');
-        });
+        chain = chain.always(_endAction);
         chain.done(function () {
             $(this.tb).val('').focus();
         }.bind({ tb: _options.textarea }));
@@ -418,7 +440,7 @@ function OnPrint(e) {
 // e.delegateTarget should be the remove dialog.
 // e.data must contain the url and postdata
 // The value of carton id will be stuffed in the first value of postdata. It is expected that the text of a span with class cartonId is the cartonId.
-function OnRemove(e) {    
+function OnRemove(e) {
     var $dlg = $(e.delegateTarget);
     // Stuff the cartonId in the first value
     e.data.postdata[0].value = $('span.cartonId', $dlg).text();
