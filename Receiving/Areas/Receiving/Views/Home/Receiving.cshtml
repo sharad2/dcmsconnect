@@ -133,8 +133,7 @@
                     <div class="form-group">
                         <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                         <div class="col-sm-10">
-                            <select id="ddlprinters" class="form-control"
-                                    name="@MVC_Receiving.Receiving.Home.PrintCartonParams.printer" required>
+                            <select id="ddlprinters" class="form-control" required>
                                 <option disabled>(Select a printer)</option>
                             </select>
                         </div>
@@ -197,7 +196,6 @@
 
             });
 
-
             $('#printModal')
                 // Populate the printer list whien dialog is first displayed
                 .one('show.bs.modal', {url: '@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' }, LoadPrinters)
@@ -217,45 +215,45 @@
                 }, OnPrint);
         });
 
+
+
+        // Remove carton
         $(document).ready(function() {
-
-
-
-
             // Click handler for the remove button
             $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-                // Click handler for the remove button
+                alert('remove');
                 var $dlg = $('#removeModal');
                 var cartonId = $(e.target).closest('[data-carton]').data('carton');
+                alert(cartonId);
                 $('span.cartonId', $dlg).text(cartonId);
                 $('span.palletId', $dlg).text(Tabs.activePalletId);
                 $('span.count', $dlg).text($('[data-carton]', Tabs.activeContent).length);
-                $dlg.showModal()
-                    .then(function () {
-                        return $.post('@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())', [
-                            {
-                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
-                                value: cartonId
-                            },
-                            {
-                                value: @Model.ProcessId,
-                                name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
-                            }
-                        ]);
-                    }).then(function(data, textStatus, jqXHR) {
-                        // success
-                        $dlg.modal('hide');
-                        Tabs.html(data);
-                        Progress.update(-1);
-                    }, function(jqXHR, textStatus, errorThrown) {
-                        // error
-                        Sound.error();
-                        alert('Error: ' + jqXHR.responseText);
-                    });
-
+                $dlg.modal('show')
             });
 
+            $('#removeModal').on('click','button:not([data-dismiss])', {
+                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())',
+                postdata: [
+                    {
+                        name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                        value: ''  // Will be stuffed when the button is clicked
+                    },
+                     {
+                         value: @Model.ProcessId,
+                         name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                     }
+                ]
+            }, OnRemove);
+        });
 
+
+
+
+
+
+
+
+        $(document).ready(function() {
             Sound.init({
                 // Selector to error sound audio element
                 error: '#soundError',
@@ -304,7 +302,7 @@
             });
         });
 
-</script>
+    </script>
 }
 
 

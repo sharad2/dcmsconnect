@@ -479,3 +479,19 @@ function OnPrint(e) {
     }.bind({ dlg: e.delegateTarget }));
 }
 
+function OnRemove(e) {
+    
+    var $dlg = $(e.delegateTarget);
+    // Stuff the cartonId in the first value
+    e.data.postdata[0].value = $('span.cartonId', $dlg).text();
+    $.post(e.data.url, e.data.postdata).then(function (data, textStatus, jqXHR) {
+        // success
+        $dlg.modal('hide');
+        Tabs.html(data);
+        Progress.update(-1);
+    }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
+        // error
+        Sound.error();
+        alert('Error: ' + jqXHR.responseText);
+    }.bind({ dlg: e.delegateTarget }));
+}
