@@ -408,29 +408,16 @@ $(document).ready(function () {
 
     $.fn.showModal = function () {
         var def = $.Deferred();
-        this.on('click.showModal', '.modal-footer button:not([data-dismiss])', def.resolve)
+        this.on('click.showModal', '.modal-footer button:not([data-dismiss])', def.notify)
             .on('hide.bs.modal', function (e) {
                 // unbind the button click handler
                 $(e.delegateTarget).off('click.showModal', '.modal-footer button:not([data-dismiss])');
             }).modal('show');
-        return def;
+        return def.promise();
     };
-
-    // this contains the options.
-    // e.delegateTarget is the dialog. e.target is the button
-    //function _ajax(e) {
-    //    $.post(this.options.url, this.options.postdata($('span.cartonId', e.delegateTarget).text()))
-    //        .then(function (data, textStatus, jqXHR) {
-    //            $(this.dlg).modal('hide');
-    //            Tabs.html(data);
-    //            Progress.update(-1);
-    //        }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
-    //            Sound.error();
-    //            alert('Error: ' + jqXHR.responseText);
-    //        });
-    //}
 }(jQuery));
 
+/*************** Printing functions ***********************/
 // expects e.data.url
 // e.delegateTarget should be the modal dialog
 // fills printers within the first select within the dialog
@@ -460,59 +447,35 @@ function LoadPrinters(e) {
     }.bind(this));
 }
 
-// Print carton label
-$(document).ready(function () {
+// Called when the print buton is clicked.
+// e.delegateTarget should be the print dialog.
+// e.data must contain the url and postdata
+// The value of the selected printer will be stuffed in the second element of postdata
+// The value of carton id will be stuffed in the first value of postdata. It is expected that the text of a span with class cartonId is the cartonId.
+function OnPrint(e) {
+    // this is the jquery object for print dialog
+    function DisplayPrintMessage(text, cssClass) {
+        $('div.alert', this).removeClass()
+            .addClass('alert')
+            .addClass(cssClass)
+            .html(text);
+    }
 
-    $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
-        // Print button in the partial view clicked. Show print dialog
-        $('#printModal')
-            .find('span.cartonId')
-            .text($(this).closest('[data-carton]').data('carton'))
-            .end()
-            .find('.alert')
-            .addClass('hidden')
-            .removeClass(function (index, css) {
-                // Remove alert-* classes from the alert. The appropriate class will be added later
-                return (css.match(/(^|\s)alert-\S+/g) || []).join(' ');
-            }).end()
-            .modal('show');
-    });
-
-
-    //$('#printModal').on('click', '#btnPrint', function (e) {
-    //    // Print the carton label
-    //    // Remove alert-* classes from the alert. The appropriate class will be added later
-    //    var $alert = $(".alert", e.delegateTarget).removeClass('hidden');
-    //    var $ddl = $('#ddlprinters', e.delegateTarget);
-    //    if (!$ddl.val()) {
-    //        $alert.text("Please select a printer").addClass('alert-warning');
-    //        return;
-    //    }
-    //    var data = {};
-    //    $('span[data-name]', e.delegateTarget).each(function (index, elem) {
-    //        this[$(elem).attr('data-name')] = $(elem).text();
-    //    }.bind(data));
-    //    data[$ddl.attr('name')] = $ddl.val();
-    //    $.post($(this).attr('data-print-url'), data)
-    //        .then(function (data, textStatus, jqXHR) {
-    //            // success
-    //            this.html(data);
-    //            switch (jqXHR.status) {
-    //                case 203:
-    //                    this.addClass('alert-warning');
-    //                    break;
-
-    //                default:
-    //                    this.removeClass('alert-warning').addClass('alert-success');
-    //                    break;
-    //            }
-    //        }.bind($alert), function (jqXHR, textStatus, errorThrown) {
-    //            // Error
-    //            this.addClass('alert-danger').html(jqXHR.responseText);
-    //        }.bind($alert));
-    //});
-
-});
-
-
+    var $dlg = $(e.delegateTarget);
+    var printer = $('select', $dlg).val();
+    if (!printer) {
+        DisplayPrintMessage.call($dlg, 'Please Select a printer', 'alert-warning');
+        return;
+    }
+    // Stuff the selected printer in the second value
+    e.data.postdata[0].value = $('span.cartonId', $dlg).text();
+    e.data.postdata[1].value = printer;
+    $.post(e.data.url, e.data.postdata).then(function (data, textStatus, jqXHR) {
+        // Success
+        DisplayPrintMessage.call(this.dlg, jqXHR.responseText, jqXHR.status == 203 ? 'alert-warning' : 'alert-success');
+    }.bind({ dlg: e.delegateTarget }), function (jqXHR, textStatus, errorThrown) {
+        // error
+        DisplayPrintMessage.call(this.dlg, jqXHR.responseText, 'alert-danger');
+    }.bind({ dlg: e.delegateTarget }));
+}
 

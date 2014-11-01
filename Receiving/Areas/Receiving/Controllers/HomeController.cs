@@ -924,7 +924,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             _service.PrintCarton(cartonId, printer);
 
-            return Content(string.Format("Carton ticket Printed on {0} at {1}", printer, DateTime.Now));
+            return Content(string.Format("Ticket for Carton {0} printed on {1} at {2}", cartonId, printer, DateTime.Now));
 
         }
 
