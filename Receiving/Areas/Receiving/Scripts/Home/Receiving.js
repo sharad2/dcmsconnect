@@ -479,8 +479,12 @@ function OnPrint(e) {
     }.bind({ dlg: e.delegateTarget }));
 }
 
-function OnRemove(e) {
-    
+
+// Called when the remove ok buton is clicked.
+// e.delegateTarget should be the remove dialog.
+// e.data must contain the url and postdata
+// The value of carton id will be stuffed in the first value of postdata. It is expected that the text of a span with class cartonId is the cartonId.
+function OnRemove(e) {    
     var $dlg = $(e.delegateTarget);
     // Stuff the cartonId in the first value
     e.data.postdata[0].value = $('span.cartonId', $dlg).text();
