@@ -222,16 +222,20 @@ var HandleScan = (function () {
         delay: 3000   // Number of milliseconds delay after enter is pressed
     };
 
+    // Returns true if there was an existing timer which was cleared
     var _clearTimer = function () {
-        if (_timer) {
-            clearInterval(_timer);
-            _timer = null;
+        if (!_timer) {
+            return false;
         }
+        clearInterval(_timer);
+        _timer = null;
         $('span.badge', _options.button).addClass('hidden');
+        return true;
     };
 
     var _startTimer = function () {
-        _clearTimer();
+        // If a new timer is being started, hide the error message
+        !_clearTimer() && $(_options.textarea).popover('hide');
         _ticker = _options.delay;
         $('span.badge', _options.button).removeClass('hidden').text('');
         _timer = setInterval(function () {
@@ -249,11 +253,13 @@ var HandleScan = (function () {
 
         $(_options.button).prop('disabled', true)
             .find('img').removeClass('hidden');
+        $(_options.textarea).prop('disabled', true);
     };
 
     // Hides the ajax loader image
     var _endAction = function () {
         $(_options.button).prop('disabled', false).find('img').addClass('hidden');
+        $(_options.textarea).prop('disabled', false);
     };
 
     var init = function (options) {
@@ -315,9 +321,9 @@ var HandleScan = (function () {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
         chain = chain.always(_endAction);
-        chain.done(function () {
-            $(this.tb).val('').focus();
-        }.bind({ tb: _options.textarea }));
+        chain.always(function () {
+            $(_options.textarea).focus();
+        });
         def.resolve();  // Initiate the function chain
     };
 
