@@ -230,7 +230,7 @@ var HandleScan = (function () {
                 return;
             }
             Sound.success();
-            setTimeout(function () {
+            _timer = setTimeout(function () {
                 _act();  // Calling our private function
             }, _options.delay);
         }).popover({
