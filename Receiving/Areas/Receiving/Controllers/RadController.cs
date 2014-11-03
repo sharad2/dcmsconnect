@@ -154,28 +154,28 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 {
                     model.Style = null;
                 }
-                else 
-                {
-                    var regexItem = new Regex(":");
-                    if (regexItem.IsMatch(model.Style))
-                    {
-                        model.Style = model.Style.Substring(0, model.Style.IndexOf(":"));
-                    }
+                //else 
+                //{
+                //    var regexItem = new Regex(":");
+                //    if (regexItem.IsMatch(model.Style))
+                //    {
+                //        model.Style = model.Style.Substring(0, model.Style.IndexOf(":"));
+                //    }
                 
-                }
+                //}
                 if (model.AllColors.HasValue && model.AllColors.Value)
                 {
                     model.Color = null;
                 }
-                else
-                {
-                    var regexItem = new Regex(":");
-                    if (regexItem.IsMatch(model.Color))
-                    {
-                        model.Color = model.Color.Substring(0, model.Color.IndexOf(":"));
-                    }
+                //else
+                //{
+                //    var regexItem = new Regex(":");
+                //    if (regexItem.IsMatch(model.Color))
+                //    {
+                //        model.Color = model.Color.Substring(0, model.Color.IndexOf(":"));
+                //    }
 
-                }
+                //}
                 _service.SetSpotCheckPercentage(Map(model));
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();
