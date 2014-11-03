@@ -103,6 +103,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#rbAllStyle,#rbAllColors').change(function (e) {
+                alert('hi');
                 var checked = $(this).is(':checked');
                 var tb = $(this).attr('data-attr-disabletb')
                 if (checked) {
