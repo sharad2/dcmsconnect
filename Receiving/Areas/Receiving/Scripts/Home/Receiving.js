@@ -339,7 +339,7 @@ var HandleScan = (function () {
         var def = $.Deferred(_startAction);
         var chain = def;
         var lastscan = tokens[tokens.length - 1];
-
+       // alert(lastscan);
         if (lastscan.toUpperCase().indexOf('P') === 0) {
             // First process the cartons before this pallet
             if (tokens.length > 1) {
@@ -350,10 +350,12 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
+        $(_options.textarea).val('');
         chain = chain.always(_endAction)
             .always(function () {
                 $(_options.textarea).focus();
             });
+       
         def.resolve();  // Initiate the function chain
     };
 
