@@ -117,25 +117,25 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
             {
                 this.Response.StatusCode = 203;
-                return Content("Please provide value for style.");                
+                return Content("Please provide value for style.");
 
             }
             if (model.SpotCheckPercent == null)
             {
                 this.Response.StatusCode = 203;
-                return Content("Please provide value for spotcheck %");               
+                return Content("Please provide value for spotcheck %");
 
             }
             if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
                 this.Response.StatusCode = 203;
-                return Content("Please provide value for color.");               
+                return Content("Please provide value for color.");
             }
             if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
                 this.Response.StatusCode = 203;
                 return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
-                           }
+            }
             try
             {
                 //Extra safety check.

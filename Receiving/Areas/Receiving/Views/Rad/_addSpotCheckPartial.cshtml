@@ -1,6 +1,7 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
 
-<form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
+<form  method="post" id="frmaddspotcheck">
+    <div class="alert hidden">Error</div>
     <div class="modal-body">
         <div class="form-group">
             <label for="ddlSewingPlant">Sewing Plant</label>
@@ -28,8 +29,7 @@
        autocomplete = "off",
        style = "text-transform: uppercase",
        id = "tbStyle",
-       @class = "form-control",
-       @required = "required"
+       @class = "form-control"
        
    })
                 <span class="input-group-btn">
@@ -61,9 +61,7 @@
        autocomplete = "off",
        style = "text-transform: uppercase",
        id = "tbColor",
-       @class = "form-control",
-       @required="required"
-    
+       @class = "form-control"    
    })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
