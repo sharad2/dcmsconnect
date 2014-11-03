@@ -107,9 +107,18 @@
             // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
             // Id of textbox for style,color and value for data-attr-disabletb must be same.
             $('#rbAllStyle,#rbAllColors').change(function (e) {
-                var checked = $(this).is(':checked')
-                $(this).attr('value', checked)
-                $('#' + $(this).attr('data-attr-disabletb')).val("").removeAttr('required').attr('placeholder', checked ? "ALL" : "").attr('disabled', checked);
+                var checked = $(this).is(':checked');
+                var tb = $(this).attr('data-attr-disabletb')
+                if (checked) {
+                    $(this).val(true);
+                    $('#' + tb).prop('disabled', checked).val("All").removeClass('input-validation-error');
+                    //$('span[for=' + tb + ']').text('');
+
+                }
+                else {
+                    $(this).val(false)
+                    $('#' + tb).prop('disabled', checked).val("");
+                }
             });
 
             // Hanlde change event of radio button for specific style and color
@@ -118,7 +127,7 @@
                 var checked = $(this).is(':checked');
                 var tb = $(this).attr('data-attr-enabletb')
                 if (checked) {
-                    $('#' + tb).attr('disabled', !checked).val("").attr('placeholder', checked ? "" : "ALL").attr('required', 'required');
+                    $('#' + tb).prop('disabled', !checked).val("");
                 }
             });
 

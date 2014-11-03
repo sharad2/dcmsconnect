@@ -1,8 +1,6 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel
 
 <form role="form" action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" id="frmaddspotcheck">
-    <input id="rbAllStyle" class="radio" type="hidden" name="@Html.NameFor(m => m.AllStyles)" value="false" />
-    <input id="rbAllColors"  type="hidden" class="radio" name="@Html.NameFor(m => m.AllColors)" value="false" />
     <div class="modal-body">
         <div class="form-group">
             <label for="ddlSewingPlant">Sewing Plant</label>
@@ -12,7 +10,7 @@
             <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <label>
-                    <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles)" data-attr-disabletb="tbStyle" />
+                    <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles).ToString()" data-attr-disabletb="tbStyle" />
                     All Styles
                 </label>
             </div>
@@ -45,7 +43,7 @@
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
             <div class="form-inline">
                 <label>
-                    <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors)" data-attr-disabletb="tbColor" />
+                    <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors).ToString()" data-attr-disabletb="tbColor"  />
                     All Colors
                 </label>
             </div>

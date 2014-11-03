@@ -116,36 +116,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
             {
-                //this.Response.StatusCode = 203;  
-                //return Content("Please provide value for style.");
-                this.AddStatusMessage(string.Format("Please provide value for style."));
-                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for style.");                
 
             }
             if (model.SpotCheckPercent == null)
             {
-                // this.Response.StatusCode = 203;
-                //return Content("Please provide value for spotcheck %");
-                this.AddStatusMessage(string.Format("Please provide value for spotcheck %"));
-                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for spotcheck %");               
 
             }
             if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
-                // this.Response.StatusCode = 203;
-                //  return Content("Please provide value for color.");
-                this.AddStatusMessage(string.Format("Please provide value for color."));
-                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
-
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for color.");               
             }
             if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
-                // this.Response.StatusCode = 203;
-                //  return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
-                this.AddStatusMessage(string.Format("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one."));
-                return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
-
-            }
+                this.Response.StatusCode = 203;
+                return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
+                           }
             try
             {
                 //Extra safety check.
@@ -154,36 +144,35 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 {
                     model.Style = null;
                 }
-                //else 
-                //{
-                //    var regexItem = new Regex(":");
-                //    if (regexItem.IsMatch(model.Style))
-                //    {
-                //        model.Style = model.Style.Substring(0, model.Style.IndexOf(":"));
-                //    }
-                
-                //}
+                else
+                {
+                    var regexItem = new Regex(":");
+                    if (regexItem.IsMatch(model.Style))
+                    {
+                        model.Style = model.Style.Substring(0, model.Style.IndexOf(":"));
+                    }
+
+                }
                 if (model.AllColors.HasValue && model.AllColors.Value)
                 {
                     model.Color = null;
                 }
-                //else
-                //{
-                //    var regexItem = new Regex(":");
-                //    if (regexItem.IsMatch(model.Color))
-                //    {
-                //        model.Color = model.Color.Substring(0, model.Color.IndexOf(":"));
-                //    }
+                else
+                {
+                    var regexItem = new Regex(":");
+                    if (regexItem.IsMatch(model.Color))
+                    {
+                        model.Color = model.Color.Substring(0, model.Color.IndexOf(":"));
+                    }
 
-                //}
+                }
                 _service.SetSpotCheckPercentage(Map(model));
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();
                 ViewBag.key = model.ConfigurationKey;
                 ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
-               //return PartialView(Views._spotCheckListPartial, list);
-             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
-        
+                return PartialView(Views._spotCheckListPartial, list);
+
             }
             catch (Exception ex)
             {
