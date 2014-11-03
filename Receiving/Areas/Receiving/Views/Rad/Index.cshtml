@@ -46,7 +46,7 @@
 
     <div>
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (Model.EnableEditing)
+        @if (!Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
@@ -108,7 +108,7 @@
             // Id of textbox for style,color and value for data-attr-disabletb must be same.
             $('#rbAllStyle,#rbAllColors').change(function (e) {
                 var checked = $(this).is(':checked')
-                $(this).prop('val', !checked)
+                $(this).attr('value', checked)
                 $('#' + $(this).attr('data-attr-disabletb')).val("").removeAttr('required').attr('placeholder', checked ? "ALL" : "").attr('disabled', checked);
             });
 
