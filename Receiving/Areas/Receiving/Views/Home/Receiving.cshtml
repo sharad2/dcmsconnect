@@ -1,8 +1,4 @@
-﻿<!--  Contract Reviewed by: Binod Kumar 17th Sept 2011.
-     1. Following attribs are used in our code
-    data-ajax-url: We keep URL of handle scan.
-    -->
-@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
+﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
 }
@@ -22,12 +18,12 @@
                title="Receiving Detail for the selected Process" target="_blank"
                class=" btn btn-link">
                 <span class="glyphicon glyphicon-new-window"></span>
-                @*Report 40.103:*@ Cartons received and shipments summary
+                <!--Report 40.103:--> Cartons received and shipments summary
             </a>
         </span>
         <h2>
             Receiving
-            <small>Carrier  @Html.DisplayFor(m => m.CarrierId) @*@Html.DisplayFor(m => m.CarrierDescription)*@</small>
+            <small>Carrier  @Html.DisplayFor(m => m.CarrierId)</small>
         </h2>
     </div>
 
@@ -81,9 +77,18 @@
                         <button id="btnNewPallet" class="btn btn-default" type="button">
                             <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
                         </button>
-                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span> Edit Process</a>
-                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default"><span class="glyphicon glyphicon-home"></span> Change Process</a>
-                        <a href="#" id="linkShowCarton" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Cartons received but not on Pallet...</a>
+                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Edit Process
+                        </a>
+                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default">
+                            <span class="glyphicon glyphicon-home"></span>
+                            Change Process
+                        </a>
+                        <a href="#" class="btn btn-default">
+                            <span class="glyphicon glyphicon glyphicon-list-alt">
+                            </span> Cartons received but not on Pallet...
+                        </a>
                     </div>
                 </div>
             </div>
@@ -93,28 +98,11 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs bg-info" role="tablist" id="palletTabs">
-        @*@for (var i = 0; i < Model.PalletIdList.Count; i++)
-            {
-                <li data-palletid="@Model.PalletIdList[i]">
-
-                    <a href='#Pallet_@(Model.PalletIdList[i])' role="tab" data-toggle="tab"
-                       title='Pallet @Model.PalletIdList[i]'>
-                        @(Model.PalletIdList[i])
-                        <span title="Remove Pallet" class='glyphicon glyphicon-remove-sign text-info'></span>
-                    </a>
-                </li>
-            }*@
-
+        <!--Tabs(Pallets) are generated using script and bootstrap classes-->
     </ul>
     <!-- Tab panes -->
     <div class="tab-content" id="palletTabContent">
-
-        @*@for (var i = 0; i < Model.PalletIdList.Count; i++)
-            {
-                <div id="Pallet_@(Model.PalletIdList[i])" class="tab-pane">
-
-                </div>
-            }*@
+        <!--Tabs(pallets) content are inserted here using script on click of pallets. first tab is opened by default (using script)-->
     </div>
 
 </div>
@@ -126,7 +114,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">
-                    Print Carton <span class="cartonId" data-name="@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId">This will be replaced by the actual carton id when dialog is opened</span>
+                    Print Carton <span class="cartonId">This will be replaced by the actual carton id when dialog is opened</span>
                 </h4>
             </div>
             <div class="modal-body">
@@ -135,7 +123,7 @@
                     <div class="form-group">
                         <label for="ddlPrinter" class="col-sm-2 control-label">Printer <abbr>*</abbr></label>
                         <div class="col-sm-10">
-                            <select id="ddlprinters" class="form-control" required>
+                            <select class="form-control" required>
                                 <option disabled>(Select a printer)</option>
                             </select>
                         </div>
@@ -143,7 +131,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" id="btnPrint"><span class="glyphicon glyphicon-print"></span> Print</button>
+                <button class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Print</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 
@@ -165,7 +153,8 @@
 
             <div class="modal-body">
                 <span>
-                    Pallet <span class="palletId"></span> contains <span class="count"></span> cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
+                    Pallet <span class="palletId"></span> contains <span class="count"></span>
+                    cartons. If you have just received this carton, it will also be unreceived. Press Ok to confirm.
                 </span>
             </div>
             <div class="modal-footer">
@@ -187,10 +176,9 @@
 
         // Print carton Label. Retrieves current carton from the ancestor containing the data-carton attribute
         $(document).ready(function() {
-
             // Open the dialog when print button is clicked
             $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
-                // Click handler for the print button
+                // Click handler for the print button. Opens the modal(popup) print.
                 var cartonId = $(e.target).closest('[data-carton]').data('carton');
                 $('#printModal')
                     .find('span.cartonId').text(cartonId)
@@ -202,7 +190,7 @@
             $('#printModal')
                 // Populate the printer list whien dialog is first displayed
                 .one('show.bs.modal', {url: '@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' }, LoadPrinters)
-                // Print Button Click handler
+                // Print Button Click handler, here posting data to print.
                 .on('click', 'button:not([data-dismiss])', {
                     url: '@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())',
                     postdata: [
@@ -217,13 +205,10 @@
                     ]
                 }, OnPrint);
         });
-
-
-
         // Remove carton
         $(document).ready(function() {
-            // Click handler for the remove button
-            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {              
+            // Click handler for the remove button, opens the modal of remove carton.
+            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
                 var $cartons = $('[data-carton]', Tabs.activeContent);
                 $('#removeModal')
                     .find('span.cartonId').text($cartons.has(e.target).data('carton')).end()
@@ -232,6 +217,7 @@
                     .modal('show');
             });
 
+            //Posting data for removing cartons.
             $('#removeModal').on('click','button:not([data-dismiss])', {
                 url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())',
                 postdata: [
@@ -249,6 +235,7 @@
 
 
         $(document).ready(function() {
+            //Sounds during success or error cases while any action(i.e scannig, printing, removing cartons ).
             Sound.init({
                 // Selector to error sound audio element
                 error: '#soundError',
@@ -256,6 +243,7 @@
                 success: '#soundSuccess'
             });
 
+            //Adding, deleting and manipulating tabs.
             Tabs.init({
                 // Selector for tab container
                 tabContainer: '#palletTabs',
@@ -267,6 +255,8 @@
                 loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))'
             });
 
+
+            //Handleing the carton, pallet scan.
             HandleScan.init({
                 // Selector to the text area
                 textarea: '#tbScan',
@@ -289,6 +279,8 @@
                 delay: 3000   // Number of milliseconds delay after enter is pressed
             });
 
+
+            //Progress bar updatation after addition or deletion from the page(i.e carton)
             Progress.init({
                 //id of the progress bar
                 bar: '#progressCartons',

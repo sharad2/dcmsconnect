@@ -2,6 +2,7 @@
 /* These are jshint settings as described in http://www.jshint.com/docs/
 /* jshint unused: false */
 
+/*************** Sound functions ***********************/
 // Sound functions. Module Pattern from http://learn.jquery.com/code-organization/concepts/
 var Sound = (function () {
     "use strict";
@@ -12,20 +13,23 @@ var Sound = (function () {
         // Selector to success sound audio element
         success: null
     };
-
+    //Inserting values for each from Sound.init(), other wise insert the default values in _options.
     var init = function (options) {
         _options = $.extend(_options, options);
     };
 
+    //Error sound played two times after completion of first.
     var error = function () {
         $(_options.error).one('ended', function (e) {
             this.play();
         })[0].play();
     };
 
+    //success sound played only once.
     var success = function () {
         $(_options.success)[0].play();
     };
+
     // public API
     return {
         init: init,
@@ -34,6 +38,8 @@ var Sound = (function () {
     };
 })();
 
+
+/*************** Progress bar functions ***********************/
 // Functions to update the progress bar
 var Progress = (function () {
     "use strict";
@@ -44,11 +50,12 @@ var Progress = (function () {
         receivedCount: '#receivedCount'
     };
 
+   // will take default values if not passed.
     var init = function (options) {
         _options = $.extend(_options, options);
     };
 
-
+    //Update function takes increment(i.e -1 in case of remove carton and 1 in case addition of carton.)
     var update = function (increment) {
         var $bar = $(_options.bar + 'div.progress-bar');
         var val = parseInt($bar.attr('aria-valuenow')) + increment;
@@ -60,12 +67,18 @@ var Progress = (function () {
         var count = parseInt($(_options.receivedCount).text());
         $(_options.receivedCount).text(count + increment);
     };
+
+    //Public API
     return {
         init: init,
         update: update
     };
 })();
 
+
+
+
+/*************** Tabs functions ***********************/
 // Functios to work with tabs. Tabs can be referenced by pallet id. A tab can be activated or created.
 // Tab content is automatically loaded when a tab becomes active, or it can be manually loaded using html()
 // Initial set of tabs with empty content are created during init().
@@ -75,9 +88,7 @@ var Tabs = (function () {
         // Selector for tab container
         tabContainer: '', //'#palletTabs',
         // Selector to container containing tab content
-        contentContainer: '',  //'#palletTabContent',
-        // Name of the attribute of LI containing pallet id
-        //attrPalletId: '', //'data-palletid',
+        contentContainer: '',  //'#palletTabContent',        
         // The URL which is responsible for returning pallet html
         // The URL should contain a placeholder ~ which will be replaced by the pallet id
         loadUrl: '',
@@ -90,6 +101,8 @@ var Tabs = (function () {
 
     var init = function (options) {
         _options = $.extend(_options, options);
+
+
         var $li;
         $.each(_options.pallets, function (i, val) {
             var x = Tabs.create(val);
@@ -117,8 +130,7 @@ var Tabs = (function () {
             // Now remove tab
             $li.remove();
 
-        }).on('shown.bs.tab', function (e) {
-            //alert('shown.bs.tab ' + e.relatedTarget);
+        }).on('shown.bs.tab', function (e) {           
             _load();
         }).find('li:first a').tab('show');
     };
@@ -193,6 +205,8 @@ var Tabs = (function () {
 })();
 
 
+
+/*************** Scan functions ***********************/
 // Monitors the enter key in the text area. When pressed, it starts a timer and acts on the user scans
 // Errors are displayed in an associated popover.
 var HandleScan = (function () {
@@ -232,7 +246,7 @@ var HandleScan = (function () {
             return false;
         }
         clearInterval(_timer);
-        _timer = null;
+        _timer = null;       
         $('span.badge', _options.button).addClass('hidden');
         return true;
     };
@@ -254,7 +268,6 @@ var HandleScan = (function () {
     // Disables go button and text area
     var _startAction = function () {
         _clearTimer();
-
         $(_options.button).prop('disabled', true)
             .find('img').removeClass('hidden');
         $(_options.textarea).prop('disabled', true);
@@ -267,12 +280,13 @@ var HandleScan = (function () {
         $(_options.textarea).prop('disabled', false);
     };
 
+    // Shows error popover
     var _showError = function (text) {
         Sound.error();
         $(_options.textarea).attr('data-content', text).popover('show');
         $(_options.button).next('button').removeClass('hidden');
     };
-
+    //Hides error popover
     var _hideError = function () {
         $(_options.button).next('button').addClass('hidden');
         $(_options.textarea).popover('hide');
@@ -289,9 +303,10 @@ var HandleScan = (function () {
             }
             Sound.success();
             _startTimer();
-        }).popover({
+        }).popover({           
             trigger: 'manual',
             html: true,
+            // The title is added here with custom cross button for removeing poopover
             title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
             placement: 'auto',
             container: 'body'
@@ -302,6 +317,7 @@ var HandleScan = (function () {
             //hiding the error message popover and at the same doing empty textarea with focus.
             $(_options.textarea).popover('hide').focus();
         });
+        //Shows the popover again after closing the popover on click of icon next to go button.
         $(_options.button).on('click', _act).next('button').on('click', function (e) {
             $(_options.textarea).popover('show');
         });
@@ -347,10 +363,10 @@ var HandleScan = (function () {
         return $.post(_options.cartonUrl, _options.cartonPostdata(Tabs.activePalletId(), cartons)).then(function (data, textStatus, jqXHR) {
             // Success
             if (data && data.length > 0) {
-                var $ul = $('<ul></ul>');
+                var $ul = $('<ul class="list-group"></ul>');
                 var cartons = [];
                 $.each(data, function (i, elem) {
-                    $('<li></li>').text(elem.cartonId + ': ' + elem.message).appendTo($ul);
+                    $('<li class="list-group-item list-group-item-warning"></li>').text(elem.cartonId + ': ' + elem.message).appendTo($ul);
                     cartons.push(elem.cartonId);
                 });
                 _showError($ul[0].outerHTML);
@@ -360,6 +376,7 @@ var HandleScan = (function () {
                 $(_options.textarea).val();
             }
             Tabs.load();
+            //this.count === -1 (i.e removing carton from pallet)
             Progress.update(this.count);
         }.bind({
             count: cartons.length
@@ -385,7 +402,6 @@ var HandleScan = (function () {
     var _changePallet = function (palletId) {
         Tabs.show(palletId);
     };
-
 
     return {
         init: init
@@ -464,6 +480,8 @@ function OnPrint(e) {
 }
 
 
+
+/*************** Carton Removing functions ***********************/
 // Called when the remove ok buton is clicked.
 // e.delegateTarget should be the remove dialog.
 // e.data must contain the url and postdata
