@@ -46,7 +46,7 @@
 
     <div>
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (Model.EnableEditing)
+        @if (!Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
@@ -102,16 +102,12 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-
-            // Handle change event of radio button for All styles and AllColors.
-            // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
-            // Id of textbox for style,color and value for data-attr-disabletb must be same.
             $('#rbAllStyle,#rbAllColors').change(function (e) {
                 var checked = $(this).is(':checked');
                 var tb = $(this).attr('data-attr-disabletb')
                 if (checked) {
                     $(this).val(true);
-                    $('#' + tb).prop('disabled', checked).val("All").removeClass('input-validation-error');
+                    $('#' + tb).prop('disabled', checked).val("All");
                     //$('span[for=' + tb + ']').text('');
 
                 }
@@ -130,7 +126,7 @@
                     $('#' + tb).prop('disabled', !checked).val("");
                 }
             });
-
+           
 
             // Handle change event of checkfor enable/disbale SpotCheck
             // Initialize value for check box based on checked state in _editSpotCheckPartial page.
@@ -138,7 +134,26 @@
                 $(this).val($(this).is(':checked'));
             });
 
+            //$('#frmaddspotcheck').on('submit', function () {
+            //    alert($(e.target).attr('data-delete-ajax-url');
+            //    $.ajax($(e.target).attr('data-delete-ajax-url'), {
+            //        type: 'POST',
+            //        context: this,
+            //        data: dialogData,
+            //        success: function (data, textStatus, jqXHR) {
+            //            //updating the list with updated data
+            //            $(this).html(data);
+            //            // handling validation error
+            //            if (jqXHR.status == 203) {
+            //                alert(jqXHR.responseText);
+            //                return;
+            //            }
+            //        }
+            //    }).error(function (jqXHR, textStatus, errorThrown) {
+            //        alert(jqXHR.responseText);
+            //    });
 
+            //});
 
 
             $('#divSpotCheckList').click(function (e) {
