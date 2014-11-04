@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 
 namespace DcmsMobile.Receiving.Models
 {
@@ -9,7 +8,9 @@ namespace DcmsMobile.Receiving.Models
 
         public string ProNumber { get; set; }
 
-        public Carrier Carrier { get; set; }
+        public string CarrierId { get; set; }
+
+        public string CarrierName { get; set; }
 
         public DateTime? ProDate { get; set; }
 

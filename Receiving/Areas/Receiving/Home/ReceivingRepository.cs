@@ -140,11 +140,8 @@ namespace DcmsMobile.Receiving.Repository
 
             var binder = SqlBinder.Create(row => new ReceivingProcess()
                 {
-                    Carrier = new Carrier
-                        {
-                            CarrierId = row.GetString("CARRIER_ID"),
-                            Description = row.GetString("DESCRIPTION")
-                        },
+                    CarrierId = row.GetString("CARRIER_ID"),
+                    CarrierName = row.GetString("DESCRIPTION"),
                     ProcessId = row.GetInteger("PROCESS_ID").Value,
                     OperatorName = row.GetString("OPERATOR_NAME"),
                     ProNumber = row.GetString("PRO_NUMBER"),
@@ -202,7 +199,7 @@ namespace DcmsMobile.Receiving.Repository
 
             int processId = 0;
             var binder = SqlBinder.Create().Parameter("aprono", info.ProNumber)
-                .Parameter("acarrier", info.Carrier.CarrierId)
+                .Parameter("acarrier", info.CarrierId)
                 .Parameter("aprodate", info.ProDate)
                 .Parameter("amodule_code", MODULE_NAME)
                 .Parameter("expectedcarton", info.ExpectedCartons)
@@ -242,7 +239,7 @@ namespace DcmsMobile.Receiving.Repository
            .Parameter("EXPECTED_CARTON", info.ExpectedCartons)
            .Parameter("PALLET_LIMIT", info.PalletLimit)
            .Parameter("PRO_DATE", info.ProDate)
-           .Parameter("CARRIER_ID", info.Carrier.CarrierId)
+           .Parameter("CARRIER_ID", info.CarrierId)
            .Parameter("PRICE_SEASON_CODE", info.PriceSeasonCode)
            .Parameter("RECEIVING_AREA_ID", info.ReceivingAreaId)
            .Parameter("SPOT_CHECK_AREA_ID", info.SpotCheckAreaId);
@@ -347,25 +344,25 @@ namespace DcmsMobile.Receiving.Repository
             return _db.ExecuteSingle(QUERY, binder);
         }
 
-//        /// <summary>
-//        /// Get received carton count
-//        /// </summary>
-//        /// <param name="processId"></param>
-//        /// <returns>
-//        /// </returns>
-//        [Obsolete]
-//        public int GetCartonsOfProcess(int? processId)
-//        {
-//            const string QUERY = @"
-//                                    SELECT COUNT(CARTON_ID) AS CARTON_COUNT
-//                      FROM <proxy />SRC_CARTON
-//                    WHERE INSHIPMENT_ID = :inshipmentId
-//                       AND PALLET_ID IS NOT NULL
-//                ";
-//            var binder = SqlBinder.Create(row => row.GetInteger("CARTON_COUNT").Value).Parameter("inshipmentId", processId);
-//            ++_queryCount;
-//            return _db.ExecuteSingle(QUERY, binder);
-//        }
+        //        /// <summary>
+        //        /// Get received carton count
+        //        /// </summary>
+        //        /// <param name="processId"></param>
+        //        /// <returns>
+        //        /// </returns>
+        //        [Obsolete]
+        //        public int GetCartonsOfProcess(int? processId)
+        //        {
+        //            const string QUERY = @"
+        //                                    SELECT COUNT(CARTON_ID) AS CARTON_COUNT
+        //                      FROM <proxy />SRC_CARTON
+        //                    WHERE INSHIPMENT_ID = :inshipmentId
+        //                       AND PALLET_ID IS NOT NULL
+        //                ";
+        //            var binder = SqlBinder.Create(row => row.GetInteger("CARTON_COUNT").Value).Parameter("inshipmentId", processId);
+        //            ++_queryCount;
+        //            return _db.ExecuteSingle(QUERY, binder);
+        //        }
 
         public IEnumerable<CartonArea> GetCartonAreas()
         {
@@ -703,7 +700,7 @@ namespace DcmsMobile.Receiving.Repository
         /// <param name="poId"></param>
         public bool ReOpenShipment(string shipmentId, long? poId)
         {
-            var rowCount = 0;                      
+            var rowCount = 0;
             const string QUERY = @"
            begin
               -- Call the function

@@ -53,8 +53,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 ProDate = src.ProDate,
                 ProNumber = src.ProNumber,
-                CarrierId = src.Carrier.CarrierId,
-                CarrierDescription = src.Carrier.Description,
+                CarrierId = src.CarrierId,
+                CarrierDescription = src.CarrierName,
                 OperatorName = src.OperatorName,
                 ReceivingStartDate = src.StartDate,
                 ReceivingEndDate = src.ReceivingEndDate,
@@ -246,11 +246,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 ProDate = model.ProDate,
                 ProNumber = model.ProNumber,
-                Carrier = new Carrier
-                {
-                    CarrierId = model.CarrierId,
-                    Description = model.CarrierDescription
-                },
+                CarrierId = model.CarrierId,
                 ReceivingAreaId = model.ReceivingAreaId,
                 SpotCheckAreaId = model.SpotCheckAreaId,
                 PalletLimit = model.PalletLimit,
@@ -376,7 +372,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             // Convention based mapping.
             var rvm = new ReceivingViewModel
             {
-                CarrierId = pm.Carrier.CarrierId,
+                CarrierId = pm.CarrierId,
                 ProDate = pm.ProDate,
                 ProNumber = pm.ProNumber,
                 OperatorName = pm.OperatorName,
@@ -540,7 +536,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             //Pallet pallet = null;
 
             var list = new List<Tuple<string, string>>();
-            foreach (var cartonId in model.ScanText.Split(new [] {","}, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))
+            foreach (var cartonId in model.ScanText.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))
             {
                 try
                 {
@@ -552,10 +548,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 }
             }
 
-            return Json(from item in list select new {
-                cartonId = item.Item1,
-                message = item.Item2
-            });
+            return Json(from item in list
+                        select new
+                        {
+                            cartonId = item.Item1,
+                            message = item.Item2
+                        });
 
             //}
             //catch (DispositionMismatchException ex)
