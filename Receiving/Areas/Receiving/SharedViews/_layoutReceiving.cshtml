@@ -3,7 +3,21 @@
     Layout = "~/MainArea/SharedViews/_layoutBootstrap.cshtml";
 }
 
-@section script {    
+@section areatitle {
+   <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="navbar-link"><span class="glyphicon glyphicon-home"></span> Receiving</a>
+}
+@section moremenu {
+   
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="navbar-link"><span class="glyphicon glyphicon-plus"></span> Create</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="navbar-link"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())" class="navbar-link"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
+    @RenderSection("moremenu", false)
+}
+
+
+
+
+@section script {
     @RenderSection("script", false)
 }
 @RenderBody()
