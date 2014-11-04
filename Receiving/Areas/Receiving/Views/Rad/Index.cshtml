@@ -46,7 +46,7 @@
 
     <div>
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (!Model.EnableEditing)
+        @if (Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
@@ -111,8 +111,7 @@
                 var tb = $(this).attr('data-attr-disabletb')
                 if (checked) {
                     $(this).val(true);
-                    $('#' + tb).prop('disabled', checked).val("All");
-                    //$('span[for=' + tb + ']').text('');
+                    $('#' + tb).prop('disabled', checked).val("All");               
 
                 }
                 else {
@@ -140,12 +139,12 @@
 
 
 
-            $('#frmaddspotcheck').on('click', 'button:not([data-dismiss])',function (e) {
+            $('#addSpotCheck').on('click', 'button:not([data-dismiss])', function (e) {
                 $.ajax({
                     url: '@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())',
                     type: 'POST',
                     context: this,
-                    data: $('#frmaddspotcheck').serializeArray(),
+                    data: $('#addSpotCheck').serializeArray(),
                statusCode: {
                         // Success
                         200: function (data, textStatus, jqXHR) {
@@ -156,7 +155,7 @@
                         // Error
                         203: function (data, textStatus, jqXHR) {
                             //alert(data);
-                            $('div.alert', $('#frmaddspotcheck')).removeClass('hidden')
+                            $('div.alert', $('#addSpotCheck')).removeClass('hidden')
                                        .addClass('alert-warning')
                                       .html(jqXHR.responseText); 
                         }
