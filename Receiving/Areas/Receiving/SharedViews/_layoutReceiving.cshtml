@@ -4,14 +4,22 @@
 }
 
 @section areatitle {
-   <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="navbar-link"><span class="glyphicon glyphicon-home"></span> Receiving</a>
-}
-@section moremenu {
-   
-    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="navbar-link"><span class="glyphicon glyphicon-plus"></span> Create</a></li>
-    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="navbar-link"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
-    <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())" class="navbar-link"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
-    @RenderSection("moremenu", false)
+<div class="btn-group navbar-btn">
+    @*<button type="button" class="btn btn-default">*@
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="navbar-link btn btn-default"><span class="glyphicon glyphicon-home"></span> Receiving</a>
+    @*</button>*@
+    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="navbar-link"><span class="glyphicon glyphicon-plus"></span> Create</a></li>
+        <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="navbar-link"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
+        <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())" class="navbar-link"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
+    </ul>
+</div>
+
+  
 }
 
 
