@@ -29,11 +29,71 @@ If the RcUrl matches the URL of the home page, then site is assumed to be the RC
 Release Candidates to make it clear that this is the RC site.
 
 
-Feature Folder Support
-----------------------
+Feature Folder Support Sharad 4 Nov 2014
+----------------------------------------
 
 It is recommended that you organize view files using the feature folder pattern. To serve images from view folders, see
 http://stackoverflow.com/questions/604883/where-to-put-view-specific-javascript-files-in-an-asp-net-mvc-application
+
+1. Under the Areas/Receiving Directory, make one folder per feature.
+2. Move all the feature specific files to the corresponding folder, including scripts, content, *.cs, views, etc.
+3. The class name for the controller must match the feature Name. So if the feature folder name is Rad, the controller name should be class RadController
+3. T4MVC Setting
+  <FeatureFolderAreas>
+    <Area>Receiving</Area>
+  </FeatureFolderAreas>
+  <AddAllViewsFoldersToStaticFilesFolders>True</AddAllViewsFoldersToStaticFilesFolders>
+
+  5. Modify web.config in Areas/Receiving folder to allow ASP.NET to serve content files from Areas/Receiving folder
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+
+    <handlers>
+      <remove name="BlockViewHandler"/>
+      <add name="JavaScript" path="*.js" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="CSS" path="*.css" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="JPG" path="*.jpg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="PPTX" path="*.pptx" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="MP3" path="*.mp3" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="PNG" path="*.png" verb="GET,HEAD" type="System.Web.StaticFileHandler" />      
+      <add name="BlockViewHandler" path="*" verb="*" preCondition="integratedMode" type="System.Web.HttpNotFoundHandler" />
+    </handlers>
+  </system.webServer>
+
+  6. web.config in root folder
+    <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules runAllManagedModulesForAllRequests="true" />
+    <!-- Requirement of VirtualPathProviderEx. Needed so that we can access content and script files from DcmsMobile directory-->
+    <handlers>
+      <add name="AspNetStaticFileHandler-GIF" path="*.gif" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-JPG" path="*.jpg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-CSS" path="*.css" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-JS" path="*.js" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-EOT" path="*.eot" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-SVG" path="*.svg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-TTF" path="*.ttf" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-WOFF" path="*.woff" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+    </handlers>    
+  </system.webServer>
+
+  7. global.asax
+
+          protected void Application_Start()
+        {
+            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+                T4MVCHelpers.ProcessVirtualPath("~/Content"),
+                T4MVCHelpers.ProcessVirtualPath("~/Scripts"),
+                T4MVCHelpers.ProcessVirtualPath("~/MainArea"),
+                T4MVCHelpers.ProcessVirtualPath("~/fonts")
+            }));
+
+         
+            AreaRegistration.RegisterAllAreas();
+			...
+		}
+
 
 
 
