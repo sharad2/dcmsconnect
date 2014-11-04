@@ -2,7 +2,10 @@
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
     ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
 }
+
 
 
 <div class="container">
@@ -17,12 +20,14 @@
             @ViewBag.Title
         </h2>
     </div>
+
     @using (Html.BeginForm(MVC_Receiving.Receiving.Home.EditProcess(), FormMethod.Post, new
     {
         @class = "form-horizontal",
         role = "form"
     }))
     {
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         @Html.HiddenFor(m => m.ProcessId)
         <div class="form-group">
             <label for="ddlReceivingArea" class="col-sm-2 control-label">Receive In <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
@@ -31,7 +36,7 @@
                 new
                 {
                     id = "ddlReceivingArea",
-                    @class = "form-control"                  
+                    @class = "form-control"
 
                 })
             </div>
@@ -42,7 +47,7 @@
                 @Html.DropDownListFor(m => m.SpotCheckAreaId, Model.SpotCheckAreasList, "(Select Any Area)", new
            {
                id = "ddlSpotCheckArea",
-               @class = "form-control"              
+               @class = "form-control"
            })
             </div>
         </div>
@@ -53,26 +58,34 @@
            {
                id = "ddlPriceSeasonCode",
                @class = "form-control"
-              
+
            })
+                <span class="help-block">All received cartons will be stamped with this price season code</span>
             </div>
         </div>
-        <div class="form-group has-feedback">
+        <div class="form-group">
             <label for="txtboxExpectedCarton" class="col-sm-2 control-label">Expected Cartons <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.ExpectedCartons, new
            {
                id = "txtboxExpectedCarton",
                maxlength = "5",
                @class = "form-control",
                type = "number",
-               @required = "required"
+               @required = "required",
+               placeholder = "Number of cartons you expect to receive",
+               title = "The number of cartons you expect to receive is used to display a progress bar as you receive",
+               size = 4
            })
+                @Html.ValidationMessageFor(m => m.ExpectedCartons, null, new
+           {
+               @class = "help-block"
+           })
+
             </div>
-        </div>
-        <div class="form-group">
+
             <label for="txtBoxPalletLimit" class="col-sm-2 control-label">Max Cartons Per Pallet</label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.PalletLimit, new
            {
                id = "txtBoxPalletLimit",
@@ -82,11 +95,13 @@
                size = 4
            })
             </div>
+
         </div>
+
         <div class="form-group">
             <label for="txtBoxPro" class="col-sm-2 control-label">Pro # <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
 
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 @Html.TextBoxFor(m => m.ProNumber, new
            {
                id = "txtBoxPro",
@@ -94,17 +109,18 @@
                @class = "form-control",
                @required = "required"
            })
-
             </div>
-        </div>
 
-        <div class="form-group">
             <label for="tbProDate" class="col-sm-2 control-label">
                 @ModelMetadata.FromLambdaExpression(m => m.ProDate, this.ViewData).DisplayName <sup><i class="glyphicon glyphicon-asterisk"></i></sup>
             </label>
-            <div class="col-sm-10">
+            <div class="col-sm-4">
                 <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)"
-                       placeholder="mm/dd/yyyy" id="tbProDate" size="10" maxlength="10" class="form-control" type="date" required />
+                       placeholder="mm/dd/yyyy" id="tbProDate" size="10" class="form-control" type="date" required />
+                @Html.ValidationMessageFor(m => m.ProDate, null, new
+           {
+               @class = "help-block"
+           })
             </div>
         </div>
         <div class="form-group">
@@ -130,24 +146,65 @@
             <div class="col-sm-offset-2 col-sm-10">
                 @if (Model.ProcessId.HasValue)
                 {
-                    <button type="submit" class="btn btn-primary">Save and Continue</button>
-                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.ProcessId))" class="btn btn-default">Continue without saving</a>
+
+
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Save and Receive</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.ProcessId))" >Receive without saving</a></li>
+                        </ul>
+                    </div>
 
                 }
                 else
                 {
                     <button type="submit" class="btn btn-primary">Create New</button>
                 }
+
+
+
+
             </div>
         </div>
 
     }
 </div>
 @section script {
+    <script src="@Links_Receiving.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_Receiving.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
     <script src="@Links_Receiving.Areas.Receiving.SharedViews.bootstrap3_typeahead_js" type="text/javascript"></script>
 
 
     <script type="text/javascript">
+        // http://danielwertheim.se/2014/08/29/asp-net-mvc-5-quick-tip-for-unobtrusive-validation-and-bootstrap-styling/
+        (function ($) {
+            var defaultOptions = {
+                errorClass: 'has-error',
+                validClass: 'has-success',
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group")
+                        .addClass(errorClass)
+                        .removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest(".form-group")
+                    .removeClass(errorClass)
+                    .addClass(validClass);
+                }
+            };
+
+            $.validator.setDefaults(defaultOptions);
+
+            $.validator.unobtrusive.options = {
+                errorClass: defaultOptions.errorClass,
+                validClass: defaultOptions.validClass,
+            };
+        })(jQuery);
+
         $(document).ready(function () {
             $('input[data-url-list]').typeahead({
                 source: function (query, cb) {
