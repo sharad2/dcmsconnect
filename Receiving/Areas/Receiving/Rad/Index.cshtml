@@ -174,11 +174,10 @@
 
             $('#divSpotCheckList').click(function (e) {
                 var $tr = $(e.target).closest('tr');
-                var $th = $(e.target).closest('table').find('thead > tr > th');
-                $('tr', this).removeClass('bg-info');
+                var $th = $(e.target).closest('table').find('thead > tr > th');               
                 if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {
                     var $dlg = $(this).find($(e.target)).attr('data-target');
-                    $tr.addClass('bg-info').find('td').each(function (index) {
+                    $tr.find('td').each(function (index) {
                         //Binding all the values of span on the dialog box
                         // Populate the visible spans
                         var name = $th.eq(index).attr('data-name');
@@ -202,7 +201,6 @@
                     });
                 }
                 else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
-                    $tr.addClass('bg-info');
                     var dialogData = new Object();
                     var msg = $(e.target).find('span').attr('title') + ' for ';
                     //Collecting details for Delete
