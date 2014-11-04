@@ -278,20 +278,69 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
                 public readonly string _palletPartial = "_palletPartial";
                 public readonly string CreateProcess = "CreateProcess";
+                public readonly string Guided_Receiving = "Guided Receiving";
+                public readonly string Guided_Receiving_ppsx = "Guided_Receiving_ppsx";
                 public readonly string Index = "Index";
                 public readonly string Receiving = "Receiving";
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string ShipmentList_desktop = "ShipmentList.desktop";
                 public readonly string Tutorial = "Tutorial";
             }
-            public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Views/Home/_cartonNotOnPalletPartial.cshtml";
-            public readonly string _palletPartial = "~/Areas/Receiving/Views/Home/_palletPartial.cshtml";
-            public readonly string CreateProcess = "~/Areas/Receiving/Views/Home/CreateProcess.cshtml";
-            public readonly string Index = "~/Areas/Receiving/Views/Home/Index.cshtml";
-            public readonly string Receiving = "~/Areas/Receiving/Views/Home/Receiving.cshtml";
-            public readonly string ShipmentList = "~/Areas/Receiving/Views/Home/ShipmentList.cshtml";
-            public readonly string ShipmentList_desktop = "~/Areas/Receiving/Views/Home/ShipmentList.desktop.cshtml";
-            public readonly string Tutorial = "~/Areas/Receiving/Views/Home/Tutorial.cshtml";
+            public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Home/_cartonNotOnPalletPartial.cshtml";
+            public readonly string _palletPartial = "~/Areas/Receiving/Home/_palletPartial.cshtml";
+            public readonly string CreateProcess = "~/Areas/Receiving/Home/CreateProcess.cshtml";
+            public readonly string Guided_Receiving = "~/Areas/Receiving/Home/Guided Receiving.pps";
+            public readonly string Guided_Receiving_ppsx = "~/Areas/Receiving/Home/Guided Receiving.ppsx";
+            public readonly string Index = "~/Areas/Receiving/Home/Index.cshtml";
+            public readonly string Receiving = "~/Areas/Receiving/Home/Receiving.cshtml";
+            public readonly string ShipmentList = "~/Areas/Receiving/Home/ShipmentList.cshtml";
+            public readonly string ShipmentList_desktop = "~/Areas/Receiving/Home/ShipmentList.desktop.cshtml";
+            public readonly string Tutorial = "~/Areas/Receiving/Home/Tutorial.cshtml";
+            static readonly _SoundsClass s_Sounds = new _SoundsClass();
+            public _SoundsClass Sounds { get { return s_Sounds; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SoundsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string _1 = "1";
+                    public readonly string _10 = "10";
+                    public readonly string _2 = "2";
+                    public readonly string _3 = "3";
+                    public readonly string _4 = "4";
+                    public readonly string _5 = "5";
+                    public readonly string _6 = "6";
+                    public readonly string _7 = "7";
+                    public readonly string _8 = "8";
+                    public readonly string _9 = "9";
+                    public readonly string Error = "Error";
+                    public readonly string error = "error";
+                    public readonly string PalletChange = "PalletChange";
+                    public readonly string palletscan = "palletscan";
+                    public readonly string scan = "scan";
+                    public readonly string success = "success";
+                    public readonly string warning = "warning";
+                }
+                public readonly string _1 = "~/Areas/Receiving/Home/Sounds/1.mp3";
+                public readonly string _10 = "~/Areas/Receiving/Home/Sounds/10.mp3";
+                public readonly string _2 = "~/Areas/Receiving/Home/Sounds/2.mp3";
+                public readonly string _3 = "~/Areas/Receiving/Home/Sounds/3.mp3";
+                public readonly string _4 = "~/Areas/Receiving/Home/Sounds/4.mp3";
+                public readonly string _5 = "~/Areas/Receiving/Home/Sounds/5.mp3";
+                public readonly string _6 = "~/Areas/Receiving/Home/Sounds/6.mp3";
+                public readonly string _7 = "~/Areas/Receiving/Home/Sounds/7.mp3";
+                public readonly string _8 = "~/Areas/Receiving/Home/Sounds/8.mp3";
+                public readonly string _9 = "~/Areas/Receiving/Home/Sounds/9.mp3";
+                public readonly string Error = "~/Areas/Receiving/Home/Sounds/Error.mp3";
+                public readonly string error = "~/Areas/Receiving/Home/Sounds/error.wav";
+                public readonly string PalletChange = "~/Areas/Receiving/Home/Sounds/PalletChange.wav";
+                public readonly string palletscan = "~/Areas/Receiving/Home/Sounds/palletscan.wav";
+                public readonly string scan = "~/Areas/Receiving/Home/Sounds/scan.wav";
+                public readonly string success = "~/Areas/Receiving/Home/Sounds/success.mp3";
+                public readonly string warning = "~/Areas/Receiving/Home/Sounds/warning.wav";
+            }
         }
     }
 

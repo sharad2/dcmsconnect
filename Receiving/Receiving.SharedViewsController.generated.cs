@@ -23,7 +23,7 @@ using System.Web.Routing;
 using T4MVC;
 namespace T4MVC.Receiving
 {
-    public class SharedController
+    public class SharedViewsController
     {
 
         static readonly ViewsClass s_views = new ViewsClass();
@@ -37,15 +37,10 @@ namespace T4MVC.Receiving
             public class _ViewNamesClass
             {
                 public readonly string _layoutReceiving = "_layoutReceiving";
+                public readonly string ajax_loader = "ajax-loader";
             }
-            public readonly string _layoutReceiving = "~/Areas/Receiving/Views/Shared/_layoutReceiving.cshtml";
-            static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
-            public _DisplayTemplatesClass DisplayTemplates { get { return s_DisplayTemplates; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _DisplayTemplatesClass
-            {
-                public readonly string ValueWithShortName = "ValueWithShortName";
-            }
+            public readonly string _layoutReceiving = "~/Areas/Receiving/SharedViews/_layoutReceiving.cshtml";
+            public readonly string ajax_loader = "~/Areas/Receiving/SharedViews/ajax-loader.gif";
         }
     }
 

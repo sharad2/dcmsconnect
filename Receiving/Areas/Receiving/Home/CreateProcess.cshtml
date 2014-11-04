@@ -1,6 +1,6 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel
 @{
-    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
+    Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
     ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
 }
 
@@ -144,7 +144,7 @@
     }
 </div>
 @section script {
-    <script src="@Links_Receiving.Areas.Receiving.Scripts.bootstrap3_typeahead_js" type="text/javascript"></script>
+    <script src="@Links_Receiving.Areas.Receiving.SharedViews.bootstrap3_typeahead_js" type="text/javascript"></script>
 
 
     <script type="text/javascript">

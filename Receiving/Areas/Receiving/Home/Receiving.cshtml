@@ -1,12 +1,12 @@
 ﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
 @{
-    Layout = MVC_Receiving.Receiving.Shared.Views._layoutReceiving;
+    Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
 }
 
-<audio id="soundSuccess" src="@Links_Receiving.Areas.Receiving.Content.Sounds.success_mp3">
+<audio id="soundSuccess" src="@Links_Receiving.Areas.Receiving.Home.Sounds.success_mp3">
     Your browser does not support the HTML5 Audio element.
 </audio>
-<audio id="soundError" src="@Links_Receiving.Areas.Receiving.Content.Sounds.Error_mp3">
+<audio id="soundError" src="@Links_Receiving.Areas.Receiving.Home.Sounds.Error_mp3">
     Your browser does not support the HTML5 Audio element.
 </audio>
 
@@ -55,7 +55,7 @@
                         <span class="input-group-btn">
                             <button id="btnGo" class="btn btn-primary">
                                 <span class="badge"></span>
-                                <img src="@Links_Receiving.Areas.Receiving.Content.images.ajax_loader_gif" alt="ajaxLoader" class="hidden" />
+                                <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" alt="ajaxLoader" class="hidden" />
                                 <div>Go</div>
                             </button>
                             <button type="button" class="btn btn-warning btn-xs hidden" title="Some errors have occurred">
@@ -170,7 +170,7 @@
     <!-- Closing tabs inspired from
      http://jeykeu.wordpress.com/2013/07/27/dynamically-add-remove-and-re-number-tabs-in-twitter-bootstrap/-->
 
-    <script type="text/javascript" src="@Links_Receiving.Areas.Receiving.Scripts.Home.Receiving_js"></script>
+    <script type="text/javascript" src="@Links_Receiving.Areas.Receiving.Home.Receiving_js"></script>
     <script type="text/javascript">
         "use strict";
 

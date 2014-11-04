@@ -128,13 +128,13 @@ machine will default to the same alert settings.
 <dl>
     <dt>Carton Received </dt>
     <dd>
-        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Content.Sounds.scan_wav)' autostart="false" height="32"  />
+        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Home.Sounds.scan_wav)' autostart="false" height="32"  />
         Each time a carton is successfully received, you hear this sound. This is the sound
         you will be hearing most of the time.
     </dd>
     <dt>Active Pallet Changed</dt>
     <dd>
-        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Content.Sounds.palletscan_wav)' autostart="false" height="32" />
+        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Home.Sounds.palletscan_wav)' autostart="false" height="32" />
         Whenever you scan a carton that does not match the disposition of the current pallet, you hear one of these numeric sounds.
         The number played by the sound corresponds to the dispositon to which the scanned carton belongs. 
     </dd>
@@ -153,7 +153,7 @@ machine will default to the same alert settings.
     </dd>
     <dt>Error </dt>
     <dd>
-        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Content.Sounds.error_wav)' autostart="false" height="32" />.
+        <embed src='@Url.Content(Links_Receiving.Areas.Receiving.Home.Sounds.error_wav)' autostart="false" height="32" />.
         We hope you never hear this sound. This means that your scan has been ignored due
         to circumstances beyond your control. For example, this sound will play if database
         errors are being encountered.
