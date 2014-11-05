@@ -54,16 +54,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand bg-info" href="@Url.Content("~")">
-                    <span class="h3 text-info">
-                        <span class="glyphicon glyphicon-th"></span> DCMS
-                    </span>
-                </a>
+                    <a class="navbar-brand bg-info" href="@Url.Content("~")">
+                        <i class="glyphicon glyphicon-th"></i> DCMS 
+                    </a>
+                 
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <!-- Split button -->
+            <!--Spilt Button called from individual project as a title and its dropdown-->
                 @RenderSection("areatitle", false)
                 <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" class="navbar-form navbar-left" role="search">
 
@@ -76,14 +75,14 @@
                         </div>
                     </div>
                 </form>
-            
+
                 <ul class="nav navbar-nav navbar-right">
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
-                        <li class="dropdown">                            
+                        <li class="dropdown">
                             <button type="button" class="btn btn-success navbar-btn dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span>
-                              @ViewContext.HttpContext.User.Identity.Name <span class="caret"></span>
+                                @ViewContext.HttpContext.User.Identity.Name <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
@@ -109,7 +108,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             More <span class="caret"></span>
-                        </a>            
+                        </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
                             <li><a href="@Url.Content("~/trace.axd")" target="_trace"><span class="glyphicon glyphicon-record"></span> Trace Output</a></li>
@@ -118,10 +117,11 @@
                 </ul>
 
 
-                
+
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+
     @if (messages.Count > 0 || errors.Count > 0)
     {
         <ol class="list-group">
