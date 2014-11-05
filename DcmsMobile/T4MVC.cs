@@ -73,7 +73,6 @@ namespace Links_DcmsMobile
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
                 public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.min.js") : Url("jquery-2.1.1.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.js");
                 public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
-                public static readonly string jquery_mobile_1_4_2_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.js") ? Url("jquery.mobile-1.4.2.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.min.js") : Url("jquery.mobile-1.4.2.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.js");
                 public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.min.js") : Url("jquery.validate.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.js");
                 public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
                 }
@@ -89,42 +88,6 @@ namespace Links_DcmsMobile
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.css") : Url("bootstrap.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css");
              
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css.map");
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class images {
-            private const string URLPATH = "~/Content/images";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ajax-loader.gif");
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class icons_png {
-                private const string URLPATH = "~/Content/images/icons-png";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class icons_svg {
-                private const string URLPATH = "~/Content/images/icons-svg";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    
-        public static readonly string jquery_mobile_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile-1.4.2.min.css") ? Url("jquery.mobile-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.min.css") : Url("jquery.mobile-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile-1.4.2.css");
-             
-        public static readonly string jquery_mobile_external_png_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.external-png-1.4.2.min.css") ? Url("jquery.mobile.external-png-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.external-png-1.4.2.min.css") : Url("jquery.mobile.external-png-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.external-png-1.4.2.css");
-             
-        public static readonly string jquery_mobile_icons_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.icons-1.4.2.min.css") ? Url("jquery.mobile.icons-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.icons-1.4.2.min.css") : Url("jquery.mobile.icons-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.icons-1.4.2.css");
-             
-        public static readonly string jquery_mobile_inline_png_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.inline-png-1.4.2.min.css") ? Url("jquery.mobile.inline-png-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.inline-png-1.4.2.min.css") : Url("jquery.mobile.inline-png-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.inline-png-1.4.2.css");
-             
-        public static readonly string jquery_mobile_inline_svg_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.inline-svg-1.4.2.min.css") ? Url("jquery.mobile.inline-svg-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.inline-svg-1.4.2.min.css") : Url("jquery.mobile.inline-svg-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.inline-svg-1.4.2.css");
-             
-        public static readonly string jquery_mobile_structure_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.structure-1.4.2.min.css") ? Url("jquery.mobile.structure-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.structure-1.4.2.min.css") : Url("jquery.mobile.structure-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.structure-1.4.2.css");
-             
-        public static readonly string jquery_mobile_theme_1_4_2_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.mobile.theme-1.4.2.min.css") ? Url("jquery.mobile.theme-1.4.2.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.theme-1.4.2.min.css") : Url("jquery.mobile.theme-1.4.2.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.mobile.theme-1.4.2.css");
-             
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Sounds {
             private const string URLPATH = "~/Content/Sounds";
@@ -165,8 +128,9 @@ namespace Links_DcmsMobile
     
     }
 
+
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class MainArea {
+    public static partial class MainArea {
         private const string URLPATH = "~/MainArea";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
@@ -177,6 +141,9 @@ namespace Links_DcmsMobile
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         }
     
+    }
+
+    public static partial class MainArea {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Home {
             private const string URLPATH = "~/MainArea/Home";
@@ -187,6 +154,9 @@ namespace Links_DcmsMobile
             public static readonly string wifi_jpg = Url("wifi.jpg")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/wifi.jpg");
         }
     
+    }
+
+    public static partial class MainArea {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Logon {
             private const string URLPATH = "~/MainArea/Logon";
@@ -194,6 +164,9 @@ namespace Links_DcmsMobile
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         }
     
+    }
+
+    public static partial class MainArea {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class SharedViews {
             private const string URLPATH = "~/MainArea/SharedViews";
@@ -212,7 +185,6 @@ namespace Links_DcmsMobile
         }
     
     }
-
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
