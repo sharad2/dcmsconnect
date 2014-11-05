@@ -80,10 +80,10 @@
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
                         <li class="dropdown">
-                            <button type="button" class="btn btn-success navbar-btn dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-user"></span>
                                 @ViewContext.HttpContext.User.Identity.Name <span class="caret"></span>
-                            </button>
+                            </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff})">
