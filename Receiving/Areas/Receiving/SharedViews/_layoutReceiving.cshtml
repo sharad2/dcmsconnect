@@ -4,7 +4,8 @@
 }
 
 @section areatitle {
-    <div class="btn-group navbar-btn navbar-left">
+
+    @*<div class="btn-group navbar-btn navbar-left">
         <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default">
             <i class="glyphicon glyphicon-home"></i> Receiving
         </a>
@@ -17,9 +18,26 @@
             <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
             <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
         </ul>
-    </div>
+    </div>*@
 
-
+<ul class="nav navbar-nav">   
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-th-large"></i> Receiving
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())">
+                    <i class="glyphicon glyphicon-home"></i> Receiving Home
+                </a>
+            </li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())"><span class="glyphicon glyphicon-plus"></span> Create Process</a></li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())"><span class="glyphicon glyphicon-folder-open"></span> Open Shipments</a></li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
+        </ul>
+    </li>
+</ul>
 }
 
 @section script {
