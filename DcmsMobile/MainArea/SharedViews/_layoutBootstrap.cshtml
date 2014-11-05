@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </form>
-                
+            
                 <ul class="nav navbar-nav navbar-right">
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
@@ -94,8 +94,14 @@
                     }
                     else
                     {
-                        <li><a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})"><span class="glyphicon glyphicon glyphicon-log-in"></span><strong> Sign In</strong></a></li>
+                        <li>
 
+                            <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})" >
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Sign In
+                            </a>
+
+                        </li>
                     }
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">More <span class="caret"></span></a>
@@ -105,6 +111,9 @@
                         </ul>
                     </li>
                 </ul>
+
+
+                
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
@@ -131,4 +140,5 @@
     <script src="@url_bootstrap_js"></script>
     @RenderSection("script", false)
 </body>
+
 </html>
