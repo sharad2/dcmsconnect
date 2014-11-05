@@ -5,17 +5,17 @@
 
 @section areatitle {
     <div class="btn-group navbar-btn navbar-left">
-        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="navbar-link btn btn-link">
-            <span class="h6"><i class="glyphicon glyphicon-home"></i> Receiving</span>
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn btn-default">
+            <i class="glyphicon glyphicon-home"></i> Receiving
         </a>
-        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="navbar-link"><span class="glyphicon glyphicon-plus"></span> Create</a></li>
-            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())" class="navbar-link"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
-            <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())" class="navbar-link"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())"><span class="glyphicon glyphicon-plus"></span> Create</a></li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())"><span class="glyphicon glyphicon-list"></span> Open Shipments</a></li>
+            <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())"><span class="glyphicon glyphicon-cog"></span> Configure Receiving</a></li>
         </ul>
     </div>
 
