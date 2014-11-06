@@ -1,0 +1,149 @@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+
+@*This layout is designed to be used as the main layout of every Area.
+    It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
+    It also displays status summary and validation errors.
+
+    This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
+
+*@
+@inherits System.Web.Mvc.WebViewPage
+@using System.Linq
+@using System.Web.Mvc
+@{
+    // Include file URLs. We cannot use T4MVC here because our objective is to have no dependence on DcmsMobile.dll
+    var url_bootstrap_css = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Content/bootstrap.css") : Url.Content("~/Content/bootstrap.min.css");
+    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.1.1.js") : Url.Content("~/Scripts/jquery-2.1.1.min.js");
+    var url_bootstrap_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/bootstrap.js") : Url.Content("~/Scripts/bootstrap.min.js");
+
+    //var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
+    var messages = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.StatusMessages(Html);
+    var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
+
+    // We are the RC site if our URL is specified in web.config
+    //var isRc = !string.IsNullOrWhiteSpace(urlRcBase) && ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(urlRcBase, StringComparison.InvariantCultureIgnoreCase);
+}
+@helper PublicUrl(string[] routeNames)
+{
+    var routeName = routeNames.FirstOrDefault(p => Url.RouteCollection[p] != null);
+    if (!string.IsNullOrWhiteSpace(routeName))
+    {
+        @Url.RouteUrl(routeName)
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="@url_bootstrap_css" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                    <a class="navbar-brand bg-info" href="@Url.Content("~")">
+                        <i class="glyphicon glyphicon-home"></i> DCMS 
+                    </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--Spilt Button called from individual project as a title and its dropdown-->
+
+                @RenderSection("areatitle", false)
+                <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" class="navbar-form navbar-left" role="search">
+
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input name="id" type="search" class="form-control" placeholder="Search DCMS" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @ViewContext.HttpContext.User.Identity.Name <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff})">
+                                        <span class="glyphicon glyphicon glyphicon-log-out"></span> Sign out
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword})"><span class="glyphicon glyphicon-wrench"></span> Change Password</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Sign In
+                            </a>
+                        </li>
+                    }
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                           <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
+                            <li><a href="@Url.Content("~/trace.axd")" target="_trace"><span class="glyphicon glyphicon-record"></span> Trace Output</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    @if (messages.Count > 0 || errors.Count > 0)
+    {
+        <ol class="list-group">
+            @for (var i = 0; i < messages.Count; ++i)
+            {
+                <li class="list-group-item list-group-item-info">@messages[i]</li>
+            }
+            @for (var i = 0; i < errors.Count; ++i)
+            {
+                <li class="list-group-item list-group-item-danger">@errors[i]</li>
+            }
+        </ol>
+    }
+
+    @RenderBody()
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="@url_jquery_js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="@url_bootstrap_js"></script>
+    @RenderSection("script", false)
+</body>
+
+</html>

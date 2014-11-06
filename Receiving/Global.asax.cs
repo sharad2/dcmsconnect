@@ -36,12 +36,12 @@ namespace DcmsMobile.Receiving
         protected void Application_Start()
         {
 
-            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-                T4MVCHelpers.ProcessVirtualPath("~/Content"),
-                T4MVCHelpers.ProcessVirtualPath("~/Scripts"),
-                T4MVCHelpers.ProcessVirtualPath("~/MainArea"),
-                T4MVCHelpers.ProcessVirtualPath("~/fonts")
-              }));
+            //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+            //    T4MVCHelpers.ProcessVirtualPath("~/Content"),
+            //    T4MVCHelpers.ProcessVirtualPath("~/Scripts"),
+            //    T4MVCHelpers.ProcessVirtualPath("~/MainArea"),
+            //    T4MVCHelpers.ProcessVirtualPath("~/fonts")
+            //  }));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
