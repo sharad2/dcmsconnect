@@ -242,7 +242,6 @@
     <Content Include="MainArea\Diagnostic\Email.cshtml" />
     <Content Include="MainArea\Logon\GetNewPassword.cshtml" />
     <Content Include="MainArea\Home\Index.cshtml" />
-    <Content Include="MainArea\SharedViews\_layoutMain.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MainArea\Logon\Index.cshtml" />

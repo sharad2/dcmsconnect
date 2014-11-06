@@ -37,10 +37,8 @@ namespace T4MVC
             public class _ViewNamesClass
             {
                 public readonly string _layoutBootstrap = "_layoutBootstrap";
-                public readonly string _layoutMain = "_layoutMain";
             }
             public readonly string _layoutBootstrap = "~/MainArea/SharedViews/_layoutBootstrap.cshtml";
-            public readonly string _layoutMain = "~/MainArea/SharedViews/_layoutMain.cshtml";
             static readonly _SoundsClass s_Sounds = new _SoundsClass();
             public _SoundsClass Sounds { get { return s_Sounds; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
