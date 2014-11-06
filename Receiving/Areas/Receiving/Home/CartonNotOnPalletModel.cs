@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.Receiving.ViewModels.Home
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     //TODO: Think of a better name.
     public class CartonNotOnPalletModel

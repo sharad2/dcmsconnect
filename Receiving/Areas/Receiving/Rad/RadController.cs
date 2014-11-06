@@ -10,6 +10,7 @@ using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {

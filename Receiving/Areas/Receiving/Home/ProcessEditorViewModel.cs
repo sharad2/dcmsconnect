@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using EclipseLibrary.Mvc.Html;
 using DcmsMobile.Receiving.ViewModels;
+using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {

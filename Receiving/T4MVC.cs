@@ -36,7 +36,7 @@ namespace T4MVC
     {
         public readonly string Name = "Receiving";
         public DcmsMobile.Receiving.Areas.Receiving.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_AutoCompleteController();
-        public DcmsMobile.Receiving.Areas.Receiving.Controllers.HomeController Home = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_HomeController();
+        public DcmsMobile.Receiving.Areas.Receiving.Home.HomeController Home = new DcmsMobile.Receiving.Areas.Receiving.Home.T4MVC_HomeController();
         public DcmsMobile.Receiving.Areas.Receiving.Controllers.RadController Rad = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_RadController();
         public T4MVC.Receiving.SharedViewsController SharedViews = new T4MVC.Receiving.SharedViewsController();
     }
@@ -143,6 +143,13 @@ namespace Links_Receiving
                 public static readonly string Guided_Receiving_ppsx = Url("Guided Receiving.ppsx")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Guided Receiving.ppsx");
                 public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.min.js") : Url("Receiving.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.js");
                         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Repository {
+                    private const string URLPATH = "~/Areas/Receiving/Home/Repository";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                }
+            
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Receiving/Home/Sounds";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }

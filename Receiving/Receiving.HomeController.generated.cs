@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     public partial class HomeController
     {
@@ -283,7 +283,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 public readonly string ProcessEditor = "ProcessEditor";
                 public readonly string Receiving = "Receiving";
                 public readonly string ShipmentList = "ShipmentList";
-                public readonly string ShipmentList_desktop = "ShipmentList.desktop";
                 public readonly string Tutorial = "Tutorial";
             }
             public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Home/_cartonNotOnPalletPartial.cshtml";
@@ -294,8 +293,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string ProcessEditor = "~/Areas/Receiving/Home/ProcessEditor.cshtml";
             public readonly string Receiving = "~/Areas/Receiving/Home/Receiving.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Home/ShipmentList.cshtml";
-            public readonly string ShipmentList_desktop = "~/Areas/Receiving/Home/ShipmentList.desktop.cshtml";
             public readonly string Tutorial = "~/Areas/Receiving/Home/Tutorial.cshtml";
+            static readonly _RepositoryClass s_Repository = new _RepositoryClass();
+            public _RepositoryClass Repository { get { return s_Repository; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _RepositoryClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                }
+            }
             static readonly _SoundsClass s_Sounds = new _SoundsClass();
             public _SoundsClass Sounds { get { return s_Sounds; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -345,7 +354,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : DcmsMobile.Receiving.Areas.Receiving.Controllers.HomeController
+    public partial class T4MVC_HomeController : DcmsMobile.Receiving.Areas.Receiving.Home.HomeController
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
@@ -409,10 +418,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model);
+        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.Areas.Receiving.Home.ScanViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.ViewModels.Home.ScanViewModel model)
+        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.Areas.Receiving.Home.ScanViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

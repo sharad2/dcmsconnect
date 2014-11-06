@@ -1,4 +1,5 @@
-﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingViewModel
+﻿@using DcmsMobile.Receiving.Areas.Receiving.Home
+@model ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
 }
@@ -265,10 +266,10 @@
                 // by the function which will receive cartons
                 cartonPostdata: function(palletId, cartons) {
                     return [
-                        { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, int?>( m => m.ProcessId))', value: @Model.ProcessId },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.ScanText))', value: cartons },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletId))', value: palletId },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<DcmsMobile.Receiving.ViewModels.Home.ScanViewModel, object>( m => m.PalletDispos))',
+                        { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, int?>( m => m.ProcessId))', value: @Model.ProcessId },
+                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.ScanText))', value: cartons },
+                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.PalletId))', value: palletId },
+                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.PalletDispos))',
                                 value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
                     ];
                 },

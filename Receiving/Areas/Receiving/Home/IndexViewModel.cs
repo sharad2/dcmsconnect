@@ -1,9 +1,10 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace DcmsMobile.Receiving.ViewModels.Home
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
 
     public class ReceivingProcessModel

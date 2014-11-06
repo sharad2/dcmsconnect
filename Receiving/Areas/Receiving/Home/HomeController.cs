@@ -1,9 +1,9 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 using DcmsMobile.Receiving.Helpers;
 using DcmsMobile.Receiving.Models;
 using DcmsMobile.Receiving.Repository;
 using DcmsMobile.Receiving.ViewModels;
-using DcmsMobile.Receiving.ViewModels.Home;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System;
@@ -20,7 +20,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     [AuthorizeEx("Receiving requires Role {0}", Roles = "SRC_RECEIVING")]
     [RouteArea("Receving")]

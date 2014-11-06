@@ -1,6 +1,6 @@
 ﻿
 
-namespace DcmsMobile.Receiving.ViewModels
+namespace DcmsMobile.Receiving.Areas.Receiving.SharedViews
 {
     public abstract class ViewModelBase
     {

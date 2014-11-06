@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using DcmsMobile.Receiving.ViewModels;
+using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 
-namespace DcmsMobile.Receiving.ViewModels.Home
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     public class ReceivingViewModel : ViewModelBase
     {

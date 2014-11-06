@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+using System.Collections.Generic;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {

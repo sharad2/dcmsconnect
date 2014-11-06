@@ -97,26 +97,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteController.cs" />
-    <Compile Include="Areas\Receiving\Home\Carrier.cs">
+    <Compile Include="Areas\Receiving\Home\Repository\Carrier.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\HttpAjaxAttribute.cs" />
-    <Compile Include="Areas\Receiving\Home\Carton.cs" />
-    <Compile Include="Areas\Receiving\Home\CodeDescription.cs" />
-    <Compile Include="Areas\Receiving\Home\Pallet.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\CodeDescription.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Pallet.cs" />
     <Compile Include="Areas\Receiving\Rad\RadModels.cs" />
-    <Compile Include="Areas\Receiving\Home\Printer.cs" />
-    <Compile Include="Areas\Receiving\Home\ReceivingProcess.cs" />
-    <Compile Include="Areas\Receiving\Home\Sku.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Printer.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
     <Compile Include="Areas\Receiving\AutoComplete\AutocompleteRepository.cs" />
     <Compile Include="Areas\Receiving\Rad\RadService.cs" />
     <Compile Include="Areas\Receiving\Rad\RadRepository.cs" />
-    <Compile Include="Areas\Receiving\Home\ReceivingRepository.cs" />
-    <Compile Include="Areas\Receiving\Home\ReceivingService.cs" />
-    <Compile Include="Areas\Receiving\Home\ShipmentList.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingRepository.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingService.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ShipmentList.cs" />
     <Compile Include="Receiving.AutoCompleteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -203,7 +203,6 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <Content Include="Areas\Receiving\Home\ShipmentList.desktop.cshtml" />
     <Content Include="Areas\Receiving\SharedViews\_layoutReceiving.cshtml" />
     <Content Include="Areas\Receiving\Home\Index.cshtml" />
     <Content Include="Areas\Receiving\Home\_palletPartial.cshtml" />

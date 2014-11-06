@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+using System.Collections.Generic;
 
-namespace DcmsMobile.Receiving.ViewModels.Home
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     public class ShipmentListViewModel : ViewModelBase
     {
