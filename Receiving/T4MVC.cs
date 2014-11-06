@@ -85,30 +85,6 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
 
 namespace Links_Receiving
 {
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Scripts {
-        private const string URLPATH = "~/Scripts";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
-                public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.min.js") : Url("jquery-2.1.1.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.js");
-                public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.min.js") : Url("jquery.validate.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.js");
-                public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
-                }
-
-    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public static class Content {
-        private const string URLPATH = "~/Content";
-        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.min.css") : Url("bootstrap-theme.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.css");
-             
-        public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.css.map");
-        public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.css") : Url("bootstrap.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css");
-             
-        public static readonly string bootstrap_css_map = Url("bootstrap.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css.map");
-    }
-
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Areas {
@@ -141,7 +117,8 @@ namespace Links_Receiving
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Guided_Receiving_pps = Url("Guided Receiving.pps")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Guided Receiving.pps");
                 public static readonly string Guided_Receiving_ppsx = Url("Guided Receiving.ppsx")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Guided Receiving.ppsx");
-                public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.min.js") : Url("Receiving.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.js");
+                public static readonly string ProcessEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProcessEditor.min.js") ? Url("ProcessEditor.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ProcessEditor.min.js") : Url("ProcessEditor.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ProcessEditor.js");
+                        public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.min.js") : Url("Receiving.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.js");
                         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Repository {
                     private const string URLPATH = "~/Areas/Receiving/Home/Repository";

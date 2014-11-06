@@ -1,13 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+using EclipseLibrary.Mvc.Html;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Web.Mvc;
-using EclipseLibrary.Mvc.Html;
-using DcmsMobile.Receiving.ViewModels;
-using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
@@ -29,25 +26,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Carrier")]
         [DisplayFormat(NullDisplayText = "Unknown Carrier")]
-        // ReSharper disable MemberCanBeProtected.Global
         public virtual string CarrierId { get; set; }
-        // ReSharper restore MemberCanBeProtected.Global
 
-        [Required(ErrorMessage = "{0} is required")]
+
+        [Required(ErrorMessage = "Pro Date is required")]
         [Display(Name = "Pro Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? ProDate { get; set; }
-
-        [ReadOnly(true)]
-        [Display(Name = "Received by")]
-        [Obsolete]
-        public string OperatorName { get; set; }
-
-        [Display(Name = "Receiving Started")]
-        [DisplayFormat(NullDisplayText = "Not Received")]
-        [Obsolete]
-        public DateTime? ReceivingStartDate { get; set; }
 
         /// <summary>
         /// The time when last carton was received.
@@ -67,13 +53,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public int PalletCount { get; set; }
 
         /// <summary>
-        /// The number of carton received by this process
-        /// </summary>
-        [Display(Name = "Name_CartonCount", ResourceType = typeof(Resources.Receiving))]
-        [Obsolete]
-        public int CartonCount { get; set; }
-
-        /// <summary>
         /// The expected number of cartons to be received in this process.
         /// </summary>
         [Required(ErrorMessageResourceType = typeof(Resources.Receiving), ErrorMessageResourceName = "RequiredErrorMessage")]
@@ -87,10 +66,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </summary>
         [Display(Name = "Max Cartons Per Pallet")]
         public int? PalletLimit { get; set; }
-
-
-        [Obsolete]
-        public string DestinationCartonStorageArea { get; set; }
 
         [Required]
         [Display(Name = "Spot Check Area")]

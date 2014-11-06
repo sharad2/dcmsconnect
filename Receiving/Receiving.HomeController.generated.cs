@@ -281,6 +281,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 public readonly string Guided_Receiving_ppsx = "Guided_Receiving_ppsx";
                 public readonly string Index = "Index";
                 public readonly string ProcessEditor = "ProcessEditor";
+                public readonly string ProcessEditor_js = "ProcessEditor.js";
                 public readonly string Receiving = "Receiving";
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string Tutorial = "Tutorial";
@@ -291,6 +292,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public readonly string Guided_Receiving_ppsx = "~/Areas/Receiving/Home/Guided Receiving.ppsx";
             public readonly string Index = "~/Areas/Receiving/Home/Index.cshtml";
             public readonly string ProcessEditor = "~/Areas/Receiving/Home/ProcessEditor.cshtml";
+            public readonly string ProcessEditor_js = "~/Areas/Receiving/Home/ProcessEditor.js.bundle";
             public readonly string Receiving = "~/Areas/Receiving/Home/Receiving.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Home/ShipmentList.cshtml";
             public readonly string Tutorial = "~/Areas/Receiving/Home/Tutorial.cshtml";
