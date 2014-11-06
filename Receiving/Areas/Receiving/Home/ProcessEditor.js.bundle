@@ -13,5 +13,6 @@
     <file>/Scripts/jquery.validate.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.js</file>    
     <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>
+    <file>/Scripts/typeahead.bundle.js</file>
   </files>
 </bundle>
