@@ -52,7 +52,44 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>
         public virtual JsonResult GetCarriers(string term)
         {
-            var data = _repos.GetCarriers(term).Select(p => new
+            // Change null to empty string
+            term = term ?? string.Empty;
+
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
+            {
+                case 0:
+                    // All carriers
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+
+            var data = _repos.GetCarriers(searchId, searchDescription).Select(p => new
             {
                 label = string.Format("{0}: {1}", p.Item1, p.Item2),
                 value = p.Item1
@@ -68,11 +105,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public virtual JsonResult StyleAutocomplete(string term)
         {
             //var data = Mapper.Map<IEnumerable<AutocompleteItem>>(_repos.GetStyles(term.ToUpper()));
-            var data = _repos.GetStyles(term.ToUpper(),null).Select(p => new AutocompleteItem()
+            var data = _repos.GetStyles(term.ToUpper(), null).Select(p => new AutocompleteItem()
             {
                 label = string.Format("{0}: {1}", p.StyleId, p.Description),
                 value = p.StyleId
-            }); 
+            });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -87,8 +124,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             if (string.IsNullOrEmpty(term))
             {
                 throw new ApplicationException("Internal error. The id to validate was not passed.");
-            }          
-            var data = _repos.GetStyles(null,term.ToUpper()).Select(p => new AutocompleteItem()
+            }
+            var data = _repos.GetStyles(null, term.ToUpper()).Select(p => new AutocompleteItem()
             {
                 label = string.Format("{0}: {1}", p.StyleId, p.Description),
                 value = p.StyleId
@@ -96,7 +133,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             if (data == null)
             {
                 return Json("Invalid Style " + term, JsonRequestBehavior.AllowGet);
-            }         
+            }
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
@@ -109,7 +146,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public virtual JsonResult ColorAutocomplete(string term)
         {
             //var data = Mapper.Map<IEnumerable<AutocompleteItem>>(_repos.GetStyles(term.ToUpper()));
-            var data = _repos.GetColors(term.ToUpper(),null).Select(p => new AutocompleteItem()
+            var data = _repos.GetColors(term.ToUpper(), null).Select(p => new AutocompleteItem()
             {
                 label = string.Format("{0}: {1}", p.ColorId, p.Description),
                 value = p.ColorId
@@ -128,11 +165,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 throw new ApplicationException("Internal error. The id to validate was not passed.");
             }
-           var data = _repos.GetColors(null,term.ToUpper()).Select(p => new AutocompleteItem()
-            {
-                label = string.Format("{0}: {1}", p.ColorId, p.Description),
-                value = p.ColorId
-            }).FirstOrDefault();
+            var data = _repos.GetColors(null, term.ToUpper()).Select(p => new AutocompleteItem()
+             {
+                 label = string.Format("{0}: {1}", p.ColorId, p.Description),
+                 value = p.ColorId
+             }).FirstOrDefault();
             if (data == null)
             {
                 return Json("Invalid Color " + term, JsonRequestBehavior.AllowGet);

@@ -197,9 +197,13 @@
             var carriers = new Bloodhound({
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //queryTokenizer: function (query) {
+                //    return [query.trim()];
+                //},
                 remote: {
                     wildcard: '~',
-                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers("~"))'
+                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers("~"))',
+                    ajax: {cache: false}
                 }
             });
 
