@@ -32,28 +32,24 @@
         </form>
     </div>
 
-
-    <div class="list-group">
+    <ul class="list-group">
         @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
         {
-            <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))" class="list-group-item">
+            <li class="list-group-item">
                 <span class="badge ">
                     @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
                     ctn on @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
                 </span>
-
-                <h4 class="list-group-item-heading">@Html.DisplayFor(m => m.RecentProcesses[i].ProcessId) <small>by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</small></h4>
+                <h4 class="list-group-item-heading"><a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">@Html.DisplayFor(m => m.RecentProcesses[i].ProcessId)</a> <small>by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)</small></h4>
                 <p class="pull-right label label-info list-group-item-text" @*style="font-size:1.05em"*@>
                     Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) @Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)
                 </p>
                 <p class="list-group-item-text">
-
                     PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) dated @Html.DisplayFor(m => m.RecentProcesses[i].ProDate) <mark>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</mark>
                 </p>
-
-            </a>
+            </li>
         }
-    </div>
+    </ul>
 </div>
 
 
