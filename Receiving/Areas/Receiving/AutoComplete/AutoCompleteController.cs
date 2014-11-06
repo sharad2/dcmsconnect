@@ -1,4 +1,5 @@
-﻿using DcmsMobile.Receiving.Models;
+﻿using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
+using DcmsMobile.Receiving.Models;
 using DcmsMobile.Receiving.Repository;
 using DcmsMobile.Receiving.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
@@ -12,14 +13,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
     public partial class AutoCompleteController : EclipseController
     {
 
-        private AutocompleteItem Map(Carrier src)
-        {
-            return new AutocompleteItem
-            {
-               label = string.Format("{0}: {1}", src.CarrierId, src.Description),
-               value = src.CarrierId
-            };
-        }
+        //private AutocompleteItem Map(Carrier src)
+        //{
+        //    return new AutocompleteItem
+        //    {
+        //       label = string.Format("{0}: {1}", src.CarrierId, src.Description),
+        //       value = src.CarrierId
+        //    };
+        //}
 
         public AutoCompleteController()
         {
@@ -51,7 +52,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>
         public virtual JsonResult GetCarriers(string term)
         {
-            var data = _repos.GetCarriers(term).Select(p => Map(p)); ;
+            var data = _repos.GetCarriers(term).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
+            }); ;
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

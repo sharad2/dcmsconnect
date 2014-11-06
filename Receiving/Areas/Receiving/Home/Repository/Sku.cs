@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.Receiving.Models
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
     /// <summary>
     /// Model for Sku

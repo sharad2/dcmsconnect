@@ -6,7 +6,7 @@ using System.Web.Routing;
 using DcmsMobile.Receiving.Models;
 using EclipseLibrary.Oracle;
 
-namespace DcmsMobile.Receiving.Repository
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
     public class ReceivingRepository : IDisposable
     {
@@ -535,17 +535,14 @@ namespace DcmsMobile.Receiving.Repository
         /// Get the list of PriceSeasonCode.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CodeDescription> GetPriceSeasonCode()
+        public IList<Tuple<string, string>> GetPriceSeasonCode()
         {
             const string QUERY =
                             @"SELECT TPS.PRICE_SEASON_CODE, TPS.DESCRIPTION
                               FROM <proxy />TAB_PRICE_SEASON TPS
                              ORDER BY TPS.PRICE_SEASON_CODE";
-            var binder = SqlBinder.Create(row => new CodeDescription()
-                {
-                    Code = row.GetString("PRICE_SEASON_CODE"),
-                    Description = row.GetString("DESCRIPTION")
-                });
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("PRICE_SEASON_CODE"), row.GetString("DESCRIPTION")));
+
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -739,7 +736,7 @@ namespace DcmsMobile.Receiving.Repository
         /// </summary>
         /// <param name="carrierId"></param>
         /// <returns></returns>
-        public Carrier GetCarrier(string carrierId)
+        public Tuple<string, string> GetCarrier(string carrierId)
         {
             const string QUERY = @"
                         SELECT mc.carrier_id as carrier_id, 
@@ -747,11 +744,7 @@ namespace DcmsMobile.Receiving.Repository
                             FROM <proxy />v_carrier mc
                         where  mc.carrier_id =:carrierId                        
                         ";
-            var binder = SqlBinder.Create(row => new Carrier()
-            {
-                CarrierId = row.GetString("carrier_id"),
-                Description = row.GetString("description")
-            })
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("carrier_id"), row.GetString("description")))
                .Parameter("carrierId", carrierId);
             return _db.ExecuteSingle(QUERY, binder);
 

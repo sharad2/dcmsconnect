@@ -5,6 +5,7 @@ using System.Web.Routing;
 using DcmsMobile.Receiving.Models;
 using EclipseLibrary.Oracle;
 using DcmsMobile.Receiving.Models.Rad;
+using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
 
 namespace DcmsMobile.Receiving.Repository
 {
@@ -37,7 +38,7 @@ namespace DcmsMobile.Receiving.Repository
         /// Search term is passed to populate the list
         /// </param>
         /// <returns></returns>        
-        public IEnumerable<Carrier> GetCarriers(string searchText)
+        public IList<Tuple<string, string>> GetCarriers(string searchText)
         {
             const string QUERY = @"
                         SELECT mc.carrier_id as carrier_id, 
@@ -49,11 +50,7 @@ namespace DcmsMobile.Receiving.Repository
                         AND ROWNUM &lt; 40
                         ORDER BY mc.carrier_id
                         ";
-            var binder = SqlBinder.Create(row => new Carrier()
-                {
-                    CarrierId = row.GetString("carrier_id"),
-                    Description = row.GetString("description")
-                })
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("carrier_id"), row.GetString("description")))
                 .Parameter("carrier", searchText);
             return _db.ExecuteReader(QUERY,binder);
 

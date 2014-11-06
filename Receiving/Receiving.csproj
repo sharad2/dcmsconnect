@@ -97,18 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteController.cs" />
-    <Compile Include="Areas\Receiving\Home\Repository\Carrier.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\HttpAjaxAttribute.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
-    <Compile Include="Areas\Receiving\Home\Repository\CodeDescription.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Pallet.cs" />
     <Compile Include="Areas\Receiving\Rad\RadModels.cs" />
-    <Compile Include="Areas\Receiving\Home\Repository\Printer.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
     <Compile Include="Areas\Receiving\AutoComplete\AutocompleteRepository.cs" />

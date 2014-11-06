@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.Receiving.Models
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
     public class CartonArea

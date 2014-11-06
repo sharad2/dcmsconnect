@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DcmsMobile.Receiving.Models
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
     public class ReceivingProcess
     {

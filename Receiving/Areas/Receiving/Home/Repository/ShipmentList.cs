@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DcmsMobile.Receiving.Repository
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
     public class ShipmentList
     {

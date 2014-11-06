@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
 using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 using DcmsMobile.Receiving.Helpers;
 using DcmsMobile.Receiving.Models;
@@ -882,8 +883,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
             model.PriceSeasonCodeList = _service.GetPriceSeasonCode().Select(p => new SelectListItem
                 {
-                    Text = p.Code + ":" + p.Description,
-                    Value = p.Code
+                    Text = p.Item1 + ":" + p.Item2,
+                    Value = p.Item1
                 });
 
         }

@@ -8,7 +8,7 @@ using System.Runtime.Caching;
 using System.Web.Routing;
 using DcmsMobile.Receiving.Models;
 
-namespace DcmsMobile.Receiving.Repository
+namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
     public enum ScanResult
@@ -701,7 +701,7 @@ namespace DcmsMobile.Receiving.Repository
         /// Get the List of PriceSeasson Code.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<CodeDescription> GetPriceSeasonCode()
+        public IList<Tuple<string, string>> GetPriceSeasonCode()
         {
             return _repos.GetPriceSeasonCode();
         }
@@ -743,7 +743,7 @@ namespace DcmsMobile.Receiving.Repository
         /// </summary>
         /// <param name="carrierId"></param>
         /// <returns></returns>
-        public Carrier GetCarrier(string carrierId)
+        public Tuple<string, string> GetCarrier(string carrierId)
         {
             return _repos.GetCarrier(carrierId);
         }
