@@ -62,9 +62,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EditProcess()
+        public virtual System.Web.Mvc.ActionResult CreateUpdateProcess()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditProcess);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateProcess);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -138,7 +138,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public readonly string Index = "Index";
             public readonly string CreateProcess = "CreateProcess";
-            public readonly string EditProcess = "EditProcess";
+            public readonly string CreateUpdateProcess = "CreateUpdateProcess";
             public readonly string Receiving = "Receiving";
             public readonly string Tutorial = "Tutorial";
             public readonly string HandleCartonScan = "HandleCartonScan";
@@ -157,7 +157,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public const string Index = "Index";
             public const string CreateProcess = "CreateProcess";
-            public const string EditProcess = "EditProcess";
+            public const string CreateUpdateProcess = "CreateUpdateProcess";
             public const string Receiving = "Receiving";
             public const string Tutorial = "Tutorial";
             public const string HandleCartonScan = "HandleCartonScan";
@@ -180,11 +180,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public readonly string processId = "processId";
         }
-        static readonly ActionParamsClass_EditProcess s_params_EditProcess = new ActionParamsClass_EditProcess();
+        static readonly ActionParamsClass_CreateUpdateProcess s_params_CreateUpdateProcess = new ActionParamsClass_CreateUpdateProcess();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditProcess EditProcessParams { get { return s_params_EditProcess; } }
+        public ActionParamsClass_CreateUpdateProcess CreateUpdateProcessParams { get { return s_params_CreateUpdateProcess; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditProcess
+        public class ActionParamsClass_CreateUpdateProcess
         {
             public readonly string model = "model";
         }
@@ -277,10 +277,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
                 public readonly string _palletPartial = "_palletPartial";
-                public readonly string CreateProcess = "CreateProcess";
                 public readonly string Guided_Receiving = "Guided Receiving";
                 public readonly string Guided_Receiving_ppsx = "Guided_Receiving_ppsx";
                 public readonly string Index = "Index";
+                public readonly string ProcessEditor = "ProcessEditor";
                 public readonly string Receiving = "Receiving";
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string ShipmentList_desktop = "ShipmentList.desktop";
@@ -288,10 +288,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
             public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Home/_cartonNotOnPalletPartial.cshtml";
             public readonly string _palletPartial = "~/Areas/Receiving/Home/_palletPartial.cshtml";
-            public readonly string CreateProcess = "~/Areas/Receiving/Home/CreateProcess.cshtml";
             public readonly string Guided_Receiving = "~/Areas/Receiving/Home/Guided Receiving.pps";
             public readonly string Guided_Receiving_ppsx = "~/Areas/Receiving/Home/Guided Receiving.ppsx";
             public readonly string Index = "~/Areas/Receiving/Home/Index.cshtml";
+            public readonly string ProcessEditor = "~/Areas/Receiving/Home/ProcessEditor.cshtml";
             public readonly string Receiving = "~/Areas/Receiving/Home/Receiving.cshtml";
             public readonly string ShipmentList = "~/Areas/Receiving/Home/ShipmentList.cshtml";
             public readonly string ShipmentList_desktop = "~/Areas/Receiving/Home/ShipmentList.desktop.cshtml";
@@ -373,14 +373,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void EditProcessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model);
+        partial void CreateUpdateProcessOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.Areas.Receiving.Home.ProcessEditorViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditProcess(DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel model)
+        public override System.Web.Mvc.ActionResult CreateUpdateProcess(DcmsMobile.Receiving.Areas.Receiving.Home.ProcessEditorViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditProcess);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateUpdateProcess);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditProcessOverride(callInfo, model);
+            CreateUpdateProcessOverride(callInfo, model);
             return callInfo;
         }
 

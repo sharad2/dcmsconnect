@@ -6,12 +6,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
 using EclipseLibrary.Mvc.Html;
+using DcmsMobile.Receiving.ViewModels;
 
-namespace DcmsMobile.Receiving.ViewModels.Home
+namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
-    public class ReceivingProcessModel : ViewModelBase
+    public class ProcessEditorViewModel : ViewModelBase
     {
-        public ReceivingProcessModel()
+        public ProcessEditorViewModel()
         {
             this.ProNumber = string.Empty;
             this.CarrierId = string.Empty;
@@ -39,10 +40,12 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         [ReadOnly(true)]
         [Display(Name = "Received by")]
+        [Obsolete]
         public string OperatorName { get; set; }
 
         [Display(Name = "Receiving Started")]
         [DisplayFormat(NullDisplayText = "Not Received")]
+        [Obsolete]
         public DateTime? ReceivingStartDate { get; set; }
 
         /// <summary>
@@ -50,48 +53,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// </summary>
         [Display(Name = "Receiving Stopped")]
         [DisplayFormat(NullDisplayText = "Not Received")]
+        [Obsolete]
         public DateTime? ReceivingEndDate { get; set; }
-
-
-        /// <summary>
-        /// Elapsed time of Current receiving process
-        /// </summary>
-        [Display(Name = "Elapsed Time")]
-        public string ElapsedTime
-        {
-            get
-            {
-                if (ReceivingEndDate != null && ReceivingStartDate != null)
-                {
-                    var interval = ReceivingEndDate.Value.Subtract(ReceivingStartDate.Value).Duration();
-                    if (interval.TotalDays > 1)
-                    {
-                        return string.Format("{0:N0} days", interval.TotalDays);
-                    }
-                    else
-                    {
-                        return string.Format("{0:N0} hrs", interval.TotalHours);
-                    }
-                }
-                return string.Empty;
-            }
-        }
-
-        public string CarrierDescription { get; set; }
-
-        [Display(Name = "Carrier")]
-        [DisplayFormat(NullDisplayText = "Unknown Carrier")]
-        public string CarrierDisplayName
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.CarrierId))
-                {
-                    return null;
-                }
-                return string.Format("{0}: {1}", this.CarrierId, this.CarrierDescription);
-            }
-        }
 
         [Display(Name = "Name_Process", ResourceType = typeof(Resources.Receiving))]
         public virtual int? ProcessId { get; set; }
@@ -106,7 +69,9 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// The number of carton received by this process
         /// </summary>
         [Display(Name = "Name_CartonCount", ResourceType = typeof(Resources.Receiving))]
+        [Obsolete]
         public int CartonCount { get; set; }
+
         /// <summary>
         /// The expected number of cartons to be received in this process.
         /// </summary>
@@ -122,7 +87,8 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         [Display(Name = "Max Cartons Per Pallet")]
         public int? PalletLimit { get; set; }
 
-        [Display(Name = "Receive in")]
+
+        [Obsolete]
         public string DestinationCartonStorageArea { get; set; }
 
         [Required]
@@ -131,9 +97,11 @@ namespace DcmsMobile.Receiving.ViewModels.Home
 
         public IEnumerable<GroupSelectListItem> SpotCheckAreasList { get; set; }
 
+
+        [Display(Name = "Receive in")]
         [Required]
-        [Display(Name = "Receiving Area")]
         public string ReceivingAreaId { get; set; }
+
         public IEnumerable<GroupSelectListItem> ReceivingAreasList { get; set; }
 
         [Display(Name = "Season Code")]

@@ -1,4 +1,5 @@
-﻿using DcmsMobile.Receiving.Helpers;
+﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using DcmsMobile.Receiving.Helpers;
 using DcmsMobile.Receiving.Models;
 using DcmsMobile.Receiving.Repository;
 using DcmsMobile.Receiving.ViewModels;
@@ -60,12 +61,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ReceivingEndDate = src.ReceivingEndDate,
                 CartonCount = src.CartonCount,
                 PalletCount = src.PalletCount,
-                ReceivingAreaId = src.ReceivingAreaId,
+                //ReceivingAreaId = src.ReceivingAreaId,
                 ProcessId = src.ProcessId,
-                ExpectedCartons = src.ExpectedCartons,
-                PalletLimit = src.PalletLimit,
-                PriceSeasonCode = src.PriceSeasonCode,
-                SpotCheckAreaId = src.SpotCheckAreaId
+                ExpectedCartons = src.ExpectedCartons
+                //PalletLimit = src.PalletLimit,
+                //PriceSeasonCode = src.PriceSeasonCode,
+                //SpotCheckAreaId = src.SpotCheckAreaId
             };
         }
 
@@ -177,14 +178,31 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [HttpGet]
         public virtual ActionResult CreateProcess(int? processId)
         {
-            var model = new ReceivingProcessModel();
+            var model = new ProcessEditorViewModel();
 
             if (processId != null)
             {
                 // Getting process info for editing case
-                var info = _service.GetProcessInfo(processId.Value);
-                model = Map(info);
-                model.ProcessId = info.ProcessId;
+                var src = _service.GetProcessInfo(processId.Value);
+                model = new ProcessEditorViewModel
+                {
+                    ProDate = src.ProDate,
+                    ProNumber = src.ProNumber,
+                    CarrierId = src.CarrierId,
+                    //CarrierDescription = src.CarrierName,
+                    //OperatorName = src.OperatorName,
+                    //ReceivingStartDate = src.StartDate,
+                    //ReceivingEndDate = src.ReceivingEndDate,
+                    //CartonCount = src.CartonCount,
+                    PalletCount = src.PalletCount,
+                    ReceivingAreaId = src.ReceivingAreaId,
+                    ProcessId = src.ProcessId,
+                    ExpectedCartons = src.ExpectedCartons,
+                    PalletLimit = src.PalletLimit,
+                    PriceSeasonCode = src.PriceSeasonCode,
+                    SpotCheckAreaId = src.SpotCheckAreaId
+                };
+                model.ProcessId = src.ProcessId;
             }
             else
             {
@@ -201,7 +219,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
             }
             PopulateIndexViewModel(model);
-            return View(Views.CreateProcess, model);
+            return View(Views.ProcessEditor, model);
         }
 
 
@@ -220,12 +238,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// </remarks>
         /// TODO: Change method name to a more appropiate one. This is actually CreateOrEditProcess
         [HttpPost]
-        public virtual ActionResult EditProcess(ReceivingProcessModel model)
+        public virtual ActionResult CreateUpdateProcess(ProcessEditorViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 PopulateIndexViewModel(model);
-                return View(Views.CreateProcess, model);
+                return View(Views.ProcessEditor, model);
             }
             var regexItem = new Regex(":");
             if (regexItem.IsMatch(model.CarrierId))
@@ -240,7 +258,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             {
                 ModelState.AddModelError("", string.Format("{0} is invalid Carrier", model.CarrierId));
                 PopulateIndexViewModel(model);
-                return View(Views.CreateProcess, model);
+                return View(Views.ProcessEditor, model);
             }
             var processModel = new ReceivingProcess
             {
@@ -250,7 +268,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 ReceivingAreaId = model.ReceivingAreaId,
                 SpotCheckAreaId = model.SpotCheckAreaId,
                 PalletLimit = model.PalletLimit,
-                CartonCount = model.CartonCount,
+                //CartonCount = model.CartonCount,
                 ExpectedCartons = model.ExpectedCartons ?? 0,
                 PalletCount = model.PalletCount,
                 ProcessId = model.ProcessId ?? 0,
@@ -283,7 +301,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                     // Exception happened but we still need to populate all the area lists.
                     PopulateIndexViewModel(model);
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateProcess, model);
+                    return View(Views.ProcessEditor, model);
                 }
             }
             else
@@ -298,7 +316,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                     // Exception happened but we still need to populate all the area lists.
                     PopulateIndexViewModel(model);
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateProcess, model);
+                    return View(Views.ProcessEditor, model);
                 }
             }
 
@@ -843,7 +861,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// This is a private method which populates various list of areas acoording to passed flags.
         /// </summary>
         /// <param name="model"></param>
-        private void PopulateIndexViewModel(ReceivingProcessModel model)
+        private void PopulateIndexViewModel(ProcessEditorViewModel model)
         {
             var areas = _service.GetCartonAreas().ToList();
             if (areas.Any(p => p.IsReceivingArea))

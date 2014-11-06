@@ -1,17 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace DcmsMobile.Receiving.ViewModels.Home
 {
-    /// <summary>
-    /// Communicaets with the SelectProcess id form within the view
-    /// </summary>
-    public class SelectProcessModel
+
+    public class ReceivingProcessModel
     {
-        [Required]
-        [Range(1, 999999999, ErrorMessageResourceType = typeof(Resources.Receiving), ErrorMessageResourceName = "RangeMinMaxErrorMessage")]
-        public int? ProcessId { get; set; }
+
+        public System.DateTime? ProDate { get; set; }
+
+        public string ProNumber { get; set; }
+
+        public string CarrierId { get; set; }
+
+        public string OperatorName { get; set; }
+
+        public System.DateTime? ReceivingStartDate { get; set; }
+
+        public string CarrierDescription { get; set; }
+
+        public System.DateTime? ReceivingEndDate { get; set; }
+
+        public int CartonCount { get; set; }
+
+        public int PalletCount { get; set; }
+
+        public int ProcessId { get; set; }
+
+        public int? ExpectedCartons { get; set; }
+
+        /// <summary>
+        /// Elapsed time of Current receiving process
+        /// </summary>
+        [Display(Name = "Elapsed Time")]
+        public string ElapsedTime
+        {
+            get
+            {
+                if (ReceivingEndDate != null && ReceivingStartDate != null)
+                {
+                    var interval = ReceivingEndDate.Value.Subtract(ReceivingStartDate.Value).Duration();
+                    if (interval.TotalDays > 1)
+                    {
+                        return string.Format("{0:N0} days", interval.TotalDays);
+                    }
+                    else
+                    {
+                        return string.Format("{0:N0} hrs", interval.TotalHours);
+                    }
+                }
+                return string.Empty;
+            }
+        }
+
+        [Display(Name = "Carrier")]
+        [DisplayFormat(NullDisplayText = "Unknown Carrier")]
+        public string CarrierDisplayName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.CarrierId))
+                {
+                    return null;
+                }
+                return string.Format("{0}: {1}", this.CarrierId, this.CarrierDescription);
+            }
+        }
     }
 
     /// <summary>
@@ -21,7 +77,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
     {
         public IndexViewModel()
         {
-            this.CreateProcess = new ReceivingProcessModel();
+            this.CreateProcess = new ProcessEditorViewModel();
         }
 
         private IList<ReceivingProcessModel> _recentProcesses;
@@ -44,12 +100,7 @@ namespace DcmsMobile.Receiving.ViewModels.Home
         /// <summary>
         /// Form input for creating a process
         /// </summary>
-        public ReceivingProcessModel CreateProcess { get; set; }
-
-        /// <summary>
-        /// Form input for selecting a process
-        /// </summary>
-        public SelectProcessModel SelectProcess { get; set; }
+        public ProcessEditorViewModel CreateProcess { get; set; }
 
     }
 }

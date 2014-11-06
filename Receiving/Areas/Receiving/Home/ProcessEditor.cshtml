@@ -1,4 +1,4 @@
-﻿@model DcmsMobile.Receiving.ViewModels.Home.ReceivingProcessModel
+﻿@model DcmsMobile.Receiving.Areas.Receiving.Home.ProcessEditorViewModel
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
     ViewBag.Title = Model.ProcessId == null ? "Create Process" : string.Format("Edit Process #{0}", Model.ProcessId);
@@ -15,7 +15,7 @@
         </h2>
     </div>
 
-    @using (Html.BeginForm(MVC_Receiving.Receiving.Home.EditProcess(), FormMethod.Post, new
+    @using (Html.BeginForm(MVC_Receiving.Receiving.Home.CreateUpdateProcess(), FormMethod.Post, new
     {
         @class = "form-horizontal",
         role = "form"
