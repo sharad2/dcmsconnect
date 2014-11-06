@@ -91,6 +91,7 @@ namespace EclipseLibrary.Mvc.Hosting
     /// </code>
     /// </para>
     /// </remarks>
+    [Obsolete]
     public class VirtualPathProviderEx : VirtualPathProvider
     {
         private class PhysicalVirtualFile : VirtualFile
