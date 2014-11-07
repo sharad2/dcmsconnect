@@ -75,7 +75,7 @@
                             <td>@item.CreatedBy</td>
                             <td>@item.ModifyDateDispaly</td>
                             <td>@item.ModifiedBy</td>
-                            @if (!enableEditing)
+                            @if (enableEditing)
                             {
                                 <td>
                                     <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
