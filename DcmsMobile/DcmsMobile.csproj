@@ -164,6 +164,7 @@
       <DependentUpon>Index.js</DependentUpon>
     </Content>
     <Content Include="MainArea\SharedViews\_layoutBootstrap.cshtml" />
+    <None Include="Properties\PublishProfiles\dcmsmobile.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Content\Sounds\Error.mp3" />
     <Content Include="Content\Sounds\success.mp3" />
