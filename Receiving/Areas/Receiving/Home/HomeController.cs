@@ -246,11 +246,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 PopulateIndexViewModel(model);
                 return View(Views.ProcessEditor, model);
             }
-            var regexItem = new Regex(":");
-            if (regexItem.IsMatch(model.CarrierId))
-            {
-                model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
-            }
+            //var regexItem = new Regex(":");
+            //if (regexItem.IsMatch(model.CarrierId))
+            //{
+            //    model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
+            //}
 
             var carrier = _service.GetCarrier(model.CarrierId);
 
