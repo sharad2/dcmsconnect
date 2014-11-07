@@ -1,7 +1,7 @@
 ﻿{
   "BrowserLink": {
     "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
-    "EnableMenu": true,
+    "EnableMenu": false,
     "EnablePixelPushing": true,
     "ShowMenu": false
   },
@@ -46,8 +46,8 @@
   },
   "General": {
     "AllMessagesToOutputWindow": false,
-    "KeepImportantComments": false,
-    "SvgPreviewPane": false
+    "KeepImportantComments": true,
+    "SvgPreviewPane": true
   },
   "Html": {
     "AutoMinify": false,
@@ -76,7 +76,8 @@
     ],
     "MakeMinified": true,
     "OutputDirectory": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "MinificationMode": "KeepQuotes"
   },
   "JavaScript": {
     "AutoMinify": true,
@@ -88,7 +89,10 @@
     "LintResultLocation": "Message",
     "MakeMinified": true,
     "OutputDirectory": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "EvalTreatment": "MakeImmediateSafe",
+    "RootDirectory": "/Scripts/",
+    "TermSemicolons": true
   },
   "Less": {
     "CompileOnBuild": false,
@@ -133,7 +137,8 @@
     "OutputDirectory": null,
     "OutputStyle": "Expanded",
     "ProcessSourceMapsForEditorEnhancements": true,
-    "ShowPreviewPane": true
+    "ShowPreviewPane": true,
+    "NumberPrecision": 5
   },
   "Sprite": {
     "CssOutputDirectory": null,
@@ -143,7 +148,8 @@
     "RunOnBuild": false,
     "ScssOutputDirectory": null,
     "UseAbsoluteUrl": false,
-    "UseFullPathForIdentifierName": true
+    "UseFullPathForIdentifierName": true,
+    "OutputDirectory": null
   },
   "SweetJs": {
     "CompileOnBuild": false,
