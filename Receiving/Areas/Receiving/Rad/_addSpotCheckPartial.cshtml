@@ -4,9 +4,9 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<form id="addSpotCheck" method="post">
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+<form id="addSpotCheck" method="post">   
     <div class="modal-body">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
             <label for="ddlSewingPlant">Sewing Plant</label>
             @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant", @class = "form-control" })
