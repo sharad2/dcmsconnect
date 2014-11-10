@@ -243,7 +243,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// validate selected color
         /// </summary>
         /// <returns></returns>
-        [Obsolete]
+       [Obsolete("We are validating using new way of bootstrap for empty results called templates(empty:'result empty text here ')}")]
         public virtual JsonResult ValidateColor()
         {
             var term = this.Request.QueryString[0];
