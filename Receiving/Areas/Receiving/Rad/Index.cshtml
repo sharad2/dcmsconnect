@@ -160,11 +160,11 @@
             // Handle change event of radio button for All styles and AllColors.
             // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
             // Id of textbox for style,color and value for data-attr-disabletb must be same.
-            $('#rbAllStyle,#rbAllColors').change(function (e) {
+            //$('#rbAllStyle,#rbAllColors').change(function (e) {
 
-                var checked = $(this).is(':checked');
-                var tb = $(this).attr('data-attr-disabletb')
-                $('#' + tb).prop('disabled', !checked);
+            //    var checked = $(this).is(':checked');
+            //    var tb = $(this).attr('data-attr-disabletb')
+            //    $('#' + tb).prop('disabled', !checked);
                 //if (checked) {
                 //    $(this).val(true);
                 //    $('#' + tb).val("All").attr('disabled', checked).removeClass('input-validation-error');
@@ -175,7 +175,7 @@
                 //    $(this).val(false)
                 //    $('#' + tb).val("");
                 //}
-            });
+            //});
 
             // Hanlde change event of radio button for specific style and color
             // Id of textbox for style,color and value of data-attr-enabletb must be same.
@@ -199,7 +199,7 @@
 
 
 
-            @*$('#addSpotCheck').on('click', 'button:not([data-dismiss])', function (e) {
+            $('#addSpotCheck').on('click', 'button:not([data-dismiss])', function (e) {
                 $.ajax({
                     url: '@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())',
                     type: 'POST',
@@ -223,7 +223,7 @@
                     }
                 });
                 return false;
-            });*@
+            });
 
 
 

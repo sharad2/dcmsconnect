@@ -4,7 +4,7 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<form @*action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())"*@ id="addSpotCheck" method="post">
+<form action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" id="addSpotCheck" method="post">
     <div class="modal-body">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
