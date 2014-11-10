@@ -133,8 +133,33 @@
             });
 
 
+            //*********************Color auto complete**********************//
+            var Colors = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    wildcard: '~',
+                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete("~"))',
+                    ajax: { cache: false }
+                }
+            });
 
+            Colors.initialize();
 
+            $('#tbColor').typeahead(null, {
+                name: 'Colors',
+                displayKey: 'label',
+                source: Styles.ttAdapter(),
+                templates: {
+                    empty: 'No matching Style found'
+                }
+            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                // Store the id of the selected style in the hdden field
+                $('#hfColor').val(sug.value);
+            }).on('input', function (e) {
+                // When user changes the style, empty the hidden field
+                $('#hfColor').val('');
+            });
 
             // Handle change event of radio button for All styles and AllColors.
             // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.

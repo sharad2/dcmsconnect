@@ -5,6 +5,7 @@ using System.Web;
 
 namespace DcmsMobile.Receiving.ViewModels
 {
+   
     public class AutocompleteItem
     {
         /// <summary>

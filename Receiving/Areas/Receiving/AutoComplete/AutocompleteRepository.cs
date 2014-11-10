@@ -80,27 +80,47 @@ namespace DcmsMobile.Receiving.Repository
         }
 
 
-        public IEnumerable<Color> GetColors(string searchText, string color)
+        /// <summary>
+        /// To get Color list for Color Auto Complete text box
+        /// </summary>
+        public IList<Tuple<string, string>> GetColors(string searchId, string searchDescription)
         {
             const string QUERY = @"
-                SELECT MC.COLOR_ID AS COLOR, MC.COLOR_DESCRIPTION AS DESCRIPTION
+                        SELECT MC.COLOR_ID AS COLOR, MC.COLOR_DESCRIPTION AS DESCRIPTION
                   FROM <proxy />MASTER_COLOR MC
-                 WHERE 1=1
-                        <if c='$color'> 
-                            and MC.COLOR_ID =:color
-                        </if>
-                   <else> 
-                        AND (UPPER(MC.COLOR_ID) LIKE '%' || UPPER(:SEARCH) || '%')
-                    </else>
-                   AND ROWNUM &lt; 40
+                 WHERE 1=1                        
+                       AND (UPPER(MC.Color_Id) LIKE '%' || UPPER(:ID) || '%' OR
+       UPPER(MC.Color_Description) LIKE '%' || UPPER(:DESCRIPTION) || '%')
+   AND ROWNUM &lt;40
 ";
-            var binder = SqlBinder.Create(row => new Color()
-            {
-                ColorId = row.GetString("COLOR"),
-                Description = row.GetString("DESCRIPTION")
-            }).Parameter("SEARCH", searchText).Parameter("color", color);
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("COLOR"), row.GetString("DESCRIPTION")))
+                .Parameter("ID", searchId)
+                .Parameter("DESCRIPTION", searchDescription);
             return _db.ExecuteReader(QUERY, binder);
+
         }
+
+//        public IEnumerable<Color> GetColors(string searchText, string color)
+//        {
+//            const string QUERY = @"
+//                SELECT MC.COLOR_ID AS COLOR, MC.COLOR_DESCRIPTION AS DESCRIPTION
+//                  FROM <proxy />MASTER_COLOR MC
+//                 WHERE 1=1
+//                        <if c='$color'> 
+//                            and MC.COLOR_ID =:color
+//                        </if>
+//                   <else> 
+//                        AND (UPPER(MC.COLOR_ID) LIKE '%' || UPPER(:SEARCH) || '%')
+//                    </else>
+//                   AND ROWNUM &lt; 40
+//";
+//            var binder = SqlBinder.Create(row => new Color()
+//            {
+//                ColorId = row.GetString("COLOR"),
+//                Description = row.GetString("DESCRIPTION")
+//            }).Parameter("SEARCH", searchText).Parameter("color", color);
+//            return _db.ExecuteReader(QUERY, binder);
+//        }
 
     }
 }

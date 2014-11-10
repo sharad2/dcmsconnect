@@ -45,7 +45,7 @@ namespace DcmsMobile.Receiving.Models.Rad
         public string Description { get; set; }
     }
 
-
+    [Obsolete]
     public class Color
     {
         public string ColorId { get; set; }

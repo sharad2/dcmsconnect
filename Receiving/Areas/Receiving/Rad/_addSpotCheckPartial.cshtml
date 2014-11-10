@@ -55,13 +55,37 @@
                             All Colors
                         </label>
                     </div>
+
+
                     <div class="form-inline">
                         <label>
                             <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" checked="checked" data-attr-enabletb="tbColor" />
                             Specific Color
                         </label>
                     </div>
+
+
                     <div class="input-group">
+                        <div class="input-group">
+                            <input id="tbColor"
+                                   class="form-control typeahead" />
+                            <span class="input-group-btn">
+                                <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Color, null, new
+           {
+               @class = "help-block"
+           })
+                        @Html.TextBoxFor(m => m.Color, new
+               {
+                   id = "hfColor",
+                   style = "height:0; width:0; border:none"
+               })
+
+
+                    </div>
+                    @*<div class="input-group">
                         @Html.TextBoxFor(m => m.Color, new
    {
 
@@ -75,7 +99,7 @@
                             <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                         </span>
 
-                    </div>
+                    </div>*@
                     @Html.ValidationMessageFor(m => m.Color, null, new
            {
                @class = "help-block"
