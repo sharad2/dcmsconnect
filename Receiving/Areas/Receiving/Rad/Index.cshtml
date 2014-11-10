@@ -2,6 +2,7 @@
 @model RadViewModel
 @{
     ViewBag.Title = "Receiving Configuration";
+    
 }
 <div class="container">
     <div class="page-header">
@@ -104,94 +105,90 @@
         $(document).ready(function () {
 
             //*********************style auto complete**********************//
+            var adapters = {
+                styleGroup: new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        wildcard: '~',
+                        url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))',
+                        ajax: { cache: false }
+                    }
+                }),
+                colorGroup: new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    remote: {
+                        wildcard: '~',
+                        url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete("~"))',
+                        ajax: { cache: false }
+                    }
+                })
+            };
 
-            var Styles = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                remote: {
-                    wildcard: '~',
-                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))',
-                    ajax: { cache: false }
-                }
-            });
+            for (var key in adapters) {
+                adapters[key].initialize();
+            }
 
-            Styles.initialize();
-
-            $('#tbStyle').typeahead(null, {
-                name: 'Styles',
-                displayKey: 'label',
-                source: Styles.ttAdapter(),
-                templates: {
-                    empty: 'No matching Style found'
-                }
-            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-                // Store the id of the selected style in the hdden field
-                $('#hfStyle').val(sug.value);
-            }).on('input', function (e) {
-                // When user changes the style, empty the hidden field
-                $('#hfStyle').val('');
-            });
-
-
-            //*********************Color auto complete**********************//
-            var Colors = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                remote: {
-                    wildcard: '~',
-                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete("~"))',
-                    ajax: { cache: false }
-                }
-            });
-
-            Colors.initialize();
-
-            $('#tbColor').typeahead(null, {
-                name: 'Colors',
-                displayKey: 'label',
-                source: Styles.ttAdapter(),
-                templates: {
-                    empty: 'No matching Style found'
-                }
-            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-                // Store the id of the selected style in the hdden field
-                $('#hfColor').val(sug.value);
-            }).on('input', function (e) {
-                // When user changes the style, empty the hidden field
-                $('#hfColor').val('');
+            // The hidden field must be immediately after the input group
+            $('#styleGroup,#colorGroup').on('change', 'input:checkbox:checked', function (e) {
+                // Style checkbox has been checked by the user. He wants to enter a specific style
+                $('input.typeahead', e.delegateTarget).prop('disabled', false)
+                    .typeahead(null, {
+                        name: 'Styles',
+                        displayKey: 'label',
+                        source: adapters[e.delegateTarget.id].ttAdapter(),
+                        templates: {
+                            empty: 'No matching choices'
+                        }
+                    }).on('typeahead:selected.mytypeahead typeahead:autocompleted.mytypeahead', { "$tbHidden": $(e.delegateTarget).next('input') }, function (e, sug, ds) {
+                        // Store the id of the selected style in the hdden field
+                        //alert('Hi');
+                        e.data.$tbHidden.val(sug.value);
+                    }).on('input.mytypeahead', { "$tbHidden": $(e.delegateTarget).next('input') }, function (e) {
+                        // When user changes the style, empty the hidden field
+                        e.data.$tbHidden.val('');
+                    });
+            }).on('change', 'input:checkbox:not(":checked")', function (e) {
+                // Style checkbox has been unchecked by the user. He wants to use all styles
+                // Destroy the typeahead
+                $('input.typeahead', e.delegateTarget).prop('disabled', true)
+                    .typeahead('destroy')
+                    .off('.mytypeahead');
             });
 
             // Handle change event of radio button for All styles and AllColors.
             // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
             // Id of textbox for style,color and value for data-attr-disabletb must be same.
             $('#rbAllStyle,#rbAllColors').change(function (e) {
-              
+
                 var checked = $(this).is(':checked');
                 var tb = $(this).attr('data-attr-disabletb')
-                if (checked) {
-                    $(this).val(true);
-                    $('#' + tb).val("All").attr('disabled', checked).removeClass('input-validation-error');
-                    $(tb.replace('tb', '#hf')).val("All");
-                    $('#' + tb + '-error').text('');
-                }
-                else {
-                    $(this).val(false)
-                    $('#' + tb).val("");
-                }
+                $('#' + tb).prop('disabled', !checked);
+                //if (checked) {
+                //    $(this).val(true);
+                //    $('#' + tb).val("All").attr('disabled', checked).removeClass('input-validation-error');
+                //    $(tb.replace('tb', '#hf')).val("All");
+                //    $('#' + tb + '-error').text('');
+                //}
+                //else {
+                //    $(this).val(false)
+                //    $('#' + tb).val("");
+                //}
             });
 
             // Hanlde change event of radio button for specific style and color
             // Id of textbox for style,color and value of data-attr-enabletb must be same.
-            $('#rbSpecificStyle,#rbSpecificColor').change(function (e) {
-                var checked = $(this).is(':checked');
-                var tb = $(this).attr('data-attr-enabletb')
-                if (checked) {
-                    $('#' + tb).prop('disabled', !checked).val("");
-                }
-                else {
-                    $('#' + tb).prop('disabled', !checked).val("");
-                }
-            });
+            //$('#rbSpecificStyle,#rbSpecificColor').change(function (e) {
+            //    var checked = $(this).is(':checked');
+            //    var tb = $(this).attr('data-attr-enabletb')
+            //    if (checked) {
+            //        $('#' + tb).prop('disabled', !checked).val("");
+            //    }
+            //    else {
+            //        $('#' + tb).prop('disabled', !checked).val("");
+            //    }
+            //});
 
 
             // Handle change event of checkfor enable/disbale SpotCheck

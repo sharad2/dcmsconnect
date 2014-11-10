@@ -11,91 +11,62 @@
             <label for="ddlSewingPlant">Sewing Plant</label>
             @Html.GroupDropListFor(m => m.SewingPlantId, Model.SewingPlantList, "(All)", new { id = "ddlSewingPlant", @class = "form-control" })
         </div>
-        <div class="form-group ">
+        <div class="form-group">
             <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            <div class="form-inline">
-                <label>
-                    <input id="rbAllStyle" class="radio" type="radio" name="@Html.NameFor(m => m.AllStyles).ToString()" data-attr-disabletb="tbStyle" />
-                    All Styles
-                </label>
+            <div class="input-group" id="styleGroup">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+                <input type="text" class="form-control typeahead" disabled="disabled" autocomplete="off" placeholder="All Styles" />  
+                <span class="input-group-btn">
+                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                </span>
+             
             </div>
-            <div class="form-inline">
-                <label>
-                    <input type="radio" class="radio" name="@Html.NameFor(m => m.AllStyles)" checked="checked" id="rbSpecificStyle" data-attr-enabletb="tbStyle" />
-                    Specific Style
-                </label>
-            </div>
-            <div class="input-group">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.Style, new
-   {
-       autocomplete = "off",
-       style = "text-transform: uppercase",
-       id = "tbStyle",
-       @class = "form-control typeahead"
-   })
-                    <span class="input-group-btn">
-                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                    </span>
-                </div>
-                @Html.ValidationMessageFor(m => m.Style, null, new
+            <!-- // The hidden field must be immediately after the input group-->
+            @Html.TextBoxFor(m => m.Style, new
+               {
+                   style = "position:absolute;visibility:hidden"
+               })
+            @Html.ValidationMessageFor(m => m.Style, null, new
            {
                @class = "help-block"
            })
-                @Html.TextBoxFor(m => m.Style, new
-               {
-                   id = "hfStyle",
-                   style = "height:0; width:0; border:none"
-               })
-            </div>
+
         </div>
+
 
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            <div class="form-inline">
-                <label>
-                    <input type="radio" class="radio" id="rbAllColors" name="@Html.NameFor(m => m.AllColors).ToString()" data-attr-disabletb="tbColor" />
-                    All Colors
-                </label>
+
+            <div class="input-group" id="colorGroup">
+                <span class="input-group-addon">
+                    <input type="checkbox">
+                </span>
+
+                <input type="text" class="form-control typeahead"  disabled="disabled" autocomplete="off" placeholder="All Colors"/>
+
+                <span class="input-group-btn">
+                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                </span>
             </div>
+            <!-- // The hidden field must be immediately after the input group-->          
+            @Html.TextBoxFor(m => m.Color, new
+               {
+                   style = "position:absolute;visibility:hidden"
+               })
 
 
-            <div class="form-inline">
-                <label>
-                    <input type="radio" class="radio" name="@Html.NameFor(m => m.AllColors)" id="rbSpecificColor" checked="checked" data-attr-enabletb="tbColor" />
-                    Specific Color
-                </label>
-            </div>
-
-
-            <div class="input-group">
-                <div class="input-group">
-                    @Html.TextBoxFor(m => m.Color, new
-   {
-       autocomplete = "off",
-       style = "text-transform: uppercase",
-       id = "tbColor",
-       @class = "form-control typeahead"
-   })
-
-                    <span class="input-group-btn">
-                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                    </span>
-                </div>
                 @Html.ValidationMessageFor(m => m.Color, null, new
            {
                @class = "help-block"
            })
-                @Html.TextBoxFor(m => m.Color, new
-               {
-                   id = "hfColor",
-                   style = "height:0; width:0; border:none"
-               })
-            </div>
+               
+          
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="true" checked="checked" id="cbIsSpotCheckEnable"/>
+                <input type="checkbox" name="@Html.NameFor(m=>m.IsSpotCheckEnabled)" value="true" checked="checked" id="cbIsSpotCheckEnable" />
                 SpotCheck Enabled
             </label>
         </div>
@@ -115,7 +86,6 @@
 
     </div>
 </form>
-
 
 
 

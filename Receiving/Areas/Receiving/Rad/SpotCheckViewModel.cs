@@ -9,6 +9,12 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
 {
     public class SpotCheckViewModel : ViewModelBase
     {
+        public SpotCheckViewModel()
+        {
+            this.Style = "All";
+            this.Color = "All";
+        }
+
         [Required(ErrorMessage = "Style is required")]
         [DisplayName("Style")]
         [Display(ShortName = "Style")]
