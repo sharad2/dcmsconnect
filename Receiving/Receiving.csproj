@@ -163,10 +163,6 @@
     <Content Include="Areas\Receiving\Home\Sounds\9.mp3" />
     <Content Include="Areas\Receiving\Home\Sounds\Error.mp3" />
     <Content Include="Areas\Receiving\Home\Sounds\success.mp3" />
-    <Content Include="Areas\Receiving\SharedViews\bootstrap3-typeahead.js" />
-    <Content Include="Areas\Receiving\SharedViews\bootstrap3-typeahead.min.js">
-      <DependentUpon>bootstrap3-typeahead.js</DependentUpon>
-    </Content>
     <Content Include="Areas\Receiving\Home\Receiving.js" />
     <Content Include="Areas\Receiving\Home\Receiving.min.js">
       <DependentUpon>Receiving.js</DependentUpon>

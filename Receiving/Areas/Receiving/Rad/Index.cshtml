@@ -43,7 +43,7 @@
 
     <div>
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (!Model.EnableEditing)
+        @if (Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
@@ -91,7 +91,7 @@
 
 @section script {
     <link href="~/Content/typeahead.css" type="text/css" rel="stylesheet" />
-    <script src="@Links_Receiving.Areas.Receiving.SharedViews.bootstrap3_typeahead_js" type="text/javascript"></script>
+    @*<script src="@Links_Receiving.Areas.Receiving.SharedViews.bootstrap3_typeahead_js" type="text/javascript"></script>*@
 
     <!-- Need for post the values from _spotCheckListpartial.cshtml page to _editSpotCheckPartial.cshtml -->
     @*bundle is needed*@

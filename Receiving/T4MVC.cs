@@ -178,8 +178,7 @@ namespace Links_Receiving
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ajax-loader.gif");
-                public static readonly string bootstrap3_typeahead_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-typeahead.min.js") ? Url("bootstrap3-typeahead.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap3-typeahead.min.js") : Url("bootstrap3-typeahead.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap3-typeahead.js");
-                        }
+            }
         
         }
     }

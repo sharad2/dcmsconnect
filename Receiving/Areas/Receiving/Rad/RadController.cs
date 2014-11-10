@@ -98,7 +98,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                     SewingPlantList = plantlist
                 };
 
-            model.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
+            model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
             model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => Map(p)).ToList();
             ViewBag.EnableEditing = model.EnableEditing;
 
