@@ -181,7 +181,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();
                 ViewBag.key = model.ConfigurationKey;
-                ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
+                ViewBag.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
                 return PartialView(Views._spotCheckListPartial, list);
 
             }
@@ -208,7 +208,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 _service.SetSpotCheckPercentage(dto);
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();
-                ViewBag.EnableEditing = this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
+                ViewBag.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
                 return PartialView(Views._spotCheckListPartial, list);
             }
             catch (Exception ex)

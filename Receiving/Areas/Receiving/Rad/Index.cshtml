@@ -256,6 +256,7 @@
                             }
                             $(selector, $dlg).val($(this).attr('data-val'));
                         }
+                
                     });
                 }
                 else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
@@ -280,7 +281,7 @@
                             data: dialogData,
                             success: function (data, textStatus, jqXHR) {
                                 //updating the list with updated data
-                                $(this).html(data);
+                                $('#divSpotCheckList').html(data);
                                 // handling validation error
                                 if (jqXHR.status == 203) {
                                     alert(jqXHR.responseText);
@@ -294,35 +295,6 @@
                 }
 
             });
-
-
-
-            //auto-complete for the _addspotCheckPartial Page.
-            //$('input[data-url-list]').typeahead({
-            //    source: function (query, cb) {
-            //        $.ajax({
-            //            url: this.$element.attr("data-url-list"),
-            //            context: this.$element,
-            //            data: {
-            //                term: query
-            //            }
-            //        }).then(function (response) {
-            //            // Extract the label from each result in the array.
-            //            // Store the value in a global map
-            //            var x = $.map(response, function (val, i) {
-            //                return val.label;
-            //            });
-            //            cb(x);
-            //        }).fail(function (jqXHR, textStatus, errorThrown) {
-            //            alert("error" + jqXHR.responseText);
-            //        });
-            //    },
-            //    matcher: function (item) {
-            //        return true;
-            //    }
-
-            //});
-
         });
     </script>
 }
