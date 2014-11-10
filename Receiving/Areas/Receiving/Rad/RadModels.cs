@@ -37,6 +37,7 @@ namespace DcmsMobile.Receiving.Models.Rad
         public string CountryName { get; set; }
     }
 
+    [Obsolete]
     public class Style
     {
         public string StyleId { get; set; }

@@ -64,28 +64,21 @@ namespace DcmsMobile.Receiving.Repository
         /// Search term is passed to populate the list
         /// </param>
         /// <returns></returns>
-        public IEnumerable<Style> GetStyles(string searchText, string style)
+        public IList<Tuple<string, string>> GetStyles(string searchId, string searchDescription)
         {
             const string QUERY = @"
-                SELECT MS.STYLE AS STYLE, MS.DESCRIPTION AS DESCRIPTION
-                  FROM <proxy />MASTER_STYLE MS
-                 WHERE 1=1
-                        <if c='$style'> 
-                            and MS.STYLE =:style
-                        </if>
-                    <else>
-                   AND (UPPER(MS.STYLE) LIKE '%' || UPPER(:SEARCH) || '%')
-                    </else>
-                   AND ROWNUM &lt; 40
-";
-            var binder = SqlBinder.Create(row => new Style()
-                {
-                    StyleId = row.GetString("STYLE"),
-                    Description = row.GetString("DESCRIPTION")
-                }).Parameter("SEARCH", searchText)
-                .Parameter("style",style);
-            return _db.ExecuteReader(QUERY,binder);
+                        SELECT MS.STYLE AS STYLE, MS.DESCRIPTION AS DESCRIPTION
+                          FROM <PROXY /> MASTER_STYLE MS
+                         WHERE 1 = 1
+                           AND (UPPER(MS.STYLE) LIKE '%' || UPPER(:id) || '%' OR
+                               UPPER(MS.DESCRIPTION) LIKE '%' || UPPER(:description) || '%')
+                           AND ROWNUM &lt; 40";
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("STYLE"), row.GetString("DESCRIPTION")))
+              .Parameter("id", searchId)
+              .Parameter("description", searchDescription);
+            return _db.ExecuteReader(QUERY, binder);
         }
+
 
         public IEnumerable<Color> GetColors(string searchText, string color)
         {

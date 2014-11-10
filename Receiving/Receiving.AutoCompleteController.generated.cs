@@ -90,7 +90,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public readonly string GetCarriers = "GetCarriers";
             public readonly string StyleAutocomplete = "StyleAutocomplete";
-            public readonly string ValidateStyle = "ValidateStyle";
             public readonly string ColorAutocomplete = "ColorAutocomplete";
             public readonly string ValidateColor = "ValidateColor";
         }
@@ -100,7 +99,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public const string GetCarriers = "GetCarriers";
             public const string StyleAutocomplete = "StyleAutocomplete";
-            public const string ValidateStyle = "ValidateStyle";
             public const string ColorAutocomplete = "ColorAutocomplete";
             public const string ValidateColor = "ValidateColor";
         }
@@ -170,17 +168,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.StyleAutocomplete);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
             StyleAutocompleteOverride(callInfo, term);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void ValidateStyleOverride(T4MVC_System_Web_Mvc_JsonResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult ValidateStyle()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ValidateStyle);
-            ValidateStyleOverride(callInfo);
             return callInfo;
         }
 

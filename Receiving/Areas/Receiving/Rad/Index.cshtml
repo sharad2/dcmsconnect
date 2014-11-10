@@ -103,6 +103,39 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+            //*********************style auto complete**********************//
+
+            var Styles = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                remote: {
+                    wildcard: '~',
+                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))',
+                    ajax: { cache: false }
+                }
+            });
+
+            Styles.initialize();
+
+            $('#tbStyle').typeahead(null, {
+                name: 'Styles',
+                displayKey: 'label',
+                source: Styles.ttAdapter(),
+                templates: {
+                    empty: 'No matching Style found'
+                }
+            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                // Store the id of the selected style in the hdden field
+                $('#hfStyle').val(sug.value);
+            }).on('input', function (e) {
+                // When user changes the style, empty the hidden field
+                $('#hfStyle').val('');
+            });
+
+
+
+
+
             // Handle change event of radio button for All styles and AllColors.
             // Initialize value for radio button based on checked state.Also initialize value for style autocomplete.
             // Id of textbox for style,color and value for data-attr-disabletb must be same.
@@ -235,36 +268,6 @@
                     }
                 }
 
-            });
-
-            var Styles = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                //queryTokenizer: function (query) {
-                //    return [query.trim()];
-                //},
-                remote: {
-                    wildcard: '~',
-                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))',
-                    ajax: { cache: false }
-                }
-            });
-
-            Styles.initialize();
-
-            $('#tbStyle').typeahead(null, {
-                name: 'Styles',
-                displayKey: 'label',
-                source: Styles.ttAdapter(),
-                templates: {
-                    empty: 'No matching Style found'
-                }
-            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-                // Store the id of the selected carrier in the hdden field
-                $('#hfStyle').val(sug.value);
-            }).on('input', function (e) {
-                // When user changes the carrier, empty the hidden field
-                $('#hfStyle').val('');
             });
 
 

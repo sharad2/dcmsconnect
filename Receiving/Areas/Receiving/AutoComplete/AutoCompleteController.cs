@@ -104,11 +104,45 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>       
         public virtual JsonResult StyleAutocomplete(string term)
         {
-            //var data = Mapper.Map<IEnumerable<AutocompleteItem>>(_repos.GetStyles(term.ToUpper()));
-            var data = _repos.GetStyles(term.ToUpper(), null).Select(p => new AutocompleteItem()
+            term = term ?? string.Empty;
+
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
             {
-                label = string.Format("{0}: {1}", p.StyleId, p.Description),
-                value = p.StyleId
+                case 0:
+                    // All styles
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+            var data = _repos.GetStyles(searchId, searchDescription).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1,p.Item2),
+                value = p.Item1
             });
             return Json(data, JsonRequestBehavior.AllowGet);
         }
@@ -118,6 +152,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// validate selected style
         /// </summary>
         /// <returns></returns>
+        [Obsolete("We are validating using new way of bootstrap for empty results called templates(empty:'result empty text here ')}")]
         public virtual JsonResult ValidateStyle()
         {
             var term = this.Request.QueryString[0];
@@ -127,8 +162,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
             var data = _repos.GetStyles(null, term.ToUpper()).Select(p => new AutocompleteItem()
             {
-                label = string.Format("{0}: {1}", p.StyleId, p.Description),
-                value = p.StyleId
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
             }).FirstOrDefault();
             if (data == null)
             {
