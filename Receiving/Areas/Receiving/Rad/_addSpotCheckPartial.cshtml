@@ -26,7 +26,28 @@
                 </label>
             </div>
             <div class="input-group">
-                @Html.TextBoxFor(m => m.Style, new
+                    <div class="input-group">
+                        <input id="tbStyle"
+                               class="form-control typeahead" />
+                        <span class="input-group-btn">
+                            <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.Style, null, new
+           {
+               @class = "help-block"
+           })
+                    @Html.TextBoxFor(m => m.Style, new
+               {
+                   id = "hfStyle",
+                   style = "height:0; width:0; border:none"
+               })
+
+
+
+
+
+                    @*@Html.TextBoxFor(m => m.Style, new
    {
 
        data_url_list = Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete()),
@@ -34,12 +55,12 @@
        style = "text-transform: uppercase",
        id = "tbStyle",
        @class = "form-control"
-   })
-                <span class="input-group-btn">
-                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                </span>
+   })*@
+                    @*<span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>*@
 
-            </div>
+                
             <div class="form-group">
                 <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
                 <div class="form-inline">

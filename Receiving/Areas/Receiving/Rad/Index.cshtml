@@ -43,7 +43,7 @@
 
     <div>
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (Model.EnableEditing)
+        @if (!Model.EnableEditing)
         {
             <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
                 Add Spot Check...
@@ -237,31 +237,63 @@
 
             });
 
-            //auto-complete for the _addspotCheckPartial Page.
-            $('input[data-url-list]').typeahead({
-                source: function (query, cb) {
-                    $.ajax({
-                        url: this.$element.attr("data-url-list"),
-                        context: this.$element,
-                        data: {
-                            term: query
-                        }
-                    }).then(function (response) {
-                        // Extract the label from each result in the array.
-                        // Store the value in a global map
-                        var x = $.map(response, function (val, i) {
-                            return val.label;
-                        });
-                        cb(x);
-                    }).fail(function (jqXHR, textStatus, errorThrown) {
-                        alert("error" + jqXHR.responseText);
-                    });
-                },
-                matcher: function (item) {
-                    return true;
+            var Styles = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                //queryTokenizer: function (query) {
+                //    return [query.trim()];
+                //},
+                remote: {
+                    wildcard: '~',
+                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))',
+                    ajax: { cache: false }
                 }
-
             });
+
+            Styles.initialize();
+
+            $('#tbStyle').typeahead(null, {
+                name: 'Styles',
+                displayKey: 'label',
+                source: Styles.ttAdapter(),
+                templates: {
+                    empty: 'No matching Style found'
+                }
+            }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+                // Store the id of the selected carrier in the hdden field
+                $('#hfStyle').val(sug.value);
+            }).on('input', function (e) {
+                // When user changes the carrier, empty the hidden field
+                $('#hfStyle').val('');
+            });
+
+
+
+            //auto-complete for the _addspotCheckPartial Page.
+            //$('input[data-url-list]').typeahead({
+            //    source: function (query, cb) {
+            //        $.ajax({
+            //            url: this.$element.attr("data-url-list"),
+            //            context: this.$element,
+            //            data: {
+            //                term: query
+            //            }
+            //        }).then(function (response) {
+            //            // Extract the label from each result in the array.
+            //            // Store the value in a global map
+            //            var x = $.map(response, function (val, i) {
+            //                return val.label;
+            //            });
+            //            cb(x);
+            //        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //            alert("error" + jqXHR.responseText);
+            //        });
+            //    },
+            //    matcher: function (item) {
+            //        return true;
+            //    }
+
+            //});
 
         });
     </script>
