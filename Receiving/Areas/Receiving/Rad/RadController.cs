@@ -115,53 +115,53 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
         public virtual ActionResult SetSpotCheckPercentage(SpotCheckViewModel model)
         {
-            //if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
-            //{
-            //    this.Response.StatusCode = 203;
-            //    return Content("Please provide value for style.");
-
-            //}
-            //if (model.SpotCheckPercent == null)
-            //{
-            //    this.Response.StatusCode = 203;
-            //    return Content("Please provide value for spotcheck %");
-
-            //}
-            //if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
-            //{
-            //    this.Response.StatusCode = 203;
-            //    return Content("Please provide value for color.");
-            //}
-            //if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
-            //{
-            //    this.Response.StatusCode = 203;
-            //    return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
-            //}
-            var errors = new List<string>();
             if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
             {
-                errors.Add("Please provide value for style.");
-            }
-            if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
-            {
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for style.");
 
-                errors.Add("Please provide value for color.");
             }
             if (model.SpotCheckPercent == null)
             {
-                errors.Add("Please provide value for spotcheck %");
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for spotcheck %");
 
             }
-
+            if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
+            {
+                this.Response.StatusCode = 203;
+                return Content("Please provide value for color.");
+            }
             if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
             {
-                errors.Add("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
+                this.Response.StatusCode = 203;
+                return Content("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
             }
-            if (errors.Count > 0)
-            {
-                this.Response.StatusCode = 203;               
-                return Content(string.Join(";", errors));
-            }
+            //var errors = new List<string>();
+            //if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))
+            //{
+            //    errors.Add("Please provide value for style.");
+            //}
+            //if (!model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
+            //{
+
+            //    errors.Add("Please provide value for color.");
+            //}
+            //if (model.SpotCheckPercent == null)
+            //{
+            //    errors.Add("Please provide value for spotcheck %");
+
+            //}
+
+            //if ((model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style)) && string.IsNullOrEmpty(model.SewingPlantId) && model.AllColors.HasValue && string.IsNullOrEmpty(model.Color))
+            //{
+            //    errors.Add("You can not select 'All' for all three i.e Sewing Plant,Style and Color. Please provide value of at least one.");
+            //}
+            //if (errors.Count > 0)
+            //{
+            //    this.Response.StatusCode = 203;               
+            //    return Content(string.Join(";", errors));
+            //}
 
             try
             {
