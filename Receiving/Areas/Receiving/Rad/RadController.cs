@@ -118,7 +118,17 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
         public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
         {
-            throw new NotImplementedException(action.ToString());
+
+            if (action == ModifyAction.Delete)
+            {
+                _service.DeleteSpotCheckSetting(style, sewingPlantId);
+            }
+            else 
+            {
+                _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+            }
+            return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
+            //throw new NotImplementedException(action.ToString());
             //_service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
             //return null;
         
@@ -210,6 +220,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 return Content(ex.Message);
             }
         }
+
+
+
+      
 
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]

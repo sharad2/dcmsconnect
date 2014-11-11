@@ -42,18 +42,18 @@
 
 
 
-    <div>
-        <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
-        @if (Model.EnableEditing)
-        {
-            <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
-                Add Spot Check...
-            </button>
-        }
+   
+      
         <div id="divSpotCheckList">
             @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model)
         </div>
-    </div>
+    <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
+    @if (Model.EnableEditing)
+    {
+        <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#btnAddSpotCheck">
+            Add Spot Check...
+        </button>
+    }
 
 
     <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->

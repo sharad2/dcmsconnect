@@ -2,14 +2,113 @@
 @using EclipseLibrary.Mvc.Helpers
 @model ISpotCheckListPartialViewModel
 
+
+
+
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="list-group-item-heading">
+                    Sweing Plant
+                </h4>
+                <p>Spot Check Percent</p>
+            </div>
+            <div class="col-md-3">
+                <span class="label label-info">Style</span>
+                <span class="label label-success">Color</span>
+                <p class="list-group-item-text">
+                    Created on
+                </p>
+            </div>
+            <div class="col-md-3">
+
+                <p class="list-group-item-text">
+                    Modified on
+                </p>
+
+            </div>
+        </div>
+    </li>
+
+    @for (var i = 0; i < Model.SpotCheckList.Count; ++i)
+    {
+        <li class="list-group-item @(Model.SpotCheckList[i].IsSpotCheckEnabled ? "list-group-item-" : "")">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="list-group-item-heading">
+                        @Html.DisplayFor(m => m.SpotCheckList[i].SewingPlantId) @Html.DisplayFor(m => m.SpotCheckList[i].PlantName)
+                    </h4>
+                  
+                        @if (Model.EnableEditing)
+                        {
+                            <form class="hidden1" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
+                                <input type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
+                                       value="@Model.SpotCheckList[i].SpotCheckPercent" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SpotCheckList[i].SewingPlantId" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SpotCheckList[i].Color" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SpotCheckList[i].IsSpotCheckEnabled.ToString()" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SpotCheckList[i].Style" />
+
+                                <button type="submit" class="btn btn-link" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Edit">
+                                    Update
+                                </button>
+                                <button class="btn btn-link">
+                                    Cancel
+                                </button>
+                                <button class="btn btn-link" type="submit" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete">
+                                    Delete
+                                </button>
+                            </form>
+
+
+                        }
+
+                        <div class="hidden">
+                            @Html.DisplayFor(m => m.SpotCheckList[i].SpotCheckPercent)
+                            @if (Model.EnableEditing)
+                            { <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
+                            </button>
+                            }
+                        </div>
+                  
+                </div>
+                <div class="col-md-3">
+                    <span class="label label-info">@Html.DisplayFor(m => m.SpotCheckList[i].Style)</span>
+                    <span class="label label-success">@Html.DisplayFor(m => m.SpotCheckList[i].Color)</span>
+                    <p class="list-group-item-text">
+                        @Html.DisplayFor(m => m.SpotCheckList[i].CreatedDate)
+                        <em>by</em>
+                        @Html.DisplayFor(m => m.SpotCheckList[i].CreatedBy)
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <p class="list-group-item-text">
+                        @Html.DisplayFor(m => m.SpotCheckList[i].ModifiedDate)
+                        <em>by</em>
+                        @Html.DisplayFor(m => m.SpotCheckList[i].ModifiedBy)
+                    </p>
+                </div>
+            </div>
+        </li>
+       
+    }
+</ul>
+
+
+
+
+
+
+
+
+
 <div class="table-responsive">
     <table class="table table-striped table-condensed table-bordered">
         <thead>
             <tr class="success">
-                <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)"
-                    data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)">
-                    Sewing Plant
-                </th>
+                <th>Sewing Plan </th>
                 <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)"
                     data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)">
                     Plant Name
@@ -56,18 +155,18 @@
 
                         @if (Model.EnableEditing)
                         {
-                            <form class="hidden1" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">                               
+                            <form class="hidden1" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
                                 <input type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
                                        value="@Model.SpotCheckList[i].SpotCheckPercent" />
                                 <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SpotCheckList[i].SewingPlantId" />
                                 <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SpotCheckList[i].Color" />
                                 <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SpotCheckList[i].IsSpotCheckEnabled.ToString()" />
                                 <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SpotCheckList[i].Style" />
-                                
+
                                 <button type="submit" class="btn btn-link" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Edit">
                                     Update
                                 </button>
-                                <button class="btn btn-link" >
+                                <button class="btn btn-link">
                                     Cancel
                                 </button>
                                 <button class="btn btn-link" type="submit" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete">
@@ -108,29 +207,150 @@
                     }
                 </tr>
             }
-            @*@foreach (var item in Model.SpotCheckList)
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="table-responsive">
+        <table class="table table-striped table-condensed table-bordered">
+            <thead>
+                <tr class="success">
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SewingPlantId)">
+                        Sewing Plant
+                    </th>
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.PlantName)">
+                        Plant Name
+                    </th>
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Style)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Style)">
+                        Style
+                    </th>
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Color)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.Color)">
+                        Color
+                    </th>
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SpotCheckPercent)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.SpotCheckPercent)">
+                        Spot Check %
+                    </th>
+                    <th data-name="@ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)"
+                        data-display-name="@EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel m) => m.IsSpotCheckEnabled)" style="display:none">
+                        Spot Check %
+                    </th>
+                    <th>Created Date</th>
+                    <th>Created By</th>
+                    <th>Modify Date</th>
+                    <th>Modified By</th>
+                    @if (Model.EnableEditing)
+                    {
+
+
+                        <th>Change</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.SpotCheckList.Count; ++i)
                 {
                     <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
-                        data-key="@item.ConfigurationKey"
-                        class="@(key==@item.ConfigurationKey ? "bg-warning" :"")"
-                        class="@(item.IsSpotCheckEnabled ? "text-primary" : "text-muted")">
-                        <td data-val="@item.SewingPlantId">@item.SewingPlantId</td>
+                        data-key="@Model.SpotCheckList[i].ConfigurationKey"
+                        class="@(Model.SpotCheckList[i].IsSpotCheckEnabled ? "text-primary" : "text-muted")">
+                        <td data-val="@Model.SpotCheckList[i].SewingPlantId">@Html.DisplayFor(m => m.SpotCheckList[i].SewingPlantId)</td>
+                        <td data-val="@Model.SpotCheckList[i].PlantName">@Html.DisplayFor(m => m.SpotCheckList[i].PlantName)</td>
+                        <td data-val="@Model.SpotCheckList[i].Style">@Html.DisplayFor(m => m.SpotCheckList[i].Style)</td>
+                        <td data-val="@Model.SpotCheckList[i].Color">@Html.DisplayFor(m => m.SpotCheckList[i].Color)</td>
+                        <td data-val="@Model.SpotCheckList[i].SpotCheckPercent" style="text-align:right">
+
+                            @if (Model.EnableEditing)
+                            {
+                                <form class="hidden1" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
+                                    <input type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
+                                           value="@Model.SpotCheckList[i].SpotCheckPercent" />
+                                    <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SpotCheckList[i].SewingPlantId" />
+                                    <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SpotCheckList[i].Color" />
+                                    <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SpotCheckList[i].IsSpotCheckEnabled.ToString()" />
+                                    <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SpotCheckList[i].Style" />
+
+                                    <button type="submit" class="btn btn-link" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Edit">
+                                        Update
+                                    </button>
+                                    <button class="btn btn-link" >
+                                        Cancel
+                                    </button>
+                                    <button class="btn btn-link" type="submit" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete">
+                                        Delete
+                                    </button>
+                                </form>
 
 
-                        <td data-val="@item.PlantName">@item.PlantName</td>
+                            }
 
+                            <div class="hidden">
+                                @Html.DisplayFor(m => m.SpotCheckList[i].SpotCheckPercent)
+                                @if (Model.EnableEditing)
+                                { <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                    <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
+                                </button>
+                                }
+                            </div>
 
-                        <td data-val="@item.Style">@item.Style</td>
-
-                        <td data-val="@item.Color">@item.Color</td>
-
-                        <td data-val="@item.SpotCheckPercent">@item.SpotCheckPercent</td>
-                        <td data-val="@item.IsSpotCheckEnabled" style="display:none">@item.IsSpotCheckEnabled</td>
-
-                        <td>@item.CreationDateDispaly</td>
-                        <td>@item.CreatedBy</td>
-                        <td>@item.ModifyDateDispaly</td>
-                        <td>@item.ModifiedBy</td>
+                        </td>
+                        <td data-val="@Model.SpotCheckList[i].IsSpotCheckEnabled" style="display:none">@Html.DisplayFor(m => m.SpotCheckList[i].IsSpotCheckEnabled)</td>
+                        <td>@Html.DisplayFor(m => m.SpotCheckList[i].CreatedDate)</td>
+                        <td>@Html.DisplayFor(m => m.SpotCheckList[i].CreatedBy)</td>
+                        <td>@Html.DisplayFor(m => m.SpotCheckList[i].ModifiedDate)</td>
+                        <td>@Html.DisplayFor(m => m.SpotCheckList[i].ModifiedBy)</td>
                         @if (Model.EnableEditing)
                         {
                             <td>
@@ -144,11 +364,9 @@
                                 </button>
                             </td>
                         }
-
                     </tr>
-                }*@
+                }
+            </tbody>
 
-        </tbody>
-
-    </table>
-</div>
+        </table>
+    </div>*@

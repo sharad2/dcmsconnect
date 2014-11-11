@@ -184,7 +184,7 @@ namespace DcmsMobile.Receiving.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
         {
             const string QUERY = @"
         BEGIN
@@ -215,10 +215,26 @@ namespace DcmsMobile.Receiving.Repository
                 .Parameter("COLOR", color)
                 .Parameter("SEWING_PLANT_CODE", sewingPlantId)
                 .Parameter("SPOTCHECK_PERCENT", spotCheckPercent)
-                .Parameter("SPOTCHECK_FLAG", enabled ? "Y" : "");
+                .Parameter("SPOTCHECK_FLAG", enabled == true ? "Y" : "");
             //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
+
+
+        public void DeleteSpotCheckSetting(string style, string sewingPlantId)
+        {
+            const string QUERY = @"
+            DELETE FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
+             WHERE MS.STYLE = :STYLE
+               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
+           ";
+            var binder = SqlBinder.Create()
+                .Parameter("STYLE", style)
+                .Parameter("SEWING_PLANT_CODE", sewingPlantId);
+            //++_queryCount;
+            _db.ExecuteNonQuery(QUERY, binder);
+        }
+
 
         [Obsolete]
         private void DeleteSpotCheckPercentage(SpotCheckConfiguration spotCheck)
