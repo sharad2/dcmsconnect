@@ -1,4 +1,4 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+﻿
 using EclipseLibrary.Mvc.Html;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
-    public class ProcessEditorViewModel : ViewModelBase
+    public class ProcessEditorViewModel
     {
         public ProcessEditorViewModel()
         {

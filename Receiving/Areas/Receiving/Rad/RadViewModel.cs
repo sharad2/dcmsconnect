@@ -1,9 +1,9 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+﻿
 using System.Collections.Generic;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
-    public class RadViewModel : ViewModelBase
+    public class RadViewModel
     {
         public bool EnableEditing { get; set; }
 

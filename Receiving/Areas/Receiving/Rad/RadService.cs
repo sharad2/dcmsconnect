@@ -48,13 +48,14 @@ namespace DcmsMobile.Receiving.Repository
 
         #endregion
 
-        public int QueryCount
-        {
-            get
-            {
-                return _repos.QueryCount;
-            }
-        }
+        //[Obsolete]
+        //public int QueryCount
+        //{
+        //    get
+        //    {
+        //        return _repos.QueryCount;
+        //    }
+        //}
 
         public IEnumerable<SpotCheckArea> GetSpotCheckAreas()
         {

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DcmsMobile.Receiving.Models.Rad;
+﻿using DcmsMobile.Receiving.Models.Rad;
 using DcmsMobile.Receiving.Repository;
-using DcmsMobile.Receiving.ViewModels;
 using DcmsMobile.Receiving.ViewModels.Rad;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
+
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 {
@@ -219,13 +216,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             }
         }
 
-        protected override ViewResult View(string viewName, string masterName, object model)
-        {
-            // All view models must be derived from ViewModelBase
-            var vmb = (ViewModelBase)model;
-            vmb.QueryCount = _service.QueryCount;
-            return base.View(viewName, masterName, model);
-        }
+        //protected override ViewResult View(string viewName, string masterName, object model)
+        //{
+        //    // All view models must be derived from ViewModelBase
+        //    var vmb = (ViewModelBase)model;
+        //    vmb.QueryCount = _service.QueryCount;
+        //    return base.View(viewName, masterName, model);
+        //}
     }
 }
 

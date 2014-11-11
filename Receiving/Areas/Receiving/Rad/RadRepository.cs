@@ -19,7 +19,7 @@ namespace DcmsMobile.Receiving.Repository
 
     public class RadRepository : IDisposable
     {
-        private int _queryCount;
+        //private int _queryCount;
 
         #region Intialization
 
@@ -94,7 +94,7 @@ namespace DcmsMobile.Receiving.Repository
                     GroupingColumn = row.GetString("PARENT_SEWING_PLANT_NAME"),
                     CountryName=row.GetString("COUNTRY_NAME")
                 });
-            ++_queryCount;
+            //++_queryCount;
            return _db.ExecuteReader(QUERY,binder);
         }
 
@@ -133,7 +133,7 @@ namespace DcmsMobile.Receiving.Repository
                     ModifiedBy = row.GetString("MODIFIED_BY")
 
                 });
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteReader(QUERY,binder);
         }
 
@@ -179,7 +179,7 @@ namespace DcmsMobile.Receiving.Repository
                 .Parameter("SEWING_PLANT_CODE", spotCheck.SewingPlantId)
                 .Parameter("SPOTCHECK_PERCENT", spotCheck.SpotCheckPercent)
                 .Parameter("SPOTCHECK_FLAG", spotCheck.IsSpotCheckEnable.HasValue && spotCheck.IsSpotCheckEnable.Value ? "Y" : "");
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
@@ -193,16 +193,17 @@ namespace DcmsMobile.Receiving.Repository
             var binder = SqlBinder.Create()
                 .Parameter("STYLE", spotCheck.Style)
                 .Parameter("SEWING_PLANT_CODE", spotCheck.SewingPlantId);
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
         #endregion
 
 
-        public int QueryCount
-        {
-            get { return _queryCount; }
-        }
+        //[Obsolete]
+        //public int QueryCount
+        //{
+        //    get { return _queryCount; }
+        //}
 
         /// <summary>
         /// List of available spot check areas

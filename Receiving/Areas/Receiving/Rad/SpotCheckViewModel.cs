@@ -1,4 +1,4 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
+﻿
 using EclipseLibrary.Mvc.Html;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
-    public class SpotCheckViewModel : ViewModelBase
+    public class SpotCheckViewModel
     {
         [DisplayName("Style")]
         [Display(ShortName = "Style")]

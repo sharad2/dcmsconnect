@@ -61,7 +61,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [Display(Name = "Pallet Limit")]
         public int PalletLimit { get; set; }
 
-        public int QueryCount { get; set; }
+        //public int QueryCount { get; set; }
 
       
 

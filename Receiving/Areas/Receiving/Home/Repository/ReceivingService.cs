@@ -682,13 +682,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         }
 
 
-        public int QueryCount
-        {
-            get
-            {
-                return _repos.QueryCount;
-            }
-        }
+        //public int QueryCount
+        //{
+        //    get
+        //    {
+        //        return _repos.QueryCount;
+        //    }
+        //}
 
 
         public IEnumerable<CartonArea> GetCartonAreas()

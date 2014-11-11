@@ -137,7 +137,6 @@
     <Compile Include="Areas\Receiving\Home\ReceivingViewModel.cs" />
     <Compile Include="Areas\Receiving\Home\ShipmentListModel.cs" />
     <Compile Include="Areas\Receiving\Home\ShipmentListViewModel.cs" />
-    <Compile Include="Areas\Receiving\SharedViews\ViewModelBase.cs" />
     <Compile Include="Areas\Receiving\Rad\RadViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

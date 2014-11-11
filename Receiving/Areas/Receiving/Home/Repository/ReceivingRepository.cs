@@ -14,7 +14,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         private OracleDatastore _db;
 
-        private int _queryCount;
+        //private int _queryCount;
 
         /// <summary>
         /// For injecting the value through unit tests
@@ -89,7 +89,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                 .Parameter("acarton_storage_area", destArea)
                 .Parameter("aprocess_id", processId);
 
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
@@ -157,7 +157,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     ReceivingEndDate = row.GetDate("RECEIVING_END_DATE")
                 }).Parameter("AMODULE_CODE", MODULE_NAME)
                 .Parameter("PROCESS_ID", processId);
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -243,7 +243,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
            .Parameter("PRICE_SEASON_CODE", info.PriceSeasonCode)
            .Parameter("RECEIVING_AREA_ID", info.ReceivingAreaId)
            .Parameter("SPOT_CHECK_AREA_ID", info.SpotCheckAreaId);
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
@@ -271,7 +271,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create()
              .Parameter("acarton_id", cartonId)
                  .OutParameter("pallet", val => palletId = val);
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
             return palletId;
         }
@@ -290,7 +290,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                         AND upper(printer_type) = upper('zebra')
                         order by lower(name)";
             var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("NAME"), row.GetString("DESCRIPTION")));
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -305,7 +305,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create()
                 .Parameter("acarton_id", cartonId)
                 .Parameter("aprinter_name", printer);
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
@@ -318,7 +318,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             const string QUERY = @"SELECT <proxy />PALLET_SEQUENCE.NEXTVAL  AS PALLET_SEQUENCE FROM dual";
 
             var binder = SqlBinder.Create(row => row.GetInteger("PALLET_SEQUENCE").Value);
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteSingle(QUERY, binder);
         }
 
@@ -340,7 +340,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create(row => row.GetInteger("COUNT").Value)
                 .Parameter("areaId", areaId)
                 .Parameter("skuId", skuId);
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteSingle(QUERY, binder);
         }
 
@@ -389,7 +389,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     IsReceivingArea = row.GetString("IS_RECEIVING_AREA") == "Y",
                     IsSpotCheckArea = row.GetString("IS_SPOTCHECK_AREA") == "Y"
                 });
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -464,7 +464,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                 }).Parameter("pallet_id", palletId)
                 .Parameter("PROCESS_ID", processId)
                 .Parameter("carton_id", buddyCartonId);
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -527,7 +527,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     IsSpotCheckEnabled = row.GetString("isspotcheck_enabled") == "Y"
                 }).Parameter("carton_id", scan)
                 .OutRefCursorParameter("result");
-            ++_queryCount;
+            //++_queryCount;
             return _db.ExecuteSingle(QUERY, binder);
         }
 
@@ -546,10 +546,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        public int QueryCount
-        {
-            get { return _queryCount; }
-        }
+        //public int QueryCount
+        //{
+        //    get { return _queryCount; }
+        //}
 
         /// <summary>
         /// Gives the area where this SKU is required.
@@ -578,7 +578,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create()
            .Parameter("carton_id", cartonId)
            .Parameter("pallet_id", palletId);
-            ++_queryCount;
+            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
         /// <summary>

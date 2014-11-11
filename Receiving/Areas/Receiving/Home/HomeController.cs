@@ -1,6 +1,5 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
 using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
-using DcmsMobile.Receiving.Areas.Receiving.SharedViews;
 using DcmsMobile.Receiving.Helpers;
 using DcmsMobile.Receiving.Models;
 using DcmsMobile.Receiving.Repository;
@@ -114,16 +113,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
 
-        protected override ViewResult View(string viewName, string masterName, object model)
-        {
-            var vmb = model as ViewModelBase;
-            if (vmb != null)
-            {
-                // Tutorial page does not use a derived model
-                vmb.QueryCount = _service.QueryCount;
-            }
-            return base.View(viewName, masterName, model);
-        }
+        //protected override ViewResult View(string viewName, string masterName, object model)
+        //{
+        //    var vmb = model as ViewModelBase;
+        //    if (vmb != null)
+        //    {
+        //        // Tutorial page does not use a derived model
+        //        vmb.QueryCount = _service.QueryCount;
+        //    }
+        //    return base.View(viewName, masterName, model);
+        //}
 
         #region Index
 
@@ -618,7 +617,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 Cartons = pallet.Cartons,
                 PalletLimit = pallet.PalletLimit,
                 PalletId = palletId,
-                QueryCount = _service.QueryCount
+                //QueryCount = _service.QueryCount
             };
             return PartialView(Views._palletPartial, pvm);
         }
