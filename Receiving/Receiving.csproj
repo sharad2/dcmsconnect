@@ -177,7 +177,7 @@
     <Content Include="Areas\Receiving\Rad\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Receiving\Rad\_spotCheckEditor.partial.js" />
+    <Content Include="Areas\Receiving\Rad\_addSpotCheck.partial.js" />
     <None Include="Content\bootstrap-theme.css" />
     <None Include="Content\bootstrap-theme.min.css" />
     <None Include="Content\bootstrap.css" />
@@ -235,7 +235,7 @@
     <Content Include="Areas\Receiving\Home\Sounds\scan.wav" />
     <None Include="Areas\Receiving\Rad\ListEdit.partial.js" />
     <Content Include="Areas\Receiving\Rad\_spotCheckListPartial.cshtml" />
-    <Content Include="Areas\Receiving\Rad\_spotcheckEditorPartial.cshtml" />
+    <Content Include="Areas\Receiving\Rad\_addSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Rad\_editSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.cshtml" />
     <Content Include="packages.config">
