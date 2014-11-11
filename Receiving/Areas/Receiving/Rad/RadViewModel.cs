@@ -3,6 +3,15 @@ using System.Collections.Generic;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
+    /// <summary>
+    /// used by action AddUpdateSpotCheckSetting() to determine what to do
+    /// </summary>
+    public enum ModifyAction
+    {
+        Edit,
+        Add,
+        Delete
+    }
 
     public interface ISpotCheckListPartialViewModel
     {

@@ -142,6 +142,7 @@ namespace DcmsMobile.Receiving.Repository
         ///Updates the spot check percent and Insert if necessary
         /// </summary>
         /// <param name="spotCheck"></param>
+        [Obsolete]
         public void SetSpotCheckPercentage(SpotCheckConfiguration spotCheck)
         {
             if (spotCheck.SpotCheckPercent == null)
@@ -183,6 +184,43 @@ namespace DcmsMobile.Receiving.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
+        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        {
+            const string QUERY = @"
+        BEGIN
+            UPDATE <proxy />MASTER_SEWINGPLANT_STYLE MS
+               SET MS.SPOTCHECK_PERCENT = :SPOTCHECK_PERCENT,
+                   MS.SPOTCHECK_FLAG=:SPOTCHECK_FLAG
+                WHERE MS.STYLE = :STYLE            
+               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
+               AND MS.COLOR= :COLOR;
+        IF SQL%ROWCOUNT = 0 THEN
+                INSERT INTO <proxy />MASTER_SEWINGPLANT_STYLE MS
+                            (MS.STYLE,
+                             MS.COLOR,
+                             MS.SEWING_PLANT_CODE,
+                             MS.SPOTCHECK_PERCENT,
+                             MS.SPOTCHECK_FLAG
+                            )
+                     VALUES (:STYLE,
+                             :COLOR,
+                             :SEWING_PLANT_CODE,
+                             :SPOTCHECK_PERCENT,
+                             :SPOTCHECK_FLAG);
+        END IF;
+        END;
+           ";
+            var binder = SqlBinder.Create()
+                .Parameter("STYLE", style)
+                .Parameter("COLOR", color)
+                .Parameter("SEWING_PLANT_CODE", sewingPlantId)
+                .Parameter("SPOTCHECK_PERCENT", spotCheckPercent)
+                .Parameter("SPOTCHECK_FLAG", enabled ? "Y" : "");
+            //++_queryCount;
+            _db.ExecuteNonQuery(QUERY, binder);
+        }
+
+        [Obsolete]
         private void DeleteSpotCheckPercentage(SpotCheckConfiguration spotCheck)
         {
             const string QUERY = @"

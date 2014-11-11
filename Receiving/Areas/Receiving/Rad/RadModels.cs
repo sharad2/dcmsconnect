@@ -3,6 +3,7 @@ using System;
 
 namespace DcmsMobile.Receiving.Models.Rad
 {
+    [Obsolete]
     public class SpotCheckConfiguration
     {
         public string Style { get; set; }

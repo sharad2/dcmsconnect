@@ -56,6 +56,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SetSpotCheckPercentage()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SetSpotCheckPercentage);
@@ -84,6 +90,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public readonly string Index = "Index";
             public readonly string AddSpotCheckPartial = "AddSpotCheckPartial";
+            public readonly string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
             public readonly string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public readonly string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
@@ -93,11 +100,25 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             public const string Index = "Index";
             public const string AddSpotCheckPartial = "AddSpotCheckPartial";
+            public const string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
             public const string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public const string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
 
 
+        static readonly ActionParamsClass_AddUpdateSpotCheckSetting s_params_AddUpdateSpotCheckSetting = new ActionParamsClass_AddUpdateSpotCheckSetting();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddUpdateSpotCheckSetting AddUpdateSpotCheckSettingParams { get { return s_params_AddUpdateSpotCheckSetting; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddUpdateSpotCheckSetting
+        {
+            public readonly string action = "action";
+            public readonly string style = "style";
+            public readonly string color = "color";
+            public readonly string sewingPlantId = "sewingPlantId";
+            public readonly string spotCheckPercent = "spotCheckPercent";
+            public readonly string enabled = "enabled";
+        }
         static readonly ActionParamsClass_SetSpotCheckPercentage s_params_SetSpotCheckPercentage = new ActionParamsClass_SetSpotCheckPercentage();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_SetSpotCheckPercentage SetSpotCheckPercentageParams { get { return s_params_SetSpotCheckPercentage; } }
@@ -162,6 +183,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddSpotCheckPartial);
             AddSpotCheckPartialOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddUpdateSpotCheckSettingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting(DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "action", action);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "color", color);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "sewingPlantId", sewingPlantId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "spotCheckPercent", spotCheckPercent);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "enabled", enabled);
+            AddUpdateSpotCheckSettingOverride(callInfo, action, style, color, sewingPlantId, spotCheckPercent, enabled);
             return callInfo;
         }
 

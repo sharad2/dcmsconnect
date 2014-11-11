@@ -88,7 +88,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             var model = new RadViewModel();
             var sc = _service.GetSpotCheckList();
             model.SpotCheckList = sc.Select(p => Map(p)).ToList();
-           
+
 
             //model.SpotCheckViewModel = new SpotCheckViewModel
             //    {
@@ -110,6 +110,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 SewingPlantList = plantlist
             };
             return PartialView(Views._addSpotCheckPartial, model);
+        }
+
+
+
+        [HttpPost]
+        [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
+        public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        {
+            throw new NotImplementedException(action.ToString());
+            //_service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+            //return null;
+        
         }
 
         /// <summary>
@@ -177,12 +189,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 {
                     model.Style = null;
                 }
-               
+
                 if (model.AllColors.HasValue && model.AllColors.Value)
                 {
                     model.Color = null;
                 }
-               
+
                 _service.SetSpotCheckPercentage(Map(model));
                 var sd = _service.GetSpotCheckList();
                 var list = sd.Select(p => Map(p)).ToList();

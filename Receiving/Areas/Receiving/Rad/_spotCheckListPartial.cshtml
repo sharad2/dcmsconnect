@@ -46,15 +46,50 @@
             @for (var i = 0; i < Model.SpotCheckList.Count; ++i)
             {
                 <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
-                    data-key="@Model.SpotCheckList[i].ConfigurationKey"                   
+                    data-key="@Model.SpotCheckList[i].ConfigurationKey"
                     class="@(Model.SpotCheckList[i].IsSpotCheckEnabled ? "text-primary" : "text-muted")">
-                    <td data-val="@Model.SpotCheckList[i].SewingPlantId">@Html.DisplayFor(m=>m.SpotCheckList[i].SewingPlantId)</td>
-                    <td data-val="@Model.SpotCheckList[i].PlantName">@Html.DisplayFor(m=>m.SpotCheckList[i].PlantName)</td>
-                    <td data-val="@Model.SpotCheckList[i].Style">@Html.DisplayFor(m=>m.SpotCheckList[i].Style)</td>
-                    <td data-val="@Model.SpotCheckList[i].Color">@Html.DisplayFor(m=>m.SpotCheckList[i].Color)</td>
-                    <td data-val="@Model.SpotCheckList[i].SpotCheckPercent">@Html.DisplayFor(m=>m.SpotCheckList[i].SpotCheckPercent)</td>
+                    <td data-val="@Model.SpotCheckList[i].SewingPlantId">@Html.DisplayFor(m => m.SpotCheckList[i].SewingPlantId)</td>
+                    <td data-val="@Model.SpotCheckList[i].PlantName">@Html.DisplayFor(m => m.SpotCheckList[i].PlantName)</td>
+                    <td data-val="@Model.SpotCheckList[i].Style">@Html.DisplayFor(m => m.SpotCheckList[i].Style)</td>
+                    <td data-val="@Model.SpotCheckList[i].Color">@Html.DisplayFor(m => m.SpotCheckList[i].Color)</td>
+                    <td data-val="@Model.SpotCheckList[i].SpotCheckPercent" style="text-align:right">
+
+                        @if (Model.EnableEditing)
+                        {
+                            <form class="hidden1" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">                               
+                                <input type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
+                                       value="@Model.SpotCheckList[i].SpotCheckPercent" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SpotCheckList[i].SewingPlantId" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SpotCheckList[i].Color" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SpotCheckList[i].IsSpotCheckEnabled.ToString()" />
+                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SpotCheckList[i].Style" />
+                                
+                                <button type="submit" class="btn btn-link" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Edit">
+                                    Update
+                                </button>
+                                <button class="btn btn-link" >
+                                    Cancel
+                                </button>
+                                <button class="btn btn-link" type="submit" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete">
+                                    Delete
+                                </button>
+                            </form>
+
+
+                        }
+
+                        <div class="hidden">
+                            @Html.DisplayFor(m => m.SpotCheckList[i].SpotCheckPercent)
+                            @if (Model.EnableEditing)
+                            { <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
+                            </button>
+                            }
+                        </div>
+
+                    </td>
                     <td data-val="@Model.SpotCheckList[i].IsSpotCheckEnabled" style="display:none">@Html.DisplayFor(m => m.SpotCheckList[i].IsSpotCheckEnabled)</td>
-                    <td>@Html.DisplayFor(m=>m.SpotCheckList[i].CreatedDate)</td>
+                    <td>@Html.DisplayFor(m => m.SpotCheckList[i].CreatedDate)</td>
                     <td>@Html.DisplayFor(m => m.SpotCheckList[i].CreatedBy)</td>
                     <td>@Html.DisplayFor(m => m.SpotCheckList[i].ModifiedDate)</td>
                     <td>@Html.DisplayFor(m => m.SpotCheckList[i].ModifiedBy)</td>
@@ -74,48 +109,46 @@
                 </tr>
             }
             @*@foreach (var item in Model.SpotCheckList)
-            {
-                <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
-                    data-key="@item.ConfigurationKey"
-                    class="@(key==@item.ConfigurationKey ? "bg-warning" :"")"
-                    class="@(item.IsSpotCheckEnabled ? "text-primary" : "text-muted")">
-                    <td data-val="@item.SewingPlantId">@item.SewingPlantId</td>
+                {
+                    <tr title="Disabled row implies that SpotCheck will not be performed for these settings."
+                        data-key="@item.ConfigurationKey"
+                        class="@(key==@item.ConfigurationKey ? "bg-warning" :"")"
+                        class="@(item.IsSpotCheckEnabled ? "text-primary" : "text-muted")">
+                        <td data-val="@item.SewingPlantId">@item.SewingPlantId</td>
 
 
-                    <td data-val="@item.PlantName">@item.PlantName</td>
+                        <td data-val="@item.PlantName">@item.PlantName</td>
 
 
-                    <td data-val="@item.Style">@item.Style</td>
+                        <td data-val="@item.Style">@item.Style</td>
 
-                    <td data-val="@item.Color">@item.Color</td>
+                        <td data-val="@item.Color">@item.Color</td>
 
-                    <td data-val="@item.SpotCheckPercent">@item.SpotCheckPercent</td>
-                    <td data-val="@item.IsSpotCheckEnabled" style="display:none">@item.IsSpotCheckEnabled</td>
+                        <td data-val="@item.SpotCheckPercent">@item.SpotCheckPercent</td>
+                        <td data-val="@item.IsSpotCheckEnabled" style="display:none">@item.IsSpotCheckEnabled</td>
 
-                    <td>@item.CreationDateDispaly</td>
-                    <td>@item.CreatedBy</td>
-                    <td>@item.ModifyDateDispaly</td>
-                    <td>@item.ModifiedBy</td>
-                    @if (Model.EnableEditing)
-                    {
-                        <td>
-                            <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
-                                <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
-                            </button>
-                            <button class="btn btn-link" data-toggle="modal"
-                                    data-delete-ajax-url="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())"
-                                    data-target="#btnRemoveSpotCheck">
-                                <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
-                            </button>
-                        </td>
-                    }
+                        <td>@item.CreationDateDispaly</td>
+                        <td>@item.CreatedBy</td>
+                        <td>@item.ModifyDateDispaly</td>
+                        <td>@item.ModifiedBy</td>
+                        @if (Model.EnableEditing)
+                        {
+                            <td>
+                                <button class="btn btn-link" data-toggle="modal" data-target="#btnEditSpotCheck">
+                                    <span class="glyphicon glyphicon-edit" title="Edit Spot Check"></span>
+                                </button>
+                                <button class="btn btn-link" data-toggle="modal"
+                                        data-delete-ajax-url="@Url.Action(MVC_Receiving.Receiving.Rad.DeleteSpotCheckPercentage())"
+                                        data-target="#btnRemoveSpotCheck">
+                                    <span class="glyphicon glyphicon-remove" title="Remove Spot Check Percent"></span>
+                                </button>
+                            </td>
+                        }
 
-                </tr>
-            }*@
+                    </tr>
+                }*@
 
         </tbody>
 
     </table>
 </div>
-
-
