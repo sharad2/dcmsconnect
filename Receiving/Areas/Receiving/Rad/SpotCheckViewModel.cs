@@ -41,15 +41,15 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
         [Display(ShortName = "SpotCheck Enabled")]
         public bool IsSpotCheckEnabled { get; set; }
 
-        /// <summary>
-        /// Spot check area
-        /// </summary>
-        public string AreaId { get; set; }
+        ///// <summary>
+        ///// Spot check area
+        ///// </summary>
+        //public string AreaId { get; set; }
 
-        /// <summary>
-        /// Building of Spot check area
-        /// </summary>
-        public string BuildingId { get; set; }
+        ///// <summary>
+        ///// Building of Spot check area
+        ///// </summary>
+        //public string BuildingId { get; set; }
 
    
         //Use this property to highlight newly added configuration
@@ -73,15 +73,15 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
 
         public string CreationDateDispaly
         {
-             get
-             {
-                 if (CreatedDate.HasValue)
-                 {
-                     return string.Format("{0:ddd d MMM}", CreatedDate);
-                 }
-                 return string.Empty;
-             }
-            
+            get
+            {
+                if (CreatedDate.HasValue)
+                {
+                    return string.Format("{0:ddd d MMM}", CreatedDate);
+                }
+                return string.Empty;
+            }
+
         }
 
         /// <summary>

@@ -4,6 +4,13 @@ using System.Collections.Generic;
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
 
+    public interface ISpotCheckListPartialViewModel
+    {
+        bool EnableEditing { get; }
+
+        IList<SpotCheckViewModel> SpotCheckList { get; set; }
+    }
+
     public class SpotCheckAreaModel
     {
         /// <summary>
@@ -18,7 +25,7 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
     }
 
 
-    public class RadViewModel
+    public class RadViewModel : ISpotCheckListPartialViewModel
     {
         public bool EnableEditing { get; set; }
 
