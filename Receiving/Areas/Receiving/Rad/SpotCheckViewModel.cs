@@ -64,30 +64,32 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
         /// <summary>
         /// Date on which SpotCheck configuration created
         /// </summary>
-        internal DateTimeOffset? CreatedDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+        public DateTimeOffset? CreatedDate { get; set; }
 
         /// <summary>
         /// User who created configuration
         /// </summary>
         public string CreatedBy { get; set; }
 
-        public string CreationDateDispaly
-        {
-            get
-            {
-                if (CreatedDate.HasValue)
-                {
-                    return string.Format("{0:ddd d MMM}", CreatedDate);
-                }
-                return string.Empty;
-            }
+        //public string CreationDateDispaly
+        //{
+        //    get
+        //    {
+        //        if (CreatedDate.HasValue)
+        //        {
+        //            return string.Format("{0:ddd d MMM}", CreatedDate);
+        //        }
+        //        return string.Empty;
+        //    }
 
-        }
+        //}
 
         /// <summary>
         /// Date when configuration is modified
         /// </summary>
-        internal DateTimeOffset? ModifiedDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+        public DateTimeOffset? ModifiedDate { get; set; }
 
 
         /// <summary>
@@ -96,18 +98,18 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
         public string ModifiedBy { get; set; }
 
 
-        public string ModifyDateDispaly
-        {
-            get
-            {
-                if (ModifiedDate.HasValue)
-                {
-                    return string.Format("{0:ddd d MMM}", ModifiedDate);
-                }
-                return string.Empty;
-            }
+        //public string ModifyDateDispaly
+        //{
+        //    get
+        //    {
+        //        if (ModifiedDate.HasValue)
+        //        {
+        //            return string.Format("{0:ddd d MMM}", ModifiedDate);
+        //        }
+        //        return string.Empty;
+        //    }
 
-        }
+        //}
 
 
     }
