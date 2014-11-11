@@ -126,11 +126,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 public readonly string _editSpotCheckPartial = "_editSpotCheckPartial";
                 public readonly string _spotCheckListPartial = "_spotCheckListPartial";
                 public readonly string Index = "Index";
+                public readonly string Index_js = "Index.js";
             }
             public readonly string _addSpotCheckPartial = "~/Areas/Receiving/Rad/_addSpotCheckPartial.cshtml";
             public readonly string _editSpotCheckPartial = "~/Areas/Receiving/Rad/_editSpotCheckPartial.cshtml";
             public readonly string _spotCheckListPartial = "~/Areas/Receiving/Rad/_spotCheckListPartial.cshtml";
             public readonly string Index = "~/Areas/Receiving/Rad/Index.cshtml";
+            public readonly string Index_js = "~/Areas/Receiving/Rad/Index.js.bundle";
         }
     }
 

@@ -172,6 +172,13 @@
     <Content Include="Areas\Receiving\Home\ShipmentList.cshtml" />
     <Content Include="Areas\Receiving\Home\Receiving.cshtml" />
     <Content Include="Areas\Receiving\Home\Guided Receiving.ppsx" />
+    <Content Include="Areas\Receiving\Rad\Index.js">
+      <DependentUpon>Index.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Rad\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Rad\_spotCheckEditor.partial.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -197,6 +204,7 @@
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Areas\Receiving\Rad\Index.js.bundle" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
