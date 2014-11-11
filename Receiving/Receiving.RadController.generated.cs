@@ -187,10 +187,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void AddUpdateSpotCheckSettingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled);
+        partial void AddUpdateSpotCheckSettingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting(DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        public override System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting(DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "action", action);

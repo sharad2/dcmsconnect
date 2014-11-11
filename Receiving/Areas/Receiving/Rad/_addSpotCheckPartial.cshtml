@@ -4,7 +4,7 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<form action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" class="spotcheckEditor">
+<form action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post" class="spotcheckEditor">
     <div class="modal-body">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
@@ -69,7 +69,8 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action"
+                     value="@DcmsMobile.Receiving.ViewModels.Rad.ModifyAction.Add">Add</button>
         </div>
 
     </div>
