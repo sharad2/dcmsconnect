@@ -24,8 +24,6 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
 
         public IList<SpotCheckViewModel> SpotCheckList { get; set; }
 
-        public SpotCheckViewModel SpotCheckViewModel { get; set; }
-
         public IList<SpotCheckAreaModel> SpotCheckAreaList { get; set; }
     }
 }

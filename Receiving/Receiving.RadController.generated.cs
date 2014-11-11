@@ -83,6 +83,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string AddSpotCheckPartial = "AddSpotCheckPartial";
             public readonly string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public readonly string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
@@ -91,6 +92,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string AddSpotCheckPartial = "AddSpotCheckPartial";
             public const string SetSpotCheckPercentage = "SetSpotCheckPercentage";
             public const string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
@@ -149,6 +151,17 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddSpotCheckPartialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddSpotCheckPartial()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddSpotCheckPartial);
+            AddSpotCheckPartialOverride(callInfo);
             return callInfo;
         }
 
