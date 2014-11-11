@@ -4,7 +4,7 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<form action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" id="addSpotCheck" method="post">
+<form action="@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())" method="post" class="spotcheckEditor">
     <div class="modal-body">
         @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
@@ -13,22 +13,20 @@
         </div>
         <div class="form-group">
             <label>Style <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-            <div class="input-group" id="styleGroup">
+            <div class="input-group" data-url="@Url.Action(MVC_Receiving.Receiving.AutoComplete.StyleAutocomplete("~"))">
                 <span class="input-group-addon">
                     <input type="checkbox">
                 </span>
-                <input type="text" class="form-control typeahead" disabled="disabled" autocomplete="off" placeholder="All Styles" />  
+                <input type="text" class="form-control typeahead" disabled="disabled" autocomplete="off" placeholder="All Styles" name="typeaheadStyle" />
+                <!-- The hidden field must be immediately after the input-->
+                @Html.TextBoxFor(m => m.Style)
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
-             
+
             </div>
-            <!-- // The hidden field must be immediately after the input group-->
-            @Html.TextBoxFor(m => m.Style, new
-               {
-                   style = "position:absolute;visibility:hidden"
-               })
-            @Html.ValidationMessageFor(m => m.Style, null, new
+
+            @Html.ValidationMessage("typeaheadStyle", new
            {
                @class = "help-block"
            })
@@ -38,31 +36,21 @@
 
         <div class="form-group">
             <label>Color <sup><i class="glyphicon glyphicon-asterisk"></i></sup></label>
-
-            <div class="input-group" id="colorGroup">
+            <div class="input-group" data-url="@Url.Action(MVC_Receiving.Receiving.AutoComplete.ColorAutocomplete("~"))">
                 <span class="input-group-addon">
                     <input type="checkbox">
                 </span>
-
-                <input type="text" class="form-control typeahead"  disabled="disabled" autocomplete="off" placeholder="All Colors"/>
-
+                <input type="text" class="form-control typeahead" disabled="disabled" autocomplete="off" placeholder="All Colors" name="typeaheadColor" />
+                <!-- // The hidden field must be immediately after the input group-->
+                @Html.TextBoxFor(m => m.Color)
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
-            </div>
-            <!-- // The hidden field must be immediately after the input group-->          
-            @Html.TextBoxFor(m => m.Color, new
-               {
-                   style = "position:absolute;visibility:hidden"
-               })
-
-
-                @Html.ValidationMessageFor(m => m.Color, null, new
+            </div>  
+            @Html.ValidationMessage("typeaheadColor", new
            {
                @class = "help-block"
            })
-               
-          
         </div>
         <div class="checkbox">
             <label>

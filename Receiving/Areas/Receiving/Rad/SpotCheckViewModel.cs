@@ -9,13 +9,6 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
 {
     public class SpotCheckViewModel : ViewModelBase
     {
-        public SpotCheckViewModel()
-        {
-            this.Style = "All";
-            this.Color = "All";
-        }
-
-        [Required(ErrorMessage = "Style is required")]
         [DisplayName("Style")]
         [Display(ShortName = "Style")]
         public string Style { get; set; }
@@ -36,7 +29,6 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
         public int? SpotCheckPercent { get; set; }
         public IEnumerable<GroupSelectListItem> SewingPlantList { get; set; }
 
-        [Required(ErrorMessage = "Color is required")]
         [DisplayName("Color")]
         [Display(ShortName = "Color")]
         public string Color { get; set; }
