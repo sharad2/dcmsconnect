@@ -54,9 +54,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 };
         }
 
-        private SpotCheckViewModel Map(SpotCheckArea src)
+        private SpotCheckAreaModel Map(SpotCheckArea src)
         {
-            return new SpotCheckViewModel
+            return new SpotCheckAreaModel
             {
                 AreaId = src.AreaId,
                 BuildingId = src.BuildingId
@@ -108,7 +108,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        //[HandleAjaxError]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
         public virtual ActionResult SetSpotCheckPercentage(SpotCheckViewModel model)
         {
