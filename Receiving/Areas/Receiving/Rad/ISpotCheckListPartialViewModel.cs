@@ -31,10 +31,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [DisplayName("Style")]
         [Display(ShortName = "Style")]
+        [DisplayFormat(NullDisplayText = "All")]
         public string Style { get; set; }
 
         [DisplayName("Sewing Plant")]
         [Display(ShortName = "Sewing Plant")]
+        [DisplayFormat(NullDisplayText="All")]
         public string SewingPlantId { get; set; }
 
         [DisplayName("Plant Name")]
@@ -50,6 +52,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [DisplayName("Color")]
         [Display(ShortName = "Color")]
+        [DisplayFormat(NullDisplayText = "All")]
         public string Color { get; set; }
 
         [DisplayName("SpotCheck Enabled")]

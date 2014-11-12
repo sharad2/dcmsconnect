@@ -80,6 +80,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             if (action == ModifyAction.Delete)
             {
                 _service.DeleteSpotCheckSetting(style, sewingPlantId);
+                AddStatusMessage("Has been deleted");
             }
             else 
             {

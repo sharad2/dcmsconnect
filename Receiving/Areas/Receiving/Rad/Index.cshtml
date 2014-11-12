@@ -1,5 +1,5 @@
-﻿@using DcmsMobile.Receiving.ViewModels.Rad;
-@model RadViewModel
+﻿
+@model DcmsMobile.Receiving.Areas.Receiving.Rad.IndexViewModel
 @{
     ViewBag.Title = "Receiving Configuration";
 
@@ -14,10 +14,10 @@
             </button>
         }
         <h2>Receiving Configuration</h2>
-        <small class="text-info h6">
+        @*<small class="text-info h6">
             <span class="glyphicon glyphicon-info-sign" style="display: inline-block"></span>
             Disabled configuration settings will not be honored during receiving.
-        </small>
+        </small>*@
        
     </div>
     @if (Model.SpotCheckAreaList.Count != 0)
@@ -109,91 +109,6 @@
                 $(e.target).closest('form').addClass('hidden')
                   .next('div.input-group').removeClass('hidden');
             });
-          
-
-
-
-
-
-
-
-
-
-
-
-
-            // Handle change event of checkfor enable/disbale SpotCheck
-            // Initialize value for check box based on checked state in _editSpotCheckPartial page.
-            //$('#cbEditIsSpotCheckEnable').change(function (e) {
-            //    $(this).val($(this).is(':checked'));
-            //});
-
-
-            //$('#divSpotCheckList').click(function (e) {
-            //    var $tr = $(e.target).closest('tr');
-            //    var $th = $(e.target).closest('table').find('thead > tr > th');
-            //    if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-edit") {
-            //        var $dlg = $(this).find($(e.target)).attr('data-target');
-            //        $tr.find('td').each(function (index) {
-            //            //Binding all the values of span on the dialog box
-            //            // Populate the visible spans
-            //            var name = $th.eq(index).attr('data-name');
-            //            if (name) {
-            //                var selector = $.validator.format("span[data-name='{0}']", name);
-            //                $(selector, $dlg).html($(this).html());
-            //                // Populate the hidden fields
-            //                selector = $.validator.format("input[name='{0}']", name);
-            //                var inputType = $(selector, $dlg).attr('type');
-            //                if (inputType == 'checkbox') {
-            //                    var val = $(this).attr('data-val');
-            //                    if (val == "True") {
-            //                        $(selector, $dlg).prop('checked', 'checked');
-            //                    }
-            //                    else {
-            //                        $(selector, $dlg).removeAttr('checked', 'checked')
-            //                    }
-            //                }
-            //                $(selector, $dlg).val($(this).attr('data-val'));
-            //            }
-
-            //        });
-            //    }
-            //    else if ($(e.target).find('span').attr('class') == "glyphicon glyphicon-remove") {
-            //        var dialogData = new Object();
-            //        var msg = $(e.target).find('span').attr('title') + ' for ';
-            //        //Collecting details for Delete
-            //        $(e.target).closest('tr').find('td').each(function (index) {
-            //            var name = $th.eq(index).attr('data-name');
-            //            if (name) {
-            //                dialogData[name] = $(this).attr('data-val');
-            //            }
-            //            var displayName = $th.eq(index).attr('data-display-name');
-            //            if (displayName) {
-            //                msg += $.validator.format("{0} : {1}; ", displayName, $(this).html());
-            //            }
-            //        });
-            //        var result = confirm(msg);
-            //        if (result) {
-            //            $.ajax($(e.target).attr('data-delete-ajax-url'), {
-            //                type: 'POST',
-            //                context: this,
-            //                data: dialogData,
-            //                success: function (data, textStatus, jqXHR) {
-            //                    //updating the list with updated data
-            //                    $('#divSpotCheckList').html(data);
-            //                    // handling validation error
-            //                    if (jqXHR.status == 203) {
-            //                        alert(jqXHR.responseText);
-            //                        return;
-            //                    }
-            //                }
-            //            }).error(function (jqXHR, textStatus, errorThrown) {
-            //                alert(jqXHR.responseText);
-            //            });
-            //        }
-            //    }
-
-            //});
         });
     </script>
 }

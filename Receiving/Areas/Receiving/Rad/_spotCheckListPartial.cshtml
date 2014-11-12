@@ -1,6 +1,4 @@
-﻿@using DcmsMobile.Receiving.ViewModels.Rad
-@using EclipseLibrary.Mvc.Helpers
-@model ISpotCheckListPartialViewModel
+﻿@model DcmsMobile.Receiving.Areas.Receiving.Rad.ISpotCheckListPartialViewModel
 
 
 <ul class="list-group">
@@ -30,7 +28,7 @@
                 <div class="input-group input-group-sm">
                     <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" placeholder="Spot Check Percent" disabled />
                     <div class="input-group-btn ">
-                        <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete" disabled>
+                        <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete" disabled>
                             Action
                         </button>
                     </div>
@@ -78,7 +76,7 @@
                                        value="@Model.SpotCheckList[i].SpotCheckPercent" />
                                 <div class="input-group-btn ">
                                     <div class="btn-group">
-                                        <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Edit">Update</button>
+                                        <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>
                                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                                             <span class="caret"></span>
                                         </button>
@@ -86,7 +84,7 @@
                                             <li><a href="#">Cancel</a></li>
                                         </ul>
                                     </div>
-                                    <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@ModifyAction.Delete">
+                                    <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
                                         Delete
                                     </button>
                                 </div>
