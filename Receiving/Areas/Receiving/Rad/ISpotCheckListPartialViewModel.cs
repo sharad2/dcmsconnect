@@ -6,8 +6,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
-
-
     public class SpotCheckConfigurationModel
     {
         public SpotCheckConfigurationModel()
@@ -84,6 +82,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
     }
 
+    public class SewingPlantGroupModel : SpotCheckConfigurationModel
+    {
+        public IList<SpotCheckConfigurationModel> Styles { get; set; }
+    }
+
+
+
 
     /// <summary>
     /// View model for list partial
@@ -92,6 +97,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
     {
         bool EnableEditing { get; }
 
-        IList<SpotCheckConfigurationModel> SpotCheckList { get; set; }
+        [Obsolete]
+        IList<SpotCheckConfigurationModel> SpotCheckList { get;  }
+
+        IList<SewingPlantGroupModel> SewingPlants { get;  }
     }
 }

@@ -47,11 +47,33 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             var model = new IndexViewModel();
             var sc = _service.GetSpotCheckList();
-            model.SpotCheckList = sc.Select(p =>new SpotCheckConfigurationModel(p)).ToList();
+            model.SpotCheckList = sc.Select(p => new SpotCheckConfigurationModel(p)).ToList();
 
             model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
             model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
-            ViewBag.EnableEditing = model.EnableEditing;
+            //ViewBag.EnableEditing = model.EnableEditing;
+
+            var query = from item in sc
+                        group item by
+                            item.SewingPlantId into g
+                        let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()
+                        select new SewingPlantGroupModel
+                        {
+                            SewingPlantId = g.Key,
+                            PlantName = g.Where(p => p.SewingPlantId == g.Key).First().PlantName,
+                            SpotCheckPercent = defstyle == null ? -1 : defstyle.SpotCheckPercent,
+                            CreatedBy = defstyle == null ? "" : defstyle.CreatedBy,
+                            CreatedDate = defstyle == null ? null : defstyle.CreatedDate,
+                            IsSpotCheckEnabled = defstyle == null ? true : (defstyle.IsSpotCheckEnable ?? true),
+                            ModifiedBy = defstyle == null ? "" : defstyle.ModifiedBy,
+                            ModifiedDate = defstyle == null ? null : defstyle.ModifiedDate,
+                            Styles = (from item2 in g
+                                      where !string.IsNullOrWhiteSpace(item2.Style)
+                                      select new SpotCheckConfigurationModel(item2)).ToList()
+
+                        };
+
+            model.SewingPlants = query.ToList();
 
             return View(Views.Index, model);
         }
@@ -82,19 +104,19 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                 _service.DeleteSpotCheckSetting(style, sewingPlantId);
                 AddStatusMessage("Has been deleted");
             }
-            else 
+            else
             {
                 _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
                 AddStatusMessage("Has been Added");
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
-        
+
         }
 
 
 
 
-      
+
 
     }
 }

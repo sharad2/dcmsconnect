@@ -53,6 +53,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         public IList<SpotCheckConfigurationModel> SpotCheckList { get; set; }
 
         public IList<SpotCheckAreaModel> SpotCheckAreaList { get; set; }
+
+        public IList<SewingPlantGroupModel> SewingPlants { get; set; }
     }
 }
 
