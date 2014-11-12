@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace DcmsMobile.Receiving.Models.Rad
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
 
     public class SpotCheckConfiguration

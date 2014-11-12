@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace DcmsMobile.Receiving.ViewModels.Rad
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
     public class AddSpotCheckViewModel
     {

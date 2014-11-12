@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Routing;
-using DcmsMobile.Receiving.Models.Rad;
 
-namespace DcmsMobile.Receiving.Repository
+
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
 
 
@@ -40,12 +40,7 @@ namespace DcmsMobile.Receiving.Repository
             return _repos.GetSpotCheckList();
         }
 
-        [Obsolete]
-        public void SetSpotCheckPercentage(SpotCheckConfiguration spotCheck)
-        {
 
-            _repos.SetSpotCheckPercentage(spotCheck);
-        }
 
         public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
@@ -63,14 +58,6 @@ namespace DcmsMobile.Receiving.Repository
        
         #endregion
 
-        //[Obsolete]
-        //public int QueryCount
-        //{
-        //    get
-        //    {
-        //        return _repos.QueryCount;
-        //    }
-        //}
 
         public IEnumerable<SpotCheckArea> GetSpotCheckAreas()
         {

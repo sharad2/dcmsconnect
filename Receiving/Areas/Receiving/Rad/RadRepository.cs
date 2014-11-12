@@ -1,21 +1,14 @@
-﻿using System;
+﻿using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Web.Routing;
-using DcmsMobile.Receiving.Models.Rad;
-using EclipseLibrary.Oracle;
 
-namespace DcmsMobile.Receiving.Repository
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
-    //interface IRadRepository
-    //{
-    //    IList<SpotCheckConfiguration> GetSpotCheckList();
-    //    void SetSpotCheckPercentage(SpotCheckConfiguration spotCheck);
-    //    IEnumerable<SewingPlant> GetSewingPlants();
-    //    int QueryCount { get; }
-    //}
+
 
     public class RadRepository : IDisposable
     {
@@ -139,51 +132,7 @@ namespace DcmsMobile.Receiving.Repository
         }
 
 
-        /// <summary>
-        ///Updates the spot check percent and Insert if necessary
-        /// </summary>
-        /// <param name="spotCheck"></param>
-        [Obsolete]
-        public void SetSpotCheckPercentage(SpotCheckConfiguration spotCheck)
-        {
-            if (spotCheck.SpotCheckPercent == null)
-            {
-                DeleteSpotCheckPercentage(spotCheck);
-                return;
-            }
-            const string QUERY = @"
-        BEGIN
-            UPDATE <proxy />MASTER_SEWINGPLANT_STYLE MS
-               SET MS.SPOTCHECK_PERCENT = :SPOTCHECK_PERCENT,
-                   MS.SPOTCHECK_FLAG=:SPOTCHECK_FLAG
-                WHERE MS.STYLE = :STYLE            
-               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
-               AND MS.COLOR= :COLOR;
-        IF SQL%ROWCOUNT = 0 THEN
-                INSERT INTO <proxy />MASTER_SEWINGPLANT_STYLE MS
-                            (MS.STYLE,
-                             MS.COLOR,
-                             MS.SEWING_PLANT_CODE,
-                             MS.SPOTCHECK_PERCENT,
-                             MS.SPOTCHECK_FLAG
-                            )
-                     VALUES (:STYLE,
-                             :COLOR,
-                             :SEWING_PLANT_CODE,
-                             :SPOTCHECK_PERCENT,
-                             :SPOTCHECK_FLAG);
-        END IF;
-        END;
-           ";
-            var binder = SqlBinder.Create()
-                .Parameter("STYLE", spotCheck.Style)
-                .Parameter("COLOR", spotCheck.Color)
-                .Parameter("SEWING_PLANT_CODE", spotCheck.SewingPlantId)
-                .Parameter("SPOTCHECK_PERCENT", spotCheck.SpotCheckPercent)
-                .Parameter("SPOTCHECK_FLAG", spotCheck.IsSpotCheckEnable.HasValue && spotCheck.IsSpotCheckEnable.Value ? "Y" : "");
-            //++_queryCount;
-            _db.ExecuteNonQuery(QUERY, binder);
-        }
+
 
         public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
@@ -236,28 +185,8 @@ namespace DcmsMobile.Receiving.Repository
         }
 
 
-        [Obsolete]
-        private void DeleteSpotCheckPercentage(SpotCheckConfiguration spotCheck)
-        {
-            const string QUERY = @"
-            DELETE FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
-             WHERE MS.STYLE = :STYLE
-               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
-           ";
-            var binder = SqlBinder.Create()
-                .Parameter("STYLE", spotCheck.Style)
-                .Parameter("SEWING_PLANT_CODE", spotCheck.SewingPlantId);
-            //++_queryCount;
-            _db.ExecuteNonQuery(QUERY, binder);
-        }
         #endregion
 
-
-        //[Obsolete]
-        //public int QueryCount
-        //{
-        //    get { return _queryCount; }
-        //}
 
         /// <summary>
         /// List of available spot check areas

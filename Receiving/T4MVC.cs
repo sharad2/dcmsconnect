@@ -37,7 +37,7 @@ namespace T4MVC
         public readonly string Name = "Receiving";
         public DcmsMobile.Receiving.Areas.Receiving.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.Receiving.Areas.Receiving.Home.HomeController Home = new DcmsMobile.Receiving.Areas.Receiving.Home.T4MVC_HomeController();
-        public DcmsMobile.Receiving.Areas.Receiving.Controllers.RadController Rad = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_RadController();
+        public DcmsMobile.Receiving.Areas.Receiving.Rad.RadController Rad = new DcmsMobile.Receiving.Areas.Receiving.Rad.T4MVC_RadController();
         public T4MVC.Receiving.SharedViewsController SharedViews = new T4MVC.Receiving.SharedViewsController();
     }
 }

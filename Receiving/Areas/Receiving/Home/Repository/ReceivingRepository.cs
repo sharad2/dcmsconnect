@@ -1,10 +1,9 @@
-﻿using System;
+﻿using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.Contracts;
 using System.Web.Routing;
-using DcmsMobile.Receiving.Models;
-using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {

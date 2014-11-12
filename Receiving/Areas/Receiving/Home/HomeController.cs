@@ -1,9 +1,5 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
-using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
-using DcmsMobile.Receiving.Helpers;
-using DcmsMobile.Receiving.Models;
-using DcmsMobile.Receiving.Repository;
-using DcmsMobile.Receiving.ViewModels;
+﻿using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
+
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System;
@@ -13,7 +9,6 @@ using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;

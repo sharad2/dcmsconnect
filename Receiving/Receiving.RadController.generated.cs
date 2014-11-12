@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
     public partial class RadController
     {
@@ -126,7 +126,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_RadController : DcmsMobile.Receiving.Areas.Receiving.Controllers.RadController
+    public partial class T4MVC_RadController : DcmsMobile.Receiving.Areas.Receiving.Rad.RadController
     {
         public T4MVC_RadController() : base(Dummy.Instance) { }
 
@@ -153,10 +153,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         }
 
         [NonAction]
-        partial void AddUpdateSpotCheckSettingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled);
+        partial void AddUpdateSpotCheckSettingOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting(DcmsMobile.Receiving.ViewModels.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        public override System.Web.Mvc.ActionResult AddUpdateSpotCheckSetting(DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "action", action);

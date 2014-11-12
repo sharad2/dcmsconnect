@@ -1,12 +1,8 @@
 ﻿
-using DcmsMobile.Receiving.Areas.Receiving.Rad;
-using DcmsMobile.Receiving.Models.Rad;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.Receiving.ViewModels.Rad
+using System.Collections.Generic;
+
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
     /// <summary>
     /// used by action AddUpdateSpotCheckSetting() to determine what to do

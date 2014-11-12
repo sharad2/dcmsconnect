@@ -1,14 +1,12 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.Rad;
-using DcmsMobile.Receiving.Models.Rad;
-using DcmsMobile.Receiving.Repository;
-using DcmsMobile.Receiving.ViewModels.Rad;
+﻿
+
 using EclipseLibrary.Mvc.Controllers;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 
-namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
+namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
     public partial class RadController : EclipseController
     {
