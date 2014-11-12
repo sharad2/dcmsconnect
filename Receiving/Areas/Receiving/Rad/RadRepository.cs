@@ -97,11 +97,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         public IList<SpotCheckConfiguration> GetSpotCheckList()
         {
             const string QUERY = @"
-        SELECT MS.SEWING_PLANT_CODE AS SEWING_PLANT_CODE,
+        SELECT case when MS.SEWING_PLANT_CODE = '.' THEN NULL else MS.SEWING_PLANT_CODE END AS SEWING_PLANT_CODE,
                TS.SEWING_PLANT_NAME AS SEWING_PLANT_NAME,
-               MS.STYLE             AS STYLE,
+               case when MS.STYLE  = '.' then null else MS.STYLE end  AS STYLE,
                MS.SPOTCHECK_PERCENT AS SPOTCHECK_PERCENT,
-               MS.COLOR AS COLOR,
+               case when MS.COLOR  = '.' then null else ms.color end  AS COLOR,
                MS.SPOTCHECK_FLAG AS SPOTCHECK_FLAG,
                MS.INSERT_DATE AS INSERT_DATE,
                MS.INSERTED_BY AS INSERTED_BY,
@@ -110,7 +110,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
           FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
           LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT TS
             ON TS.SEWING_PLANT_CODE = MS.SEWING_PLANT_CODE
-         ORDER BY MS.MODIFIED_DATE DESC,MS.INSERT_DATE DESC
+         ORDER BY MS.style
         ";
 
             var binder = SqlBinder.Create(row => new SpotCheckConfiguration()

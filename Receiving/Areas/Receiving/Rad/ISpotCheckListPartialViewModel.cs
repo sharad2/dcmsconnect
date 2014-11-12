@@ -16,11 +16,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         }
         public SpotCheckConfigurationModel(SpotCheckConfiguration src)
         {
-            Style = src.Style == "." ? "" : src.Style;
-            SewingPlantId = src.SewingPlantId == "." ? "" : src.SewingPlantId;
+            Style = src.Style;
+            SewingPlantId = src.SewingPlantId;
             PlantName = src.PlantName;
             SpotCheckPercent = src.SpotCheckPercent;
-            Color = src.Color == "." ? "" : src.Color;
+            Color = src.Color;
             IsSpotCheckEnabled = src.IsSpotCheckEnable.Value;
             CreatedDate = src.CreatedDate;
             CreatedBy = src.CreatedBy;

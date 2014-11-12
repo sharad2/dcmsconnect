@@ -85,6 +85,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             else 
             {
                 _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+                AddStatusMessage("Has been Added");
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
         

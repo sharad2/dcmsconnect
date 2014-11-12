@@ -4,7 +4,7 @@
 // If associated check box is checked, then the associated hidden fieled must have a value
 // We look for cb within closest input group, and the hidden is any non typeahead textbox
 $.validator.addMethod("requiredif", function (value, element) {
-    return false;
+   // return false;
     var $ig = $(element).closest('div.input-group');
     return !$('input:checkbox', $ig).is(':checked') || $('input:text:not(".typeahead")', $ig).val();
     //return false;
