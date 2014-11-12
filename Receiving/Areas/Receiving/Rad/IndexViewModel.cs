@@ -1,5 +1,10 @@
 ﻿
+using DcmsMobile.Receiving.Areas.Receiving.Rad;
+using DcmsMobile.Receiving.Models.Rad;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
@@ -13,15 +18,24 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
         Delete
     }
 
-    public interface ISpotCheckListPartialViewModel
-    {
-        bool EnableEditing { get; }
 
-        IList<SpotCheckViewModel> SpotCheckList { get; set; }
-    }
 
+    /// <summary>
+    /// RadViewModel uses this to show list of spot check areas
+    /// </summary>
     public class SpotCheckAreaModel
     {
+        public SpotCheckAreaModel()
+        {
+
+        }
+
+        public SpotCheckAreaModel(SpotCheckArea entity)
+        {
+            AreaId = entity.AreaId;
+            BuildingId = entity.BuildingId;
+        }
+
         /// <summary>
         /// Spot check area
         /// </summary>
@@ -34,11 +48,13 @@ namespace DcmsMobile.Receiving.ViewModels.Rad
     }
 
 
-    public class RadViewModel : ISpotCheckListPartialViewModel
+
+
+    public class IndexViewModel : ISpotCheckListPartialViewModel
     {
         public bool EnableEditing { get; set; }
 
-        public IList<SpotCheckViewModel> SpotCheckList { get; set; }
+        public IList<SpotCheckConfigurationModel> SpotCheckList { get; set; }
 
         public IList<SpotCheckAreaModel> SpotCheckAreaList { get; set; }
     }

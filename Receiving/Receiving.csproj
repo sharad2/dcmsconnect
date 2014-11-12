@@ -98,12 +98,13 @@
   <ItemGroup>
     <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
+    <Compile Include="Areas\Receiving\Rad\ISpotCheckListPartialViewModel.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\HttpAjaxAttribute.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Pallet.cs" />
-    <Compile Include="Areas\Receiving\Rad\RadModels.cs" />
+    <Compile Include="Areas\Receiving\Rad\RadEntities.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
     <Compile Include="Areas\Receiving\AutoComplete\AutocompleteRepository.cs" />
@@ -137,12 +138,12 @@
     <Compile Include="Areas\Receiving\Home\ReceivingViewModel.cs" />
     <Compile Include="Areas\Receiving\Home\ShipmentListModel.cs" />
     <Compile Include="Areas\Receiving\Home\ShipmentListViewModel.cs" />
-    <Compile Include="Areas\Receiving\Rad\RadViewModel.cs" />
+    <Compile Include="Areas\Receiving\Rad\IndexViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Areas\Receiving\Rad\SpotCheckViewModel.cs" />
+    <Compile Include="Areas\Receiving\Rad\AddSpotCheckViewModel.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

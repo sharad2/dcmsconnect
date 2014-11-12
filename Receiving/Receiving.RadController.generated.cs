@@ -60,12 +60,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
         }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DeleteSpotCheckPercentage()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
-        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RadController Actions { get { return MVC_Receiving.Receiving.Rad; } }
@@ -85,7 +79,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string Index = "Index";
             public readonly string AddSpotCheckPartial = "AddSpotCheckPartial";
             public readonly string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
-            public readonly string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,7 +87,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public const string Index = "Index";
             public const string AddSpotCheckPartial = "AddSpotCheckPartial";
             public const string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
-            public const string DeleteSpotCheckPercentage = "DeleteSpotCheckPercentage";
         }
 
 
@@ -110,14 +102,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             public readonly string sewingPlantId = "sewingPlantId";
             public readonly string spotCheckPercent = "spotCheckPercent";
             public readonly string enabled = "enabled";
-        }
-        static readonly ActionParamsClass_DeleteSpotCheckPercentage s_params_DeleteSpotCheckPercentage = new ActionParamsClass_DeleteSpotCheckPercentage();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DeleteSpotCheckPercentage DeleteSpotCheckPercentageParams { get { return s_params_DeleteSpotCheckPercentage; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteSpotCheckPercentage
-        {
-            public readonly string model = "model";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -182,18 +166,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "spotCheckPercent", spotCheckPercent);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "enabled", enabled);
             AddUpdateSpotCheckSettingOverride(callInfo, action, style, color, sewingPlantId, spotCheckPercent, enabled);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void DeleteSpotCheckPercentageOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult DeleteSpotCheckPercentage(DcmsMobile.Receiving.ViewModels.Rad.SpotCheckViewModel model)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteSpotCheckPercentage);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            DeleteSpotCheckPercentageOverride(callInfo, model);
             return callInfo;
         }
 

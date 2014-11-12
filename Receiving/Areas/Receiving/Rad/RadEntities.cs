@@ -3,7 +3,7 @@ using System;
 
 namespace DcmsMobile.Receiving.Models.Rad
 {
-    [Obsolete]
+
     public class SpotCheckConfiguration
     {
         public string Style { get; set; }
@@ -33,26 +33,26 @@ namespace DcmsMobile.Receiving.Models.Rad
 
         public string PlantName { get; set; }
 
-        public string GroupingColumn { get; set; }
+        //public string GroupingColumn { get; set; }
 
-        public string CountryName { get; set; }
+        //public string CountryName { get; set; }
     }
 
-    [Obsolete]
-    public class Style
-    {
-        public string StyleId { get; set; }
+    //[Obsolete]
+    //public class Style
+    //{
+    //    public string StyleId { get; set; }
 
-        public string Description { get; set; }
-    }
+    //    public string Description { get; set; }
+    //}
 
-    [Obsolete]
-    public class Color
-    {
-        public string ColorId { get; set; }
+    //[Obsolete]
+    //public class Color
+    //{
+    //    public string ColorId { get; set; }
 
-        public string Description { get; set; }
-    }
+    //    public string Description { get; set; }
+    //}
 
     public class SpotCheckArea
     {

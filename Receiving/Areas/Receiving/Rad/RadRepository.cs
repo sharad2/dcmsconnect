@@ -74,15 +74,16 @@ namespace DcmsMobile.Receiving.Repository
         {
             const string QUERY = @"
                SELECT SP.SEWING_PLANT_CODE      AS SEWING_PLANT_CODE,
-                   SP.SEWING_PLANT_NAME         AS SEWING_PLANT_NAME,
-                   SPPARENT.SEWING_PLANT_NAME   AS PARENT_SEWING_PLANT_NAME,
-                   TC.NAME                      AS COUNTRY_NAME
+                   SP.SEWING_PLANT_NAME         AS SEWING_PLANT_NAME
+                  -- SPPARENT.SEWING_PLANT_NAME   AS PARENT_SEWING_PLANT_NAME,
+                  -- TC.NAME                      AS COUNTRY_NAME
               FROM <proxy />TAB_SEWINGPLANT SP
-              LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT SPPARENT
-                ON SPPARENT.SEWING_PLANT_CODE = SP.PARENT_SEWING_PLANT
-             LEFT OUTER JOIN <proxy />TAB_COUNTRY TC ON
-                TC.COUNTRY_ID= SP.CO_OF_ORIGIN
-             ORDER BY SPPARENT.SEWING_PLANT_NAME,
+            --  LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT SPPARENT
+                --ON SPPARENT.SEWING_PLANT_CODE = SP.PARENT_SEWING_PLANT
+            -- LEFT OUTER JOIN <proxy />TAB_COUNTRY TC ON
+              --  TC.COUNTRY_ID= SP.CO_OF_ORIGIN
+             ORDER BY 
+                       --SPPARENT.SEWING_PLANT_NAME,
                       SP.SEWING_PLANT_CODE,
                       SP.SEWING_PLANT_NAME
             ";
@@ -90,9 +91,9 @@ namespace DcmsMobile.Receiving.Repository
             var binder = SqlBinder.Create(row => new SewingPlant()
                 {
                     SewingPlantCode = row.GetString("SEWING_PLANT_CODE"),
-                    PlantName = row.GetString("SEWING_PLANT_NAME"),
-                    GroupingColumn = row.GetString("PARENT_SEWING_PLANT_NAME"),
-                    CountryName=row.GetString("COUNTRY_NAME")
+                    PlantName = row.GetString("SEWING_PLANT_NAME")
+                    //GroupingColumn = row.GetString("PARENT_SEWING_PLANT_NAME"),
+                    //CountryName=row.GetString("COUNTRY_NAME")
                 });
             //++_queryCount;
            return _db.ExecuteReader(QUERY,binder);
