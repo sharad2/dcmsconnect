@@ -234,10 +234,8 @@
     <Content Include="Areas\Receiving\Home\Sounds\PalletChange.wav" />
     <Content Include="Areas\Receiving\Home\Sounds\palletscan.wav" />
     <Content Include="Areas\Receiving\Home\Sounds\scan.wav" />
-    <None Include="Areas\Receiving\Rad\ListEdit.partial.js" />
     <Content Include="Areas\Receiving\Rad\_spotCheckListPartial.cshtml" />
     <Content Include="Areas\Receiving\Rad\_addSpotCheckPartial.cshtml" />
-    <Content Include="Areas\Receiving\Rad\_editSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.cshtml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>

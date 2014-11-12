@@ -116,7 +116,7 @@ namespace DcmsMobile.Receiving.Repository
           FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
           LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT TS
             ON TS.SEWING_PLANT_CODE = MS.SEWING_PLANT_CODE
-         ORDER BY MS.MODIFIED_DATE,MS.INSERT_DATE
+         ORDER BY MS.MODIFIED_DATE DESC,MS.INSERT_DATE DESC
         ";
 
             var binder = SqlBinder.Create(row => new SpotCheckConfiguration()
@@ -184,7 +184,7 @@ namespace DcmsMobile.Receiving.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
+        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
             const string QUERY = @"
         BEGIN
@@ -211,12 +211,11 @@ namespace DcmsMobile.Receiving.Repository
         END;
            ";
             var binder = SqlBinder.Create()
-                .Parameter("STYLE", style)
-                .Parameter("COLOR", color)
-                .Parameter("SEWING_PLANT_CODE", sewingPlantId)
+                .Parameter("STYLE", string.IsNullOrEmpty(style)? ".": style)
+                .Parameter("COLOR", string.IsNullOrEmpty(color) ? "." : color)
+                .Parameter("SEWING_PLANT_CODE", string.IsNullOrEmpty(sewingPlantId) ? "." : sewingPlantId)
                 .Parameter("SPOTCHECK_PERCENT", spotCheckPercent)
-                .Parameter("SPOTCHECK_FLAG", enabled == true ? "Y" : "");
-            //++_queryCount;
+                .Parameter("SPOTCHECK_FLAG", enabled ? "Y" : "");
             _db.ExecuteNonQuery(QUERY, binder);
         }
 

@@ -4,9 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace DcmsMobile.Receiving.ViewModels.Rad
 {
+    public class AddSpotCheckViewModel
+    {
+        public IEnumerable<SelectListItem> SewingPlantList { get; set; }
+
+        public string SewingPlantId { get; set; }
+    }
+
+    [Obsolete]
     public class SpotCheckViewModel
     {
         [DisplayName("Style")]

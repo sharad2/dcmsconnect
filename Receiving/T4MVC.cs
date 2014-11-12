@@ -165,7 +165,6 @@ namespace Links_Receiving
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _addSpotCheck_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addSpotCheck.partial.min.js") ? Url("_addSpotCheck.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/_addSpotCheck.partial.min.js") : Url("_addSpotCheck.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/_addSpotCheck.partial.js");
                         public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
-                        public static readonly string ListEdit_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ListEdit.partial.min.js") ? Url("ListEdit.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ListEdit.partial.min.js") : Url("ListEdit.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ListEdit.partial.js");
                         }
         
         }

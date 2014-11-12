@@ -57,7 +57,7 @@
     </div>
    
     <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->
-    <div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
+    @*<div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,7 +69,7 @@
 
             </div>
         </div>
-    </div>
+    </div>*@
 
     <!-- Modal for add spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
     <div class="modal fade" id="btnAddSpotCheck" tabindex="-1" role="dialog">
@@ -102,18 +102,12 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $('#divSpotCheckList').on('click', 'div.edit-btn button', function (e) {
-                var $li = $(e.target).closest('li');
-                $('form', $li).removeClass('hidden');
-                $(e.target).closest('div.input-group').hide();
-            });
-
-
-
-            $('#divSpotCheckList').on('click', 'ul.cancel-btn', function (e) {
-                var $li = $(this).closest('form').closest('li');
-                $(this).closest('form').addClass('hidden');
-                $('.edit-btn', $li).closest('div.input-group').show()
+            $('#divSpotCheckList').on('click', 'div.edit-btn button', function (e) {               
+                $(e.target).closest('div.input-group').addClass('hidden')
+                    .prev('form').removeClass('hidden');
+            }).on('click', 'ul.cancel-btn', function (e) {
+                $(e.target).closest('form').addClass('hidden')
+                  .next('div.input-group').removeClass('hidden');
             });
           
 

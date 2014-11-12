@@ -32,13 +32,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
                 };
 
         }
-        private GroupSelectListItem Map(SewingPlant src)
+        private SelectListItem Map(SewingPlant src)
         {
-            return new GroupSelectListItem
+            return new SelectListItem
             {
                 Text = src.SewingPlantCode + ": " + src.PlantName,
-                Value = src.SewingPlantCode,
-                GroupText = src.GroupingColumn + ":" + src.CountryName
+                Value = src.SewingPlantCode
+                //GroupText = src.GroupingColumn + ":" + src.CountryName
             };
         }
         private SpotCheckConfiguration Map(SpotCheckViewModel src)
@@ -102,10 +102,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
             return View(Views.Index, model);
         }
 
+        /// <summary>
+        /// Returns the partial view for adding spot check setting
+        /// </summary>
+        /// <returns></returns>
         public virtual ActionResult AddSpotCheckPartial()
         {
             var plantlist = _service.GetSewingPlants().Select(p => Map(p));
-            var model = new SpotCheckViewModel
+            var model = new AddSpotCheckViewModel
             {
                 SewingPlantList = plantlist
             };
@@ -116,7 +120,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
-        public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
+        public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
 
             if (action == ModifyAction.Delete)
@@ -141,6 +145,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         /// <returns></returns>
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
+        [Obsolete]
         public virtual ActionResult SetSpotCheckPercentage(SpotCheckViewModel model)
         {
             if (!model.AllStyles.HasValue && string.IsNullOrEmpty(model.Style))

@@ -42,7 +42,7 @@
 
     @for (var i = 0; i < Model.SpotCheckList.Count; ++i)
     {
-        <li class="list-group-item @(Model.SpotCheckList[i].IsSpotCheckEnabled ? " list-group-item-": "" )">
+        <li class="list-group-item">
             <div class="row">
                 <div class="col-md-4">
                     <h4 class="list-group-item-heading">
@@ -91,9 +91,11 @@
                                     </button>
                                 </div>
                             </div>
+                            <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
+                                   @Html.Raw(Model.SpotCheckList[i].IsSpotCheckEnabled ? "checked" : "") /> Enabled
                         </form>
                     }
-                   
+
                     <div class="input-group input-group-sm">
                         <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" disabled value="@Model.SpotCheckList[i].SpotCheckPercent" />
                         <div class="input-group-btn ">
@@ -104,7 +106,12 @@
                                 </div>
                             }
                         </div>
+                        @if (!Model.SpotCheckList[i].IsSpotCheckEnabled)
+                        {
+                            <span class="badge pull-right">Disabled</span>
+                        }
                     </div>
+
                 </div>
 
             </div>

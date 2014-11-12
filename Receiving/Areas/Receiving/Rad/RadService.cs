@@ -47,7 +47,7 @@ namespace DcmsMobile.Receiving.Repository
             _repos.SetSpotCheckPercentage(spotCheck);
         }
 
-        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool? enabled)
+        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
 
             _repos.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
