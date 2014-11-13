@@ -60,7 +60,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// <summary>
         /// Date on which SpotCheck configuration created
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+         [DisplayFormat(DataFormatString = "Created :{0:ddd d MMM}", NullDisplayText = "None")]
         public DateTimeOffset? CreatedDate { get; set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// <summary>
         /// Date when configuration is modified
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:ddd d MMM}")]
+          [DisplayFormat(DataFormatString = "Modeified :{0:ddd d MMM}", NullDisplayText = "None")]
         public DateTimeOffset? ModifiedDate { get; set; }
 
 

@@ -5,43 +5,50 @@
     @for (var i = 0; i < Model.SewingPlants.Count; ++i)
     {
         <li class="list-group-item list-group-item-success">
-            <h4 class="list-group-item-heading">
-                @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName)
-                <small>
-                    Default @Html.DisplayFor(m => m.SewingPlants[i].SpotCheckPercent)
-                    <span class="pull-right h5">
-                        Modeified <u>@Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)</u>
+                <div class="row h4">
+                    <div class="col-md-6">
+                        @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName)
                         <small>
-                            Created <u>@Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)</u>
+                            Default @Html.DisplayFor(m => m.SewingPlants[i].SpotCheckPercent)
                         </small>
-                    </span>
-                </small>
-            </h4>
-            
-         
+                    </div>
+                    <div class="col-md-6">
+                        <small>
+                            <span class="pull-right">
+                                <u>@Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)</u>
+                                <small>
+                                    <u>@Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)</u>
+                                </small>
+                            </span>
+                        </small>
+                    </div>
+                </div>
         </li>
         for (var j = 0; j < Model.SewingPlants[i].Styles.Count; ++j)
         {
-
-
             <li class="list-group-item">
-
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h4 class="list-group-item-text">
-                            <span class="label label-info">@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Style)</span>
-                            <span class="label label-success">@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Color)</span>
+                            <span class="label label-info">Color:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Style)</span>
+                            <span class="label label-success">Style:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Color)</span>
                         </h4>
                     </div>
-                    <div class="col-md-4">
-                        <p class="list-group-item-text">
-                            @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate)
-                            <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</em>
-                        </p>
-                        <p class="list-group-item-text">
-                            @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate)
-                            <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</em>
-                        </p>
+                    <div class="col-md-5">
+                        <span class="pull-right h5">
+                            @*<span class="text-success">Modeified:</span>*@<u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</u>
+                            <small>
+                                @*<span class="text-success">Created:</span>*@<u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</u>
+                            </small>
+                        </span>
+                        @*<p class="list-group-item-text">
+                                @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate)
+                                <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</em>
+                            </p>
+                            <p class="list-group-item-text">
+                                @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate)
+                                <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</em>
+                            </p>*@
                     </div>
                     <div class="col-md-4">
                         @if (Model.EnableEditing)
