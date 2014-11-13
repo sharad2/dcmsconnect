@@ -411,11 +411,11 @@ var HandleScan = (function () {
 })();
 
 
-$(document).ready(function () {
-    $('#btnNewPallet').click(function (e) {
-        alert('auto increment tab with pallet id');
-    });
-});
+//$(document).ready(function () {
+//    $('#btnNewPallet').click(function (e) {
+//        alert('auto increment tab with pallet id');
+//    });
+//});
 
 
 /*************** Printing functions ***********************/

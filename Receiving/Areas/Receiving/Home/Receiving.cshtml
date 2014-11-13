@@ -2,6 +2,22 @@
 @model ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
+    ViewBag.Title = "Receiving";
+}
+
+@section areatitle {
+    <li>
+        <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)" target="_blank">
+            <span class="glyphicon glyphicon-new-window"></span> Receiving Report
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))">
+            <span class="glyphicon glyphicon-edit"></span>
+            Edit Process Settings
+        </a>
+    </li>
+    <li class="divider"></li>
 }
 
 <audio id="soundSuccess" src="@Links_Receiving.Areas.Receiving.Home.Sounds.success_mp3">
@@ -13,36 +29,23 @@
 
 <div class="container">
     <div class="page-header">
-
-        <span class="pull-right">
-            <a href="@string.Format("{0}?process_id={1}", Model.ProcessDetailUrl, Model.ProcessId)"
-               title="Receiving Detail for the selected Process" target="_blank"
-               class=" btn btn-link">
-                <span class="glyphicon glyphicon-new-window"></span>
-                <!--Report 40.103:--> Cartons received and shipments summary
-            </a>
-        </span>
         <h2>
-            Receiving
+            Receiving @Html.DisplayFor(m => m.ProcessId)
             <small>Carrier  @Html.DisplayFor(m => m.CarrierId)</small>
         </h2>
     </div>
 
     <p>
-        @Html.LabelFor(m => m.ProcessId)
-        @Html.DisplayFor(m => m.ProcessId)
-        &nbsp;
-        @Html.LabelFor(m => m.ProDate)
-        @Html.DisplayFor(m => m.ProDate)
-        &nbsp;
         @Html.LabelFor(m => m.ProNumber)
-        @Html.DisplayFor(m => m.ProNumber)
-        &nbsp;
+        @Html.DisplayFor(m => m.ProNumber) dated <em>@Html.DisplayFor(m => m.ProDate)</em>
+        &bull;
         @Html.LabelFor(m => m.PriceSeasonCode)
         @Html.DisplayFor(m => m.PriceSeasonCode)
-        &nbsp;
-        @Html.LabelFor(m => m.OperatorName)
-        @Html.DisplayFor(m => m.OperatorName)
+        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="pull-right" 
+           title="Edit Process Settings"
+           >
+            <span class="glyphicon glyphicon-edit"></span>
+        </a>
     </p>
 
     <div class="panel panel-info">
@@ -75,13 +78,6 @@
                         </div>
                     </div>
                     <div class="btn-group">
-                        <button id="btnNewPallet" class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-plus-sign"></span>  New Pallet
-                        </button>
-                        <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess(Model.ProcessId))" class="btn btn-default">
-                            <span class="glyphicon glyphicon-edit"></span>
-                            Edit Process
-                        </a>
                         <a href="#" class="btn btn-default">
                             <span class="glyphicon glyphicon glyphicon-list-alt">
                             </span> Cartons received but not on Pallet...

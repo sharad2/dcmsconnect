@@ -41,6 +41,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public string SpotCheckAreaId { get; set; }
 
         [Display(Name = "Received by")]
+        [Obsolete]
         public string OperatorName { get; set; }
 
         public string ReceivingAreaId { get; set; }

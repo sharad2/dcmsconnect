@@ -308,18 +308,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        /// <summary>
-        /// Query new pallet sequence.
-        /// </summary>
-        /// <returns></returns>
-        public int GetPalletSequence()
-        {
-            const string QUERY = @"SELECT <proxy />PALLET_SEQUENCE.NEXTVAL  AS PALLET_SEQUENCE FROM dual";
+        ///// <summary>
+        ///// Query new pallet sequence.
+        ///// </summary>
+        ///// <returns></returns>
+        //public int GetPalletSequence()
+        //{
+        //    const string QUERY = @"SELECT <proxy />PALLET_SEQUENCE.NEXTVAL  AS PALLET_SEQUENCE FROM dual";
 
-            var binder = SqlBinder.Create(row => row.GetInteger("PALLET_SEQUENCE").Value);
-            //++_queryCount;
-            return _db.ExecuteSingle(QUERY, binder);
-        }
+        //    var binder = SqlBinder.Create(row => row.GetInteger("PALLET_SEQUENCE").Value);
+        //    //++_queryCount;
+        //    return _db.ExecuteSingle(QUERY, binder);
+        //}
 
 
         /// <summary>
