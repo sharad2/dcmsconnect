@@ -2,145 +2,38 @@
 
 
 <ul class="list-group">
-    <li class="list-group-item  list-group-item-success">
-        <div class="row">
-            <div class="col-md-4">
-                <h4 class="list-group-item-heading">
-                    Sewing Plant
-                </h4>
-                <p class="list-group-item-text">
-                    <span class="label label-info">Style</span>
-                    <span class="label label-success">Color</span>
-                </p>
-            </div>
-
-            <div class="col-md-3">
-                <p class="list-group-item-text">
-                    Created on
-                    <em>&bull; By</em>
-                </p>
-                <p class="list-group-item-text">
-                    Modified on
-                    <em>&bull; By</em>
-                </p>
-            </div>
-            <div class="col-md-4">
-                <div class="input-group input-group-sm">
-                    <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" placeholder="Spot Check Percent" disabled />
-                    <div class="input-group-btn ">
-                        <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete" disabled>
-                            Action
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </li>
-
-    @for (var i = 0; i < Model.SpotCheckList.Count; ++i)
-    {
-        <li class="list-group-item">
-            <div class="row">
-                <div class="col-md-4">
-                    <h4 class="list-group-item-heading">
-                        @Html.DisplayFor(m => m.SpotCheckList[i].SewingPlantId)
-                        <small>@Html.DisplayFor(m => m.SpotCheckList[i].PlantName)</small>
-                    </h4>
-                    <h4 class="list-group-item-text">
-                        <span class="label label-info">@Html.DisplayFor(m => m.SpotCheckList[i].Style)</span>
-                        <span class="label label-success">@Html.DisplayFor(m => m.SpotCheckList[i].Color)</span>
-                    </h4>
-                </div>
-
-                <div class="col-md-3">
-                    <p class="list-group-item-text">
-                        @Html.DisplayFor(m => m.SpotCheckList[i].CreatedDate)
-                        <em>&bull; @Html.DisplayFor(m => m.SpotCheckList[i].CreatedBy)</em>
-                    </p>
-                    <p class="list-group-item-text">
-                        @Html.DisplayFor(m => m.SpotCheckList[i].ModifiedDate)
-                        <em>&bull; @Html.DisplayFor(m => m.SpotCheckList[i].ModifiedBy)</em>
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    @if (Model.EnableEditing)
-                    {
-                        <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
-                            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SpotCheckList[i].SewingPlantId" />
-                            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SpotCheckList[i].Color" />
-                            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SpotCheckList[i].IsSpotCheckEnabled.ToString()" />
-                            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SpotCheckList[i].Style" />
-                            <div class="input-group input-group-sm">
-                                <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
-                                       value="@Model.SpotCheckList[i].SpotCheckPercent" />
-                                <div class="input-group-btn ">
-                                    <div class="btn-group">
-                                        <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>
-                                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu cancel-btn" role="menu">
-                                            <li><a href="#">Cancel</a></li>
-                                        </ul>
-                                    </div>
-                                    <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                            <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
-                                   @Html.Raw(Model.SpotCheckList[i].IsSpotCheckEnabled ? "checked" : "") /> Enabled
-                        </form>
-                    }
-
-                    <div class="input-group input-group-sm">
-                        <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" disabled value="@Model.SpotCheckList[i].SpotCheckPercent" />
-                        <div class="input-group-btn ">
-                            @if (Model.EnableEditing)
-                            {
-                                <div class="input-group-btn edit-btn">
-                                    <button class="btn btn-sm btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                </div>
-                            }
-                        </div>
-                        @if (!Model.SpotCheckList[i].IsSpotCheckEnabled)
-                        {
-                            <span class="badge pull-right">Disabled</span>
-                        }
-                    </div>
-
-                </div>
-
-            </div>
-        </li>
-
-    }
-</ul>
-
-Sewing Plant Focus
-
-<ul class="list-group">
     @for (var i = 0; i < Model.SewingPlants.Count; ++i)
     {
-
-        <li class="list-group-item  list-group-item-success">
-            @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName) Default @Html.DisplayFor(m => m.SewingPlants[i].SpotCheckPercent)
-            Created by @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy) on @Html.DisplayFor(m => m.SewingPlants[i].CreatedDate).
-            Modified by @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy) on @Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate).
+        <li class="list-group-item list-group-item-success">
+            <h4 class="list-group-item-heading">
+                @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName)
+                <small>
+                    Default @Html.DisplayFor(m => m.SewingPlants[i].SpotCheckPercent)
+                    <span class="pull-right h5">
+                        Modeified <u>@Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)</u>
+                        <small>
+                            Created <u>@Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)</u>
+                        </small>
+                    </span>
+                </small>
+            </h4>
+            
+         
         </li>
         for (var j = 0; j < Model.SewingPlants[i].Styles.Count; ++j)
         {
+
+
             <li class="list-group-item">
+
                 <div class="row">
-                    <div class="col-md-4">                       
+                    <div class="col-md-4">
                         <h4 class="list-group-item-text">
                             <span class="label label-info">@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Style)</span>
                             <span class="label label-success">@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Color)</span>
                         </h4>
                     </div>
-
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <p class="list-group-item-text">
                             @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate)
                             <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</em>
@@ -193,16 +86,14 @@ Sewing Plant Focus
                             </div>
                             @if (!Model.SewingPlants[i].Styles[j].IsSpotCheckEnabled)
                             {
-                                <span class="badge pull-right">Disabled</span>
+                                <span class="label label-default pull-right">Disabled</span>
                             }
                         </div>
-
                     </div>
-
                 </div>
             </li>
 
         }
-
     }
+
 </ul>
