@@ -1,5 +1,4 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
-
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System;
@@ -32,38 +31,38 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 };
         }
 
-        private PalletViewModel Map(Pallet src)
-        {
-            return new PalletViewModel
-            {
-                Cartons = src.Cartons,
-                PalletId = src.PalletId,
-                PalletLimit = src.PalletLimit,
-                ProcessId = src.ProcessId
-            };
-        }
+        //private PalletViewModel Map(Pallet src)
+        //{
+        //    return new PalletViewModel
+        //    {
+        //        Cartons = src.Cartons,
+        //        PalletId = src.PalletId,
+        //        PalletLimit = src.PalletLimit,
+        //        ProcessId = src.ProcessId
+        //    };
+        //}
 
-        private ReceivingProcessModel Map(ReceivingProcess src)
-        {
-            return new ReceivingProcessModel
-            {
-                ProDate = src.ProDate,
-                ProNumber = src.ProNumber,
-                CarrierId = src.CarrierId,
-                CarrierDescription = src.CarrierName,
-                OperatorName = src.OperatorName,
-                ReceivingStartDate = src.StartDate,
-                ReceivingEndDate = src.ReceivingEndDate,
-                CartonCount = src.CartonCount,
-                PalletCount = src.PalletCount,
-                //ReceivingAreaId = src.ReceivingAreaId,
-                ProcessId = src.ProcessId,
-                ExpectedCartons = src.ExpectedCartons
-                //PalletLimit = src.PalletLimit,
-                //PriceSeasonCode = src.PriceSeasonCode,
-                //SpotCheckAreaId = src.SpotCheckAreaId
-            };
-        }
+        //private ReceivingProcessModel Map(ReceivingProcess src)
+        //{
+        //    return new ReceivingProcessModel
+        //    {
+        //        ProDate = src.ProDate,
+        //        ProNumber = src.ProNumber,
+        //        CarrierId = src.CarrierId,
+        //        CarrierDescription = src.CarrierName,
+        //        OperatorName = src.OperatorName,
+        //        ReceivingStartDate = src.StartDate,
+        //        ReceivingEndDate = src.ReceivingEndDate,
+        //        CartonCount = src.CartonCount,
+        //        PalletCount = src.PalletCount,
+        //        //ReceivingAreaId = src.ReceivingAreaId,
+        //        ProcessId = src.ProcessId,
+        //        ExpectedCartons = src.ExpectedCartons
+        //        //PalletLimit = src.PalletLimit,
+        //        //PriceSeasonCode = src.PriceSeasonCode,
+        //        //SpotCheckAreaId = src.SpotCheckAreaId
+        //    };
+        //}
 
         /// <summary>
         /// Required by T4MVC
@@ -108,17 +107,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
 
-        //protected override ViewResult View(string viewName, string masterName, object model)
-        //{
-        //    var vmb = model as ViewModelBase;
-        //    if (vmb != null)
-        //    {
-        //        // Tutorial page does not use a derived model
-        //        vmb.QueryCount = _service.QueryCount;
-        //    }
-        //    return base.View(viewName, masterName, model);
-        //}
-
         #region Index
 
         /// <summary>
@@ -141,7 +129,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
             var ivm = new IndexViewModel
              {
-                 RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
+                 RecentProcesses = _service.GetRecentProcesses().Select(p => new ReceivingProcessModel(p)).ToArray()
              };
             return View(Views.Index, ivm);
         }
@@ -319,37 +307,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(processModel.ProcessId));
         }
 
-
-
-        /// <summary>
-        /// Selects the passed process id and initiates receiving
-        /// </summary>
-        /// <param name="info"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// <para>
-        /// </para>
-        /// <para>
-        /// Output: If passed process id valid, then intiate receiving. Else redisplay index view after populating recent processes.
-        /// </para>
-        /// </remarks>
-        //[HttpPost]
-        //[Obsolete]
-        //public virtual ActionResult SelectProcess([Bind(Prefix = "SelectProcess")] SelectProcessModel info)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(info.ProcessId));
-        //    }
-        //    var ivm = new IndexViewModel
-        //                  {
-        //                      SelectProcess = info,
-        //                      RecentProcesses = _service.GetRecentProcesses().Select(p => Map(p)).ToArray()
-        //                  };
-
-        //    return View(Views.Index, ivm);
-
-        //}
 
         /// <summary>
         /// Displays the receiving page for the passed process id.
@@ -568,29 +525,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                             message = item.Item2
                         });
 
-            //}
-            //catch (DispositionMismatchException ex)
-            //{
-            //    this.Response.StatusCode = 250;
-            //    this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} not put on pallet due to disposition mismatch, Scan a pallet for area:{1}, vwh:{2}", model.ScanModel.ScanText, ex.AreaId, ex.VwhId));
-
-            //    // We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
-            //    return Content(string.Format("{0}{1}", ex.VwhId, ex.AreaId));
-            //}
-            //catch (AlreadyReceivedCartonException ex)
-            //{
-            //    //carton has already been received, send the specific status code 251 with Pallet ID as data, and error message in header against ErrorMsg
-            //    this.Response.StatusCode = 251;
-            //    this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} has already been received on Pallet {1} ", model.ScanModel.ScanText, ex.PalletId));
-            //    return Content(ex.PalletId);
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Simulate the behavior of the obsolete HandleAjaxError attribute
-            //    this.Response.StatusCode = 203;
-            //    return Content(ex.Message);
-            //}
-
         }
 
         /// <summary>
@@ -616,239 +550,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             };
             return PartialView(Views._palletPartial, pvm);
         }
-        /// <summary>
-        /// <para>
-        /// Determines what was scanned and takes appropriate action.
-        /// </para>
-        /// </summary>
-        /// <exception cref="NotImplementedException"></exception>
-        /// <returns></returns>
-        /// <remarks>
-        /// <para>
-        /// The outcome is indicated by an appropriate status code within the 200 range
-        /// 201 (Created): Carton Received. Pallet Html is provided as data. CartonId and Disposition in header. 
-        /// 202 (Accepted): Pallet scan. Pallet HTML is provided as data. PalletId and pallet disposition provided as header.
-        /// 250 (custom): Carton not received due to disposition mismatch. Disposition is the data. Customized error message will be provided as ErrorMsg in header
-        /// 251 (custom): Carton has already been received, Pallet ID on which carton was put is data, and error message will be provided in header against ErrorMsg
-        /// </para>
-        /// <para>
-        /// HandleAjaxError attribute catches exceptions and returns Status code 203 ((Non authoritative)) with error message as data.
-        /// </para>
-        /// </remarks>
-        //[HttpPost]
-        //[ActionName("HandleScan")]
-        //[HttpAjax(true)]
-        //[Obsolete("Use HandlePalletScan or HandleCartonScan")]
-        //public virtual ActionResult HandleScan(ReceivingViewModel model)
-        //{
-        //    if (model == null) throw new ArgumentNullException("model");
-        //    if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanModel.ScanText))
-        //    {
-        //        return ValidationErrorResult();
-        //    }
 
-        //    var scan = model.ScanModel.ScanText.ToUpper();
-        //    if (scan == ReceivingViewModel.SCAN_NEWPALLET)
-        //    {
-        //        scan = _service.CreateNewPalletId();
-        //    }
-        //    try
-        //    {
-        //        Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-        //        Debug.Assert(model.ScanModel.ProcessId != null, "model.ScanModel.ProcessId != null");
-        //        var ctx = new ScanContext
-        //        {
-        //            PalletId = model.ScanModel.PalletId,
-        //            DispositionId = model.ScanModel.PalletDispos,
-        //            ProcessId = model.ScanModel.ProcessId.Value
-        //        };
-        //        var pallet = _service.HandleScan(scan, ctx);
-        //        Debug.Assert(pallet != null, "pallet != null");
-        //        var pvm = new PalletViewModel
-        //        {
-        //            Cartons = pallet.Cartons,
-        //            PalletLimit = pallet.PalletLimit,
-        //            PalletId = ctx.PalletId,
-        //            QueryCount = _service.QueryCount
-        //        };
-
-        //        switch (ctx.Result)
-        //        {
-        //            case ScanResult.PalletScan:
-        //                // Pallet was scanned
-        //                // We check for null before adding header Otherwise the code breaks in IIS 6
-        //                if (!string.IsNullOrEmpty(pvm.PalletId))
-        //                {
-        //                    this.Response.AppendHeader("PalletId", pvm.PalletId);
-        //                }
-        //                if (!string.IsNullOrEmpty(pvm.DispositionId))
-        //                {
-        //                    // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
-        //                    this.Response.AppendHeader("Disposition", pvm.DispositionId);
-        //                }
-        //                this.Response.StatusCode = 202;
-        //                break;
-
-        //            case ScanResult.CartonReceived:
-        //                this.Response.StatusCode = 201;
-        //                pvm.LastCartonId = scan;
-        //                if (!string.IsNullOrEmpty(scan))
-        //                {
-        //                    this.Response.AppendHeader("CartonId", scan);
-        //                }
-        //                if (!string.IsNullOrEmpty(pvm.DispositionId))
-        //                {
-        //                    this.Response.AppendHeader("Disposition", pvm.DispositionId);
-        //                }
-
-        //                this.Response.AppendHeader("ReceivedCartonCount", ctx.CartonsOnPallet.ToString());
-        //                this.Response.AppendHeader("ExpectedCartonCount", ctx.ExpectedCartons.ToString());
-        //                break;
-
-        //            default:
-        //                throw new NotImplementedException();
-        //        }
-        //        return PartialView(Views._palletPartial, pvm);
-        //    }
-        //    catch (DispositionMismatchException ex)
-        //    {
-        //        this.Response.StatusCode = 250;
-        //        this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} not put on pallet due to disposition mismatch, Scan a pallet for area:{1}, vwh:{2}", model.ScanModel.ScanText, ex.AreaId, ex.VwhId));
-
-        //        // We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
-        //        return Content(string.Format("{0}{1}", ex.VwhId, ex.AreaId));
-        //    }
-        //    catch (AlreadyReceivedCartonException ex)
-        //    {
-        //        //carton has already been received, send the specific status code 251 with Pallet ID as data, and error message in header against ErrorMsg
-        //        this.Response.StatusCode = 251;
-        //        this.Response.AppendHeader("ErrorMsg", string.Format("Carton {0} has already been received on Pallet {1} ", scan, ex.PalletId));
-        //        return Content(ex.PalletId);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Simulate the behavior of the obsolete HandleAjaxError attribute
-        //        this.Response.StatusCode = 203;
-        //        return Content(ex.Message);
-        //    }
-        //}
-
-        /// <summary>
-        /// Handles Mobile scan
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //[ActionName("HandleScan")]
-        //[HttpAjax(false)]
-        //[Obsolete]
-        //public virtual ActionResult HandleMobileScan(ReceivingViewModel model)
-        //{
-        //    Pallet pallet = null;
-        //    var lastCartonId = string.Empty;
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(model.ScanModel.ProcessId));
-        //    }
-
-        //    var scan = model.ScanModel.ScanText.ToUpper();
-        //    try
-        //    {
-        //        Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-        //        Debug.Assert(model.ScanModel.ProcessId != null, "model.ScanModel.ProcessId != null");
-        //        var ctx = new ScanContext
-        //        {
-        //            PalletId = model.ScanModel.PalletId,
-        //            DispositionId = model.ScanModel.PalletDispos,
-        //            ProcessId = model.ScanModel.ProcessId.Value
-        //        };
-        //        pallet = _service.HandleScan(scan, ctx);
-
-        //        switch (ctx.Result)
-        //        {
-        //            case ScanResult.PalletScan:
-        //                model.Pallets = new[] { Map(pallet) };
-        //                // Pallet was scanned
-        //                break;
-
-        //            case ScanResult.CartonReceived:
-        //                lastCartonId = scan;
-        //                break;
-
-        //            default:
-        //                throw new NotImplementedException();
-        //        }
-        //    }
-        //    catch (DispositionMismatchException ex)
-        //    {
-        //        ModelState.AddModelError("", "Scan a pallet for area:" + ex.AreaId + "and vwh:" + ex.VwhId);
-        //    }
-        //    catch (DbException ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //    }
-        //    catch (ProviderException ex)
-        //    {
-        //        ModelState.AddModelError("", ex.Message);
-        //    }
-
-        //    catch (AlreadyReceivedCartonException ex)
-        //    {
-        //        ModelState.AddModelError("", string.Format("Carton {0} has already been received on Pallet {1} ", scan, ex.PalletId));
-
-        //    }
-
-        //    if (pallet == null)
-        //    {
-        //        // This happens when an exception is caught or model state is invalid
-        //        if (string.IsNullOrEmpty(model.ScanModel.PalletId))
-        //        {
-        //            // No active pallet
-        //            pallet = new Pallet();
-        //        }
-        //        else
-        //        {
-        //            if (model.ScanModel.ProcessId != null)
-        //            {
-        //                pallet = _service.GetPallet(model.ScanModel.PalletId, model.ScanModel.ProcessId.Value);
-
-        //            }
-
-        //        }
-        //    }
-        //    Debug.Assert(pallet != null, "pallet != null");
-        //    // Handling Code
-        //    var pm = _service.GetProcessInfo(model.ScanModel.ProcessId.Value, true);
-        //    model.CarrierId = pm.Carrier.CarrierId;
-        //    model.ProDate = pm.ProDate;
-        //    model.ProNumber = pm.ProNumber;
-        //    model.OperatorName = pm.OperatorName;
-        //    model.ReceivingAreaId = pm.ReceivingAreaId;
-        //    model.SpotCheckAreaId = pm.SpotCheckAreaId;
-        //    model.ProcessId = pm.ProcessId;
-        //    model.CartonCount = pm.CartonCount;
-        //    model.ExpectedCartons = pm.ExpectedCartons;
-        //    model.PalletLimit = pm.PalletLimit;
-        //    model.PriceSeasonCode = pm.PriceSeasonCode;
-
-        //    var allPallets = _service.GetPalletsOfProcess(model.ScanModel.ProcessId.Value);
-        //    model.Pallets = model.Pallets.Concat(allPallets.Select(p => Map(p))).ToArray();
-        //    //model.Pallets = allPallets.Select(p => Map(p)).ToArray();
-        //    //model.cartonsOnPallet = _service.GetCartonsOfProcess(model.ScanModel.ProcessId.Value);
-
-
-        //    // If the model state is not valid, we would like the hidden fields in the view to retain their old values.
-        //    // We do not change the state of the view in case of any validation problem.
-        //    if (ModelState.IsValid)
-        //    {
-        //        ModelState.Clear();  // Necessary to ensure that hidden fields will show the values we are setting below
-        //        model.Pallets[0].LastCartonId = lastCartonId;
-        //        model.ScanModel.PalletId = model.Pallets[0].PalletId;
-        //        model.ScanModel.PalletDispos = model.Pallets[0].DispositionId;
-        //    }
-        //    return View(Views.Receiving, model);
-
-        //}
 
         #endregion
 
@@ -1007,44 +709,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 return Content(ex.Message);
             }
         }
-
-        ///// <summary>
-        ///// Populate SpotCheck area drop down based on selection in Receiving area drop down.
-        ///// </summary>
-        ///// <param name="areaId">Selected receiving area</param>
-        ///// <returns></returns>
-        //public virtual JsonResult SpotCheckAreaList(string areaId)
-        //{
-        //    IEnumerable<CartonArea> selectedAreas;
-        //    var cartonAreas = _service.GetCartonAreas().Where(p => !p.IsNumberedArea).ToArray();
-        //    // There's no spot check area defined ,show all areas
-        //    if (cartonAreas.All(p => !p.IsSpotCheckArea))
-        //    {
-        //        var data = cartonAreas.Select(Map);
-        //        return Json(data, JsonRequestBehavior.AllowGet);
-        //    }
-        //    var building = cartonAreas.Where(p => p.AreaId == areaId).Select(p => p.BuildingId).FirstOrDefault();
-
-        //    // Selected receiving area has building
-        //    if (!string.IsNullOrWhiteSpace(building))
-        //    {
-        //        // Get spotcheck area of building
-        //        selectedAreas = cartonAreas.Where(p => p.BuildingId == building && p.IsSpotCheckArea).ToList();
-        //        // if building has no spotCheck area defined, show all areas
-        //        if (!selectedAreas.Any())
-        //        {
-
-        //            selectedAreas = cartonAreas;
-        //        }
-        //    }
-        //    //if selected receiving area has no building ,show all areas
-        //    else
-        //    {
-        //        selectedAreas = cartonAreas;
-        //    }
-        //    var data1 = selectedAreas.Select(Map);
-        //    return Json(data1, JsonRequestBehavior.AllowGet);
-        //}
 
         /// <summary>
         /// Get the shipment list

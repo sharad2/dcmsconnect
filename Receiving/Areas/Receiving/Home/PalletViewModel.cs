@@ -8,6 +8,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     public class PalletViewModel
     {
+        public PalletViewModel()
+        {
+
+        }
+
+        //public PalletViewModel(Pallet entity)
+        //{
+        //    Cartons = entity.Cartons;
+        //    PalletId = entity.PalletId;
+        //    PalletLimit = entity.PalletLimit;
+        //    ProcessId = entity.ProcessId;
+        //}
 
         public int ProcessId { get; set; }
 
@@ -62,7 +74,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         //public int QueryCount { get; set; }
 
-      
+
 
         public int SkuCount
         {
@@ -80,7 +92,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 {
                     return 100;
                 }
-                return (int) Math.Round(this.Cartons.Count * 100.0 / this.PalletLimit);
+                return (int)Math.Round(this.Cartons.Count * 100.0 / this.PalletLimit);
             }
         }
 

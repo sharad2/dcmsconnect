@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
+using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
     public class ReceivingProcessModel
     {
+        public ReceivingProcessModel()
+        {
+
+        }
+
+        public ReceivingProcessModel(ReceivingProcess entity)
+        {
+            ProDate = entity.ProDate;
+            ProNumber = entity.ProNumber;
+            CarrierId = entity.CarrierId;
+            CarrierDescription = entity.CarrierName;
+            OperatorName = entity.OperatorName;
+            ReceivingStartDate = entity.StartDate;
+            ReceivingEndDate = entity.ReceivingEndDate;
+            CartonCount = entity.CartonCount;
+            PalletCount = entity.PalletCount;
+            //ReceivingAreaId = src.ReceivingAreaId,
+            ProcessId = entity.ProcessId;
+            ExpectedCartons = entity.ExpectedCartons;
+        }
 
         public System.DateTime? ProDate { get; set; }
 
