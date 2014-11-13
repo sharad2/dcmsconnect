@@ -5,23 +5,28 @@
 @model DcmsMobile.Receiving.Areas.Receiving.Home.IndexViewModel
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
-    ViewBag.Title = "Receiving Process";
+    ViewBag.Title = "Receiving Home";
 }
 
 <div class="container">
     <div class="page-header">
-        <h1>@ViewBag.Title</h1>
+        <h1>Recent Shipments Received</h1>
     </div>
     <div class="well well-sm">
-        <p>To begin receivng, Select or <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())">Create</a> a Receiving Process</p>
-        <form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
+        <form class="form-horizontal" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
             <div class="form-group">
-                <div class="input-group">
-                    <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
-                           class="form-control" autofocus />
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
+                <p class="col-sm-4 control-label">To continue receiving a shipment, select or search</p>
+                <div class="col-sm-2">
+                    <div class="input-group">
+                        <input type="number" id="search" placeholder="Receiving Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
+                               class="form-control" autofocus />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-link" style="font-size:1.2em">Receive New Shipment</a>
                 </div>
             </div>
         </form>
