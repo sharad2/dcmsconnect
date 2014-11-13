@@ -104,12 +104,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult NonpalletizedCartons()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CloseShipment()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CloseShipment);
@@ -146,7 +140,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
             public readonly string PrintCarton = "PrintCarton";
             public readonly string GetPrinters = "GetPrinters";
-            public readonly string NonpalletizedCartons = "NonpalletizedCartons";
             public readonly string ShipmentList = "ShipmentList";
             public readonly string CloseShipment = "CloseShipment";
             public readonly string ReOpenShipment = "ReOpenShipment";
@@ -165,7 +158,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public const string UnPalletizeCarton = "UnPalletizeCarton";
             public const string PrintCarton = "PrintCarton";
             public const string GetPrinters = "GetPrinters";
-            public const string NonpalletizedCartons = "NonpalletizedCartons";
             public const string ShipmentList = "ShipmentList";
             public const string CloseShipment = "CloseShipment";
             public const string ReOpenShipment = "ReOpenShipment";
@@ -238,14 +230,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             public readonly string cartonId = "cartonId";
             public readonly string printer = "printer";
-        }
-        static readonly ActionParamsClass_NonpalletizedCartons s_params_NonpalletizedCartons = new ActionParamsClass_NonpalletizedCartons();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_NonpalletizedCartons NonpalletizedCartonsParams { get { return s_params_NonpalletizedCartons; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_NonpalletizedCartons
-        {
-            public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_CloseShipment s_params_CloseShipment = new ActionParamsClass_CloseShipment();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -432,10 +416,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
         [NonAction]
-        partial void GetPalletHtmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string palletId, int? processId);
+        partial void GetPalletHtmlOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string palletId, int processId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult GetPalletHtml(string palletId, int? processId)
+        public override System.Web.Mvc.ActionResult GetPalletHtml(string palletId, int processId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetPalletHtml);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletId", palletId);
@@ -478,18 +462,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetPrinters);
             GetPrintersOverride(callInfo);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void NonpalletizedCartonsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult NonpalletizedCartons(int? processId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.NonpalletizedCartons);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
-            NonpalletizedCartonsOverride(callInfo, processId);
             return callInfo;
         }
 

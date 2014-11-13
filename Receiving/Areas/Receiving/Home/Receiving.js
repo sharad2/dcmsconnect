@@ -149,18 +149,19 @@ var Tabs = (function () {
     // Returns jquery object corresponding to the newly created li
     var create = function (palletId) {
         // Insert content div
-        $('<div></div>').attr('id', 'Pallet_' + palletId).addClass('tab-pane')
+        var htmlId = 'Pallet_' + (palletId || 'NOPALLET');
+        $('<div></div>').attr('id', htmlId).addClass('tab-pane')
             .appendTo(_options.contentContainer);
 
         // Insert the li and return it
         return $('<li></li>').attr(_attrPalletId, palletId)
             .append(
                 $('<a></a>').attr({
-                    href: '#Pallet_' + palletId,
+                    href: '#' + htmlId,
                     role: 'tab',
                     "data-toggle": 'tab',
-                    title: 'Pallet ' + palletId
-                }).text(palletId).append(' <span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
+                    title: 'Pallet ' + (palletId || '??')
+                }).text(palletId || 'NOPALLET').append(' <span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
             ).appendTo(_options.tabContainer);
     };
 
@@ -187,9 +188,7 @@ var Tabs = (function () {
         Tabs.html('Loading...');
         return $.get(_options.loadUrl.replace('~', Tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
             Tabs.html(data);
-            //alert(this.palletId + '*' + data);
         }, function (jqXHR, textStatus, errorThrown) {
-            //alert(textStatus);
             Tabs.html(jqXHR.responseText);
         });
     };

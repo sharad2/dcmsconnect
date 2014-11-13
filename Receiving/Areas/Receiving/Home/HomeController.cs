@@ -48,7 +48,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             if (_service == null)
             {
-                _service = new Lazy<ReceivingService>(() =>  new ReceivingService(requestContext));
+                _service = new Lazy<ReceivingService>(() => new ReceivingService(requestContext));
             }
             base.Initialize(requestContext);
         }
@@ -400,20 +400,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="palletId"></param>
         /// <param name="processId"></param>
         /// <returns></returns>
-        public virtual ActionResult GetPalletHtml(string palletId, int? processId)
+        public virtual ActionResult GetPalletHtml(string palletId, int processId)
         {
-            if (string.IsNullOrWhiteSpace(palletId))
-            {
-                return Content("Internal Error: Pallet Id was not passed");
-            }
+            //if (string.IsNullOrWhiteSpace(palletId))
+            //{
+            //    return Content("Internal Error: Pallet Id was not passed");
+            //}
             //Thread.Sleep(3000);  // For debugging
-            var pallet = _service.Value.GetPallet(palletId.ToUpper().Trim(), processId);
+
+            IList<ReceivedCarton> cartons;
+            if (string.IsNullOrWhiteSpace(palletId)) {
+                cartons = _service.Value.GetUnpalletizedCartons(processId);
+            } else {
+                cartons = _service.Value.GetCartonsOfPallet(palletId);
+            }
+
             var pvm = new PalletViewModel
             {
-                Cartons = pallet.Cartons.Select(p => new ReceivedCartonModel(p)).ToList(),
-                PalletLimit = pallet.PalletLimit,
-                PalletId = palletId,
-                //QueryCount = _service.QueryCount
+                Cartons = cartons.Select(p => new ReceivedCartonModel(p)).ToList(),
+                PalletLimit = _service.Value.GetPalletLimit(processId),
+                PalletId = palletId
             };
             return PartialView(Views._palletPartial, pvm);
         }
@@ -444,7 +450,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 model.SpotCheckAreasList = areas.Where(p => !p.IsNumberedArea).Select(p => Map(p)).ToArray();
             }
-            model.PriceSeasonCodeList = _service.Value.GetPriceSeasonCode().Select(p => new SelectListItem
+            model.PriceSeasonCodeList = _service.Value.GetPriceSeasonCodes().Select(p => new SelectListItem
                 {
                     Text = p.Item1 + ":" + p.Item2,
                     Value = p.Item1
@@ -467,10 +473,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             //throw new Exception("Sharad");
             var pvm = new PalletViewModel();
             string palletId;
-            var pallet = _service.Value.RemoveFromPallet(cartonId, processId, out palletId);
-            pvm.Cartons = pallet.Cartons.Select(p => new ReceivedCartonModel(p)).ToList();
-            pvm.PalletId = pallet.PalletId;
-            pvm.PalletLimit = pallet.PalletLimit;
+            _service.Value.RemoveFromPallet(cartonId, processId, out palletId);
+            pvm.Cartons = _service.Value.GetCartonsOfPallet(palletId).Select(p => new ReceivedCartonModel(p)).ToList();
+            pvm.PalletId = palletId;
+            pvm.PalletLimit = _service.Value.GetPalletLimit(processId);
 
             this.Response.AppendHeader("Disposition", pvm.DispositionId);
 
@@ -546,35 +552,35 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                         }, JsonRequestBehavior.AllowGet);
         }
 
-        /// <summary>
-        /// This function used for get the list of unpalletize cartons against the passed ProcessId.
-        /// </summary>
-        /// <returns>
-        /// It will return the list of unpalletize cartons under a particular process.
-        /// </returns>        
-        [HttpGet]
-        public virtual ActionResult NonpalletizedCartons(int? processId)
-        {
-            try
-            {
-                var model = new ReceivingViewModel();
-                model.NonPalletizeCartonList =
-                    _service.Value.GetUnpalletizedCartons(processId).Select(p => new CartonNotOnPalletModel
-                        {
-                            AreaId = p.DestinationArea,
-                            CartonId = p.CartonId,
-                            VWHId = p.VwhId
-                        });
-                Response.StatusCode = 200;
-                return PartialView(MVC_Receiving.Receiving.Home.Views._cartonNotOnPalletPartial, model);
-            }
-            catch (Exception ex)
-            {
-                // Simulate the behavior of the obsolete HandleAjaxError attribute
-                this.Response.StatusCode = 203;
-                return Content(ex.Message);
-            }
-        }
+        ///// <summary>
+        ///// This function used for get the list of unpalletize cartons against the passed ProcessId.
+        ///// </summary>
+        ///// <returns>
+        ///// It will return the list of unpalletize cartons under a particular process.
+        ///// </returns>        
+        //[HttpGet]
+        //public virtual ActionResult NonpalletizedCartons(int? processId)
+        //{
+        //    try
+        //    {
+        //        var model = new ReceivingViewModel();
+        //        model.NonPalletizeCartonList =
+        //            _service.Value.GetUnpalletizedCartons(processId).Select(p => new CartonNotOnPalletModel
+        //                {
+        //                    AreaId = p.DestinationArea,
+        //                    CartonId = p.CartonId,
+        //                    VWHId = p.VwhId
+        //                });
+        //        Response.StatusCode = 200;
+        //        return PartialView(MVC_Receiving.Receiving.Home.Views._cartonNotOnPalletPartial, model);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Simulate the behavior of the obsolete HandleAjaxError attribute
+        //        this.Response.StatusCode = 203;
+        //        return Content(ex.Message);
+        //    }
+        //}
 
         /// <summary>
         /// Get the shipment list

@@ -359,9 +359,12 @@ FETCH FIRST 50 ROWS ONLY";
         /// <param name="processId">Returns cartons of this process. We do not return cartons which exist on a pallet contain cartons of multiple areas.</param>
         /// <param name="buddyCartonId">Returns cartons which are on the same pallet as this carton</param>
         /// <returns></returns>
-
         public IList<ReceivedCarton> GetReceivedCartons2(string palletId, int? processId, string buddyCartonId)
         {
+            if (string.IsNullOrWhiteSpace(palletId) && processId == null && string.IsNullOrWhiteSpace(buddyCartonId))
+            {
+                throw new ArgumentOutOfRangeException("At least one of palletId, processId, buddyCartonId must be passed");
+            }
             const string QUERY = @"
 SELECT 
                              CTN.PALLET_ID AS PALLET_ID,
@@ -483,7 +486,6 @@ FETCH FIRST 500 ROWS ONLY
                     IsSpotCheckEnabled = row.GetString("isspotcheck_enabled") == "Y"
                 }).Parameter("carton_id", scan)
                 .OutRefCursorParameter("result");
-            //++_queryCount;
             return _db.ExecuteSingle(QUERY, binder);
         }
 
@@ -491,7 +493,7 @@ FETCH FIRST 500 ROWS ONLY
         /// Get the list of PriceSeasonCode.
         /// </summary>
         /// <returns></returns>
-        public IList<Tuple<string, string>> GetPriceSeasonCode()
+        public IList<Tuple<string, string>> GetPriceSeasonCodes()
         {
             const string QUERY =
                             @"SELECT TPS.PRICE_SEASON_CODE, TPS.DESCRIPTION
@@ -501,11 +503,6 @@ FETCH FIRST 500 ROWS ONLY
 
             return _db.ExecuteReader(QUERY, binder);
         }
-
-        //public int QueryCount
-        //{
-        //    get { return _queryCount; }
-        //}
 
         /// <summary>
         /// Gives the area where this SKU is required.
@@ -542,7 +539,7 @@ FETCH FIRST 500 ROWS ONLY
         /// </summary>
         /// <param name="processId"></param>
         /// <returns>CartonList</returns>
-        public IEnumerable<ReceivedCarton> GetUnpalletizedCartons(int? processId)
+        public IList<ReceivedCarton> GetUnpalletizedCartons(int processId)
         {
             const string QUERY =
                             @"

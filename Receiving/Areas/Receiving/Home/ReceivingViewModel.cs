@@ -29,7 +29,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public string ProNumber { get; set; }
 
         [Display(Name = "Process")]
-        public int? ProcessId { get; set; }
+        public int ProcessId { get; set; }
 
         public string SpotCheckAreaId { get; set; }
 

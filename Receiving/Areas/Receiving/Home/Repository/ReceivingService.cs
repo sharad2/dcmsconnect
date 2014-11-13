@@ -156,16 +156,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         const int PALLET_LIMIT = 50;    // Factory default
 
-        ///// <summary>
-        ///// We generate new pallet. 
-        ///// </summary>
-        ///// <returns></returns>
-        //public string CreateNewPalletId()
-        //{
-        //    int palletSequence = _repos.GetPalletSequence();
-        //    return string.Concat("P", palletSequence);
-
-        //}
 
         /// <summary>
         /// Cache Pallet Dispostion
@@ -263,27 +253,54 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             return query;
         }
 
+        ///// <summary>
+        ///// Never returns null. If the pallet is empty, it will simply not have cartons.
+        ///// DB: 19-07-2012 Passing processId to GetReceivedCarton2 function. Earlier it was not being passed.
+        ///// </summary>
+        ///// <param name="palletId"></param>
+        ///// <param name="processId"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public Pallet GetPallet(string palletId, int? processId)
+        //{
+        //    var pallet = new Pallet { PalletId = palletId };
+        //    if (string.IsNullOrWhiteSpace(palletId) && processId != null)
+        //    {
+        //        pallet.Cartons = _repos.GetUnpalletizedCartons(processId.Value);
+        //    }
+        //    else
+        //    {
+        //        pallet.Cartons = _repos.GetReceivedCartons2(palletId, null, null);
+        //    }
+
+
+        //    if (processId != null)
+        //    {
+
+        //        pallet.PalletLimit = pallet.Cartons.Count > 0
+        //                                 ? GetPalletLimit(processId.Value)
+        //                                 : PALLET_LIMIT;
+        //    }
+
+        //    return pallet;
+        //}
+
         /// <summary>
-        /// Never returns null. If the pallet is empty, it will simply not have cartons.
-        /// DB: 19-07-2012 Passing processId to GetReceivedCarton2 function. Earlier it was not being passed.
+        /// Returns a list of cartons
         /// </summary>
-        /// <param name="palletId"></param>
-        /// <param name="processId"></param>
+        /// <param name="palletId">Cartons on this pallet</param>
+        /// <param name="processId">Cartons of this process</param>
         /// <returns></returns>
-        public Pallet GetPallet(string palletId, int? processId)
+        public IList<ReceivedCarton> GetUnpalletizedCartons(int processId)
         {
-            if (palletId == null) throw new ArgumentNullException("palletId");
-            var pallet = new Pallet { PalletId = palletId };
-            pallet.Cartons = _repos.GetReceivedCartons2(palletId, null, null);
-            if (processId != null)
-            {
+            return _repos.GetUnpalletizedCartons(processId);
+        }
 
-                pallet.PalletLimit = pallet.Cartons.Count > 0
-                                         ? GetPalletLimit(processId.Value)
-                                         : PALLET_LIMIT;
-            }
+        public IList<ReceivedCarton> GetCartonsOfPallet(string palletId)
+        {
+            if (string.IsNullOrWhiteSpace(palletId)) throw new ArgumentNullException("palletId");
 
-            return pallet;
+            return _repos.GetReceivedCartons2(palletId, null, null);
         }
 
 
@@ -357,18 +374,20 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// <param name="processId"></param>
         /// <param name="palletId"></param>
         /// <returns></returns>
-        public Pallet RemoveFromPallet(string cartonId, int processId, out string palletId)
+        public void RemoveFromPallet(string cartonId, int processId, out string palletId)
         {
             palletId = _repos.RemoveFromPallet(cartonId);
+            string dispos;
+            CachedPalletDisposition.TryRemove(palletId, out dispos);
 
-            var pallet = GetPallet(palletId, processId);
-            if (pallet.Cartons != null && pallet.Cartons.Count == 0)
-            {
-                string dispos;
-                CachedPalletDisposition.TryRemove(palletId, out dispos);
+            //var pallet = GetPallet(palletId, processId);
+            //if (pallet.Cartons != null && pallet.Cartons.Count == 0)
+            //{
+            //    string dispos;
+            //    CachedPalletDisposition.TryRemove(palletId, out dispos);
 
-            }
-            return pallet;
+            //}
+            //return pallet;
         }
 
         public void PrintCarton(string cartonId, string printer)
@@ -382,7 +401,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         }
 
 
-        private int GetPalletLimit(int processId)
+        public int GetPalletLimit(int processId)
         {
 
             int? limit = null;
@@ -484,60 +503,74 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
             }
 
-            var palletDisposition = GetPalletDisposition(palletId);
+            //var palletDisposition = GetPalletDisposition(palletId);
 
-            return (string.IsNullOrEmpty(palletDisposition) || palletDisposition == cartonDispos);
+            string palletDispos;
+            CachedPalletDisposition.TryGetValue(palletId, out palletDispos);
+
+            if (string.IsNullOrEmpty(palletDispos))
+            {
+                //var scannedPallet = GetPallet(palletId, null);
+                var cartons = _repos.GetReceivedCartons2(palletId, null, null);
+                if (cartons.Count > 0)
+                {
+                    palletDispos = cartons.First().DispositionId;
+                    CachedPalletDisposition.TryAdd(palletId, palletDispos);
+                }
+            }
+
+            return (string.IsNullOrWhiteSpace(palletDispos) || palletDispos == cartonDispos);
         }
 
 
-        public Pallet HandlePalletScan(string scan, ScanContext ctx)
-        {
-            // Pallet was scanned. Ensure proper length of pallet
-            // TODO: Handle this pallet length limit hardwiring in a more professional way
-            if (scan.Length > 8)
-            {
-                var msg = string.Format("Pallet {0} exceeds 8 characters", scan);
-                throw new ProviderException(msg);
-            }
-            ctx.Result = ScanResult.PalletScan;
-            ctx.PalletId = scan;
+        //public void HandlePalletScan(string scan, ScanContext ctx)
+        //{
+        //    // Pallet was scanned. Ensure proper length of pallet
+        //    // TODO: Handle this pallet length limit hardwiring in a more professional way
+        //    if (scan.Length > 8)
+        //    {
+        //        var msg = string.Format("Pallet {0} exceeds 8 characters", scan);
+        //        throw new ProviderException(msg);
+        //    }
+        //    ctx.Result = ScanResult.PalletScan;
+        //    ctx.PalletId = scan;
 
-            var palletInfo = this.GetPallet(scan, ctx.ProcessId);
+        //    var palletInfo = this.GetPallet(scan, ctx.ProcessId);
 
-            if (palletInfo.Cartons.Select(p => p.DispositionId).Distinct().Count() > 1)
-            {
-                throw new ProviderException(string.Format("Pallet contains cartons of multiple areas."));
-            }
+        //    if (palletInfo.Cartons.Select(p => p.DispositionId).Distinct().Count() > 1)
+        //    {
+        //        throw new ProviderException(string.Format("Pallet contains cartons of multiple areas."));
+        //    }
 
-            //cache pallet Dispo
-            if (palletInfo.Cartons.Select(p => p.DispositionId).Any())
-            {
-                CachedPalletDisposition.TryAdd(palletInfo.PalletId, palletInfo.Cartons.First().DispositionId);
-            }
-            return palletInfo;
-        }
+        //    //cache pallet Dispo
+        //    if (palletInfo.Cartons.Select(p => p.DispositionId).Any())
+        //    {
+        //        CachedPalletDisposition.TryAdd(palletInfo.PalletId, palletInfo.Cartons.First().DispositionId);
+        //    }
+        //    return palletInfo;
+        //}
 
         /// <summary>
         /// Gives the disposition of passed pallet.
         /// </summary>
         /// <param name="palletId"></param>
         /// <returns></returns>
-        private string GetPalletDisposition(string palletId)
-        {
-            string palletDispos;
-            CachedPalletDisposition.TryGetValue(palletId, out palletDispos);
+        //private string GetPalletDisposition(string palletId)
+        //{
+        //    string palletDispos;
+        //    CachedPalletDisposition.TryGetValue(palletId, out palletDispos);
 
-            if (string.IsNullOrEmpty(palletDispos))
-            {
-                var scannedPallet = GetPallet(palletId, null);
-                if (scannedPallet.Cartons.Count > 0)
-                {
-                    palletDispos = scannedPallet.Cartons.First().DispositionId;
-                    CachedPalletDisposition.TryAdd(palletId, palletDispos);
-                }
-            }
-            return palletDispos;
-        }
+        //    if (string.IsNullOrEmpty(palletDispos))
+        //    {
+        //        var scannedPallet = GetPallet(palletId, null);
+        //        if (scannedPallet.Cartons.Count > 0)
+        //        {
+        //            palletDispos = scannedPallet.Cartons.First().DispositionId;
+        //            CachedPalletDisposition.TryAdd(palletId, palletDispos);
+        //        }
+        //    }
+        //    return palletDispos;
+        //}
 
 
         public IEnumerable<CartonArea> GetCartonAreas()
@@ -550,15 +583,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// Get the List of PriceSeasson Code.
         /// </summary>
         /// <returns></returns>
-        public IList<Tuple<string, string>> GetPriceSeasonCode()
+        public IList<Tuple<string, string>> GetPriceSeasonCodes()
         {
-            return _repos.GetPriceSeasonCode();
-        }
-
-
-        public IEnumerable<ReceivedCarton> GetUnpalletizedCartons(int? processId)
-        {
-            return _repos.GetUnpalletizedCartons(processId);
+            return _repos.GetPriceSeasonCodes();
         }
 
         public IList<ShipmentList> GetShipmentList()

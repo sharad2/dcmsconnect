@@ -104,7 +104,6 @@
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\HttpAjaxAttribute.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
-    <Compile Include="Areas\Receiving\Home\Repository\Pallet.cs" />
     <Compile Include="Areas\Receiving\Rad\RadEntities.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
