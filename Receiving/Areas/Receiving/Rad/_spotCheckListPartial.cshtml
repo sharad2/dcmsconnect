@@ -1,6 +1,5 @@
 ﻿@model DcmsMobile.Receiving.Areas.Receiving.Rad.ISpotCheckListPartialViewModel
 
-
 <ul class="list-group">
     @for (var i = 0; i < Model.SewingPlants.Count; ++i)
     {
@@ -36,19 +35,11 @@
                     </div>
                     <div class="col-md-5">
                         <span class="pull-right h5">
-                            @*<span class="text-success">Modeified:</span>*@<u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</u>
+                           <u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</u>
                             <small>
-                                @*<span class="text-success">Created:</span>*@<u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</u>
+                                <u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</u>
                             </small>
                         </span>
-                        @*<p class="list-group-item-text">
-                                @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate)
-                                <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</em>
-                            </p>
-                            <p class="list-group-item-text">
-                                @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate)
-                                <em>&bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</em>
-                            </p>*@
                     </div>
                     <div class="col-md-4">
                         @if (Model.EnableEditing)
