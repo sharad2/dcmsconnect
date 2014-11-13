@@ -347,7 +347,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult HandleCartonScan(ScanViewModel model)
         {
-            Thread.Sleep(3000);  // For debugging
+            //Thread.Sleep(3000);  // For debugging
             if (model == null) throw new ArgumentNullException("model");
             if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
             {
@@ -631,6 +631,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="shipmentId"></param>
         /// <param name="poId"></param>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult ReOpenShipment(string shipmentId, long? poId)
         {
             try
