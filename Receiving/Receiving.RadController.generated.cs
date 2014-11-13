@@ -114,12 +114,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             public class _ViewNamesClass
             {
                 public readonly string _addSpotCheckPartial = "_addSpotCheckPartial";
-                public readonly string _spotCheckListPartial = "_spotCheckListPartial";
+                public readonly string _indexListPartial = "_indexListPartial";
                 public readonly string Index = "Index";
                 public readonly string Index_js = "Index.js";
             }
             public readonly string _addSpotCheckPartial = "~/Areas/Receiving/Rad/_addSpotCheckPartial.cshtml";
-            public readonly string _spotCheckListPartial = "~/Areas/Receiving/Rad/_spotCheckListPartial.cshtml";
+            public readonly string _indexListPartial = "~/Areas/Receiving/Rad/_indexListPartial.cshtml";
             public readonly string Index = "~/Areas/Receiving/Rad/Index.cshtml";
             public readonly string Index_js = "~/Areas/Receiving/Rad/Index.js.bundle";
         }

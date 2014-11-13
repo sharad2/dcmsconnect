@@ -14,10 +14,6 @@
             </button>
         }
         <h2>Receiving Configuration</h2>
-        @*<small class="text-info h6">
-            <span class="glyphicon glyphicon-info-sign" style="display: inline-block"></span>
-            Disabled configuration settings will not be honored during receiving.
-        </small>*@
        
     </div>
     @if (Model.SpotCheckAreaList.Count != 0)
@@ -49,27 +45,13 @@
     }
 
 
-
+    System Default @Html.DisplayFor(m => m.SystemDefaultConfiguration.SpotCheckPercent)
     
 
     <div id="divSpotCheckList">
-        @Html.Partial(MVC_Receiving.Receiving.Rad.Views._spotCheckListPartial, Model)
+        @Html.Partial(MVC_Receiving.Receiving.Rad.Views._indexListPartial, Model)
     </div>
    
-    <!-- Modal for edit spot check button in partial page _spotCheckListPartial.cshtml-->
-    @*<div class="modal fade" id="btnEditSpotCheck" tabindex="-1" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Spot Check</h4>
-                </div>
-
-                @Html.Partial(MVC_Receiving.Receiving.Rad.Views._editSpotCheckPartial, new SpotCheckViewModel())
-
-            </div>
-        </div>
-    </div>*@
 
     <!-- Modal for add spot check Percentage button in partial page _spotCheckListPartial.cshtml-->
     <div class="modal fade" id="btnAddSpotCheck" tabindex="-1" role="dialog">

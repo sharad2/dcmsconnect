@@ -98,7 +98,6 @@
   <ItemGroup>
     <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
-    <Compile Include="Areas\Receiving\Rad\ISpotCheckListPartialViewModel.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
@@ -235,7 +234,7 @@
     <Content Include="Areas\Receiving\Home\Sounds\PalletChange.wav" />
     <Content Include="Areas\Receiving\Home\Sounds\palletscan.wav" />
     <Content Include="Areas\Receiving\Home\Sounds\scan.wav" />
-    <Content Include="Areas\Receiving\Rad\_spotCheckListPartial.cshtml" />
+    <Content Include="Areas\Receiving\Rad\_indexListPartial.cshtml" />
     <Content Include="Areas\Receiving\Rad\_addSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.cshtml" />
     <Content Include="packages.config">
