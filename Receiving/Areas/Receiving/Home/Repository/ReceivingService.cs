@@ -245,13 +245,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             return ctn;
         }
 
-        public IList<string> GetPalletsOfProcess2(int processId)
-        {
-            // TODO: Use a more efficient function to get distinct pallets of the process
-            var list = _repos.GetReceivedCartons2(null, processId, null);
-            var query = list.Select(p => p.PalletId).Distinct().ToList();
-            return query;
-        }
+        //public IList<string> GetPalletsOfProcess2(int processId)
+        //{
+        //    // TODO: Use a more efficient function to get distinct pallets of the process
+        //    var list = _repos.GetReceivedCartons2(null, processId, null);
+        //    var query = list.Select(p => p.PalletId).Distinct().ToList();
+        //    return query;
+        //}
 
         ///// <summary>
         ///// Never returns null. If the pallet is empty, it will simply not have cartons.
@@ -294,6 +294,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         public IList<ReceivedCarton> GetUnpalletizedCartons(int processId)
         {
             return _repos.GetUnpalletizedCartons(processId);
+        }
+
+        public IList<string> GetPalletsOfProcess(int processId)
+        {
+            return _repos.GetPalletsOfProcess(processId);
         }
 
         public IList<ReceivedCarton> GetCartonsOfPallet(string palletId)

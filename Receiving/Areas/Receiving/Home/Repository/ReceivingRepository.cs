@@ -359,6 +359,7 @@ FETCH FIRST 50 ROWS ONLY";
         /// <param name="processId">Returns cartons of this process. We do not return cartons which exist on a pallet contain cartons of multiple areas.</param>
         /// <param name="buddyCartonId">Returns cartons which are on the same pallet as this carton</param>
         /// <returns></returns>
+        [Obsolete]
         public IList<ReceivedCarton> GetReceivedCartons2(string palletId, int? processId, string buddyCartonId)
         {
             if (string.IsNullOrWhiteSpace(palletId) && processId == null && string.IsNullOrWhiteSpace(buddyCartonId))
@@ -424,6 +425,15 @@ FETCH FIRST 500 ROWS ONLY
                 }).Parameter("pallet_id", palletId)
                 .Parameter("PROCESS_ID", processId)
                 .Parameter("carton_id", buddyCartonId);
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
+        public IList<string> GetPalletsOfProcess(int processId)
+        {
+            const string QUERY = @"
+SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipment_id = :inshipment_id ORDER BY 1 NULLS FIRST
+";
+            var binder = SqlBinder.Create(row => row.GetString("pallet_id")).Parameter("inshipment_id", processId);
             return _db.ExecuteReader(QUERY, binder);
         }
 

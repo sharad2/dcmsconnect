@@ -313,7 +313,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
             rvm.ProcessId = processId.Value;
             var ser = new JavaScriptSerializer();
-            rvm.PalletIdListJson = ser.Serialize(_service.Value.GetPalletsOfProcess2(processId.Value));
+            rvm.PalletIdListJson = ser.Serialize(_service.Value.GetPalletsOfProcess(processId.Value));
 
 
             return View(Views.Receiving, rvm);
