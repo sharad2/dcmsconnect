@@ -30,6 +30,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             ExpectedCartons = entity.ExpectedCartons;
         }
 
+        [DisplayFormat(DataFormatString="{0:d}")]
         public System.DateTime? ProDate { get; set; }
 
         public string ProNumber { get; set; }
