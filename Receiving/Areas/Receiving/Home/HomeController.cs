@@ -31,38 +31,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 };
         }
 
-        //private PalletViewModel Map(Pallet src)
-        //{
-        //    return new PalletViewModel
-        //    {
-        //        Cartons = src.Cartons,
-        //        PalletId = src.PalletId,
-        //        PalletLimit = src.PalletLimit,
-        //        ProcessId = src.ProcessId
-        //    };
-        //}
-
-        //private ReceivingProcessModel Map(ReceivingProcess src)
-        //{
-        //    return new ReceivingProcessModel
-        //    {
-        //        ProDate = src.ProDate,
-        //        ProNumber = src.ProNumber,
-        //        CarrierId = src.CarrierId,
-        //        CarrierDescription = src.CarrierName,
-        //        OperatorName = src.OperatorName,
-        //        ReceivingStartDate = src.StartDate,
-        //        ReceivingEndDate = src.ReceivingEndDate,
-        //        CartonCount = src.CartonCount,
-        //        PalletCount = src.PalletCount,
-        //        //ReceivingAreaId = src.ReceivingAreaId,
-        //        ProcessId = src.ProcessId,
-        //        ExpectedCartons = src.ExpectedCartons
-        //        //PalletLimit = src.PalletLimit,
-        //        //PriceSeasonCode = src.PriceSeasonCode,
-        //        //SpotCheckAreaId = src.SpotCheckAreaId
-        //    };
-        //}
 
         /// <summary>
         /// Required by T4MVC
@@ -73,25 +41,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
 
-        private ReceivingService _service;
-
-        /// <summary>
-        /// For service injection through unit tests
-        /// </summary>
-        public ReceivingService Service
-        {
-            // ReSharper disable UnusedMember.Global
-            get { return _service; }
-            // ReSharper restore UnusedMember.Global
-            set { _service = value; }
-        }
+        private Lazy<ReceivingService> _service;
 
 
         protected override void Initialize(RequestContext requestContext)
         {
             if (_service == null)
             {
-                _service = new ReceivingService(requestContext);
+                _service = new Lazy<ReceivingService>(() =>  new ReceivingService(requestContext));
             }
             base.Initialize(requestContext);
         }
@@ -129,7 +86,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
             var ivm = new IndexViewModel
              {
-                 RecentProcesses = _service.GetRecentProcesses().Select(p => new ReceivingProcessModel(p)).ToArray()
+                 RecentProcesses = _service.Value.GetRecentProcesses().Select(p => new ReceivingProcessModel(p)).ToArray()
              };
             return View(Views.Index, ivm);
         }
@@ -166,7 +123,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             if (processId != null)
             {
                 // Getting process info for editing case
-                var src = _service.GetProcessInfo(processId.Value);
+                var src = _service.Value.GetProcessInfo(processId.Value);
                 model = new ProcessEditorViewModel
                 {
                     ProDate = src.ProDate,
@@ -228,13 +185,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 PopulateIndexViewModel(model);
                 return View(Views.ProcessEditor, model);
             }
-            //var regexItem = new Regex(":");
-            //if (regexItem.IsMatch(model.CarrierId))
-            //{
-            //    model.CarrierId = model.CarrierId.Substring(0, model.CarrierId.IndexOf(":"));
-            //}
 
-            var carrier = _service.GetCarrier(model.CarrierId);
+
+            var carrier = _service.Value.GetCarrier(model.CarrierId);
 
 
             if (carrier == null)
@@ -243,6 +196,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 PopulateIndexViewModel(model);
                 return View(Views.ProcessEditor, model);
             }
+
+
             var processModel = new ReceivingProcess
             {
                 ProDate = model.ProDate,
@@ -264,7 +219,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 //Creating New Process
                 try
                 {
-                    _service.InsertProcess(processModel);
+                    _service.Value.InsertProcess(processModel);
 
                     //Adding the values to cookie
 
@@ -292,7 +247,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 //updating existing Process
                 try
                 {
-                    _service.UpdateProcess(processModel);
+                    _service.Value.UpdateProcess(processModel);
                 }
                 catch (ProviderException ex)
                 {
@@ -333,7 +288,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
             }
             // Clearing the Cache every time of GetProcessInfo() because cache info might stale.
-            var pm = _service.GetProcessInfo(processId.Value, true);
+            var pm = _service.Value.GetProcessInfo(processId.Value, true);
             if (pm == null)
             {
                 AddStatusMessage(string.Format("Invalid Process ID {0}", processId));
@@ -345,7 +300,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 CarrierId = pm.CarrierId,
                 ProDate = pm.ProDate,
                 ProNumber = pm.ProNumber,
-                OperatorName = pm.OperatorName,
+                //OperatorName = pm.OperatorName,
                 ReceivingAreaId = pm.ReceivingAreaId,
                 SpotCheckAreaId = pm.SpotCheckAreaId,
                 ProcessId = pm.ProcessId,
@@ -353,38 +308,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 ExpectedCartons = pm.ExpectedCartons,
                 PalletLimit = pm.PalletLimit,
                 PriceSeasonCode = pm.PriceSeasonCode,
-                //PrinterList = _service.GetPrinters().Select(p => new SelectListItem
-                //{
-                //    Text = string.Format("{0}-{1}", p.Item1, p.Item2),
-                //    Value = p.Item1
-                //}).ToList()
 
             };
-            //var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
-            //if (cookie != null && !string.IsNullOrEmpty(cookie.Value))
-            //{
-            //    rvm.PrinterId = cookie.Value;
 
-            //}
             rvm.ProcessId = processId.Value;
-            rvm.UserMismatch = ControllerContext.HttpContext.User.Identity.IsAuthenticated &&
-                !string.IsNullOrEmpty(rvm.OperatorName) &&
-                string.Compare(this.ControllerContext.HttpContext.User.Identity.Name, rvm.OperatorName, true) != 0;
             var ser = new JavaScriptSerializer();
-            rvm.PalletIdListJson = ser.Serialize(_service.GetPalletsOfProcess2(processId.Value));
-
-            //rvm.PalletIdList = pallets.Select(p => Map(p)).ToArray();
-            //if (rvm.Pallets.Count > 0)
-            //{
-            //    // Make first pallet the active pallet
-            //    rvm.ScanModel.PalletId = rvm.Pallets[0].PalletId;
-            //    rvm.ScanModel.PalletDispos = rvm.Pallets[0].Cartons[0].DispositionId;
-            //    foreach (var pallet in rvm.Pallets)
-            //    {
-            //        pallet.PalletLimit = pallet.PalletLimit;
-            //    }
-            //}
-            //rvm.cartonsOnPallet = _service.GetCartonsOfProcess(processId);
+            rvm.PalletIdListJson = ser.Serialize(_service.Value.GetPalletsOfProcess2(processId.Value));
 
 
             return View(Views.Receiving, rvm);
@@ -405,66 +334,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         #region Scan handling
 
-        //[HttpPost]
-        //public virtual ActionResult HandlePalletScan(ScanViewModel model)
-        //{
-        //    if (model == null) throw new ArgumentNullException("model");
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    return ValidationErrorResult();
-        //    //}
-        //    if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
-        //    {
-        //        //return ValidationErrorResult();
-        //        var sb = new StringBuilder();
-        //        sb.Append("<ul>");
-        //        foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
-        //        {
-        //            sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
-        //        }
-        //        sb.Append("</ul>");
-        //        throw new Exception(sb.ToString());
-        //    }
-
-        //    //var scan = model.ScanModel.ScanText.ToUpper();
-        //    //if (scan == ReceivingViewModel.SCAN_NEWPALLET)
-        //    //{
-        //    //    scan = _service.CreateNewPalletId();
-        //    //}
-
-        //    Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-        //    var ctx = new ScanContext
-        //    {
-        //        PalletId = model.PalletId,
-        //        DispositionId = model.PalletDispos,
-        //        ProcessId = model.ProcessId.Value
-        //    };
-        //    var pallet = _service.HandlePalletScan(model.ScanText.Trim().ToUpper(), ctx);
-        //    Debug.Assert(pallet != null, "pallet != null");
-        //    var pvm = new PalletViewModel
-        //    {
-        //        Cartons = pallet.Cartons,
-        //        PalletLimit = pallet.PalletLimit,
-        //        PalletId = ctx.PalletId,
-        //        QueryCount = _service.QueryCount
-        //    };
-
-
-        //    //// Pallet was scanned
-        //    //// We check for null before adding header Otherwise the code breaks in IIS 6
-        //    //if (!string.IsNullOrEmpty(pvm.PalletId))
-        //    //{
-        //    //    this.Response.AppendHeader("PalletId", pvm.PalletId);
-        //    //}
-        //    //if (!string.IsNullOrEmpty(pvm.DispositionId))
-        //    //{
-        //    //    // Sharad 17 Oct 2014: bootstrap javscript no longer relies on this header. It can be removed.
-        //    //    this.Response.AppendHeader("Disposition", pvm.DispositionId);
-        //    //}
-        //    //this.Response.StatusCode = 202;
-
-        //    return PartialView(Views._palletPartial, pvm);
-        //}
 
         /// <summary>
         /// 
@@ -492,9 +361,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 sb.Append("</ul>");
                 throw new Exception(sb.ToString());
             }
-            //try
-            //{
-            // return RedirectToAction(MVC_Receiving.Receiving.Home.HandlePalletScan(model));
+
             Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
             var ctx = new ScanContext
             {
@@ -510,7 +377,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 try
                 {
-                    _service.ReceiveCartons(cartonId, ctx);
+                    _service.Value.ReceiveCartons(cartonId, ctx);
                 }
                 catch (Exception ex)
                 {
@@ -539,8 +406,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 return Content("Internal Error: Pallet Id was not passed");
             }
-            Thread.Sleep(3000);  // For debugging
-            var pallet = _service.GetPallet(palletId.ToUpper().Trim(), processId);
+            //Thread.Sleep(3000);  // For debugging
+            var pallet = _service.Value.GetPallet(palletId.ToUpper().Trim(), processId);
             var pvm = new PalletViewModel
             {
                 Cartons = pallet.Cartons,
@@ -560,7 +427,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="model"></param>
         private void PopulateIndexViewModel(ProcessEditorViewModel model)
         {
-            var areas = _service.GetCartonAreas().ToList();
+            var areas = _service.Value.GetCartonAreas().ToList();
             if (areas.Any(p => p.IsReceivingArea))
             {
                 model.ReceivingAreasList = areas.Where(p => !p.IsNumberedArea && p.IsReceivingArea).Select(p => Map(p)).ToArray();
@@ -577,7 +444,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 model.SpotCheckAreasList = areas.Where(p => !p.IsNumberedArea).Select(p => Map(p)).ToArray();
             }
-            model.PriceSeasonCodeList = _service.GetPriceSeasonCode().Select(p => new SelectListItem
+            model.PriceSeasonCodeList = _service.Value.GetPriceSeasonCode().Select(p => new SelectListItem
                 {
                     Text = p.Item1 + ":" + p.Item2,
                     Value = p.Item1
@@ -601,7 +468,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             //throw new Exception("Sharad");
             var pvm = new PalletViewModel();
             string palletId;
-            var pallet = _service.RemoveFromPallet(cartonId, processId, out palletId);
+            var pallet = _service.Value.RemoveFromPallet(cartonId, processId, out palletId);
             pvm.Cartons = pallet.Cartons;
             pvm.PalletId = pallet.PalletId;
             pvm.PalletLimit = pallet.PalletLimit;
@@ -647,7 +514,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             //// Remember for 1 day sliding
             //this.Response.Cookies.Add(cookie);
 
-            _service.PrintCarton(cartonId, printer);
+            _service.Value.PrintCarton(cartonId, printer);
 
             return Content(string.Format("Ticket for Carton {0} printed on {1} at {2}", cartonId, printer, DateTime.Now));
 
@@ -671,7 +538,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 this.Response.AppendHeader("Selected", cookie.Value);
             }
-            var results = _service.GetPrinters();
+            var results = _service.Value.GetPrinters();
             return Json(from result in results
                         select new
                         {
@@ -693,7 +560,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 var model = new ReceivingViewModel();
                 model.NonPalletizeCartonList =
-                    _service.GetUnpalletizedCartons(processId).Select(p => new CartonNotOnPalletModel
+                    _service.Value.GetUnpalletizedCartons(processId).Select(p => new CartonNotOnPalletModel
                         {
                             AreaId = p.DestinationArea,
                             CartonId = p.CartonId,
@@ -718,7 +585,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             var model = new ShipmentListViewModel
             {
-                ShipmentList = (from item in _service.GetShipmentList()
+                ShipmentList = (from item in _service.Value.GetShipmentList()
                                 select new ShipmentListModel
                                 {
                                     PoNumber = item.PoNumber,
@@ -747,7 +614,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             try
             {
-                _service.CloseShipment(shipmentId, poId);
+                _service.Value.CloseShipment(shipmentId, poId);
             }
             catch (DbException exception)
             {
@@ -768,7 +635,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             try
             {
-                if (_service.ReOpenShipment(shipmentId, poId))
+                if (_service.Value.ReOpenShipment(shipmentId, poId))
                 {
                     return Content(string.Format("Shipment {0} Re-opened .", shipmentId));
                 }

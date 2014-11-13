@@ -62,15 +62,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
         }
 
-
-        /// <summary>
-        /// Becomes true if the logged in user does not match the user who created the process
-        /// </summary>
-        /// <remarks>
-        /// It never becomes true if the user is not logged in
-        /// </remarks>
-        public bool UserMismatch { get; set; }
-
         public string CarrierId { get; set; }
 
         /// <summary>
