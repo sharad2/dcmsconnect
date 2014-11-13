@@ -1,6 +1,7 @@
 ﻿
 
 using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -47,28 +48,45 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             var model = new IndexViewModel();
             var sc = _service.GetSpotCheckList();
-            model.SpotCheckList = sc.Select(p => new SpotCheckConfigurationModel(p)).ToList();
+            //model.SpotCheckList = sc.Select(p => new SpotCheckConfigurationModel(p)).ToList();
 
             model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
             model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
             //ViewBag.EnableEditing = model.EnableEditing;
 
+            // The configuration where sewing plant, style and color are all null
+            var systemDefault = sc.Where(p => string.IsNullOrWhiteSpace(p.SewingPlantId) &&
+                string.IsNullOrWhiteSpace(p.Style) &&
+                string.IsNullOrWhiteSpace(p.Color)
+                ).FirstOrDefault();
+            if (systemDefault == null)
+            {
+                // Setting not specified in database
+                throw new NotImplementedException();
+            }
+
+            model.SystemDefaultConfiguration = new SpotCheckConfigurationModel(systemDefault);
+
             var query = from item in sc
+                        where !(string.IsNullOrWhiteSpace(item.SewingPlantId) && string.IsNullOrWhiteSpace(item.Style) &&
+                            string.IsNullOrWhiteSpace(item.Color))
                         group item by
                             item.SewingPlantId into g
-                        let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()  orderby g.Key
+                        let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()
+                        orderby g.Key
                         select new SewingPlantGroupModel
                         {
                             SewingPlantId = g.Key,
                             PlantName = g.Where(p => p.SewingPlantId == g.Key).First().PlantName,
-                            SpotCheckPercent = defstyle == null ? -1 : defstyle.SpotCheckPercent,
+                            SpotCheckPercent = defstyle == null ? null : defstyle.SpotCheckPercent,
                             CreatedBy = defstyle == null ? "" : defstyle.CreatedBy,
                             CreatedDate = defstyle == null ? null : defstyle.CreatedDate,
                             IsSpotCheckEnabled = defstyle == null ? true : (defstyle.IsSpotCheckEnable ?? true),
                             ModifiedBy = defstyle == null ? "" : defstyle.ModifiedBy,
                             ModifiedDate = defstyle == null ? null : defstyle.ModifiedDate,
                             Styles = (from item2 in g
-                                      where !string.IsNullOrWhiteSpace(item2.Style) orderby item2.Style, item2.Color
+                                      where !string.IsNullOrWhiteSpace(item2.Style)
+                                      orderby item2.Style, item2.Color
                                       select new SpotCheckConfigurationModel(item2)).ToList()
 
                         };

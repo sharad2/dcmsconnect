@@ -34,7 +34,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [DisplayName("Sewing Plant")]
         [Display(ShortName = "Sewing Plant")]
-        //[DisplayFormat(NullDisplayText="All")]
+        [DisplayFormat(NullDisplayText="All Sewing Plants")]
         public string SewingPlantId { get; set; }
 
         [DisplayName("Plant Name")]
@@ -45,7 +45,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         [DisplayName("Spot Check %")]
         [Display(ShortName = "Spot Check %")]
         [Range(0, 100, ErrorMessage = "Percentage must be upto 100")]
-        [DisplayFormat(DataFormatString = "{0:N0}%")]
+        [DisplayFormat(DataFormatString = "Spot Check {0:N0}%")]
         public int? SpotCheckPercent { get; set; }
 
         [DisplayName("Color")]
@@ -96,9 +96,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
     public interface ISpotCheckListPartialViewModel
     {
         bool EnableEditing { get; }
-
-        [Obsolete]
-        IList<SpotCheckConfigurationModel> SpotCheckList { get;  }
 
         IList<SewingPlantGroupModel> SewingPlants { get;  }
     }

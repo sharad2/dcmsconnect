@@ -50,11 +50,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
     {
         public bool EnableEditing { get; set; }
 
-        public IList<SpotCheckConfigurationModel> SpotCheckList { get; set; }
-
         public IList<SpotCheckAreaModel> SpotCheckAreaList { get; set; }
 
         public IList<SewingPlantGroupModel> SewingPlants { get; set; }
+
+        /// <summary>
+        /// This is the configuration which applies when nothing has been specified for the Sewing plant, style and color
+        /// </summary>
+        public SpotCheckConfigurationModel SystemDefaultConfiguration { get; set; }
     }
 }
 
