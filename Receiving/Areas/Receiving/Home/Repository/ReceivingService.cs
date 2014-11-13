@@ -11,13 +11,13 @@ using System.Web.Routing;
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
-    public enum ScanResult
-    {
-        PalletScan,
-        CartonReceived
-    }
+    //public enum ScanResult
+    //{
+    //    PalletScan,
+    //    CartonReceived
+    //}
 
-    public class ScanContext
+    internal class ScanContext
     {
         /// <summary>
         /// In/Out: The pallet which is currently active
@@ -39,16 +39,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// In: Process Id
         /// </summary>
         public int ProcessId { get; set; }
-
-        /// <summary>
-        /// Out: How the scan was handled
-        /// </summary>
-        public ScanResult Result { get; set; }
-
-        /// <summary>
-        /// Total number of expected cartons against the process
-        /// </summary>
-        public int? ExpectedCartons { get; set; }
 
     }
 
@@ -489,7 +479,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
                 }
 
-                ctx.Result = ScanResult.CartonReceived;
+                //ctx.Result = ScanResult.CartonReceived;
             }
 
         }

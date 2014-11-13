@@ -359,7 +359,6 @@ FETCH FIRST 50 ROWS ONLY";
         /// <param name="processId">Returns cartons of this process. We do not return cartons which exist on a pallet contain cartons of multiple areas.</param>
         /// <param name="buddyCartonId">Returns cartons which are on the same pallet as this carton</param>
         /// <returns></returns>
-        [Obsolete]
         public IList<ReceivedCarton> GetReceivedCartons2(string palletId, int? processId, string buddyCartonId)
         {
             if (string.IsNullOrWhiteSpace(palletId) && processId == null && string.IsNullOrWhiteSpace(buddyCartonId))
