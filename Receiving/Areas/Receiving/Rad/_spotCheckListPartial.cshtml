@@ -4,19 +4,19 @@
     @for (var i = 0; i < Model.SewingPlants.Count; ++i)
     {
         <li class="list-group-item list-group-item-success">
-                <div class="row h4">
+                <div class="row">
                     <div class="col-md-6">
                         @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName)
-                        <small>
+           
                             Default @Html.DisplayFor(m => m.SewingPlants[i].SpotCheckPercent)
-                        </small>
+                       
                     </div>
                     <div class="col-md-6">
                         <small>
                             <span class="pull-right">
-                                <u>@Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)</u>
+                                Modified @Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) by @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)
                                 <small>
-                                    <u>@Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)</u>
+                                   Created @Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) by @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)
                                 </small>
                             </span>
                         </small>
@@ -27,21 +27,25 @@
         {
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-md-3">
-                        <h4 class="list-group-item-text">
-                            <span class="label label-info">Color:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Style)</span>
-                            <span class="label label-success">Style:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Color)</span>
+                    <div class="col-md-3 col-md-offset-1">
+                        <h4 class="list-group-item-heading">
+                            <span class="label label-success">Style:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Style)</span>
+                            @if (!string.IsNullOrWhiteSpace(Model.SewingPlants[i].Styles[j].Color))
+                            {
+                                <span class="label label-info">Color:@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].Color)</span>
+                            }
+
+
                         </h4>
                     </div>
                     <div class="col-md-5">
-                        <span class="pull-right h5">
-                           <u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)</u>
+                            Modified @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedDate) by @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].ModifiedBy)
                             <small>
-                                <u>@Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate) &bull; @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)</u>
+                                Created @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedDate) by @Html.DisplayFor(m => m.SewingPlants[i].Styles[j].CreatedBy)
                             </small>
-                        </span>
+
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         @if (Model.EnableEditing)
                         {
                             <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
@@ -51,7 +55,7 @@
                                 <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SewingPlants[i].Styles[j].Style" />
                                 <div class="input-group input-group-sm">
                                     <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
-                                           value="@Model.SpotCheckList[i].SpotCheckPercent" />
+                                           value="@Model.SewingPlants[i].Styles[j].SpotCheckPercent" />
                                     <div class="input-group-btn ">
                                         <div class="btn-group">
                                             <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>

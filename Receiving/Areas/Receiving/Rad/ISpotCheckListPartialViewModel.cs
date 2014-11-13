@@ -34,7 +34,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [DisplayName("Sewing Plant")]
         [Display(ShortName = "Sewing Plant")]
-        [DisplayFormat(NullDisplayText="All")]
+        //[DisplayFormat(NullDisplayText="All")]
         public string SewingPlantId { get; set; }
 
         [DisplayName("Plant Name")]
@@ -60,7 +60,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// <summary>
         /// Date on which SpotCheck configuration created
         /// </summary>
-         [DisplayFormat(DataFormatString = "Created :{0:ddd d MMM}", NullDisplayText = "None")]
+         [DisplayFormat(DataFormatString = "{0:ddd d MMM}", NullDisplayText = "None")]
         public DateTimeOffset? CreatedDate { get; set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// <summary>
         /// Date when configuration is modified
         /// </summary>
-          [DisplayFormat(DataFormatString = "Modeified :{0:ddd d MMM}", NullDisplayText = "None")]
+          [DisplayFormat(DataFormatString = "{0:ddd d MMM}", NullDisplayText = "None")]
         public DateTimeOffset? ModifiedDate { get; set; }
 
 

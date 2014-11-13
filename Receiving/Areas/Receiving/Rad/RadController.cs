@@ -56,7 +56,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             var query = from item in sc
                         group item by
                             item.SewingPlantId into g
-                        let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()
+                        let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()  orderby g.Key
                         select new SewingPlantGroupModel
                         {
                             SewingPlantId = g.Key,
@@ -68,7 +68,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                             ModifiedBy = defstyle == null ? "" : defstyle.ModifiedBy,
                             ModifiedDate = defstyle == null ? null : defstyle.ModifiedDate,
                             Styles = (from item2 in g
-                                      where !string.IsNullOrWhiteSpace(item2.Style)
+                                      where !string.IsNullOrWhiteSpace(item2.Style) orderby item2.Style, item2.Color
                                       select new SpotCheckConfigurationModel(item2)).ToList()
 
                         };
