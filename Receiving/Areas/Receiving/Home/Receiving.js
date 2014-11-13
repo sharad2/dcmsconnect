@@ -154,15 +154,18 @@ var Tabs = (function () {
             .appendTo(_options.contentContainer);
 
         // Insert the li and return it
+        var $a = $('<a></a>').attr({
+            href: '#' + htmlId,
+            role: 'tab',
+            "data-toggle": 'tab',
+            title: 'Pallet ' + (palletId || '??')
+        }).text(palletId || 'NOPALLET');
+        if (palletId) {
+            $a.append(' <span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>');
+        }
+
         return $('<li></li>').attr(_attrPalletId, palletId)
-            .append(
-                $('<a></a>').attr({
-                    href: '#' + htmlId,
-                    role: 'tab',
-                    "data-toggle": 'tab',
-                    title: 'Pallet ' + (palletId || '??')
-                }).text(palletId || 'NOPALLET').append(' <span title="Remove Pallet" class="glyphicon glyphicon-remove-sign text-info"></span>')
-            ).appendTo(_options.tabContainer);
+            .append($a).appendTo(_options.tabContainer);
     };
 
     // Activates the tab for the passed pallet id. Creates a new tab if necessary
