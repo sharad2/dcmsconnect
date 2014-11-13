@@ -410,7 +410,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             var pallet = _service.Value.GetPallet(palletId.ToUpper().Trim(), processId);
             var pvm = new PalletViewModel
             {
-                Cartons = pallet.Cartons,
+                Cartons = pallet.Cartons.Select(p => new ReceivedCartonModel(p)).ToList(),
                 PalletLimit = pallet.PalletLimit,
                 PalletId = palletId,
                 //QueryCount = _service.QueryCount
@@ -462,14 +462,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// 200 (Success): Pallet HTML is provided as data. PalletDisposition provided in header
         /// </remarks>
         [HttpPost]
-        //[HandleAjaxError]
         public virtual ActionResult UnPalletizeCarton(string cartonId, int processId)
         {
             //throw new Exception("Sharad");
             var pvm = new PalletViewModel();
             string palletId;
             var pallet = _service.Value.RemoveFromPallet(cartonId, processId, out palletId);
-            pvm.Cartons = pallet.Cartons;
+            pvm.Cartons = pallet.Cartons.Select(p => new ReceivedCartonModel(p)).ToList();
             pvm.PalletId = pallet.PalletId;
             pvm.PalletLimit = pallet.PalletLimit;
 

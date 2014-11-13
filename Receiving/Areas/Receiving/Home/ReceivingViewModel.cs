@@ -14,13 +14,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         public ReceivingViewModel()
         {
-            //this.Pallets = new PalletViewModel[] { };
-            //this.ScanModel = new ScanViewModel();
-
-            // To prevent the Required Error
-            //this.ProDate = DateTime.MinValue;
-            //this.ProNumber = string.Empty;
-            //this.ExpectedCartons = 1;
         }
 
         public int? PalletLimit { get; set; }

@@ -1,9 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
+    /// <summary>
+    /// Information about a specific receiving process
+    /// </summary>
     public class ReceivingProcess
     {
+        [Key]
         public int ProcessId { get; set; }
 
         public string ProNumber { get; set; }

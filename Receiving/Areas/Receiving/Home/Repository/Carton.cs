@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
-    public class CartonArea
+    internal class CartonArea
     {
         //Building to display
         public string BuildingId { get; set; }
@@ -19,11 +19,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
     /// <summary>
     /// Encapsulates information about a carton. Derived classes exist for Intransit and Received cartons
     /// </summary>
-    public abstract class CartonBase
+    internal abstract class CartonBase
     {
         [Key]
-        [Required]
-        [Display(ShortName = "Carton", Name = "Carton")]
         public string CartonId { get; set; }
 
         public string UpcCode { get; set; }
@@ -40,10 +38,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             set;
         }
 
-        [DisplayFormat(DataFormatString = "{0:dd-MMM hh:mm:ss tt}")]
-        [Display(Name = "Receive Date")]
-        public DateTime? ReceivedDate { get; set; }
 
+        public DateTime? ReceivedDate { get; set; }
 
         /// <summary>
         /// Contract :
@@ -59,22 +55,28 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                 return str;
             }
         }
+
     }
 
-    public class ReceivedCarton : CartonBase
+    internal class ReceivedCarton : CartonBase
     {
         public string PalletId { get; set; }
-        public string DisplaySku
-        {
-            get
-            {
-                return string.Format("{0},{1},{2},{3}", this.Sku.Style, this.Sku.Color, this.Sku.Dimension, this.Sku.SkuSize);
-            }
-        }
+        //public string DisplaySku
+        //{
+        //    get
+        //    {
+        //        return string.Format("{0},{1},{2},{3}", this.Sku.Style, this.Sku.Color, this.Sku.Dimension, this.Sku.SkuSize);
+        //    }
+        //}
+
+        /// <summary>
+        /// The process id against which this carton was received
+        /// </summary>
+        public int? InShipmentId { get; set; }
 
     }
 
-    public class IntransitCarton : CartonBase
+    internal class IntransitCarton : CartonBase
     {
         // SpotCheck is enabled ot not
         public bool IsSpotCheckEnabled {get;set;}

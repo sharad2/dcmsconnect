@@ -52,7 +52,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
     }
 
-    [Obsolete("Why should already receved be an error? We should simply change the pallet")]
+    /// <summary>
+    /// Raised when the carton was received in another receiving session
+    /// </summary>
     public class AlreadyReceivedCartonException : Exception
     {
         private readonly string _palletId;
@@ -104,7 +106,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         }
     }
 
-    public class ReceivingService : IDisposable
+    internal class ReceivingService : IDisposable
     {
         private readonly ReceivingRepository _repos;
 

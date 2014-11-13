@@ -3,7 +3,7 @@ using System;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
-    public class Pallet
+    internal class Pallet
     {
         public string PalletId { get; set; }
 

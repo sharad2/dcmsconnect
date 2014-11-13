@@ -76,13 +76,13 @@
                         @(i + 1)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Cartons[i].CartonId)
+                        @Html.DisplayFor(m => m.Cartons[i].CartonId) * @Html.DisplayFor(m => m.Cartons[i].ProcessId)
                     </td>
                     <td>
                         @Html.DisplayFor(m => m.Cartons[i].DisplaySku)
                     </td>
                     <td>
-                        @Html.DisplayFor(m => m.Cartons[i].Sku.SkuPrice)
+                        @Html.DisplayFor(m => m.Cartons[i].SkuPrice)
                     </td>
                     <td>
                         @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)

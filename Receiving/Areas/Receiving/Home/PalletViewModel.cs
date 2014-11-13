@@ -6,20 +6,62 @@ using System.Linq;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
+
+    public class ReceivedCartonModel
+    {
+        public ReceivedCartonModel()
+        {
+
+        }
+
+        internal ReceivedCartonModel(ReceivedCarton entity)
+        {
+            if (entity.Sku != null)
+            {
+                this.DisplaySku = string.Format("{0},{1},{2},{3}", entity.Sku.Style, entity.Sku.Color, entity.Sku.Dimension, entity.Sku.SkuSize);
+                this.SkuPrice = entity.Sku.SkuPrice;
+            }
+            this.CartonId = entity.CartonId;
+            this.VwhId = entity.VwhId;
+            this.DispositionId = entity.DispositionId;
+            this.ReceivedDate = entity.ReceivedDate;
+            this.ProcessId = entity.InShipmentId;
+        }
+
+        [Key]
+        [Required]
+        [Display(ShortName = "Carton", Name = "Carton")]
+        public string CartonId { get; set; }
+
+        [Display(ShortName = "Vwh")]
+        public string VwhId { get; set; }
+
+        [Display(ShortName = "Area")]
+        public string DestinationArea
+        {
+            get;
+            set;
+        }
+
+        public string DispositionId { get; set; }
+
+        public string DisplaySku { get; set; }
+
+        public decimal? SkuPrice { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd-MMM hh:mm:ss tt}")]
+        [Display(Name = "Receive Date")]
+        public DateTimeOffset? ReceivedDate { get; set; }
+
+        public int? ProcessId { get; set; }
+    }
+
     public class PalletViewModel
     {
         public PalletViewModel()
         {
 
         }
-
-        //public PalletViewModel(Pallet entity)
-        //{
-        //    Cartons = entity.Cartons;
-        //    PalletId = entity.PalletId;
-        //    PalletLimit = entity.PalletLimit;
-        //    ProcessId = entity.ProcessId;
-        //}
 
         public int ProcessId { get; set; }
 
@@ -41,10 +83,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
         }
 
-        private IList<ReceivedCarton> _cartons;
-        public IList<ReceivedCarton> Cartons
+        private IList<ReceivedCartonModel> _cartons;
+        public IList<ReceivedCartonModel> Cartons
         {
-            get { return _cartons ?? (_cartons = Enumerable.Empty<ReceivedCarton>().ToList()); }
+            get { return _cartons ?? (_cartons = new ReceivedCartonModel[0]); }
             set
             {
                 _cartons = value;
@@ -78,10 +120,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         public int SkuCount
         {
-            get
-            {
-                return this.Cartons.Where(p => p.Sku != null).Select(c => c.Sku.SkuId).Distinct().Count();
-            }
+            get;
+            set;  //TODO
         }
 
         public int PalletProgress

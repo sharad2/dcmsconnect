@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
-    public class ReceivingRepository : IDisposable
+    internal class ReceivingRepository : IDisposable
     {
         const string MODULE_NAME = "REC";
 
@@ -101,8 +101,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         public IList<ReceivingProcess> GetProcesses(int? processId)
         {
             const string QUERY = @"
-                           WITH Q1 AS
-                             (SELECT MAX(SCP.PROCESS_ID) AS PROCESS_ID,
+SELECT MAX(SCP.PROCESS_ID) AS PROCESS_ID,
                                      MAX(SCP.OPERATOR_NAME) AS OPERATOR_NAME,
                                      MAX(SCP.PRO_NUMBER) AS PRO_NUMBER,
                                      MAX(SCP.PRO_DATE) AS PRO_DATE,
@@ -134,10 +133,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                                     </if>
                                GROUP BY SCP.PROCESS_ID
                                ORDER BY MAX(NVL(SCP.PROCESS_START_DATE, SCP.INSERT_DATE)) DESC NULLS LAST,
-                                        SCP.PROCESS_ID)
-                            SELECT * FROM Q1 WHERE ROWNUM &lt; 21";
+                                        SCP.PROCESS_ID
+FETCH FIRST 50 ROWS ONLY";
 
-            var binder = SqlBinder.Create(row => new ReceivingProcess()
+            var binder = SqlBinder.Create(row => new ReceivingProcess
                 {
                     CarrierId = row.GetString("CARRIER_ID"),
                     CarrierName = row.GetString("DESCRIPTION"),
@@ -242,7 +241,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
            .Parameter("PRICE_SEASON_CODE", info.PriceSeasonCode)
            .Parameter("RECEIVING_AREA_ID", info.ReceivingAreaId)
            .Parameter("SPOT_CHECK_AREA_ID", info.SpotCheckAreaId);
-            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
@@ -270,7 +268,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create()
              .Parameter("acarton_id", cartonId)
                  .OutParameter("pallet", val => palletId = val);
-            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
             return palletId;
         }
@@ -289,7 +286,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                         AND upper(printer_type) = upper('zebra')
                         order by lower(name)";
             var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("NAME"), row.GetString("DESCRIPTION")));
-            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -304,64 +300,29 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             var binder = SqlBinder.Create()
                 .Parameter("acarton_id", cartonId)
                 .Parameter("aprinter_name", printer);
-            //++_queryCount;
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        ///// <summary>
-        ///// Query new pallet sequence.
-        ///// </summary>
-        ///// <returns></returns>
-        //public int GetPalletSequence()
-        //{
-        //    const string QUERY = @"SELECT <proxy />PALLET_SEQUENCE.NEXTVAL  AS PALLET_SEQUENCE FROM dual";
 
-        //    var binder = SqlBinder.Create(row => row.GetInteger("PALLET_SEQUENCE").Value);
-        //    //++_queryCount;
-        //    return _db.ExecuteSingle(QUERY, binder);
-        //}
-
-
-        /// <summary>
-        /// count location for passed sku
-        /// </summary>
-        /// <param name="areaId"></param>
-        /// <param name="skuId"></param>
-        /// <returns></returns>
-        public int GetAssignedLocationCount(string areaId, int skuId)
-        {
-            const string QUERY = @"
-                SELECT COUNT(*) AS COUNT
-                  FROM <proxy/>MASTER_STORAGE_LOCATION MSL
-                 WHERE MSL.STORAGE_AREA = :areaId
-                   AND MSL.ASSIGNED_SKU_ID = :skuId
-                ";
-            var binder = SqlBinder.Create(row => row.GetInteger("COUNT").Value)
-                .Parameter("areaId", areaId)
-                .Parameter("skuId", skuId);
-            //++_queryCount;
-            return _db.ExecuteSingle(QUERY, binder);
-        }
-
-        //        /// <summary>
-        //        /// Get received carton count
-        //        /// </summary>
-        //        /// <param name="processId"></param>
-        //        /// <returns>
-        //        /// </returns>
-        //        [Obsolete]
-        //        public int GetCartonsOfProcess(int? processId)
-        //        {
-        //            const string QUERY = @"
-        //                                    SELECT COUNT(CARTON_ID) AS CARTON_COUNT
-        //                      FROM <proxy />SRC_CARTON
-        //                    WHERE INSHIPMENT_ID = :inshipmentId
-        //                       AND PALLET_ID IS NOT NULL
-        //                ";
-        //            var binder = SqlBinder.Create(row => row.GetInteger("CARTON_COUNT").Value).Parameter("inshipmentId", processId);
-        //            ++_queryCount;
-        //            return _db.ExecuteSingle(QUERY, binder);
-        //        }
+//        /// <summary>
+//        /// count location for passed sku
+//        /// </summary>
+//        /// <param name="areaId"></param>
+//        /// <param name="skuId"></param>
+//        /// <returns></returns>
+//        public int GetAssignedLocationCount(string areaId, int skuId)
+//        {
+//            const string QUERY = @"
+//                SELECT COUNT(*) AS COUNT
+//                  FROM <proxy/>MASTER_STORAGE_LOCATION MSL
+//                 WHERE MSL.STORAGE_AREA = :areaId
+//                   AND MSL.ASSIGNED_SKU_ID = :skuId
+//                ";
+//            var binder = SqlBinder.Create(row => row.GetInteger("COUNT").Value)
+//                .Parameter("areaId", areaId)
+//                .Parameter("skuId", skuId);
+//            return _db.ExecuteSingle(QUERY, binder);
+//        }
 
         public IEnumerable<CartonArea> GetCartonAreas()
         {
@@ -388,7 +349,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     IsReceivingArea = row.GetString("IS_RECEIVING_AREA") == "Y",
                     IsSpotCheckArea = row.GetString("IS_SPOTCHECK_AREA") == "Y"
                 });
-            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
@@ -403,13 +363,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         public IList<ReceivedCarton> GetReceivedCartons2(string palletId, int? processId, string buddyCartonId)
         {
             const string QUERY = @"
-                    WITH q1 AS
-                     (SELECT 
+SELECT 
                              CTN.PALLET_ID AS PALLET_ID,
                              CTN.CARTON_ID AS CARTON_ID,
                              CTN.INSERT_DATE AS INSERT_DATE,
                              CTN.CARTON_STORAGE_AREA AS CARTON_STORAGE_AREA,
                              CTN.VWH_ID AS VWH_ID,
+ctn.inshipment_id AS inshipment_id,
                              CTNDET.SKU_ID AS SKU_ID,
                              MSKU.STYLE AS STYLE_,
                              MSKU.COLOR AS COLOR_,
@@ -428,20 +388,17 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     AND CTN.PALLET_ID = :pallet_id
                     </if>
                     <if>
-                    AND CTN.PALLET_ID IN
+                    AND (CTN.PALLET_ID IN
                              (SELECT DISTINCT S.PALLET_ID
                                 FROM <proxy />SRC_CARTON S
-                               WHERE S.inshipment_id = :PROCESS_ID
-                                 )
+                               WHERE S.inshipment_id = :PROCESS_ID AND s.pallet_id is not null
+                                 )) OR (CTN.PALLET_ID IS NULL and ctn.inshipment_id = :PROCESS_ID)
                     </if>
                     <if>
                     AND CTN.carton_id = :carton_id
                     </if>
                     order by CTN.insert_date desc
-                    )
-
-                    select q1.* from q1 where 
-                     rownum &lt; 500
+FETCH FIRST 500 ROWS ONLY
                     ";
             Contract.Assert(_db != null);
             var binder = SqlBinder.Create(row => new ReceivedCarton()
@@ -451,6 +408,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     PalletId = row.GetString("PALLET_ID"),
                     DestinationArea = row.GetString("CARTON_STORAGE_AREA"),
                     VwhId = row.GetString("VWH_ID"),
+                    InShipmentId = row.GetInteger("inshipment_id"),
                     Sku = row.GetInteger("SKU_ID") == null ? null : new Sku
                         {
                             SkuId = row.GetInteger("SKU_ID").Value,
@@ -463,7 +421,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                 }).Parameter("pallet_id", palletId)
                 .Parameter("PROCESS_ID", processId)
                 .Parameter("carton_id", buddyCartonId);
-            //++_queryCount;
             return _db.ExecuteReader(QUERY, binder);
         }
 
