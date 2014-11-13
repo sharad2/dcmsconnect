@@ -345,24 +345,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// If any carton is received, then this function will never throw an exception.
         /// </remarks>
         [HttpPost]
-        public virtual ActionResult HandleCartonScan(ScanViewModel model)
+        public virtual ActionResult HandleCartonScan(string scanText, string palletId, int processId)
         {
-            //Thread.Sleep(3000);  // For debugging
-            if (model == null) throw new ArgumentNullException("model");
-            if (!ModelState.IsValid || string.IsNullOrEmpty(model.ScanText))
+            if (string.IsNullOrWhiteSpace(scanText))
             {
+                // We should ignore the call
                 //return ValidationErrorResult();
-                var sb = new StringBuilder();
-                sb.Append("<ul>");
-                foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
-                {
-                    sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
-                }
-                sb.Append("</ul>");
-                throw new Exception(sb.ToString());
+                //var sb = new StringBuilder();
+                //sb.Append("<ul>");
+                //foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
+                //{
+                //    sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
+                //}
+                //sb.Append("</ul>");
+                throw new Exception("Nothing was scanned");
             }
 
-            Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
+            //Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
             //var ctx = new ScanContext
             //{
             //    PalletId = model.PalletId,
@@ -373,11 +372,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             //Pallet pallet = null;
 
             var list = new List<Tuple<string, string>>();
-            foreach (var cartonId in model.ScanText.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))
+            foreach (var cartonId in scanText.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))
             {
                 try
                 {
-                    _service.Value.ReceiveCartons(cartonId, model.PalletId, model.ProcessId.Value);
+                    _service.Value.ReceiveCartons(cartonId, palletId, processId);
                 }
                 catch (Exception ex)
                 {

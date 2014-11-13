@@ -202,7 +202,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_HandleCartonScan
         {
-            public readonly string model = "model";
+            public readonly string scanText = "scanText";
+            public readonly string palletId = "palletId";
+            public readonly string processId = "processId";
         }
         static readonly ActionParamsClass_GetPalletHtml s_params_GetPalletHtml = new ActionParamsClass_GetPalletHtml();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -404,14 +406,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
         [NonAction]
-        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.Receiving.Areas.Receiving.Home.ScanViewModel model);
+        partial void HandleCartonScanOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string scanText, string palletId, int processId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult HandleCartonScan(DcmsMobile.Receiving.Areas.Receiving.Home.ScanViewModel model)
+        public override System.Web.Mvc.ActionResult HandleCartonScan(string scanText, string palletId, int processId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            HandleCartonScanOverride(callInfo, model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "scanText", scanText);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "palletId", palletId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
+            HandleCartonScanOverride(callInfo, scanText, palletId, processId);
             return callInfo;
         }
 

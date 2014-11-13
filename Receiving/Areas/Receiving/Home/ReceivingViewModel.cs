@@ -88,29 +88,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
     }
-
-    /// <summary>
-    /// This information is posted back at each scan
-    /// </summary>
-    public class ScanViewModel
-    {
-        [Required(ErrorMessage = "Process ID is required")]
-        public int? ProcessId { get; set; }
-
-        [Required(ErrorMessage = "Must scan something")]
-        [Display(Name = "Scan Carton or Pallet")]
-        public string ScanText { get; set; }
-
-        /// <summary>
-        /// Currently active pallet
-        /// </summary>
-        public string PalletId { get; set; }
-
-        /// <summary>
-        /// Disposition of the currently active pallet
-        /// </summary>
-        public string PalletDispos { get; set; }
-    }
 }
 
 

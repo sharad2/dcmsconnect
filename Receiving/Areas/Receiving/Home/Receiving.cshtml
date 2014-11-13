@@ -1,5 +1,5 @@
-﻿@using DcmsMobile.Receiving.Areas.Receiving.Home
-@model ReceivingViewModel
+﻿
+@model DcmsMobile.Receiving.Areas.Receiving.Home.ReceivingViewModel
 @{
     Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
     ViewBag.Title = "Receiving";
@@ -165,124 +165,122 @@
 
     <script type="text/javascript" src="@Links_Receiving.Areas.Receiving.Home.Receiving_js"></script>
     <script type="text/javascript">
-        "use strict";
+    "use strict";
 
-        // Print carton Label. Retrieves current carton from the ancestor containing the data-carton attribute
-        $(document).ready(function() {
-            // Open the dialog when print button is clicked
-            $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
-                // Click handler for the print button. Opens the modal(popup) print.
-                var cartonId = $(e.target).closest('[data-carton]').data('carton');
-                $('#printModal')
-                    .find('span.cartonId').text(cartonId)
-                    .end()
-                    .modal('show');
-
-            });
-
+    // Print carton Label. Retrieves current carton from the ancestor containing the data-carton attribute
+    $(document).ready(function() {
+        // Open the dialog when print button is clicked
+        $('#palletTabContent').on('click', '[data-action="print"]', function (e) {
+            // Click handler for the print button. Opens the modal(popup) print.
+            var cartonId = $(e.target).closest('[data-carton]').data('carton');
             $('#printModal')
-                // Populate the printer list whien dialog is first displayed
-                .one('show.bs.modal', {url: '@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' }, LoadPrinters)
-                // Print Button Click handler, here posting data to print.
-                .on('click', 'button:not([data-dismiss])', {
-                    url: '@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())',
-                    postdata: [
-                        {
-                            name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId',
-                            value: ''   // Will be stuffed later
-                        },
-                        {
-                            name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.printer',
-                            value: ''  // Will be stuffed when the button is clicked
-                        }
-                    ]
-                }, OnPrint);
-        });
-        // Remove carton
-        $(document).ready(function() {
-            // Click handler for the remove button, opens the modal of remove carton.
-            $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-                var $cartons = $('[data-carton]', Tabs.activeContent);
-                $('#removeModal')
-                    .find('span.cartonId').text($cartons.has(e.target).data('carton')).end()
-                    .find('span.palletId').text(Tabs.activePalletId).end()
-                    .find('span.count').text($cartons.length).end()
-                    .modal('show');
-            });
+                .find('span.cartonId').text(cartonId)
+                .end()
+                .modal('show');
 
-            //Posting data for removing cartons.
-            $('#removeModal').on('click','button:not([data-dismiss])', {
-                url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())',
+        });
+
+        $('#printModal')
+            // Populate the printer list whien dialog is first displayed
+            .one('show.bs.modal', {url: '@Url.Action(MVC_Receiving.Receiving.Home.GetPrinters())' }, LoadPrinters)
+            // Print Button Click handler, here posting data to print.
+            .on('click', 'button:not([data-dismiss])', {
+                url: '@Url.Action(MVC_Receiving.Receiving.Home.PrintCarton())',
                 postdata: [
                     {
-                        name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
-                        value: ''  // Will be stuffed when the button is clicked
+                        name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.cartonId',
+                        value: ''   // Will be stuffed later
                     },
-                     {
-                         value: @Model.ProcessId,
-                         name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
-                     }
+                    {
+                        name: '@MVC_Receiving.Receiving.Home.PrintCartonParams.printer',
+                        value: ''  // Will be stuffed when the button is clicked
+                    }
                 ]
-            }, OnRemove);
+            }, OnPrint);
+    });
+    // Remove carton
+    $(document).ready(function() {
+        // Click handler for the remove button, opens the modal of remove carton.
+        $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
+            var $cartons = $('[data-carton]', Tabs.activeContent);
+            $('#removeModal')
+                .find('span.cartonId').text($cartons.has(e.target).data('carton')).end()
+                .find('span.palletId').text(Tabs.activePalletId).end()
+                .find('span.count').text($cartons.length).end()
+                .modal('show');
         });
 
-
-        $(document).ready(function() {
-            //Sounds during success or error cases while any action(i.e scannig, printing, removing cartons ).
-            Sound.init({
-                // Selector to error sound audio element
-                error: '#soundError',
-                // Selector to success sound audio element
-                success: '#soundSuccess'
-            });
-
-            //Adding, deleting and manipulating tabs.
-            Tabs.init({
-                // Selector for tab container
-                tabContainer: '#palletTabs',
-                // Selector to container containing tab content
-                contentContainer: '#palletTabContent',
-                pallets:  @Html.Raw(Model.PalletIdListJson),
-                // The URL which is responsible for returning pallet html
-                // The URL should contain a placeholder ~ which will be replaced by the pallet id
-                loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))'
-            });
-
-
-            //Handleing the carton, pallet scan.
-            HandleScan.init({
-                // Selector to the text area
-                textarea: '#tbScan',
-                // Selector of a button which will cause immediate handling of the scans.
-                // It should have an ajax loading image which will be made visible while ajax calls are in progress
-                button: '#btnGo',
-                // URL to invoke for receiving cartons
-                cartonUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan()))',
-                // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
-                // by the function which will receive cartons
-                cartonPostdata: function(palletId, cartons) {
-                    return [
-                        { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, int?>( m => m.ProcessId))', value: @Model.ProcessId },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.ScanText))', value: cartons },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.PalletId))', value: palletId },
-                            { name: '@(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor<ScanViewModel, object>( m => m.PalletDispos))',
-                                value: $('#palletTabContent .tab-pane.active [data-disposition]').data('disposition') }
-                    ];
+        //Posting data for removing cartons.
+        $('#removeModal').on('click','button:not([data-dismiss])', {
+            url: '@Url.Action(MVC_Receiving.Receiving.Home.UnPalletizeCarton())',
+            postdata: [
+                {
+                    name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.cartonId',
+                    value: ''  // Will be stuffed when the button is clicked
                 },
-                delay: 3000   // Number of milliseconds delay after enter is pressed
-            });
+                 {
+                     value: @Model.ProcessId,
+                     name: '@MVC_Receiving.Receiving.Home.UnPalletizeCartonParams.processId'
+                 }
+            ]
+        }, OnRemove);
+    });
 
 
-            //Progress bar updatation after addition or deletion from the page(i.e carton)
-            Progress.init({
-                //id of the progress bar
-                bar: '#progressCartons',
-                //id of the span to show recived carton count
-                receivedCount: '#receivedCount'
-            });
+    $(document).ready(function() {
+        //Sounds during success or error cases while any action(i.e scannig, printing, removing cartons ).
+        Sound.init({
+            // Selector to error sound audio element
+            error: '#soundError',
+            // Selector to success sound audio element
+            success: '#soundSuccess'
         });
 
-    </script>
+        //Adding, deleting and manipulating tabs.
+        Tabs.init({
+            // Selector for tab container
+            tabContainer: '#palletTabs',
+            // Selector to container containing tab content
+            contentContainer: '#palletTabContent',
+            pallets:  @Html.Raw(Model.PalletIdListJson),
+            // The URL which is responsible for returning pallet html
+            // The URL should contain a placeholder ~ which will be replaced by the pallet id
+            loadUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.GetPalletHtml("~", Model.ProcessId)))'
+        });
+
+
+        //Handling the carton, pallet scan.
+        HandleScan.init({
+            // Selector to the text area
+            textarea: '#tbScan',
+            // Selector of a button which will cause immediate handling of the scans.
+            // It should have an ajax loading image which will be made visible while ajax calls are in progress
+            button: '#btnGo',
+            // URL to invoke for receiving cartons
+            cartonUrl: '@Html.Raw(Url.Action(MVC_Receiving.Receiving.Home.HandleCartonScan()))',
+            // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
+            // by the function which will receive cartons
+            cartonPostdata: function(palletId, cartons) {
+                return [
+                    { name: '@MVC_Receiving.Receiving.Home.HandleCartonScanParams.processId', value: @Model.ProcessId },
+                        { name: '@MVC_Receiving.Receiving.Home.HandleCartonScanParams.scanText', value: cartons },
+                        { name: '@MVC_Receiving.Receiving.Home.HandleCartonScanParams.palletId', value: palletId }
+                ];
+            },
+            delay: 3000   // Number of milliseconds delay after enter is pressed
+        });
+
+
+        //Progress bar updatation after addition or deletion from the page(i.e carton)
+        Progress.init({
+            //id of the progress bar
+            bar: '#progressCartons',
+            //id of the span to show recived carton count
+            receivedCount: '#receivedCount'
+        });
+    });
+
+</script>
 }
 
 
