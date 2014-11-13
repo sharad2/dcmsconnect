@@ -17,30 +17,23 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
     //    CartonReceived
     //}
 
-    internal class ScanContext
-    {
-        /// <summary>
-        /// In/Out: The pallet which is currently active
-        /// </summary>
-        /// <remarks>
-        /// The pallet which should now be made active is returned. Otherwise left untouched.
-        /// </remarks>
-        public string PalletId { get; set; }
+    //[Obsolete]
+    //internal class ScanContext
+    //{
+    //    /// <summary>
+    //    /// In/Out: The pallet which is currently active
+    //    /// </summary>
+    //    /// <remarks>
+    //    /// The pallet which should now be made active is returned. Otherwise left untouched.
+    //    /// </remarks>
+    //    public string PalletId { get; set; }
 
-        /// <summary>
-        /// In: Disposition of the currently active pallet
-        /// </summary>
-        /// <remarks>
-        /// The disposition of the carton is returned. Otherwise left untouched.
-        /// </remarks>
-        public string DispositionId { get; set; }
+    //    /// <summary>
+    //    /// In: Process Id
+    //    /// </summary>
+    //    public int ProcessId { get; set; }
 
-        /// <summary>
-        /// In: Process Id
-        /// </summary>
-        public int ProcessId { get; set; }
-
-    }
+    //}
 
     /// <summary>
     /// Raised when the carton was received in another receiving session
@@ -411,14 +404,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         }
 
-        public void ReceiveCartons(string scan, ScanContext ctx)
+        public void ReceiveCartons(string scan, string palletId, int processId)
         {
-            if (ctx.PalletId == null)
+            if (palletId == null)
             {
                 throw new ProviderException(string.Format("Please Scan a Pallet first"));
             }
 
-            var cartonToReceive = this.GetIntransitCarton(scan, ctx.ProcessId);
+            var cartonToReceive = this.GetIntransitCarton(scan, processId);
             if (cartonToReceive == null)
             {
                 throw new ProviderException(string.Format("Carton {0} not part of ASN", scan));
@@ -427,7 +420,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             if (cartonToReceive.IsShipmentClosed)
             {
                 // This carton is from an already closed shipment. check whether we can accept it.                 
-                if (_repos.AcceptCloseShipmentCtn(scan, ctx.ProcessId))
+                if (_repos.AcceptCloseShipmentCtn(scan, processId))
                 {
                     // Carton acceptable nothing to do. 
                 }
@@ -452,10 +445,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     throw new AlreadyReceivedCartonException(carton.PalletId);
                 }
                 // Put carton on pallet and check disposition. 
-                if (HandleDisposition(ctx.PalletId, carton.DispositionId))
+                if (HandleDisposition(palletId, carton.DispositionId))
                 {
                     // Dipos ok put carton on pallet
-                    _repos.PutCartonOnPallet(ctx.PalletId, scan);
+                    _repos.PutCartonOnPallet(palletId, scan);
                 }
                 else
                 {
@@ -466,11 +459,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             else
             {
                 // Unreceived carton.
-                _repos.ReceiveCarton(null, cartonToReceive.CartonId, cartonToReceive.DestinationArea, ctx.ProcessId);
+                _repos.ReceiveCarton(null, cartonToReceive.CartonId, cartonToReceive.DestinationArea, processId);
                 //Getting the pallet dispostion, if this pallet does not contain cartons then disposition will be null.
-                if (HandleDisposition(ctx.PalletId, cartonToReceive.DispositionId))
+                if (HandleDisposition(palletId, cartonToReceive.DispositionId))
                 {
-                    _repos.PutCartonOnPallet(ctx.PalletId, scan);
+                    _repos.PutCartonOnPallet(palletId, scan);
 
                 }
                 else

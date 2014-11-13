@@ -363,12 +363,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
 
             Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-            var ctx = new ScanContext
-            {
-                PalletId = model.PalletId,
-                DispositionId = model.PalletDispos,
-                ProcessId = model.ProcessId.Value
-            };
+            //var ctx = new ScanContext
+            //{
+            //    PalletId = model.PalletId,
+            //    //DispositionId = model.PalletDispos,
+            //    ProcessId = model.ProcessId.Value
+            //};
 
             //Pallet pallet = null;
 
@@ -377,7 +377,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 try
                 {
-                    _service.Value.ReceiveCartons(cartonId, ctx);
+                    _service.Value.ReceiveCartons(cartonId, model.PalletId, model.ProcessId.Value);
                 }
                 catch (Exception ex)
                 {
