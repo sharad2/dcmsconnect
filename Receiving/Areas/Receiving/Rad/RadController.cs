@@ -120,12 +120,19 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             if (action == ModifyAction.Delete)
             {
                 _service.DeleteSpotCheckSetting(style, sewingPlantId);
-                AddStatusMessage("Has been deleted");
+                AddStatusMessage("Spot check percent has been deleted");
             }
             else
             {
                 _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
-                AddStatusMessage("Has been Added");
+                if (action == ModifyAction.Add)
+                {
+                    AddStatusMessage("Spot check percent has been added");
+                }
+                else
+                {
+                    AddStatusMessage("Spot check percent has been modified");
+                }
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
 
