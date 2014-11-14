@@ -193,10 +193,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             const string QUERY = @"
             DELETE FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
-             WHERE           MS.STYLE = :STYLE                    
-                            AND MS.COLOR = :COLOR                        
-                               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
-                                       
+             WHERE MS.STYLE = :STYLE                    
+                   AND MS.COLOR = :COLOR                        
+                   AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE                                       
            ";
             var binder = SqlBinder.Create()
                 .Parameter("STYLE", string.IsNullOrEmpty(style) ? "." : style)

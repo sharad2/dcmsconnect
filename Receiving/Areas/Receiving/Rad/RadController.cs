@@ -48,12 +48,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             var model = new IndexViewModel();
             var sc = _service.GetSpotCheckList();
-          
+
             model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
             model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
-           
 
-            var query = from item in sc                       
+
+            var query = from item in sc
                         group item by
                             item.SewingPlantId into g
                         let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()
@@ -104,7 +104,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
             if (action == ModifyAction.Delete)
             {
-                var rows = _service.DeleteSpotCheckSetting(style,color, sewingPlantId);
+                var rows = _service.DeleteSpotCheckSetting(style, color, sewingPlantId);
                 AddStatusMessage(string.Format("{0} Spot check setting has been deleted", rows));
             }
             else
@@ -112,11 +112,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                 var inserted = _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
                 if (inserted)
                 {
-                    AddStatusMessage("Spot check setting has been added"); // TODO: for which style etc.
+                    AddStatusMessage(string.Format("Spot check setting has been added for Sewing Plant: {0}, Style: {1}, Color: {2} ", sewingPlantId, style, color));
+
                 }
                 else
                 {
-                    AddStatusMessage("Spot check setting has been modified");
+                    AddStatusMessage(string.Format("Spot check setting has been modified for Sewing Plant: {0}, Style: {1}, Color: {2} ", sewingPlantId, style, color));
+                
                 }
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
