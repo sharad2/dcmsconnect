@@ -98,7 +98,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
-        public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId,
+            int? spotCheckPercent, bool enabled = false)
         {
 
             if (action == ModifyAction.Delete)
@@ -111,11 +112,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                 _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
                 if (action == ModifyAction.Add)
                 {
-                    AddStatusMessage("Spot check percent has been added");
+                    AddStatusMessage("Spot check setting has been added"); // TODO: for which style etc.
                 }
                 else
                 {
-                    AddStatusMessage("Spot check percent has been modified");
+                    AddStatusMessage("Spot check setting has been modified");
                 }
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());

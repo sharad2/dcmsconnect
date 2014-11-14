@@ -7,7 +7,6 @@
     <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
         <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@config.SewingPlantId" />
         <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@config.Color" />
-        <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@config.IsSpotCheckEnabled.ToString()" />
         <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@config.Style" />
         <div class="input-group input-group-sm">
             <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required 
@@ -31,7 +30,7 @@
             </div>
         </div>
         <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
-               @Html.Raw(config.IsSpotCheckEnabled ? "checked" : "") /> Enabled
+               checked="@config.IsSpotCheckEnabled" /> Enabled
     </form>
     }
     <div class="input-group input-group-sm">
