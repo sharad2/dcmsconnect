@@ -3,35 +3,64 @@
 @helper EditForm(DcmsMobile.Receiving.Areas.Receiving.Rad.SpotCheckConfigurationModel config)
 {
     if (Model.EnableEditing)
-    { 
-    <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
-        <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@config.SewingPlantId" />
-        <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@config.Color" />
-        <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@config.Style" />
-        <div class="input-group input-group-sm">
-            <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required 
-                   name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
-                   value="@config.SpotCheckPercent" />
-            <div class="input-group-btn ">
-                <div class="btn-group">
+    {
+        <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
+            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@config.SewingPlantId" />
+            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@config.Color" />
+            <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@config.Style" />
+            @*<div class="input-group input-group-sm">
+                    <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required
+                           name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
+                           value="@config.SpotCheckPercent" />
+                    <div class="input-group-btn ">
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action"
+                                     value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu cancel-btn" role="menu">
+                                <li><a href="#">Cancel</a></li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action"
+                                 value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
+                            Delete
+                        </button>
+                    </div>
+                </div>*@
+            <div class="input-group input-group-sm">
+                <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required
+                       name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
+                       value="@config.SpotCheckPercent" />
+                <div class="input-group-btn">
                     <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action"
-                             value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>
+                            value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">
+                        Update
+                    </button>
                     <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu cancel-btn" role="menu">
-                        <li><a href="#">Cancel</a></li>
+                    <ul class="dropdown-menu dropdown-menu-right cancel-btn" role="menu">
+                        <li><a class="btn btn-default" style="background:none;border:hidden">Cancel</a></li>
+                        <li class="divider"></li>
+                        <li>
+                            <button class="btn btn-default btn-block" type="submit"
+                                    name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" style="background:none;border:hidden"
+                                    value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
+                                Delete
+                            </button>
+                        </li>
+
                     </ul>
                 </div>
-                <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action"
-                         value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
-                    Delete
-                </button>
             </div>
-        </div>
-        <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
-               checked="@config.IsSpotCheckEnabled" /> Enabled
-    </form>
+
+
+
+            <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
+                   checked="@config.IsSpotCheckEnabled" /> Enabled
+        </form>
     }
     <div class="input-group input-group-sm">
         <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" disabled value="@config.SpotCheckPercent" />
@@ -59,13 +88,13 @@
                 <div class="col-md-3">
 
                     @Html.DisplayFor(m => m.SewingPlants[i].SewingPlantId)  @Html.DisplayFor(m => m.SewingPlants[i].PlantName)
-                                 
+
                 </div>
-                <div class="col-md-5">                 
-                            Modified @Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) by @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)
-                            <small>
-                                Created @Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) by @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)
-                            </small>                     
+                <div class="col-md-5">
+                    Modified @Html.DisplayFor(m => m.SewingPlants[i].ModifiedDate) by @Html.DisplayFor(m => m.SewingPlants[i].ModifiedBy)
+                    <small>
+                        Created @Html.DisplayFor(m => m.SewingPlants[i].CreatedDate) by @Html.DisplayFor(m => m.SewingPlants[i].CreatedBy)
+                    </small>
                 </div>
                 <div class="col-md-4">
                     @EditForm(Model.SewingPlants[i])
