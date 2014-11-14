@@ -99,31 +99,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
 
         /// <summary>
-        /// validate selected style
-        /// </summary>
-        /// <returns></returns>
-        [Obsolete("We are validating using new way of bootstrap for empty results called templates(empty:'result empty text here ')}")]
-        public virtual JsonResult ValidateStyle()
-        {
-            var term = this.Request.QueryString[0];
-            if (string.IsNullOrEmpty(term))
-            {
-                throw new ApplicationException("Internal error. The id to validate was not passed.");
-            }
-            var data = _repos.GetStyles(null, term.ToUpper()).Select(p => new AutocompleteItem()
-            {
-                label = string.Format("{0}: {1}", p.Item1, p.Item2),
-                value = p.Item1
-            }).FirstOrDefault();
-            if (data == null)
-            {
-                return Json("Invalid Style " + term, JsonRequestBehavior.AllowGet);
-            }
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
-
-
-        /// <summary>
         /// Returning Json result for Color Autocomplete
         /// </summary>
         /// <param name="term"></param>
