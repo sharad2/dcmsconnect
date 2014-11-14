@@ -1,0 +1,146 @@
+﻿@using DcmsMobile.PickWaves.Helpers
+@model DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveSkuListModel
+@* Designed only for use by Wave.cshtml*@
+@helper InventoryTdClass(DcmsMobile.PickWaves.ViewModels.BucketActivityModel activity, int? pcs)
+{
+    if (activity != null && activity.PiecesIncomplete > 0)
+    {
+        if (pcs == null || pcs < activity.PiecesIncomplete)
+        {
+            @:class='ui-state-error'
+        }
+        else
+        {
+            @:class='ui-state-highlight'
+    }
+    }
+}
+@helper ShowTableFooterText(BoxState filter)
+{
+    switch (filter)
+    {
+        case BoxState.InProgress:
+        case BoxState.Completed:
+        case BoxState.NotSet:
+            <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all"
+                 title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+                @if (Model.TotalPiecesPicked > 0)
+                {
+                <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                    @Html.DisplayFor(m => m.TotalPiecesPicked)
+                </div>
+                }
+                @if (Model.RemainingPiecesToPick > 0)
+                {
+                <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
+                    @Html.DisplayFor(m => m.RemainingPiecesToPick)
+                </div>
+                }
+            </div>
+                break;
+        case BoxState.Cancelled:
+        <span>@string.Format("{0:N0} SKUs cancelled", Model.BucketSkuList.Count)</span>
+                break;
+    }
+}
+<table>
+    <caption>
+        @string.Format("SKUs List of wave {0}", Model.BucketId)
+    </caption>
+    <thead>
+        <tr>
+            <th rowspan="2">#</th>
+            <th colspan="2" rowspan="2">SKU<span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sup>2</sup></th>
+            <th rowspan="2">Vwh</th>
+            <th rowspan="2">Weight</th>
+            <th rowspan="2">Volume</th>
+            <th colspan="2" style="text-align: center">
+                Pieces
+            </th>
+
+            @if (Model.AllAreas.Count > 0)
+            {
+                <th colspan="@Model.AllAreas.Count">Inventory in Areas</th>
+            }
+        </tr>
+        <tr>
+            <td>Ordered</td>
+            <td style="white-space: nowrap; text-align: center; vertical-align: top">
+                <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 15em; display: inline-block">
+                    <div style="width: 40%" class="ui-progressbar-value ui-widget-header ui-corner-left">
+                        Picked
+                    </div>
+                    <div style="width: 50%" class="ui-progressbar-value">
+                        Not Picked
+                    </div>
+                </div>
+                <span class="ui-icon ui-icon-triangle-1-n" style="display: inline-block;"></span><sup>1</sup>
+            </td>
+            @foreach (var area in Model.AllAreas)
+            {
+                <td style="white-space: nowrap">
+                    <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
+                    @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
+                    {
+                        <span title="Replenish from @area.ReplenishAreaId"><span class="ui-icon ui-icon-seek-prev" style="display: inline-block;"></span>@area.ReplenishAreaId</span>
+                    }
+                </td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (var i = 0; i < Model.BucketSkuList.Count; ++i)
+        {
+            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td style="text-align: right">
+                    @(i + 1)
+                </td>
+                <td style="white-space:nowrap">
+                    @if (!Model.BucketSkuList[i].IsAssignedSku)
+                    {
+                        <span class="ui-icon ui-icon-alert" title="SKU is not assigned at any location" style="display:inline-block"></span>
+                    }
+                    @Html.DisplayFor(m => m.BucketSkuList[i].Style)
+                </td>
+                <td title="@Model.BucketSkuList[i].UpcCode">
+                    @Html.DisplayFor(m => m.BucketSkuList[i].Color),@Html.DisplayFor(m => m.BucketSkuList[i].Dimension),@Html.DisplayFor(m => m.BucketSkuList[i].SkuSize)
+                </td>
+                <td>@Html.DisplayFor(m => m.BucketSkuList[i].VwhId)</td>
+                <td style="text-align: right" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</td>
+                <td style="text-align: right" title="Volume Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</td>
+                <td style="text-align: right">
+                    @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)
+                </td>
+                <td style="white-space: nowrap">
+                    @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
+                    {
+                        <div class='@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")'>
+                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+
+                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.BucketSkuList[i].Activities[j])
+                        </div>
+                    }
+                </td>
+                @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
+                {
+                    var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
+                    <td style="white-space: nowrap; text-align: right" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
+                        <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
+                        <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
+            <td colspan="4">Total</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalWeight)</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalVolume)</td>
+            <td style="text-align: right">@Html.DisplayFor(m => m.TotalOrderedPieces)</td>
+            <td>@ShowTableFooterText(Model.StateFilter)</td>
+            <td colspan="@(Model.BucketSkuList.Select(p => p.InventoryByArea.Count).Max() + 1)"></td>
+        </tr>
+    </tfoot>
+</table>

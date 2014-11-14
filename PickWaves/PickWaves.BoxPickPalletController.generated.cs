@@ -139,7 +139,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 public readonly string Index = "Index";
             }
-            public readonly string Index = "~/Areas/PickWaves/Views/BoxPickPallet/Index.cshtml";
+            public readonly string Index = "~/Areas/PickWaves/BoxPickPallet/Index.cshtml";
         }
     }
 

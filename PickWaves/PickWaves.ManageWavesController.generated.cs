@@ -276,14 +276,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string _wavePickslipsPartial = "_wavePickslipsPartial";
                 public readonly string _waveSkusPartial = "_waveSkusPartial";
                 public readonly string Index = "Index";
+                public readonly string ManageWave_Index_css = "ManageWave-Index.css";
+                public readonly string ManageWave_Index_js = "ManageWave-Index.js";
+                public readonly string ManageWave_Wave_css = "ManageWave-Wave.css";
+                public readonly string ManageWave_Wave_js = "ManageWave-Wave.js";
                 public readonly string Wave = "Wave";
             }
-            public readonly string _bucketEditorPartial = "~/Areas/PickWaves/Views/ManageWaves/_bucketEditorPartial.cshtml";
-            public readonly string _waveBoxesPartial = "~/Areas/PickWaves/Views/ManageWaves/_waveBoxesPartial.cshtml";
-            public readonly string _wavePickslipsPartial = "~/Areas/PickWaves/Views/ManageWaves/_wavePickslipsPartial.cshtml";
-            public readonly string _waveSkusPartial = "~/Areas/PickWaves/Views/ManageWaves/_waveSkusPartial.cshtml";
-            public readonly string Index = "~/Areas/PickWaves/Views/ManageWaves/Index.cshtml";
-            public readonly string Wave = "~/Areas/PickWaves/Views/ManageWaves/Wave.cshtml";
+            public readonly string _bucketEditorPartial = "~/Areas/PickWaves/ManageWaves/_bucketEditorPartial.cshtml";
+            public readonly string _waveBoxesPartial = "~/Areas/PickWaves/ManageWaves/_waveBoxesPartial.cshtml";
+            public readonly string _wavePickslipsPartial = "~/Areas/PickWaves/ManageWaves/_wavePickslipsPartial.cshtml";
+            public readonly string _waveSkusPartial = "~/Areas/PickWaves/ManageWaves/_waveSkusPartial.cshtml";
+            public readonly string Index = "~/Areas/PickWaves/ManageWaves/Index.cshtml";
+            public readonly string ManageWave_Index_css = "~/Areas/PickWaves/ManageWaves/ManageWave-Index.css.bundle";
+            public readonly string ManageWave_Index_js = "~/Areas/PickWaves/ManageWaves/ManageWave-Index.js.bundle";
+            public readonly string ManageWave_Wave_css = "~/Areas/PickWaves/ManageWaves/ManageWave-Wave.css.bundle";
+            public readonly string ManageWave_Wave_js = "~/Areas/PickWaves/ManageWaves/ManageWave-Wave.js.bundle";
+            public readonly string Wave = "~/Areas/PickWaves/ManageWaves/Wave.cshtml";
         }
     }
 

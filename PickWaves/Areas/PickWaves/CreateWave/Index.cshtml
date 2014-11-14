@@ -1,0 +1,142 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel
+@{
+    ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName, Model.CustomerId);
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@section sidebar {
+
+    <div class="boxContent">
+        @Html.ActionLink("All Pick Waves", MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId)) of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em>
+    </div>
+    <div class="boxContent">
+        @Html.ActionLink("Change Customer", MVC_PickWaves.PickWaves.Home.Index())
+    </div>
+}
+
+
+<fieldset>
+    <legend style="font-size: 1.2em; font-weight : bold;">Add Pickslips</legend>
+
+    @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim(), FormMethod.Post, new
+        {
+            id = "frmMain"
+        }))
+    {
+        <input type="hidden" name="@Model.NameFor(m => m.LastBucketId)" value="@Model.LastBucketId" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.viewPickslips" id="hfViewPickslips" />
+        if (Model.LastBucketId.HasValue)
+        {
+            <blockquote>
+                Continue clicking on pickslip counts to add multiple pickslips to the pick wave.
+            </blockquote>
+            <div>
+                <span style="font-size: 1.2em; font-weight: bold;">Pick Wave @Html.DisplayFor(m => m.LastBucketId) </span>
+                @Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
+            new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
+                (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))) /
+                @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
+            new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
+             (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
+                <br />
+                <span class="ui-state-highlight" style="font-size: 1.2em;">#Pickslip : @Model.PickslipCount</span>
+                @if (!string.IsNullOrWhiteSpace(Model.PullAreaShortName))
+                {
+                    <div>Pull from : <span style="font-size: 1.2em;">@Model.PullAreaShortName</span> </div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.PitchAreaShortName))
+                {
+                    <div>Pitch from : <span style="font-size: 1.2em;">@Model.PitchAreaShortName</span> </div>
+                }
+            </div>
+            if (Model.Rows.Count > 0)
+            {
+                @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
+               Model.RowDimIndex.Value, Model.ColDimIndex.Value,Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null)))
+            }
+
+        }
+        else
+        {
+            if (Model.Rows.Count > 0)
+            {
+                <blockquote>
+                    Begin creating a new Pick Wave by clicking on one of the pickslip counts in the table below.
+                </blockquote>
+                <table>
+                    <tbody>
+                        @if (Model.PullAreas.Count > 0)
+                        {
+                            <tr>
+                                <td>
+                                    Pull From
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)")
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
+                                    @Html.LabelFor(m => m.RequiredBoxExpediting)
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.PitchAreas.Count > 0)
+                        {
+                            <tr>
+                                <td>
+                                    Pitch From
+                                </td>
+                                <td>
+                                    @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)")
+                                </td>
+                                <td>
+                                    @Html.CheckBoxFor(m => m.QuickPitch)
+                                    @Html.LabelFor(m => m.QuickPitch)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        if (Model.Rows.Count > 0)
+        {
+            <div id="matrixPartial" data-name-selected-dc="@Model.NameFor(m => m.ColDimVal)" data-name-selected-dim="@Model.NameFor(m => m.RowDimVal)"
+                 data-url="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.RefreshPickslipMatrix())">
+                @Html.Partial(MVC_PickWaves.PickWaves.CreateWave.Views._pickslipMatrixPartial, Model)
+            </div>
+        }
+        else
+        {
+            <div class="ui-state-highlight" style="margin-top: 2em;">
+                No imported orders found for Customer @Model.CustomerId
+            </div>
+        }
+    }
+</fieldset>
+
+
+
+
+<div id="divDlg" title="@string.Format(Model.LastBucketId.HasValue ? "Add pickslip to Pick Wave" : "Create New Pick Wave")">
+    <em id="dlgColDimSpan" style="display: inline-block; width: 15em">@Model.ColDimDisplayName</em><span id="dlgColDimSpanVal"></span>
+    <br />
+    <em id="dlgRowDimSpan" style="display: inline-block; width: 15em">@Model.RowDimDisplayName</em> <span id="dlgRowDimSpanVal"></span>
+    <hr />
+    @if (Model.LastBucketId.HasValue)
+    {
+        <div>Add <span id="dlgSpanPsCount"></span> more pickslips to pick wave @Model.LastBucketId.</div>
+        <a id="btnViewPickslips" href="#">View Pickslips</a>
+    }
+    else
+    {
+        <span>Create a pick wave containing <span id="dlgSpanPsCount"></span>pickslips ?</span>
+    }
+    <div id="dlgMessage" class="validation-summary-errors"></div>
+</div>
+
+@section Scripts{
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_Index_css" rel="stylesheet" />
+    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_Index_js" type="text/javascript"></script>
+}
+

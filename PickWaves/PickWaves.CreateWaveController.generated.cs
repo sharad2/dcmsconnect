@@ -170,12 +170,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _pickslipMatrixPartial = "_pickslipMatrixPartial";
+                public readonly string CreateWave_Index_css = "CreateWave-Index.css";
+                public readonly string CreateWave_Index_js = "CreateWave-Index.js";
+                public readonly string CreateWave_PickslipList_css = "CreateWave-PickslipList.css";
+                public readonly string CreateWave_PickslipList_js = "CreateWave-PickslipList.js";
+                public readonly string CreateWave_PickslipListSelector_css = "CreateWave-PickslipListSelector.css";
                 public readonly string Index = "Index";
                 public readonly string PickslipList = "PickslipList";
             }
-            public readonly string _pickslipMatrixPartial = "~/Areas/PickWaves/Views/CreateWave/_pickslipMatrixPartial.cshtml";
-            public readonly string Index = "~/Areas/PickWaves/Views/CreateWave/Index.cshtml";
-            public readonly string PickslipList = "~/Areas/PickWaves/Views/CreateWave/PickslipList.cshtml";
+            public readonly string _pickslipMatrixPartial = "~/Areas/PickWaves/CreateWave/_pickslipMatrixPartial.cshtml";
+            public readonly string CreateWave_Index_css = "~/Areas/PickWaves/CreateWave/CreateWave-Index.css.bundle";
+            public readonly string CreateWave_Index_js = "~/Areas/PickWaves/CreateWave/CreateWave-Index.js.bundle";
+            public readonly string CreateWave_PickslipList_css = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipList.css.bundle";
+            public readonly string CreateWave_PickslipList_js = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipList.js.bundle";
+            public readonly string CreateWave_PickslipListSelector_css = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipListSelector.css.bundle";
+            public readonly string Index = "~/Areas/PickWaves/CreateWave/Index.cshtml";
+            public readonly string PickslipList = "~/Areas/PickWaves/CreateWave/PickslipList.cshtml";
         }
     }
 

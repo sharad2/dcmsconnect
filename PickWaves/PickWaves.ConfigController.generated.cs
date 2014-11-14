@@ -300,17 +300,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string _addPackinRulePartial = "_addPackinRulePartial";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
+                public readonly string Config_js = "Config.js";
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
+                public readonly string ManageSkuCase_js = "ManageSkuCase.js";
                 public readonly string SkuCase = "SkuCase";
             }
-            public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Views/Config/_addCustomerConstraintPartial.cshtml";
-            public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Views/Config/_addPackinRulePartial.cshtml";
-            public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Views/Config/_custSkuCasePreferenceEditorPartial.cshtml";
-            public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Views/Config/_skuCaseEditorPartial.cshtml";
-            public readonly string Constraint = "~/Areas/PickWaves/Views/Config/Constraint.cshtml";
-            public readonly string Index = "~/Areas/PickWaves/Views/Config/Index.cshtml";
-            public readonly string SkuCase = "~/Areas/PickWaves/Views/Config/SkuCase.cshtml";
+            public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
+            public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Config/_addPackinRulePartial.cshtml";
+            public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
+            public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
+            public readonly string Config_js = "~/Areas/PickWaves/Config/Config.js.bundle";
+            public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
+            public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
+            public readonly string ManageSkuCase_js = "~/Areas/PickWaves/Config/ManageSkuCase.js.bundle";
+            public readonly string SkuCase = "~/Areas/PickWaves/Config/SkuCase.cshtml";
             static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
             public _DisplayTemplatesClass DisplayTemplates { get { return s_DisplayTemplates; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

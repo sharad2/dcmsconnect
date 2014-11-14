@@ -99,14 +99,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\PickWaves\Controllers\AutoCompleteController.cs">
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\PickWaves\Controllers\ConfigController.cs" />
-    <Compile Include="Areas\PickWaves\Controllers\CreateWaveController.cs" />
-    <Compile Include="Areas\PickWaves\Controllers\ManageWavesController.cs" />
-    <Compile Include="Areas\PickWaves\Controllers\BoxPickPalletController.cs" />
-    <Compile Include="Areas\PickWaves\Controllers\HomeController.cs" />
+    <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletController.cs" />
+    <Compile Include="Areas\PickWaves\Home\HomeController.cs" />
     <Compile Include="Helpers\BoxState.cs" />
     <Compile Include="Helpers\BucketActivityType.cs" />
     <Compile Include="Helpers\DateRange.cs" />
@@ -117,6 +117,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteRepository.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickBucket.cs" />
+    <Compile Include="Repository\BoxStats.cs" />
+    <Compile Include="Repository\BucketActivity.cs" />
+    <Compile Include="Areas\PickWaves\Config\ConfigRepository.cs" />
+    <Compile Include="Areas\PickWaves\Config\ConfigService.cs" />
+    <Compile Include="Areas\PickWaves\Config\CustomerSkuCase.cs" />
+    <Compile Include="Areas\PickWaves\Config\PackingRules.cs" />
+    <Compile Include="Areas\PickWaves\Config\SkuCase.cs" />
+    <Compile Include="Repository\Bucket.cs" />
+    <Compile Include="Areas\PickWaves\Config\Style.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\CreateWaveArea.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\PickWaveEditable.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\VirtualWarehouse.cs" />
+    <Compile Include="Repository\Customer.cs" />
+    <Compile Include="Areas\PickWaves\Home\BucketSummary.cs" />
+    <Compile Include="Repository\ImportedOrderSummary.cs" />
+    <Compile Include="Repository\InventoryArea.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\CustomerOrderSummary.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\Pallet.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\Box.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\BucketArea.cs" />
+    <Compile Include="Repository\Pickslip.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\BucketSku.cs" />
     <Compile Include="PickWaves.AutoCompleteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -135,44 +159,26 @@
     <Compile Include="PickWaves.ManageWavesController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="PickWaves.SharedController.generated.cs">
+    <Compile Include="PickWaves.o_ContentController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\AutoCompleteRepository.cs" />
-    <Compile Include="Repository\BoxPickPallet\BoxPickBucket.cs" />
-    <Compile Include="Repository\BoxStats.cs" />
-    <Compile Include="Repository\BucketActivity.cs" />
-    <Compile Include="Repository\Config\ConfigRepository.cs" />
-    <Compile Include="Repository\Config\ConfigService.cs" />
-    <Compile Include="Repository\Config\CustomerSkuCase.cs" />
-    <Compile Include="Repository\Config\PackingRules.cs" />
-    <Compile Include="Repository\Config\SkuCase.cs" />
-    <Compile Include="Repository\Bucket.cs" />
-    <Compile Include="Repository\Config\Style.cs" />
-    <Compile Include="Repository\CreateWave\CreateWaveArea.cs" />
-    <Compile Include="Repository\CreateWave\PickWaveEditable.cs" />
-    <Compile Include="Repository\CreateWave\VirtualWarehouse.cs" />
-    <Compile Include="Repository\Customer.cs" />
-    <Compile Include="Repository\Home\BucketSummary.cs" />
-    <Compile Include="Repository\ImportedOrderSummary.cs" />
-    <Compile Include="Repository\InventoryArea.cs" />
-    <Compile Include="Repository\CreateWave\CustomerOrderSummary.cs" />
-    <Compile Include="Repository\BoxPickPallet\Pallet.cs" />
-    <Compile Include="Repository\ManageWaves\Box.cs" />
-    <Compile Include="Repository\ManageWaves\BucketArea.cs" />
-    <Compile Include="Repository\Pickslip.cs" />
-    <Compile Include="Repository\ManageWaves\BucketSku.cs" />
+    <Compile Include="PickWaves.o_ScriptsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.SharedViewsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\CreateWave\CreateWaveRepository.cs" />
-    <Compile Include="Repository\CreateWave\CreateWaveService.cs" />
-    <Compile Include="Repository\CreateWave\PickslipDimension.cs" />
-    <Compile Include="Repository\BoxPickPallet\BoxPickPalletRepository.cs" />
-    <Compile Include="Repository\BoxPickPallet\BoxPickPalletService.cs" />
-    <Compile Include="Repository\ManageWaves\ManageWavesRepository.cs" />
-    <Compile Include="Repository\ManageWaves\ManageWavesService.cs" />
-    <Compile Include="Repository\Home\HomeRepository.cs" />
-    <Compile Include="Repository\Home\HomeService.cs" />
-    <Compile Include="Repository\ManageWaves\Sku.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\CreateWaveRepository.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\CreateWaveService.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\PickslipDimension.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletRepository.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletService.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesRepository.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesService.cs" />
+    <Compile Include="Areas\PickWaves\Home\HomeRepository.cs" />
+    <Compile Include="Areas\PickWaves\Home\HomeService.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\Sku.cs" />
     <Compile Include="Repository\PickWaveRepositoryBase.cs" />
     <Compile Include="Repository\PickWaveServiceBase.cs" />
     <Compile Include="Resources\PickWavesResource.Designer.cs">
@@ -180,51 +186,52 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PickWavesResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Areas\PickWaves\AutoComplete\AutocompleteItem.cs" />
+    <Compile Include="ViewModels\BucketActivityModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\ConstraintModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\PickWaves\Config\ConstraintViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\PickWaves\Config\CustomerModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\CustomerSkuCaseModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\PickWaves\Config\IndexViewModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\PackingRulesModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\SkuCaseModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\SkuCaseViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\PickWaves\CreateWave\RowDimensionModel.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\PickslipMatrixPartialViewModel.cs" />
+    <Compile Include="Areas\PickWaves\Home\CustomerBucketStateModel.cs" />
+    <Compile Include="ViewModels\InventoryAreaModel.cs" />
+    <Compile Include="Areas\PickWaves\Home\ImportedOrderSummaryModel.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\IndexViewModel.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\PickslipListViewModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\BoxModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WaveBoxListModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WavePickslipListModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WaveSkuListModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WaveViewModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\IndexViewModel.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletViewModel.cs" />
+    <Compile Include="ViewModels\BucketModel.cs" />
+    <Compile Include="Areas\PickWaves\Home\IndexViewModel.cs" />
+    <Compile Include="Areas\PickWaves\BoxPickPallet\PalletModel.cs" />
+    <Compile Include="ViewModels\PickslipModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\BucketSkuModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AutocompleteItem.cs" />
-    <Compile Include="ViewModels\BucketActivityModel.cs" />
-    <Compile Include="ViewModels\Config\ConstraintModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\Config\ConstraintViewModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\Config\CustomerModel.cs" />
-    <Compile Include="ViewModels\Config\CustomerSkuCaseModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\Config\IndexViewModel.cs" />
-    <Compile Include="ViewModels\Config\PackingRulesModel.cs" />
-    <Compile Include="ViewModels\Config\SkuCaseModel.cs" />
-    <Compile Include="ViewModels\Config\SkuCaseViewModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\CreateWave\RowDimensionModel.cs" />
-    <Compile Include="ViewModels\CreateWave\PickslipMatrixPartialViewModel.cs" />
-    <Compile Include="ViewModels\Home\CustomerBucketStateModel.cs" />
-    <Compile Include="ViewModels\InventoryAreaModel.cs" />
-    <Compile Include="ViewModels\Home\ImportedOrderSummaryModel.cs" />
-    <Compile Include="ViewModels\CreateWave\IndexViewModel.cs" />
-    <Compile Include="ViewModels\CreateWave\PickslipListViewModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\BoxModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\WaveBoxListModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\WavePickslipListModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\WaveSkuListModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\WaveViewModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\IndexViewModel.cs" />
-    <Compile Include="ViewModels\BoxPickPallet\BoxPickPalletViewModel.cs" />
-    <Compile Include="ViewModels\BucketModel.cs" />
-    <Compile Include="ViewModels\Home\IndexViewModel.cs" />
-    <Compile Include="ViewModels\BoxPickPallet\PalletModel.cs" />
-    <Compile Include="ViewModels\PickslipModel.cs" />
-    <Compile Include="ViewModels\ManageWaves\BucketSkuModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -304,190 +311,190 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.xml" />
-    <None Include="Areas\PickWaves\Content\BucketModel-Display.partial.css" />
-    <None Include="Areas\PickWaves\Content\BucketModel-Editor.partial.css" />
-    <None Include="Areas\PickWaves\Content\Config.css" />
-    <None Include="Areas\PickWaves\Content\CreateWave-Index.css.bundle" />
-    <None Include="Areas\PickWaves\Content\CreateWave-PickslipList.css.bundle" />
-    <None Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.css.bundle" />
-    <None Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.partial.css" />
-    <None Include="Areas\PickWaves\Content\CreateWave-Index.partial.css" />
-    <None Include="Areas\PickWaves\Content\Home-Index.css.bundle" />
-    <None Include="Areas\PickWaves\Content\Home-Index.partial.css" />
-    <Content Include="Areas\PickWaves\Content\Config.min.css">
+    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel-Display.partial.css" />
+    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel-Editor.partial.css" />
+    <None Include="Areas\PickWaves\Config\Config.css" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.css.bundle" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.css.bundle" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.css.bundle" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.partial.css" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.partial.css" />
+    <None Include="Areas\PickWaves\Home\Home-Index.css.bundle" />
+    <None Include="Areas\PickWaves\Home\Home-Index.partial.css" />
+    <Content Include="Areas\PickWaves\Config\Config.min.css">
       <DependentUpon>Config.css</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Content\CreateWave-Index.css">
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.css">
       <DependentUpon>CreateWave-Index.css.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Content\CreateWave-Index.min.css">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-Index.min.css">
       <DependentUpon>CreateWave-Index.css.bundle</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Content\CreateWave-PickslipList.css">
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.css">
       <DependentUpon>CreateWave-PickslipList.css.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Content\CreateWave-PickslipList.min.css">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.min.css">
       <DependentUpon>CreateWave-PickslipList.css.bundle</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.css">
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.css">
       <DependentUpon>CreateWave-PickslipListSelector.css.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Content\CreateWave-PickslipListSelector.min.css">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.min.css">
       <DependentUpon>CreateWave-PickslipListSelector.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\Home-CustomerSummary.min.css">
+    <Content Include="Areas\PickWaves\Home\Home-CustomerSummary.min.css">
       <DependentUpon>Home-CustomerSummary.css</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Content\Home-Index.css">
+    <None Include="Areas\PickWaves\Home\Home-Index.css">
       <DependentUpon>Home-Index.css.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Content\Home-Index.min.css">
+    <Content Include="Areas\PickWaves\Home\Home-Index.min.css">
       <DependentUpon>Home-Index.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Content\images\ajax-loader.gif" />
-    <Content Include="Areas\PickWaves\Content\images\a1.gif" />
-    <None Include="Areas\PickWaves\Content\ManageWave-Index.css.bundle" />
-    <None Include="Areas\PickWaves\Content\ManageWave-Index.partial.css" />
-    <None Include="Areas\PickWaves\Content\ManageWave-Wave.css.bundle" />
-    <None Include="Areas\PickWaves\Content\ManageWave-Wave.partial.css" />
-    <None Include="Areas\PickWaves\Content\ManageWave-Index.css">
-      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\Content\ManageWave-Index.min.css">
-      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Content\ManageWave-Wave.css">
-      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\Content\ManageWave-Wave.min.css">
-      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Content\PickWaves-all.css">
-      <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\Content\PickWaves-all.min.css">
-      <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Scripts\AutoComplete.partial.js" />
-    <Content Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.min.js">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.min.js.map">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
-    </None>
-    <None Include="Areas\PickWaves\Content\PickWaves-all.css.bundle" />
-    <None Include="Areas\PickWaves\Scripts\Config.js.bundle">
+    <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.css.bundle">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\Config.min.js.map">
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.partial.css" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.css.bundle" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.partial.css" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.css">
+      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
+    </None>
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.css">
+      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.css">
+      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
+    </None>
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.css">
+      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\PickWaves\SharedViews\PickWaves-all.css">
+      <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
+    </None>
+    <Content Include="Areas\PickWaves\SharedViews\PickWaves-all.min.css">
+      <DependentUpon>PickWaves-all.css.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial.js" />
+    <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
+      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+    </Content>
+    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
+      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+    </None>
+    <None Include="Areas\PickWaves\SharedViews\PickWaves-all.css.bundle" />
+    <None Include="Areas\PickWaves\Config\Config.js.bundle">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Areas\PickWaves\Config\Config.min.js.map">
       <DependentUpon>Config.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\Config.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\bucketModel.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\CreateWave-Index.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\Config.js">
+    <None Include="Areas\PickWaves\Config\Config.partial.js" />
+    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\bucketModel.partial.js" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.js.bundle" />
+    <Content Include="Areas\PickWaves\Config\Config.js">
       <DependentUpon>Config.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\Config.min.js">
+    <Content Include="Areas\PickWaves\Config\Config.min.js">
       <DependentUpon>Config.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js.map">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-Index.min.js.map">
       <DependentUpon>CreateWave-Index.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js.map">
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.js.bundle" />
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.min.js.map">
       <DependentUpon>CreateWave-PickslipList.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.js">
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.js">
       <DependentUpon>CreateWave-PickslipList.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.min.js">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.min.js">
       <DependentUpon>CreateWave-PickslipList.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\Home-Index.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js.map">
+    <None Include="Areas\PickWaves\Home\Home-Index.js.bundle" />
+    <Content Include="Areas\PickWaves\Home\Home-Index.min.js.map">
       <DependentUpon>Home-Index.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\Home-Index.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\jQuery.cookie.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\ManageSkuCase.js.bundle" />
-    <None Include="Areas\PickWaves\Scripts\Home-Index.js">
+    <None Include="Areas\PickWaves\Home\Home-Index.partial.js" />
+    <None Include="Areas\PickWaves\Config\ManageSkuCase.js.bundle" />
+    <None Include="Areas\PickWaves\Home\Home-Index.js">
       <DependentUpon>Home-Index.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\Home-Index.min.js">
+    <Content Include="Areas\PickWaves\Home\Home-Index.min.js">
       <DependentUpon>Home-Index.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.min.js.map">
+    <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js.map">
       <DependentUpon>ManageSkuCase.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Index.js.bundle" />
-    <None Include="Areas\PickWaves\Scripts\CreateWave-Index.js">
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.js.bundle" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.js">
       <DependentUpon>CreateWave-Index.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\CreateWave-Index.min.js">
+    <Content Include="Areas\PickWaves\CreateWave\CreateWave-Index.min.js">
       <DependentUpon>CreateWave-Index.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\ManageSkuCase.js">
+    <None Include="Areas\PickWaves\Config\ManageSkuCase.js">
       <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\ManageSkuCase.min.js">
+    <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.min.js.map">
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.js.map">
       <DependentUpon>ManageWave-Index.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.js.bundle" />
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.min.js.map">
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js.bundle" />
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.js.map">
       <DependentUpon>ManageWave-Wave.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\CreateWave-PickslipList.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\ManageSkuCase.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\CreateWave-Index.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Index.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\selectable.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\_bucketEditorPartial.partial.js" />
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Index.js">
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.partial.js" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.partial.js" />
+    <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
+    <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.partial.js" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.partial.js" />
+    <None Include="Areas\PickWaves\CreateWave\selectable.partial.js" />
+    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\_bucketEditorPartial.partial.js" />
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.js">
       <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Index.min.js">
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.js">
       <DependentUpon>ManageWave-Index.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Scripts\ManageWave-Wave.js">
+    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js">
       <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
     </None>
-    <Content Include="Areas\PickWaves\Scripts\ManageWave-Wave.min.js">
+    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.js">
       <DependentUpon>ManageWave-Wave.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Views\ManageWaves\_bucketEditorPartial.cshtml">
+    <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Doc\PickWaveManager.doc" />
-    <Content Include="Areas\PickWaves\Views\Shared\DisplayTemplates\BucketModel.cshtml" />
-    <None Include="Areas\PickWaves\Content\Box Creation for Pitching.pptx" />
-    <None Include="Areas\PickWaves\Content\standardized.partial.css" />
-    <None Include="Areas\PickWaves\Content\PickWaves.partial.css" />
-    <None Include="Areas\PickWaves\Content\Home-CustomerSummary.css" />
-    <None Include="Areas\PickWaves\Scripts\BoxPickPalletIndex-all.js" />
-    <Content Include="Areas\PickWaves\Views\ManageWaves\Index.cshtml" />
-    <Content Include="Areas\PickWaves\Views\BoxPickPallet\Index.cshtml" />
-    <Content Include="Areas\PickWaves\Views\CreateWave\Index.cshtml" />
-    <Content Include="Areas\PickWaves\Views\CreateWave\PickslipList.cshtml" />
-    <Content Include="Areas\PickWaves\Views\ManageWaves\Wave.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel.cshtml" />
+    <None Include="Doc\Box Creation for Pitching.pptx" />
+    <None Include="Areas\PickWaves\SharedViews\standardized.partial.css" />
+    <None Include="Areas\PickWaves\SharedViews\PickWaves.partial.css" />
+    <None Include="Areas\PickWaves\Home\Home-CustomerSummary.css" />
+    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />
+    <Content Include="Areas\PickWaves\ManageWaves\Index.cshtml" />
+    <Content Include="Areas\PickWaves\BoxPickPallet\Index.cshtml" />
+    <Content Include="Areas\PickWaves\CreateWave\Index.cshtml" />
+    <Content Include="Areas\PickWaves\CreateWave\PickslipList.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\Wave.cshtml" />
     <None Include="Doc\Readme.txt" />
-    <Content Include="Areas\PickWaves\Views\ManageWaves\_waveBoxesPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\Index.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\SkuCase.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\Constraint.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\_skuCaseEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\DisplayTemplates\ConstraintModel.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\_custSkuCasePreferenceEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\_addPackinRulePartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Shared\_activityProgressPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\ManageWaves\_waveSkusPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\CreateWave\_pickslipMatrixPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\ManageWaves\_wavePickslipsPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Views\Config\_addCustomerConstraintPartial.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\_waveBoxesPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\Index.cshtml" />
+    <Content Include="Areas\PickWaves\Config\SkuCase.cshtml" />
+    <Content Include="Areas\PickWaves\Config\Constraint.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_skuCaseEditorPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\DisplayTemplates\ConstraintModel.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditorPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_addPackinRulePartial.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\_activityProgressPartial.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
+    <Content Include="Areas\PickWaves\CreateWave\_pickslipMatrixPartial.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\_wavePickslipsPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_addCustomerConstraintPartial.cshtml" />
     <None Include="Doc\GPL Technical.docx" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
@@ -505,14 +512,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Views\Web.config" />
+    <Content Include="Areas\PickWaves\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Views\Home\Index.cshtml" />
+    <Content Include="Areas\PickWaves\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Views\Shared\_layoutPickWaves.cshtml" />
-    <Content Include="Areas\PickWaves\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves.cshtml" />
+    <Content Include="Areas\PickWaves\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
