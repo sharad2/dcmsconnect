@@ -112,12 +112,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                 var inserted = _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
                 if (inserted)
                 {
-                    AddStatusMessage(string.Format("Spot check setting has been added for Sewing Plant: {0}, Style: {1}, Color: {2} ", sewingPlantId, style, color));
+                    AddStatusMessage(string.Format("Spot check setting has been added for Sewing Plant: {0}, Style: {1}, Color: {2} ", string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
 
                 }
                 else
                 {
-                    AddStatusMessage(string.Format("Spot check setting has been modified for Sewing Plant: {0}, Style: {1}, Color: {2} ", sewingPlantId, style, color));
+                    AddStatusMessage(string.Format("Spot check setting has been modified for Sewing Plant: {0}, Style: {1}, Color: {2} ", string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
                 
                 }
             }
