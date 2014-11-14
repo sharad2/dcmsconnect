@@ -109,8 +109,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             }
             else
             {
-                _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
-                if (action == ModifyAction.Add)
+                var inserted = _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+                if (inserted)
                 {
                     AddStatusMessage("Spot check setting has been added"); // TODO: for which style etc.
                 }

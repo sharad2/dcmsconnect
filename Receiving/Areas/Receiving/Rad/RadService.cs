@@ -42,10 +42,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
 
 
-        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        public bool AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
-
-            _repos.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+            return _repos.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
         }
 
 

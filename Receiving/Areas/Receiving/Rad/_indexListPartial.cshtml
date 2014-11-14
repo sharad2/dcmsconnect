@@ -96,52 +96,6 @@
                     </div>
                     <div class="col-md-3">
                         @EditForm(Model.SewingPlants[i].Styles[j])
-                        @*@if (Model.EnableEditing)
-                        {
-                            
-                            <form class="hidden" action="@Url.Action(MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSetting())" method="post">
-                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.sewingPlantId" value="@Model.SewingPlants[i].Styles[j].SewingPlantId" />
-                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.color" value="@Model.SewingPlants[i].Styles[j].Color" />
-                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="@Model.SewingPlants[i].Styles[j].IsSpotCheckEnabled.ToString()" />
-                                <input type="hidden" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.style" value="@Model.SewingPlants[i].Styles[j].Style" />
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" required name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.spotCheckPercent"
-                                           value="@Model.SewingPlants[i].Styles[j].SpotCheckPercent" />
-                                    <div class="input-group-btn ">
-                                        <div class="btn-group">
-                                            <button type="submit" class="btn btn-default btn-sm" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Edit">Update</button>
-                                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu cancel-btn" role="menu">
-                                                <li><a href="#">Cancel</a></li>
-                                            </ul>
-                                        </div>
-                                        <button class="btn btn-default" type="submit" tabindex="-1" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.action" value="@DcmsMobile.Receiving.Areas.Receiving.Rad.ModifyAction.Delete">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </div>
-                                <input type="checkbox" name="@MVC_Receiving.Receiving.Rad.AddUpdateSpotCheckSettingParams.enabled" value="True"
-                                       @Html.Raw(Model.SewingPlants[i].Styles[j].IsSpotCheckEnabled ? "checked" : "") /> Enabled
-                            </form>
-                        }
-
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" type="number" min="0" max="100" maxlength="3" size="2" disabled value="@Model.SewingPlants[i].Styles[j].SpotCheckPercent" />
-                            <div class="input-group-btn ">
-                                @if (Model.EnableEditing)
-                                {
-                                    <div class="input-group-btn edit-btn">
-                                        <button class="btn btn-sm btn-default"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                                    </div>
-                                }
-                            </div>
-                            @if (!Model.SewingPlants[i].Styles[j].IsSpotCheckEnabled)
-                            {
-                                <span class="label label-default pull-right">Disabled</span>
-                            }
-                        </div>*@
                     </div>
                 </div>
             </li>

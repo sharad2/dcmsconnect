@@ -133,8 +133,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
 
 
-
-        public void AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
+        /// <summary>
+        /// Returns true if the setting was newly inserted. Else returns false.
+        /// </summary>
+        /// <param name="style"></param>
+        /// <param name="color"></param>
+        /// <param name="sewingPlantId"></param>
+        /// <param name="spotCheckPercent"></param>
+        /// <param name="enabled"></param>
+        /// <returns></returns>
+        public bool AddUpdateSpotCheckSetting(string style, string color, string sewingPlantId, int? spotCheckPercent, bool enabled)
         {
             const string QUERY = @"
         BEGIN
@@ -157,16 +165,21 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                              :SEWING_PLANT_CODE,
                              :SPOTCHECK_PERCENT,
                              :SPOTCHECK_FLAG);
+:inserted := 'Y';
         END IF;
         END;
            ";
+
+            string inserted = string.Empty;
             var binder = SqlBinder.Create()
                 .Parameter("STYLE", string.IsNullOrEmpty(style)? ".": style)
                 .Parameter("COLOR", string.IsNullOrEmpty(color) ? "." : color)
                 .Parameter("SEWING_PLANT_CODE", string.IsNullOrEmpty(sewingPlantId) ? "." : sewingPlantId)
                 .Parameter("SPOTCHECK_PERCENT", spotCheckPercent)
-                .Parameter("SPOTCHECK_FLAG", enabled ? "Y" : "");
+                .Parameter("SPOTCHECK_FLAG", enabled ? "Y" : "")
+                .OutParameter("inserted", val => inserted = val);
             _db.ExecuteNonQuery(QUERY, binder);
+            return inserted == "Y";
         }
 
 

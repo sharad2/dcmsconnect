@@ -496,7 +496,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         internal IList<Tuple<string, string>> GetCarriers(string searchId, string searchDescription)
         {
-            throw new Exception(searchId + "*" + searchDescription);
+            //throw new Exception(searchId + "*" + searchDescription);
             return _repos.GetCarriers(searchId, searchDescription);
         }
     }
