@@ -31,31 +31,7 @@ namespace DcmsMobile.Receiving.Repository
             _db.Dispose();
         }
 
-        /// <summary>
-        /// To get Carrier list for Carrier Auto Complete text box
-        /// </summary>
-        /// <param name="searchText">
-        /// Search term is passed to populate the list
-        /// </param>
-        /// <returns></returns>        
-        public IList<Tuple<string, string>> GetCarriers(string searchId, string searchDescription)
-        {
-            const string QUERY = @"
-                        SELECT mc.carrier_id as carrier_id, 
-                                mc.description as description
-                            FROM <proxy />v_carrier mc
-                        where 1 =1                         
-                        and (UPPER(mc.carrier_id) LIKE '%' || UPPER(:id) || '%' 
-                            OR UPPER(mc.description) LIKE '%' || UPPER(:description) ||'%')                       
-                        AND ROWNUM &lt; 40
-                        ORDER BY mc.carrier_id
-                        ";
-            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("carrier_id"), row.GetString("description")))
-                .Parameter("id", searchId)
-                .Parameter("description", searchDescription);
-            return _db.ExecuteReader(QUERY,binder);
 
-        }
 
         /// <summary>
         /// To get Style list for Style Auto Complete text box

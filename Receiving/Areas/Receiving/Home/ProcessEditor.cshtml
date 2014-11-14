@@ -191,28 +191,36 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
+    $(document).ready(function () {
 
-            // Carrier auto complete
-            var carriers = new Bloodhound({
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace,
-                //queryTokenizer: function (query) {
-                //    return [query.trim()];
-                //},
-                remote: {
-                    wildcard: '~',
-                    url: '@Url.Action(MVC_Receiving.Receiving.AutoComplete.GetCarriers("~"))',
+        // Carrier auto complete
+        @*var carriers = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            remote: {
+                wildcard: '~',
+                url: '@Url.Action(MVC_Receiving.Receiving.Home.GetCarriers("~"))',
                     ajax: {cache: false}
                 }
             });
 
-            carriers.initialize();
+            carriers.initialize();*@
 
             $('#tbCarrier').typeahead(null, {
                 name: 'carriers',
                 displayKey: 'label',
-                source: carriers.ttAdapter(),
+                source: function (query, cb) {   //carriers.ttAdapter(),
+                    var url = '@Url.Action(MVC_Receiving.Receiving.Home.GetCarriers("~"))'.replace('~', query);
+                    $.get(url).done(function (data, textStatus, jqXHR) {
+                            this.cb(data);
+                    }.bind({cb: cb})).fail(function (jqXHR, textStatus, errorThrown) {
+                            if (jqXHR.status == 500) {
+                                this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value:'' }]);
+                            } else {
+                                this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                            }
+                    }.bind({cb : cb, url: url}));
+                },
                 templates: {
                     empty: 'No matching carrier found'
                 }

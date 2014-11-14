@@ -114,6 +114,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ReOpenShipment);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult GetCarriers()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetCarriers);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_Receiving.Receiving.Home; } }
@@ -143,6 +149,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public readonly string ShipmentList = "ShipmentList";
             public readonly string CloseShipment = "CloseShipment";
             public readonly string ReOpenShipment = "ReOpenShipment";
+            public readonly string GetCarriers = "GetCarriers";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -161,6 +168,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public const string ShipmentList = "ShipmentList";
             public const string CloseShipment = "CloseShipment";
             public const string ReOpenShipment = "ReOpenShipment";
+            public const string GetCarriers = "GetCarriers";
         }
 
 
@@ -250,6 +258,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             public readonly string shipmentId = "shipmentId";
             public readonly string poId = "poId";
+        }
+        static readonly ActionParamsClass_GetCarriers s_params_GetCarriers = new ActionParamsClass_GetCarriers();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_GetCarriers GetCarriersParams { get { return s_params_GetCarriers; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_GetCarriers
+        {
+            public readonly string term = "term";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -503,6 +519,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "shipmentId", shipmentId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "poId", poId);
             ReOpenShipmentOverride(callInfo, shipmentId, poId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void GetCarriersOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult GetCarriers(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.GetCarriers);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            GetCarriersOverride(callInfo, term);
             return callInfo;
         }
 

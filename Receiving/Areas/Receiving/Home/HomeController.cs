@@ -551,36 +551,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                         }, JsonRequestBehavior.AllowGet);
         }
 
-        ///// <summary>
-        ///// This function used for get the list of unpalletize cartons against the passed ProcessId.
-        ///// </summary>
-        ///// <returns>
-        ///// It will return the list of unpalletize cartons under a particular process.
-        ///// </returns>        
-        //[HttpGet]
-        //public virtual ActionResult NonpalletizedCartons(int? processId)
-        //{
-        //    try
-        //    {
-        //        var model = new ReceivingViewModel();
-        //        model.NonPalletizeCartonList =
-        //            _service.Value.GetUnpalletizedCartons(processId).Select(p => new CartonNotOnPalletModel
-        //                {
-        //                    AreaId = p.DestinationArea,
-        //                    CartonId = p.CartonId,
-        //                    VWHId = p.VwhId
-        //                });
-        //        Response.StatusCode = 200;
-        //        return PartialView(MVC_Receiving.Receiving.Home.Views._cartonNotOnPalletPartial, model);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Simulate the behavior of the obsolete HandleAjaxError attribute
-        //        this.Response.StatusCode = 203;
-        //        return Content(ex.Message);
-        //    }
-        //}
-
         /// <summary>
         /// Get the shipment list
         /// </summary>
@@ -657,7 +627,61 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         }
 
+        /// <summary>
+        /// Get matching carriers
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        public virtual JsonResult GetCarriers(string term)
+        {
+            // Change null to empty string
+            term = term ?? string.Empty;
+
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
+            {
+                case 0:
+                    // All carriers
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+
+            var data = _service.Value.GetCarriers(searchId, searchDescription).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
+            }); ;
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
     }
+
+
 }
 
 
