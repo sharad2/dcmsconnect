@@ -48,10 +48,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         }
 
 
-        public void DeleteSpotCheckSetting(string style, string sewingPlantId)
+        public int DeleteSpotCheckSetting(string style,string color, string sewingPlantId)
         {
-
-            _repos.DeleteSpotCheckSetting(style,sewingPlantId);
+           return _repos.DeleteSpotCheckSetting(style,color,sewingPlantId);
         }
 
        

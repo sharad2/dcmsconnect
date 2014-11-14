@@ -182,19 +182,28 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             return inserted == "Y";
         }
 
-
-        public void DeleteSpotCheckSetting(string style, string sewingPlantId)
+        /// <summary>
+        /// Returns the number of rows deleted
+        /// </summary>
+        /// <param name="style"></param>
+        /// <param name="color"></param>
+        /// <param name="sewingPlantId"></param>
+        /// <returns></returns>
+        public int DeleteSpotCheckSetting(string style, string color,string sewingPlantId)
         {
             const string QUERY = @"
             DELETE FROM <proxy />MASTER_SEWINGPLANT_STYLE MS
-             WHERE MS.STYLE = :STYLE
-               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
+             WHERE           MS.STYLE = :STYLE                    
+                            AND MS.COLOR = :COLOR                        
+                               AND MS.SEWING_PLANT_CODE = :SEWING_PLANT_CODE
+                                       
            ";
             var binder = SqlBinder.Create()
-                .Parameter("STYLE", style)
-                .Parameter("SEWING_PLANT_CODE", sewingPlantId);
+                .Parameter("STYLE", string.IsNullOrEmpty(style) ? "." : style)
+                 .Parameter("COLOR", string.IsNullOrEmpty(color) ? "." : color)
+                .Parameter("SEWING_PLANT_CODE", string.IsNullOrEmpty(sewingPlantId) ? "." : sewingPlantId);
             //++_queryCount;
-            _db.ExecuteNonQuery(QUERY, binder);
+            return _db.ExecuteDml(QUERY, binder);
         }
 
 

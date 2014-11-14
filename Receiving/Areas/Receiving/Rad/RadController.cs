@@ -104,8 +104,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
             if (action == ModifyAction.Delete)
             {
-                _service.DeleteSpotCheckSetting(style, sewingPlantId);
-                AddStatusMessage("Spot check percent has been deleted");
+                var rows = _service.DeleteSpotCheckSetting(style,color, sewingPlantId);
+                AddStatusMessage(string.Format("{0} Spot check setting has been deleted", rows));
             }
             else
             {
