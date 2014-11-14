@@ -6,6 +6,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Linq;
+using System.Web.Mvc.Routing;
 
 namespace DcmsMobile.PickWaves
 {
@@ -38,7 +39,7 @@ namespace DcmsMobile.PickWaves
               Links_PickWaves.Scripts.Url()
             }));
             // Enabling Attribute routing
-            RouteTable.Routes.MapMvcAttributeRoutes();
+            RouteTable.Routes.MapMvcAttributeRoutes(new MyRouteProvider());
 
             AreaRegistration.RegisterAllAreas();
 
@@ -77,5 +78,13 @@ namespace DcmsMobile.PickWaves
             this.Context.SkipAuthorization = true;
         }
 #endif
+    }
+
+    internal class MyRouteProvider : DefaultDirectRouteProvider
+    {
+        protected override string GetAreaPrefix(ControllerDescriptor controllerDescriptor)
+        {
+            return string.Empty;  // Ignore area prefix when app is being run directly. This makes it possible to reach the right page with the URL http://localhost
+        }
     }
 }

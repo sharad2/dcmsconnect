@@ -114,7 +114,6 @@
     <Compile Include="Helpers\PickWaveHelpers.cs" />
     <Compile Include="Helpers\PickWavesControllerBase.cs" />
     <Compile Include="Areas\PickWaves\PickWavesAreaRegistration.cs" />
-    <Compile Include="Areas\PickWaves\SubAreas.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

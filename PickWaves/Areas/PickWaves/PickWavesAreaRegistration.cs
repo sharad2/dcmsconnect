@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves
 {
-    [MetadataType(typeof(SubAreas))]
+    //[MetadataType(typeof(SubAreas))]
     public class PickWavesAreaRegistration : AreaRegistration
     {
         [Display(Description = "Create and Manage Pick Waves", Name = "Manage Pick Waves", Order = 500, ShortName = "PWAV")]
