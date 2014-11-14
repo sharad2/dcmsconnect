@@ -166,7 +166,6 @@
     <Content Include="Areas\Receiving\Home\Receiving.min.js">
       <DependentUpon>Receiving.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Receiving\Home\_cartonNotOnPalletPartial.cshtml" />
     <Content Include="Areas\Receiving\Home\Guided Receiving.pps" />
     <Content Include="Areas\Receiving\Home\ShipmentList.cshtml" />
     <Content Include="Areas\Receiving\Home\Receiving.cshtml" />

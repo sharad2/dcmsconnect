@@ -277,7 +277,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _cartonNotOnPalletPartial = "_cartonNotOnPalletPartial";
                 public readonly string _palletPartial = "_palletPartial";
                 public readonly string Guided_Receiving = "Guided Receiving";
                 public readonly string Guided_Receiving_ppsx = "Guided_Receiving_ppsx";
@@ -288,7 +287,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 public readonly string ShipmentList = "ShipmentList";
                 public readonly string Tutorial = "Tutorial";
             }
-            public readonly string _cartonNotOnPalletPartial = "~/Areas/Receiving/Home/_cartonNotOnPalletPartial.cshtml";
             public readonly string _palletPartial = "~/Areas/Receiving/Home/_palletPartial.cshtml";
             public readonly string Guided_Receiving = "~/Areas/Receiving/Home/Guided Receiving.pps";
             public readonly string Guided_Receiving_ppsx = "~/Areas/Receiving/Home/Guided Receiving.ppsx";
