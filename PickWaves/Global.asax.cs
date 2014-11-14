@@ -34,10 +34,10 @@ namespace DcmsMobile.PickWaves
 
         protected void Application_Start()
         {
-            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-              Links_PickWaves.Content.Url(),
-              Links_PickWaves.Scripts.Url()
-            }));
+            //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+            //  Links_PickWaves.Content.Url(),
+            //  Links_PickWaves.Scripts.Url()
+            //}));
             // Enabling Attribute routing
             RouteTable.Routes.MapMvcAttributeRoutes(new MyRouteProvider());
 
