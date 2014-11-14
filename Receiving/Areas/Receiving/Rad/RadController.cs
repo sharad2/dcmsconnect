@@ -48,28 +48,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             var model = new IndexViewModel();
             var sc = _service.GetSpotCheckList();
-            //model.SpotCheckList = sc.Select(p => new SpotCheckConfigurationModel(p)).ToList();
-
+          
             model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
             model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
-            //ViewBag.EnableEditing = model.EnableEditing;
+           
 
-            // The configuration where sewing plant, style and color are all null
-            var systemDefault = sc.Where(p => string.IsNullOrWhiteSpace(p.SewingPlantId) &&
-                string.IsNullOrWhiteSpace(p.Style) &&
-                string.IsNullOrWhiteSpace(p.Color)
-                ).FirstOrDefault();
-            if (systemDefault == null)
-            {
-                // Setting not specified in database
-                throw new NotImplementedException();
-            }
-
-            model.SystemDefaultConfiguration = new SpotCheckConfigurationModel(systemDefault);
-
-            var query = from item in sc
-                        where !(string.IsNullOrWhiteSpace(item.SewingPlantId) && string.IsNullOrWhiteSpace(item.Style) &&
-                            string.IsNullOrWhiteSpace(item.Color))
+            var query = from item in sc                       
                         group item by
                             item.SewingPlantId into g
                         let defstyle = g.Where(p => string.IsNullOrWhiteSpace(p.Style)).FirstOrDefault()
