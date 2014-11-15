@@ -289,9 +289,8 @@ var HandleScan = (function () {
     var _showError = function (text) {
         Sound.error();
         _$tb.attr('data-content', text)
-            .popover('show')
-            .focus()
-            .select();
+            .popover('show');
+
         $(_options.button).next('button').removeClass('hidden');
     };
 
@@ -300,7 +299,26 @@ var HandleScan = (function () {
         $(_options.button).next('button').addClass('hidden');
         $(_options.textarea).popover('hide');
     };
-
+    
+    // Returns whether the input in the text area is worth acting upon
+    // If it returns false, then error popup has already been displayed if necessary
+    var _canAct = function () {
+        var tokens = _tokens();
+        if (tokens.length === 0) {
+            // Text box is empty. Nothing to do
+            return false;
+        }
+        if (_isPallet(tokens[tokens.length - 1])) {
+            // Act on pallet scan immediately
+            return true; 
+        }
+        if (!Tabs.activePalletId()) {
+            _showError('Please scan a pallet first');
+            // If there is no active pallet, we must require a pallet scan
+            return false;
+        }
+        return true;
+    };
 
     var init = function (options) {
         _options = $.extend(_options, options);
@@ -313,22 +331,9 @@ var HandleScan = (function () {
             }
             Sound.success();
             // Disallow carton scan if there is no active pallet
-            var tokens = _tokens();
-            if (tokens.length === 0) {
-                // Text box is empty. Nothing to do
-                return;
+            if (_canAct()) {
+                _startTimer();
             }
-            if (_isPallet(tokens[tokens.length - 1])) {
-                // Act on pallet scan immediately
-                _act();
-                return false;  // Ignore this enter key press
-            }
-            if (!Tabs.activePalletId()) {
-                _showError('Please scan a pallet first');
-                // If there is no active pallet, we must require a pallet scan
-                return false;
-            }
-            _startTimer();
         }).popover({
             trigger: 'manual',
             html: true,
@@ -336,6 +341,9 @@ var HandleScan = (function () {
             title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
             placement: 'auto',
             container: 'body'
+        }).on('shown.bs.popover', function () {
+            // Select text area text after popover is displayed
+            _$tb.select().focus();
         });
 
         // Hide the popover when the X in the title is clicked
@@ -344,7 +352,11 @@ var HandleScan = (function () {
             _$tb.popover('hide').focus();
         });
         //Shows the popover again after closing the popover on click of icon next to go button.
-        $(_options.button).on('click', _act).next('button').on('click', function (e) {
+        $(_options.button).on('click', function (e) {
+            if (_canAct()) {
+                act();
+            }
+        }).next('button').on('click', function (e) {
             _$tb.popover('show');
         });
     };
@@ -386,9 +398,7 @@ var HandleScan = (function () {
         }
         //$(_options.textarea).val('');
         chain = chain.always(_endAction)
-            .done(function () {
-                _$tb.val('');
-            }).always(function () {
+            .always(function () {
                 _$tb.focus();
             });
 
