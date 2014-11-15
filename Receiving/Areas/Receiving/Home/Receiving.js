@@ -284,9 +284,9 @@ var HandleScan = (function () {
     };
 
     // Hides the ajax loader image
-    var _endAction = function () {
+    var _postAction = function () {
         $(_options.button).prop('disabled', false).find('img').addClass('hidden');
-        _$tb.prop('disabled', false);
+        _$tb.prop('disabled', false).focus();
     };
 
     // Shows error popover
@@ -417,10 +417,7 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
-        chain = chain.always(_endAction)
-            .always(function () {
-                _$tb.focus();
-            });
+        chain = chain.always(_postAction);
 
         def.resolve();  // Initiate the function chain
     };

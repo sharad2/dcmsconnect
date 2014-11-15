@@ -348,6 +348,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult HandleCartonScan(string scanText, string palletId, int processId)
         {
+            Thread.Sleep(5000);
             if (string.IsNullOrWhiteSpace(scanText))
             {
                 // We should ignore the call
