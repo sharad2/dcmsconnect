@@ -273,7 +273,7 @@ var HandleScan = (function () {
     // Disables go button and text area
     var _startAction = function () {
         _clearTimer();
-        alert(_options.button);
+        //alert(_options.button);
         $(_options.button).prop('disabled', true)
             .find('img').removeClass('hidden')
             .end()
