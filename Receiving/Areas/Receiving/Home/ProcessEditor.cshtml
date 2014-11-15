@@ -184,20 +184,6 @@
     <script type="text/javascript">
 
     $(document).ready(function () {
-
-        // Carrier auto complete
-        @*var carriers = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                wildcard: '~',
-                url: '@Url.Action(MVC_Receiving.Receiving.Home.GetCarriers("~"))',
-                    ajax: {cache: false}
-                }
-            });
-
-            carriers.initialize();*@
-
             $('#tbCarrier').typeahead(null, {
                 name: 'carriers',
                 displayKey: 'label',
