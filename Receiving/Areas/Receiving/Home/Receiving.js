@@ -50,7 +50,7 @@ var Progress = (function () {
         receivedCount: '#receivedCount'
     };
 
-   // will take default values if not passed.
+    // will take default values if not passed.
     var init = function (options) {
         _options = $.extend(_options, options);
     };
@@ -130,7 +130,7 @@ var Tabs = (function () {
             // Now remove tab
             $li.remove();
 
-        }).on('shown.bs.tab', function (e) {           
+        }).on('shown.bs.tab', function (e) {
             _load();
         }).find('li:first a').tab('show');
     };
@@ -218,6 +218,9 @@ var HandleScan = (function () {
     // Number of milliseconds to go before the timer expires
     var _ticker;
 
+    // jquery object representing the text area. Set during init.
+    var _$tb;
+
     var _options = {
         // Selector to the text area
         textarea: '', //'#scanArea textarea',
@@ -227,17 +230,17 @@ var HandleScan = (function () {
         // Its next sibling will be shown when errors have been encountered.
         button: '', //'#scanArea button',
         // URL to invoke for receiving cartons
-        cartonUrl: $('#tbScan').data('carton-url'),
+        cartonUrl: '',  //$('#tbScan').data('carton-url'),
         // This function is passed the pallet id and the cartons to receive. It should return a a name value array containing all parameters needed
         // by the function which will receive cartons
         cartonPostdata: function (palletId, cartons) {
             // This is an example function. Not useful. Caller must pass it to init
-            return [
-                { name: 'processId', value: 123 },
-                { name: 'cartons', value: cartons },
-                { name: 'palletId', value: palletId },
-                { name: 'dispos', value: 'something' }
-            ];
+            //return [
+            //    { name: 'processId', value: 123 },
+            //    { name: 'cartons', value: cartons },
+            //    { name: 'palletId', value: palletId },
+            //    { name: 'dispos', value: 'something' }
+            //];
         },
         delay: 3000   // Number of milliseconds delay after enter is pressed
     };
@@ -248,7 +251,7 @@ var HandleScan = (function () {
             return false;
         }
         clearInterval(_timer);
-        _timer = null;       
+        _timer = null;
         $('span.badge', _options.button).addClass('hidden');
         return true;
     };
@@ -279,15 +282,19 @@ var HandleScan = (function () {
     // Hides the ajax loader image
     var _endAction = function () {
         $(_options.button).prop('disabled', false).find('img').addClass('hidden');
-        $(_options.textarea).prop('disabled', false);
+        _$tb.prop('disabled', false);
     };
 
     // Shows error popover
     var _showError = function (text) {
         Sound.error();
-        $(_options.textarea).attr('data-content', text).popover('show');
+        _$tb.attr('data-content', text)
+            .popover('show')
+            .focus()
+            .select();
         $(_options.button).next('button').removeClass('hidden');
     };
+
     //Hides error popover
     var _hideError = function () {
         $(_options.button).next('button').addClass('hidden');
@@ -297,31 +304,32 @@ var HandleScan = (function () {
 
     var init = function (options) {
         _options = $.extend(_options, options);
-        $(_options.textarea).on('keypress', function (e) {
+        _$tb = $(_options.textarea);
+        _$tb.on('keypress', function (e) {
             _clearTimer();
             if (e.which !== 13) {
                 // We are interested only when enter key is pressed
                 return;
             }
+            Sound.success();
             // Disallow carton scan if there is no active pallet
             var tokens = _tokens();
             if (tokens.length === 0) {
                 // Text box is empty. Nothing to do
                 return;
             }
-            if (!Tabs.activePalletId() && !_isPallet(tokens[tokens.length - 1])) {
+            if (_isPallet(tokens[tokens.length - 1])) {
+                // Act on pallet scan immediately
+                _act();
+                return false;  // Ignore this enter key press
+            }
+            if (!Tabs.activePalletId()) {
                 _showError('Please scan a pallet first');
                 // If there is no active pallet, we must require a pallet scan
-                setTimeout(function (tb) {
-                    tb.focus();
-                    tb.select();
-                }.bind(undefined, e.target), 0);
-
-                return;
+                return false;
             }
-            Sound.success();
             _startTimer();
-        }).popover({           
+        }).popover({
             trigger: 'manual',
             html: true,
             // The title is added here with custom cross button for removeing poopover
@@ -333,11 +341,11 @@ var HandleScan = (function () {
         // Hide the popover when the X in the title is clicked
         $(document).on('click', '.close', function (e) {
             //hiding the error message popover and at the same doing empty textarea with focus.
-            $(_options.textarea).popover('hide').focus();
+            _$tb.popover('hide').focus();
         });
         //Shows the popover again after closing the popover on click of icon next to go button.
         $(_options.button).on('click', _act).next('button').on('click', function (e) {
-            $(_options.textarea).popover('show');
+            _$tb.popover('show');
         });
     };
 
@@ -350,7 +358,7 @@ var HandleScan = (function () {
 
     // TODO: Make this logic more robust
     var _isPallet = function (str) {
-        return str.toUpperCase().indexOf('P') === 0
+        return str.toUpperCase().indexOf('P') === 0;
     };
 
     // Called to immediately act on the text in text area
@@ -366,8 +374,7 @@ var HandleScan = (function () {
         var def = $.Deferred(_startAction);
         var chain = def;
         var lastscan = tokens[tokens.length - 1];
-       // alert(lastscan);
-        if (_isPallet()) {
+        if (_isPallet(lastscan)) {
             // First process the cartons before this pallet
             if (tokens.length > 1) {
                 // Some cartons were scanned before this pallet
@@ -377,12 +384,14 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
-        $(_options.textarea).val('');
+        //$(_options.textarea).val('');
         chain = chain.always(_endAction)
-            .always(function () {
-                $(_options.textarea).focus();
+            .done(function () {
+                _$tb.val('');
+            }).always(function () {
+                _$tb.focus();
             });
-       
+
         def.resolve();  // Initiate the function chain
     };
 
@@ -399,10 +408,10 @@ var HandleScan = (function () {
                     cartons.push(elem.cartonId);
                 });
                 _showError($ul[0].outerHTML);
-                $(_options.textarea).val(cartons.join('\n'));
+                _$tb.val(cartons.join('\n'));
             } else {
                 // Clear the text box
-                $(_options.textarea).val();
+                _$tb.val('');
             }
             Tabs.load();
             //this.count === -1 (i.e removing carton from pallet)
@@ -436,13 +445,6 @@ var HandleScan = (function () {
         init: init
     };
 })();
-
-
-//$(document).ready(function () {
-//    $('#btnNewPallet').click(function (e) {
-//        alert('auto increment tab with pallet id');
-//    });
-//});
 
 
 /*************** Printing functions ***********************/
