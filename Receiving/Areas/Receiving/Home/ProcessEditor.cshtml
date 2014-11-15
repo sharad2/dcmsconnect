@@ -113,7 +113,7 @@
                 Pro Date <sup><i class="glyphicon glyphicon-asterisk"></i></sup>
             </label>
             <div class="col-sm-4">
-                @Html.TextBoxFor(m => m.ProDate, new
+                @*@Html.TextBoxFor(m => m.ProDate, new
            {
                placeholder = "mm/dd/yyyy",
                id = "tbProDate",
@@ -121,9 +121,9 @@
                @class = "form-control",
                type = "date",
                required = true
-           })
-                @*<input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)"
-                    placeholder="mm/dd/yyyy" id="tbProDate" size="10" class="form-control" type="date" required />*@
+           })*@
+                <input name="@Html.NameFor(m => m.ProDate)" value="@string.Format("{0:d}", Model.ProDate)"
+                    placeholder="mm/dd/yyyy" id="tbProDate" size="10" class="form-control" type="date" required  />
                 @Html.ValidationMessageFor(m => m.ProDate, null, new
            {
                @class = "help-block"
