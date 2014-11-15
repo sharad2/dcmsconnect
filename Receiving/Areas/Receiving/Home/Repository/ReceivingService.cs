@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Configuration.Provider;
 using System.Linq;
 using System.Runtime.Caching;
+using System.Web;
 using System.Web.Routing;
 
 
@@ -87,6 +88,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// </summary>
         private const string APPKEY_PALLETDISPOS = "ReceivingService_PalletDisposition";
 
+        private TraceContext _trace;
+
         /// <summary>
         /// For unit tests. 
         /// </summary>
@@ -103,6 +106,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         public ReceivingService(RequestContext ctx)
         {
             _repos = new ReceivingRepository(ctx);
+            _trace = ctx.HttpContext.Trace;
         }
 
         public void Dispose()
@@ -255,6 +259,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
             if (ProcessCache.Contains(processId))
             {
+                _trace.Warn(string.Format("Process Information for Process {0} retrieved from application cache", processId));
                 return ProcessCache[processId];
             }
             var process = _repos.GetProcesses(processId).FirstOrDefault();

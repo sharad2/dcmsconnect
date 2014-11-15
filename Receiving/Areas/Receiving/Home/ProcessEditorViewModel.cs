@@ -26,7 +26,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Carrier")]
         [DisplayFormat(NullDisplayText = "Unknown Carrier")]
-        public virtual string CarrierId { get; set; }
+        public string CarrierId { get; set; }
+
+        public string CarrierDisplayName { get; set; }
 
 
         [Required(ErrorMessage = "Pro Date is required")]

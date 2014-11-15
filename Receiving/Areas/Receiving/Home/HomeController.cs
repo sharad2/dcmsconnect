@@ -129,7 +129,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                     ProDate = src.ProDate,
                     ProNumber = src.ProNumber,
                     CarrierId = src.CarrierId,
-                    //CarrierDescription = src.CarrierName,
+                    CarrierDisplayName = string.Format("{0}: {1}", src.CarrierId, src.CarrierName),
                     //OperatorName = src.OperatorName,
                     //ReceivingStartDate = src.StartDate,
                     //ReceivingEndDate = src.ReceivingEndDate,
