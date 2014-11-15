@@ -298,6 +298,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             var rvm = new ReceivingViewModel
             {
                 CarrierId = pm.CarrierId,
+                CarrierDisplayName = string.Format("{0}: {1}", pm.CarrierId, pm.CarrierName),
                 ProDate = pm.ProDate,
                 ProNumber = pm.ProNumber,
                 //OperatorName = pm.OperatorName,

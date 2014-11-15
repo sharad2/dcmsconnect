@@ -56,6 +56,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         public string CarrierId { get; set; }
 
+        public string CarrierDisplayName { get; set; }
+
         /// <summary>
         /// Url of Report 40.103: Summary of the Shipments as well as cartons received.
         /// </summary>
