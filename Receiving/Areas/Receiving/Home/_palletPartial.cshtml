@@ -98,12 +98,13 @@
                                         &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
                                     </a>
                                 </li>
+                                @if (!string.IsNullOrWhiteSpace(Model.PalletId)) { 
                                 <li>
                                     <a href="#" data-action="remove">
                                         &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
                                     </a>
                                 </li>
-
+                                }
                             </ul>
                         </div>
 
