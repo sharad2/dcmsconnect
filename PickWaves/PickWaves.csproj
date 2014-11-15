@@ -119,6 +119,27 @@
     </Compile>
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteRepository.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickBucket.cs" />
+    <Compile Include="PickWaves.AutoCompleteController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.BoxPickPalletController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.ConfigController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.CreateWaveController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.ManageWavesController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PickWaves.SharedViewsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="Repository\BoxStats.cs" />
     <Compile Include="Repository\BucketActivity.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigRepository.cs" />
@@ -141,33 +162,6 @@
     <Compile Include="Areas\PickWaves\ManageWaves\BucketArea.cs" />
     <Compile Include="Repository\Pickslip.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BucketSku.cs" />
-    <Compile Include="PickWaves.AutoCompleteController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.BoxPickPalletController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.ConfigController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.CreateWaveController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.ManageWavesController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.o_ContentController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.o_ScriptsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PickWaves.SharedViewsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveRepository.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveService.cs" />
@@ -187,6 +181,11 @@
       <DependentUpon>PickWavesResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Areas\PickWaves\AutoComplete\AutocompleteItem.cs" />
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BucketActivityModel.cs" />
     <Compile Include="Areas\PickWaves\Config\ConstraintModel.cs">
       <SubType>Code</SubType>
@@ -224,11 +223,6 @@
     <Compile Include="ViewModels\PickslipModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BucketSkuModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="T4MVC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />

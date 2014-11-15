@@ -41,7 +41,6 @@ namespace T4MVC
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.CreateWaveController CreateWave = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_CreateWaveController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.HomeController Home = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_HomeController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.ManageWavesController ManageWaves = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_ManageWavesController();
-        public T4MVC.PickWaves.o_ScriptsController o_Scripts = new T4MVC.PickWaves.o_ScriptsController();
         public T4MVC.PickWaves.SharedViewsController SharedViews = new T4MVC.PickWaves.SharedViewsController();
     }
 }
@@ -319,19 +318,6 @@ namespace Links_PickWaves
     
         public static partial class PickWaves {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class o_Scripts {
-                private const string URLPATH = "~/Areas/PickWaves/o_Scripts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class PickWaves {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class SharedViews {
                 private const string URLPATH = "~/Areas/PickWaves/SharedViews";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -394,3 +380,5 @@ internal static class T4MVCHelpers {
 
 #endregion T4MVC
 #pragma warning restore 1591, 3008, 3009
+
+

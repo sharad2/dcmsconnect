@@ -6,8 +6,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves
     //[MetadataType(typeof(SubAreas))]
     public class PickWavesAreaRegistration : AreaRegistration
     {
-        [Display(Description = "Create and Manage Pick Waves", Name = "Manage Pick Waves", Order = 500, ShortName = "PWAV")]
-        [UIHint("desktop", "DcmsMobile")]
+        //[Display(Description = "Create and Manage Pick Waves", Name = "Manage Pick Waves", Order = 500, ShortName = "PWAV")]
+        //[UIHint("desktop", "DcmsMobile")]
         public override string AreaName
         {
             get
