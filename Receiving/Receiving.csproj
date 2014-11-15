@@ -96,7 +96,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -106,15 +105,11 @@
     <Compile Include="Areas\Receiving\Rad\RadEntities.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
-    <Compile Include="Areas\Receiving\AutoComplete\AutocompleteRepository.cs" />
     <Compile Include="Areas\Receiving\Rad\RadService.cs" />
     <Compile Include="Areas\Receiving\Rad\RadRepository.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingRepository.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ReceivingService.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\ShipmentList.cs" />
-    <Compile Include="Receiving.AutoCompleteController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Receiving.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -129,7 +124,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Receiving.resx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Receiving\AutoComplete\AutoCompleteItem.cs" />
     <Compile Include="Areas\Receiving\Home\CartonNotOnPalletModel.cs" />
     <Compile Include="Areas\Receiving\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Receiving\Home\PalletViewModel.cs" />

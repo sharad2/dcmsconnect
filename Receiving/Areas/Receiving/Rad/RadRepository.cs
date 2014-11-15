@@ -252,6 +252,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
               .Parameter("description", searchDescription);
             return _db.ExecuteReader(QUERY, binder);
         }
+
+        /// <summary>
+        /// To get Color list for Color Auto Complete text box
+        /// </summary>
+        public IList<Tuple<string, string>> GetColors(string searchId, string searchDescription)
+        {
+            const string QUERY = @"
+                        SELECT MC.COLOR_ID AS COLOR, MC.COLOR_DESCRIPTION AS DESCRIPTION
+                  FROM <proxy />MASTER_COLOR MC
+                 WHERE 1=1                        
+                       AND (UPPER(MC.Color_Id) LIKE '%' || UPPER(:ID) || '%' OR
+       UPPER(MC.Color_Description) LIKE '%' || UPPER(:DESCRIPTION) || '%')
+   AND ROWNUM &lt;40
+";
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("COLOR"), row.GetString("DESCRIPTION")))
+                .Parameter("ID", searchId)
+                .Parameter("DESCRIPTION", searchDescription);
+            return _db.ExecuteReader(QUERY, binder);
+
+        }
     }
 }
 

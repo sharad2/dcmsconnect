@@ -1,9 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Mvc;
-using DcmsMobile.Receiving.ViewModels;
+
 
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home

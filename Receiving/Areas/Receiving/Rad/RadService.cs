@@ -66,6 +66,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             return _repos.GetStyles(searchId, searchDescription);
         }
+
+        internal IList<Tuple<string, string>> GetColors(string searchId, string searchDescription)
+        {
+            return _repos.GetColors(searchId, searchDescription);
+        }
     }
 }
 

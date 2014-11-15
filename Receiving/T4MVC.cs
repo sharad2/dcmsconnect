@@ -35,7 +35,6 @@ namespace T4MVC
     public class ReceivingClass
     {
         public readonly string Name = "Receiving";
-        public DcmsMobile.Receiving.Areas.Receiving.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.Receiving.Areas.Receiving.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.Receiving.Areas.Receiving.Home.HomeController Home = new DcmsMobile.Receiving.Areas.Receiving.Home.T4MVC_HomeController();
         public DcmsMobile.Receiving.Areas.Receiving.Rad.RadController Rad = new DcmsMobile.Receiving.Areas.Receiving.Rad.T4MVC_RadController();
         public T4MVC.Receiving.SharedViewsController SharedViews = new T4MVC.Receiving.SharedViewsController();
@@ -53,19 +52,6 @@ namespace T4MVC
 }
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
-{
-    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
-    {
-        this.InitMVCT4Result(area, controller, action, protocol);
-    }
-    
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public string Protocol { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.ActionResult, IT4MVCActionResult
 {
     public T4MVC_System_Web_Mvc_ActionResult(string area, string controller, string action, string protocol = null): base()
@@ -74,6 +60,19 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
+    
+    public string Controller { get; set; }
+    public string Action { get; set; }
+    public string Protocol { get; set; }
+    public RouteValueDictionary RouteValueDictionary { get; set; }
+}
+[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
+{
+    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
+    {
+        this.InitMVCT4Result(area, controller, action, protocol);
+    }
     
     public string Controller { get; set; }
     public string Action { get; set; }
@@ -97,19 +96,6 @@ namespace Links_Receiving
             private const string URLPATH = "~/Areas/Receiving";
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class AutoComplete {
-                private const string URLPATH = "~/Areas/Receiving/AutoComplete";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class Receiving {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Home {
                 private const string URLPATH = "~/Areas/Receiving/Home";
