@@ -303,6 +303,22 @@ var HandleScan = (function () {
                 // We are interested only when enter key is pressed
                 return;
             }
+            // Disallow carton scan if there is no active pallet
+            var tokens = _tokens();
+            if (tokens.length === 0) {
+                // Text box is empty. Nothing to do
+                return;
+            }
+            if (!Tabs.activePalletId() && !_isPallet(tokens[tokens.length - 1])) {
+                _showError('Please scan a pallet first');
+                // If there is no active pallet, we must require a pallet scan
+                setTimeout(function (tb) {
+                    tb.focus();
+                    tb.select();
+                }.bind(undefined, e.target), 0);
+
+                return;
+            }
             Sound.success();
             _startTimer();
         }).popover({           
@@ -325,14 +341,23 @@ var HandleScan = (function () {
         });
     };
 
+    var _tokens = function () {
+        return $.grep($(_options.textarea).val().toUpperCase().split('\n'), function (txt, i) {
+            // Ignore empty lines
+            return txt.trim().toUpperCase() !== '';
+        });
+    };
+
+    // TODO: Make this logic more robust
+    var _isPallet = function (str) {
+        return str.toUpperCase().indexOf('P') === 0
+    };
+
     // Called to immediately act on the text in text area
     var _act = function () {
         _clearTimer();
 
-        var tokens = $.grep($(_options.textarea).val().toUpperCase().split('\n'), function (txt, i) {
-            // Ignore empty lines
-            return txt.trim().toUpperCase() !== '';
-        });
+        var tokens = _tokens();
         if (tokens.length === 0) {
             // Text box is empty. Nothing to do
             return;
@@ -342,7 +367,7 @@ var HandleScan = (function () {
         var chain = def;
         var lastscan = tokens[tokens.length - 1];
        // alert(lastscan);
-        if (lastscan.toUpperCase().indexOf('P') === 0) {
+        if (_isPallet()) {
             // First process the cartons before this pallet
             if (tokens.length > 1) {
                 // Some cartons were scanned before this pallet
