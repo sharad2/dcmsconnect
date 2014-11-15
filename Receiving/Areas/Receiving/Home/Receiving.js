@@ -273,10 +273,13 @@ var HandleScan = (function () {
     // Disables go button and text area
     var _startAction = function () {
         _clearTimer();
+        alert(_options.button);
         $(_options.button).prop('disabled', true)
-            .find('img').removeClass('hidden');
-        $(_options.textarea).prop('disabled', true);
-        _hideError();
+            .find('img').removeClass('hidden')
+            .end()
+            .next('button').addClass('hidden');
+        
+        _$tb.prop('disabled', true).popover('hide');
     };
 
     // Hides the ajax loader image
@@ -295,10 +298,10 @@ var HandleScan = (function () {
     };
 
     //Hides error popover
-    var _hideError = function () {
-        $(_options.button).next('button').addClass('hidden');
-        $(_options.textarea).popover('hide');
-    };
+    //var _hideError = function () {
+    //    $(_options.button).next('button').addClass('hidden');
+    //    $(_options.textarea).popover('hide');
+    //};
     
     // Returns whether the input in the text area is worth acting upon
     // If it returns -1 then error popup has already been displayed and no further action should be taken.
