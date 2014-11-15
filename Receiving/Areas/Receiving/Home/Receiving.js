@@ -256,9 +256,10 @@ var HandleScan = (function () {
         return true;
     };
 
-    var _startTimer = function () {
+    // Starts the timer with the specified delay. delay can be 0.
+    var _startTimer = function (delay) {
         _clearTimer();
-        _ticker = _options.delay;
+        _ticker = delay;
         $('span.badge', _options.button).removeClass('hidden').text('');
         _timer = setInterval(function () {
             _ticker -= 1000;
@@ -266,12 +267,12 @@ var HandleScan = (function () {
             if (_ticker <= 0) {
                 _act();  // Calling our private function
             }
-        }, 1000);
+        }, Math.min(delay, 1000));
     };
 
     // Displays the ajax loader image and hides the error message.
     // Disables go button and text area
-    var _startAction = function () {
+    var _preAction = function () {
         _clearTimer();
         //alert(_options.button);
         $(_options.button).prop('disabled', true)
@@ -329,6 +330,7 @@ var HandleScan = (function () {
         _$tb = $(_options.textarea);
         _$tb.on('keypress', function (e) {
             _clearTimer();
+            _$tb.popover('hide');
             if (e.which !== 13) {
                 // We are interested only when enter key is pressed
                 return;
@@ -342,13 +344,14 @@ var HandleScan = (function () {
 
                 case 0:
                     // Act now
-                    _act();
+                    //_act();
+                    _startTimer(0);
                     // Ignore key press
                     return false;
 
                 default:
                     // Act later
-                    _startTimer();
+                    _startTimer(_options.delay);
                     return;
             }
         }).popover({
@@ -371,7 +374,8 @@ var HandleScan = (function () {
         //Shows the popover again after closing the popover on click of icon next to go button.
         $(_options.button).on('click', function (e) {
             if (_canAct() >= 0) {
-                _act();
+                //_act();
+                _startTimer(0);
             }
         }).next('button').on('click', function (e) {
             _$tb.popover('show');
@@ -400,7 +404,7 @@ var HandleScan = (function () {
             return;
         }
 
-        var def = $.Deferred(_startAction);
+        var def = $.Deferred(_preAction);
         var chain = def;
         var lastscan = tokens[tokens.length - 1];
         if (_isPallet(lastscan)) {
