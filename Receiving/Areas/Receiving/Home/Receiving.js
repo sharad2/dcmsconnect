@@ -301,23 +301,24 @@ var HandleScan = (function () {
     };
     
     // Returns whether the input in the text area is worth acting upon
-    // If it returns false, then error popup has already been displayed if necessary
+    // If it returns -1 then error popup has already been displayed and no further action should be taken.
+    // If it returns 0, you should act immediately. 1 means act whenver you want
     var _canAct = function () {
         var tokens = _tokens();
         if (tokens.length === 0) {
             // Text box is empty. Nothing to do
-            return false;
+            return -1;
         }
         if (_isPallet(tokens[tokens.length - 1])) {
             // Act on pallet scan immediately
-            return true; 
+            return 0; 
         }
         if (!Tabs.activePalletId()) {
             _showError('Please scan a pallet first');
             // If there is no active pallet, we must require a pallet scan
-            return false;
+            return -1;
         }
-        return true;
+        return 1;
     };
 
     var init = function (options) {
@@ -331,8 +332,21 @@ var HandleScan = (function () {
             }
             Sound.success();
             // Disallow carton scan if there is no active pallet
-            if (_canAct()) {
-                _startTimer();
+            switch (_canAct()) {
+                case -1:
+                    // No action
+                    return;
+
+                case 0:
+                    // Act now
+                    _act();
+                    // Ignore key press
+                    return false;
+
+                default:
+                    // Act later
+                    _startTimer();
+                    return;
             }
         }).popover({
             trigger: 'manual',
@@ -353,8 +367,8 @@ var HandleScan = (function () {
         });
         //Shows the popover again after closing the popover on click of icon next to go button.
         $(_options.button).on('click', function (e) {
-            if (_canAct()) {
-                act();
+            if (_canAct() >= 0) {
+                _act();
             }
         }).next('button').on('click', function (e) {
             _$tb.popover('show');
@@ -396,7 +410,6 @@ var HandleScan = (function () {
         } else {
             chain = chain.then(_receiveCartons.bind(undefined, tokens));
         }
-        //$(_options.textarea).val('');
         chain = chain.always(_endAction)
             .always(function () {
                 _$tb.focus();
