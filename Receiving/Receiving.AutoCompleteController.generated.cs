@@ -56,12 +56,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.JsonResult StyleAutocomplete()
-        {
-            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.StyleAutocomplete);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.JsonResult ColorAutocomplete()
         {
             return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.ColorAutocomplete);
@@ -82,26 +76,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string StyleAutocomplete = "StyleAutocomplete";
             public readonly string ColorAutocomplete = "ColorAutocomplete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string StyleAutocomplete = "StyleAutocomplete";
             public const string ColorAutocomplete = "ColorAutocomplete";
         }
 
 
-        static readonly ActionParamsClass_StyleAutocomplete s_params_StyleAutocomplete = new ActionParamsClass_StyleAutocomplete();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_StyleAutocomplete StyleAutocompleteParams { get { return s_params_StyleAutocomplete; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_StyleAutocomplete
-        {
-            public readonly string term = "term";
-        }
         static readonly ActionParamsClass_ColorAutocomplete s_params_ColorAutocomplete = new ActionParamsClass_ColorAutocomplete();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ColorAutocomplete ColorAutocompleteParams { get { return s_params_ColorAutocomplete; } }
@@ -128,18 +112,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
     public partial class T4MVC_AutoCompleteController : DcmsMobile.Receiving.Areas.Receiving.Controllers.AutoCompleteController
     {
         public T4MVC_AutoCompleteController() : base(Dummy.Instance) { }
-
-        [NonAction]
-        partial void StyleAutocompleteOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
-
-        [NonAction]
-        public override System.Web.Mvc.JsonResult StyleAutocomplete(string term)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.StyleAutocomplete);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
-            StyleAutocompleteOverride(callInfo, term);
-            return callInfo;
-        }
 
         [NonAction]
         partial void ColorAutocompleteOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);

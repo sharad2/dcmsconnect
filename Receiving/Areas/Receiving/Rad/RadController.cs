@@ -33,13 +33,13 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         }
 
-        private RadService _service;
+        private Lazy<RadService> _service;
 
         protected override void Initialize(RequestContext requestContext)
         {
             if (_service == null)
             {
-                _service = new RadService(requestContext);
+                _service = new Lazy<RadService>(() => new RadService(requestContext));
             }
             base.Initialize(requestContext);
         }
@@ -47,10 +47,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel();
-            var sc = _service.GetSpotCheckList();
+            var sc = _service.Value.GetSpotCheckList();
 
             model.EnableEditing = AuthorizeExAttribute.IsSuperUser(HttpContext) || this.HttpContext.User.IsInRole(ROLE_RAD_EDITING);
-            model.SpotCheckAreaList = _service.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
+            model.SpotCheckAreaList = _service.Value.GetSpotCheckAreas().Select(p => new SpotCheckAreaModel(p)).ToList();
 
 
             var query = from item in sc
@@ -86,7 +86,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// <returns></returns>
         public virtual ActionResult AddSpotCheckPartial()
         {
-            var plantlist = _service.GetSewingPlants().Select(p => Map(p));
+            var plantlist = _service.Value.GetSewingPlants().Select(p => Map(p));
             var model = new AddSpotCheckViewModel
             {
                 SewingPlantList = plantlist
@@ -104,13 +104,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
             if (action == ModifyAction.Delete)
             {
-                var rows = _service.DeleteSpotCheckSetting(style, color, sewingPlantId);
+
+                var rows = _service.Value.DeleteSpotCheckSetting(style, color, sewingPlantId);
                 AddStatusMessage(string.Format("{0} Spot check setting has been deleted for Sewing Plant: {0}, Style: {1}, Color: {2} ", rows, string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
                 
             }
             else
             {
-                var inserted = _service.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
+                var inserted = _service.Value.AddUpdateSpotCheckSetting(style, color, sewingPlantId, spotCheckPercent, enabled);
                 if (inserted)
                 {
                     AddStatusMessage(string.Format("Spot check setting has been added for Sewing Plant: {0}, Style: {1}, Color: {2} ", string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
@@ -127,7 +128,55 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         }
 
 
+        /// <summary>
+        /// Returning Json result for Style Autocomplete
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>       
+        public virtual JsonResult StyleAutocomplete(string term)
+        {
+            term = term ?? string.Empty;
 
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
+            {
+                case 0:
+                    // All styles
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+            var data = _service.Value.GetStyles(searchId, searchDescription).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
+            });
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
 
 
 

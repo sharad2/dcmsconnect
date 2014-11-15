@@ -47,55 +47,55 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Controllers
 
 
 
-        /// <summary>
-        /// Returning Json result for Style Autocomplete
-        /// </summary>
-        /// <param name="term"></param>
-        /// <returns></returns>       
-        public virtual JsonResult StyleAutocomplete(string term)
-        {
-            term = term ?? string.Empty;
+        ///// <summary>
+        ///// Returning Json result for Style Autocomplete
+        ///// </summary>
+        ///// <param name="term"></param>
+        ///// <returns></returns>       
+        //public virtual JsonResult StyleAutocomplete(string term)
+        //{
+        //    term = term ?? string.Empty;
 
-            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
-                .Where(p => !string.IsNullOrWhiteSpace(p))
-                .ToList();
+        //    var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+        //        .Where(p => !string.IsNullOrWhiteSpace(p))
+        //        .ToList();
 
-            string searchId;
-            string searchDescription;
+        //    string searchId;
+        //    string searchDescription;
 
-            switch (tokens.Count)
-            {
-                case 0:
-                    // All styles
-                    searchId = searchDescription = string.Empty;
-                    break;
+        //    switch (tokens.Count)
+        //    {
+        //        case 0:
+        //            // All styles
+        //            searchId = searchDescription = string.Empty;
+        //            break;
 
-                case 1:
-                    // Try to match term with either id or description
-                    searchId = searchDescription = tokens[0];
-                    break;
+        //        case 1:
+        //            // Try to match term with either id or description
+        //            searchId = searchDescription = tokens[0];
+        //            break;
 
-                case 2:
-                    // Try to match first token with id and second with description
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
+        //        case 2:
+        //            // Try to match first token with id and second with description
+        //            searchId = tokens[0];
+        //            searchDescription = tokens[1];
+        //            break;
 
-                default:
-                    // For now, ignore everything after the second :
-                    searchId = tokens[0];
-                    searchDescription = tokens[1];
-                    break;
+        //        default:
+        //            // For now, ignore everything after the second :
+        //            searchId = tokens[0];
+        //            searchDescription = tokens[1];
+        //            break;
 
 
-            }
-            var data = _repos.GetStyles(searchId, searchDescription).Select(p => new
-            {
-                label = string.Format("{0}: {1}", p.Item1,p.Item2),
-                value = p.Item1
-            });
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
+        //    }
+        //    var data = _repos.GetStyles(searchId, searchDescription).Select(p => new
+        //    {
+        //        label = string.Format("{0}: {1}", p.Item1,p.Item2),
+        //        value = p.Item1
+        //    });
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
 
 
         /// <summary>

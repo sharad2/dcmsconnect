@@ -33,27 +33,27 @@ namespace DcmsMobile.Receiving.Repository
 
 
 
-        /// <summary>
-        /// To get Style list for Style Auto Complete text box
-        /// </summary>
-        /// <param name="searchText">
-        /// Search term is passed to populate the list
-        /// </param>
-        /// <returns></returns>
-        public IList<Tuple<string, string>> GetStyles(string searchId, string searchDescription)
-        {
-            const string QUERY = @"
-                        SELECT MS.STYLE AS STYLE, MS.DESCRIPTION AS DESCRIPTION
-                          FROM <PROXY /> MASTER_STYLE MS
-                         WHERE 1 = 1
-                           AND (UPPER(MS.STYLE) LIKE '%' || UPPER(:id) || '%' OR
-                               UPPER(MS.DESCRIPTION) LIKE '%' || UPPER(:description) || '%')
-                           AND ROWNUM &lt; 40";
-            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("STYLE"), row.GetString("DESCRIPTION")))
-              .Parameter("id", searchId)
-              .Parameter("description", searchDescription);
-            return _db.ExecuteReader(QUERY, binder);
-        }
+//        /// <summary>
+//        /// To get Style list for Style Auto Complete text box
+//        /// </summary>
+//        /// <param name="searchText">
+//        /// Search term is passed to populate the list
+//        /// </param>
+//        /// <returns></returns>
+//        public IList<Tuple<string, string>> GetStyles(string searchId, string searchDescription)
+//        {
+//            const string QUERY = @"
+//                        SELECT MS.STYLE AS STYLE, MS.DESCRIPTION AS DESCRIPTION
+//                          FROM <PROXY /> MASTER_STYLE MS
+//                         WHERE 1 = 1
+//                           AND (UPPER(MS.STYLE) LIKE '%' || UPPER(:id) || '%' OR
+//                               UPPER(MS.DESCRIPTION) LIKE '%' || UPPER(:description) || '%')
+//                           AND ROWNUM &lt; 40";
+//            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("STYLE"), row.GetString("DESCRIPTION")))
+//              .Parameter("id", searchId)
+//              .Parameter("description", searchDescription);
+//            return _db.ExecuteReader(QUERY, binder);
+//        }
 
 
         /// <summary>

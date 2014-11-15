@@ -60,6 +60,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddUpdateSpotCheckSetting);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.JsonResult StyleAutocomplete()
+        {
+            return new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.StyleAutocomplete);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public RadController Actions { get { return MVC_Receiving.Receiving.Rad; } }
@@ -79,6 +85,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             public readonly string Index = "Index";
             public readonly string AddSpotCheckPartial = "AddSpotCheckPartial";
             public readonly string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
+            public readonly string StyleAutocomplete = "StyleAutocomplete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -87,6 +94,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             public const string Index = "Index";
             public const string AddSpotCheckPartial = "AddSpotCheckPartial";
             public const string AddUpdateSpotCheckSetting = "AddUpdateSpotCheckSetting";
+            public const string StyleAutocomplete = "StyleAutocomplete";
         }
 
 
@@ -102,6 +110,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             public readonly string sewingPlantId = "sewingPlantId";
             public readonly string spotCheckPercent = "spotCheckPercent";
             public readonly string enabled = "enabled";
+        }
+        static readonly ActionParamsClass_StyleAutocomplete s_params_StyleAutocomplete = new ActionParamsClass_StyleAutocomplete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_StyleAutocomplete StyleAutocompleteParams { get { return s_params_StyleAutocomplete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_StyleAutocomplete
+        {
+            public readonly string term = "term";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -166,6 +182,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "spotCheckPercent", spotCheckPercent);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "enabled", enabled);
             AddUpdateSpotCheckSettingOverride(callInfo, action, style, color, sewingPlantId, spotCheckPercent, enabled);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void StyleAutocompleteOverride(T4MVC_System_Web_Mvc_JsonResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.JsonResult StyleAutocomplete(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_JsonResult(Area, Name, ActionNames.StyleAutocomplete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            StyleAutocompleteOverride(callInfo, term);
             return callInfo;
         }
 
