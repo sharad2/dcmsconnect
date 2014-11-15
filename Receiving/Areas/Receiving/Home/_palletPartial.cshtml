@@ -41,7 +41,53 @@
     </div>
 </div>
 
-<div class="table-responsive">
+
+<ul class="list-group">
+    @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
+    {
+
+        <li class="list-group-item">
+
+            <div data-carton="@Model.Cartons[i].CartonId" style="text-align:center" class="pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary  btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#" data-action="print">
+                                &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
+                            </a>
+                        </li>
+                        @if (!string.IsNullOrWhiteSpace(Model.PalletId))
+                        {
+                            <li>
+                                <a href="#" data-action="remove">
+                                    &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <h4 class="list-group-item-heading">
+                @(i + 1)) Carton @Html.DisplayFor(m => m.Cartons[i].CartonId)
+                <small>
+                    &bull; Received on @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
+                </small>
+            </h4>
+            <p class="list-group-item-text">
+                SKU @Html.DisplayFor(m => m.Cartons[i].DisplaySku)
+                <small>
+                    &bull; Retail Price $ @Html.DisplayFor(m => m.Cartons[i].SkuPrice)
+                </small>
+            </p>
+
+
+        </li>
+    }
+</ul>
+@*<div class="table-responsive">
     <table class="table table-striped table-condensed table-bordered" data-disposition="@Model.DispositionId">
         <thead>
             <tr>
@@ -113,58 +159,8 @@
         </tbody>
     </table>
 
-</div>
+</div>*@
 
-
-
-
-
-
-@*<ul class="list-group">
-    @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
-    {
-
-        <li class="list-group-item">
-            
-            <div data-carton="@Model.Cartons[i].CartonId" style="text-align:center" class="pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary  btn-xs dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="#" data-action="print">
-                                &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
-                            </a>
-                        </li>
-                        @if (!string.IsNullOrWhiteSpace(Model.PalletId))
-                        {
-                            <li>
-                                <a href="#" data-action="remove">
-                                    &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>           
-            <h4 class="list-group-item-heading">
-                @(i + 1)) Carton @Html.DisplayFor(m => m.Cartons[i].CartonId)
-                <small>              
-                    &bull; Received on @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
-                </small>
-            </h4>
-            <p class="list-group-item-text">            
-                    SKU @Html.DisplayFor(m => m.Cartons[i].DisplaySku)
-                <small>
-                    &bull; Retail Price $ @Html.DisplayFor(m => m.Cartons[i].SkuPrice)
-                </small>
-            </p>
-          
-
-        </li>
-    }
-</ul>*@
 
 
 
