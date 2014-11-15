@@ -359,11 +359,11 @@ FETCH FIRST 50 ROWS ONLY";
         /// <param name="processId">Returns cartons of this process. We do not return cartons which exist on a pallet contain cartons of multiple areas.</param>
         /// <param name="buddyCartonId">Returns cartons which are on the same pallet as this carton</param>
         /// <returns></returns>
-        public IList<ReceivedCarton> GetReceivedCartons2(string palletId, int? processId, string buddyCartonId)
+        public IList<ReceivedCarton> GetReceivedCartons2(string palletId, string buddyCartonId)
         {
-            if (string.IsNullOrWhiteSpace(palletId) && processId == null && string.IsNullOrWhiteSpace(buddyCartonId))
+            if (string.IsNullOrWhiteSpace(palletId) && string.IsNullOrWhiteSpace(buddyCartonId))
             {
-                throw new ArgumentOutOfRangeException("At least one of palletId, processId, buddyCartonId must be passed");
+                throw new ArgumentOutOfRangeException("At least one of palletId, buddyCartonId must be passed");
             }
             const string QUERY = @"
 SELECT 
@@ -391,13 +391,6 @@ ctn.inshipment_id AS inshipment_id,
                     AND CTN.PALLET_ID = :pallet_id
                     </if>
                     <if>
-                    AND (CTN.PALLET_ID IN
-                             (SELECT DISTINCT S.PALLET_ID
-                                FROM <proxy />SRC_CARTON S
-                               WHERE S.inshipment_id = :PROCESS_ID AND s.pallet_id is not null
-                                 )) OR (CTN.PALLET_ID IS NULL and ctn.inshipment_id = :PROCESS_ID)
-                    </if>
-                    <if>
                     AND CTN.carton_id = :carton_id
                     </if>
                     order by CTN.insert_date desc
@@ -422,7 +415,6 @@ FETCH FIRST 500 ROWS ONLY
                             SkuPrice = row.GetDecimal("SKU_PRICE")
                         }
                 }).Parameter("pallet_id", palletId)
-                .Parameter("PROCESS_ID", processId)
                 .Parameter("carton_id", buddyCartonId);
             return _db.ExecuteReader(QUERY, binder);
         }
@@ -550,21 +542,49 @@ SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipm
         /// <returns>CartonList</returns>
         public IList<ReceivedCarton> GetUnpalletizedCartons(int processId)
         {
-            const string QUERY =
-                            @"
-                            SELECT S.CARTON_ID           AS CARTON_ID,
-                                   TIA.SHORT_NAME        AS SHORT_NAME,
-                                   S.VWH_ID              AS VWH_ID
-                          FROM <proxy/>SRC_CARTON S
-                          LEFT OUTER JOIN <proxy/>TAB_INVENTORY_AREA TIA
-                            ON TIA.INVENTORY_STORAGE_AREA = S.CARTON_STORAGE_AREA
-                             WHERE S.INSHIPMENT_ID = :INSHIPMENT_ID
-                               AND S.PALLET_ID IS NULL";
+            const string QUERY = @"
+SELECT 
+                             CTN.PALLET_ID AS PALLET_ID,
+                             CTN.CARTON_ID AS CARTON_ID,
+                             CTN.INSERT_DATE AS INSERT_DATE,
+                             CTN.CARTON_STORAGE_AREA AS CARTON_STORAGE_AREA,
+                             CTN.VWH_ID AS VWH_ID,
+ctn.inshipment_id AS inshipment_id,
+                             CTNDET.SKU_ID AS SKU_ID,
+                             MSKU.STYLE AS STYLE_,
+                             MSKU.COLOR AS COLOR_,
+                             MSKU.DIMENSION AS DIMENSION_,
+                             MSKU.SKU_SIZE AS SKU_SIZE_,
+                             MSKU.RETAIL_PRICE AS SKU_PRICE
+                        FROM <proxy />SRC_CARTON CTN
+                       LEFT OUTER JOIN <proxy />SRC_CARTON_DETAIL CTNDET
+                          ON CTN.CARTON_ID = CTNDET.CARTON_ID
+                       LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
+                          ON CTNDET.SKU_ID = MSKU.SKU_ID
+                      LEFT OUTER JOIN <proxy />MASTER_STYLE M
+                          ON M.STYLE = MSKU.STYLE
+                       WHERE CTN.PALLET_ID IS NULL AND ctn.inshipment_id = :inshipment_id
+                    order by CTN.insert_date desc
+FETCH FIRST 500 ROWS ONLY
+
+";
             var binder = SqlBinder.Create(row => new ReceivedCarton()
                 {
                     CartonId = row.GetString("CARTON_ID"),
-                    DestinationArea = row.GetString("SHORT_NAME"),
-                    VwhId = row.GetString("VWH_ID")
+                    ReceivedDate = row.GetDate("INSERT_DATE"),
+                    PalletId = row.GetString("PALLET_ID"),
+                    DestinationArea = row.GetString("CARTON_STORAGE_AREA"),
+                    VwhId = row.GetString("VWH_ID"),
+                    InShipmentId = row.GetInteger("inshipment_id"),
+                    Sku = row.GetInteger("SKU_ID") == null ? null : new Sku
+                        {
+                            SkuId = row.GetInteger("SKU_ID").Value,
+                            Style = row.GetString("STYLE_"),
+                            Color = row.GetString("COLOR_"),
+                            Dimension = row.GetString("DIMENSION_"),
+                            SkuSize = row.GetString("SKU_SIZE_"),
+                            SkuPrice = row.GetDecimal("SKU_PRICE")
+                        }
                 }).Parameter("INSHIPMENT_ID", processId);
             return _db.ExecuteReader(QUERY, binder);
         }

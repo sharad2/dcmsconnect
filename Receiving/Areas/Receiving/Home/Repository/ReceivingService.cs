@@ -230,7 +230,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         {
             if (string.IsNullOrWhiteSpace(palletId)) throw new ArgumentNullException("palletId");
 
-            return _repos.GetReceivedCartons2(palletId, null, null);
+            return _repos.GetReceivedCartons2(palletId, null);
         }
 
 
@@ -368,7 +368,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             if (cartonToReceive.ReceivedDate != null)
             {
                 // Carton already received.
-                var carton = _repos.GetReceivedCartons2(null, null, cartonToReceive.CartonId).FirstOrDefault();
+                var carton = _repos.GetReceivedCartons2(null, cartonToReceive.CartonId).FirstOrDefault();
                 // If the carton is recived and palletized we throw an error.
                 if (carton == null)
                 {
@@ -434,7 +434,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             if (string.IsNullOrEmpty(palletDispos))
             {
                 //var scannedPallet = GetPallet(palletId, null);
-                var cartons = _repos.GetReceivedCartons2(palletId, null, null);
+                var cartons = _repos.GetReceivedCartons2(palletId, null);
                 if (cartons.Count > 0)
                 {
                     palletDispos = cartons.First().DispositionId;
