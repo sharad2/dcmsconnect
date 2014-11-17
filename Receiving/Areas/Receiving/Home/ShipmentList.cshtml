@@ -119,7 +119,7 @@
                             </ul>
                         </div>
                         <button type="button" data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
-                                class="btnReopenShipment btn btn-info pull-right hidden">
+                                class="btnReopenShipment btn btn-warning pull-right hidden">
                             Reopen Shipment
                         </button>
                     </div>
@@ -136,7 +136,7 @@
                 $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
                     //Success
                 
-                    $li.addClass('list-group-item-info');
+                    $li.addClass('list-group-item-warning');
                     $('.btnGroupClose', $li).hide();
                     $('.btnReopenShipment', $li).removeClass('hidden');
                     $('#message').show().html(data).addClass('alert-info');
@@ -151,7 +151,7 @@
                var $li = $(e.delegateTarget);
                 $.post($(this).attr('data-shipment-reopen-url')).then(function (data, textStatus, jqXHR) {
                     //Success
-                    $li.removeClass('list-group-item-info');
+                    $li.removeClass('list-group-item-warning');
                     $('.btnGroupClose', $li).show();
                     $('.btnReopenShipment', $li).addClass('hidden');
                     $('#message').show().html(data).addClass('alert-info');
