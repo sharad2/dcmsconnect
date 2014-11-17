@@ -348,30 +348,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult HandleCartonScan(string scanText, string palletId, int processId)
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             if (string.IsNullOrWhiteSpace(scanText))
             {
-                // We should ignore the call
-                //return ValidationErrorResult();
-                //var sb = new StringBuilder();
-                //sb.Append("<ul>");
-                //foreach (var error in ModelState.Values.SelectMany(p => p.Errors))
-                //{
-                //    sb.AppendFormat("<li>{0}</li>", error.ErrorMessage);
-                //}
-                //sb.Append("</ul>");
                 throw new Exception("Nothing was scanned");
             }
-
-            //Debug.Assert(model.ProcessId != null, "model.ProcessId != null");
-            //var ctx = new ScanContext
-            //{
-            //    PalletId = model.PalletId,
-            //    //DispositionId = model.PalletDispos,
-            //    ProcessId = model.ProcessId.Value
-            //};
-
-            //Pallet pallet = null;
 
             var list = new List<Tuple<string, string>>();
             foreach (var cartonId in scanText.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim().ToUpper()))

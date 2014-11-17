@@ -175,6 +175,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -185,8 +188,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\bloodhound.js" />
     <None Include="Scripts\bloodhound.min.js" />
-    <None Include="Scripts\jquery.validate.js" />
-    <None Include="Scripts\jquery.validate.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -196,8 +197,9 @@
     <None Include="Scripts\typeahead.bundle.min.js" />
     <None Include="Scripts\typeahead.jquery.js" />
     <None Include="Scripts\typeahead.jquery.min.js" />
-    <Content Include="Areas\Receiving\Rad\Index.js.bundle" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Areas\Receiving\Rad\Index.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <None Include="Scripts\jquery-2.1.1.js" />
     <None Include="Scripts\jquery-2.1.1.min.js" />

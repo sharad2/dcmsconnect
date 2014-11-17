@@ -189,7 +189,8 @@ var Tabs = (function () {
     var _load = function () {
         //alert('Loading');
         Tabs.html('Loading...');
-        return $.get(_options.loadUrl.replace('~', Tabs.activePalletId())).then(function (data, textStatus, jqXHR) {
+        // Important to pass cache:false to ensure that the pallet contents are requeried after a carton is received
+        return $.ajax(_options.loadUrl.replace('~', Tabs.activePalletId()), {cache: false}).then(function (data, textStatus, jqXHR) {
             Tabs.html(data);
         }, function (jqXHR, textStatus, errorThrown) {
             Tabs.html(jqXHR.responseText);
