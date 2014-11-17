@@ -467,15 +467,15 @@ namespace DcmsMobile.REQ2.Repository
         {
             const string QUERY = @"
             SELECT 
-                   MAX(REQDET.STYLE)                    AS STYLE,
-                   MAX(REQDET.COLOR)                    AS COLOR,
-                   MAX(REQDET.DIMENSION)                AS DIMENSION,
-                   MAX(REQDET.SKU_SIZE)                 AS SKU_SIZE,
+                   MAX(MSKU.STYLE)                    AS STYLE,
+                   MAX(MSKU.COLOR)                    AS COLOR,
+                   MAX(MSKU.DIMENSION)                AS DIMENSION,
+                   MAX(MSKU.SKU_SIZE)                 AS SKU_SIZE,
                    MAX(MSKU.SKU_ID)                     AS SKU_ID,
-                   MAX(REQDET.CONVERSION_STYLE)         AS CON_STYLE_,
-                   MAX(REQDET.CONVERSION_COLOR)         AS CON_COLOR_,
-                   MAX(REQDET.CONVERSION_DIMENSION)     AS CON_DIMENSION_,
-                   MAX(REQDET.CONVERSION_SKU_SIZE)      AS CON_SKU_SIZE_,
+                   MAX(MSKUCONV.STYLE)         AS CON_STYLE_,
+                   MAX(MSKUCONV.COLOR)         AS CON_COLOR_,
+                   MAX(MSKUCONV.DIMENSION)     AS CON_DIMENSION_,
+                   MAX(MSKUCONV.SKU_SIZE)      AS CON_SKU_SIZE_,
                    MAX(MSKUCONV.SKU_ID)                 AS CON_SKU_ID,
                    MAX(REQDET.QUANTITY_REQUESTED)       AS QUANTITY_REQUESTED
               FROM <proxy />CTNRESV C
