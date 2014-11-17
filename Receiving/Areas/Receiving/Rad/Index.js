@@ -3685,26 +3685,25 @@ $(document).ready(function () {
 
     // The hidden field must be immediately after the input group
     //var adapters = {};
-    $('form.spotcheckEditor div.input-group[data-url]').each(function (i, elem) {
-        var adapter = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            remote: {
-                wildcard: '~',
-                url: $(elem).attr('data-url'),
-                ajax: { cache: false }
-            }
-        });
-        adapter.initialize();
-        $(elem).data('ttadapter', adapter.ttAdapter());
-
-    }).on('change', 'input:checkbox:checked', function (e) {
+    $('form.spotcheckEditor div.input-group[data-url]').on('change', 'input:checkbox:checked', function (e) {        
         // Style checkbox has been checked by the user. He wants to enter a specific style
         $('input.typeahead', e.delegateTarget).prop('disabled', false)
             .typeahead(null, {
                 name: 'Styles',
                 displayKey: 'label',
-                source: $(e.delegateTarget).data('ttadapter'),
+                source: function (query, cb) {
+                    var url = $(e.delegateTarget).attr('data-url').replace('~', query);
+
+                    $.get(url).done(function (data, textStatus, jqXHR) {
+                        this.cb(data);
+                    }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status == 500) {
+                            this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                        } else {
+                            this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                        }
+                    }.bind({ cb: cb, url: url }));
+                },
                 templates: {
                     empty: 'No matching choices'
                 }
