@@ -7,8 +7,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
     {
         public string ShipmentId { get; set; }
 
+       [DisplayFormat(NullDisplayText = "NA")]
         public long? PoNumber { get; set; }
 
+      
         public string IntransitType { get; set; }       
 
         [DisplayFormat(DataFormatString = "{0:g}")]
@@ -25,6 +27,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         public int CartonCount { get; set; }
 
+
+       [DisplayFormat(NullDisplayText = "NA")]
         public long? ProcessNumber { get; set; }
 
         public DateTime ShipmentDate { get; set; }

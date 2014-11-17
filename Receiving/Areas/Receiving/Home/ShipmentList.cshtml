@@ -4,7 +4,11 @@
     ViewBag.Title = "Shipment List";
 }
 
-<div class="container">    
+
+
+
+
+<div class="container">
     <div id="message" class="alert alert-info" style="display:none"></div>
     <div class="page-header">
         <h2>
@@ -12,137 +16,150 @@
         </h2>
     </div>
     <small class="text-info"><span class="glyphicon glyphicon-info-sign"></span> To update Shipment List please refresh the page.</small>
-    <div class="table-responsive" id="divShipmentList">      
-        <table class="table table-condensed table-bordered">
-            <caption class="h4">List of open shipments(Max 200)</caption>
-            <thead class="bg-success">
-                <tr>
-                    <th rowspan="2" style="text-align:center">#</th>
-                    <th rowspan="2" style="text-align:center">Shipment #</th>
-                    <th rowspan="2" style="text-align:center">PO #</th>
-                    <th rowspan="2" style="text-align:center">Shipment Date</th>
-                    <th rowspan="2" style="text-align:center">Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
-                    <th rowspan="2" style="text-align:center">ERP</th>
-                    <th rowspan="2" style="text-align:center">Order Type</th>
-                    <th colspan="2" style="text-align:center"># Pieces</th>
-                    <th colspan="2" style="text-align:center"># Carton</th>
-                    <th rowspan="2" style="text-align:center">Last Received on <span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
-                    <th rowspan="2" style="text-align:center">Close</th>
-                </tr>
-                <tr>
-                    <th style="text-align:center">Received</th>
-                    <th style="text-align:center">Expected</th>
-                    <th style="text-align:center">Received</th>
-                    <th style="text-align:center">Expected</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.ShipmentList.Count; i++)
-                {
-                    <tr>
-                        <td>@(i + 1)</td>
-                        <td>
-                            <a href="@Url.Content(string.Format("~/Inquiry/IntransitShipment/{0}", Model.ShipmentList[i].ShipmentId))"                              
-                               class="btn btn-link" target="_blank" title="Shipment Details">
+    <h4>List of open shipments(Max 200)</h4>
+    <ul class="list-group">
+
+        <li class="list-group-item list-group-item-success">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="list-group-item-heading">
+                        Shipment #
+                        <small>Shipment Date</small>
+                    </h4>
+                    <p class="list-group-item-text">
+                        Last Received on <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <span class="label label-success">PO #</span>
+                    &nbsp;
+                    <small>ERP</small>
+
+                    <p class="list-group-item-text">
+                        <span class="label label-info">
+                            Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                        </span>
+                        &nbsp;
+                        <small>Order Type</small>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    Pieces received of pieces expected
+                    <p class="list-group-item-text">
+                        Carton received of carton expected
+                    </p>
+
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary pull-right">Action</button>
+                </div>
+            </div>
+        </li>
+        @for (int i = 0; i < Model.ShipmentList.Count; i++)
+        {
+
+            <li class="list-group-item shipmentList">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading">
+                            @(i + 1))  <a href="@Url.Content(string.Format("~/Inquiry/IntransitShipment/{0}", Model.ShipmentList[i].ShipmentId))"
+                                          target="_blank" title="Shipment Details">
                                 @Html.DisplayFor(m => m.ShipmentList[i].ShipmentId)
                             </a>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.ShipmentList[i].PoNumber)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.ShipmentList[i].ShipmentDate)
-                        </td>
-                        <td>@Html.DisplayFor(m => m.ShipmentList[i].ProcessNumber)</td>
-                        <td>
-                            @Html.DisplayFor(m => m.ShipmentList[i].ErpType)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(m => m.ShipmentList[i].IntransitType)
-                        </td>
-                        <td style="text-align: right">
-                            @Html.DisplayFor(m => m.ShipmentList[i].ReceivedQuantity)
-                        </td>
-                        <td style="text-align: right">
-                            @Html.DisplayFor(m => m.ShipmentList[i].ExpectedQuantity)
-                        </td>
-
-                        <td style="text-align: right">
-                            @Html.DisplayFor(m => m.ShipmentList[i].CartonReceived)
-                        </td>
-                        <td style="text-align: right">
-                            @Html.DisplayFor(m => m.ShipmentList[i].CartonCount)
-                        </td>
-                        <td>
+                            <small>@Html.DisplayFor(m => m.ShipmentList[i].ShipmentDate)</small>
+                        </h4>
+                        <p class="list-group-item-text">
                             @Html.DisplayFor(m => m.ShipmentList[i].MaxReceiveDate)
-                        </td>
-                        <td>
-                            <span class="glyphicon glyphicon-remove" style="cursor:pointer;" data-shipment-val="@Model.ShipmentList[i].ShipmentId"
-                                  data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
-                                  data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
-                                  title="Close shipment"></span>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.ShipmentList[i].PoNumber)
+                        </span>
+                        &nbsp;
+                        <small>@Html.DisplayFor(m => m.ShipmentList[i].ErpType)</small>
 
-    </div>
+
+                        <p class="list-group-item-text">
+                            <span class="label label-info">
+                                @Html.DisplayFor(m => m.ShipmentList[i].ProcessNumber)
+                            </span>
+                            &nbsp;
+                            <small>
+                                @Html.DisplayFor(m => m.ShipmentList[i].IntransitType)
+                            </small>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+
+                        @Html.DisplayFor(m => m.ShipmentList[i].ReceivedQuantity) of
+                        @Html.DisplayFor(m => m.ShipmentList[i].ExpectedQuantity) pieces received
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.ShipmentList[i].CartonReceived) of
+                            @Html.DisplayFor(m => m.ShipmentList[i].CartonCount) carton received
+                        </p>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="btn-group pull-right btnGroupClose" title="Close Shipment @Model.ShipmentList[i].ShipmentId">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Close Shipment <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                <li>
+                                    <center>Are you sure?</center>
+                                    <div class="btn-group btn-group-justified">
+                                        <button class="btn btn-primary btncloseShipment" type="submit" 
+                                                data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))">
+                                            Yes
+                                        </button>
+                                        <a class="btn btn-default">No</a>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <button type="button" data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
+                                class="btnReopenShipment btn btn-info pull-right hidden">
+                            Reopen Shipment
+                        </button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>  
 </div>
 @section script {
     <script type="text/javascript">
         $(document).ready(function () {
-            // Post call to remove pickslip action method
-            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-remove', function (e) {
-                var $tr = $(e.target).closest('tr');
-                if (confirm('Are you sure, you want to close Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
-                    $.ajax($(this).attr('data-shipment-close-url'), {
-                        type: 'POST',
-                        success: function (data, textStatus, jqXHR) {
-                            // handling validation error
-                            if (jqXHR.status == 203) {
-                                alert(jqXHR.responseText);
-                                return;
-                            }
-                            //Success message
-                            $tr.addClass('text-success bg-warning').css("text-decoration", "line-through");
-                            $tr.find('a').addClass('disabled');
-                            $tr.find('span.glyphicon-remove').removeClass('glyphicon-remove').addClass('glyphicon-plus').attr('title', 'Reopen Shipment');
-                            $('#message').show().html(data).addClass('bg-info');
-                            return false;
+            $('.shipmentList').on('click', '.btncloseShipment', function (e) {
+                var $li = $(e.delegateTarget);
+                $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
+                    //Success
+                
+                    $li.addClass('list-group-item-info');
+                    $('.btnGroupClose', $li).hide();
+                    $('.btnReopenShipment', $li).removeClass('hidden');
+                    $('#message').show().html(data).addClass('bg-info');
 
-                        }
-                    }).error(function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    });
-                }
-                else {
-                    $tr.removeClass('ui-state-highlight').css("text-decoration", "none").css("color", "black");
-                    return;
-                }
+                }, function (jqXHR, textStatus, errorThrown) {
+                    //error
+                    alert(jqXHR.responseText);
+                });
+
+            }).on('click', '.btnReopenShipment', function (e) {
+               var $li = $(e.delegateTarget);
+                $.post($(this).attr('data-shipment-reopen-url')).then(function (data, textStatus, jqXHR) {
+                    //Success
+                    $li.removeClass('list-group-item-info');
+                    $('.btnGroupClose', $li).show();
+                    $('.btnReopenShipment', $li).addClass('hidden');
+                    $('#message').show().html(data).addClass('bg-info');
+                }, function (jqXHR, textStatus, errorThrown) {
+                    //error
+                    alert(jqXHR.responseText);
+                });
             });
-            $('#divShipmentList').on('click', 'table tbody tr span.glyphicon-plus', function (e) {
-                var $tr = $(e.target).closest('tr');
-                if (confirm('Are you sure, you want to re-open Shipment No. ' + $(this).attr('data-shipment-val') + ' ?')) {
-                    $.ajax($(this).attr('data-shipment-reopen-url'), {
-                        type: 'POST',
-                        success: function (data, textStatus, jqXHR) {
-                            if (jqXHR.status == 203) {
-                                alert(jqXHR.responseText);
-                                return;
-                            }
-                            //Success message
-                            $tr.removeClass('text-success bg-warning').css("text-decoration", "none");
-                            $tr.find('a').removeClass('disabled');
-                            $tr.find('span.glyphicon-plus').removeClass('glyphicon-plus').addClass('glyphicon-remove').attr('title', 'Close Shipment');
-                            $('#message').show().html(data).addClass('bg-info');
-                            return false;
-                        }
-                    }).error(function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    });
-                };
-            });
-        });
+                });
     </script>
 }
