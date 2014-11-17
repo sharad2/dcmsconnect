@@ -18,6 +18,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public int? PalletLimit { get; set; }
 
         [Display(Name = "Season Code")]
+        [DisplayFormat(NullDisplayText="Default")]
         public string PriceSeasonCode { get; set; }
 
         [Display(Name = "Pro Date")]
