@@ -550,11 +550,11 @@ namespace DcmsMobile.REQ2.Repository
         {
             const string QUERY =
                 @"
-                 SELECT ctndet.style AS style,
-                        ctndet.color AS color,
-                        ctndet.dimension AS dimension,
-                        ctndet.sku_size AS sku_size,
-                        ctndet.sku_id AS sku_id,
+                 SELECT msku.style AS style,
+                        msku.color AS color,
+                        msku.dimension AS dimension,
+                        msku.sku_size AS sku_size,
+                        msku.sku_id AS sku_id,
                         count(DISTINCT ctndet.carton_id) AS num_cartons,
                         count(DISTINCT DECODE(ctn.carton_storage_area,
                                     c.source_area,
@@ -571,10 +571,12 @@ namespace DcmsMobile.REQ2.Repository
                     AND c.module_code = ctndet.req_module_code
                     INNER JOIN <proxy />src_carton ctn 
                             ON ctndet.carton_id = ctn.carton_id 
+                    INNER JOIN <proxy />master_sku msku
+                            ON ctndet.sku_id = msku.sku_id
                     WHERE c.ctn_resv_id = :ctnresv_id
                       AND c.module_code = 'REQ2'
-                    GROUP BY ctndet.style, ctndet.color, ctndet.dimension, ctndet.sku_size, ctndet.sku_id
-                    ORDER BY ctndet.style, ctndet.color, ctndet.dimension, ctndet.sku_size
+                    GROUP BY msku.style, msku.color, msku.dimension, msku.sku_size, msku.sku_id
+                    ORDER BY msku.style, msku.color, msku.dimension, msku.sku_size
             ";
             var binder = SqlBinder.Create(row => new AssignedCarton
             {
