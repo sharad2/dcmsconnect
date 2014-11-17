@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Receiving\Home\HomeController.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\CartonArea.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\DcmsPublicRoutes.cs" />
