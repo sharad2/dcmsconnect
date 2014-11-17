@@ -525,6 +525,7 @@ SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipm
             return areaId;
         }
 
+        [Obsolete]
         public void PutCartonOnPallet(string palletId, string cartonId)
         {
             const string QUERY =

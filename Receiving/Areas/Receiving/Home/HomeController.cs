@@ -460,7 +460,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             pvm.PalletId = palletId;
             pvm.PalletLimit = _service.Value.GetPalletLimit(processId);
 
-            this.Response.AppendHeader("Disposition", pvm.DispositionId);
+            //this.Response.AppendHeader("Disposition", pvm.DispositionId);
 
             pvm.StatusMessage = string.Format("Carton {0} removed from Pallet {1}", cartonId, palletId);
             return PartialView(Views._palletPartial, pvm);

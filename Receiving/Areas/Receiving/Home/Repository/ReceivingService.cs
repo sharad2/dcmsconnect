@@ -120,19 +120,25 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         const int PALLET_LIMIT = 50;    // Factory default
 
+        private class Disposition
+        {
+            public string AreaId { get; set; }
+
+            public string VwhId { get; set; }
+        }
 
         /// <summary>
         /// Cache Pallet Dispostion
         /// Key is pallet_id, value is disposition
         /// </summary>
-        private ConcurrentDictionary<string, string> CachedPalletDisposition
+        private ConcurrentDictionary<string, Disposition> CachedPalletDisposition
         {
             get
             {
-                var palletDispos = MemoryCache.Default[APPKEY_PALLETDISPOS] as ConcurrentDictionary<string, string>;
+                var palletDispos = MemoryCache.Default[APPKEY_PALLETDISPOS] as ConcurrentDictionary<string, Disposition>;
                 if (palletDispos == null)
                 {
-                    palletDispos = new ConcurrentDictionary<string, string>();
+                    palletDispos = new ConcurrentDictionary<string, Disposition>();
                     MemoryCache.Default.Add(APPKEY_PALLETDISPOS, palletDispos, new CacheItemPolicy
                     {
                         AbsoluteExpiration = DateTime.Now.AddMinutes(30)
@@ -185,28 +191,44 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// Our second attempt is to send the carton in assigned area where this carton might be required.
         /// If a carton can not be send for spot check or to an assigned area then we send it to Receiving Area. 
         /// DB: 18-07-2012 Removed Intransit carton cache.
-        private IntransitCarton GetIntransitCarton(string cartonId, int processId)
-        {
-            IntransitCarton ctn = _repos.GetIntransitCarton2(cartonId);
-            if (ctn == null)
-            {
-                return ctn;
-            }
+        //[Obsolete]
+        //private IntransitCarton GetIntransitCarton(string cartonId, int processId)
+        //{
+        //    IntransitCarton ctn = _repos.GetIntransitCarton2(cartonId);
+        //    if (ctn == null)
+        //    {
+        //        return ctn;
+        //    }
 
+        //    //var rand = new Random();
+        //    //var process = GetProcessInfo(processId);
+        //    //if (ctn.IsSpotCheckEnabled && ctn.SpotCheckPercent.HasValue && rand.Next(100 * 100 - 1) < (Convert.ToInt32(ctn.SpotCheckPercent.Value * 100)))
+        //    //{
+        //    //    // Needs spot check                 
+        //    //    ctn.DestinationArea = process.SpotCheckAreaId;
+        //    //}
+        //    //else
+        //    //{
+        //    //    var areaId = _repos.GetCartonDestination(cartonId);
+        //    //    ctn.DestinationArea = string.IsNullOrEmpty(areaId) ? process.ReceivingAreaId : areaId;
+        //    //}
+
+        //    return ctn;
+        //}
+
+        private string GetDestinationArea(int processId, IntransitCarton ctn)
+        {
             var rand = new Random();
             var process = GetProcessInfo(processId);
             if (ctn.IsSpotCheckEnabled && ctn.SpotCheckPercent.HasValue && rand.Next(100 * 100 - 1) < (Convert.ToInt32(ctn.SpotCheckPercent.Value * 100)))
             {
                 // Needs spot check                 
-                ctn.DestinationArea = process.SpotCheckAreaId;
-            }
-            else
-            {
-                var areaId = _repos.GetCartonDestination(cartonId);
-                ctn.DestinationArea = string.IsNullOrEmpty(areaId) ? process.ReceivingAreaId : areaId;
+                return process.SpotCheckAreaId;
             }
 
-            return ctn;
+            var areaId = _repos.GetCartonDestination(ctn.CartonId);
+            return string.IsNullOrEmpty(areaId) ? process.ReceivingAreaId : areaId;
+
         }
 
 
@@ -308,7 +330,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         public void RemoveFromPallet(string cartonId, int processId, out string palletId)
         {
             palletId = _repos.RemoveFromPallet(cartonId);
-            string dispos;
+            Disposition dispos;
             CachedPalletDisposition.TryRemove(palletId, out dispos);
 
         }
@@ -346,7 +368,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                 throw new ProviderException(string.Format("Please Scan a Pallet first"));
             }
 
-            var cartonToReceive = this.GetIntransitCarton(scan, processId);
+            var cartonToReceive = _repos.GetIntransitCarton2(scan);
             if (cartonToReceive == null)
             {
                 throw new ProviderException(string.Format("Carton {0} not part of ASN", scan));
@@ -380,7 +402,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
                     throw new AlreadyReceivedCartonException(carton.PalletId);
                 }
                 // Put carton on pallet and check disposition. 
-                if (HandleDisposition(palletId, carton.DispositionId))
+                if (HandleDisposition(palletId, carton.DestinationArea, carton.VwhId))
                 {
                     // Dipos ok put carton on pallet
                     _repos.PutCartonOnPallet(palletId, scan);
@@ -393,17 +415,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             }
             else
             {
+                var areaId = GetDestinationArea(processId, cartonToReceive);
                 // Unreceived carton.
-                _repos.ReceiveCarton(null, cartonToReceive.CartonId, cartonToReceive.DestinationArea, processId);
+                _repos.ReceiveCarton(null, cartonToReceive.CartonId, areaId, processId);
                 //Getting the pallet dispostion, if this pallet does not contain cartons then disposition will be null.
-                if (HandleDisposition(palletId, cartonToReceive.DispositionId))
+                if (HandleDisposition(palletId, areaId, cartonToReceive.VwhId))
                 {
                     _repos.PutCartonOnPallet(palletId, scan);
 
                 }
                 else
                 {
-                    throw new DispositionMismatchException(cartonToReceive.VwhId, cartonToReceive.DestinationArea);
+                    throw new DispositionMismatchException(cartonToReceive.VwhId, areaId);
 
                 }
 
@@ -417,7 +440,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
 
         // PalletId, ProcessId, destArea, cartonId, 
-        private bool HandleDisposition(string palletId, string cartonDispos)
+        private bool HandleDisposition(string palletId, string areaId, string vwhId)
         {
 
             if (string.IsNullOrEmpty(palletId))
@@ -428,21 +451,21 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
             //var palletDisposition = GetPalletDisposition(palletId);
 
-            string palletDispos;
-            CachedPalletDisposition.TryGetValue(palletId, out palletDispos);
+            Disposition palletDispos;
 
-            if (string.IsNullOrEmpty(palletDispos))
+            if (!CachedPalletDisposition.TryGetValue(palletId, out palletDispos))
             {
-                //var scannedPallet = GetPallet(palletId, null);
                 var cartons = _repos.GetReceivedCartons2(palletId, null);
-                if (cartons.Count > 0)
+                palletDispos = cartons.Select(p => new Disposition
                 {
-                    palletDispos = cartons.First().DispositionId;
-                    CachedPalletDisposition.TryAdd(palletId, palletDispos);
-                }
+                    AreaId = p.DestinationArea,
+                    VwhId = p.VwhId
+                }).FirstOrDefault();
+                // OK to cache a null dispos here
+                CachedPalletDisposition.TryAdd(palletId, palletDispos);
             }
 
-            return (string.IsNullOrWhiteSpace(palletDispos) || palletDispos == cartonDispos);
+            return (palletDispos == null || (palletDispos.AreaId == areaId && palletDispos.VwhId == vwhId));
         }
 
 

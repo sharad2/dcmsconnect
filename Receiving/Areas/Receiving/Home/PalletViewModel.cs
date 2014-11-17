@@ -23,9 +23,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
             this.CartonId = entity.CartonId;
             this.VwhId = entity.VwhId;
-            this.DispositionId = entity.DispositionId;
+            //this.DispositionId = entity.DispositionId;
             this.ReceivedDate = entity.ReceivedDate;
             this.ProcessId = entity.InShipmentId;
+            this.DestinationArea = entity.DestinationArea;
         }
 
         [Key]
@@ -42,8 +43,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             get;
             set;
         }
-
-        public string DispositionId { get; set; }
 
         public string DisplaySku { get; set; }
 
@@ -68,20 +67,20 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [Display(Name = "Pallet")]
         public string PalletId { get; set; }
 
-        /// <summary>
-        /// The disposition of a pallet is the same as the disposition of the first carton, or null if there are no cartons.
-        /// </summary>
-        public string DispositionId
-        {
-            get
-            {
-                if (this.Cartons.Count == 0)
-                {
-                    return string.Empty;
-                }
-                return this.Cartons.First().DispositionId;
-            }
-        }
+        ///// <summary>
+        ///// The disposition of a pallet is the same as the disposition of the first carton, or null if there are no cartons.
+        ///// </summary>
+        //public string DispositionId
+        //{
+        //    get
+        //    {
+        //        if (this.Cartons.Count == 0)
+        //        {
+        //            return string.Empty;
+        //        }
+        //        return this.Cartons.First().DispositionId;
+        //    }
+        //}
 
         private IList<ReceivedCartonModel> _cartons;
         public IList<ReceivedCartonModel> Cartons

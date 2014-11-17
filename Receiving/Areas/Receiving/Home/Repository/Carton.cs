@@ -19,48 +19,42 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         [Display(ShortName = "Vwh")]
         public string VwhId { get; set; }
 
-        [Display(ShortName = "Area")]
-        public string DestinationArea
-        {
-            get;
-            set;
-        }
-
 
         public DateTime? ReceivedDate { get; set; }
 
-        /// <summary>
-        /// Contract :
-        /// We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
-        /// </summary>
-        public string DispositionId
-        {
-            get
-            {
-                var str = string.Format("{0}{1}",
-                     this.VwhId, this.DestinationArea
-                    );
-                return str;
-            }
-        }
+        ///// <summary>
+        ///// Contract :
+        ///// We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
+        ///// </summary>
+        //[Obsolete]
+        //public string DispositionId
+        //{
+        //    get
+        //    {
+        //        var str = string.Format("{0}{1}",
+        //             this.VwhId, this.DestinationArea
+        //            );
+        //        return str;
+        //    }
+        //}
 
     }
 
     internal class ReceivedCarton : CartonBase
     {
         public string PalletId { get; set; }
-        //public string DisplaySku
-        //{
-        //    get
-        //    {
-        //        return string.Format("{0},{1},{2},{3}", this.Sku.Style, this.Sku.Color, this.Sku.Dimension, this.Sku.SkuSize);
-        //    }
-        //}
 
         /// <summary>
         /// The process id against which this carton was received
         /// </summary>
         public int? InShipmentId { get; set; }
+
+        [Display(ShortName = "Area")]
+        public string DestinationArea
+        {
+            get;
+            set;
+        }
 
     }
 
