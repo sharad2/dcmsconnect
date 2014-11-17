@@ -359,7 +359,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             {
                 try
                 {
-                    _service.Value.ReceiveCartons(cartonId, palletId, processId);
+                    _service.Value.ReceiveCarton(cartonId, palletId, processId);
                 }
                 catch (Exception ex)
                 {

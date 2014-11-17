@@ -12,60 +12,56 @@ using System.Web.Routing;
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
+    //public class AlreadyReceivedCartonException : Exception
+    //{
+    //    private readonly string _palletId;
 
-    /// <summary>
-    /// Raised when the carton was received in another receiving session
-    /// </summary>
-    public class AlreadyReceivedCartonException : Exception
-    {
-        private readonly string _palletId;
+    //    public string PalletId { get { return _palletId; } }
 
-        public string PalletId { get { return _palletId; } }
+    //    public AlreadyReceivedCartonException()
+    //    {
 
-        public AlreadyReceivedCartonException()
-        {
+    //    }
 
-        }
+    //    public AlreadyReceivedCartonException(string palletId)
+    //    {
+    //        _palletId = palletId;
+    //    }
+    //}
 
-        public AlreadyReceivedCartonException(string palletId)
-        {
-            _palletId = palletId;
-        }
-    }
+    //public class DispositionMismatchException : Exception
+    //{
+    //    private readonly string _vwhId;
+    //    private readonly string _areaId;
 
-    public class DispositionMismatchException : Exception
-    {
-        private readonly string _vwhId;
-        private readonly string _areaId;
+    //    public DispositionMismatchException()
+    //    {
 
-        public DispositionMismatchException()
-        {
+    //    }
 
-        }
+    //    public DispositionMismatchException(string vwhId, string areaId)
+    //    {
+    //        _vwhId = vwhId;
+    //        _areaId = areaId;
 
-        public DispositionMismatchException(string vwhId, string areaId)
-        {
-            _vwhId = vwhId;
-            _areaId = areaId;
+    //    }
 
-        }
+    //    public string VwhId
+    //    {
+    //        get
+    //        {
+    //            return _vwhId;
+    //        }
+    //    }
 
-        public string VwhId
-        {
-            get
-            {
-                return _vwhId;
-            }
-        }
-
-        public string AreaId
-        {
-            get
-            {
-                return _areaId;
-            }
-        }
-    }
+    //    public string AreaId
+    //    {
+    //        get
+    //        {
+    //            return _areaId;
+    //        }
+    //    }
+    //}
 
     internal class ReceivingService : IDisposable
     {
@@ -122,6 +118,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         private class Disposition
         {
+            public Disposition(ReceivedCarton ctn)
+            {
+                this.AreaId = ctn.DestinationArea;
+                this.VwhId = ctn.VwhId;
+            }
             public string AreaId { get; set; }
 
             public string VwhId { get; set; }
@@ -361,78 +362,55 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         }
 
-        public void ReceiveCartons(string scan, string palletId, int processId)
+        public void ReceiveCarton(string scan, string palletId, int processId)
         {
-            if (palletId == null)
+            if (string.IsNullOrWhiteSpace(scan))
             {
-                throw new ProviderException(string.Format("Please Scan a Pallet first"));
+                // Nothing to do
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(palletId))
+            {
+                throw new ArgumentNullException("palletId");
             }
 
             var cartonToReceive = _repos.GetIntransitCarton2(scan);
-            if (cartonToReceive == null)
+
+            if (cartonToReceive != null)
+            {
+                // Normal case
+                if (cartonToReceive.IsShipmentClosed)
+                {
+                    // This carton is from an already closed shipment. check whether we can accept it.                 
+                    if (!_repos.AcceptCloseShipmentCtn(scan, processId))
+                    {
+                        throw new ProviderException(string.Format("Carton {0} belongs to a closed shipment.Scan after carton for open shipment or use blind receiving.", scan));
+                    }
+                }
+                var areaId = GetDestinationArea(processId, cartonToReceive);
+                HandleDisposition(palletId, areaId, cartonToReceive.VwhId);
+                // Unreceived carton.
+                _repos.ReceiveCarton(palletId, cartonToReceive.CartonId, areaId, processId);
+                return;
+            }
+
+
+            // See whether this carton has already been received
+            var carton = _repos.GetReceivedCartons2(null, scan).FirstOrDefault();
+
+            if (carton == null)
             {
                 throw new ProviderException(string.Format("Carton {0} not part of ASN", scan));
             }
-
-            if (cartonToReceive.IsShipmentClosed)
-            {
-                // This carton is from an already closed shipment. check whether we can accept it.                 
-                if (_repos.AcceptCloseShipmentCtn(scan, processId))
-                {
-                    // Carton acceptable nothing to do. 
-                }
-                else
-                {
-                    throw new ProviderException(string.Format("Carton {0} belongs to a closed shipment.Scan after carton for open shipment or use blind receiving.", scan));
-                }
-            }
-
-            if (cartonToReceive.ReceivedDate != null)
-            {
-                // Carton already received.
-                var carton = _repos.GetReceivedCartons2(null, cartonToReceive.CartonId).FirstOrDefault();
-                // If the carton is recived and palletized we throw an error.
-                if (carton == null)
-                {
-                    throw new ProviderException(string.Format("Carton {0} already received on {1} but does not exist in src_carton. Contact administrator", cartonToReceive.CartonId, cartonToReceive.ReceivedDate));
-                }
-                if (!string.IsNullOrEmpty(carton.PalletId))
-                {
-                    //carton has already been received throw exception with pallet Id on which carton was put.
-                    throw new AlreadyReceivedCartonException(carton.PalletId);
-                }
-                // Put carton on pallet and check disposition. 
-                if (HandleDisposition(palletId, carton.DestinationArea, carton.VwhId))
-                {
-                    // Dipos ok put carton on pallet
-                    _repos.PutCartonOnPallet(palletId, scan);
-                }
-                else
-                {
-                    // throw dispos mismatch exception.
-                    throw new DispositionMismatchException(carton.VwhId, carton.DestinationArea);
-                }
-            }
-            else
-            {
-                var areaId = GetDestinationArea(processId, cartonToReceive);
-                // Unreceived carton.
-                _repos.ReceiveCarton(null, cartonToReceive.CartonId, areaId, processId);
-                //Getting the pallet dispostion, if this pallet does not contain cartons then disposition will be null.
-                if (HandleDisposition(palletId, areaId, cartonToReceive.VwhId))
-                {
-                    _repos.PutCartonOnPallet(palletId, scan);
-
-                }
-                else
-                {
-                    throw new DispositionMismatchException(cartonToReceive.VwhId, areaId);
-
-                }
-
-                //ctx.Result = ScanResult.CartonReceived;
-            }
-
+            //if (carton.InShipmentId != processId)
+            //{
+            //    //carton has already been received throw exception with pallet Id on which carton was put.
+            //    throw new Exception(string.Format("Carton {0} has already been received by Receiving Process {1}", carton.CartonId, carton.InShipmentId));
+            //}
+            // Put carton on pallet and check disposition. 
+            HandleDisposition(palletId, carton.DestinationArea, carton.VwhId);
+            // If we get here, Dipos ok put carton on pallet
+            _repos.PutCartonOnPallet(palletId, scan);
         }
 
 
@@ -440,7 +418,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
 
         // PalletId, ProcessId, destArea, cartonId, 
-        private bool HandleDisposition(string palletId, string areaId, string vwhId)
+        private void HandleDisposition(string palletId, string areaId, string vwhId)
         {
 
             if (string.IsNullOrEmpty(palletId))
@@ -456,16 +434,26 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             if (!CachedPalletDisposition.TryGetValue(palletId, out palletDispos))
             {
                 var cartons = _repos.GetReceivedCartons2(palletId, null);
-                palletDispos = cartons.Select(p => new Disposition
+                palletDispos = cartons.Select(p => new Disposition(p)).FirstOrDefault();
+                if (palletDispos != null)
                 {
-                    AreaId = p.DestinationArea,
-                    VwhId = p.VwhId
-                }).FirstOrDefault();
-                // OK to cache a null dispos here
-                CachedPalletDisposition.TryAdd(palletId, palletDispos);
+                    CachedPalletDisposition.TryAdd(palletId, palletDispos);
+                }
             }
 
-            return (palletDispos == null || (palletDispos.AreaId == areaId && palletDispos.VwhId == vwhId));
+            if (palletDispos == null)
+            {
+                return;
+            }
+            if (palletDispos.AreaId != areaId)
+            {
+                throw new Exception(string.Format("Carton for area {0} cannot be placed on pallet for area {1}", areaId, palletDispos.AreaId));
+            }
+            if (palletDispos.VwhId != vwhId)
+            {
+                throw new Exception(string.Format("Carton of Vwh {0} cannot be placed on pallet of Vwh {1}", vwhId, palletDispos.VwhId));
+            }
+
         }
 
 

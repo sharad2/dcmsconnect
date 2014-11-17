@@ -19,25 +19,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         [Display(ShortName = "Vwh")]
         public string VwhId { get; set; }
 
-
-        public DateTime? ReceivedDate { get; set; }
-
-        ///// <summary>
-        ///// Contract :
-        ///// We use the format for disposition C15REC i.e first part is VWh_id and second part is Destination Area.
-        ///// </summary>
-        //[Obsolete]
-        //public string DispositionId
-        //{
-        //    get
-        //    {
-        //        var str = string.Format("{0}{1}",
-        //             this.VwhId, this.DestinationArea
-        //            );
-        //        return str;
-        //    }
-        //}
-
     }
 
     internal class ReceivedCarton : CartonBase
@@ -48,6 +29,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
         /// The process id against which this carton was received
         /// </summary>
         public int? InShipmentId { get; set; }
+
+
+        public DateTime? ReceivedDate { get; set; }
 
         [Display(ShortName = "Area")]
         public string DestinationArea

@@ -464,7 +464,7 @@ SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipm
                                MSS.SEWING_PLANT_CODE = '.')
                            AND (SCI.COLOR = MSS.COLOR OR
                                MSS.COLOR = '.')
-                           WHERE SCI.CARTON_ID = :carton_id)
+                           WHERE SCI.CARTON_ID = :carton_id and sci.received_date IS NULL)
                         select * from q1
                  ";
 
@@ -482,7 +482,7 @@ SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipm
                     VwhId = row.GetString("VWH_ID"),
                     UpcCode = row.GetString("UPC_CODE"),
                     SpotCheckPercent = row.GetDecimal("spotcheck_percent"),
-                    ReceivedDate = row.GetDate("received_date"),
+                    //ReceivedDate = row.GetDate("received_date"),
                     IsShipmentClosed = row.GetString("IS_SHIPMENT_CLOSED") == "Y",
                     IsSpotCheckEnabled = row.GetString("isspotcheck_enabled") == "Y"
                 }).Parameter("carton_id", scan)
@@ -525,7 +525,7 @@ SELECT UNIQUE s.pallet_id as pallet_id FROM <proxy/>SRC_CARTON S where s.inshipm
             return areaId;
         }
 
-        [Obsolete]
+
         public void PutCartonOnPallet(string palletId, string cartonId)
         {
             const string QUERY =
