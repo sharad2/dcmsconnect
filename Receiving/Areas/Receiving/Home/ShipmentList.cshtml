@@ -9,7 +9,7 @@
 
 
 <div class="container">
-    <div id="message" class="alert alert-info" style="display:none"></div>
+    <div id="message" class="alert" style="display:none"></div>
     <div class="page-header">
         <h2>
             @ViewBag.Title
@@ -136,14 +136,15 @@
                 $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
                     //Success
                 
-                    $li.addClass('list-group-item-info');
+                    $li.addClass('list-group-item-info').css('text-decoration', 'line-through');
                     $('.btnGroupClose', $li).hide();
                     $('.btnReopenShipment', $li).removeClass('hidden');
-                    $('#message').show().html(data).addClass('bg-info');
+                    $('#message').show().html(data).addClass('alert-info');
 
                 }, function (jqXHR, textStatus, errorThrown) {
                     //error
-                    alert(jqXHR.responseText);
+                    ('#message').show().html(jqXHR.responseText).addClass('alert-danger');
+                    //alert(jqXHR.responseText);
                 });
 
             }).on('click', '.btnReopenShipment', function (e) {
@@ -153,10 +154,11 @@
                     $li.removeClass('list-group-item-info');
                     $('.btnGroupClose', $li).show();
                     $('.btnReopenShipment', $li).addClass('hidden');
-                    $('#message').show().html(data).addClass('bg-info');
+                    $('#message').show().html(data).addClass('alert-info');
                 }, function (jqXHR, textStatus, errorThrown) {
                     //error
-                    alert(jqXHR.responseText);
+                    ('#message').show().html(jqXHR.responseText).addClass('alert-danger');
+                   // alert(jqXHR.responseText);
                 });
             });
                 });
