@@ -197,7 +197,7 @@
     $(document).ready(function() {
         // Click handler for the remove button, opens the modal of remove carton.
         $('#palletTabContent').on('click', 'div.active [data-action="remove"]', function (e) {
-            var $cartons = $('[data-carton]', Tabs.activeContent);
+            var $cartons = $('[data-carton]', Tabs.activeContent());
             $('#removeModal')
                 .find('span.cartonId').text($cartons.has(e.target).data('carton')).end()
                 .find('span.palletId').text(Tabs.activePalletId).end()
