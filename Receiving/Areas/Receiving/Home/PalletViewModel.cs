@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
@@ -23,7 +22,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
             this.CartonId = entity.CartonId;
             this.VwhId = entity.VwhId;
-            //this.DispositionId = entity.DispositionId;
             this.ReceivedDate = entity.ReceivedDate;
             this.ProcessId = entity.InShipmentId;
             this.DestinationArea = entity.DestinationArea;
@@ -53,6 +51,11 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public DateTimeOffset? ReceivedDate { get; set; }
 
         public int? ProcessId { get; set; }
+
+        /// <summary>
+        /// Whether this carton should be highlighted in the list. It will be highlighted when it has just been received
+        /// </summary>
+        public bool Highlight { get; set; }
     }
 
     public class PalletViewModel
@@ -67,21 +70,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [Display(Name = "Pallet")]
         public string PalletId { get; set; }
 
-        ///// <summary>
-        ///// The disposition of a pallet is the same as the disposition of the first carton, or null if there are no cartons.
-        ///// </summary>
-        //public string DispositionId
-        //{
-        //    get
-        //    {
-        //        if (this.Cartons.Count == 0)
-        //        {
-        //            return string.Empty;
-        //        }
-        //        return this.Cartons.First().DispositionId;
-        //    }
-        //}
-
         private IList<ReceivedCartonModel> _cartons;
         public IList<ReceivedCartonModel> Cartons
         {
@@ -92,28 +80,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             }
         }
 
-        /// <summary>
-        /// The carton which was last put on the pallet
-        /// </summary>
-        /// <remarks>
-        /// After a carton is received, it becomes the last carton. At all other times this is null.
-        /// </remarks>
-        // ReSharper disable MemberCanBePrivate.Global
-        public string LastCartonId { get; set; }
-        // ReSharper restore MemberCanBePrivate.Global
-
-        public int SelectedCartonIndex
-        {
-            get
-            {
-                return this.Cartons.Select((p, i) => p.CartonId == this.LastCartonId ? i + 1 : 0).FirstOrDefault(p => p > 0) - 1;
-            }
-        }
-
         [Display(Name = "Pallet Limit")]
         public int PalletLimit { get; set; }
-
-        //public int QueryCount { get; set; }
 
 
 

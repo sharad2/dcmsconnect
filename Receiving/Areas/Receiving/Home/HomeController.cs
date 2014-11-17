@@ -63,6 +63,22 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             base.Dispose(disposing);
         }
 
+        private const string KEY_TEMPDATA_CARTONS = "HighlightedCartons";
+
+        private IList<string> HighlightedCartons
+        {
+            get
+            {
+                var x = TempData[KEY_TEMPDATA_CARTONS] as IList<string>;
+                if (x == null)
+                {
+                    x = new List<string>();
+                    TempData[KEY_TEMPDATA_CARTONS] = x;
+                }
+                return x;
+            }
+        }
+
 
         #region Index
 
@@ -360,6 +376,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 try
                 {
                     _service.Value.ReceiveCarton(cartonId, palletId, processId);
+                    HighlightedCartons.Add(cartonId);
                 }
                 catch (Exception ex)
                 {
@@ -397,9 +414,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 cartons = _service.Value.GetCartonsOfPallet(palletId);
             }
 
+            // This array is populated when carton is received
+            var list = HighlightedCartons;
             var pvm = new PalletViewModel
             {
-                Cartons = cartons.Select(p => new ReceivedCartonModel(p)).ToList(),
+                Cartons = cartons.Select(p => new ReceivedCartonModel(p)
+                {
+                    Highlight = list.Contains(p.CartonId)
+                }).ToList(),
                 PalletLimit = _service.Value.GetPalletLimit(processId),
                 PalletId = palletId
             };
