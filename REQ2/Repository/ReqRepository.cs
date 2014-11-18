@@ -482,15 +482,9 @@ namespace DcmsMobile.REQ2.Repository
               INNER JOIN <proxy />SRC_REQ_DETAIL REQDET
                 ON C.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
-                ON MSKU.STYLE = REQDET.STYLE
-               AND MSKU.COLOR = REQDET.COLOR
-               AND MSKU.DIMENSION = REQDET.DIMENSION
-               AND MSKU.SKU_SIZE = REQDET.SKU_SIZE
+                ON MSKU.SKU_ID =  reqdet.sku_id
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKUCONV
-                ON MSKUCONV.STYLE = REQDET.CONVERSION_STYLE
-               AND MSKUCONV.COLOR = REQDET.CONVERSION_COLOR
-               AND MSKUCONV.DIMENSION = REQDET.CONVERSION_DIMENSION
-               AND MSKUCONV.SKU_SIZE = REQDET.CONVERSION_SKU_SIZE
+                ON MSKUCONV.sku_id = reqdet.conversion_sku_id
              WHERE C.CTN_RESV_ID = :ctnresv_id
             GROUP BY REQDET.REQ_PROCESS_ID, REQDET.REQ_LINE_NUMBER
         ";
