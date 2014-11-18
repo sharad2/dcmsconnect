@@ -132,7 +132,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// TODO: Create seperate action method Edit Process
 
         [HttpGet]
-        [Route("Create")]
+        [Route("create")]
         public virtual ActionResult CreateProcess(int? processId)
         {
             var model = new ProcessEditorViewModel();
