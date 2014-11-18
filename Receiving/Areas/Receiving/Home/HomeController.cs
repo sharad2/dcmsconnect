@@ -592,9 +592,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="shipmentId"></param>
         /// <param name="poId"></param>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult CloseShipment(string shipmentId, long? poId)
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             //throw new Exception("Sharad");
             _service.Value.CloseShipment(shipmentId, poId);
 
@@ -611,7 +612,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult ReOpenShipment(string shipmentId, long? poId)
         {
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             if (_service.Value.ReOpenShipment(shipmentId, poId))
             {
                 return Content(string.Format("Shipment {0} Re-opened .", shipmentId));
