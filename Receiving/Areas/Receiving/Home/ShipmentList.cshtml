@@ -119,7 +119,7 @@
                             </ul>
                         </div>
                         <button type="button" data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
-                                class="btnReopenShipment btn btn-warning pull-right hidden">
+                                class="btn btn-warning pull-right hidden">
                             <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" class="hidden" /> Reopen Shipment
                         </button>
                     </div>
@@ -131,66 +131,41 @@
 @section script {
     <script type="text/javascript">
         $(document).ready(function () {
-
-            // Disable button and show ajax image
-            function preAjax($li) {
+            function WrapDeferred(innerdef, $li) {
+                // Disable button and show ajax image
                 $('img', $li).removeClass('hidden').closest('button').prop('disabled', true);
-            }
 
-            // reverse the effect of preAjax
-            function postAjax($li) {
-                $('img', $li).addClass('hidden').closest('button').prop('disabled', false);
+                innerdef.fail(function (jqXHR, textStatus, errorThrown) {
+                    $('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
+                }).done(function (msg) {
+                    //alert(msg);
+                    $('#message').removeClass('hidden').html(msg).addClass('alert-info');
+                }).always(function ($li) {
+                    $('img', $li).addClass('hidden').closest('button').prop('disabled', false);
+                }.bind(undefined, $li));
             }
-
-            function onSuccess(msg) {
-                $('#message').removeClass('hidden').html(msg).addClass('alert-info');
-            }
-
-            function onError(msg) {
-                $('#message').removeClass('hidden').html(msg).addClass('alert-danger');
-            }
-
-            //function MyDeferred(innerdef) {
-            //    var def = $.Deferred().always(function () {
-            //        alert('always');
-            //    });
-            //}
-            //var def = $.Deferred();
 
             $('#list').on('click', 'button[data-shipment-close-url]', function (e) {
                 //Make the ajax call to close the shipment
                 var $li = $('> li', e.delegateTarget).has(e.target);
-                //$('img', $li).removeClass('hidden').closest('button').prop('disabled', true);
-                preAjax($li);
-
-                $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
+                var def = $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
                     //Success. Hide the close button and show the open button
                     this.$li.addClass('list-group-item-warning')  // Highlight the clicked li
                         .find('.btnGroupClose').addClass('hidden').end()      // Hide the close button
-                        .find('.btnReopenShipment').removeClass('hidden');   // show the open button
-                    //$('#message').removeClass('hidden').html(data).addClass('alert-info');
-                    onSuccess(data);
-                }.bind({ "$li": $li }), function (jqXHR, textStatus, errorThrown) {
-                    //error
-                    //$('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
-                    onError(jqXHR.responseText);
-                }).always(postAjax.bind(undefined, $li));
+                        .find('button[data-shipment-reopen-url]').removeClass('hidden');   // show the open button
+                    return data;
+                }.bind({ "$li": $li }));
+                WrapDeferred(def, $li);
             }).on('click', 'button[data-shipment-reopen-url]', function (e) {
                 var $li = $('> li', e.delegateTarget).has(e.target);
-                preAjax($li);
-                $.post($(this).attr('data-shipment-reopen-url')).then(function (data, textStatus, jqXHR) {
+                var def = $.post($(this).attr('data-shipment-reopen-url')).then(function (data, textStatus, jqXHR) {
                     //Success
                     this.$li.removeClass('list-group-item-warning')
                         .find('.btnGroupClose').removeClass('hidden').end()
-                        .find('.btnReopenShipment').addClass('hidden');
-                    //$('#message').removeClass('hidden').html(data).addClass('alert-info');
-                    onSuccess(data);
-                }.bind({ "$li": $('> li', e.delegateTarget).has(e.target) }), function (jqXHR, textStatus, errorThrown) {
-                    //error
-                    //$('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
-                    // alert(jqXHR.responseText);
-                    onError(jqXHR.responseText);
-                }).always(postAjax.bind(undefined, $li));
+                        .find('button[data-shipment-reopen-url]').addClass('hidden');
+                    return data;
+                }.bind({ "$li": $('> li', e.delegateTarget).has(e.target) }));
+                WrapDeferred(def, $li);
             });
         });
     </script>
