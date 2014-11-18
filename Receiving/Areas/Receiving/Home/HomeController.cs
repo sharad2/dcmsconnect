@@ -17,7 +17,7 @@ using System.Web.Script.Serialization;
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     [AuthorizeEx("Receiving requires Role {0}", Roles = "SRC_RECEIVING")]
-    [RouteArea("Receving")]
+    [RouteArea("Receiving")]
     [RoutePrefix("Home")]
     public partial class HomeController : EclipseController
     {
