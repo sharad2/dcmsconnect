@@ -68,32 +68,4 @@ $(document).ready(function () {
 
 
 
-
-    //$('#addSpotCheck').on('click', 'button:not([data-dismiss])', function (e) {
-    //    $.ajax({
-    //        url: '@Url.Action(MVC_Receiving.Receiving.Rad.SetSpotCheckPercentage())',
-    //        type: 'POST',
-    //        context: this,
-    //        data: $('#addSpotCheck').serializeArray(),
-    //        statusCode: {
-    //            // Success
-    //            200: function (data, textStatus, jqXHR) {
-    //                //updating the list with updated data
-    //                $('#divSpotCheckList').html(data);
-    //                $('#btnAddSpotCheck').modal('hide');
-    //            },
-    //            // Error
-    //            203: function (data, textStatus, jqXHR) {
-    //                //alert(data);
-    //                $('div.text-danger', $('#addSpotCheck')).html(jqXHR.responseText);
-    //            }
-    //        },
-    //        error: function (jqXHR, textStatus, errorThrown) {
-    //            alert(jqXHR.responseText);
-    //        }
-    //    });
-    //    return false;
-    //});
-
-
 });

@@ -39,10 +39,12 @@ namespace T4MVC.Receiving
                 public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutReceiving = "_layoutReceiving";
                 public readonly string ajax_loader = "ajax-loader";
+                public readonly string typeahed_css = "typeahed.css";
             }
             public readonly string _layoutBootstrap = "~/Areas/Receiving/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutReceiving = "~/Areas/Receiving/SharedViews/_layoutReceiving.cshtml";
             public readonly string ajax_loader = "~/Areas/Receiving/SharedViews/ajax-loader.gif";
+            public readonly string typeahed_css = "~/Areas/Receiving/SharedViews/typeahed.css.bundle";
         }
     }
 

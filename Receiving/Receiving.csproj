@@ -169,6 +169,12 @@
       <DependentUpon>Index.js</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Rad\_addSpotCheck.partial.js" />
+    <Content Include="Areas\Receiving\SharedViews\typeahed.css">
+      <DependentUpon>typeahed.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\SharedViews\typeahed.min.css">
+      <DependentUpon>typeahed.css</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -176,6 +182,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Receiving\SharedViews\typeahed.css.bundle" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />

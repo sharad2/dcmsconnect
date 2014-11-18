@@ -165,6 +165,8 @@ namespace Links_Receiving
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ajax-loader.gif");
+                public static readonly string typeahed_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahed.min.css") ? Url("typeahed.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.min.css") : Url("typeahed.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.css");
+                     
             }
         
         }
