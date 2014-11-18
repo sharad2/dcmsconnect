@@ -31,18 +31,19 @@
                     </p>
                 </div>
                 <div class="col-md-3">
-                    <span class="label label-success">PO #</span>
-                    &nbsp;
-                    <small>ERP</small>
-
-                    <p class="list-group-item-text">
-                        <span class="label label-info">
-                            Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span>
-                        </span>
+                    <h4 class="list-group-item-heading">
+                        <span class="label label-success">PO #</span>
                         &nbsp;
-                        <small>Order Type</small>
-                    </p>
-                </div>
+                        <small>ERP</small>
+                        </h4>
+                        <p class="list-group-item-text">
+                            <span class="label label-info">
+                                Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                            </span>
+                            &nbsp;
+                            <small>Order Type</small>
+                        </p>
+</div>
                 <div class="col-md-3">
                     Pieces received of pieces expected
                     <p class="list-group-item-text">
@@ -73,16 +74,18 @@
                         </p>
                     </div>
                     <div class="col-md-3">
-                        <span class="label label-success">
-                            @Html.DisplayFor(m => m.ShipmentList[i].PoNumber)
-                        </span>
-                        &nbsp;
-                        <small>@Html.DisplayFor(m => m.ShipmentList[i].ErpType)</small>
+                        <h4 class="list-group-item-heading">
+                            <span class="label label-success">
+                                @Html.DisplayFor(m => m.ShipmentList[i].PoNumber)
+                            </span>&nbsp;<small>@Html.DisplayFor(m => m.ShipmentList[i].ErpType)</small>
+                        </h4>
+                        
+                  
 
 
                         <p class="list-group-item-text">
                             <span class="label label-info">
-                                @Html.DisplayFor(m => m.ShipmentList[i].ProcessNumber)
+                                @Html.DisplayFor(m => m.ShipmentList[i].ReceivingProcessId)
                             </span>
                             &nbsp;
                             <small>

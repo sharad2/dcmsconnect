@@ -579,7 +579,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                                     ErpType = item.ErpType,
                                     CartonCount = item.CartonCount,
                                     CartonReceived = item.CartonReceived,
-                                    ProcessNumber = item.ProcessNumber,
+                                    ReceivingProcessId = item.ReceivingProcessId,
                                     ShipmentDate = item.ShipmentDate
                                 }).ToArray()
             };

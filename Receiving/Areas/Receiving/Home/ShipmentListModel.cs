@@ -28,9 +28,10 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public int CartonCount { get; set; }
 
 
-       [DisplayFormat(NullDisplayText = "NA")]
-        public long? ProcessNumber { get; set; }
+       [DisplayFormat(NullDisplayText = "Not Received")]
+        public long? ReceivingProcessId { get; set; }
 
+        [DisplayFormat(DataFormatString="{0:d}")]
         public DateTime ShipmentDate { get; set; }
     }
 }

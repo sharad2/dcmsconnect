@@ -646,7 +646,7 @@ FETCH FIRST 500 ROWS ONLY
                 MaxReceiveDate = row.GetDateTimeOffset("RECEIVED_DATE"),
                 CartonCount = ((row.GetInteger("CARTON_NOT_RECEIVED") ?? 0) + (row.GetInteger("CARTON_RECEIVED") ?? 0)),
                 CartonReceived = row.GetInteger("CARTON_RECEIVED") ?? 0,
-                ProcessNumber = row.GetLong("INSHIPMENT_ID"),
+                ReceivingProcessId = row.GetLong("INSHIPMENT_ID"),
                 ShipmentDate = row.GetDate("SHIPMENT_DATE").Value
 
             });

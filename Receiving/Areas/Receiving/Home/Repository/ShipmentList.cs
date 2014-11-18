@@ -22,7 +22,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 
         public int CartonCount { get; set; }
 
-        public long? ProcessNumber { get; set; }
+        public long? ReceivingProcessId { get; set; }
 
         public DateTime ShipmentDate { get; set; }
     }
