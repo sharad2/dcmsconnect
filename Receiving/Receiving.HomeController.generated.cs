@@ -74,12 +74,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Tutorial()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult HandleCartonScan()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.HandleCartonScan);
@@ -140,7 +134,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public readonly string CreateProcess = "CreateProcess";
             public readonly string CreateUpdateProcess = "CreateUpdateProcess";
             public readonly string Receiving = "Receiving";
-            public readonly string Tutorial = "Tutorial";
             public readonly string HandleCartonScan = "HandleCartonScan";
             public readonly string GetPalletHtml = "GetPalletHtml";
             public readonly string UnPalletizeCarton = "UnPalletizeCarton";
@@ -159,7 +152,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             public const string CreateProcess = "CreateProcess";
             public const string CreateUpdateProcess = "CreateUpdateProcess";
             public const string Receiving = "Receiving";
-            public const string Tutorial = "Tutorial";
             public const string HandleCartonScan = "HandleCartonScan";
             public const string GetPalletHtml = "GetPalletHtml";
             public const string UnPalletizeCarton = "UnPalletizeCarton";
@@ -193,14 +185,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public ActionParamsClass_Receiving ReceivingParams { get { return s_params_Receiving; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Receiving
-        {
-            public readonly string processId = "processId";
-        }
-        static readonly ActionParamsClass_Tutorial s_params_Tutorial = new ActionParamsClass_Tutorial();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Tutorial TutorialParams { get { return s_params_Tutorial; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Tutorial
         {
             public readonly string processId = "processId";
         }
@@ -404,18 +388,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Receiving);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
             ReceivingOverride(callInfo, processId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void TutorialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? processId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult Tutorial(int? processId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Tutorial);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "processId", processId);
-            TutorialOverride(callInfo, processId);
             return callInfo;
         }
 

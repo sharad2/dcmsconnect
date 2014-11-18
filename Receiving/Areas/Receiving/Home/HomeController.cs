@@ -191,6 +191,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </remarks>
         /// TODO: Change method name to a more appropiate one. This is actually CreateOrEditProcess
         [HttpPost]
+        [Route("update")]
         public virtual ActionResult CreateUpdateProcess(ProcessEditorViewModel model)
         {
             if (!ModelState.IsValid)
@@ -292,7 +293,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// 
         /// </para>
         /// </remarks>
-        [HttpGet]     
+        [HttpGet]
+        [Route("receiving")]      
         public virtual ActionResult Receiving(int? processId)
         {
             if (processId == null)
@@ -341,6 +343,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="processId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Obsolete]
         public virtual ActionResult Tutorial(int? processId)
         {
             return View(Views.Tutorial, processId);
@@ -359,6 +362,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// If any carton is received, then this function will never throw an exception.
         /// </remarks>
         [HttpPost]
+        [Route("handlescan")]
         public virtual ActionResult HandleCartonScan(string scanText, string palletId, int processId)
         {
             //Thread.Sleep(5000);
@@ -396,6 +400,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="palletId"></param>
         /// <param name="processId"></param>
         /// <returns></returns>
+        [Route("pallethtml")]
         public virtual ActionResult GetPalletHtml(string palletId, int processId)
         {
             //if (string.IsNullOrWhiteSpace(palletId))
@@ -472,6 +477,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// 200 (Success): Pallet HTML is provided as data. PalletDisposition provided in header
         /// </remarks>
         [HttpPost]
+        [Route("unpalletize/carton")]
         public virtual ActionResult UnPalletizeCarton(string cartonId, int processId)
         {
             //throw new Exception("Sharad");
@@ -502,6 +508,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// 203 for error. data will be error
         /// </remarks>
         //[HandleAjaxError]
+        [Route("print/crtn")]
         public virtual ActionResult PrintCarton(string cartonId, string printer)
         {
             //throw new Exception("Sharad");
@@ -540,6 +547,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// The selected printer is read from a cookie. The cookie is set when a carton is printed.
         /// </summary>
         /// <returns></returns>  
+      [Route("printers")]
         public virtual JsonResult GetPrinters()
         {
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
@@ -560,6 +568,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// Get the shipment list
         /// </summary>
         /// <returns></returns>
+       [Route("shipment/list")]
         public virtual ActionResult ShipmentList()
         {
             var model = new ShipmentListViewModel
@@ -590,6 +599,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="poId"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("close/shipment")]
         public virtual ActionResult CloseShipment(string shipmentId, long? poId)
         {
             //Thread.Sleep(5000);
@@ -607,6 +617,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="poId"></param>
         /// <returns></returns>
         [HttpPost]
+        [Route("reopen/shipment")]
         public virtual ActionResult ReOpenShipment(string shipmentId, long? poId)
         {
             //Thread.Sleep(5000);
@@ -625,7 +636,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-        [Route("getcarrier")]
+        [Route("carriers")]
         public virtual JsonResult GetCarriers(string term)
         {
             // Change null to empty string
