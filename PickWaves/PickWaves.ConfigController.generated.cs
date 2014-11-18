@@ -320,7 +320,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _DisplayTemplatesClass
             {
-                public readonly string ConstraintModel = "ConstraintModel";
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string ConstraintModel = "ConstraintModel";
+                }
+                public readonly string ConstraintModel = "~/Areas/PickWaves/Config/DisplayTemplates/ConstraintModel.cshtml";
             }
         }
     }

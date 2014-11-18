@@ -29,12 +29,11 @@ e.g. Assume the Area is called Blog and the Controller is Post:
   <!--The folder under the project that contains the controllers-->
   <ControllersFolder>Controllers</ControllersFolder>
   <!--The folder under the project that contains the views-->
-  <ViewsRootFolder>Views</ViewsRootFolder>
+  <ViewsRootFolder />
   <!--Views in DisplayTemplates and EditorTemplates folders shouldn't be fully qualifed
 as it breaks the templated helper code-->
   <NonQualifiedViewFolders>
-    <ViewFolder>DisplayTemplates</ViewFolder>
-    <ViewFolder>EditorTemplates</ViewFolder>
+    <!--<ViewFolder></ViewFolder>-->
   </NonQualifiedViewFolders>
   <!--If true, the T4MVC action result interface will be generated
 If false, the namespace of the interface must be referenced in the 'ReferencedNamespaces' setting-->

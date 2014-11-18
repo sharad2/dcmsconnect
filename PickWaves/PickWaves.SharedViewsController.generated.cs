@@ -37,12 +37,16 @@ namespace T4MVC.PickWaves
             public class _ViewNamesClass
             {
                 public readonly string _activityProgressPartial = "_activityProgressPartial";
+                public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutPickWaves = "_layoutPickWaves";
+                public readonly string _layoutPickWaves2 = "_layoutPickWaves2";
                 public readonly string ajax_loader = "ajax-loader";
                 public readonly string PickWaves_all_css = "PickWaves-all.css";
             }
             public readonly string _activityProgressPartial = "~/Areas/PickWaves/SharedViews/_activityProgressPartial.cshtml";
+            public readonly string _layoutBootstrap = "~/Areas/PickWaves/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutPickWaves = "~/Areas/PickWaves/SharedViews/_layoutPickWaves.cshtml";
+            public readonly string _layoutPickWaves2 = "~/Areas/PickWaves/SharedViews/_layoutPickWaves2.cshtml";
             public readonly string ajax_loader = "~/Areas/PickWaves/SharedViews/ajax-loader.gif";
             public readonly string PickWaves_all_css = "~/Areas/PickWaves/SharedViews/PickWaves-all.css.bundle";
             static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
@@ -50,7 +54,13 @@ namespace T4MVC.PickWaves
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public partial class _DisplayTemplatesClass
             {
-                public readonly string BucketModel = "BucketModel";
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string BucketModel = "BucketModel";
+                }
+                public readonly string BucketModel = "~/Areas/PickWaves/SharedViews/DisplayTemplates/BucketModel.cshtml";
             }
         }
     }
