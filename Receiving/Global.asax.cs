@@ -3,6 +3,7 @@ using System;
 using System.Web;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing;
 using System.Web.Routing;
 using System.Web.WebPages;
 
@@ -22,20 +23,20 @@ namespace DcmsMobile.Receiving
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            // By default show the area home page
-            // http://www.dondevelopment.com/2011/02/09/asp-net-mvc-2-default-route-to-area/
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional, area = "Receiving" }, // Parameter defaults
-                new [] { typeof(Areas.Receiving.Home.HomeController).Namespace }
-            ).DataTokens.Add("area", "Receiving");
+            //// By default show the area home page
+            //// http://www.dondevelopment.com/2011/02/09/asp-net-mvc-2-default-route-to-area/
+            //routes.MapRoute(
+            //    "Default", // Route name
+            //    "{controller}/{action}/{id}", // URL with parameters
+            //    new { controller = "Home", action = "Index", id = UrlParameter.Optional, area = "Receiving" }, // Parameter defaults
+            //    new [] { typeof(Areas.Receiving.Home.HomeController).Namespace }
+            //).DataTokens.Add("area", "Receiving");
 
         }
 
         protected void Application_Start()
         {
-
+            RouteTable.Routes.MapMvcAttributeRoutes(new MyRouteProvider());
             //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
             //    T4MVCHelpers.ProcessVirtualPath("~/Content"),
             //    T4MVCHelpers.ProcessVirtualPath("~/Scripts"),
@@ -101,6 +102,14 @@ namespace DcmsMobile.Receiving
         }
 #endif
 
+    }
+
+    internal class MyRouteProvider : DefaultDirectRouteProvider
+    {
+        protected override string GetAreaPrefix(ControllerDescriptor controllerDescriptor)
+        {
+            return string.Empty;  // Ignore area prefix when app is being run directly. This makes it possible to reach the right page with the URL http://localhost
+        }
     }
 }
 

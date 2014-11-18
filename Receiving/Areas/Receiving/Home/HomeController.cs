@@ -18,7 +18,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     [AuthorizeEx("Receiving requires Role {0}", Roles = "SRC_RECEIVING")]
     [RouteArea("Receving")]
-    [RoutePrefix(HomeController.NameConst)]
+    [RoutePrefix("Home")]
     public partial class HomeController : EclipseController
     {
         private GroupSelectListItem Map(CartonArea src)
@@ -96,7 +96,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </remarks>
         [ActionName("Index")]
         [HttpGet]
-        [Route(HomeController.ActionNameConstants.Index, Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Receving)]
+        [Route("~/", Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Receving)]
         public virtual ActionResult Index()
         {
 
@@ -132,6 +132,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// TODO: Create seperate action method Edit Process
 
         [HttpGet]
+        [Route("Create")]
         public virtual ActionResult CreateProcess(int? processId)
         {
             var model = new ProcessEditorViewModel();
@@ -146,10 +147,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                     ProNumber = src.ProNumber,
                     CarrierId = src.CarrierId,
                     CarrierDisplayName = string.Format("{0}: {1}", src.CarrierId, src.CarrierName),
-                    //OperatorName = src.OperatorName,
-                    //ReceivingStartDate = src.StartDate,
-                    //ReceivingEndDate = src.ReceivingEndDate,
-                    //CartonCount = src.CartonCount,
                     PalletCount = src.PalletCount,
                     ReceivingAreaId = src.ReceivingAreaId,
                     ProcessId = src.ProcessId,
