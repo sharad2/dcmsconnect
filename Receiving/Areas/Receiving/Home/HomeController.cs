@@ -292,7 +292,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// 
         /// </para>
         /// </remarks>
-        [HttpGet]
+        [HttpGet]     
         public virtual ActionResult Receiving(int? processId)
         {
             if (processId == null)
@@ -625,6 +625,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
+        [Route("getcarrier")]
         public virtual JsonResult GetCarriers(string term)
         {
             // Change null to empty string
