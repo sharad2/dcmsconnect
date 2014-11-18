@@ -407,18 +407,60 @@ var HandleScan = (function () {
 
         var def = $.Deferred(_preAction);
         var chain = def;
-        var lastscan = tokens[tokens.length - 1];
-        if (_isPallet(lastscan)) {
-            // First process the cartons before this pallet
-            if (tokens.length > 1) {
-                // Some cartons were scanned before this pallet
-                chain = chain.then(_receiveCartons.bind(undefined, tokens.slice(0, tokens.length - 1)));
-            }
-            chain = chain.then(_changePallet.bind(undefined, lastscan));
+        //var lastscan = tokens[tokens.length - 1];
+
+        // The value in textbox after all ajax has completed
+        var tbVal = [];
+
+        var palletId;
+        var cartons;
+        if (_isPallet(tokens[tokens.length - 1])) {
+            palletId = tokens[tokens.length - 1];
+            cartons = tokens.slice(0, tokens.length - 1);
         } else {
-            chain = chain.then(_receiveCartons.bind(undefined, tokens));
+            cartons = tokens;
         }
-        chain = chain.always(_postAction);
+
+        if (cartons.length > 0) {
+            // Some cartons were scanned before this pallet
+            chain = chain.then(_receiveCartons.bind(undefined, cartons)).done(function (cartonsRejected) {
+                // Appending one array to another http://stackoverflow.com/questions/1374126/how-to-extend-an-existing-javascript-array-with-another-array
+                tbVal.push.apply(tbVal, cartonsRejected);
+            }).fail(function (cartonsRejected, palletId) {
+                tbVal.push.apply(tbVal, cartonsRejected);
+                if (palletId) {
+                    tbVal.push(palletId);
+                }
+            }.bind(undefined, cartons, palletId));
+        }
+
+        if (palletId) {
+            chain = chain.then(function (palletId) {
+                Tabs.show(palletId);
+            }.bind(undefined, palletId));
+        }
+
+        //if (_isPallet(lastscan)) {
+        //    // First process the cartons before this pallet
+        //    if (tokens.length > 1) {
+        //        // Some cartons were scanned before this pallet
+        //        chain = chain.then(_receiveCartons.bind(undefined, tokens.slice(0, tokens.length - 1))).done(function (cartons) {
+        //            tbVal.push(cartons);
+        //        });
+        //    }
+        //    chain = chain.then(_changePallet.bind(undefined, lastscan)).fail(function (palletId) {
+        //        tbVal.push(palletId);
+        //    }.bind(undefined, lastscan));
+        //} else {
+        //    chain = chain.then(_receiveCartons.bind(undefined, tokens)).done(function (cartons) {
+        //        // Appending one array to another http://stackoverflow.com/questions/1374126/how-to-extend-an-existing-javascript-array-with-another-array
+        //        tbVal.push.apply(tbVal, cartons);
+        //        alert(tbVal.length);
+        //    });
+        //}
+        chain = chain.always(_postAction).always(function () {
+            _$tb.val(tbVal.join('\n'))
+        });
 
         def.resolve();  // Initiate the function chain
     };
@@ -428,15 +470,15 @@ var HandleScan = (function () {
     var _receiveCartons = function (cartons) {
         return $.post(_options.cartonUrl, _options.cartonPostdata(Tabs.activePalletId(), cartons)).then(function (data, textStatus, jqXHR) {
             // Success
+            var cartons = [];
             if (data && data.length > 0) {
                 var $ul = $('<ul class="list-group"></ul>');
-                var cartons = [];
+
                 $.each(data, function (i, elem) {
                     $('<li class="list-group-item list-group-item-warning"></li>').text(elem.cartonId + ': ' + elem.message).appendTo($ul);
                     cartons.push(elem.cartonId);
                 });
                 _showError($ul[0].outerHTML);
-                _$tb.val(cartons.join('\n'));
             } else {
                 // Clear the text box
                 _$tb.val('');
@@ -444,6 +486,7 @@ var HandleScan = (function () {
             Tabs.load();
             //this.count === -1 (i.e removing carton from pallet)
             Progress.update(this.count);
+            return cartons;
         }.bind({
             count: cartons.length
         }), function (jqXHR, textStatus, errorThrown) {
@@ -465,9 +508,9 @@ var HandleScan = (function () {
     // Expects this.palletId
     // Returns ajax object to enable further chaining
     // Should be private
-    var _changePallet = function (palletId) {
-        Tabs.show(palletId);
-    };
+    //var _changePallet = function (palletId) {
+    //    Tabs.show(palletId);
+    //};
 
     return {
         init: init
