@@ -17,7 +17,7 @@
     </div>
     <small class="text-info"><span class="glyphicon glyphicon-info-sign"></span> To update Shipment List please refresh the page.</small>
     <h4>List of open shipments(Max 200)</h4>
-    <ul class="list-group">
+    <ul class="list-group" id="list">
 
         <li class="list-group-item list-group-item-success">
             <div class="row">
@@ -58,7 +58,7 @@
         @for (int i = 0; i < Model.ShipmentList.Count; i++)
         {
 
-            <li class="list-group-item shipmentList">
+            <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-4">
                         <h4 class="list-group-item-heading">
@@ -131,19 +131,17 @@
 @section script {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('.shipmentList').on('click', '.btncloseShipment', function (e) {
-                var $li = $(e.delegateTarget);
+            $('#list').on('click', '.btncloseShipment', function (e) {
+                //Make the ajax call to close the shipment
                 $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
-                    //Success
-                
-                    $li.addClass('list-group-item-warning');
-                    $('.btnGroupClose', $li).hide();
-                    $('.btnReopenShipment', $li).removeClass('hidden');
+                    //Success. Hide the close button and show the open button    
+                    this.$li.addClass('list-group-item-warning')  // Highlight the clicked li
+                        .find('.btnGroupClose').hide().end()      // Hide the close button
+                        .find('.btnReopenShipment').removeClass('hidden');   // show the open button
                     $('#message').show().html(data).addClass('alert-info');
-
-                }, function (jqXHR, textStatus, errorThrown) {
+                }.bind({ "$li": $('> li', e.delegateTarget).has(e.target) }), function (jqXHR, textStatus, errorThrown) {
                     //error
-                    ('#message').show().html(jqXHR.responseText).addClass('alert-danger');
+                    $('#message').show().html(jqXHR.responseText).addClass('alert-danger');
                     //alert(jqXHR.responseText);
                 });
 
@@ -157,7 +155,7 @@
                     $('#message').show().html(data).addClass('alert-info');
                 }, function (jqXHR, textStatus, errorThrown) {
                     //error
-                    ('#message').show().html(jqXHR.responseText).addClass('alert-danger');
+                    $('#message').show().html(jqXHR.responseText).addClass('alert-danger');
                    // alert(jqXHR.responseText);
                 });
             });

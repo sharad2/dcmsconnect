@@ -591,15 +591,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <returns></returns>
         public virtual ActionResult CloseShipment(string shipmentId, long? poId)
         {
-            try
-            {
                 _service.Value.CloseShipment(shipmentId, poId);
-            }
-            catch (DbException exception)
-            {
-                this.Response.StatusCode = 203;
-                return Content(exception.Message);
-            }
+
             return Content(string.Format("Shipment {0} closed successfully.", shipmentId));
         }
 
@@ -613,8 +606,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult ReOpenShipment(string shipmentId, long? poId)
         {
-            try
-            {
                 if (_service.Value.ReOpenShipment(shipmentId, poId))
                 {
                     return Content(string.Format("Shipment {0} Re-opened .", shipmentId));
@@ -623,13 +614,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 {
                     return Content(string.Format("Shipment {0} can not be Re-opened .", shipmentId));
                 }
-            }
-            catch (DbException exception)
-            {
-                this.Response.StatusCode = 203;
-                return Content(exception.Message);
-            }
-
         }
 
         /// <summary>
