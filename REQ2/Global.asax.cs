@@ -29,10 +29,10 @@ namespace DcmsMobile.REQ2
 
         protected void Application_Start()
         {
-            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-        Links_REQ2.Content.Url(),
-        Links_REQ2.Scripts.Url()
-      }));
+      //      HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+      //  Links_REQ2.Content.Url(),
+      //  Links_REQ2.Scripts.Url()
+      //}));
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
