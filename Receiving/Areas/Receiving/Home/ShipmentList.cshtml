@@ -120,7 +120,7 @@
                         </div>
                         <button type="button" data-shipment-reopen-url="@Url.Action(MVC_Receiving.Receiving.Home.ReOpenShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))"
                                 class="btn btn-warning pull-right hidden">
-                            <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" class="hidden" /> Reopen Shipment
+                            <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" class="hidden" /> Reopen
                         </button>
                     </div>
                 </div>
@@ -131,16 +131,20 @@
 @section script {
     <script type="text/javascript">
         $(document).ready(function () {
+
+            // Add common events aroud ajax call
             function WrapDeferred(innerdef, $li) {
                 // Disable button and show ajax image
                 $('img', $li).removeClass('hidden').closest('button').prop('disabled', true);
 
                 innerdef.fail(function (jqXHR, textStatus, errorThrown) {
+                    // Show error message at top of page
                     $('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
                 }).done(function (msg) {
-                    //alert(msg);
+                    // Show success message at top of page
                     $('#message').removeClass('hidden').html(msg).addClass('alert-info');
                 }).always(function ($li) {
+                    // Hide ajax image and enable button
                     $('img', $li).addClass('hidden').closest('button').prop('disabled', false);
                 }.bind(undefined, $li));
             }
