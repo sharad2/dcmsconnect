@@ -9,6 +9,8 @@ using System.Web.Routing;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
+   [RouteArea("Receiving")]
+    [RoutePrefix("Red")]
     public partial class RadController : EclipseController
     {
         private const string ROLE_RAD_EDITING = "SRC_RECEIVING_MGR";
@@ -44,6 +46,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             base.Initialize(requestContext);
         }
 
+         
+       [Route("index")]
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel();
@@ -84,6 +88,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// Returns the partial view for adding spot check setting
         /// </summary>
         /// <returns></returns>
+        [Route("addsptchk")]
         public virtual ActionResult AddSpotCheckPartial()
         {
             var plantlist = _service.Value.GetSewingPlants().Select(p => Map(p));
@@ -98,6 +103,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
+        [Route("addupdate")]
         public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId,
             int? spotCheckPercent, bool enabled = false)
         {
@@ -132,7 +138,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// Returning Json result for Style Autocomplete
         /// </summary>
         /// <param name="term"></param>
-        /// <returns></returns>       
+        /// <returns></returns> 
+        [Route("style")]
         public virtual JsonResult StyleAutocomplete(string term)
         {
             term = term ?? string.Empty;
@@ -183,6 +190,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
+         [Route("color")]
         public virtual JsonResult ColorAutocomplete(string term)
         {
             // Change null to empty string
