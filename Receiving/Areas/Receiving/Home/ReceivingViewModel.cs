@@ -9,7 +9,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     public class ReceivingViewModel
     {
-        public const string SCAN_NEWPALLET = "PNEW";
+        //public const string SCAN_NEWPALLET = "PNEW";
 
         public ReceivingViewModel()
         {
