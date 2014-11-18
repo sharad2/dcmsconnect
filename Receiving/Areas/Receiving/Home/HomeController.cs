@@ -408,9 +408,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             //Thread.Sleep(3000);  // For debugging
 
             IList<ReceivedCarton> cartons;
-            if (string.IsNullOrWhiteSpace(palletId)) {
+            if (string.IsNullOrWhiteSpace(palletId))
+            {
                 cartons = _service.Value.GetUnpalletizedCartons(processId);
-            } else {
+            }
+            else
+            {
                 cartons = _service.Value.GetCartonsOfPallet(palletId);
             }
 
@@ -591,7 +594,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <returns></returns>
         public virtual ActionResult CloseShipment(string shipmentId, long? poId)
         {
-                _service.Value.CloseShipment(shipmentId, poId);
+            Thread.Sleep(5000);
+            throw new Exception("Sharad");
+            _service.Value.CloseShipment(shipmentId, poId);
 
             return Content(string.Format("Shipment {0} closed successfully.", shipmentId));
         }
@@ -606,14 +611,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         [HttpPost]
         public virtual ActionResult ReOpenShipment(string shipmentId, long? poId)
         {
-                if (_service.Value.ReOpenShipment(shipmentId, poId))
-                {
-                    return Content(string.Format("Shipment {0} Re-opened .", shipmentId));
-                }
-                else
-                {
-                    return Content(string.Format("Shipment {0} can not be Re-opened .", shipmentId));
-                }
+            if (_service.Value.ReOpenShipment(shipmentId, poId))
+            {
+                return Content(string.Format("Shipment {0} Re-opened .", shipmentId));
+            }
+            else
+            {
+                return Content(string.Format("Shipment {0} can not be Re-opened .", shipmentId));
+            }
         }
 
         /// <summary>

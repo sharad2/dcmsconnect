@@ -9,7 +9,7 @@
 
 
 <div class="container">
-    <div id="message" class="alert" style="display:none"></div>
+    <div id="message" class="alert hidden"></div>
     <div class="page-header">
         <h2>
             @ViewBag.Title
@@ -102,13 +102,13 @@
                     <div class="col-md-2">
                         <div class="btn-group pull-right btnGroupClose" title="Close Shipment @Model.ShipmentList[i].ShipmentId">
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Close Shipment <span class="caret"></span>
+                                <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" class="hidden" />  Close <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
                                 <li>
                                     <center>Are you sure?</center>
                                     <div class="btn-group btn-group-justified">
-                                        <button class="btn btn-primary btncloseShipment" type="submit" 
+                                        <button class="btn btn-primary" type="submit"
                                                 data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))">
                                             Yes
                                         </button>
@@ -126,39 +126,41 @@
                 </div>
             </li>
         }
-    </ul>  
+    </ul>
 </div>
 @section script {
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#list').on('click', '.btncloseShipment', function (e) {
+            $('#list').on('click', 'button[data-shipment-close-url]', function (e) {
                 //Make the ajax call to close the shipment
-                $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
-                    //Success. Hide the close button and show the open button    
-                    this.$li.addClass('list-group-item-warning')  // Highlight the clicked li
-                        .find('.btnGroupClose').hide().end()      // Hide the close button
-                        .find('.btnReopenShipment').removeClass('hidden');   // show the open button
-                    $('#message').show().html(data).addClass('alert-info');
-                }.bind({ "$li": $('> li', e.delegateTarget).has(e.target) }), function (jqXHR, textStatus, errorThrown) {
-                    //error
-                    $('#message').show().html(jqXHR.responseText).addClass('alert-danger');
-                    //alert(jqXHR.responseText);
-                });
+                var $li = $('> li', e.delegateTarget).has(e.target);
+                $('img', $li).removeClass('hidden').closest('button').prop('disabled', true);
 
+                $.post($(this).attr('data-shipment-close-url')).then(function (data, textStatus, jqXHR) {
+                    //Success. Hide the close button and show the open button
+                    this.$li.addClass('list-group-item-warning')  // Highlight the clicked li
+                        .find('.btnGroupClose').addClass('hidden').end()      // Hide the close button
+                        .find('.btnReopenShipment').removeClass('hidden');   // show the open button
+                    $('#message').removeClass('hidden').html(data).addClass('alert-info');
+                }.bind({ "$li": $li }), function (jqXHR, textStatus, errorThrown) {
+                    //error
+                    $('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
+                }).always(function () {
+                    $('img', this.$li).addClass('hidden').closest('button').prop('disabled', false);
+                }.bind({ "$li": $li }));
             }).on('click', '.btnReopenShipment', function (e) {
-               var $li = $(e.delegateTarget);
                 $.post($(this).attr('data-shipment-reopen-url')).then(function (data, textStatus, jqXHR) {
                     //Success
-                    $li.removeClass('list-group-item-warning');
-                    $('.btnGroupClose', $li).show();
-                    $('.btnReopenShipment', $li).addClass('hidden');
-                    $('#message').show().html(data).addClass('alert-info');
-                }, function (jqXHR, textStatus, errorThrown) {
+                    this.$li.removeClass('list-group-item-warning')
+                        .find('.btnGroupClose').removeClass('hidden').end()
+                        .find('.btnReopenShipment').addClass('hidden');
+                    $('#message').removeClass('hidden').html(data).addClass('alert-info');
+                }.bind({ "$li": $('> li', e.delegateTarget).has(e.target) }), function (jqXHR, textStatus, errorThrown) {
                     //error
-                    $('#message').show().html(jqXHR.responseText).addClass('alert-danger');
-                   // alert(jqXHR.responseText);
+                    $('#message').removeClass('hidden').html(jqXHR.responseText).addClass('alert-danger');
+                    // alert(jqXHR.responseText);
                 });
             });
-                });
+        });
     </script>
 }
