@@ -653,13 +653,11 @@ namespace DcmsMobile.REQ2.Repository
                                           asku_id =&gt; :sku_id,
                                           apieces_per_package =&gt; 1,
                                           arequired_pieces =&gt; :quantity_requested,
-                                          adestination_location =&gt; :dest_area,
                                           atarget_sku_id =&gt; :conversion_sku_id);
                     end;";
             var binder = SqlBinder.Create().Parameter("ctn_resv_id", ctnresvId)
                   .Parameter("sku_id", skuId)
                   .Parameter("quantity_requested", pieces)
-                  .Parameter("dest_area", "")
                   .Parameter("conversion_sku_id", conversionSkuId);
             _db.ExecuteNonQuery(QUERY, binder);
         }
