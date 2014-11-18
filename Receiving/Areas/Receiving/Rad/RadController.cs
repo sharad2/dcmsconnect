@@ -10,7 +10,7 @@ using System.Web.Routing;
 namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
    [RouteArea("Receiving")]
-    [RoutePrefix("Red")]
+    [RoutePrefix("Rad")]
     public partial class RadController : EclipseController
     {
         private const string ROLE_RAD_EDITING = "SRC_RECEIVING_MGR";
@@ -103,7 +103,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
         [HttpPost]
         [AuthorizeEx("Updating Receiving Configuration {0}", Roles = ROLE_RAD_EDITING)]
-        [Route("addupdate")]
+        [Route("update")]
         public virtual ActionResult AddUpdateSpotCheckSetting(ModifyAction action, string style, string color, string sewingPlantId,
             int? spotCheckPercent, bool enabled = false)
         {
@@ -139,7 +139,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns> 
-        [Route("style")]
+        [Route("styles")]
         public virtual JsonResult StyleAutocomplete(string term)
         {
             term = term ?? string.Empty;
@@ -190,7 +190,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-         [Route("color")]
+         [Route("colors")]
         public virtual JsonResult ColorAutocomplete(string term)
         {
             // Change null to empty string
