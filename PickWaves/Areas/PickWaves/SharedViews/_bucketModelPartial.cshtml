@@ -105,8 +105,9 @@
                         if (!string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) || Model.Activities[i].PiecesBoxesCreated > 0)
                         {
 
-                            <p class='list-group-item-text @Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "bg-warning" : "bg-success")'>
-                                @Html.DisplayFor(m => m.Activities[i].DisplayName) <!--Pitching or pulling-->
+                            <p class='list-group-item-text'>
+                                <span class="label label-@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "success" : "info")">
+                                @Html.DisplayFor(m => m.Activities[i].DisplayName) </span><!--Pitching or pulling-->
 
                                 <!---------ie: FDC-FPK: Forword pick area of FDC------------->
                                 <strong>@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay):</strong>
