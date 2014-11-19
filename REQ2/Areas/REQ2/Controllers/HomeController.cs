@@ -186,7 +186,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
                 IsConversionRequest = model.CurrentRequest.RequestForConversion,
                 TargetQuality = model.CurrentRequest.TargetQualityCode,
                 DestinationAreaShortName = model.CurrentRequest.DestinationAreaShortName,
-                ReqId = model.CurrentRequest.ReqId,
+                //ReqId = model.CurrentRequest.ReqId,
                 RequestedBy = model.CurrentRequest.RequestedBy,
                 SourceAreaShortName = model.CurrentRequest.SourceAreaShortName
             };

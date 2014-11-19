@@ -12,6 +12,7 @@ namespace DcmsMobile.REQ2.Models
         /// <summary>
         /// Id of the request in src_req_detail
         /// </summary>
+        [Obsolete]
         public int? ReqId { get; set; }
 
         // Source

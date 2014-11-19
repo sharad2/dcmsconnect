@@ -349,7 +349,6 @@ namespace DcmsMobile.REQ2.Repository
             const string QUERY = @"
             WITH REQUESTS AS
              (SELECT T.CTN_RESV_ID                                 AS CTN_RESV_ID,
-                     MAX(REQDET.REQ_PROCESS_ID)                           AS DCMS4_REQ_ID,
                      ROW_NUMBER() OVER(ORDER BY MAX(T.INSERT_DATE) DESC, MAX(T.PRIORITY) DESC, T.CTN_RESV_ID) AS ROW_SEQUENCE,
                      MAX(T.PRIORITY)                               AS PRIORITY,
                      MAX(T.TARGET_QUALITY)                         AS TARGET_QUALITY,
@@ -376,7 +375,7 @@ namespace DcmsMobile.REQ2.Repository
                 LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
                   ON T.CTN_RESV_ID = REQDET.CTN_RESV_ID
                <if>
-                 AND T.CTN_RESV_ID = :CTN_RESV_ID
+             Where T.CTN_RESV_ID = :CTN_RESV_ID
                </if>
                GROUP BY T.CTN_RESV_ID),
             CARTONS AS
@@ -387,7 +386,6 @@ namespace DcmsMobile.REQ2.Repository
                WHERE CTNDET.REQ_MODULE_CODE = 'REQ2'
                GROUP BY CTNDET.REQ_PROCESS_ID)
             SELECT REQ.CTN_RESV_ID           AS CTN_RESV_ID,
-                   REQ.DCMS4_REQ_ID          AS DCMS4_REQ_ID,
                    REQ.SOURCE_AREA           AS SOURCE_AREA,
                    TIA.SHORT_NAME            AS SOURCE_AREA_SHORT_NAME,
                    REQ.DESTINATION_AREA      AS DESTINATION_AREA,
@@ -448,7 +446,7 @@ namespace DcmsMobile.REQ2.Repository
                 SaleTypeId = row.GetString("SALE_TYPE_ID"),
                 AssignedCartonCount = row.GetInteger("CARTON_COUNT") ?? 0,
                 AssignedPieces = row.GetInteger("total_pieces") ?? 0,
-                ReqId = row.GetInteger("DCMS4_REQ_ID"),
+                //ReqId = row.GetInteger("DCMS4_REQ_ID"),
                 TargetQuality = row.GetString("TARGET_QUALITY"),
                 IsConversionRequest = row.GetString("IS_CONVERSION_REQUEST") == "Y",
             }).Parameter("CTN_RESV_ID", ctnResvId)

@@ -35,7 +35,7 @@ namespace DcmsMobile.REQ2.ViewModels
         public RequestHeaderViewModel(RequestModel entity)
         {
             this.ResvId = entity.CtnResvId;
-            this.ReqId = entity.ReqId;
+            //this.ReqId = entity.ReqId;
             this.BuildingId = entity.BuildingId;
             this.VirtualWareHouseId = entity.SourceVwhId;
             this.SourceAreaId = entity.SourceAreaId;
@@ -64,6 +64,7 @@ namespace DcmsMobile.REQ2.ViewModels
         /// <summary>
         /// Id of the request in src_req_detail
         /// </summary>
+        [Obsolete]
         public int? ReqId { get; set; }
 
         [Display(Name = "Building")]
