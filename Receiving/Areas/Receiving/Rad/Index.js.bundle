@@ -13,7 +13,7 @@
     <file>/Scripts/jquery.validate.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>
-    <file>/Scripts/typeahead.bundle.js</file>
+    <file>/Scripts/typeahead.jquery.js</file>
     <file>/Areas/Receiving/Rad/_addSpotCheck.partial.js</file>
   </files>
 </bundle>
