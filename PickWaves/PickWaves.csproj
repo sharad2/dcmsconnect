@@ -330,8 +330,6 @@
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.css.bundle" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.partial.css" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.partial.css" />
-    <None Include="Areas\PickWaves\Home\Home-Index.css.bundle" />
-    <None Include="Areas\PickWaves\Home\Home-Index.partial.css" />
     <Content Include="Areas\PickWaves\Config\Config.min.css">
       <DependentUpon>Config.css</DependentUpon>
     </Content>
@@ -355,12 +353,6 @@
     </Content>
     <Content Include="Areas\PickWaves\Home\Home-CustomerSummary.min.css">
       <DependentUpon>Home-CustomerSummary.css</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Home\Home-Index.css">
-      <DependentUpon>Home-Index.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\Home\Home-Index.min.css">
-      <DependentUpon>Home-Index.css.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.css.bundle">
