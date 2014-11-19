@@ -123,11 +123,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Home_Index_css = "Home-Index.css";
-                public readonly string Home_Index_js = "Home-Index.js";
                 public readonly string Index = "Index";
             }
             public readonly string Home_Index_css = "~/Areas/PickWaves/Home/Home-Index.css.bundle";
-            public readonly string Home_Index_js = "~/Areas/PickWaves/Home/Home-Index.js.bundle";
             public readonly string Index = "~/Areas/PickWaves/Home/Index.cshtml";
         }
     }

@@ -291,9 +291,6 @@ namespace Links_PickWaves
                      
                 public static readonly string Home_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.css") ? Url("Home-Index.min.css") : Url("Home-Index.css");
                      
-                public static readonly string Home_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.min.js") ? Url("Home-Index.min.js") : Url("Home-Index.js");
-                public static readonly string Home_Index_min_js_map = Url("Home-Index.min.js.map");
-                public static readonly string Home_Index_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-Index.partial.min.js") ? Url("Home-Index.partial.min.js") : Url("Home-Index.partial.js");
             }
         
         }
