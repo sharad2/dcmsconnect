@@ -125,7 +125,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         public class ActionParamsClass_AddPickslipsOfDim
         {
             public readonly string model = "model";
-            public readonly string viewPickslips = "viewPickslips";
         }
         static readonly ActionParamsClass_PickslipList s_params_PickslipList = new ActionParamsClass_PickslipList();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -185,15 +184,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddPickslipsOfDimOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model, string viewPickslips);
+        partial void AddPickslipsOfDimOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPickslipsOfDim(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model, string viewPickslips)
+        public override System.Web.Mvc.ActionResult AddPickslipsOfDim(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPickslipsOfDim);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewPickslips", viewPickslips);
-            AddPickslipsOfDimOverride(callInfo, model, viewPickslips);
+            AddPickslipsOfDimOverride(callInfo, model);
             return callInfo;
         }
 

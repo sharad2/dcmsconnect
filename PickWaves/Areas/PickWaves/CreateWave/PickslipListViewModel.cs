@@ -19,7 +19,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
         /// <summary>
         /// If user wants to add pickslip to specific bucket
         /// </summary>
-        public int BucketId { get; set; }
+        public int? BucketId { get; set; }
 
         public BucketModel Bucket { get; set; }
     }

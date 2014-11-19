@@ -1,8 +1,8 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel
 @{
     ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName, Model.CustomerId);
-    Html.EnableClientValidation();
-    Html.EnableUnobtrusiveJavaScript();
+    //Html.EnableClientValidation();
+    //Html.EnableUnobtrusiveJavaScript();
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
 }
 @*@section sidebar {
@@ -72,14 +72,24 @@
                                     @Model.ColDimDisplayName @item.Key
                                     <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel
                                         {
-                                            CustomerId = @Model.CustomerId,
-                                            VwhId = @Model.VwhId,
+                                            BucketId = Model.LastBucketId,
+                                            CustomerId = Model.CustomerId,
+                                            VwhId = Model.VwhId,
                                             RowDimIndex = Model.RowDimIndex,
                                             ColDimIndex = Model.ColDimIndex,
                                             RowDimVal = Model.Rows[i].DimensionValue,
                                             ColDimVal = item.Key
                                         }))">@item.Value pickslips</a>
-                                    <button class="btn btn-default">Add</button> @Model.Rows[i].OrderedPieces[item.Key] pcs
+                                    <form action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">
+                                        @Html.HiddenFor(m => m.LastBucketId)
+                                        @Html.HiddenFor(m => m.CustomerId)
+                                        @Html.HiddenFor(m => m.VwhId)
+                                        @Html.HiddenFor(m => m.RowDimIndex)
+                                        @Html.HiddenFor(m => m.ColDimIndex)
+                                        <input type="hidden" name="@Html.NameFor(m => m.RowDimVal)" value="@Model.Rows[i].DimensionValue" />
+                                        <input type="hidden" name="@Html.NameFor(m => m.ColDimVal)" value="@item.Key" />
+                                        <button class="btn btn-default" type="submit">Add</button> @Model.Rows[i].OrderedPieces[item.Key] pcs
+                                    </form>
                                 </div>
                             </li>
                         }
@@ -101,7 +111,7 @@
         }))
     {
         <input type="hidden" name="@Model.NameFor(m => m.LastBucketId)" value="@Model.LastBucketId" />
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.viewPickslips" id="hfViewPickslips" />
+        @*<input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.viewPickslips" id="hfViewPickslips" />*@
         if (Model.LastBucketId.HasValue)
         {
             <blockquote>
@@ -195,7 +205,7 @@
 
 
 
-<div id="divDlg" title="@string.Format(Model.LastBucketId.HasValue ? "Add pickslip to Pick Wave" : "Create New Pick Wave")">
+@*<div id="divDlg" title="@string.Format(Model.LastBucketId.HasValue ? "Add pickslip to Pick Wave" : "Create New Pick Wave")">
     <em id="dlgColDimSpan" style="display: inline-block; width: 15em">@Model.ColDimDisplayName</em><span id="dlgColDimSpanVal"></span>
     <br />
     <em id="dlgRowDimSpan" style="display: inline-block; width: 15em">@Model.RowDimDisplayName</em> <span id="dlgRowDimSpanVal"></span>
@@ -210,7 +220,7 @@
         <span>Create a pick wave containing <span id="dlgSpanPsCount"></span>pickslips ?</span>
     }
     <div id="dlgMessage" class="validation-summary-errors"></div>
-</div>
+</div>*@
 
 @section script {
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_Index_css" rel="stylesheet" />

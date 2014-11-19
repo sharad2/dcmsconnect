@@ -322,7 +322,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("pickslipofdim")]
-        public virtual ActionResult AddPickslipsOfDim(IndexViewModel model, string viewPickslips)
+        public virtual ActionResult AddPickslipsOfDim(IndexViewModel model)
         {
             if (model.ColDimVal != null || model.RowDimVal != null)
             {
@@ -331,19 +331,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
 
             // If user want to see pickslip list.
-            if (!string.IsNullOrWhiteSpace(viewPickslips))
-            {
-                return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new PickslipListViewModel
-                {
-                    BucketId = model.LastBucketId.Value,
-                    RowDimIndex = model.RowDimIndex,
-                    ColDimIndex = model.ColDimIndex,
-                    RowDimVal = model.RowDimVal,
-                    ColDimVal = model.ColDimVal,
-                    CustomerId = model.CustomerId,
-                    VwhId = model.VwhId
-                }));
-            }
+            //if (!string.IsNullOrWhiteSpace(viewPickslips))
+            //{
+            //    return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new PickslipListViewModel
+            //    {
+            //        BucketId = model.LastBucketId.Value,
+            //        RowDimIndex = model.RowDimIndex,
+            //        ColDimIndex = model.ColDimIndex,
+            //        RowDimVal = model.RowDimVal,
+            //        ColDimVal = model.ColDimVal,
+            //        CustomerId = model.CustomerId,
+            //        VwhId = model.VwhId
+            //    }));
+            //}
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
@@ -390,13 +390,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 }
                 //Now Create bucket
                 model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
-                AddStatusMessage(string.Format("{0} pick wave created.", model.LastBucketId));
+                AddStatusMessage(string.Format("Pick Wave {0} created.", model.LastBucketId));
             }
             else
             {
                 // Add pickslip to bucket 
                 _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
-                AddStatusMessage(string.Format("Add pickslip to {0} pick wave.", model.LastBucketId));
+                AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", model.LastBucketId));
             }
             return RedirectToAction(this.Actions.Index(model));
         }
@@ -439,9 +439,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
 
-            if (model.BucketId != 0)
+            if (model.BucketId.HasValue)
             {
-                var bucket = _service.GetBucket(model.BucketId);
+                var bucket = _service.GetBucket(model.BucketId.Value);
                 model.Bucket = new BucketModel(bucket);
             }
             else
@@ -460,7 +460,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [Route("pickslipbucket")]
         public virtual ActionResult AddPickslipsToBucket(PickslipListViewModel model)
         {
-            if (model.BucketId == 0)
+            if (model.BucketId == null)
             {
                 throw new ArgumentNullException("model.BucketId");
             }
@@ -470,7 +470,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             else
             {
-                _service.AddPickslipsToWave(model.BucketId, model.SelectedPickslip);
+                _service.AddPickslipsToWave(model.BucketId.Value, model.SelectedPickslip);
                 AddStatusMessage(string.Format("{0} pickslips have been added to PickWave {1}", model.SelectedPickslip.Count, model.BucketId));
             }
             return RedirectToAction(this.Actions.PickslipList(model));
