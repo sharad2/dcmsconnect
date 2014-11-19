@@ -290,24 +290,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return View(Views.Index, model);
         }
 
-        /// <summary>
-        /// Ajax call : This method refreshes the pickslip list, when change dimension value.
-        /// </summary>
-        /// <param name="model">
-        /// Posted value
-        /// </param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Need to refresh the pickslip list every time after wave creation. i.e [OutputCache(Duration = 0)]
-        /// </remarks>
-        [OutputCache(Duration = 0)]
-        [Route("refpickslipmatrix")]
-        public virtual ActionResult RefreshPickslipMatrix(PickslipMatrixPartialViewModel model)
-        {
-            PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
-            var html = RenderPartialViewToString(this.Views._pickslipMatrixPartial, model);
-            return Content(html);
-        }
+        ///// <summary>
+        ///// Ajax call : This method refreshes the pickslip list, when change dimension value.
+        ///// </summary>
+        ///// <param name="model">
+        ///// Posted value
+        ///// </param>
+        ///// <returns></returns>
+        ///// <remarks>
+        ///// Need to refresh the pickslip list every time after wave creation. i.e [OutputCache(Duration = 0)]
+        ///// </remarks>
+        //[OutputCache(Duration = 0)]
+        //[Route("refpickslipmatrix")]
+        //public virtual ActionResult RefreshPickslipMatrix(PickslipMatrixPartialViewModel model)
+        //{
+        //    PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
+        //    var html = RenderPartialViewToString(this.Views._pickslipMatrixPartial, model);
+        //    return Content(html);
+        //}
 
         /// <summary>
         /// Add pickslips to passed bucket.Or if bucket is not created then create it first, then add pickslip.
