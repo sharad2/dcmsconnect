@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 {
-   [RouteArea("Receiving")]
+    [RouteArea("Receiving")]
     [RoutePrefix("Rad")]
     public partial class RadController : EclipseController
     {
@@ -46,8 +46,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
             base.Initialize(requestContext);
         }
 
-         
-       [Route("index")]
+
+        [Route("index")]
         public virtual ActionResult Index()
         {
             var model = new IndexViewModel();
@@ -113,7 +113,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
 
                 var rows = _service.Value.DeleteSpotCheckSetting(style, color, sewingPlantId);
                 AddStatusMessage(string.Format("{0} Spot check setting has been deleted for Sewing Plant: {0}, Style: {1}, Color: {2} ", rows, string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
-                
+
             }
             else
             {
@@ -126,7 +126,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
                 else
                 {
                     AddStatusMessage(string.Format("Spot check setting has been modified for Sewing Plant: {0}, Style: {1}, Color: {2} ", string.IsNullOrEmpty(sewingPlantId) ? "All" : sewingPlantId, string.IsNullOrEmpty(style) ? "All" : style, string.IsNullOrEmpty(color) ? "All" : color));
-                
+
                 }
             }
             return RedirectToAction(MVC_Receiving.Receiving.Rad.Index());
@@ -190,7 +190,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-         [Route("colors")]
+        [Route("colors")]
         public virtual JsonResult ColorAutocomplete(string term)
         {
             // Change null to empty string
