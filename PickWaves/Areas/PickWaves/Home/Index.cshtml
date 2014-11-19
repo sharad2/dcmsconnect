@@ -94,18 +94,20 @@
                                 <div class="col-md-6">
                                     <h4 class="list-group-item-heading">
                                         Customer
-                                        <small class="label label-info">PickSlip #</small>
+                                        <small>
+                                            <span class="label label-info">
+                                                PickSlip #
+                                            </span>
+                                            <em>DC Cancel Date</em>
+                                        </small>
                                     </h4>
-                                    <p class="list-group-item-text">
-                                        DC Cancel Date
-                                    </p>
                                 </div>
+
                                 <div class="col-md-6">
-                                    Pieces Orderd of $ Price
-                                    <p class="list-group-item-text">
+                                    Orderd Pieces of $ Price
+                                    <p class="list-group-item-text badge pull-right">
                                         Import date on
                                     </p>
-
                                 </div>
                             </div>
                         </li>
@@ -147,19 +149,17 @@
                                                     }
                                                 </span>
                                             }
-                                            <small class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</small>
+                                            <small>
+                                                <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                                                <em>@Html.DisplayFor(m => m.ImportedOrders[i].DcCancelDateRange)</em>
+                                            </small>
                                         </h4>
-
-
-
-                                        <p class="list-group-item-text">
-                                            @Html.DisplayFor(m => m.ImportedOrders[i].DcCancelDateRange)
-                                        </p>
+                                       
                                     </div>
                                     <div class="col-md-6">
-                                        @Html.DisplayFor(m => m.ImportedOrders[i].PiecesOrdered) of Price
-                                        @Html.DisplayFor(m => m.ImportedOrders[i].DollarsOrdered) 
-                                        <p class="list-group-item-text">
+                                        @Html.DisplayFor(m => m.ImportedOrders[i].PiecesOrdered) of
+                                        @Html.DisplayFor(m => m.ImportedOrders[i].DollarsOrdered)
+                                        <p class="list-group-item-text badge pull-right">
                                             @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
                                         </p>
 
@@ -297,7 +297,7 @@
                                             <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                                                 Picked
                                             </div>
-                                           &nbsp; Not Picked
+                                            &nbsp; Not Picked
                                         </div>
 
                                     </div>
