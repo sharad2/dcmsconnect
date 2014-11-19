@@ -38,12 +38,14 @@
     &bull;
     <label>Pallet Limit</label> @Html.DisplayFor(m => m.PalletLimit)
 </h5>
+@if (!string.IsNullOrWhiteSpace(Model.PalletId))
+    {
 <div class="progress">
     <div class="progress-bar progress-bar-@(Model.PalletProgress > 90 ? "danger" : (Model.PalletProgress > 80 ? "warning":"info"))" role="progressbar" aria-valuenow="@Model.PalletProgress" aria-valuemin="0" aria-valuemax="100" style="width:@Model.PalletProgress%;min-width:20px;">
-        @Model.PalletProgress%
+        @Model.PalletProgress% pallet progress
     </div>
 </div>
-
+}
 
 <ul class="list-group">
     @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
