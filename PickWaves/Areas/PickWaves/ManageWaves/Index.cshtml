@@ -1,45 +1,82 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
 @{
     ViewBag.Title = Model.PageTitle;
+    Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
 }
-@section sidebar {
-    <div class="box">
-        <h3>Reports</h3>
-        <div class="boxContent">
-            <dl>
-                <dt>
-                    <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))" target="report">
-                        <em>130.28</em>. Inventory Shortages.
-                    </a>
-                </dt>
-                <dd>
-                    This report will identify those SKUs which cannot be shipped due to insufficient
-                    inventory. It will also tell you which areas these
-                    SKUs can be pulled from.
-                </dd>
-            </dl>
+@*@section sidebar {
+        <div class="box">
+            <h3>Reports</h3>
+            <div class="boxContent">
+                <dl>
+                    <dt>
+                        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))" target="report">
+                            <em>130.28</em>. Inventory Shortages.
+                        </a>
+                    </dt>
+                    <dd>
+                        This report will identify those SKUs which cannot be shipped due to insufficient
+                        inventory. It will also tell you which areas these
+                        SKUs can be pulled from.
+                    </dd>
+                </dl>
+            </div>
         </div>
-    </div>
-    <div class="boxContent">
-        <fieldset style="padding: 1em 3em 1em 1em;">
-            <legend>Legend</legend>
-            <div style="width: 9em; background-color: antiquewhite; text-align: center">
-                Pulling Boxes
-            </div>
-            <div style="width: 9em; background-color: paleturquoise; text-align: center">
-                Pitching Boxes
-            </div>
-        </fieldset>
-    </div>
-}
+        <div class="boxContent">
+            <fieldset style="padding: 1em 3em 1em 1em;">
+                <legend>Legend</legend>
+                <div style="width: 9em; background-color: antiquewhite; text-align: center">
+                    Pulling Boxes
+                </div>
+                <div style="width: 9em; background-color: paleturquoise; text-align: center">
+                    Pitching Boxes
+                </div>
+            </fieldset>
+        </div>
+    }*@
 @if (!string.IsNullOrWhiteSpace(Model.UserName))
 {
     <h2>
         Showing PickWave created by @Model.UserName
-    @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index
+        @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index
     (new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
-</h2>
+    </h2>
 }
+<div class="container">
+    <ul class="list-group">
+        @for (var i = 0; i < Model.Buckets.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                                Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i],
+            new ViewDataDictionary(new
+            {
+                IsEditable = false
+            }))
+                    </div>
+                </div>
+               
+
+             
+            </li>
+        }
+    </ul>
+
+</div>
 <div class="box">
     @if (Model.Buckets.Count > 0)
     {
@@ -109,7 +146,7 @@
 
 </div>
 
-@section scripts{
-    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_js"></script>
-    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />
+@section script {
+    @*<script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_js"></script>
+        <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
 }

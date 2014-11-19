@@ -233,6 +233,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -330,7 +331,6 @@
       <DependentUpon>Config.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\Config\Config.partial.js" />
-    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\bucketModel.partial.js" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-Index.js.bundle" />
     <Content Include="Areas\PickWaves\Config\Config.js">
       <DependentUpon>Config.js.bundle</DependentUpon>
@@ -398,7 +398,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Doc\PickWaveManager.doc" />
-    <Content Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel.cshtml" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
     <None Include="Areas\PickWaves\SharedViews\standardized.partial.css" />
     <None Include="Areas\PickWaves\SharedViews\PickWaves.partial.css" />

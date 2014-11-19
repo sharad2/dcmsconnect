@@ -258,7 +258,6 @@ namespace Links_PickWaves
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string _bucketEditorPartial_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_bucketEditorPartial.partial.min.js") ? Url("_bucketEditorPartial.partial.min.js") : Url("_bucketEditorPartial.partial.js");
-                    public static readonly string bucketModel_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bucketModel.partial.min.js") ? Url("bucketModel.partial.min.js") : Url("bucketModel.partial.js");
                 }
             
                 public static readonly string jQuery_cookie_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jQuery.cookie.partial.min.js") ? Url("jQuery.cookie.partial.min.js") : Url("jQuery.cookie.partial.js");
