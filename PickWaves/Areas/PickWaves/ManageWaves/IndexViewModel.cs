@@ -43,7 +43,7 @@ namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
             get
             {
                 var state = PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>()[this.BucketState].Name;
-                return string.Format("{0} waves of {1} <em>{2}</em>", state, this.CustomerName, this.CustomerId);
+                return string.Format("{0} waves of {1}: {2}", state, this.CustomerId,this.CustomerName);
             }
         }
 
