@@ -64,7 +64,7 @@
             {
                 <tr class="@(rowIndex % 2 != 0 ? "rowA" : "rowB")">
                     <td title="Click to add SKUs" class="data-reqId">
-                        @Html.ActionLink(item.Header.ReqId.ToString(), MVC_REQ2.REQ2.Home.DisplayRequest(item.Header.ResvId))
+                        @Html.ActionLink(item.Header.ResvId.ToString(), MVC_REQ2.REQ2.Home.DisplayRequest(item.Header.ResvId))
                     </td>
                     <td>@item.Header.Priorities</td>
                     <td>@item.Header.VirtualWareHouseId</td>

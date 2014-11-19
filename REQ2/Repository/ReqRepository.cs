@@ -349,7 +349,7 @@ namespace DcmsMobile.REQ2.Repository
             const string QUERY = @"
             WITH REQUESTS AS
              (SELECT T.CTN_RESV_ID                                 AS CTN_RESV_ID,
-                     MAX(T.DCMS4_REQ_ID)                           AS DCMS4_REQ_ID,
+                     MAX(REQDET.REQ_PROCESS_ID)                           AS DCMS4_REQ_ID,
                      ROW_NUMBER() OVER(ORDER BY MAX(T.INSERT_DATE) DESC, MAX(T.PRIORITY) DESC, T.CTN_RESV_ID) AS ROW_SEQUENCE,
                      MAX(T.PRIORITY)                               AS PRIORITY,
                      MAX(T.TARGET_QUALITY)                         AS TARGET_QUALITY,
@@ -374,9 +374,7 @@ namespace DcmsMobile.REQ2.Repository
                      MAX(REQDET.REQ_PROCESS_ID)             AS REQ_PROCESS_ID
                 FROM <proxy />CTNRESV T
                 LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
-                  ON T.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
-                 AND T.MODULE_CODE = REQDET.REQ_MODULE_CODE
-               WHERE T.MODULE_CODE = 'REQ2'
+                  ON T.CTN_RESV_ID = REQDET.CTN_RESV_ID
                <if>
                  AND T.CTN_RESV_ID = :CTN_RESV_ID
                </if>
@@ -480,7 +478,7 @@ namespace DcmsMobile.REQ2.Repository
                    MAX(REQDET.QUANTITY_REQUESTED)       AS QUANTITY_REQUESTED
               FROM <proxy />CTNRESV C
               INNER JOIN <proxy />SRC_REQ_DETAIL REQDET
-                ON C.DCMS4_REQ_ID = REQDET.REQ_PROCESS_ID
+                ON C.ctn_resv_id = REQDET.ctn_resv_id
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
                 ON MSKU.SKU_ID =  reqdet.sku_id
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKUCONV
@@ -560,9 +558,12 @@ namespace DcmsMobile.REQ2.Repository
                                     0,
                                     ctndet.quantity)) AS pulled_pieces
                     FROM <proxy />ctnresv c
+                    inner join <proxy />src_req_detail srd on 
+                    srd.ctn_resv_id = c.ctn_resv_id
                     INNER JOIN <proxy />src_carton_detail ctndet 
-                            ON c.dcms4_req_id = ctndet.req_process_id
-                    AND c.module_code = ctndet.req_module_code
+                            ON srd.req_process_id = ctndet.req_process_id
+                            and srd.req_module_code = ctndet.req_module_code
+                            and srd.req_line_number = ctndet.req_line_number
                     INNER JOIN <proxy />src_carton ctn 
                             ON ctndet.carton_id = ctn.carton_id 
                     INNER JOIN <proxy />master_sku msku
@@ -615,7 +616,7 @@ namespace DcmsMobile.REQ2.Repository
      AND SRCD.REQ_LINE_NUMBER = REQDET.REQ_LINE_NUMBER
      AND SRCD.REQ_MODULE_CODE = REQDET.REQ_MODULE_CODE
     LEFT OUTER JOIN <proxy />CTNRESV CTNRESV
-     ON REQDET.REQ_PROCESS_ID = CTNRESV.DCMS4_REQ_ID
+     ON REQDET.ctn_resv_id = CTNRESV.ctn_resv_id
      WHERE 1 = 1
      AND CTNRESV.CTN_RESV_ID =:CTN_RESV_ID
      AND ROWNUM &lt;= :max_rows
