@@ -438,8 +438,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
             model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
-            var bucket = _service.GetBucket(model.BucketId);
-            model.Bucket = new BucketModel(bucket);
+
+            if (model.BucketId != 0)
+            {
+                var bucket = _service.GetBucket(model.BucketId);
+                model.Bucket = new BucketModel(bucket);
+            }
+            else
+            {
+                //model.Bucket = new BucketModel();
+            }
             return View(Views.PickslipList, model);
         }
 

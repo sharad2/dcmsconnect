@@ -4,29 +4,32 @@
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
 }
 @*@section sidebar {
-    <div class="boxContent">
-        If you want to create new wave for customer <em>@Model.CustomerId</em>
-        @Html.ActionLink("Back to list", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId)))
-    </div>
-    <div class="boxContent">
-        <ul>
+        <div class="boxContent">
+            If you want to create new wave for customer <em>@Model.CustomerId</em>
+            @Html.ActionLink("Back to list", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId)))
+        </div>
+        <div class="boxContent">
+            <ul>
+                <li>
+                    If you want to
+                    @Html.ActionLink("Add more pickslip", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
+                   Model.RowDimIndex.Value, Model.ColDimIndex.Value,Model.VwhId, null, null, Model.BucketId))) in @Model.BucketId Pick Wave.
+            </li>
             <li>
-                If you want to
-                @Html.ActionLink("Add more pickslip", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
-               Model.RowDimIndex.Value, Model.ColDimIndex.Value,Model.VwhId, null, null, Model.BucketId))) in @Model.BucketId Pick Wave.
-        </li>
-        <li>
-            To see Pick Wave <a href="@Url.Action(
-                MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.BucketId, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe)))">
-                @Model.BucketId
-            </a>detail
-        </li>
-    </ul>
-</div>
-}*@
+                To see Pick Wave <a href="@Url.Action(
+                    MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.BucketId, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe)))">
+                    @Model.BucketId
+                </a>detail
+            </li>
+        </ul>
+    </div>
+    }*@
 
 <div class="boxContent">
-    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+    @if (Model.Bucket != null)
+    {
+        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+    }
     <div>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
         {
@@ -40,12 +43,13 @@
 
             if (Model.PickslipList.Count > 0)
             {
-
-                <blockquote>
-                    Select pickslips first from below list to add in Pick Wave @Model.BucketId.
-                    <button type="submit" @Html.Raw(Model.UserIsManager ? "" : "disabled='disabled'")>Add pickslips</button>
-                </blockquote>
-
+                if (Model.Bucket != null)
+                {
+                    <blockquote>
+                        Select pickslips first from below list to add in Pick Wave @Model.BucketId.
+                        <button type="submit" @Html.Raw(Model.UserIsManager ? "" : "disabled='disabled'")>Add pickslips</button>
+                    </blockquote>
+                }
                 <table>
                     <caption>
                         @string.Format("Pickslips of {0}: {1}; {2}: {3}", Model.ColDimDisplayName, Model.ColDimVal, Model.RowDimDisplayName, Model.RowDimVal)
@@ -117,9 +121,9 @@
 </div>
 @section script{
     @*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
-    <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
-    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
-    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />*@
+        <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+        <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
+        <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />*@
     <style type="text/css">
         .ui-selected {
             background-color: rgb(243,152,20) !important;
