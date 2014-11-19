@@ -408,7 +408,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// model.CustomerId, model.RowDimIndex, model.ColDimIndex, model.RowDimVal, model.ColDimVal,model.BucketId
         /// </param
         /// <returns></returns>
-        [Route("picksliplst")]
+        [Route("picksliplist")]
         public virtual ActionResult PickslipList(PickslipListViewModel model)
         {
             if (string.IsNullOrEmpty(model.CustomerId))

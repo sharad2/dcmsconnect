@@ -1,8 +1,9 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel
 @{
     ViewBag.Title = string.Format("Pickslip list for Customer {0}: {1}", Model.CustomerId, Model.CustomerName);
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
 }
-@section sidebar {
+@*@section sidebar {
     <div class="boxContent">
         If you want to create new wave for customer <em>@Model.CustomerId</em>
         @Html.ActionLink("Back to list", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId)))
@@ -22,10 +23,10 @@
         </li>
     </ul>
 </div>
-}
+}*@
 
 <div class="boxContent">
-    @Html.DisplayFor(m => m.Bucket, MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel)
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
     <div>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
         {
@@ -114,11 +115,11 @@
         }
     </div>
 </div>
-@section Scripts{
-    <script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
+@section script{
+    @*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
     <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
     <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
-    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />*@
     <style type="text/css">
         .ui-selected {
             background-color: rgb(243,152,20) !important;

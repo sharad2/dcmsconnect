@@ -127,10 +127,11 @@
                             </td>
                             <td>
                                 <div class="bucketModelPartial" style="padding-top: 1em; padding-bottom: 0.5em">
-                                    @Html.DisplayFor(m => m.Buckets[i], MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel, new
+                                    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i])
+                                    @*@Html.DisplayFor(m => m.Buckets[i], MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel, new
                                {
                                    IsEditable = false
-                               })
+                               })*@
                                 </div>
                             </td>
                         </tr>
