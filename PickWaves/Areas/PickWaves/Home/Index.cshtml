@@ -369,12 +369,11 @@
                                                         {
                                             @* We never expect to see this message because we always create boxes for all pieces*@
                                             <div class="ui-state-error">
-                                                @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled
+                                                <span class="glyphicon glyphicon-info-sign"></span> @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled
                                             </div>
                                                         }
                                                     }
                                                 }
-                                            </p>
                                         </div>
                                     </div>
                                 </li>
