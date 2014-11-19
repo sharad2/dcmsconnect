@@ -55,26 +55,27 @@
         <li class="list-group-item @(Model.Cartons[i].Highlight ? "list-group-item-success" : "")">
 
       
-                <div class="btn-group pull-right" data-carton="@Model.Cartons[i].CartonId" style="text-align:center">
-                    <button type="button" class="btn btn-primary  btn-xs dropdown-toggle" data-toggle="dropdown">
-                        <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
+            <div class="btn-group pull-right" data-carton="@Model.Cartons[i].CartonId" style="text-align:center" title="Print or remove carton @Model.Cartons[i].CartonId from pallet ">
+                <button type="button" class="btn btn-primary  btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#" data-action="print">
+                            &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
+                        </a>
+                    </li>
+                    @if (!string.IsNullOrWhiteSpace(Model.PalletId))
+                    {
                         <li>
-                            <a href="#" data-action="print">
-                                &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
+                            <a href="#" data-action="remove">
+                                &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
                             </a>
                         </li>
-                        @if (!string.IsNullOrWhiteSpace(Model.PalletId))
-                        {
-                            <li>
-                                <a href="#" data-action="remove">
-                                    &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+                    }
+                </ul>
+            </div>
+
           
 
             <h4 class="list-group-item-heading">
