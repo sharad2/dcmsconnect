@@ -341,7 +341,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         internal int CountTotalSku { get; set; }
 
-        [DisplayFormat(DataFormatString = "<span class='bg-danger'>{0:N0} SKUs are not assigned at any location.</span>", HtmlEncode = false)]
+        [DisplayFormat(DataFormatString = "<span>{0:N0} SKUs are not assigned at any location.</span>", HtmlEncode = false)]
         public int CountNotAssignedSku
         {
             get

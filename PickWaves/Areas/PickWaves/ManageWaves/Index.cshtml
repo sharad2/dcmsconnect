@@ -34,14 +34,11 @@
     <p>This list is order by priority and then DC Cancel Date</p>
     @if (Model.Buckets.Count > 0)
     {
-
-
-
         for (var i = 0; i < Model.Buckets.Count; ++i)
         {
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="btn-toolbar" role="toolbar" aria-label="...">
+            <ul class="=list-group">
+                <li class="list-group-item list-group-item-success">
+                    <div class="btn-toolbar pull-right" role="toolbar" aria-label="...">
                         <div class="btn-group" role="group" aria-label="...">
                             <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'")
                                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
@@ -68,128 +65,97 @@
                         </div>
 
                     </div>
+                    <h3 class="list-group-item-heading">
+                        Pick Wave <a title="Pick Wave Details"
+                                     href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
+                                                                DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))">
 
-
-                    @*<div class="btn-group">
-                            <a @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'") class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
-                                                                Model.Buckets[i].BucketId,
-                                                            DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
-                                <span class="glyphicon glyphicon-edit"></span> Edit
-                            </a>
-                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-
-                                <li class="increase-action @Html.Raw(Model.UserIsManager ? "" : "disabled")">
-                                    <a>
-                                        <span class="glyphicon glyphicon-arrow-up" title="Increase priority"></span>
-                                        Increase Priority
-                                    </a>
-                                </li>
-                                <li class="decrease-action @Html.Raw(Model.UserIsManager ? "" : "disabled")">
-                                    <a>
-                                        <span class="glyphicon glyphicon-arrow-down" title="Decrease priority"></span>
-                                        Decrease Priority
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'")>
-                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Buckets[0].MaxCustomerId, Model.Buckets[0].BucketId)))">
-                                        <span class="glyphicon glyphicon-plus"></span>  Add Pickslips
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>*@
-                </div>
-                <div class="col-md-8">
+                            @Model.Buckets[i].BucketId
+                        </a>
+                    </h3>
+                </li>
+                <li class="list-group-item">
                     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i],
             new ViewDataDictionary(new
             {
                 IsEditable = false
             }))
-                </div>
-            </div>
-
-
-
-
+                </li>
+            </ul>
         }
-
     }
     else
     {
         <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
     }
 </div>
-@*<div class="box">
-        @if (Model.Buckets.Count > 0)
-        {
+    @*<div class="box">
+            @if (Model.Buckets.Count > 0)
+            {
 
-                        @for (var i = 0; i < Model.Buckets.Count; ++i)
-                        {
-                            <tr>
-                                <td style="text-align: left; vertical-align: top">
-                                    <span style="margin-top: 2mm; margin-left: 2mm; display: inline-block">@(i + 1).</span>
-                                    <ul class="waveActionMenu" style="margin-top: 25%">
-                                        <li>
-                                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
-                                                                DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))" title="Pick Wave Details">
-                                                <span class="ui-icon ui-icon-zoomin"></span>
-                                                @Model.Buckets[i].BucketId
-                                            </a>
-                                            <ul>
-                                                <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "class='ui-state-disabled'")>
-                                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
-                                                            Model.Buckets[i].BucketId,
-                                                        DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
-                                                        <span class="ui-icon ui-icon-pencil"></span>Edit
-                                                    </a>
-                                                </li>
-                                                <li>-</li>
-                                                <li class="increase-action @Html.Raw(Model.UserIsManager ? "" : "ui-state-disabled")">
-                                                    <a>
-                                                        <span class="ui-icon ui-icon-arrowthick-1-n" title="Increase priority"></span>
-                                                        Increase Priority
-                                                    </a>
-                                                </li>
-                                                <li class="decrease-action @Html.Raw(Model.UserIsManager ? "" : "ui-state-disabled")">
-                                                    <a>
-                                                        <span class="ui-icon ui-icon-arrowthick-1-s" title="Decrease priority"></span>
-                                                        Decrease Priority
-                                                    </a>
-                                                </li>
-                                                <li>-</li>
-                                                <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "class='ui-state-disabled'")>
-                                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Buckets[0].MaxCustomerId, Model.Buckets[0].BucketId)))">Add Pickslips</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <div class="bucketModelPartial" style="padding-top: 1em; padding-bottom: 0.5em">
-                                        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i])
-                                        @Html.DisplayFor(m => m.Buckets[i], MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel, new
-                                            {
-                                                IsEditable = false
-                                            })
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                            @for (var i = 0; i < Model.Buckets.Count; ++i)
+                            {
+                                <tr>
+                                    <td style="text-align: left; vertical-align: top">
+                                        <span style="margin-top: 2mm; margin-left: 2mm; display: inline-block">@(i + 1).</span>
+                                        <ul class="waveActionMenu" style="margin-top: 25%">
+                                            <li>
+                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
+                                                                    DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))" title="Pick Wave Details">
+                                                    <span class="ui-icon ui-icon-zoomin"></span>
+                                                    @Model.Buckets[i].BucketId
+                                                </a>
+                                                <ul>
+                                                    <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "class='ui-state-disabled'")>
+                                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
+                                                                Model.Buckets[i].BucketId,
+                                                            DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
+                                                            <span class="ui-icon ui-icon-pencil"></span>Edit
+                                                        </a>
+                                                    </li>
+                                                    <li>-</li>
+                                                    <li class="increase-action @Html.Raw(Model.UserIsManager ? "" : "ui-state-disabled")">
+                                                        <a>
+                                                            <span class="ui-icon ui-icon-arrowthick-1-n" title="Increase priority"></span>
+                                                            Increase Priority
+                                                        </a>
+                                                    </li>
+                                                    <li class="decrease-action @Html.Raw(Model.UserIsManager ? "" : "ui-state-disabled")">
+                                                        <a>
+                                                            <span class="ui-icon ui-icon-arrowthick-1-s" title="Decrease priority"></span>
+                                                            Decrease Priority
+                                                        </a>
+                                                    </li>
+                                                    <li>-</li>
+                                                    <li @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "class='ui-state-disabled'")>
+                                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Buckets[0].MaxCustomerId, Model.Buckets[0].BucketId)))">Add Pickslips</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <div class="bucketModelPartial" style="padding-top: 1em; padding-bottom: 0.5em">
+                                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i])
+                                            @Html.DisplayFor(m => m.Buckets[i], MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel, new
+                                                {
+                                                    IsEditable = false
+                                                })
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
 
-            </div>
-        }
-        else
-        {
-    <span class="ui-state-highlight">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</span>
-        }*@
+                </div>
+            }
+            else
+            {
+        <span class="ui-state-highlight">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</span>
+            }*@
 
 
 
-@section script {
-    @*<script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_js"></script>
-        <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
-}
+    @section script {
+        @*<script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_js"></script>
+            <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
+    }
