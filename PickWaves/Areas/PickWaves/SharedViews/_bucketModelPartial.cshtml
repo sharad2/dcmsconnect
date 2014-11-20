@@ -9,18 +9,18 @@
 <div class="row @(Model.IsFrozen ? "text-muted" : (string)null)">
     <h3 class="list-group-item-heading" style="text-align:center">
         <mark>
-            @Html.DisplayFor(m => m.BucketId): @Html.DisplayFor(m => m.BucketName)
+            <u>@Html.DisplayFor(m => m.BucketId): @Html.DisplayFor(m => m.BucketName)</u>
             @if (Model.IsFrozen)
             {
                 <small class="badge"> <em>Frozen</em></small>
             }
         </mark>
     </h3>
+    
 
 
-
-    <div class="col-md-5">
-        <h4 class="list-group-item-heading" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) picked">
+    <div class="col-md-4">
+        <h4 class="list-group-item-heading text-info" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) picked">
             @Html.DisplayFor(m => m.OrderedPieces) <small>Pieces Ordered</small>
             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) <small>complete</small>
         </h4>
@@ -69,14 +69,14 @@
             }
             @if (Model.CountNotAssignedSku > 0)
             {
-                <small class="bg-danger">&bull; @Html.DisplayFor(m => m.CountNotAssignedSku)</small>
+                <small class="bg-danger">@Html.DisplayFor(m => m.CountNotAssignedSku)</small>
             }
 
         </p>
     </div>
 
-    <div class="col-md-7">
-        <h4 class="list-group-item-heading">
+    <div class="col-md-8">
+        <h4 class="list-group-item-heading text-info">
             @Html.DisplayFor(m => m.CountValidatedBoxes) <small> of</small> @Html.DisplayFor(m => m.CountTotalBoxes) <small>boxes Validated</small>
             @if (Model.CountCancelledBoxes > 0)
             {
@@ -100,16 +100,16 @@
 
                     <p class='list-group-item-text'>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <span class="label label-@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "success" : "info")">
                                     @Html.DisplayFor(m => m.Activities[i].DisplayName)
                                 </span><!--Pitching or pulling-->
                                 <!---------ie: FDC-FPK: Forword pick area of FDC------------->
-                                <strong>@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay):</strong>
+                                <strong>&nbsp; @Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay): </strong>
                                 <small>@Model.Activities[i].AreaDescription</small>
                                 <!---------------------->
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.Activities[i])
                                 @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
                                 {
@@ -132,11 +132,11 @@
             {
                 if (Model.IsFrozen)
                 {
-                    <span class="bg-info">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span>
+                    <small class="bg-info">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</small>
                 }
                 else
                 {
-                    <span class="bg-danger">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</span>
+                    <small class="bg-danger">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</small>
                 }
             }
             @Html.DisplayFor(m => m.OverShippedPieces)
