@@ -160,19 +160,20 @@
                                     {
 
                                         <li class="list-group-item list-group-item-@Html.Raw(Model.Buckets[i].Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
-                                           <div class="row">
-                                               <div class="col-md-4">
-                                                   @Html.DisplayFor(m => m.Buckets[i].Activities[j].DisplayName)
-                                                   <strong>&nbsp; @Html.DisplayFor(m => m.Buckets[i].Activities[j].AreaShortNameDisplay)</strong>
-                                               </div>
-                                               <div class="col-md-8">
-                                                   <div class="progress">
-                                                       <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                                           60%
-                                                       </div>40%
-                                                   </div>
-                                               </div>
-                                           </div>                                         
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    @Html.DisplayFor(m => m.Buckets[i].Activities[j].DisplayName)
+                                                    <strong>&nbsp; @Html.DisplayFor(m => m.Buckets[i].Activities[j].AreaShortNameDisplay)</strong>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="progress">
+                                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.Buckets[i].Activities[j].PercentPiecesComplete%;">
+                                                            @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete)
+                                                        </div>
+                                                        @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete)
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                         </li>
                                     }
@@ -192,11 +193,11 @@
 
 
 
-                    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i],
+                    @*@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i],
             new ViewDataDictionary(new
             {
                 IsEditable = false
-            }))
+            }))*@
                 </div>
             </div>
 

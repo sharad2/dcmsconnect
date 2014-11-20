@@ -7,7 +7,7 @@
 
 
 <div class="row @(Model.IsFrozen ? "text-muted" : (string)null)">
-    <h3 class="list-group-item-heading" style="text-align:center">
+    @*<h3 class="list-group-item-heading" style="text-align:center">
         <mark>
             <u>@Html.DisplayFor(m => m.BucketId): @Html.DisplayFor(m => m.BucketName)</u>
             @if (Model.IsFrozen)
@@ -15,7 +15,7 @@
                 <small class="badge"> <em>Frozen</em></small>
             }
         </mark>
-    </h3>
+    </h3>*@
     
 
 
@@ -31,7 +31,7 @@
 
             DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
 
-            &bull; <small>Priority</small>
+            @*&bull; <small>Priority</small>
             <span data-increase-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))"
                   data-decrease-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
                 @if (isEditable && Model.BucketState != ProgressStage.Completed)
@@ -45,7 +45,7 @@
 
                 <span class="span-Priority"> @Html.DisplayFor(m => m.PriorityId)</span>
                 }
-            </span>
+            </span>*@
 
 
             &bull; @Html.DisplayFor(m => m.CountPickslips)
