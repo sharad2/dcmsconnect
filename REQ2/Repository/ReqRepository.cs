@@ -235,11 +235,12 @@ namespace DcmsMobile.REQ2.Repository
         /// <returns></returns>
         public string GetCtnRevId(string reqId)
         {
-            const string QUERY =
-           @"  select c.ctn_resv_id
-             from  <proxy />ctnresv c where c.dcms4_req_id=:dcms4_req_id";
-            var binder = SqlBinder.Create(row => row.GetString("ctn_resv_id")).Parameter("dcms4_req_id", reqId);
-            return _db.ExecuteSingle(QUERY, binder);
+//            const string QUERY =
+//           @"  select c.ctn_resv_id
+//             from  <proxy />ctnresv c where c.ctn_resv_id=:dcms4_req_id";
+//            var binder = SqlBinder.Create(row => row.GetString("ctn_resv_id")).Parameter("dcms4_req_id", reqId);
+//            return _db.ExecuteSingle(QUERY, binder);
+            return reqId;
         }
 
         /// <summary>
