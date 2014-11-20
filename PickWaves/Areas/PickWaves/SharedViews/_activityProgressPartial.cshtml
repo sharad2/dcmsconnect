@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-7">
                 <div class="progress" style="margin-bottom:0px;" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) pieces picked @Html.DisplayFor(m => m.PickingDateRange). @Html.DisplayFor(m => m.PiecesIncomplete) pieces remaining">
-                    @if (Model.PiecesComplete > 0)
+                    @*@if (Model.PiecesComplete > 0)
                     {
                         <div data-boxstate="@((int)(DcmsMobile.PickWaves.Helpers.BoxState.Completed))" class="progress-bar progress-bar-success" style="width:@Model.PercentPiecesComplete%; min-width:30%;">
                             @Html.DisplayFor(m => m.PiecesComplete)
@@ -23,8 +23,13 @@
                         <div data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)" class="progress-bar progress-bar-info" style="width:@(100 - Model.PercentPiecesComplete)% min-width:30%;">
                             @Html.DisplayFor(m => m.PiecesIncomplete)
                         </div>
-                    }
-
+                    }*@
+                    <div data-boxstate="@((int)(DcmsMobile.PickWaves.Helpers.BoxState.Completed))" class="progress-bar progress-bar-success" style="width:@Model.PercentPiecesComplete%; min-width:10%;color:black">
+                        @Html.DisplayFor(m => m.PiecesComplete)
+                    </div>
+                    <div data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)" class="progress-bar" style="color:black">
+                        @Html.DisplayFor(m => m.PiecesIncomplete)
+                    </div>
                 </div>
             </div>
             <div class="col-md-5">
