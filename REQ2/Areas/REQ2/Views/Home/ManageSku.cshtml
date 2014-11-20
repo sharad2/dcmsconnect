@@ -76,11 +76,11 @@
                 </span>@Html.ActionLink("Back to Recent Requests", MVC_REQ2.REQ2.Home.Index())<br />
                 <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
                 </span>
-                @Html.ActionLink(string.Format("Carton List for Request #{0}", Model.CurrentRequest.Header.ReqId), MVC_REQ2.REQ2.Home.DisplayCartonList(Model.CurrentRequest.Header.ResvId))<br />
+                @Html.ActionLink(string.Format("Carton List for Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.DisplayCartonList(Model.CurrentRequest.Header.ResvId))<br />
                 @if (!Model.CurrentRequest.AssignedFlag)
                 {
                     <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">
-                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.CurrentRequest.Header.ReqId), MVC_REQ2.REQ2.Home.CreateRequest(Model.CurrentRequest.Header.ResvId))
+                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.CreateRequest(Model.CurrentRequest.Header.ResvId))
                 }
             </div>
         </div>
@@ -98,7 +98,7 @@
         </div>
     </div>
 }
-<h2>@Html.LabelFor(m => m.CurrentRequest.Header.ResvId) #@Html.DisplayFor(m => m.CurrentRequest.Header.ReqId)</h2>
+<h2>@Html.LabelFor(m => m.CurrentRequest.Header.ResvId) #@Html.DisplayFor(m => m.CurrentRequest.Header.ResvId)</h2>
 <div id="divTabs" data-unassign-carton-url="@Url.Action(MVC_REQ2.REQ2.Home.UnAssignCartons())" data-selected-index="@selectedTabIndex">
     <ul>
         <li><a href="#divAddSku">Add SKU</a></li>
