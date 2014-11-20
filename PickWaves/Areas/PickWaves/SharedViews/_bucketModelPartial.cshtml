@@ -100,7 +100,7 @@
 
                     <p class='list-group-item-text'>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-6">
                                 <span class="label label-@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "success" : "info")">
                                     @Html.DisplayFor(m => m.Activities[i].DisplayName)
                                 </span><!--Pitching or pulling-->
@@ -109,7 +109,7 @@
                                 <small>@Model.Activities[i].AreaDescription</small>
                                 <!---------------------->
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.Activities[i])
                                 @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
                                 {
