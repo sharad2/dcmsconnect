@@ -39,10 +39,15 @@
     }
 }
 
-<div class="container-fluid">
+<div class="container">
+    <div class="page-header">
+        <h3>
+           Pick Waves Home
+        </h3>
+    </div>
     <div role="tabpanel">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
+        <ul class="nav nav-tabs bg-info" role="tablist">
             @if (Model.ImportedOrders.Count > 0)
             {
                 <li role="presentation" class="active">
@@ -78,7 +83,7 @@
                     @if (Model.UserIsManager)
                     {
                         <blockquote>
-                            You can create new pick waves from here by simply clicking the customer Id.
+                            <p class="text-info">You can create new pick waves from here by simply clicking the customer Id.</p>
                         </blockquote>
                     }
                     else
@@ -87,67 +92,74 @@
                             Want to create new pick waves ? login as a user who has <em>@Model.ManagerRoleName</em> role.
                         </blockquote>
                     }
-                    Imported Order Summary
+                    <h4>Imported Order Summary</h4>
                     <ul class="list-group">
-                        <li class="list-group-item active">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h4 class="list-group-itemt list-group-item-heading">
-                                        @Model.ImportedOrders.Count customers
-                                        <small>
-                                            <span class="label label-info">
-                                                Total PickSlip @Html.DisplayFor(m => m.TotalImportedPickslipCount)
-                                            </span>
-                                            <em>Total DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</em>
-                                        </small>
-                                    </h4>
-
-                                </div>
-                                <div class="col-md-6">
-                                    Total(@Html.DisplayFor(m => m.TotalImportedPiecesOrdered) Pieces of
-                                    @Html.DisplayFor(m => m.TotalImportedDollarsOrdered))
-                                    <p class="list-group-item-text badge pull-right">
-                                       Import Date @Html.DisplayFor(m => m.ImportDateRange)
-                                    </p>
-
-
-                                </div>
-                            </div>
-                        </li>
                         <li class="list-group-item list-group-item-success">
                             <div class="row">
                                 <div class="col-md-6">
                                     <h4 class="list-group-item-heading">
-                                        Customer
-                                        <small>
-                                            <span class="label label-info">
-                                                # PickSlip
-                                            </span>
-                                            <em>DC Cancel Date</em>
-                                        </small>
-                                    </h4>
-                                </div>
+                                        @Model.ImportedOrders.Count Customers
 
-                                <div class="col-md-6">
-                                    # Orderd Pieces of $ Price
-                                    <p class="list-group-item-text badge pull-right">
-                                        Import date on
-                                    </p>
+                                        <span class="label label-info">
+                                            @Html.DisplayFor(m => m.TotalImportedPickslipCount) Pickslips
+                                        </span>
+                                        <small><em>&nbsp; Imported @Html.DisplayFor(m => m.ImportDateRange)</em></small>
+
+                                    </h4>
+
+                                </div>
+                                <div class="col-md-3">                                    
+                                    <h4 class="list-group-item-heading">
+                                        <span class="label label-success">
+                                            Ordered  @Html.DisplayFor(m => m.TotalImportedDollarsOrdered)
+                                        </span>
+                                        &nbsp;<small>@Html.DisplayFor(m => m.TotalImportedPiecesOrdered) Pieces</small>
+                                    </h4>
+
+
+                                </div>
+                                <div class="col-md-3" style="text-align:right">                                    
+                                    <span class="badge">
+                                        DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
+                                    </span>
+                                    <span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                                 </div>
                             </div>
                         </li>
+                        @*<li class="list-group-item list-group-item-success">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="list-group-item-heading">
+                            Customer
+                            <small>
+                                <span class="label label-info">
+                                    # PickSlip
+                                </span>
+                                <em>Imported on</em>
+                            </small>
+                        </h4>
+                    </div>
+
+                    <div class="col-md-6">
+                        # Orderd Pieces of $ Price
+                        <p class="list-group-item-text badge pull-right">
+                            DC cancelled on
+                        </p>
+                    </div>
+                </div>
+            </li>*@
                         @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
                         {
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4 class="list-group-item-heading">
-                                            @(i + 1))  @if (Model.UserIsManager)
+                                            <small>@(i + 1)</small>  @if (Model.UserIsManager)
                                             {
                                                 <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.ImportedOrders[i].CustomerId)))" title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
                                                     @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
                                                 </a>
-                                                <span @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                                <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
                                                     @if (Model.ImportedOrders[i].IsCustomerActive)
                                                     {
                                                         @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
@@ -156,7 +168,7 @@
                                                     {
                                                         <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                                     }
-                                                </span>
+                                                </small>
                                             }
                                             else
                                             {
@@ -171,21 +183,29 @@
                                                         <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                                     }
                                                 </span>
-                                            }
+                                            }  <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
                                             <small>
-                                                <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
-                                                <em>@Html.DisplayFor(m => m.ImportedOrders[i].DcCancelDateRange)</em>
+
+                                                <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
+
                                             </small>
                                         </h4>
 
                                     </div>
-                                    <div class="col-md-6">
-                                        @Html.DisplayFor(m => m.ImportedOrders[i].PiecesOrdered) of
-                                        @Html.DisplayFor(m => m.ImportedOrders[i].DollarsOrdered)
-                                        <p class="list-group-item-text badge pull-right">
-                                            @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
-                                        </p>
+                                    <div class="col-md-3">
+                                        <h4>
+                                            <span class="label label-success">
+                                                @Html.DisplayFor(m => m.ImportedOrders[i].DollarsOrdered)
+                                            </span>
+                                            &nbsp;<small>@Html.DisplayFor(m => m.ImportedOrders[i].PiecesOrdered)</small>
+                                        </h4>
 
+
+                                    </div>
+                                    <div class="col-md-3" style="text-align:right">
+                                        <span class="badge">
+                                            @Html.DisplayFor(m => m.ImportedOrders[i].DcCancelDateRange)
+                                        </span>
                                     </div>
                                 </div>
                             </li>
