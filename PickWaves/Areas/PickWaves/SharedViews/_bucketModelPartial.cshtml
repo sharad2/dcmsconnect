@@ -99,25 +99,27 @@
                 {
 
                     <p class='list-group-item-text'>
-                        <span class="label label-@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "success" : "info")">
-                            @Html.DisplayFor(m => m.Activities[i].DisplayName)
-                        </span><!--Pitching or pulling-->
-                        <!---------ie: FDC-FPK: Forword pick area of FDC------------->
-                        <strong>@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay):</strong>
-                        <small>@Model.Activities[i].AreaDescription</small>
-                        <!---------------------->
-                        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.Activities[i])
-                        @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
-                        {
-                            <span>
-                                &bull; To minimize the number of pieces to be pitched,
-                                <!--Where this edit link goes?-->
-                                <a href="#" class="edit-wave">
-                                    Edit
-                                </a>and save the pick wave.
-                            </span>
+                        <div>
+                            <span class="label label-@Html.Raw(Model.Activities[i].ActivityType == BucketActivityType.Pulling ? "success" : "info")">
+                                @Html.DisplayFor(m => m.Activities[i].DisplayName)
+                            </span><!--Pitching or pulling-->
+                            <!---------ie: FDC-FPK: Forword pick area of FDC------------->
+                            <strong>@Html.DisplayFor(m => m.Activities[i].AreaShortNameDisplay):</strong>
+                            <small>@Model.Activities[i].AreaDescription</small>
+                            <!---------------------->
+                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.Activities[i])
+                            @if (Model.Activities[i].ActivityType == BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[i].AreaId) && isEditable)
+                            {
+                                <span>
+                                    &bull; To minimize the number of pieces to be pitched,
+                                    <!--Where this edit link goes?-->
+                                    <a href="#" class="edit-wave">
+                                        Edit
+                                    </a>and save the pick wave.
+                                </span>
 
-                        }
+                            }
+                        </div>
                     </p>
                 }
             }

@@ -5,19 +5,19 @@
     Each div.progressbar-value has attribute data-boxstate which indicates the nature of the value (Completed, InProgress).
      Wave.cshtml uses these attributes to handle clicks on progress values.
 *@
-<div data-activity="@Model.ActivityType">
+<div data-activity="@Model.ActivityType" >
     @if (Model.PiecesComplete > 0 || Model.PiecesIncomplete > 0)
     {
-        <div class="progress" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) pieces picked @Html.DisplayFor(m => m.PickingDateRange). @Html.DisplayFor(m => m.PiecesIncomplete) pieces remaining">
+        <div class="progress" style="margin-bottom:0px" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) pieces picked @Html.DisplayFor(m => m.PickingDateRange). @Html.DisplayFor(m => m.PiecesIncomplete) pieces remaining">
             @if (Model.PiecesComplete > 0)
             {
-                <div data-boxstate="@((int)(DcmsMobile.PickWaves.Helpers.BoxState.Completed))" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@Html.DisplayFor(m => m.PiecesComplete)" aria-valuemin=" 0" aria-valuemax="100" style="width:@Model.PercentPiecesComplete%;  min-width:40px;">
+                <div data-boxstate="@((int)(DcmsMobile.PickWaves.Helpers.BoxState.Completed))" class="progress-bar progress-bar-success" style="width:@Model.PercentPiecesComplete%; min-width:30%;">
                     @Html.DisplayFor(m => m.PiecesComplete)
                 </div>
             }
             @if (Model.PiecesComplete > 0)
             {
-                <div data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Html.DisplayFor(m => m.PiecesIncomplete)" aria-valuemin="0" aria-valuemax="100" style="width:@(100 - Model.PercentPiecesComplete)%; min-width:40px;">
+                <div data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)" class="progress-bar progress-bar-info" style="width:@(100 - Model.PercentPiecesComplete)% min-width:30%;">
                     @Html.DisplayFor(m => m.PiecesIncomplete)
                 </div>
             }
@@ -46,11 +46,11 @@
 
     @if (Model.UnderPickedPieces.HasValue)
     {
-        <strong class="text-success">@Html.DisplayFor(m => m.UnderPickedPieces) under picked</strong>
+        <strong class="text-danger">&bull; @Html.DisplayFor(m => m.UnderPickedPieces) under picked</strong>
     }
     @if (Model.CancelledPieces.HasValue)
     {
-        <strong class="text-danger">@Html.DisplayFor(m => m.CancelledPieces) cancelled</strong>
+        <strong class="text-danger">&bull; @Html.DisplayFor(m => m.CancelledPieces) cancelled</strong>
     }
 
 </div>
