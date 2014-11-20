@@ -6,16 +6,18 @@
 }
 
 
-<div class="row">
+<div class="row @(Model.IsFrozen ? "text-muted" : (string)null)">
     <h3 class="list-group-item-heading" style="text-align:center">
         <mark>
             @Html.DisplayFor(m => m.BucketId): @Html.DisplayFor(m => m.BucketName)
             @if (Model.IsFrozen)
             {
-                <small> <em>Frozen</em></small>
+                <small class="badge"> <em>Frozen</em></small>
             }
         </mark>
     </h3>
+
+
 
     <div class="col-md-6">
         <h4 class="list-group-item-heading" title="@Html.DisplayFor(m => m.PiecesComplete) of @Html.DisplayFor(m => m.PiecesToShip) picked">
@@ -57,11 +59,11 @@
             Created on @Html.DisplayFor(m => m.CreationDate) &bull; by <small>@Html.DisplayFor(m => m.CreatedBy)</small>
         </p>
         <p class="list-group-item-text">
-            @if (!Model.RequiredBoxExpediting)
+            @if (Model.RequiredBoxExpediting)
             {
                 <small class="text-info">&bull; Required Box Expediting</small>
             }
-            @if (!Model.QuickPitch)
+            @if (Model.QuickPitch)
             {
                 <small class="text-info">&bull; Quick Pitching Required</small>
             }
@@ -69,7 +71,7 @@
             {
                 <small class="bg-danger">&bull; @Html.DisplayFor(m => m.CountNotAssignedSku)</small>
             }
-            
+
         </p>
     </div>
 
@@ -138,7 +140,7 @@
             <span class="bg-danger">Area is not decided yet for pulling and/ pitching</span>
         }
     </div>
-  
+
 </div>
 
 
