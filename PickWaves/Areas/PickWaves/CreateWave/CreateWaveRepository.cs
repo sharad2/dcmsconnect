@@ -535,7 +535,7 @@ SELECT *
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IEnumerable<VirtualWarehouse> GetVWhListOfCustomer(string customerId)
+        public IList<VirtualWarehouse> GetVWhListOfCustomer(string customerId)
         {
             const string QUERY = @"
             SELECT TVW.VWH_ID           AS VWH_ID, 

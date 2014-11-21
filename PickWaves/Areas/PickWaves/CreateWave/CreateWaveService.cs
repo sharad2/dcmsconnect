@@ -79,7 +79,7 @@ namespace DcmsMobile.PickWaves.Repository.CreateWave
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IEnumerable<VirtualWarehouse> GetVWhListOfCustomer(string customerId)
+        public IList<VirtualWarehouse> GetVWhListOfCustomer(string customerId)
         {
             return _repos.GetVWhListOfCustomer(customerId);
         }
