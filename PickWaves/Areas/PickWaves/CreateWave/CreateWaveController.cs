@@ -181,7 +181,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// SelectedDimension,CustomerId
         /// </param>       
         /// <returns></returns>
-        [Route("index")]
+        [Route]
         public virtual ActionResult Index(IndexViewModel model)
         {
             //Showing only those area where order of customer are available.
@@ -321,7 +321,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </param>
         /// <returns></returns>
         [HttpPost]
-        [Route("pickslipofdim")]
+        [Route("adddim")]
         public virtual ActionResult AddPickslipsOfDim(IndexViewModel model)
         {
             if (model.ColDimVal != null || model.RowDimVal != null)
@@ -408,7 +408,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// model.CustomerId, model.RowDimIndex, model.ColDimIndex, model.RowDimVal, model.ColDimVal,model.BucketId
         /// </param
         /// <returns></returns>
-        [Route("picksliplist")]
+        [Route("ps")]
         public virtual ActionResult PickslipList(PickslipListViewModel model)
         {
             if (string.IsNullOrEmpty(model.CustomerId))
@@ -457,7 +457,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="model"> </param>
         /// <returns></returns>
         [HttpPost]
-        [Route("pickslipbucket")]
+        [Route("addps")]
         public virtual ActionResult AddPickslipsToBucket(PickslipListViewModel model)
         {
             if (model.BucketId == null)
