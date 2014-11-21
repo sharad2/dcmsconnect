@@ -42,18 +42,12 @@
                     <a @Html.Raw(Model.IsFrozen ? "" : "class='hidden'")><span class="glyphicon glyphicon-ok-circle"></span> Unfreeze</a>
                     <a @Html.Raw(Model.IsFrozen ? "class='hidden'" : "")><span class="glyphicon glyphicon-ban-circle"></span> Freeze</a>
                 </li>
-                <li class="divider"></li>
-                <li>
-                    <a @Html.Raw(isEditable  && Model.IsFrozen ? "" : "disabled'")
-                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
-                        <span class="glyphicon glyphicon-plus"></span>  Add Pickslips
-                    </a>
-                </li>              
-                <li>
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId)))">
-                        <span class="glyphicon glyphicon-file"></span>Create New Wave
-                    </a>
-                </li>
+               @* <li class="divider"></li>
+    <li>
+         <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId)))">
+             <span class="glyphicon glyphicon-file"></span>Create New Wave
+         </a>
+     </li>*@
             </ul>
         </div>
 
@@ -101,6 +95,12 @@
                         @Html.DisplayFor(m => m.CancelledPieces)
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountPickslips) Pickslips
+                            <small>
+                                <a @Html.Raw(isEditable && Model.IsFrozen ? "" : "disabled'")
+                                   href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
+                                    Add more
+                                </a>
+                            </small>
                             &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
                             <small>
                                 @if (Model.RequiredBoxExpediting)
