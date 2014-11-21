@@ -127,10 +127,10 @@ namespace DcmsMobile.REQ2.Repository
             return _repos.GetCartonList(ctnresvId, 500);
         }
 
-        public string GetCtnRevId(string reqId)
-        {
-            return _repos.GetCtnRevId(reqId);
-        }
+        //public string GetCtnRevId(string reqId)
+        //{
+        //    return _repos.GetCtnRevId(reqId);
+        //}
 
         #endregion
 

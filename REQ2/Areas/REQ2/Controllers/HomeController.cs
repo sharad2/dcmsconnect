@@ -237,19 +237,19 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
         /// this method is use for existing request 
         /// when user give reqId we get ctnresvId and redirect to DisplayRequest 
         /// </summary>
-        /// <param name="reqId"></param>
+        /// <param name="ctnresvId"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult DisplayExistingRequest(string reqId)
+        public virtual ActionResult DisplayExistingRequest(string ctnresvId)
         {
             int _reqId;
-            if (!int.TryParse(reqId, out _reqId))
+            if (!int.TryParse(ctnresvId, out _reqId))
             {
                 AddStatusMessage("Please enter the valid Request ID");
                 return Index();
             }
 
-            var ctnresvId = _service.GetCtnRevId(reqId);
+           // var ctnresvId = _service.GetCtnRevId(reqId);
             return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(ctnresvId));
         }
 
