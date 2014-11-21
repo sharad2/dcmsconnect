@@ -18,7 +18,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {
     [AuthorizeEx("Receiving requires Role {0}", Roles = "SRC_RECEIVING")]
     [RouteArea("Receiving")]
-    [RoutePrefix("Home")]
+    //[RoutePrefix("Home")]
     public partial class HomeController : EclipseController
     {
         private GroupSelectListItem Map(CartonArea src)
@@ -94,9 +94,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// Output Expectation: Recent processes are queried and returned in the model.
         /// </para>
         /// </remarks>
-        [ActionName("Index")]
         [HttpGet]
-        [Route("~/", Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Receving)]
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Receving)]
         public virtual ActionResult Index()
         {
 
