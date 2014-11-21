@@ -48,13 +48,14 @@
                                                                 DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))">
 
                             @Model.Buckets[i].BucketId
-                        </a> <small>@Model.Buckets[i].BucketName</small>
+                        </a>
+                        <small>@Model.Buckets[i].BucketName </small>
                         @if (Model.Buckets[i].IsFrozen)
                         {
                             <small class="badge"> <em>Frozen</em></small>
                         }
                     </h3>
-                    <span>Created @Html.DisplayFor(m => m.Buckets[i].CreationDate) by @Html.DisplayFor(m => m.Buckets[i].CreatedBy)</span>
+                    <small>Created @Html.DisplayFor(m => m.Buckets[i].CreationDate) @Html.DisplayFor(m => m.Buckets[i].CreatedBy)</small>
 
                     <!-- Split button -->
                     <div class="btn-group pull-right">
