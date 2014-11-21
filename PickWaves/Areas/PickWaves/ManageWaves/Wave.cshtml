@@ -77,65 +77,70 @@
         </div>
     }*@
 <div class="container">
+    <div class="page-header">
+        <h2>
+            @ViewBag.Title
+        </h2>
+    </div>
     @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
     {
-        <div class="suggestions">
-            <ul>
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo) && Request.UrlReferrer != null)
-                {
-                    <li>
-                        <a href="@this.Request.UrlReferrer.OriginalString">Go Back</a> to previous page.
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing))
-                {
-                    <li>
-                        Not sure? @Html.ActionLink("Cancel Editing", MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId)))
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.EditMe))
-                {
-                    <li>
-                        Want to modify this Pick wave? @Html.ActionLink("Edit Pick Wave", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
-                                new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId)))
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.FreezeOthers))
-                {
-                    <li>
-                        @Html.ActionLink("Freeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress, null)))
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeOthers))
-                {
-                    <li>
-                        @Html.ActionLink("Unfreeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen, null)))
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain))
-                {
-                    <li>
-                        Not what you are looking for? @Html.ActionLink("Search again", MVC_PickWaves.PickWaves.Home.Index())
-                    </li>
-                }
-                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))
-                {
-                    <li style="font-size:1.1em; font-weight:bold">
-                        Ready to start work on this pick wave?
-                        <a href="#" id="unfreezeWave">Unfreeze</a>
-                    </li>
-                }
-                <li>
+        <blockquote class="text-info">          
+                <p>
                     @Html.ActionLink(string.Format("Other {0} Waves of this customer", Model.Bucket.StateDisplayName),
                                      MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))
-                </li>
-            </ul>
-        </div>
+                </p>
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo) && Request.UrlReferrer != null)
+                {
+                    <span>
+                        <a href="@this.Request.UrlReferrer.OriginalString">Go Back</a> to previous page.
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing) )
+                {
+                    <span>
+                        Not sure? @Html.ActionLink("Cancel Editing", MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId)))
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.EditMe))
+                {
+                    <span>
+                        Want to modify this Pick wave? @Html.ActionLink("Edit Pick Wave", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
+                                new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId)))
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.FreezeOthers))
+                {
+                    <span>
+                        @Html.ActionLink("Freeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress, null)))
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeOthers))
+                {
+                    <span>
+                        @Html.ActionLink("Unfreeze more Pick Waves", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+                (Model.Bucket.MaxCustomerId, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen, null)))
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.SearchAgain))
+                {
+                    <span>
+                        Not what you are looking for? @Html.ActionLink("Search again", MVC_PickWaves.PickWaves.Home.Index())
+                    </span>
+                }
+                @if (Model.HighlightedActions.HasFlag(DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))
+                {
+                    <p >
+                        Ready to start work on this pick wave?
+                        <a href="#" id="unfreezeWave">Unfreeze</a>
+                    </p>
+                }
+               
+           
+        </blockquote>
     }
-    <div class="boxContent">
+    <div >
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {
             <blockquote style="margin-left: 0.5em; background-color: rgb(221, 238, 238)">
@@ -153,16 +158,12 @@
         }
         else
         {
-            <div id="bucketModelPartial">
+           
                 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary(new
                                {
                                    IsEditable = Model.UserIsManager
-                               }))
-                @*@Html.DisplayFor(m => m.Bucket, MVC_PickWaves.PickWaves.SharedViews.Views.DisplayTemplates.BucketModel, new
-                    {
-                        IsEditable = Model.UserIsManager
-                    })*@
-            </div>
+                               }))            
+            
         }
 
         <div id="filterStatus" style="display: inline">
