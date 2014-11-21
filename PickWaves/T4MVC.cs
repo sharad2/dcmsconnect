@@ -223,11 +223,9 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/ManageWaves";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js") : Url("Index.js");
                 public static readonly string ManageWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.css") ? Url("ManageWave-Index.min.css") : Url("ManageWave-Index.css");
                      
-                public static readonly string ManageWave_Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.js") ? Url("ManageWave-Index.min.js") : Url("ManageWave-Index.js");
-                public static readonly string ManageWave_Index_min_js_map = Url("ManageWave-Index.min.js.map");
-                public static readonly string ManageWave_Index_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.partial.min.js") ? Url("ManageWave-Index.partial.min.js") : Url("ManageWave-Index.partial.js");
                 public static readonly string ManageWave_Wave_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.css") ? Url("ManageWave-Wave.min.css") : Url("ManageWave-Wave.css");
                      
                 public static readonly string ManageWave_Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.js") ? Url("ManageWave-Wave.min.js") : Url("ManageWave-Wave.js");
@@ -246,6 +244,7 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/SharedViews";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _bucketModel_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_bucketModel.partial.min.js") ? Url("_bucketModel.partial.min.js") : Url("_bucketModel.partial.js");
                 public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class DisplayTemplates {

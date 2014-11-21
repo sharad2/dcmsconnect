@@ -225,6 +225,13 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\ManageWaves\Index.js">
+      <DependentUpon>Index.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -234,6 +241,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
+    <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -343,15 +352,12 @@
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js.map">
       <DependentUpon>ManageSkuCase.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.js.bundle" />
+    <None Include="Areas\PickWaves\ManageWaves\Index.js.bundle" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.js">
       <DependentUpon>ManageSkuCase.js.bundle</DependentUpon>
     </None>
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.js.map">
-      <DependentUpon>ManageWave-Index.min.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js.bundle" />
     <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.js.map">
@@ -360,15 +366,8 @@
     <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.partial.js" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.partial.js" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.partial.js" />
     <None Include="Areas\PickWaves\CreateWave\selectable.partial.js" />
     <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\_bucketEditorPartial.partial.js" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.js">
-      <DependentUpon>ManageWave-Index.js.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.js">
-      <DependentUpon>ManageWave-Index.js</DependentUpon>
-    </Content>
     <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js">
       <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
     </None>

@@ -12,6 +12,6 @@
   <files>
     <file>selectable.partial.js</file>
     <file>CreateWave-PickslipList.partial.js</file>
-	<file>/Areas/PickWaves/SharedViews/DisplayTemplates/bucketModel.partial.js</file>
+	<file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file>
   </files>
 </bundle>

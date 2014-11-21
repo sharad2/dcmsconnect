@@ -11,7 +11,7 @@
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
     <file>ManageWave-Wave.partial.js</file>
-    <file>/Areas/PickWaves/SharedViews/DisplayTemplates/bucketModel.partial.js</file> 
+    <file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file> 
     <file>/Areas/PickWaves/SharedViews/DisplayTemplates/_bucketEditorPartial.partial.js</file>
   </files>
 </bundle>
