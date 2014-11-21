@@ -7,7 +7,16 @@
         //alert('submit');
         $('form', e.delegateTarget).trigger('submit');
     });
-
+    $(document).on('click', 'button[data-priority-url]', function (e) {
+    
+       // alert($(e.target).data('priority-url'));
+        $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
+           // alert(data);
+            $(e.target).closest('div.input-group').find('input:text').val(data);
+        }).error(function () {
+            alert('error');
+        });
+    });
 });
 
 
