@@ -138,19 +138,19 @@
             </form>
         </fieldset>
     </div>
+    <hr />
     <div role="tabpanel">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation">
-                <form class="form-inline">
+                <div class="form-inline" style="margin-right:1em; margin-left:0.5em">
                     <select class="form-control" id="ddlRowDim">
                         @foreach (var item in Model.RowDimensionList)
                         {
                             <option @OptionAttributes(item, Model.RowDimIndex)>@item.Text</option>
                         }
                     </select>
-                    &nbsp;
-                </form>
+                </div>
             </li>
             @for (var i = 0; i < Model.Rows.Count; ++i)
             {
