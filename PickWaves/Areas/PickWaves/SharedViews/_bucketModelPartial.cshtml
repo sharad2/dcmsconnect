@@ -4,10 +4,9 @@
     // To use this partial you must:
     // - Include _bucketModelModalPartial after your container div
     // - Include script _bucketModel.partial.js in your script bundle
-    var obj = ViewBag.IsEditable;
-    var isEditable = obj != null && (bool)obj;
+    bool? obj = ViewBag.IsAuthorized;
+    var isAuthorized = obj ?? false;  // Is the user authorized to edit
 }
-
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -26,12 +25,12 @@
             }
         </h3>
         <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>
-
+        @if (isAuthorized) { 
         <div class="pull-right">
             @if (Model.IsFrozen)
             {
 
-                <a class="btn btn-default btn-sm" @Html.Raw(isEditable && Model.IsFrozen ? "" : "disabled'")
+                <a class="btn btn-default btn-sm"
                    href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
                                                             Model.BucketId,
                                                         DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
@@ -46,7 +45,7 @@
                 </button>
             }
         </div>
-
+        }
         <!-- Split button -->
         @*<div class="btn-group pull-right">
                             <a class="btn btn-default btn-sm" @Html.Raw(isEditable && Model.IsFrozen ? "" : "disabled'")
@@ -83,15 +82,15 @@
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-success">
                         <div class="btn-group pull-right" role="group">
-                            <a class="btn btn-default btn-sm" @Html.Raw(isEditable ? "" : "disabled") title="Decrease priority">
+                            <button class="btn btn-default btn-sm" disabled="@(!isAuthorized)" title="Decrease priority">
                                 <span class="glyphicon glyphicon-arrow-down">
                                 </span>
-                            </a>
+                            </button>
                             <button type="button" class="btn btn-default btn-sm" disabled>Priority @Model.PriorityId</button>
-                            <a class="btn btn-default btn-sm" @Html.Raw(isEditable ? "" : "disabled") title="Increase priority">
+                            <button class="btn btn-default btn-sm" disabled="@(!isAuthorized)" title="Increase priority">
                                 <span class="glyphicon glyphicon-arrow-up"></span>
 
-                            </a>
+                            </button>
                         </div>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) boxes Validated
@@ -118,12 +117,14 @@
                         @Html.DisplayFor(m => m.CancelledPieces)
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountPickslips) Pickslips
-                            <small>
-                                <a @Html.Raw(isEditable && Model.IsFrozen ? "" : "disabled'")
-                                   href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
-                                    Add more
-                                </a>
-                            </small>
+                            @if (isAuthorized && Model.IsFrozen)
+                            {
+                                <small>
+                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
+                                        Add more
+                                    </a>
+                                </small>
+                            }
                             &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
                             <small>
                                 @if (Model.RequiredBoxExpediting)
@@ -190,16 +191,6 @@
                                             </p>
                                         </div>
                                     </div>
-                                    @if (Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Activities[j].AreaId) && isEditable)
-                                    {
-                                        <span>
-                                            &bull; To minimize the number of pieces to be pitched,
-                                            <a href="#" class="edit-wave">
-                                                Edit
-                                            </a>and save the pick wave.
-                                        </span>
-
-                                    }
                                 </li>
                             }
                         }

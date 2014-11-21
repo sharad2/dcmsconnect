@@ -37,10 +37,10 @@
     {
         for (var i = 0; i < Model.Buckets.Count; ++i)
         {
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary(new
+            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary
                                {
-                                   IsEditable = Model.UserIsManager
-                               }))
+                                   {"IsAuthorized", Model.UserIsManager}
+                               })
         }
     }
     else
