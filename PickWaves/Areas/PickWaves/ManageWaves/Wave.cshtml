@@ -95,11 +95,13 @@
     </div>
     @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
     {
-        <blockquote class="text-info">
+        <blockquote>
             <p>
-                @Html.ActionLink(string.Format("Other {0} Waves of this customer", Model.Bucket.StateDisplayName),
-                                     MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
-                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))
+                Other @Model.Bucket.StateDisplayName Waves of this customer
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+                                         (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
+                   @Model.Bucket.MaxCustomerId: @Model.Bucket.MaxCustomerName
+                </a>
             </p>
         </blockquote>
     }
