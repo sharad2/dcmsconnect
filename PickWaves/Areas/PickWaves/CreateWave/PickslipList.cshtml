@@ -30,6 +30,54 @@
     {
         @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
     }
+
+
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="list-group-item-heading">
+                        <a>Pickslip</a>
+                    </h4>
+                </div>
+                <div class="col-md-4">
+                    <abbr title="Purchase Order">PO</abbr>
+                    &bull; <abbr title="Distribution Center">DC</abbr> &bull; Store
+                </div>
+                <div class="col-md-4">
+                    Imported
+                    <span class="badge pull-right">Start</span>
+                </div>
+            </div>
+        </li>
+        @for (var i = 0; i < Model.PickslipList.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading">
+                            <input type="checkbox" class="ui-helper-hidden" name='@Model.NameFor(m => m.SelectedPickslip)' value="@Model.PickslipList[i].PickslipId" />
+                            <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PickslipId))' target="PO">@Model.PickslipList[i].PickslipId</a>
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+                        <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>
+                        &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId) &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DisplayFor(m => m.PickslipList[i].PickslipImportDate)
+                        <span class="badge pull-right">@Html.DisplayFor(m => m.PickslipList[i].StartDate)</span>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+<div class="boxContent">
+    @*@if (Model.Bucket != null)
+        {
+            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+        }*@
     <div>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
         {

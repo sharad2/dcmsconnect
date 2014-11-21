@@ -167,7 +167,7 @@
             {
                 <div role="tabpanel" class="tab-pane @(i == 0 ? "active" : null)" id="@("content_" + i.ToString())">
                     <div class="panel panel-default" style="margin-left:1mm">
-                        <div class="panel-heading">@Model.RowDimDisplayName @Model.Rows[i].DimensionDisplayValue</div>
+                        <div class="panel-heading"><h3 class="panel-title">@Model.RowDimDisplayName @Model.Rows[i].DimensionDisplayValue</h3></div>
                         <div class="panel-body">
                             <ul class="list-group">
                                 @foreach (var item in Model.Rows[i].PickslipCounts)
