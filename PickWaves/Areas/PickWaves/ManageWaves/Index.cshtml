@@ -49,13 +49,13 @@
 
                             @Model.Buckets[i].BucketId
                         </a> <small>@Model.Buckets[i].BucketName</small>
-                    @if (Model.Buckets[i].IsFrozen)
-                    {
-                        <small class="badge"> <em>Frozen</em></small>
-                    }
-                </h3>
+                        @if (Model.Buckets[i].IsFrozen)
+                        {
+                            <small class="badge"> <em>Frozen</em></small>
+                        }
+                    </h3>
                     <span>Created @Html.DisplayFor(m => m.Buckets[i].CreationDate) by @Html.DisplayFor(m => m.Buckets[i].CreatedBy)</span>
-                  
+
                     <!-- Split button -->
                     <div class="btn-group pull-right">
                         <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'")
@@ -86,18 +86,30 @@
                         <div class="col-md-6 ">
                             <ul class="list-group">
                                 <li class="list-group-item list-group-item-success">
+                                    <div class="btn-group pull-right" role="group">
+                                        <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Decrease priority">
+                                            <span class="glyphicon glyphicon-arrow-down">
+                                            </span>
+                                        </a>
+                                        <button type="button" class="btn btn-default btn-sm" disabled>Priority @Model.Buckets[i].PriorityId</button>
+                                        <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Increase priority">
+                                            <span class="glyphicon glyphicon-arrow-up"></span>
+
+                                        </a>
+                                    </div>
                                     <h4 class="list-group-item-heading">
                                         @Html.DisplayFor(m => m.Buckets[i].CountValidatedBoxes) of @Html.DisplayFor(m => m.Buckets[i].CountTotalBoxes) boxes Validated
 
                                     </h4>
+
                                     <p class="list-group-item-text">
-                                        @if (Model.Buckets[i].CountCancelledBoxes > 0 || true)
+                                        @if (Model.Buckets[i].CountCancelledBoxes > 0)
                                         {
 
                                             <span>&bull; @Html.DisplayFor(m => m.Buckets[i].CountCancelledBoxes) boxes cancelled</span>
 
                                         }
-                                        @if (Model.Buckets[i].CountNotStartedBoxes > 0 || true)
+                                        @if (Model.Buckets[i].CountNotStartedBoxes > 0)
                                         {
                                             <span>
                                                 &bull; @Html.DisplayFor(m => m.Buckets[i].CountNotStartedBoxes) boxes not started
@@ -106,35 +118,22 @@
                                     </p>
                                 </li>
                                 <li class="list-group-item list-group-item-info">
-                                    <p class="list-group-item-text">
-                                        @Html.DisplayFor(m => m.Buckets[i].UnderPickedPieces)
-                                        @Html.DisplayFor(m => m.Buckets[i].CancelledPieces)
-
-
-                                        <div class="btn-group" role="group">
-                                            <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Decrease priority">
-                                                <span class="glyphicon glyphicon-arrow-down">
-                                                </span>
-                                            </a>
-                                            <button type="button" class="btn btn-default btn-sm" disabled>Priority @Model.Buckets[i].PriorityId</button>
-                                            <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Increase priority">
-                                                <span class="glyphicon glyphicon-arrow-up"></span>
-
-                                            </a>
-                                        </div>
-                                        &bull; @Html.DisplayFor(m => m.Buckets[i].CountPickslips) Pickslips
+                                    @Html.DisplayFor(m => m.Buckets[i].UnderPickedPieces)
+                                    @Html.DisplayFor(m => m.Buckets[i].CancelledPieces)
+                                    <h4 class="list-group-item-heading">
+                                        @Html.DisplayFor(m => m.Buckets[i].CountPickslips) Pickslips
                                         &bull; @Html.DisplayFor(m => m.Buckets[i].CountPurchaseOrder) POs
-                                    </p>
-                                    <p class="list-group-item-text">
-                                        @if (Model.Buckets[i].RequiredBoxExpediting || true)
-                                        {
-                                            <span class="text-info">&bull; Required Box Expediting</span>
-                                        }
-                                        @if (Model.Buckets[i].QuickPitch || true)
-                                        {
-                                            <span class="text-info">&bull; Quick Pitching Required</span>
-                                        }
-                                    </p>
+                                        <small>
+                                            @if (Model.Buckets[i].RequiredBoxExpediting)
+                                            {
+                                                <span class="text-info"> Required Box Expediting</span>
+                                            }
+                                            @if (Model.Buckets[i].QuickPitch)
+                                            {
+                                                <span class="text-info">&bull; Quick Pitching Required</span>
+                                            }
+                                        </small>
+                                    </h4>
                                 </li>
                                 @if (Model.Buckets[i].CountNotAssignedSku > 0)
                                 {
@@ -166,17 +165,27 @@
                                         {
                                             <li class="list-group-item list-group-item-@Html.Raw(Model.Buckets[i].Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-5">
                                                         @Html.DisplayFor(m => m.Buckets[i].Activities[j].DisplayName)
                                                         <strong>&nbsp; @Html.DisplayFor(m => m.Buckets[i].Activities[j].AreaShortNameDisplay)</strong>
                                                     </div>
-                                                    <div class="col-md-8">
-                                                        <div class="progress" title="@Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Buckets[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete) pieces remaining">
+                                                    <div class="col-md-7" >
+                                                        <div style="margin-bottom:0px;"  class="progress" title="@Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Buckets[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete) pieces remaining">
                                                             <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.Buckets[i].Activities[j].PercentPiecesComplete%;">
                                                                 @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete)
                                                             </div>
                                                             @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete)
                                                         </div>
+                                                        <p class="list-group-itemm-text text-danger">
+                                                            @if (Model.Buckets[i].Activities[j].UnderPickedPieces.HasValue)
+                                                            {
+                                                                <span>&bull; @Html.DisplayFor(m => m.Buckets[i].Activities[j].UnderPickedPieces) under picked</span>
+                                                            }
+                                                            @if (Model.Buckets[i].Activities[j].CancelledPieces.HasValue)
+                                                            {
+                                                                <span>&bull; @Html.DisplayFor(m => m.Buckets[i].Activities[j].CancelledPieces) cancelled</span>
+                                                            }
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 @if (Model.Buckets[i].Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Buckets[i].Activities[j].AreaId) && isEditable)
