@@ -25,8 +25,8 @@
         <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>
 
         <!-- Split button -->
-        @*<div class="btn-group pull-right">
-            <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager && Model.IsFrozen ? "" : "disabled'")
+        <div class="btn-group pull-right">
+            <a class="btn btn-default btn-sm" @Html.Raw(isEditable && Model.IsFrozen ? "" : "disabled'")
                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
                                                             Model.BucketId,
                                                         DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
@@ -37,14 +37,25 @@
                 <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
+
+                <li class="@Html.Raw(Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "" : "disabled")">
+                    <a @Html.Raw(Model.IsFrozen ? "" : "class='hidden'")><span class="glyphicon glyphicon-ok-circle"></span> Unfreeze</a>
+                    <a @Html.Raw(Model.IsFrozen ? "class='hidden'" : "")><span class="glyphicon glyphicon-ban-circle"></span> Freeze</a>
+                </li>
+                <li class="divider"></li>
                 <li>
-                    <a @Html.Raw(Model.UserIsManager && Model.IsFrozen ? "" : "disabled'")
-                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Buckets[0].MaxCustomerId, Model.Buckets[0].BucketId)))">
+                    <a @Html.Raw(isEditable  && Model.IsFrozen ? "" : "disabled'")
+                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
                         <span class="glyphicon glyphicon-plus"></span>  Add Pickslips
+                    </a>
+                </li>              
+                <li>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId)))">
+                        <span class="glyphicon glyphicon-file"></span>Create New Wave
                     </a>
                 </li>
             </ul>
-        </div>*@
+        </div>
 
 
 
@@ -54,17 +65,17 @@
             <div class="col-md-6 ">
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-success">
-                        @*<div class="btn-group pull-right" role="group">
-                            <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Decrease priority">
+                        <div class="btn-group pull-right" role="group">
+                            <a class="btn btn-default btn-sm" @Html.Raw(isEditable ? "" : "disabled") title="Decrease priority">
                                 <span class="glyphicon glyphicon-arrow-down">
                                 </span>
                             </a>
                             <button type="button" class="btn btn-default btn-sm" disabled>Priority @Model.PriorityId</button>
-                            <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Increase priority">
+                            <a class="btn btn-default btn-sm" @Html.Raw(isEditable ? "" : "disabled") title="Increase priority">
                                 <span class="glyphicon glyphicon-arrow-up"></span>
 
                             </a>
-                        </div>*@
+                        </div>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) boxes Validated
 

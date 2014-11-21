@@ -38,201 +38,14 @@
     {
         for (var i = 0; i < Model.Buckets.Count; ++i)
         {
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-
-                    <h3 class="list-group-item-heading" style="display:inline-block">
-                        Pick Wave <a title="Pick Wave Details"
-                                     href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Buckets[i].BucketId,
-                                                                DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))">
-
-                            @Model.Buckets[i].BucketId
-                        </a>
-                        <small>@Model.Buckets[i].BucketName </small>
-                        @if (Model.Buckets[i].IsFrozen)
-                        {
-                            <small class="badge"> <em>Frozen</em></small>
-                        }
-                    </h3>
-                    <small>Created @Html.DisplayFor(m => m.Buckets[i].CreationDate) @Html.DisplayFor(m => m.Buckets[i].CreatedBy)</small>
-
-                    <!-- Split button -->
-                    <div class="btn-group pull-right">
-                        <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'")
-                           href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
-                                                            Model.Buckets[i].BucketId,
-                                                        DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
-                            <span class="glyphicon glyphicon-edit"></span> Edit
-                        </a>
-                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li>
-                                <a @Html.Raw(Model.UserIsManager && Model.Buckets[i].IsFrozen ? "" : "disabled'")
-                                   href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Buckets[0].MaxCustomerId, Model.Buckets[0].BucketId)))">
-                                    <span class="glyphicon glyphicon-plus"></span>  Add Pickslips
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-
-
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6 ">
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-success">
-                                    <div class="btn-group pull-right" role="group">
-                                        <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Decrease priority">
-                                            <span class="glyphicon glyphicon-arrow-down">
-                                            </span>
-                                        </a>
-                                        <button type="button" class="btn btn-default btn-sm" disabled>Priority @Model.Buckets[i].PriorityId</button>
-                                        <a class="btn btn-default btn-sm" @Html.Raw(Model.UserIsManager ? "" : "disabled") title="Increase priority">
-                                            <span class="glyphicon glyphicon-arrow-up"></span>
-
-                                        </a>
-                                    </div>
-                                    <h4 class="list-group-item-heading">
-                                        @Html.DisplayFor(m => m.Buckets[i].CountValidatedBoxes) of @Html.DisplayFor(m => m.Buckets[i].CountTotalBoxes) boxes Validated
-
-                                    </h4>
-
-                                    <p class="list-group-item-text">
-                                        @if (Model.Buckets[i].CountCancelledBoxes > 0)
-                                        {
-
-                                            <span>&bull; @Html.DisplayFor(m => m.Buckets[i].CountCancelledBoxes) boxes cancelled</span>
-
-                                        }
-                                        @if (Model.Buckets[i].CountNotStartedBoxes > 0)
-                                        {
-                                            <span>
-                                                &bull; @Html.DisplayFor(m => m.Buckets[i].CountNotStartedBoxes) boxes not started
-                                            </span>
-                                        }
-                                    </p>
-                                </li>
-                                <li class="list-group-item list-group-item-info">
-                                    @Html.DisplayFor(m => m.Buckets[i].UnderPickedPieces)
-                                    @Html.DisplayFor(m => m.Buckets[i].CancelledPieces)
-                                    <h4 class="list-group-item-heading">
-                                        @Html.DisplayFor(m => m.Buckets[i].CountPickslips) Pickslips
-                                        &bull; @Html.DisplayFor(m => m.Buckets[i].CountPurchaseOrder) POs
-                                        <small>
-                                            @if (Model.Buckets[i].RequiredBoxExpediting)
-                                            {
-                                                <span class="text-info"> Required Box Expediting</span>
-                                            }
-                                            @if (Model.Buckets[i].QuickPitch)
-                                            {
-                                                <span class="text-info">&bull; Quick Pitching Required</span>
-                                            }
-                                        </small>
-                                    </h4>
-                                </li>
-                                @if (Model.Buckets[i].CountNotAssignedSku > 0)
-                                {
-                                    <li class="list-group-item list-group-item-danger">
-                                        @Html.DisplayFor(m => m.Buckets[i].CountNotAssignedSku)
-                                    </li>
-                                }
-
-
-                            </ul>
-
-
-
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="list-group">
-                                <li class="list-group-item list-group-item-success">
-                                    <span class="badge pull-right">DC Cancel @Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)</span>
-                                    <h4 class="list-group-item-heading">
-                                        @Html.DisplayFor(m => m.Buckets[i].OrderedPieces) Pieces Ordered
-                                        &bull; @Html.DisplayFor(m => m.Buckets[i].PercentPiecesComplete) complete
-                                    </h4>
-                                </li>
-                                @if (Model.Buckets[i].Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
-                                {
-                                    for (var j = 0; j < Model.Buckets[i].Activities.Count; j++)
-                                    {
-                                        if (!string.IsNullOrWhiteSpace(Model.Buckets[i].Activities[j].AreaId) || Model.Buckets[i].Activities[j].PiecesBoxesCreated > 0)
-                                        {
-                                            <li class="list-group-item list-group-item-@Html.Raw(Model.Buckets[i].Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
-                                                <div class="row">
-                                                    <div class="col-md-5">
-                                                        @Html.DisplayFor(m => m.Buckets[i].Activities[j].DisplayName)
-                                                        <strong>&nbsp; @Html.DisplayFor(m => m.Buckets[i].Activities[j].AreaShortNameDisplay)</strong>
-                                                    </div>
-                                                    <div class="col-md-7" >
-                                                        <div style="margin-bottom:0px;"  class="progress" title="@Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Buckets[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete) pieces remaining">
-                                                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.Buckets[i].Activities[j].PercentPiecesComplete%;">
-                                                                @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesComplete)
-                                                            </div>
-                                                            @Html.DisplayFor(m => m.Buckets[i].Activities[j].PiecesIncomplete)
-                                                        </div>
-                                                        <p class="list-group-itemm-text text-danger">
-                                                            @if (Model.Buckets[i].Activities[j].UnderPickedPieces.HasValue)
-                                                            {
-                                                                <span>&bull; @Html.DisplayFor(m => m.Buckets[i].Activities[j].UnderPickedPieces) under picked</span>
-                                                            }
-                                                            @if (Model.Buckets[i].Activities[j].CancelledPieces.HasValue)
-                                                            {
-                                                                <span>&bull; @Html.DisplayFor(m => m.Buckets[i].Activities[j].CancelledPieces) cancelled</span>
-                                                            }
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                @if (Model.Buckets[i].Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching && string.IsNullOrWhiteSpace(Model.Buckets[i].Activities[j].AreaId) && isEditable)
-                                                {
-                                                    <span>
-                                                        &bull; To minimize the number of pieces to be pitched,
-                                                        <a href="#" class="edit-wave">
-                                                            Edit
-                                                        </a>and save the pick wave.
-                                                    </span>
-
-                                                }
-                                            </li>
-                                        }
-                                    }
-                                    if (Model.Buckets[i].BoxNotCreatedPieces > 0)
-                                    {
-                                        if (Model.Buckets[i].IsFrozen)
-                                        {
-                                            <li class="list-group-item list-group-item-info">@string.Format("No boxes for {0:N0} pieces", Model.Buckets[i].BoxNotCreatedPieces)</li>
-                                        }
-                                        else
-                                        {
-                                            <li class="list-group-item list-group-item-danger">@string.Format("No boxes for {0:N0} pieces", Model.Buckets[i].BoxNotCreatedPieces)</li>
-                                        }
-                                    }
-                                    @Html.DisplayFor(m => m.Buckets[i].OverShippedPieces)
-
-                                }
-                                else
-                                {
-                                    <li class="list-group-item list-group-item-danger">Area is not decided yet for pulling and/ pitching</li>
-                                }
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
+            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary(new
+                               {
+                                   IsEditable = Model.UserIsManager
+                               }))
         }
     }
     else
-    {
+    { 
         <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
     }
 </div>
@@ -243,3 +56,19 @@
     @*<script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_js"></script>
         <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
