@@ -75,8 +75,10 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
 
         #region Only for display
 
+        [DisplayFormat(NullDisplayText = "Undecided")]
         public string PullAreaShortName { get; set; }
 
+        [DisplayFormat(NullDisplayText = "Undecided")]
         public string PitchAreaShortName { get; set; }
 
         public int PickslipCount { get; set; }
@@ -104,7 +106,7 @@ namespace DcmsMobile.PickWaves.ViewModels.CreateWave
             if (!string.IsNullOrWhiteSpace(model.PullAreaId))
             {
                 routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
-            }                     
+            }
         }
     }
 }
