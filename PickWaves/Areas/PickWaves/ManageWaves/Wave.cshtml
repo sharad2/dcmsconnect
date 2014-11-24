@@ -117,7 +117,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />             
+                @*<img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />*@
                 <div role="tabpanel" class="tab-pane active" id="pickslips"></div>
                 <div role="tabpanel" class="tab-pane" id="boxes"></div>
                 <div role="tabpanel" class="tab-pane" id="skus"></div>
@@ -146,9 +146,10 @@
         $(document).ready(function (e) {
             $('a[data-toggle="tab"]').one('shown.bs.tab', function (e) {
                 $.post($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
-
+                    //success
                     $('div.tab-content div.active').html(data);
                 }).error(function (jqXHR, textStatus, errorThrown) {
+                    //error
                     alert(jqXHR.responseText);
                 });
             });

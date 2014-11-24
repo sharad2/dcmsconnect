@@ -2,14 +2,92 @@
 
 @if (Model.UserIsManager && Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
 {
-    <p>
-        <span class="ui-state-highlight">
-            You can add more pickslip on this wave
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(
+
+    <blockquote>
+        You can add more pickslip on this wave
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(
                  Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add pickslips</a>
-        </span>
-    </p>
+    </blockquote>
+
 }
+
+
+
+
+<ul class="list-group">
+    @for (var i = 0; i < Model.PickslipList.Count; ++i)
+    {
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="list-group-item-heading">
+                        <small>@(i + 1)</small>
+                        <a href='@Url.Content(string.Format("~/Inquiry/Pickslip/{0}", Model.PickslipList[i].PickslipId))' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                        <small>
+                            PurchaseOrder  <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                            &bull;
+                            VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                        </small>
+                    </h4>
+                    <p class="list-group-item-text">
+
+                        Customer DC: @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+
+                        <small>&bull; Store @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)</small>
+
+                    </p>
+                </div>
+                <div class="col-md-5">
+                   
+                    @Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked
+                    @if (Model.PickslipList[i].UnPickedPieces > 0)
+                    {
+                        <small>&bull; Unpicked <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span></small>
+                    }
+                    @if (Model.PickslipList[i].CancelledBoxCount > 0 )
+                    {
+                        <span class="text-warning pull-right">
+                            &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
+                        </span>
+                    }
+                    <div class="progress" style="margin-bottom:0px;">
+                        <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; min-width:10%" class="progress-bar" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
+                            @Html.DisplayFor(m => m.PickslipList[i].CurrentPieces)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-2">
+                    @if (Model.UserIsManager)
+                    {
+
+                        if (Model.PickslipList[i].IsRemovablePickslip)
+                        {
+                            <span class="ui-icon ui-icon-close" style="cursor:pointer" data-pickslip-val="@Model.PickslipList[i].PickslipId"
+                                  data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
+                                  (Model.Bucket.BucketId, Model.PickslipList[i].PickslipId))"></span>
+                        }
+                        else
+                        {
+                            <span title="Can't remove because of some pieces are pulled or picked or Wave is unfreeze.">Can't remove</span>
+                        }
+
+                    }
+                </div>
+            </div>
+
+
+        </li>
+    }
+</ul>
+
+
+
+
+
+
+
+
 <table>
     <caption>Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)</caption>
     <thead>

@@ -36,7 +36,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Customer Store ID")]
         public string CustomerStoreId { get; set; }
 
-        [Display(Name = "VWh ID")]
+        [Display(Name = "VWH")]
         public string VwhId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
