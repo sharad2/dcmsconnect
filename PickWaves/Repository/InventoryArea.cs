@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public class InventoryArea
+    internal class InventoryArea
     {
         [Key]
         public string AreaId { get; set; }

@@ -7,7 +7,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// ManageWaves and BoxPickPallet
     /// IEquatable defines whether all important properties of two buckets are same. Used while updating bucket to ensure that old properties have not changed
     /// </summary>
-    public class Bucket : IEquatable<Bucket>
+    internal class Bucket : IEquatable<Bucket>
     {
         #region Bucket
         [Key]

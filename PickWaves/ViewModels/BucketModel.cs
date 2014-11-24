@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
         }
 
-        public BucketModel(Bucket src)
+        internal BucketModel(Bucket src)
         {
             _activities = new List<BucketActivityModel>(3);
             BucketId = src.BucketId;

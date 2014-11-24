@@ -19,7 +19,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         }
 
-        public BucketActivityModel(BucketActivity entity)
+        internal BucketActivityModel(BucketActivity entity)
         {
             ActivityType = entity.ActivityType;
             AreaId = entity.Area.AreaId;

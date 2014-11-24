@@ -15,7 +15,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         }
 
-        public InventoryAreaModel(InventoryArea area)
+        internal InventoryAreaModel(InventoryArea area)
         {
             AreaId = area.AreaId;
             ShortName = area.ShortName;

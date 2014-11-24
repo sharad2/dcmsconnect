@@ -272,28 +272,7 @@
     <Content Include="Areas\PickWaves\Config\Config.min.css">
       <DependentUpon>Config.css</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Home\Home-CustomerSummary.min.css">
-      <DependentUpon>Home-CustomerSummary.css</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.css.bundle">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.partial.css" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.css.bundle" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.partial.css" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Index.css">
-      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Index.min.css">
-      <DependentUpon>ManageWave-Index.css.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.css">
-      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.css">
-      <DependentUpon>ManageWave-Wave.css.bundle</DependentUpon>
-    </Content>
     <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial.js" />
     <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
@@ -342,7 +321,6 @@
     </Content>
     <Content Include="Doc\PickWaveManager.doc" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
-    <None Include="Areas\PickWaves\Home\Home-CustomerSummary.css" />
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />
     <Content Include="Areas\PickWaves\ManageWaves\Index.cshtml" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.cshtml" />

@@ -1,6 +1,6 @@
 ﻿namespace DcmsMobile.PickWaves.Repository.ManageWaves
 {
-    public class BucketArea : InventoryArea
+    internal class BucketArea : InventoryArea
     {
         /// <summary>
         /// Number of ordered SKU which can be found in this area

@@ -10,7 +10,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// 
     /// A box has two types of pieces: Expected and curent.
     /// </summary>
-    public class BucketActivity
+    internal class BucketActivity
     {
         private readonly BoxStats _stats;
         public BucketActivity()
@@ -47,7 +47,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// <summary>
     /// This collection always has activities for pitching and pulling
     /// </summary>
-    public class BucketActivityCollection : KeyedCollection<BucketActivityType, BucketActivity>
+    internal class BucketActivityCollection : KeyedCollection<BucketActivityType, BucketActivity>
     {
 
         public BucketActivityCollection()

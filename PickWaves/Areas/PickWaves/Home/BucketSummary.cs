@@ -7,7 +7,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
     /// <summary>
     /// Summarizes information on active buckets by state/customer
     /// </summary>
-    public class BucketSummary
+    internal class BucketSummary
     {
         [Key]
         internal ProgressStage BucketState { get; set; }

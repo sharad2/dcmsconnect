@@ -5,7 +5,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
     /// <summary>
     /// Represents one of the SKUs in a bucket
     /// </summary>
-    public class BucketSku
+    internal class BucketSku
     {
         public Sku Sku { get; set; }
 
@@ -39,7 +39,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
     /// <summary>
     /// Inventory in the carton area of a specific SKU
     /// </summary>    
-    public class CartonAreaInventory
+    internal class CartonAreaInventory
     {
         public InventoryArea InventoryArea { get; set; }
 

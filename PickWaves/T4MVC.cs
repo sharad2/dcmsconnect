@@ -200,8 +200,6 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/Home";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Home_CustomerSummary_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Home-CustomerSummary.min.css") ? Url("Home-CustomerSummary.min.css") : Url("Home-CustomerSummary.css");
-                     
             }
         
         }
@@ -216,10 +214,6 @@ namespace Links_PickWaves
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js") : Url("Index.js");
-                public static readonly string ManageWave_Index_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Index.min.css") ? Url("ManageWave-Index.min.css") : Url("ManageWave-Index.css");
-                     
-                public static readonly string ManageWave_Wave_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.css") ? Url("ManageWave-Wave.min.css") : Url("ManageWave-Wave.css");
-                     
                 public static readonly string ManageWave_Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.js") ? Url("ManageWave-Wave.min.js") : Url("ManageWave-Wave.js");
                 public static readonly string ManageWave_Wave_min_js_map = Url("ManageWave-Wave.min.js.map");
                 public static readonly string ManageWave_Wave_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.partial.min.js") ? Url("ManageWave-Wave.partial.min.js") : Url("ManageWave-Wave.partial.js");

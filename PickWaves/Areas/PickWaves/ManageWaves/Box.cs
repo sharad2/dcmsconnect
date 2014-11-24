@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository.ManageWaves
 {
-    public class Box
+    internal class Box
     {
         [Key]
         public string Ucc128Id { get; set; }
