@@ -358,12 +358,12 @@
                         @for (var i = 0; i < Model.BucketsByStatus.Values[j].Count; ++i)
                         {
 
-                            <li class="list-group-item">
+                            <li class="list-group-item" >
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h4 class="list-group-item-heading">
                                             <small> @(i + 1)</small>
-                                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
+                                            <a @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "style='text-decoration:line-through'") href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
                                                  new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus, Model.SearchUserName)))" title="Wave List">
                                                 @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId):
                                             </a>
