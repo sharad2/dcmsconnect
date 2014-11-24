@@ -5,82 +5,6 @@
 }
 
 
-
-@*@section sidebar {
-        @if (Model.UserIsManager)
-        {
-            <h3>Quick menu</h3>
-            <div class="boxContent">
-
-                <ul id="actionMenu">
-                    <li class="freeze-action @Html.Raw(Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "" : "ui-state-disabled")">
-                        <a @Html.Raw(Model.Bucket.IsFrozen ? "" : "style='display:none'")><span class="ui-icon ui-icon-unlocked"></span>Unfreeze</a>
-                        <a @Html.Raw(Model.Bucket.IsFrozen ? "style='display:none'" : "")><span class="ui-icon ui-icon-locked"></span>Freeze</a>
-                    </li>
-                    <li>
-                        <a><span class="ui-icon ui-icon-arrowthick-1-n"></span>Increase priority</a>
-                    </li>
-                    <li>
-                        <a><span class="ui-icon ui-icon-arrowthick-1-s"></span>Decrease priority</a>
-                    </li>
-                    <li @Html.Raw(Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "" : "class='ui-state-disabled' title='Only frozen and not complete waves can be edited'")>
-
-                        @if (Model.Bucket.IsFrozen)
-                        {
-                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
-                                (Model.Bucket.BucketId, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))" style="font-weight:bold">
-                                <span class="ui-icon ui-icon-pencil"></span>Edit
-                            </a>
-                        }
-                        else
-                        {
-                            <a>
-                                <span class="ui-icon ui-icon-pencil"></span>Edit
-                            </a>
-                        }
-                    </li>
-                    <li>-</li>
-                    <li @Html.Raw(Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "" : "class='ui-state-disabled' title='Only frozen and not complete waves can be add pickslip'")>
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(
-                                                                                                             Model.Bucket.MaxCustomerId,Model.Bucket.BucketId)))">Add Pickslips</a>
-                    </li>
-                    <li>-</li>
-                    <li>
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.Bucket.MaxCustomerId)))">
-                            <span class="ui-icon ui-icon-document"></span>Create New Wave
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        }
-        <h3>Reports</h3>
-        <div class="boxContent">
-            <dl>
-                <dt>
-                    <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
-                        <em>140.02</em>. Pick Wave Summary report.
-                    </a>
-                </dt>
-                <dd>
-                    This report display details of pick wave.
-                </dd>
-            </dl>
-        </div>
-        <div class="boxContent">
-            <fieldset style="padding: 1em 3em 1em 1em;">
-                <legend>Legend</legend>
-                <div style="width: 9em; background-color: antiquewhite; text-align: center">
-                    Pulling Boxes
-                </div>
-                <div style="width: 9em; background-color: paleturquoise; text-align: center">
-                    Pitching Boxes
-                </div>
-            </fieldset>
-        </div>
-    }*@
-
-
-
 @section areatitle{
     <li title="This report display details of pick wave.">
         <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
@@ -92,13 +16,13 @@
 <div class="container">
     <div class="page-header">
         <h3>
-            @ViewBag.Title           
+            @ViewBag.Title
         </h3>
         @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
         {
 
             <small>
-              
+
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
                     See: Other @Model.Bucket.StateDisplayName Waves of same customer: @Model.Bucket.MaxCustomerName
@@ -107,25 +31,28 @@
 
         }
     </div>
-   
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {
             <!--Edit the pickwave partial-->
-            @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
-
-
+        @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
         }
         else
         {
             <!--Pickwave detail partial-->
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}
                                })
-
         }
+    </div>
 
+
+
+
+
+
+    <div>
         <div id="filterStatus" style="display: inline">
             <div data-activity="@DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching" data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)"
                  style="background-color: paleturquoise;display:none">
@@ -179,7 +106,7 @@
 
     </div>
 
- 
+
 
 </div>
 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
@@ -188,47 +115,42 @@
 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.js"></script>
-
-
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
         <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_js"></script>*@
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    @*@if (Model.UserIsManager)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@if (Model.UserIsManager)
     {
 
         <div id="dlgFreeze" title="@Html.Raw(Model.Bucket.IsFrozen ? "Unfreeze Pick Wave" : "Freeze Pick Wave")">
