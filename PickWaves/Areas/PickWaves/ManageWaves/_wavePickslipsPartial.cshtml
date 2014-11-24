@@ -38,11 +38,9 @@
                     </p>
                 </div>
                 <div class="col-md-5">
-
-                    @Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked
                     @if (Model.PickslipList[i].UnPickedPieces > 0)
                     {
-                        <small>&bull; Unpicked <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span></small>
+                        <span> Unpicked <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span></span>
                     }
                     @if (Model.PickslipList[i].CancelledBoxCount > 0)
                     {
@@ -51,11 +49,10 @@
                         </span>
                     }
                     <div class="progress" style="margin-bottom:0px;">
-                        <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; min-width:10%" class="progress-bar" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
-                            @Html.DisplayFor(m => m.PickslipList[i].CurrentPieces)
-                        </div>
+                        <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
+                            <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked</span>
+</div>
                     </div>
-
                 </div>
                 <div class="col-md-2">
                     @if (Model.UserIsManager)
