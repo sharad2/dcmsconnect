@@ -187,13 +187,6 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/CreateWave";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string CreateWave_PickslipList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.css") ? Url("CreateWave-PickslipList.min.css") : Url("CreateWave-PickslipList.css");
-                     
-                public static readonly string CreateWave_PickslipList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.min.js") ? Url("CreateWave-PickslipList.min.js") : Url("CreateWave-PickslipList.js");
-                public static readonly string CreateWave_PickslipList_min_js_map = Url("CreateWave-PickslipList.min.js.map");
-                public static readonly string CreateWave_PickslipList_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipList.partial.min.js") ? Url("CreateWave-PickslipList.partial.min.js") : Url("CreateWave-PickslipList.partial.js");
-                public static readonly string CreateWave_PickslipListSelector_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CreateWave-PickslipListSelector.min.css") ? Url("CreateWave-PickslipListSelector.min.css") : Url("CreateWave-PickslipListSelector.css");
-                     
                 public static readonly string selectable_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.partial.min.js") ? Url("selectable.partial.min.js") : Url("selectable.partial.js");
             }
         

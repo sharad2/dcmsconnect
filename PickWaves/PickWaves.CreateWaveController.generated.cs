@@ -152,15 +152,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string CreateWave_PickslipList_css = "CreateWave-PickslipList.css";
-                public readonly string CreateWave_PickslipList_js = "CreateWave-PickslipList.js";
-                public readonly string CreateWave_PickslipListSelector_css = "CreateWave-PickslipListSelector.css";
                 public readonly string Index = "Index";
                 public readonly string PickslipList = "PickslipList";
             }
-            public readonly string CreateWave_PickslipList_css = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipList.css.bundle";
-            public readonly string CreateWave_PickslipList_js = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipList.js.bundle";
-            public readonly string CreateWave_PickslipListSelector_css = "~/Areas/PickWaves/CreateWave/CreateWave-PickslipListSelector.css.bundle";
             public readonly string Index = "~/Areas/PickWaves/CreateWave/Index.cshtml";
             public readonly string PickslipList = "~/Areas/PickWaves/CreateWave/PickslipList.cshtml";
         }
