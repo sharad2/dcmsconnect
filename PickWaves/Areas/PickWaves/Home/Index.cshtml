@@ -389,7 +389,7 @@
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                         {
                                             <div class="progress" style="margin-bottom:0px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%; min-width:10%" title="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%; min-width:10%;" title="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked">
                                                     @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of  @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked
                                                 </div>
                                             </div>
@@ -413,8 +413,8 @@
                                                 else
                                                 {
                                                     @* We never expect to see this message because we always create boxes for all pieces*@
-                                                    <div>
-                                                        <strong class="bg-warning"> @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled</strong>
+                                                    <div class="bg-danger">
+                                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces)pieces cancelled
                                                     </div>
                                                 }
                                             }
