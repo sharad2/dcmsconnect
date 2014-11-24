@@ -360,7 +360,7 @@
 
                             <li class="list-group-item" >
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <h4 class="list-group-item-heading">
                                             <small> @(i + 1)</small>
                                             <a @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "style='text-decoration:line-through'") href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
@@ -379,26 +379,14 @@
                                                 <s title="This customer is inactive.">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerName)</s>
                                             }
                                            
-                                                <span class="label label-info">
-                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)
-                                                </span>
                                                 <span class="badge">
-                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].DcCancelDateRange)
+                                                   Priority @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)
                                                 </span>
                                             </small>
                                         </h4>
                                     </div>
-                                    <div class="col-md-3">
-                                        <h4 class="list-group-item-heading" style="width:9em;text-align:right; display:inline-block">
-                                            <span class="label label-success">
-                                                @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces)
-                                            </span>
-                                        </h4>
-                                        <h4 class="list-group-item-heading" style="width:3em;text-align:right; display:inline-block">
-                                            <span class="label label-success">
-                                                @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)
-                                            </span>
-                                        </h4>
+                                    <div class="col-md-1">
+                                        <strong>@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)</strong> Waves
                                     </div>
                                     <div class="col-md-3">
                                        
@@ -406,19 +394,20 @@
                                             {
                                                 <div class="progress" style="margin-bottom:0px">
                                                     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%">
-                                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces)
+                                                        @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of  @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked
                                                     </div>
-                                                    &nbsp;@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UnpickedPieces)
                                                 </div>
+                                                <span class="text-muted">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UnpickedPieces) Unpicked Pieces</span>
+                                                
                                             }
                                            
                                             @if (Model.BucketsByStatus.Values[j][i].UncreatedPieces > 0)
                                             {
                                                 if (Model.BucketsByStatus.Values[j][i].UncreatedPieces >= Model.BucketsByStatus.Values[j][i].OrderedPieces)
                                                 {
-                                                <p class=" list-group-item-text">
-                                                    <span class="glyphicon glyphicon-info-sign"></span>Boxes not created
-                                                </p>
+                                                <span class="bg-info">
+                                                    Boxes not created
+                                                </span>
                                                 }
                                                 else
                                                 {
@@ -428,13 +417,19 @@
                                                     else
                                                     {
                                                         @* We never expect to see this message because we always create boxes for all pieces*@
-                                                        <div class="ui-state-error">
-                                                            <span class="glyphicon glyphicon-info-sign"></span> @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled
-                                                        </div>
+
+                                 <strong class="bg-warning"> @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UncreatedPieces) pieces cancelled</strong>
+
                                                     }
                                                 }
                                             }
                                         </div>
+                                    <div class="col-md-3">
+
+                                        <span class="badge">
+                                            @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].DcCancelDateRange)
+                                        </span>
+                                    </div>
                                     </div>
                                 </li>
                         }
