@@ -13,8 +13,8 @@
 
 
 
-
 <ul class="list-group">
+
     @for (var i = 0; i < Model.PickslipList.Count; ++i)
     {
         <li class="list-group-item">
@@ -89,7 +89,7 @@
 
 
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-default" disabled> Can't remove </button>
+                                <button type="button" class="btn btn-sm btn-warning" disabled> Can't remove </button>
                                 <button type="button" class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                     <small title="Can't remove because some pieces are pulled or picked or Wave is unfreeze.">Why?</small>
                                 </button>
@@ -121,7 +121,7 @@
 
 
 
-<table>
+@*<table>
     <caption>Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)</caption>
     <thead>
         <tr>
@@ -249,4 +249,4 @@
             <td colspan="5"></td>
         </tr>
     </tfoot>
-</table>
+</table>*@

@@ -117,6 +117,7 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
+
                 <div class="alert hidden" role="alert"></div>
                 @*<img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />*@
                 <div role="tabpanel" class="tab-pane active" id="pickslips"></div>
@@ -160,13 +161,15 @@
                 $('ul.nav-tabs a:first').trigger('click');
             }, 100);
 
-        
-        
-      
+
+
+
             $('div.tab-content').on('click', '#pickslips button[data-pickslip-remove-url]', function (e) {
                 $.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
-                    //success
-                    $('.alert', e.delegateTarget).removeClass('hidden').addClass('alert-info').html(jqXHR.responseText);               
+                    //success 
+                    $('.alert', e.delegateTarget).removeClass('hidden').addClass('alert-info').html(jqXHR.responseText);
+                    location.reload(true);
+                    return;
                 }).error(function (jqXHR, textStatus, errorThrown) {
                     //error
                     $('.alert', e.delegateTarget).removeClass('hidden').addClass('alert-danger').html(jqXHR.responseText);
