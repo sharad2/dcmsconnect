@@ -388,9 +388,10 @@
 
                                         @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                         {
+                                            
                                             <div class="progress" style="margin-bottom:0px">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%; min-width:10%;" title="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked">
-                                                    @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of  @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked
+                                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.BucketsByStatus.Values[j][i].PercentUnpickedPieces%; min-width:10%;overflow:visible; padding-left:1mm" title="@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked">
+                                                    <span style="white-space:nowrap" class="text-info"> @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].PickedPieces) of  @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].OrderedPieces) pieces picked</span>
                                                 </div>
                                             </div>
                                             <span class="text-muted">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].UnpickedPieces) Unpicked Pieces</span>
