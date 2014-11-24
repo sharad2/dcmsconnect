@@ -5,7 +5,7 @@ using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.Repository.Config
 {
-    public class ConfigService : PickWaveServiceBase<ConfigRepository>
+    internal class ConfigService : PickWaveServiceBase<ConfigRepository>
     {
         internal class Constraint
         {

@@ -4,7 +4,7 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
 {
-    public class BoxPickPalletRepository : PickWaveRepositoryBase
+    internal class BoxPickPalletRepository : PickWaveRepositoryBase
     {
         #region Intialization
 

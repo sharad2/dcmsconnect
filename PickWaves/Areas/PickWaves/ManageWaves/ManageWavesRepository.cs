@@ -41,7 +41,7 @@ namespace DcmsMobile.PickWaves.Repository.ManageWaves
         PitchLimit = 0x200
     }
 
-    public class ManageWavesRepository : PickWaveRepositoryBase
+    internal class ManageWavesRepository : PickWaveRepositoryBase
     {
         #region Intialization
 

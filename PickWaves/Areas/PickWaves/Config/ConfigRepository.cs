@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.Config
 {
-    public class ConfigRepository : PickWaveRepositoryBase
+    internal class ConfigRepository : PickWaveRepositoryBase
     {
         public class Splh
         {

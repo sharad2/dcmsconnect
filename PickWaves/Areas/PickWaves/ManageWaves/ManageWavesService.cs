@@ -7,7 +7,7 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.ManageWaves
 {
-    public class ManageWavesService : PickWaveServiceBase<ManageWavesRepository>
+    internal class ManageWavesService : PickWaveServiceBase<ManageWavesRepository>
     {
         #region Intialization
 

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public abstract class PickWaveRepositoryBase : IDisposable
+    internal abstract class PickWaveRepositoryBase : IDisposable
     {
         #region Intialization
 

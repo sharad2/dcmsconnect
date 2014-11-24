@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace DcmsMobile.PickWaves.Repository.CreateWave
 {
-    public class CreateWaveRepository : PickWaveRepositoryBase
+    internal class CreateWaveRepository : PickWaveRepositoryBase
     {
         #region Intialization
 

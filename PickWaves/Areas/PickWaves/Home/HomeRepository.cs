@@ -15,7 +15,7 @@ namespace DcmsMobile.PickWaves.Repository.Home
         UserName
     }
 
-    public class HomeRepository : PickWaveRepositoryBase
+    internal class HomeRepository : PickWaveRepositoryBase
     {
 
         #region Intialization

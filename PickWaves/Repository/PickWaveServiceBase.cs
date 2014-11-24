@@ -9,7 +9,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// Provides services common to all controllers
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class PickWaveServiceBase<T> : IDisposable where T : PickWaveRepositoryBase
+    internal class PickWaveServiceBase<T> : IDisposable where T : PickWaveRepositoryBase
     {
         #region Intialization
         protected T _repos;

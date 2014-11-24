@@ -6,7 +6,7 @@ using EclipseLibrary.Oracle;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public class AutoCompleteRepository : PickWaveRepositoryBase
+    internal class AutoCompleteRepository : PickWaveRepositoryBase
     {
         #region Intialization
 

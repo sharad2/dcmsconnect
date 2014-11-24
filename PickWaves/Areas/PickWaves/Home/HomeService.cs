@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.Home
 {
-    public class HomeService : IDisposable
+    internal class HomeService : IDisposable
     {
         #region Intialization
         private readonly HomeRepository _repos;
