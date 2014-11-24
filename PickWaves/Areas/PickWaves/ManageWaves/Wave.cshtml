@@ -4,6 +4,8 @@
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
 }
 
+
+
 @*@section sidebar {
         @if (Model.UserIsManager)
         {
@@ -89,22 +91,23 @@
 }
 <div class="container">
     <div class="page-header">
-        <h2>
-            @ViewBag.Title
-        </h2>
-    </div>
-    @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
-    {
+        <h3>
+            @ViewBag.Title           
+        </h3>
+        @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
+        {
 
-        <p>
-            Other @Model.Bucket.StateDisplayName Waves of this customer
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+            <small>
+              
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
-                @Model.Bucket.MaxCustomerId: @Model.Bucket.MaxCustomerName
-            </a>
-        </p>
+                    See: Other @Model.Bucket.StateDisplayName Waves of same customer: @Model.Bucket.MaxCustomerName
+                </a>
+            </small>
 
-    }
+        }
+    </div>
+   
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {

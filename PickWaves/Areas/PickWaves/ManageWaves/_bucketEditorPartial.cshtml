@@ -11,43 +11,43 @@
     };
 }
 
-<form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditWave())" method="post" class="form-horizontal" role="form">
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditWave())" method="post" class="form-horizontal" role="form">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
-    @Html.HiddenFor(m => m.Bucket.BucketId)
-    @Html.HiddenFor(m => m.BucketNameOriginal)
-    @Html.HiddenFor(m => m.PriorityIdOriginal)
-    @Html.HiddenFor(m => m.PullAreaOriginal)
-    @Html.HiddenFor(m => m.PitchAreaOriginal)
-    @Html.HiddenFor(m => m.BucketCommentOriginal)
-    @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
-    @Html.HiddenFor(m => m.QuickPitchOriginal)
-    @Html.HiddenFor(m => m.PitchLimitOriginal)
+        @Html.HiddenFor(m => m.Bucket.BucketId)
+        @Html.HiddenFor(m => m.BucketNameOriginal)
+        @Html.HiddenFor(m => m.PriorityIdOriginal)
+        @Html.HiddenFor(m => m.PullAreaOriginal)
+        @Html.HiddenFor(m => m.PitchAreaOriginal)
+        @Html.HiddenFor(m => m.BucketCommentOriginal)
+        @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
+        @Html.HiddenFor(m => m.QuickPitchOriginal)
+        @Html.HiddenFor(m => m.PitchLimitOriginal)
 
 
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Name<sup>*</sup></label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.Bucket.BucketName, new
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name<sup>*</sup></label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Bucket.BucketName, new
    {
        size = 50,
        maxlength = 50,
        @class = "form-control"
    })
 
-            @Html.ValidationMessageFor(m => m.Bucket.BucketName, null, new
+                @Html.ValidationMessageFor(m => m.Bucket.BucketName, null, new
            {
                @class = "help-block"
            })
-        </div>
+            </div>
 
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Priority<sup>*</sup></label>
-        <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.Bucket.PriorityId, new
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Priority<sup>*</sup></label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.Bucket.PriorityId, new
    {
        size = 2,
        maxlength = 2,
@@ -55,18 +55,18 @@
        @placeholder="Pick Waves with higher priority will show first(Max: 99)"
    })
 
-            @Html.ValidationMessageFor(m => m.Bucket.PriorityId, null, new
+                @Html.ValidationMessageFor(m => m.Bucket.PriorityId, null, new
            {
                @class = "help-block"
            })
+            </div>
         </div>
-    </div>
 
 
 
-    @for (var i = 0; i < Model.Bucket.Activities.Count; ++i)
+        @for (var i = 0; i < Model.Bucket.Activities.Count; ++i)
     {
-        @Html.HiddenFor(m => m.Bucket.Activities[i].ActivityType)
+            @Html.HiddenFor(m => m.Bucket.Activities[i].ActivityType)
 
         if (Model.BucketAreaLists[Model.Bucket.Activities[i].ActivityType].Count > 0)
         {
@@ -99,7 +99,7 @@
                         <div class="checkbox">
                             <label>
                                 @Html.CheckBoxFor(m => m.Bucket.QuickPitch)
-                                Quick Pitch <em>(To create an ADR exclusive pick wave, set this to Undecided.)</em>
+                                Quick Pitch <small><em>(To create an ADR exclusive pick wave, set this to Undecided.)</em></small>
                             </label>
                         </div>
                     </div>
@@ -121,10 +121,10 @@
 
     }
 
-    <div class="form-group">
-        <label class="col-sm-2 control-label">Remark</label>
-        <div class="col-sm-10">
-            @Html.TextAreaFor(m => m.Bucket.BucketComment, new
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(m => m.Bucket.BucketComment, new
             {
                 maxlength = 128,
                 @class = "form-control",
@@ -132,31 +132,41 @@
             })
 
 
-            <span class="help-block">Remark will be shown in Wave Summery UI</span>
+                <span class="help-block">Remark will be shown in Wave Summery UI</span>
 
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="checkbox">
-                <label>
-                    @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
-                    Unfreeze current pick wave after save.
-                </label>
             </div>
         </div>
-    </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
+                        Unfreeze current pick wave after save.
+                    </label>
+                </div>
+                <small class="help-block">
+                   After Unfreezing, boxes will be created for this pick wave and it will become available for processing.
+                    <br/>                    
+                    <em>
+                        We will try to pull as many cartons as possible for <strong>@Model.Bucket.PiecesIncomplete</strong>
+                        pieces from pull area <strong>@Html.DisplayFor(m => m.Bucket.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
+                        <strong>@Html.DisplayFor(m => m.Bucket.PitchAreaShortName)</strong>.
+                    </em>
+                </small>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId,
-                             DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe)))">Cancel</a>
+            </div>
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.Bucket.BucketId,
+                             DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe)))">Cancel</a>
+            </div>
+        </div>
 
 
-</form>
+    </form>
 
 
 
