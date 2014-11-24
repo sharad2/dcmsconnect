@@ -12,6 +12,9 @@
 }
 
 <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditWave())" method="post" class="form-horizontal" role="form">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
     @Html.HiddenFor(m => m.Bucket.BucketId)
     @Html.HiddenFor(m => m.BucketNameOriginal)
     @Html.HiddenFor(m => m.PriorityIdOriginal)
@@ -21,6 +24,9 @@
     @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
     @Html.HiddenFor(m => m.QuickPitchOriginal)
     @Html.HiddenFor(m => m.PitchLimitOriginal)
+
+
+
     <div class="form-group">
         <label class="col-sm-2 control-label">Name<sup>*</sup></label>
         <div class="col-sm-10">
@@ -30,21 +36,29 @@
        maxlength = 50,
        @class = "form-control"
    })
+
+            @Html.ValidationMessageFor(m => m.Bucket.BucketName, null, new
+           {
+               @class = "help-block"
+           })
         </div>
 
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">Priority</label>
+        <label class="col-sm-2 control-label">Priority<sup>*</sup></label>
         <div class="col-sm-10">
             @Html.TextBoxFor(m => m.Bucket.PriorityId, new
    {
        size = 2,
        maxlength = 2,
-       @class = "form-control"
+       @class = "form-control",
+       @placeholder="Pick Waves with higher priority will show first(Max: 99)"
    })
 
-            <span class="help-block">Pick Waves with higher priority will show first(Max: 99)</span>
-
+            @Html.ValidationMessageFor(m => m.Bucket.PriorityId, null, new
+           {
+               @class = "help-block"
+           })
         </div>
     </div>
 
@@ -85,12 +99,12 @@
                         <div class="checkbox">
                             <label>
                                 @Html.CheckBoxFor(m => m.Bucket.QuickPitch)
-                                Quick Pitch <em>(To create an ADR exclusive pick wave, set this to Undecided.)</em>        
+                                Quick Pitch <em>(To create an ADR exclusive pick wave, set this to Undecided.)</em>
                             </label>
                         </div>
                     </div>
                 </div>
-             
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Pitch Limit</label>
                     <div class="col-sm-10">

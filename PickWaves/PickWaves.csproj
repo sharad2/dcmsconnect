@@ -242,6 +242,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

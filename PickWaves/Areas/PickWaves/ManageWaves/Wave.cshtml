@@ -80,7 +80,7 @@
 
 
 @section areatitle{
-    <li>
+    <li title="This report display details of pick wave.">
         <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
             Report 140.02: Pick Wave Summary
         </a>
@@ -95,22 +95,22 @@
     </div>
     @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
     {
-       
-            <p>
-                Other @Model.Bucket.StateDisplayName Waves of this customer
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+
+        <p>
+            Other @Model.Bucket.StateDisplayName Waves of this customer
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
-                    @Model.Bucket.MaxCustomerId: @Model.Bucket.MaxCustomerName
-                </a>
-            </p>
-       
+                @Model.Bucket.MaxCustomerId: @Model.Bucket.MaxCustomerName
+            </a>
+        </p>
+
     }
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {
-                         
-                @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
-          
+
+            @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
+
 
         }
         else
@@ -221,7 +221,9 @@
 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
-
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.js"></script>
 
 
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
