@@ -176,7 +176,7 @@
 
     </div>
 
-    @if (Model.UserIsManager)
+    @*@if (Model.UserIsManager)
     {
 
         <div id="dlgFreeze" title="@Html.Raw(Model.Bucket.IsFrozen ? "Unfreeze Pick Wave" : "Freeze Pick Wave")">
@@ -212,7 +212,7 @@
             }
         </div>
 
-    }
+    }*@
 
 </div>
 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
