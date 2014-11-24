@@ -98,18 +98,18 @@
 
         <div role="tabpanel">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
+            <ul class="nav nav-tabs bg-info" role="tablist">
                 <li>
                     <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId).AddRouteValue("_", 0))" role="tab" data-toggle="tab">Pickslips</a>
                 </li>
                 <li>
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
+                    <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
                             DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
                        data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.stateFilter"
                        data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.activityFilter" role="tab" data-toggle="tab">Boxes</a>
                 </li>
                 <li>
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
+                    <a href="#skus" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
                             DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
                        data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.stateFilter"
                        data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.activityFilter" role="tab" data-toggle="tab">SKUs</a>
@@ -117,10 +117,11 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="pickslips">Pickslips here</div>
-                <div role="tabpanel" class="tab-pane" id="profile">...</div>
-                <div role="tabpanel" class="tab-pane" id="messages">...</div>
-                <div role="tabpanel" class="tab-pane" id="settings">...</div>
+                <img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />             
+                <div role="tabpanel" class="tab-pane active" id="pickslips"></div>
+                <div role="tabpanel" class="tab-pane" id="boxes"></div>
+                <div role="tabpanel" class="tab-pane" id="skus"></div>
+
             </div>
         </div>
 
@@ -140,6 +141,24 @@
 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Wave_js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function (e) {
+            $('a[data-toggle="tab"]').one('shown.bs.tab', function (e) {
+                $.post($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
+
+                    $('div.tab-content div.active').html(data);
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                });
+            });
+
+            setTimeout(function () {
+                $('ul.nav-tabs a:first').trigger('click');
+            }, 100);
+
+        });
+    </script>
 
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
         <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_js"></script>*@
