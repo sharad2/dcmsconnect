@@ -32,7 +32,13 @@
         </h1>
     </div>
 
-    @if (Model.Bucket != null)
+    @if (Model.Bucket == null)
+    {
+        <blockquote>
+            A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
+        </blockquote>
+    }
+    else
     {
         @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
     }

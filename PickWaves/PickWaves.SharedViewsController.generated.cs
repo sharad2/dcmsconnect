@@ -43,7 +43,6 @@ namespace T4MVC.PickWaves
                 public readonly string _layoutPickWaves = "_layoutPickWaves";
                 public readonly string _layoutPickWaves2 = "_layoutPickWaves2";
                 public readonly string ajax_loader = "ajax-loader";
-                public readonly string PickWaves_all_css = "PickWaves-all.css";
             }
             public readonly string _activityProgressPartial = "~/Areas/PickWaves/SharedViews/_activityProgressPartial.cshtml";
             public readonly string _bucketModelModalPartial = "~/Areas/PickWaves/SharedViews/_bucketModelModalPartial.cshtml";
@@ -52,7 +51,6 @@ namespace T4MVC.PickWaves
             public readonly string _layoutPickWaves = "~/Areas/PickWaves/SharedViews/_layoutPickWaves.cshtml";
             public readonly string _layoutPickWaves2 = "~/Areas/PickWaves/SharedViews/_layoutPickWaves2.cshtml";
             public readonly string ajax_loader = "~/Areas/PickWaves/SharedViews/ajax-loader.gif";
-            public readonly string PickWaves_all_css = "~/Areas/PickWaves/SharedViews/PickWaves-all.css.bundle";
         }
     }
 

@@ -187,7 +187,6 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/CreateWave";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string selectable_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.partial.min.js") ? Url("selectable.partial.min.js") : Url("selectable.partial.js");
             }
         
         }
@@ -240,8 +239,6 @@ namespace Links_PickWaves
                 public static readonly string _bucketModel_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_bucketModel.partial.min.js") ? Url("_bucketModel.partial.min.js") : Url("_bucketModel.partial.js");
                 public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
                 public static readonly string jQuery_cookie_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jQuery.cookie.partial.min.js") ? Url("jQuery.cookie.partial.min.js") : Url("jQuery.cookie.partial.js");
-                public static readonly string PickWaves_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PickWaves-all.min.css") ? Url("PickWaves-all.min.css") : Url("PickWaves-all.css");
-                     
             }
         
         }
