@@ -11,9 +11,6 @@
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
     <!--<file>ManageWave-Index.partial.js</file>-->
-    <file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file>
-    <file>/Scripts/jquery.validate.js</file>
-    <file>/Scripts/jquery.validate.unobtrusive.js</file>
-    <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>    
+    <file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file>  
   </files>
 </bundle>
