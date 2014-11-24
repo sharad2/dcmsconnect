@@ -131,6 +131,7 @@ $(document).ready(function () {
     $('#freezeModal').on('show.bs.modal', function (e) {
         //alert($(e.relatedTarget).data('bucketid'));
         $('#hfBucketid', e.delegateTarget).val($(e.relatedTarget).data('bucketid'));
+        $('#countNotStartedBoxes', e.delegateTarget).html($(e.relatedTarget).data('countnotstartedboxes'));
     }).on('click', 'button:not([data-dismiss])', function (e) {
         //alert('submit');
         $('form', e.delegateTarget).trigger('submit');
