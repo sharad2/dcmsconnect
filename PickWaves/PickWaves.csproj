@@ -268,8 +268,6 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel-Display.partial.css" />
-    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\BucketModel-Editor.partial.css" />
     <None Include="Areas\PickWaves\Config\Config.css" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.css.bundle" />
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipListSelector.css.bundle" />
@@ -367,7 +365,6 @@
     <None Include="Areas\PickWaves\CreateWave\CreateWave-PickslipList.partial.js" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
     <None Include="Areas\PickWaves\CreateWave\selectable.partial.js" />
-    <None Include="Areas\PickWaves\SharedViews\DisplayTemplates\_bucketEditorPartial.partial.js" />
     <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js">
       <DependentUpon>ManageWave-Wave.js.bundle</DependentUpon>
     </None>

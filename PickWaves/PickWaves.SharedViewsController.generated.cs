@@ -53,17 +53,6 @@ namespace T4MVC.PickWaves
             public readonly string _layoutPickWaves2 = "~/Areas/PickWaves/SharedViews/_layoutPickWaves2.cshtml";
             public readonly string ajax_loader = "~/Areas/PickWaves/SharedViews/ajax-loader.gif";
             public readonly string PickWaves_all_css = "~/Areas/PickWaves/SharedViews/PickWaves-all.css.bundle";
-            static readonly _DisplayTemplatesClass s_DisplayTemplates = new _DisplayTemplatesClass();
-            public _DisplayTemplatesClass DisplayTemplates { get { return s_DisplayTemplates; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _DisplayTemplatesClass
-            {
-                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
-                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
-                public class _ViewNamesClass
-                {
-                }
-            }
         }
     }
 

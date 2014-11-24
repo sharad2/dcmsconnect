@@ -13,6 +13,6 @@
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
     <file>/Areas/PickWaves/Home/Home-CustomerSummary.css</file>
-    <file>/Areas/PickWaves/SharedViews/DisplayTemplates/BucketModel-Display.partial.css</file>
+    <!--<file>/Areas/PickWaves/SharedViews/DisplayTemplates/BucketModel-Display.partial.css</file>-->
   </files>
 </bundle>

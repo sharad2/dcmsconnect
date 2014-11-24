@@ -14,6 +14,6 @@
   <files>
     <file>ManageWave-Index.partial.css</file>
     <file>/Areas/PickWaves/Home/Home-CustomerSummary.css</file>
-    <file>/Areas/PickWaves/SharedViews/DisplayTemplates/BucketModel-Display.partial.css</file>
+    <!--<file>/Areas/PickWaves/SharedViews/DisplayTemplates/BucketModel-Display.partial.css</file>-->
   </files>
 </bundle>
