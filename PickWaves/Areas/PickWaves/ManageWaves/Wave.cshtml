@@ -111,14 +111,14 @@
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {
-
+            <!--Edit the pickwave partial-->
             @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
 
 
         }
         else
         {
-
+            <!--Pickwave detail partial-->
             @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}
@@ -179,6 +179,55 @@
 
     </div>
 
+ 
+
+</div>
+@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
+
+
+
+@section script {
+    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.js"></script>
+
+
+    @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
+        <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_js"></script>*@
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @*@if (Model.UserIsManager)
     {
 
@@ -216,19 +265,3 @@
         </div>
 
     }*@
-
-</div>
-@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
-
-
-
-@section script {
-    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
-    <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.bootstrap.js"></script>
-
-
-    @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
-        <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_js"></script>*@
-}
