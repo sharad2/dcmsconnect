@@ -5,7 +5,7 @@
 
 }
 <div class="container">
-    <div class="page-header">
+   
         <!--Enable with role ROLE_RAD_EDITING (username= jeewan ; password= 1234567890)-->
         @if (Model.EnableEditing)
         {
@@ -13,9 +13,8 @@
                 Add Spot Check...
             </button>
         }
-        <h2>Receiving Configuration</h2>
-       
-    </div>
+    <h2 style="margin-top:0px;">Receiving Configuration</h2>
+   
     @if (Model.SpotCheckAreaList.Count != 0)
     {
         <div class="well well-sm">

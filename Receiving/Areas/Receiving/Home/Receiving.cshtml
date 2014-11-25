@@ -27,15 +27,11 @@
     Your browser does not support the HTML5 Audio element.
 </audio>
 
-<div class="container">
-    <div class="page-header">
-        <h2>
-            Receiving @Html.DisplayFor(m => m.ProcessId)
-            <small>Carrier  @Html.DisplayFor(m => m.CarrierDisplayName)</small>
-
-        </h2>
-    </div>
-
+<div class="container">   
+    <h2 style="margin-top:0px;">
+        Receiving @Html.DisplayFor(m => m.ProcessId)
+        <small>Carrier  @Html.DisplayFor(m => m.CarrierDisplayName)</small>
+    </h2>
     <p>
         @Html.LabelFor(m => m.ProNumber)
         @Html.DisplayFor(m => m.ProNumber) dated <em>@Html.DisplayFor(m => m.ProDate)</em>
