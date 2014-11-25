@@ -1,30 +1,51 @@
 ﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
 @{
     Layout = @MVC_Receiving.Receiving.SharedViews.Views._layoutBootstrap;
+    ViewBag.AppName = "Receiving";
+    ViewBag.AppHomeUrl = Url.Action(MVC_Receiving.Receiving.Home.Index());
 }
 
-@section areatitle {
-<ul class="nav navbar-nav">
-    <li>
-        <div class="btn-group navbar-btn navbar-left">
-            <a href="@Url.Action(MVC_Receiving.Receiving.Home.Index())" class="btn" style="background:none;border:hidden">
-                <span class="glyphicon glyphicon-th-large"></span>  Receiving
-            </a>
-            <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" >
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                @RenderSection("areatitle", false)
-                <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())">Receive New Shipment</a></li>
-                <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())">Manage Open Shipments</a></li>
-                <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())">Spotcheck Settings</a></li>
-            </ul>
-        </div>
-    </li>
-</ul>
+
+@section applinks {
+    @RenderSection("applinks", false)
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())">Receive New Shipment</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())">Manage Open Shipments</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())">Spotcheck Settings</a></li>
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @section script {
     @RenderSection("script", false)

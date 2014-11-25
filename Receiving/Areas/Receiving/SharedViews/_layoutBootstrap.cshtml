@@ -1,10 +1,34 @@
 ﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
 
 @*This layout is designed to be used as the main layout of every Area.
-    It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
-    It also displays status summary and validation errors.
+        It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
+        It also displays status summary and validation errors.
 
-    This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
+        This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
+
+        Usage:
+        To display an app specific drop down menu, the layout page of your application must set
+          ViewBag.AppName = Short name of your application, e.g. Inquiry
+          ViewBag.AppHomeUrl = The URL of the home page of your application.
+
+        If BOTH of the above are set, then you will see a drop down menu for your application. You can add links to this drop down menu by defining the
+        section applinks. Here is an example implementation from Inquiry layout page. Note that each link must be enclosed within an li.
+
+        @section applinks {
+        <li>
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoList())">
+                Purchase Orders
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.WaveList())"> Pick Waves</a>
+        </li>
+        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.ParentShipmentList())"> BOLs</a></li>
+        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())"> Intransit Shipments</a></li>
+        <!-- Allow individual pages to add their own links  -->
+        @RenderSection("applinks", false)
+    }
+    If your application does not have any app links, this layout will detect this and not show any drop down.
 
 *@
 @inherits System.Web.Mvc.WebViewPage
@@ -20,8 +44,10 @@
     var messages = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.StatusMessages(Html);
     var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
 
-    // We are the RC site if our URL is specified in web.config
-    //var isRc = !string.IsNullOrWhiteSpace(urlRcBase) && ViewContext.HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(urlRcBase, StringComparison.InvariantCultureIgnoreCase);
+    var appLinks = RenderSection("applinks", false);
+    //appLinks.WriteTo(TextWriter.Null);
+    //appLinks = null;
+
 }
 @helper PublicUrl(string[] routeNames)
 {
@@ -54,18 +80,32 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                    <a class="navbar-brand bg-info" href="@Url.Content("~")">
-                        <i class="glyphicon glyphicon-home"></i> DCMS 
-                    </a>
+                <a class="navbar-brand bg-info" href="@Url.Content("~")">
+                    <span class="glyphicon glyphicon-home"></span> DCMS
+                </a>
+                @if (ViewBag.AppName != null && ViewBag.AppHomeUrl != null)
+                {
+                    <div class="btn-group navbar-left">
+                        <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px">
+                            <span class="glyphicon glyphicon-th-large"></span> @ViewBag.AppName
+                        </a>
+                        @if (appLinks != null)
+                        {
+                            <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                @Html.Raw(appLinks.ToHtmlString())
+                            </ul>
+                        }
+                    </div>
+                }
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!--Spilt Button called from individual project as a title and its dropdown-->
-
-                @RenderSection("areatitle", false)
                 <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" class="navbar-form navbar-left" role="search">
-
                     <div class="form-group">
                         <div class="input-group">
                             <input name="id" type="search" class="form-control" placeholder="Search DCMS" />
@@ -107,7 +147,7 @@
                     }
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                           <span class="glyphicon glyphicon-cog"></span>
+                            <span class="glyphicon glyphicon-cog"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
@@ -122,20 +162,45 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    @if (messages.Count > 0 || errors.Count > 0)
+    @if (messages.Count > 0)
     {
-        <ol class="list-group">
-            @for (var i = 0; i < messages.Count; ++i)
-            {
-                <li class="list-group-item list-group-item-info">@messages[i]</li>
-            }
-            @for (var i = 0; i < errors.Count; ++i)
-            {
-                <li class="list-group-item list-group-item-danger">@errors[i]</li>
-            }
-        </ol>
+        <div class="container-fluid">
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <ol>
+                    @for (var i = 0; i < messages.Count; ++i)
+                    {
+                        <li>@messages[i]</li>
+                    }
+                </ol>
+                @*<ol>
+                        <li>Message 1</li>
+                        <li>Message 1</li>
+                    </ol>*@
+            </div>
+
+        </div>
     }
 
+    @if (errors.Count > 0)
+    {
+        <div class="container-fluid">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <ol>
+                    @for (var i = 0; i < errors.Count; ++i)
+                    {
+                        <li>@errors[i]</li>
+                    }
+                </ol>
+                @*<ol>
+                        <li>Error 1</li>
+                        <li>Error 1</li>
+                    </ol>*@
+            </div>
+
+        </div>
+    }
     @RenderBody()
 
 
