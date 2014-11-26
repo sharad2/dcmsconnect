@@ -1,4 +1,4 @@
-﻿@model DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
 @{
     ViewBag.Title = Model.PageTitle;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
@@ -8,7 +8,7 @@
 @section areatitle{
 
     <li title="This report will identify those SKUs which cannot be shipped due to insufficient inventory. It will also tell you which areas these SKUs can be pulled from.">
-        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))"
+        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))"
            target="report">
             <span class="glyphicon glyphicon-new-window"></span> 130.28: Inventory Shortages
         </a>
@@ -24,7 +24,7 @@
     @if (!string.IsNullOrWhiteSpace(Model.UserName))
     {
         <div class="alert alert-info">
-            Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
+            Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
         </div>
     }
     <div class="page-header">

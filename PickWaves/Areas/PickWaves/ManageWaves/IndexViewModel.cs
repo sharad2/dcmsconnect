@@ -5,8 +5,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DcmsMobile.PickWaves.Helpers;
 using EclipseLibrary.Mvc.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// ReadOnly(false) attribute explicitly clarifies what we expect to see posted. MVC's DefaultModelBinder respects this.

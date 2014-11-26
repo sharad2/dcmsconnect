@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.PickWaves.Repository.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class Sku
     {

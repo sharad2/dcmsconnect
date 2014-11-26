@@ -2,8 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class WaveSkuListModel
     {

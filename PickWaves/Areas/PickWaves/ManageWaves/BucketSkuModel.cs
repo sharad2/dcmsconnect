@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.PickWaves.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// Sku ordered in wave

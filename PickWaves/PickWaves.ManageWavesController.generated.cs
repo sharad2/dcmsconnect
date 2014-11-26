@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public partial class ManageWavesController
     {
@@ -294,15 +294,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ManageWavesController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.ManageWavesController
+    public partial class T4MVC_ManageWavesController : DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController
     {
         public T4MVC_ManageWavesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel model);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel model)
+        public override System.Web.Mvc.ActionResult Index(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -311,10 +311,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void WaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model);
+        partial void WaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Wave(DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model)
+        public override System.Web.Mvc.ActionResult Wave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -323,10 +323,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void EditableWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model);
+        partial void EditableWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditableWave(DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model)
+        public override System.Web.Mvc.ActionResult EditableWave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditableWave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -375,10 +375,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void EditWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model);
+        partial void EditWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditWave(DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel model)
+        public override System.Web.Mvc.ActionResult EditWave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditWave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

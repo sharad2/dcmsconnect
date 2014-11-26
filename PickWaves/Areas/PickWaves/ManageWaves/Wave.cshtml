@@ -1,4 +1,4 @@
-﻿@model DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
 @{
     ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId + " : " + Model.Bucket.MaxCustomerName;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
@@ -7,7 +7,7 @@
 
 @section areatitle{
     <li title="This report display details of pick wave.">
-        <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
+        <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
             Report 140.02: Pick Wave Summary
         </a>
     </li>
@@ -18,12 +18,12 @@
         <h3>
             @ViewBag.Title
         </h3>
-        @if (Model.HighlightedActions != DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.NotSet)
+        @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
         {
 
             <small>
 
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.ViewModels.ManageWaves.IndexViewModel
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
                     See: Other @Model.Bucket.StateDisplayName Waves of same customer
                 </a>

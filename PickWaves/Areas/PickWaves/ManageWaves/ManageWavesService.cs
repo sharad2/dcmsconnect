@@ -1,11 +1,12 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace DcmsMobile.PickWaves.Repository.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     internal class ManageWavesService : PickWaveServiceBase<ManageWavesRepository>
     {

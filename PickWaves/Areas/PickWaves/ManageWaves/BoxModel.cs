@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Helpers;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class BoxModel
     {

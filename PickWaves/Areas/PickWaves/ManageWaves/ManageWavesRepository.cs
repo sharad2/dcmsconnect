@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 
-namespace DcmsMobile.PickWaves.Repository.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// Flags which indicate what properties need to be updated

@@ -5,8 +5,9 @@ using System.Web.Mvc;
 using DcmsMobile.PickWaves.Helpers;
 using EclipseLibrary.Mvc.Helpers;
 using EclipseLibrary.Mvc.Html;
+using DcmsMobile.PickWaves.ViewModels;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// What should the wave details page propose to the user

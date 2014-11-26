@@ -90,11 +90,11 @@
                 <legend>
                     Pick Wave @Html.DisplayFor(m => m.LastBucketId) <small>
                         @Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
-            new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
-                (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.UnfreezeMe))) /
+            new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
+                (Model.LastBucketId.Value, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe))) /
                         @Html.ActionLink("Edit", MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
-            new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel
-             (Model.LastBucketId.Value, DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))
+            new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
+             (Model.LastBucketId.Value, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing)))
                     </small>
                 </legend>
                 <p>

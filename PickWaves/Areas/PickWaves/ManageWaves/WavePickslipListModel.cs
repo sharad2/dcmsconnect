@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace DcmsMobile.PickWaves.ViewModels.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class WavePickslipsViewModel: ViewModelBase
     {

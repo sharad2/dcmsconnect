@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.PickWaves.Repository;
+using System.Collections.Generic;
 
-namespace DcmsMobile.PickWaves.Repository.ManageWaves
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// Represents one of the SKUs in a bucket

@@ -13,8 +13,8 @@
 
         <h3 class="list-group-item-heading" style="display:inline-block">
             Pick Wave <a title="Pick Wave Details"
-                         href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(Model.BucketId,
-                                                                DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.BackTo)))">
+                         href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel(Model.BucketId,
+                                                                   DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.BackTo)))">
 
                 @Model.BucketId
             </a>
@@ -32,9 +32,9 @@
                 {
 
                     <a class="btn btn-default btn-sm"
-                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.ViewModels.ManageWaves.WaveViewModel(
+                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel(
                                                             Model.BucketId,
-                                                        DcmsMobile.PickWaves.ViewModels.ManageWaves.SuggestedNextActionType.CancelEditing)))">
+                                                    DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing)))">
                         <span class="glyphicon glyphicon-edit"></span> Edit
                     </a>
                 }
