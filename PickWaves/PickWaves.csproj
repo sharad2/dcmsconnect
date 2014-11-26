@@ -154,7 +154,7 @@
     <Compile Include="Areas\PickWaves\CreateWave\VirtualWarehouse.cs" />
     <Compile Include="Repository\Customer.cs" />
     <Compile Include="Areas\PickWaves\Home\BucketSummary.cs" />
-    <Compile Include="Repository\ImportedOrderSummary.cs" />
+    <Compile Include="Areas\PickWaves\Home\ImportedOrderSummary.cs" />
     <Compile Include="Repository\InventoryArea.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CustomerOrderSummary.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\Pallet.cs" />

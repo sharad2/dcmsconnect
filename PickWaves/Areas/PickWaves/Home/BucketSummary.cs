@@ -1,8 +1,9 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.PickWaves.Repository.Home
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     /// <summary>
     /// Summarizes information on active buckets by state/customer

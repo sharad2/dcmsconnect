@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public class Customer : IEquatable<Customer>
+    internal class Customer : IEquatable<Customer>
     {
         [Key]
         public string CustomerId { get; set; }

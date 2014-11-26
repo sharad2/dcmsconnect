@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Helpers;
 
-namespace DcmsMobile.PickWaves.ViewModels.Home
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     public class ImportedOrderSummaryModel
     {

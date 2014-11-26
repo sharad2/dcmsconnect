@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     public partial class HomeController
     {
@@ -129,7 +129,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.HomeController
+    public partial class T4MVC_HomeController : DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 

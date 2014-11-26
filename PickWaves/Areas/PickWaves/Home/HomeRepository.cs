@@ -1,10 +1,11 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace DcmsMobile.PickWaves.Repository.Home
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
 
     public enum SearchTextType

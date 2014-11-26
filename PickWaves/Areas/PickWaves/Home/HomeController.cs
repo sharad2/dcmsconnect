@@ -1,14 +1,12 @@
 ﻿
 using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository.Home;
-using DcmsMobile.PickWaves.ViewModels.Home;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     
     //[RoutePrefix(HomeController.NameConst)]

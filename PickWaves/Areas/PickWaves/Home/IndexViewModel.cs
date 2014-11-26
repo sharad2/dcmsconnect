@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
 
-namespace DcmsMobile.PickWaves.ViewModels.Home
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     /// <summary>
     /// The model passed to the Index view

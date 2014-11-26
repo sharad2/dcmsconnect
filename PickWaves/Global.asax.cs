@@ -28,7 +28,7 @@ namespace DcmsMobile.PickWaves
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = MVC_PickWaves.PickWaves.Home.Name, action = MVC_PickWaves.PickWaves.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
-                new string[] { typeof(DcmsMobile.PickWaves.Areas.PickWaves.Controllers.HomeController).Namespace } // Add Namespace of controller
+                new string[] { typeof(DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController).Namespace } // Add Namespace of controller
             ).DataTokens.Add("area", MVC_PickWaves.PickWaves.Name);
         }
 

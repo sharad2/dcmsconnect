@@ -27,7 +27,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves
                     action = MVC_PickWaves.PickWaves.Home.ActionNames.Index,
                     id = UrlParameter.Optional
                 },
-                new[] { typeof(Controllers.HomeController).Namespace }
+                new[] { typeof(DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController).Namespace }
             );
             ModelUnbinderHelpers.ModelUnbinders.Add(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModelUnbinder());
             ModelUnbinderHelpers.ModelUnbinders.Add(typeof(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel),

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Helpers;
 
-namespace DcmsMobile.PickWaves.ViewModels.Home
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     /// <summary>
     /// Use for manage multiple bucket status

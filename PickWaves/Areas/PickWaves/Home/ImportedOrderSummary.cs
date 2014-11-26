@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.PickWaves.Repository
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
-    public class ImportedOrderSummary
+    internal class ImportedOrderSummary
     {
         [Key]
         public Customer Customer { get; set; }
