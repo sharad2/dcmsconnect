@@ -206,7 +206,7 @@
     <Compile Include="Areas\PickWaves\CreateWave\RowDimensionModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\PickslipMatrixPartialViewModel.cs" />
     <Compile Include="Areas\PickWaves\Home\CustomerBucketStateModel.cs" />
-    <Compile Include="ViewModels\InventoryAreaModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\InventoryAreaModel.cs" />
     <Compile Include="Areas\PickWaves\Home\ImportedOrderSummaryModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\IndexViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\PickslipListViewModel.cs" />

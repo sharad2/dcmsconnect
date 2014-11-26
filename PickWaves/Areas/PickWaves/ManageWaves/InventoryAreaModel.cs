@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Repository;
 using System;
 
-namespace DcmsMobile.PickWaves.ViewModels
+namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// IEquatable implementation allows us to treat areas as same if there id is same. This makes it possible to use Distinct() for InventoryAreaModel
