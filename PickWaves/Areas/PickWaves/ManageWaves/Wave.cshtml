@@ -111,20 +111,10 @@
                 </li>
             </ul>
             <!-- Tab panes -->
-            <div class="tab-content">
-
-                @*<div class="alert hidden" role="alert"></div>*@
-                @*<img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />*@
-                <div role="tabpanel" class="tab-pane" id="pickslips">
-
-                </div>
-                <div role="tabpanel" class="tab-pane" id="boxes">
-
-                </div>
-                <div role="tabpanel" class="tab-pane" id="skus">
-
-                </div>
-
+            <div class="tab-content">              
+                <div role="tabpanel" class="tab-pane" id="pickslips"></div>
+                <div role="tabpanel" class="tab-pane" id="boxes"></div>
+                <div role="tabpanel" class="tab-pane" id="skus"></div>
             </div>
         </div>
 
@@ -163,7 +153,16 @@
                 });
             }).on('click', 'button[data-pickslip-remove-url]', function (e) {
                 // Remove Pickslip
+                alert($(e.target).data('pickslip-remove-url'));
 
+                $.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
+                    //success
+                    $(e.target).closest('li.list-group-item').addClass('list-group-item-warning')
+                      .find('a.pickslip').css('text-decoration', 'line-through');
+                }).error(function (jqXHR, textStatus, errorThrown) {
+                    //error
+                   alert.html(jqXHR.responseText);
+                });
             }).find('> ul a:first').tab('show');
 
             

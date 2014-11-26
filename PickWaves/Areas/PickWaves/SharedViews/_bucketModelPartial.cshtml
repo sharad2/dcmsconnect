@@ -79,31 +79,36 @@
                             </div>
 
                             <div class="col-md-6">
-                               
+
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
                                         <label class="sr-only">Email</label>
                                         <p class="form-control-static"> Priority</p>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="input-group input-group-sm">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
-                                                        data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
-                                                    <span class="glyphicon glyphicon-arrow-down">
-                                                    </span>
-                                                </button>
-                                            </span>
-                                            <input type="text" class="form-control" value="@Model.PriorityId" readonly size="2" style="text-align:right">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
-                                                        data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
-                                                    <span class="glyphicon glyphicon-arrow-up"></span>
-                                                </button>
-                                            </span>
+                                    @if (isAuthorized)
+                                    {
+                                        <div class="form-group">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
+                                                            data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
+                                                        <span class="glyphicon glyphicon-arrow-down">
+                                                        </span>
+                                                    </button>
+                                                </span>
+                                                <input type="text" class="form-control" value="@Model.PriorityId" readonly size="2" style="text-align:right">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
+                                                            data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
+                                                        <span class="glyphicon glyphicon-arrow-up"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-
+                                    }
+                                    else
+                                    {
+                                    @Model.PriorityId}
                                 </div>
                             </div>
                         </div>

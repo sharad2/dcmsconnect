@@ -22,13 +22,14 @@
                 <div class="col-md-5">
                     <h4 class="list-group-item-heading">
                         <small>@(i + 1)</small>
-                        <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                        <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry" 
+                            class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
                         <small>
-                    PurchaseOrder  <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
-                    &bull;
-                    VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
-                </small>
-                </h4>
+                            PurchaseOrder  <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                            &bull;
+                            VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                        </small>
+                    </h4>
 
                     <p class="list-group-item-text">
 
@@ -52,7 +53,7 @@
                     <div class="progress" style="margin-bottom:0px;">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
                             <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked</span>
-</div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -89,7 +90,7 @@
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-warning" disabled title="Can't remove because some pieces are pulled or picked or Wave is unfreeze."> Can't remove </button>
                                 <button type="button" class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <small >Why?</small>
+                                    <small>Why?</small>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="text-info">
