@@ -43,5 +43,7 @@ namespace DcmsMobile.PickWaves.Repository
         public int PiecesInCancelledBoxes { get; set; }
 
         public bool IsFrozenWave { get; set; }
+
+        public int? Iteration { get; set; }
     }
 }

@@ -22,13 +22,14 @@
                 <div class="col-md-5">
                     <h4 class="list-group-item-heading">
                         <small>@(i + 1)</small>
-                        <a href='@Url.Content(string.Format("~/Inquiry/Pickslip/{0}", Model.PickslipList[i].PickslipId))' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                        <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
                         <small>
-                            PurchaseOrder  <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
-                            &bull;
-                            VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
-                        </small>
-                    </h4>
+                    PurchaseOrder  <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                    &bull;
+                    VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                </small>
+                </h4>
+
                     <p class="list-group-item-text">
 
                         Customer DC: @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)

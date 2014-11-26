@@ -387,6 +387,8 @@ WHERE 1 = 1
                                        MAX(PS.CUSTOMER_STORE_ID)                AS CUSTOMER_STORE_ID,
                                        MAX(PS.VWH_ID) AS VWH_ID,
                                        MAX(PS.TOTAL_QUANTITY_ORDERED)           AS ORDERED_PIECES,
+MAX(ps.iteration) as iteration,
+MAX(ps.customer_id) AS customer_id,
                                        SUM(BD.CURRENT_PIECES)                   AS CURRENT_PIECES,
                                        COUNT(UNIQUE B.UCC128_ID)                AS BOX_COUNT,
                                        COUNT(UNIQUE CASE
@@ -421,7 +423,9 @@ WHERE 1 = 1
                 CancelledBoxCount = row.GetInteger("CANCELLED_BOXES") ?? 0,
                 PiecesInCancelledBoxes = row.GetInteger("PIECES_IN_CANCELLED_BOXES") ?? 0,
                 BoxCount = row.GetInteger("BOX_COUNT") ?? 0,
-                IsFrozenWave = row.GetString("MAX_FREEZE") == "Y"
+                IsFrozenWave = row.GetString("MAX_FREEZE") == "Y",
+                Iteration = row.GetInteger("iteration"),
+                CustomerId = row.GetString("customer_id")
             });
             binder.Parameter("BUCKET_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder,2000);

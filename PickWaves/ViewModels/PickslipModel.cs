@@ -103,5 +103,9 @@ namespace DcmsMobile.PickWaves.ViewModels
         public int BoxCount { get; set; }
 
         public bool IsFrozenWave { get; set; }
+
+        public string UrlInquiryPickslip { get; set; }
+
+        public string UrlInquiryPurchaseOrder { get; set; }
     }
 }

@@ -349,10 +349,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavepickslip")]
         public virtual ActionResult WavePickslips(int bucketId)
         {
+            var bucket = _service.GetBucket(bucketId);
+            var pickslips = _service.GetBucketPickslip(bucketId);
+            //var pickslip1 = pickslips.First();
+            //var x = Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3, new
+            //                                {
+            //                                    id = pickslip1.PurchaseOrder,
+            //                                    pk1 = pickslip1.CustomerId,
+            //                                    pk2 = pickslip1.Iteration
+            //                                });
             var model = new WavePickslipsViewModel
                 {
-                    Bucket = new BucketModel(_service.GetBucket(bucketId)),
-                    PickslipList = (from pickslip in _service.GetBucketPickslip(bucketId)
+                    Bucket = new BucketModel(bucket),
+                    PickslipList = (from pickslip in pickslips
+                                    let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                                    let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
                                     select new PickslipModel
                                         {
                                             PickslipId = pickslip.PickslipId,
@@ -365,9 +376,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                             CancelledBoxCount = pickslip.CancelledBoxCount,
                                             PiecesInCancelledBoxes = pickslip.PiecesInCancelledBoxes,
                                             BoxCount = pickslip.BoxCount,
-                                            IsFrozenWave = pickslip.IsFrozenWave
+                                            IsFrozenWave = pickslip.IsFrozenWave,
+                                            UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
+                                            {
+                                                id = pickslip.PickslipId
+                                            }),
+                                            UrlInquiryPurchaseOrder = routePo == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3, new
+                                            {
+                                                id = pickslip.PurchaseOrder,
+                                                pk1 = pickslip.CustomerId,
+                                                pk2 = pickslip.Iteration
+                                            })
                                         }).OrderBy(p => p.PercentCurrentPieces)
-                                          .ThenByDescending(p => p.OrderedPieces).ToArray()
+                                          .ThenByDescending(p => p.OrderedPieces).ToList(),
+
                 };
             return PartialView(this.Views._wavePickslipsPartial, model);
         }

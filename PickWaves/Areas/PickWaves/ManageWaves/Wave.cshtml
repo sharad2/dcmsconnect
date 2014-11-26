@@ -47,22 +47,6 @@
         }
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div>
         <div id="filterStatus" style="display: inline">
             <div data-activity="@DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching" data-boxstate="@((int)DcmsMobile.PickWaves.Helpers.BoxState.InProgress)"
@@ -96,11 +80,12 @@
             </div>
         </div>
 
-        <div role="tabpanel">
+        <div role="tabpanel" id="tabs">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs bg-info" role="tablist">
+            <ul class="nav nav-tabs" role="tablist">
                 <li>
-                    <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId).AddRouteValue("_", 0))" role="tab" data-toggle="tab">Pickslips</a>
+                    <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId).AddRouteValue("_", 0))"
+                       role="tab" data-toggle="tab">Pickslips</a>
                 </li>
                 <li>
                     <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
@@ -118,9 +103,9 @@
             <!-- Tab panes -->
             <div class="tab-content">
 
-                <div class="alert hidden" role="alert"></div>
+                @*<div class="alert hidden" role="alert"></div>*@
                 @*<img src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />*@
-                <div role="tabpanel" class="tab-pane active" id="pickslips"></div>
+                <div role="tabpanel" class="tab-pane" id="pickslips"></div>
                 <div role="tabpanel" class="tab-pane" id="boxes"></div>
                 <div role="tabpanel" class="tab-pane" id="skus"></div>
 
@@ -146,23 +131,35 @@
 
     <script type="text/javascript">
         $(document).ready(function (e) {
-            $('a[data-toggle="tab"]').one('shown.bs.tab', function (e) {
-                $.post($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
+            //$('a[data-toggle="tab"]').one('shown.bs.tab', function (e) {
+            //    alert('Hi');
+            //    return;
+            //    $.post($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
+            //        //success
+            //        $('div.tab-content div.active').html(data);
+            //    }).error(function (jqXHR, textStatus, errorThrown) {
+            //        //error
+            //        alert(jqXHR.responseText);
+            //    });
+            //});
+
+            //trigger the click event on first anchor of the tab to load the content by default
+            //setTimeout(function () {
+            //    $('ul.nav-tabs a:first').trigger('click');
+            //}, 100);
+
+            // Make the first tab active
+            //$('#tabs > ul a:first').tab('show');
+            $('#tabs').one('show.bs.tab', function (e) {
+                alert('show');
+                $.get($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
                     //success
-                    $('div.tab-content div.active').html(data);
-                }).error(function (jqXHR, textStatus, errorThrown) {
+                    $($(e.target).attr('href')).html(data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
                     //error
                     alert(jqXHR.responseText);
                 });
-            });
-
-            //trigger the click event on first anchor of the tab to load the content by default
-            setTimeout(function () {
-                $('ul.nav-tabs a:first').trigger('click');
-            }, 100);
-
-
-
+            }).find('> ul a:first').tab('show');
 
             $('div.tab-content').on('click', '#pickslips button[data-pickslip-remove-url]', function (e) {
                 $.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
