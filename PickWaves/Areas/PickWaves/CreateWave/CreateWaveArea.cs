@@ -1,4 +1,5 @@
-﻿namespace DcmsMobile.PickWaves.Repository.CreateWave
+﻿using DcmsMobile.PickWaves.Repository;
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     internal class CreateWaveArea : InventoryArea
     {

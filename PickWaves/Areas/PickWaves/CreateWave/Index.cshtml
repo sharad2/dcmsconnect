@@ -1,4 +1,4 @@
-﻿@model DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel
 @{
     ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName, Model.CustomerId);
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves2;
@@ -99,7 +99,7 @@
                 </legend>
                 <p>
                     This pick wave contains <span class="h4">@Html.DisplayFor(m => m.PickslipCount) pickslips</span>. Continue adding pickslips below or
-                    @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.CustomerId,
+                    @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(Model.CustomerId,
                Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null)))
                 </p>
                 <dl class="dl-horizontal">
@@ -178,7 +178,7 @@
                                                 @Model.ColDimDisplayName @item.Key
                                             </div>
                                             <div class="col-md-4">
-                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel
+                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel
                                         {
                                             BucketId = Model.LastBucketId,
                                             CustomerId = Model.CustomerId,

@@ -1,7 +1,7 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository.CreateWave;
+
 using DcmsMobile.PickWaves.ViewModels;
-using DcmsMobile.PickWaves.ViewModels.CreateWave;
+
 using EclipseLibrary.Mvc.Controllers;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +11,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     [AuthorizeEx("Managing Pick Waves requires role {0}", Roles = ROLE_WAVE_MANAGER)]
     [RoutePrefix("create")]

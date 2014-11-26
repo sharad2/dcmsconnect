@@ -1,8 +1,9 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.Collections.Generic;
 using System.Web;
 
-namespace DcmsMobile.PickWaves.Repository.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     internal class CreateWaveService : PickWaveServiceBase<CreateWaveRepository>
     {

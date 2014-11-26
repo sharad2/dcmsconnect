@@ -30,10 +30,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves
                 new[] { typeof(Controllers.HomeController).Namespace }
             );
             ModelUnbinderHelpers.ModelUnbinders.Add(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModelUnbinder());
-            ModelUnbinderHelpers.ModelUnbinders.Add(typeof(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel), 
-                new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModelUnbinder());            
-            ModelUnbinderHelpers.ModelUnbinders.Add(typeof(DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel),
-                new DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModelUnbinder());
+            ModelUnbinderHelpers.ModelUnbinders.Add(typeof(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel),
+                new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModelUnbinder());
+            ModelUnbinderHelpers.ModelUnbinders.Add(typeof(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel),
+                new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModelUnbinder());
             ModelUnbinderHelpers.ModelUnbinders.Add(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModelUnbinder());
         }
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DcmsMobile.PickWaves.Repository.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     internal class CellValue
     {

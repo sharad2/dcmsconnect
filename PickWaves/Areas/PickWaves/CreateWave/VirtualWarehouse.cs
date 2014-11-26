@@ -1,5 +1,5 @@
 ﻿
-namespace DcmsMobile.PickWaves.Repository.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     public class VirtualWarehouse
     {

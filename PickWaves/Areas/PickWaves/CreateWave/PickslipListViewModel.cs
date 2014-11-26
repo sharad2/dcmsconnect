@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web.Routing;
 using EclipseLibrary.Mvc.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
 
-namespace DcmsMobile.PickWaves.ViewModels.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     public class PickslipListViewModel : PickslipMatrixPartialViewModel
     {

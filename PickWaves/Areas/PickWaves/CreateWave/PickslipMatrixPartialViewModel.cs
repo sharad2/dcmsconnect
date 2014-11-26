@@ -1,4 +1,5 @@
-﻿using DcmsMobile.PickWaves.Repository.CreateWave;
+﻿
+using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Helpers;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DcmsMobile.PickWaves.ViewModels.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     /// <summary>
     /// View Model passed to _pickslipMatrixPartial

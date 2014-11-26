@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace DcmsMobile.PickWaves.ViewModels.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     /// <summary>
     /// Represents available information for each row of the dimension matrix

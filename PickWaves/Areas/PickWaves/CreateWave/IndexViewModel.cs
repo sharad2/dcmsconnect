@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DcmsMobile.PickWaves.ViewModels.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     /// <summary>
     /// The unbinder is capable of handling many properties.

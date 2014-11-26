@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.PickWaves.Repository.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     /// <summary>
     /// The column to use as dimension while retrieving pickslips. 

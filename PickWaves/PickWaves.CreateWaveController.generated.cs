@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     public partial class CreateWaveController
     {
@@ -161,15 +161,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_CreateWaveController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.CreateWaveController
+    public partial class T4MVC_CreateWaveController : DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.CreateWaveController
     {
         public T4MVC_CreateWaveController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model)
+        public override System.Web.Mvc.ActionResult Index(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -178,10 +178,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddPickslipsOfDimOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model);
+        partial void AddPickslipsOfDimOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPickslipsOfDim(DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel model)
+        public override System.Web.Mvc.ActionResult AddPickslipsOfDim(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPickslipsOfDim);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -190,10 +190,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel model);
+        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PickslipList(DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel model)
+        public override System.Web.Mvc.ActionResult PickslipList(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PickslipList);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -202,10 +202,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddPickslipsToBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel model);
+        partial void AddPickslipsToBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPickslipsToBucket(DcmsMobile.PickWaves.ViewModels.CreateWave.PickslipListViewModel model)
+        public override System.Web.Mvc.ActionResult AddPickslipsToBucket(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPickslipsToBucket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

@@ -116,7 +116,7 @@
                             @if (isAuthorized && Model.IsFrozen)
                             {
                                 <small>
-                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.ViewModels.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
+                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(Model.MaxCustomerId, Model.BucketId)))">
                                         Add more
                                     </a>
                                 </small>

@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Xml.Linq;
 
-namespace DcmsMobile.PickWaves.Repository.CreateWave
+namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     internal class CreateWaveRepository : PickWaveRepositoryBase
     {

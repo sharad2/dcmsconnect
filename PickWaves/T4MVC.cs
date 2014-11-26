@@ -38,7 +38,7 @@ namespace T4MVC
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.BoxPickPalletController BoxPickPallet = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_BoxPickPalletController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.ConfigController Config = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_ConfigController();
-        public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.CreateWaveController CreateWave = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_CreateWaveController();
+        public DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.CreateWaveController CreateWave = new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.T4MVC_CreateWaveController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.HomeController Home = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_HomeController();
         public DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController ManageWaves = new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.T4MVC_ManageWavesController();
         public T4MVC.PickWaves.SharedViewsController SharedViews = new T4MVC.PickWaves.SharedViewsController();
