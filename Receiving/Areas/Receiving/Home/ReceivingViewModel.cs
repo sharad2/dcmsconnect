@@ -45,15 +45,15 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public string PalletIdListJson { get; set; }
 
         //This property keep the list of all NonPalletizeCartons.
-        private IEnumerable<CartonNotOnPalletModel> _nonPalletizeCarton;
-        public IEnumerable<CartonNotOnPalletModel> NonPalletizeCartonList
-        {
-            get { return _nonPalletizeCarton ?? (_nonPalletizeCarton = Enumerable.Empty<CartonNotOnPalletModel>().ToList()); }
-            set
-            {
-                _nonPalletizeCarton = value;
-            }
-        }
+        //private IEnumerable<CartonNotOnPalletModel> _nonPalletizeCarton;
+        //public IEnumerable<CartonNotOnPalletModel> NonPalletizeCartonList
+        //{
+        //    get { return _nonPalletizeCarton ?? (_nonPalletizeCarton = Enumerable.Empty<CartonNotOnPalletModel>().ToList()); }
+        //    set
+        //    {
+        //        _nonPalletizeCarton = value;
+        //    }
+        //}
 
         public string CarrierId { get; set; }
 

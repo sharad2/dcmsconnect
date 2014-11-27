@@ -122,7 +122,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Receiving.resx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Receiving\Home\CartonNotOnPalletModel.cs" />
     <Compile Include="Areas\Receiving\Home\IndexViewModel.cs" />
     <Compile Include="Areas\Receiving\Home\PalletViewModel.cs" />
     <Compile Include="Areas\Receiving\Home\ProcessEditorViewModel.cs" />
