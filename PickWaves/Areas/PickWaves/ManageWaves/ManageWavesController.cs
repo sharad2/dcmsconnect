@@ -320,6 +320,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                  StateFilter = stateFilter,
                  ActivityFilter = activityFilter,
                  BoxesList = (from box in _service.GetBucketBoxes(bucketId, stateFilter, activityFilter)
+                              let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
                               select new BoxModel
                               {
                                   Ucc128Id = box.Ucc128Id,
@@ -333,7 +334,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                   PickslipId = box.PickslipId,
                                   CreatedBy = box.CreatedBy,
                                   CreatedDate = box.CreatedDate,
-                                  VWhId = box.VWhId
+                                  VWhId = box.VWhId,
+                                  UrlInquiryBox = routeBox == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1, new
+                                  {
+                                      id = box.Ucc128Id
+                                  })
                               }).ToArray()
              };
             return PartialView(this.Views._waveBoxesPartial, model);
@@ -358,6 +363,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //                                    pk1 = pickslip1.CustomerId,
             //                                    pk2 = pickslip1.Iteration
             //                                });
+           
             var model = new WavePickslipsViewModel
                 {
                     Bucket = new BucketModel(bucket),

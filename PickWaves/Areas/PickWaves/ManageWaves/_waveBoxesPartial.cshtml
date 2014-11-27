@@ -116,12 +116,13 @@
 @*@helper ShowTableCaption()*@
   @for (var i = 0; i < Model.BoxesList.Count; i++)
   {
-    <li class="list-group-item">
+    <li class="list-group-item @Model.BoxesList[i].DisplayState">
         <div class="row">
             <div class="col-md-5">
                 <h4 class="list-group-item-heading">
                     <small>@(i + 1)</small>
-                    <a href='@Url.Content(string.Format("~/Inquiry/Ucc/{0}", Model.BoxesList[i].Ucc128Id))' target="_inquiry">@Model.BoxesList[i].Ucc128Id</a>
+                    <a href=@Model.BoxesList[i].UrlInquiryBox target="_inquiry">@Html.DisplayFor(m=>m.BoxesList[i].Ucc128Id)</a>
+                    @*<a href='@Url.Content(string.Format("~/Inquiry/Ucc/{0}", Model.BoxesList[i].Ucc128Id))' target="_inquiry">@Model.BoxesList[i].Ucc128Id</a>*@
                     <small>
                        @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
                         &bull;
