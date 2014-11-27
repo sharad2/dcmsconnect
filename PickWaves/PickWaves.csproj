@@ -239,6 +239,8 @@
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />
+    <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -246,13 +248,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
-    <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <Content Include="Areas\PickWaves\ManageWaves\Wave.js.bundle" />
     <Content Include="Areas\PickWaves\SharedViews\_layoutBootstrap.cshtml" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -260,12 +266,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves2.cshtml" />
-    <Content Include="Scripts\npm.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
