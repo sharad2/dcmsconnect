@@ -252,13 +252,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <Content Include="Areas\PickWaves\ManageWaves\Wave.js.bundle" />
+    <Content Include="Areas\PickWaves\SharedViews\_layoutBootstrap.cshtml" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Areas\PickWaves\SharedViews\_layoutBootstrap.cshtml" />
     <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves2.cshtml" />
     <Content Include="Scripts\npm.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
