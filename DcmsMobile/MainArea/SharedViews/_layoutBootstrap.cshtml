@@ -70,71 +70,63 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar navbar-default">
+        <div class="container-fluid  bg-info">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    <span class="glyphicon glyphicon-align-justify"></span>
                 </button>
-                <a class="navbar-brand bg-info" href="@Url.Content("~")">
-                    <span class="glyphicon glyphicon-home"></span> DCMS
+
+
+                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:2px;padding-left:2px;">
+                    <span class="glyphicon glyphicon-home hidden-xs"></span> DCMS
                 </a>
-                <div>
-                    @if (ViewBag.AppName != null && ViewBag.AppHomeUrl != null)
-                    {
-                        <div class="btn-group" style="vertical-align:top">
-                            <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px">
-                                <span class="glyphicon glyphicon-th-large"></span> @ViewBag.AppName
-                            </a>
-                            @if (appLinks != null)
-                            {
-                                <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
-                                    <span class="caret"></span>
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    @Html.Raw(appLinks.ToHtmlString())
-                                </ul>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <!-- Place holder for minimal empty space between brand and search box -->
-                        <div style="display:inline-block">
-                           
-                        </div>
-                    }
-                    <div style="width:12em; display:inline-block">
-                        <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
-                            <div class="input-group navbar-btn">
-                                <input type="search" class="form-control input-sm" name="id" placeholder="Search DCMS">
-                                <span class="input-group-btn">
-                                    @*<button class="btn btn-default" type="button">Go!</button>*@
-                                    <button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                                </span>
-                            </div><!-- /input-group -->
-                        </form>
+
+                @if (ViewBag.AppName != null && ViewBag.AppHomeUrl != null)
+                {
+                    <div class="btn-group" style="vertical-align:top">
+                        <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px;padding-left:2px;">
+                            <span class="glyphicon glyphicon-th-large hidden-xs"></span> @ViewBag.AppName
+                        </a>
+
+                        @if (appLinks != null)
+                        {
+                            <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                @Html.Raw(appLinks.ToHtmlString())
+                            </ul>
+                        }
                     </div>
+                }
+                else
+                {
+                        <!-- Place holder for minimal empty space between brand and search box -->
+                    <div style="display:inline-block">
+
+                    </div>
+                }
+
+                <a class="visible-xs-inline-block btn navbar-btn" data-toggle="modal" href="#searchModal" style="padding-right:0px;padding-left:0px;">
+                    <span class="glyphicon glyphicon-search"></span>
+                </a>
+
+                <div style="width:12em; display:inline-block" class="hidden-xs">
+                    <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+                        <div class="input-group navbar-btn">
+                            <input type="search" class="form-control input-sm" name="id" placeholder="Search DCMS">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
                 </div>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                @*<form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input name="id" type="search" class="form-control" placeholder="Search DCMS" />
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                                </span>
-                            </div>
-                        </div>
-                    </form>*@
 
                 <ul class="nav navbar-nav navbar-right">
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
@@ -175,13 +167,19 @@
                         </ul>
                     </li>
                 </ul>
-
-
-
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="searchModal">
+        <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+            <div class="input-group navbar-btn" style="margin-top:12px;margin-left:20px">
+                <input type="search" class="form-control input-sm" name="id" placeholder="Search DCMS">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-sm" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
     @if (messages.Count > 0)
     {
         <div class="container-fluid">
@@ -193,10 +191,6 @@
                         <li>@messages[i]</li>
                     }
                 </ol>
-                @*<ol>
-                        <li>Message 1</li>
-                        <li>Message 1</li>
-                    </ol>*@
             </div>
 
         </div>
@@ -213,10 +207,6 @@
                         <li>@errors[i]</li>
                     }
                 </ol>
-                @*<ol>
-                        <li>Error 1</li>
-                        <li>Error 1</li>
-                    </ol>*@
             </div>
 
         </div>
@@ -228,8 +218,19 @@
     <script src="@url_jquery_js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="@url_bootstrap_js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(window).on('resize', function (e) {
+                //alert('resize');
+                $('#searchModal').hide();
+            });
+        });
+    </script>
+
     @RenderSection("script", false)
 </body>
+
+
 
 </html>
 
