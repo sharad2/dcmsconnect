@@ -50,10 +50,43 @@
     }
     <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
 }
-
-<h4>@ShowTableCaption()</h4>
+<blockquote class="small">
+    <span style="width: 1em; height: 1em; display: inline-block;">
+        Lagend
+    </span><br />
+    <span style="width: 1em; height: 1em; display: inline-block;  background-color: gray;" />
+    <span>Not Started</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block;  background-color: deepskyblue;" />
+    <span>In Progress</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block;  background-color: green;" />
+    <span>Validated</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block;  background-color: red;" />
+    <span>Cancelled</span>
+</blockquote>
+<h4>
+    @ShowTableCaption()
+   
+</h4>
 <ul class="list-group">
-    
+    @*<li class="list-group-item">
+               <span style="width: 1em; height: 1em; display: inline-block;">
+                   Lagend
+               </span><br />
+               <span style="width: 1em; height: 1em; display: inline-block;  background-color: gray;" />
+               <span>Not Started</span>
+               <br />
+               <span style="width: 1em; height: 1em; display: inline-block;  background-color: deepskyblue;" />
+               <span>In Progress</span>
+               <br />
+               <span style="width: 1em; height: 1em; display: inline-block;  background-color: green;" />
+               <span>Validated</span>
+               <br />
+               <span style="width: 1em; height: 1em; display: inline-block;  background-color: red;" />
+               <span>Cancelled</span>
+    </li>*@
     <li class="list-group-item list-group-item-info">
         <div class="row">
             <div class="col-md-5">
@@ -184,7 +217,7 @@
 
 
 
-<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
+@*<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
     <legend>Legend</legend>
 
     <span style="width: 1em; height: 1em; display: inline-block; background-color: gray;" />
@@ -198,4 +231,4 @@
     <br />
     <span style="width: 1em; height: 1em; display: inline-block; background-color: red;" />
     <span>Cancelled</span>
-</fieldset>
+</fieldset>*@
