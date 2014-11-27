@@ -5,7 +5,7 @@
 }
 
 
-@section areatitle{
+@section applinks{
     <li title="This report display details of pick wave.">
         <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
             Report 140.02: Pick Wave Summary
@@ -13,11 +13,10 @@
     </li>
     <li><a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())"> Pick Wave Home</a></li>
 }
-<div class="container">
-    <div class="page-header">
-        <h3>
+<div class="container">  
+        <h2 style="margin-top:0px;">
             @ViewBag.Title
-        </h3>
+        </h2>
         @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
         {
 
@@ -30,7 +29,7 @@
             </small>
 
         }
-    </div>
+ 
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {

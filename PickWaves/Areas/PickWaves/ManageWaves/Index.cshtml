@@ -5,7 +5,7 @@
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
 }
-@section areatitle{
+@section applinks{
 
     <li title="This report will identify those SKUs which cannot be shipped due to insufficient inventory. It will also tell you which areas these SKUs can be pulled from.">
         <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.InventoryShortageReportUrl, Model.CustomerId))"
@@ -27,11 +27,11 @@
             Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel(Model.CustomerId, Model.BucketState, null)))
         </div>
     }
-    <div class="page-header">
-        <h3>
+   
+        <h2 style="margin-top:0px;">
             @Model.PageTitle
-        </h3>
-    </div>
+        </h2>
+
     <p>This list is order by priority and then DC Cancel Date</p>
     @if (Model.Buckets.Count > 0)
     {
