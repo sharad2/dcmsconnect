@@ -51,21 +51,68 @@
     <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
 }
 
-<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
-    <legend>Legend</legend>
+<h4>@ShowTableCaption()</h4>
+<ul class="list-group">
+    
+    <li class="list-group-item list-group-item-info">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                   Box
+                    <small>
+                        PickSlip  
+                        &bull;
+                        VWH 
+                    </small>
+                </h4>
+            </div>
+            <div class="col-md-4" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                <h4 class="list-group-item-heading">
+                    Pull Carton ?
+                    <small>
+                       <span class="badge">@ShowTableFooterText(Model.StateFilter)</span> 
+                        <span class="pull-right">Status</span>
+                    </small>
+                    </h4>
+</div>
+            <div class="col-md-3 badge pull-right">
+                Created  By on
+            </div>
+        </div>
+    </li>
+@*@helper ShowTableCaption()*@
+  @for (var i = 0; i < Model.BoxesList.Count; i++)
+  {
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                    <small>@(i + 1)</small>
+                    <a href='@Url.Content(string.Format("~/Inquiry/Ucc/{0}", Model.BoxesList[i].Ucc128Id))' target="_inquiry">@Model.BoxesList[i].Ucc128Id</a>
+                    <small>
+                       @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
+                        &bull;
+                        @Html.DisplayFor(m => m.BoxesList[i].VWhId)
+                    </small>
+                </h4>
+            </div>
+            <div class="col-md-4" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
 
-    <span style="width: 1em; height: 1em; display: inline-block; background-color: gray;" />
-    <span>Not Started</span>
-    <br />
-    <span style="width: 1em; height: 1em; display: inline-block; background-color: deepskyblue;" />
-    <span>In Progress</span>
-    <br />
-    <span style="width: 1em; height: 1em; display: inline-block; background-color: green;" />
-    <span>Validated</span>
-    <br />
-    <span style="width: 1em; height: 1em; display: inline-block; background-color: red;" />
-    <span>Cancelled</span>
-</fieldset>
+                <span>  @Html.DisplayFor(m => m.BoxesList[i].CartonId)</span>
+
+                <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>
+                <span class="pull-right"> @Html.DisplayFor(m => m.BoxesList[i].DisplayState)</span>
+            </div>
+            <div class="col-md-3 badge pull-right">
+                @Html.DisplayFor(m => m.BoxesList[i].CreatedBy) on @Html.DisplayFor(m => m.BoxesList[i].CreatedDate) 
+            </div>
+        </div>
+    </li>
+  }
+</ul>
+
+
+
 
 <table>
     <caption>
@@ -137,3 +184,18 @@
 
 
 
+<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
+    <legend>Legend</legend>
+
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: gray;" />
+    <span>Not Started</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: deepskyblue;" />
+    <span>In Progress</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: green;" />
+    <span>Validated</span>
+    <br />
+    <span style="width: 1em; height: 1em; display: inline-block; background-color: red;" />
+    <span>Cancelled</span>
+</fieldset>
