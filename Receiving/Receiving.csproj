@@ -175,6 +175,7 @@
     <Content Include="Areas\Receiving\SharedViews\typeahed.min.css">
       <DependentUpon>typeahed.css</DependentUpon>
     </Content>
+    <Content Include="Areas\Receiving\SharedViews\typeahed.css.bundle" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -182,18 +183,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Areas\Receiving\SharedViews\typeahed.css.bundle" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\npm.js" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <None Include="Content\typeahead.css" />
-    <Content Include="Areas\Receiving\SharedViews\_layoutBootstrap.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <None Include="Content\typeahead.css" />
+    <Content Include="Areas\Receiving\SharedViews\_layoutBootstrap.cshtml" />
     <None Include="Scripts\bloodhound.js" />
     <None Include="Scripts\bloodhound.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
