@@ -77,5 +77,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         [DisplayFormat(DataFormatString = "[{0:N0}]")]
         public int? QuantityInSmallestCarton { get; set; }
+
+
+
     }
 }

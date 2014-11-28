@@ -55,14 +55,14 @@
                 <p class="list-group-item-text">
                     <span class="label label-info" title="Weight Per Dozen">Weight</span>
                     <span class="label label-success" title="Volume Per Dozan">Volume</span>
-                   <abbr title="Virtual Wearhouse">VWH</abbr>
+                    <abbr title="Virtual Wearhouse">VWH</abbr>
                 </p>
             </div>
             <div class="col-md-4">
                 @ShowTableFooterText(Model.StateFilter)
             </div>
             <div class="col-md-5">
-                Inventory in Areas               
+                Inventory in Areas
             </div>
         </div>
     </li>
@@ -92,7 +92,7 @@
                             </div>
 
                         }
-                        @Html.DisplayFor(m=>m.BucketSkuList[i].DisplaySku)
+                        @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
                     </div>
                     <p class="list-group-item-text">
                         <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
@@ -148,29 +148,31 @@
 
 
                 </div>
-                <div class="col-md-5">                   
-                    @foreach (var area in Model.AllAreas)
-                    {
-                        <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
-                        if (!string.IsNullOrEmpty(area.ReplenishAreaId))
-                        {
-                            @area.ReplenishAreaId
-                        }
-                        
-                        
-                    }
+                <div class="col-md-5" >
+
                     @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                     {
                         var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
+                        <a href="#">
+                            <span>@Model.AllAreas[j].BuildingId  &rarr; @Model.AllAreas[j].ShortName</span>
+                            @if (!string.IsNullOrEmpty(Model.AllAreas[j].ReplenishAreaId))
+                            {
+                            @Model.AllAreas[j].ReplenishAreaId
+                            }
 
-                        <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                        <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
+                            <span class="badge" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
+                                <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
+                                <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
+                            </span>
+                        </a>
                     }
+                  
                 </div>
             </div>
         </li>
     }
 </ul>
+
 
 
 
