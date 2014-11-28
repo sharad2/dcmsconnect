@@ -67,7 +67,7 @@
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <h4 class="list-group-item-heading">
                     Box
                     <small>
@@ -91,7 +91,7 @@
             <div class="col-md-2">
                 <span class="label label-default">Status</span>
             </div>
-            <div class="col-md-2" >
+            <div class="col-md-3" >
                 <span class="badge">Date Created</span>
                 <small style="text-align:right">by</small>
             </div>
@@ -102,7 +102,7 @@
     {
         <li class="list-group-item">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <h4 class="list-group-item-heading">
                         <small>@(i + 1)</small>  
                         <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
@@ -126,7 +126,7 @@
                         @Html.DisplayFor(m => m.BoxesList[i].DisplayStateText)
                     </span>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <span class="badge">@Html.DisplayFor(m => m.BoxesList[i].CreatedDate)</span>
                     <small style="text-align:right">@Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
                 </div>
