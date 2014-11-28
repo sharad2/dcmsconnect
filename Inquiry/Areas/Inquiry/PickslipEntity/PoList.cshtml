@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Purchase Orders ";
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+}
+<div class="container">
+    
+        <h2 style="margin-top:0px">@ViewBag.Title</h2>
+   
+    @Html.Action(MVC_Inquiry.Inquiry.PickslipEntity.GetRecentOrders())
+</div>

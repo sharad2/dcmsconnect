@@ -1,0 +1,118 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.ICartonProcessViewModel
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-condensed">
+        <caption>
+            <ul class="list-inline">
+                <li class="h4">Carton History</li>
+            </ul>
+        </caption>
+        <thead class="panel-primary">
+            <tr>
+                <th style="text-align:center">#</th>
+                <th style="text-align:center">Date <span class="glyphicon glyphicon-sort-by-attributes-alt"></span></th>
+                <th style="text-align:center">Module</th>
+                <th style="text-align:center">Action</th>
+                <th style="text-align:center">Pallet</th>
+                <th style="text-align:center">Area</th>
+                <th style="text-align:center">Location</th>
+                <th style="text-align:center">Suspense </th>
+                <th style="text-align:center">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.ProcessList.Count; ++i)
+            {
+
+                <tr>
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.ProcessList[i].InsertDate)
+                        <br />
+                        <small>by @Html.DisplayFor(m => m.ProcessList[i].InsertedBy)</small>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.ProcessList[i].ModuleCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(m => m.ProcessList[i].ActionPerformed)
+                    </td>
+                    <td>
+                        @if (Model.ProcessList[i].FromPalletId == Model.ProcessList[i].ToPalletId)
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].ToPalletId)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].FromPalletId)                               <span>&rarr;</span>                          @Html.DisplayFor(m => m.ProcessList[i].ToPalletId)
+                        }
+                    </td>
+
+                    <td>
+                        @if (Model.ProcessList[i].ToCartonArea == Model.ProcessList[i].FromCartonArea)
+                        {
+                            <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonArea(Model.ProcessList[i].ToCartonArea))">
+                                @Html.DisplayFor(m => m.ProcessList[i].ToCartonArea)
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonArea(Model.ProcessList[i].ToCartonArea))">
+                                @Html.DisplayFor(m => m.ProcessList[i].FromCartonArea)
+                            </a>
+                            <span>&rarr;</span>
+                            <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonArea(Model.ProcessList[i].ToCartonArea))">
+                                @Html.DisplayFor(m => m.ProcessList[i].ToCartonArea)
+                            </a>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.ProcessList[i].FromLocation == Model.ProcessList[i].ToLocation)
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].ToLocation)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].FromLocation) <span>&rarr;</span>                                @Html.DisplayFor(m => m.ProcessList[i].ToLocation)
+                        }
+
+                    </td>
+
+
+
+                    <td>
+                        @if (Model.ProcessList[i].NewSuspenseDate.HasValue)
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].NewSuspenseDate)
+                        }
+                        else if (Model.ProcessList[i].OldSuspenseDate.HasValue)
+                        {
+                            <span>Removed from Suspense</span>
+                        }
+                    </td>
+
+                    <td>
+                        @if (Model.ProcessList[i].OldCartonQuantity == Model.ProcessList[i].NewCartonQuantity)
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].NewCartonQuantity)
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(m => m.ProcessList[i].OldCartonQuantity)                            <span>&rarr;</span> @Html.DisplayFor(m => m.ProcessList[i].NewCartonQuantity)
+                        }
+                    </td>
+
+
+
+                </tr>
+
+            }
+        </tbody>
+
+    </table>
+</div>
+
+

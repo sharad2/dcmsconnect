@@ -1,0 +1,106 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.CartonIntransitViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+}
+
+
+<div class="container">  
+    <h2 style="margin-top:0px;">
+        <img src="@Links_Inquiry.Areas.Inquiry.CartonEntity.IntransitCarton_jpg" /> Intransit carton @Html.DisplayFor(m => m.CartonId)
+    </h2>
+ 
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Belongs To
+                <span class="pull-right"><span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Model.UrlReceiving"> Receiving</a></span>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>Shipment</dt>
+                    <dd>
+                        @if (!string.IsNullOrEmpty(Model.ShipmentId))
+                        {
+                            @Html.ActionLink(string.Format("{0} ", Model.ShipmentId), MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentId))
+                            <span>Date</span>    @Html.DisplayFor(m => m.ShipmentDate)
+                        }
+                        else
+                        {
+                            <span>NA</span>
+                        }
+                    </dd>
+                    <dt>Sewing Plant</dt>
+                    <dd>
+
+                        @if (!string.IsNullOrEmpty(Model.PriceSeasonCode))
+                        {
+                            @Html.DisplayFor(m => m.DisplaySewingPlant)
+                        }
+                        else
+                        {
+                            <span>NA</span>
+                        }
+
+                    </dd>
+
+                    <dt>Price Season</dt>
+                    <dd>
+
+                        @Html.DisplayFor(m => m.PriceSeasonCode)
+
+                    </dd>
+                    <dt>Source Order Prefix</dt>
+                    <dd>
+
+
+                        @Html.DisplayFor(m => m.SourceOrderPrefix)
+
+
+                    </dd>
+                    <dt>Source order ID</dt>
+                    <dd>
+
+
+                        @Html.DisplayFor(m => m.SourceOrderedID)
+
+
+                    </dd>
+                    <dt>Source Order Line #</dt>
+                    <dd>
+
+
+                        @Html.DisplayFor(m => m.SourceOrderLineNumber)
+
+
+                    </dd>
+
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>SKU</dt>
+                    <dd>
+                        <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.SkuId.Value))">@Html.DisplayFor(m => m.DisplaySku)</a>
+                    </dd>
+                    <dt>Quantity</dt>
+                    <dd>
+
+                        @Html.DisplayFor(m => m.Pieces)
+
+                    </dd>
+                    <dt>Virtual Warehouse</dt>
+                    <dd>
+
+                        @Html.DisplayFor(m => m.VwhId)
+
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+

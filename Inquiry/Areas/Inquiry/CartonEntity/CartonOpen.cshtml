@@ -1,0 +1,127 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.CartonOpenViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+}
+@section applinks{
+   <li>
+       <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.CartonExcel(Model.CartonId))">
+           <span class="glyphicon glyphicon-export"></span> Excel
+       </a>
+    </li>
+@if (!string.IsNullOrWhiteSpace(Model.PalletId))
+{
+    <li>
+        <a href="@string.Format("{0}?pallet_id={1}", Model.PalletHistory, Model.PalletId)"
+           target="R40_23">
+            <span class="glyphicon glyphicon-new-window"></span>
+            40.23: Pallet History
+        </a>
+    </li>
+}
+    <li class="divider">
+    </li>
+
+}
+
+
+
+<div class="container">   
+        <div class="h2" style="margin-top:0px;">
+            <img src="@Links_Inquiry.Areas.Inquiry.CartonEntity.OpenCarton_jpg" /> Open Carton @Model.CartonId 
+            <div class="btn-group">
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.CartonPallet(Model.PalletId))" class="btn btn-link">Pallet @Html.DisplayFor(m => m.PalletId)</a>
+                <button type="button" class="btn dropdown-toggle btn-link" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    @if (!string.IsNullOrWhiteSpace(Model.PalletId))
+                    {
+                        <li>
+                            <a href="@string.Format("{0}?pallet_id={1}", Model.PalletHistory, Model.PalletId)"
+                               target="R40_23">
+                                <span class="glyphicon glyphicon-new-window"></span>
+                                40.23: Pallet History
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>          
+        </div>
+
+    @if (Model.SkuId.HasValue)
+    {
+        <div class="alert alert-info" role="alert">
+            <span class="badge">@Html.DisplayFor(m => m.Pieces)</span> pieces of <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.SkuId.Value))">@Html.DisplayFor(m => m.DisplaySku)</a>
+            <abbr title="Virtual Warehouse">Vwh</abbr> @Html.DisplayFor(m => m.VwhId)
+            <span class="label label-info">@Html.DisplayFor(m => m.QualityCode)<span> : @Html.DisplayFor(m => m.QualityDescription)</span></span>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            Carton is Empty
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+
+                    @if (!string.IsNullOrEmpty(Model.ShipmentId))
+                    {
+                        @Html.ActionLink(string.Format("Shipment {0} ", Model.ShipmentId), MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentId))
+                        <small>@Html.DisplayFor(m => m.ShipmentDate)</small>
+                    }
+                    else
+                    {
+                        <small>Shipment</small>
+                    }
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Sewing Plant</dt>
+                        <dd>
+                            @Html.DisplayFor(m => m.DisplaySewingPlant)
+
+                        </dd>
+                        <dt>Price Season</dt>
+                        <dd>
+                            @Html.DisplayFor(m => m.PriceSeasonCode)
+
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                   Was In Area <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.CartonOpen(Model.ShortName))">@Html.DisplayFor(m => m.ShortName)</a> at Locaton
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.CartonOpen(Model.LocationId))">@Html.DisplayFor(m => m.LocationId)</a>
+                </div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Damage Code</dt>
+                        <dd>
+                                @Html.DisplayFor(m => m.DamageCode)                           
+                        </dd>
+                        <dt>Pulled for UCC</dt>
+                        <dd>
+                            @if (!string.IsNullOrEmpty(Model.ReservedUccID))
+                            {
+                                @Html.ActionLink(Model.ReservedUccID, MVC_Inquiry.Inquiry.BoxEntity.Box(Model.ReservedUccID))
+                            }
+                            else
+                            {
+                                <span>NA</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial(MVC_Inquiry.Inquiry.CartonEntity.Views._cartonProcessPartial)
+</div>
+<!--*************************************-->

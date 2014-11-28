@@ -1,0 +1,80 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonAreaEntity.CartonLocationViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("Carton Location {0}", Model.LocationId);
+}
+
+
+@section applinks{
+
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonLocationExcel(Model.LocationId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+    <li class="divider"></li>
+}
+<div class="container">
+    <h2 style="margin-top:0px;">
+        Carton Location @Html.DisplayFor(m => m.LocationId) <small>
+            Area <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonArea(Model.Area))">@Html.DisplayFor(m => m.Area)</a> Building
+            @Html.DisplayFor(m => m.WhId)
+        </small>
+
+    </h2>
+
+    <div class="well well-sm">
+        <label> Capacity:</label>
+        @Html.DisplayFor(m => m.Capacity)
+
+        <label> Assigned SKU: </label>
+        @if (!string.IsNullOrWhiteSpace(Model.AssignedStyle))
+        {
+            @Html.DisplayFor(m => m.DisplayAssignedSku)
+        }
+        else
+        {
+            <span>Not Assigned</span>
+        }
+    </div>
+    @if (Model.Cartons.Count == 0)
+    {
+        <div class="alert alert-info" role="alert"> Location is empty</div>
+    }
+    else
+    {
+        <h4 style="text-align:center">
+            Cartons At Location &nbsp;<span class="badge">@Model.TotalCarton</span>
+        </h4>
+        <ul class="list-group">
+
+            @for (var i = 0; i < Model.Cartons.Count; ++i)
+            {
+                if (i == 0 || Model.Cartons[i].PalletId != Model.Cartons[i - 1].PalletId)
+                {
+                    <li class="list-group-item active">
+                        @Html.DisplayFor(m => m.Cartons[i].PalletId)
+                        <span class="badge pull-right">@Model.Cartons.Count(p => p.PalletId == Model.Cartons[i].PalletId) cartons</span>
+                    </li>
+                }
+
+                <li class="list-group-item">
+
+                    <small>@(i + 1)</small>
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.Carton(Model.Cartons[i].CartonId))"> @Html.DisplayFor(m => m.Cartons[i].CartonId)</a>
+                    <span class="badge pull-right">@Html.DisplayFor(m => m.Cartons[i].SKUQuantity) pcs</span>
+                </li>
+
+            }
+            @if (Model.Cartons.Count < Model.TotalCarton)
+            {
+                <li class="list-group-item list-group-item-info">
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonLocationExcel(Model.LocationId))">
+                        <span class="glyphicon glyphicon-export"></span> See more in Excel
+                    </a>
+                </li>
+            }
+
+        </ul>
+    }
+</div>

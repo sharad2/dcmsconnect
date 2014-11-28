@@ -1,0 +1,108 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity.IPickslipListViewModel
+@{
+    var showExportFlag = Model.AllPickslips.Any(p => !(string.IsNullOrEmpty(p.ExportFlag)));
+}
+
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-2">
+                <h4 class="list-group-item-heading">
+                    Pickslip
+                    <small>Shipment</small>
+                </h4>
+            </div>
+            <div class="col-md-4">
+                Import Date &rarr; Complete Date
+            </div>
+            <div class="col-md-6">
+                <div class="progress" style="margin-bottom:0px;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                         aria-valuemin="0" aria-valuemax="100"
+                         style="width: 60%;min-width:30px;">
+                        Pieces picked percent
+                    </div>
+                </div>
+                Pieces Picked of Pieces Ordered
+            </div>
+        </div>
+    </li>
+    @for (int i = 0; i < Model.AllPickslips.Count; i++)
+    {
+
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4 class="list-group-item-heading">
+                        <small>@(i+1)</small>
+                        <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.Pickslip(Model.AllPickslips[i].PickslipId))">
+                            <strong class="h4">@Html.DisplayFor(m => m.AllPickslips[i].PickslipId)</strong>
+                        </a>
+                        @if (string.IsNullOrWhiteSpace(Model.AllPickslips[i].ShippingId))
+                        {
+                            <small> Shipment: @Html.DisplayFor(m => m.AllPickslips[i].ShippingId)</small>
+                        }
+                    </h4>
+                    <p class="list-group-item-text">
+                        @if (showExportFlag)
+                        {
+                            <text>Export</text> <strong>@Html.DisplayFor(m => m.AllPickslips[i].ExportFlag)</strong>
+                        }
+                    </p>
+                </div>
+                <div class="col-md-4">
+
+                    @if (Model.AllPickslips[i].ImportDate != null)
+                    {
+                        @Html.DisplayFor(m => m.AllPickslips[i].ImportDate)
+                    }
+                    &rarr;
+                    @if (Model.AllPickslips[i].PickslipCancelDate != null || Model.AllPickslips[i].ValidationDate != null)
+                    {
+                        @(Model.AllPickslips[i].PickslipCancelDate != null ? Html.DisplayFor(m => m.AllPickslips[i].PickslipCancelDate) : Html.DisplayFor(m => m.AllPickslips[i].ValidationDate))
+                    }
+                    @if (Model.AllPickslips[i].TransferDate != null)
+                    {
+                        <p class="list-group-item-heading">
+                            <label class="label label-info">Transfered: @Html.DisplayFor(m => m.AllPickslips[i].TransferDate)</label>
+                        </p>
+                    }
+
+                </div>
+                <div class="col-md-6">
+                    <div class="progress" style="margin-bottom:0px;">
+                        <div class="progress-bar progress-bar-@(Model.AllPickslips[i].IsComplete ? "success" : "warning")" role="progressbar" aria-valuenow="@Model.AllPickslips[i].CompletedPitchedPieces"
+                             aria-valuemin="0" aria-valuemax="@Model.AllPickslips[i].TotalQuantityOrdered"
+                             style="width: @(Model.AllPickslips[i].PickingPercentComplete*100)%;min-width:30px;">
+                            @Html.DisplayFor(m => m.AllPickslips[i].PickingPercentComplete)
+                        </div>
+                    </div>
+                    @Html.DisplayFor(m=>m.AllPickslips[i].CompletedPitchedPieces) of @Html.DisplayFor(m=>m.AllPickslips[i].TotalQuantityOrdered)
+                    <span class="pull-right">
+                        @if (Model.AllPickslips[i].IsComplete)
+                        {
+                            if (!string.IsNullOrEmpty(Model.AllPickslips[i].ShippingId) && !Model.AllPickslips[i].ShipmentOnHold)
+                            {
+                                <span class="label label-success">Shipped</span>
+                            }
+                            else
+                            {
+                                <span class="label label-info">Completed</span>
+
+                            }
+                            
+                        }
+                        else if (Model.AllPickslips[i].PickslipCancelDate != null)
+                        {
+                            <span class="label label-danger">Cancelled</span>
+
+                        }
+                    </span>
+                </div>
+               
+            </div>
+        </li>
+    }
+
+
+</ul>

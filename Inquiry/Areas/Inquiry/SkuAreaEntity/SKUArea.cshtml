@@ -1,0 +1,80 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.SkuAreaEntity.SkuAreaViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("SKU Area {0}", Model.ShortName);
+}
+
+<div class="container">
+    
+    <h2 style="margin-top:0px">
+        Forward Area @Html.DisplayFor(m => m.ShortName)
+        <small>
+            @Html.DisplayFor(m => m.Description)
+            @if (!string.IsNullOrWhiteSpace(Model.WhId))
+            {
+                @: &bull;Building @Html.DisplayFor(m => m.WhId)
+                }
+        </small>
+
+        </h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-inline">
+                    @if (!string.IsNullOrEmpty(Model.DefaultLocation))
+                    {
+                        <li>
+                            Default Location @Html.ActionLink(Model.DefaultLocation, MVC_Inquiry.Inquiry.SkuAreaEntity.SkuLocation(Model.DefaultLocation), new { @class = "btn" })
+                        </li>
+                    }
+                    <li>
+                        @if (!string.IsNullOrEmpty(Model.ShipingAreaFlag))
+                        {
+                            <span class="glyphicon glyphicon-ok" style="color:green"></span>
+
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-remove" style="color:red"></span>
+                        }
+                        Shipping Area
+                    </li>
+                    <li>
+                        @if (!string.IsNullOrEmpty(Model.PickingAreaFlag))
+                        {
+                            <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon glyphicon-remove" style="color:red"></span>
+                        }
+                        Picking Area
+                    </li>
+                    @if (Model.PullCartonLimit > 0)
+                    {
+                        <li>
+                            Pull Carton Limit @Html.DisplayFor(m => m.PullCartonLimit)
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-6">
+                @if (Model.NumberOfLocations > 1)
+                {
+                    <div>
+                        @Html.DisplayFor(m => m.AssignedLocations) of @Html.DisplayFor(m => m.NumberOfLocations) locations assigned
+                    </div>
+                    <div class="progress" style="margin-bottom:0px">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="@Model.AssignedLocations" aria-valuemin="0" aria-valuemax="@Model.NumberOfLocations"
+                             style="width: @Model.PercentFull%;min-width:4em">
+                            @Html.DisplayFor(m => m.PercentFull)%
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-info">This area does not have numbered locations.</div>
+                }
+            </div>
+        </div>
+</div>

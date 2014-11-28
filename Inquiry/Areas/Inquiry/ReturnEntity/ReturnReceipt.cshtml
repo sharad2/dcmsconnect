@@ -1,0 +1,103 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.ReturnEntity.ReturnReceiptViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format(" Returns Receipt {0}", Model.ReceiptNumber);
+}
+
+@section applinks{
+    <li>
+        <a href="MVC_Inquiry.Inquiry.ReturnEntity.ReturnReceiptExcel(Model.ReceiptNumber)">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+}
+
+<div class="container">
+        <h2 style="margin-top:0px">
+            Returns Receipt #@Html.DisplayFor(m => m.ReceiptNumber)
+            <small>
+
+                Customer<a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
+                    @Html.DisplayFor(m => m.CustomerId) : @Html.DisplayFor(m => m.CustomerName)
+                </a>
+            </small>
+        </h2>
+   
+
+    <div class="well well-sm h4">
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Received on</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.ReceivedDate)</span>
+            </div>
+            <div class="form-group">
+                <label>Reason</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.ReasonDisplay)</span>
+            </div>
+            <div class="form-group">
+                <label>Via</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.CarrierDisplay)</span>
+            </div>
+            <div class="form-group">
+                <label><abbr title="Returned Merchandise Authorization">RMA</abbr> #</label>
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.ReturnEntity.Return(Model.ReturnNumber))" class="form-control-static">@Html.DisplayFor(m => m.ReturnNumber)</a>
+            </div>
+        </div>
+    </div>
+    <div class="well well-sm h6">
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Customer Store</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.CustomerStoreId)</span>
+            </div>
+            <div class="form-group">
+                <label>DM Number</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.DMNumber)</span>
+            </div>
+            <div class="form-group">
+                <label>Dm Date</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.DmDate)</span>
+            </div>
+        </div>
+        <br />
+        <div class="form-inline">
+            <div class="form-group">
+                <label>Inserted By</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.InsertedBy) on @Html.DisplayFor(m => m.InsertDate)</span>
+            </div>
+            <div class="form-group">
+                <label>Modified By</label>
+                <span class="form-control-static">@Html.DisplayFor(m => m.ModifiedBy) on @Html.DisplayFor(m => m.ModifiedDate)</span>
+            </div>
+            @if (Model.ActivityId != null)
+            {
+                <div class="form-group">
+                    <label>Activity Id</label>
+                    <span class="form-control-static">@Html.DisplayFor(m => m.ActivityId)</span>
+                </div>
+            }
+        </div>
+    </div>
+
+    @if (Model.ReturnSku.Any(p => !string.IsNullOrEmpty(p.Upc)))
+    {
+        <div class="list-group">
+            <h4 class="list-group-item active">List of SKUs. Vwh <em>@Html.DisplayFor(m => m.VwhId)</em></h4>
+            @for (int i = 0; i < Model.ReturnSku.Count(); i++)
+            {
+                <a class="list-group-item" href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.ReturnSku[i].SkuId))">
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    <span class="badge"> @Html.DisplayFor(m => m.ReturnSku[i].Pieces) pcs</span>
+                    <h4>
+                        @Html.DisplayFor(m => m.ReturnSku[i].DisplaySku)
+                        <small>Price @Html.DisplayFor(m => m.ReturnSku[i].RetailPrice)</small>
+                    </h4>
+                </a>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="alert alert-info">No SKU in Return. Vwh @Html.DisplayFor(m => m.VwhId)</p>
+    }
+</div>

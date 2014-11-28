@@ -1,0 +1,150 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity.WaveViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("Wave {0}", Model.BucketId);
+}
+@section applinks{
+   <li> Reports</li>
+@if (Model.BucketStatus != "VALIDATED")
+{
+    <li>
+        <a href="@string.Format("{0}?bucket_id={1}", Model.OpenBucketSummaryUrl, Model.BucketId)" target="R140.02">
+            <span class="glyphicon glyphicon-new-window"></span>
+            140.02: Box details
+        </a>
+    </li>
+    <li>
+        <a href="@string.Format("{0}?bucket_id={1}", Model.UnprocessedSkuReportUrl, Model.BucketId)" target="R140.102">
+            <span class="glyphicon glyphicon-new-window"></span>
+            140.102: Unprocessed pieces details
+        </a>
+    </li>
+    <li>
+        <a href="@string.Format("{0}?bucket_id={1}", Model.ForwardPickShortageReportUrl, Model.BucketId)" target="R140.105">
+            <span class="glyphicon glyphicon-new-window"></span>
+            140.105: Pieces shortage in forward pick area
+        </a>
+    </li>
+} 
+    
+<li>
+    <a href="@string.Format("{0}?bucket_id={1}", Model.InProcessReport, Model.BucketId)" target="R110.07">
+        <span class="glyphicon glyphicon-new-window"></span>
+        110.07: Progress of order
+    </a>
+</li>
+    <li class="divider"> </li>
+<li>
+    <a href="@Url.Action(Model.UrlManagePickwave)"> Manage Pickwave</a>
+</li>
+<li>
+    <a href="@Url.Action(Model.UrlPullBoxes)"> Pull Boxes</a>
+</li>
+}
+<div class="container">
+   
+        <div class="h2" style="margin-top:0px">
+            @if (Model.Freeze)
+            {
+                <span>Wave @Html.DisplayFor(m => m.BucketId) (Frozen)</span><small>: @Html.DisplayFor(m => m.BucketName)</small>
+            }
+            else
+            {
+                <span>Wave @Html.DisplayFor(m => m.BucketId)</span><small>: @Html.DisplayFor(m => m.BucketName)</small>
+            }
+           
+            
+            <h4>Customer <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">@Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)</a></h4>
+        </div>
+       
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="pull-right"><span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Url.Action(Model.UrlManagePickwave)"> Manage Pickwave</a></span>
+                        <h4>@Html.DisplayFor(m => m.PickedPieces) of @Html.DisplayFor(m => m.TotalQuantityOrdered) pieces picked</h4>
+                        <div class="progress" style="margin-bottom:0px;">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@Model.PickedPieces.ToString()" aria-valuemin="0"
+                                 aria-valuemax="@Model.TotalQuantityOrdered" style="width: @Model.PercentPiecesPicked%; min-width: 20px;">
+                                @Html.DisplayFor(m => m.PercentPiecesPicked)%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li><label>DC Cancel</label> @Html.DisplayFor(m => m.DcCancelDate)</li>
+                        <li><label>Priority</label> @Html.DisplayFor(m => m.Priority)</li>
+                        <li><label>Pickslip</label> @Html.DisplayFor(m => m.PickslipCount)</li>
+                        <li><label>PO</label> @Html.DisplayFor(m => m.PoCount)</li>
+                        <li><label>Created on </label> @Html.DisplayFor(m => m.DateCreated) by @Html.DisplayFor(m => m.CreatedBy)</li>
+                        <li><label>SKU Assigned</label> @Html.DisplayFor(m => m.AssignedSkuCount) of @Html.DisplayFor(m => m.TotalSkuCount)</li>
+                    </ul>
+
+                    @if (Model.UnassignedSkuCount > 0)
+                    {
+                        <div class="bg-danger">
+                            @Html.DisplayFor(m => m.UnassignedSkuCount) SKUs are not assigned at any location.
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        <span class="pull-right"><span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Url.Action(Model.UrlPullBoxes)"> Pull Boxes</a></span>
+                        <h4>
+                            @Html.DisplayFor(m => m.VerifiedBoxes) of @Html.DisplayFor(m => m.TotalBoxes) boxes Validated
+
+                            @if(Model.UnavailableBoxCount > 0)
+                            {
+                                <small>@Html.DisplayFor(m => m.UnavailableBoxCount) boxes not started</small>
+                            }
+                        </h4>
+                        <div class="progress" style="margin-bottom:0px; min-width:200px; max-width:600px">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="@Model.VerifiedBoxes" aria-valuemin="0"
+                                 aria-valuemax="@Model.TotalBoxes" style="width: @Model.PercentBoxVarified%; min-width: 20px;">
+                                @Html.DisplayFor(m => m.PercentBoxVarified)%
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        <li>
+                            <label>Pitching</label> @Html.DisplayFor(m => m.PitchBuilding)&rarr;
+                            @Html.DisplayFor(m => m.PitchArea): @Html.DisplayFor(m => m.PitchAreaDescription)
+                        </li>
+                        <li>
+                            <label>Pulling</label> @Html.DisplayFor(m => m.BuildingPullFrom)&rarr;
+                            @Html.DisplayFor(m => m.PullArea): @Html.DisplayFor(m => m.PullAreaDescription)
+                        </li>
+                        @if (Model.AvailableForPitching)
+                        {
+                            <li>
+                                <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                                <label>Available For Pitching</label>
+                            </li>
+                        }
+                        @if (Model.ExportFlag)
+                        {
+                            <li>
+                                <span class="glyphicon glyphicon-ok" style="color:green"></span>
+                                <label>ExportFlag</label>
+                            </li>
+                        }
+                        <li><label>PickMode</label> @Html.DisplayFor(m => m.PickMode)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

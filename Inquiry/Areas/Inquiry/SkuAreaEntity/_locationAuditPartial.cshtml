@@ -1,0 +1,57 @@
+﻿@model IList<DcmsMobile.Inquiry.Areas.Inquiry.SkuAreaEntity.LocationAuditModel>
+
+<h4 style="text-align:center">Location Inventory Audit</h4>
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                    Pieces
+                    <small>
+                        &bull; Balance
+                    </small>
+                </h4>
+            </div>
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                    UPC
+                    <small>
+                        &bull; Module
+                    </small>
+                </h4>
+            </div>
+            <div class="col-md-2">
+                <span class="badge pull-right">Created on by </span>
+            </div>
+        </div>
+    </li>
+    @for (int k = 0; k < Model.Count; k++)
+    {
+        <li class="list-group-item">           
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="list-group-item-heading">
+                        <small>@(k + 1)</small>
+                        @Html.DisplayFor(m => m[k].TransactionPieces)
+                        <small>
+                            &bull; @Html.DisplayFor(m => m[k].Pieces)
+                        </small>
+                    </h4>
+                </div>
+                <div class="col-md-5">
+                    <h4 class="list-group-item-heading">
+                        <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model[k].SkuId))">
+                            @Html.DisplayFor(m => m[k].DisplaySku)
+                        </a>
+                        <small>
+                            &bull; @Html.DisplayFor(m => m[k].ModuleCode)
+                        </small>
+                    </h4>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge pull-right">@Html.DisplayFor(m => m[k].DateCreated) by @Html.DisplayFor(m => m[k].CreatedBy)</span>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

@@ -1,0 +1,263 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity.PickslipViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = Model.ModelTitle;
+}
+
+@section applinks{
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PickslipExcel(Model.PickslipId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+}
+
+<div class="container">
+    
+    <h2 style="margin-top:0px">
+        @Model.ModelTitle
+        <small>
+            @(Model.ExportFlag ? "International" : "Domestic")
+
+        </small>
+
+    </h2>
+        @if (Model.PickslipCancelDate == null)
+        {   <div>
+            @if (Model.PitchedPieces.HasValue)
+            {
+                @Model.PitchedPieces
+            }
+            else if (Model.AllBoxes != null)
+            {
+                @Model.AllBoxes.Where(p => p.StopProcessReason != "$BOXCANCEL").Sum(p => p.CurrentPieces);
+            }
+           Pieces picked  of @Html.DisplayFor(m => m.TotalQuantityOrdered) pieces ordered
+        </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-@(Model.IsComplete ? "success" : "warning")" role="progressbar" aria-valuenow="@(Model.PitchedPieces * 100)" aria-valuemin="0" aria-valuemax="100"
+                     style="width: @(Model.PickingPercentComplete * 100)%;min-width:140px;">
+                    <span style="text-wrap:none">
+                        @Html.DisplayFor(m => m.PickingPercentComplete)
+                    </span>
+                </div>
+            </div>
+         
+        }
+        else
+        {
+            <div class="alert alert-warning" role="alert">Cancelled On:  @Html.DisplayFor(m => m.PickslipCancelDate)</div>
+        }
+        @if (Model.TransferDate != null)
+        {
+            <div class="alert alert-warning" role="alert">Transferred On:  @Html.DisplayFor(m => m.TransferDate)</div>
+        }
+   
+    <ul class="list-group">
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
+                    @Model.CustomerDisplayName
+                </a>
+                <small>
+                    DC @Html.DisplayFor(m => m.CustomerDC) &bull; Store @Html.DisplayFor(m => m.CustomerStore)
+                    &bull; Vendor # @Html.DisplayFor(m => m.VendorNumber)
+                </small>
+
+            </h4>
+
+
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                PO
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.Po(Model.PoId, Model.CustomerId, Model.Iteration.Value))">
+                    @Html.DisplayFor(m => m.PoId)
+                </a>
+                <small>
+                    Imported @Html.DisplayFor(m => m.ImportDate) &bull;
+                    Start @Html.DisplayFor(m => m.StartDate) &bull; DC cancel @Html.DisplayFor(m => m.DcCancelDate)
+                </small>
+            </h4>
+        </li>
+        <li class="list-group-item">
+            @if (Model.BucketId.HasValue)
+            {
+                <h4 class="list-group-item-heading ">
+                    Pick Wave
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.Wave(Model.BucketId.Value))">  @Model.BucketId</a>
+                    <small>
+                        Created By
+                        @Html.DisplayFor(m => m.BucketCreatedBy)
+                        on @Html.DisplayFor(m => m.BucketCreatedOn)
+                    </small>
+                </h4>
+
+            }
+            else
+            {
+                <a class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> Not in Pick Wave</a>
+            }
+        </li>
+        <li class="list-group-item">
+            @if (!string.IsNullOrWhiteSpace(Model.ShippingId))
+            {
+                <h4 class="list-group-item-heading">
+                    <span class="label label-info pull-right">
+                        @if (Model.ShipmentOnHold)
+                        {
+                            @:Hold
+                    }
+                        else
+                        {
+                            @Html.DisplayFor(m => m.ShipDate)
+                        }
+                    </span>
+                    BOL <a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.OutboundShipment(Model.ShippingId))">@Html.DisplayFor(m => m.ShippingId)</a>
+                    <small>
+                        Created by @Html.DisplayFor(m => m.ShipperName) for @Html.DisplayFor(m => m.CarrierId)
+                    </small>
+                </h4>
+                <p class="list-group-item-text">@Html.DisplayFor(m => m.ShipAddress)</p>
+
+            }
+            else
+            {
+                <span>Not in BOL. Carrier @Html.DisplayFor(m => m.CarrierId)</span>
+            }
+
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                Received from ERP - @Html.DisplayFor(m => m.ErpId)
+                <small class="pull-right"><span class="glyphicon glyphicon-@(Model.AsnFlag ? "ok text-success" : "remove")"></span> ASN Flag</small>
+            </h4>
+        </li>
+    </ul>
+    @if (Model.AllBoxes.Count > 0)
+    {
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid bg-info">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dlgPrint">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <span class="navbar-brand">Print Packing Slips</span>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="dlgPrint">
+                    @using (Html.BeginForm(MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlip(), FormMethod.Post, new
+            {
+                id = "formPrint",
+                @class = "navbar-form navbar-left",
+                role = "form"
+            }))
+                    {
+                        <input type="hidden" name="@MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlipParams.pickslipId"
+                               value="@Model.PickslipId" />
+                        <div class="form-group">
+                            <label for="tbCopies">Copies</label>
+
+                            <input id="tbCopies" type="number" name="@MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlipParams.numberOfCopies"
+                                   value="1" min="1" maxlength="2" required class="form-control" onkeydown="if(this.value.length==2) return false;"
+                                   placeholder="Copies" size="2" />
+                        </div>
+                        <div class="btn-group" data-toggle="buttons">
+
+                            <label class="btn btn-default btn-sm">
+                                <input type="checkbox" id="cbPrintPackingslip" name="@MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlipParams.printPackingSlip" value="true" /> Box
+                            </label>
+                            <label class="btn btn-default btn-sm">
+                                <input type="checkbox" name="@MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlipParams.printMasterPackingslip" checked="checked" value="true" /> Master
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            @Html.DropDownListFor(m => m.PrinterId, Model.PrinterList, "Printer...", new
+       {
+           id = "ddlPrinter",
+           required = "required",
+           name = @MVC_Inquiry.Inquiry.PickslipEntity.PrintPackingSlipParams.printerid,
+           @class = "form-control"
+       })
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Print</button>
+                        </div>
+                        <div class="h6"><em>*Select Box or Master or Both</em></div>
+                    }
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+
+        @Html.Partial(MVC_Inquiry.Inquiry.SharedViews.Views._boxListPartial)
+    }
+    else
+    {
+        <div class="alert alert-info">There are no Boxes in this pickslip</div>
+    }
+    @if (Model.AllSku.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-condensed table-bordered">
+                <caption><h3>Ordered SKUs</h3></caption>
+                <thead class="bg-success">
+                    <tr>
+                        <th>#</th>
+                        <th style="text-align:center">SKU<span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
+                        <th style="text-align:center">Pieces</th>
+                        <th style="text-align:center">VWH</th>
+                        <th style="text-align:center">Quality</th>
+                        <th style="text-align:center">$Total Retail Price</th>
+                        <th colspan="2" style="text-align:center">Constraints</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align:center">Pieces Per Box</th>
+                        <th style="text-align:center">Pieces Per Package</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.AllSku.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>
+                                @Html.ActionLink(Model.AllSku[i].DisplaySku, MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllSku[i].SkuId))
+                            </td>
+                            <td style="text-align:right">@Html.DisplayFor(m => Model.AllSku[i].Pieces)</td>
+                            <td>@Html.DisplayFor(m => Model.AllSku[i].VwhId)</td>
+                            <td>@Html.DisplayFor(m => Model.AllSku[i].QualityCode)</td>
+                            <td style="text-align:right">@Html.DisplayFor(m => Model.AllSku[i].RetailPrice)</td>
+                            <td style="text-align:right">@Html.DisplayFor(m => Model.AllSku[i].DisplayPiecesPerBox)</td>
+                            <td style="text-align:right">@Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr class="success">
+                        <td>Total</td>
+                        <td></td>
+                        <td style="text-align:right">@string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">No Orders SKUs</div>
+    }
+</div>

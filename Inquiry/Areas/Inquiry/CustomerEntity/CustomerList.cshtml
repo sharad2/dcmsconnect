@@ -1,0 +1,62 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CustomerEntity.CustomerListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Customers";
+}
+
+
+<div class="container">
+        <h2 style="margin-top:0px">
+            Active Customers
+        </h2>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <form action="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer())" method="get">
+                <div class="input-group">
+                    <input id="tbCustomer" placeholder="Search Customer"
+                           class="form-control typeahead" />
+                    <span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>
+                </div>
+                <input type="hidden" name="@MVC_Inquiry.Inquiry.CustomerEntity.CustomerParams.id" id="hfCustomerId" />
+            </form>
+        </li>
+        <li class="list-group-item list-group-item-success">
+            <span class="badge pull-right">Import Date</span>
+            <h4 class="list-group-item-heading">
+                Customer
+                <small>CUSTOMER TYPE</small>
+                <span class="label label-info">#Open orders</span>
+            </h4>
+        </li>
+        @for (var i = 0; i < Model.CustomerList.Count; ++i)
+        {
+           
+            <li class="list-group-item">
+                <span class="badge pull-right">
+                    @Html.DisplayFor(m => m.CustomerList[i].PickslipImportDate)
+            </span>
+
+            <h4 class="list-group-item-heading">
+                <small>@(i + 1)</small>
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerList[i].CustomerId))">@Model.CustomerList[i].CustomerId</a>: @Model.CustomerList[i].CustomerName
+                <small>@Html.DisplayFor(m => m.CustomerList[i].CustomerTypeDescription)</small>
+                <span class="label label-info">@Html.DisplayFor(m => m.CustomerList[i].PoCount)</span>
+               </h4>
+        </li>
+
+        }
+    </ul>
+</div>
+
+@section script {
+    <link href="@Links_Inquiry.Areas.Inquiry.SharedViews.typeahead_css" rel="stylesheet" />
+    <script type="text/javascript">
+        var _autocompleteUrl = '@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.CustomerAutocomplete("~"))';
+    </script>
+
+    <script src="@Links_Inquiry.Areas.Inquiry.CustomerEntity.CustomerList_js"></script>
+
+
+}

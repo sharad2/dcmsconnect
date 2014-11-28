@@ -1,0 +1,297 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.IntransitShipmentSkuListViewModel
+@using EclipseLibrary.Mvc.Helpers
+@{
+    ViewBag.Title = "Closed Shipment SKU Summary";
+    var shipCount = 1;
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+}
+@section applinks{
+    <li>
+        @if (Model.TransferShipmentList.Count > 0 || Model.UnknownShipmentList.Count > 0 || Model.VendorShipmentList.Count > 0)
+        {
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(Model.Filters,true))" id="btnExcel">
+                <span class="glyphicon glyphicon-export"></span> Excel
+            </a>
+        }
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())">Shipment Summary</a>
+    </li>
+
+    <li class="divider"></li>
+}
+
+<div class="container" id="mypage">   
+        <h2 style="margin-top:0px;">
+            @ViewBag.Title
+        </h2>
+  
+    <span class="text-success h5">@Html.DisplayFor(m => m.Filters.DisplayFilters)</span>
+    @if (Model.Filters.HasFilters)
+    {
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail())" class="btn btn-link"><span class="glyphicon glyphicon-refresh"></span> Reset Filters</a>
+    }
+
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid  bg-info">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#filters">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand bg-success" href="#">
+                    <span class="glyphicon glyphicon-filter"></span>
+
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="filters">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            @Html.DisplayFor(m => m.Filters.SkuSource)
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" role="menu">
+                            @if (Model.Filters.SkuSource != DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuSourceType.Vendor)
+                            {
+                                <li>
+                                    <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(new DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuFilterModel(Model.Filters)
+                            {
+                                SkuSource = DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuSourceType.Vendor
+
+                            }))">Vendor</a>
+                                </li>
+                            }
+                            @if (Model.Filters.SkuSource != DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuSourceType.Transfer)
+                            {
+                                <li>
+                                    <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(new DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuFilterModel(Model.Filters)
+                            {
+                                SkuSource = DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuSourceType.Transfer
+                            }))">Transfer</a>
+                                </li>
+                            }
+                            @if (Model.Filters.SkuSource.HasValue)
+                            {
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(new DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuFilterModel(Model.Filters)
+                            {
+                                SkuSource = null
+                            }))">All Shipment Types</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            @Html.DisplayFor(m => m.Filters.DisplayStatus) SKUs
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            @if (Model.Filters.SkuStatus != DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuStatusType.All)
+                            {
+                                <li>
+                                    <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(new DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuFilterModel(Model.Filters)
+                            {
+                                 SkuStatus = DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuStatusType.All,
+
+                            }))">All SKU</a>
+                                </li>
+                            }
+                            @if (Model.Filters.SkuStatus != DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuStatusType.Varience)
+                            {
+                                <li>
+                                    <a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail(new DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuFilterModel(Model.Filters)
+                            {
+                                 SkuStatus = DcmsMobile.Inquiry.Areas.Inquiry.IntransitEntity.ShipmentSkuStatusType.Varience
+                            }))">Varience SKUs</a>
+                                </li>
+                            }
+                            <li class="divider"></li>
+                            <li><a href="#datesPopup" data-toggle="modal">Shipment Close Dates...</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <form method="get" action="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail())"
+                      id="frmSewingPlant"
+                      class="navbar-form navbar-left">
+                    <input name="@Model.NameFor(m => m.Filters.SkuSource)" type="hidden" value="@Model.Filters.SkuSource" />
+                    <input name="@Model.NameFor(m => m.Filters.SkuStatus)" type="hidden" value="@Model.Filters.SkuStatus" />
+                    <input name="@Model.NameFor(m => m.Filters.MinClosedDate)" type="hidden" value="@Model.Filters.MinClosedDate" />
+                    <input name="@Model.NameFor(m => m.Filters.MaxClosedDate)" type="hidden" value="@Model.Filters.MaxClosedDate" />
+                    @Html.DropDownListFor(m => m.Filters.SewingPlantCode, Model.SewingPlantList, "(Sewing Plant)", new { @class = "form-control" })
+                </form>
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+
+    <div class="modal fade" id="datesPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel"> Shipment Close Dates</h4>
+                </div>
+                <form role="form" method="get" action="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.InboundShipmentDetail())">
+                    <div class="modal-body">
+                        <input name="@Model.NameFor(m => m.Filters.SkuSource)" type="hidden" value="@Model.Filters.SkuSource" />
+                        <input name="@Model.NameFor(m => m.Filters.SkuStatus)" type="hidden" value="@Model.Filters.SkuStatus" />
+                        <input name="@Model.NameFor(m => m.Filters.SewingPlantCode)" type="hidden" value="@Model.Filters.SewingPlantCode" />
+                        <div class="form-group">
+                            <label>From</label>
+                            <input name="@Model.NameFor(m => m.Filters.MinClosedDate)" type="date"
+                                   placeholder="mm/dd/yyyy"
+                                   class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>To</label>
+                            <input name="@Model.NameFor(m => m.Filters.MaxClosedDate)" type="date"
+                                   placeholder="mm/dd/yyyy"
+                                   class="form-control" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">
+                            Apply
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+    <ul class="list-group">
+        @for (int i = 0; i < Model.ShipmentLists.Count; i++)
+        {
+            <li class="list-group-item list-group-item-info h4">
+
+
+                <h4 class="list-group-item-heading">
+                    @*@if (Model.TotalShipmentRows != null)
+            {
+                @Model.ShipmentLists[i].Shipments.Select(m => m.ShipmentId).Distinct().Count()
+            }*@
+                 
+                    @Model.ShipmentLists[i].DisplayInstransitType
+
+                </h4>
+            </li>
+   
+            for (var j = 0; j < Model.ShipmentLists[i].Shipments.Count; ++j)
+            {
+                if (j == 0 || Model.ShipmentLists[i].Shipments[j].ShipmentId != Model.ShipmentLists[i].Shipments[j - 1].ShipmentId)
+                {
+                    var span = Model.ShipmentLists[i].Shipments.Skip(j).TakeWhile(p => p.ShipmentId == Model.ShipmentLists[i].Shipments[j].ShipmentId).Count();
+
+                    <li class="list-group-item list-group-item-success">
+                        <div class="row" style="margin-left:1em">
+                            <div class="col-md-6">
+                                <h4 class="list-group-item-heading">
+                                    <small>@(shipCount)</small><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].ShipmentId))">
+                                        @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ShipmentId)
+                                    </a>
+                                    <small>Sent to ERP: @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].UploadDate)</small>
+                                </h4>
+                                <p class="list-group-item-text">Sewing Plant: @Model.ShipmentLists[i].Shipments[j].SewingPlant</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="list-group-item-text pull-right">
+                                    Shipment Date: @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ShipmentDate)
+                                    <span class="badge">  @span SKUs</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    ++shipCount;
+                }
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class=" col-md-3 col-md-offset-1">
+                            <p class="list-group-item-text">
+                                @Model.ShipmentLists[i].Shipments[j].Style
+                                @Model.ShipmentLists[i].Shipments[j].Color
+                                @Model.ShipmentLists[i].Shipments[j].Dimension
+                                @Model.ShipmentLists[i].Shipments[j].SkuSize
+                            </p>
+                        </div>
+                        <div class=" col-md-5">
+                            <p class="list-group-item-text">
+                                @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ReceivedPieces) of
+                                @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ExpectedPieces) pcs received
+                                <label class="label label-info">
+                                    @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].TotalPiecesVariance)
+                                </label>
+                            </p>
+                        </div>
+                        <div class=" col-md-3">
+                            <p class="list-group-item-text">
+                                @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ReceivedCartons)
+                                of @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ExpectedCartonCount)
+                                ctn received
+                                <label class="label label-info">@Html.DisplayFor(m => Model.ShipmentLists[i].Shipments[j].TotalCartonVariance)</label>
+                            </p>
+                        </div>
+                    </div>
+                    @if (Model.ShipmentLists[i].Shipments[j].CountOtherShipments > 0)
+                    {
+                        <div class="bg-info">
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            @switch (Model.ShipmentLists[i].Shipments[j].CountOtherShipments)
+                            {
+                                case 0: break;
+                                case 1:
+                                    <span>
+
+                                        @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ReceivedPiecesByBuddies)
+                                        pieces were received after closing against Shipment
+                                        @Html.ActionLink(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId, MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId))
+                                    </span>
+                                    break;
+                                case 2:
+                                <span>
+                                    @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ReceivedPiecesByBuddies)
+                                    pieces were received after closing against Shipment
+                                    @Html.ActionLink(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId, MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId))
+                                    ,@Html.ActionLink(Model.ShipmentLists[i].Shipments[j].MaxOtherShipmentId, MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].MaxOtherShipmentId)))
+                                </span>
+                                    break;
+                                default:
+                                <span>
+                                    @Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].ReceivedPiecesByBuddies)
+                                    pieces were received after closing against Shipment
+                                    @Html.ActionLink(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId, MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].MinOtherShipmentId))),
+                                    @Html.ActionLink(Model.ShipmentLists[i].Shipments[j].MaxOtherShipmentId, MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipment(Model.ShipmentLists[i].Shipments[j].MaxOtherShipmentId))) and
+                                    (@Html.DisplayFor(m => m.ShipmentLists[i].Shipments[j].CountOtherShipments) - 2) others
+                                </span>
+                                    break;
+                            }
+                        </div>
+                    }
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+@section script {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#frmSewingPlant').on('change', 'select', function (e) {
+                $('form#frmSewingPlant').submit();
+            });
+        });
+    </script>
+}

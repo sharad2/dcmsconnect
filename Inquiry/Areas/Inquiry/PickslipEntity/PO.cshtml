@@ -1,0 +1,84 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity.PoViewModel
+@{
+    var showExportFlag = Model.AllPickslips.Any(p => !(string.IsNullOrEmpty(p.ExportFlag)));
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = Model.ModelTitle;
+}
+
+@section applinks{
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoExcel(Model.PoId, Model.CustomerId, Model.Iteration))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+}
+
+<div class="container">
+   
+    <h2 style="margin-top:0px">
+        @Model.ModelTitle
+        <small>
+            @Html.LabelFor(m => m.CustomerId)
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
+                @Model.CustomerDisplayName
+            </a>
+            <small>
+                &bull; @Html.DisplayFor(m => m.Iteration)
+                @if (Model.CountIterations > 1)
+                {
+
+                    @Html.ActionLink(string.Format("See All {0:N0} Iterations", Model.CountIterations), MVC_Inquiry.Inquiry.Home.Search(Model.PoId))
+
+                }
+            </small>
+        </small>
+
+    </h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well well-sm">
+                <label>Ordered On</label>
+                <span>@Html.DisplayFor(m => m.StartDate)</span>
+           
+                <label>Cancel Date</label>
+                <span>
+                    @Html.DisplayFor(m => m.CancelDate)                   
+                </span>
+                <small>
+                     <em>DC Cancel Date</em> @Html.DisplayFor(m => m.DcCancelDate)
+                </small>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-info">
+                @if (Model.TotalBoxes > 0)
+                {
+                    <span>
+                        @Model.CountOfUccPrinted UCCs and @Model.CountOfCclPrinted CCLs of @Model.TotalBoxes boxes printed.
+                    </span>
+                }
+                else
+                {
+                    <span>No box is available for PO.</span>
+                }
+            </div>
+
+        </div>
+    </div>
+  
+
+
+    @if (Model.AllPickslips.Count > 0)
+    {
+        <div class="list-group">
+            <a class="list-group-item active">
+                List of @Model.PickslipListCaption
+            </a>
+            @Html.Partial(@MVC_Inquiry.Inquiry.PickslipEntity.Views._pickslipListPartial)
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info"> PO does not contain any pickslip.</div>
+    }
+</div>
