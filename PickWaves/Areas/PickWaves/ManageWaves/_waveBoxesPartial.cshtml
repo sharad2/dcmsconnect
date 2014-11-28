@@ -80,7 +80,7 @@
                     VWH
                 </h4>
             </div>
-            <div class="col-md-2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+            <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                 <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     Pull Carton ?
                 </abbr>
@@ -88,7 +88,7 @@
                     Pieces
                 </span>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <span class="label label-default">Status</span>
             </div>
             <div class="col-md-3" >
@@ -117,11 +117,11 @@
                     </h4>
 
                 </div>
-                <div class="col-md-2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     @Html.DisplayFor(m => m.BoxesList[i].CartonId)
                     <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>                   
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <span class="label @Html.DisplayFor(m => m.BoxesList[i].DisplayStateStyle)">
                         @Html.DisplayFor(m => m.BoxesList[i].DisplayStateText)
                     </span>
