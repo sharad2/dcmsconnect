@@ -48,7 +48,7 @@
 <ul class="list-group">
     <li class="list-group-item active">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <h4 class="list-group-item-heading">
                     SKU
                 </h4>
@@ -61,7 +61,7 @@
             <div class="col-md-4">
                 @ShowTableFooterText(Model.StateFilter)
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 Inventory in Areas
                 @foreach (var area in Model.AllAreas)
                 {
@@ -79,7 +79,7 @@
     {
         <li class="list-group-item">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="list-group-item-heading h4">
                         <small>@(i + 1)</small>
                         @if (!Model.BucketSkuList[i].IsAssignedSku)
@@ -159,7 +159,7 @@
 
 
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                     {
                         var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
