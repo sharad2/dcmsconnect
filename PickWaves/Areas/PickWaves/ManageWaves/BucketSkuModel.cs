@@ -21,6 +21,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public string SkuSize { get; set; }
 
+        public string DisplaySku
+        {
+            get
+            {
+                return string.Format("{0},{1},{2},{3}",this.Style,this.Color,this.Dimension,this.SkuSize);
+            }
+        }
+
         public string UpcCode { get; set; }
 
         public string VwhId { get; set; }

@@ -53,8 +53,8 @@
                     SKU
                 </h4>
                 <p class="list-group-item-text">
-                    <span class="label label-info">Weight</span>
-                    <span class="label label-success">Volume</span>
+                    <span class="label label-info" title="Weight Per Dozen">Weight</span>
+                    <span class="label label-success" title="Volume Per Dozan">Volume</span>
                     VWH
                 </p>
             </div>
@@ -92,14 +92,11 @@
                             </div>
 
                         }
-                        @Html.DisplayFor(m => m.BucketSkuList[i].Style),
-                        @Html.DisplayFor(m => m.BucketSkuList[i].Color),
-                        @Html.DisplayFor(m => m.BucketSkuList[i].Dimension),
-                        @Html.DisplayFor(m => m.BucketSkuList[i].SkuSize)
+                        @Html.DisplayFor(m=>m.BucketSkuList[i].DisplaySku)
                     </div>
                     <p class="list-group-item-text">
-                        <span class="label label-info">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
-                        <span class="label label-success">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
+                        <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
+                        <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                     </p>
                 </div>
