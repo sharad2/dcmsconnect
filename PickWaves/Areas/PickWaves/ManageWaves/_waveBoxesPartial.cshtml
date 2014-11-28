@@ -68,7 +68,7 @@
         <span style="width: 1em; display:inline-block; height: 1em;background-color: red;" />
         <span>Cancelled</span>
     </p>
-  
+
 </blockquote>
 
 
@@ -99,9 +99,12 @@
                 </h4>
             </div>
             <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                <h4 class="list-group-item-heading">
+                <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     Pull Carton ?
-                </h4>
+                </abbr>
+                <span class="badge">
+                    Pieces
+                </span>
             </div>
             <div class="col-md-3" style="text-align:right">
                 <span class="badge">Date Created</span>
@@ -131,16 +134,14 @@
 
                 </div>
                 <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-
-                    <span>  @Html.DisplayFor(m => m.BoxesList[i].CartonId)</span>
-
+                    @Html.DisplayFor(m => m.BoxesList[i].CartonId)
                     <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>
 
 
                 </div>
                 <div class="col-md-3" style="text-align:right">
                     <span class="badge">@Html.DisplayFor(m => m.BoxesList[i].CreatedDate)</span>
-                    <small>by @Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
+                    <small>@Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
                 </div>
             </div>
         </li>
