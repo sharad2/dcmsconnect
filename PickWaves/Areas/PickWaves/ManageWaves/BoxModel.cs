@@ -35,28 +35,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CurrentPieces { get; set; }
 
-        [DisplayFormat(DataFormatString = "<div style=\"width:1em; height:1em; background-color:{0}; display:inline-block\"></div>", HtmlEncode = false)]
-        public string DisplayState
+        [DisplayFormat(DataFormatString = "{0}", HtmlEncode = false)]
+        public string DisplayStateStyle
         {
             get
             {
                 if (this.CancelDate != null)
                 {
-                    return "red";
+                    return "label-danger";
                 }
                 if (this.VerifyDate != null)
                 {
-                    return "green";
+                    return "label-success";
                 }
                 if (string.IsNullOrWhiteSpace(AreaId))
                 {
-                    return "gray";
+                    return "label-muted";
                 }
-                return "deepskyblue";
+                return "label-info";
             }
         }
 
-        public string DisplayStateTip
+        public string DisplayStateText
         {
             get
             {

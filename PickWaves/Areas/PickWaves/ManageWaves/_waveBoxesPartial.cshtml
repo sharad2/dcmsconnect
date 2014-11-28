@@ -1,6 +1,8 @@
 ﻿@using DcmsMobile.PickWaves.Helpers
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveBoxListModel
 @* Design only for use by Wave.cshtml*@
+
+
 @helper DisplayBoxPieces(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box)
 {
     if (box.CurrentPieces == box.ExpectedPieces)
@@ -55,33 +57,13 @@
 
 
 <blockquote>
-    <p>
-        <span style="width: 1em; height: 1em; display:inline-block; background-color: gray;" />
-        <span>Not Started</span>
 
-        <span style="width: 1em; height: 1em; display:inline-block; background-color: deepskyblue;" />
-        <span>In Progress</span>
-
-        <span style="width: 1em; display:inline-block; height: 1em;background-color: green;" />
-        <span>Validated</span>
-
-        <span style="width: 1em; display:inline-block; height: 1em;background-color: red;" />
-        <span>Cancelled</span>
-    </p>
-
+    @ShowListTitle()
+    <span class="pull-right">@ShowBoxPiecesStatus(Model.StateFilter)</span>
 </blockquote>
 
 
 
-
-
-
-
-
-<h4>
-    @ShowListTitle()
-    <span class="pull-right">@ShowBoxPiecesStatus(Model.StateFilter)</span>
-</h4>
 <ul class="list-group">
     <li class="list-group-item list-group-item-info">
         <div class="row">
@@ -98,7 +80,7 @@
                     VWH
                 </h4>
             </div>
-            <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+            <div class="col-md-2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                 <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     Pull Carton ?
                 </abbr>
@@ -106,21 +88,23 @@
                     Pieces
                 </span>
             </div>
-            <div class="col-md-3" style="text-align:right">
+            <div class="col-md-2">
+                <span class="label label-default">Status</span>
+            </div>
+            <div class="col-md-2" >
                 <span class="badge">Date Created</span>
-                <small>by</small>
+                <small style="text-align:right">by</small>
             </div>
         </div>
     </li>
 
     @for (var i = 0; i < Model.BoxesList.Count; i++)
     {
-        <li class="list-group-item @Model.BoxesList[i].DisplayState">
+        <li class="list-group-item">
             <div class="row">
                 <div class="col-md-5">
                     <h4 class="list-group-item-heading">
-                        <small>@(i + 1)</small>
-                        @Html.DisplayFor(m => m.BoxesList[i].DisplayState)
+                        <small>@(i + 1)</small>  
                         <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                         <small>
                             &bull; @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
@@ -133,15 +117,18 @@
                     </h4>
 
                 </div>
-                <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                <div class="col-md-2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                    <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>
-
-
+                    <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>                   
                 </div>
-                <div class="col-md-3" style="text-align:right">
+                <div class="col-md-2">
+                    <span class="label @Html.DisplayFor(m => m.BoxesList[i].DisplayStateStyle)">
+                        @Html.DisplayFor(m => m.BoxesList[i].DisplayStateText)
+                    </span>
+                </div>
+                <div class="col-md-2">
                     <span class="badge">@Html.DisplayFor(m => m.BoxesList[i].CreatedDate)</span>
-                    <small>@Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
+                    <small style="text-align:right">@Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
                 </div>
             </div>
         </li>
@@ -149,93 +136,3 @@
 </ul>
 
 
-
-
-<table>
-    <caption>
-        @ShowListTitle()
-    </caption>
-    <thead>
-        <tr>
-            <th rowspan="2">#</th>
-            <th rowspan="2">
-                Box
-                <span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
-            </th>
-            <th rowspan="2">Pickslip</th>
-            <th rowspan="2">VWh</th>
-            <th rowspan="2" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">Pull Carton?</th>
-            <th rowspan="2">
-                Pieces
-            </th>
-            <th title="Not Started, In Progress, Validated or Cancelled" rowspan="2">
-                Status
-            </th>
-            <th colspan="2">Created</th>
-        </tr>
-        <tr>
-            <th>By</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (var i = 0; i < Model.BoxesList.Count; ++i)
-        {
-            <tr class="@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "pitched-box" : "pulled-box")">
-                <td>
-                    @(i + 1)
-                </td>
-                <td>
-                    <a href='@Url.Content(string.Format("~/Inquiry/Ucc/{0}", Model.BoxesList[i].Ucc128Id))' target="_inquiry">@Model.BoxesList[i].Ucc128Id</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
-                </td>
-                <td style="text-align: center">
-                    @Html.DisplayFor(m => m.BoxesList[i].VWhId)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                </td>
-                <td style="text-align: right">
-                    @DisplayBoxPieces(Model.BoxesList[i])
-                </td>
-                <td title="@Model.BoxesList[i].DisplayStateTip" style="text-align:center;">
-                    @Html.DisplayFor(m => m.BoxesList[i].DisplayState)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.BoxesList[i].CreatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => m.BoxesList[i].CreatedDate)
-                </td>
-            </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr class="ui-state-active" style="font-size: 1.2em; font-weight: bold">
-            <td colspan="2">Total</td>
-            <td style="text-align: center" colspan="7">
-                @ShowBoxPiecesStatus(Model.StateFilter)
-            </td>
-        </tr>
-    </tfoot>
-</table>
-
-
-
-@*<fieldset style="float: right; padding: 1em 3em 1em 1em; margin-right: 10%; margin-top: 0.5em">
-        <legend>Legend</legend>
-
-        <span style="width: 1em; height: 1em; display: inline-block; background-color: gray;" />
-        <span>Not Started</span>
-        <br />
-        <span style="width: 1em; height: 1em; display: inline-block; background-color: deepskyblue;" />
-        <span>In Progress</span>
-        <br />
-        <span style="width: 1em; height: 1em; display: inline-block; background-color: green;" />
-        <span>Validated</span>
-        <br />
-        <span style="width: 1em; height: 1em; display: inline-block; background-color: red;" />
-        <span>Cancelled</span>
-    </fieldset>*@
