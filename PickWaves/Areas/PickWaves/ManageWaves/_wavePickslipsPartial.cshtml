@@ -46,9 +46,9 @@
                     }
                     @if (Model.PickslipList[i].CancelledBoxCount > 0)
                     {
-                        <span class="text-warning pull-right">
+                        <strong class="text-danger pull-right">
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
-                        </span>
+                        </strong>
                     }
                     <div class="progress" style="margin-bottom:0px;">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">

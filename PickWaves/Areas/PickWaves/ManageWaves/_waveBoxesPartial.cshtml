@@ -56,11 +56,11 @@
 
 
 
-<blockquote>
+<h4>
 
     @ShowListTitle()
     <span class="pull-right">@ShowBoxPiecesStatus(Model.StateFilter)</span>
-</blockquote>
+</h4>
 
 
 
@@ -91,7 +91,7 @@
             <div class="col-md-1">
                 <span class="label label-default">Status</span>
             </div>
-            <div class="col-md-3" >
+            <div class="col-md-3">
                 <span class="badge">Date Created</span>
                 <small style="text-align:right">by</small>
             </div>
@@ -100,11 +100,11 @@
 
     @for (var i = 0; i < Model.BoxesList.Count; i++)
     {
-        <li class="list-group-item">
+        <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
             <div class="row">
                 <div class="col-md-4">
                     <h4 class="list-group-item-heading">
-                        <small>@(i + 1)</small>  
+                        <small>@(i + 1)</small>
                         <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                         <small>
                             &bull; @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
@@ -119,7 +119,7 @@
                 </div>
                 <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                    <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>                   
+                    <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>
                 </div>
                 <div class="col-md-1">
                     <span class="label @Html.DisplayFor(m => m.BoxesList[i].DisplayStateStyle)">
