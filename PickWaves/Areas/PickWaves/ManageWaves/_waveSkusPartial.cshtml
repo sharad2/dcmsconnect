@@ -24,18 +24,16 @@
         case BoxState.NotSet:
             <div class="pw-thin-progressbar ui-progressbar ui-widget ui-widget-content ui-corner-all"
                  title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
-                @if (Model.TotalPiecesPicked > 0)
-                {
-                <div style="width: @Model.PercentPiecesComplete%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                    @Html.DisplayFor(m => m.TotalPiecesPicked)
+             
+                @Html.DisplayFor(m => m.RemainingPiecesToPick) Unpicked Pieces 
+                <div class="progress"
+                      title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+                    <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                        <span style="white-space:nowrap" class="text-info">
+                           @Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked &bull; <em>@Model.PercentPiecesComplete% picked</em>
+                        </span>
+                    </div>
                 </div>
-                }
-                @if (Model.RemainingPiecesToPick > 0)
-                {
-                <div style="width: @(100 - Model.PercentPiecesComplete)%; left: @Model.PercentPiecesComplete%" class="ui-progressbar-value">
-                    @Html.DisplayFor(m => m.RemainingPiecesToPick)
-                </div>
-                }
             </div>
                 break;
         case BoxState.Cancelled:
@@ -43,6 +41,19 @@
                 break;
     }
 }
+
+    
+  <blockquote>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h4>@string.Format("SKUs List of wave {0}", Model.BucketId)</h4>
+        </div>
+        <div class="col-md-8">
+            @ShowTableFooterText(Model.StateFilter)
+        </div>
+    </div>
+</blockquote>
 
 <ul class="list-group">
 
@@ -60,16 +71,7 @@
                     </small>
                 </h4>
             </div>
-            <div class="col-md-4" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                <h4 class="list-group-item-heading">
-                    @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces Orderd
-                </h4>
-                <div class="progress" style="margin-bottom:0px;">
-                    <div style="width:100%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="pieces in Sku">
-                        <span style="white-space:nowrap" class="text-info">none of  none Pieces picked</span>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-md-3">
                 Inventory in Areas
                 @foreach (var area in Model.AllAreas)
@@ -109,22 +111,23 @@
                 <div class="col-md-4" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
 
                     <h4 class="list-group-item-heading">
-                        @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</h4>
-                        @*<div class="progress" style="margin-bottom:0px;">
-                            <div style="width:100%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="pieces in Sku">
-                                <span style="white-space:nowrap" class="text-info">none of  none Pieces picked</span>
-                            </div>*@
-                            @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
-                            {
-                                <div class='@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")'>
-                                    @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+                        @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)
+                    </h4>
+                    @*<div class="progress" style="margin-bottom:0px;">
+                        <div style="width:100%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="pieces in Sku">
+                            <span style="white-space:nowrap" class="text-info">none of  none Pieces picked</span>
+                        </div>*@
+                    @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
+                    {
+                        <div class='@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "pulled-box" : "pitched-box")'>
+                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
 
-                                    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.BucketSkuList[i].Activities[j])
-                                </div>
-                            }
-                        @*</div>*@
+                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._activityProgressPartial, Model.BucketSkuList[i].Activities[j])
+                        </div>
+                    }
+                    @*</div>*@
 
-</div>
+                </div>
                 <div class="col-md-3">
                     @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                     {
@@ -146,7 +149,7 @@
 
 
 
-<table>
+@*<table>
     <caption>
         @string.Format("SKUs List of wave {0}", Model.BucketId)
     </caption>
@@ -246,4 +249,4 @@
             <td colspan="@(Model.BucketSkuList.Select(p => p.InventoryByArea.Count).Max() + 1)"></td>
         </tr>
     </tfoot>
-</table>
+</table>*@
