@@ -7,11 +7,11 @@
     {
         if (pcs == null || pcs < activity.PiecesIncomplete)
         {
-            @:class='ui-state-error'
+            @:class='text-danger'
         }
         else
         {
-            @:class='ui-state-highlight'
+            @:class='text-info'
     }
     }
 }
@@ -148,7 +148,7 @@
 
 
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5">                   
                     @foreach (var area in Model.AllAreas)
                     {
                         <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
@@ -156,6 +156,8 @@
                         {
                             @area.ReplenishAreaId
                         }
+                        
+                        
                     }
                     @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                     {
