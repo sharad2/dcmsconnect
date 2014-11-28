@@ -41,13 +41,13 @@
                 else
                 {
                 <!-- Button trigger modal -->
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
-        <span class="glyphicon glyphicon-ban-circle"></span> Freeze
-    </button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
+                        <span class="glyphicon glyphicon-ban-circle"></span> Freeze
+                    </button>
                 }
             </div>
         }
-      
+
 
     </div>
     <div class="panel-body">
@@ -66,13 +66,15 @@
                                     @if (Model.CountCancelledBoxes > 0)
                                     {
 
-                                        <span>&bull; @Html.DisplayFor(m => m.CountCancelledBoxes) boxes cancelled</span>
+                                        <strong class="text-danger">
+                                            @Html.DisplayFor(m => m.CountCancelledBoxes) boxes cancelled
+                                        </strong>
 
                                     }
                                     @if (Model.CountNotStartedBoxes > 0)
                                     {
                                         <span>
-                                            &bull; @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
+                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
                                         </span>
                                     }
                                 </p>
@@ -108,7 +110,7 @@
                                     }
                                     else
                                     {
-                                    @Model.PriorityId}
+                                        @Model.PriorityId}
                                 </div>
                             </div>
                         </div>
@@ -180,16 +182,16 @@
                                                 </div>
                                                 @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete)
                                             </div>
-                                            <p class="list-group-itemm-text text-danger">
+                                            <strong class="list-group-itemm-text text-danger">
                                                 @if (Model.Activities[j].UnderPickedPieces.HasValue)
                                                 {
-                                                    <span>&bull; @Html.DisplayFor(m => m.Activities[j].UnderPickedPieces) under picked</span>
+                                                    <span> @Html.DisplayFor(m => m.Activities[j].UnderPickedPieces) under picked</span>
                                                 }
                                                 @if (Model.Activities[j].CancelledPieces.HasValue)
                                                 {
-                                                    <span>&bull; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) cancelled</span>
+                                                    <span> @Html.DisplayFor(m => m.Activities[j].CancelledPieces) cancelled</span>
                                                 }
-                                            </p>
+                                            </strong>
                                         </div>
                                     </div>
                                 </li>
