@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.ViewModels;
+using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
@@ -67,7 +68,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 {
                     return 0;
                 }
-                return (decimal)TotalPiecesPicked * 100 / (decimal)(TotalOrderedPieces);
+                return Math.Round((decimal)TotalPiecesPicked * 100 / (decimal)(TotalOrderedPieces));
             }
         }
 

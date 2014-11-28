@@ -189,11 +189,18 @@
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                                         </div>
                                         <div class="col-md-7">
-                                            <div style="margin-bottom:0px;" class="progress" title="@Html.DisplayFor(m => m.Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining">
-                                                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.Activities[j].PercentPiecesComplete%;">
-                                                    @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
+                                            @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining
+                                            <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining">
+                                                <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                                                    <span style="white-space:nowrap" class="text-info">
+                                                        @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
+                                                        of @Html.DisplayFor(m => m.Activities[j].PiecesToShip) pieces picked
+                                                        @Html.DisplayFor(m => m.Activities[j].PickingDateRange).
+                                                        <em>
+                                                            @Model.Activities[j].PercentPiecesComplete% picked
+                                                        </em>
+                                                    </span>
                                                 </div>
-                                                @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete)
                                             </div>
                                             <strong class="list-group-itemm-text text-danger">
                                                 @if (Model.Activities[j].UnderPickedPieces.HasValue)
