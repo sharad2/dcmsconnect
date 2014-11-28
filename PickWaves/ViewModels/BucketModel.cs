@@ -238,14 +238,14 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Pieces in cancelled boxes
         /// </summary>
-        [DisplayFormat(DataFormatString = "<span title='Number of pieces in cancelled boxes'>{0:N0} pieces cancelled</span>", HtmlEncode = false)]
+        //[DisplayFormat(DataFormatString = "<span title='Number of pieces in cancelled boxes'>{0:N0} pieces cancelled</span>", HtmlEncode = false)]
         public int? CancelledPieces
         {
             get;
             private set;
         }
 
-        [DisplayFormat(DataFormatString = "<span title='Number of unpicked pieces in verified boxes'>{0:N0} pieces underpicked</span>", HtmlEncode = false)]
+        //[DisplayFormat(DataFormatString = "<span title='Number of unpicked pieces in verified boxes'>{0:N0} pieces underpicked</span>", HtmlEncode = false)]
         public int? UnderPickedPieces
         {
             get;

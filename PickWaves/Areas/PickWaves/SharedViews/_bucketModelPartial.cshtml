@@ -116,8 +116,21 @@
                         </div>
                     </li>
                     <li class="list-group-item list-group-item-info">
-                        @Html.DisplayFor(m => m.UnderPickedPieces)
-                        @Html.DisplayFor(m => m.CancelledPieces)
+                        @if (Model.UnderPickedPieces.HasValue)
+                        {
+                            <strong title='Number of unpicked pieces in verified boxes' class="text-info">
+                                @Html.DisplayFor(m => m.UnderPickedPieces) pieces underpicked
+                            </strong>
+                            <br />
+                        }
+
+                        @if (Model.CancelledPieces.HasValue)
+                        {
+                            <strong title='Number of pieces in cancelled boxes' class="text-info">
+                                @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled
+                            </strong>
+                            <br />
+                        }
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountPickslips) Pickslips
                             @if (isAuthorized && Model.IsFrozen)
