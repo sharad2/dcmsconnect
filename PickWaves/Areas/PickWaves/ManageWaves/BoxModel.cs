@@ -50,7 +50,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 }
                 if (string.IsNullOrWhiteSpace(AreaId))
                 {
-                    return "label-muted";
+                    return "label-default";
                 }
                 return "label-info";
             }
