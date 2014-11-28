@@ -8,7 +8,7 @@
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
 }
 
-<div class="panel panel-default">
+<div class="panel panel-success">
     <div class="panel-heading">
 
         <h3 class="list-group-item-heading" style="display:inline-block">
@@ -115,7 +115,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="list-group-item list-group-item-info">
+                    <li class="list-group-item">
                         @if (Model.UnderPickedPieces.HasValue)
                         {
                             <strong title='Number of unpicked pieces in verified boxes' class="text-info">
@@ -214,7 +214,7 @@
                         {
                             if (Model.IsFrozen)
                             {
-                                <li class="list-group-item list-group-item-info">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
+                                <li class="text-info"><strong>@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
                             }
                             else
                             {
