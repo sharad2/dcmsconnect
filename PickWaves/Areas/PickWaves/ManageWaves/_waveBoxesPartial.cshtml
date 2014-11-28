@@ -50,22 +50,34 @@
     }
     <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
 }
-<blockquote class="small">
-    <span style="width: 1em; height: 1em;">
-        Lagend(status)
-    </span>
-    <span style="width: 1em; height: 1em; display:inline-block; background-color: gray;" />
-    <span>Not Started</span>
 
-    <span style="width: 1em; height: 1em; display:inline-block; background-color: deepskyblue;" />
-    <span>In Progress</span>
 
-    <span style="width: 1em; display:inline-block; height: 1em;background-color: green;" />
-    <span>Validated</span>
 
-    <span style="width: 1em; display:inline-block; height: 1em;background-color: red;" />
-    <span>Cancelled</span>
+
+<blockquote>
+    <p>
+        <span style="width: 1em; height: 1em; display:inline-block; background-color: gray;" />
+        <span>Not Started</span>
+
+        <span style="width: 1em; height: 1em; display:inline-block; background-color: deepskyblue;" />
+        <span>In Progress</span>
+
+        <span style="width: 1em; display:inline-block; height: 1em;background-color: green;" />
+        <span>Validated</span>
+
+        <span style="width: 1em; display:inline-block; height: 1em;background-color: red;" />
+        <span>Cancelled</span>
+    </p>
+  
 </blockquote>
+
+
+
+
+
+
+
+
 <h4>
     @ShowListTitle()
     <span class="pull-right">@ShowBoxPiecesStatus(Model.StateFilter)</span>
