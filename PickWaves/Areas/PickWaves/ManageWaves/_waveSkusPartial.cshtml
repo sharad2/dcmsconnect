@@ -62,15 +62,7 @@
                 @ShowTableFooterText(Model.StateFilter)
             </div>
             <div class="col-md-5">
-                Inventory in Areas
-                @foreach (var area in Model.AllAreas)
-                {
-                    <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
-                    if (!string.IsNullOrEmpty(area.ReplenishAreaId))
-                    {
-                        @area.ReplenishAreaId
-                    }
-                }
+                Inventory in Areas               
             </div>
         </div>
     </li>
@@ -160,14 +152,20 @@
 
                 </div>
                 <div class="col-md-5">
+                    @foreach (var area in Model.AllAreas)
+                    {
+                        <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
+                        if (!string.IsNullOrEmpty(area.ReplenishAreaId))
+                        {
+                            @area.ReplenishAreaId
+                        }
+                    }
                     @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                     {
                         var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
 
                         <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
                         <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
-
-
                     }
                 </div>
             </div>
