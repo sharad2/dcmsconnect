@@ -71,17 +71,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             }
         }
 
-        public int PercentUnpickedPieces
-        {
-            get
-            {
-                if (this.OrderedPieces == 0 || this.UnpickedPieces == 0)
-                {
-                    return 0;
-                }
-                return (int)Math.Round((decimal)this.UnpickedPieces * 100 / (decimal)this.OrderedPieces);
-            }
-        }
+        //public int PercentUnpickedPieces
+        //{
+        //    get
+        //    {
+        //        if (this.OrderedPieces == 0 || this.UnpickedPieces == 0)
+        //        {
+        //            return 0;
+        //        }
+        //        return (int)Math.Round((decimal)this.UnpickedPieces * 100 / (decimal)this.OrderedPieces);
+        //    }
+        //}
 
         /// <summary>
         /// Boxes are not created of these pieces.
