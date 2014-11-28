@@ -139,13 +139,13 @@
                                         </div>
                                     </div>
                                     <strong class="list-group-itemm-text text-danger">
-                                        @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue)
+                                        @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue ||  true)
                                         {
                                             <span> @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].UnderPickedPieces) under picked</span>
                                         }
-                                        @if (Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue)
+                                        @if (Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue || true)
                                         {
-                                            <span> @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CancelledPieces) cancelled</span>
+                                            <span>&bull; @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CancelledPieces) cancelled</span>
                                         }
                                     </strong>
                                 </div>
