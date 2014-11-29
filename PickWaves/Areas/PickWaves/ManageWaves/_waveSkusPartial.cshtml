@@ -59,9 +59,24 @@
                 @ShowTableFooterText(Model.StateFilter)
             </div>
             <div class="col-md-7">
-                <h4 class="list-group-item-heading">
-                    Inventory in Areas
-                </h4>
+                <strong>Inventory in Areas</strong>
+                <div class="form-inline">
+                    @foreach (var area in Model.AllAreas)
+                    {
+                        <div class="form-group" style="width:12em">
+                            <label>
+                                <span>@area.BuildingId &rarr; @area.ShortName</span>
+                                @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
+                                {
+                                    <span title="Replenish from @area.ReplenishAreaId">
+                                     &larr;@area.ReplenishAreaId
+                                    </span>
+                                }
+                            </label>
+                        </div>
+                    }
+
+                </div>
             </div>
         </div>
     </li>
@@ -106,7 +121,7 @@
 
                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining
-                            <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
+                            <div style="margin-bottom:0px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
                                 <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                     <span style="white-space:nowrap" class="text-info">
                                         @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
@@ -139,20 +154,21 @@
 
 
                 <div class="col-md-7">
-                    <form class="form-inline">
+                    <div class="form-inline">
                         @for (var j = 0; j < Model.AllAreas.Count; ++j)
                         {
                             if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
                             {
-                                <div class="form-group" style="width:12em">
+                                var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
+                                <div class="form-group" style="width:12em" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
                                     <label>
-                                        <span title="@Model.AllAreas[j].Description Replenish from @Model.AllAreas[j].ReplenishAreaId">@Model.AllAreas[j].BuildingId - @Model.AllAreas[j].ShortName</span>
+                                        <span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
                                         @*@if (!string.IsNullOrEmpty(Model.AllAreas[j].ReplenishAreaId))
-                                        {
-                                            <span title="Replenish from @Model.AllAreas[j].ReplenishAreaId">&larr;@Model.AllAreas[j].ReplenishAreaId</span>
-                                        }*@
+                                            {
+                                                <span title="Replenish from @Model.AllAreas[j].ReplenishAreaId">&larr;@Model.AllAreas[j].ReplenishAreaId</span>
+                                            }*@
                                     </label>
-                                    <span><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></span>
+                                    <small><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></small>
                                 </div>
                             }
                             else
@@ -161,7 +177,7 @@
                                 </div>
                             }
                         }
-                    </form>
+                    </div>
 
                 </div>
             </div>
