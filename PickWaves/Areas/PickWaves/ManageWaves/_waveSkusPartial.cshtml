@@ -71,14 +71,14 @@
     {
         <li class="list-group-item">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-5">
                     <div class="list-group-item-heading h4">
                         <small>@(i + 1)</small>
                         @if (!Model.BucketSkuList[i].IsAssignedSku)
                         {
                             <div class="btn-group">
                                 <button type="button" class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-warning-sign" title="SKU is not assigned at any location"></span>
+                                    <span class="glyphicon glyphicon-warning-sign text-warning" title="SKU is not assigned at any location"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
                                     <li class="text-info">
@@ -93,29 +93,21 @@
 
                         }
                         @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
-                    </div>
-                    <p class="list-group-item-text">
+
                         <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
                         <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
-                    </p>
-                </div>
-
-                <div class="col-md-4" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-
+                    </div>
+                   
                     @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                     {
-                        <div class='bg-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'>
+                        <div class='bg-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
+                             title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
 
-
-                            <div class="row">
-                                <div class="col-md-2">
+                          
                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
-
-                                </div>
-                                <div class="col-md-10">
                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining
-                                    <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
+                                    <div  class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
                                         <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                             <span style="white-space:nowrap" class="text-info">
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
@@ -138,118 +130,32 @@
                                         }
                                     </strong>
                                 </div>
-                            </div>
+                         
 
-
-
-
-                        </div>
                     }
 
 
-                </div>
-                <div class="col-md-5">
+                        </div>
+                    
+
+
+                <div class="col-md-7">
                     <form class="form-inline">
                         @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
                         {
                             if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
-                            {<div class="form-group" style="width:12em">
-                                <label><span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId - @Model.AllAreas[j].ShortName</span></label>
-                                <span><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></span>
-                            </div>
+                            {
+                                <div class="form-group" style="width:12em">
+                                    <label><span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId - @Model.AllAreas[j].ShortName</span></label>
+                                    <span><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></span>
+                                </div>
                             }
                         }
                     </form>
 
-                    @*<div class="table-responsive">
-                            <table class="table table-condensed table-bordered table-striped">
-                                <thead>
-                                    <tr class="success">
-                                        @foreach (var area in Model.AllAreas)
-                                        {
-                                        <td style="white-space: nowrap">
-                                            <span title="@area.Description">@area.BuildingId - @area.ShortName</span>
-                                            @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
-                                                {
-                                                <span title="Replenish from @area.ReplenishAreaId"><span class="ui-icon ui-icon-seek-prev" style="display: inline-block;"></span>@area.ReplenishAreaId</span>
-                                                }
-                                        </td>
-                                        }
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
-                                        {
-                                            var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
-                                        <td style="white-space: nowrap; text-align: right" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
-                                            <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                                            <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
-                                        </td>
-                                        }
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>*@
-                    @*<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                @for (var k = 0; k < Model.AllAreas.Count; ++k)
-                                {
-                                    <li data-target="#carousel-example-generic" data-slide-to="@(i+1)" class="active"></li>
-                                }
-                            </ol>
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    @for (var k = 0; k < Model.AllAreas.Count; ++k)
-                                    {
-
-                                        <div>
-                                            <span title="@Model.AllAreas[k].Description">@Model.AllAreas[k].BuildingId - @Model.AllAreas[k].ShortName</span>
-                                            @if (!string.IsNullOrEmpty(Model.AllAreas[k].ReplenishAreaId))
-                                            {
-                                                <span title="Replenish from @Model.AllAreas[k].ReplenishAreaId">
-                                                    <span class="glyphicon glyphicon-backward"></span>
-                                                    @Model.AllAreas[k].ReplenishAreaId
-                                                </span>
-                                            }
-                                        </div>
-                                    }
-                                    @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
-                                    {
-                                        var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
-
-                                        <div class="carousel-caption" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
-                                            <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                                            <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
-                                        </div>
-
-                                    }
-
-                                </div>
-                                @*<div class="item">
-                                        <div>
-                                            222222222222
-                                        </div>
-                                        <div class="carousel-caption">
-                                            caption
-                                        </div>
-                                    </div>
-
-                            </div>
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>*@
                 </div>
-            </div>
+                </div>
+     
         </li>
     }
 </ul>
