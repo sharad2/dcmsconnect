@@ -51,18 +51,18 @@
             <div class="col-md-5">
                 <h4 class="list-group-item-heading">
                     SKU
-                        <span class="label label-info" title="Weight Per Dozen">Weight</span>
-                        <span class="label label-success" title="Volume Per Dozan">Volume</span>
-                        <abbr title="Virtual Wearhouse">VWH</abbr>
+                    <span class="label label-info" title="Weight Per Dozen">Weight</span>
+                    <span class="label label-success" title="Volume Per Dozan">Volume</span>
+                    <abbr title="Virtual Wearhouse">VWH</abbr>
                 </h4>
-             
+
                 @ShowTableFooterText(Model.StateFilter)
             </div>
             <div class="col-md-7">
                 <h4 class="list-group-item-heading">
                     Inventory in Areas
-                    </h4>
-</div>
+                </h4>
+            </div>
         </div>
     </li>
 
@@ -97,64 +97,75 @@
                         <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                     </div>
-                   
+
                     @for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                     {
                         <div class='bg-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
                              title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
 
-                          
-                                    @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
-                                    @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining
-                                    <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
-                                        <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                                            <span style="white-space:nowrap" class="text-info">
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
-                                                of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange).
-                                                <em>
-                                                    @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete% picked
-                                                </em>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <strong class="list-group-itemm-text text-danger">
-                                        @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue)
-                                        {
-                                            <span> @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].UnderPickedPieces) under picked</span>
-                                        }
-                                        @if (Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue)
-                                        {
-                                            <span>&bull; @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CancelledPieces) cancelled</span>
-                                        }
-                                    </strong>
+
+                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining
+                            <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
+                                <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                                    <span style="white-space:nowrap" class="text-info">
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
+                                        of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange).
+                                        <em>
+                                            @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete% picked
+                                        </em>
+                                    </span>
                                 </div>
-                         
+                            </div>
+                            <strong class="list-group-itemm-text text-danger">
+                                @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue)
+                                {
+                                    <span> @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].UnderPickedPieces) under picked</span>
+                                }
+                                @if (Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue)
+                                {
+                                    <span>&bull; @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CancelledPieces) cancelled</span>
+                                }
+                            </strong>
+                        </div>
+
 
                     }
 
 
-                        </div>
-                    
+                </div>
+
 
 
                 <div class="col-md-7">
                     <form class="form-inline">
-                        @for (var j = 0; j < Model.BucketSkuList[i].InventoryByArea.Count; ++j)
+                        @for (var j = 0; j < Model.AllAreas.Count; ++j)
                         {
                             if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
                             {
                                 <div class="form-group" style="width:12em">
-                                    <label><span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId - @Model.AllAreas[j].ShortName</span></label>
+                                    <label>
+                                        <span title="@Model.AllAreas[j].Description Replenish from @Model.AllAreas[j].ReplenishAreaId">@Model.AllAreas[j].BuildingId - @Model.AllAreas[j].ShortName</span>
+                                        @*@if (!string.IsNullOrEmpty(Model.AllAreas[j].ReplenishAreaId))
+                                        {
+                                            <span title="Replenish from @Model.AllAreas[j].ReplenishAreaId">&larr;@Model.AllAreas[j].ReplenishAreaId</span>
+                                        }*@
+                                    </label>
                                     <span><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="form-group" style="width:12em">
                                 </div>
                             }
                         }
                     </form>
 
                 </div>
-                </div>
-     
+            </div>
+
         </li>
     }
 </ul>
