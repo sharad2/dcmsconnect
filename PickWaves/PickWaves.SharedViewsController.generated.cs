@@ -36,7 +36,7 @@ namespace T4MVC.PickWaves
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _activityProgressPartial = "_activityProgressPartial";
+                public readonly string _activityProgressPartial_O = "_activityProgressPartial_O";
                 public readonly string _bucketModelModalPartial = "_bucketModelModalPartial";
                 public readonly string _bucketModelPartial = "_bucketModelPartial";
                 public readonly string _layoutBootstrap = "_layoutBootstrap";
@@ -44,7 +44,7 @@ namespace T4MVC.PickWaves
                 public readonly string _layoutPickWaves2 = "_layoutPickWaves2";
                 public readonly string ajax_loader = "ajax-loader";
             }
-            public readonly string _activityProgressPartial = "~/Areas/PickWaves/SharedViews/_activityProgressPartial.cshtml";
+            public readonly string _activityProgressPartial_O = "~/Areas/PickWaves/SharedViews/_activityProgressPartial_O.cshtml";
             public readonly string _bucketModelModalPartial = "~/Areas/PickWaves/SharedViews/_bucketModelModalPartial.cshtml";
             public readonly string _bucketModelPartial = "~/Areas/PickWaves/SharedViews/_bucketModelPartial.cshtml";
             public readonly string _layoutBootstrap = "~/Areas/PickWaves/SharedViews/_layoutBootstrap.cshtml";
