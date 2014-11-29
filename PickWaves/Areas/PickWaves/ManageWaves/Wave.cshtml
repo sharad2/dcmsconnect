@@ -140,7 +140,10 @@
                 // Load AJAX content when the tab is shown
                 $('img', e.target).removeClass('hidden');
                 //alert(x.length);
-                $.get($(e.target).data('href')).done(function (data, textStatus, jqXHR) {
+                $.ajax($(e.target).data('href'), {
+                    type: 'GET',
+                    cache: false
+                }).done(function (data, textStatus, jqXHR) {
                     //success
                     $($(e.target).attr('href')).html(data);
                 }).fail(function (jqXHR, textStatus, errorThrown) {
