@@ -25,7 +25,7 @@
             <div title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
 
                 @Html.DisplayFor(m => m.RemainingPiecesToPick) Unpicked Pieces
-                <div class="progress" style="margin-bottom:0px;"
+                <div class="progress" 
                      title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
                     <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                         <span style="white-space:nowrap" class="text-info">
@@ -62,16 +62,17 @@
                 @*<strong>Inventory in Areas</strong>*@
                 @foreach (var area in Model.AllAreas)
                 {
-                    <div style="width:12em; display:inline-block">
+                    <div style="width:12em; display:inline-block; line-height:0.8; margin-bottom:3mm">
                         <label>
                             <span>@area.BuildingId &rarr; @area.ShortName</span>
                             @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
                             {
-                                <span title="Replenish from @area.ReplenishAreaId">
+                                <small title="Replenish from @area.ReplenishAreaId">
                                     &larr;@area.ReplenishAreaId
-                                </span>
+                                </small>
                             }
                         </label>
+                        <small>@area.Description</small>
                     </div>
                 }
 
@@ -119,7 +120,7 @@
 
                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining
-                            <div style="margin-bottom:0px;" class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
+                            <div class="progress" title="@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) pieces remaining">
                                 <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                     <span style="white-space:nowrap" class="text-info">
                                         @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
@@ -161,7 +162,7 @@
                             var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
                             <div style="width:12em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
                                 <label>
-                                    <span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
+                                    <span>@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
                                 </label>
                                 <small><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></small>
                             </div>
