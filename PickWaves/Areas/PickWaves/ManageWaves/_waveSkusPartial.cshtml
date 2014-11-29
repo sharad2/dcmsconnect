@@ -59,24 +59,22 @@
                 @ShowTableFooterText(Model.StateFilter)
             </div>
             <div class="col-md-7">
-                <strong>Inventory in Areas</strong>
-                <div class="form-inline">
-                    @foreach (var area in Model.AllAreas)
-                    {
-                        <div class="form-group" style="width:12em">
-                            <label>
-                                <span>@area.BuildingId &rarr; @area.ShortName</span>
-                                @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
-                                {
-                                    <span title="Replenish from @area.ReplenishAreaId">
-                                     &larr;@area.ReplenishAreaId
-                                    </span>
-                                }
-                            </label>
-                        </div>
-                    }
+                @*<strong>Inventory in Areas</strong>*@
+                @foreach (var area in Model.AllAreas)
+                {
+                    <div style="width:12em; display:inline-block">
+                        <label>
+                            <span>@area.BuildingId &rarr; @area.ShortName</span>
+                            @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
+                            {
+                                <span title="Replenish from @area.ReplenishAreaId">
+                                    &larr;@area.ReplenishAreaId
+                                </span>
+                            }
+                        </label>
+                    </div>
+                }
 
-                </div>
             </div>
         </div>
     </li>
@@ -154,31 +152,29 @@
 
 
                 <div class="col-md-7">
-                    <div class="form-inline">
-                        @for (var j = 0; j < Model.AllAreas.Count; ++j)
+
+                    @for (var j = 0; j < Model.AllAreas.Count; ++j)
+                    {
+
+                        if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
                         {
-                            if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
-                            {
-                                var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
-                                <div class="form-group" style="width:12em" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
-                                    <label>
-                                        <span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
-                                        @*@if (!string.IsNullOrEmpty(Model.AllAreas[j].ReplenishAreaId))
-                                            {
-                                                <span title="Replenish from @Model.AllAreas[j].ReplenishAreaId">&larr;@Model.AllAreas[j].ReplenishAreaId</span>
-                                            }*@
-                                    </label>
-                                    <small><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></small>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="form-group bg-info" style="width:12em">
-                                    *
-                                </div>
-                            }
+                            var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
+                            <div style="width:12em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
+                                <label>
+                                    <span title="@Model.AllAreas[j].Description">@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
+                                </label>
+                                <small><span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span><em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em></small>
+                            </div>
                         }
-                    </div>
+                        else
+                        {
+                            <div style="width:12em; display:inline-block" class="hidden-xs">
+                                &nbsp;
+                            </div>
+                        }
+
+                    }
+
 
                 </div>
             </div>
