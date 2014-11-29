@@ -15,7 +15,7 @@
     }
     }
 }
-@helper ShowTableFooterText(BoxState filter)
+@*@helper ShowTableFooterText(BoxState filter)
 {
     switch (filter)
     {
@@ -39,7 +39,7 @@
         <span>@string.Format("{0:N0} SKUs cancelled", Model.BucketSkuList.Count)</span>
             break;
     }
-}
+}*@
 
 <blockquote>
     @string.Format("SKUs List of wave {0}", Model.BucketId)
@@ -56,7 +56,28 @@
                     <abbr title="Virtual Wearhouse">VWH</abbr>
                 </h4>
 
-                @ShowTableFooterText(Model.StateFilter)
+                @*@ShowTableFooterText(Model.StateFilter)*@
+
+                <div title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+
+                    @Html.DisplayFor(m => m.RemainingPiecesToPick) Unpicked Pieces
+                    <div class="progress"
+                         title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
+                        <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                            <span style="white-space:nowrap" class="text-info">
+                                @Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked &bull; <em>@Model.PercentPiecesComplete% picked</em>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
             </div>
             <div class="col-md-7">
                 @*<strong>Inventory in Areas</strong>*@
@@ -108,7 +129,7 @@
                             <div style="display:inline-block">
                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
                             </div>
-                            <div class="progress" style="margin-bottom:0px;display:inline-block">
+                            <div class="progress" style="margin-bottom:0px;display:inline-block;width:80%">
                                 <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                     <span style="white-space:nowrap" class="text-info">
                                         @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)

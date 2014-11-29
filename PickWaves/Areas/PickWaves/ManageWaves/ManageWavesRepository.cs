@@ -108,7 +108,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
         {
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
@@ -314,35 +314,35 @@ WHERE 1 = 1
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
-            if (stateFilter == BoxState.NotSet)
-            {
+            //if (stateFilter == BoxState.NotSet)
+            //{
                 binder.ParameterXPath("All", true);
-            }
-            if (stateFilter.HasFlag(BoxState.Completed))
-            {
-                binder.ParameterXPath("Completed", true);
-            }
-            if (stateFilter.HasFlag(BoxState.InProgress))
-            {
-                binder.ParameterXPath("InProgress", true);
-            }           
+            //}
+            //if (stateFilter.HasFlag(BoxState.Completed))
+            //{
+            //    binder.ParameterXPath("Completed", true);
+            //}
+            //if (stateFilter.HasFlag(BoxState.InProgress))
+            //{
+            //    binder.ParameterXPath("InProgress", true);
+            //}           
 
-            switch (activityFilter)
-            {
-                case BucketActivityType.NotSet:
-                    break;
+            //switch (activityFilter)
+            //{
+            //    case BucketActivityType.NotSet:
+            //        break;
 
-                case BucketActivityType.Pitching:
-                    binder.ParameterXPath("Pitching", true);
-                    break;
+            //    case BucketActivityType.Pitching:
+            //        binder.ParameterXPath("Pitching", true);
+            //        break;
 
-                case BucketActivityType.Pulling:
-                    binder.ParameterXPath("Pulling", true);
-                    break;
+            //    case BucketActivityType.Pulling:
+            //        binder.ParameterXPath("Pulling", true);
+            //        break;
 
-                default:
-                    throw new NotImplementedException();
-            }
+            //    default:
+            //        throw new NotImplementedException();
+            //}
             binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder,2000);
         }
@@ -438,7 +438,7 @@ MAX(ps.customer_id) AS customer_id,
         /// <param name="stateFilter">InProgress filter returns empty boxes. Completed filter includes partially complete as well and therefore returns all non empty boxes</param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public IEnumerable<Box> GetBucketBoxes(int bucketId)
         {
             const string QUERY = @"
                             SELECT B.UCC128_ID                                          AS UCC128_ID,
@@ -498,38 +498,38 @@ MAX(ps.customer_id) AS customer_id,
             });
             binder.Parameter("BUCKET_ID", bucketId);
 
-            if (stateFilter == BoxState.NotSet)
-            {
+            //if (stateFilter == BoxState.NotSet)
+            //{
                 binder.ParameterXPath("All", true);
-            }
-            if (stateFilter.HasFlag(BoxState.Completed))
-            {
-                binder.ParameterXPath("Completed", true);
-            }
-            if (stateFilter.HasFlag(BoxState.InProgress))
-            {
-                binder.ParameterXPath("InProgress", true);
-            }
-            if (stateFilter.HasFlag(BoxState.Cancelled))
-            {
-                binder.ParameterXPath("Cancelled", true);
-            }
-            switch (activityFilter)
-            {
-                case BucketActivityType.NotSet:
-                    break;
+            //}
+            //if (stateFilter.HasFlag(BoxState.Completed))
+            //{
+            //    binder.ParameterXPath("Completed", true);
+            //}
+            //if (stateFilter.HasFlag(BoxState.InProgress))
+            //{
+            //    binder.ParameterXPath("InProgress", true);
+            //}
+            //if (stateFilter.HasFlag(BoxState.Cancelled))
+            //{
+            //    binder.ParameterXPath("Cancelled", true);
+            //}
+            //switch (activityFilter)
+            //{
+            //    case BucketActivityType.NotSet:
+            //        break;
 
-                case BucketActivityType.Pitching:
-                    binder.ParameterXPath("Pitching", true);
-                    break;
+            //    case BucketActivityType.Pitching:
+            //        binder.ParameterXPath("Pitching", true);
+            //        break;
 
-                case BucketActivityType.Pulling:
-                    binder.ParameterXPath("Pulling", true);
-                    break;
+            //    case BucketActivityType.Pulling:
+            //        binder.ParameterXPath("Pulling", true);
+            //        break;
 
-                default:
-                    throw new NotImplementedException();
-            }
+            //    default:
+            //        throw new NotImplementedException();
+            //}
             binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder,2000);
         }

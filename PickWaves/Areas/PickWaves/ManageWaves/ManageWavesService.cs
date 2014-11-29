@@ -37,9 +37,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
         {
-            return _repos.GetBucketSkuList(bucketId, stateFilter, activityFilter);
+            return _repos.GetBucketSkuList(bucketId);
         }
 
         /// <summary>
@@ -57,9 +57,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public IEnumerable<Box> GetBucketBoxes(int bucketId)
         {
-            return _repos.GetBucketBoxes(bucketId, stateFilter, activityFilter);
+            return _repos.GetBucketBoxes(bucketId);
         }
 
         /// <summary>

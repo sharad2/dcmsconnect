@@ -82,7 +82,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs bg-success" role="tablist">
                 <li>
-                    <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId).AddRouteValue("_", 0))"
+                    <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId))"
                        role="tab" data-toggle="tab">
                         Pickslips
                         <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
@@ -90,19 +90,14 @@
 
                 </li>
                 <li>
-                    <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
-                            DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
-                       data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.stateFilter"
-                       data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.activityFilter" role="tab" data-toggle="tab">
+                    <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId))" role="tab" data-toggle="tab">
                         Boxes
                         <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
                     </a>
                 </li>
                 <li>
-                    <a href="#skus" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
-                            DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
-                       data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.stateFilter"
-                       data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.activityFilter" role="tab" data-toggle="tab">
+                    <a href="#skus" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId))"
+                        role="tab" data-toggle="tab">
                         SKUs
                         <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
                     </a>

@@ -96,7 +96,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             if (bucket == null)
             {
                 // Unreasonable bucket id
-                ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
+                //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
 
@@ -236,9 +236,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </remarks>
         [AllowAnonymous]
         [Route("wavesku")]
-        public virtual ActionResult WaveSkus(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public virtual ActionResult WaveSkus(int bucketId)
         {
-            var skuList = (from item in _service.GetBucketSkuList(bucketId, stateFilter, activityFilter)
+            var skuList = (from item in _service.GetBucketSkuList(bucketId)
                            select new
                            {
                                BucketSku = item,
@@ -291,8 +291,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ToArray(),
                 AllAreas = allAreas,
                 BucketId = bucketId,
-                StateFilter = stateFilter,
-                ActivityFilter = activityFilter
+                //StateFilter = stateFilter,
+                //ActivityFilter = activityFilter
             };
 
             return PartialView(this.Views._waveSkusPartial, model);
@@ -312,14 +312,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <remarks></remarks>     
         [AllowAnonymous]
         [Route("waveboxes")]
-        public virtual ActionResult WaveBoxes(int bucketId, BoxState stateFilter, BucketActivityType activityFilter)
+        public virtual ActionResult WaveBoxes(int bucketId)
         {
             var model = new WaveBoxListModel
              {
                  BucketId = bucketId,
-                 StateFilter = stateFilter,
-                 ActivityFilter = activityFilter,
-                 BoxesList = (from box in _service.GetBucketBoxes(bucketId, stateFilter, activityFilter)
+                 //StateFilter = stateFilter,
+                 //ActivityFilter = activityFilter,
+                 BoxesList = (from box in _service.GetBucketBoxes(bucketId)
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
                               select new BoxModel
                               {

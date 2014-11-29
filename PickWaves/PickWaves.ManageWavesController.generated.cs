@@ -197,8 +197,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public class ActionParamsClass_WaveSkus
         {
             public readonly string bucketId = "bucketId";
-            public readonly string stateFilter = "stateFilter";
-            public readonly string activityFilter = "activityFilter";
         }
         static readonly ActionParamsClass_WaveBoxes s_params_WaveBoxes = new ActionParamsClass_WaveBoxes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -207,8 +205,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public class ActionParamsClass_WaveBoxes
         {
             public readonly string bucketId = "bucketId";
-            public readonly string stateFilter = "stateFilter";
-            public readonly string activityFilter = "activityFilter";
         }
         static readonly ActionParamsClass_WavePickslips s_params_WavePickslips = new ActionParamsClass_WavePickslips();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -335,30 +331,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void WaveSkusOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, DcmsMobile.PickWaves.Helpers.BoxState stateFilter, DcmsMobile.PickWaves.Helpers.BucketActivityType activityFilter);
+        partial void WaveSkusOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult WaveSkus(int bucketId, DcmsMobile.PickWaves.Helpers.BoxState stateFilter, DcmsMobile.PickWaves.Helpers.BucketActivityType activityFilter)
+        public override System.Web.Mvc.ActionResult WaveSkus(int bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WaveSkus);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stateFilter", stateFilter);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activityFilter", activityFilter);
-            WaveSkusOverride(callInfo, bucketId, stateFilter, activityFilter);
+            WaveSkusOverride(callInfo, bucketId);
             return callInfo;
         }
 
         [NonAction]
-        partial void WaveBoxesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, DcmsMobile.PickWaves.Helpers.BoxState stateFilter, DcmsMobile.PickWaves.Helpers.BucketActivityType activityFilter);
+        partial void WaveBoxesOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult WaveBoxes(int bucketId, DcmsMobile.PickWaves.Helpers.BoxState stateFilter, DcmsMobile.PickWaves.Helpers.BucketActivityType activityFilter)
+        public override System.Web.Mvc.ActionResult WaveBoxes(int bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WaveBoxes);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "stateFilter", stateFilter);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activityFilter", activityFilter);
-            WaveBoxesOverride(callInfo, bucketId, stateFilter, activityFilter);
+            WaveBoxesOverride(callInfo, bucketId);
             return callInfo;
         }
 

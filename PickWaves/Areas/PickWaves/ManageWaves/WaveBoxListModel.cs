@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.PickWaves.Helpers;
+using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
@@ -12,6 +13,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     {
         public int BucketId { get; set; }
 
+        [Obsolete]
         public BoxState StateFilter { get; set; }
 
         public BucketActivityType ActivityFilter { get; set; }

@@ -72,25 +72,29 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        public BoxState StateFilter { get; set; }
+        //[Obsolete]
+        //public BoxState StateFilter { get; set; }
 
-        public BucketActivityType ActivityFilter { get; set; }
+        //[Obsolete]
+        //public BucketActivityType ActivityFilter { get; set; }
 
-        public string StateFilterDisplay
-        {
-            get
-            {
-                return PickWaveHelpers.GetEnumMemberAttributes<BoxState, DisplayAttribute>()[this.StateFilter].Name;
-            }
-        }
+        //[Obsolete]
+        //public string StateFilterDisplay
+        //{
+        //    get
+        //    {
+        //        return PickWaveHelpers.GetEnumMemberAttributes<BoxState, DisplayAttribute>()[this.StateFilter].Name;
+        //    }
+        //}
 
-        public string ActivityFilterDisplay
-        {
-            get
-            {
-                return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityFilter].Name;
-            }
-        }
+        //[Obsolete]
+        //public string ActivityFilterDisplay
+        //{
+        //    get
+        //    {
+        //        return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityFilter].Name;
+        //    }
+        //}
 
         /// <summary>
         /// Total Weight of all SKUs of this wave
