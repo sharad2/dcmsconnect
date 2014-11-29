@@ -138,7 +138,9 @@ using System.Runtime.InteropServices;
  *  Sharad 5 Oct 2013: Changed to <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
  *  Sharad 31 Oct 2013: Not using RedirectToChoice in desktop views
  */
-
+/* Change Log 2.4.2.0 - 2.4.2.0 (Tagged by Skumar on 29 Nov 2014) 
+ * Last branch has been already deployed in RC of dcmsconnect. So, creating tag. 
+ */
 [assembly: AssemblyVersion("2.4.2.0")]
 [assembly: AssemblyFileVersion("2.4.2.0")]
 [assembly: AssemblyProduct("Provided google type searching for applications based on keywords in DcmsMobile for Rc Website and a mechanism to return to main site from RC site.")]
