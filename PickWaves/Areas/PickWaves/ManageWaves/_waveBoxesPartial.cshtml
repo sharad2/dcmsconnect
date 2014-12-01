@@ -31,35 +31,11 @@
     }
 }
 
-@*@helper ShowListTitle()
-{
-    var stateText = string.Empty;
-    if (Model.StateFilter == BoxState.NotSet)
-    {
-        stateText = "All Boxes";
-    }
-    else if (Model.StateFilter == BoxState.InProgress)
-    {
-        stateText = "Inprogress Boxes";
-    }
-    else if (Model.StateFilter == BoxState.Completed)
-    {
-        stateText = "Boxes which have pieces";
-    }
-    else if (Model.StateFilter == BoxState.Cancelled)
-    {
-        stateText = "Cancelled Boxes";
-    }
-    <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
-}*@
 
 
 
-
-<blockquote>
-    @*@ShowListTitle()*@
+<blockquote>  
     Boxes of Pick Wave @Html.DisplayFor(m => m.BucketId)
-    @*<span class="text-muted h5"> @ShowBoxPiecesStatus(Model.StateFilter)</span>*@
 </blockquote>
 
 
@@ -71,7 +47,7 @@
                 <h4 class="list-group-item-heading">
                     Box
                     <small>
-                        &bull; PickSlip
+                        &bull; Pickslip
                     </small>
                 </h4>
             </div>
