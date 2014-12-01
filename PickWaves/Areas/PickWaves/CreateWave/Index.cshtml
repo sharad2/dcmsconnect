@@ -6,6 +6,13 @@
 
 
 @section applinks{
+<li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
+    <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel.OrderSummaryReportUrl, Model.CustomerId))"
+       target="report">
+        <span class="glyphicon glyphicon-new-window"></span>110.08: Order summary report 
+    </a>
+
+</li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">Change Customer</a>
     </li>
@@ -38,7 +45,7 @@
         @if (Model.LastBucketId == null)
         {
             <fieldset>
-                <legend>Create New Pick Wave</legend>
+                <legend class="text-success">Create New Pick Wave</legend>
 
                 <form class="form-horizontal" role="form">
                     @if (Model.PullAreas.Count > 0)
@@ -89,7 +96,7 @@
         else
         {
             <fieldset>
-                <legend>
+                <legend class="text-success">
                     Pick Wave @Html.DisplayFor(m => m.LastBucketId) <small>
                         @Html.ActionLink("View", MVC_PickWaves.PickWaves.ManageWaves.Wave(
             new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
@@ -113,7 +120,7 @@
             </fieldset>
         }
         <fieldset>
-            <legend>Add Pickslips</legend>
+            <legend class="text-success">Add Pickslips</legend>
             <p>You will add groups of pickslips to a pick wave.</p>
             <form action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index())" method="get" class="form-inline">
                 @Html.HiddenFor(m => m.CustomerId)
@@ -136,7 +143,7 @@
                         </option>
                     }
                 </select>
-                <button type="submit" class="btn btn-default">Apply</button>
+                <button type="submit" class="btn btn-primary">Apply</button>
             </form>
         </fieldset>
     </div>
@@ -168,7 +175,7 @@
             @for (var i = 0; i < Model.Rows.Count; ++i)
             {
                 <div role="tabpanel" class="tab-pane @(i == 0 ? "active" : null)" id="@("content_" + i.ToString())">
-                    <div class="panel panel-default" style="margin-left:1mm">
+                    <div class="panel panel-success" style="margin-left:1mm">
                         <div class="panel-heading"><h3 class="panel-title">@Model.RowDimDisplayName @Model.Rows[i].DimensionDisplayValue</h3></div>
                         <div class="panel-body">
                             <ul class="list-group">
@@ -200,7 +207,7 @@
                                             @Html.HiddenFor(m => m.ColDimIndex)
                                             <input type="hidden" name="@Html.NameFor(m => m.RowDimVal)" value="@Model.Rows[i].DimensionValue" />
                                             <input type="hidden" name="@Html.NameFor(m => m.ColDimVal)" value="@item.Key" />
-                                            <button type="submit" class="btn btn-default pull-right">Add @Model.Rows[i].OrderedPieces[item.Key] pcs</button>
+                                            <button type="submit" class="btn btn-primary pull-right">Add @Model.Rows[i].OrderedPieces[item.Key] pcs</button>
                                         </form>
                                     </div>
                                 </div>

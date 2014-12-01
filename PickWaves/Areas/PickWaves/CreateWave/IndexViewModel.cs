@@ -84,6 +84,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public int PickslipCount { get; set; }
 
         #endregion
+
+
+
+        public static string OrderSummaryReportUrl
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_110/R110_08.aspx";
+            }
+        }
+
     }
 
     internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
