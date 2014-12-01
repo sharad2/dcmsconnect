@@ -15,31 +15,7 @@
     }
     }
 }
-@*@helper ShowTableFooterText(BoxState filter)
-{
-    switch (filter)
-    {
-        case BoxState.InProgress:
-        case BoxState.Completed:
-        case BoxState.NotSet:
-            <div title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
 
-                @Html.DisplayFor(m => m.RemainingPiecesToPick) Unpicked Pieces
-                <div class="progress"
-                     title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
-                    <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                        <span style="white-space:nowrap" class="text-info">
-                            @Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked &bull; <em>@Model.PercentPiecesComplete% picked</em>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            break;
-        case BoxState.Cancelled:
-        <span>@string.Format("{0:N0} SKUs cancelled", Model.BucketSkuList.Count)</span>
-            break;
-    }
-}*@
 
 <blockquote>
     @string.Format("SKUs List of wave {0}", Model.BucketId)
@@ -54,14 +30,12 @@
                     <span class="label label-info" title="Weight Per Dozen">Weight</span>
                     <span class="label label-success" title="Volume Per Dozan">Volume</span>
                     <abbr title="Virtual Wearhouse">VWH</abbr>
-                </h4>
-
-                @*@ShowTableFooterText(Model.StateFilter)*@
+                </h4>               
 
                 <div title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
 
                     @Html.DisplayFor(m => m.RemainingPiecesToPick) Unpicked Pieces
-                    <div class="progress"
+                    <div class="progress" style="margin-bottom:0px;"
                          title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
                         <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                             <span style="white-space:nowrap" class="text-info">
