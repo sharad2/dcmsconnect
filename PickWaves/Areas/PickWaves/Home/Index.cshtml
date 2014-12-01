@@ -32,20 +32,23 @@
 }
 
     <div class="container">
-        @if (Model != null && Model.IsCustomerFilterApplied)
-        {
-            <h2 style="margin-top:0px;">
-                Showing PickWave of customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())
-            </h2>
-        }
-        @if (Model != null && Model.IsUserNameFilterApplied)
-        {
-            <h2 style="margin-top:0px;">
-                Showing PickWave created by @Model.SearchUserName @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())
-            </h2>
-        }
+     
         <h2 style="margin-top:0px;">
-            Pick Waves Home
+            Pick Waves
+            <small>
+                @if (Model != null && Model.IsCustomerFilterApplied)
+                {
+
+                    <span>Showing for customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
+
+                }
+                @if (Model != null && Model.IsUserNameFilterApplied)
+                {
+
+                    <span>Created by @Model.SearchUserName @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
+
+                }
+            </small>
         </h2>
 
         <div role="tabpanel">
