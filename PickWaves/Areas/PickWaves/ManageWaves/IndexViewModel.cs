@@ -71,6 +71,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
+        public static string UnshippedboxesReportUrl
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_110/R110_16.aspx";
+            }
+        }
+
         public ProgressStage BucketState { get; set; }
     }
 
