@@ -4,9 +4,10 @@
 {
 
     <blockquote>
-        You can add more pickslip on this wave
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(
-                 Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add pickslips</a>
+        Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
+        <small>You can add more pickslip on this wave
+<a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(
+                 Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add pickslips</a></small>
     </blockquote>
 
 }
