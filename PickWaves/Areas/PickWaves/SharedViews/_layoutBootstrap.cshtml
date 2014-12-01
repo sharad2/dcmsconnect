@@ -10,6 +10,9 @@
         To display an app specific drop down menu, the layout page of your application must set
           ViewBag.AppName = Short name of your application, e.g. Inquiry
           ViewBag.AppHomeUrl = The URL of the home page of your application.
+          ViewBag.AppSearchUrl = The URL used for searching. Defaults to the Inquiry URL. You should specify this if you want to provide custom searching. For example,
+           PickWaves provides its own URL here to special handle bucket search. If it does not find the bucket, it redirects to Inquiry URL
+           DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1
 
         If BOTH of the above are set, then you will see a drop down menu for your application. You can add links to this drop down menu by defining the
         section applinks. Here is an example implementation from Inquiry layout page. Note that each link must be enclosed within an li.
@@ -45,16 +48,30 @@
     var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
 
     var appLinks = RenderSection("applinks", false);
-    //appLinks.WriteTo(TextWriter.Null);
-    //appLinks = null;
+
+    //var appSearchUrl = ((string) ViewBag.AppSearchUrl) ??
 
 }
 @helper PublicUrl(string[] routeNames)
 {
-    var routeName = routeNames.FirstOrDefault(p => Url.RouteCollection[p] != null);
+    var query = from item in routeNames
+                where !string.IsNullOrWhiteSpace(item)
+                let url = item.Contains("/") ? item : (Url.RouteCollection[item] == null ? (string) null : Url.RouteUrl(item))
+                where !string.IsNullOrWhiteSpace(url)
+                select url;
+
+    @*var routeName = routeNames.Where(p => !string.IsNullOrWhiteSpace(p))
+
+        .FirstOrDefault(p => Url.RouteCollection[p] != null);
     if (!string.IsNullOrWhiteSpace(routeName))
     {
         @Url.RouteUrl(routeName)
+    }*@
+    
+    var finalUrl = query.FirstOrDefault();
+    if (!string.IsNullOrWhiteSpace(finalUrl))
+    {
+        @finalUrl
     }
 }
 <!DOCTYPE html>
@@ -72,7 +89,7 @@
 <body>
     <div class="navbar navbar-default">
         <div class="container-fluid  bg-info">
-            <div class="navbar-header">            
+            <div class="navbar-header">
                 <a class="navbar-brand bg-danger visible-xs pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" title="App Setting">
                     <span class="glyphicon glyphicon-align-justify" style="cursor:default"></span>
                 </a>
@@ -113,7 +130,7 @@
                 </a>
 
                 <div style="width:12em; display:inline-block" class="hidden-xs">
-                    <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+                    <form action="@PublicUrl(new[] { (string) ViewBag.AppSearchUrl, "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
                         <div class="input-group navbar-btn">
                             <input type="search" class="form-control input-sm" name="id" placeholder="Search DCMS">
                             <span class="input-group-btn">

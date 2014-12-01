@@ -85,13 +85,31 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             {
                 // When search text is unknown.
                 case SearchTextType.Unknown:
-                    if (!string.IsNullOrEmpty(id))
+                    //if (!string.IsNullOrEmpty(id))
+                    //{
+                    //    AddStatusMessage(string.Format("Search text {0} was not understood and is being ignored", id));
+                    //}
+                    //if (Request.UrlReferrer != null)
+                    //{
+                    //    return Redirect(Request.UrlReferrer.PathAndQuery);
+                    //}
+                    var route = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
+                    if (route == null)
                     {
+                        // Inquiry not installed
                         AddStatusMessage(string.Format("Search text {0} was not understood and is being ignored", id));
+                        if (Request.UrlReferrer != null)
+                        {
+                            return Redirect(Request.UrlReferrer.PathAndQuery);
+                        }
                     }
-                    if (Request.UrlReferrer != null)
+                    else
                     {
-                        return Redirect(Request.UrlReferrer.PathAndQuery);
+                        var url = Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
+                        {
+                            id = id
+                        });
+                        return Redirect(url);
                     }
                     break;
 
