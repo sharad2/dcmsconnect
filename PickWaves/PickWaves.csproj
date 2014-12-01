@@ -265,7 +265,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves2.cshtml" />
+    <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -314,18 +314,7 @@
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave_O.js.bundle" />
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.js.map">
-      <DependentUpon>ManageWave-Wave.min.js</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.partial_O.js" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
-    <None Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.js">
-      <DependentUpon>ManageWave-Wave_O.js.bundle</DependentUpon>
-    </None>
-    <Content Include="Areas\PickWaves\ManageWaves\ManageWave-Wave.min.js">
-      <DependentUpon>ManageWave-Wave.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -346,7 +335,6 @@
     <Content Include="Areas\PickWaves\Config\DisplayTemplates\ConstraintModel.cshtml" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_addPackinRulePartial.cshtml" />
-    <Content Include="Areas\PickWaves\SharedViews\_activityProgressPartial_O.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_wavePickslipsPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_addCustomerConstraintPartial.cshtml" />
@@ -371,10 +359,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\PickWaves\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves.cshtml" />
-    <Content Include="Areas\PickWaves\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

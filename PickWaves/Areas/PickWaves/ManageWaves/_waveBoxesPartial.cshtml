@@ -31,7 +31,7 @@
     }
 }
 
-@helper ShowListTitle()
+@*@helper ShowListTitle()
 {
     var stateText = string.Empty;
     if (Model.StateFilter == BoxState.NotSet)
@@ -51,14 +51,15 @@
         stateText = "Cancelled Boxes";
     }
     <span>@string.Format("{0} of wave {1}", stateText, Model.BucketId)</span>
-}
+}*@
 
 
 
 
 <blockquote>
-    @ShowListTitle()
-    <span class="text-muted h5"> @ShowBoxPiecesStatus(Model.StateFilter)</span>
+    @*@ShowListTitle()*@
+    Boxes of Pick Wave @Html.DisplayFor(m => m.BucketId)
+    @*<span class="text-muted h5"> @ShowBoxPiecesStatus(Model.StateFilter)</span>*@
 </blockquote>
 
 

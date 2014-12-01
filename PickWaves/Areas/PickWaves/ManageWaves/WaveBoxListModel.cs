@@ -13,9 +13,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     {
         public int BucketId { get; set; }
 
-        [Obsolete]
-        public BoxState StateFilter { get; set; }
-
         public BucketActivityType ActivityFilter { get; set; }
 
         public IList<BoxModel> BoxesList { get; set; }

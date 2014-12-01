@@ -216,9 +216,6 @@ namespace Links_PickWaves
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js") : Url("Index.js");
-                public static readonly string ManageWave_Wave_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.partial_O.min.js") ? Url("ManageWave-Wave.partial_O.min.js") : Url("ManageWave-Wave.partial_O.js");
-                public static readonly string ManageWave_Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageWave-Wave.min.js") ? Url("ManageWave-Wave.min.js") : Url("ManageWave-Wave.js");
-                public static readonly string ManageWave_Wave_min_js_map = Url("ManageWave-Wave.min.js.map");
                 public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js") : Url("Wave.js");
             }
         
