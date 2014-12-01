@@ -15,6 +15,47 @@
 
 
 <ul class="list-group">
+    <li class="list-group-item active">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                 
+                 PickSlip
+                    <small>
+                        PurchaseOrder  
+                        &bull;
+                        VWH 
+                    </small>
+                </h4>
+
+                <p class="list-group-item-text">
+
+                    Customer DC
+
+                    <small>&bull; Store</small>
+
+                </p>
+            </div>
+            <div class="col-md-5">
+               
+                  <span class="badge">@Html.DisplayFor(m => m.TotalUnpickedPieces) Pcs Unpicked</span>
+               
+                <div class="progress" style="margin-bottom:0px;">
+                    <div style="width: @Model.TotalPercentPickedPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                        <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.TotalPickedPieces) of  @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces picked <em>&bull;@Model.TotalPercentPickedPieces% picked</em></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-primary dropdown-toggle btn-sm disabled" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-remove disabled" aria-hidden="true"></span> <span class="caret"></span>
+                    </button>
+                   
+                </div>
+            </div>
+        </div>
+    </li>
 
     @for (var i = 0; i < Model.PickslipList.Count; ++i)
     {
@@ -26,24 +67,24 @@
                         <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry" 
                             class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
                         <small>
-                            PurchaseOrder  <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                           <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
                             &bull;
-                            VwhId  @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                         @Html.DisplayFor(m => m.PickslipList[i].VwhId)
                         </small>
                     </h4>
 
                     <p class="list-group-item-text">
 
-                        Customer DC: @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+                      @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
 
-                        <small>&bull; Store @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)</small>
+                        <small>&bull;  @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)</small>
 
                     </p>
                 </div>
                 <div class="col-md-5">
                     @if (Model.PickslipList[i].UnPickedPieces > 0)
                     {
-                        <span> Unpicked <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span></span>
+                       <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span>
                     }
                     @if (Model.PickslipList[i].CancelledBoxCount > 0)
                     {
