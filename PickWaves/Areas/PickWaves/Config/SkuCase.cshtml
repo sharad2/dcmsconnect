@@ -58,9 +58,12 @@
                                 <span class="label label-info">Inner <span class="glyphicon glyphicon-sort-by-order-alt"></span> </span>&nbsp; Outer
                             </div>
                             <div class="col-md-2 col-sm-2">
-                                <button class="btn btn-sm btn-primary  pull-right" disabled>
-                                    Action
-                                </button>
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary  pull-right" disabled>
+                                        Action
+                                    </button>
+                                }
                             </div>
                         </div>
                     </li>
@@ -91,25 +94,141 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-sm">
-                                            Edit <span class="glyphicon glyphicon-edit"></span>
-                                        </button>
+                                    <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-xs">
+                                        Edit <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
                                     }
                                 </div>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
                     }
                 </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="tab2">
-                <table>
-                    <caption>
-                        Customer prefered SKU Cases
-                        @if (Model.UserIsManager)
+                <blockquote>
+                    Customer prefered SKU Cases
+                    @if (Model.UserIsManager)
+                    {
+                        <button class="btn btn-primary" id="btnAddCustSkuCasePreference"
+                                 data-add-customer-preference="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
+                            <span class="glyphicon glyphicon-plus"></span>  Add Preference...
+                        </button>
+                    }
+                </blockquote>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                <h4 class="list-group-item-heading">
+                                    Case
+                                    <small>
+                                        Description
+                                    </small>
+                                </h4>
+                                <p class="list-group-item-text">
+                                    Comment
+                                </p>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label>Empty Weight(lbs)</label>
+                            </div>
+                            <div class="col-md-3 ol-sm-3">
+                                <label>Volume(ft)</label>
+                                <span class="label label-info">Inner <span class="glyphicon glyphicon-sort-by-order-alt"></span> </span>&nbsp; Outer
+                            </div>
+
+                            <div class="col-md-2 col-sm-2">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary  pull-right" disabled>
+                                        Action
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </li>
+
+                    @for (var i = 0; i < Model.CustomerSkuCaseList.Count; ++i)
+                    {
+                        if (i == 0 || Model.CustomerSkuCaseList[i].CustomerId != Model.CustomerSkuCaseList[i - 1].CustomerId)
                         {
-                            <button id="btnAddCustSkuCasePreference" data-add-customer-preference="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">Add Preference...</button>
+                            <li class="list-group-item list-group-item-success">
+                                <div class="row">
+
+                                    <h4 class="list-group-item-heading">
+                                       Customer @Model.CustomerSkuCaseList[i].CustomerId
+                                        <small>
+                                            : @Model.CustomerSkuCaseList[i].CustomerName
+                                        </small>
+                                        @if (Model.UserIsManager)
+                                        {
+                                            <button class="btn btn-link" data-add-selected-cust-case="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
+                                                 <span class="glyphicon glyphicon-plus"></span>
+                                            </button>
+                                        }
+                                    </h4>
+                                </div>
+
+
+                            </li>
                         }
-                    </caption>
+
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5">
+                                    <h4 class="list-group-item-heading">
+                                        <small>@(i + 1)</small>
+
+                                        @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseId)
+                                        <small>
+                                            @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseDescription)
+                                        </small>
+                                    </h4>
+                                    <p class="list-group-item-text">
+                                        @Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)
+                                    </p>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    @Html.DisplayFor(m => m.CustomerSkuCaseList[i].EmptyWeight)
+                                </div>
+                                <div class="col-md-3 ol-sm-3">
+                                    <span class="label label-info">
+                                        @Html.DisplayFor(m => m.CustomerSkuCaseList[i].MaxContentVolume)
+
+                                    </span>&nbsp; @Html.DisplayFor(m => m.CustomerSkuCaseList[i].OuterCubeVolume)
+                                </div>
+
+                                <div class="col-md-2 col-sm-2">
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <button id="frmDelCustCasePreference" class=" pull-right btn btn-primary btn-xs">
+                                            Remove <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @*<table>
+
                     <thead>
                         <tr>
                             <th rowspan="2">#</th>
@@ -156,7 +275,7 @@
                             </tr>
                         }
                     </tbody>
-                </table>
+                </table>*@
             </div>
             <div role="tabpanel" class="tab-pane" id="tab3">
                 <table>
@@ -239,6 +358,28 @@
 
 <div id="dlg">
 </div>
+
+@section script{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+
+        });
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
 @*@section scripts
     {
         <script src="@Links_PickWaves.Areas.PickWaves.Config.ManageSkuCase_js"></script>
