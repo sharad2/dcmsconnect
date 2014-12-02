@@ -191,7 +191,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        [Route("skucase")]
+        [Route("sku")]
         public virtual ActionResult SkuCase(int? activeTab)
         {
             var skuCases = _service.GetSkuCaseList().ToArray();
