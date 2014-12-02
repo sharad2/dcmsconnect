@@ -35,13 +35,17 @@
                     Available SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" id="btnAddSkuCase"
-                                data-add-action="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
+                        <button class="btn btn-primary" id="btnAddSkuCase">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
+
+
                     }
                 </blockquote>
                 <ul class="list-group">
+                    <li class="list-group-item list-group-item-warning hidden" id="frmSkuCaseEditor">
+                        @Html.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())
+                    </li>
                     <li class="list-group-item list-group-item-success">
                         <div class="row">
                             <div class="col-md-5 col-sm-5">
@@ -229,11 +233,11 @@
                         </button>
                     }
                 </blockquote>
-                <li class="list-group-item list-group-item-success" >
+                <li class="list-group-item list-group-item-success">
                     <div class="row">
                         <div class="col-md-10 col-sm-10">
                             <h4 class="list-group-item-heading">
-                              Style
+                                Style
                                 <small>Case</small>
                             </h4>
                         </div>
@@ -263,7 +267,7 @@
                                         }
                                         @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
                                             {*@
-                             @Html.DisplayFor(m => m.PackingRuleList[i].Style)
+                                        @Html.DisplayFor(m => m.PackingRuleList[i].Style)
 
                                         @*}*@
                                         <small>@Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
@@ -323,7 +327,9 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-
+            $('div.tab-content').on('click','#btnAddSkuCase', function () {
+                $('#frmSkuCaseEditor').removeClass('hidden');
+            });
 
 
         });

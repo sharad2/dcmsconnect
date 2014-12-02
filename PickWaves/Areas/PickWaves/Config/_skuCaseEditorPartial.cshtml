@@ -3,49 +3,123 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<div>
-    @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase(), FormMethod.Post, new
-    {
-        id = "frmSkuCaseEditor"
-    }))
-    {
-        if (Model.CaseId != null)
+
+<form class="form-inline" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
+    @Html.ValidationSummary()
+
+
+    <div class="form-group">
+        <div class="form-group">
+            @if (Model.CaseId != null)
+            {
+                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case @Model.CaseId">
+                @Html.HiddenFor(m => m.CaseId)
+            }
+            else
+            {
+
+                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case" maxlength="6"
+                       style="text-transform: uppercase;">
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="text" name="@Model.Description" class="form-control" placeholder="Description (Max 50 characters)" maxlength="50">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="@Model.EmptyWeight" placeholder="Empty weight">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="@Model.MaxContentVolume" placeholder="Max Content Volume(ft)">
+    </div>
+    <div class="form-group">
+
+        <input type="text" name="@Model.OuterCubeVolume" class="form-control" placeholder="Outer Cube Volume(ft)">
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="@Model.IsAvailable"> Is Available
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-xs">Add</button>
+    <button class="btn btn-default btn-xs">Cancel</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div>
+        @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase(), FormMethod.Post, new
         {
-        <label>Case</label>
-        @Html.DisplayFor(m => m.CaseId)
-        @Html.HiddenFor(m => m.CaseId)
+            id = "frmSkuCaseEditor"
+        }))
+        {
+            if (Model.CaseId != null)
+            {
+            <label>Case</label>
+            @Html.DisplayFor(m => m.CaseId)
+            @Html.HiddenFor(m => m.CaseId)
+            }
+            else
+            {
+            <label>Case</label>
+            @Html.TextBoxFor(m => m.CaseId, new
+       {
+           MaxLength = "6",
+           style = "text-transform: uppercase;"
+       })<sup>*</sup>
+            <br />
+            }
+            <br />
+            <label>Description</label> @Html.TextAreaFor(m => m.Description, new
+            {
+                MaxLength = "50"
+            }) <sub style="color: blue">Max 50 characters</sub>
+            <br />
+            <label>Empty Weight</label>@Html.TextBoxFor(m => m.EmptyWeight) <sup>*</sup>
+            <br />
+            <label>Max Content Volume</label>@Html.TextBoxFor(m => m.MaxContentVolume)<sup>*</sup>
+            <br />
+            <label>Is Available</label>@Html.CheckBoxFor(m => m.IsAvailable)
+            <br />
+            <label>Outer Cube Volume</label>@Html.TextBoxFor(m => m.OuterCubeVolume)<sup>*</sup>
+            <br />
+            @Html.ValidationSummary()
         }
-        else
-        {
-        <label>Case</label>
-        @Html.TextBoxFor(m => m.CaseId, new
-   {
-       MaxLength = "6",
-       style = "text-transform: uppercase;"
-   })<sup>*</sup>   
-        <br />
-        }
-        <br />
-        <label>Description</label> @Html.TextAreaFor(m => m.Description, new
-        {
-            MaxLength = "50"
-        }) <sub style="color: blue">Max 50 characters</sub>
-        <br />
-        <label>Empty Weight</label>@Html.TextBoxFor(m => m.EmptyWeight) <sup>*</sup>                
-        <br />
-        <label>Max Content Volume</label>@Html.TextBoxFor(m => m.MaxContentVolume)<sup>*</sup>
-        <br />
-        <label>Is Available</label>@Html.CheckBoxFor(m => m.IsAvailable)
-        <br />
-        <label>Outer Cube Volume</label>@Html.TextBoxFor(m => m.OuterCubeVolume)<sup>*</sup>
-        <br />
-        @Html.ValidationSummary()
-    }
-</div>
-<script type="text/javascript">
+    </div>*@
+@*<script type="text/javascript">
     $(document).ready($(function () {
         // Force the unobtrusive validation script to run
         // http://forums.asp.net/t/1651961.aspx/1
         $.validator.unobtrusive.parse("#frmSkuCaseEditor");
     }));
-</script>
+</script>*@
