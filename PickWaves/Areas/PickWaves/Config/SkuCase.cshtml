@@ -72,7 +72,7 @@
                     </li>
                     @for (var i = 0; i < Model.SkuCaseList.Count; i++)
                     {
-                        <li class="list-group-item  list-group-item-@(Model.SkuCaseList[i].IsAvailable ? "" : "info")" title="@(Model.SkuCaseList[i].IsAvailable ? string.Empty : "This sku case is currently not in use")">
+                        <li class="list-group-item  list-group-item-@(Model.SkuCaseList[i].IsAvailable ? "" : "warning")" title="@(Model.SkuCaseList[i].IsAvailable ? string.Empty : "This sku case is currently not in use")">
                             <div class="row">
                                 <div class="col-md-5 col-sm-5">
                                     <h4 class="list-group-item-heading">
@@ -122,7 +122,7 @@
                     }
                 </blockquote>
                 <ul class="list-group">
-                    <li class="list-group-item list-group-item-info">
+                    <li class="list-group-item list-group-item-success">
                         <div class="row">
                             <div class="col-md-5 col-sm-5">
                                 <h4 class="list-group-item-heading">
@@ -158,7 +158,7 @@
                     {
                         if (i == 0 || Model.CustomerSkuCaseList[i].CustomerId != Model.CustomerSkuCaseList[i - 1].CustomerId)
                         {
-                            <li class="list-group-item list-group-item-success">
+                            <li class="list-group-item list-group-item-info">
                                 <div class="row">
 
                                     <h4 class="list-group-item-heading">
@@ -229,10 +229,31 @@
                         </button>
                     }
                 </blockquote>
+                <li class="list-group-item list-group-item-success" >
+                    <div class="row">
+                        <div class="col-md-10 col-sm-10">
+                            <h4 class="list-group-item-heading">
+                              Style
+                                <small>Case</small>
+                            </h4>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @if (Model.UserIsManager)
+                            {
+                                <div class="btn-group btn-group-xs  pull-right" role="group">
+                                    <button disabled type="button" class="btn btn-primary">
+                                        Action
+                                    </button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+
                 <ul class="list-group">
                     @for (var i = 0; i < Model.PackingRuleList.Count; i++)
                     {
-                        <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "info" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+                        <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "warning" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
                             <div class="row">
                                 <div class="col-md-10 col-sm-10">
                                     <h4 class="list-group-item-heading">
@@ -242,16 +263,16 @@
                                         }
                                         @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
                                             {*@
-                                        <span>Style</span>  @Html.DisplayFor(m => m.PackingRuleList[i].Style)
+                             @Html.DisplayFor(m => m.PackingRuleList[i].Style)
 
                                         @*}*@
-                                        <small>Case @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
+                                        <small>@Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
                                     </h4>
                                 </div>
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <div class="btn-group btn-group-xs" role="group">
+                                        <div class="btn-group btn-group-xs  pull-right" role="group">
                                             <button type="button" class="btn btn-primary" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                                 Edit
