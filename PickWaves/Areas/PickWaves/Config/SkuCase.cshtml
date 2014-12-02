@@ -94,9 +94,9 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                    <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-xs">
-                                        Edit <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
+                                        <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-xs">
+                                            Edit <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
                                     }
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-primary" id="btnAddCustSkuCasePreference"
-                                 data-add-customer-preference="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
+                                data-add-customer-preference="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Preference...
                         </button>
                     }
@@ -156,14 +156,14 @@
                                 <div class="row">
 
                                     <h4 class="list-group-item-heading">
-                                       Customer @Model.CustomerSkuCaseList[i].CustomerId
+                                        Customer @Model.CustomerSkuCaseList[i].CustomerId
                                         <small>
                                             : @Model.CustomerSkuCaseList[i].CustomerName
                                         </small>
                                         @if (Model.UserIsManager)
                                         {
                                             <button class="btn btn-link" data-add-selected-cust-case="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
-                                                 <span class="glyphicon glyphicon-plus"></span>
+                                                <span class="glyphicon glyphicon-plus"></span>
                                             </button>
                                         }
                                     </h4>
@@ -211,124 +211,52 @@
 
                     }
                 </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                @*<table>
-
-                    <thead>
-                        <tr>
-                            <th rowspan="2">#</th>
-                            <th rowspan="2">Customer<span class="ui-icon ui-icon-circle-triangle-n" style="display: inline-block"></span><sup>1</sup></th>
-                            <th rowspan="2">Case</th>
-                            <th rowspan="2">Empty Weight(lbs)</th>
-                            <th colspan="2">Volume(ft)<sup>3</sup></th>
-                            <th rowspan="2">Comments</th>
-                            @if (Model.UserIsManager)
-                            {
-                                <th rowspan="2">Remove</th>
-                            }
-                        </tr>
-                        <tr>
-                            <th>Inner<span class="ui-icon ui-icon-circle-triangle-s" style="display: inline-block"></span><sup>2</sup></th>
-                            <th>Outer</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (var i = 0; i < Model.CustomerSkuCaseList.Count; ++i)
-                        {
-                            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-customerid="@Model.CustomerSkuCaseList[i].CustomerId">
-                                <td>@(i + 1)</td>
-                                @if (i == 0 || Model.CustomerSkuCaseList[i].CustomerId != Model.CustomerSkuCaseList[i - 1].CustomerId)
-                                {
-                                    var span = Model.CustomerSkuCaseList.Skip(i).TakeWhile(p => p.CustomerId == Model.CustomerSkuCaseList[i].CustomerId).Count();
-                                    <td rowspan="@span" class="@Html.Raw(span > 1 ? "row-span" : "")">
-                                        @string.Format("{0} : {1}", Model.CustomerSkuCaseList[i].CustomerId, Model.CustomerSkuCaseList[i].CustomerName)
-                                        @if (Model.UserIsManager)
-                                        {
-                                            <span class="ui-icon ui-icon-plus add-cust-sku-case" data-add-selected-cust-case="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))" style="display: inline-block; cursor: pointer"></span>
-                                        }
-                                    </td>
-                                }
-                                <td class="data-customer-prefered-skucase" title="@Model.CustomerSkuCaseList[i].CaseDescription">@Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseId)</td>
-                                <td style="text-align: right">@Html.DisplayFor(m => m.CustomerSkuCaseList[i].EmptyWeight)</td>
-                                <td style="text-align: right">@Html.DisplayFor(m => m.CustomerSkuCaseList[i].MaxContentVolume)</td>
-                                <td style="text-align: right">@Html.DisplayFor(m => m.CustomerSkuCaseList[i].OuterCubeVolume)</td>
-                                <td>@Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)</td>
-                                @if (Model.UserIsManager)
-                                {
-                                    <td><span class="ui-icon ui-icon-close delete-customer-sku" style="cursor: pointer"></span></td>
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>*@
             </div>
             <div role="tabpanel" class="tab-pane" id="tab3">
-                <table>
-                    <caption>
-                        @if (Model.UserIsManager)
-                        {
-                            <button id="btnAddPackinRule" data-add-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">Add Packing Rule</button>
-                        }
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Style<span class="ui-icon ui-icon-circle-triangle-n" style="display: inline-block"></span></th>
-                            <th>Cases</th>
-                            @if (Model.UserIsManager)
-                            {
-                                <th>Edit/Remove</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (var i = 0; i < Model.PackingRuleList.Count; i++)
-                        {
-                            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")" data-style="@Model.PackingRuleList[i].Style">
-                                <td>@(i + 1)</td>
-                                @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
-                                {
-                                    var span = Model.PackingRuleList.Skip(i).TakeWhile(p => p.Style == Model.PackingRuleList[i].Style).Count();
-                                    <td rowspan="@span" class="@Html.Raw(span > 1 ? "row-span" : "")">
-                                        @Html.DisplayFor(m => m.PackingRuleList[i].Style)
-                                    </td>
-                                }
+                <blockquote>
+                    Customer prefered SKU Cases
+                    @if (Model.UserIsManager)
+                    {
+                        <button id="btnAddPackinRule" class="btn btn-primary"
+                                data-add-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                            Add Packing Rule
+                        </button>
+                    }
+                </blockquote>
+                <ul class="list-group">
+                    @for (var i = 0; i < Model.PackingRuleList.Count; i++)
+                    {
+                        <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "info" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-8">
+                                    <h4 class="list-group-item-heading">
+                                        @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                        {
+                                            <span>Style</span>  @Html.DisplayFor(m => m.PackingRuleList[i].Style)
 
-                                <td class="data-ignored-case">
-                                    <span class="@(Model.PackingRuleList[i].IgnoreFlag ? "ui-state-disabled" : "")"
-                                          title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
-                                        @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
-                                    </span>
-                                </td>
-                                @if (Model.UserIsManager)
-                                {
-                                    <td>
-                                        <span class="ui-icon ui-icon-pencil edit-packing-rule" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))"
-                                              style="cursor:pointer; display: inline-block"></span>
-                                        <span class="ui-icon ui-icon-close delete-packing-rule" style="cursor: pointer; display: inline-block"></span>
-                                    </td>
-
-
-                                }
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                        }
+                                        <small class="pull-right">Case @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
+                                    </h4>
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-default" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))">
+                                                <span class="glyphicon glyphicon-edit"></span>
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-remove" id="frmDelPackingRule"></span>
+                                                Remove
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
