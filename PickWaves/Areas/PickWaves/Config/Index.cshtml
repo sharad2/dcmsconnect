@@ -1,17 +1,29 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.Config.IndexViewModel
 @{
     ViewBag.Title = "Wave Configuration";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
-<ul>
-    <li>Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know
-        <br/>
-        <div style="margin-left: 1.5em">
-            What size cartons are available in which, SKUs can be shipped. 
-            Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
-    @Html.ActionLink("Manage", MVC_PickWaves.PickWaves.Config.SkuCase()).
-        </div><br/>
-    </li>
-    <li>Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
-    on a per customer basis. @Html.ActionLink("DCMS Supported Constraints", MVC_PickWaves.PickWaves.Config.Constraint())
-    </li>
-</ul>
+
+<div class="container">
+    <div class="jumbotron">
+        <h4>
+            Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know
+            <br/>
+            <small>
+                What size cartons are available in which, SKUs can be shipped.
+                Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" class="btn btn-primary" role="button">Manage</a>
+            </small>
+        </h4>
+    </div>
+    <div class="jumbotron">
+        <h4>
+            Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
+            on a per customer basis.
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary" role="button">DCMS Supported Constraints</a>
+        </h4>
+
+        
+    </div>
+   
+</div>
