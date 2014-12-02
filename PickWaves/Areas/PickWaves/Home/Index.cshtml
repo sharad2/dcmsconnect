@@ -68,8 +68,7 @@
                 @for (var i = 0; i < Model.BucketsByStatus.Count; ++i)
                 {
                    
-                    <li role="presentation" @(Model.ImportedOrders.Count > 0 ? "" : i == 0 ? "class=active" : "")>
-                        @(i == 1) .  @(i+1 == 1)
+                    <li role="presentation" @(Model.ImportedOrders.Count > 0 ? "" : i == 0 ? "class=active" : "")>                     
                         <a href="#@Model.BucketsByStatus.Keys[i].ToString()" aria-controls="home" role="tab" data-toggle="tab">
                             @Model.StateDisplayNames[Model.BucketsByStatus.Keys[i]]
                             <span class="badge" title="@Model.BucketsByStatus.Values[i].Count customers">
