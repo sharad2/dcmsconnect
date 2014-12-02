@@ -1,0 +1,95 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity.WaveListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Pick Waves";
+}
+<div class="container">
+        <h2 style="margin-top:0px">
+            @ViewBag.Title
+        </h2>
+    <p>This is the list of Pick Waves with highest priority and creation date</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="list-group-item-text">
+                        PickWave
+                        <small>
+                            <strong class="text-info">
+                                STATUS
+                            </strong>
+                        </small>
+                        <label class="label label-info">Priority</label>
+                    </h4>
+                    Customer
+                </div>
+                <div class="col-md-4">
+                    <p class="list-group-item-text">
+                        Pitched from <em>Building &rarr; Area</em>
+                    </p>
+                    <p class="list-group-item-text">
+                        Pulled from <em>Building &rarr; Area</em>
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <span class="badge pull-right">
+                        Date Created
+                    </span>
+                    <p class="list-group-item-text">
+                        <em>Pickslips</em> of <em>POs</em>
+                    </p>
+                </div>
+            </div>
+        </li>
+
+        @for (var i = 0; i < Model.WaveList.Count; ++i)
+        {
+            <li class="list-group-item @(Model.WaveList[i].Freeze ? "disabled" : "")">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h4 class="list-group-item-text">
+                            <small>@(i+1)</small>
+                            @Html.ActionLink(Model.WaveList[i].BucketId.ToString(), MVC_Inquiry.Inquiry.PickslipEntity.Wave(Model.WaveList[i].BucketId))
+                            @if (Model.WaveList[i].Freeze)
+                            {
+                                <small>(Frozen)</small>
+                            }
+                            <small>
+                                @Html.DisplayFor(m => m.WaveList[i].BucketName)
+                                <strong class="text-info">
+                                    @Html.DisplayFor(m => m.WaveList[i].BucketStatus)
+                                </strong>
+                            </small>
+                            <label class="label label-info">@Html.DisplayFor(m => m.WaveList[i].Priority)</label>
+                        </h4>
+                        <a class="list-group-item-text" href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.WaveList[i].CustomerId))">
+                            @Html.DisplayFor(m => m.WaveList[i].CustomerId): @Html.DisplayFor(m => m.WaveList[i].CustomerName)
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="list-group-item-text">
+                            <em>
+                                @Html.DisplayFor(m => m.WaveList[i].PitchBuilding) &rarr;
+                                @Html.DisplayFor(m => m.WaveList[i].PitchArea)
+                            </em>: @Html.DisplayFor(m => m.WaveList[i].PitchAreaDescription)
+                        </p>
+                        <p class="list-group-item-text">
+                            <em>
+                                @Html.DisplayFor(m => m.WaveList[i].BuildingPullFrom) &rarr;
+                                @Html.DisplayFor(m => m.WaveList[i].PullArea)
+                            </em>: @Html.DisplayFor(m => m.WaveList[i].PullAreaDescription)
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <span class="badge pull-right">
+                            @Html.DisplayFor(m => m.WaveList[i].DateCreated)
+                        </span>
+                        <p class="list-group-item-text">
+                            <em>@Html.DisplayFor(m => m.WaveList[i].PickslipCount)</em> of <em>@Html.DisplayFor(m => m.WaveList[i].PoCount)</em>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

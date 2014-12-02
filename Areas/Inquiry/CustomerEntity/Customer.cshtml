@@ -1,0 +1,142 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CustomerEntity.CustomerViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("Customer {0} : {1}", Model.CustomerId, Model.CustomerName);
+}
+@section applinks{
+    <li>
+        <a  href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.CustomerExcel(Model.CustomerId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.CustomerList())">Active Customers</a>
+    </li>
+    <li>
+        <a href="@Url.Action(Model.UrlManageCustomerPickwave)"> Manage Pickwave</a>
+    </li>
+    <li>
+        <a href="@Url.Action(Model.UrlRouteOrder)"> Route Order</a>
+    </li>
+    <li class="divider">
+    </li>
+}
+
+@section script {
+
+}
+
+<div class="container">
+
+    <h2 style="margin-top:0px">
+        @string.Format("Customer {0} : {1}", Model.CustomerId, Model.CustomerName)
+        <small>@Html.DisplayFor(m => m.AccountType)</small>
+        @*<a class="btn btn-sm" href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.CustomerExcel(Model.CustomerId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>*@
+    </h2>
+
+
+
+
+
+    <div class="row">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">
+                    Picking
+                    <span class="pull-right"><span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Url.Action(Model.UrlManageCustomerPickwave)"> Manage Pickwave</a></span>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.AmsFlag ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp;Allow enter #Pieces<br />
+                    <small>Allow the picker to enter number of pieces instead or scanning each piece</small>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.ScoFlag ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; Scan Country of Origin<br />
+                    <small>Useful when accurate customs documentation is needed</small>
+                </li>
+                <li class="list-group-item">
+                    <strong>Pieces Per Box</strong>
+                    @Html.DisplayFor(m => m.DisplayPiecesPerBox)
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">
+                    Shipping
+                    <span class="pull-right"><span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Url.Action(Model.UrlRouteOrder)"> Route Order</a></span>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.EdiFlag ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; EDI753 Routing
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.Asn_flag ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; ASN<br />
+                    <small>  Box Level ASN</small>
+                </li>
+                <li class="list-group-item">
+                    <strong>Default carrier</strong> @Html.DisplayFor(m => m.CarrierId): @Html.DisplayFor(m => m.CarrierDescription)
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">
+                    Labels <small> Default Printing Settings </small>    <span class="badge">#Copies</span>
+
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.CustVas.Count() > 0 ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp;VAS
+                    <p class="pull-right">
+                        <span class="glyphicon glyphicon glyphicon-new-window"></span><a href="@Url.Action(Model.UrlCustomerVas)"> Vas Configuration</a>
+                    </p>
+                    <br />
+                    <small>@Model.CustVas</small>
+                </li>
+
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.NumberOfUcc > 0 ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; UCC Label <span class="badge">@Model.NumberOfUcc</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.NumberOfCcl > 0 ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; Carton Content Label <span class="badge">@Model.NumberOfCcl</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.NumberOfPspb > 0 ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; Packing Slip <span class="badge">@Model.NumberOfPspb</span>
+                </li>
+                <li class="list-group-item">
+                    <span class="glyphicon glyphicon-@(Model.NumberOfMps > 0 ? "ok text-success" : "remove text-danger")"></span>
+                    &nbsp; Master Packing Slip <span class="badge">@Model.NumberOfMps</span>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    @*<div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" href="#polistContents">
+                        <span class="glyphicon glyphicon-plus" id="iconCollapse"></span> Unshipped Orders
+                    </a>
+                </h4>
+            </div>
+            <div id="polistContents" class="panel-collapse collapse in" data-url="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.GetRecentOrders(Model.CustomerId))">
+                <div class="panel-body">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                            Loading Recent Orders...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+    <h3>Unshipped Orders</h3>
+    @Html.Action(MVC_Inquiry.Inquiry.CustomerEntity.GetRecentOrders(Model.CustomerId))
+</div>

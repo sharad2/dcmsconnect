@@ -1,0 +1,50 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.CartonPalletListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Carton Pallets";
+}
+<div class="container">  
+        <h2 style="margin-top:0px;">
+           Recent Carton Pallets
+        </h2> 
+   
+    <ul class ="list-group">
+        <li class="list-group-item list-group-item-success">
+            <span class="badge pull-right">Cartons</span>
+            <h4 class="list-group-item-heading">
+               Pallet
+                <small class="text-success">
+                   Building &rarr; Area
+                </small>
+               
+            </h4>
+            <p class="list-group-item-text">
+               Created Date
+            </p>
+        </li>
+
+        @for (var i = 0; i < Model.PalletList.Count; ++i)
+        {
+            <li class="list-group-item">
+                <span class="badge pull-right">@Html.DisplayFor(m => m.PalletList[i].TotalCarton)</span>
+                <h4 class="list-group-item-heading">
+                    <small>@(i+1)</small>
+                    @Html.ActionLink(Model.PalletList[i].PalletId,MVC_Inquiry.Inquiry.CartonEntity.CartonPallet(Model.PalletList[i].PalletId))
+                    <small class="text-success">
+                        @Model.PalletList[i].WarehouseLocationId
+                       &rarr;
+                        @Model.PalletList[i].AreaShortName
+                    </small>
+                    @if (Model.PalletList[i].CartonAreaCount > 1)
+                    {
+                        <small class="text-success">and @(Model.PalletList[i].CartonAreaCount - 1) more areas...</small>
+                    }
+                </h4>
+                <p class="list-group-item-text">
+                    @Html.DisplayFor(m => m.PalletList[i].DisplayAreaChangeDate)
+
+                </p>
+            </li>
+        }
+    </ul>
+</div>

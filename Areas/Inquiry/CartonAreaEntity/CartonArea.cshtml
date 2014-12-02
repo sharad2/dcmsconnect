@@ -1,0 +1,129 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonAreaEntity.CartonAreaViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("Carton Area {0}", Model.ShortName);
+}
+
+@section applinks{
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonAreaExcel(Model.AreaId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+}
+
+<div class="container">
+
+    <h2 style="margin-top:0px;">
+        Carton Area @Html.DisplayFor(m => m.ShortName) <small>Building @Html.DisplayFor(m => m.WhID)</small>
+    </h2>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="well well-sm">
+                @Html.DisplayFor(m => m.Description)
+                @if (Model.PalletRequired)
+                {
+                    <small>Stores Pallets</small>
+                }
+                <a href="@Model.UrlManageArea" class="btn"><span class="glyphicon glyphicon-new-window"></span> Manage</a>
+            </div>
+        </div>
+        <div class="col-md-6">
+            @if (Model.LocationNumberingFlag)
+            {
+                <div class="progress" style="margin-bottom:0px">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="@Model.NonEmptyLocations.ToString()" aria-valuemin="0" aria-valuemax="@Model.TotalLocations"
+                         style="width: @Model.PercentFull%;min-width:4em">
+                        @Html.DisplayFor(m => m.PercentFull)% full
+                    </div>
+                </div>
+                <div>
+                    @Html.DisplayFor(m => m.TotalLocations) locations &bull;
+                    @Html.DisplayFor(m => m.NonEmptyLocations) full &bull;
+                    @Html.DisplayFor(m => m.AssignedLocations) assigned to SKU
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info" role="alert">This area does not have numbered bins.</div>
+            }
+        </div>
+    </div>
+
+    <ul class="list-inline">
+        <li>
+            @if (Model.OverdraftAllowed)
+            {
+                <span class="glyphicon glyphicon-ok" style="color:green"></span>
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-remove" style="color:red"></span>
+            }
+            Inventory can temporarily become negative
+        </li>
+        <li>
+            @if (Model.RepackArea)
+            {
+                <span class="glyphicon glyphicon-ok" style="color:green"></span>
+            }
+            else
+            {
+                <span class="glyphicon glyphicon-remove" style="color:red"></span>
+            }
+            Serves as a source area for repacking
+        </li>
+    </ul>
+
+
+    <div class="table-responsive">
+        <table class="table table-striped table-condensed table-bordered">
+            <caption>
+                <h3>Inventory in @Html.DisplayFor(m => m.ShortName) by Label</h3>
+            </caption>
+            <thead>
+                <tr>
+                    <th style="text-align:center">#</th>
+                    <th style="text-align:center">Label</th>
+                    <th style="text-align:center"># Cartons</th>
+                    <th style="text-align:center"># SKU</th>
+                    <th style="text-align:center">Pieces <span class="glyphicon glyphicon-sort-by-order-alt"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.AreaInventory.Count; ++i)
+                {
+                    <tr>
+                        <td style="text-align:right">
+                            @(i + 1)
+                        </td>
+                        <td>
+                            @Html.ActionLink(Model.AreaInventory[i].LabelId, MVC_Inquiry.Inquiry.SkuEntity.Label(Model.AreaInventory[i].LabelId))
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(m => m.AreaInventory[i].CartonCount)
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(m => m.AreaInventory[i].DistinctSKUs)
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(m => m.AreaInventory[i].SKUQuantity)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="success">
+                    <td>Total</td>
+                    <td></td>
+                    <td style="text-align:right">@string.Format("{0:N0}", Model.AreaInventory.Sum(m => m.CartonCount))</td>
+                    <td></td>
+                    <td style="text-align:right">@string.Format("{0:N0}", Model.AreaInventory.Sum(m => m.SKUQuantity))</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
