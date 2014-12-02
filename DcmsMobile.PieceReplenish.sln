@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "..\DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceReplenish", "PieceReplenish\PieceReplenish.csproj", "{6A1F5875-3B99-4DDF-99B8-B9C71BF27169}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceReplenish", "PieceReplenish.csproj", "{6A1F5875-3B99-4DDF-99B8-B9C71BF27169}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
