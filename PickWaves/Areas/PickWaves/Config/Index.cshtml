@@ -5,14 +5,18 @@
 }
 
 <div class="container">
-    <div class="panel panel-success">
+
+    <h2 style="margin-top:0px;">
+        Wave Configuration
+    </h2>
+
         <div class="panel-heading">
             <div>
                 <h4 class="text-info"> Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know</h4>
                 <p>
                     What size cartons are available in which, SKUs can be shipped.
                     Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" class="btn btn-primary btn-sm" role="button">Manage</a>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" class="btn btn-primary btn-xs" role="button">Manage</a>
                 </p>
             </div>
             <hr />
@@ -20,9 +24,9 @@
                 <h4 class="text-info">
                     Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
                     on a per customer basis.
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary btn-sm" role="button">DCMS Supported Constraints</a>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary btn-xs" role="button">DCMS Supported Constraints</a>
                 </h4>
             </div>
         </div>
-    </div> 
+
 </div>
