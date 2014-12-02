@@ -74,7 +74,10 @@
                                 <div class="col-md-5 col-sm-5">
                                     <h4 class="list-group-item-heading">
                                         <small>@(i + 1)</small>
-
+                                        @if (!Model.SkuCaseList[i].IsAvailable)
+                                        {
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        }
                                         @Html.DisplayFor(m => m.SkuCaseList[i].CaseId)
 
                                         <small>
@@ -95,7 +98,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-xs">
-                                            Edit <span class="glyphicon glyphicon-edit"></span>
+                                            <span class="glyphicon glyphicon-edit"></span> Edit
                                         </button>
                                     }
                                 </div>
@@ -202,7 +205,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <button id="frmDelCustCasePreference" class=" pull-right btn btn-primary btn-xs">
-                                            Remove <span class="glyphicon glyphicon-remove"></span>
+                                            <span class="glyphicon glyphicon-remove"></span>  Remove
                                         </button>
                                     }
                                 </div>
@@ -219,7 +222,7 @@
                     {
                         <button id="btnAddPackinRule" class="btn btn-primary"
                                 data-add-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
-                            Add Packing Rule
+                            <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule
                         </button>
                     }
                 </blockquote>
@@ -228,25 +231,29 @@
                     {
                         <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "info" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
                             <div class="row">
-                                <div class="col-md-8 col-sm-8">
+                                <div class="col-md-10 col-sm-10">
                                     <h4 class="list-group-item-heading">
-                                        @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                        @if (Model.PackingRuleList[i].IgnoreFlag)
                                         {
-                                            <span>Style</span>  @Html.DisplayFor(m => m.PackingRuleList[i].Style)
-
+                                            <span class="glyphicon glyphicon-info-sign"></span>
                                         }
-                                        <small class="pull-right">Case @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
+                                        @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                            {*@
+                                        <span>Style</span>  @Html.DisplayFor(m => m.PackingRuleList[i].Style)
+
+                                        @*}*@
+                                        <small>Case @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
                                     </h4>
                                 </div>
-                                <div class="col-md-4 col-sm-4">
+                                <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <div class="btn-group" role="group">
-                                            <button type="button" class="btn btn-default" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))">
+                                        <div class="btn-group btn-group-xs" role="group">
+                                            <button type="button" class="btn btn-primary" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))">
                                                 <span class="glyphicon glyphicon-edit"></span>
                                                 Edit
                                             </button>
-                                            <button type="button" class="btn btn-default">
+                                            <button type="button" class="btn btn-primary">
                                                 <span class="glyphicon glyphicon-remove" id="frmDelPackingRule"></span>
                                                 Remove
                                             </button>
