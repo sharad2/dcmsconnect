@@ -1,0 +1,178 @@
+﻿Sharad 5 July 2014
+------------------
+This note lists the features provided by this DcmsMobile Application
+
+Release Candidate Support
+-------------------------
+RC support is triggered only if web.config contains the URL of the rc site. If this key is not present, there will be no trace of RC support.
+
+The design goal was to highlight to the user that a new RC is available against the menu item which the user normally clicks on the main menu.
+This should encourage the use of the RC site.
+
+<appSettings>
+  <add key="RcUrl" value="http://w8ethiopia/rctest" lockItem="true" />
+</appSettings>
+
+When the home page Home/Index.cshtml runs, it has javascript which tries to invoke the URL <RcUrl>/RcItems. This URL is implemented
+in the action HomeController.RcItems. It returns an array of areas for which a release candidate is available. The array includes area name along with the URL to reach that area.
+
+Index.cshtml normally displays a menu item corresponding to each area installed. When a response from <RcUrl>/RcItems is received, an additional release candidate link appears
+against each area for which RC is available. This link, when clicked, will navigate directly to the corresponding area in the RC site.
+
+At the bottom of the home page, a link to the RC website is displayed. This link will navigate to the home page of the RC site. This link is visible only if RcUrl was
+specified in web.config.
+
+After the home page load, this link also displays the status of the contact with the site. It starts out by saying Contacting... Once the contact is successful, this message
+disappears. If there is an error, this message is replaced with the error message.
+
+If the RcUrl matches the URL of the home page, then site is assumed to be the RC site, and we do not query any other RC site. The header will display
+Release Candidates to make it clear that this is the RC site.
+
+
+Feature Folder Support Sharad 4 Nov 2014
+----------------------------------------
+
+It is recommended that you organize view files using the feature folder pattern. To serve images from view folders, see
+http://stackoverflow.com/questions/604883/where-to-put-view-specific-javascript-files-in-an-asp-net-mvc-application
+
+1. Under the Areas/Receiving Directory, make one folder per feature.
+2. Move all the feature specific files to the corresponding folder, including scripts, content, *.cs, views, etc.
+3. The class name for the controller must match the feature Name. So if the feature folder name is Rad, the controller name should be class RadController
+3. T4MVC Setting
+  <FeatureFolderAreas>
+    <Area>Receiving</Area>
+  </FeatureFolderAreas>
+  <AddAllViewsFoldersToStaticFilesFolders>True</AddAllViewsFoldersToStaticFilesFolders>
+
+  5. Modify web.config in Areas/Receiving folder to allow ASP.NET to serve content files from Areas/Receiving folder
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+
+    <handlers>
+      <remove name="BlockViewHandler"/>
+      <add name="JavaScript" path="*.js" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="CSS" path="*.css" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="JPG" path="*.jpg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="PPTX" path="*.pptx" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="MP3" path="*.mp3" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="PNG" path="*.png" verb="GET,HEAD" type="System.Web.StaticFileHandler" />      
+      <add name="BlockViewHandler" path="*" verb="*" preCondition="integratedMode" type="System.Web.HttpNotFoundHandler" />
+    </handlers>
+  </system.webServer>
+
+  6. web.config in root folder
+    <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <modules runAllManagedModulesForAllRequests="true" />
+    <!-- Requirement of VirtualPathProviderEx. Needed so that we can access content and script files from DcmsMobile directory-->
+    <handlers>
+      <add name="AspNetStaticFileHandler-GIF" path="*.gif" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-JPG" path="*.jpg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-CSS" path="*.css" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-JS" path="*.js" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-EOT" path="*.eot" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-SVG" path="*.svg" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-TTF" path="*.ttf" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+      <add name="AspNetStaticFileHandler-WOFF" path="*.woff" verb="GET,HEAD" type="System.Web.StaticFileHandler" />
+    </handlers>    
+  </system.webServer>
+
+
+
+Pluggable Area Support
+----------------------
+
+You can publish a link from your area simply by adding an entry in the App_Data\MenuItems.xml file.
+
+    <item route="DcmsConnect_ManagePickWave" categoryId="pick" shortcut="SELECTPO" name="Manage PickWaves">
+      <description>Add orders to pick waves so that they can be picked and shipped</description>
+    </item>
+
+DcmsConnect_ManagePickWave is the name of a route which will be used to generate the URL for your link. Example Action method:
+[Route(HomeController.ActionNameConstants.Index, Name= "DcmsConnect_ManagePickWave")]
+public virtual ActionResult Index()
+{
+    return ShowHomePage(SearchTextType.Unknown, null);
+}
+
+SELECTPO is the shortcut which the user can type in the Search box to reach your url. Make this short and easy to remember.
+The name and description are displaed along with your link.
+categoryId defines the category in which your link will display. It should reference one of the categories defined in the XML file. You can add more categories if needed, but
+do keep the number of categories single digit.
+
+Sharad 15 Jul 2014: Routes which accept parameters should be suffixed with the number of parameters, e.g. DcmsConnect_EditCarton1. The name of the first parameter is presumed to be
+  id for all routes.
+
+
+Pluggable areas can support some well known routes which DcmsMobile will display at special positions on the menu screen.
+
+DcmsConnect_Search. This route must accept id as the query string. It should search for id and display search results. If id is not passed, it should display the search home screen.
+
+DcmsConnect_ScanToPallet. This is the URL to the main page of the scan to pallet program.
+
+DcmsConnect_MoveBoxPallet. This is the URL to the main page of the program which moves a box pallet from one location to another.
+
+DcmsConnect_ApplyVasToBox. This program should provide the UI for applying VAS to boxes.
+
+DcmsConnect_AbondonRework. This is the URL for the UI that let the system know if you no longer want to perform rework on Cartons which had been marked for rework (Inventory Tab)
+
+DcmsConnect_BulkUpdateCarton.  This is the URL for the advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated.(Inventory Tab)
+
+DcmsConnect_CartonEditor. This is the URL for the Carton to edit in inventory tab.
+
+DcmsConnect_CartonLocating. This is the URL for Locating cartons in numbered bin locations(Inventory tab)
+
+DcmsConnect_CartonLocating1. This Url post the pallet id to the carton pallet page of the shipping module.
+
+DcmsConnect_CartonToPallet. This is the URL for the UI which place cartons on a pallet(Inventory tab)
+
+DcmsConnect_MarkReworkComplete. This is the URL for the UI that Mark Rework Complete of those Cartons on which rework has to be done.
+
+DcmsConnect_PieceReplenish. This is the URL for main page to Manage Forward Pick Area.
+
+DcmsConnect_BoxPick. This is the URL for starting Box Picking.
+
+DcmsConnect_RoutingSummary. This is the URL for the creating EDI 753 to route customer orders(Ship Tab)
+
+DcmsConnect_Appointment. This is the URL for creating and manageing appointment.(Ship Tab)
+
+DcmsConnect_ScanToTruck. This is the URl for loading boxes on truck to ensure accuracy of shipment.(Ship Tab)
+
+DcmsConnect_Restock. This is the URL for restocking cartons.
+
+DcmsConnect_BoxPickPallet. This is the URL for creating boxpick pallets.
+
+DcmsConnect_ManagePickWave. This is the URL for creating and managing pickwave.
+
+DcmsConnect_CartonAreas. This is the URL for managing SKU assignment at carton locations
+
+Displaying DCMS Connect header on top of area views
+---------------------------------------------------
+1. Do not use View Start. Set the layout in each view like this: 
+ Layout = MVC_Inquiry.Inquiry.Shared.Views._layoutInquiry;
+
+
+Diagnostics Framework
+---------------------
+
+
+Using Script and Content folders of DcmsMobile
+----------------------------------------------
+
+PreBuild event copies script and content folders from DcmsMobile.
+
+Clean event removes the script and content folders in the project
+
+<Project>
+  ...
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      RemoveDir;
+    </CleanDependsOn>
+  </PropertyGroup>
+  <Target Name="RemoveDir">
+    <RemoveDir Directories="$(ProjectDir)Content;$(ProjectDir)Scripts"/>
+  </Target>
+</Project>

@@ -1,0 +1,93 @@
+﻿@model DcmsMobile.MainArea.Diagnostic.DiagnosticModel
+@{
+    ViewBag.Title = "Diagnostics";
+    Layout = @MVC_DcmsMobile.SharedViews.Views._layoutBootstrap;
+}
+
+<div class="container">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Sounds</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt class="bg-danger">Error Sound</dt>
+                <dd>
+                    <audio src="@Links_DcmsMobile.Content.Sounds.Error_mp3" controls="controls">
+                        Your browser does not support sounds
+                    </audio>
+                </dd>
+                <dt class="bg-warning">Warning Sound</dt>
+                <dd>
+                    <audio src="@Links_DcmsMobile.Content.Sounds.warning_mp3" controls="controls">
+                        Your browser does not support sounds
+                    </audio>
+                </dd>
+                <dt class="bg-success">
+                    Success Sound
+                </dt>
+                <dd>
+                    <audio src="@Links_DcmsMobile.Content.Sounds.success_mp3" controls="controls">
+                        Your browser does not support sounds
+                    </audio>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Browser Identification</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>IsMobile</dt>
+                <dd>@this.ViewContext.HttpContext.Request.Browser.IsMobileDevice</dd>
+                <dt>User Agent</dt>
+                <dd>@ViewContext.HttpContext.GetOverriddenUserAgent()</dd>
+                <dt>Platform</dt>
+                <dd>@this.ViewContext.HttpContext.Request.Browser.Platform</dd>
+                <dt>Browser Id</dt>
+                <dd>@this.ViewContext.HttpContext.Request.Browser.Id</dd>
+                <dt>MajorVersion</dt>
+                <dd>@this.ViewContext.HttpContext.Request.Browser.MajorVersion</dd>
+                <dt>MinorVersion</dt>
+                <dd>@this.ViewContext.HttpContext.Request.Browser.MinorVersion</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Connection Strings</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                @foreach (var conn in Model.ConnectionStrings)
+                {
+                    <dt>
+                        @conn.Name
+                    </dt>
+                    <dd>@conn.ProxyUserId@@@conn.DataSource</dd>
+                }
+            </dl>
+        </div>
+    </div>
+    <ul class="nav nav-pills nav-justified" role="tablist">
+        <li><a href="@Url.Content("~/MvcDiagnostics.aspx")">System Info</a></li>
+        <li>@Html.ActionLink("Test E-mail", MVC_DcmsMobile.Diagnostic.Email())</li>
+        @if (ViewContext.HttpContext.Trace.IsEnabled)
+        {
+            <li><a href="@Url.Content("~/trace.axd")">Trace</a></li>
+        }
+        else
+        {
+            <li>Trace Disabled</li>
+        }
+    </ul>
+
+
+</div>
+
+
