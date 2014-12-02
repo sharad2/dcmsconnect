@@ -43,12 +43,15 @@
                 </div>
             </div>
             <div class="col-md-2">
+                @if (Model.PickslipList[0].IsRemovablePickslip)
+                {
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-default dropdown-toggle btn-sm disabled" data-toggle="dropdown">
                         Action <span class="caret"></span>
                     </button>
                    
                 </div>
+                }
             </div>
         </div>
     </li>
