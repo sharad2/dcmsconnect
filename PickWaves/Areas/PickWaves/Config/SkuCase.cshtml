@@ -11,10 +11,6 @@
     </li>
 }
 
-@helper AddEditForm()
-{
-    @Html.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())
-}
 
 <div class="container">
     <h2 style="margin-top:0px;">
@@ -40,17 +36,12 @@
                     Available SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" id="btnAddSkuCase">
+                        <button class="btn btn-primary" id="btnAddSkuCase" data-add-action="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
 
-
                     }
                 </blockquote>
-                @AddEditForm()
-
-
-
                 <ul class="list-group">
                     
                     <li class="list-group-item list-group-item-success">
