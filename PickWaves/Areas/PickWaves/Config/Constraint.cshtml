@@ -192,15 +192,15 @@
                                 <small>@Model.CustomerGroupedList.Keys[i].CustomerName</small>
                             </h4>
                         </li>
-                    <li class="list-group-item">
-                        <ul class="list-inline">
-                            <li>Single Style Color: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].IsSingleStyleColor)</li>
-                            <li>Max Weight: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</li>
-                            <li>Max number of SKUs: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</li>
-                            <li>Max Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMaxSkuPieces)</li>
-                            <li>Min Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMinSkuPieces)</li>
-                        </ul>                      
-                    </li>
+                        <li class="list-group-item">
+                            <ul class="list-inline">
+                                 <li>Single Style Color: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].IsSingleStyleColor)</li>
+                                    <li>Max Weight: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</li>
+                                    <li>Max number of SKUs: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</li>
+                                    <li>Max Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMaxSkuPieces)</li>
+                                    <li>Min Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMinSkuPieces)</li>
+                            </ul>
+                        </li>
                     }
                 </ul>
 
