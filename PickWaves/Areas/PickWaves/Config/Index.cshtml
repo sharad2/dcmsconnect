@@ -12,7 +12,7 @@
 
     <blockquote>
         <div>
-            <h4 class="text-info bg-info"> Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know</h4>
+            <h4 class="text-info"> Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know</h4>
             <p class="h5">
                 What size cartons are available in which, SKUs can be shipped.
                 Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
@@ -21,7 +21,7 @@
         </div>
         <hr />
         <div>
-            <h4 class="text-info bg-info">
+            <h4 class="text-info">
                 Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
                 on a per customer basis.
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary btn-xs" role="button">DCMS Supported Constraints</a>
