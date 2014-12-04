@@ -1,19 +1,15 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Web
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "..\DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Core", "EclipseLibrary.Core\EclipseLibrary.Core.csproj", "{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile.BoxPick.Tests", "DcmsMobile.BoxPick.Tests\DcmsMobile.BoxPick.Tests.csproj", "{7C08E232-96B4-4CA6-A729-58536BC4D96F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CF41BC3-958D-4F25-9111-38BBB521EAC9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxPick", "BoxPick\BoxPick.csproj", "{06488181-C388-4762-AC57-604E2754E8B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxPick", "BoxPick.csproj", "{06488181-C388-4762-AC57-604E2754E8B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +25,10 @@ Global
 		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E2266CB-5042-4601-AF29-6CBAC5AE8664}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D51CE18-5EAD-41F7-9EEB-EB85FD85E93E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C08E232-96B4-4CA6-A729-58536BC4D96F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C08E232-96B4-4CA6-A729-58536BC4D96F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C08E232-96B4-4CA6-A729-58536BC4D96F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C08E232-96B4-4CA6-A729-58536BC4D96F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06488181-C388-4762-AC57-604E2754E8B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06488181-C388-4762-AC57-604E2754E8B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06488181-C388-4762-AC57-604E2754E8B9}.Release|Any CPU.ActiveCfg = Release|Any CPU

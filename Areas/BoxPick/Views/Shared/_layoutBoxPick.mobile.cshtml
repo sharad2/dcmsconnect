@@ -1,0 +1,81 @@
+﻿@* Includes scripts and style sheets and then renders the body of the calling view.
+Also manages sound. Includes a help link if ViewBag.HelpAction is defined. Runs
+JavaScript on onLoad to manage scan text boxes. The first input element within the
+first form is always treated as a scan text box. If the JavaScript variable _emptyOk
+is true, then the scan textbox will postback when empty enter is pressed, otherwise
+it will not. This script in your view will look like this:
+<script type="text/javascript">
+    var _emptyOk = true;
+</script>
+*@
+@model DcmsMobile.BoxPick.ViewModels.MasterModel
+@{
+        //var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, "_layoutMain");
+        //var layoutView = (RazorView)layoutResult.View;
+        //Layout = layoutView == null ? null : layoutView.ViewPath;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Links_BoxPick.Content.themes.Start1_10_0.jquery_ui_css" rel="stylesheet" type="text/css" />
+    <link href="@Links_BoxPick.Areas.BoxPick.Content.BoxPick_all_css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="@Links_BoxPick.Areas.BoxPick.Scripts.BoxPick_all_js"></script>
+    <script type="text/javascript">
+        function OnBodyKeyDown() {
+            if (window.event.keyCode == 123 && '@ViewBag.HelpAction' != '') {
+                window.location = '@Url.Action(ViewBag.HelpAction, "Help")';
+            } else if (window.event.keyCode == 124) {
+                window.close();
+            }
+        }    
+    </script>
+    @RenderSection("head", false)
+</head>
+<body onload="InitScanTextBox(this);" onkeydown="OnBodyKeyDown()">
+    <div style="position: absolute; right: 1mm; text-align: right; z-index: 100">
+        <span id="timeout"><span id="timeoutValue">@(ViewContext.HttpContext.Session.Timeout)</span>
+            <span id="timeoutUnit">minutes</span></span>
+    </div>
+    @if (IsSectionDefined("heading"))
+    {
+        @RenderSection("heading")
+    }
+    else
+    {
+        <h2>
+            @ViewBag.Title
+        </h2>
+    }
+    @Html.StatusSummary()
+    @Html.ValidationSummary()
+    @if(Model != null)
+    {
+        @Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._soundPartial, Model.Sound)
+    }
+    @RenderBody()
+    <div class="ui-priority-secondary">
+        @if (!string.IsNullOrEmpty(ViewBag.HelpAction))
+        {
+            <text>P1 for @Html.ActionLink("Help", (string)ViewBag.HelpAction, "Help") |</text>
+        }
+        P2 to Exit
+                <a href="@Url.Content("~")" accesskey="0" tabindex="2">Home</a>
+@*        @if (!string.IsNullOrEmpty(ViewBag.HelpAction))
+        {
+            @Html.ActionLink("Help", (string)ViewBag.HelpAction, "Help", null, new
+       {
+           tabindex=3
+       })
+        }*@
+        @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+        {
+            <span>Welcome @ViewContext.HttpContext.User.Identity.Name</span>
+        }
+    </div>
+</body>
+</html>
+
+
+
+@*$Id$*@
