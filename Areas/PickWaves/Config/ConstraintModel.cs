@@ -82,7 +82,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
             OrigIsSingleStyleColor = this.IsSingleStyleColor;
         }
 
-        [Required]
+        [Required (ErrorMessage="Customer cannot be null")]
         public string CustomerId { get; set; }
 
         public string CustomerName { get; set; }
