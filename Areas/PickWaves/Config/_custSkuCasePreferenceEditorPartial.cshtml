@@ -6,13 +6,13 @@
 
 
 
-<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
+<form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
 
 
         <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
-        <div class="col-sm-9">           
+        <div class="col-sm-9">
             <div class="input-group">
                 @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
        {
@@ -67,58 +67,12 @@
     </div>
 </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div>
-        @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference(), FormMethod.Post, new
-        {
-            id = "frmAddCustSkuCasePreference"
-        }))
-        {
-            <label>Customer </label>
-            @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-       {
-             {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
-             {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
-             {"id", "tbCustomer"}
-       })<sup>&darr;*</sup>
-            <br />
-            <span id="customerDetail" style="display: inline-block;" class="ui-state-active"></span>
-            <br />
-            <label>Case </label>@Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "(Please Select)")<sup>*</sup>
-            <br />
-            <label>Comments</label>
-            @Html.TextAreaFor(m => m.Comment, new
-                {
-                    maxlength = "256",
-                    rows = "3",
-                    cols = "49"
-                })
-    @*<textarea maxlength="256" style="text-transform:uppercase" rows="3" cols="49" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.comment"></textarea><sub style="color: blue">Max 256 characters</sub>
-            <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
-        }
-    </div>*@
-@*<script type="text/javascript">
+<script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
+<script type="text/javascript">
         $(document).ready($(function () {
             // Force the unobtrusive validation script to run
             // http://forums.asp.net/t/1651961.aspx/1
             $.validator.unobtrusive.parse("#frmAddCustSkuCasePreference");
-            $('#tbCustomer').autocompleteEx();
+            //$('#tbCustomer').autocompleteEx();
         }));
-    </script>*@
+    </script>

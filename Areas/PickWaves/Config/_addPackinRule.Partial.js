@@ -3,7 +3,7 @@
         name: 'styles',
         displayKey: 'label',
         source: function (query, cb) {
-            var url = _customerAutocompleteUrl.replace('~', query);
+            var url = _styleAutocompleteUrl.replace('~', query);
             $.get(url).done(function (data, textStatus, jqXHR) {
                 this.cb(data);
             }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
@@ -20,8 +20,6 @@
     }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
         // Store the id of the selected customers in the hdden field
         $('#hfStyle').val(sug.value);
-        //will trigger submit on selection in the drop down of autocomplete.
-        $(e.delegateTarget).closest('form').trigger('submit');
     }).on('input', function (e) {
         // When user changes the customers, empty the hidden field
         $('#hfStyle').val('');

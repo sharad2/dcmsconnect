@@ -333,8 +333,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string _addPackinRulePartial = "_addPackinRulePartial";
                 public readonly string _custSkuCasePreferenceEditor_js = "_custSkuCasePreferenceEditor.js";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
+                public readonly string _skuCaseEditor_js = "_skuCaseEditor.js";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
-                public readonly string Config_js = "Config.js";
+                public readonly string Config_js_O = "Config.js_O";
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
                 public readonly string ManageSkuCase_js = "ManageSkuCase.js";
@@ -345,8 +346,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Config/_addPackinRulePartial.cshtml";
             public readonly string _custSkuCasePreferenceEditor_js = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditor.js.bundle";
             public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
+            public readonly string _skuCaseEditor_js = "~/Areas/PickWaves/Config/_skuCaseEditor.js.bundle";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
-            public readonly string Config_js = "~/Areas/PickWaves/Config/Config.js.bundle";
+            public readonly string Config_js_O = "~/Areas/PickWaves/Config/Config.js_O.bundle";
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
             public readonly string ManageSkuCase_js = "~/Areas/PickWaves/Config/ManageSkuCase.js.bundle";

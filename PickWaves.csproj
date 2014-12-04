@@ -102,7 +102,7 @@
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteController_O.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem.cs" />
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem_O.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
@@ -238,6 +238,12 @@
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.min.js">
       <DependentUpon>_custSkuCasePreferenceEditor.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.js">
+      <DependentUpon>_skuCaseEditor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.min.js">
+      <DependentUpon>_skuCaseEditor.js</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -255,6 +261,12 @@
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\typeahead.min.css">
       <DependentUpon>typeahead.css</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\SharedViews\typeahed.css">
+      <DependentUpon>typeahed.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\SharedViews\typeahed.min.css">
+      <DependentUpon>typeahed.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />
@@ -289,6 +301,7 @@
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.Partial.js" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js.bundle" />
     <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle" />
+    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.js.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -308,9 +321,9 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\PickWaves\Config\Config.css" />
+    <None Include="Areas\PickWaves\Config\Config_O.css" />
     <Content Include="Areas\PickWaves\Config\Config.min.css">
-      <DependentUpon>Config.css</DependentUpon>
+      <DependentUpon>Config_O.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial_O.js" />
@@ -320,19 +333,10 @@
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </None>
-    <None Include="Areas\PickWaves\Config\Config.js.bundle">
+    <None Include="Areas\PickWaves\Config\Config.js_O.bundle">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Areas\PickWaves\Config\Config.min.js.map">
-      <DependentUpon>Config.min.js</DependentUpon>
-    </Content>
-    <None Include="Areas\PickWaves\Config\Config.partial.js" />
-    <Content Include="Areas\PickWaves\Config\Config.js">
-      <DependentUpon>Config.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\Config.min.js">
-      <DependentUpon>Config.js</DependentUpon>
-    </Content>
+    <None Include="Areas\PickWaves\Config\Config.partial_O.js" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.js.bundle" />
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js.map">
       <DependentUpon>ManageSkuCase.min.js</DependentUpon>
@@ -344,7 +348,7 @@
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
+    <None Include="Areas\PickWaves\Config\ManageSkuCase.partial_O.js" />
     <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
     </Content>
