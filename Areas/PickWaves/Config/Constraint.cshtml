@@ -24,7 +24,7 @@
 
     <div role="tabpanel">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs bg-info" role="tablist">
+        <ul class="nav nav-tabs bg-info" role="tablist" data-active-tab="@Model.ActiveTab">
             <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">Default Constraint</a></li>
             <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">Customer Wise List</a></li>
         </ul>
@@ -50,8 +50,9 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
-                                            data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -73,8 +74,8 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
-                                            data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -98,8 +99,8 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
-                                            data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -120,8 +121,8 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
-                                            data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -144,8 +145,8 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
-                                            data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints" data-toggle="modal" data-target="#tabModal"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -161,12 +162,12 @@
                 </ul>
 
             </div>
-            <div role="tabpanel" class="tab-pane active" id="tab2">
+            <div role="tabpanel" class="tab-pane" id="tab2">
                 <blockquote>
                     Constraints overridden by customers
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" id="btnAddNewCustConstraint" data-add-customer="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintAddView())">
+                        <button class="btn btn-primary" id="btnAddNewCustConstraint" data-toggle="modal" data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintAddView())" title="Edit/Add Customer Constraint">
                             <span class="glyphicon glyphicon-plus"></span> Add Customer..
                         </button>
                     }
@@ -181,7 +182,7 @@
                             <h4 class="list-group-item-heading">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-primary btn-xs pull-right" data-editor-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
+                                    <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -212,8 +213,67 @@
 
 </div>
 
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <!--Title inserted here with Ajax-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--Form inserted here with Ajax-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        //Determining which tab was active during remove or editing.
+        var tabActive = $('ul.nav-tabs').attr('data-active-tab');
+        $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
 
 
+
+        $('#tabModal').on('show.bs.modal', function (e) {
+            //Title of the modal
+            var btnAction = $(e.relatedTarget)
+            LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
+        }).on('click', 'button:not([data-dismiss])', function (e) {
+            var $form = $(e.delegateTarget).find('form', '.modal-body');
+            $form.submit();
+        });
+
+        //Modal body content inserted here with Ajax call.
+        function LoadAjaxSkuCaseEditor(url, title) {
+            $.ajax({
+                url: url,
+                type: 'get',
+                cache: false
+            }).then(function (data, textStatus, jqXHR) {
+                $('.modal-title').text(title);
+                $('.modal-body').html(data);
+
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+            });
+        }
+
+    });
+</script>
+}
+}
 @*@section scripts{
         <link href="@Links_PickWaves.Areas.PickWaves.Config.Config_css" rel="stylesheet" type="text/css" />
         <script src="@Links_PickWaves.Areas.PickWaves.Config.Config_js" type="text/javascript"></script>

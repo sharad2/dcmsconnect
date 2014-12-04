@@ -3,7 +3,127 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 @model DcmsMobile.PickWaves.ViewModels.Config.CustomerConstraintEditorModel
-@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints(), FormMethod.Post, new { id = "frmAddCustomerConstraint" }))
+
+
+
+<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        <label for="case" class="col-sm-4 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
+        <div class="col-sm-8">
+            <div class="input-group">
+                @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
+       {
+             {"id", "tbCustomer"},
+             {"class","form-control"}
+
+       })   
+            </div>
+            <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
+
+            @Html.ValidationMessageFor(m => m.CustomerId, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+
+
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4 control-label">
+            @Html.LabelFor(m => m.MaxBoxWeight)
+        </div>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.MaxBoxWeight, new
+{
+    maxlength = 2,
+    size = 2,
+    @class="form-control",
+    placeholder = "Blank means no limit"
+}) 
+            @Html.HiddenFor(m => m.OrigMaxBoxWeight)
+          
+          
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4 control-label">
+            @Html.LabelFor(m => m.MaxSkuWithinBox)
+        </div>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+    
+}) 
+            @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
+           
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4 control-label">
+            @Html.LabelFor(m => m.RequiredMinSkuPieces)
+        </div>
+       
+        
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+}) 
+            @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
+          
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-4 control-label">
+            @Html.LabelFor(m => m.RequiredMaxSkuPieces)
+        </div>
+        <div class="col-sm-8">
+          @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+
+})
+            @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(p => p.IsSingleStyleColor) @Html.LabelFor(p => p.IsSingleStyleColor)
+                </label>
+                @Html.HiddenFor(p => p.OrigIsSingleStyleColor)
+            </div>
+        </div>
+    </div>
+   
+   
+   
+
+    <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
+</form>
+
+
+
+
+
+
+
+@*@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints(), FormMethod.Post, new { id = "frmAddCustomerConstraint" }))
 {
    
     <label>Customer</label>
@@ -54,12 +174,12 @@
 
 <input id ="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab"/>
 @Html.ValidationSummary()
-}
-<script type="text/ecmascript">
+}*@
+@*<script type="text/ecmascript">
     $(document).ready($(function () {
         // Force the unobtrusive validation script to run
         // http://forums.asp.net/t/1651961.aspx/1
         $.validator.unobtrusive.parse("#frmAddCustomerConstraint");
         $('#tbCustomer').autocompleteEx();
     }));
-</script>
+</script>*@
