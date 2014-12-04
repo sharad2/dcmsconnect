@@ -11,32 +11,40 @@
     @Html.ValidationSummary()
     <div class="form-group">
 
-      
-            <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
-            <div class="col-sm-9">
-                <input type="text" name="@Model.CustomerId" class="form-control" value="@Model.CustomerId"
-                       data-ac-list-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())"
-                       data-ac-validate-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())"
-                       id="tbCustomer">
-            </div>
-   
-       
+
+        <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
+        <div class="col-sm-9">
+            <input type="text" name="@Model.CustomerId" class="form-control" value="@Model.CustomerId"
+                   data-ac-list-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())"
+                   data-ac-validate-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())"
+                   id="tbCustomer">
+        </div>
+
+
     </div>
     <div class="form-group">
         <label for="case" class="col-sm-3 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
         <div class="col-sm-9">
-            @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "(Please Select)")
+            @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "(Please Select)", new
+       {
+           required = "required",
+           @class = "form-control"
+       })
         </div>
     </div>
     <div class="form-group">
         <label for="case" class="col-sm-3 control-label">Comments</label>
         <div class="col-sm-9">
             <textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>
-            
+
             <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
         </div>
     </div>
 </form>
+
+
+
+
 
 
 
