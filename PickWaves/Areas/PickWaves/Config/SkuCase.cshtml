@@ -120,8 +120,8 @@
                     Customer prefered SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" id="btnAddCustSkuCasePreference"
-                                data-add-customer-preference="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#AddCustSkuCasePreferenceModal" title="Add customer SKU case preference"
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Preference...
                         </button>
                     }
@@ -173,7 +173,8 @@
                                         </small>
                                         @if (Model.UserIsManager)
                                         {
-                                            <button class="btn btn-link" data-add-selected-cust-case="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
+                                            <button class="btn btn-link" data-toggle="modal" data-target="#AddCustSkuCasePreferenceModal" title="Add customer SKU case preference"
+                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
                                                 <span class="glyphicon glyphicon-plus"></span>
                                             </button>
                                         }
@@ -297,6 +298,8 @@
         </div>
     </div>
 </div>
+
+<!--Modal of Tab1-->
 <div class="modal fade" id="AddSkuCaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -318,6 +321,28 @@
     </div>
 </div>
 
+
+<!--Modal of Tab2-->
+<div class="modal fade" id="AddCustSkuCasePreferenceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <!--Title inserted here with Ajax-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--Form inserted here with Ajax-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -356,6 +381,7 @@
 
         $(document).ready(function () {
 
+            //Tab1 Modal code
             $('#AddSkuCaseModal').on('show.bs.modal', function (e) {
                 //Title of the modal
                 var btnAction = $(e.relatedTarget)
@@ -364,6 +390,23 @@
                 var $form = $(e.delegateTarget).find('form', '.modal-body');
                 $form.submit();
             });
+
+
+            //Tab2 Modal code
+            $('#AddCustSkuCasePreferenceModal').on('show.bs.modal', function (e) {
+                //Title of the modal
+                var btnAction = $(e.relatedTarget)
+                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
+                $form.submit();
+            });
+
+
+
+
+
+
 
 
             function LoadAjaxSkuCaseEditor(url, title) {
