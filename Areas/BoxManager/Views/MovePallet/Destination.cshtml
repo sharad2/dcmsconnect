@@ -1,0 +1,19 @@
+﻿@*Reviewed By: Deepak Bhatt 11 June 2012*@
+
+@model DcmsMobile.BoxManager.ViewModels.MovePallet.DestinationViewModel
+@{
+    ViewBag.Title = "Move Pallet";
+}
+@using (Html.BeginForm(MVC_BoxManager.BoxManager.MovePallet.HandleDestinationScan()))
+{
+    <input type="hidden" name="@Html.NameFor(p => p.SourcePalletId)" value="@Model.SourcePalletId" />
+    <input type="hidden" name="@Html.NameFor(p => p.CustomerId)" value="@Model.CustomerId" />
+    <span>Scan Location</span><input id="scan" type="text" name="@Html.NameFor(p => p.ScanText)" size="20" />
+    if (Model.TotalBoxesOnPallet > 0)
+     {
+         <span class = "@(Model.PercentFull >= 100 ? "ui-state-error" : "ui-state-active")">@Html.DisplayFor(m => m.PercentFull)
+             &#37 full.</span>
+     }
+}
+@Html.Partial(MVC_BoxManager.BoxManager.MovePallet.Views._palletDetailsPartial, Model)
+<span>Press Enter to start again.</span>
