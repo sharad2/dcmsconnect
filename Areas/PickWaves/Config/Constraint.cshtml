@@ -192,7 +192,7 @@
                                 @if (Model.UserIsManager)
                                 {
                                     <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#tabModal"
-                                            data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId"
+                                            data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId" title="Edit Customer Constraint"
                                             data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
@@ -205,12 +205,34 @@
                             </h4>
                         </li>
                         <li class="list-group-item" style="padding-left:2em;">
-                            <ul class="list-inline">                               
-                                <li>Single Style Color: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].IsSingleStyleColor)</li>
-                                <li>Max Weight: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</li>
-                                <li>Max number of SKUs: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</li>
-                                <li>Max Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMaxSkuPieces)</li>
-                                <li>Min Pieces of single SKU: @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMinSkuPieces)</li>
+                            <ul class="list-inline">
+                                <li style="width:12em;">
+                                    Single Style Color:                                   
+                                    @if (Model.CustomerGroupedList.Values[i].IsSingleStyleColor)
+                                    {
+                                    <span class="glyphicon glyphicon-ok text-success"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    }
+                                </li>
+                                <li style="width:14em;">
+                                    Max. Weight:
+                                    <span class="label label-success">@Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Max. SKUs:
+                                    <span class="label label-info"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Max. Pieces/SKU:
+                                    <span class="label label-warning"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMaxSkuPieces)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Min. Pieces/SKU:
+                                    <span class="label label-default"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMinSkuPieces)</span>
+                                </li>
                             </ul>
                         </li>
                     }
@@ -262,8 +284,15 @@
             $('#tabModal').on('show.bs.modal', function (e) {
 
                 var btnAction = $(e.relatedTarget);
+                //action to be performed at URL
                 var url = $(btnAction).data('action-url');
+
+                //Title of the modal that will open
                 var title = $(btnAction).attr('title');
+
+                //Active Tab keeps remains open after action performed
+                var activeTab = $(btnAction).closest('div.tab-pane').index();
+             
 
                 //Ajax call form inserting the modal form and its content
                 $.ajax({
@@ -280,6 +309,8 @@
                     if ($(btnAction).is('[data-show-customer]')) {
                         $('#tbCustomer,#hfCustomer', '#frmAddCustomerConstraint').val($(btnAction).data('show-customer'));
                     }
+                    //keep record of the active tab.To open it again after action performed(Edit/Add)
+                    $('#hfActiveTabIndex').val(activeTab);
 
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);

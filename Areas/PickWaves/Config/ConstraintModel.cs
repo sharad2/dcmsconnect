@@ -39,7 +39,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// Required Min pieces in box of a single SKU
         /// </summary>
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Minimum Pieces per SKU")]
+        [Display(Name = "Minimum Pieces/SKU")]
         [Range(minimum: 1, maximum: 99, ErrorMessage = "Number of Pieces must be in between 1 to 99")]
         public int? RequiredMinSkuPieces { get; set; }
 
@@ -47,7 +47,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// Required Max pieces in box of a single SKU
         /// </summary>
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Maximum Pieces per SKU")]
+        [Display(Name = "Maximum Pieces/SKU")]
         [Range(minimum: 1, maximum: 99, ErrorMessage = "Number of Pieces must be in between 1 to 99")]
         public int? RequiredMaxSkuPieces { get; set; }
 
