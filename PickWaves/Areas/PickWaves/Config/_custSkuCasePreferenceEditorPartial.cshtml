@@ -14,10 +14,14 @@
 
         <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
         <div class="col-sm-9">
-            <input type="text" name="@Model.CustomerId" class="form-control" value="@Model.CustomerId"
-                   data-ac-list-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())"
-                   data-ac-validate-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())"
-                   id="tbCustomer">
+            @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
+   {
+         {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
+         {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
+         {"id", "tbCustomer"},
+         {"class","form-control"}
+   })
+          
         </div>
 
 
@@ -35,7 +39,15 @@
     <div class="form-group">
         <label for="case" class="col-sm-3 control-label">Comments</label>
         <div class="col-sm-9">
-            <textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>
+            @Html.TextAreaFor(m => m.Comment, new
+            {
+                maxlength = "256",
+                rows = "3",
+                cols = "49",
+                @class = "form-control",
+                @placeholder = "Max 50 characters"
+            })
+            @*<textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>*@
 
             <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
         </div>

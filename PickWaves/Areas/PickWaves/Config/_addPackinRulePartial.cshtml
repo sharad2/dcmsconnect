@@ -11,10 +11,18 @@
 
         <label for="case" class="col-sm-3 control-label">Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
         <div class="col-sm-9">
-            <input type="text" name="@Model.Style" class="form-control" value="@Model.Style"
+            @Html.TextBoxFor(m => m.Style, new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.StyleAutoComplete())},
+         {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateStyle())},
+         {"id", "tbStyle"},
+         {"class","form-control"}
+         
+   })
+            @*<input type="text" name="@Model.Style" class="form-control" value="@Model.Style"
                    data-ac-list-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.StyleAutoComplete())"
                    data-ac-validate-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateStyle())"
-                   id="tbStyle">
+                   id="tbStyle">*@
         </div>
     </div>
     <div class="form-group">
@@ -28,14 +36,13 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="case" class="col-sm-3 control-label">Ignore</label>
-        <div class="col-sm-9">
-            @* <textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>*@
+       
+        <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
-                    <input type="checkbox" name="@Model.IgnoreFlag"> Ignore
+                    @Html.CheckBoxFor(m => m.IgnoreFlag) Ignore
                 </label>
-
+            
                 <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
             </div>
         </div>
