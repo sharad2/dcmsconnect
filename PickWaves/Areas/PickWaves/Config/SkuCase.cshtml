@@ -35,7 +35,7 @@
                     Available SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#AddSkuCaseModal" title="New SKU Case"
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="New SKU Case"
                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
@@ -103,7 +103,7 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <button class="pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#AddSkuCaseModal" title="Edit SKU Case"
+                                        <button class="pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#tabModal" title="Edit SKU Case"
                                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
                                             <span class="glyphicon glyphicon-edit"></span> Edit
                                         </button>
@@ -120,7 +120,7 @@
                     Customer prefered SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#AddCustSkuCasePreferenceModal" title="Add customer SKU case preference"
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Preference...
                         </button>
@@ -173,7 +173,7 @@
                                         </small>
                                         @if (Model.UserIsManager)
                                         {
-                                            <button class="btn btn-link" data-toggle="modal" data-target="#AddCustSkuCasePreferenceModal" title="Add customer SKU case preference"
+                                            <button class="btn btn-link" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                                                     data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
                                                 <span class="glyphicon glyphicon-plus"></span>
                                             </button>
@@ -253,7 +253,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-primary" data-toggle="modal"
-                                data-target="#AddPackinRuleModal" title="Add packing rule"
+                                data-target="#tabModal" title="Add packing rule"
                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule
                         </button>
@@ -302,9 +302,9 @@
                                     {
                                         <div class="btn-group btn-group-xs  pull-right" role="group">
                                             <button class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#AddPackinRuleModal" title="Edit packing rule"
+                                                    data-target="#tabModal" title="Edit packing rule"
                                                     data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
-                                                <span class="glyphicon glyphicon-plus"></span>  Edit 
+                                                <span class="glyphicon glyphicon-plus"></span>  Edit
                                             </button>
                                             <div class="btn-group pull-right">
                                                 <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
@@ -343,8 +343,8 @@
     </div>
 </div>
 
-<!--Modal of Tab1-->
-<div class="modal fade" id="AddSkuCaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -364,55 +364,6 @@
         </div>
     </div>
 </div>
-
-
-<!--Modal of Tab2-->
-<div class="modal fade" id="AddCustSkuCasePreferenceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">
-                    <!--Title inserted here with Ajax-->
-                </h4>
-            </div>
-            <div class="modal-body">
-                <!--Form inserted here with Ajax-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-<!--Modal of Tab3-->
-<div class="modal fade" id="AddPackinRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">
-                    <!--Title inserted here with Ajax-->
-                </h4>
-            </div>
-            <div class="modal-body">
-                <!--Form inserted here with Ajax-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 
 
 @section script{
@@ -421,16 +372,13 @@
 
         $(document).ready(function () {
         
-            //Determining whihc tab was active during remove or editing.
+            //Determining which tab was active during remove or editing.
             var tabActive = $('ul.nav-tabs').attr('data-active-tab');
             $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show') 
 
 
-
-
-
-            //Tab1 Modal code
-            $('#AddSkuCaseModal').on('show.bs.modal', function (e) {
+            
+            $('#tabModal').on('show.bs.modal', function (e) {
                 //Title of the modal
                 var btnAction = $(e.relatedTarget)
                 LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
@@ -439,29 +387,7 @@
                 $form.submit();
             });
 
-
-            //Tab2 Modal code
-            $('#AddCustSkuCasePreferenceModal').on('show.bs.modal', function (e) {
-                //Title of the modal
-                var btnAction = $(e.relatedTarget)
-                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
-            }).on('click', 'button:not([data-dismiss])', function (e) {
-                var $form = $(e.delegateTarget).find('form', '.modal-body');
-                $form.submit();
-            });
-
-            //Tab3 Modal code
-            $('#AddPackinRuleModal').on('show.bs.modal', function (e) {
-                //Title of the modal
-                var btnAction = $(e.relatedTarget)
-                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
-            }).on('click', 'button:not([data-dismiss])', function (e) {
-                var $form = $(e.delegateTarget).find('form', '.modal-body');
-                $form.submit();
-            });
-
-
-
+            //Modal body content inserted here with Ajax call.
             function LoadAjaxSkuCaseEditor(url, title) {
                 $.ajax({
                     url: url,
