@@ -1,0 +1,76 @@
+﻿@model DcmsMobile.Shipping.ViewModels.ScanToTruck.PalletViewModel
+@{
+    ViewBag.Title = string.Format("Appt #{0} ships from {1}", Model.AppointmentNumber, Model.AppointmentBuildingId);
+    var i = 0;
+}
+@Html.StatusSummary()
+@Html.ValidationSummary()
+
+@using (Html.BeginForm(MVC_Shipping.Shipping.ScanToTruck.Pallet(), FormMethod.Post))
+{
+    <input type = "hidden" value = "@Model.AppointmentNumber" name = "@Model.NameFor(m => m.AppointmentNumber)" />
+    <input type = "hidden" value = "@Model.SuggestedPallet" name = "@Model.NameFor(m => m.SuggestedPallet)" />
+    <label for="scan">
+        Scan Pallet</label>
+    <input id="scan" type="text" name ="@Model.NameFor(m => m.ScanText)" size="20" style="text-transform: uppercase"/>
+    <span class = "@(Model.PercentFull == 100 ? "ui-state-active" : "ui-state-highlight")">@Html.DisplayFor(m => m.PercentFull)&#37 loaded</span>
+}
+<div>
+    <strong>@Html.DisplayFor(m => m.LoadedPalletCount)</strong> of <strong>@Html.DisplayFor(m => m.TotalPalletCount)</strong> Pallets loaded,
+    <span style="padding-left: 0.5em;">Carrier <strong>@Html.DisplayFor(m => m.CarrierId)</strong></span>
+    <span style="padding-left: 0.5em;">Door <strong>@Html.DisplayFor(m => m.DoorId)</strong></span>
+</div>
+@if (Model.PalletsInSuspenseCount > 0)
+{
+    <span class="ui-state-error">@Model.PalletsInSuspenseCount Pallets in suspense</span>
+}
+@if (Model.UnPalletizeBoxCount > 0)
+{
+    <span class="ui-state-error">@string.Format("{0} boxes are not palletized.", Model.UnPalletizeBoxCount)
+    </span>
+}
+@if (Model.PalletSuggestionList.Any())
+{
+    <table>
+        <thead>
+            <tr>
+                <th>#
+                </th>
+                <th>Pallet
+                </th>
+                <th>Loc.
+                </th>
+                <th>Area
+                </th>
+                <th>#Boxes
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model.PalletSuggestionList)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>
+                        @(i + 1)
+                    </td>
+                    <td>
+                        @row.PalletId
+                    </td>
+                    <td style="font-size: 1.3em; font-weight: bold">
+                        @row.LocationId
+                    </td>
+                    <td style="font-size: 1.3em; font-weight: bold">
+                        @row.IaId
+                    </td>
+                    <td style="text-align: right">
+                        @row.BoxesCount
+                    </td>
+                </tr>
+                ++i;
+            }
+        </tbody>
+    </table>
+}
+<div class="ui-state-active">
+    Tip : Enter "S" to skip pallet.
+</div>

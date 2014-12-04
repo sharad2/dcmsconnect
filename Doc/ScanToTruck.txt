@@ -1,0 +1,107 @@
+﻿Design Thinking:
+We will allow loading only those pallets which contain all verified boxes.
+
+1- When the truck arrives at gate, loaders enter the appointment number and we suggest a pallet randomely. 
+2- Scan to Truck UI (New) will be used to scan pallets to truck
+4- UI asks for appointment number
+5- Displays door where pallets are needed.
+6- Suggest a single pallets. 
+7- Suggestions sorted by bol/location (need of temp_load_pallet), we do not enforce suggestions.
+8- Scan Pallet. Load in truck. We suggest next pallet till all the pallets of the given appointment are loaded on truck.
+13- UI displays truck loading progress.
+
+Special cases:
+1. 
+
+DB and Shiva (25-09-2012)
+1. (DONE)Allow to skip appointment number and user can enter pallet. 
+2. (DONE)Validate pallet ring scanned. (Verify date and stop process date). (DONE)
+3. (DONE)Show the suggestions for each bol. Simply order by BOL. (DONE)
+
+UI 
+1.	(DONE)Number of pallets to be loaded
+2.	(DONE)Remaining Pallets
+3.	(DONE)Number of boxes to be loaded
+4.	(DONE)Remaining Boxes
+5.	Carrier details :(DONE)
+
+Issues(Shiva 25-09-2012)
+------------------------
+* (DONE)When some boxes of scan appointment no. are not palletize then ????
+* (DONE)When we validate pallet, we check TRUCK_LOAD_DATE is null?????
+* What if the user scans a pallet which does not belong to current appointment????(DONE)
+
+Issues(Shiva 26-09-2012)
+------------------------
+* Appointment no. is created for more then one customer????????(DONE)
+* Move pallet will show the door(gate) where the pallets of an appointment are to be moved.  
+
+
+Meeting to be done with Petra and John
+***************************************
+* Do you need help in Moving pallets from dock to door. (TODO)
+* Who gives you pickup date customer or carrier. (customer)
+
+
+Issues (Shiva 03-10-2012)
+-------------------------
+1: (DONE)Would we validate pallet(ex. Have multiple customer boxes, etc..) same as BoxManager Program, when user scan pallet??? (No)
+
+Issues (Shiva 04-10-2012)
+-------------------------
+1: Is the join of EDI_753_754_PS and PS is compulsory in GetPallets method in repos.
+2: (DONE)Give pallet suggestion per bol as (ORDER BY EDIPS.SHIPPING_ID)
+
+Meeting with Shiva(05-10-2012)
+------------------
+1. What if the two shipments in an appointment have different carrier?
+2. Should we check if the pallet is valid? what if it contains the a few unverified boxes?
+
+Discuss with deepak sir
+-----------------------
+1. (DONE)If user scan a app no. and then it's pallet and in the middle of the pallet, if user scan another app. then what will we do ??
+2. Scan door bar code. What is it??
+3. What to do if one app. have multiple date, carrier, Door.
+4. (DONE)When TruckLoadDate is update then update box audit???
+5. If passed appointment no have multiple appointmentid, then we check only transfer date is null??
+6. If user scan a appointment no. which have no carrier Id then what we do???
+
+10/12/2012  Shiva and Deepak
+-----------------------------
+ScanToTruck UI ===============
+Design Thinking:
+A pallet is shippable if all it's cartons are verified (does not include those pallets which are cancelled.). 
+User enters the appointment number. We show the the building and area where verified pallets are kept. User enters a choice and we remember 
+this choice for the session.
+
+Screen 1
+Enter appointment: 
+Screen 2
+Show summary info per area. We show building, area and no of pallets to be loaded.
+
+Enter your choice
+1: FDC => FDK : 40 pallets not loaded.
+2: FDC => RDK : 20 Pallets not loaded.
+
+Suspense handeling:
+Show the pallets which are in suspense in the UI show operator as well.
+
+User enters an area. 
+User will choose an area and we remememebr it. Rest of the suggestions will be made from this area until user explicitly changes it. User cannot skip area becuase it is not our design to support a rare scenario when pallets are scattered all over the areas. 
+Option to skip Pallet (UI message: Enter 9 to skip pallet, all boxes will be put in suspense.) 
+Show the pallets which are in progress (by looking in temp_pull_pallet) 
+Option to Undo pallet loading. =================*******================================================*******=========================================
+GetSuggestedPallet(appointmentId, operatorName, areaId, buildingId, buddyPallet) 
+1. All boxes in the pallet must be verified and present in the passed area. 
+Get all qualifying pallets(not loaded, not in temp_pul_pallet and verified) of the passed appointment order by location (do we need travel sequence). 
+Remove all expired cartons. 
+LoadPallet(PalletId)
+Update truck load date, productivity 
+UnloadPallet(PalletId)
+RemovesTruckLoadDate. =============================********************************=================================================
+
+Meeting between Dinesh and Deepak
+Temp_Load_Pallet concept is needed for following features.
+1. If we want to make suggestions per bol. (Not to be done in this phase becuase the solution appears to be costly and I am sure whether it will
+   bring about any major improvements.)
+2. We cannot guarantee that same pallet will not be suggested to two different loaders. 
