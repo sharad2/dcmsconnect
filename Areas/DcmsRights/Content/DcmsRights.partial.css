@@ -1,0 +1,19 @@
+﻿#menu li.banner
+{
+    color: #fff;
+    font-size: 2.5em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.5em;
+}
+.validation-summary-errors
+{
+    color: Red;
+}
+
+.input-validation-error
+{
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
