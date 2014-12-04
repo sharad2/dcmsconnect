@@ -3,7 +3,46 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-<div>
+<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">
+
+    @Html.ValidationSummary()
+    <div class="form-group">
+
+
+        <label for="case" class="col-sm-3 control-label">Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
+        <div class="col-sm-9">
+            <input type="text" name="@Model.Style" class="form-control" value="@Model.Style"
+                   data-ac-list-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.StyleAutoComplete())"
+                   data-ac-validate-url="@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateStyle())"
+                   id="tbStyle">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="case" class="col-sm-3 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-9">
+            @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "Please Select", new
+       {
+           required = "required",
+           @class = "form-control"
+       })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="case" class="col-sm-3 control-label">Ignore</label>
+        <div class="col-sm-9">
+            @* <textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>*@
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="@Model.IgnoreFlag"> Ignore
+                </label>
+
+                <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@*<div>
     @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddPackingRule(), FormMethod.Post, new
     {
         id = "frmAddPackingRule"
@@ -25,7 +64,7 @@
         <label>Ignore</label> @Html.CheckBoxFor(m => m.IgnoreFlag)
         <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
     }
-</div>
+</div>*@
 @*<script type="text/ecmascript">
     $(document).ready($(function () {
         // Force the unobtrusive validation script to run
