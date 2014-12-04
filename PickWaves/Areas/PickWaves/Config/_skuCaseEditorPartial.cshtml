@@ -12,15 +12,15 @@
         {
             <label for="case" class="col-sm-4 control-label">Case</label>
             <div class="col-sm-8">
-                <input type="text" name="@Model.CaseId" class="form-control">
+                <input type="text" name="@Model.CaseId" class="form-control" value="@Model.CaseId" required>
+                @Html.HiddenFor(m => m.CaseId)
             </div>
-            @Html.HiddenFor(m => m.CaseId)
         }
         else
         {
-            <label for="case" class="col-sm-4 control-label">Case</label>
+            <label for="case" class="col-sm-4 control-label">Case <sup>*</sup></label>
             <div class="col-sm-8">
-                <input type="text" name="@Model.CaseId" class="form-control"  maxlength="6">
+                <input type="text" name="@Model.CaseId" class="form-control" maxlength="6" required>
             </div>
         }
     </div>
@@ -28,25 +28,24 @@
         <label for="case" class="col-sm-4 control-label">Discription</label>
         <div class="col-sm-8">
             <textarea class="form-control" name="@Model.Description" placeholder="Max 50 characters" maxlength="50"></textarea>
-           
         </div>
     </div>
     <div class="form-group">
-        <label for="case" class="col-sm-4 control-label">EmptyWeigth</label>
+        <label for="case" class="col-sm-4 control-label">Empty Weight <sup>*</sup></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="@Model.EmptyWeight">
+            <input type="text" class="form-control" name="@Model.EmptyWeight" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="case" class="col-sm-4 control-label">MaxContent Volume</label>
+        <label for="case" class="col-sm-4 control-label">Max Content Volume <sup>*</sup></label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="@Model.MaxContentVolume">
+            <input type="text" class="form-control" name="@Model.MaxContentVolume" required>
         </div>
     </div>
     <div class="form-group">
-        <label for="case" class="col-sm-4 control-label">OuterCube Volume</label>
+        <label for="case" class="col-sm-4 control-label">Outer Cube Volume <sup>*</sup></label>
         <div class="col-sm-8">
-            <input type="text" name="@Model.OuterCubeVolume" class="form-control">
+            <input type="text" name="@Model.OuterCubeVolume" class="form-control" required>
         </div>
     </div>
     <div class="form-group">
