@@ -22,13 +22,13 @@
 
     <div role="tabpanel">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs bg-info" role="tablist">
+        <ul class="nav nav-tabs bg-info" role="tablist" data-active-tab="@Model.ActiveTab">
             <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">SKU Cases</a></li>
             <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">Customer SKU Cases</a></li>
             <li role="presentation"><a href="#tab3" role="tab" data-toggle="tab">Packing rules</a></li>
         </ul>
         <!-- Tab panes -->
-        <div class="tab-content">
+        <div class="tab-content" >
             <div role="tabpanel" class="tab-pane active" id="tab1">
 
                 <blockquote>
@@ -301,14 +301,35 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <div class="btn-group btn-group-xs  pull-right" role="group">
-                                            <button type="button" class="btn btn-primary" data-edit-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId, Model.PackingRuleList[i].IgnoreFlag))">
-                                                <span class="glyphicon glyphicon-edit"></span>
-                                                Edit
+                                            <button class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#AddPackinRuleModal" title="Edit packing rule"
+                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                                                <span class="glyphicon glyphicon-plus"></span>  Edit 
                                             </button>
-                                            <button type="button" class="btn btn-primary">
-                                                <span class="glyphicon glyphicon-remove" id="frmDelPackingRule"></span>
-                                                Remove
-                                            </button>
+                                            <div class="btn-group pull-right">
+                                                <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                                        data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    Remove
+                                                    <span class="caret"></span>
+                                                </button>
+
+                                                <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                    <li>
+                                                        <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelPackingRule())" method="post">
+                                                            <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.style" />
+                                                            <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.caseId" />
+                                                            <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.activeTab" value="2" />
+                                                            <center>Are you sure?</center>
+                                                            <div class="btn-group btn-group-justified">
+                                                                <button class="btn btn-primary" type="submit">Yes</button>
+                                                                <a class="btn btn-default">No</a>
+                                                            </div>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
                                         </div>
                                     }
                                 </div>
@@ -366,7 +387,8 @@
         </div>
     </div>
 </div>
-<!--Modal of Tab2-->
+
+<!--Modal of Tab3-->
 <div class="modal fade" id="AddPackinRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -393,33 +415,19 @@
 
 
 
-@*@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint(), FormMethod.Post, new
-{
-    id = "frmDelCustCasePreference"
-}))
-{
-    <input type="hidden" id="hfPreferedCaseId" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
-    <input type="hidden" id="hfCustomerId" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
-    <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
-}*@
-
-@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DelPackingRule(), FormMethod.Post, new
-{
-    id = "frmDelPackingRule"
-}))
-{
-    <input type="hidden" id="hfStyle" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.style" />
-    <input type="hidden" id="hfIgnoredCase" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.caseId" />
-    <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.activeTab" value="2" />
-}
-
-
-
 @section script{
 
     <script type="text/javascript">
 
         $(document).ready(function () {
+        
+            //Determining whihc tab was active during remove or editing.
+            var tabActive = $('ul.nav-tabs').attr('data-active-tab');
+            $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show') 
+
+
+
+
 
             //Tab1 Modal code
             $('#AddSkuCaseModal').on('show.bs.modal', function (e) {
