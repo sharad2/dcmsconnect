@@ -1,0 +1,98 @@
+-------------------------------------------
+--   Role for repack basic UI    --
+--						 --
+--------------------------------------------
+
+-- Create the role 
+create role SRC_RPK;
+-- Grant/Revoke object privileges 
+grant select on BUNDLE_SEQUENCE to SRC_RPK;
+grant select on CARTON_SEQUENCE to SRC_RPK;
+grant select on MASTER_CUSTOMER_SKU to SRC_RPK;
+grant select on MASTER_SKU to SRC_RPK;
+grant select on MASTER_STORAGE_LOCATION to SRC_RPK;
+grant execute on PKG_INV_3 to SRC_RPK;
+grant execute on PKG_JF_SRC to SRC_RPK;
+grant execute on PKG_JF_SRC_2 to SRC_RPK;
+grant execute on PKG_MODULE to SRC_RPK;
+grant select on PROCESS_SEQUENCE to SRC_RPK;
+grant select, insert, update, delete on SRC_CARTON to SRC_RPK;
+grant select, insert, update, delete on SRC_CARTON_DETAIL to SRC_RPK;
+grant select, insert on SRC_CARTON_PROCESS to SRC_RPK;
+grant select, delete on SRC_OPEN_CARTON to SRC_RPK;
+grant select, insert, update on SRC_SHIPMENT to SRC_RPK;
+grant select on SRC_TRANSACTION to SRC_RPK;
+grant select on TAB_INVENTORY_AREA to SRC_RPK;
+grant select on TAB_MODULE to SRC_RPK;
+grant select on TAB_MODULE_AREA to SRC_RPK;
+grant select, update on TAB_PREFERENCES to SRC_RPK;
+grant select on TAB_PRICE_SEASON to SRC_RPK;
+grant select on TAB_PRINTER to SRC_RPK;
+grant select on TAB_QUALITY_CODE to SRC_RPK;
+grant select on TAB_SALE_TYPE to SRC_RPK;
+grant select on TAB_SEWINGPLANT to SRC_RPK;
+grant select on TAB_VIRTUAL_WAREHOUSE to SRC_RPK;
+grant select on V_BUNDLE_DETAIL to SRC_RPK;
+
+grant select on IA to SRC_RPK;
+grant select on BOX to SRC_RPK;
+grant select on BOXDET to SRC_RPK;
+grant select, update on IALOC_CONTENT to SRC_RPK;
+grant select on IALOC to SRC_RPK;
+
+
+-- Grant/Revoke system privileges 
+grant create session to SRC_RPK;
+
+
+-------------------------------------------
+--   Role for conversion UI    --
+--						       --
+--------------------------------------------
+
+
+-- CREATE THE ROLE 
+CREATE ROLE src_rpk;
+-- GRANT/REVOKE OBJECT PRIVILEGES 
+
+GRANT SELECT ON CARTON_SEQUENCE TO src_rpk;
+GRANT SELECT ON MASTER_CUSTOMER_SKU TO src_rpk;
+GRANT SELECT ON MASTER_SKU TO src_rpk;
+GRANT EXECUTE ON PKG_CARTON_WORK TO src_rpk;
+GRANT EXECUTE ON PKG_INV_3 TO src_rpk;
+GRANT EXECUTE ON PKG_JF_SRC_2 TO src_rpk;
+GRANT SELECT, INSERT, UPDATE, DELETE ON SRC_CARTON TO src_rpk;
+GRANT SELECT, INSERT, UPDATE, DELETE ON SRC_CARTON_DETAIL TO src_rpk;
+GRANT SELECT ON TAB_PRICE_SEASON TO src_rpk;
+GRANT SELECT ON TAB_PRINTER TO src_rpk;
+GRANT SELECT ON TAB_SEWINGPLANT src_rpk;
+GRANT SELECT ON TAB_VIRTUAL_WAREHOUSE TO src_rpk;
+GRANT SELECT ON TAB_INVENTORY_AREA TO src_rpk;
+GRANT SELECT ON TAB_QUALITY_CODE TO src_rpk;
+GRANT SELECT ON MASTER_STORAGE_LOCATION TO src_rpk;
+GRANT CREATE SESSION TO src_rpk;
+
+
+grant execute on PKG_CARTON_WORK_2 to SRC_RPK;
+
+grant src_rpk to 'user';
+
+
+**************************************************
+Create following private synonyms in dcms8 schema.
+---------------------------------------------------
+
+dcms4.tab_inventory_area
+dcms4.tab_price_season
+dcms4.tab_quality_code
+dcms4.tab_sewingplant
+dcms4.tab_virtual_warehouse
+dcms4.tab_printer
+dcms4.SRC_OPEN_CARTON
+dcms4.PKG_CARTON_WORK_2
+dcms4.src_carton
+dcms4.pkg_inv_3
+dcms4.PKG_JF_SRC_2
+dcms4.MASTER_SKU
+dcms4.SRC_TRANSACTION
+
