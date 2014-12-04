@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxPick", "BoxPick.csproj", "{06488181-C388-4762-AC57-604E2754E8B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsLibrary.Mvc", "..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj", "{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{06488181-C388-4762-AC57-604E2754E8B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06488181-C388-4762-AC57-604E2754E8B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06488181-C388-4762-AC57-604E2754E8B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
