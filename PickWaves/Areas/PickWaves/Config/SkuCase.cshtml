@@ -36,7 +36,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-primary" data-toggle="modal" data-target="#AddSkuCaseModal"
-                                data-add-action="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
 
@@ -103,8 +103,8 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <button class=" pull-right btn btn-primary btn-xs" id="btnEditSkuCase"
-                                                data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
+                                        <button class=" pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#AddSkuCaseModal"
+                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
                                             <span class="glyphicon glyphicon-edit"></span> Edit
                                         </button>
                                     }
@@ -355,7 +355,7 @@
         $(document).ready(function () {
 
             $('#AddSkuCaseModal').on('show.bs.modal', function (e) {
-                LoadAjaxSkuCaseEditor($(e.relatedTarget).data('add-action'), 'New SKU Case')
+                LoadAjaxSkuCaseEditor($(e.relatedTarget).data('action-url'),'Add/Edit SKU Case')
             }).on('click', 'button:not([data-dismiss])', function (e) {
                 var $form = $(e.delegateTarget).find('form', '.modal-body');
                 $form.submit();
