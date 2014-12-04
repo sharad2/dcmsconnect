@@ -1,0 +1,355 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5DC02827-3CB5-4618-A1C5-B2AC2DA900A6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DcmsMobile.CartonManager</RootNamespace>
+    <AssemblyName>DcmsMobile.CartonManager</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MvcBuildViews>true</MvcBuildViews>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\CartonManager\Controllers\AutoCompleteController.cs" />
+    <Compile Include="Areas\CartonManager\Controllers\HomeController.cs" />
+    <Compile Include="Areas\CartonManager\CartonManagerAreaRegistration.cs" />
+    <Compile Include="Areas\CartonManager\Controllers\LocatingController.cs" />
+    <Compile Include="Areas\CartonManager\SubAreas.cs" />
+    <Compile Include="CartonManager.AutoCompleteController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CartonManager.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CartonManager.LocatingController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CartonManager.SharedController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CartonArea.cs" />
+    <Compile Include="Models\CodeDescriptionModel.cs" />
+    <Compile Include="Models\Carton.cs" />
+    <Compile Include="Repository\Locating\Location.cs" />
+    <Compile Include="Models\Pallet.cs" />
+    <Compile Include="Models\Sku.cs" />
+    <Compile Include="Models\SkuArea.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AutoCompleteRepository.cs" />
+    <Compile Include="Repository\CartonManagerRepository.cs" />
+    <Compile Include="Repository\CartonManagerService.cs" />
+    <Compile Include="Repository\Locating\LocatingRepository.cs" />
+    <Compile Include="Repository\Locating\LocatingService.cs" />
+    <Compile Include="Resources\CartonManagerResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CartonManagerResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CartonEditorViewModel.cs" />
+    <Compile Include="ViewModels\CartonModel.cs" />
+    <Compile Include="ViewModels\Locating\LocationCartonViewModel.cs" />
+    <Compile Include="ViewModels\Locating\PalletViewModel.cs" />
+    <Compile Include="ViewModels\SoundModel.cs" />
+    <Compile Include="ViewModels\UiViewModels.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CartonManager\Content\CartonManager-all.css">
+      <DependentUpon>CartonManager-all.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Content\CartonManager-mobile-all.min.css">
+      <DependentUpon>CartonManager-mobile-all.css</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Content\Sounds\Error.wav" />
+    <Content Include="Areas\CartonManager\Content\Sounds\success.wav" />
+    <Content Include="Areas\CartonManager\Content\Sounds\warning.wav" />
+    <Content Include="Areas\CartonManager\Scripts\CommonPalletize-all.js">
+      <DependentUpon>CommonPalletize-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\CommonPalletize-all.min.js">
+      <DependentUpon>CommonPalletize-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\Index-mobile-all.min.js">
+      <DependentUpon>Index-mobile-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\InitScan-mobile-all.min.js">
+      <DependentUpon>InitScan-mobile-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Views\Home\DestinationBuilding.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Shared\_soundPartial.cshtml" />
+    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
+    <None Include="T4MVC.tt.settings.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Areas\CartonManager\Content\CartonManager-all.css.bundle" />
+    <None Include="Areas\CartonManager\Scripts\AdvanceUi-all.js.bundle" />
+    <Content Include="Areas\CartonManager\Scripts\AdvanceUi-all.min.js.map">
+      <DependentUpon>AdvanceUi-all.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\CartonManager\Scripts\CartonEditor-all.js.bundle" />
+    <Content Include="Areas\CartonManager\Scripts\CartonEditor-all.min.js.map">
+      <DependentUpon>CartonEditor-all.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\CartonManager\Scripts\CommonPalletize-all.js.bundle" />
+    <Content Include="Areas\CartonManager\Scripts\CommonPalletize-all.min.js.map">
+      <DependentUpon>CommonPalletize-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\InitScan-mobile-all.min.js.map">
+      <DependentUpon>InitScan-mobile-all.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\Index-mobile-all.min.js.map">
+      <DependentUpon>Index-mobile-all.js</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\Wew.pubxml" />
+    <None Include="Doc\CartonEditor.txt" />
+    <None Include="Doc\Locating.txt" />
+    <None Include="Areas\CartonManager\Content\CartonManager-mobile-all.css" />
+    <Content Include="Areas\CartonManager\Content\CartonManager-all.min.css">
+      <DependentUpon>CartonManager-all.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\CartonEditor-all.js">
+      <DependentUpon>CartonEditor-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\CartonEditor-all.min.js">
+      <DependentUpon>CartonEditor-all.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\CartonManager\Scripts\CartonEditor.partial.js" />
+    <None Include="Areas\CartonManager\Scripts\Index-mobile-all.js" />
+    <None Include="Areas\CartonManager\Scripts\DestPallet.partial.js" />
+    <None Include="Areas\CartonManager\Scripts\InitScan-mobile-all.js" />
+    <Content Include="Areas\CartonManager\Views\Home\MarkReworkComplete.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\AbandonRework.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Shared\EditorTemplates\DestPallet.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\AbandonRework.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\Index.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\MarkReworkComplete.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\DestinationPallet.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\Palletize.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\DestinationArea.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\CartonEditor.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Shared\_layout.mobile.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Locating\Pallet.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Locating\LocationCarton.cshtml" />
+    <None Include="Doc\LOC.doc" />
+    <None Include="Doc\Roles.txt" />
+    <None Include="Areas\CartonManager\Content\Autocomplete.partial.css" />
+    <Content Include="Areas\CartonManager\Content\images\a1.gif" />
+    <Content Include="Areas\CartonManager\Content\images\ajax-loader.gif" />
+    <None Include="Areas\CartonManager\Content\Site.partial.css" />
+    <None Include="Areas\CartonManager\Content\standardized.partial.css" />
+    <None Include="Areas\CartonManager\Content\Common.partial.css" />
+    <Content Include="Areas\CartonManager\Scripts\AdvanceUi-all.js">
+      <DependentUpon>AdvanceUi-all.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\CartonManager\Scripts\AdvanceUi-all.min.js">
+      <DependentUpon>AdvanceUi-all.js.bundle</DependentUpon>
+    </Content>
+    <None Include="Areas\CartonManager\Scripts\AutoComplete.partial.js" />
+    <None Include="Areas\CartonManager\Scripts\HandleScan.partial.js" />
+    <None Include="Areas\CartonManager\Scripts\AdvanceUi.partial.js" />
+    <None Include="Areas\CartonManager\Scripts\CommonPalletize.partial.js" />
+    <Content Include="Areas\CartonManager\Views\Home\Tutorial.cshtml" />
+    <None Include="Doc\Carton Editor and Mover.shfbproj" />
+    <None Include="Doc\Readme.txt" />
+    <None Include="Doc\SampleLayout.html" />
+    <None Include="Global.asax" />
+    <Content Include="Areas\CartonManager\Views\Home\AdvancedUi.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\Index.cshtml" />
+    <Content Include="Areas\CartonManager\Views\Home\PalletizeUi.cshtml" />
+    <None Include="Doc\C2P.docx" />
+    <None Include="Scripts\jquery.validate.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Scripts\jquery-ui-1.10.0.js" />
+    <None Include="Scripts\_references.js" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Areas\CartonManager\Views\Web.config">
+      <SubType>
+      </SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\CartonManager\Views\Shared\_layout.cshtml" />
+    <Content Include="Areas\CartonManager\Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj">
+      <Project>{1fc7fe1f-ff9a-46ae-afb8-38e7f74204c0}</Project>
+      <Name>DcmsLibrary.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
+      <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
+      <Name>EclipseLibrary.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj">
+      <Project>{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}</Project>
+      <Name>EclipseLibrary.Oracle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CartonManagerResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CartonManagerResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49670</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(ProjectDir)..\DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers 
+xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(ProjectDir)..\DcmsMobile\bin\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>
