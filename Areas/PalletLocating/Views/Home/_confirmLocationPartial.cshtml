@@ -1,0 +1,20 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.LocationViewModel
+@using (Html.BeginForm(MVC_PalletLocating.PalletLocating.Home.LocatePallet(), FormMethod.Post))
+{
+    <div>
+        <strong>Confirm Location</strong><input id="scan" style="text-transform: uppercase" type="text" name="@Html.NameFor(m => m.ConfirmLocationId)" />
+    </div>
+    @Html.HiddenFor(m => m.BuildingId) 
+    @Html.HiddenFor(m => m.PalletId)
+    @Html.HiddenFor(m => m.TargetAreaId)
+    <input name="@Html.NameFor(m => m.LocationId)" type="hidden" value="@Model.LocationId"/>
+    @Html.HiddenFor(m => m.SuggestedAreaId)
+}
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@ 
