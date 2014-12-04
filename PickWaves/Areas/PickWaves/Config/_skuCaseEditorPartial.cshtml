@@ -4,51 +4,73 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
+<form class="form-inline" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
 
-<form class="form-inline hidden" id="frmSkuCaseEditor" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
-  
-        @Html.ValidationSummary()
-
-
+    @Html.ValidationSummary()
+    <div class="form-group">
         <div class="form-group">
-            <div class="form-group">
-                @if (Model.CaseId != null)
-                {
-                    <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case @Model.CaseId">
-                    @Html.HiddenFor(m => m.CaseId)
-                }
-                else
-                {
+            @if (Model.CaseId != null)
+            {
+                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case @Model.CaseId">
+                @Html.HiddenFor(m => m.CaseId)
+            }
+            else
+            {
 
-                    <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case" maxlength="6"
-                           style="text-transform: uppercase;">
-                }
-            </div>
+                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case" maxlength="6">
+            }
         </div>
-        <div class="form-group">
-            <input type="text" name="@Model.Description" class="form-control" placeholder="Description (Max 50 characters)" maxlength="50">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="@Model.EmptyWeight" placeholder="Empty weight">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="@Model.MaxContentVolume" placeholder="Max Content Volume(ft)">
-        </div>
-        <div class="form-group">
+    </div>
+    <div class="form-group">
+        <input type="text" name="@Model.Description" class="form-control" placeholder="Description (Max 50 characters)" maxlength="50">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="@Model.EmptyWeight" placeholder="Empty weight">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="@Model.MaxContentVolume" placeholder="Max Content Volume(ft)">
+    </div>
+    <div class="form-group">
 
-            <input type="text" name="@Model.OuterCubeVolume" class="form-control" placeholder="Outer Cube Volume(ft)">
-        </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="@Model.IsAvailable"> Is Available
-            </label>
-        </div>
-        <button type="submit" class="btn btn-primary btn-xs">Add</button>
-        <button class="btn btn-default btn-xs">Cancel</button>
-
- 
-
+        <input type="text" name="@Model.OuterCubeVolume" class="form-control" placeholder="Outer Cube Volume(ft)">
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" name="@Model.IsAvailable"> Is Available
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-xs">Add</button>
+    <button type="reset" class="btn btn-default btn-xs">
+        Close
+    </button>
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

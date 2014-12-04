@@ -10,7 +10,11 @@
     <li class="divider">
     </li>
 }
-
+@*@helper SkuCaseEditor()
+    {
+        <div id="addSkuCase">
+        </div>
+    }*@
 
 <div class="container">
     <h2 style="margin-top:0px;">
@@ -36,14 +40,35 @@
                     Available SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" id="btnAddSkuCase" data-add-action="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#AddSkuCaseModal"
+                                data-add-action="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
 
                     }
                 </blockquote>
+
+                <div class="modal fade" id="AddSkuCaseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title"></h4>
+                            </div>
+                            <div class="modal-body">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <ul class="list-group">
-                    
                     <li class="list-group-item list-group-item-success">
                         <div class="row">
                             <div class="col-md-5 col-sm-5">
@@ -75,6 +100,9 @@
                     @for (var i = 0; i < Model.SkuCaseList.Count; i++)
                     {
                         <li class="list-group-item  list-group-item-@(Model.SkuCaseList[i].IsAvailable ? "" : "warning")" title="@(Model.SkuCaseList[i].IsAvailable ? string.Empty : "This sku case is currently not in use")">
+
+                            <div id="editSkuCase">
+                            </div>
                             <div class="row">
                                 <div class="col-md-5 col-sm-5">
                                     <h4 class="list-group-item-heading">
@@ -102,13 +130,15 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <button data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))" class=" pull-right btn btn-primary btn-xs">
+                                        <button class=" pull-right btn btn-primary btn-xs" id="btnEditSkuCase"
+                                                data-edit-action="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
                                             <span class="glyphicon glyphicon-edit"></span> Edit
                                         </button>
                                     }
                                 </div>
                             </div>
                         </li>
+
                     }
                 </ul>
             </div>
@@ -193,7 +223,7 @@
                                         </small>
                                     </h4>
                                     <p class="list-group-item-text">
-                                      <em> @Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)</em>
+                                        <em> @Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)</em>
                                     </p>
                                 </div>
                                 <div class="col-md-2 col-sm-2">
@@ -294,9 +324,7 @@
         </div>
     </div>
 </div>
-
-
-
+<!-- Modal -->
 @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint(), FormMethod.Post, new
 {
     id = "frmDelCustCasePreference"
@@ -317,18 +345,121 @@
     <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.activeTab" value="2" />
 }
 
-<div id="dlg">
-</div>
+@*<div id="dlg">
+    </div>*@
 
 @section script{
 
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('div.tab-content').on('click','#btnAddSkuCase', function () {
-                $('#frmSkuCaseEditor').removeClass('hidden');
+
+            $('#AddSkuCaseModal').on('show.bs.modal', function (e) {  
+                LoadAjaxSkuCaseEditor($(e.relatedTarget).data('add-action'), 'New SKU Case')
             });
 
+
+            function LoadAjaxSkuCaseEditor(url,title) {
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    cache: false
+                }).then(function (data, textStatus, jqXHR) {
+                    $('.modal-title').text(title);
+                    $('.modal-body').html(data);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                });
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //$('div.tab-content').on('click', '#btnAddSkuCase', function (e) {
+
+            //    $('#addSkuCase').removeClass('hidden');
+            //    LoadAjaxSkuCaseEditor($(this).data('add-action'), $('#addSkuCase'));
+            //}).on('click', '#addSkuCase form button[type="reset"]', function (e) {
+            //    $('#addSkuCase').addClass('hidden');
+            //}).on('click', '#btnEditSkuCase', function (e) {
+            //    $(e.target).closest('div.row').addClass('hidden');
+            //    LoadAjaxSkuCaseEditor($(this).data('edit-action'), $('#editSkuCase'));
+            //});
+
+
+            //function LoadAjaxSkuCaseEditor(url,div) {
+            //    $.ajax({
+            //        url: url,
+            //        type: 'get',
+            //        cache: false
+            //    }).then(function (data, textStatus, jqXHR) {
+            //        $(div).html(data);
+            //    }).fail(function (jqXHR, textStatus, errorThrown) {
+            //        alert(jqXHR.responseText);
+            //    });
+            //}
+
+
+
+
+
+
+
+
+
+            //// Calls an action to load HTML and displays it in a dialog
+            //function LoadAjaxModal(url, title) {
+            //    $.ajax({
+            //        url: url,
+            //        type: 'get',
+            //        cache: false
+            //    }).done(function (data, textStatus, jqXHR) {
+            //        //$('#dlg').html(data).dialog({
+            //        //    title: title,
+            //        //    modal: true,
+            //        //    closeOnEscape: true,
+            //        //    width: 'auto',
+            //        //    autoOpen: true,
+            //        //    buttons: [
+            //        //{
+            //        //    text: 'Save',
+            //        //    click: function (event, ui) {
+            //        //        var $form = $('form', this);
+            //        //        if (!$form.valid()) {
+            //        //            return false;
+            //        //        }
+            //        //        $form.submit();
+            //        //    }
+            //        //},
+            //        //{
+            //        //    text: 'Cancel',
+            //        //    click: function (event, ui) {
+            //        //        $(this).dialog('destroy').empty();
+            //        //    }
+            //        //}
+            //        //    ]
+            //        //});
+
+
+
+            //        });
+            //    }).fail(function (jqXHR, textStatus, errorThrown) {
+            //        alert(jqXHR.responseText);
+            //    });
+            //}
 
         });
     </script>
