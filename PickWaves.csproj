@@ -300,7 +300,9 @@
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.Partial.js" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js.bundle" />
-    <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle" />
+    <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\PickWaves\Config\_skuCaseEditor.js.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

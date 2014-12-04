@@ -13,24 +13,33 @@
 
         <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
         <div class="col-sm-9">
-            <div class="input-group">
-                @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-       {
-             {"id", "tbCustomer"},
-             {"placeholder","Search Customer"},
-             {"class","form-control typeahead"}
+            @if (Model.CustomerId == null)
+            {
+                <div class="input-group">
+                    <input id="tbCustomer" placeholder="Search Customer"
+                           class="form-control typeahead" />
+                    <span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>
+                </div>
 
-       })
-                <span class="input-group-btn">
-                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                </span>
-            </div>
-            <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
+                @Html.HiddenFor(m => m.CustomerId, new { @id = "hfCustomer" })
 
-            @Html.ValidationMessageFor(m => m.CustomerId, null, new
+
+                @Html.ValidationMessageFor(m => m.CustomerId, null, new
            {
                @class = "help-block"
            })
+            }
+            else
+            {
+                <div class="input-group">
+                 @Html.DisplayFor(m=>m.CustomerId)
+                </div>
+
+            }
+
+
         </div>
     </div>
     <div class="form-group">
@@ -65,12 +74,18 @@
     </div>
 </form>
 
+
+
+
+
+
+
 <script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
 <script type="text/javascript">
-        $(document).ready($(function () {
-            // Force the unobtrusive validation script to run
-            // http://forums.asp.net/t/1651961.aspx/1
-            $.validator.unobtrusive.parse("#frmAddCustSkuCasePreference");
-            //$('#tbCustomer').autocompleteEx();
-        }));
-    </script>
+    $(document).ready($(function () {
+        // Force the unobtrusive validation script to run
+        // http://forums.asp.net/t/1651961.aspx/1
+        $.validator.unobtrusive.parse("#frmAddCustSkuCasePreference");
+        //$('#tbCustomer').autocompleteEx();
+    }));
+</script>

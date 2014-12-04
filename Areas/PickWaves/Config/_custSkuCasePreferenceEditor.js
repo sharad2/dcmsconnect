@@ -3093,10 +3093,11 @@ $(document).ready(function () {
 		}
 	}).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
 	    // Store the id of the selected customers in the hdden field
-		$('#hfCustomerId').val(sug.value);
+	    $('#hfCustomer').val(sug.value);
+
 	}).on('input', function (e) {
 		// When user changes the customers, empty the hidden field
-		$('#hfCustomerId').val('');
+	    $('#hfCustomer').val('');
 	});
 
 });
