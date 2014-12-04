@@ -76,8 +76,6 @@
                     {
                         <li class="list-group-item  list-group-item-@(Model.SkuCaseList[i].IsAvailable ? "" : "warning")" title="@(Model.SkuCaseList[i].IsAvailable ? string.Empty : "This sku case is currently not in use")">
 
-                            <div id="editSkuCase">
-                            </div>
                             <div class="row">
                                 <div class="col-md-5 col-sm-5">
                                     <h4 class="list-group-item-heading">
@@ -356,12 +354,15 @@
 
         $(document).ready(function () {
 
-            $('#AddSkuCaseModal').on('show.bs.modal', function (e) {  
+            $('#AddSkuCaseModal').on('show.bs.modal', function (e) {
                 LoadAjaxSkuCaseEditor($(e.relatedTarget).data('add-action'), 'New SKU Case')
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
+                $form.submit();
             });
 
 
-            function LoadAjaxSkuCaseEditor(url,title) {
+            function LoadAjaxSkuCaseEditor(url, title) {
                 $.ajax({
                     url: url,
                     type: 'get',
@@ -369,6 +370,7 @@
                 }).then(function (data, textStatus, jqXHR) {
                     $('.modal-title').text(title);
                     $('.modal-body').html(data);
+                    
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
