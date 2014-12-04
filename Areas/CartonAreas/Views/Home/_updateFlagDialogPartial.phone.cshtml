@@ -1,0 +1,22 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.CartonAreaModel
+<h3>Update Area <span></span></h3>
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateArea(), FormMethod.Post))
+{
+    <div class="ui-field-contain">
+        <label for="tbDescription">Description</label>
+        @Html.TextBoxFor(m => m.Description, new { id = "tbDescription", maxlength = 40, size = 30 })
+
+        <label for="cbLocationNumberingFlag">Numbered Location</label>
+        @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
+
+        <label for="cbPalletRequired">Pallet Required</label>
+        @Html.CheckBoxFor(m => m.IsPalletRequired, new { id = "cbPalletRequired" })
+
+        <label for="cbUnusableInventory">Unusable Inventory</label>
+        @Html.CheckBoxFor(m => m.UnusableInventory, new { id = "cbUnusableInventory" })
+    </div>
+    <input type="hidden" name="@Html.NameFor(m => m.AreaId)" id="hfAreaId" />
+    <input type="hidden" name="@Html.NameFor(m => m.BuildingId)" value="@Model.BuildingId" />
+    <button class="ui-btn ui-btn-inline" type="submit">Update</button>
+    <a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+}

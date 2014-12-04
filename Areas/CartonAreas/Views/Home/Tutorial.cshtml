@@ -1,0 +1,149 @@
+﻿@model int?
+<h1>
+    Carton Area Manager Tutorial</h1>
+<br />
+<h2>
+    Executive summary
+</h2>
+<p>
+    CAM module is used to allow SKU/VWh and capacity assignments to locations in carton
+    areas.</p>
+<h2>
+    Target audience</h2>
+<p>
+    This document is intended for warehouse manager; CAM module users and development
+    team concerned with this module.
+</p>
+<h2>
+    CAM: Carton Area Manager Features</h2>
+<ul>
+    <li>
+        <h3>
+            Manage carton inventory area Flags
+        </h3>
+        <p>
+        You can manage all flag of carton inventory areas.
+        </p>
+    </li>
+    <li>
+        <h3>
+            Assign SKU and Vwh</h3>
+        <p>
+            You can assign any carton area location with an SKU/VWh in the warehouse. After
+            you assign an SKU/VWh in it system will cross check that same SKU /VWh should be
+            placed in that location.</p>
+    </li>
+    <li>
+        <h3>
+            Assign capacity</h3>
+        <p>
+            You can assign capacity of any location in carton areas. After you assign capacity
+            of that location, system will cross check that if moving more inventory is causing
+            the capacity to be violated system gives a warning before you can proceed.
+        </p>
+    </li>
+</ul>
+<h2>
+    How to use CAM</h2>
+<ul>
+    <li>First screen displays list of carton areas per building, and in this screen, also
+        shows that area is numbered or not</li>
+    <li>It also displays a list of all carton inventory area configuration. which can be
+        managed using CAM.</li>
+    <li>If area is numbered, then click on the link in location count column, to see the
+        list of locations in that area.</li>
+    <li>In this screen, there is a grid which shows all types of locations such as assigned
+        and empty, assigned and non-empty, unassigned and empty, unassigned and non-empty.</li>
+    <li>Filters are available to show you the locations you intent to see. We have filters
+        which show you specific location, SKU assigned in locations.</li>
+    <li>When user wants to search such locations where SKU is not assigned but cartons are
+        available, then user have to click on the link of unassigned and non-empty location.</li>
+    <li>When user want to search such locations where SKU is assigned and cartons are available,
+        then user have to click on the link of assigned and non-empty location.</li>
+    <li>When user want to search such locations where SKU is assigned but carton are not
+        available, then user have to click on the link of assigned and empty location.</li>
+    <li>When user wants to search such locations where SKU is not assigned and cartons are
+        not available, then user have to click on the link of unassigned and empty location.</li>
+    <li>CAM can also allow to assign/unassigned any location.</li>
+    <li>CAM allows to assign SKU, VWh and carton capacity to any location in that area.</li>
+    <li>If any location contain more than one SKU’s carton with different VWh, then CAM
+        cannot allow, user to assign SKU to such location.</li>
+    <li>If any location contain more than one SKU’s carton with same VWh, then CAM cannot
+        allowed to assign SKU to such location.</li>
+    <li>If any location contains more than one carton which have same SKU with different
+        VWh, then CAM cannot allowed to assign SKU to such location.</li>
+    <li>If any location contains more than one carton which has same SKU with same VWh,
+        then CAM can allow to assign same SKU with same VWh.</li>
+</ul>
+<h2>
+    Technical details</h2>
+<h3>
+    How to run this program</h3>
+<p>
+    To ensure that the Oracle user which has created to run this program has the following
+    roles:</p>
+<p>
+    Assign <b>SRC_CAM_MGR</b> role to this oracle user.</p>
+<p>
+    If role is not existing then made it by using the below Script.:</p>
+<p>
+    CREATE ROLE <b>SRC_CAM_MGR</b>;</p>
+<ul>
+    <p>
+        <li>Check the ROLE <b>(SRC_CAM_MGR)</b>
+        having grants on the following objects:</p>
+    </li>
+    <p>
+        GRANT SELECT, UPDATE ON <b>MASTER_STORAGE_LOCATION</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <p>
+        GRANT SELECT, UPDATE ON <b>TAB_INVENTORY_AREA</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <p>
+        GRANT SELECT ON <b>SRC_CARTON</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <p>
+        GRANT SELECT ON <b>SRC_CARTON_DETAIL</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <p>
+        GRANT SELECT ON <b>TAB_VIRTUAL_WAREHOUSE</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <p>
+        GRANT SELECT ON <b>MASTER_SKU</b> TO <b>SRC_CAM_MGR</b>;</p>
+    <li>
+        <p>
+            Then grant to this role to oracle user by using the below script:</p>
+    </li>
+    <p>
+        GRANT <b>SRC_CAM_MGR</b> TO this oracle user;</p>
+</ul>
+<table border="1">
+    <tr>
+        <td>
+            Feature
+        </td>
+        <td>
+            Table used
+        </td>
+        <td>
+            Remarks
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Assign SKU/VWh and carton capacity
+        </td>
+        <td>
+            MASTER_STORAGE_LOCATION
+        </td>
+        <td>
+            Assigned SKU/VWh and carton capacity to any location.
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Update all Flags
+        </td>
+        <td>
+            Tab_Inventory_Area
+        </td>
+        <td>
+            Set the different flags.
+        </td>
+    </tr>
+</table>

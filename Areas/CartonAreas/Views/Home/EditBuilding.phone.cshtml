@@ -1,0 +1,140 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.EditBuildingViewModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var createBuilding = string.IsNullOrWhiteSpace(Model.BuildingId);
+    if (createBuilding)
+    {
+        ViewBag.Title = "Create New Building";
+    }
+    else
+    {
+        ViewBag.Title = string.Format("Edit Building {0}", Model.BuildingId);
+    }
+
+}
+
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateBuilding(), FormMethod.Post))
+{
+    if (!createBuilding)
+    {
+        @Html.HiddenFor(m => m.BuildingId)
+    }
+    <input name="@MVC_CartonAreas.CartonAreas.Home.UpdateBuildingParams.create" value="@createBuilding.ToString()" type="hidden" />
+    <ul data-role="listview" data-inset="true">
+        @if (createBuilding)
+        {
+            <li class="ui-field-contain">
+                <label for="tbBuildingId">
+                    Building<sup>*</sup>
+                </label>
+                @Html.TextBoxFor(m => m.BuildingId, new { size = 5, maxlength = 5, style = "text-transform : uppercase", id = "tbBuildingId" })
+                <label></label>
+                <div class="ui-body-inherit">
+                    @Html.ValidationMessageFor(m => m.BuildingId)
+                </div>
+            </li>
+        }
+
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.Description, new
+       {
+           @for = "tbDescription"
+       })
+            @Html.TextBoxFor(m => m.Description, new { size = 30, maxlength = 40, id = "tbDescription" })
+        </li>
+        <li class="ui-field-contain">
+            <label for="tbAddress1">Address Line 1<sup>*</sup></label>
+            @Html.TextBoxFor(m => m.Address1, new { size = 30, maxlength = 40, id = "tbAddress1" })
+            @Html.LabelFor(m => m.Address2, new
+       {
+           @for = "tbAddress2"
+       })
+            @Html.TextBoxFor(m => m.Address2, new { size = 30, maxlength = 40, id = "tbAddress2" })
+            @Html.LabelFor(m => m.Address3, new
+       {
+           @for = "tbAddress3"
+       })
+            @Html.TextBoxFor(m => m.Address3, new { size = 30, maxlength = 40, id = "tbAddress3" })
+
+            @Html.LabelFor(m => m.Address4, new
+       {
+           @for = "tbAddress4"
+       })
+            @Html.TextBoxFor(m => m.Address4, new { size = 30, maxlength = 40, id = "tbAddress4" })
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.Address1)
+            </div>
+        </li>
+
+        <li class="ui-field-contain">
+            <label for="tbCity">
+                City<sup>*</sup>
+            </label>
+            @Html.TextBoxFor(m => m.City, new { size = 15, maxlength = 40, id = "tbCity" })
+            <label for="tbState">
+                State
+            </label>
+            @Html.TextBoxFor(m => m.State, new { size = 2, maxlength = 2, id = "tbState" })
+            <label for="tbZip">
+                Zip<sup>*</sup>
+            </label>
+            @Html.TextBoxFor(m => m.ZipCode, new { size = 5, maxlength = 10, id = "tbZip" })
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.City)
+            </div>
+            <label></label>
+            <div class="ui-body-inherit">
+                @Html.ValidationMessageFor(m => m.ZipCode)
+            </div>
+        </li>
+        <li class="ui-field-contain">
+            @Html.LabelFor(m => m.CountryCode, new
+       {
+           @for = "tbCountryCode"
+       })
+            @Html.DropDownListFor(m => m.CountryCode, Model.CountryCodeList, "Please Select", new { id = "tbCountryCode" })
+        </li>
+        <li class="ui-body ui-body-b">
+            <fieldset class="ui-grid-a">
+                <div class="ui-block-a"><button type="submit" class="ui-btn ui-corner-all">Submit</button></div>
+                <div class="ui-block-b">
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())" class="ui-btn ui-corner-all">Cancel</a>
+                </div>
+            </fieldset>
+        </li>
+    </ul>
+}
+@*<img src="@Links_CartonAreas.Areas.CartonAreas.Content.images.BOL_jpg" />*@
+
+@section scripts
+    {
+    <script src="@Links_CartonAreas.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_CartonAreas.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <style type="text/css">
+        /* Validation styles for Page */
+        .field-validation-error {
+            color: #ff0000;
+        }
+
+        .field-validation-valid {
+            display: none;
+        }
+
+        li.ui-field-contain .input-validation-error {
+            border: 1px solid #ff0000;
+            background-color: #ffeeee;
+        }
+
+        .validation-summary-errors {
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .validation-summary-valid {
+            display: none;
+        }
+    </style>
+}
