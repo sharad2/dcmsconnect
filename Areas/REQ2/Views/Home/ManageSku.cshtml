@@ -1,0 +1,309 @@
+﻿@model DcmsMobile.REQ2.ViewModels.ManageSkuViewModel
+@{
+    ViewBag.Title = "Manage SKU";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var selectedTabIndex = (int)Model.SelectedTab;
+}
+@section scripts {
+    <script src="@Links_REQ2.Areas.REQ2.Scripts.ManageSku_all_js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $("#tbCartonDate").datepicker({
+            showOn: "button",
+            buttonImage: '@Links_REQ2.Areas.REQ2.Content.images.calendar_gif',
+            buttonImageOnly: true,
+            dateFormat: 'm/d/yy',
+            altField: "#" + $("#tbCartonDate").attr('id') + "1",
+            altFormat: $.datepicker.W3C,
+            onSelect: function () { this.focus(); }
+        });
+    </script>
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <ul>
+                <li>
+                    @Html.LabelFor(m => m.CurrentRequest.Header.DestinationAreaShortName)
+                    @Html.DisplayFor(m => m.CurrentRequest.Header.DestinationAreaShortName)
+                </li>
+                @if (!string.IsNullOrEmpty(Model.CurrentRequest.Header.TargetVwhId))
+                {
+                    <li>
+                        @Html.LabelFor(m => m.CurrentRequest.Header.TargetVwhId)
+                        @Html.DisplayFor(m => m.CurrentRequest.Header.TargetVwhId)
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.CurrentRequest.Header.TargetQualityCode))
+                {
+                    <li>
+                        @Html.LabelFor(m => m.CurrentRequest.Header.TargetQualityCode)
+                        @Html.DisplayFor(m => m.CurrentRequest.Header.TargetQualityCode)
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.CurrentRequest.Header.SaleTypeId))
+                {
+                    <li>
+                        @Html.LabelFor(m => m.CurrentRequest.Header.SaleTypeId)
+                        @Html.DisplayFor(m => m.CurrentRequest.Header.SaleTypeId)
+                    </li>
+                }
+                <li>
+                    @Html.LabelFor(m => m.CurrentRequest.Header.Priorities)
+                    @Html.DisplayFor(m => m.CurrentRequest.Header.Priorities)
+                </li>
+                @if (Model.CurrentRequest.Header.OverPullCarton)
+                {
+                    <li>Overpulling OK</li>
+                }
+                @if (Model.CurrentRequest.Header.IsHung)
+                {
+                    <li>
+                        @Html.LabelFor(m => m.CurrentRequest.Header.IsHung)
+                    </li>
+                }
+                <li>
+                    @Html.LabelFor(m => m.CurrentRequest.Header.RequestedBy)
+                    @Html.DisplayFor(m => m.CurrentRequest.Header.RequestedBy)
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="box boxB">
+        <div class="boxContent">
+            <div>
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
+                </span>@Html.ActionLink("Back to Recent Requests", MVC_REQ2.REQ2.Home.Index())<br />
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
+                </span>
+                @Html.ActionLink(string.Format("Carton List for Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.DisplayCartonList(Model.CurrentRequest.Header.ResvId))<br />
+                @if (!Model.CurrentRequest.AssignedFlag)
+                {
+                    <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">
+                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.CreateRequest(Model.CurrentRequest.Header.ResvId))
+                }
+            </div>
+        </div>
+    </div>
+    <div class="box boxA">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
+            </span><a href="@string.Format("{0}?CARTON_STORAGE_AREA={1}&vwh_id={2}", Model.CartonDetailsForStoragAreaUrl, Model.CurrentRequest.Header.SourceAreaId, Model.CurrentRequest.Header.VirtualWareHouseId)" title="Carton with details for define storage area" target="_blank">
+                Report 40.16
+            </a> : @string.Format("Check carton availability in {0}", Model.CurrentRequest.Header.DestinationAreaShortName)<br />
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
+            </span><a href="@string.Format("{0}?destination_area={1}&inventory_storage_area={2}&vwh_id={3}&warehouse_location_id={4}", Model.SkuToBePulledUrl, Model.CurrentRequest.Header.DestinationAreaId, Model.CurrentRequest.Header.SourceAreaId, Model.CurrentRequest.Header.VirtualWareHouseId, Model.CurrentRequest.Header.BuildingId)" title="SKUs to be pulled" target="_blank">
+                Report 30.06
+            </a> : @string.Format("SKUs to be pulled in {0}", Model.CurrentRequest.Header.DestinationAreaShortName)
+        </div>
+    </div>
+}
+<h2>@Html.LabelFor(m => m.CurrentRequest.Header.ResvId) #@Html.DisplayFor(m => m.CurrentRequest.Header.ResvId)</h2>
+<div id="divTabs" data-unassign-carton-url="@Url.Action(MVC_REQ2.REQ2.Home.UnAssignCartons())" data-selected-index="@selectedTabIndex">
+    <ul>
+        <li><a href="#divAddSku">Add SKU</a></li>
+        <li><a href="#divAssign">Search & Assign Cartons</a></li>
+        <li><a href="#divAssignedCartonsTab">Cartons List</a></li>
+    </ul>
+    <div id="divAddSku">
+        @if (Model.CurrentRequest.AssignedFlag)
+        {
+            <div class="ui-state-highlight">
+                <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+                <div id="divInfo">
+                    @Html.StatusSummary()
+                    Cartons have already been assigned to this Request, Unassign first to add more SKU.
+                </div>
+            </div>
+        }
+        else
+        {
+            <div id="divAddSkuForm" class="divReqMain">
+                @using (Html.BeginForm(MVC_REQ2.REQ2.Home.Actions.AddSku(), FormMethod.Post, new
+                {
+                    id = "frmAddSku"
+                }))
+                {
+                    @Html.HiddenFor(m => m.CurrentRequest.Header.ResvId, new { id = "resvId" })
+                    @Html.HiddenFor(m => m.CurrentRequest.Header.RequestForConversion)
+                    @Html.HiddenFor(m => m.CurrentRequest.AssignedFlag, new { id = "hfAssignedFlag" })
+                    @Html.HiddenFor(m => m.CurrentRequest.Header.TargetVwhId)
+                    <label for="tbNewStyle">
+                        Style/Color/Dimension/Size <sup>*</sup>
+                    </label>
+                    @Html.TextBoxFor(m => m.NewStyle, new
+               {
+                   id = "tbNewStyle",
+                   style = "text-transform: uppercase",
+                   size = 10,
+                   maxlength = 15,
+                   data_ac_list_url = Url.Action(MVC_REQ2.REQ2.AutoComplete.SkuAutocomplete())
+               })<text>&darr;</text>
+                    @Html.TextBoxFor(m => m.NewColor, new
+               {
+                   id = "tbNewColor",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                    @Html.TextBoxFor(m => m.NewDimension, new
+               {
+                   id = "tbNewDimension",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                    @Html.TextBoxFor(m => m.NewSkuSize, new
+               {
+                   id = "tbNewSkuSize",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+
+                    <br />
+
+                    // Request for conversion.
+                    if (Model.CurrentRequest.Header.RequestForConversion)
+                    {
+
+                        <label for="tbTargetStyle">
+                            Target Style/Color/Dimension/Size <sup>*</sup>
+                        </label>
+                        @Html.TextBoxFor(m => m.TargetStyle, new
+               {
+                   id = "tbTargetStyle",
+                   style = "text-transform: uppercase",
+                   size = 10,
+                   maxlength = 15,
+                   data_ac_list_url = Url.Action(MVC_REQ2.REQ2.AutoComplete.SkuAutocomplete())
+               })<text>&darr;</text>
+                    @Html.TextBoxFor(m => m.TargetColor, new
+               {
+                   id = "tbTargetColor",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                    @Html.TextBoxFor(m => m.TargetDimension, new
+               {
+                   id = "tbTargetDimension",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                    @Html.TextBoxFor(m => m.TargetSkuSize, new
+               {
+                   id = "tbTargetSkuSize",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                    }
+                    <br />
+                    <label for="tbPieces">
+                        Pieces <sup>*</sup>
+                    </label>
+                    @Html.TextBoxFor(m => m.NewPieces, new
+               {
+                   maxlength = 8,
+                   size = 8,
+                   id = "tbPieces"
+               })
+                    //@Html.ValidationMessageFor(m => m.NewPieces)
+                    <br />
+                    <button id="btnAddSku" type="button">
+                        Add SKU
+                    </button>
+                    @Html.ValidationSummary()
+                }
+            </div>
+        }
+        @if (!string.IsNullOrEmpty(Model.CurrentRequest.Header.TargetVwhId) && Model.CurrentRequest.Header.VirtualWareHouseId != Model.CurrentRequest.Header.TargetVwhId)
+        {
+            <div class="ui-state-highlight boxA">
+                Converting from Virtual Warehouse
+                @Html.DisplayFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
+                to
+                @Html.DisplayFor(m => m.CurrentRequest.Header.TargetVwhId)
+            </div>
+        }
+        else
+        {
+            <div class="ui-state-highlight boxA">
+                @Html.LabelFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
+                @Html.DisplayFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
+            </div>
+        }
+        <div id="divSkuList" class="boxContent" style="width: 30em" data-delete-ajax-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku())">
+            @Html.Partial(MVC_REQ2.REQ2.Home.Views._manageSkuListPartial, Model)
+        </div>
+    </div>
+    <div id="divAssign" class="divReqMain">
+        @using (Html.BeginForm(MVC_REQ2.REQ2.Home.AssignCartons(), FormMethod.Post, new
+        {
+            id = "frmAssignCarton"
+        }))
+        {
+            //@Html.HiddenFor(m => m.CurrentRequest.Header.ResvId)
+            <input type="hidden" name="@Html.NameFor(m => m.CurrentRequest.Header.ResvId)" value="@Model.CurrentRequest.Header.ResvId" />
+            //@Html.HiddenFor(m => m.CurrentRequest.AssignedFlag)
+            <input type="hidden" name="@Html.NameFor(m => m.CurrentRequest.AssignedFlag)" value="@Model.CurrentRequest.AssignedFlag" />
+            <div class="ui-state-highlight boxA">
+                @Html.LabelFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
+                @Html.DisplayFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
+                <br />
+                @Html.LabelFor(m => m.CurrentRequest.Header.SourceAreaShortName)
+                @Html.DisplayFor(m => m.CurrentRequest.Header.SourceAreaShortName)
+            </div>
+
+            @Html.LabelFor(m => m.CurrentRequest.CartonRules.CartonReceivedDate)
+            <input id="tbCartonDate" maxlength="10"
+                   size="10" type="text" value="@string.Format("{0:d}", Model.CurrentRequest.CartonRules.CartonReceivedDate)" />
+            <input type="hidden" id="tbCartonDate1" name="@Html.NameFor(m => m.CurrentRequest.CartonRules.CartonReceivedDate)" value="@Model.CurrentRequest.CartonRules.CartonReceivedDate" />
+            <br />
+            @Html.LabelFor(m => m.CurrentRequest.CartonRules.BuildingId)
+            @Html.DropDownListFor(m => m.CurrentRequest.CartonRules.BuildingId, Model.BuildingList, "(Any)")<br />
+            @Html.LabelFor(m => m.CurrentRequest.CartonRules.QualityCode)
+            @Html.DropDownListFor(m => m.CurrentRequest.CartonRules.QualityCode, Model.Qualities)
+            <br />@Html.LabelFor(m => m.CurrentRequest.CartonRules.SewingPlantCode)
+            @Html.DropDownListFor(m => m.CurrentRequest.CartonRules.SewingPlantCode, Model.SewingPlantCodes, "(Any)", null)
+            <br />
+            @Html.LabelFor(m => m.CurrentRequest.CartonRules.PriceSeasonCode)
+            @Html.DropDownListFor(m => m.CurrentRequest.CartonRules.PriceSeasonCode, Model.PriceSeasonCodes, "(Any)", null)
+            <br />
+            @Html.ValidationSummary()
+            <button id="btnAssign" type="button">
+                Assign Cartons
+            </button>
+            <button id="btnReset" type="reset">
+                Reset
+            </button>
+        }
+    </div>
+    <div id="divAssignedCartonsTab">
+        @if (Model.CurrentRequest.AssignedFlag)
+        {
+            using (Html.BeginForm(MVC_REQ2.REQ2.Home.UnAssignCartons(), FormMethod.Post, new
+            {
+                id = "frmUnAssignCarton"
+            }))
+            {
+                @Html.HiddenFor(m => m.CurrentRequest.Header.ResvId)
+                <button data-name="btnUnAssign" type="submit">
+                    Unassign Cartons
+                </button>
+            }
+        }
+        else
+        {
+            <button data-name="btnUnAssign" type="button" disabled="disabled">
+                Unassign Cartons
+            </button>
+        }
+        <div id="divAssignedCartonsInfo">
+            @Html.Partial(MVC_REQ2.REQ2.Home.Views._assignedCartonInfoPartial, Model)
+        </div>
+    </div>
+</div>
+@*$Id$*@
