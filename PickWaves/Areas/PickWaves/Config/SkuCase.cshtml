@@ -214,7 +214,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <div class="btn-group pull-right">
-                                            <button @*id="frmDelCustCasePreference"*@ class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                            <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
                                                     data-toggle="dropdown">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                                 Remove
@@ -225,11 +225,10 @@
                                                 <li>
                                                     <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
                                                         <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
-                                                                name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
+                                                               name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
                                                         <input type="hidden" id="hfCustomerId" value="@Model.CustomerSkuCaseList[i].CustomerId"
                                                                name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
                                                         <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
-
                                                         <center>Are you sure?</center>
                                                         <div class="btn-group btn-group-justified">
                                                             <button class="btn btn-primary" type="submit">Yes</button>
@@ -253,12 +252,13 @@
                     Customer prefered SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button id="btnAddPackinRule" class="btn btn-primary"
-                                data-add-packing-rule="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                        <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#AddPackinRuleModal" title="Add packing rule"
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule
                         </button>
                     }
-                </blockquote>             
+                </blockquote>
 
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-success">
@@ -291,11 +291,9 @@
                                         {
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         }
-                                        @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
-                                            {*@
+                                       
                                         @Html.DisplayFor(m => m.PackingRuleList[i].Style)
-
-                                        @*}*@
+                                       
                                         <small>@Html.DisplayFor(m => m.PackingRuleList[i].CaseId)</small>
                                     </h4>
                                 </div>
@@ -320,6 +318,7 @@
                 </ul>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -367,10 +366,27 @@
         </div>
     </div>
 </div>
+<!--Modal of Tab2-->
+<div class="modal fade" id="AddPackinRuleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <!--Title inserted here with Ajax-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--Form inserted here with Ajax-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
-
-
-
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
@@ -426,22 +442,15 @@
                 $form.submit();
             });
 
-
-
-            //$('span.ui-icon-close.delete-customer-sku').click(function (e) {
-            //    $('table tr').removeClass('ui-state-highlight');
-            //    var $tr = $(e.target).closest('tr');
-            //    $tr.addClass('ui-state-highlight');
-            //    if (confirm('Are you sure you want to delete SKU case ' + $tr.find('td.data-customer-prefered-skucase').text() + ' from customer ' + $tr.attr('data-customerId') + '?')) {
-            //        $('#hfPreferedCaseId').val($tr.find('td.data-customer-prefered-skucase').text());
-            //        $('#hfCustomerId').val($tr.attr('data-customerId'));
-            //        $('#frmDelCustCasePreference').submit();
-            //    }
-            //    else {
-            //        return false;
-            //    }
-            //});
-
+            //Tab3 Modal code
+            $('#AddPackinRuleModal').on('show.bs.modal', function (e) {
+                //Title of the modal
+                var btnAction = $(e.relatedTarget)
+                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
+                $form.submit();
+            });
 
 
 
