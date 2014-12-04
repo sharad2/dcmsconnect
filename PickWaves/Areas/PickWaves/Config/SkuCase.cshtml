@@ -214,7 +214,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <div class="btn-group pull-right">
-                                            <button id="frmDelCustCasePreference" class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                            <button @*id="frmDelCustCasePreference"*@ class=" pull-right btn btn-primary btn-xs dropdown-toggle"
                                                     data-toggle="dropdown">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                                 Remove
@@ -223,7 +223,13 @@
 
                                             <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
                                                 <li>
-                                                    <form >
+                                                    <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
+                                                        <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
+                                                                name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
+                                                        <input type="hidden" id="hfCustomerId" value="@Model.CustomerSkuCaseList[i].CustomerId"
+                                                               name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
+                                                        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
+
                                                         <center>Are you sure?</center>
                                                         <div class="btn-group btn-group-justified">
                                                             <button class="btn btn-primary" type="submit">Yes</button>
@@ -371,7 +377,7 @@
 
 
 
-@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint(), FormMethod.Post, new
+@*@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint(), FormMethod.Post, new
 {
     id = "frmDelCustCasePreference"
 }))
@@ -379,7 +385,7 @@
     <input type="hidden" id="hfPreferedCaseId" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
     <input type="hidden" id="hfCustomerId" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
     <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
-}
+}*@
 
 @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.DelPackingRule(), FormMethod.Post, new
 {
