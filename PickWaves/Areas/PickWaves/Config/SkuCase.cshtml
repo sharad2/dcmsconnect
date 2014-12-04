@@ -213,9 +213,27 @@
                                 <div class="col-md-2 col-sm-2">
                                     @if (Model.UserIsManager)
                                     {
-                                        <button id="frmDelCustCasePreference" class=" pull-right btn btn-primary btn-xs">
-                                            <span class="glyphicon glyphicon-remove"></span>  Remove
-                                        </button>
+                                        <div class="btn-group pull-right">
+                                            <button id="frmDelCustCasePreference" class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                                Remove
+                                                <span class="caret"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                <li>
+                                                    <form >
+                                                        <center>Are you sure?</center>
+                                                        <div class="btn-group btn-group-justified">
+                                                            <button class="btn btn-primary" type="submit">Yes</button>
+                                                            <a class="btn btn-default">No</a>
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+                                        </div>
                                     }
                                 </div>
                             </div>
@@ -234,29 +252,29 @@
                             <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule
                         </button>
                     }
-                </blockquote>
-                <li class="list-group-item list-group-item-success">
-                    <div class="row">
-                        <div class="col-md-10 col-sm-10">
-                            <h4 class="list-group-item-heading">
-                                Style
-                                <small>Case</small>
-                            </h4>
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            @if (Model.UserIsManager)
-                            {
-                                <div class="btn-group btn-group-xs  pull-right" role="group">
-                                    <button disabled type="button" class="btn btn-primary">
-                                        Action
-                                    </button>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </li>
+                </blockquote>             
 
                 <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10">
+                                <h4 class="list-group-item-heading">
+                                    Style
+                                    <small>Case</small>
+                                </h4>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                @if (Model.UserIsManager)
+                                {
+                                    <div class="btn-group btn-group-xs  pull-right" role="group">
+                                        <button disabled type="button" class="btn btn-primary">
+                                            Action
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </li>
                     @for (var i = 0; i < Model.PackingRuleList.Count; i++)
                     {
                         <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "warning" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
@@ -310,12 +328,12 @@
                 </h4>
             </div>
             <div class="modal-body">
-               <!--Form inserted here with Ajax-->
+                <!--Form inserted here with Ajax-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                
+
             </div>
         </div>
     </div>
@@ -404,7 +422,19 @@
 
 
 
-
+            //$('span.ui-icon-close.delete-customer-sku').click(function (e) {
+            //    $('table tr').removeClass('ui-state-highlight');
+            //    var $tr = $(e.target).closest('tr');
+            //    $tr.addClass('ui-state-highlight');
+            //    if (confirm('Are you sure you want to delete SKU case ' + $tr.find('td.data-customer-prefered-skucase').text() + ' from customer ' + $tr.attr('data-customerId') + '?')) {
+            //        $('#hfPreferedCaseId').val($tr.find('td.data-customer-prefered-skucase').text());
+            //        $('#hfCustomerId').val($tr.attr('data-customerId'));
+            //        $('#frmDelCustCasePreference').submit();
+            //    }
+            //    else {
+            //        return false;
+            //    }
+            //});
 
 
 
@@ -417,7 +447,7 @@
                 }).then(function (data, textStatus, jqXHR) {
                     $('.modal-title').text(title);
                     $('.modal-body').html(data);
-                    
+
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
