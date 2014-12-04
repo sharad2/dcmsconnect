@@ -3,43 +3,66 @@
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-
-<form class="form-inline" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
+<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
 
     @Html.ValidationSummary()
     <div class="form-group">
-        <div class="form-group">
-            @if (Model.CaseId != null)
-            {
-                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case @Model.CaseId">
-                @Html.HiddenFor(m => m.CaseId)
-            }
-            else
-            {
 
+        @if (Model.CaseId != null)
+        {
+            <label for="case" class="col-sm-2 control-label">Case</label>
+            <div class="col-sm-10">
+                <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case @Model.CaseId">
+            </div>
+            @Html.HiddenFor(m => m.CaseId)
+        }
+        else
+        {
+            <label for="case" class="col-sm-2 control-label">Case</label>
+            <div class="col-sm-10">
                 <input type="text" name="@Model.CaseId" class="form-control" placeholder="Case" maxlength="6">
-            }
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="case" class="col-sm-2 control-label">Discription</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="@Model.Description" placeholder="Description (Max 50 characters)" maxlength="50"></textarea>
+           @* <input type="text" name="@Model.Description" class="form-control" placeholder="Description (Max 50 characters)" maxlength="50">*@
         </div>
     </div>
     <div class="form-group">
-        <input type="text" name="@Model.Description" class="form-control" placeholder="Description (Max 50 characters)" maxlength="50">
+        <label for="case" class="col-sm-2 control-label">EmptyWeigth</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="@Model.EmptyWeight" placeholder="Empty weight">
+        </div>
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" name="@Model.EmptyWeight" placeholder="Empty weight">
+        <label for="case" class="col-sm-2 control-label">MaxContent Volume</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="@Model.MaxContentVolume" placeholder="Max Content Volume(ft)">
+        </div>
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" name="@Model.MaxContentVolume" placeholder="Max Content Volume(ft)">
+        <label for="case" class="col-sm-2 control-label">OuterCube Volume</label>
+        <div class="col-sm-10">
+            <input type="text" name="@Model.OuterCubeVolume" class="form-control" placeholder="Outer Cube Volume(ft)">
+        </div>
     </div>
     <div class="form-group">
-
-        <input type="text" name="@Model.OuterCubeVolume" class="form-control" placeholder="Outer Cube Volume(ft)">
-    </div>
-    <div class="checkbox">
-        <label>
-            <input type="checkbox" name="@Model.IsAvailable"> Is Available
-        </label>
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="@Model.IsAvailable"> Is Available
+                </label>
+            </div>
+        </div>
     </div>
 </form>
+
+
+
+
 
 
 
