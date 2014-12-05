@@ -120,7 +120,7 @@
     </Compile>
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteRepository_O.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickBucket.cs" />
-    <Compile Include="PickWaves.AutoComplete_OController.generated.cs">
+    <Compile Include="PickWaves.AutoCompleteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="PickWaves.BoxPickPalletController.generated.cs">

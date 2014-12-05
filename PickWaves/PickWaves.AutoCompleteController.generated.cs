@@ -23,7 +23,7 @@ using System.Web.Routing;
 using T4MVC;
 namespace T4MVC.PickWaves
 {
-    public class AutoComplete_OController
+    public class AutoCompleteController
     {
 
         static readonly ViewsClass s_views = new ViewsClass();
