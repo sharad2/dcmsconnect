@@ -11,6 +11,6 @@
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
     <file>/Scripts/typeahead.jquery.js</file>
-    <file>/Areas/PickWaves/Config/_custSkuCasePreferenceEditor.Partial.js</file>
+    <file>/Areas/PickWaves/Config/_addPackinRule.Partial.js</file>
   </files>
 </bundle>

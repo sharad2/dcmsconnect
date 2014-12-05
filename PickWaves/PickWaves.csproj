@@ -225,6 +225,13 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\Config\_addPackinRule.js">
+      <DependentUpon>_addPackinRule.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\Config\_addPackinRule.min.js">
+      <DependentUpon>_addPackinRule.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\Config\_addPackinRule.Partial.js" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js">
       <DependentUpon>_custSkuCasePreferenceEditor.js.bundle</DependentUpon>
     </Content>
@@ -281,6 +288,7 @@
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.Partial.js" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js.bundle" />
+    <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

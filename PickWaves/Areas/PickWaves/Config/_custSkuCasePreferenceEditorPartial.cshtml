@@ -7,7 +7,7 @@
 
 
 <form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
-    @Html.ValidationSummary()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
 
 
@@ -16,7 +16,6 @@
             <div class="input-group">
                 @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
        {
-             {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
              {"id", "tbCustomer"},
              {"placeholder","Search Customer"},
              {"class","form-control typeahead"}
@@ -27,6 +26,11 @@
                 </span>
             </div>
             <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
+
+            @Html.ValidationMessageFor(m => m.CustomerId, null, new
+           {
+               @class = "help-block"
+           })
         </div>
 
 
@@ -36,9 +40,15 @@
         <div class="col-sm-9">
             @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "Please Select", new
        {
-           required = "required",
+           @required = "required",
            @class = "form-control"
        })
+
+
+            @Html.ValidationMessageFor(m => m.CaseId, null, new
+           {
+               @class = "help-block"
+           })
         </div>
     </div>
     <div class="form-group">

@@ -367,13 +367,13 @@
 
 
 @section script{
-
-
-
     <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
     <script type="text/javascript">
-        var _autocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete("~"))';
+        //customer auto complete in second tab
+        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete("~"))';
+        var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.StyleAutoComplete("~"))';
     </script>
+
 
     <script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
 
