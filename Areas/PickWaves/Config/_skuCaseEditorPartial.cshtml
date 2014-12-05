@@ -10,10 +10,10 @@
 <form class="form-horizontal" id="frmSkuCaseEditor" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-
+        <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
         @if (Model.CaseId != null)
         {
-            <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            
             <div class="col-sm-8">
                 @Html.DisplayFor(m => m.CaseId, new
            {
@@ -26,7 +26,6 @@
         }
         else
         {
-            <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
             <div class="col-sm-8">
                 @Html.TextBoxFor(m => m.CaseId, new
            {
