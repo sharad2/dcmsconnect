@@ -102,6 +102,7 @@
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteController_O.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem.cs" />
     <Compile Include="Areas\PickWaves\Config\AutoCompleteItem_O.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
