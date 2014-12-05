@@ -298,6 +298,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 public readonly string _addCustomerConstraintPartial = "_addCustomerConstraintPartial";
                 public readonly string _addPackinRulePartial = "_addPackinRulePartial";
+                public readonly string _custSkuCasePreferenceEditor_js = "_custSkuCasePreferenceEditor.js";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
                 public readonly string Config_js = "Config.js";
@@ -308,6 +309,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
             public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Config/_addPackinRulePartial.cshtml";
+            public readonly string _custSkuCasePreferenceEditor_js = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditor.js.bundle";
             public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
             public readonly string Config_js = "~/Areas/PickWaves/Config/Config.js.bundle";

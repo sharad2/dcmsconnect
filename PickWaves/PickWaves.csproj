@@ -225,6 +225,12 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js">
+      <DependentUpon>_custSkuCasePreferenceEditor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.min.js">
+      <DependentUpon>_custSkuCasePreferenceEditor.js</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -237,6 +243,12 @@
     <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js">
       <DependentUpon>Wave.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\SharedViews\typeahead.css">
+      <DependentUpon>typeahed.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\SharedViews\typeahead.min.css">
+      <DependentUpon>typeahead.css</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\jQuery.cookie.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
@@ -245,7 +257,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
@@ -259,6 +274,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
+    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.Partial.js" />
+    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
