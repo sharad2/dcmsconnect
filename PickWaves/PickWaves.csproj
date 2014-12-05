@@ -181,7 +181,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PickWavesResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete\AutocompleteItem_O.cs" />
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem_O.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

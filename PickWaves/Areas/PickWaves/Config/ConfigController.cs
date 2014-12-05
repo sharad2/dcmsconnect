@@ -512,7 +512,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
 
 
-            
+
 
         #region autocomplete
         /// <summary>
@@ -564,11 +564,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 label = string.Format("{0}: {1}", p.Item1, p.Item2),
                 value = p.Item1
             }); ;
-      
+
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-           [Route("styleautocomplete")]
+        [Route("styleautocomplete")]
         public virtual ActionResult StyleAutoComplete(string term)
         {
             // Change null to empty string
