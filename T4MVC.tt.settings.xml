@@ -72,6 +72,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.validate-vsdoc.js</Extension>
     <Extension>_references.js</Extension>
     <Extension>.bundle</Extension>
+    <Extension>.partial.js</Extension>
     <Extension>.partial.css</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->

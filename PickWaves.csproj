@@ -102,7 +102,7 @@
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteController_O.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem.cs" />
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem_O.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
@@ -308,9 +308,9 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\PickWaves\Config\Config.css" />
+    <None Include="Areas\PickWaves\Config\Config_O.css" />
     <Content Include="Areas\PickWaves\Config\Config.min.css">
-      <DependentUpon>Config.css</DependentUpon>
+      <DependentUpon>Config_O.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial_O.js" />
@@ -320,15 +320,15 @@
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </None>
-    <None Include="Areas\PickWaves\Config\Config.js.bundle">
+    <None Include="Areas\PickWaves\Config\Config.js_O.bundle">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Areas\PickWaves\Config\Config.min.js.map">
       <DependentUpon>Config.min.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Config\Config.partial.js" />
+    <None Include="Areas\PickWaves\Config\Config.partial_O.js" />
     <Content Include="Areas\PickWaves\Config\Config.js">
-      <DependentUpon>Config.js.bundle</DependentUpon>
+      <DependentUpon>Config.js_O.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\Config.min.js">
       <DependentUpon>Config.js</DependentUpon>
@@ -344,7 +344,7 @@
     <Content Include="Areas\PickWaves\Config\ManageSkuCase.min.js">
       <DependentUpon>ManageSkuCase.js</DependentUpon>
     </Content>
-    <None Include="Areas\PickWaves\Config\ManageSkuCase.partial.js" />
+    <None Include="Areas\PickWaves\Config\ManageSkuCase.partial_O.js" />
     <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>
     </Content>
