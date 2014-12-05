@@ -3,7 +3,7 @@
         name: 'styles',
         displayKey: 'label',
         source: function (query, cb) {
-            var url = _customerAutocompleteUrl.replace('~', query);
+            var url = _styleAutocompleteUrl.replace('~', query);
             $.get(url).done(function (data, textStatus, jqXHR) {
                 this.cb(data);
             }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {

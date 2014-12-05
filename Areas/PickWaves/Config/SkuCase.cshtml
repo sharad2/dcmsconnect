@@ -382,24 +382,15 @@
 
     <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
     <script type="text/javascript">
-        //customer auto complete in second tab
+
         var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+
         var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
     </script>
 
-
-    <script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
-<script src="@Links_PickWaves.Areas.PickWaves.Config._addPackinRule_js"></script>
-
-
-
-
-
     <script type="text/javascript">
-
         $(document).ready(function () {
-
-            //Determining which tab was active during remove or editing.
+            //Determining which tab was active during "removeing" or "editing".
             var tabActive = $('ul.nav-tabs').attr('data-active-tab');
             $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
 
@@ -411,6 +402,10 @@
                 LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
             }).on('click', 'button:not([data-dismiss])', function (e) {
                 var $form = $(e.delegateTarget).find('form', '.modal-body');
+                if (!$form.valid())
+                {
+                    return false;
+                }
                 $form.submit();
             });
 

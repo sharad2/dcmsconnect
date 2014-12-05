@@ -496,7 +496,7 @@ namespace DcmsMobile.PickWaves.Repository.Config
                         and (UPPER(MS.STYLE) LIKE '%' || UPPER(:STYLE) || '%' 
                             OR UPPER(MS.DESCRIPTION) LIKE '%' || UPPER(:DESCRIPTION) ||'%')                       
                          AND ROWNUM &lt; 40
-                        ORDER BY CUST.CUSTOMER_ID";
+                        ORDER BY MS.STYLE";
             var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("STYLE"), row.GetString("DESCRIPTION")))
                 .Parameter("STYLE", searchId)
                 .Parameter("DESCRIPTION", searchDescription);
