@@ -103,7 +103,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem.cs" />
-    <Compile Include="Areas\PickWaves\Config\AutoCompleteItem_O.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
@@ -182,7 +181,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PickWavesResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteItem_O.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
