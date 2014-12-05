@@ -35,12 +35,12 @@ namespace T4MVC
     public class PickWavesClass
     {
         public readonly string Name = "PickWaves";
-        public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.BoxPickPalletController BoxPickPallet = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_BoxPickPalletController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Controllers.ConfigController Config = new DcmsMobile.PickWaves.Areas.PickWaves.Controllers.T4MVC_ConfigController();
         public DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.CreateWaveController CreateWave = new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.T4MVC_CreateWaveController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController Home = new DcmsMobile.PickWaves.Areas.PickWaves.Home.T4MVC_HomeController();
         public DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController ManageWaves = new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.T4MVC_ManageWavesController();
+        public T4MVC.PickWaves.AutoComplete_OController AutoComplete_O = new T4MVC.PickWaves.AutoComplete_OController();
         public T4MVC.PickWaves.SharedViewsController SharedViews = new T4MVC.PickWaves.SharedViewsController();
     }
 }
@@ -64,19 +64,6 @@ internal partial class T4MVC_System_Web_Mvc_ActionResult : System.Web.Mvc.Action
     }
      
     public override void ExecuteResult(System.Web.Mvc.ControllerContext context) { }
-    
-    public string Controller { get; set; }
-    public string Action { get; set; }
-    public string Protocol { get; set; }
-    public RouteValueDictionary RouteValueDictionary { get; set; }
-}
-[GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-internal partial class T4MVC_System_Web_Mvc_JsonResult : System.Web.Mvc.JsonResult, IT4MVCActionResult
-{
-    public T4MVC_System_Web_Mvc_JsonResult(string area, string controller, string action, string protocol = null): base()
-    {
-        this.InitMVCT4Result(area, controller, action, protocol);
-    }
     
     public string Controller { get; set; }
     public string Action { get; set; }
@@ -133,20 +120,6 @@ namespace Links_PickWaves
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class AutoComplete {
-                private const string URLPATH = "~/Areas/PickWaves/AutoComplete";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string AutoComplete_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.partial.min.js") ? Url("AutoComplete.partial.min.js") : Url("AutoComplete.partial.js");
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class PickWaves {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class BoxPickPallet {
                 private const string URLPATH = "~/Areas/PickWaves/BoxPickPallet";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -166,6 +139,8 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/Config";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string _addPackinRule_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.min.js") ? Url("_addPackinRule.min.js") : Url("_addPackinRule.js");
+                public static readonly string _addPackinRule_Partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.Partial.min.js") ? Url("_addPackinRule.Partial.min.js") : Url("_addPackinRule.Partial.js");
                 public static readonly string _custSkuCasePreferenceEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_custSkuCasePreferenceEditor.min.js") ? Url("_custSkuCasePreferenceEditor.min.js") : Url("_custSkuCasePreferenceEditor.js");
                 public static readonly string _custSkuCasePreferenceEditor_Partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_custSkuCasePreferenceEditor.Partial.min.js") ? Url("_custSkuCasePreferenceEditor.Partial.min.js") : Url("_custSkuCasePreferenceEditor.Partial.js");
                 public static readonly string Config_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.min.css") ? Url("Config.min.css") : Url("Config.css");
@@ -224,6 +199,20 @@ namespace Links_PickWaves
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js") : Url("Index.js");
                 public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js") : Url("Wave.js");
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class PickWaves {
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class AutoComplete_O {
+                private const string URLPATH = "~/Areas/PickWaves/AutoComplete_O";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string AutoComplete_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.partial_O.min.js") ? Url("AutoComplete.partial_O.min.js") : Url("AutoComplete.partial_O.js");
             }
         
         }

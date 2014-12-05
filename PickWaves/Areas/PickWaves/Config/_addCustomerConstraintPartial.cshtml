@@ -9,8 +9,8 @@
     <label>Customer</label>
      @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
    {
-           {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
-           {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
+          // {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
+         //  {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
            {"id", "tbCustomer"}
    })<sup>&darr;*</sup>
     @Html.HiddenFor(m => m.CustomerId)

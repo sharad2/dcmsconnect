@@ -126,6 +126,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateCustomerConstraints);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult CustomerAutocomplete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult StyleAutoComplete()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ConfigController Actions { get { return MVC_PickWaves.PickWaves.Config; } }
@@ -157,6 +169,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string CustomerConstraintEditView = "CustomerConstraintEditView";
             public readonly string CustomerConstraintAddView = "CustomerConstraintAddView";
             public readonly string UpdateCustomerConstraints = "UpdateCustomerConstraints";
+            public readonly string CustomerAutocomplete = "CustomerAutocomplete";
+            public readonly string StyleAutoComplete = "StyleAutoComplete";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -177,6 +191,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public const string CustomerConstraintEditView = "CustomerConstraintEditView";
             public const string CustomerConstraintAddView = "CustomerConstraintAddView";
             public const string UpdateCustomerConstraints = "UpdateCustomerConstraints";
+            public const string CustomerAutocomplete = "CustomerAutocomplete";
+            public const string StyleAutoComplete = "StyleAutoComplete";
         }
 
 
@@ -286,6 +302,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string constraints = "constraints";
             public readonly string activeTab = "activeTab";
         }
+        static readonly ActionParamsClass_CustomerAutocomplete s_params_CustomerAutocomplete = new ActionParamsClass_CustomerAutocomplete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_CustomerAutocomplete CustomerAutocompleteParams { get { return s_params_CustomerAutocomplete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_CustomerAutocomplete
+        {
+            public readonly string term = "term";
+        }
+        static readonly ActionParamsClass_StyleAutoComplete s_params_StyleAutoComplete = new ActionParamsClass_StyleAutoComplete();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_StyleAutoComplete StyleAutoCompleteParams { get { return s_params_StyleAutoComplete; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_StyleAutoComplete
+        {
+            public readonly string term = "term";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -297,6 +329,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _addCustomerConstraintPartial = "_addCustomerConstraintPartial";
+                public readonly string _addPackinRule_js = "_addPackinRule.js";
                 public readonly string _addPackinRulePartial = "_addPackinRulePartial";
                 public readonly string _custSkuCasePreferenceEditor_js = "_custSkuCasePreferenceEditor.js";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
@@ -308,6 +341,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string SkuCase = "SkuCase";
             }
             public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
+            public readonly string _addPackinRule_js = "~/Areas/PickWaves/Config/_addPackinRule.js.bundle";
             public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Config/_addPackinRulePartial.cshtml";
             public readonly string _custSkuCasePreferenceEditor_js = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditor.js.bundle";
             public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
@@ -522,6 +556,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "constraints", constraints);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
             UpdateCustomerConstraintsOverride(callInfo, customerId, constraints, activeTab);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CustomerAutocompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CustomerAutocomplete(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerAutocomplete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            CustomerAutocompleteOverride(callInfo, term);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void StyleAutoCompleteOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string term);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult StyleAutoComplete(string term)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleAutoComplete);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "term", term);
+            StyleAutoCompleteOverride(callInfo, term);
             return callInfo;
         }
 

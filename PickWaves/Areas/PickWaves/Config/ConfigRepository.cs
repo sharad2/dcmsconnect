@@ -1,6 +1,8 @@
 ﻿using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using System.Web;
 
 namespace DcmsMobile.PickWaves.Repository.Config
@@ -444,6 +446,63 @@ namespace DcmsMobile.PickWaves.Repository.Config
                         .Parameter("CREATED_BY", HttpContext.Current.User.Identity.Name);
             _db.ExecuteNonQuery(QUERY, binder);
         }
+        #endregion
+
+
+
+
+        #region autocomplete
+        /// <summary>
+        /// To get customer list for Carrier Auto Complete text box
+        /// </summary>
+        /// <param name="searchText">
+        /// Search term is passed to populate the list
+        /// </param>
+        /// <returns></returns>        
+        public IList<Tuple<string, string>> CustomerAutoComplete(string searchId, string searchDescription)
+        {
+            const string QUERY = @"
+                        SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID, 
+                           CUST.NAME AS CUSTOMER_NAME
+                           FROM <proxy />CUST CUST
+                           WHERE 1 = 1                     
+                        and (UPPER(CUST.CUSTOMER_ID) LIKE '%' || UPPER(:CUSTOMER_ID) || '%' 
+                            OR UPPER(CUST.NAME) LIKE '%' || UPPER(:CUSTOMER_NAME) ||'%')                       
+                         AND ROWNUM &lt; 40 and SUBSTR(UPPER(CUST.CUSTOMER_ID), 1, 1) != '$'
+                        ORDER BY CUST.CUSTOMER_ID
+                        ";
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("CUSTOMER_ID"), row.GetString("CUSTOMER_NAME")))
+                .Parameter("CUSTOMER_ID", searchId)
+                .Parameter("CUSTOMER_NAME", searchDescription);
+            return _db.ExecuteReader(QUERY, binder);
+
+        }
+
+        /// <summary>
+        /// To get Style list for Style Auto Complete text box
+        /// </summary>
+        /// <param name="searchText">
+        /// Search term is passed to populate the list
+        /// </param>
+        /// <param name="style"> </param>
+        /// <returns></returns>
+        public IList<Tuple<string, string>> StyleAutoComplete(string searchId, string searchDescription)
+        {
+            const string QUERY = @"
+                SELECT MS.STYLE AS STYLE,
+                       MS.DESCRIPTION AS DESCRIPTION
+                  FROM <proxy />MASTER_STYLE MS
+                 WHERE 1=1
+                        and (UPPER(MS.STYLE) LIKE '%' || UPPER(:STYLE) || '%' 
+                            OR UPPER(MS.DESCRIPTION) LIKE '%' || UPPER(:DESCRIPTION) ||'%')                       
+                         AND ROWNUM &lt; 40
+                        ORDER BY CUST.CUSTOMER_ID";
+            var binder = SqlBinder.Create(row => Tuple.Create(row.GetString("STYLE"), row.GetString("DESCRIPTION")))
+                .Parameter("STYLE", searchId)
+                .Parameter("DESCRIPTION", searchDescription);
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
         #endregion
     }
 }

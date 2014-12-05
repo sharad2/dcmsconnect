@@ -6,6 +6,7 @@ using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository.Config;
 using DcmsMobile.PickWaves.ViewModels.Config;
 using EclipseLibrary.Mvc.Controllers;
+using DcmsMobile.PickWaves.Repository;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
@@ -48,6 +49,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         #endregion
 
         #region mapping
+
+        //private AutocompleteItem MapCustomer(Customer customer)
+        //{
+        //    return new AutocompleteItem
+        //    {
+        //        label = string.Format("{0}:{1}", customer.CustomerId, customer.Name),
+        //        value = customer.CustomerId
+        //    };
+        //}
+
+        //private AutocompleteItem MapStyle(Style style)
+        //{
+        //    return new AutocompleteItem
+        //    {
+        //        label = string.Format("{0}:{1}", style.StyleId, style.Description),
+        //        value = style.StyleId
+        //    };
+        //}
+
+
+
 
         /// <summary>
         /// This function maps from SkuCAse entity to SelectListItem
@@ -487,5 +509,112 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             get { return ROLE_WAVE_MANAGER; }
         }
+
+
+
+            
+
+        #region autocomplete
+        /// <summary>
+        /// method for Autocomplete
+        /// </summary>
+        /// <param name="term"></param>
+        /// <returns></returns>
+        [Route("custautocomplete")]
+        public virtual ActionResult CustomerAutocomplete(string term)
+        {
+            // Change null to empty string
+            term = term ?? string.Empty;
+
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
+            {
+                case 0:
+                    // All customer
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+            var data = _service.CustomerAutoComplete(searchId, searchDescription).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
+            }); ;
+      
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+           [Route("styleautocomplete")]
+        public virtual ActionResult StyleAutoComplete(string term)
+        {
+            // Change null to empty string
+            term = term ?? string.Empty;
+
+            var tokens = term.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim())
+                .Where(p => !string.IsNullOrWhiteSpace(p))
+                .ToList();
+
+            string searchId;
+            string searchDescription;
+
+            switch (tokens.Count)
+            {
+                case 0:
+                    // All style
+                    searchId = searchDescription = string.Empty;
+                    break;
+
+                case 1:
+                    // Try to match term with either id or description
+                    searchId = searchDescription = tokens[0];
+                    break;
+
+                case 2:
+                    // Try to match first token with id and second with description
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+                default:
+                    // For now, ignore everything after the second :
+                    searchId = tokens[0];
+                    searchDescription = tokens[1];
+                    break;
+
+
+            }
+            var data = _service.StyleAutoComplete(searchId, searchDescription).Select(p => new
+            {
+                label = string.Format("{0}: {1}", p.Item1, p.Item2),
+                value = p.Item1
+            }); ;
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

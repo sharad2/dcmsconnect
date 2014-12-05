@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
@@ -230,5 +231,21 @@ namespace DcmsMobile.PickWaves.Repository.Config
         {
             _repos.InsertPackingRule(model);
         }
+
+
+        #region autocomplete
+       
+        internal IList<Tuple<string, string>> CustomerAutoComplete(string searchId, string searchDescription)
+        {
+            return _repos.CustomerAutoComplete(searchId, searchDescription);
+        }
+
+
+        internal IList<Tuple<string, string>> StyleAutoComplete(string searchId, string searchDescription)
+        {
+            return _repos.StyleAutoComplete(searchId, searchDescription);
+        }
+       
+        #endregion
     }
 }
