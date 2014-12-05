@@ -99,7 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\PickWaves\AutoComplete_O\AutoCompleteController_O.cs">
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteController_O.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\PickWaves\Config\AutoCompleteItem_O.cs" />
@@ -118,7 +118,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete_O\AutoCompleteRepository_O.cs" />
+    <Compile Include="Areas\PickWaves\AutoComplete\AutoCompleteRepository_O.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickBucket.cs" />
     <Compile Include="PickWaves.AutoComplete_OController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -181,7 +181,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PickWavesResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\PickWaves\AutoComplete_O\AutocompleteItem_O.cs" />
+    <Compile Include="Areas\PickWaves\AutoComplete\AutocompleteItem_O.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -314,7 +314,7 @@
       <DependentUpon>Config.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
-    <None Include="Areas\PickWaves\AutoComplete_O\AutoComplete.partial_O.js" />
+    <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial_O.js" />
     <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </Content>
