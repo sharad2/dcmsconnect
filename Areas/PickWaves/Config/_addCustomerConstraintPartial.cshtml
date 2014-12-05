@@ -1,0 +1,65 @@
+﻿@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@model DcmsMobile.PickWaves.ViewModels.Config.CustomerConstraintEditorModel
+@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints(), FormMethod.Post, new { id = "frmAddCustomerConstraint" }))
+{
+   
+    <label>Customer</label>
+     @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
+   {
+          // {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
+         //  {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
+           {"id", "tbCustomer"}
+   })<sup>&darr;*</sup>
+    @Html.HiddenFor(m => m.CustomerId)
+    <br />
+    @Html.LabelFor(m => m.MaxBoxWeight)
+    @Html.TextBoxFor(m => m.MaxBoxWeight, new
+{
+    maxlength = 2,
+    size = 2
+}) <sub style="color: blue">Blank means no limit</sub>
+    @Html.HiddenFor(m => m.OrigMaxBoxWeight)
+
+    @Html.LabelFor(m => m.MaxSkuWithinBox)
+    @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
+{
+    maxlength = 2,
+    size = 2
+}) <sub style="color: blue">Blank means no limit</sub>
+    @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
+
+    @Html.LabelFor(m => m.RequiredMinSkuPieces)
+    @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
+{
+    maxlength = 2,
+    size = 2
+}) <sub style="color: blue">Blank means no limit</sub>
+    @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
+
+    @Html.LabelFor(m => m.RequiredMaxSkuPieces)
+    @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
+{
+    maxlength = 2,
+    size = 2
+}) <sub style="color: blue">Blank means no limit</sub>
+    @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
+<br />
+
+@Html.CheckBoxFor(p => p.IsSingleStyleColor)
+@Html.LabelFor(p => p.IsSingleStyleColor)
+@Html.HiddenFor(p => p.OrigIsSingleStyleColor)
+
+<input id ="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab"/>
+@Html.ValidationSummary()
+}
+<script type="text/ecmascript">
+    $(document).ready($(function () {
+        // Force the unobtrusive validation script to run
+        // http://forums.asp.net/t/1651961.aspx/1
+        $.validator.unobtrusive.parse("#frmAddCustomerConstraint");
+        $('#tbCustomer').autocompleteEx();
+    }));
+</script>

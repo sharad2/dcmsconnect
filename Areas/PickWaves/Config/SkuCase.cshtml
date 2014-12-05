@@ -1,0 +1,488 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.SkuCaseViewModel
+@{
+    ViewBag.Title = "SKU Case";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+}
+
+
+@section applinks{
+    <li>@Html.ActionLink("Customer Constraints", MVC_PickWaves.PickWaves.Config.Constraint())</li>
+    <li class="divider">
+    </li>
+}
+
+<div class="container">
+    <h2 style="margin-top:0px;">
+        @ViewBag.Title
+    </h2>
+
+    <p>
+        You can manage size of  cartons per SKU case or override them according to customer.
+    </p>
+
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bg-info" role="tablist" data-active-tab="@Model.ActiveTab">
+            <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">SKU Cases</a></li>
+            <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">Customer SKU Cases</a></li>
+            <li role="presentation"><a href="#tab3" role="tab" data-toggle="tab">Packing rules</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab1">
+
+                <blockquote>
+                    Available SKU Cases
+                    @if (Model.UserIsManager)
+                    {
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="New SKU Case"
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
+                            <span class="glyphicon glyphicon-file"></span> New SKU Case...
+                        </button>
+
+                    }
+                </blockquote>
+
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                <h4 class="list-group-item-heading">
+                                    Case
+                                    <small>
+                                        Description
+                                    </small>
+                                </h4>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label>Empty Weight(lbs)</label>
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <label>Volume(ft)</label>
+
+                                <span class="label label-info">Inner <span class="glyphicon glyphicon-sort-by-order-alt"></span> </span>&nbsp; Outer
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary  pull-right" disabled>
+                                        Action
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                    @for (var i = 0; i < Model.SkuCaseList.Count; i++)
+                    {
+                        <li class="list-group-item  list-group-item-@(Model.SkuCaseList[i].IsAvailable ? "" : "warning")" title="@(Model.SkuCaseList[i].IsAvailable ? string.Empty : "This sku case is currently not in use")">
+
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5">
+                                    <h4 class="list-group-item-heading">
+                                        <small>@(i + 1)</small>
+                                        @if (!Model.SkuCaseList[i].IsAvailable)
+                                        {
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        }
+                                        @Html.DisplayFor(m => m.SkuCaseList[i].CaseId)
+
+                                        <small>
+                                            @Html.DisplayFor(m => m.SkuCaseList[i].Description)
+                                        </small>
+                                    </h4>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    @Html.DisplayFor(m => m.SkuCaseList[i].EmptyWeight)
+                                </div>
+                                <div class="col-md-3 ol-sm-3">
+                                    <span class="label label-info">
+                                        @Html.DisplayFor(m => m.SkuCaseList[i].MaxContentVolume)
+
+                                    </span>&nbsp; @Html.DisplayFor(m => m.SkuCaseList[i].OuterCubeVolume)
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <button class="pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#tabModal" title="Edit SKU Case"
+                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
+                                            <span class="glyphicon glyphicon-edit"></span> Edit
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab2">
+                <blockquote>
+                    Customer prefered SKU Cases
+                    @if (Model.UserIsManager)
+                    {
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
+                            <span class="glyphicon glyphicon-plus"></span>  Add Preference...
+                        </button>
+                    }
+                </blockquote>
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-5">
+                                <h4 class="list-group-item-heading">
+                                    Case
+                                    <small>
+                                        Description
+                                    </small>
+                                </h4>
+                                <p class="list-group-item-text">
+                                    <em>Comment</em>
+                                </p>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <label>Empty Weight(lbs)</label>
+                            </div>
+                            <div class="col-md-3 ol-sm-3">
+                                <label>Volume(ft)</label>
+                                <span class="label label-info">Inner <span class="glyphicon glyphicon-sort-by-order-alt"></span> </span>&nbsp; Outer
+                            </div>
+
+                            <div class="col-md-2 col-sm-2">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary  pull-right" disabled>
+                                        Action
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </li>
+
+                    @for (var i = 0; i < Model.CustomerSkuCaseList.Count; ++i)
+                    {
+                        if (i == 0 || Model.CustomerSkuCaseList[i].CustomerId != Model.CustomerSkuCaseList[i - 1].CustomerId)
+                        {
+                            <li class="list-group-item list-group-item-info">
+
+
+                                <h4 class="list-group-item-heading">
+                                    Customer @Model.CustomerSkuCaseList[i].CustomerId
+                                    <small>
+                                        : @Model.CustomerSkuCaseList[i].CustomerName
+                                    </small>
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <button class="btn btn-link btn-xs" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor(Model.CustomerSkuCaseList[i].CustomerId))">
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                    }
+                                </h4>
+
+
+
+                            </li>
+                        }
+
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-md-5 col-sm-5">
+                                    <h4 class="list-group-item-heading">
+                                        <small>@(i + 1)</small>
+
+                                        @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseId)
+                                        <small>
+                                            @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseDescription)
+                                        </small>
+                                    </h4>
+                                    <p class="list-group-item-text">
+                                        <em> @Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)</em>
+                                    </p>
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    @Html.DisplayFor(m => m.CustomerSkuCaseList[i].EmptyWeight)
+                                </div>
+                                <div class="col-md-3 ol-sm-3">
+                                    <span class="label label-info">
+                                        @Html.DisplayFor(m => m.CustomerSkuCaseList[i].MaxContentVolume)
+
+                                    </span>&nbsp; @Html.DisplayFor(m => m.CustomerSkuCaseList[i].OuterCubeVolume)
+                                </div>
+
+                                <div class="col-md-2 col-sm-2">
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <div class="btn-group pull-right">
+                                            <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                                Remove
+                                                <span class="caret"></span>
+                                            </button>
+
+                                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                <li>
+                                                    <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
+                                                        <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
+                                                               name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
+                                                        <input type="hidden" id="hfCustomerId" value="@Model.CustomerSkuCaseList[i].CustomerId"
+                                                               name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
+                                                        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
+                                                        <center>Are you sure?</center>
+                                                        <div class="btn-group btn-group-justified">
+                                                            <button class="btn btn-primary" type="submit">Yes</button>
+                                                            <a class="btn btn-default">No</a>
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+
+                    }
+                </ul>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab3">
+                <blockquote>
+                    Customer prefered SKU Cases
+                    @if (Model.UserIsManager)
+                    {
+                        <button class="btn btn-primary" data-toggle="modal"
+                                data-target="#tabModal" title="Add packing rule"
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                            <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule..
+                        </button>
+                    }
+                </blockquote>
+
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2">
+                                <h4 class="list-group-item-heading">
+
+                                    <span class="label label-info">Style</span>
+
+                                </h4>
+
+
+                            </div>
+                            <div class="col-md-8 col-sm-8">
+                                <h4 class="list-group-item-heading">
+                                    Case
+                                </h4>
+
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-primary btn-xs" disabled>Action</button>
+                                }
+                            </div>
+                        </div>
+
+                    </li>
+                    @for (var i = 0; i < Model.PackingRuleList.Count; i++)
+                    {
+
+
+                        <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "warning" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+                            <dl class="dl-horizontal">
+                                @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                {
+                                    <dt>
+                                        @Html.DisplayFor(m => m.PackingRuleList[i].Style)
+                                    </dt>
+                                }
+                                <dd>
+                                    @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
+
+                                    @if (Model.UserIsManager)
+                                    {
+                                        <div class="btn-group btn-group-xs  pull-right" role="group">
+                                            <button class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#tabModal" title="Edit packing rule"
+                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                                                <span class="glyphicon glyphicon-plus"></span>  Edit
+                                            </button>
+                                            <div class="btn-group pull-right">
+                                                <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                                        data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                                    Remove
+                                                    <span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                    <li>
+                                                        <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelPackingRule())" method="post">
+                                                            <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.style" />
+                                                            <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.caseId" />
+                                                            <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.activeTab" value="2" />
+                                                            <center>Are you sure?</center>
+                                                            <div class="btn-group btn-group-justified">
+                                                                <button class="btn btn-primary" type="submit">Yes</button>
+                                                                <a class="btn btn-default">No</a>
+                                                            </div>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </dd>
+                            </dl>
+
+
+
+                            @*<div class="row">
+                                <div class="col-md-2 col-sm-2">
+                                    <h4 class="list-group-item-heading">
+                                        @if (Model.PackingRuleList[i].IgnoreFlag)
+                                        {
+                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                        }
+
+                                    </h4>
+
+
+                                </div>
+                                <div class="col-md-8 col-sm-8">
+                                    <h4 class="list-group-item-heading">
+                                        @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
+                                    </h4>
+
+                                </div>
+                                <div class="col-md-2 col-sm-2">
+                                    @if (Model.UserIsManager)
+                                    {
+                                    <div class="btn-group btn-group-xs  pull-right" role="group">
+                                        <button class="btn btn-primary" data-toggle="modal"
+                                                data-target="#tabModal" title="Edit packing rule"
+                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                                            <span class="glyphicon glyphicon-plus"></span>  Edit
+                                        </button>
+                                        <div class="btn-group pull-right">
+                                            <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                                Remove
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                <li>
+                                                    <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelPackingRule())" method="post">
+                                                        <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.style" />
+                                                        <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.caseId" />
+                                                        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.activeTab" value="2" />
+                                                        <center>Are you sure?</center>
+                                                        <div class="btn-group btn-group-justified">
+                                                            <button class="btn btn-primary" type="submit">Yes</button>
+                                                            <a class="btn btn-default">No</a>
+                                                        </div>
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>*@
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <!--Title inserted here with Ajax-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--Form inserted here with Ajax-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section script{
+    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
+    <script type="text/javascript">
+        //customer auto complete in second tab
+        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+        var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
+    </script>
+
+
+    <script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //Determining which tab was active during remove or editing.
+            var tabActive = $('ul.nav-tabs').attr('data-active-tab');
+            $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
+
+
+
+            $('#tabModal').on('show.bs.modal', function (e) {
+                //Title of the modal
+                var btnAction = $(e.relatedTarget)
+                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
+                $form.submit();
+            });
+
+            //Modal body content inserted here with Ajax call.
+            function LoadAjaxSkuCaseEditor(url, title) {
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    cache: false
+                }).then(function (data, textStatus, jqXHR) {
+                    $('.modal-title').text(title);
+                    $('.modal-body').html(data);
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                });
+            }
+
+        });
+    </script>
+}
+
+
+
+
+
+
+

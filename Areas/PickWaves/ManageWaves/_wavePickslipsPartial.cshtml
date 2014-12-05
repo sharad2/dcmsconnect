@@ -1,0 +1,147 @@
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WavePickslipsViewModel
+
+@if (Model.UserIsManager && Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
+{
+
+    <blockquote>
+        Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
+       
+       
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(
+                 Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add more pickslips</a>
+
+    </blockquote>
+
+}
+
+
+
+<ul class="list-group">
+    <li class="list-group-item active">
+        <div class="row">
+            <div class="col-md-5">
+                <h4 class="list-group-item-heading">
+                 
+                 PickSlip
+                    <small>
+                        Purchase Order  
+                        &bull;
+                        VWH 
+                    </small>
+                </h4>
+                <p class="list-group-item-text">
+                    Customer DC
+                    <small>&bull; Store</small>
+                </p>
+            </div>
+            <div class="col-md-5">               
+                  <span class="badge">@Html.DisplayFor(m => m.TotalUnpickedPieces)</span>unpicked               
+                <div class="progress" style="margin-bottom:0px;">
+                    <div style="width: @Model.TotalPercentPickedPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                        <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.TotalPickedPieces) of  @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces picked <em>&bull;@Model.TotalPercentPickedPieces% picked</em></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                @if (Model.PickslipList[0].IsRemovablePickslip)
+                {
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-sm disabled" data-toggle="dropdown">
+                        Action <span class="caret"></span>
+                    </button>
+                   
+                </div>
+                }
+            </div>
+        </div>
+    </li>
+
+    @for (var i = 0; i < Model.PickslipList.Count; ++i)
+    {
+        <li class="list-group-item">
+            <div class="row">
+                <div class="col-md-5">
+                    <h4 class="list-group-item-heading">
+                        <small>@(i + 1)</small>
+                        <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
+                           class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                        <small>
+                           <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                            &bull;
+                         @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                        </small>
+                    </h4>
+                    <p class="list-group-item-text">
+
+                      @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+                        <small>&bull;  @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)</small>
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    @if (Model.PickslipList[i].UnPickedPieces > 0)
+                    {
+                       <span class="badge"> @Model.PickslipList[i].UnPickedPieces</span>
+                    }
+                    @if (Model.PickslipList[i].CancelledBoxCount > 0)
+                    {
+                        <strong class="text-danger pull-right">
+                            &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
+                        </strong>
+                    }
+                    <div class="progress" style="margin-bottom:0px;">
+                        <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
+                            <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked <em>&bull; @Model.PickslipList[i].PercentCurrentPieces% picked</em></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    @if (Model.UserIsManager)
+                    {
+                        if (Model.PickslipList[i].IsRemovablePickslip)
+                        {
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                    <li>
+                                        <center>Are you sure?</center>
+                                        <div class="btn-group btn-group-justified">
+                                            <button class="btn btn-primary" type="submit"
+                                                    data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
+                                                         (Model.Bucket.BucketId, Model.PickslipList[i].PickslipId))">
+                                                Yes
+                                            </button>
+                                            <a class="btn btn-default">No</a>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-warning" disabled title="Can't remove because some pieces are pulled or picked or Wave is unfreeze."> Can't remove </button>
+                                <button type="button" class="btn btn-xs btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <small>Why?</small>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="text-info">
+                                        <a href="#">
+                                            <small>
+                                                Can't remove because some<br />
+                                                pieces are pulled or picked<br />
+                                                or Wave is unfreeze.
+                                            </small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </li>
+    }
+</ul>

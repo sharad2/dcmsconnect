@@ -1,0 +1,213 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.SkuCaseModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+
+
+
+<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+
+        @if (Model.CaseId != null)
+        {
+            <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-8">
+                @Html.DisplayFor(m => m.CaseId, new
+           {
+               @class = "form-control",
+               @required = "required"
+           })
+
+                @Html.HiddenFor(m => m.CaseId)
+            </div>
+        }
+        else
+        {
+            <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.CaseId, new
+           {
+               @class = "form-control",
+               @required = "required",
+               MaxLength = "6"
+           })
+                @Html.ValidationMessageFor(m => m.CaseId, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Discription</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(m => m.Description, new
+            {
+                MaxLength = "50",
+                @class = "form-control",
+                placeholder = "Max 50 characters"
+            })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Empty Weight <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.EmptyWeight, new
+            {
+                @class = "form-control",
+                @required = "required"
+            })
+            @Html.ValidationMessageFor(m => m.EmptyWeight, null, new
+           {
+               @class = "help-block"
+           })
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Max Content Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.MaxContentVolume, new
+            {
+                @class = "form-control",
+                @required = "required"
+            })
+            @Html.ValidationMessageFor(m => m.MaxContentVolume, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Outer Cube Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.OuterCubeVolume, new
+            {
+                @class = "form-control",
+                @required = "required"
+            })
+            @Html.ValidationMessageFor(m => m.OuterCubeVolume, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsAvailable) Is Available
+                </label>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+@*<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+
+        @if (Model.CaseId != null)
+        {
+            <label  class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-8">
+                <input type="text" name="@Model.CaseId" class="form-control" value="@Model.CaseId" required>
+                @Html.HiddenFor(m => m.CaseId)
+            </div>
+        }
+        else
+        {
+            <label  class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-8">
+                <input type="text" name="@Model.CaseId" class="form-control" maxlength="6" required>
+                @Html.ValidationMessageFor(m => m.CaseId, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label  class="col-sm-4 control-label">Discription</label>
+        <div class="col-sm-8">
+            <textarea class="form-control" name="@Model.Description" placeholder="Max 50 characters" maxlength="50"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-sm-4 control-label">Empty Weight <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="@Model.EmptyWeight" required>
+            @Html.ValidationMessageFor(m => m.EmptyWeight, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-sm-4 control-label">Max Content Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="@Model.MaxContentVolume" required>
+            @Html.ValidationMessageFor(m => m.MaxContentVolume, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <label  class="col-sm-4 control-label">Outer Cube Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-8">
+            <input type="text" name="@Model.OuterCubeVolume" class="form-control" required>
+            @Html.ValidationMessageFor(m => m.OuterCubeVolume, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-8">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="@Model.IsAvailable"> Is Available
+                </label>
+            </div>
+        </div>
+    </div>
+</form>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script type="text/javascript">
+        $(document).ready($(function () {
+            // Force the unobtrusive validation script to run
+            // http://forums.asp.net/t/1651961.aspx/1
+            $.validator.unobtrusive.parse("#frmSkuCaseEditor");
+        }));
+    </script>*@
