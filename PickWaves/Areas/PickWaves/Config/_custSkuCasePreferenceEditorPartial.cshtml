@@ -12,17 +12,16 @@
 
 
         <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
-        <div class="col-sm-9">
-            @*@Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-   {
-         {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
-         {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
-         {"id", "tbCustomer"},
-         {"class","form-control"}
-   })*@
+        <div class="col-sm-9">           
             <div class="input-group">
-                <input id="tbCustomer" placeholder="Search Customer"
-                       class="form-control typeahead" />
+                @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
+       {
+             {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
+             {"id", "tbCustomer"},
+             {"placeholder","Search Customer"},
+             {"class","form-control typeahead"}
+
+       })
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
@@ -53,26 +52,10 @@
                 @class = "form-control",
                 @placeholder = "Max 50 characters"
             })
-            @*<textarea class="form-control" name="@Model.Comment" placeholder="Max 50 characters" maxlength="256" rows="3" cols="49"></textarea>*@
-
             <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
         </div>
     </div>
 </form>
-
-@section script {
-    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
-    <script type="text/javascript">
-        var _autocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete("~"))';
-    </script>
-
-    <script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
-
-
-}
-
-
-
 
 
 
