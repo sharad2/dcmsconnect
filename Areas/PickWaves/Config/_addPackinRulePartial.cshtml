@@ -11,19 +11,13 @@
         <label for="case" class="col-sm-3 control-label">Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
         <div class="col-sm-9">
             <div class="input-group">
-                @Html.TextBoxFor(m => m.Style, new Dictionary<string, object>
-       {
-             {"id", "tbStyle"},
-             {"placeholder","Search Style"},
-             {"class","form-control typeahead"}
-
-       })
+                <input id="tbStyle" placeholder="Search Style"
+                       class="form-control typeahead" />
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
-            </div>
-            <input type="hidden" name="@Model.Style" id="hfStyle" />
-
+            </div>          
+            @Html.HiddenFor(m => m.Style, new { @id="hfStyle"})
 
             @Html.ValidationMessageFor(m => m.Style, null, new
            {

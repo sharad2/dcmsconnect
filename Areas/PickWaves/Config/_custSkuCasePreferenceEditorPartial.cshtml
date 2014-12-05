@@ -14,18 +14,15 @@
         <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
         <div class="col-sm-9">
             <div class="input-group">
-                @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-       {
-             {"id", "tbCustomer"},
-             {"placeholder","Search Customer"},
-             {"class","form-control typeahead"}
-
-       })
+                <input id="tbCustomer" placeholder="Search Customer"
+                       class="form-control typeahead" />
                 <span class="input-group-btn">
                     <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                 </span>
-            </div>
-            <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
+            </div> 
+
+            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer" })
+
 
             @Html.ValidationMessageFor(m => m.CustomerId, null, new
            {
