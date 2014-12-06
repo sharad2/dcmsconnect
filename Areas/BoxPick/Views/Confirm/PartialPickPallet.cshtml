@@ -1,0 +1,33 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.PartialPickPalletViewModel
+@{
+    ViewBag.Title = "BoxPick: Enter Pallet to confirm";
+    ViewBag.HelpAction = "PartialPickPallet";
+}
+@section head {
+    <script type="text/javascript">
+        var _emptyOk = true;
+    </script>
+}
+@section heading{
+    <h2>
+        Partial Picking of Pallet</h2>
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary
+{
+    {"ActiveTab", "Pa"}
+})
+@using (Html.BeginForm())
+{
+    @Html.EditorFor(m => m.ConfirmPalletId);
+}
+<ul>
+    <li><span class="ui-priority-primary">@Model.PalletPickableBoxCount </span>cartons will
+        be removed from this pallet. Rescan pallet again to remove remaining Boxes from
+        pallet.</li>
+    <li>Press <span class="ui-priority-primary">enter</span> to go back.</li>
+</ul>
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._bottomPartial, Model)
+
+
+
+@*$Id$*@

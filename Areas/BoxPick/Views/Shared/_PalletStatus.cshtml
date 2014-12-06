@@ -1,0 +1,57 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.MasterModelWithPallet
+<style type="text/css">
+    .boxpick-prominent .ui-priority-primary {
+        font-size: 1.5em;
+    }
+</style>
+<div class="boxpick-prominent">
+    @Html.DisplayFor(m => m.DisplayLocationId, "ValueWithShortName", new
+{
+    ValueClasses = "ui-priority-primary"
+}) &bull;
+
+    @Html.DisplayFor(m => m.CountCartonsToPickFromLocation, "ValueWithShortName", new
+{
+    ValueClasses = "ui-priority-primary"
+}) &bull;
+    @Html.DisplayFor(m => m.VwhIdToPick, "ValueWithShortName")
+    &bull;
+    @Html.DisplayFor(m => m.QualityCodeToPick, "ValueWithShortName")
+</div>
+<div class="boxpick-prominent">
+    @Html.DisplayFor(m => m.SkuDisplayNameToPick, "ValueWithShortName", new
+{
+    ValueClasses = "ui-priority-primary"
+}) &bull;
+    @Html.DisplayFor(m => m.PiecesToPick, "ValueWithShortName", new
+{
+    ValueClasses = "ui-priority-primary"
+})
+</div>
+<div>
+    @Html.DisplayFor(m => m.UccIdToPick, "ValueWithShortName", new
+{
+    ValueClasses = "ui-priority-primary"
+}) &bull;
+    Ctn: @Model.CartonIdToPick
+</div>
+<div>
+    @{
+        var i = 0;
+        foreach (var loc in Model.CartonLocations.Zip(Model.CartonCountAtLocations, (first, second) =>
+            string.Format("{0} * {1}", first, second)).Skip(1).Take(6))
+        {
+            if (i == 3)
+            {
+                <br />
+            }
+            i = i + 1;
+            <span>&raquo; @loc</span>
+        }
+    }
+</div>
+
+
+
+
+@*$Id$*@
