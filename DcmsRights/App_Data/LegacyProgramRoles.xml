@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--$Id$-->
+<programs>
+  <program name="PUL" description="Pulling the cartons from one area and sending them to another area">
+    <role name="SRC_PULLING" purpose="Required to enter the program" />
+  </program>
+  <program name="CreateMPC" description="Creating Master Pack">
+    <role name ="DCMS8_CREATEMPC" purpose ="Expediting- Create Boxes for Pitching"/>
+    <role name ="ALLOW_UNDER_PITCH" purpose ="User can create the under pitch MPCs"/>
+    <role name ="ALLOW_DELETE_MPCS" purpose ="User can delete MPCs in bulk."/>
+  </program>
+  <program name ="PITCHING" description="The process of filling the boxes with the required inventory is known as Pitching">
+    <role name="DCMS8_PITCHING" purpose ="Pitching - Ring scanner"/>
+  </program>
+  <program name ="RESTOCK" description="To provide functionality for restocking carton contents SKU from restock to specific location for which requirement has been already generated">
+    <role name ="DCMS8_RESTOCK" purpose ="Restock - Ring scanner"/>
+  </program>
+  <program name ="VALIDATION" description="Validates a box before Shipping">
+    <role name ="DCMS8_VALIDATION" purpose ="Validates a box before Shipping"/>
+  </program>
+  <program name ="POMGR" description="Purchase Order Manager (POMGR) gives the full information about a Purchase Order">
+    <role name ="DCMS8_POMGR" purpose ="PO Manager"/>
+  </program>
+  <program name="REPLENISH" description="Creating Replinshment request">
+    <role name="DCMS8_REPLENISH" purpose ="Replenishment Manager"/>
+  </program>
+  <!--<program name="SKUCYC" description="SKU cycle count program provides the actual inventory status of the Forward Pick Area(FPK) by the process of detecting, logging and fixing discrepancies of the FPK area">
+    <role name="DCMS8_SKUCYC" purpose ="Cycle Count Program for FPK - Ring Scanner"/>
+  </program>-->
+  <!--<program name="SKUCYCMGR" description="This program is responsible to take the decision about the locations, which are marked discrepant">
+    <role name="DCMS8_SKUCYCMGR" purpose ="Cycle Count Reconcile for FPK"/>
+  </program>-->
+  <!--<program name="SKUMGR" description="SKU Manager is help in managing various SKU properties and FPK locations">
+    <role name="DCMS8_SKUMGR" purpose ="SKU Manager to manage SKUs"/>
+    <role name="IGNORE_CASE" purpose ="User is allowed to mark the cases for ignoring."/>    
+    <role name="CHANGE_ASSIGNMENT" purpose ="Want to change can assign SKU of location"/>
+  </program>-->
+  <!--<program name="SKUXFER" description="This program is use to relocate SKU’s means transfer SKU’s from one area/location to another area/location">
+    <role name="DCMS8_SKUXFER" purpose ="Perform SKU Transfer - Ring scanner"/>
+    <role name="ALLOW_XFR_SSS_NR" purpose ="Enables transferring SKUs to/from SSS and NR"/>
+  </program>-->
+  <program name="VBP" description="Verification Bypass">
+    <role name="DCMS8_VBP" purpose ="Perform Verification Bypass"/>
+    <role name="SKIP_SEASON_CODE" purpose ="Allow skipping of season code assignment"/>
+    <role name="ALLOW_CHANGE_AREA" purpose ="Allow to change source and destination Areas"/>
+  </program>
+  <!--<program name="CYC" description="Cycle Count">
+    <role name="SRC_CYCLE" purpose ="Cycle Count for BIR Cartons - Telxon"/>
+  </program>-->
+  <!--<program name="QRE" description="This program is use for inventory transfer from one area to another area">
+    <role name="SRC_QRE" purpose ="Inventory Adjustment from 1 area to another"/>
+  </program>-->
+  <!--<program name="SSS" description="The damage or single pieces of any SKUs are sent to ‘Single, Seconds and Salvage’ area and fine pieces sent to the other area">
+    <role name="SRC_SSS" purpose ="Singles Seconds and Salvages inventory movement"/>
+    <role name="DCMS_MANAGER" purpose ="Singles Seconds and Salvages inventory movement"/>
+  </program>-->
+  <program name="INV" description="Inventory is use to show the area wise inventory to the managers or supervisors for any SKU">
+    <role name="DCMS_INV" purpose ="Inventory Manager"/>
+  </program>
+  <program name="RET" description="Return Program is intended for receiving Cartons that are returned from customers">
+    <role name="DEM_RETURNS" purpose ="Customer Returns Processing"/>
+  </program>
+  <!--<program name="C2P" description="Carton to Pallet">
+    <role name="SRC_C2P" purpose ="Carton to Pallet to move carton from REW to BIR"/>
+    <role name="SRC_C2P_MGR" purpose ="Carton to Pallet Manager move[REW to BIR]"/>
+  </program>-->
+  <program name="MAT" description="At matching station several checks are performed on the carton">
+    <role name="SRC_MAT" purpose ="Verification of inbound carton"/>
+    <!--<role name="SRC_MAT_MGR" purpose ="Verification of inbound carton - Supervisor privleges"/>-->
+  </program>
+  <program name="K2P" description="K2P program palletizes yellow cartons of “MAT” area">
+    <role name="DCMS_K2P" purpose ="Kit to Pallet"/>
+  </program>
+  <!--<program name="OPE" description="This program provides the facility of opening carton and examines bundles">
+    <role name="SRC_OPENING" purpose ="Opening a carton"/>
+    <role name="SRC_OPE_MGR" purpose ="Opening a carton with Supervisor privleges"/>
+  </program>-->
+  <program name="WXFER" description="SKU’s can move from one warehouse to another warehouse">
+    <role name="DCMS8_WXFER" purpose ="Warehouse Transfer"/>
+  </program>
+  <program name="BOXQC" description="Box Quality Check">
+    <role name="DCMS8_BOXQC" purpose ="Quility Check of Outgoing Boxes"/>
+  </program>
+  <program name="PMG" description="The Pickslip Manager (PMG) gives the full information about a pickslip and its status">
+    <role name="DCMS_PMG" purpose ="PMG"/>
+    <!--<role name="DCMS_PMG_MGR" purpose ="PMG Manager"/>-->
+  </program>
+  <program name="CHECKING" description="Checking program is a process of cross checking the SKUs picked by pickers and packaging them by putting SKU's into boxes">
+    <role name="DCMS8_CHECKING" purpose ="Checking"/>
+    <role name="UNCHECK_PICKSLIP" purpose ="User can put a Checked pickslip on hold"/>
+  </program>
+  <!--<program name="LCE" description="Label Capacity Editor">
+    <role name="DCMS8_LCE" purpose ="Label Capacity Editor"/>
+  </program>-->
+  <program name="MASTERPACK" description="Master Pack program is used to create master pack for those customers POs, who have specified their needs of minimum master pack weight">
+    <role name="DCMS8_MASTERPACK" purpose ="Master Pack"/>
+  </program>
+  <program name="SCANTODOOR" description="Scan To Door">
+    <role name="DCMS8_SCANTODOOR" purpose ="Scan To Door - Ring scanner"/>
+  </program>
+  <program name="SCM" description="Shipping Carton Manager">
+    <role name="DCMS8_SCM" purpose ="Shipping Carton Manager - Status of the Boxes"/>
+    <role name="ALLOW_REMOVE_PIECES" purpose ="User can remove pieces from the box"/>
+  </program>
+  <program name="SELECTPO" description="Creating Buckets to Process Orders">
+    <role name="DCMS8_SELECTPO" purpose ="Creating Buckets to Process Orders"/>
+    <role name="ALLOW_QUICK_PITCH" purpose ="User can change quick_pitch_flag in bucket"/>
+    <role name="ALLOW_EXPULL_TO_DOCK" purpose ="Allow changing pick mode to/from ExPulToDock"/>
+    <role name="ALLOW_AVL_BUCKET" purpose ="Allow to make Ex PulToDock bkt avaliable"/>
+    <role name="ALLOW_UNROUTE_ORDERS" purpose ="User can unroute the routed orders"/>
+  </program>
+  <!--<program name="SHIPMGR" description="Shipping Program">
+    <role name="DCMS8_SHIPMGR" purpose ="Shipping Program"/>
+    <role name="EARLY_SHIP_ALLOWED" purpose ="User can ship before start date and sys date"/>
+    <role name="BOX_CANCEL_ALLOWED" purpose ="User can cancel the unshippable boxes"/>
+    <role name="PD_CANCEL_ALLOWED" purpose ="User can cancel the pickslips"/>
+    <role name="ALLOW_SMS" purpose ="User is allowed to do Small Shipments"/>
+    <role name="ALLOW_FUTURE_DATE" purpose ="User is allowed to ship in future date"/>
+  </program>-->
+  <program name="SORTCONFIG" description="Sortation Configuration">
+    <role name="DCMS8_SORTCONFIG" purpose ="Create rules for Sortation System"/>
+  </program>
+  <program name="SORTSCAN" description="Scan boxes at Sortation">
+    <role name="DCMS8_SORTSCAN" purpose ="Scan boxes at Sortation"/>
+    <role name="ALLOW_MAPLANE_TOGATE" purpose ="For MapLaneToGate option"/>
+    <role name="ALLOW_AUTOREFLIMIT" purpose ="Limit of boxes after which rules auto refreshed"/>
+  </program>
+  <!--<program name="TMSMGR" description="Send receive EDI">
+    <role name="DCMS8_TMSMGR" purpose ="Send receive EDI"/>
+    <role name="ALLOW_ATS_UNPROPOSED" purpose ="Allow to select ats date other than proposed"/>
+    <role name="LOAD_EDI_ALLOWED" purpose ="User can load EDI pickslips from data file"/>
+  </program>-->
+  <program name="CREATEBPP" description="Create Box Pick Pallet">
+    <role name="DCMS8_CREATEBPP" purpose ="Create Box Pick Pallet"/>
+  </program>
+</programs>

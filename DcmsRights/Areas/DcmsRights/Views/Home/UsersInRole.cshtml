@@ -1,0 +1,60 @@
+﻿@model DcmsMobile.DcmsRights.ViewModels.UsersInRoleViewModel
+@{
+    ViewBag.Title = string.Format("List of Users for {0} ", Model.RoleName);
+}
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            @Html.ActionLink("List of all users", MVC_DcmsRights.DcmsRights.Home.UserList())
+        </div>
+    </div>
+    @if (!Model.IsEditable.Value)
+    {
+        <div class="box">
+            <div class="boxContent">
+                <blockquote>
+                    Security Administrators can remove roles from users. If you are a supervisor, you
+                    can request the Help Desk to grant the role <em>@Model.EditableRoleName</em> to
+                    you.
+                </blockquote>
+            </div>
+        </div>
+    }
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input:submit').button();
+    });
+</script>
+<h3>
+    Capabilities
+</h3>
+<ul style="list-style-position: outside">
+    @foreach (var area in Model.Areas)
+    {
+        <li><strong>@area.AreaName</strong> &raquo; @area.Capability
+        </li>
+    }
+</ul>
+@using (Html.BeginForm(MVC_DcmsRights.DcmsRights.Home.RemoveUsersFromRole(), FormMethod.Post))
+{
+    if (Model.IsEditable.Value && Model.Users.Count() > 0)
+    {
+    <div>
+        <span>@string.Format("Select users below then click to remove selected users in {0}", @Model.RoleName)</span>
+        <input type="submit" value="Remove" title= "@string.Format("Remove selected users for this Role {0}", @Model.RoleName)"/>
+        <input type="hidden" name='@Html.NameFor(m => m.RoleName)' value='@Model.RoleName' />
+    </div>
+    }      
+    <ol>
+        @foreach (var row in Model.Users)
+        {
+            <li style="display: inline-block; width: 12em">
+                @if (Model.IsEditable.Value)
+                {
+                    <input type="checkbox" name='@Html.NameFor(m => m.SelectedUsers)' value="@row.UserName"/> 
+                }
+                @Html.ActionLink(row.UserName, MVC_DcmsRights.DcmsRights.Home.ManageUser(row.UserName))</li>
+        }
+    </ol>
+}
