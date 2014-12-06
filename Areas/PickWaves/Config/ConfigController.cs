@@ -459,7 +459,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// Add new customer and its constraint.
         /// </summary>
         /// <returns></returns>
-        [Route("addview")]
+        [Route("customeraddview")]
         public virtual ActionResult CustomerConstraintAddView()
         {
             var html = RenderPartialViewToString(Views._addCustomerConstraintPartial, new CustomerConstraintEditorModel());
