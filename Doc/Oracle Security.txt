@@ -1,0 +1,23 @@
+﻿Sharad 20 Aug 2011
+------------------
+
+Thanks to OracleDataStore, Oracle Proxy users are supported. The connect string can look like this:
+<add name="dcms8" connectionString="Data Source=w8bhutan/mfdev;Persist Security Info=True;Proxy User Id=dcms8;Proxy Password=dcms8"  />
+
+If the user is not logged in, then the connect string will behave equivalent to the non proxy counterpart:
+<add name="dcms8" connectionString="Data Source=w8bhutan/mfdev;Persist Security Info=True;User Id=dcms8;Password=dcms8"  />
+
+If the user is logged in, then the program executes as the logged in user. The logged in user must have rights on all tables as required by the
+program being used.
+
+As a special case, if logged in user is same as proxy user, the proxy infrastructure is bypassed. This is necessary to prvent errors like
+"dcms8 cannot connect as dcms8".
+
+dcms4 and dcms8 should be assigned the flag role DCMS_DBA. This role need not have any rights assigned to it sice we do not intend to assign it to any user other than
+dcm4 and dcms8. All authorization restrictions must ensure that DCMS_DBA role is allowed to perform the task.
+
+
+
+
+
+

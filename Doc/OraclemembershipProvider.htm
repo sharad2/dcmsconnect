@@ -1,0 +1,31 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+	<head>
+		<title>OraclemembershipProvider</title>
+	</head>
+	<body>
+	<h1>OraclemembershipProvider</h1>
+	<p>
+	Provides login services where each user is authenticated by attempting to connect to an Oracle database
+	using the supplied username and password. If the oracle login succeeds, then the user is authenticated.
+	To use this provider, you web.config must have the following entry:
+	</p>
+	<pre>
+&lt;membership defaultProvider="OracleMembershipProvider"&gt;
+  &lt;providers&gt;
+    &lt;clear/&gt;
+    &lt;add name ="OracleMembershipProvider" type="EclipseLibrary.Oracle.Web.Security.OracleMembershipProvider"
+       connectStringName=&quot;dcms4&quot; oracleServiceName="w3usa/dcdev"/&gt;
+  &lt;/providers&gt;
+&lt;/membership&gt;</pre>
+	    <p>
+            connectStringName property refers to a connection string defined in the 
+            connectionStrings section of web.config. The user name and password of the 
+            connection string is not used because the user name and password of the user 
+            attempting to login is used. All other properties are used, includind the 
+            ProviderName property.</p>
+        <p>
+            oracleServiceName property is deprecated and should not be used by new 
+            applications.</p>
+	</body>
+</html>
