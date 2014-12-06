@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0" />
+    <link rel="stylesheet" href="@Links_CartonAreas.Content.jquery_mobile_1_4_2_css" />
+    <script src="@Links_CartonAreas.Scripts.jquery_2_1_1_js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).on("mobileinit", function () {
+            //http://api.jquerymobile.com/global-config/
+            $.mobile.ajaxEnabled = false;
+            $.mobile.pushStateEnabled = false;
+        });
+    </script>
+    <script src="@Links_CartonAreas.Scripts.jquery_mobile_1_4_2_js" type="text/javascript"></script>
+    @RenderSection("scripts", false)
+</head>
+<body>
+    <div data-role="page">
+        <header data-role="header">
+            <h1>
+                @ViewBag.Title <small>@ViewBag.Subtitle</small>
+            </h1>
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())" class="ui-btn ui-icon-home ui-btn-icon-left">Home</a>
+            <a href="#popupLayout" data-rel="popup" data-transition="slidedown" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-bars ui-btn-icon-notext ui-btn-a ui-btn-right">.</a>
+        </header>
+        <section data-role="content">
+            <aside>
+                @Html.StatusSummary()
+                @Html.ValidationSummary()
+                @RenderSection("sidebar", false)
+            </aside>
+            @RenderBody()
+        </section>
+        <footer data-role="footer">
+            Copyright &copy; 2014 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">
+                http://www.eclsys.com
+            </a>
+        </footer>
+
+        <div data-role="popup" id="popupLayout" data-theme="b" class="ui-mini">
+            <ul data-role="listview" data-inset="true" style="min-width:210px;">
+                <li data-icon="home"><a href="@Url.Content("~")">DCMS Connect Home</a></li>
+                @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    <li>@CartonAreasResource.Welcome @ViewContext.HttpContext.User.Identity.Name</li>
+                }
+                <li data-icon="info"><a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Tutorial())">Tutorial</a></li>
+                @if (ViewContext.HttpContext.Trace.IsEnabled)
+                {
+                    <li><a href="@Url.Content("~/trace.axd")" target="trace">Trace</a> </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>
+@*$Id$*@

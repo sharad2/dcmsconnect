@@ -1,0 +1,78 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Buildings";
+}
+@section sidebar {
+    There are @Model.Buildings.Count Buildings.
+    <br />
+    @Html.ActionLink("Add Building", MVC_CartonAreas.CartonAreas.Home.EditBuilding())
+}
+@Html.ValidationSummary()
+<h1>List of Buildings</h1>
+@for (var i = 0; i < Model.Buildings.Count; i++)
+{
+    <div class="box">
+        <div class="boxContent">
+            <h2>
+                @(i + 1) @Html.DisplayFor(m => m.Buildings[i].BuildingId) : @Html.DisplayFor(m => m.Buildings[i].Description)
+            </h2>
+            <div style="margin-left: 1em">
+
+                When a shipment ships from this building, the Bill of Lading and Manifest report will print this as the From Address
+                <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.EditBuilding(Model.Buildings[i].BuildingId))">Edit</a>
+                <br />
+                <em>
+                    @Html.DisplayFor(m => m.Buildings[i].Address1)
+                    @Html.DisplayFor(m => m.Buildings[i].Address2)
+                    @Html.DisplayFor(m => m.Buildings[i].Address3)
+                    @Html.DisplayFor(m => m.Buildings[i].Address4)
+                    <br />
+                    @Html.DisplayFor(m => m.Buildings[i].City)
+                    @Html.DisplayFor(m => m.Buildings[i].State),
+                    @Html.DisplayFor(m => m.Buildings[i].ZipCode)
+                    @Html.DisplayFor(m => m.Buildings[i].CountryCode)
+                </em>
+            </div>
+            <div style="margin-top:1em">
+                Created on
+                @Html.DisplayFor(m => m.Buildings[i].InsertDate)
+                by
+                @Html.DisplayFor(m => m.Buildings[i].InsertedBy)
+
+            </div>
+            <div style="margin-top:1em">
+                There are <span style="font-size:1.3em;">
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.CartonArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountCartonArea)</a>
+                    Carton Areas
+                </span> in this building.
+                @Html.DisplayFor(m => m.Buildings[i].CountNumberedArea) of these areas contain @Html.DisplayFor(m => m.Buildings[i].CountLocation) locations.
+                And <span style="font-size:1.3em;">
+                    <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.PickingArea(Model.Buildings[i].BuildingId))">@Html.DisplayFor(m => m.Buildings[i].CountPickingAreas)</a>
+                    Picking Areas
+                </span> in this building.
+            </div>
+
+            <div style="margin-top:1em">
+                When receiving in this building, you will need to palletize received cartons. What should be the size of each Pallet?
+                <strong class="palletLimit" style="font-size:1.2em;display:inline-block">@Html.DisplayFor(m => m.Buildings[i].ReceivingPalletLimit)</strong>.
+                <a class="editPalletLimit" href="#">Edit</a>
+                @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.EditPalletLimit(), FormMethod.Post, new { style = "display:none" }))
+                {
+                    @:Change to
+                    <input type="text" size="4" value="@Model.Buildings[i].ReceivingPalletLimit"
+                           name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.palletLimit" />
+                    <input type="hidden" name="@MVC_CartonAreas.CartonAreas.Home.EditPalletLimitParams.buildingId" value="@Model.Buildings[i].BuildingId">
+                    <button type="submit">Change</button> @:or
+                    <a class="cancelEdit" href="#">Cancel</a>
+                }
+
+                <br />
+                Receivers will receive a warning when this pallet limit is reached, but they will still be able to place more cartons on the pallet.
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script type="text/javascript" src="@Links_CartonAreas.Areas.CartonAreas.Scripts.Index_all_js"></script>
+}
