@@ -192,7 +192,7 @@
                                 @if (Model.UserIsManager)
                                 {
                                     <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#tabModal"
-                                            data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId"
+                                            data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId" title="Edit Customer Constraint"
                                             data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
@@ -222,7 +222,7 @@
                                     <span class="label label-success">@Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</span>
                                 </li>
                                 <li style="width:14em;">
-                                    Max. #SKUs:
+                                    Max. SKUs:
                                     <span class="label label-info"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</span>
                                 </li>
                                 <li style="width:14em;">

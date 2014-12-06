@@ -11,11 +11,11 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
     <div class="form-group">
-        <label for="case" class="col-sm-3 control-label">
+        <label for="case" class="col-sm-4 control-label">
             Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
             @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
         </label>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             <div class="input-group">
                 <input class="form-control typeahead" placeholder="Search Customer" id="tbCustomer" />
                 <span class="input-group-btn">
@@ -31,10 +31,10 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-3 control-label">
+        <div class="col-sm-4 control-label">
             @Html.LabelFor(m => m.MaxBoxWeight)
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             @Html.TextBoxFor(m => m.MaxBoxWeight, new
 {
     maxlength = 2,
@@ -48,10 +48,10 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-3 control-label">
+        <div class="col-sm-4 control-label">
             @Html.LabelFor(m => m.MaxSkuWithinBox)
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
 {
     maxlength = 2,
@@ -65,12 +65,12 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-3 control-label">
+        <div class="col-sm-4 control-label">
             @Html.LabelFor(m => m.RequiredMinSkuPieces)
         </div>
 
 
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
 {
     maxlength = 2,
@@ -85,10 +85,10 @@
     </div>
 
     <div class="form-group">
-        <div class="col-sm-3 control-label">
+        <div class="col-sm-4 control-label">
             @Html.LabelFor(m => m.RequiredMaxSkuPieces)
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-8">
             @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
 {
     maxlength = 2,
@@ -102,7 +102,7 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-9">
+        <div class="col-sm-offset-4 col-sm-8">
             <div class="checkbox">
                 <label>
                     @Html.CheckBoxFor(p => p.IsSingleStyleColor) @Html.LabelFor(p => p.IsSingleStyleColor)
