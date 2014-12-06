@@ -1,0 +1,28 @@
+﻿@using DcmsMobile.BoxManager.Helpers
+@model DcmsMobile.BoxManager.ViewModels.Home.ScanToPalletViewModel
+@{
+    ViewBag.Title = (UiType)ViewData[AuthorizeExUiAttribute.NAME_UITYPE] == UiType.ScanToPallet ? "Scan to Pallet" : "Palletize for VAS";
+}
+@using (Html.BeginForm(MVC_BoxManager.BoxManager.Home.HandleScan().AddRouteValue(AuthorizeExUiAttribute.NAME_UITYPE, ViewData[AuthorizeExUiAttribute.NAME_UITYPE])))
+{
+    <input type="hidden" name="@Html.NameFor(m => m.PalletId)" value="@Model.PalletId" />
+    <input type="hidden" name="@Html.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
+    <input type="hidden" name="@Html.NameFor(m => m.PoId)" value="@Model.PoId" />
+    <input type="hidden" name="@Html.NameFor(m => m.CustomerDcId)" value="@Model.CustomerDcId" />
+    <input type="hidden" name="@Html.NameFor(m => m.BucketId)" value="@Model.BucketId" />
+    <input type="hidden" name="@Html.NameFor(m => m.ConfirmScanText)" value="@Model.ConfirmScanText" />
+    <label for="scan">
+        Scan</label>
+    <input id="scan" type="text" name="@Html.NameFor(p => p.ScanText)" size="20" />
+    <span class="ui-state-highlight">@Html.DisplayFor(m => m.LastBoxId)</span>
+}
+@if (string.IsNullOrEmpty(Model.PalletId))
+{
+    <div class="ui-state-active">Tip : Scan a box to receive Pallet suggestion. </div>
+}
+else
+{
+    @Html.Partial(MVC_BoxManager.BoxManager.Home.Views._palletPartial, Model)
+}
+<div>Press Enter to start again.</div>
+<!--$Id: Index.Mobile.cshtml 12387 2012-02-20 04:06:13Z rkandari $-->

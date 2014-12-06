@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<!--
+	Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>@ViewBag.Title</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	@*@System.Web.Optimization.Styles.Render(DcmsMobile.BoxManager.Areas.BoxManagerAreaRegistration.BOXMANAGER_ALL_CSS)*@
+	<link href="@Links_BoxManager.Areas.BoxManager.Content.BoxManager_all_css" rel="stylesheet" type="text/css" />
+	
+	<link href="@Links_BoxManager.Content.themes.Start1_10_0.jquery_ui_css" rel="stylesheet" type="text/css" />
+	<script src="@Links_BoxManager.Scripts.jquery_2_1_1_js"  type="text/javascript"></script>
+	<script>$.uiBackCompat = false;</script>
+	<script src="@Links_BoxManager.Scripts.jquery_ui_1_10_0_js" type="text/javascript"></script>
+	<script src="@Links_BoxManager.Scripts.jquery_validate_js" type="text/javascript"></script>
+	<script src="@Links_BoxManager.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="outer" class="ui-widget">
+		<div id="header" class="ui-widget-header">
+			<span style="font-size: medium;">@ViewBag.Title</span>
+			<h2>
+				@ViewBag.Subtitle</h2>
+		</div>
+		<div id="menu">
+			<ul>
+				<li class="banner"><span>DCMS Connect - Box Manager</span></li>
+				<li><a href="@Url.Content("~")" >DCMS Connect Home</a></li>
+				<li><a href="@Url.Content("~/BoxManager")">Box Manager Home</a></li>
+				@if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+				{
+					<li>Welcome @ViewContext.HttpContext.User.Identity.Name</li>
+				}                
+@* ReSharper disable Html.PathError *@
+				@if (ViewContext.HttpContext.Trace.IsEnabled)
+				{
+					<li><a href="@Url.Content("~/trace.axd")" target="trace" >Trace</a> </li>
+				}
+				<li><a href="@Url.Action(MVC_BoxManager.BoxManager.Home.Tutorial())">Tutorial</a></li>
+				@* ReSharper restore Html.PathError *@
+			</ul>
+		</div>
+		<div id="content">
+			<div id="primaryContentContainer">
+				<div id="primaryContent">
+					@Html.StatusSummary()
+					@RenderBody()
+				</div>
+			</div>
+			<div id="secondaryContent">
+				@RenderSection("sidebar", false)
+			</div>
+		   <div class="ui-helper-clearfix">
+			</div>
+		</div>
+		<div id="footer">
+			<p>
+				Copyright &copy; 2013 Eclipse Systems <a href="http://www.eclsys.com" target="_blank">
+					http://www.eclsys.com</a></p>
+		</div>
+	</div>
+	@RenderSection("scripts", false)
+	<script type="text/javascript">
+		var input = document.getElementById('scan');
+		if (input) {
+			input.focus();
+		}
+	</script>
+</body>
+</html>

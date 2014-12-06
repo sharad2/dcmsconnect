@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Box Manager";
+    var i = 1;
+}
+Choice <input type="text" id="scan" onkeypress="RedirectToChoice()" style="text-transform: uppercase" />
+<ol style="padding-left: 2em;">
+    @foreach (var item in DcmsMobile.BoxManager.Areas.BoxManager.SubAreas.GetMetaData(Url).Where(p => p.Item3))
+    {
+        <li>
+            <a id="@i" name="@item.Item1.ShortName" href="@item.Item2">@item.Item1.Name</a> [@item.Item1.ShortName]
+        </li>
+        i++;
+    }
+</ol>
+@section scripts {
+    @*@System.Web.Optimization.Scripts.Render(DcmsMobile.BoxManager.Areas.BoxManagerAreaRegistration.BOXEDITOR_INDEX_MOBILE_JS)*@
+    <script src="@Links_BoxManager.Areas.BoxManager.Scripts.Index_mobile_js" type="text/javascript"></script>
+}

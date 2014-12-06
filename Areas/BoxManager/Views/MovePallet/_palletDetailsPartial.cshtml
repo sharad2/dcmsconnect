@@ -1,0 +1,62 @@
+﻿@*Reviewed By: Deepak Bhatt 11 June 2012*@
+@model DcmsMobile.BoxManager.ViewModels.MovePallet.DestinationViewModel
+@if (Model.TotalBoxesOnPallet > 0)
+{
+    <div>
+        <strong>@Html.DisplayFor(m => m.TotalBoxesOnPallet)</strong> Boxes on <strong>@Html.DisplayFor(m => m.SourcePalletId)</strong>
+        @Html.DisplayFor(m => m.SourcePalletAreaId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.SourcePalletLocationId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.DoorId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    </div>
+    <div>
+        @Html.DisplayFor(m => m.AppointmentNo, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.AppointmentDate, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    </div>
+    <div>
+        @Html.DisplayFor(m => m.CustomerId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.PoId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.CustomerDcId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+        @Html.DisplayFor(m => m.BucketId, MVC_BoxManager.BoxManager.Shared.Views.DisplayTemplates.ValueWithShortName)
+    </div>
+   if(Model.LocationSuggestionList.Count > 0)
+   { 
+    <table>
+        <thead>
+            <tr>
+                <td style="text-align:center">
+                    Suggested Loc
+                </td>
+                <td style="text-align:center">
+                    Area
+                </td>
+                <td style="text-align:center">
+                    Pallet
+                </td>
+                <td style="text-align:center">
+                    Boxes
+                </td>
+                <td style="text-align:center">
+                    % Full
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.LocationSuggestionList.Count(); i++)
+            {
+                <tr class="@(i%2 == 0 ? "rowA":"rowB")">
+                    <td>@Html.DisplayFor(m => m.LocationSuggestionList[i].LocationId)</td>
+                    <td>@Html.DisplayFor(m => m.LocationSuggestionList[i].IaId)</td>
+                    <td>@Html.DisplayFor(m => m.LocationSuggestionList[i].PalletId)</td>
+                    <td style="text-align:right">@Html.DisplayFor(m => m.LocationSuggestionList[i].TotalBoxesOnPallet)</td>
+                    <td>@string.Format("{0}%", (int)(Model.LocationSuggestionList[i].PalletVolume * 100 / Model.PalletVolumeLimit))</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+   }
+else
+   {
+       <span>No suggestion available.</span>
+   }
+}

@@ -1,0 +1,121 @@
+﻿[Binay Bhushan on 04/03/2013]
+• Some points:-
+
+• On the basis of the current scenario, Validation allows you to perform following task on box:----
+
+		1.	Validate scanned box (Check scanned box is shippable or not). 
+		2.  Provide validation date to scanned box. 
+
+• Features of Validation:-----
+
+• Validate Box on the basis of following cases
+		1. Non Physical
+		2. Cancelled
+		3. Empty
+		4. Verified
+		5. Transferred
+		6. Require VAS
+		7. Weight(Over or Under)
+		8. Single SKU
+		9. Single Style Color
+		10. SKU Case
+		11. Pieces/Package
+		12. Max SKU/Box
+
+• if any of the above conditions is true then box's area remains unchanged. In case all conditions being false, Box is verified and verified date is against box
+
+• Point to be discussed: ------
+
+		1. What happen if If last box of a pickslip/bucket is cancelled (As we know:-Program will remove reservations if the last box of the bucket is scanned)
+		2. The carrier must exist for last box pickslips.
+		3. Is it possible a box has more than one attribute customer?
+		4. Why we are inserting single row in box_productivity table even if box belongs to multiple pickslips.
+		5. In ‘BOX_PRODUCTIVITY’ table what happen if:
+			5.1. If the expected pieces are not equal to current pieces & if current area is GRN ($PREVERIFYAREA).[_Pass/Fail]
+			5.2. If the expected pieces are not equal to current pieces & if current area is RED ($PREVERIFYAREA).[Pass/_Fail]
+			5.3. If the expected pieces are equal to current pieces & if current area is RED ($PREVERIFYAREA).[Pass/_Fail]
+		6. If user scans RED area box and Validation decides it to send to [Please describe]
+			6.1. RED area then a row will be inserted in ‘BOX_PRODUCTIVITY’ table only if flag value is NULL and if flag value is NULL then set it as ‘Y’.
+			6.2	 SHP area then a row will be inserted in ‘BOX_PRODUCTIVITY’ table irrespective of flag value and the flag value will remain unchanged.
+
+
+• Some Points related to print the documents or box details:------
+		
+		1. Points related to Box Printing:----
+
+			*step1: Retrieving customer_id for given pickslip
+				   Table Used:- box,boxdet,master_sku,mpc_loc
+				   Parameter Used:- pickslip_id
+
+			step2: Retrieving customer_id for given pickslip
+				   Table Used:- ps
+				   Parameter Used:- pickslip_id
+
+			step3: Retrieving information for SLN box
+				   Table Used:- dem_pickslip_assortment.
+				   Parameter Used:- pickslip_id
+
+			*step4: Retrieving customer_id for given boxId(with concept of attribute customer)
+				   Table Used:- ps,box
+				   Parameter Used:- Ucc128_id
+
+			step5: Retrieving documents properties of $PSPB(Picking Slip Per Box)
+				   Table Used:- customer_object,doc
+				   Parameter Used:- customer_id,doc_id,doco
+
+			step6: Printing MPS for given box.
+				   Package Used:- pkg_print_pack.write_pspb_to_file()
+				   Parameter Used:- ucc128_id,printer_name,coppy_to_print,option(?),NUMBERPRINTED(out parameter)
+
+		2. Points related to print pickslip Documents:----
+
+			2.1 For MPS(Master Picking Slip)Printing:--
+
+				step1: Validating Scanned pickslip
+					   Table Used:- ps
+					   Parameter Used:- pickslip_id
+
+				step2: Retrieving number of boxes in pickslip of current box.
+					   Table Used:- box
+					   Parameter Used:- pickslip_id
+
+				*step3: Retrieving customerId for given pickslipId
+					   Table Used:- ps
+					   Parameter Used:- pickslip_id
+
+				step4: Retrieving documents properties of $MPS(Master Picking Slip)
+					   Table Used:- customer_object,doc
+					   Parameter Used:- customer_id,doc_id,doco
+
+				step5: Printing MPS for given box.(?????????)
+					   Package Used:- pkg_print_pack.write_mps_to_file()
+					   Parameter Used:- pickslip_id,printer_name,coppy_to_print,option(?),NUMBERPRINTED(out parameter)
+
+			2.2 For International invoice printing:--
+
+				*step1(6): Retrieving customerId for given pickslipId[Need only when going to print individually]
+						  Table Used:- ps
+					      Parameter Used:- pickslip_id
+
+				step2(7): Retrieving documents properties of $IINV
+					      Table Used:- customer_object,doc
+					      Parameter Used:- customer_id,doc_id,doco
+
+				step3(8): Printing international invoice for given pickslipId.
+					      Table Used:- pickslip_object
+						  package:-pkg_print_pd.write_single_pd_to_file()
+					      Parameter Used:- pickslip_id,printer_name,copies_to_print,first_page_only,NUMBERPRINTED(out parameter)
+
+			 2.3 For pickslip printing:--
+
+				*step1(9): Retrieving customerId for given pickslipId[Need only when going to print individually]
+						  Table Used:- ps
+					      Parameter Used:- pickslip_id
+
+				step2(10): Retrieving documents properties of $PD
+					      Table Used:- customer_object,doc
+					      Parameter Used:- customer_id,doc_id,doco
+
+				step3(11): Printing pickslip for given pickslipId.
+						  package:-pkg_print_pd.write_single_pd_to_file()
+					      Parameter Used:- pickslip_id,printer_name,copies_to_print,first_page_only,NUMBERPRINTED(out parameter)
