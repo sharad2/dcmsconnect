@@ -10,11 +10,11 @@
 <form class="form-horizontal" id="frmSkuCaseEditor" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        <label class="col-sm-4 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <label class="col-sm-5 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
         @if (Model.CaseId != null)
         {
             
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 @Html.DisplayFor(m => m.CaseId, new
            {
                @class = "form-control",
@@ -26,7 +26,7 @@
         }
         else
         {
-            <div class="col-sm-8">
+            <div class="col-sm-7">
                 @Html.TextBoxFor(m => m.CaseId, new
            {
                @class = "form-control",
@@ -41,8 +41,8 @@
         }
     </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Discription</label>
-        <div class="col-sm-8">
+        <label class="col-sm-5 control-label">Discription</label>
+        <div class="col-sm-7">
             @Html.TextAreaFor(m => m.Description, new
             {
                 MaxLength = "50",
@@ -52,8 +52,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Empty Weight <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-8">
+        <label class="col-sm-5 control-label">Empty Weight(lbs) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-7">
             @Html.TextBoxFor(m => m.EmptyWeight, new
             {
                 @class = "form-control",
@@ -67,8 +67,8 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Max Content Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-8">
+        <label class="col-sm-5 control-label">Max Content Volume(ft) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-7">
             @Html.TextBoxFor(m => m.MaxContentVolume, new
             {
                 @class = "form-control",
@@ -81,21 +81,23 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-4 control-label">Outer Cube Volume <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-8">
+        <label class="col-sm-5 control-label">Outer Cube Volume(ft)<sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-7">
             @Html.TextBoxFor(m => m.OuterCubeVolume, new
             {
                 @class = "form-control",
                 @required = "required"
             })
+        
             @Html.ValidationMessageFor(m => m.OuterCubeVolume, null, new
            {
                @class = "help-block"
            })
+          
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
+        <div class="col-sm-offset-5 col-sm-7">
             <div class="checkbox">
                 <label>
                     @Html.CheckBoxFor(m => m.IsAvailable) Is Available

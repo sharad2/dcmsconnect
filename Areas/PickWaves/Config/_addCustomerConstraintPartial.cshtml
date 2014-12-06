@@ -10,25 +10,19 @@
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
         <label for="case" class="col-sm-4 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
-        <div class="col-sm-8">
-            <div class="input-group">
-                @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
+        
+            <div class="col-sm-8">
+    @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
        {
              {"id", "tbCustomer"},
              {"class","form-control"}
-
-       })   
-            </div>
-            <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
-
-            @Html.ValidationMessageFor(m => m.CustomerId, null, new
-           {
-               @class = "help-block"
-           })
+       })
+</div>
+        <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
         </div>
 
 
-    </div>
+   
     <div class="form-group">
         <div class="col-sm-4 control-label">
             @Html.LabelFor(m => m.MaxBoxWeight)
