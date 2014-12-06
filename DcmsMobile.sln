@@ -1,48 +1,45 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsLibrary.Mvc", "..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj", "{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsLibrary.Mvc", "DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj", "{1FC7FE1F-FF9A-46AE-AFB8-38E7F74204C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Mvc", "EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj", "{9E2266CB-5042-4601-AF29-6CBAC5AE8664}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EclipseLibrary.Oracle", "EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj", "{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inquiry", "..\Inquiry\Inquiry.csproj", "{BF6DED9A-B0EA-47FB-9782-9435156D691D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inquiry", "Inquiry\Inquiry.csproj", "{BF6DED9A-B0EA-47FB-9782-9435156D691D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "..\DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsMobile", "DcmsMobile\DcmsMobile.csproj", "{332AE96A-B5AE-4CEC-8D20-B011EB3DCE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceReplenish", "..\PieceReplenish\PieceReplenish.csproj", "{6A1F5875-3B99-4DDF-99B8-B9C71BF27169}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PieceReplenish", "PieceReplenish\PieceReplenish.csproj", "{6A1F5875-3B99-4DDF-99B8-B9C71BF27169}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{929E7674-F39E-4953-A823-6A5A9DDB8C27}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet.config = NuGet.config
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping", "..\Shipping\Shipping.csproj", "{CCC8F90E-755D-4AD7-A4BD-5F66D82058D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shipping", "Shipping\Shipping.csproj", "{CCC8F90E-755D-4AD7-A4BD-5F66D82058D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxPick", "..\BoxPick\BoxPick.csproj", "{06488181-C388-4762-AC57-604E2754E8B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxPick", "BoxPick\BoxPick.csproj", "{06488181-C388-4762-AC57-604E2754E8B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonAreas", "..\CartonAreas\CartonAreas.csproj", "{037BC97F-051F-4A6B-B2CA-6B522EC62BED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonAreas", "CartonAreas\CartonAreas.csproj", "{037BC97F-051F-4A6B-B2CA-6B522EC62BED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsRights", "..\DcmsRights\DcmsRights.csproj", "{ACC8F093-7149-413F-9088-4F84A1A3F166}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsRights", "DcmsRights\DcmsRights.csproj", "{ACC8F093-7149-413F-9088-4F84A1A3F166}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PalletLocating", "..\PalletLocating\PalletLocating.csproj", "{EA8AB115-7DC9-4FC5-B6F7-00D4332CB928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PalletLocating", "PalletLocating\PalletLocating.csproj", "{EA8AB115-7DC9-4FC5-B6F7-00D4332CB928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Receiving", "..\Receiving\Receiving.csproj", "{8EC812FC-E397-4DC7-B234-3AC7BB39156A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Receiving", "Receiving\Receiving.csproj", "{8EC812FC-E397-4DC7-B234-3AC7BB39156A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repack", "..\Repack\Repack.csproj", "{EB73E251-E6B3-4479-AF8D-5A565045CF3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repack", "Repack\Repack.csproj", "{EB73E251-E6B3-4479-AF8D-5A565045CF3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxManager", "..\BoxManager\BoxManager.csproj", "{F31C61A9-A65C-449B-BE84-239D47F875D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxManager", "BoxManager\BoxManager.csproj", "{F31C61A9-A65C-449B-BE84-239D47F875D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonManager", "..\CartonManager\CartonManager.csproj", "{5DC02827-3CB5-4618-A1C5-B2AC2DA900A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CartonManager", "CartonManager\CartonManager.csproj", "{5DC02827-3CB5-4618-A1C5-B2AC2DA900A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsLite", "..\DcmsLite\DcmsLite.csproj", "{4976D91D-666B-481B-BFB7-538ECC34A6F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DcmsLite", "DcmsLite\DcmsLite.csproj", "{4976D91D-666B-481B-BFB7-538ECC34A6F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REQ2", "..\REQ2\REQ2.csproj", "{3CEF1D2B-0984-4D10-80B5-45D2FFEE9A11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REQ2", "REQ2\REQ2.csproj", "{3CEF1D2B-0984-4D10-80B5-45D2FFEE9A11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PickWaves", "..\PickWaves\PickWaves.csproj", "{A98AA80C-48D3-4B87-B284-82F45C8BF706}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PickWaves", "PickWaves\PickWaves.csproj", "{A98AA80C-48D3-4B87-B284-82F45C8BF706}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
