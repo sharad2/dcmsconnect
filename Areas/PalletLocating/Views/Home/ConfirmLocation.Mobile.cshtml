@@ -1,0 +1,81 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.LocationViewModel
+@{
+    @*var grid = Html.GridFor(m => m.SuggestedLocations);
+    grid.AddColumn(m => m.LocationId).Presorted().CellHtml(p => p.RowIndex == 0, @<span
+        style="font-weight: bold">@item.Model.LocationId</span>);
+    grid.AddColumn(m => m.DisplayCartonCount);*@
+}
+<div class="box">
+    <div class="tabs">
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.BuildingId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.TargetAreaShortName) <em>@Html.DisplayFor(m => m.ReplenishAreaShortName)</em></span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">@Html.DisplayFor(m => m.PalletId)</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+            <span class="ui-button-text">Location</span>
+        </label>
+    </div>
+    <div class="boxContent">
+        @Html.Partial(MVC_PalletLocating.PalletLocating.Home.Views._confirmLocationPartial, Model)
+        @Html.ValidationSummary()
+        <div class="ui-state-hover">
+            @Html.DisplayFor(m => m.PalletCartonCount, MVC_PalletLocating.PalletLocating.Shared.Views.DisplayTemplates.ValueWithShortName)
+            @Html.DisplayFor(m => m.PalletSku.DisplaySku, MVC_PalletLocating.PalletLocating.Shared.Views.DisplayTemplates.ValueWithShortName)
+            @if (Model.PalletSkuCount > 1)
+            { 
+                <span>and</span> @(Model.PalletSkuCount - 1) <span>more</span>
+            }
+        </div>
+        @Html.StatusSummary()
+    </div>
+</div>
+@*@grid.GetHtml(
+            rowStyle: "rowA",
+            alternatingRowStyle: "rowB",
+            emptyDataHtml: "<span class='ui-state-highlight'>No Locations found</span>",
+            caption: string.Format("<div class='ui-state-highlight ui-corner-all'>Suggested loc in <strong>{0}</strong></div>", Model.SuggestedAreaShortName)
+            )*@
+@if (Model.SuggestedLocations.Count() > 0)
+{
+    <table>
+        <caption>@string.Format("Suggested loc in {0}", Model.SuggestedAreaShortName)</caption>
+        <thead>
+            <tr>
+                <th>Location<span style="display:inline-block" class="ui-icon ui-icon-triangle-1-n"></span></th>
+                <th>Cartons at Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.SuggestedLocations.Count(); i++)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td style="@(Model.SuggestedLocations[i].DisplayCartonCount.Count() > 0 ? "font-weight:bold" : "")">@Html.DisplayFor(m => m.SuggestedLocations[i].LocationId)</td>
+                    <td style="text-align:right">@Html.DisplayFor(mbox => mbox.SuggestedLocations[i].DisplayCartonCount)</td>
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+}
+else
+{
+    <span class='ui-state-highlight'>No Locations found</span>
+}
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@
