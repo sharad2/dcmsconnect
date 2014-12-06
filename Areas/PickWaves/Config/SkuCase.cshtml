@@ -407,14 +407,12 @@
                     $('.modal-body').html(data);
                     //will insert  title in the form
                     $('.modal-title').text(title);
-
                     //Will put the values in the edit packing rule form at third tab.
                     if ($(btnAction).is('[data-show-style]')) {
 
                         $('#tbStyle,#hfStyle', '#frmAddPackingRule').val($(btnAction).data('show-style'));
                         $('#caseId', '#frmAddPackingRule').val($(btnAction).data('show-case'));
                     }
-
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
