@@ -1,0 +1,32 @@
+﻿--Mention here all the roles and grants required for this Application module
+
+--------------------------------------
+--                                  --
+--  Roles for DCMS Lite Module    --
+--                                  --
+---------------------------------------
+
+--LOG IN AS DCMSLITE AND CREATE NEW ROLE
+
+--###################################################################
+                  -- CREATE THE ROLE 
+--###################################################################
+-- Create the role 
+create role DCMSLITE_MANAGER;
+-- Grant/Revoke object privileges 
+grant execute on PKG_BUCKET_LITE to DCMSLITE_MANAGER;
+grant execute on PKG_RECEIVING_LITE to DCMSLITE_MANAGER;
+grant select on PS to DCMSLITE_MANAGER;
+grant select on BUCKET to DCMSLITE_MANAGER;
+grant select on CUST to DCMSLITE_MANAGER;
+grant select on BOX to DCMSLITE_MANAGER;
+grant select on IALOC to DCMSLITE_MANAGER;
+grant select on IA to DCMSLITE_MANAGER;
+grant select on SRC_CARTON_INTRANSIT to DCMSLITE_MANAGER;
+grant select on MASTER_STYLE to DCMSLITE_MANAGER;
+grant select on TAB_LABEL_GROUP to DCMSLITE_MANAGER;
+grant select on TAB_WAREHOUSE_LOCATION to DCMSLITE_MANAGER;
+grant select on TAB_PRINTER to DCMSLITE_MANAGER;
+
+grant select on IACONFIG to DCMSLITE_MANAGER;
+grant execute on PKG_VALIDATE_BOX to DCMSLITE_MANAGER;

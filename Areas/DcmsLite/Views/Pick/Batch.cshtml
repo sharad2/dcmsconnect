@@ -1,0 +1,146 @@
+﻿@model DcmsMobile.DcmsLite.ViewModels.Pick.BatchViewModel
+@{
+    ViewBag.Title = "Reprint Batch " + Model.BatchId;
+}
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            <ul style="padding-left: 0.8em;">
+                <li>@Html.ActionLink("DCMS Lite Home", MVC_DcmsLite.DcmsLite.Home.Index())</li>
+                <li>@Html.ActionLink("Pick Wave List", MVC_DcmsLite.DcmsLite.Pick.Index())</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div id="divInfo" class="ui-state-highlight ui-corner-all ui-helper-hidden" style="margin-top: 1em; padding: .5em .7em;">
+    <span class="ui-icon ui-icon-close" title="Close" style="float: right; cursor: pointer; margin-right: .1em;" onclick="return($(this).parent().hide(1000));"></span>
+    <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+    <span class="info-message">Status message here</span>
+</div>
+
+<div style="font-size: 1.2em;">
+    <strong>Pick Wave : @Html.ActionLink(Model.BucketId.ToString(), MVC_DcmsLite.DcmsLite.Pick.Wave(Model.BucketId.Value))</strong>
+    @if (Model.IsFrozenBucket)
+    {
+        <span class="ui-state-highlight">Bucket is Frozen </span>    
+    }
+</div>
+<div id="tabs">
+    <ul>
+        <li><a href="#CurrentBatch">Batch @Model.BatchId</a></li>
+        <li><a href="#OtherPrintedBatch">Other Batches</a></li>
+    </ul>
+    <div id="CurrentBatch">
+        <p>
+            To reprint the Batch @Model.BatchId select the printer from below list and click on the Reprint Now button.
+        </p>
+        <fieldset style="padding: 1em;">
+            <legend><strong>Batch @Html.DisplayFor(m => m.BatchId)</strong></legend>
+            @Html.LabelFor(m => m.CurrentPrintBatch.TotalBoxes) <strong>@Html.DisplayFor(m => m.CurrentPrintBatch.TotalBoxes)</strong>
+            @Html.LabelFor(m => m.CurrentPrintBatch.PrintedBy) <strong>@Html.DisplayFor(m => m.CurrentPrintBatch.PrintedBy)</strong>
+            @Html.LabelFor(m => m.CurrentPrintBatch.LastUccPrintDate) <strong>@Html.DisplayFor(m => m.CurrentPrintBatch.LastUccPrintDate)</strong>
+        </fieldset>
+        @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Pick.ReprintBatch(), FormMethod.Post, new { id = "frmPrintBatch" }))
+        {
+            <fieldset style="padding: 1em; margin: 1em 0 1em 0">
+                <legend>Printer List</legend>
+                @for (var i = 0; i < Model.PrinterList.Count(); i++)
+                {
+                    var item = Model.PrinterList.Where((listItem, p) => p == i).First();
+                    <input type="radio" id="@item.Value" value="@item.Value" @(Model.PrinterList[i].Selected ? "checked='checked'" : "") 
+                           name="@MVC_DcmsLite.DcmsLite.Pick.ReprintBatchParams.printer" />
+                    <label for="@item.Value">@item.Text</label>
+                    <br />
+                }
+                @if (Model.PrinterList != null && Model.PrinterList.Count == 0)
+                {
+                    <div style="font-size: 1.3em;" class="ui-state-error">No printer found for Building @Html.DisplayFor(m => m.BuildingDescription). Add new printer.</div>
+                }
+            </fieldset>
+            <input type="hidden" name="@MVC_DcmsLite.DcmsLite.Pick.ReprintBatchParams.batchId" value="@Model.BatchId" />
+            <button id="btnPrintNow" @Html.Raw(Model.IsEditable && !Model.IsFrozenBucket ? "" : "disabled='disabled'")>Reprint Now</button>
+        }
+        <br />
+        <p>
+            You can reprint the label for specific box by clicking on the respective Reprint button in below list.
+        </p>
+        <table>
+            <caption>Printed boxes of Batch @(Model.BatchId)</caption>
+            <thead>
+                <tr style="text-align: center">
+                    <th title="This sequence is useful to reprint the missing label.">Box Seq.</th>
+                    <th>Box</th>
+                    <th>Last Print Date</th>
+                    @if (Model.IsEditable && !Model.IsFrozenBucket)
+                    {
+                        <th>Reprint</th>
+                    }
+                </tr>
+            </thead>
+            @for (var i = 0; i < Model.BoxList.Count; i++)
+            {
+                <tbody>
+                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                        <td title="This sequence is useful to reprint the missing label.">@Html.DisplayFor(m => m.BoxList[i].BoxId)</td>
+                        <td>@Html.DisplayFor(m => m.BoxList[i].UccId)</td>
+                        <td class="ucc-print-date">@Html.DisplayFor(m => m.BoxList[i].LastUccPrintDate)</td>
+                        @if (Model.IsEditable && !Model.IsFrozenBucket)
+                        {
+                            <td><a href="#" data-uccid="@Model.BoxList[i].UccId" class="ui-icon ui-icon-print" style="cursor: pointer"></a></td>
+                        }
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+    <div id="OtherPrintedBatch">
+        <p>
+            Click on Printed Batch in below list to reprint labels.
+        </p>
+        <table>
+            <caption>Printed Batch List of Pick wave @Model.BucketId</caption>
+            <thead>
+                <tr style="text-align: center">
+                    <th>#</th>
+                    <th>Batch</th>
+                    <th>Total Boxes</th>
+                    <th>Last Print Date<span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s"></span><sup>1</sup></th>
+                    <th>Printed by</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.PrintedBatchList.Count; i++)
+                {
+                        
+                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                        <td>@(i + 1)</td>
+                        <td>
+                            @Html.ActionLink(Model.PrintedBatchList[i].BatchId, MVC_DcmsLite.DcmsLite.Pick.Batch(Model.PrintedBatchList[i].BatchId))
+                        </td>
+                        <td style="text-align: right">
+                            @Html.DisplayFor(m => m.PrintedBatchList[i].TotalBoxes)
+                            @if (Model.PrintedBatchList[i].CountUnprintedBoxes > 0)
+                            {
+                                <span class="ui-state-highlight">@Html.DisplayFor(m => m.PrintedBatchList[i].CountUnprintedBoxes)</span>
+                            }
+                        </td>
+                        <td>@Html.DisplayFor(m => m.PrintedBatchList[i].LastUccPrintDate)</td>
+                        <td>@Html.DisplayFor(m => m.PrintedBatchList[i].PrintedBy)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div style="display: none">
+    @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Pick.PrintBoxLabel(), FormMethod.Post, new { id = "frmPrintDialog" }))
+    {
+        <input type="hidden" id="hfUccId" name="@MVC_DcmsLite.DcmsLite.Pick.PrintBoxLabelParams.uccId" />
+        <input type="hidden" id="hfSelectedPrinter" name="@MVC_DcmsLite.DcmsLite.Pick.PrintBoxLabelParams.printer" />
+    }
+</div>
+@section scripts{
+    <script src="@Links_DcmsLite.Areas.DcmsLite.Scripts.Batch_js" type="text/javascript"></script>
+}

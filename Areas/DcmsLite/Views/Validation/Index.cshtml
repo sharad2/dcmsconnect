@@ -1,0 +1,59 @@
+﻿@model DcmsMobile.DcmsLite.ViewModels.Validation.IndexViewModel
+@{
+    ViewBag.Title = "Validate Box";
+}
+
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            @Html.ActionLink("DCMS Lite Home", MVC_DcmsLite.DcmsLite.Home.Index())
+        </div>
+    </div>
+}
+
+<div class="boxContent">
+    @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Validation.ValidateBox(), FormMethod.Post))
+    {
+        <strong style="font-size: 1.8em">@Html.LabelFor(m => m.UccId)</strong>
+        <input id="tbScanBox" type="text" name="@Html.NameFor(m => m.UccId)" size="30" style="font-size:2em;" autocomplete="off" />
+        <input type="submit" value="Validate" style="font-size: 1.5em" />
+    }
+    <div style="font-size: 1.3em; padding: 1em;">
+        <span class="ui-state-active">Boxes passed will be sent to area <strong>@Html.DisplayFor(m => m.PostVerifyArea)</strong></span>
+
+        <span class="ui-state-error">Boxes rejected will be sent to area <strong>@Html.DisplayFor(m => m.BadVerifyArea)</strong></span>
+    </div>
+</div>
+@Html.Partial(MVC_DcmsLite.DcmsLite.Shared.Views._soundPartial, Model.Sound)
+<div style="padding-left: 25%; padding-bottom: 1.5em;">
+    @if (Model != null && Model.Sound == 'S')
+    {
+        <div class="ui-state-active ui-corner-all" style="width: 30em; height: 20em; text-align: center;">
+            <div style="font-size: 2em; font-weight: bold; line-height: 8.5em;">Validation Passed</div>
+            <strong style="font-size: 2em;" class="ui-state-highlight">@Model.LastScan</strong>
+        </div>
+    }
+    else if (Model.Sound == 'E')
+    {
+        <div class="ui-state-error ui-corner-all" style="width: 30em; height: 20em; text-align: center;">
+            <div style="font-size: 2em; font-weight: bold; line-height: 8.5em;">Validation Failed</div>
+            <strong style="font-size: 2em;" class="ui-state-highlight">@Model.LastScan</strong>
+        </div>   
+    }
+    else if (ViewData.ModelState.IsValid && Model.Sound == 'W')
+    {
+        <div class="ui-state-highlight ui-corner-all" style="width: 30em; height: 20em; text-align: center;">
+            <div style="font-size: 2em; font-weight: bold; line-height: 8.5em;">Already Verified</div>
+            <strong style="font-size: 2em;">@Model.LastScan</strong>
+        </div>   
+    }
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tbScanBox').focus();
+            $('input[type=submit],button').button();
+        });
+    </script>
+}
