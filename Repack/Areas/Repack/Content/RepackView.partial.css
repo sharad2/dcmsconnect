@@ -1,0 +1,78 @@
+/* Use for label width(by SHIVA)*/
+.divRepackMain label
+{
+    width: 10em;
+    display: inline-block;
+}
+
+#divRepackMain label, #divCartonproperties label
+{
+    width: 9em;
+    display: inline-block;
+}
+
+#divCreate
+{
+    width: 20em;
+    line-height: 1.8em;
+}
+#divCreate label
+{
+    width: 13em;
+    display: inline-block;
+    color: #777;
+    letter-spacing: 0.25mm;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.ui-dialog input
+{
+    color: Navy;
+    font-size: 1.2em;
+}
+
+/* spans and divs which display SKU info */
+/*.repack-display, input[readonly]
+{
+    font-size: 1.2em;
+    color: Green;
+    font-family: Sans-Serif;
+    letter-spacing: 0.1mm;
+    font-weight: bold;
+}*/
+
+input[readonly]
+{
+    border-style: none;
+}
+
+/* Drop downs should not become too big */
+select
+{
+    max-width: 22em;
+}
+
+.property-widget
+{
+    width: 35em;
+    vertical-align: top;
+    line-height: 1.8em;
+    margin-right: 1em;
+    float: left;
+}
+
+/* Scrollable autocomplete list */
+.ui-autocomplete
+{
+    max-height: 20em;
+    overflow-y: auto; /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+    font-size: 0.8em;
+}
+
+.ui-menu .ui-menu-item a
+{
+    line-height: 1em !important;
+}
