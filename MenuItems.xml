@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root xmlns="http://schemas.eclsys.com/dcmsconnect/menuitems">
+  <processes>
+    <process id="pick" name="Pick" sequence="10">
+      <description>Pick, Pack and Ship</description>
+    </process>
+    <process id="ship" name="Ship" sequence="20">
+      <description>Ship after you pack</description>
+    </process>
+    <process id="recv" name="Receiving" sequence="25">
+      <description>Receive Inventory</description>
+    </process>        
+    <process id="inventory" name="Inventory" sequence="30">
+      <description>Manage Inventory</description>
+    </process>
+    <process id="config" name="Configure">
+      <description>Configure DCMS</description>
+    </process>
+  </processes>
+  <!--Item represents a Menu Link-->
+  <items>
+    <item route="DcmsConnect_Search1" shortcut="INQ" name="Search DCMS" visible="false">
+      <keywords>
+        <keyword>search</keyword>
+        <keyword>inquiry</keyword>
+      </keywords>
+    </item>
+    <item route="DcmsConnect_IntransitShipmentList" shortcut="LIT" name="List of Intransit Shipments" visible="false">
+      <keywords>
+        <keyword>search</keyword>
+        <keyword>inquiry</keyword>
+      </keywords>
+    </item>
+    <item route="DcmsConnect_ManagePickWave" processidref="pick" shortcut="SELECTPO" name="Manage PickWaves" rating="10" sequence="10">
+      <description>Add orders to pick waves so that they can be picked and shipped</description>
+    </item>
+    <item route="DcmsConnect_ManagePickWave1" shortcut="XXX" name="Customer Order">
+      <description>List of Cusotmer Orders</description>
+    </item>
+    <item route="DcmsConnect_BoxPickPallet" processidref="pick" shortcut="BPP" name="Create Pallets for Box Picking" sequence="30">
+      <description>Creating boxpick pallets</description>
+    </item>
+    <item route="DcmsConnect_BoxPick" processidref="pick"  shortcut="BPI" name="Box Pick" sequence="20">
+      <description>Starting Box Picking</description>
+    </item>
+    <item route="DcmsConnect_PieceReplenish" processidref="pick"  shortcut="PUL" name="Piece Replenish" sequence="100">
+      <description>Manage Forward Pick Area</description>
+    </item>
+    <item route="DcmsConnect_Restock" processidref="pick"  shortcut="RST" name="Restock">
+      <description>Restocking cartons</description>
+    </item>
+    <item route="DcmsConnect_Restock1" name="Carton Restock">
+      <description>Restock the passed cartons</description>
+    </item>
+    <item route="DcmsConnect_ApplyVasToBox" processidref="pick"  shortcut="V2P" name="Apply VAS to Boxes" sequence="40">
+      <description>Applying VAS to boxes</description>
+    </item>
+    <item route="DcmsConnect_ApplyVasToBox1"  name="Apply VAS to Boxes">
+      <description>Applying VAS to boxes</description>
+    </item>
+    <item route="DcmsConnect_ScanToPallet" processidref="ship"  shortcut="STP" name="Scan To Pallet" sequence="20">
+      <description>Scan to pallet program</description>
+    </item>
+    <item route="DcmsConnect_ScanToPallet1" name="Scan To Pallet">
+      <description>Scan to pallet</description>
+    </item>
+    <item route="DcmsConnect_MoveBoxPallet" processidref="ship"  shortcut="MP" name="Move Pallet" sequence="30">
+      <description>Moves a box pallet from one location to another</description>
+    </item>
+    <item route="DcmsConnect_MoveBoxPallet1" name="Move Pallet">
+      <description>Moves a box pallet from one location to another</description>
+    </item>
+    <item route="DcmsConnect_RoutingSummary" processidref="ship"  shortcut="COR" name="Customer Order Routing" sequence="10">
+      <description>Creating EDI 753 to route customer orders</description>
+    </item>
+    <item route="DcmsConnect_CustomerRoutingSummary1" name="Customer Order Routing">
+      <description>Customer Orders</description>
+    </item>
+    <item route="DcmsConnect_Appointment" processidref="ship"  shortcut="APP" name="Manage Appointments" sequence="40">
+      <description>Creating and manageing appointment</description>
+    </item>
+    <item route="DcmsConnect_ScanToTruck" processidref="ship"  shortcut="STT" name="Scan To Truck">
+      <description>Loading boxes on truck to ensure accuracy of shipment</description>
+    </item>
+    <item route="DcmsConnect_ScanToTruck1" name="Scan To Truck">
+      <description>Loading boxes on truck to ensure accuracy of shipment</description>
+    </item>    
+    <item route="DcmsConnect_AbandonRework" processidref="inventory"  shortcut="ARW" name="Abondon Rework">
+      <description>Let the system know if you no longer want to perform rework on Cartons which had been marked for rework </description>
+    </item>
+    <item route="DcmsConnect_BulkUpdateCarton" processidref="inventory"  shortcut="BCED" name="Bulk Update Carton">
+      <description>Advanced UI which enables you to update multiple properties of Cartons.You specify the properties you want to update and then scan Cartons whose properties need to be updated</description>
+    </item>
+    <item route="DcmsConnect_CartonEditor" processidref="inventory"  shortcut="CED" name="Carton Editor">
+      <description>Carton to edit in inventory tab</description>
+    </item>
+    <item route="DcmsConnect_EditCarton1" name="Edit Carton">
+      <description>Edit the passed carton</description>
+    </item>
+    <item route="DcmsConnect_CartonLocating" processidref="recv"  shortcut="CLOC" name="Carton Locating" sequence="20">
+      <description>Locating cartons in numbered bin locations</description>
+    </item>
+    <item route="DcmsConnect_CartonLocating1"  name="Carton Locating">
+      <description>This Url post the id of the pallet to carton locating page.</description>
+    </item>
+    <item route="DcmsConnect_CartonToPallet" processidref="recv"  shortcut="C2P" name="Carton To Pallet">
+      <description>Place cartons on a pallet</description>
+    </item>
+    <item route="DcmsConnect_MarkReworkComplete" processidref="inventory"  shortcut="MRC" name="Mark Rework Complete">
+      <description>Mark Rework Complete of those Cartons on which rework has to be done</description>
+    </item>
+    <item route="DcmsConnect_CartonAreas" processidref="config"  shortcut="CAM" name="Carton Areas">
+      <description>Managing SKU assignment at carton locations</description>
+    </item>
+    <item route="DcmsConnect_ManageCartonArea1" name="Manage Area">
+      <description>Manage Carton Area</description>
+    </item>
+    <item route="DcmsConnect_REQ2" processidref="inventory"  shortcut="REQ" name="Pull Request">
+      <description>Managing SKU assignment at carton locations</description>
+    </item>
+    <!-- Miscelaneous components-->
+    <item route="DcmsConnect_VASConfigration" processidref="config"  shortcut="V2PCONFIG" name="VAS Configuration">
+      <description>Configuration UI for VAS</description>
+    </item>
+    <item route="DcmsConnect_DcmsLite" shortcut="PLOC" name="DcmsLite">
+      <description>Locate full pallets manually or under system guidance. Helps in replenishing carton picking areas.</description>
+    </item>
+    <item route="DcmsConnect_PalletLocating" processidref="recv"  shortcut="BPK" name="Pallet Locating">
+      <description>UI for bulk Receiving and Printing the UCC/CCL labels.</description>
+    </item>
+    <item route="DcmsConnect_Receving" processidref="recv"  shortcut="REC" name="Receiving" sequence="10" mobile="true">
+      <description>Receive cartons against an ASN.</description>
+    </item>
+    <item route="DcmsConnect_Repack" processidref="inventory"  shortcut="RPK" name="Repack">
+      <description>Repack from shelfstock, optionally for conversion. Receive cartons in the absence of ASN. Efficiently create multiple similar cartons.</description>
+    </item>
+    <item route="DcmsConnect_Rights" processidref="config"  shortcut="DRI" name="Manage Dcms Security">
+      <description>Create DCMS Users and assign rights to run DCMS programs.</description>
+    </item>
+
+    <!--Search Routes-->
+    <item route="DcmsConnect_SearchCustomer1" name="TODO">
+    </item>
+
+    <item route="DcmsConnect_SearchUcc1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchBoxPallet1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchWave1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchCarton1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchCartonArea1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchCartonPallet1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchCartonLocation1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchPo3" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchPickslip1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchUpc1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchStyle1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchLabel1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchSkuArea1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchSkuLocation1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchIntransitShipment1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchOutboundShipment1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchCustomerSku1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchAppointmentNumber1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchReturnNumber1" name="TODO">
+    </item>
+    <item route="DcmsConnect_SearchMasterBol1" name="TODO">
+    </item>
+    <item route="DcmsConnect_Logon" name="TODO">
+    </item>
+    <item route="DcmsConnect_ChangePassword" name="TODO">
+    </item>
+    <item route="DcmsConnect_Logoff" name="TODO">
+    </item>  
+  </items>
+</root>
