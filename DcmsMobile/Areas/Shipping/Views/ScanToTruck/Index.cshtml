@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Enter appointment";
+}
+@model DcmsMobile.Shipping.ViewModels.ScanToTruck.IndexViewModel
+
+@Html.StatusSummary()
+@Html.ValidationSummary()
+@using (Html.BeginForm(MVC_Shipping.Shipping.ScanToTruck.Appointment(), FormMethod.Get))
+{
+    <label>Enter appointment</label>
+    @Html.TextBoxFor(m => m.AppointmentNo, new { id = "scan", size = "20" })
+}
+<div class="ui-state-active">
+    Tip : Enter appointment no. to load pallets.
+</div>

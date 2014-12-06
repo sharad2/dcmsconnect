@@ -1,0 +1,52 @@
+﻿@*Do not use any id in this view because it will repeat*@
+@model DcmsMobile.Shipping.ViewModels.AppointmentModel
+@{
+    var isLoggedIn = ViewContext.HttpContext.User.Identity.IsAuthenticated;
+}
+    
+    <div>
+        <em title="@string.Format("Carrier Id: {0}", Model.CarrierId)" style="font-size:1.1em">Carrier:@Html.DisplayFor(m => m.CarrierDisplay)</em>
+    </div>
+
+@if (Model.NoBolBoxCount > 0)
+{ 
+    <div>
+        @Html.DisplayFor(m => m.NoBolBoxCount) boxes of @Model.AppointmentBols.Select(p=>p.NoBolPoCount).FirstOrDefault() POs
+    </div>
+}
+@if (Model.BolCount > 0)
+{ 
+    <div>
+        @Html.DisplayFor(m => m.BolBoxCount) boxes,@Model.AppointmentBols.Select(p=>p.BolPoCount).FirstOrDefault() POs in @Html.DisplayFor(m => m.BolCount) BOLs
+    </div>
+}
+@switch (Model.AppointmentBols.Count())
+{
+    case 0:
+        break;
+
+    case 1:
+    <div>@Model.AppointmentBols.Select(p=>p.CustomerName).FirstOrDefault()</div>
+        break;
+
+    default:
+    <ol>
+        @foreach (var name in Model.AppointmentBols.Select(p => p.CustomerName).ToList())
+        { 
+            <li>@name</li>
+        }
+    </ol>
+        break;
+}
+<div>@Model.Remarks</div>
+@if (isLoggedIn)
+{
+    if (Model.id != null && !Model.IsShipped)
+    {
+        
+    <div>
+        <a class="ui-icon ui-icon-pencil app-edit" style="display: inline-block" title="Edit appointment"></a>
+        <a class="ui-icon ui-icon-close app-delete" style="display: inline-block" title="Delete appointment"></a>
+    </div>
+    }
+}

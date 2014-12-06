@@ -1,0 +1,161 @@
+﻿@*Do not use any id in this view because it will repeat*@
+@model DcmsMobile.Shipping.ViewModels.AppointmentModel
+@{
+    var rowIndex = 0;
+    var bolsByCustomer = from bol in Model.AppointmentBols
+                         group bol by bol.CustomerId into g
+                         select g;
+    var isLoggedIn = ViewContext.HttpContext.User.Identity.IsAuthenticated;
+}
+<div class="boxContent">
+    <div>
+        @if (Model.id != null && !Model.IsShipped)
+        {
+            if (isLoggedIn)
+            {
+            <a class="app-edit ui-icon ui-icon-pencil" style="display: inline-block; background-color: ButtonShadow;" title="Edit appointment"></a>
+            <a class="app-delete ui-icon ui-icon-close" style="display: inline-block; background-color: ButtonShadow;" title="Delete appointment"></a>           
+                if (!bolsByCustomer.Any())
+                {
+            <a class="ui-icon ui-icon-plus" style="display: inline-block;background-color: ButtonShadow;" title="Assign BOLs" href="@Url.Action(MVC_Shipping.Shipping.Home.Bol(new DcmsMobile.Shipping.ViewModels.BolViewModel(null, Model.id, null)))"></a>
+                }
+            }        
+            <a class="ui-icon ui-icon-zoomin" style="display: inline-block; background-color: ButtonShadow;" title="Click to see further details of appointment" href="@string.Format("{0}?appointment_id={1}", Model.BolDetailUrl, Model.id)" target="_report"></a>
+        }
+    </div>
+    <em>Carrier : @Html.DisplayFor(m => m.CarrierDisplay)</em>
+    @if (Model.TruckArrivalTime != null)
+    {
+        <span>Truck arrived at : </span>
+    }
+    @Html.DisplayFor(m => m.TruckArrivalTimeDisplay)
+    <span class="arrival-editor" style="display: none">
+        <input name="@MVC_Shipping.Shipping.Home.UpdateTruckArrivalParams.truckArrivalTime" 
+        value="@string.Format("{0:H:mm}", Model.TruckArrivalTime ?? Model.AppointmentDate)" size="8"/>
+        <span class="ui-icon ui-icon-check ui-state-active"></span>
+        <span class="ui-icon ui-icon-close ui-state-error"></span>
+    </span>
+    @if (isLoggedIn)
+    {
+        if (Model.id != null && !Model.IsShipped)
+        {
+        <a href="#" class="arrival-editor-button" style="font-size: 0.8em">Change</a>
+        }
+    }
+        
+@*<span>Current time : @Html.DisplayFor(m => m.CurrentTime)</span>*@
+
+    <div>
+        @if (Model.TotalPalletCount > 0)
+        {
+            <span class="ui-state-highlight">@Html.DisplayFor(m => m.LoadedPalletCount) of @Html.DisplayFor(m => m.TotalPalletCount) (@Html.DisplayFor(m => m.PercentLoaded)) Pallets Loaded,</span>
+        }
+        @if (!string.IsNullOrEmpty(Model.Remarks))
+        {
+            <span>Remarks : @Html.DisplayFor(m => m.Remarks),</span>
+        }
+        @if (Model.TruckArrivalTime != null)
+        {
+@*<span style="font-size: 1.1em">Loading progress: @Html.DisplayFor(m => m.LoadingTime) </span>*@
+        }
+    </div>
+    @foreach (var bolList in bolsByCustomer)
+    {
+        <table>
+            <caption>
+                @bolList.First().CustomerDisplay    
+                @if (bolList.Sum(p=>p.NoBolPoCount) > 0)
+                {
+                        var routingGroup = new DcmsMobile.Shipping.ViewModels.RoutingPoGroup
+                            {
+                                AtsDate = new DateTime(Model.AppointmentDate.Value.Year, Model.AppointmentDate.Value.Month, Model.AppointmentDate.Value.Day),
+                                BuildingId = Model.BuildingId
+                            }; 
+                            <span title="Work on POs" style="font-weight: normal; font-size: 1.0em">@Html.ActionLink(string.Format("{0}",bolList.Sum(p=>p.NoBolPoCount)), MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(bolList.First().CustomerId, true, routingGroup)),
+                            null, null, null, routingGroup.HtmlId) POs not in BOL</span>
+                }
+
+                @if (Model.BolCount > 0)
+                {
+                    if (!Model.IsShipped)
+                    {           
+                    <span title="Assign/Unassign BOLs" style="font-weight: normal; font-size: 1.0em">@Html.ActionLink("Manage BOLs", MVC_Shipping.Shipping.Home.Bol(new DcmsMobile.Shipping.ViewModels.BolViewModel(@bolList.Key, Model.id, null)))</span>    
+                    }
+                }
+            </caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>BOL
+                        <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each BOL that provide their details"></span>
+                    </th>
+                    <td style="vertical-align: middle">
+                        <div style="display: inline-block; vertical-align: top">Boxes</div>
+                        <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 20em; display: inline-block">
+                            <div style="width: 40%" class="ui-progressbar-value ui-corner-left ui-state-error">Unverified</div>
+                            <div style="left: 42%; width: 30%" class="ui-progressbar-value">At Dock</div>
+                            <div style="left: 72%; width: 30%" class="ui-progressbar-value ui-state-active">Loaded</div>
+                        </div>
+                    </td>
+                    <th>Loading
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in bolList)
+                {
+                    <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                        <td>@(rowIndex + 1)</td>
+                        <td>
+                            <a href= "@string.Format("{0}?shipping_id={1}", Model.BolDetailUrl, item.ShippingId)" target="_report" title="Boxes in different Area">@item.ShippingId</a>
+                        </td>
+                        <td>
+                            @if (item.BoxesTotalCount > 0)
+                            {
+                                <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                                    @if (item.BoxesUnverifiedCount.HasValue && item.BoxesUnverifiedCount > 0)
+                                    {
+                                        <div style="width: @item.BoxesUnverifiedPercent%" class="ui-progressbar-value ui-corner-left ui-state-error" 
+                                            title="@string.Format("{0} boxes unverified", item.BoxesUnverifiedDisplay)">
+                                            &nbsp;@item.BoxesUnverifiedDisplay
+                                        </div>
+                                    }
+                                    @if (item.BoxesAtDockCount.HasValue && item.BoxesAtDockCount > 0)
+                                    {
+                                        <div style="left: @(item.BoxesUnverifiedPercent)%; width: @item.BoxesAtDockPercent%" 
+                                            class="ui-progressbar-value" title="@string.Format("{0} boxes at door", item.BoxesAtDockDisplay)">
+                                            &nbsp;@item.BoxesAtDockDisplay
+                                        </div>
+                                    }
+                                    @if (item.BoxesLoadedCount.HasValue && item.BoxesLoadedCount > 0)
+                                    {
+                                        <div style="left: @(item.BoxesUnverifiedPercent + item.BoxesAtDockPercent)%; width: @item.BoxesLoadedPercent%" 
+                                            class="ui-progressbar-value  ui-state-active" title="@string.Format("{0} boxes loaded on truck", item.BoxesLoadedDisplay)">
+                                            &nbsp;@item.BoxesLoadedDisplay
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.StartTimeDisplay))
+                            {
+                                <span>
+                                    @string.Format("{0} to {1}", item.StartTimeDisplay, item.EndTimeDisplay)
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                            ++rowIndex;
+                }
+            </tbody>
+        </table>
+    }
+    @if (!@bolsByCustomer.Any())
+    {
+        <div>
+            No Bill of Ladings have been assigned to this appointment.
+        </div>
+    }
+
+</div>
