@@ -1,0 +1,81 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.Config.CustomerSkuCaseModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+
+
+<form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
+
+    <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+
+
+        <label for="case" class="col-sm-3 control-label">
+            Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+        </label>
+        <div class="col-sm-9">
+            @if (Model.CustomerId == null)
+            {
+                <div class="input-group">
+                    <input id="tbCustomer" placeholder="Search Customer"
+                           class="form-control typeahead" />
+                    <span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>
+                </div>
+
+                @Html.ValidationMessageFor(m => m.CustomerId, null, new
+           {
+               @class = "help-block"
+           })
+            }
+            else
+            {
+                <div class="input-group">
+                    @Html.DisplayFor(m => m.CustomerId)
+                </div>
+
+            }
+
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="case" class="col-sm-3 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+        <div class="col-sm-9">
+            @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "Please Select", new
+       {
+           @required = "required",
+           @class = "form-control"
+       })
+
+
+            @Html.ValidationMessageFor(m => m.CaseId, null, new
+           {
+               @class = "help-block"
+           })
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="case" class="col-sm-3 control-label">Comments</label>
+        <div class="col-sm-9">
+            @Html.TextAreaFor(m => m.Comment, new
+            {
+                maxlength = "256",
+                rows = "3",
+                cols = "49",
+                @class = "form-control",
+                @placeholder = "Max 50 characters"
+            })
+
+        </div>
+    </div>
+</form>
+
+
+<script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>

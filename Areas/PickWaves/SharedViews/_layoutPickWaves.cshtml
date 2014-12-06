@@ -1,0 +1,23 @@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+@{
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutBootstrap;
+    ViewBag.AppName = "Pick Waves";
+    ViewBag.AppHomeUrl = Url.Action(MVC_PickWaves.PickWaves.Home.Index());
+    ViewBag.AppSearchUrl = Url.Action(MVC_PickWaves.PickWaves.Home.Search());
+}
+
+
+
+
+@section applinks{
+    @RenderSection("applinks", false)
+    <li><a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())"> Pick Waves Home</a></li>
+}
+
+
+
+
+@section script {
+    @RenderSection("script", false)
+}
+@RenderBody()
