@@ -1,0 +1,53 @@
+﻿@model DcmsMobile.REQ2.ViewModels.ManageSkuViewModel
+@{
+    @*var grid = Html.GridFor(m => m.RequestedSkus);
+    grid.AddColumn(m => m.SourceSku.DisplaySku).HeaderHtml("Source SKU");
+    grid.AddColumn(m => m.TargetSku.DisplaySku).HeaderHtml("Convert to SKU");
+    grid.AddColumn(m => m.Pieces).CellAttribute("style", "text-align:right;");
+    grid.AddColumn().HeaderHtml("Remove").CellHtml(
+        @<text>
+            <div style="cursor: pointer;" class="ui-icon ui-icon-close" title="Remove SKU" />
+        </text>).CellAttribute("style", "padding-left: 1.5em;");
+    grid.AddColumn().CellHtml(c => c.Html.HiddenFor(m => m.SourceSku.SkuId, new { id = string.Format("SourceSku{0}", c.RowIndex) }))
+    .HeaderAttribute("class", "ui-helper-hidden")
+    .CellAttribute("class", "ui-helper-hidden")
+    .FooterAttribute("class", "ui-helper-hidden");*@
+}
+@*@grid.GetHtml(
+    rowStyle: "rowA",
+    alternatingRowStyle: "rowB",
+    caption: "SKU List",
+    emptyDataHtml: "<span class='ui-state-highlight'>No SKUs have been added yet.</span>"
+)*@
+<table>
+    <caption>SKU List</caption>
+    <thead>
+        <tr>
+            <th style="text-align:center">Source SKU</th>
+            <th style="text-align:center">Convert To SKU</th>
+            <th style="text-align:center">Pieces</th>
+            <th style="text-align:center">Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.RequestedSkus.Count(); i++)
+        {
+            <tr class="@(i%2 == 0 ? "rowA":"rowB")">
+                <td>
+                    @Html.DisplayFor(m => m.RequestedSkus[i].SourceSku.DisplaySku)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m.RequestedSkus[i].TargetSku.DisplaySku)
+                </td>
+                <td style="text-align:right">
+                    @Html.DisplayFor(m => m.RequestedSkus[i].Pieces)
+                </td>
+                <td style="text-align:center">
+                    <div style=" cursor:pointer;" class="ui-icon ui-icon-close" title="Remove SKU" />
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+@*$Id$*@
