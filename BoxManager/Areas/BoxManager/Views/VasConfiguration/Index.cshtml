@@ -1,0 +1,153 @@
+﻿@model DcmsMobile.BoxManager.ViewModels.VasConfiguration.IndexViewModel
+@{
+    ViewBag.Title = "VAS Configuration";
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var i = 0;
+    var rowIndex = 0;
+}
+@section sidebar{
+    <div class="box boxB">
+        <div class="boxContent">
+            <a href="@Url.Content(Links_BoxManager.Areas.BoxManager.Content.VAS_pptx)">VAS Presentation</a>
+        </div>
+    </div>
+    @Html.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerList())
+}
+
+<p>
+    VAS requirements of customers is displayed on the left. Select one of them to make changes to the requirement. To enter a new VAS requirement,
+    supply the information below.
+</p>
+<div class="boxContent">
+    @if (!Model.IsEditable)
+    {
+        <blockquote>
+            <a href="@Url.Content("~/Logon?returnUrl=" + Url.Encode(Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.Index())))">Login</a> to configure VAS settings,
+            you can create the customize VAS setting for customer by providing labels and PO patterns. If you are a supervisor, you can request
+            the Help Desk to grant the role <em>@Model.EditableRoleName</em> to you.
+        </blockquote>
+    }
+    else
+    {
+        using (Html.BeginForm(MVC_BoxManager.BoxManager.VasConfiguration.AddNewVasConfiguration(), FormMethod.Post, new { @Class = "divBoxManager" }))
+        {
+            @Html.LabelFor(m => m.CustomerId)
+            @*@Html.AutocompleteFor(m => m.CustomerId, Url.Action(MVC_BoxManager.BoxManager.AutoComplete.CustomerAutocomplete()),
+            Url.Action(MVC_BoxManager.BoxManager.AutoComplete.ValidateCustomer()), new { style = "text-transform: uppercase" })*@
+        
+            @Html.TextBoxFor(m => m.CustomerId, new
+       {
+           data_ac_validate_url = Url.Action(MVC_BoxManager.BoxManager.AutoComplete.ValidateCustomer()),
+           data_ac_list_url = Url.Action(MVC_BoxManager.BoxManager.AutoComplete.CustomerAutocomplete()),
+           autocomplete = "off",
+           style = "text-transform: uppercase"
+       })
+                    <span title="Double click to quickly see suggestions">↓</span>
+
+
+            @*@Html.AutocompleteDescriptionFor(m => m.CustomerId, new { @Class = "success-display" })*@
+        
+        <span class="success-display" data-ac-msg-for="@Html.NameFor(m => m.CustomerId)"></span>
+            <div style="padding-top: 0.5em; padding-bottom: 2em;">
+                <label>Requires VAS</label>
+                @Html.DropDownListFor(m => m.VasId, Model.VasCodeList)
+                <button type="submit" name="submit">Add now</button>
+            </div>
+        }
+    }
+    <div style="text-align: center; font-size: medium; font-weight: bold">VAS Configuration List</div>
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabs-1">Customer wise</a></li>
+            <li><a href="#tabs-2">VAS Type wise</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Customer</th>
+                        <th>VAS Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                @for (i = 0; i < Model.VasSettingList.Count; ++i)
+                {
+                    <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                        <td>@(i + 1)</td>
+                        @if (i == 0 || Model.VasSettingList[i].CustomerId != Model.VasSettingList[i - 1].CustomerId)
+                        {
+                            var span = Model.VasSettingList.Skip(i).TakeWhile(p => p.CustomerId == Model.VasSettingList[i].CustomerId).Count();
+                            <td rowspan="@span" style="background-color:lightsteelblue">
+                                @Model.VasSettingList[i].CustomerId : @Model.VasSettingList[i].CustomerName
+                            </td>
+                        }
+                        <td>
+                            @if (Model.VasSettingList[i].InactiveFlag)
+                            {
+                                <span class="ui-icon ui-icon-cancel" style="display: inline-block"></span>
+                            }
+                            <span @Html.Raw(Model.VasSettingList[i].InactiveFlag ? "class='ui-state-disabled' title='This configuration is not currently active'" : "")>
+                                <a href="@Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerVas(Model.VasSettingList[i].CustomerId, Model.VasSettingList[i].VasId))">@Model.VasSettingList[i].VasDescription</a>
+                            </span>
+                        </td>
+                        <td title="@Model.VasSettingList[i].Remark">@Model.VasSettingList[i].VasPatternDescription</td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div id="tabs-2">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>VAS Type</th>
+                        <th>Customer</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                @for (i = 0; i < Model.VasGroupedList.Count; ++i)
+                {
+                    var key = Model.VasGroupedList.Keys[i];
+
+                    for (var j = 0; j < Model.VasGroupedList[key].Count; ++j)
+                    {
+                        <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                            <td>@(rowIndex + 1)</td>
+                            @if (j == 0 || Model.VasGroupedList[key][j].VasId != Model.VasGroupedList[key][j - 1].VasId)
+                            {
+                                var span = Model.VasGroupedList.Values[i].Skip(j).TakeWhile(p => p.VasId == Model.VasGroupedList.Values[i][j].VasId).Count();
+                                <td rowspan="@span" style="background-color:lightsteelblue">
+                                    @Html.DisplayFor(m => m.VasGroupedList.Values[i][j].VasDescription)
+                                </td>
+                            }
+                            <td @Html.Raw(Model.VasGroupedList[key][j].InactiveFlag ? "class='ui-state-disabled' title='This configuration is not active now'" : "")>
+                                @if (Model.VasGroupedList[key][j].InactiveFlag)
+                                {
+                                    <span class="ui-icon ui-icon-cancel" style="display: inline-block"></span>
+                                }
+                                <a href="@Url.Action(MVC_BoxManager.BoxManager.VasConfiguration.CustomerVas(Model.VasGroupedList[key][j].CustomerId, key))">
+                                    @Model.VasGroupedList[key][j].CustomerId : @Model.VasGroupedList[key][j].CustomerName
+                                </a>
+                            </td>
+                            <td title="@Model.VasGroupedList[key][j].Remark">@Model.VasGroupedList[key][j].VasPatternDescription</td>
+                        </tr>
+                                rowIndex = ++rowIndex;
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+@section scripts{
+    <script src="@Links_BoxManager.Areas.BoxManager.Scripts.VasConfiguration_Index_all_js" type="text/javascript"></script>
+    @*@System.Web.Optimization.Scripts.Render(DcmsMobile.BoxManager.Areas.BoxManagerAreaRegistration.VASCONFIG_INDEX_JS)*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('button').button();
+            $('#tabs').tabs();
+        });
+    </script>
+}
