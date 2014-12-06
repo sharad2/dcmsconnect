@@ -1,0 +1,140 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.PalletinfoViewModel
+@{    
+    ViewBag.Title = "Pallets Movements";
+    var rowIndex = 0;
+}
+@section sidebar {
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
+            </span>
+            @Html.ActionLink("Back to Building", MVC_PalletLocating.PalletLocating.Home.Building())
+        </div>
+    </div>
+}
+<div class="box">
+    <h2>
+        Pallet Movements</h2>
+    <div class="boxContent">
+        @using (Html.BeginForm(MVC_PalletLocating.PalletLocating.Home.LocatingActivity(), FormMethod.Get))
+        {
+            <label style="display: inline-block; width: 9em">@ModelMetadata.FromLambdaExpression(m => m.UserName, this.ViewData).DisplayName</label>
+            @Html.TextBoxFor(m => m.UserName)
+            <br />
+            <label for="tbInsertFromDate" style="display: inline-block; width: 9em">@ModelMetadata.FromLambdaExpression(m => m.InsertFromDate, this.ViewData).DisplayName</label>
+            <input name="@Html.NameFor(m => m.InsertFromDate)" value="@string.Format("{0:d}", Model.InsertFromDate)" id = "tbInsertFromDate" size = "10" maxlength = "10" class="date-picker"/>            
+            <label for="tbInsertToDate">@ModelMetadata.FromLambdaExpression(m => m.InsertToDate, this.ViewData).DisplayName</label>
+            <input name="@Html.NameFor(m => m.InsertToDate)" value="@string.Format("{0:d}", Model.InsertToDate)" id = "tbInsertToDate" size = "10" maxlength = "10" class="date-picker" />            
+            <br />
+            <button type="submit">
+                Go
+            </button>
+        }
+    </div>
+</div>
+<div class="box">
+    <div class="boxContent">
+        <table>
+            <caption>
+                @if (this.ViewData.ModelState.IsValid)
+                {
+
+                    <text>Pallets Movements
+                    </text>
+                }
+            </caption>
+            <thead>
+                <tr>
+                    <th rowspan="2">
+                        By
+                    </th>
+                    <th rowspan="2">
+                        Pallet
+                    </th>
+                    <th rowspan="2">
+                        # Cartons
+                    </th>
+                    <th colspan="2" style="text-align: center">
+                        Area
+                    </th>
+                    <th colspan="2" style="text-align: center">
+                        Location
+                    </th>
+                    <th rowspan="2" style="text-align: center">
+                        On <span class="ui-icon ui-icon-triangle-1-s" style="display:inline-block"></span>
+                    </th>
+                </tr>
+                <tr>
+                    <th style="text-align: center">
+                        From
+                    </th>
+                    <th style="text-align: center">
+                        To
+                    </th>
+                    <th style="text-align: center">
+                        From
+                    </th>
+                    <th style="text-align: center">
+                        To
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PalletInfo)
+                {
+               
+                    <tr class="@(rowIndex % 2 == 0 ? "rowA" : "rowB")">
+                        <td style="text-align: center">
+                            @item.UserName
+                        </td>
+                        <td>
+                            @item.Pallet
+                        </td>
+                        <td style="text-align: right">
+                            @item.CountCarton
+                        </td>
+                        <td>
+                            @item.FromArea
+                        </td>
+                        <td>
+                            @item.ToArea
+                        </td>
+                        <td>
+                            @item.FromLocation
+                        </td>
+                        <td>
+                            @item.ToLocation
+                        </td>
+                        <td style="white-space: nowrap">
+                            @item.InsertDate
+                        </td>
+                    </tr>
+                    ++rowIndex;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("button").button();
+            $("input.date-picker").datepicker({
+                showOn: "button",
+                buttonImage: '@Links_PalletLocating.Areas.PalletLocating.Content.images.calendar_gif',
+                buttonImageOnly: true,
+                dateFormat: 'm/d/yy',
+                onSelect: function () { this.focus(); }
+            });
+        });
+    </script>
+}
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+
+*@ 

@@ -1,0 +1,87 @@
+﻿@model DcmsMobile.PalletLocating.ViewModels.BuildingViewModel
+@{
+    ViewBag.Title = "Enter Building";
+    //var grid = Html.GridFor(m => m.AreaChoices);
+    //grid.AddColumn(m => m.BuildingId);
+    //grid.AddColumn(m => m.AreaShortName).CellHtml(item => item.Html.ActionLink(item.Model.AreaShortName, MVC_PalletLocating.PalletLocating.Home.PalletLink(item.Model.AreaId, true)));
+    //grid.AddColumn(m => m.ReplenishAreaShortName);
+    var i = 0;
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            @Html.Partial(MVC_PalletLocating.PalletLocating.Home.Views._buildingFormPartial)
+        </div>
+    </div>
+    <div class="box boxB">
+        <div class="boxContent">
+            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
+            </span>
+            @Html.ActionLink("Pallet Movements", MVC_PalletLocating.PalletLocating.Home.LocatingActivity())
+        </div>
+    </div>
+}
+<div class="box">
+    <div class="tabs">
+        <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+            <span class="ui-button-text">Building</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Area</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Pallet</span>
+        </label>
+        <span>&raquo;</span>
+        <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+            <span class="ui-button-text">Location</span>
+        </label>
+    </div>
+    <div class="boxContent">
+        <p>
+            Click on the pallet area in which you wish to locate pallets. For areas which are
+            replenished, we will suggest pallets you should locate. Once you scan a pallet,
+            we will suggest suitable locations in your chosen area where the pallet should be
+            located. You are free to ignore the suggestions and locate whatever you want.
+        </p>
+        @*@grid.GetHtml(rowStyle: "rowA",
+            alternatingRowStyle: "rowB",
+            caption: "Pallet Areas")*@        
+            <table class="box">
+                <caption>Pallet Areas</caption>
+                <thead>
+                    <tr>
+                        <th> Building</th>
+                        <th> Area</th>
+                        <th> Replenished From</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.AreaChoices)
+                    {
+                         <tr class="@(i % 2 == 0 ? "rowA":"rowB")">
+
+                            <td>@item.BuildingId</td>
+                            <td>@Html.ActionLink(item.AreaShortName, MVC_PalletLocating.PalletLocating.Home.PalletLink(item.AreaId, true))</td>
+                            <td>@item.ReplenishAreaShortName</td>
+
+                        </tr>
+                        i++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+@*
+    $Id$
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

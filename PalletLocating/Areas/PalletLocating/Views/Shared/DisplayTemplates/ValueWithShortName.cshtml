@@ -1,0 +1,28 @@
+﻿@* Displays short name along with label. The label displays dimmed and the value class can be controlled by the caller 
+You can apply additional classes to model value by setting ViewBag.ValueClasses
+*@
+@helper LabelText()
+    {
+        if (!string.IsNullOrEmpty(ViewData.ModelMetadata.ShortDisplayName))
+        {
+    @ViewData.ModelMetadata.ShortDisplayName
+        }
+        else if (!string.IsNullOrEmpty(ViewData.ModelMetadata.DisplayName))
+        {
+    @ViewData.ModelMetadata.DisplayName
+        }
+        else
+        {
+    @ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty)
+        }
+}
+<span style="font-size: 0.8em">@LabelText()</span> <span style="font-weight: bold">@ViewData.TemplateInfo.FormattedModelValue</span>
+
+@*
+    $Id$ 
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@
