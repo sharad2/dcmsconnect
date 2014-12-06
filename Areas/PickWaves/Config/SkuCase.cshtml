@@ -424,11 +424,13 @@
                 //finding the form to be post
                 var $form = $(e.delegateTarget).find('form', '.modal-body');
                 $form.submit();
-            }).on('hidden.bs.modal', function () {
-               // Hides the data of first modal if another modal opens.
-               //http://stackoverflow.com/questions/13177426/how-to-destroy-bootstrap-modal-window-completely
-                $(this).data('bs.modal', null); 
             });
+               // .on('hidden.bs.modal', function () {
+               //// Hides the data of first modal if another modal opens.
+               ////http://stackoverflow.com/questions/13177426/how-to-destroy-bootstrap-modal-window-completely
+               // $(this).data('bs.modal', null); 
+            // })   ;
+         
 
 
         });
