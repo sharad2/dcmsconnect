@@ -377,16 +377,14 @@
 
 
 @section script{
-
-
-
     <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
-    <script type="text/javascript">
-       
-        var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
-    </script>
 
     <script type="text/javascript">
+        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+        var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
+
+
+
         $(document).ready(function () {
             //Determining which tab was active during "removeing" or "editing".
             var tabActive = $('ul.nav-tabs').attr('data-active-tab');
