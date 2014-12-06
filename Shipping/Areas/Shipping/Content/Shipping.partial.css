@@ -1,0 +1,59 @@
+﻿
+/* Validation styles for Index Page */
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+.ui-autocomplete-loading
+{
+    background: white url('images/ajax-loader.gif') right center no-repeat;
+}
+
+/*
+When displaying a long list of options, you can simply set the max-height for the autocomplete menu to prevent the menu from growing too large
+*/
+.ui-autocomplete
+{
+    max-height: 20em;
+    overflow-y: auto; /* prevent horizontal scrollbar */
+    overflow-x: hidden; /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+}
+
+.ui-selected
+{
+    background-color: rgb(243,152,20)!important;
+}
+        .ui-selectee
+        {
+            cursor: crosshair;
+        }
+
+body
+{
+    font-size: 68%;
+}
+
