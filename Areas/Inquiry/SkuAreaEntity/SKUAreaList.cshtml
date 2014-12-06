@@ -1,0 +1,30 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.SkuAreaEntity.SkuAreaListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = string.Format("SKU Areas");
+}
+
+<div class="container">
+    
+    <h2 style="margin-top:0px">
+        @ViewBag.Title
+        </h2>
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success">
+                <strong>Area</strong>
+                <span class="badge pull-right"># Location</span>
+            </li>
+            @for (var i = 0; i < Model.SKUAreaList.Count; ++i)
+            {
+                <li class="list-group-item">
+                    <small>@(i+1)</small>
+                    <span class="badge pull-right">@Html.DisplayFor(m => m.SKUAreaList[i].NumberOfLocations)</span>
+                    <strong>@Html.ActionLink(Model.SKUAreaList[i].ShortName, MVC_Inquiry.Inquiry.SkuAreaEntity.SKUArea(Model.SKUAreaList[i].IaId)):</strong> @Model.SKUAreaList[i].Description
+
+                </li>
+            }
+        </ul>
+</div>
+
+@*$Id$*@

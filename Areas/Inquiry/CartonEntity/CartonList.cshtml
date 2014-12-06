@@ -1,0 +1,14 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.CartonListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Carton List";
+}
+
+<div class="container">   
+    <h2 style="margin-top:0px;">
+        @ViewBag.Title
+    </h2>    
+    <p>Showing Only 200 Cartons ordered by location than SKU</p>
+    @Html.Partial(MVC_Inquiry.Inquiry.CartonEntity.Views._cartonListPartial)
+</div>
+

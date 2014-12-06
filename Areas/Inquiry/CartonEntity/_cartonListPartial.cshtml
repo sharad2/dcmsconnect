@@ -1,0 +1,45 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.ICartonListViewModel
+<ul class="list-group">
+    <li class="list-group-item list-group-item-success">
+        <span class="badge">Pieces</span>
+        <h4 class="list-group-item-heading">
+            Carton
+            <small>Location</small>
+        </h4>
+        VWH - SKU
+    </li>
+    @for (var i = 0; i < Model.AllCartons.Count; ++i)
+    {
+        <li class="list-group-item">
+            <span class="badge">@Html.DisplayFor(m => m.AllCartons[i].Pieces)</span>
+            <h4 class="list-group-item-heading">
+                <small>@(i+1)</small>
+                @if (Model.AllCartons[i].SuspenseDate == null)
+                {
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.Carton(Model.AllCartons[i].CartonId))"> @Html.DisplayFor(m => m.AllCartons[i].CartonId)</a>
+                }
+                else
+                {
+                    <a class="text-danger" data-toggle="tooltip" data-placement="top" title="Marked for Suspense on @Html.DisplayFor(m => m.AllCartons[i].SuspenseDate)" href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.Carton(Model.AllCartons[i].CartonId))"> @Html.DisplayFor(m => m.AllCartons[i].CartonId)</a>
+                }
+                <small>
+                    @if (!string.IsNullOrEmpty(Model.AllCartons[i].LocationId))
+                    {
+                        <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonLocation(Model.AllCartons[i].LocationId))"> @Html.DisplayFor(m => m.AllCartons[i].LocationId)</a>
+                    }
+                </small>
+            </h4>
+            @Html.DisplayFor(m => m.AllCartons[i].VwhId) - <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllCartons[i].SkuId ?? 0))"> @Html.DisplayFor(m => m.AllCartons[i].DisplaySku)</a>
+            <p class="list-group-item-text">
+                @if (Model.AllCartons[i].ReqProcessId.HasValue)
+                {
+                    <span class="label label-info">Reserved for Request# @Html.DisplayFor(m => m.AllCartons[i].ReqProcessId)</span>
+                }
+                @if (!Model.AllCartons[i].IsShippableQuality)
+                {
+                    <span class="label label-danger">Quality @Html.DisplayFor(m => m.AllCartons[i].QualityCode) <span> :@Html.DisplayFor(m => m.AllCartons[i].QualityDescription)</span> is not shippable</span>
+                }
+            </p>
+        </li>
+    }
+</ul>

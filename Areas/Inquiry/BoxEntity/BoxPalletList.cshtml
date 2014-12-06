@@ -1,0 +1,48 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.BoxEntity.BoxPalletListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Box Pallets";
+}
+<div class="container">
+   
+    <h2 style="margin-top:0px">
+        @ViewBag.Title
+    </h2>
+   
+    <p>This is a list of some Pallets contains maximum boxes</p>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+            <span class="badge pull-right">Carton</span>
+            <h4 class="list-group-item-heading">
+               Pallet
+                <small class="text-success">
+                   Building &rarr; Area                   
+                </small>                
+            </h4>
+            Customer
+        </li>
+
+        @for (var i = 0; i < Model.BoxPalletList.Count; ++i)
+        {
+            <li class="list-group-item">
+                <span class="badge pull-right">@Html.DisplayFor(m => m.BoxPalletList[i].BoxCount)</span>
+                <h4 class="list-group-item-heading">
+                    <small>@(i+1)</small>
+                    @Html.ActionLink(Model.BoxPalletList[i].PalletId, MVC_Inquiry.Inquiry.BoxEntity.BoxPallet(Model.BoxPalletList[i].PalletId))
+                    <small class="text-success">
+                        @Html.DisplayFor(m => m.BoxPalletList[i].WarehouseLocationId)
+                        &rarr;
+                        @Html.DisplayFor(m => m.BoxPalletList[i].AreaShortName)
+                    </small>
+                    @if (Model.BoxPalletList[i].BoxAreaCount > 1)
+                    {
+                        <small class="text-success">and @(Model.BoxPalletList[i].BoxAreaCount - 1) more areas...</small>
+                    }
+                </h4>
+                <a class="list-group-item-text" href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.BoxPalletList[i].CustomerId))">
+                    @Html.DisplayFor(m => m.BoxPalletList[i].CustomerId): @Html.DisplayFor(m => m.BoxPalletList[i].CustomerName)
+                </a>
+            </li>
+        }
+    </ul>
+</div>

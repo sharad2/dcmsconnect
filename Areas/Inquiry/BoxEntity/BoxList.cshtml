@@ -1,0 +1,13 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.BoxEntity.BoxListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Recent Boxes ";
+}
+
+
+<div class="container">   
+    <h2 style="margin-top:0px">
+        @ViewBag.Title
+    </h2>    
+    @Html.Partial(MVC_Inquiry.Inquiry.SharedViews.Views._boxListPartial)
+</div>
