@@ -6,83 +6,90 @@
 
 
 
-<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
+<form class="form-horizontal" id="frmAddCustomerConstraint" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
+    <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
     <div class="form-group">
-        <label for="case" class="col-sm-4 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
-        
-            <div class="col-sm-8">
-    @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-       {
-             {"id", "tbCustomer"},
-             {"class","form-control"}
-       })
-</div>
-        <input type="hidden" name="@Model.CustomerId" id="hfCustomerId" />
+        <label for="case" class="col-sm-3 control-label">
+            Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+        </label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <input class="form-control typeahead" placeholder="Search Customer" id="tbCustomer" />
+                <span class="input-group-btn">
+                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                </span>
+            </div>
+
+            @Html.ValidationMessageFor(m => m.CustomerId, null, new
+           {
+               @class = "help-block"
+           })
+
         </div>
-
-
-   
+    </div>
     <div class="form-group">
-        <div class="col-sm-4 control-label">
+        <div class="col-sm-3 control-label">
             @Html.LabelFor(m => m.MaxBoxWeight)
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             @Html.TextBoxFor(m => m.MaxBoxWeight, new
 {
     maxlength = 2,
     size = 2,
-    @class="form-control",
+    @class = "form-control",
     placeholder = "Blank means no limit"
-}) 
+})
             @Html.HiddenFor(m => m.OrigMaxBoxWeight)
-          
-          
+
+
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-4 control-label">
+        <div class="col-sm-3 control-label">
             @Html.LabelFor(m => m.MaxSkuWithinBox)
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-9">
             @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
 {
     maxlength = 2,
     size = 2,
     @class = "form-control",
     placeholder = "Blank means no limit"
-    
-}) 
+
+})
             @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
-           
+
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-4 control-label">
+        <div class="col-sm-3 control-label">
             @Html.LabelFor(m => m.RequiredMinSkuPieces)
         </div>
-       
-        
-        <div class="col-sm-8">
+
+
+        <div class="col-sm-9">
             @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
 {
     maxlength = 2,
     size = 2,
     @class = "form-control",
     placeholder = "Blank means no limit"
-}) 
+})
             @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
-          
+
 
         </div>
     </div>
 
     <div class="form-group">
-        <div class="col-sm-4 control-label">
+        <div class="col-sm-3 control-label">
             @Html.LabelFor(m => m.RequiredMaxSkuPieces)
         </div>
-        <div class="col-sm-8">
-          @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
+        <div class="col-sm-9">
+            @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
 {
     maxlength = 2,
     size = 2,
@@ -95,7 +102,7 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
+        <div class="col-sm-offset-3 col-sm-9">
             <div class="checkbox">
                 <label>
                     @Html.CheckBoxFor(p => p.IsSingleStyleColor) @Html.LabelFor(p => p.IsSingleStyleColor)
@@ -104,71 +111,14 @@
             </div>
         </div>
     </div>
-   
-   
-   
-
-    <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
 </form>
 
 
 
 
+<script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
 
 
-
-@*@using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints(), FormMethod.Post, new { id = "frmAddCustomerConstraint" }))
-{
-   
-    <label>Customer</label>
-     @Html.TextBoxFor(m => m.CustomerId, new Dictionary<string, object>
-   {
-          // {"data-ac-list-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.CustomerAutocomplete())},
-         //  {"data-ac-validate-url", Url.Action(MVC_PickWaves.PickWaves.AutoComplete.ValidateCustomer())},
-           {"id", "tbCustomer"}
-   })<sup>&darr;*</sup>
-    @Html.HiddenFor(m => m.CustomerId)
-    <br />
-    @Html.LabelFor(m => m.MaxBoxWeight)
-    @Html.TextBoxFor(m => m.MaxBoxWeight, new
-{
-    maxlength = 2,
-    size = 2
-}) <sub style="color: blue">Blank means no limit</sub>
-    @Html.HiddenFor(m => m.OrigMaxBoxWeight)
-
-    @Html.LabelFor(m => m.MaxSkuWithinBox)
-    @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
-{
-    maxlength = 2,
-    size = 2
-}) <sub style="color: blue">Blank means no limit</sub>
-    @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
-
-    @Html.LabelFor(m => m.RequiredMinSkuPieces)
-    @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
-{
-    maxlength = 2,
-    size = 2
-}) <sub style="color: blue">Blank means no limit</sub>
-    @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
-
-    @Html.LabelFor(m => m.RequiredMaxSkuPieces)
-    @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
-{
-    maxlength = 2,
-    size = 2
-}) <sub style="color: blue">Blank means no limit</sub>
-    @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
-<br />
-
-@Html.CheckBoxFor(p => p.IsSingleStyleColor)
-@Html.LabelFor(p => p.IsSingleStyleColor)
-@Html.HiddenFor(p => p.OrigIsSingleStyleColor)
-
-<input id ="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab"/>
-@Html.ValidationSummary()
-}*@
 @*<script type="text/ecmascript">
     $(document).ready($(function () {
         // Force the unobtrusive validation script to run

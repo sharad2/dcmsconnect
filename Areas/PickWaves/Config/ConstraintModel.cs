@@ -26,20 +26,20 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// The maximum permissible weight of the box after SKUs have been added to it.
         /// </summary>
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Max Weight of a packed Box")]
+        [Display(Name = "Maximum Weight")]
         public int? MaxBoxWeight { get; set; }
 
-        [Display(Name = "Single Style Color in a BOX")]
+        [Display(Name = "Single Style Color")]
         public bool IsSingleStyleColor { get; set; }
 
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Maximum number of SKUs in a Box")]
+        [Display(Name = "Maximum SKUs")]
         public int? MaxSkuWithinBox { get; set; }
         /// <summary>
         /// Required Min pieces in box of a single SKU
         /// </summary>
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Minimum Pieces of single SKU in a Box ")]
+        [Display(Name = "Minimum Pieces per SKU")]
         [Range(minimum: 1, maximum: 99, ErrorMessage = "Number of Pieces must be in between 1 to 99")]
         public int? RequiredMinSkuPieces { get; set; }
 
@@ -47,7 +47,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// Required Max pieces in box of a single SKU
         /// </summary>
         [DisplayFormat(NullDisplayText = "No Limit")]
-        [Display(Name = "Maximum Pieces of single SKU in a Box ")]
+        [Display(Name = "Maximum Pieces per SKU")]
         [Range(minimum: 1, maximum: 99, ErrorMessage = "Number of Pieces must be in between 1 to 99")]
         public int? RequiredMaxSkuPieces { get; set; }
 
