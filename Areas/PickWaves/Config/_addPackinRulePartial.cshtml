@@ -4,14 +4,16 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
-<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">
-    @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", @style = "visibility:hidden" })
+<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">  
     <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
     <div class="form-group">
-        <label for="case" class="col-sm-3 control-label">Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
+        <label for="case" class="col-sm-3 control-label">
+            Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+            @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", @style = "visibility:hidden" })
+        </label>
         <div class="col-sm-9">
             <div class="input-group">
                 <input id="tbStyle" placeholder="Search Style"

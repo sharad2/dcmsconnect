@@ -7,14 +7,17 @@
 
 
 <form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
-    @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+
     <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
 
 
-        <label for="case" class="col-sm-3 control-label">Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup> </label>
+        <label for="case" class="col-sm-3 control-label">
+            Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+        </label>
         <div class="col-sm-9">
             @if (Model.CustomerId == null)
             {
@@ -25,7 +28,7 @@
                         <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                     </span>
                 </div>
-              
+
                 @Html.ValidationMessageFor(m => m.CustomerId, null, new
            {
                @class = "help-block"
@@ -69,7 +72,7 @@
                 @class = "form-control",
                 @placeholder = "Max 50 characters"
             })
-          
+
         </div>
     </div>
 </form>
