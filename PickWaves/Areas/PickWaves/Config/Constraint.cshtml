@@ -1,0 +1,328 @@
+﻿@using DcmsMobile.PickWaves.ViewModels.Config
+@model ConstraintViewModel
+@{
+    ViewBag.Title = "Constraint";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+}
+
+@section applinks{
+    <li>@Html.ActionLink("SKU Case", MVC_PickWaves.PickWaves.Config.SkuCase())</li>
+    <li class="divider">
+    </li>
+}
+
+
+<div class="container">
+    <h2 style="margin-top:0px;">
+        @ViewBag.Title
+    </h2>
+
+    <p>
+        Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
+        on a per customer basis.
+    </p>
+
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bg-info" role="tablist" data-active-tab="@Model.ActiveTab">
+            <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">Default Constraint</a></li>
+            <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">Customer Wise List</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="tab1">
+                <blockquote class="text-info">Default customer constraints</blockquote>
+
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-success">
+                        <h4 class="list-group-item-heading">
+                            @Html.LabelFor(m => m.DefaultConstraints.MaxBoxWeight)
+                            @Html.DisplayFor(m => m.DefaultConstraints.MaxBoxWeight)
+                        </h4>
+                    </li>
+                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.MaxBoxWeight.HasValue))
+                    {
+                        <li class="list-group-item" style="padding-left:2em;">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" data-show-customer="@item.Key.CustomerId"
+                                            title="Edit customer constraints"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+                                }
+                                @item.Key.CustomerId
+                                <small> @item.Key.CustomerName</small>
+                                <em>@item.Value.MaxBoxWeight lbs</em>
+                            </h4>
+                        </li>
+                    }
+                    <li class="list-group-item list-group-item-success">
+                        <h4 class="list-group-item-heading">
+                            @Html.LabelFor(m => m.DefaultConstraints.MaxSkuWithinBox)
+                            @Html.DisplayFor(m => m.DefaultConstraints.MaxSkuWithinBox)
+                        </h4>
+                    </li>
+
+                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.MaxSkuWithinBox.HasValue))
+                    {
+                        <li class="list-group-item" style="padding-left:2em;">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+                                }
+                                @item.Key.CustomerId
+                                <small> @item.Key.CustomerName</small>
+                                <em>@item.Value.MaxSkuWithinBox</em>
+                            </h4>
+
+                        </li>
+                    }
+
+                    <li class="list-group-item list-group-item-success">
+                        <h4 class="list-group-item-heading">
+                            @Html.LabelFor(m => m.DefaultConstraints.IsSingleStyleColor)
+                            @string.Format(Model.DefaultConstraints.IsSingleStyleColor ? "Set" : "Not Set")
+                        </h4>
+                    </li>
+
+                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.IsSingleStyleColor))
+                    {
+                        <li class="list-group-item" style="padding-left:2em;">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+                                }
+                                @item.Key.CustomerId
+                                <small> @item.Key.CustomerName</small>
+                            </h4>
+                        </li>
+                    }
+                    <li class="list-group-item list-group-item-success">
+                        <h4 class="list-group-item-heading">
+                            @Html.LabelFor(m => m.DefaultConstraints.RequiredMinSkuPieces)
+                            @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)
+                        </h4>
+                    </li>
+
+                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.RequiredMinSkuPieces.HasValue))
+                    {
+                        <li class="list-group-item">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+                                }
+
+                                @item.Key.CustomerId
+                                <small>@item.Key.CustomerName</small>
+                                @item.Value.RequiredMinSkuPieces
+                            </h4>
+                        </li>
+                    }
+
+                    <li class="list-group-item list-group-item-success">
+                        <h4 class="list-group-item-heading">
+                            @Html.LabelFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)
+                            @Html.DisplayFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)
+                        </h4>
+                    </li>
+                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.RequiredMaxSkuPieces.HasValue))
+                    {
+                        <li class="list-group-item" style="padding-left:2em;">
+
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-xs btn-primary pull-right" title="Edit customer constraints"
+                                            data-toggle="modal" data-target="#tabModal" data-show-customer="@item.Key.CustomerId"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+                                }
+                                @item.Key.CustomerId
+                                <small> @item.Key.CustomerName</small>
+                                <em>
+                                    @item.Value.RequiredMaxSkuPieces
+                                </em>
+                            </h4>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+            <div role="tabpanel" class="tab-pane" id="tab2">
+                <blockquote class="text-info">
+                    Constraints overridden by customers
+                    @if (Model.UserIsManager)
+                    {
+                        <button class="btn btn-primary" id="btnAddNewCustConstraint" data-toggle="modal"
+                                data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintAddView())"
+                                title="Add Customer Constraint">
+                            <span class="glyphicon glyphicon-plus"></span> Add Customer..
+                        </button>
+                    }
+                </blockquote>
+
+                <ul class="list-group">
+
+
+                    @for (var i = 0; i < Model.CustomerGroupedList.Count; ++i)
+                    {
+                        <li class="list-group-item list-group-item-success">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.UserIsManager)
+                                {
+                                    <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#tabModal"
+                                            data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId" title="Edit Customer Constraint"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                        Edit
+                                    </button>
+
+                                }
+                                <small>@(i + 1) </small>
+                                @Model.CustomerGroupedList.Keys[i].CustomerId
+                                <small>@Model.CustomerGroupedList.Keys[i].CustomerName</small>
+                            </h4>
+                        </li>
+                        <li class="list-group-item" style="padding-left:2em;">
+                            <ul class="list-inline">
+                                <li style="width:12em;">
+                                    Single Style Color:                                   
+                                    @if (Model.CustomerGroupedList.Values[i].IsSingleStyleColor)
+                                    {
+                                    <span class="glyphicon glyphicon-ok text-success"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glyphicon glyphicon-remove text-danger"></span>
+                                    }
+                                </li>
+                                <li style="width:14em;">
+                                    Max. Weight:
+                                    <span class="label label-success">@Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxBoxWeight)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Max. SKUs:
+                                    <span class="label label-info"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].MaxSkuWithinBox)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Max. Pieces/SKU:
+                                    <span class="label label-warning"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMaxSkuPieces)</span>
+                                </li>
+                                <li style="width:14em;">
+                                    Min. Pieces/SKU:
+                                    <span class="label label-default"> @Html.DisplayFor(m => m.CustomerGroupedList.Values[i].RequiredMinSkuPieces)</span>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    <!--Title inserted here with Ajax-->
+                </h4>
+            </div>
+            <div class="modal-body">
+                <!--Form inserted here with Ajax-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+
+        $(document).ready(function () {
+            //Determining which tab was active during remove or editing.
+            var tabActive = $('ul.nav-tabs').attr('data-active-tab');
+            $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
+
+
+
+            $('#tabModal').on('show.bs.modal', function (e) {
+
+                var btnAction = $(e.relatedTarget);
+                //action to be performed at URL
+                var url = $(btnAction).data('action-url');
+
+                //Title of the modal that will open
+                var title = $(btnAction).attr('title');
+
+                //Active Tab keeps remains open after action performed
+                var activeTab = $(btnAction).closest('div.tab-pane').index();
+             
+
+                //Ajax call form inserting the modal form and its content
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    cache: false
+                }).done(function (data, textStatus, jqXHR) {
+                    //will render the form first
+                    $('.modal-body').html(data);
+                    //will insert  title in the form
+                    $('.modal-title').text(title);
+
+                    //Will put the values in the edit packing rule form at third tab.
+                    if ($(btnAction).is('[data-show-customer]')) {
+                        $('#tbCustomer,#hfCustomer', '#frmAddCustomerConstraint').val($(btnAction).data('show-customer'));
+                    }
+                    //keep record of the active tab.To open it again after action performed(Edit/Add)
+                    $('#hfActiveTabIndex').val(activeTab);
+
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                });
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                //finding the form to be post
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
+                $form.submit();
+            });
+
+        });
+    </script>
+
+}
+
