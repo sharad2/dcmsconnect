@@ -1,0 +1,975 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>OracleDataSource Documentation</title>
+    <style type="text/css">
+        .style1
+        {
+            background-color: #FFFF66;
+        }
+        .style2
+        {
+            background-color: #FFFF00;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        OracleDataSource Documentation</h1>
+    <h2>
+        Overview</h2>
+    <p>
+        OracleDataSource is specifically designed to interact with Oracle 10g database.
+        It provides several major features. It derives from <code>SqlDataSource</code> and
+        thus inherits all its functionality.
+    </p>
+    <dl>
+        <dt>Query Logging </dt>
+        <dd>
+            Simply by using <code>OracleDataSource</code> instead of <code>SqlDataSource</code>
+            you can take advantage of query logging. By default the query log is visible on
+            the page. You can set the property <em>RenderLogVisible</em> to false to render
+            the log within HTML comments. In this situation the log will be visble only when
+            you view the source of the HTML file. You can search for the log by searching for
+            the string <code>****</code>.
+        </dd>
+        <dt>Server side paging and sorting </dt>
+        <dd>
+            Any select query you write is automatically transformed into a paging query. It
+            retrieves only as many rows as are requested by the associated databound control
+            like <code>GridView</code>. Sorting is also performed on the server side by adding
+            a suitable order by clause to the query. This works seamlessly for most types of
+            queries. More details on this feature are provided in a later section.
+            <br />
+            <code>HaveParametersChanged</code> property exists to fix a common paging bug encountered
+            in applications. Read about it <a href="#HaveParametersChanged">below</a>.
+        </dd>
+        <dt>Dynamic query manipulation. </dt>
+        <dd>
+            Rarely is it possible to have a static SQL query. For example, in searching and
+            reporting scenarios you are required to build your where clause dynamically. This
+            datasource can assist with this task. The design goal of this feature was to keep
+            your queries readable while giving you full power to manipulate them as you want.
+            This feature works for update, delete and insert queries as well. <code>CancelSelectOnNullParameter</code>
+            defaults to false since we will probably have many null parameters. See <a href="#DynamicQuery">
+                below</a> for more details on this feature.
+        </dd>
+        <dt>Choosing between multiple queries</dt>
+        <dd>
+            If you have two independent queries and you wish to execute one of them depending
+            on the options chosen in your GUI, you can do so easily. For example, you may have
+            a Print Selected button as well as a Update selected button. Each button would like
+            to execute a different update query. While you could use dynamic queries feature
+            to achieve this effect, it quickly gets very cumbersome. A new <code>Queries</code>
+            properties has been provided for such circumstances. More details <a href="#MultipleQueries">
+                Below</a>.
+        </dd>
+        <dt>Stored Procedures</dt>
+        <dd>
+            Oracle is very finicky about parameters. It raises an error if you bind any parameter
+            which is not actually required by the query. This is a big nuisance for dynamic
+            queries. For this reason, OracleDataSource parses the resulting query and removes
+            unused paramters from the DbCommand object. This strategy fails for Stored Procedures
+            because typically you only specify the name. There is no way to detrmine which parameters
+            are actually needed by the stored procedure.
+            <p>
+                OracleDataSource allows you to specify stored procedure name like this: <code>PKG_JF_SRC_2.PKG_JF_SRC_CTN_TKT(:ACARTON_ID,
+                    :APRINTER_NAME)</code> or like this: <code>:ReturnParam = PKG_JF_SRC_2.PKG_JF_SRC_CTN_TKT(:ACARTON_ID,
+                        :APRINTER_NAME)</code>. This allows us to parse the text and determine which
+                parameters are actually needed. Just the function name is passed to Oracle. CommandParsing
+                event is not raised for stored procedures. You can also use just the procedure name.
+                If there is on open parenthesis in your procedure name, unused parameters are not
+                removed.</p>
+            <p>
+                There can be a scenario where we would like to excecute multiple stored procedures
+                at the same time. We need to provide the procedures as follows:</p>
+            <br />
+            <code>UpdateCommand=" BEGIN<br />
+                IFR_ITR.SKUREC_UPDATE(AIntransit_Id =&amp;gt; :AIntransit_Id, ASource_ID =&amp;gt;
+                :ASource_ID, AITEM_ID =&amp;gt; :AITEM_ID, ASKU_SIZE =&amp;gt; :ASKU_SIZE, ADIMENSION
+                =&amp;gt; :ADIMENSION, AQUANTITY_RECEIVED =&amp;gt; :received_today);
+                <br />
+                <br />
+                PKG_RESV.ADD_TO_IALOC(AIA_ID =&amp;gt; :AIA_ID, ALOCATION_ID =&amp;gt; NULL, AUPC_CODE
+                =&amp;gt; :AUPC_CODE, APIECES =&amp;gt; :received_today);
+                <br />
+                END; " </code>
+            <p>
+                We need to write the procedures between <b>BEGIN</b> and <b>END</b> blocks.
+            </p>
+        </dd>
+        <dt>Transactions </dt>
+        <dd>
+            Unlike the vanila SqlDataSource, our OracleDatasource provides rich support for
+            transactions. You call <code>BeginTransaction</code> any time you want, typically
+            before starting your multi row grid update. When you are done with the transaction,
+            call <code>CommitTransaction</code> or <code>RollBackTransaction</code>. If an exception
+            occurs, and you do not handle it in your <code>Updated</code> event, the transaction
+            is automatically rolled back.</dd>
+        <dt>CancelSelectOnNullParameter</dt>
+        <dd>
+            The default value has been changed to false. Also, it only looks at those parameters
+            which remain in the query after all command parsing has been done. This means that
+            you can have unused null parameters and still expect your query to execute.
+        </dd>
+        <dt>DBMS_APPLICATION_INFO</dt>
+        <dd>
+            OracleDataSource also takes the responsibility of setting the module code and action
+            using the Oracle <code>DBMS_APPLICATION_INFO.SET_MODULE</code> function. The module
+            code is set to the name of the containing page. The action is simply the ID of the
+            datasource. The client info is the name of the authenticated user.
+        </dd>
+        <dt>Web Methods</dt>
+        <dd>
+            OracleDataSource includes special features so that it can be conveniently used from
+            web methods. <a href="#WebMethods">Details</a>.</dd>
+        <dt>Master Detail Scenarios</dt>
+        <dd>
+            OracleDataSource exposes a <code>PostSelected</code> event in which you are passed
+            the enumerable which will be returned to the data source. In this scenario you can
+            transform this enumerable as you please to achieve very interesting possibilities.
+            See <a href="#PostSelected">PostSelcted Event</a> for an example of how you could
+            use this event to implement master detail reports.</dd>
+        <dt>CancelSelectOnValidationFailure</dt>
+        <dd>
+            By default, the query will not execute if the page fails validation. If the page
+            is not validated at all, it is not considered to be a failure. This prevents unnecessary
+            queries from happening. You can set this property to false if you do not want this
+            behavior.</dd>
+        <dt>Displaying Query Execution Time</dt>
+        <dd>
+            You can set the property DisplayExecutionTime to true to see how much time the select
+            query took. The output will be displayed on the page whare the data source is located.
+            It will say something like &quot;Query took 16.53 seconds&quot;. If the query is
+            not executed, nothing is displayed. Additionally, we render the query text and parameter
+            values within HTML comments. You can search for this text by viewing the HTML source
+            and searching for <code>****</code>.
+        </dd>
+        <dt>Capturing Query Execution Times</dt>
+        <dd>
+            OracleDataSource has the capability to capture the query execution times to the
+            database. This feature is available only when DisplayExecutionTime is true. It requires
+            that you use the DbProfileProvider. When OracleDataSource detects that this.Context.Profile
+            is derived from VisitorProfile, it sets the Metrics property of VisitorProfile to
+            reasonable values. XTremeReporter uses this feature extensively.</dd>
+        <dt>Array Parameters</dt>
+        <dd>
+            Within your query, you can enclose any parameter within square brackets. In this
+            situation, OracleDataSource will assume that the value is a comma seperated list.
+            <a href="#array">More...</a>.
+        </dd>
+    </dl>
+    <h2 id="#array">
+        Array Parameters</h2>
+    <p>
+        You can enable your end user to enter a comma seperated list of values and then
+        generate the required query automatically.
+    </p>
+    <p>
+        In this example, the user is able to enter a comma seperated list of customer ids
+        which he is interested in. To achieve this, notice how the query had been defined
+        in <code>OracleDataSource</code>.
+    </p>
+    <pre>
+&lt;oracle:OracleDataSource ID="ds" runat="server" ConnectionString="&lt;%$ ConnectionStrings:dcmslive %&gt;"
+ProviderName="&lt;%$ ConnectionStrings:dcmslive.ProviderName %&gt;" SelectCommand="
+    SELECT ps.report_status_sequence AS report_status_sequence,
+           ...
+      FROM rep_active_ps ps, cust cust
+     WHERE ps.customer_id = cust.customer_id
+           [$<span class="style2">[customer_id]</span>$AND ps.customer_id NOT IN ({0})$]
+  GROUP BY ..." CancelSelectOnNullParameter="true"&gt;
+&lt;SelectParameters&gt;
+    ...
+    &lt;asp:ControlParameter ControlID="tbCustomers" Type="String" Direction="Input" Name="customer_id" DbType=&quot;String&quot; /&gt;
+&lt;/SelectParameters&gt;
+&lt;/oracle:OracleDataSource&gt;  </pre>
+    <p>
+        We have enclosed the customer_id parameter within square brackets. Now if the user
+        enters c1, c2 in the text box, the resulting where clause would be <code>AND ps.customer_id
+            NOT IN (:customer_id0, :customer_id1)</code>. This was achieved by replacing
+        the place holder {0} with <code>:customer_id0, :customer_id1.</code> The parameters
+        customer_id0 and customer_id1 will be automatically added and their values would
+        be c1 and c2 respectively. The Type of these paramaeters would always be String
+        but the DbType should be set to the actual type of each value in the array. be the
+        same as the type you have specified for the ControlParameter whose name is customer_id,
+        i.e. in this example: String.
+    </p>
+    <p>
+        16 Oct 2009: You can optionally specify a condition immediately after the array
+        parameter. The clause will be ignored if the condition evaluates to false. Example:
+        Use the clause only if the pritnt_what parameter cotains P.</p>
+    <pre>
+[$[ucc_id_list]contains(:print_what, 'P')$           
+...
+WHERE ucc_id IN ({0})
+...
+$]
+</pre>
+    <p>
+        Sharad 24 Sep 2010: You can specify a seperator after the array parameter.
+        <code>[$[term, OR ]$ms.style LIKE '%' || {0} || '%'$]</code> results in:
+    </p>
+    <pre>
+ms.style LIKE '%' || :style0 || '%' OR ms.style LIKE '%' || :style1 || '%'        
+        </pre>
+        <p>
+        If there are n comma seperated values in the string parameter style, then the clause specified by you is repeated
+        n times.
+        </p>
+        <p>
+        Here is a comprehensive example from the SKU autocomplete web method.
+        </p>
+        <pre>
+             WITH all_sku AS
+             (SELECT ms.upc_code AS upc_code,
+                     ms.style AS style,
+                     ms.color AS color,
+                     ms.dimension AS dimension,
+                     ms.sku_size AS sku_size,
+                     [$[term, + ]$
+CASE
+    WHEN ms.upc_code = {0} THEN 13
+    WHEN ms.upc_code LIKE {0} || '%' THEN 3
+    WHEN ms.upc_code LIKE '%' || {0}  THEN 2
+    WHEN ms.upc_code LIKE '%' || {0} || '%' THEN 1
+    ELSE 0
+END +
+CASE
+    WHEN ms.style = {0} THEN 4
+    WHEN ms.style LIKE {0} || '%' THEN 3
+    WHEN ms.style LIKE '%' || {0}  THEN 2
+    WHEN ms.style LIKE '%' || {0} || '%' THEN 1
+    ELSE 0
+END +
+CASE
+    WHEN ms.color = {0} THEN 3
+    WHEN ms.color LIKE {0} || '%' THEN 2
+    WHEN ms.color LIKE '%' || {0}  THEN 1
+    ELSE 0
+END +
+CASE
+    WHEN ms.dimension = {0} THEN 3
+    WHEN ms.dimension LIKE {0} || '%' THEN 2
+    WHEN ms.dimension LIKE '%' || {0}  THEN 1
+    ELSE 0
+END +
+CASE
+    WHEN ms.sku_size = {0} THEN 3
+    WHEN ms.sku_size LIKE {0} || '%' THEN 2
+    WHEN ms.sku_size LIKE '%' || {0}  THEN 1
+    ELSE 0
+END
+$]
+[$not(:term)$ 0$] AS relevance
+FROM master_sku ms
+WHERE [$[term, OR ]$
+ms.style LIKE '%' || {0} || '%' OR  ms.color LIKE '%' || {0} || '%' OR ms.dimension LIKE '%' || {0} || '%' OR
+ms.sku_size LIKE '%' || {0}  || '%' OR ms.upc_code LIKE '%' || {0}  || '%'
+$]
+[$not(:term)$1 = 1$]
+            ),
+            relevance_sku AS (
+            SELECT all1.*,
+                ROW_NUMBER() OVER(ORDER BY all1.relevance DESC, all1.style, all1.color, all1.dimension, all1.sku_size) AS row_number
+            FROM all_sku all1
+            )
+            SELECT rs.* FROM relevance_sku rs
+            WHERE rs.row_number &lt; 30
+            ORDER BY rs.row_number
+       
+        </pre>
+    <h2>
+        Server Side Sorting</h2>
+    <p>
+        Server side sorting is invoked when a data bound control requests sorting. This
+        usually happens when the user clicks on the column of a grid. OracleDataSource appends
+        an ORDER BY clause to your query using the sort expression passed by the control
+        . This implies that your query should not already have an ORDER BY clause. Instead,
+        specify the initial sort expression as the value of the property DefaultSortExpression.</p>
+    <pre>
+ &lt;dcms:OracleDataSource ID="dsStyle" runat="server" <span class="style1">DefaultSortExpression=&quot;STYLE&quot;</span> SelectCommand="
+SELECT
+	STYLE,
+        max(WEIGHT_PER_DOZEN) as WEIGHT_PER_DOZEN,
+        min(WEIGHT_PER_DOZEN) as Minweight,
+        Max(VOLUME_PER_DOZEN) as VOLUME_PER_DOZEN,
+        min(VOLUME_PER_DOZEN) as MinVolume,
+        Count(Style) as TotalSKU
+FROM MASTER_SKU
+WHERE ...
+GROUP BY STYLE
+" /&gt;</pre>
+    <p>
+        Notice that we have specified the <code>DefaultSortExpression</code> property. This
+        is required for server side sorting to work properly. It tells the data source what
+        order by clause should be constructed by default. If you forget to specify this
+        property, a runtime exception will be generated.
+    </p>
+    <p>
+        &nbsp;This datasource is associated with a <code>GridView</code> which looks like
+        this:</p>
+    <pre>
+&lt;asp:GridView ID="gvStyle" runat="server" AutoGenerateColumns="False" DataSourceID="dsStyle" AllowSorting="true"&gt;
+    &lt;Columns&gt;
+        &lt;asp:BoundField DataField="row_sequence" /&gt;
+        &lt;asp:TemplateField HeaderText="Style" SortExpression="STYLE"&gt;
+            ....
+        &lt;/asp:TemplateField&gt;
+        &lt;asp:BoundField HeaderText="Total SKU" DataField="TotalSKU" <span class="style1">
+            SortExpression=&quot;TotalSKU"</span> /&gt;
+        &lt;asp:TemplateField HeaderText="Weight (Lbs/dozen)" <span class="style1">SortExpression=&quot;max(WEIGHT_PER_DOZEN)"</span>&gt;
+            ....
+        &lt;/asp:TemplateField&gt;
+    &lt;/Columns&gt;
+&lt;/asp:GridView&gt;
+</pre>
+    <p>
+        When the grid is initially rendered, the generated query looks like this:</p>
+    <pre> select STYLE,
+       max(WEIGHT_PER_DOZEN) as WEIGHT_PER_DOZEN,
+       min(WEIGHT_PER_DOZEN) as Minweight,
+       Max(VOLUME_PER_DOZEN) as VOLUME_PER_DOZEN,
+       min(VOLUME_PER_DOZEN) as MinVolume,
+       Count(Style) as TotalSKU
+  from MASTER_SKU
+  WHERE ...
+GROUP BY style
+<span class="style1">ORDER BY style</span></pre>
+    <p>
+        The ORDER BY clause has been added by OracleDataSource using the DefaultSortExpression
+        you specifed.</p>
+    <p>
+        &nbsp;When the user clicks on a column of the grid view, the sort expression is
+        passed to this data source. In this case, the passed sort expression is used instead
+        of the default sort expression. As you can see, the sort expression is changing
+        dynamically without any coding on your part.</p>
+    <h2>
+        Server Side Paging</h2>
+    <p>
+        When you allow paging for a grid view, the grid passes to the data source the start
+        row index and max rows to retrieve. Using these passed values, your query is automatically
+        transformed to retrieve only the rows needed. The transformed query looks like this:</p>
+    <pre>  WITH OriginalQuery AS (SELECT STYLE,
+                             max(WEIGHT_PER_DOZEN) as WEIGHT_PER_DOZEN,
+                             min(WEIGHT_PER_DOZEN) as Minweight,
+                             Max(VOLUME_PER_DOZEN) as VOLUME_PER_DOZEN,
+                             min(VOLUME_PER_DOZEN) as MinVolume,
+                             Count(Style) as TotalSKU      
+                       from MASTER_SKU
+                      WHERE ...
+                   GROUP BY style),
+      PagedQuery AS (SELECT ROW_NUMBER() over(order by {1}) AS row_sequence, COUNT(*) OVER() AS RowCount_, t.* FROM OriginalQuery t )
+SELECT *
+  FROM PagedQuery
+ <span class="style2">WHERE row_sequence >= :first_row AND row_sequence < :last_row ORDER
+     BY row_sequence</span>
+</pre>
+    <p>
+        Your original query becomes a WITH query. The highlighted WHERE and ORDER BY clause
+        added by OracleDataSource is responsible for ensuring that only the desired number
+        of rows are retrieved. During paging, the grid also needs to know the total number
+        of qualifying rows. This is retrieved as the RowCount_ column of your query. OracleDataSource
+        peeks at the first row and returns the value of TotalRowCount to the data bound
+        control via select arguments.</p>
+    <p>
+        You query may also contain a WITH clause. OracleDataSource is intelligent about
+        this and transforms the query appropriately.
+    </p>
+    <pre>  WITH <span class="style2">your-with-clauses,</span>
+      OriginalQuery AS (SELECT STYLE,
+                             max(WEIGHT_PER_DOZEN) as WEIGHT_PER_DOZEN,
+                             min(WEIGHT_PER_DOZEN) as Minweight,
+                             Max(VOLUME_PER_DOZEN) as VOLUME_PER_DOZEN,
+                             min(VOLUME_PER_DOZEN) as MinVolume,
+                             Count(Style) as TotalSKU      
+                       from MASTER_SKU
+                      WHERE ...
+                   GROUP BY style),
+      PagedQuery AS (SELECT ROW_NUMBER() over(order by {1}) AS row_sequence, COUNT(*) OVER() AS RowCount_, t.* FROM OriginalQuery t )
+SELECT *
+  FROM PagedQuery
+ WHERE row_sequence >= :first_row AND row_sequence < :last_row
+ ORDER BY row_sequence
+</pre>
+    <h2 id="DynamicQuery">
+        Dynamic Query Manipulation (Updated 14 Oct 2009)</h2>
+    <p>
+        You can incorporate dynamic blocks of text within your query. This is useful for
+        building your where clause dynamically. Consider the following select command. The
+        dynamic portion of the where clause is incorporated using the pattern <code>[$function$clause$]</code>
+    </p>
+    <pre>
+&lt;dcms:OracleDataSource ID="dsStyle" runat="server" ConnectionString="&lt;%$ ConnectionStrings:dcms4 %&gt;"
+                ProviderName="&lt;%$ ConnectionStrings:dcms4.ProviderName %&gt;" SelectCommand="
+SELECT
+   STYLE, ...
+  FROM MASTER_SKU
+  WHERE 1 = 1 
+       [$:style$AND style LIKE :style || '%'$]
+       [$:missing_weights_only$AND WEIGHT_PER_DOZEN IS NULL$]
+       [$:missing_volumes_only$AND VOLUME_PER_DOZEN IS NULL$]
+       [$CustomCondition$AND somecolumn = somevalue$]
+GROUP BY STYLE
+" OnCommandParsing="dsStyle_CommandParsing" .../&gt;    </pre>
+    <p>
+        If the value of parameter style is non null then the clause AND style LIKE :style
+        || '%&#39; will be used, otherwise it will not be used. Same is true for the clauses
+        which depend on missing_wieghts_only and missing_volumes only parameters. The CustomCondition
+        clause represents a custom condition (because there is no : within it). You must
+        evaluate this condition in the <code>CommandParsing</code> event handler. It receives
+        the function name and the clause as an argument. If you want to keep the where clause
+        set e.Action to CommandParsingAction.UseClause, otherwise set it to CommandParsingAction.IgnoreClause.
+        You can even modify the where clause by setting an appropriate value for e.ReplacementString</p>
+    <pre>
+protected void dsStyle_CommandParsing(object sender, CommandParsingEventArgs e)
+{
+    switch (e.FunctionName)
+    {
+        case "CustomCondition":
+            // If user has not entered a style, remove the style where clauses so that all styles are displayed
+            bool b = ...;  // Figure out whether the clause should be kept
+	    e.Action = b ? CommandParsingAction.UseClause : CommandParsingAction.IgnoreClause;
+            break;
+
+        default:
+            throw new NotImplementedException();
+    }
+}
+</pre>
+    <p>
+        Rich expression syntax is supported to help minimize the deed to write a CommandParsingEventHandler.
+        XPath expression parser is used and are fully explained in <a href="ms-help://MS.VSCC.v90/MS.MSDNQTR.v90.en/wd_xmlstd/html/551e7a2a-51cf-4005-b3de-1b618093383f.htm">
+            MSDN</a>. Here are some example:</p>
+    <pre>
+    :IA_ID != 'EB' and :IA_ID != 'UC' and :IA_ID != 'PIT' and :IA_ID != 'MU'
+   (:pieces_expected >= 3 and :pieces_returned &gt;= 3) or not(:some_flag)
+    </pre>
+    <p>
+        Logical operators: =&nbsp;&nbsp; !=&nbsp;&nbsp; &gt;&nbsp; &gt;=&nbsp; &lt;&nbsp;
+        &lt;=&nbsp; and or&nbsp; not().<br />
+        Functions: concat, contains, starts-with, string-length, substring, translate</p>
+    <p>
+        You can use parenthesis to group expressions.</p>
+    <h2>
+        Choosing from Multiple Queries</h2>
+    <p>
+        You can use simple XML to choose from one of several queries to run.
+    </p>
+    <pre>
+     &lt;dcms:OracleDataSource ID="dsCartonList" ...&gt;
+        &lt;CommandTexts&gt;
+<span class="style2">&lt;dcms:CommandText ID="updateSelected"&gt;</span>
+     update src_carton src
+       set src.price_season_code = :price_season_code
+     WHERE src.carton_id = :carton_id
+&lt;/<span class="style2">dcms:CommandText</span>&gt;
+<span class="style2">&lt;dcms:CommandText ID="updateAll"&gt;</span>
+     update src_carton src
+       set src.price_season_code = :price_season_code
+     WHERE 1 = 1
+             [$:price_season_code_filter$AND src.price_season_code = :price_season_code_filter$]  
+             [$:source_order_id$AND src.source_order_id = :source_order_id$]
+      ...
+&lt;/<span class="style2">dcms:CommandText</span>&gt;
+<span class="style2">&lt;dcms:CommandText id="printSelected"&gt;</span>
+PKG_JF_SRC_2.PKG_JF_SRC_CTN_TKT(:ACARTON_ID, :APRINTER_NAME)
+&lt;/<span class="style2">dcms:CommandText</span>&gt;
+        &lt;/CommandTexts&gt;
+	...
+    &lt;/dcms:OracleDataSource&gt;</pre>
+    <p>
+        In the above example we have three queries whose ids are <code>updateSelected, updateAll
+            and printSelected</code>. We need to execute one of these as the UpdateCommand,
+        depending on the option chosen by our user. Notice that we have not specified the
+        UpdateCommand.
+    </p>
+    <p>
+        The strategy is to handle the <code>Updating</code> event and set the <code>CommandText</code>
+        of the passed <code>DbCommand</code> to one of these queries. Here is a sample Updating
+        event handler.
+    </p>
+    <pre>
+protected void dsCartonList_Updating(object sender, SqlDataSourceCommandEventArgs e)
+{
+    switch (_updatingWhat)
+    { 
+        case UpdatingWhat.Selected:
+            e.Command.CommandText = <span class="style2">dsCartonList.CommandTexts["updateSelected"]</span>;
+            break;
+
+        case UpdatingWhat.All:
+            e.Command.CommandText = <span class="style2">dsCartonList.CommandTexts["updateAll"]</span>;
+            break;
+
+        case UpdatingWhat.Print:
+            e.Command.CommandText = <span class="style2">dsCartonList.CommandTexts["printSelected"]</span>;
+            break;
+
+        default:
+            throw new NotImplementedException();
+    }
+}</pre>
+    <h2>
+        Custom Control Parameters</h2>
+    <p>
+        The tab control doesn't identify the web controls placed inside it when the tab
+        control exist independently on a page. But there are situations where we need to
+        use it. for eg: To seperate multiple filters in a page in different groups. So,
+        to overcome this shortfall we have to write the control parameters that inherit
+        the custom class ControlParameterEx as below:
+    </p>
+    <pre>
+        
+        &lt;ajax:TabContainer runat="server" ID="TabContainer1"&gt;
+        &lt;ajax:TabPanel runat="server" HeaderText="Receiving" ID="TabPanel1"&gt;
+            &lt;ContentTemplate&gt;
+                &lt;eclipse:TwoColumnPanel runat="server"&gt;
+                    &lt;eclipse:LeftLabel runat="server" Text="Factory PO" /&gt;
+                    &lt;eclipse:EnhancedTextBox ID="tbFPO" runat="server" DataType="NonNegativeInteger" QueryString="source_order_id" /&gt;                   
+                &lt;/eclipse:TwoColumnPanel&gt;
+            &lt;/ContentTemplate&gt;
+        &lt;/ajax:TabPanel&gt;
+        
+          &lt;dcms:OracleDataSource ID="dsCartonList" runat="server" ConnectionString="&lt;%$ ConnectionStrings:dcms8 %&gt;"
+                 OnCommandParsing="dsCartonList_CommandParsing"
+                SelectCommand="SELECT$ 
+                               src.carton_id carton_id,
+                               MAX(src.price_season_code) price_season_code,
+                               MAX(src.carton_storage_area) carton_storage_area,
+                               MAX(src.source_order_id) source_order_id,
+                               ........" OnCommandParsing="dsCartonList_CommandParsing" .../&gt; 
+                               
+          &lt;SelectParameters&gt;
+         <span class="style2">&lt;eclipse:ControlParameterEx </span> ControlID="tbFPO" Name="source_order_id" Type="Int32"
+                Direction="Input" <span class="style2">NamingPath="TabContainer1/TabPanel1" /&gt;</span>
+          &lt;/SelectParameters&gt;
+          
+        </pre>
+    <p>
+        Here, in NamingPath property, the first part before '/' refers to the name of the
+        TabContainer and the second part refers to the TabPanel wherein exist that control.
+        In this way, by providing the correct NamingPath, the tab control identifies the
+        controls place inside it.
+    </p>
+    <h2>
+        Transactions</h2>
+    <p>
+        Here is an example of how you might use transactions. We want to update multiple
+        rows of a GridView control but would like to ensure that all updates happen within
+        a single transaction. This is achieved by first, calling <code>dsSize.BeginTransaction()</code>.
+        The we update each row of the grid. Finally we call <code>dsSize.CommitTransaction()</code>.
+        Notice that we did not have to worry about rolling back the transaction because
+        OracleDataSource guarantees that the transaction will be rolled back if any exception
+        occurs.
+    </p>
+    <pre>
+private void CreateCartons()
+{
+    // dsSize is an instance of OracleDataSource
+    <span class="style2">dsSize.BeginTransaction</span>();
+    _curCartonId = DBNull.Value;
+    foreach (GridViewRow row in gvSize.Rows)
+    {
+        TextBox tb = (TextBox)row.FindControl("tbPieces");
+        if (!string.IsNullOrEmpty(tb.Text))
+        {
+            gvSize.UpdateRow(row.RowIndex, false);
+        }
+    }
+    <span class="style2">dsSize.CommitTransaction</span>();
+}
+</pre>
+    <h2 id="HaveParametersChanged">
+        HaveParametersChanged Property</h2>
+    <p>
+        When server side paging is involved and you are using automatic databinding, you
+        need to be aware of a bug which may be faced by your application. Automatic databinding
+        means that you have assigned a DatasourceID to your GridView. Consider this setup:
+    </p>
+    <ol>
+        <li>Your application displays filter text boxes in which the user can input values.
+        </li>
+        <li>You use ControlParameters which retrieve values from these textboxes directly.
+        </li>
+        <li>You are using a grid view which is bound to an OracleDataSource using the DatasourceID
+            property. </li>
+        <li>AllowPaging has been set to true for the GridView. </li>
+        <li>The grid is currently displaying some data. The data consists of multiple pages
+            and let us say that the first page is being displayed. </li>
+    </ol>
+    <p>
+        Given this setup, assume that the user changes one of the filter values such that
+        the resulting rows will fit within one gridview page. Ideally he should have pressed
+        your Apply Filters button to see these rows. Let us suppose he forgets to do that
+        and instead clicks on page 3 icon of the grid. When the Page 3 icon is clicked,
+        the following sequence of events happen:
+    </p>
+    <ul>
+        <li>a postback occurs </li>
+        <li>the grid rebinds because the parameters have changed </li>
+        <li>The grid attempts to show the third page. Since the resultset is only one page long,
+            the grid does not display anything. This will be very surprising for the user.
+        </li>
+    </ul>
+    <p>
+        To work around this situation, OracleDataSource provides the <code>HaveParametersChanged</code>
+        property. This is an advanced property and returns useful information only after
+        LoadComplete event of the page has fired. In your page class, you must override
+        the OnLoadComplete method and write code similar to this:
+    </p>
+    <pre>
+protected override void OnLoadComplete(EventArgs e)
+{
+    // Must call base class first so that the LoadComplete event fires.
+    base.OnLoadComplete(e);
+
+    // Ask OracleDataSource whether any parameters have changed. If yes, then set the PageIndex of the grid to 0.
+    if (dsCartonList.HaveParametersChanged)
+    {
+        gvCartonList.PageIndex = 0;
+    }
+}
+</pre>
+    <p>
+        This bug is not the fault of OracleDataSource. It is the fault of Microsoft's data
+        binding architecture. You will experience this bug with any datasource. OracleDataSource
+        is nice enough to provide you with a way to work around this bug.
+    </p>
+    <h2 id="WebMethods">
+        Using OracleDataSource in Web Methods</h2>
+    <p>
+        It is very useful to use OracleDataSource in your static web methods. It leads to
+        much cleaner code compared to creating the OracleCommand object yourself and adding
+        parameters to it. To access the values of your out parameters, you would normally
+        handle the Updated event and read the values there. However, this is very inconvenient
+        in a web method since you cannot store the return values in a member variable. To
+        help with this situation, OracleDataSource provides the <code>OutValues</code> property.
+    </p>
+    <p>
+        In the following example, we call a stored procedure to print the wave summary report
+        and then find out how may copies were printed by accessing the return value of the
+        function.
+    </p>
+    <pre>
+[WebMethod]
+public static int PrintBucketSummary(int bucketId, string printerName)
+{
+    int nCopiesPrinted;
+    using (OracleDataSource ds = new OracleDataSource())
+    {
+        ds.ConnectionString = ConfigurationManager.ConnectionStrings["dcms8"].ConnectionString;
+        ds.ProviderName = ConfigurationManager.ConnectionStrings["dcms8"].ProviderName;
+        ds.UpdateCommand = "PKG_PRINT_PD.WRITE_BUCKET_SUMMARY_TO_FILE";
+        ds.UpdateCommandType = SqlDataSourceCommandType.StoredProcedure;
+
+        ds.UpdateParameters.Add("abucket_id", TypeCode.Int32, bucketId.ToString());
+        ds.UpdateParameters.Add("aprinter_name", TypeCode.String, printerName);
+        ds.UpdateParameters.Add("acopies", TypeCode.Int32, NUMBER_OF_COPIES.ToString());
+        Parameter paramCopiesPrinted = new Parameter("ReturnParam", TypeCode.Int32);
+        ds.UpdateParameters.Add(paramCopiesPrinted);
+        paramCopiesPrinted.Direction = ParameterDirection.ReturnValue;
+        ds.Update();
+        nCopiesPrinted = Convert.ToInt32(ds.OutValues["ReturnParam"]);
+    }
+    return nCopiesPrinted;
+}
+</pre>
+    <h2 id="PostSelected">
+        PostSelected Event</h2>
+    <p>
+        This is an advanced event which is always raised after the <code>Selected</code>
+        event. In this event you are passed the enumerable which will be returned to the
+        datasource. You can replace this enumerable with your own iterator thereby transofrming
+        the data returned to the data bound control.</p>
+    <p>
+        This event is always guaranteed to occur. This means that it is raised even if the
+        query is cancelled during the Selecting event, or an exception occurs during the
+        selection. When a query has not been performed,. e.Result contains null. You can
+        use this information to update the EmptyDataText of your grid. For example, if a
+        query has not happened, you might want to not display the empty template. If the
+        query has happened, you may want to say &quot;No rows found&quot;.</p>
+    <pre>
+protected void dsPickSlipForPO_PostSelected(object sender, PostSelectedEventArgs e)
+{
+    if (e.Result == null)
+    {
+        gv.EmptyDataText = "";
+    }
+    else
+    {
+        gv.EmptyDataText = "No rows found";
+    }
+}        
+</pre>
+    <p>
+        This example describes how you can use the <code>PostSelected</code> event to implement
+        master detail using a single query. Our goal is to display one table per operation
+        code. To do this we have a repeater which displays information about the operation
+        code. Each item in the repeater contains a <code>GridView</code> which displays
+        the details of that operation code.
+    </p>
+    <p>
+        Markup: OracleDataSource is bound to a repeater. The repeater contains a grid view.</p>
+    <pre>
+    &lt;dcms:OracleDataSource ID="dsBoxProd" runat="server" 
+        OnPostSelected="dsBoxProd_PostSelected" SelectCommand="
+SELECT boxprod.operation_code AS OPERATION_CODE,
+       TRUNC(boxprod.operation_start_date, 'hh24') AS OPERATION_DATE,
+       min(boxprod.operation_start_date) AS START_TIME,
+       max(boxprod.operation_start_date) AS END_TIME,
+       sum(boxprod.num_of_pieces) AS TOTAL_PIECES,
+       sum(boxprod.num_of_units) AS TOTAL_UNITS,
+       boxprod.vwh_id AS WAREHOUSE_ID
+  FROM dcms8a.box_productivity boxprod
+ GROUP BY boxprod.operation_code,
+          TRUNC(boxprod.operation_start_date, 'hh24'),
+          boxprod.vwh_id
+ORDER BY boxprod.operation_code,
+          TRUNC(boxprod.operation_start_date, 'hh24'),
+          boxprod.vwh_id          
+"&gt;
+    &lt;/dcms:OracleDataSource&gt;
+    &lt;asp:Repeater ID="Repeater1" runat="server" DataSourceID="dsBoxProd" OnItemDataBound="Repeater1_ItemDataBound"&gt;
+        &lt;ItemTemplate&gt;
+                    &lt;asp:Label runat="server" ID="lblHeader" /&gt;
+            &lt;jquery:GridViewEx runat="server" ID="gvDetails"&gt;
+                &lt;EmptyDataTemplate&gt;
+                    No Data found
+                &lt;/EmptyDataTemplate&gt;
+                &lt;Columns&gt;
+                    &lt;eclipse:SequenceField /&gt;
+                    &lt;asp:BoundField DataField="START_TIME" HeaderText="Date" SortExpression="START_TIME"
+                        DataFormatString="{0:d}"&gt;
+                        &lt;ItemStyle HorizontalAlign="Right" Width="8em" /&gt;
+                        &lt;HeaderStyle Width="8em" /&gt;
+                    &lt;/asp:BoundField&gt;
+                    &lt;asp:BoundField DataField="START_TIME" HeaderText="Start" SortExpression="START_TIME"
+                        DataFormatString="{0:H:mm:ss}" ItemStyle-HorizontalAlign="Right" /&gt;
+                    &lt;asp:BoundField DataField="END_TIME" HeaderText="End" SortExpression="END_TIME" DataFormatString="{0:H:mm:ss}"
+                        ItemStyle-HorizontalAlign="Right" /&gt;
+                    &lt;asp:BoundField DataField="TOTAL_PIECES" HeaderText="Pieces" SortExpression="TOTAL_PIECES"
+                        ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" /&gt;
+                    &lt;asp:BoundField DataField="TOTAL_UNITS" HeaderText="Units" SortExpression="TOTAL_UNITS"
+                        ItemStyle-HorizontalAlign="Right" DataFormatString="{0:N0}" /&gt;
+                    &lt;asp:BoundField DataField="WAREHOUSE_ID" HeaderText="Warehouse ID" SortExpression="WAREHOUSE_ID"
+                        ItemStyle-HorizontalAlign="Right" /&gt;
+                &lt;/Columns&gt;
+            &lt;/jquery:GridViewEx&gt;
+        &lt;/ItemTemplate&gt;
+    &lt;/asp:Repeater&gt;
+</pre>
+    <p>
+        Code Behind</p>
+    <pre>
+private IEnumerable _result;
+private object _masterRow;
+
+protected void dsBoxProd_PostSelected(object sender, PostSelectedEventArgs e)
+{
+    if (e.Result != null)
+    {
+        _result = e.Result;
+        foreach (var row in _result)
+        {
+            // Set the value of the first master row
+            _masterRow = row;
+            break;
+        }
+        e.Result = MasterIterator;
+    }
+}
+</pre>
+    <h2 id="H1">
+        SYS CONTEXT</h2>
+    <p>
+        This control provides the support to set the context fields for auditing. Basically
+        two types of context fields are there
+        <br />
+        1- Context fields provided by oracle.
+        <br />
+        2- Custom context fields.
+        <br />
+        To set the context field provided by oracle: This control provide the direct support
+        to set all these fields Some of these are
+        <br />
+        1: Module Name (Optional) Just set the ModuleName property
+        <br />
+        2 Action (Optional) Just set the Action property
+        <br />
+        3 Client info (Optional) Just set the Client info property 4 ClientId: Developer
+        should not worry about the client id. This is set by the control internally.
+    </p>
+    <p>
+        Custom Fields:</p>
+    <p>
+        To add the custom filed, this control requires that add field as a context parameter.
+        To do, write the following code ds.SysContext.ContextParameters.Add ("field name",
+        TypeCode.String, value) Type code must be specified otherwise exception thrown.
+        If you provide the any custom field, you must set the ContextPackeageName property
+        to Package name which manipulate the context. e.g.
+    </p>
+    <pre>
+ContextPackeageName= “pkg_inventory_context”; 
+
+Following are some useful custom field use by the developer. 
+1-	Group_id (mandatory
+Write the following code to set the group_id
+ds.SysContext.ContextParameters.Add ("group_id", TypeCode.String, null)
+Value for group_id must be null otherwise exception thrown. </pre>
+    <p>
+        You can also set group_id in design time as described below.
+    </p>
+    <pre>
+          &lt;syscontext contextpackagename="PKG_INVENTORY_CONTEXT" clientinfo="Adjusting carton contents"&gt;
+            &lt;ContextParameters&gt;
+             &lt;eclipse:UserParameter Name="app_user" Type="String" ConvertEmptyStringToNull="true" /&gt;
+             &lt;asp:Parameter Name="group_id" Type="String" ConvertEmptyStringToNull="true" /&gt;
+            &lt;/ContextParameters&gt;
+          &lt;/syscontext&gt;
+</pre>
+    <pre>
+    
+2 APP_User:
+App_user should be set to the application user. 
+
+ProcedureFormatString:
+This property build the query to call the procedure that manipulate the context value
+
+By Default this property has the value 
+set_{0}(A{0} => :{0}, client_id => :client_id);
+where {0} is replaced by context parameter name.   
+If you have a ContextParameter named pickslip_id, its value will be set using the call
+CustomContextPackage.set_pickslip_id(Apickslip_id => :pickslip_id);
+</pre>
+    <pre> 
+ Example:
+
+Suppose we receive the carton then we set the context in the following manner.
+
+
+ds.SysContext.Action = "Transfering Carton";
+ds.SysContext.ModuleName = "CartonTransfer";
+ds.SysContext.ClientInfo = userName;
+ds.SysContext.ContextPackageName = "pkg_inventory_context";
+ds.SysContext.ContextParameters.Add("Intransit_Id", TypeCode.String, this.IntransitId);
+ds.SysContext.ContextParameters.Add("app_user", TypeCode.String, userName);
+                ds.SysContext.ContextParameters.Add("Group_Id",TypeCode.Int32, null);
+
+
+
+If you use the transaction,set these context value at the begning of transaction so that same value goes for a group.                  
+
+    </pre>
+    <h4>
+        Some useful code examples:</h4>
+    <pre>In this example user can either enter rma_id or rma_number through GUI but the backend package accepts 
+rma_id to update rma. Therefore, we queried the database for rma_id when user entered rma_number.</pre>
+    <pre> ,</pre>
+    <pre>
+UpdateCommand="BEGIN
+IF :rma_id IS NULL THEN
+    select rma.rma_id
+    INTO :rma_id
+    from rma rma
+    where rma.rma_number = :rma_number ;    
+    END IF; 
+    receive_return_sku(arma_id   =&gt; :rma_id,
+                     aupc_code =&gt; :UPC,
+                     apieces   =&gt; :pieces_Today);  
+                     :rma_id := :rma_id;                 
+END;"
+</pre>
+    <p>
+        But the drawback of above PL/SQL block is that rma_id will always be queried for
+        each update command. Therfore, we first time the update command is fired we get
+        the value in the updated event of datasource in a page variable. Now because the
+        rma_id will remain same for entire transaction we set it in updating event the next
+        time around. See below for sample code.
+    </p>
+    <pre>
+         private object _curRmaId;
+        protected void dsSKU_Updating(object sender, SqlDataSourceCommandEventArgs e)
+        {
+            if (_curRmaId != null)
+            {
+                e.Command.Parameters["rma_id"].Value = _curRmaId;
+            }
+        }
+
+        protected void dsSKU_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            if (e.Exception == null)
+            {
+                if (e.Command.Parameters["rma_id"].Value != null)
+                {
+                    _curRmaId = e.Command.Parameters["rma_id"].Value;
+                }
+            }
+        }
+           </pre>
+    <h2>
+        Message handeling</h2>
+    <p>
+        OracleDataSource helps you in managing your status messages. Example given below
+        has a PL/SQL block which calls two pacakges to print pickslip and wave summary.You
+        would like to show messages like &quot;2 pickslips printed on laser4c printer&quot;
+        after the operation is completed. Just enclose your message within /** */ in the
+        PL/SQL block as shown below.
+    </p>
+    <pre>
+          &lt;dcms:OracleDataSource ID="dsPickSlip" runat="server" ConnectionString="&lt;%$ ConnectionStrings:dcms8 %&gt;"
+            ProviderName="&lt;%$ ConnectionStrings:dcms8.ProviderName %&gt;" CancelSelectOnNullParameter="false"
+            UpdateCommand="
+DECLARE
+  TYPE id_type IS TABLE OF NUMBER(10);
+  [$[pickslip_id_list]$pickslips id_type := id_type({0});$]          
+BEGIN
+  :copies_printed := 0;
+[$:pickslip_id_list and contains(:print_what, 'P')$
+  for i IN pickslips.FIRST..pickslips.LAST  loop
+    :copies_printed := :copies_printed + PKG_PRINT_PD.write_pt_to_file(APickslip_Id =&gt; pickslips(i),
+                                                     APrinter_Name =&gt; :aprinter_name,
+                                                     ACopies =&gt; 1);
+  end loop;
+  /** :copies_printed Pickslips printed on printer :aprinter_name */
+$]
+
+[$:bucket_id and contains(:print_what, 'W')$
+  :copies_printed := :copies_printed + PKG_PRINT_PD.WRITE_BUCKET_SUMMARY_TO_FILE(abucket_id =&gt; :bucket_id,
+                                                                   aprinter_name =&gt; :aprinter_name,
+                                                                   acopies =&gt; 1);
+    /** :copies_printed copy of Bucket summary for bucket :bucket_id printed on printer :aprinter_name */                                                                   
+$]
+        
+END;
+" 
+        &lt;/dcms:OracleDataSource&gt;
+        
+        </pre>
+    <p>
+        In the updated event pass the command to ExtractStatusMessages which will extract
+        the message for you. You can add these message to StatusPanel now. See below for
+        code referance.</p>
+    <pre>
+          protected void dsPickSlip_Updated(object sender, SqlDataSourceStatusEventArgs e)
+        {
+            if (e.Exception == null)
+            {
+                var messages = OracleDataSource.ExtractStatusMessages(e.Command);
+                foreach (string msg in messages)
+                {
+                    spStatus.AddStatusText(msg);
+                }
+            }
+            else
+            {
+                vsPickslipaction.ErrorMessages.Add(e.Exception.Message);                
+                e.ExceptionHandled = true;
+            }           
+
+        }      
+        
+        </pre>
+</body>
+</html>
