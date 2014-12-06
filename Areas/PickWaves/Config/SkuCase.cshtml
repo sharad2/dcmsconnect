@@ -416,8 +416,8 @@
                     //Will put the values in the edit packing rule form at third tab.
                     if ($(btnAction).is('[data-show-style]')) {
 
-                        $('#tbStyle', '#frmAddPackingRule').val($(btnAction).data('show-style'));
-                        $('.caseId', '#frmAddPackingRule').val($(btnAction).data('show-case'));
+                        $('#tbStyle,#hfStyle', '#frmAddPackingRule').val($(btnAction).data('show-style'));
+                        $('#caseId', '#frmAddPackingRule').val($(btnAction).data('show-case'));
                     }
 
                 }).fail(function (jqXHR, textStatus, errorThrown) {
@@ -425,14 +425,11 @@
                 });
             }).on('click', 'button:not([data-dismiss])', function (e) {
                 //finding the form to be post
-                var $form = $(e.delegateTarget).find('form', '.modal-body');               
-                $form.submit();
+                var $form = $(e.delegateTarget).find('form', '.modal-body');
 
+                $form.submit();
               
             });
-
-           
-           
 
         });
     </script>

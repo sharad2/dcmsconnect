@@ -39,7 +39,8 @@
             @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "Please Select", new
        {
            @required = "required",
-           @class = "form-control caseId"
+           @class = "form-control",
+           @id="caseId"
        })
 
             @Html.ValidationMessageFor(m => m.CaseId, null, new
@@ -59,14 +60,6 @@
         </div>
     </div>
 </form>
-
-
-
-
-
-
-
-
 
 
 <script src="@Links_PickWaves.Areas.PickWaves.Config._addPackinRule_js"></script>
