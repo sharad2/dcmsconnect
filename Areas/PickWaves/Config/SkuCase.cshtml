@@ -312,7 +312,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <div class="btn-group btn-group-xs  pull-right" role="group">
-                                            <button class="btn btn-primary" data-toggle="modal"
+                                            <button class="btn btn-primary" data-toggle="modal" data-show-style="@Model.PackingRuleList[i].Style" data-show-case="@Model.PackingRuleList[i].CaseId"
                                                     data-target="#tabModal" title="Edit packing rule"
                                                     data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
                                                 <span class="glyphicon glyphicon-edit"></span>  Edit
@@ -397,32 +397,42 @@
 
 
             $('#tabModal').on('show.bs.modal', function (e) {
-                //Title of the modal
-                var btnAction = $(e.relatedTarget)
-                LoadAjaxSkuCaseEditor($(btnAction).data('action-url'), $(btnAction).attr('title'))
-            }).on('click', 'button:not([data-dismiss])', function (e) {
-                var $form = $(e.delegateTarget).find('form', '.modal-body');
-                if (!$form.valid())
-                {
-                    return false;
-                }
-                $form.submit();
-            });
 
-            //Modal body content inserted here with Ajax call.
-            function LoadAjaxSkuCaseEditor(url, title) {
+                var btnAction = $(e.relatedTarget);
+                var url = $(btnAction).data('action-url');
+                var title = $(btnAction).attr('title');
+
+                //Ajax call form inserting the modal form and its content
                 $.ajax({
                     url: url,
                     type: 'get',
                     cache: false
                 }).then(function (data, textStatus, jqXHR) {
-                    $('.modal-title').text(title);
+                    //will render the form first
                     $('.modal-body').html(data);
+                    //will insert  title in the form
+                    $('.modal-title').text(title);
+
+                    //Will put the values in the edit packing rule form at third tab.
+                    if ($(btnAction).is('[data-show-style]')) {
+
+                        $('#tbStyle', '#frmAddPackingRule').val($(btnAction).data('show-style'));
+                        $('.caseId', '#frmAddPackingRule').val($(btnAction).data('show-case'));
+                    }
 
                 }).fail(function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
                 });
-            }
+            }).on('click', 'button:not([data-dismiss])', function (e) {
+                //finding the form to be post
+                var $form = $(e.delegateTarget).find('form', '.modal-body');               
+                $form.submit();
+
+              
+            });
+
+           
+           
 
         });
     </script>

@@ -4,8 +4,11 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
-<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">  
+<form class="form-horizontal" id="frmAddPackingRule" role="form"
+      action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">
     <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
+
+
     @Html.ValidationSummary("", new { @class = "text-danger" })
 
 
@@ -14,14 +17,14 @@
             Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
             @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", @style = "visibility:hidden" })
         </label>
-        <div class="col-sm-9">
-            <div class="input-group">
-                <input id="tbStyle" placeholder="Search Style"
-                       class="form-control typeahead" />
-                <span class="input-group-btn">
-                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                </span>
-            </div>
+        <div class="col-sm-9">            
+                <div class="input-group">
+                    <input placeholder="Search Style" id="tbStyle"
+                           class="form-control typeahead" />
+                    <span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>
+                </div>
 
             @Html.ValidationMessageFor(m => m.Style, null, new
            {
@@ -36,7 +39,7 @@
             @Html.DropDownListFor(m => m.CaseId, Model.SkuCaseList, "Please Select", new
        {
            @required = "required",
-           @class = "form-control"
+           @class = "form-control caseId"
        })
 
             @Html.ValidationMessageFor(m => m.CaseId, null, new
@@ -57,12 +60,20 @@
     </div>
 </form>
 
+
+
+
+
+
+
+
+
+
 <script src="@Links_PickWaves.Areas.PickWaves.Config._addPackinRule_js"></script>
 <script type="text/javascript">
         $(document).ready($(function () {
             // Force the unobtrusive validation script to run
             // http://forums.asp.net/t/1651961.aspx/1
             $.validator.unobtrusive.parse("#frmAddPackingRule");
-            //$('#tbStyle').autocompleteEx();
         }));
     </script>
