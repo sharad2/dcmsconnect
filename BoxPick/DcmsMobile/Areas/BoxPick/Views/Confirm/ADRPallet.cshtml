@@ -1,0 +1,30 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.ADRPalletViewModel
+@{
+    ViewBag.Title = "BoxPick: Enter Pallet to confirm for ADR Pulling";
+}
+@section head {
+    <script type="text/javascript">
+        var _emptyOk = true;
+    </script>
+}
+@section heading{
+    <h2>
+        Confirm for ADR Pallet</h2>
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary
+{
+    {"ActiveTab", "Pa"}
+})
+@using (Html.BeginForm(MVC_BoxPick.BoxPick.Confirm.ConfirmADRPallet()))
+{
+    @Html.EditorFor(m => m.Scan);
+    @Html.HiddenFor(m => m.ConfirmPalletId);
+}
+<ul>
+    <li>Rescan pallet <span class="ui-state-highlight">@Model.ConfirmPalletId</span>
+        to create pallet for ADR Pulling.</li>
+    <li>Press <span class="ui-priority-primary">enter</span> to go back.</li>
+</ul>
+
+
+@*$Id$*@

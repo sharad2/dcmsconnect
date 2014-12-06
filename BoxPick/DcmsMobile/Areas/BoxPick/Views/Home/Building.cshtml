@@ -1,0 +1,45 @@
+﻿@*
+When building has not been entered, the Building is required is highlighted.
+*@
+@model DcmsMobile.BoxPick.ViewModels.BuildingViewModel
+@{
+    ViewBag.Title = "BoxPick: Enter Building/Area";
+}
+@helper MessageCssClass(string item)
+    {
+        if (string.IsNullOrEmpty(item))
+        {
+    @:class="ui-state-highlight"
+    }
+}
+@section head {
+    <script type="text/javascript">
+        var _emptyOk = true;
+    </script>
+}
+@section heading {
+    <h2>
+        Scan Building/Area
+    </h2>
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary { { "ActiveTab", "Bu" } })
+@using (Html.BeginForm("Index", null))
+{
+    @Html.EditorFor(m => m.ScannedBuildingOrArea)
+}
+<div>
+    @if (string.IsNullOrEmpty(Model.CurrentBuildingId))
+    {
+        <span @MessageCssClass(Model.CurrentBuildingId) >Building is required.</span>
+    }
+    else
+    {
+        @:Specify the destination area for which you have been asked to pickboxes. Or leave blank to let the system decide.
+                        }
+</div>
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._bottomPartial, Model)
+
+
+
+
+@*$Id$*@

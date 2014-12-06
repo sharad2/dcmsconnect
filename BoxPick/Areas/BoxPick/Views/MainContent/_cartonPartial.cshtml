@@ -1,0 +1,70 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.MainContent.CartonViewModel
+
+
+<div>
+    <table>
+        <caption>Boxes status</caption>
+        <thead>
+            <tr>
+                <th>UCC ID</th>
+                <th>Pieces</th>
+                <th>Status</th>
+                <th>VWh ID</th>
+                <th>Quality</th>
+                <th>Carton</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var j = 0; j < Model.BoxesOnPallet.Count(); j++)
+            {
+            <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
+                <td>@Html.DisplayFor(m => m.BoxesOnPallet[j].UccId)</td>
+                <td>@Html.DisplayFor(m => m.BoxesOnPallet[j].Pieces)</td>
+                <td>@(string.IsNullOrEmpty(Model.BoxesOnPallet[j].IaId) ? "To pick" : "Picked")</td>
+                <td>@Html.DisplayFor(m => m.BoxesOnPallet[j].VwhId)</td>
+                <td>@Html.DisplayFor(m => m.BoxesOnPallet[j].QualityCode)</td>
+                <td>@(string.Format("{0} contains SKU {1}", Model.BoxesOnPallet[j].AssociatedCartonId, Model.BoxesOnPallet[j].SkuInCarton))</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+    $Id$
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

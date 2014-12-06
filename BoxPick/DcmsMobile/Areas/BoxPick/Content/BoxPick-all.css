@@ -1,0 +1,79 @@
+﻿/* controls the overall font size  */
+body
+{
+    font-size: 70%;
+    margin: 1px 1px 1px 1px;    
+}
+
+/* Save space around the heading */
+h2
+{
+    text-align: left;
+    margin: 0 0 0 0;
+    font-size: 1.2em;
+}
+
+/*  consume space surrounding form */
+body form
+{
+    padding: 0 0 0 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+/*  consume space surrounding text box */
+body form input
+{
+    margin: 0 0 0 0;
+    border-width: 1px;
+    border-style: solid;
+    text-transform: uppercase;
+}
+
+/* Remove padding around buttons */
+body .ui-button-text-only .ui-button-text
+{
+    padding-right   : 1px;
+     padding-left: 1px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+/* Remove padding around lists */
+ul
+{
+    margin: 0 0 0 0;
+}
+
+/* Minimal line space after tabs */
+.tabs
+{
+    margin-bottom: 2px;
+    font-size: .8em;
+}
+
+/* Required for proper appearance of tabs on the ring scanner */
+.tabs .ui-button-text
+{
+    display: inline;
+}
+
+/* Without this style it appears very dim  */
+.picking-status .ui-priority-secondary
+{
+    font-weight: bold;
+}
+
+.validation-summary-errors 
+{
+    color:Red
+}
+
+#menu li.banner
+{
+    color: #fff;
+    font-size: 2.5em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.5em;
+}

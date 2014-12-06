@@ -1,0 +1,28 @@
+﻿@model DcmsMobile.BoxPick.ViewModels.PalletViewModel
+@{
+    ViewBag.Title = "BoxPick: Enter Pallet";
+    ViewBag.HelpAction = "Pallet";
+}
+@section head {
+    <script type="text/javascript">
+        var _emptyOk = true;
+    </script>
+}
+@section heading {
+    <h2>
+        Scan Pallet to Pick
+    </h2>
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._tabsPartial, Model, new ViewDataDictionary
+{
+    {"ActiveTab", "Pa"}
+})
+@using (Html.BeginForm(MVC_BoxPick.BoxPick.Home.AcceptPallet()))
+{
+    @Html.EditorFor(m => m.ScannedPalletId)
+}
+@Html.Partial(MVC_BoxPick.BoxPick.Shared.Views._bottomPartial, Model)
+
+
+
+@*$Id$*@
