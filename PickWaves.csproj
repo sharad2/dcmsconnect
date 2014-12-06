@@ -368,7 +368,7 @@
     <Content Include="Areas\PickWaves\Config\SkuCase.cshtml" />
     <Content Include="Areas\PickWaves\Config\Constraint.cshtml" />
     <Content Include="Areas\PickWaves\Config\_skuCaseEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Config\DisplayTemplates\ConstraintModel.cshtml" />
+    <Content Include="Areas\PickWaves\Config\DisplayTemplates\ConstraintModel_O.cshtml" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_addPackinRulePartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
