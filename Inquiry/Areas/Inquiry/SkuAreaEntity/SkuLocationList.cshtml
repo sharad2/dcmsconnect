@@ -1,0 +1,83 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.SkuAreaEntity.SkuLocationListViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "SKUs Locations";
+}
+@section applinks{
+
+    <li><a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.SkuList())"> SKU List</a></li>
+    <li><a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonLocationList())">Carton Locations</a></li>
+    <li class="divider"></li>
+}
+<div class="container">
+
+    <h2 style="margin-top:0px">
+        @ViewBag.Title
+    </h2>
+
+    <p>This is a list of some carton Locations</p>
+    <ul class="list-group">
+
+        @for (var i = 0; i < Model.SkuLocList.Count; ++i)
+        {
+
+            if (i == 0 || Model.SkuLocList[i].BuildingId != Model.SkuLocList[i - 1].BuildingId)
+            {
+                @*<li class="list-group-item list-group-item-info">
+                        <strong>Building @Html.DisplayFor(m => m.SkuLocList[i].BuildingId) </strong>
+
+                    </li>*@
+                <li class="list-group-item list-group-item-info">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h4 class="list-group-item-heading">Building @Html.DisplayFor(m => m.SkuLocList[i].BuildingId) </h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="list-group-item-heading">
+                                Location
+                                <small class="text-success">
+                                    Area
+                                </small>
+                            </h4>
+                        </div>
+                        <div class="col-md-4">                           
+                                SKU                            
+                        </div>
+                        <div class="col-md-2">
+                            <span class="badge pull-right">Pcs</span>
+                        </div>
+                    </div>
+
+
+                </li>
+            }
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading">
+                            <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuAreaEntity.SkuLocation(Model.SkuLocList[i].LocationId))">@Html.DisplayFor(m => m.SkuLocList[i].LocationId)</a>
+                            <small class="text-success">
+                                <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuAreaEntity.SKUArea(Model.SkuLocList[i].IaId))">
+                                    @Html.DisplayFor(m => m.SkuLocList[i].AreaShortName)
+                                </a>
+                            </small>
+                        </h4>
+                    </div>
+                    <div class="col-md-4">                       
+                            <a href="@Url.Action(MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.SkuLocList[i].SkuId))">
+                                @Html.DisplayFor(m => m.SkuLocList[i].DisplaySku)
+                            </a>                      
+                    </div>
+                    <div class="col-md-2">
+                        <span class="badge pull-right">@Html.DisplayFor(m => m.SkuLocList[i].MaxPieces)</span>
+                    </div>
+                </div>
+
+
+            </li>
+
+        }
+    </ul>
+</div>

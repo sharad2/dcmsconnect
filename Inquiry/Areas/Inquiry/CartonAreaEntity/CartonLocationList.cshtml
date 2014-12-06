@@ -1,0 +1,41 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonAreaEntity.CartonLocationListViewModel
+
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+    ViewBag.Title = "Carton Locations";
+}
+
+<div class="container">  
+    <h2 style="margin-top:0px;">
+        @ViewBag.Title
+    </h2>
+
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+            <span class="badge pull-right">Carton</span>
+            <h4 class="list-group-item-heading">
+                Location
+                <small>Building &rarr; Area</small>
+            </h4>
+        </li>
+        @for (var i = 0; i < Model.CartonLocationList.Count; ++i)
+        {
+
+            <li class="list-group-item">
+                <span class="badge pull-right">@Html.DisplayFor(m => m.CartonLocationList[i].Capacity)</span>
+                <h4 class="list-group-item-heading">
+                    <small>@(i+1)</small>
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonLocation(Model.CartonLocationList[i].LocationId))">@Html.DisplayFor(m => m.CartonLocationList[i].LocationId)</a>
+                    <small>                        
+                            @Html.DisplayFor(m => m.CartonLocationList[i].WhId)
+                        &rarr;
+                        <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonAreaEntity.CartonArea(Model.CartonLocationList[i].Area))">
+                           @Html.DisplayFor(m => m.CartonLocationList[i].ShortName)
+                        </a>
+                    </small>
+                </h4>
+            </li>
+        }
+    </ul>
+</div>
+

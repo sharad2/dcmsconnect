@@ -1,0 +1,59 @@
+﻿@model DcmsMobile.Inquiry.Areas.Inquiry.CartonEntity.CartonPalletViewModel
+@{
+    Layout = MVC_Inquiry.Inquiry.SharedViews.Views._layoutInquiry;
+}
+@section applinks{
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.CartonEntity.CartonPalletExcel(Model.PalletId))">
+            <span class="glyphicon glyphicon-export"></span> Excel
+        </a>
+    </li>
+    <li><a href="@Model.UrlCartonToPallet" target="c2p"><span class="glyphicon glyphicon-new-window"></span>  Carton To Pallet</a></li>
+    <li><a href="@Model.UrlBulkUpdateCarton" target="CartonEditor"><span class="glyphicon glyphicon-new-window"></span>  Bulk Carton Update</a></li>
+    <li><a href="@Model.UrlCartonLocating" target="CartonLocated"><span class="glyphicon glyphicon-new-window"></span>  Carton Locating</a></li>
+    <li class="divider"></li>
+    <li>
+        <a href="@string.Format("{0}?pallet_id={1}",Model.PalletHistory, Model.PalletId)"
+           target="R40_23">
+            <span class="glyphicon glyphicon-new-window"></span>
+            40.23: Pallet History
+        </a>
+
+    </li>
+    <li class="divider"></li>
+}
+
+<div class="container">
+
+    @if (Model.AreaCount > 1)
+    {
+        <div class="alert alert-danger">
+            Pallet contains cartons from multiple areas @Html.DisplayFor(m => m.AreaList). Please verify the area of each carton.
+        </div>
+    }
+    <h2 style="margin-top:0px;">
+        <img src="@Links_Inquiry.Areas.Inquiry.CartonEntity.Pallet_jpg" />
+        Pallet @Html.DisplayFor(m => m.PalletId)
+        <small>
+            Building @Html.DisplayFor(m => m.BuildingId)
+        </small>
+
+    </h2>
+
+    <h4>
+        Area @Html.DisplayFor(m => m.AreaList)
+        @if (Model.AreaCount > 1)
+        {
+
+            <small>and  @Html.DisplayFor(m => m.AreaCount) more..</small>
+
+        }
+        &bull; @Html.DisplayFor(m => m.TotalPieces) pieces in @Html.DisplayFor(m => m.TotalCartons) cartons
+        <small>
+            Created between @Html.DisplayFor(m => m.AllCartons[0].DisplayAreaChangedDate) 
+        </small>
+
+    </h4>
+
+    @Html.Partial(MVC_Inquiry.Inquiry.CartonEntity.Views._cartonListPartial)
+</div>

@@ -1,0 +1,41 @@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+@{
+    Layout = @MVC_Inquiry.Inquiry.SharedViews.Views._layoutBootstrap;
+    ViewBag.AppName = "Inquiry";
+    ViewBag.AppHomeUrl = Url.Action(MVC_Inquiry.Inquiry.Home.Index());
+}
+
+@section applinks {
+    @RenderSection("applinks", false)
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoList())">
+            Purchase Orders
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.WaveList())"> Pick Waves</a>
+    </li>
+    <li><a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.ParentShipmentList())"> BOLs</a></li>
+    <li><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())"> Intransit Shipments</a></li>
+
+}
+
+
+@section script {
+
+    <style type="text/css">
+        /* Anchors without any href attribute should not look like anchors*/
+        a:not([href]), a[href=""] {
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+
+
+
+    @RenderSection("script", false)
+}
+
+
+
+@RenderBody()
