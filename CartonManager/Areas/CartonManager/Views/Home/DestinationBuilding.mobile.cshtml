@@ -1,0 +1,60 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.DestinationBuildingForMobileViewModel
+@{
+    ViewBag.Title = "Palletize Cartons";
+    string sound;
+    if (!this.ViewData.ModelState.IsValid)
+    {
+        // Validation error
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav;
+    }
+    else
+    {
+        // Pallet or carton was scanned.
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav;
+    }
+}
+@using (Html.BeginForm(MVC_CartonManager.CartonManager.Home.HandleDestinationBuildingForMobile(), FormMethod.Post))
+{
+    <div class="box">
+        <div class="tabs">
+            <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                <span class="ui-button-text">@Html.DisplayFor(m => m.AreaShortName)</span>
+            </label>
+            <span>&raquo;</span>
+            <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+                <span class="ui-button-text">Building</span>
+            </label>
+            <span>&raquo;</span>
+            <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                <span class="ui-button-text">Pallet</span>
+            </label>
+            <span>&raquo;</span>
+            <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                <span class="ui-button-text">Carton/Pallet</span>
+            </label>
+        </div>
+        <div class="boxContent">
+            <input type ="hidden" value="@Model.AreaShortName" name ="@Html.NameFor(p => p.AreaShortName)"/>
+            @Html.LabelFor(m => m.BuildingId)
+            <input id="scan" type="text" name="@Html.NameFor(p => p.BuildingId)" style="text-transform: uppercase" />
+            <div class="ui-state-active">
+                Tip: Scanned area belongs to multiple building. Scan any building where you wish to place Pallet or Cartons.
+            </div>
+        </div>
+        <div>
+            Suggested Buildings
+        </div>
+        <ul style="list-style: disc; padding-left: 1.3em;">
+            @foreach (var item in Model.BuildingList)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    </div>
+}
+@Html.ValidationSummary()
+<div id="divStatusSummary">@Html.StatusSummary()</div>
+<bgsound src="@sound" loop="1" style="display:none"/>
+@section scripts {
+    <script src="@Links_CartonManager.Areas.CartonManager.Scripts.InitScan_mobile_all_js" type="text/javascript"></script>
+}
