@@ -1,0 +1,22 @@
+﻿@*
+If you include this partial view, you must also include the partial script DestPallet.partial.js
+You can pass tabindex in view data
+*@
+@model string
+
+@Html.TextBox("", Model, new
+           {
+               id = "tbPallet",
+               @class = "update-rule",
+               style = "text-transform: uppercase;",
+               data_validate_url = @Url.Action(MVC_CartonManager.CartonManager.Home.HandleDestinationPallet()),
+               tabindex = ((int?)ViewBag.tabindex) ?? 0,
+               maxlength = "8"
+           })
+
+@Html.ValidationMessage("")
+@if (ViewData.ModelMetadata.IsRequired)
+{
+    <sup>*</sup>
+}
+<span id="spnPalletInfo" class="success-display"></span>

@@ -1,0 +1,55 @@
+﻿#menu li.banner
+{
+    color: #fff;
+    font-size: 2.5em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.5em;
+}
+.property-widget
+{
+    width: 32em;
+    vertical-align: top;
+    line-height: 1.8em;
+    margin-right: 1em;
+    float: left;
+}
+
+#divQualifyingProperties > label, #divUpdateProperties > label, #divConversion > label, #divMoveTo > label
+{
+    width: 9em;
+    display: inline-block;
+}
+
+#fldSetPieces > label
+{
+     width: 9em;
+    display: inline-block;
+}
+#divUpdate
+{
+    width: 20em;
+    line-height: 1.8em;
+}
+select
+{
+    max-width: 20em;
+}
+/*For display recently updated carton */
+#msgList
+{
+    max-width: 80em;
+}
+
+.ui-menu .ui-menu-item a
+{
+    line-height: 1em !important;
+}
+/* spans and divs which display SKU info */
+.success-display
+{   
+    color: Green;
+    font-family: Sans-Serif;
+    letter-spacing: 0.1mm;
+    font-weight: bold;
+}

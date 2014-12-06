@@ -1,0 +1,56 @@
+﻿@model DcmsMobile.CartonManager.ViewModels.DestinationPalletForMobileViewModel
+@{
+    ViewBag.Title = "Palletize Cartons";
+    string sound;
+    if (!this.ViewData.ModelState.IsValid)
+    {
+        // Validation error
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.Error_wav;
+    }
+    else
+    {
+        // Pallet or carton was scanned.
+        sound = Links_CartonManager.Areas.CartonManager.Content.Sounds.success_wav;
+    }
+}
+@using (Html.BeginForm(MVC_CartonManager.CartonManager.Home.HandleDestinationPalletForMobile(), FormMethod.Post))
+{
+    <div class="box">
+        <div class="tabs">
+            <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                <span class="ui-button-text">@Html.DisplayFor(m => m.ShortName)</span>
+            </label>
+            <span>&raquo;</span>
+            @if (!string.IsNullOrWhiteSpace(Model.BuildingId))
+            {
+                <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                    <span class="ui-button-text">@Html.DisplayFor(m => m.BuildingId)</span>
+                </label>
+                <span>&raquo;</span>
+            }
+            <label class="ui-button ui-widget ui-button-text-only ui-state-default">
+                <span class="ui-button-text">Pallet</span>
+            </label>
+            <span>&raquo;</span>
+            <label class="ui-button ui-widget ui-button-text-only ui-state-active">
+                <span class="ui-button-text">Carton/Pallet</span>
+            </label>
+        </div>
+        <div class="boxContent">
+            <input type ="hidden" value="@Model.AreaId" name ="@Html.NameFor(p => p.AreaId)"/>
+            <input type ="hidden" value ="@Model.BuildingId" name ="@Html.NameFor(m => m.BuildingId)"/>
+            <input type ="hidden" value="@Model.ShortName" name ="@Html.NameFor(p => p.ShortName)"/>
+            @Html.LabelFor(m => m.PalletId)
+            <input id="scan" type="text" value="@Model.PalletId" name="@Html.NameFor(p => p.PalletId)" style="text-transform: uppercase" maxlength="8" />
+            <div class="ui-state-active">
+                Tip: Scan a Pallet on which you wish to place Pallet or Cartons.
+            </div>
+        </div>
+    </div>
+}
+@Html.ValidationSummary()
+<div id="divStatusSummary">@Html.StatusSummary()</div>
+<bgsound src="@sound" loop="1" />
+@section scripts {
+    <script src="@Links_CartonManager.Areas.CartonManager.Scripts.InitScan_mobile_all_js" type="text/javascript"></script>
+}
