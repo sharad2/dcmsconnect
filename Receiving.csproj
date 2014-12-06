@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8EC812FC-E397-4DC7-B234-3AC7BB39156A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DcmsMobile.Receiving</RootNamespace>
+    <AssemblyName>DcmsMobile.Receiving</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MvcBuildViews>true</MvcBuildViews>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <PublishDatabases>false</PublishDatabases>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Areas\Receiving\Home\HomeController.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\CartonArea.cs" />
+    <Compile Include="Areas\Receiving\Rad\RadController.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
+    <Compile Include="Helpers\HttpAjaxAttribute.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
+    <Compile Include="Areas\Receiving\Rad\RadEntities.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingProcess.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\Sku.cs" />
+    <Compile Include="Areas\Receiving\Rad\RadService.cs" />
+    <Compile Include="Areas\Receiving\Rad\RadRepository.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingRepository.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ReceivingService.cs" />
+    <Compile Include="Areas\Receiving\Home\Repository\ShipmentList.cs" />
+    <Compile Include="Receiving.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving.RadController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Receiving.SharedViewsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Receiving.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Receiving.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\Receiving\Home\IndexViewModel.cs" />
+    <Compile Include="Areas\Receiving\Home\PalletViewModel.cs" />
+    <Compile Include="Areas\Receiving\Home\ProcessEditorViewModel.cs" />
+    <Compile Include="Areas\Receiving\Home\ReceivingViewModel.cs" />
+    <Compile Include="Areas\Receiving\Home\ShipmentListModel.cs" />
+    <Compile Include="Areas\Receiving\Home\ShipmentListViewModel.cs" />
+    <Compile Include="Areas\Receiving\Rad\IndexViewModel.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Areas\Receiving\Rad\AddSpotCheckViewModel.cs" />
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Receiving\Home\ProcessEditor.js">
+      <DependentUpon>ProcessEditor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Home\ProcessEditor.min.js">
+      <DependentUpon>ProcessEditor.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Home\Sounds\6.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\7.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\8.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\9.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\Error.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\success.mp3" />
+    <Content Include="Areas\Receiving\Home\Receiving.js" />
+    <Content Include="Areas\Receiving\Home\Receiving.min.js">
+      <DependentUpon>Receiving.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Home\Guided Receiving.pps" />
+    <Content Include="Areas\Receiving\Home\ShipmentList.cshtml" />
+    <Content Include="Areas\Receiving\Home\Receiving.cshtml" />
+    <Content Include="Areas\Receiving\Home\Guided Receiving.ppsx" />
+    <Content Include="Areas\Receiving\Rad\Index.js">
+      <DependentUpon>Index.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Rad\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\Rad\_addSpotCheck.partial.js" />
+    <Content Include="Areas\Receiving\SharedViews\typeahed.css">
+      <DependentUpon>typeahed.css.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\SharedViews\typeahed.min.css">
+      <DependentUpon>typeahed.css</DependentUpon>
+    </Content>
+    <Content Include="Areas\Receiving\SharedViews\typeahed.css.bundle" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\_references.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <None Include="Content\typeahead.css" />
+    <Content Include="Areas\Receiving\SharedViews\_layoutBootstrap.cshtml" />
+    <None Include="Scripts\bloodhound.js" />
+    <None Include="Scripts\bloodhound.min.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.js" />
+    <None Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Areas\Receiving\Home\ProcessEditor.js.bundle" />
+    <None Include="Scripts\typeahead.bundle.js" />
+    <None Include="Scripts\typeahead.bundle.min.js" />
+    <None Include="Scripts\typeahead.jquery.js" />
+    <None Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Areas\Receiving\Rad\Index.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <None Include="Scripts\jquery-2.1.1.js" />
+    <None Include="Scripts\jquery-2.1.1.min.js" />
+    <None Include="Scripts\jquery-2.1.1.min.map" />
+    <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
+    <None Include="T4MVC.tt.hooks.t4" />
+    <None Include="T4MVC.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>T4MVC.cs</LastGenOutput>
+    </None>
+    <None Include="T4MVC.tt.settings.xml" />
+    <Content Include="Areas\Receiving\SharedViews\_layoutReceiving.cshtml" />
+    <Content Include="Areas\Receiving\Home\Index.cshtml" />
+    <Content Include="Areas\Receiving\Home\_palletPartial.cshtml" />
+    <None Include="Doc\Roles.txt" />
+    <Content Include="Areas\Receiving\SharedViews\ajax-loader.gif" />
+    <Content Include="Areas\Receiving\Home\Sounds\1.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\10.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\2.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\3.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\4.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\5.mp3" />
+    <Content Include="Areas\Receiving\Home\Sounds\error.wav" />
+    <Content Include="Areas\Receiving\Home\Sounds\PalletChange.wav" />
+    <Content Include="Areas\Receiving\Home\Sounds\palletscan.wav" />
+    <Content Include="Areas\Receiving\Home\Sounds\scan.wav" />
+    <Content Include="Areas\Receiving\Rad\_indexListPartial.cshtml" />
+    <Content Include="Areas\Receiving\Rad\_addSpotCheckPartial.cshtml" />
+    <Content Include="Areas\Receiving\Home\ProcessEditor.cshtml" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\Profile1.pubxml" />
+    <None Include="Properties\PublishProfiles\Receiving.pubxml" />
+    <Content Include="Areas\Receiving\Home\Sounds\warning.wav" />
+    <None Include="Doc\Readme.txt" />
+    <None Include="Global.asax" />
+    <None Include="Web.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Receiving.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Receiving.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DcmsLibrary.Mvc\DcmsLibrary.Mvc.csproj">
+      <Project>{1fc7fe1f-ff9a-46ae-afb8-38e7f74204c0}</Project>
+      <Name>DcmsLibrary.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Mvc\EclipseLibrary.Mvc.csproj">
+      <Project>{9E2266CB-5042-4601-AF29-6CBAC5AE8664}</Project>
+      <Name>EclipseLibrary.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EclipseLibrary.Oracle\EclipseLibrary.Oracle.csproj">
+      <Project>{019EF3E3-B232-4A49-B05D-4C54FF73C4D0}</Project>
+      <Name>EclipseLibrary.Oracle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Receiving\Home\Tutorial.cshtml" />
+    <Content Include="Areas\Receiving\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\Receiving\_ViewStart.cshtml" />
+    <Content Include="Areas\Receiving\Rad\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49630</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>robocopy "$(ProjectDir)Areas\$(ProjectName)" "$(ProjectDir)..\DcmsMobile\Areas\$(ProjectName)" /PURGE /S /FP /NP /NS /NJH /xf  *.bundle *.cs *.partial.* /XD Controllers 
+xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(ProjectDir)..\DcmsMobile\bin\"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

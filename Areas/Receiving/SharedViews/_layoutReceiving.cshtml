@@ -1,0 +1,53 @@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+@{
+    Layout = @MVC_Receiving.Receiving.SharedViews.Views._layoutBootstrap;
+    ViewBag.AppName = "Receiving";
+    ViewBag.AppHomeUrl = Url.Action(MVC_Receiving.Receiving.Home.Index());
+}
+
+
+@section applinks {
+    @RenderSection("applinks", false)
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())">Receive New Shipment</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Home.ShipmentList())">Manage Open Shipments</a></li>
+    <li><a href="@Url.Action(MVC_Receiving.Receiving.Rad.Index())">Spotcheck Settings</a></li>
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section script {
+    @RenderSection("script", false)
+}
+@RenderBody()
