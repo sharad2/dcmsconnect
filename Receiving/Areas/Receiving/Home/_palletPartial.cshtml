@@ -1,0 +1,102 @@
+﻿@model DcmsMobile.Receiving.Areas.Receiving.Home.PalletViewModel
+
+
+@*
+        if data-action='print', then print dialog will be displayed by the calling page when the element is clicked.
+    One of the enclosing elements of the clicked element must specify the carton id in the attribute data-carton
+*@
+
+
+@if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        @Html.DisplayFor(m => m.StatusMessage)
+    </div>
+}
+<h5>
+    @if (!string.IsNullOrWhiteSpace(Model.PalletId))
+    {
+        <span class="pull-right">
+            <a href="@Url.Content(string.Format("~/Inquiry/CartonPallet/{0}", Model.PalletId))" target="_pallet" title="Pallet Details">
+                <span class="glyphicon glyphicon-new-window"></span>
+                Pallet @Html.DisplayFor(m => m.PalletId) Report
+            </a>
+        </span>
+    }
+    @if (Model.SkuCount > 1)
+    {
+        <strong class="text-warning h4"> Mixed Pallet(@Model.SkuCount SKUs)</strong>
+    }
+    else
+    {
+        <strong class="text-info h4">Pure Pallet</strong>
+    }
+
+    <label>Area</label> @Html.DisplayFor(m => m.DestinationArea)
+    &bull;
+    <label>Vwh</label> @Html.DisplayFor(m => m.VwhId)
+    &bull;
+    <label>Pallet Limit</label> @Html.DisplayFor(m => m.PalletLimit)
+</h5>
+@if (!string.IsNullOrWhiteSpace(Model.PalletId))
+{
+    <div class="progress">
+        <div class="progress-bar progress-bar-@(Model.PalletProgress > 90 ? "danger" : (Model.PalletProgress > 80 ? "warning":"info"))" role="progressbar" aria-valuenow="@Model.PalletProgress" aria-valuemin="0" aria-valuemax="100" style="width:@Model.PalletProgress%;min-width:20px;">
+            @Model.PalletProgress% pallet progress
+        </div>
+    </div>
+}
+
+<ul class="list-group">
+    @for (var i = Model.Cartons.Count - 1; i >= 0; --i)
+    {
+
+        <li class="list-group-item @(Model.Cartons[i].Highlight ? "list-group-item-success" : "")">
+
+      
+            <div class="btn-group pull-right" data-carton="@Model.Cartons[i].CartonId" style="text-align:center" title="Print or remove carton @Model.Cartons[i].CartonId from pallet ">
+                <button type="button" class="btn btn-primary  btn-xs dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-list-alt"></span>&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="#" data-action="print">
+                            &nbsp;<span class="glyphicon glyphicon-print" title="Print"></span> Print Carton Label...
+                        </a>
+                    </li>
+                    @if (!string.IsNullOrWhiteSpace(Model.PalletId))
+                    {
+                        <li>
+                            <a href="#" data-action="remove">
+                                &nbsp;<span class="glyphicon glyphicon-remove" title="Remove"></span> Remove from Pallet
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+          
+
+            <h4 class="list-group-item-heading">
+                @(i + 1)) Carton @Html.DisplayFor(m => m.Cartons[i].CartonId)
+                <small>
+                    &bull; Received on @Html.DisplayFor(m => m.Cartons[i].ReceivedDate)
+                </small>
+              
+            </h4>
+            <p class="list-group-item-text">
+                SKU @Html.DisplayFor(m => m.Cartons[i].DisplaySku)
+                <small>
+                    &bull; Retail Price $ @Html.DisplayFor(m => m.Cartons[i].SkuPrice)
+                </small>
+            </p>
+
+
+        </li>
+    }
+</ul>
+
+
+
+<!--$Id$-->

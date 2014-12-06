@@ -1,0 +1,59 @@
+﻿@*    Contract:
+    1. data-autocomplete-url: Needed for attaching auto complete on Carrier.
+*@
+
+@model DcmsMobile.Receiving.Areas.Receiving.Home.IndexViewModel
+@{
+    Layout = MVC_Receiving.Receiving.SharedViews.Views._layoutReceiving;
+    ViewBag.Title = "Receiving Home";
+}
+
+<div class="container">
+    <h2 style="margin-top:0px;">Recent Shipments Received</h2>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+            To continue receiving a shipment, select or search...
+            <form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
+                <div class="input-group  input-group-lg">
+                    <div class="input-group-btn">
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="search" placeholder="Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
+                                   autofocus />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-default">Receive New Shipment</a>
+            </form>
+        </li>
+        @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
+        {
+            <li class="list-group-item">
+                <span class="badge ">
+                    @Html.DisplayFor(m => m.RecentProcesses[i].CartonCount) of @Html.DisplayFor(m => m.RecentProcesses[i].ExpectedCartons)
+                    ctn on @Html.DisplayFor(m => m.RecentProcesses[i].PalletCount) pallets
+                </span>
+                <h4 class="list-group-item-heading">
+                    <a href="@Url.Action(MVC_Receiving.Receiving.Home.Receiving(Model.RecentProcesses[i].ProcessId))">@Html.DisplayFor(m => m.RecentProcesses[i].ProcessId)</a>
+                    <small>
+                        by @Html.DisplayFor(m => m.RecentProcesses[i].OperatorName)
+                        <mark>@Html.DisplayFor(m => m.RecentProcesses[i].CarrierDisplayName)</mark>
+                    </small>
+
+                </h4>
+                <p class="pull-right label label-info list-group-item-text" @*style="font-size:1.05em"*@>
+                    Started On @Html.DisplayFor(m => m.RecentProcesses[i].ReceivingStartDate) @Html.DisplayFor(m => m.RecentProcesses[i].ElapsedTime)
+                </p>
+                <p class="list-group-item-text">
+                    PRO# @Html.DisplayFor(m => m.RecentProcesses[i].ProNumber) <small>on date @Html.DisplayFor(m => m.RecentProcesses[i].ProDate) </small>
+                </p>
+            </li>
+        }
+    </ul>
+</div>
+
+
