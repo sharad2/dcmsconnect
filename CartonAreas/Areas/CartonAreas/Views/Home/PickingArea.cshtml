@@ -1,0 +1,187 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.PickingAreaViewModel
+@{
+    ViewBag.Title = string.Format("Picking Area of {0}", Model.BuildingId);
+}
+@section sidebar {
+    <div class="box boxA">
+        <div class="boxContent">
+            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.Index())">Back to Building List</a>
+        </div>
+    </div>
+}
+
+<div class="boxContent" id="divPickingAreaList">
+    <table>
+        <caption>Area List</caption>
+        <thead>
+            <tr>
+                <th>Area : Description</th>
+                <th>#Location</th>
+                <th>Numbered</th>
+                <th>Picking Area</th>
+                <th>Restock Area</th>
+                <th>Shipping Area</th>
+                <th>Change</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.PickingAreaList.Count; i++)
+            {
+                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                    <td>
+                        @Html.DisplayFor(m => m.PickingAreaList[i].ShortName) :<span class="data-Description">@Html.DisplayFor(m => m.PickingAreaList[i].Description)</span>
+                    </td>
+                    <td style="text-align:right">
+                        @if (Model.PickingAreaList[i].LocationCount > 0)
+                        {
+                            <a href="@Url.Action(MVC_CartonAreas.CartonAreas.Home.ManagePickingArea(Model.PickingAreaList[i].AreaId))">
+                                @Html.DisplayFor(m => m.PickingAreaList[i].LocationCount)
+                            </a>
+                        }
+                        else
+                        {
+
+                            @Html.DisplayFor(m => m.PickingAreaList[i].LocationCount)
+                        }
+                    </td>
+
+                    <td style="text-align: center" title="Numberd Location">
+                        <span class="@(Model.PickingAreaList[i].LocationNumberingFlag ? "ui-icon ui-icon-check data-numbered-location" : "")" title="Numberd Location"
+                              style="display: inline-block;"></span>
+                    </td>
+                    <td style="text-align: center" title="Picking Area">
+                        <span class="@(Model.PickingAreaList[i].IsPickingArea ? "ui-icon ui-icon-check data-Picking-Area" : "")" title="Picking Area"
+                              style="display: inline-block;"></span>
+                    </td>
+                    <td style="text-align: center" title="Restock Area">
+                        <span class="@(Model.PickingAreaList[i].IsRestockArea ? "ui-icon ui-icon-check data-Restock-Area" : "")" title="Restock Area"
+                              style="display: inline-block;"></span>
+                    </td>
+                    <td style="text-align: center" title="Shipping Area">
+                        <span class="@(Model.PickingAreaList[i].IsShippingArea ? "ui-icon ui-icon-check data-Shipping-Area" : "")" title="Shipping Area"
+                              style="display: inline-block;"></span>
+                    </td>
+                    <td style="text-align: center">
+                        <span class="data-area-id ui-helper-hidden">@Html.DisplayFor(m => m.PickingAreaList[i].AreaId)</span>
+                        <span class="ui-icon ui-icon-pencil" title='Update area @Model.PickingAreaList[i].ShortName' style="display: inline-block; cursor: pointer;" />
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<div id="divUpdatePickingAreaDialog">
+    @using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdatePickingArea(), FormMethod.Post))
+    {
+        <div class="designForm">
+            @Html.HiddenFor(m => m.AreaId, new { id = "hfAreaId" })
+            @Html.HiddenFor(m => m.BuildingId)
+            @Html.LabelFor(m => m.LocationNumberingFlag)
+            @Html.CheckBoxFor(m => m.LocationNumberingFlag, new { id = "cbLocationNumberingFlag" })
+            <br />
+            @Html.LabelFor(m => m.IsPickingArea)
+            @Html.CheckBoxFor(m => m.IsPickingArea, new { id = "cbPickingArea" })
+            <br />
+            @Html.LabelFor(m => m.IsRestockArea)
+            @Html.CheckBoxFor(m => m.IsRestockArea, new { id = "cbRestockArea" })
+            <br />
+            @Html.LabelFor(m => m.IsShippingArea)
+            @Html.CheckBoxFor(m => m.IsShippingArea, new { id = "cbShippingArea" })
+            <br />
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new
+   {
+       id = "tbDescription",
+       maxlength = 40,
+       size = 30
+   })
+        </div>
+    }
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#divPickingAreaList').on('click', 'span.ui-icon-pencil', function (e) {
+                var $tr = $(this).closest('tr');
+                $dlg = $('#divUpdatePickingAreaDialog');
+                var $oldtr = $dlg.dialog('option', 'currentRow');
+                $oldtr && $oldtr.removeClass('ui-state-active');
+                $tr.addClass('ui-state-active');
+                $dlg.dialog('option', 'currentRow', $tr).dialog('open');
+                $('#divUpdatePickingAreaDialog').dialog('open');
+            });
+
+            $("#divUpdatePickingAreaDialog").dialog({
+                autoOpen: false,
+                width: 'auto',
+                modal: true,
+                closeOnEscape: true,
+                open: function (event, ui) {
+                    var $tr = $(this).dialog('option', 'currentRow');
+                    $('#hfAreaId').val($tr.find('span.data-area-id').html());
+                    $('div[data-valmsg-summary]', this)
+                    .addClass('validation-summary-valid')
+                    .removeClass('validation-summary-errors');
+                    //For location numbering flag.
+                    if ($tr.find('span.data-numbered-location').length == 1) {
+                        $('#cbLocationNumberingFlag').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbLocationNumberingFlag').removeAttr('CHECKED');
+                    }
+                    //For Picking area.
+                    if ($tr.find('span.data-Picking-Area').length == 1) {
+                        $('#cbPickingArea').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbPickingArea').removeAttr('CHECKED');
+                    }
+                    // For Restock Area
+                    if ($tr.find('span.data-Restock-Area').length == 1) {
+                        $('#cbRestockArea').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbRestockArea').removeAttr('CHECKED');
+                    }
+
+                    // For shipping Area
+                    if ($tr.find('span.data-Shipping-Area').length == 1) {
+                        $('#cbShippingArea').attr('CHECKED', 'checked');
+                    } else {
+                        $('#cbShippingArea').removeAttr('CHECKED');
+                    }
+                    $('#tbDescription').val($tr.find('span.data-Description').text());
+                    $(this).dialog({ title: $tr.find('span.ui-icon-pencil').attr('title') });
+                    $("#btnUpdate").button({ icons: { primary: "ui-icon-disk" } });
+                    InputOnLoad = $("#divUpdatePickingAreaDialog").html();
+                },
+                close: function (event, ui) {
+                    $("#divUpdatePickingAreaDialog").html(InputOnLoad);
+                },
+                buttons: [
+                    {
+                        id: 'btnUpdate',
+                        text: 'Update',
+                        click: function (event, ui) {
+                            var $form = $('form', this);
+                            if (!$form.valid()) {
+                                return false;
+                            }
+                            $form.submit();
+                        }
+                    },
+                    {
+                        text: 'Close',
+                        click: function (event, ui) {
+                            $(this).dialog('close');
+                        }
+                    }
+                ]
+            });
+
+        });
+    </script>
+}
+
+

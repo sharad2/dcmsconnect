@@ -1,0 +1,42 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.AssignSkuViewModel
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+@using (Html.BeginForm(MVC_CartonAreas.CartonAreas.Home.UpdateLocation(), FormMethod.Post, new
+    {
+        id = "frmEditLocation"
+    }))
+{   <div class="designForm">
+        @Html.HiddenFor(m => m.LocationId, new { id = "hfCurrentLocationId" })
+        <label for="tbSku" id="lblSku">SKU <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.HiddenFor(m => m.SkuId)
+        @Html.TextBoxFor(m => m.SkuBarCode, new Dictionary<string, object>
+   {
+           {"data-ac-list-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.SkusAll())},
+         {"data-ac-validate-url", Url.Action(MVC_CartonAreas.CartonAreas.AutoComplete.ValidateSku())},
+         {"id", "tbSku"}
+   })<sup>&darr;*</sup>
+        <span data-ac-msg-for="@Html.NameFor(m => m.SkuBarCode)" class="sku-display"></span>
+        <br />
+        <label for="tbAssignedVwh" id="lblAssignedVwh">Assigned Vwh <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.DropDownListFor(m => m.AssignedVwhId, Model.VwhList, "Please select", new { id = "tbAssignedVwh" })<sup>*</sup>
+        <br />
+        <label for="tbMaxAssignedCarton" id="lblMaxAssignedCarton">Max Cartons <em class="ui-state-disabled">@*Replaced Dynamically*@</em></label>
+        @Html.TextBoxFor(m => m.MaxAssignedCarton, new { id = "tbMaxAssignedCarton" })<sup>*</sup>
+        <br />
+        <span id="displayCartonCount" class="ui-state-highlight">Location contains <span>@*Dynamic Carton Count*@</span> cartons</span>
+        @Html.ValidationSummary()
+        <img id="imgAjaxLoader" src="@Links_CartonAreas.Areas.CartonAreas.Content.images.ajax_loader_gif" class="ui-helper-hidden" />
+    </div>
+}
+
+
+@*
+    $Id$
+    $Revision$
+    $URL$
+    $Header$
+    $Author$
+    $Date$
+*@

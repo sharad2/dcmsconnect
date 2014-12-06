@@ -1,0 +1,92 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.CartonAreaLocationCountMatrixViewModel
+<table data-role="table" class="ui-responsive table-stroke">
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                Empty
+            </th>
+            <th>
+                Non Empty
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Assigned
+            </td>
+            <td>
+                @if (Model.GetCount(true, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, true), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, true, true))
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(true, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, false), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, true, false))
+
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(true, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, null), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, true, null))
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Unassigned
+            </td>
+            <td>
+                @if (Model.GetCount(false, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, true), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, false, true))
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(false, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, false), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, false, false))
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(false, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, null), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, false, null))
+                }
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                Total
+            </td>
+            <td>
+                @if (Model.GetCount(null, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, true), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, null, true))
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(null, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, false), MVC_CartonAreas.CartonAreas.Home.ApplyCartonAreaLocationFilter(Model.AreaId, null, null, null, false))
+                }
+            </td>
+            <td>
+                @if (Model.GetCount(null, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, null), MVC_CartonAreas.CartonAreas.Home.ManageCartonArea(Model.AreaId))
+                }
+            </td>
+        </tr>
+    </tfoot>
+</table>

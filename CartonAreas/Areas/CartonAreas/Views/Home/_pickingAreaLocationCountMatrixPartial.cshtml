@@ -1,0 +1,148 @@
+﻿@model DcmsMobile.CartonAreas.ViewModels.PickingAreaLocationCountMatrixViewModel
+<table>
+    <caption>Location Counts</caption>
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>
+                Empty
+            </th>
+            <th>
+                Non Empty
+            </th>
+            <th>
+                Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                Assigned
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(true, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, true),
+                                          MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, true, true, null, null),
+                                          Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == true ? new
+                                {
+                                    @class = "ui-state-active"
+                                } : null)
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(true, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, false),
+                                                    MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, true, false, null, null),
+                                          Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == false ? new
+                                {
+                                    @class = "ui-state-active"
+                                } : null)
+
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(true, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(true, null),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, true, null, null, null),
+                                          Model.AssignedLocationsFilter == true && Model.EmptyLocationsFilter == null ? new
+                                {
+                                    @class = "ui-state-active"
+                                } : null)
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Unassigned
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(false, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, true),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, false, true, null, null),
+                                               Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == true ? new
+                                     {
+                                         @class = "ui-state-active"
+                                     } : null
+                                )
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(false, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, false),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, false, false, null, null),
+                                               Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == false ? new
+                                     {
+                                         @class = "ui-state-active"
+                                     } : null
+                                )
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(false, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(false, null),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, false, null, null, null),
+                                               Model.AssignedLocationsFilter == false && Model.EmptyLocationsFilter == null ? new
+                                     {
+                                         @class = "ui-state-active"
+                                     } : null
+                                )
+                }
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                Total
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(null, true) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, true),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, null, true, null, null),
+                                               Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == true ? new
+                                     {
+                                         @class = "ui-state-active"
+                                     } : null
+                                )
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(null, false) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, false),
+                                                         MVC_CartonAreas.CartonAreas.Home.ApplyPickingAreaLocationFilter(Model.AreaId, null, false, null, null),
+                                               Model.AssignedLocationsFilter == null && Model.EmptyLocationsFilter == false ? new
+                                     {
+                                         @class = "ui-state-active"
+                                     } : null
+                                )
+                }
+            </td>
+            <td style="text-align:right">
+                @if (Model.GetCount(null, null) > 0)
+                {
+                    @Html.ActionLink(Model.GetDisplayCount(null, null),
+                                MVC_CartonAreas.CartonAreas.Home.ManagePickingArea(Model.AreaId))
+                }
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@*
+    $Id: _areaInfoPartial.cshtml 11262 2012-01-04 09:42:30Z spandey $
+    $Revision: 11262 $
+    $URL: svn://vcs/net4/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Views/Home/_areaInfoPartial.cshtml $
+    $Header: svn://vcs/net4/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Views/Home/_areaInfoPartial.cshtml 11262 2012-01-04 09:42:30Z spandey $
+    $Author: spandey $
+    $Date: 2012-01-04 15:12:30 +0530 (Wed, 04 Jan 2012) $
+*@
