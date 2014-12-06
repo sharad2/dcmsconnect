@@ -1,0 +1,62 @@
+/* Bold look for DCMS COnnect - Repack */
+#menu li.banner
+{
+    color: #fff;
+    font-size: 2.2em;
+    font-family: Impact;
+    font-style: oblique;
+    padding-right: 1.0em;
+}
+
+/* Validation Styles */
+/* Important is needed so that the red color overrides colors specified by any other class */
+.field-validation-valid
+{
+    display: none;
+}
+
+div.validation-summary-errors > ul > li
+{
+    line-height: 1em;
+}
+
+/* Validation styles for Index Page */
+
+.success-display
+{
+    color: Green;
+    font-family: Sans-Serif;
+    letter-spacing: 0.1mm;
+    font-weight: bold;
+}
+.field-validation-error
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+
+.field-validation-description 
+{
+    color: green;
+    font-size: medium;
+    font-style: italic;
+    font-weight:700;     
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
