@@ -1,0 +1,132 @@
+﻿Mention here all the roles and grants required for this Application module
+
+This Application requires 3 roles:
+
+1. Managerial Role: DCMS8_REPLENISH
+	This role allows the user to manage the replenishment of SKU and enables to bump up the SKU priority.
+2. Pulling Role: SRC_PULLING
+	This role allows the user to pull the cartons to replenish SKU from one area to another.
+3. Restock Role: DCMS8_RESTOCK
+	This role allows the user to restock the cartons to any assigned location.
+
+[Read Only]
+	This application does not require login to show the SKU replenishment statistics.
+
+New Grants required for roles:
+
+	GRANT EXECUTE ON DCMS8.PKG_REPLENISH TO SRC_PULLING;
+	GRANT SRC_PULLING TO DCMS8_REPLENISH;
+	GRANT UPDATE ON IALOC TO DCMS8_REPLENISH;
+	GRANT SELECT ON REPLENISH_CARTON TO SRC_PULLING;
+
+	 ------------------------------------------------------------------------------------------------------------------
+
+	 -- Create the role 
+create role SRC_PULLING;
+-- Grant/Revoke object privileges 
+grant select on DCMS4.BIN$KEYAFLSEQYYK9S5ORMXO7W==$0 to SRC_PULLING;
+grant select, insert on DCMS4.CARTON_PRODUCTIVITY to SRC_PULLING;
+grant execute on DCMS4.DCMS_APPLICATION to SRC_PULLING;
+grant select on DCMS4.MASTER_SKU to SRC_PULLING;
+grant select on DCMS4.MASTER_STORAGE_LOCATION to SRC_PULLING;
+grant execute on DCMS4.PKG_INV_3 to SRC_PULLING;
+grant execute on DCMS4.PKG_JF_SRC to SRC_PULLING;
+grant execute on DCMS4.PKG_JF_SRC_2 to SRC_PULLING;
+grant execute on DCMS4.PKG_MODULE to SRC_PULLING;
+grant select on DCMS4.PROCESS_SEQUENCE to SRC_PULLING;
+grant select on DCMS4.PRODUCTIVITY_SEQUENCE to SRC_PULLING;
+grant select on DCMS4.SRC_BUNDLE_INVENTORY to SRC_PULLING;
+grant select, insert, update on DCMS4.SRC_CARTON to SRC_PULLING;
+grant select, update on DCMS4.SRC_CARTON_DETAIL to SRC_PULLING;
+grant select, insert on DCMS4.SRC_CARTON_PROCESS to SRC_PULLING;
+grant select on DCMS4.SRC_OPEN_CARTON to SRC_PULLING;
+grant select on DCMS4.SRC_REQ_DETAIL to SRC_PULLING;
+grant select on DCMS4.SRC_SHIPMENT to SRC_PULLING;
+grant select on DCMS4.SRC_TRANSACTION to SRC_PULLING;
+grant select on DCMS4.TAB_INVENTORY_AREA to SRC_PULLING;
+grant select on DCMS4.TAB_LABEL_GROUP to SRC_PULLING;
+grant select on DCMS4.TAB_MODULE to SRC_PULLING;
+grant select on DCMS4.TAB_MODULE_AREA to SRC_PULLING;
+grant select on DCMS4.TAB_PREFERENCES to SRC_PULLING;
+grant select on DCMS4.TAB_PRINTER to SRC_PULLING;
+grant select on DCMS4.TAB_WAREHOUSE_LOCATION to SRC_PULLING;
+grant select on DCMS8.TEMP_PULL_CARTON to SRC_PULLING;
+grant delete on DCMS8.TEMP_PULL_CARTON to SRC_PULLING;
+grant insert on DCMS8.TEMP_PULL_CARTON to SRC_PULLING;
+grant update on DCMS8.TEMP_PULL_CARTON to SRC_PULLING;
+grant execute on HELLO to SRC_PULLING;
+grant select on IACONFIG to SRC_PULLING;
+grant execute on PKG_PUL to SRC_PULLING;
+grant select on TAB_WAREHOUSE_PREFIX_PRINTER to SRC_PULLING;
+grant execute on DCMS8SYS.PRINT_DOCS_VT to SRC_PULLING;
+grant execute on DCMS8SYS.PRINT_DOC_T to SRC_PULLING;
+grant select on s_replenishment_cartons to src_pulling;
+grant select on user_mviews to src_pulling;
+grant select on user_scheduler_jobs to src_pulling;
+grant select on ia to src_pulling;
+
+
+-- Grant/Revoke system privileges 
+grant create session to SRC_PULLING;
+
+
+
+-- Create the role 
+create role DCMS8_REPLENISH;
+-- Grant/Revoke object privileges 
+grant select on DCMS4.MASTER_RAW_INVENTORY to DCMS8_REPLENISH;
+grant select on DCMS4.MASTER_SKU to DCMS8_REPLENISH;
+grant select on DCMS4.MASTER_STYLE to DCMS8_REPLENISH;
+grant select on DCMS4.SRC_CARTON to DCMS8_REPLENISH;
+grant select on DCMS4.SRC_CARTON_DETAIL to DCMS8_REPLENISH;
+grant select on DCMS4.TAB_INVENTORY_AREA to DCMS8_REPLENISH;
+grant select on DCMS4.TEMP_PULL_CARTON to DCMS8_REPLENISH;
+grant select on BOXDET to DCMS8_REPLENISH;
+grant select on BUCKET to DCMS8_REPLENISH;
+grant select, insert, update on BUCKETSKU to DCMS8_REPLENISH;
+grant select on IA to DCMS8_REPLENISH;
+grant select on IACONFIG to DCMS8_REPLENISH;
+grant select on IALOC to DCMS8_REPLENISH;
+grant select on IALOC_CONTENT to DCMS8_REPLENISH;
+grant select on IALOC_OBJECTS to DCMS8_REPLENISH;
+grant execute on IALOC_T to DCMS8_REPLENISH;
+grant select on MPC to DCMS8_REPLENISH;
+grant select on MPCIALOC to DCMS8_REPLENISH;
+grant select on MPCLOC to DCMS8_REPLENISH;
+grant execute on PKG_RESV to DCMS8_REPLENISH;
+grant select on PS to DCMS8_REPLENISH;
+grant select on PSDET to DCMS8_REPLENISH;
+grant select on REPREQDET_OBJECTS to DCMS8_REPLENISH;
+grant select on REPREQDET_OBJECTS2 to DCMS8_REPLENISH;
+grant execute on REPREQDET_T to DCMS8_REPLENISH;
+grant execute on REPREQ_T to DCMS8_REPLENISH;
+grant select on RESVDET to DCMS8_REPLENISH;
+grant select on SKU_OBJECTS to DCMS8_REPLENISH;
+grant execute on SKU_T to DCMS8_REPLENISH;
+grant select, insert, update, delete on SPLH to DCMS8_REPLENISH;
+grant execute on DCMS8SYS.ADDRESS_T to DCMS8_REPLENISH;
+grant execute on DCMS8SYS.PRINT_DOCS_VT to DCMS8_REPLENISH;
+grant execute on DCMS8SYS.PRINT_DOC_T to DCMS8_REPLENISH;
+grant execute on MDSYS.SDO_ELEM_INFO_ARRAY to DCMS8_REPLENISH;
+grant execute on MDSYS.SDO_GEOMETRY to DCMS8_REPLENISH;
+grant execute on MDSYS.SDO_ORDINATE_ARRAY to DCMS8_REPLENISH;
+grant execute on MDSYS.SDO_POINT_TYPE to DCMS8_REPLENISH;
+-- Grant/Revoke role privileges 
+grant src_pulling to DCMS8_REPLENISH;
+
+
+--create role for Restock
+create role DCMS8_RESTOCK;
+-- Grant/Revoke object privileges
+grant select, update on DCMS4.SRC_CARTON to DCMS8_RESTOCK;
+grant select on DCMS4.SRC_CARTON_DETAIL to DCMS8_RESTOCK;
+grant select on DCMS4.MASTER_SKU to DCMS8_RESTOCK;
+grant select on DCMS4.MASTER_STYLE to DCMS8_RESTOCK;
+grant select on DCMS4.SRC_OPEN_CARTON to DCMS8_RESTOCK;
+grant select on IALOC to DCMS8_RESTOCK;
+grant select on ialoc_content;
+grant select on DCMS4.TAB_QUALITY_CODE to DCMS8_RESTOCK;
+grant execute on PKG_RESV to DCMS8_RESTOCK;
+grant execute on DCMS4.PKG_INV_3 to DCMS8_RESTOCK;
+grant insert on BOX_PRODUCTIVITY to DCMS8_RESTOCK;
+grant select on MASTER_CUSTOMER_SKU;

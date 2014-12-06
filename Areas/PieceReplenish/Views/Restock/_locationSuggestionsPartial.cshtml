@@ -1,0 +1,34 @@
+﻿@model IEnumerable<DcmsMobile.PieceReplenish.ViewModels.Restock.LocationModel>
+@{
+    var i = 0;
+}
+<table>
+    <thead>
+        <tr>
+            <th>Aisle
+            </th>
+            <th>Location
+            </th>
+            <th>Pieces
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td>
+                    <span style="font-size: 0.8em">@item.BuildingId</span> @item.RestockAisleId
+                </td>
+                <td style="font-weight: bold;">
+                    @item.LocationId
+                </td>
+                <td>
+                    @item.PiecesAvailable/@item.RailCapacity
+                </td>
+            </tr>
+            ++i;
+        }
+    </tbody>
+</table>
+
