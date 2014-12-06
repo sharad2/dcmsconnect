@@ -362,9 +362,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
                 public class _ViewNamesClass
                 {
-                    public readonly string ConstraintModel = "ConstraintModel";
+                    public readonly string ConstraintModel_O = "ConstraintModel_O";
                 }
-                public readonly string ConstraintModel = "~/Areas/PickWaves/Config/DisplayTemplates/ConstraintModel.cshtml";
+                public readonly string ConstraintModel_O = "~/Areas/PickWaves/Config/DisplayTemplates/ConstraintModel_O.cshtml";
             }
         }
     }
