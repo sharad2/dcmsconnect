@@ -264,7 +264,7 @@
                         <div class="row">
                             <div class="col-md-2 col-sm-2">
                                 <h4 class="list-group-item-heading">
-                                Style
+                                    <span class="label label-success"> Style</span>
                                 </h4>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -296,7 +296,7 @@
                                         @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
                                         {
 
-                                            @Html.DisplayFor(m => m.PackingRuleList[i].Style)
+                                            <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
 
                                         }
                                     </h4>
@@ -395,7 +395,6 @@
             $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
 
 
-
             $('#tabModal').on('show.bs.modal', function (e) {
 
                 var btnAction = $(e.relatedTarget);
@@ -407,7 +406,7 @@
                     url: url,
                     type: 'get',
                     cache: false
-                }).then(function (data, textStatus, jqXHR) {
+                }).done(function (data, textStatus, jqXHR) {
                     //will render the form first
                     $('.modal-body').html(data);
                     //will insert  title in the form
@@ -426,9 +425,7 @@
             }).on('click', 'button:not([data-dismiss])', function (e) {
                 //finding the form to be post
                 var $form = $(e.delegateTarget).find('form', '.modal-body');
-
                 $form.submit();
-              
             });
 
         });
