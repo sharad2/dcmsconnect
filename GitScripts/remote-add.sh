@@ -1,6 +1,8 @@
 # This script was used to add remotes to this dcmsmobile repository
 # These remotes are necessary to Push subtree changes to the remote repository.
 
+cd ..
+
 git remote add -f dcmsmobile http://server/git/dcmsconnect/apps/dcmsmobile.git
 
 git remote add -f packages http://server/git/dcmsconnect/libs/packages.git
