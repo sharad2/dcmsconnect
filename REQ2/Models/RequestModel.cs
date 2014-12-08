@@ -51,7 +51,7 @@ namespace DcmsMobile.REQ2.Models
 
         public string RequestedBy { get; set; }
 
-        public bool AssignedFlag { get; set; }
+        public DateTime? AssignedDate { get; set; }
 
         public int QuantityRequested { get; set; }
 

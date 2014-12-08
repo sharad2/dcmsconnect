@@ -161,7 +161,7 @@ namespace DcmsMobile.REQ2.ViewModels
             };
             this.AssignedCartonCount = entity.AssignedCartonCount;
             this.QuantityRequested = entity.QuantityRequested;
-            this.AssignedFlag = entity.AssignedFlag;
+            this.AssignedDate = entity.AssignedDate;
             this.AssignedPieces = entity.AssignedPieces;
             this.DateCreated = entity.DateCreated;
         }
@@ -169,8 +169,9 @@ namespace DcmsMobile.REQ2.ViewModels
         [Display(Name = "Quantity Requested", ShortName = "Pieces")]
         public int QuantityRequested { get; set; }
 
+
         [Display(Name = "Assigned?")]
-        public bool AssignedFlag { get; set; }
+        public DateTime? AssignedDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int AssignedCartonCount { get; set; }
