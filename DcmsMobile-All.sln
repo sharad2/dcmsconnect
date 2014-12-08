@@ -44,6 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Scripts", "Git Scripts"
 		GitScripts\GitReadMe.txt = GitScripts\GitReadMe.txt
 		GitScripts\remote-add.sh = GitScripts\remote-add.sh
 		GitScripts\subtree-add.sh = GitScripts\subtree-add.sh
+		GitScripts\subtree-pull.sh = GitScripts\subtree-pull.sh
 		GitScripts\subtree-push.sh = GitScripts\subtree-push.sh
 	EndProjectSection
 EndProject
