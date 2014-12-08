@@ -255,7 +255,6 @@ namespace DcmsMobile.REQ2.Repository
             const string QUERY = @"
                         declare
                         Lresv_rec <proxy />pkg_ctnresv.resv_rec_type;
-                        LGroup_Id VARCHAR2(255);
                     begin
                       Lresv_rec.ctn_resv_id := :resv_id;
                       Lresv_rec.source_area := :source_area;
@@ -275,8 +274,7 @@ namespace DcmsMobile.REQ2.Repository
                       Lresv_rec.receive_date := :receive_date;
                       Lresv_rec.is_conversion_request := :is_conversion_request;
                       Lresv_rec.remarks := :remarks;
-                      :ctn_resv_id := <proxy />pkg_ctnresv.create_resv_id(aresv_rec =&gt; Lresv_rec,
-                                                            actnresv_group_id =&gt; LGroup_Id);
+                      :ctn_resv_id := <proxy />pkg_ctnresv.create_resv_id(aresv_rec =&gt; Lresv_rec);
                     end;";
             var binder = SqlBinder.Create()
                 .Parameter("source_area", model.SourceAreaId)
