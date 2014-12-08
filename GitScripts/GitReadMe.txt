@@ -5,6 +5,9 @@ Steps to work on DCMSConnect from Git.
 1. Clone the repository from http://server/git/dcmsconnect/solutions/dcmsmobile.git
 2. Run the script remote-add.sh. This will add a remote for each app. These remotes will be needed when you push your changes to individual apps.
 
+3. You are welcome to use DcmsMobile-All.sln which will load all projects in the solution. If you find that this is too slow for you, you should load DcmsMobile-Min.sln. This solution has all apps unloaded. You can just load the app you are interested in.
+If you are going to be working on this app for a long time, make copy of this solution (e.g. DcmsMobile-PickWaves.sln) and check it in.
+
 
 FAQ
 ----
