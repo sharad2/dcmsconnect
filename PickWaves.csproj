@@ -238,12 +238,6 @@
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.min.js">
       <DependentUpon>_custSkuCasePreferenceEditor.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.js">
-      <DependentUpon>_skuCaseEditor.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.min.js">
-      <DependentUpon>_skuCaseEditor.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -303,7 +297,6 @@
     <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\PickWaves\Config\_skuCaseEditor.js.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -323,10 +316,6 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\PickWaves\Config\Config_O.css" />
-    <Content Include="Areas\PickWaves\Config\Config.min.css">
-      <DependentUpon>Config_O.css</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <None Include="Areas\PickWaves\AutoComplete\AutoComplete.partial_O.js" />
     <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
@@ -334,9 +323,6 @@
     </Content>
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
-    </None>
-    <None Include="Areas\PickWaves\Config\Config.js_O.bundle">
-      <SubType>Designer</SubType>
     </None>
     <None Include="Areas\PickWaves\Config\Config.partial_O.js" />
     <None Include="Areas\PickWaves\Config\ManageSkuCase.js.bundle" />

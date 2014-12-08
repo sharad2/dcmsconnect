@@ -141,10 +141,7 @@ namespace Links_PickWaves
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _addPackinRule_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.min.js") ? Url("_addPackinRule.min.js") : Url("_addPackinRule.js");
                 public static readonly string _custSkuCasePreferenceEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_custSkuCasePreferenceEditor.min.js") ? Url("_custSkuCasePreferenceEditor.min.js") : Url("_custSkuCasePreferenceEditor.js");
-                public static readonly string _skuCaseEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_skuCaseEditor.min.js") ? Url("_skuCaseEditor.min.js") : Url("_skuCaseEditor.js");
                 public static readonly string Config_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.partial_O.min.js") ? Url("Config.partial_O.min.js") : Url("Config.partial_O.js");
-                public static readonly string Config_O_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config_O.min.css") ? Url("Config_O.min.css") : Url("Config_O.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class DisplayTemplates {
                     private const string URLPATH = "~/Areas/PickWaves/Config/DisplayTemplates";
