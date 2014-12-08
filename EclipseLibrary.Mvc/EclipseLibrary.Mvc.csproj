@@ -114,7 +114,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Doc\WebGridEx.txt" />
-    <None Include="NuGet.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

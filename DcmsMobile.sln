@@ -41,6 +41,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "REQ2", "REQ2\REQ2.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PickWaves", "PickWaves\PickWaves.csproj", "{A98AA80C-48D3-4B87-B284-82F45C8BF706}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Scripts", "Git Scripts", "{FABB2145-DB9C-4789-AD32-E1EA2C6917CC}"
+	ProjectSection(SolutionItems) = preProject
+		GitScripts\remote-add.sh = GitScripts\remote-add.sh
+		GitScripts\subtree-add.sh = GitScripts\subtree-add.sh
+		GitScripts\subtree-push.sh = GitScripts\subtree-push.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
