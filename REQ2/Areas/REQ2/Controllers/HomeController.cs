@@ -319,7 +319,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
             {
                 return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.Index());
             }
-            return DoDisplayRequest(requestInfo, requestInfo.AssignedFlag ? ViewTab.CartonList : ViewTab.AddSku);
+            return DoDisplayRequest(requestInfo, requestInfo.AssignedDate.HasValue ? ViewTab.CartonList : ViewTab.AddSku);
         }
 
         private SelectListItem MapCode(CodeDescriptionModel entity)

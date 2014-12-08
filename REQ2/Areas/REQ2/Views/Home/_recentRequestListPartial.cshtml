@@ -72,7 +72,7 @@
                     <td style="text-align: right">@item.QuantityRequested </td>
                     <td style="min-width: 6em">@item.DateCreated</td>
                     <td>
-                        @if (item.AssignedFlag)
+                        @if (item.AssignedDate.HasValue)
                         {
                             <div class="ui-icon ui-icon-check" title="Cartons assigned to the request" style="display: inline-block"></div>
                             <text>@item.AssignedPieces pieces in @item.AssignedCartonCount cartons</text>
@@ -90,10 +90,10 @@
                     <td>
                         @item.Header.RequestedBy
                     </td>
-                    <td title="Edit request details." class ="@(item.AssignedFlag ? "edit-icon-disabled" : "edit-icon")">
+                    <td title="Edit request details." class ="@(item.AssignedDate.HasValue ? "edit-icon-disabled" : "edit-icon")">
                         @Html.ActionLink(item.Header.ResvId, MVC_REQ2.REQ2.Home.CreateRequest(item.Header.ResvId))
                     </td>
-                    <td class="@(item.AssignedFlag ? "delete-icon-disabled" : "")">
+                    <td class="@(item.AssignedDate.HasValue ? "delete-icon-disabled" : "")">
                         <div style="float: left; cursor: pointer" class="ui-icon ui-icon-close" title="Delete Request" />
                         @*<input type="hidden" value="@Model.RecentRequests.Select(p => p.Header.ResvId)" name="@Model.NameFor(m => m.RecentRequests.Select(p => p.Header.ResvId))" @*class="ui-helper-hidden"/>*@
                         @*@Html.HiddenFor(m => m.RecentRequests.Select(p => p.Header.ResvId))*@

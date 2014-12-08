@@ -77,7 +77,7 @@
                 <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
                 </span>
                 @Html.ActionLink(string.Format("Carton List for Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.DisplayCartonList(Model.CurrentRequest.Header.ResvId))<br />
-                @if (!Model.CurrentRequest.AssignedFlag)
+                @if (!Model.CurrentRequest.AssignedDate.HasValue)
                 {
                     <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">
                     </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.CreateRequest(Model.CurrentRequest.Header.ResvId))
@@ -106,7 +106,7 @@
         <li><a href="#divAssignedCartonsTab">Cartons List</a></li>
     </ul>
     <div id="divAddSku">
-        @if (Model.CurrentRequest.AssignedFlag)
+        @if (Model.CurrentRequest.AssignedDate.HasValue)
         {
             <div class="ui-state-highlight">
                 <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
@@ -126,7 +126,7 @@
                 {
                     @Html.HiddenFor(m => m.CurrentRequest.Header.ResvId, new { id = "resvId" })
                     @Html.HiddenFor(m => m.CurrentRequest.Header.RequestForConversion)
-                    @Html.HiddenFor(m => m.CurrentRequest.AssignedFlag, new { id = "hfAssignedFlag" })
+                    @Html.HiddenFor(m => m.CurrentRequest.AssignedDate.HasValue, new { id = "hfAssignedFlag" })
                     @Html.HiddenFor(m => m.CurrentRequest.Header.TargetVwhId)
                     <label for="tbNewStyle">
                         Style/Color/Dimension/Size <sup>*</sup>
@@ -248,7 +248,7 @@
             //@Html.HiddenFor(m => m.CurrentRequest.Header.ResvId)
             <input type="hidden" name="@Html.NameFor(m => m.CurrentRequest.Header.ResvId)" value="@Model.CurrentRequest.Header.ResvId" />
             //@Html.HiddenFor(m => m.CurrentRequest.AssignedFlag)
-            <input type="hidden" name="@Html.NameFor(m => m.CurrentRequest.AssignedFlag)" value="@Model.CurrentRequest.AssignedFlag" />
+            <input type="hidden" name="@Html.NameFor(m => m.CurrentRequest.AssignedDate.HasValue)" value="@Model.CurrentRequest.AssignedDate.HasValue" />
             <div class="ui-state-highlight boxA">
                 @Html.LabelFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
                 @Html.DisplayFor(m => m.CurrentRequest.Header.VirtualWareHouseId)
@@ -282,7 +282,7 @@
         }
     </div>
     <div id="divAssignedCartonsTab">
-        @if (Model.CurrentRequest.AssignedFlag)
+        @if (Model.CurrentRequest.AssignedDate.HasValue)
         {
             using (Html.BeginForm(MVC_REQ2.REQ2.Home.UnAssignCartons(), FormMethod.Post, new
             {
