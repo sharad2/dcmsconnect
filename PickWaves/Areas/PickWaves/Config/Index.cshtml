@@ -1,16 +1,40 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.Config.IndexViewModel
 @{
-    ViewBag.Title = "Wave Configuration";
+    ViewBag.Title = "Pick Wave Configuration";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
 
 <div class="container">
+    <h1>
+        Pick Wave Configuration
+    </h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h2>Carton Sizes</h2>
+                <p>The carton creation algorithm needs to know the various carton sizes which are available for packing.</p>
+                <dl class="dl-horizontal">
+                    <dt>Largest Carton Size</dt>
+                    <dd>@Model.MaxCaseId: @Model.MaxCaseDescription <em>@Model.MaxContentVolume cu ft</em></dd>
+                    <dt>Smallest Carton Size</dt>
+                    <dd>@Model.MinCaseId: @Model.MinCaseDescription <em>@Model.MinContentVolume cu ft</em></dd>
+                </dl>
+                <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" role="button">Manage</a></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="jumbotron">
+                <h2>Customer Specific Carton Sizes</h2>
+                <p>Some customers may require that only specific carton sizes are used when shipping merchandise to them.</p>
 
-    <h2 style="margin-top:0px;">
-        Wave Configuration
-    </h2>
+                <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>
+            </div>
+        </div>
+    </div>
 
-    <blockquote>
+
+
+    @*<blockquote>
         <div>
             <h4 class="text-info"> Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know</h4>
             <p class="h5">
@@ -27,5 +51,5 @@
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary btn-xs" role="button">DCMS Supported Constraints</a>
             </h4>
         </div>
-    </blockquote>
+    </blockquote>*@
 </div>
