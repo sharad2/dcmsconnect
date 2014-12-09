@@ -32,17 +32,17 @@
 
 <div class="container">
     <div class="page-header">
-        <h2>Example page header <small>Subtext for header</small></h2>
+        <h2>Recent Inventory Requests <small>Pull/Convert/Transfer</small></h2>
     </div>
     <ul class="list-group">
         @for (var i = 0; i < Model.RecentRequests.Count; ++i)
         {
             <li class="list-group-item">
                 <span class="label label-default">@Html.DisplayFor(m => m.RecentRequests[i].Header.Priorities)</span>
-                <span class="list-group-item-heading h4"> 6023939</span>
+                <span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId)</span>
 
-                <span class="list-group-item-text">FDC BIR → AWLHBI</span>
-
+                <span class="list-group-item-text">@Html.DisplayFor(m=> m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m=> m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m=> m.RecentRequests[i].Header.DestinationAreaShortName)</span>
+                @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
                 <!-- Split button -->
                 <div class="btn-group btn-group-sm">
                     <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
@@ -51,17 +51,17 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="#">Edit</a></li>
+                        <li><a href="#">Delete</a></li>
+                       
                     </ul>
                 </div>
 
-                <span class="badge">14 of 16 pieces assigned</span>
-                <span class="badge">Created 1/1/1000</span>
-                Remarks
+                <span class="badge">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                <span class="badge">Created on @Html.DisplayFor(m => m.RecentRequests[i].DateCreated)</span>
+
+
+
             </li>
         }
     </ul>
