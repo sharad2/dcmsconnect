@@ -207,9 +207,6 @@
     <Content Include="MainArea\Home\Tutorial.pptx" />
     <Content Include="Content\themes\Start1.10.0\jquery-ui.css.bundle" />
     <None Include="Doc\Steps to make a new App.txt" />
-    <None Include="DcmsMobile.Publish.xml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Doc\Programming Conventions.txt" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Steps to publish a pluggable app.txt" />
