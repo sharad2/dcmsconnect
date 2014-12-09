@@ -23,14 +23,14 @@
     <form class="form-horizontal" id="frmAddCustomerConstraint" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
         <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
         @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-        @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
-     
+        @*@Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })*@
+
         @if (Model.CustomerId == null)
         {
             <div class="form-group">
                 <label for="case" class="col-sm-4 control-label">
                     Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
-                    @*@Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomers", @style = "visibility:hidden" })*@
+                    @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
                 </label>
                 <div class="col-sm-8">
                     <div class="input-group">
@@ -48,6 +48,10 @@
 
                 </div>
             </div>
+        }
+        else
+        {
+            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
         }
         <div class="form-group">
             <div class="col-sm-4 control-label">
@@ -131,6 +135,7 @@
             </div>
         </div>
     </form>
+
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary">Save</button>
