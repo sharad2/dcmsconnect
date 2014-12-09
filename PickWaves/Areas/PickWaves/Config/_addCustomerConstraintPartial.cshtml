@@ -8,9 +8,14 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <h4 class="modal-title">
-
-            <span>TODO</span>
-
+        @if (Model.CustomerId == null)
+        {
+            <span>Add Customer Constraint</span>
+        }
+        else
+        {
+            <span>Edit Customer Constraint @Html.DisplayFor(m => m.CustomerId)</span>
+        }
     </h4>
 
 </div>
@@ -18,27 +23,32 @@
     <form class="form-horizontal" id="frmAddCustomerConstraint" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
         <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
         @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
-        <div class="form-group">
-            <label for="case" class="col-sm-4 control-label">
-                Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
-                @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomers", @style = "visibility:hidden" })
-            </label>
-            <div class="col-sm-8">
-                <div class="input-group">
-                    <input class="form-control typeahead" placeholder="Search Customer" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))"
-                           data-typeahead-hf="#hfCustomers" value="@Model.CustomerId" />
-                    <span class="input-group-btn">
-                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                    </span>
-                </div>
+        @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+     
+        @if (Model.CustomerId == null)
+        {
+            <div class="form-group">
+                <label for="case" class="col-sm-4 control-label">
+                    Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+                    @*@Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomers", @style = "visibility:hidden" })*@
+                </label>
+                <div class="col-sm-8">
+                    <div class="input-group">
+                        <input class="form-control typeahead" placeholder="Search Customer" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))"
+                               data-typeahead-hf="#hfCustomer" value="@Model.CustomerId" />
+                        <span class="input-group-btn">
+                            <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                        </span>
+                    </div>
 
-                @Html.ValidationMessageFor(m => m.CustomerId, null, new
+                    @Html.ValidationMessageFor(m => m.CustomerId, null, new
            {
                @class = "help-block"
            })
 
+                </div>
             </div>
-        </div>
+        }
         <div class="form-group">
             <div class="col-sm-4 control-label">
                 @Html.LabelFor(m => m.MaxBoxWeight)
