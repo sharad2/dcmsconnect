@@ -271,7 +271,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 var requests = _service.GetRequests();
                 var model = new RecentRequestsViewModel
                     {
-                        RecentRequests = requests.Select(p => new RequestViewModel(p))
+                        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
                     };
 
                 return PartialView(Views._recentRequestListPartial, model);

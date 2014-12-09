@@ -1,5 +1,5 @@
 ﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.RecentRequestsViewModel
-@{  
+@{
     ViewBag.Title = "Recent Requests";
     //Html.EnableClientValidation();
     //Html.EnableUnobtrusiveJavaScript();
@@ -9,31 +9,66 @@
     @*<script src="@Links_REQ2.Areas.REQ2.Home.RecentRequest_all_js" type="text/javascript"></script>*@
 }
 @*@section sidebar {
-    <div class="box boxA">
-        <div class="boxContent">
-            @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
+        <div class="box boxA">
+            <div class="boxContent">
+                @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
+            </div>
         </div>
-    </div>
-    <div class="box boxB">
-        <div class="boxContent">
-            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-document"></span>@Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.CreateRequest())<br />
-            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w" ></span>
-            <a href="Repack/Home/RepackConversion">Convert from SHL</a><br />
-             <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
-            <a href="CartonManager/Home/MarkReworkCompleteUi"  title ="Upgrade quality of cartons which have been converted to target SKU">Convert Cartons</a>
+        <div class="box boxB">
+            <div class="boxContent">
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-document"></span>@Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.CreateRequest())<br />
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w" ></span>
+                <a href="Repack/Home/RepackConversion">Convert from SHL</a><br />
+                 <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
+                <a href="CartonManager/Home/MarkReworkCompleteUi"  title ="Upgrade quality of cartons which have been converted to target SKU">Convert Cartons</a>
+            </div>
         </div>
-    </div>    
-}*@
+    }*@
 
 <div class="container">
+    <div class="page-header">
+        <h2>Example page header <small>Subtext for header</small></h2>
+    </div>
+    <ul class="list-group">
+        @for (var i = 0; i < Model.RecentRequests.Count; ++i)
+        {
+            <li class="list-group-item">
+                <span class="label label-default">@Html.DisplayFor(m => m.RecentRequests[i].Header.Priorities)</span>
+                <span class="list-group-item-heading h4"> 6023939</span>
+
+                <span class="list-group-item-text">FDC BIR → AWLHBI</span>
+
+                <!-- Split button -->
+                <div class="btn-group btn-group-sm">
+                    <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+
+                <span class="badge">14 of 16 pieces assigned</span>
+                <span class="badge">Created 1/1/1000</span>
+                Remarks
+            </li>
+        }
+    </ul>
+
     @Html.Partial(MVC_REQ2.REQ2.Home.Views._recentRequestListPartial, Model)
 </div>
 
 
 
 @*<div data-delete-ajax-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteRequest())">
-    @Html.Partial(MVC_REQ2.REQ2.Home.Views._recentRequestListPartial, Model)
-</div>
-<div id="ajaxError">
-</div>*@
+        @Html.Partial(MVC_REQ2.REQ2.Home.Views._recentRequestListPartial, Model)
+    </div>
+    <div id="ajaxError">
+    </div>*@
 @*$Id$*@
