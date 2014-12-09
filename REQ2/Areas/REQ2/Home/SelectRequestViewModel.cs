@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using EclipseLibrary.Mvc.Html;
 
-namespace DcmsMobile.REQ2.ViewModels
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class SelectRequestViewModel
     {

@@ -1,11 +1,11 @@
-﻿using System;
+﻿using DcmsMobile.REQ2.Areas.REQ2.SharedViews;
+using System;
 using System.Collections.Generic;
 using System.Configuration.Provider;
 using System.Linq;
 using System.Web.Routing;
-using DcmsMobile.REQ2.Models;
 
-namespace DcmsMobile.REQ2.Repository
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     /// <summary>
     /// These serve as flags to indicate what needs to be updated

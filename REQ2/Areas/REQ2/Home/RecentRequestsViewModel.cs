@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace DcmsMobile.REQ2.ViewModels
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class RecentRequestsViewModel
     {

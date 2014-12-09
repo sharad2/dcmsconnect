@@ -1,6 +1,4 @@
-﻿using DcmsMobile.REQ2.Models;
-using DcmsMobile.REQ2.Repository;
-using DcmsMobile.REQ2.ViewModels;
+﻿using DcmsMobile.REQ2.Areas.REQ2.SharedViews;
 using EclipseLibrary.Mvc.Controllers;
 using EclipseLibrary.Mvc.Html;
 using System;
@@ -12,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 
 
-namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     [AuthorizeEx("REQ2 requires Role {0}", Roles = "DCMS8_REQUEST")]
     [RouteArea("REQ2")]

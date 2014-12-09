@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DcmsMobile.REQ2.Models;
 
-namespace DcmsMobile.REQ2.ViewModels
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class RequestSkuViewModel
     {

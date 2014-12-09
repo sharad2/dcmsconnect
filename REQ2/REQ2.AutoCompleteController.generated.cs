@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
+namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
 {
     public partial class AutoCompleteController
     {
@@ -109,7 +109,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_AutoCompleteController : DcmsMobile.REQ2.Areas.REQ2.Controllers.AutoCompleteController
+    public partial class T4MVC_AutoCompleteController : DcmsMobile.REQ2.Areas.REQ2.AutoComplete.AutoCompleteController
     {
         public T4MVC_AutoCompleteController() : base(Dummy.Instance) { }
 

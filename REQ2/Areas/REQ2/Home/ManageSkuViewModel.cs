@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace DcmsMobile.REQ2.ViewModels
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public enum ViewTab
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DcmsMobile.REQ2.Models
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class RequestModel
     {

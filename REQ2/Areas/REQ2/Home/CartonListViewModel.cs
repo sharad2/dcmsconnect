@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.REQ2.ViewModels
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class CartonListViewModel
     {

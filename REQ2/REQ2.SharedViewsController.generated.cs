@@ -38,11 +38,9 @@ namespace T4MVC.REQ2
             {
                 public readonly string _layoutReq = "_layoutReq";
                 public readonly string _layoutReq_Mobile = "_layoutReq.Mobile";
-                public readonly string _ViewStart = "_ViewStart";
             }
             public readonly string _layoutReq = "~/Areas/REQ2/SharedViews/_layoutReq.cshtml";
             public readonly string _layoutReq_Mobile = "~/Areas/REQ2/SharedViews/_layoutReq.Mobile.cshtml";
-            public readonly string _ViewStart = "~/Areas/REQ2/SharedViews/_ViewStart.cshtml";
         }
     }
 

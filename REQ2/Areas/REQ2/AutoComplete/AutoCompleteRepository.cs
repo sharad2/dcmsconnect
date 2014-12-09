@@ -1,13 +1,13 @@
-﻿using System;
+﻿
+using DcmsMobile.REQ2.Areas.REQ2.SharedViews;
+using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics.Contracts;
 using System.Web;
-using DcmsMobile.REQ2.Models;
-using EclipseLibrary.Oracle;
-using EclipseLibrary.Oracle.Helpers;
 
-namespace DcmsMobile.REQ2.Repository
+namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
 {
     public class AutoCompleteRepository : IDisposable
     {

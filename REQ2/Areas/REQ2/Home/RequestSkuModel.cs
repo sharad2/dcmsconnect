@@ -1,5 +1,6 @@
 ﻿
-namespace DcmsMobile.REQ2.Models
+using DcmsMobile.REQ2.Areas.REQ2.SharedViews;
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public class RequestSkuModel
     {

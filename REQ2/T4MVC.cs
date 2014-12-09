@@ -35,8 +35,8 @@ namespace T4MVC
     public class REQ2Class
     {
         public readonly string Name = "REQ2";
-        public DcmsMobile.REQ2.Areas.REQ2.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_AutoCompleteController();
-        public DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController Home = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_HomeController();
+        public DcmsMobile.REQ2.Areas.REQ2.AutoComplete.AutoCompleteController AutoComplete = new DcmsMobile.REQ2.Areas.REQ2.AutoComplete.T4MVC_AutoCompleteController();
+        public DcmsMobile.REQ2.Areas.REQ2.Home.HomeController Home = new DcmsMobile.REQ2.Areas.REQ2.Home.T4MVC_HomeController();
         public T4MVC.REQ2.SharedViewsController SharedViews = new T4MVC.REQ2.SharedViewsController();
     }
 }

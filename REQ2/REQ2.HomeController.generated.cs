@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
+namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public partial class HomeController
     {
@@ -267,7 +267,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_HomeController : DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController
+    public partial class T4MVC_HomeController : DcmsMobile.REQ2.Areas.REQ2.Home.HomeController
     {
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
@@ -295,10 +295,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
         }
 
         [NonAction]
-        partial void UpdateRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.ViewModels.SelectRequestViewModel model);
+        partial void UpdateRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.Areas.REQ2.Home.SelectRequestViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult UpdateRequest(DcmsMobile.REQ2.ViewModels.SelectRequestViewModel model)
+        public override System.Web.Mvc.ActionResult UpdateRequest(DcmsMobile.REQ2.Areas.REQ2.Home.SelectRequestViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateRequest);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -355,10 +355,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
         }
 
         [NonAction]
-        partial void AddSkuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.ViewModels.ManageSkuViewModel model);
+        partial void AddSkuOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.Areas.REQ2.Home.ManageSkuViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddSku(DcmsMobile.REQ2.ViewModels.ManageSkuViewModel model)
+        public override System.Web.Mvc.ActionResult AddSku(DcmsMobile.REQ2.Areas.REQ2.Home.ManageSkuViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddSku);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

@@ -1,8 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using DcmsMobile.REQ2.Repository;
 
-namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
+namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
 {
     public partial class AutoCompleteController : Controller
     {

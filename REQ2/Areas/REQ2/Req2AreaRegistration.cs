@@ -26,7 +26,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2
                     action = MVC_REQ2.REQ2.Home.ActionNames.Index,
                     id = UrlParameter.Optional
                 },
-                new[] { typeof(Controllers.HomeController).Namespace }
+                new[] { typeof(Home.HomeController).Namespace }
             );
         }
 
