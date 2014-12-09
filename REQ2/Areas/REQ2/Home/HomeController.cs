@@ -235,20 +235,34 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// this method is use for existing request 
         /// when user give reqId we get ctnresvId and redirect to DisplayRequest 
         /// </summary>
-        /// <param name="ctnresvId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult DisplayExistingRequest(string ctnresvId)
+        public virtual ActionResult DisplayExistingRequest(string id)
         {
-            int _reqId;
-            if (!int.TryParse(ctnresvId, out _reqId))
+            //int _reqId;
+            //if (!int.TryParse(ctnresvId, out _reqId))
+            //{
+            //    AddStatusMessage("Please enter the valid Request ID");
+            //    return Index();
+            //}
+            var req = _service.GetRequestInfo(id);
+            if (req != null)
             {
-                AddStatusMessage("Please enter the valid Request ID");
-                return Index();
+                // var ctnresvId = _service.GetCtnRevId(reqId);
+                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(id));
             }
+            var x = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
+            if (x != null)
+            {
+                return Redirect(Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
+                {
+                    id = id
+                }));
+            }
+            ModelState.AddModelError("", "Please enter a valid Request ID");
+            return Index();
 
-           // var ctnresvId = _service.GetCtnRevId(reqId);
-            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(ctnresvId));
         }
 
         /// <summary>
@@ -271,7 +285,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 var requests = _service.GetRequests();
                 var model = new RecentRequestsViewModel
                     {
-                        RecentRequests = requests.Select(p => new RequestViewModel(p))
+                        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
                     };
 
                 return PartialView(Views._recentRequestListPartial, model);

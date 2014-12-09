@@ -36,11 +36,15 @@ namespace T4MVC.REQ2
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutReq = "_layoutReq";
                 public readonly string _layoutReq_Mobile = "_layoutReq.Mobile";
+                public readonly string _layoutReq2 = "_layoutReq2";
             }
+            public readonly string _layoutBootstrap = "~/Areas/REQ2/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutReq = "~/Areas/REQ2/SharedViews/_layoutReq.cshtml";
             public readonly string _layoutReq_Mobile = "~/Areas/REQ2/SharedViews/_layoutReq.Mobile.cshtml";
+            public readonly string _layoutReq2 = "~/Areas/REQ2/SharedViews/_layoutReq2.cshtml";
         }
     }
 

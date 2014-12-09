@@ -7,16 +7,16 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     public class RecentRequestsViewModel
     {
 
-        private IEnumerable<RequestViewModel> _recentRequests;
+        private IList<RequestViewModel> _recentRequests;
 
         /// <summary>
         /// We never return null.
         /// </summary>
-        public IEnumerable<RequestViewModel> RecentRequests
+        public IList<RequestViewModel> RecentRequests
         {
             get
             {
-                return _recentRequests ?? Enumerable.Empty<RequestViewModel>();
+                return _recentRequests ?? Enumerable.Empty<RequestViewModel>().ToList();
             }
             set
             {
