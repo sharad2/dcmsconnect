@@ -454,8 +454,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     CustomerName = customerName
                 };
             var html = RenderPartialViewToString(Views._addCustomerConstraintPartial, model);
-            return Content(html);
+            //return PartialView(Views._addCustomerConstraintPartial, model);
+             return Content(html);
         }
+       
 
         /// <summary>
         /// Add new customer and its constraint.
