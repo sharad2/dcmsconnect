@@ -37,7 +37,7 @@ namespace T4MVC
         public readonly string Name = "REQ2";
         public DcmsMobile.REQ2.Areas.REQ2.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.REQ2.Areas.REQ2.Controllers.HomeController Home = new DcmsMobile.REQ2.Areas.REQ2.Controllers.T4MVC_HomeController();
-        public T4MVC.REQ2.SharedController Shared = new T4MVC.REQ2.SharedController();
+        public T4MVC.REQ2.SharedViewsController SharedViews = new T4MVC.REQ2.SharedViewsController();
     }
 }
 
@@ -175,14 +175,12 @@ namespace Links_REQ2
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Scripts {
-                private const string URLPATH = "~/Areas/REQ2/Scripts";
+            public static class AutoComplete {
+                private const string URLPATH = "~/Areas/REQ2/AutoComplete";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string ManageSku_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku-all.min.js") ? Url("ManageSku-all.min.js") : Url("ManageSku-all.js");
-                public static readonly string ManageSku_all_min_js_map = Url("ManageSku-all.min.js.map");
-                public static readonly string RecentRequest_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RecentRequest-all.min.js") ? Url("RecentRequest-all.min.js") : Url("RecentRequest-all.js");
-                public static readonly string RecentRequest_all_min_js_map = Url("RecentRequest-all.min.js.map");
+                public static readonly string Autocomplete_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Autocomplete.partial.min.css") ? Url("Autocomplete.partial.min.css") : Url("Autocomplete.partial.css");
+                     
             }
         
         }
@@ -192,15 +190,13 @@ namespace Links_REQ2
     
         public static partial class REQ2 {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Content {
-                private const string URLPATH = "~/Areas/REQ2/Content";
+            public static class Home {
+                private const string URLPATH = "~/Areas/REQ2/Home";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Autocomplete_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Autocomplete.partial.min.css") ? Url("Autocomplete.partial.min.css") : Url("Autocomplete.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
-                    private const string URLPATH = "~/Areas/REQ2/Content/images";
+                    private const string URLPATH = "~/Areas/REQ2/Home/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                     public static readonly string a1_gif = Url("a1.gif");
@@ -208,6 +204,10 @@ namespace Links_REQ2
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
+                public static readonly string ManageSku_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku-all.min.js") ? Url("ManageSku-all.min.js") : Url("ManageSku-all.js");
+                public static readonly string ManageSku_all_min_js_map = Url("ManageSku-all.min.js.map");
+                public static readonly string RecentRequest_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RecentRequest-all.min.js") ? Url("RecentRequest-all.min.js") : Url("RecentRequest-all.js");
+                public static readonly string RecentRequest_all_min_js_map = Url("RecentRequest-all.min.js.map");
                 public static readonly string REQ2_mobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2.mobile.partial.min.css") ? Url("REQ2.mobile.partial.min.css") : Url("REQ2.mobile.partial.css");
                      
                 public static readonly string REQ2_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2.partial.min.css") ? Url("REQ2.partial.min.css") : Url("REQ2.partial.css");
@@ -217,6 +217,19 @@ namespace Links_REQ2
                 public static readonly string Stylesheets_chirp_config = Url("Stylesheets.chirp.config");
                 public static readonly string REQ2_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2-all.min.css") ? Url("REQ2-all.min.css") : Url("REQ2-all.css");
                      
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class REQ2 {
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class SharedViews {
+                private const string URLPATH = "~/Areas/REQ2/SharedViews";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             }
         
         }

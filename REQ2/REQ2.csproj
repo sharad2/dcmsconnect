@@ -94,30 +94,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\REQ2\Controllers\AutoCompleteController.cs" />
-    <Compile Include="Areas\REQ2\Controllers\HomeController.cs" />
+    <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteController.cs" />
+    <Compile Include="Areas\REQ2\Home\HomeController.cs" />
     <Compile Include="Areas\REQ2\Req2AreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssignedCarton.cs" />
-    <Compile Include="Models\CartonArea.cs" />
-    <Compile Include="Models\CartonList.cs" />
-    <Compile Include="Models\CodeDescriptionModel.cs" />
-    <Compile Include="Models\RequestModel.cs" />
-    <Compile Include="Models\RequestSkuModel.cs" />
-    <Compile Include="Models\SkuModel.cs" />
+    <Compile Include="Areas\REQ2\Home\AssignedCarton.cs" />
+    <Compile Include="Areas\REQ2\Home\CartonArea.cs" />
+    <Compile Include="Areas\REQ2\Home\CartonList.cs" />
+    <Compile Include="Areas\REQ2\Home\CodeDescriptionModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestSkuModel.cs" />
+    <Compile Include="Areas\REQ2\Home\SkuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AutoCompleteRepository.cs" />
-    <Compile Include="Repository\ReqRepository.cs" />
-    <Compile Include="Repository\ReqService.cs" />
+    <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteRepository.cs" />
+    <Compile Include="Areas\REQ2\Home\ReqRepository.cs" />
+    <Compile Include="Areas\REQ2\Home\ReqService.cs" />
     <Compile Include="REQ2.AutoCompleteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="REQ2.HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="REQ2.SharedController.generated.cs">
+    <Compile Include="REQ2.SharedViewsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Resources\REQ2Resource.Designer.cs">
@@ -130,26 +130,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AssignedCartonViewModel.cs" />
-    <Compile Include="ViewModels\CartonListViewModel.cs" />
-    <Compile Include="ViewModels\RecentRequestsViewModel.cs" />
-    <Compile Include="ViewModels\RequestSkuViewModel.cs" />
-    <Compile Include="ViewModels\RequestViewModel.cs" />
-    <Compile Include="ViewModels\SelectRequestViewModel.cs" />
-    <Compile Include="ViewModels\ManageSkuViewModel.cs" />
-    <Compile Include="ViewModels\SkuViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\AssignedCartonViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\CartonListViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RecentRequestsViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestSkuViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\SelectRequestViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\ManageSkuViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\SkuViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js">
+    <Content Include="Areas\REQ2\Home\ManageSku-all.min.js">
       <DependentUpon>ManageSku-all.js</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js">
+    <Content Include="Areas\REQ2\Home\RecentRequest-all.min.js">
       <DependentUpon>RecentRequest-all.js</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Scripts\RecentRequest-all.min.js.map">
+    <Content Include="Areas\REQ2\Home\RecentRequest-all.min.js.map">
       <DependentUpon>RecentRequest-all.js</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Scripts\ManageSku-all.min.js.map">
+    <Content Include="Areas\REQ2\Home\ManageSku-all.min.js.map">
       <DependentUpon>ManageSku-all.js</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -232,32 +232,32 @@
     </None>
     <None Include="T4MVC.tt.settings.xml" />
     <None Include="Doc\Roles.txt" />
-    <None Include="Areas\REQ2\Content\Autocomplete.partial.css" />
-    <Content Include="Areas\REQ2\Content\images\a1.gif" />
-    <Content Include="Areas\REQ2\Content\images\ajax-loader.gif" />
-    <Content Include="Areas\REQ2\Content\images\calendar.gif" />
-    <Content Include="Areas\REQ2\Content\REQ2-all.css">
+    <None Include="Areas\REQ2\AutoComplete\Autocomplete.partial.css" />
+    <Content Include="Areas\REQ2\Home\images\a1.gif" />
+    <Content Include="Areas\REQ2\Home\images\ajax-loader.gif" />
+    <Content Include="Areas\REQ2\Home\images\calendar.gif" />
+    <Content Include="Areas\REQ2\Home\REQ2-all.css">
       <DependentUpon>Stylesheets.chirp.config</DependentUpon>
     </Content>
-    <Content Include="Areas\REQ2\Content\REQ2-all.min.css">
+    <Content Include="Areas\REQ2\Home\REQ2-all.min.css">
       <DependentUpon>Stylesheets.chirp.config</DependentUpon>
     </Content>
-    <None Include="Areas\REQ2\Content\REQ2.mobile.partial.css" />
-    <None Include="Areas\REQ2\Content\standardized.partial.css" />
-    <None Include="Areas\REQ2\Content\REQ2.partial.css" />
-    <None Include="Areas\REQ2\Scripts\RecentRequest-all.js" />
-    <None Include="Areas\REQ2\Scripts\ManageSku-all.js" />
-    <Content Include="Areas\REQ2\Views\Home\CartonList.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\Tutorial.cshtml" />
+    <None Include="Areas\REQ2\Home\REQ2.mobile.partial.css" />
+    <None Include="Areas\REQ2\Home\standardized.partial.css" />
+    <None Include="Areas\REQ2\Home\REQ2.partial.css" />
+    <None Include="Areas\REQ2\Home\RecentRequest-all.js" />
+    <None Include="Areas\REQ2\Home\ManageSku-all.js" />
+    <Content Include="Areas\REQ2\Home\CartonList.cshtml" />
+    <Content Include="Areas\REQ2\Home\Tutorial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
-    <Content Include="Areas\REQ2\Views\Home\ManageSku.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\RecentRequests.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\_manageSkuListPartial.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\_assignedCartonInfoPartial.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\_existingRequestPartial.cshtml" />
-    <Content Include="Areas\REQ2\Views\Home\_recentRequestListPartial.cshtml" />
+    <Content Include="Areas\REQ2\Home\ManageSku.cshtml" />
+    <Content Include="Areas\REQ2\Home\RecentRequests.cshtml" />
+    <Content Include="Areas\REQ2\Home\_manageSkuListPartial.cshtml" />
+    <Content Include="Areas\REQ2\Home\_assignedCartonInfoPartial.cshtml" />
+    <Content Include="Areas\REQ2\Home\_existingRequestPartial.cshtml" />
+    <Content Include="Areas\REQ2\Home\_recentRequestListPartial.cshtml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -271,21 +271,21 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Areas\REQ2\Views\Web.config">
+    <Content Include="Areas\REQ2\Web.config">
       <SubType>
       </SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\REQ2\Views\Home\CreateRequest.cshtml" />
+    <Content Include="Areas\REQ2\Home\CreateRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\REQ2\Views\Shared\_layoutReq.cshtml" />
-    <Content Include="Areas\REQ2\Views\_ViewStart.cshtml" />
-    <None Include="Areas\REQ2\Content\Stylesheets.chirp.config">
+    <Content Include="Areas\REQ2\SharedViews\_layoutReq.cshtml" />
+    <Content Include="Areas\REQ2\_ViewStart.cshtml" />
+    <None Include="Areas\REQ2\Home\Stylesheets.chirp.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Areas\REQ2\Views\Shared\_layoutReq.Mobile.cshtml" />
+    <Content Include="Areas\REQ2\SharedViews\_layoutReq.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

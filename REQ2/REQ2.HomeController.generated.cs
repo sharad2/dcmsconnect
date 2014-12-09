@@ -233,17 +233,36 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Controllers
                 public readonly string CreateRequest = "CreateRequest";
                 public readonly string ManageSku = "ManageSku";
                 public readonly string RecentRequests = "RecentRequests";
+                public readonly string Stylesheets_chirp = "Stylesheets.chirp";
                 public readonly string Tutorial = "Tutorial";
             }
-            public readonly string _assignedCartonInfoPartial = "~/Areas/REQ2/Views/Home/_assignedCartonInfoPartial.cshtml";
-            public readonly string _existingRequestPartial = "~/Areas/REQ2/Views/Home/_existingRequestPartial.cshtml";
-            public readonly string _manageSkuListPartial = "~/Areas/REQ2/Views/Home/_manageSkuListPartial.cshtml";
-            public readonly string _recentRequestListPartial = "~/Areas/REQ2/Views/Home/_recentRequestListPartial.cshtml";
-            public readonly string CartonList = "~/Areas/REQ2/Views/Home/CartonList.cshtml";
-            public readonly string CreateRequest = "~/Areas/REQ2/Views/Home/CreateRequest.cshtml";
-            public readonly string ManageSku = "~/Areas/REQ2/Views/Home/ManageSku.cshtml";
-            public readonly string RecentRequests = "~/Areas/REQ2/Views/Home/RecentRequests.cshtml";
-            public readonly string Tutorial = "~/Areas/REQ2/Views/Home/Tutorial.cshtml";
+            public readonly string _assignedCartonInfoPartial = "~/Areas/REQ2/Home/_assignedCartonInfoPartial.cshtml";
+            public readonly string _existingRequestPartial = "~/Areas/REQ2/Home/_existingRequestPartial.cshtml";
+            public readonly string _manageSkuListPartial = "~/Areas/REQ2/Home/_manageSkuListPartial.cshtml";
+            public readonly string _recentRequestListPartial = "~/Areas/REQ2/Home/_recentRequestListPartial.cshtml";
+            public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
+            public readonly string CreateRequest = "~/Areas/REQ2/Home/CreateRequest.cshtml";
+            public readonly string ManageSku = "~/Areas/REQ2/Home/ManageSku.cshtml";
+            public readonly string RecentRequests = "~/Areas/REQ2/Home/RecentRequests.cshtml";
+            public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";
+            public readonly string Tutorial = "~/Areas/REQ2/Home/Tutorial.cshtml";
+            static readonly _imagesClass s_images = new _imagesClass();
+            public _imagesClass images { get { return s_images; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _imagesClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string a1 = "a1";
+                    public readonly string ajax_loader = "ajax-loader";
+                    public readonly string calendar = "calendar";
+                }
+                public readonly string a1 = "~/Areas/REQ2/Home/images/a1.gif";
+                public readonly string ajax_loader = "~/Areas/REQ2/Home/images/ajax-loader.gif";
+                public readonly string calendar = "~/Areas/REQ2/Home/images/calendar.gif";
+            }
         }
     }
 
