@@ -3,14 +3,16 @@
   <settings>
     <!--Determines if the bundle file should be automatically optimized after creation/update.-->
     <minify>true</minify>
-    <!--Determin whether to generate/re-generate this bundle on building the solution.-->
+    <!--Determine whether to generate/re-generate this bundle on building the solution.-->
     <runOnBuild>false</runOnBuild>
     <!--Specifies a custom subfolder to save files to. By default, compiled output will be placed in the same folder and nested under the original file.-->
     <outputDirectory />
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/Areas/PickWaves/AutoComplete/AutoComplete.partial.js</file>
-    <file>ManageSkuCase.partial.js</file>
+    <file>/Scripts/jquery.validate.js</file>
+    <file>/Scripts/jquery.validate.unobtrusive.js</file>
+    <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>
+    <file>/Areas/PickWaves/Config/SkuCase.partial.js</file>
   </files>
 </bundle>

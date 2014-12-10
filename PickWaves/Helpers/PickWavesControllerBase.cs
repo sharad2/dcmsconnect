@@ -1,5 +1,6 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
+using System;
 using System.IO;
 using System.Web.Mvc;
 
@@ -37,6 +38,7 @@ namespace DcmsMobile.PickWaves.Helpers
             base.OnActionExecuted(filterContext);
         }
 
+        [Obsolete]
         public string RenderPartialViewToString(string viewName, object model)
         {
             //This is a safe code never going to get called with in normal user practice.

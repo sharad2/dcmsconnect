@@ -4,105 +4,126 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
-<form class="form-horizontal" id="frmSkuCaseEditor" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        <label class="col-sm-5 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        @if (Model.CaseId != null)
-        {
-            
-            <div class="col-sm-7">
-                @Html.DisplayFor(m => m.CaseId, new
-           {
-               @class = "form-control",
-               @required = "required"
-           })
 
-                @Html.HiddenFor(m => m.CaseId)
-            </div>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">
+        @if (Model.CaseId == null)
+        {
+            <span>Add New SKU Case</span>
         }
         else
         {
-            <div class="col-sm-7">
-                @Html.TextBoxFor(m => m.CaseId, new
+            <span>Edit SKU Case <em>@Html.DisplayFor(m => m.CaseId)</em></span>
+        }
+    </h4>
+
+</div>
+<div class="modal-body">
+    @using (Html.BeginForm(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase(), FormMethod.Post, new
+    {
+        role = "form",
+        @class = "form-horizontal"
+    }))
+    {
+
+
+    @*<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">*@
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @if (Model.CaseId == null)
+            {
+                <label class="col-sm-5 control-label">Case <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(m => m.CaseId, new
            {
                @class = "form-control",
                @required = "required",
                MaxLength = "6"
            })
-                @Html.ValidationMessageFor(m => m.CaseId, null, new
+                    @Html.ValidationMessageFor(m => m.CaseId, null, new
            {
                @class = "help-block"
            })
-            </div>
-        }
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label">Discription</label>
-        <div class="col-sm-7">
-            @Html.TextAreaFor(m => m.Description, new
+                </div>
+            }
+            else
+            {
+                @Html.HiddenFor(m => m.CaseId)
+            }
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Description</label>
+            <div class="col-sm-7">
+                @Html.TextAreaFor(m => m.Description, new
             {
                 MaxLength = "50",
                 @class = "form-control",
                 placeholder = "Max 50 characters"
             })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label">Empty Weight(lbs) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-7">
-            @Html.TextBoxFor(m => m.EmptyWeight, new
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Empty Weight(lbs) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(m => m.EmptyWeight, new
             {
                 @class = "form-control",
                 @required = "required"
             })
-            @Html.ValidationMessageFor(m => m.EmptyWeight, null, new
+                @Html.ValidationMessageFor(m => m.EmptyWeight, null, new
            {
                @class = "help-block"
            })
 
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label">Max Content Volume(ft) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-7">
-            @Html.TextBoxFor(m => m.MaxContentVolume, new
-            {
-                @class = "form-control",
-                @required = "required"
-            })
-            @Html.ValidationMessageFor(m => m.MaxContentVolume, null, new
-           {
-               @class = "help-block"
-           })
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-5 control-label">Outer Cube Volume(ft)<sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
-        <div class="col-sm-7">
-            @Html.TextBoxFor(m => m.OuterCubeVolume, new
-            {
-                @class = "form-control",
-                @required = "required"
-            })
-        
-            @Html.ValidationMessageFor(m => m.OuterCubeVolume, null, new
-           {
-               @class = "help-block"
-           })
-          
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-7">
-            <div class="checkbox">
-                <label>
-                    @Html.CheckBoxFor(m => m.IsAvailable) Is Available
-                </label>
             </div>
         </div>
-    </div>
-</form>
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Max Content Volume(ft) <sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(m => m.MaxContentVolume, new
+            {
+                @class = "form-control",
+                @required = "required"
+            })
+                @Html.ValidationMessageFor(m => m.MaxContentVolume, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-5 control-label">Outer Cube Volume(ft)<sup><span class="glyphicon glyphicon-asterisk"></span></sup></label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(m => m.OuterCubeVolume, new
+            {
+                @class = "form-control",
+                @required = "required"
+            })
+
+                @Html.ValidationMessageFor(m => m.OuterCubeVolume, null, new
+           {
+               @class = "help-block"
+           })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-7">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsAvailable) Is Available
+                    </label>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+</div>
 
 
 

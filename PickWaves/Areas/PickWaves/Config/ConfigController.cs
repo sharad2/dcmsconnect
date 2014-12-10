@@ -276,8 +276,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 throw new ArgumentOutOfRangeException("skuCaseId", string.Format("SKU Case {0} does not exist. It may have been deleted", skuCaseId));
             }
 
-            var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel(skuCase));
-            return Content(html);
+            //var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel(skuCase));
+            return PartialView(Views._skuCaseEditorPartial, new SkuCaseModel(skuCase));
         }
 
         /// <summary>

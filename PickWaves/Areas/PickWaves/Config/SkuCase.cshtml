@@ -357,79 +357,20 @@
 <div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">
-                    <!--Title inserted here with Ajax-->
-                </h4>
-            </div>
-            <div class="modal-body">
-                <!--Form inserted here with Ajax-->
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-
-            </div>
+AJAX loaded HTML here
         </div>
     </div>
 </div>
 
 
 @section script{
-    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
+    <script src="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_js" rel="stylesheet" type="text/javascript"></script>
 
     <script type="text/javascript">
         var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
         var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
 
 
-
-        $(document).ready(function () {
-            //Determining which tab was active during "removeing" or "editing".
-            var tabActive = $('ul.nav-tabs').attr('data-active-tab');
-            $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
-
-
-            $('#tabModal').on('show.bs.modal', function (e) {
-
-                var btnAction = $(e.relatedTarget);
-                var url = $(btnAction).data('action-url');
-                var title = $(btnAction).attr('title');
-
-                //Ajax call form inserting the modal form and its content
-                $.ajax({
-                    url: url,
-                    type: 'get',
-                    cache: false
-                }).done(function (data, textStatus, jqXHR) {
-                    //will render the form first
-                    $('.modal-body').html(data);
-                    //will insert  title in the form
-                    $('.modal-title').text(title);
-                    //Will put the values in the edit packing rule form at third tab.
-                    if ($(btnAction).is('[data-show-style]')) {
-
-                        $('#tbStyle,#hfStyle', '#frmAddPackingRule').val($(btnAction).data('show-style'));
-                        $('#caseId', '#frmAddPackingRule').val($(btnAction).data('show-case'));
-                    }
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                });
-            }).on('click', 'button:not([data-dismiss])', function (e) {
-                //finding the form to be post
-                var $form = $(e.delegateTarget).find('form', '.modal-body');
-                $form.submit();
-            });
-               // .on('hidden.bs.modal', function () {
-               //// Hides the data of first modal if another modal opens.
-               ////http://stackoverflow.com/questions/13177426/how-to-destroy-bootstrap-modal-window-completely
-               // $(this).data('bs.modal', null); 
-            // })   ;
-         
-
-
-        });
     </script>
 
 
