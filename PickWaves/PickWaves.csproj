@@ -225,14 +225,8 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Config\SkuCase.css">
-      <DependentUpon>SkuCase.css.bundle</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.js">
       <DependentUpon>SkuCase.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.min.css">
-      <DependentUpon>SkuCase.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js">
       <DependentUpon>SkuCase.js</DependentUpon>
@@ -296,7 +290,6 @@
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js.map">
       <DependentUpon>SkuCase.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.css.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

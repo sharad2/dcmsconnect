@@ -1,7 +1,7 @@
 ﻿@using DcmsMobile.PickWaves.ViewModels.Config
 @model ConstraintViewModel
 @{
-    ViewBag.Title = "Constraint";
+    ViewBag.Title = "Packing Constraints";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
 
@@ -13,7 +13,7 @@
 
 
 <div class="container">
-    <h2 style="margin-top:0px;">
+    <h2 style="margin-top:0;">
         @ViewBag.Title
     </h2>
 
@@ -34,32 +34,42 @@
                 <blockquote class="text-info">Default customer constraints</blockquote>
 
                 <ul class="list-group">
+                    @{
+                        var query = Model.CustomerGroupedList.Where(item => item.Value.MaxBoxWeight.HasValue).ToList();
+                    }
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
-                            @Html.LabelFor(m => m.DefaultConstraints.MaxBoxWeight)
-                            @Html.DisplayFor(m => m.DefaultConstraints.MaxBoxWeight)
+                            Maximum Weight of a Packed Box
+                            <em>System Default: @Html.DisplayFor(m => m.DefaultConstraints.MaxBoxWeight)</em>
                         </h4>
+                        <p class="list-group-item-text">@query.Count customers override this limit</p>
                     </li>
-                    @foreach (var item in Model.CustomerGroupedList.Where(item => item.Value.MaxBoxWeight.HasValue))
+
+                    @foreach (var item in query)
                     {
                         <li class="list-group-item" style="padding-left:2em;">
-                            <h4 class="list-group-item-heading">
+                            <div class="pull-right">
+                                <span class="h3">
+                                    <span class="label label-default">@item.Value.MaxBoxWeight lbs</span>
+                                </span>
                                 @if (Model.UserIsManager)
                                 {
-
-                                    <button class="btn btn-xs btn-primary pull-right" data-toggle="modal" data-target="#tabModal" data-show-customer="@item.Key.CustomerId"
+                                    <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" data-show-customer="@item.Key.CustomerId"
                                             title="Edit customer constraints"
                                             data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
                                 }
+                            </div>
+                            <h4 class="list-group-item-heading">
                                 @item.Key.CustomerId
                                 <small> @item.Key.CustomerName</small>
-                                <em>@item.Value.MaxBoxWeight lbs</em>
                             </h4>
+
                         </li>
                     }
+
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
                             @Html.LabelFor(m => m.DefaultConstraints.MaxSkuWithinBox)
@@ -205,10 +215,10 @@
                         <li class="list-group-item" style="padding-left:2em;">
                             <ul class="list-inline">
                                 <li style="width:12em;">
-                                    Single Style Color:                                   
+                                    Single Style Color:
                                     @if (Model.CustomerGroupedList.Values[i].IsSingleStyleColor)
                                     {
-                                    <span class="glyphicon glyphicon-ok text-success"></span>
+                                        <span class="glyphicon glyphicon-ok text-success"></span>
                                     }
                                     else
                                     {
@@ -269,58 +279,60 @@
 @section script{
     <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
 
-    <script type="text/javascript">
-        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+    <script src="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_js" type="text/javascript"></script>
 
-        $(document).ready(function () {
-            //Determining which tab was active during remove or editing.
-            var tabActive = $('ul.nav-tabs').attr('data-active-tab');
-            $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
+    @*<script type="text/javascript">
+            var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+
+            $(document).ready(function () {
+                //Determining which tab was active during remove or editing.
+                var tabActive = $('ul.nav-tabs').attr('data-active-tab');
+                $('ul.nav-tabs li:eq(' + tabActive + ') a').tab('show')
 
 
 
-            $('#tabModal').on('show.bs.modal', function (e) {
+                $('#tabModal').on('show.bs.modal', function (e) {
 
-                var btnAction = $(e.relatedTarget);
-                //action to be performed at URL
-                var url = $(btnAction).data('action-url');
+                    var btnAction = $(e.relatedTarget);
+                    //action to be performed at URL
+                    var url = $(btnAction).data('action-url');
 
-                //Title of the modal that will open
-                var title = $(btnAction).attr('title');
+                    //Title of the modal that will open
+                    var title = $(btnAction).attr('title');
 
-                //Active Tab keeps remains open after action performed
-                var activeTab = $(btnAction).closest('div.tab-pane').index();
-             
+                    //Active Tab keeps remains open after action performed
+                    var activeTab = $(btnAction).closest('div.tab-pane').index();
 
-                //Ajax call form inserting the modal form and its content
-                $.ajax({
-                    url: url,
-                    type: 'get',
-                    cache: false
-                }).done(function (data, textStatus, jqXHR) {
-                    //will render the form first
-                    $('.modal-body').html(data);
-                    //will insert  title in the form
-                    $('.modal-title').text(title);
 
-                    //Will put the values in the edit packing rule form at third tab.
-                    if ($(btnAction).is('[data-show-customer]')) {
-                        $('#tbCustomer,#hfCustomer', '#frmAddCustomerConstraint').val($(btnAction).data('show-customer'));
-                    }
-                    //keep record of the active tab.To open it again after action performed(Edit/Add)
-                    $('#hfActiveTabIndex').val(activeTab);
+                    //Ajax call form inserting the modal form and its content
+                    $.ajax({
+                        url: url,
+                        type: 'get',
+                        cache: false
+                    }).done(function (data, textStatus, jqXHR) {
+                        //will render the form first
+                        $('.modal-body').html(data);
+                        //will insert  title in the form
+                        $('.modal-title').text(title);
 
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+                        //Will put the values in the edit packing rule form at third tab.
+                        if ($(btnAction).is('[data-show-customer]')) {
+                            $('#tbCustomer,#hfCustomer', '#frmAddCustomerConstraint').val($(btnAction).data('show-customer'));
+                        }
+                        //keep record of the active tab.To open it again after action performed(Edit/Add)
+                        $('#hfActiveTabIndex').val(activeTab);
+
+                    }).fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    });
+                }).on('click', 'button:not([data-dismiss])', function (e) {
+                    //finding the form to be post
+                    var $form = $(e.delegateTarget).find('form', '.modal-body');
+                    $form.submit();
                 });
-            }).on('click', 'button:not([data-dismiss])', function (e) {
-                //finding the form to be post
-                var $form = $(e.delegateTarget).find('form', '.modal-body');
-                $form.submit();
-            });
 
-        });
-    </script>
+            });
+        </script>*@
 
 }
 

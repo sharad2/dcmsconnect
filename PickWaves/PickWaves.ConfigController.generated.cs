@@ -333,7 +333,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
                 public readonly string SkuCase = "SkuCase";
-                public readonly string SkuCase_css = "SkuCase.css";
                 public readonly string SkuCase_js = "SkuCase.js";
             }
             public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
@@ -343,7 +342,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
             public readonly string SkuCase = "~/Areas/PickWaves/Config/SkuCase.cshtml";
-            public readonly string SkuCase_css = "~/Areas/PickWaves/Config/SkuCase.css.bundle";
             public readonly string SkuCase_js = "~/Areas/PickWaves/Config/SkuCase.js.bundle";
         }
     }

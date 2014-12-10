@@ -1,7 +1,7 @@
 ﻿
 // Generic handling for AJAX loaded modal
 /*
- * tabModal is supposed to be invoiked via a button click. The button must have data-action-url attribute specified. This is the URL from which
+ * tabModal is supposed to be invoked via a button click. The button must have data-action-url attribute specified. This is the URL from which
  * the contents of the modal will be loaded.
  *  If the loaded content has a form, it will be prepared by calling validateBootstrap() on the form.
  * 
@@ -9,9 +9,10 @@
  *   the modal is shown. When the user makes a selection from the suggestion list, then the selected value is copied to the input whose selector is specified in
  *   the attribute data-typeahead-hf.
  *   Example: 
- *             @Html.HiddenFor(m => m.CustomerId, new
+ *             @Html.TextBoxFor(m => m.CustomerId, new
    {
-       id = "hfCustomer"
+       id = "hfCustomer",
+       style = "visibility:hidden"
    })
        ...
  *     <input placeholder="Search Customer"
