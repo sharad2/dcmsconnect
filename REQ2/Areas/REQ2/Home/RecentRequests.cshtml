@@ -35,12 +35,7 @@
                                 <span class="glyphicon glyphicon-share-alt"></span>
                             }
 
-                            @if (@Model.RecentRequests[i].Header.Priorities > 10)
-                            {
-                                <small>
-                                    <span class="label label-warning "><span class="glyphicon glyphicon-star"> </span></span>
-                                </small>
-                            }
+                          
 
                             <b>   @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId) </b>
 
@@ -78,7 +73,15 @@
                                 <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.CreateRequest(Model.RecentRequests[i].Header.ResvId))"> Edit</a></li>
                                 <li><a href="#">Delete</a></li>
                             </ul>
+
+                           
                         </div>
+                        @if (@Model.RecentRequests[i].Header.Priorities > 10)
+                        {
+                            <small>
+                                <span class="label label-warning "><span class="glyphicon glyphicon-star"> </span></span>
+                            </small>
+                        }
                     </div>
                 </div>
             </li>
