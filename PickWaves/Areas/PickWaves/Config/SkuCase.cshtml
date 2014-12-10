@@ -249,10 +249,10 @@
             </div>
             <div role="tabpanel" class="tab-pane @(Model.ActiveTab == 2 ? "active" : null)" id="tab3">
                 <blockquote class="text-info">
-                    Customer prefered SKU Cases
+                    Style specific SKU Cases
                     @if (Model.UserIsManager)
                     {
-                        <button class="btn btn-primary" data-toggle="modal"
+                        <button class="btn btn-default" data-toggle="modal"
                                 data-target="#tabModal" title="Add packing rule"
                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleEditor())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule..
@@ -276,7 +276,7 @@
                             <div class="col-md-4 col-sm-4">
                                 @if (Model.UserIsManager)
                                 {
-                                    <button class="btn btn-primary btn-xs pull-right" disabled>Action</button>
+                                    <button class="btn btn-default btn-xs pull-right" disabled>Action</button>
                                 }
                             </div>
                         </div>
@@ -284,7 +284,7 @@
                     @for (var i = 0; i < Model.PackingRuleList.Count; i++)
                     {
 
-                        <li class="list-group-item list-group-item-@(Model.PackingRuleList[i].IgnoreFlag ? "warning" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+                        <li class="list-group-item @(Model.PackingRuleList[i].IgnoreFlag ? "disabled" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
 
                             <div class="row">
                                 <div class="col-md-2 col-sm-2">
@@ -312,14 +312,14 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <div class="btn-group btn-group  pull-right btn-group-sm" role="group">
-                                            <button class="btn btn-primary" data-toggle="modal" 
-                                            data-target="#tabModal" title="Edit packing rule"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleEditor(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId,
+                                            <button class="btn btn-default" data-toggle="modal"
+                                                    data-target="#tabModal" title="Edit packing rule"
+                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleEditor(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId,
                             Model.PackingRuleList[i].IgnoreFlag))">
-                                            <span class="glyphicon glyphicon-edit"></span>  Edit
+                                                <span class="glyphicon glyphicon-edit"></span>  Edit
                                             </button>
                                             <div class="btn-group btn-group-sm">
-                                                <button class="btn btn-primary dropdown-toggle"
+                                                <button class="btn btn-default dropdown-toggle"
                                                         data-toggle="dropdown">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                     Remove
