@@ -1,8 +1,6 @@
 ﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.RecentRequestsViewModel
 @{
     ViewBag.Title = "Recent Requests";
-    //Html.EnableClientValidation();
-    //Html.EnableUnobtrusiveJavaScript();
     Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
 }
 @section script {
@@ -13,22 +11,6 @@
         @Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.CreateRequest())
     </li>
 }
-@*@section sidebar {
-        <div class="box boxA">
-            <div class="boxContent">
-                @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
-            </div>
-        </div>
-        <div class="box boxB">
-            <div class="boxContent">
-                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-document"></span>@Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.CreateRequest())<br />
-                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w" ></span>
-                <a href="Repack/Home/RepackConversion">Convert from SHL</a><br />
-                 <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w"></span>
-                <a href="CartonManager/Home/MarkReworkCompleteUi"  title ="Upgrade quality of cartons which have been converted to target SKU">Convert Cartons</a>
-            </div>
-        </div>
-    }*@
 
 <div class="container">
     <h2 style="margin-top:0px" >
@@ -41,7 +23,7 @@
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-4">
-                       
+
                         <h4 class="list-group-item-heading">
                             @if (@Model.RecentRequests[i].Header.RequestForConversion)
                             {
@@ -51,10 +33,15 @@
                             {
                                 <span class="glyphicon glyphicon-off"></span>
                             }
-                            <small>
-                                <span class="label label-warning " ><span class="glyphicon glyphicon-star"> </span></span>
-                            </small>
-                            @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId)                                                   
+
+                            @if (@Model.RecentRequests[i].Header.Priorities > 10)
+                            {
+                                <small>
+                                    <span class="label label-warning "><span class="glyphicon glyphicon-star"> </span></span>
+                                </small>
+                            }
+
+                            @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId)
 
                             <span class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</span>
                         </h4>
@@ -62,17 +49,24 @@
                     <div class="col-md-6">
                         @*<span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>*@
 
-                       
-                            <div class="bg-success">
-                              
-                            <span >  @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for virtual warehouse @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId) </span>
-                              <br />  @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
-                                
-                              </div>
-                        
+
+                        <div class="bg-success">
+
+                            <span>  @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for virtual warehouse @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId) </span>
+                            <br />  @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
+
+                        </div>
                     </div>
                     <div class="col-md-2">
-                        <span class="badge">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                        @if (@Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested )
+                        {
+                            <span class="badge alert-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                        }
+                        else
+                        {
+                            <span class="badge alert-danger">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                        }
+                        @*<span class="badge alert-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>*@
                         <div class="btn-group btn-group-sm ">
                             <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -82,32 +76,12 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Edit</a></li>
                                 <li><a href="#">Delete</a></li>
-
                             </ul>
                         </div>
-                      
-                      
                     </div>
                 </div>
-
-
-                <!-- Split button -->
-
-
-
             </li>
         }
     </ul>
 
-    
-
-</div>
-
-
-
-@*<div data-delete-ajax-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteRequest())">
-        @Html.Partial(MVC_REQ2.REQ2.Home.Views._recentRequestListPartial, Model)
     </div>
-    <div id="ajaxError">
-    </div>*@
-@*$Id$*@
