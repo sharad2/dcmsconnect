@@ -74,6 +74,7 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
     <Extension>.bundle</Extension>
     <Extension>.partial.js</Extension>
     <Extension>.partial.css</Extension>
+    <Extension>.map</Extension>
   </ExcludedStaticFileExtensions>
   <!--Files to exclude from the generated views-->
   <ExcludedViewExtensions>

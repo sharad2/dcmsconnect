@@ -85,7 +85,6 @@ namespace Links_PickWaves
         public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js") : Url("jquery-2.1.1.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_unobtrusive_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.bootstrap.min.js") ? Url("jquery.validate.unobtrusive.bootstrap.min.js") : Url("jquery.validate.unobtrusive.bootstrap.js");
-        public static readonly string jquery_validate_unobtrusive_bootstrap_min_js_map = Url("jquery.validate.unobtrusive.bootstrap.min.js.map");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
         public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js") : Url("typeahead.bundle.js");
@@ -99,10 +98,8 @@ namespace Links_PickWaves
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
              
-        public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
-        public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css") : Url("typeahead.css");
              
     }
@@ -125,7 +122,6 @@ namespace Links_PickWaves
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js") : Url("BoxPickPalletIndex-all.js");
-                public static readonly string BoxPickPalletIndex_all_min_js_map = Url("BoxPickPalletIndex-all.min.js.map");
             }
         
         }
@@ -140,18 +136,9 @@ namespace Links_PickWaves
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _addPackinRule_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.min.js") ? Url("_addPackinRule.min.js") : Url("_addPackinRule.js");
-                public static readonly string _custSkuCasePreferenceEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_custSkuCasePreferenceEditor.min.js") ? Url("_custSkuCasePreferenceEditor.min.js") : Url("_custSkuCasePreferenceEditor.js");
-                public static readonly string Config_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.partial_O.min.js") ? Url("Config.partial_O.min.js") : Url("Config.partial_O.js");
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class DisplayTemplates {
-                    private const string URLPATH = "~/Areas/PickWaves/Config/DisplayTemplates";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                }
-            
-                public static readonly string ManageSkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSkuCase.min.js") ? Url("ManageSkuCase.min.js") : Url("ManageSkuCase.js");
-                public static readonly string ManageSkuCase_min_js_map = Url("ManageSkuCase.min.js.map");
-                public static readonly string ManageSkuCase_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSkuCase.partial_O.min.js") ? Url("ManageSkuCase.partial_O.min.js") : Url("ManageSkuCase.partial_O.js");
+                public static readonly string SkuCase_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.css") ? Url("SkuCase.min.css") : Url("SkuCase.css");
+                     
+                public static readonly string SkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.js") ? Url("SkuCase.min.js") : Url("SkuCase.js");
             }
         
         }

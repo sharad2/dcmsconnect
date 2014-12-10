@@ -1,4 +1,5 @@
-﻿/*!
+﻿///#source 1 1 /Scripts/jquery.validate.js
+/*!
  * jQuery Validation Plugin v1.13.1
  *
  * http://jqueryvalidation.org/
@@ -1363,6 +1364,7 @@ $.extend($.fn, {
 });
 
 }));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.js
 /* NUGET: BEGIN LICENSE TEXT
  *
  * Microsoft grants you the right to use these script files for the sole
@@ -1773,6 +1775,7 @@ $.extend($.fn, {
         $jQval.unobtrusive.parse(document);
     });
 }(jQuery));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.bootstrap.js
 /*!
  * jQuery Validate Unobtrusive Bootstrap 1.2.3
  *
@@ -1888,6 +1891,7 @@ $.extend($.fn, {
 	});
 
 }(jQuery));
+///#source 1 1 /Scripts/typeahead.jquery.js
 /*!
  * typeahead.js 0.10.5
  * https://github.com/twitter/typeahead.js
@@ -3072,32 +3076,61 @@ $.extend($.fn, {
         };
     })();
 })(window.jQuery);
-$(document).ready(function () {
-    $('#tbCustomer').typeahead(null, {
-		name: 'customers',
-		displayKey: 'label',
-		source: function (query, cb) {
-		    var url = _customerAutocompleteUrl.replace('~', query);
-			$.get(url).done(function (data, textStatus, jqXHR) {
-				this.cb(data);
-			}.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
-				if (jqXHR.status == 500) {
-					this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
-				} else {
-					this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
-				}
-			}.bind({ cb: cb, url: url }));
-		},
-		templates: {
-			empty: 'No matching customers found'
-		}
-	}).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
-	    // Store the id of the selected customers in the hdden field
-	    $('#hfCustomer').val(sug.value);
+///#source 1 1 /Areas/PickWaves/Config/SkuCase.partial.js
 
-	}).on('input', function (e) {
-		// When user changes the customers, empty the hidden field
-	    $('#hfCustomer').val('');
-	});
+// Generic handling for AJAX loaded modal
+$(document).ready(function () {
+    "use strict";
+    $('#tabModal').on('show.bs.modal', function (e) {
+        // Load modal content before the modal is shown
+        $.ajax({
+            url: $(e.relatedTarget).data('action-url'),
+            type: 'get',
+            cache: false
+        }).done(function (data, textStatus, jqXHR) {
+            $('.modal-content', $(this.modal)).html(data)
+                .find('form').validateBootstrap(true);
+        }.bind({ modal: e.delegateTarget })).fail(function (jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.responseText);
+        });
+    }).on('click', 'button:not([data-dismiss])', function (e) {
+        //finding the form to be post
+        $('form', e.delegateTarget).submit();
+    });
+});
+
+// Customer SKU case Preference editor
+$(document).ready(function () {
+    $('#tabModal').on('shown.bs.modal', function (e) {
+        // Associate type ahead behavior after dialog is loaded
+        $('#tbCustomer').typeahead(null, {
+            name: 'customers',
+            displayKey: 'label',
+            source: function (query, cb) {
+                //alert(_customerAutocompleteUrl);
+                var url = _customerAutocompleteUrl.replace('~', query);
+                $.get(url).done(function (data, textStatus, jqXHR) {
+                    this.cb(data);
+                }.bind({ cb: cb })).fail(function (jqXHR, textStatus, errorThrown) {
+                    if (jqXHR.status == 500) {
+                        this.cb([{ label: 'Error ' + (jqXHR.responseText || errorThrown), value: '' }]);
+                    } else {
+                        this.cb([{ label: 'Http Error ' + jqXHR.status + ': ' + errorThrown + ' ' + this.url, value: '' }]);
+                    }
+                }.bind({ cb: cb, url: url }));
+            },
+            templates: {
+                empty: 'No matching customers found'
+            }
+        }).on('typeahead:selected typeahead:autocompleted', function (e, sug, ds) {
+            // Store the id of the selected customers in the hdden field
+            $('#hfCustomer').val(sug.value);
+        }).on('input', function (e) {
+            // When user changes the customers, empty the hidden field
+            $('#hfCustomer').val('');
+        });
+    });
+
+
 
 });
