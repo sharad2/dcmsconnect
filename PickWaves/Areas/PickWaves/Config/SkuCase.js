@@ -3091,8 +3091,10 @@ $(document).ready(function () {
             $('.modal-content', $(this.modal)).html(data)
                 .find('form').validateBootstrap(true);
         }.bind({ modal: e.delegateTarget })).fail(function (jqXHR, textStatus, errorThrown) {
-            alert(jqXHR.responseText);
-        });
+            //alert(jqXHR.responseText);
+            var $div = $('<div></div>').addClass('bg-danger').text(jqXHR.responseText);
+            $('.modal-content', $(this.modal)).html($div);
+        }.bind({ modal: e.delegateTarget }));
     }).on('click', 'button:not([data-dismiss])', function (e) {
         //finding the form to be post
         $('form', e.delegateTarget).submit();
@@ -3102,6 +3104,7 @@ $(document).ready(function () {
 // Customer SKU case Preference editor
 $(document).ready(function () {
     $('#tabModal').on('shown.bs.modal', function (e) {
+        "use strict";
         // Associate type ahead behavior after dialog is loaded
         $('#tbCustomer').typeahead(null, {
             name: 'customers',

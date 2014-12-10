@@ -36,7 +36,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="New SKU Case"
-                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseAddPartial())">
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseEditor())">
                             <span class="glyphicon glyphicon-file"></span> New SKU Case...
                         </button>
 
@@ -104,7 +104,7 @@
                                     @if (Model.UserIsManager)
                                     {
                                         <button class="pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#tabModal" title="Edit SKU Case"
-                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.GetSkuCaseEditor(Model.SkuCaseList[i].CaseId))">
+                                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseEditor(Model.SkuCaseList[i].CaseId))">
                                             <span class="glyphicon glyphicon-edit"></span> Edit
                                         </button>
                                     }
@@ -122,7 +122,7 @@
                     {
                         <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                                 data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCasePreferenceEditor())">
-                            <span class="glyphicon glyphicon-plus"></span>  Add Preference...
+                            <span class="glyphicon glyphicon-plus"></span>  New Customer Preference...
                         </button>
                     }
                 </blockquote>

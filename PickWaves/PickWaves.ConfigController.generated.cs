@@ -80,9 +80,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult GetSkuCaseEditor()
+        public virtual System.Web.Mvc.ActionResult SkuCaseEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetSkuCaseEditor);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -159,8 +159,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
             public readonly string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public readonly string SkuCase = "SkuCase";
-            public readonly string GetSkuCaseEditor = "GetSkuCaseEditor";
-            public readonly string SkuCaseAddPartial = "SkuCaseAddPartial";
+            public readonly string SkuCaseEditor = "SkuCaseEditor";
             public readonly string CustSkuCasePreferenceEditor = "CustSkuCasePreferenceEditor";
             public readonly string DelPackingRule = "DelPackingRule";
             public readonly string PackingRuleAddView = "PackingRuleAddView";
@@ -181,8 +180,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public const string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
             public const string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public const string SkuCase = "SkuCase";
-            public const string GetSkuCaseEditor = "GetSkuCaseEditor";
-            public const string SkuCaseAddPartial = "SkuCaseAddPartial";
+            public const string SkuCaseEditor = "SkuCaseEditor";
             public const string CustSkuCasePreferenceEditor = "CustSkuCasePreferenceEditor";
             public const string DelPackingRule = "DelPackingRule";
             public const string PackingRuleAddView = "PackingRuleAddView";
@@ -231,11 +229,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             public readonly string activeTab = "activeTab";
         }
-        static readonly ActionParamsClass_GetSkuCaseEditor s_params_GetSkuCaseEditor = new ActionParamsClass_GetSkuCaseEditor();
+        static readonly ActionParamsClass_SkuCaseEditor s_params_SkuCaseEditor = new ActionParamsClass_SkuCaseEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_GetSkuCaseEditor GetSkuCaseEditorParams { get { return s_params_GetSkuCaseEditor; } }
+        public ActionParamsClass_SkuCaseEditor SkuCaseEditorParams { get { return s_params_SkuCaseEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_GetSkuCaseEditor
+        public class ActionParamsClass_SkuCaseEditor
         {
             public readonly string skuCaseId = "skuCaseId";
         }
@@ -420,25 +418,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void GetSkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string skuCaseId);
+        partial void SkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string skuCaseId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult GetSkuCaseEditor(string skuCaseId)
+        public override System.Web.Mvc.ActionResult SkuCaseEditor(string skuCaseId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.GetSkuCaseEditor);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "skuCaseId", skuCaseId);
-            GetSkuCaseEditorOverride(callInfo, skuCaseId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void SkuCaseAddPartialOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult SkuCaseAddPartial()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseAddPartial);
-            SkuCaseAddPartialOverride(callInfo);
+            SkuCaseEditorOverride(callInfo, skuCaseId);
             return callInfo;
         }
 
