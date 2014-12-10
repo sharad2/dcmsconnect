@@ -21,9 +21,10 @@
 <div class="modal-body">
     <form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
         <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
-        @Html.HiddenFor(m => m.CustomerId, new
+        @Html.TextBoxFor(m => m.CustomerId, new
    {
-       id = "hfCustomer"
+       id = "hfCustomer",
+       style = "visibility:hidden"
    })
         @if (Model.CustomerId == null)
         {

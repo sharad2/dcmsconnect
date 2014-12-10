@@ -13,7 +13,7 @@
         }
         else
         {
-            <span>Edit Packing Rule of Style @Html.DisplayFor(m => m.Style)</span>
+            <span>Edit Packing Rule</span>
         }
     </h4>
 
@@ -23,18 +23,14 @@
           action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddPackingRule())" method="post">
         <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddPackingRuleParams.activeTab" value="2" />
 
-
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-
-
         <div class="form-group">
             <label for="case" class="col-sm-3 control-label">
                 Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
-                @Html.HiddenFor(m => m.Style, new { @id = "hfStyle" })
+                @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", style = "visibility:hidden" })
             </label>
             <div class="col-sm-9">
                 <div class="input-group">
-                    <input placeholder="Search Style" 
+                    <input placeholder="Search Style" value="@Model.Style"
                            class="form-control typeahead" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))" data-typeahead-hf="#hfStyle" />
                     <span class="input-group-btn">
                         <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
@@ -68,9 +64,10 @@
             <div class="col-sm-offset-3 col-sm-9">
                 <div class="checkbox">
                     <label>
-                        @Html.CheckBoxFor(m => m.IgnoreFlag) Ignore
+                        @Html.CheckBoxFor(m => m.IgnoreFlag) Disabled
                     </label>
                 </div>
+                <p class="help-block">A disabled rule is invisble to the carton creation algorithm</p>
             </div>
         </div>
     </form>
