@@ -29,7 +29,7 @@
             Available SKU Cases
             @if (Model.UserIsManager)
             {
-                <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="New SKU Case"
+                <button class="btn btn-default" data-toggle="modal" data-target="#tabModal" title="New SKU Case"
                         data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseEditor())">
                     <span class="glyphicon glyphicon-file"></span> New SKU Case...
                 </button>
@@ -96,7 +96,7 @@
                         <div class="col-md-2 col-sm-2">
                             @if (Model.UserIsManager)
                             {
-                                <button class="pull-right btn btn-primary btn-xs" data-toggle="modal" data-target="#tabModal" title="Edit SKU Case"
+                                <button class="pull-right btn btn-default btn-xs" data-toggle="modal" data-target="#tabModal" title="Edit SKU Case"
                                         data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCaseEditor(Model.SkuCaseList[i].CaseId))">
                                     <span class="glyphicon glyphicon-edit"></span> Edit
                                 </button>
