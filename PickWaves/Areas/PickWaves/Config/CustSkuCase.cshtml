@@ -18,7 +18,7 @@
             Customer prefered SKU Cases
             @if (Model.UserIsManager)
             {
-                <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                <button class="btn btn-default" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                         data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCaseEditor())">
                     <span class="glyphicon glyphicon-plus"></span>  New Customer Preference...
                 </button>
@@ -112,7 +112,7 @@
                             @if (Model.UserIsManager)
                             {
                                 <div class="btn-group pull-right">
-                                    <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                    <button class=" pull-right btn btn-default btn-xs dropdown-toggle"
                                             data-toggle="dropdown">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         Remove
@@ -128,7 +128,7 @@
                                                        name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
                                                 <center>Are you sure?</center>
                                                 <div class="btn-group btn-group-justified">
-                                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                                    <button class="btn btn-default" type="submit">Yes</button>
                                                     <a class="btn btn-default">No</a>
                                                 </div>
                                             </form>
