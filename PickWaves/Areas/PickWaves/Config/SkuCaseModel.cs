@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         }
 
         private string _caseId;
-        [Required(ErrorMessage = "Case cannot be null.")]
+        [Required(ErrorMessage = "Case is required")]
         public string CaseId
         {
            get
@@ -38,15 +38,15 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
 
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Empty weight cannot be null.")]
+        [Required(ErrorMessage = "Empty weight is required")]
         public decimal? EmptyWeight { get; set; }
 
-        [Required(ErrorMessage = "Max content volume cannot be null.")]
+        [Required(ErrorMessage = "Max content volume is required")]
         public decimal? MaxContentVolume { get; set; }
 
         public bool IsAvailable { get; set; }
 
-        [Required(ErrorMessage = "Outer Cube volume cannot be null.")]
+        [Required(ErrorMessage = "Outer Cube volume is required")]
         public decimal? OuterCubeVolume { get; set; }
 
     }

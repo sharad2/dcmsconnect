@@ -225,8 +225,14 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\Config\SkuCase.css">
+      <DependentUpon>SkuCase.css.bundle</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.js">
       <DependentUpon>SkuCase.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\Config\SkuCase.min.css">
+      <DependentUpon>SkuCase.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js">
       <DependentUpon>SkuCase.js</DependentUpon>
@@ -239,12 +245,6 @@
       <DependentUpon>_addPackinRule.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\_addPackinRule.Partial.js" />
-    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js">
-      <DependentUpon>_custSkuCasePreferenceEditor.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.min.js">
-      <DependentUpon>_custSkuCasePreferenceEditor.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -299,8 +299,6 @@
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
-    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.Partial.js" />
-    <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditor.js.bundle" />
     <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle">
       <SubType>Designer</SubType>
     </Content>
@@ -308,6 +306,7 @@
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js.map">
       <DependentUpon>SkuCase.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\Config\SkuCase.css.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -335,7 +334,6 @@
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </None>
-    <None Include="Areas\PickWaves\Config\Config.partial_O.js" />
     <None Include="Areas\PickWaves\ManageWaves\Index.js.bundle" />
     <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
       <SubType>Code</SubType>

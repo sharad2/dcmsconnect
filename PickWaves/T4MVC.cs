@@ -136,8 +136,8 @@ namespace Links_PickWaves
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _addPackinRule_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.min.js") ? Url("_addPackinRule.min.js") : Url("_addPackinRule.js");
-                public static readonly string _custSkuCasePreferenceEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_custSkuCasePreferenceEditor.min.js") ? Url("_custSkuCasePreferenceEditor.min.js") : Url("_custSkuCasePreferenceEditor.js");
-                public static readonly string Config_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Config.partial_O.min.js") ? Url("Config.partial_O.min.js") : Url("Config.partial_O.js");
+                public static readonly string SkuCase_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.css") ? Url("SkuCase.min.css") : Url("SkuCase.css");
+                     
                 public static readonly string SkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.js") ? Url("SkuCase.min.js") : Url("SkuCase.js");
             }
         

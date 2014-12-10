@@ -331,23 +331,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string _addCustomerConstraintPartial = "_addCustomerConstraintPartial";
                 public readonly string _addPackinRule_js = "_addPackinRule.js";
                 public readonly string _addPackinRulePartial = "_addPackinRulePartial";
-                public readonly string _custSkuCasePreferenceEditor_js = "_custSkuCasePreferenceEditor.js";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
                 public readonly string SkuCase = "SkuCase";
+                public readonly string SkuCase_css = "SkuCase.css";
                 public readonly string SkuCase_js = "SkuCase.js";
             }
             public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
             public readonly string _addPackinRule_js = "~/Areas/PickWaves/Config/_addPackinRule.js.bundle";
             public readonly string _addPackinRulePartial = "~/Areas/PickWaves/Config/_addPackinRulePartial.cshtml";
-            public readonly string _custSkuCasePreferenceEditor_js = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditor.js.bundle";
             public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
             public readonly string SkuCase = "~/Areas/PickWaves/Config/SkuCase.cshtml";
+            public readonly string SkuCase_css = "~/Areas/PickWaves/Config/SkuCase.css.bundle";
             public readonly string SkuCase_js = "~/Areas/PickWaves/Config/SkuCase.js.bundle";
         }
     }

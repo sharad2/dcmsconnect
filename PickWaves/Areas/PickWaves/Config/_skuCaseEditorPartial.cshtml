@@ -26,10 +26,6 @@
         @class = "form-horizontal"
     }))
     {
-
-
-    @*<form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddOrUpdateSkuCase())" method="post">*@
-        @Html.ValidationSummary("", new { @class = "text-danger" })
         <div class="form-group">
             @if (Model.CaseId == null)
             {

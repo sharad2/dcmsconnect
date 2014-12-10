@@ -12,7 +12,7 @@
 }
 
 <div class="container">
-    <h2 style="margin-top:0px;">
+    <h2 style="margin-top:0">
         @ViewBag.Title
     </h2>
 
@@ -357,24 +357,21 @@
 <div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-AJAX loaded HTML here
+            AJAX loaded HTML here
         </div>
     </div>
 </div>
 
 
-@section script{
-    <script src="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_js" rel="stylesheet" type="text/javascript"></script>
+@section script {
+    <link href="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_css" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript">
         var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
         var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
-
-
     </script>
 
-
-
+    <script src="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_js" type="text/javascript"></script>
 
 }
 
