@@ -46,7 +46,8 @@
                         @*<span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>*@
 
 
-                        <div class="bg-success">
+                        @*<div class="bg-success">*@
+                        <div class="bg-info">
 
                             <span>  @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for virtual warehouse @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId) </span>
                             <br />  @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
@@ -56,7 +57,7 @@
                     <div class="col-md-2">
                         @if (@Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested)
                         {
-                            <span class="badge alert-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                            <span class="badge alert-success">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
                         }
                         else
                         {
