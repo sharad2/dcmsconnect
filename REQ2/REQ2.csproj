@@ -96,17 +96,17 @@
   <ItemGroup>
     <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\REQ2\Home\HomeController.cs" />
+    <Compile Include="Areas\REQ2\Home\PullRequestViewModel.cs" />
     <Compile Include="Areas\REQ2\Req2AreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Areas\REQ2\Home\AssignedCarton.cs" />
     <Compile Include="Areas\REQ2\Home\CartonArea.cs" />
-    <Compile Include="Areas\REQ2\Home\CartonList.cs" />
     <Compile Include="Areas\REQ2\Home\CodeDescriptionModel.cs" />
-    <Compile Include="Areas\REQ2\Home\RequestModel.cs" />
-    <Compile Include="Areas\REQ2\Home\RequestSkuModel.cs" />
-    <Compile Include="Areas\REQ2\SharedViews\SkuModel.cs" />
+    <Compile Include="Areas\REQ2\Home\PullRequest.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestSku.cs" />
+    <Compile Include="Areas\REQ2\SharedViews\Sku.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteRepository.cs" />
     <Compile Include="Areas\REQ2\Home\ReqRepository.cs" />
@@ -130,14 +130,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\REQ2\Home\AssignedCartonViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\CartonListViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\RecentRequestsViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\IndexViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestSkuViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\SelectRequestViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\PropertyEditorViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\ManageSkuViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\SkuViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\SkuModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\REQ2\Home\ManageSku-all.min.js">
@@ -235,6 +233,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\REQ2\Home\PullRequest.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -262,17 +261,15 @@
     <None Include="Areas\REQ2\Home\REQ2.partial.css" />
     <None Include="Areas\REQ2\Home\RecentRequest-all.js" />
     <None Include="Areas\REQ2\Home\ManageSku-all.js" />
-    <Content Include="Areas\REQ2\Home\CartonList.cshtml" />
     <Content Include="Areas\REQ2\Home\Tutorial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
-    <Content Include="Areas\REQ2\Home\ManageSku.cshtml" />
-    <Content Include="Areas\REQ2\Home\RecentRequests.cshtml" />
+    <Content Include="Areas\REQ2\Home\SkuEditor.cshtml" />
+    <Content Include="Areas\REQ2\Home\Index.cshtml" />
     <Content Include="Areas\REQ2\Home\_manageSkuListPartial.cshtml" />
     <Content Include="Areas\REQ2\Home\_assignedCartonInfoPartial.cshtml" />
     <Content Include="Areas\REQ2\Home\_existingRequestPartial.cshtml" />
-    <Content Include="Areas\REQ2\Home\_recentRequestListPartial.cshtml" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -292,7 +289,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\REQ2\Home\CreateRequest.cshtml" />
+    <Content Include="Areas\REQ2\Home\PropertyEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\REQ2\SharedViews\_layoutReq.cshtml" />

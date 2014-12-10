@@ -2,9 +2,9 @@
 using DcmsMobile.REQ2.Areas.REQ2.SharedViews;
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class AssignedCarton
+    internal class AssignedCarton
     {
-        public SkuModel Sku { get; set; }
+        public Sku Sku { get; set; }
 
         public int TotalCartons { get; set; }
 

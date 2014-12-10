@@ -11,7 +11,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
 
 
-    public class ReqRepository : IDisposable
+    internal class ReqRepository : IDisposable
     {
         #region Intialization
 
@@ -249,7 +249,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public void CreateCartonRequest(RequestModel model)
+        public void CreateCartonRequest(PullRequest model)
         {
             //TODO: remove hardwirings of Module Code
             const string QUERY = @"
@@ -343,7 +343,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// 25-1-2012: Showing IS_CONVERSION_REQUEST column value.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<RequestModel> GetRequests(string ctnResvId, int maxRows)
+        public IEnumerable<PullRequest> GetRequests(string ctnResvId, int maxRows)
         {
             const string QUERY = @"
             WITH REQUESTS AS
@@ -420,7 +420,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
              ORDER BY REQ.ROW_SEQUENCE
             ";
             //var binder = new SqlBinder<RequestModel>("GetRecentRequests");
-            var binder = SqlBinder.Create(row => new RequestModel
+            var binder = SqlBinder.Create(row => new PullRequest
             {
                 CtnResvId = row.GetString("CTN_RESV_ID"),
                 SourceAreaId = row.GetString("SOURCE_AREA"),
@@ -458,7 +458,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <param name="ctnresvId"></param>
         /// <returns></returns>
-        public IEnumerable<RequestSkuModel> GetRequestSkus(string ctnresvId)
+        public IEnumerable<RequestSku> GetRequestSkus(string ctnresvId)
         {
             const string QUERY = @"
             SELECT 
@@ -483,10 +483,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
              WHERE C.CTN_RESV_ID = :ctnresv_id
             GROUP BY REQDET.REQ_PROCESS_ID, REQDET.REQ_LINE_NUMBER
         ";
-            var binder = SqlBinder.Create(row => new RequestSkuModel
+            var binder = SqlBinder.Create(row => new RequestSku
             {
                 Pieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
-                SourceSku = new SkuModel
+                SourceSku = new Sku
                 {
                     Style = row.GetString("STYLE"),
                     Color = row.GetString("COLOR"),
@@ -495,7 +495,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     SkuId = row.GetInteger("SKU_ID") ?? 0,
                 },
 
-                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new SkuModel
+                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new Sku
                 {
                     Style = row.GetString("CON_STYLE_"),
                     Color = row.GetString("CON_COLOR_"),
@@ -576,7 +576,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 PulledPieces = row.GetInteger("pulled_pieces").Value,
                 TotalCartons = row.GetInteger("num_cartons").Value,
                 TotalPieces = row.GetInteger("num_pieces").Value,
-                Sku = new SkuModel
+                Sku = new Sku
                 {
                     Style = row.GetString("STYLE"),
                     Color = row.GetString("COLOR"),
@@ -587,52 +587,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }).Parameter("ctnresv_id", ctnresvId);
             var result = _db.ExecuteReader(QUERY, binder);
             return result;
-        }
-
-        public IEnumerable<CartonList> GetCartonList(string ctnresvId, int maxRows)
-        {
-            const string QUERY =
- @"SELECT SRC.CARTON_ID AS ACARTON_ID,
-       MAX(SRC.PALLET_ID) AS PALLET_ID,
-       MAX(CTNRESV.CTN_RESV_ID) AS CTN_RESV_ID,
-       MAX(reqdet.req_process_id) As req_process_id,
-       MAX(SRC.CARTON_STORAGE_AREA) AS CARTON_STORAGE_AREA,
-       MAX(IA.DESCRIPTION) AS AREA_DESCRIPTION,
-       MAX(SRC.QUALITY_CODE) AS QUALITY_CODE,
-       MAX(SRC.VWH_ID) AS VWH_ID,
-       SUM(SRCD.QUANTITY) AS QUANTITY
-    FROM <proxy />SRC_CARTON SRC
-    LEFT OUTER JOIN <proxy />SRC_CARTON_DETAIL SRCD
-     ON SRCD.CARTON_ID = SRC.CARTON_ID
-    LEFT OUTER JOIN <proxy />TAB_INVENTORY_AREA IA
-     ON IA.INVENTORY_STORAGE_AREA = SRC.CARTON_STORAGE_AREA
-    LEFT OUTER JOIN <proxy />TAB_SEWINGPLANT TSP
-     ON TSP.SEWING_PLANT_CODE = SRC.SEWING_PLANT_CODE
-    LEFT OUTER JOIN <proxy />SRC_REQ_DETAIL REQDET
-     ON SRCD.REQ_PROCESS_ID = REQDET.REQ_PROCESS_ID
-     AND SRCD.REQ_LINE_NUMBER = REQDET.REQ_LINE_NUMBER
-     AND SRCD.REQ_MODULE_CODE = REQDET.REQ_MODULE_CODE
-    LEFT OUTER JOIN <proxy />CTNRESV CTNRESV
-     ON REQDET.ctn_resv_id = CTNRESV.ctn_resv_id
-     WHERE 1 = 1
-     AND CTNRESV.CTN_RESV_ID =:CTN_RESV_ID
-     AND ROWNUM &lt;= :max_rows
-  GROUP BY SRC.CARTON_ID
- ORDER BY carton_storage_area
-  ";
-            var binder = SqlBinder.Create(row => new CartonList
-            {
-                CartonId = row.GetString("ACARTON_ID"),
-                PalletId = row.GetString("PALLET_ID"),
-                StoregeArea = row.GetString("CARTON_STORAGE_AREA"),
-                AreaDescription = row.GetString("AREA_DESCRIPTION"),
-                QuilityCode = row.GetString("QUALITY_CODE"),
-                VwhId = row.GetString("VWH_ID"),
-                ReqId = row.GetInteger("req_process_id") ?? 0,
-                CtnresvId = row.GetString("CTN_RESV_ID"),
-                Quantity = row.GetInteger("QUANTITY") ?? 0,
-            }).Parameter("CTN_RESV_ID", ctnresvId).Parameter("max_rows", maxRows);
-            return _db.ExecuteReader(QUERY, binder);
         }
 
         /// <summary>
@@ -719,7 +673,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return style,color,dimension,SKuSize and SKuId.
         /// </returns>
-        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
+        public Sku GetSku(string style, string color, string dimension, string skuSize)
         {
             const string QUERY =
                              @" SELECT MSKU.SKU_ID      AS SKU_ID,
@@ -733,7 +687,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                                         AND MSKU.DIMENSION = :DIMENSION
                                         AND MSKU.SKU_SIZE = :SKU_SIZE";
 
-            var binder = SqlBinder.Create(row => new SkuModel
+            var binder = SqlBinder.Create(row => new Sku
             {
                 Style = row.GetString("STYLE"),
                 Color = row.GetString("COLOR"),

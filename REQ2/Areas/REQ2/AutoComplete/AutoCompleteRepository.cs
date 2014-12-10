@@ -9,7 +9,7 @@ using System.Web;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
 {
-    public class AutoCompleteRepository : IDisposable
+    internal class AutoCompleteRepository : IDisposable
     {
 
         public void Dispose()
@@ -69,7 +69,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
         /// </summary>
         /// <param name="term"></param>
         /// <returns></returns>
-        public IEnumerable<SkuModel> UpcAutoComplete(string term)
+        public IEnumerable<Sku> UpcAutoComplete(string term)
         {
             const string QUERY =
                 @"
@@ -146,7 +146,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
         ORDER BY RS.ROW_NUMBER
         ";
             Contract.Assert(_db != null);
-            var binder = SqlBinder.Create(row => new SkuModel
+            var binder = SqlBinder.Create(row => new Sku
             {
                 SkuId = row.GetInteger("SKU_ID") ?? 0,
                 Style = row.GetString("STYLE"),
@@ -167,7 +167,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
         /// </summary>
         /// <param name="upcCode"></param>
         /// <returns></returns>
-        public SkuModel GetSkuFromUpc(string upcCode)
+        public Sku GetSkuFromUpc(string upcCode)
         {
             const string QUERY = @"
             SELECT MS.UPC_CODE  AS UPC_CODE,
@@ -199,7 +199,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.AutoComplete
         ";
 
             Contract.Assert(_db != null);            
-            var binder = SqlBinder.Create(row => new SkuModel
+            var binder = SqlBinder.Create(row => new Sku
             {
                 SkuId = row.GetInteger("SKU_ID") ?? 0,
                 Style = row.GetString("STYLE"),

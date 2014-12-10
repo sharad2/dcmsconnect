@@ -1,0 +1,114 @@
+﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.IndexViewModel
+@{
+    ViewBag.Title = "Recent Requests";
+    Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
+}
+@section script {
+    @*<script src="@Links_REQ2.Areas.REQ2.Home.RecentRequest_all_js" type="text/javascript"></script>*@
+}
+@section applinks {
+    <li>
+        @Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.PropertyEditor())
+    </li>
+}
+
+<div class="container">
+    <h2 style="margin-top:0">
+        Recent Pull Requests
+    </h2>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <h4 class="list-group-item-heading">
+
+                        <button type="button" class="btn btn-xs btn-danger" style="cursor:default" title="High Priority"><span class="glyphicon glyphicon-star"></span> High Priority</button>
+
+
+                        <button type="button" class="btn btn-xs btn-default" style="cursor:default" title="Conversion Request"><span class="glyphicon glyphicon-retweet"></span> Conversion</button>
+
+                        <strong>   Request Id </strong>
+
+
+                    </h4>
+                    <p class="list-group-item-text">Source &rarr; Dest</p>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <p class="list-group-item-text">
+                        <span>  Created on <em>date</em> by  <em>name</em> for <abbr title="Virtual Warehouse">Vwh</abbr></span>
+                    </p>
+                    <p class="list-group-item-text">
+                        Remarks
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="progress" style="margin-bottom:0; width:70%; display:inline-block">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                            <span style="white-space:nowrap" class="text-info">m of n pieces assigned</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-default btn-sm" disabled>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="hidden-xs">Add SKU</span>
+                    </button>
+                </div>
+
+            </div>
+        </li>
+
+        @for (var i = 0; i < Model.RecentRequests.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <h4 class="list-group-item-heading">
+                            @if (@Model.RecentRequests[i].Priorities > 10)
+                            {
+                                <button type="button" class="btn btn-xs btn-danger" style="cursor:default" title="High Priority"><span class="glyphicon glyphicon-star"></span></button>
+                            }
+                            @if (@Model.RecentRequests[i].RequestForConversion)
+                            {
+                                <button type="button" class="btn btn-xs btn-default" style="cursor:default" title="Conversion Request"><span class="glyphicon glyphicon-retweet"></span></button>
+                            }
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.PullRequest(Model.RecentRequests[i].ResvId))">@Html.DisplayFor(m => m.RecentRequests[i].ResvId) </a>
+                        </h4>
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.RecentRequests[i].BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].SourceAreaShortName) &rarr;
+                            @Html.DisplayFor(m => m.RecentRequests[i].DestinationAreaShortName)
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].RequestedBy) for @Html.DisplayFor(m => m.RecentRequests[i].VirtualWareHouseId)
+                        </p>
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.RecentRequests[i].Remarks)
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="progress" style="margin-bottom:0; width:70%; display:inline-block">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.RecentRequests[i].PercentAssigned%">
+                                <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)</span>
+                            </div>
+                        </div>
+                        <div class="btn-group btn-group-sm ">
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(Model.RecentRequests[i].ResvId))" class="btn btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.RecentRequests[i].ResvId))"> Edit</a></li>
+                                <li><a href="#">Delete</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+
+</div>

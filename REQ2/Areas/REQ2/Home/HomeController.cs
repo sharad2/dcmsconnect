@@ -58,20 +58,45 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         #endregion
 
 
+        #region Read Only Request properties
+        public virtual ActionResult PullRequest(string ctnresvId)
+        {
+            var req = _service.GetRequestInfo(ctnresvId);
+
+            var model = new PullRequestViewModel(req);
+
+            var skus = _service.GetRequestSKUs(ctnresvId);
+
+            model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
+
+            return View(Views.PullRequest, model);
+        }
+
+        #endregion
         /// <summary>
         /// This is the GET Method for Create new Request 
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult CreateRequest(string ctnresvId)
+        public virtual ActionResult PropertyEditor(string ctnresvId)
         {
-            var model = new SelectRequestViewModel();
-            if (!string.IsNullOrEmpty(ctnresvId))
+            PropertyEditorViewModel model;
+            if (string.IsNullOrEmpty(ctnresvId))
             {
-                model.CurrentRequest = new RequestHeaderViewModel(_service.GetRequestInfo(ctnresvId));
+                model = new PropertyEditorViewModel();
             }
+            else
+            {
+                var req = _service.GetRequestInfo(ctnresvId);
+                if (req == null)
+                {
+                    throw new NotImplementedException();
+                }
+                model = new PropertyEditorViewModel(req);
+            }
+
             PopulateIndexViewModel(model);
-            return View(Views.CreateRequest, model);
+            return View(Views.PropertyEditor, model);
         }
 
         /// <summary>
@@ -84,11 +109,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public virtual ActionResult Index()
         {
             var requests = _service.GetRequests();
-            var model = new RecentRequestsViewModel
+            var model = new IndexViewModel
             {
-                RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
+                RecentRequests = requests.Select(p => new RecentRequestModel(p)).ToList()
             };
-            return View(Views.RecentRequests, model);
+            return View(Views.Index, model);
         }
 
         private GroupSelectListItem MapArea(CartonArea entity)
@@ -101,12 +126,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             };
         }
 
-        private void PopulateIndexViewModel(SelectRequestViewModel model)
+        private void PopulateIndexViewModel(PropertyEditorViewModel model)
         {
-            if (model.CurrentRequest == null)
-            {
-                model.CurrentRequest = new RequestHeaderViewModel();
-            }
+            //if (model.CurrentRequest == null)
+            //{
+            //    model.CurrentRequest = new RequestHeaderViewModel();
+            //}
 
             var vwh = _service.GetVwhList().ToList();
             model.VirtualWareHouseList = vwh.Select(p => MapCode(p));
@@ -158,38 +183,39 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </para>
         /// </remarks>
         [HttpPost]
-        public virtual ActionResult UpdateRequest(SelectRequestViewModel model)
+        public virtual ActionResult UpdateRequest(PropertyEditorViewModel model)
         {
-            var rvm = new SelectRequestViewModel();
+            var rvm = new PropertyEditorViewModel();
             if (!ModelState.IsValid)
             {
                 // Unable to Create or Update Populate RequestViewModel again 
-                rvm.CurrentRequest = model.CurrentRequest;
-                PopulateIndexViewModel(rvm);
-                return View(Views.CreateRequest, rvm);
+                //rvm.CurrentRequest = model.CurrentRequest;
+                //PopulateIndexViewModel(rvm);
+                //return View(Views.PropertyEditor, rvm);
+                throw new NotImplementedException();
             }
-            var requestModel = new RequestModel
+            var requestModel = new PullRequest
             {
-                AllowOverPulling = model.CurrentRequest.OverPullCarton ? "O" : "U",
-                BuildingId = model.CurrentRequest.BuildingId,
-                CtnResvId = model.CurrentRequest.ResvId,
-                DestinationArea = model.CurrentRequest.DestinationAreaId,
-                PackagingPreferance = model.CurrentRequest.IsHung ? "H" : "",
-                Priority = model.CurrentRequest.Priorities.ToString(),
-                Remarks = model.CurrentRequest.Remarks,
-                SaleTypeId = model.CurrentRequest.SaleTypeId,
-                SourceAreaId = model.CurrentRequest.SourceAreaId,
-                TargetVwhId = model.CurrentRequest.TargetVwhId,
-                SourceVwhId = model.CurrentRequest.VirtualWareHouseId,
-                IsConversionRequest = model.CurrentRequest.RequestForConversion,
-                TargetQuality = model.CurrentRequest.TargetQualityCode,
-                DestinationAreaShortName = model.CurrentRequest.DestinationAreaShortName,
+                AllowOverPulling = model.OverPullCarton ? "O" : "U",
+                BuildingId = model.BuildingId,
+                CtnResvId = model.ResvId,
+                DestinationArea = model.DestinationAreaId,
+                PackagingPreferance = model.IsHung ? "H" : "",
+                Priority = model.Priorities.ToString(),
+                Remarks = model.Remarks,
+                SaleTypeId = model.SaleTypeId,
+                SourceAreaId = model.SourceAreaId,
+                TargetVwhId = model.TargetVwhId,
+                SourceVwhId = model.VirtualWareHouseId,
+                IsConversionRequest = model.RequestForConversion,
+                TargetQuality = model.TargetQualityCode,
+                DestinationAreaShortName = model.DestinationAreaShortName,
                 //ReqId = model.CurrentRequest.ReqId,
-                RequestedBy = model.CurrentRequest.RequestedBy,
-                SourceAreaShortName = model.CurrentRequest.SourceAreaShortName
+                RequestedBy = model.RequestedBy,
+                SourceAreaShortName = model.SourceAreaShortName
             };
 
-            if (string.IsNullOrEmpty(model.CurrentRequest.ResvId))
+            if (string.IsNullOrEmpty(model.ResvId))
             {
                 //Creating New Request
                 try
@@ -201,7 +227,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
                     PopulateIndexViewModel(rvm);
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateRequest, rvm);
+                    return View(Views.PropertyEditor, rvm);
                 }
             }
             else
@@ -216,9 +242,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 catch (ProviderException ex)
                 {
                     PopulateIndexViewModel(rvm);
-                    rvm.CurrentRequest.ResvId = requestModel.CtnResvId;
+                    rvm.ResvId = requestModel.CtnResvId;
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateRequest, rvm);
+                    return View(Views.PropertyEditor, rvm);
                 }
             }
             var cookie = new HttpCookie(COOKIE_BUILDING)
@@ -228,7 +254,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                              };
             // Remember building for 7 days
             this.Response.Cookies.Add(cookie);
-            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(requestModel.CtnResvId));
+            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(requestModel.CtnResvId));
         }
 
         /// <summary>
@@ -238,7 +264,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult DisplayExistingRequest(string id)
+        public virtual ActionResult Search(string id)
         {
             //int _reqId;
             //if (!int.TryParse(ctnresvId, out _reqId))
@@ -250,7 +276,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             if (req != null)
             {
                 // var ctnresvId = _service.GetCtnRevId(reqId);
-                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(id));
+                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(id));
             }
             var x = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
             if (x != null)
@@ -270,6 +296,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <param name="resvId"></param>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult DeleteRequest(string resvId)
         {
             if (string.IsNullOrEmpty(resvId))
@@ -282,13 +309,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 _service.DeleteCartonRequest(resvId);
 
                 //Request deleted successfully
-                var requests = _service.GetRequests();
-                var model = new RecentRequestsViewModel
-                    {
-                        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
-                    };
+                //var requests = _service.GetRequests();
+                //var model = new IndexViewModel
+                //    {
+                //        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
+                //    };
 
-                return PartialView(Views._recentRequestListPartial, model);
+                //return PartialView(Views._recentRequestListPartial, model);
+                throw new NotImplementedException();
             }
             catch (Exception ex)
             {
@@ -309,9 +337,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <remarks> TODO: Remove hardwired name of the parameter as 'ctnresvId'
         /// Any exception will lead to a yellow screen.
         /// </remarks>
-        public virtual ActionResult DisplayRequest(string ctnresvId)
+        public virtual ActionResult SkuEditor(string ctnresvId)
         {
-            RequestModel requestInfo;
+            PullRequest requestInfo;
             if (string.IsNullOrEmpty(ctnresvId))
             {
                 this.AddStatusMessage("Please enter the valid Request ID");
@@ -343,9 +371,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             };
         }
 
-        private ActionResult DoDisplayRequest(RequestModel requestInfo, ViewTab selectedTab)
+        private ActionResult DoDisplayRequest(PullRequest requestInfo, ViewTab selectedTab)
         {
-            var model = new ManageSkuViewModel();
+            var model = new ManageSkuViewModel(requestInfo);
 
             var qualities = _service.GetQualityCodes();
             model.Qualities = qualities.Select(p => MapCode(p));
@@ -359,19 +387,19 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var buildings = _service.GetBuildingList();
             model.BuildingList = buildings.Select(p => MapCode(p));
 
-            model.CurrentRequest = new RequestViewModel(requestInfo);
+            //model.CurrentRequest = new ManageSkuRequestModel(requestInfo);
 
             var skus = _service.GetRequestSKUs(requestInfo.CtnResvId);
             model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
 
             var result = _service.GetAssignedCartons(requestInfo.CtnResvId);
-            model.AssignedCartonInfo = result.Select(row => new AssignedCartonViewModel
+            model.AssignedCartonInfo = result.Select(row => new AssignedCartonModel
             {
                 PulledCartons = row.PulledCartons,
                 TotalCartons = row.TotalCartons,
                 PulledPieces = row.PulledPieces,
                 TotalPieces = row.TotalPieces,
-                Sku = new SkuViewModel
+                Sku = new SkuModel
                 {
                     Style = row.Sku.Style,
                     Color = row.Sku.Color,
@@ -383,7 +411,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }).ToList();
             model.SelectedTab = selectedTab;
 
-            return View(Views.ManageSku, model);
+            return View(Views.SkuEditor, model);
         }
         /// <summary>
         /// this method is used for show carton list for existing request
@@ -392,32 +420,32 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// return a view which show Cartonlist
         /// </returns>
-        [HttpGet]
-        public virtual ActionResult DisplayCartonList(string ctnresvId)
-        {
-            var result = _service.GetCartonList(ctnresvId);
-            var model = new CartonListViewModel
-                            {
-                                CartonList = result.Select(p => new CartonListViewModel
-                                {
-                                    CartonId = p.CartonId,
-                                    AreaDescription = p.AreaDescription,
-                                    PalletId = p.PalletId,
-                                    StoregeArea = p.StoregeArea,
-                                    QualityCode = p.QuilityCode,
-                                    ReqId = p.ReqId,
-                                    CtnresvId = p.CtnresvId,
-                                    Quantity = p.Quantity,
-                                    VwhId = p.VwhId
-                                }).ToList(),
-                                CtnresvId = ctnresvId
-                            };
-            if (model.CartonList.Any())
-            {
-                model.ReqId = model.CartonList.First().ReqId;
-            }
-            return View(Views.CartonList, model);
-        }
+        //[HttpGet]
+        //public virtual ActionResult CartonList(string ctnresvId)
+        //{
+        //    var result = _service.GetCartonList(ctnresvId);
+        //    var model = new CartonListViewModel
+        //                    {
+        //                        CartonList = result.Select(p => new CartonListViewModel
+        //                        {
+        //                            CartonId = p.CartonId,
+        //                            AreaDescription = p.AreaDescription,
+        //                            PalletId = p.PalletId,
+        //                            StoregeArea = p.StoregeArea,
+        //                            QualityCode = p.QuilityCode,
+        //                            ReqId = p.ReqId,
+        //                            CtnresvId = p.CtnresvId,
+        //                            Quantity = p.Quantity,
+        //                            VwhId = p.VwhId
+        //                        }).ToList(),
+        //                        CtnresvId = ctnresvId
+        //                    };
+        //    if (model.CartonList.Any())
+        //    {
+        //        model.ReqId = model.CartonList.First().ReqId;
+        //    }
+        //    return View(Views.CartonList, model);
+        //}
 
         /// <summary>
         /// This method is used to add an SKU to an existing request
@@ -426,11 +454,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return a partial view which shows the containing SKUs in list
         /// </returns>
+        [HttpPost]
         public virtual ActionResult AddSku(ManageSkuViewModel model)
         {
             //User can convert only VwhId without providing target sku.Target sku is only required when user wants to convert sku
-            SkuModel targetSku = null;
-            if (model.CurrentRequest.Header.RequestForConversion)
+            Sku targetSku = null;
+            if (model.RequestForConversion)
             {
                 if (string.IsNullOrEmpty(model.TargetStyle) && string.IsNullOrEmpty(model.TargetColor) && string.IsNullOrEmpty(model.TargetDimension) && string.IsNullOrEmpty(model.TargetSkuSize))
                 {
@@ -455,11 +484,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             try
             {
                 //Adding sku to request
-                _service.AddSkutoRequest(model.CurrentRequest.Header.ResvId, newSku.SkuId, model.NewPieces.Value,
+                _service.AddSkutoRequest(model.ResvId, newSku.SkuId, model.NewPieces.Value,
                                          targetSku == null ? (int?)null : targetSku.SkuId);
 
                 //getting list of added all SKUs to request.
-                var skus = _service.GetRequestSKUs(model.CurrentRequest.Header.ResvId);
+                var skus = _service.GetRequestSKUs(model.ResvId);
                 model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
                 return PartialView(Views._manageSkuListPartial, model);
             }
@@ -479,6 +508,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return a partial view which shows the containing SKUs in list
         /// </returns>
+        [HttpPost]
         public virtual ActionResult DeleteSku(int? skuId, string resvId)
         {
             if (skuId == null || string.IsNullOrEmpty(resvId))
@@ -517,24 +547,25 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <c>CurrentRequest.Header.ResvId</c> within the model to get the id. It will then access the values in
         /// <c>CurrentRequest.CartonRules</c> to perform the assignment
         /// </remarks>
+        [HttpPost]
         public virtual ActionResult AssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {
                 throw new ApplicationException("Internal Error. Request Id was not passed.");
             }
             var rules = new RequestCartonRulesViewModel();
-            RequestModel requestUpdated;
-            if (TryUpdateModel(rules, EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.CartonRules)))
+            PullRequest requestUpdated;
+            if (TryUpdateModel(rules, EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CartonRules)))
             {
                 try
                 {
                     //If already cartons assigned to request, Firstly we have to unassign this
                     // Unassign carton is intelligent enough to not do anything if cartons have not been assigned
                     _service.UnAssignCartons(ctnresvId);
-                    requestUpdated = new RequestModel
+                    requestUpdated = new PullRequest
                     {
                         SourceQuality = rules.QualityCode,
                         SewingPlantCode = rules.SewingPlantCode,
@@ -567,9 +598,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// Unassigning the cartons from request
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult UnAssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {

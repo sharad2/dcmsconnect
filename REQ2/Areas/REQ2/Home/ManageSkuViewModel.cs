@@ -1,10 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
+    public class AssignedCartonModel
+    {
+        [Display(Name = "SKU")]
+        public SkuModel Sku { get; set; }
+
+        [Display(Name = "Total Cartons")]
+        public int TotalCartons { get; set; }
+
+        [Display(Name = "Pulled Cartons")]
+        public int PulledCartons { get; set; }
+
+        [Display(Name = "Total Pieces")]
+        public int TotalPieces { get; set; }
+
+        [Display(Name = "Pulled Pieces")]
+        public int PulledPieces { get; set; }
+    }
+
     public enum ViewTab
     {
         AddSku,
@@ -14,6 +33,110 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
     public class ManageSkuViewModel
     {
+        public ManageSkuViewModel()
+        {
+
+        }
+
+        internal ManageSkuViewModel(PullRequest entity)
+        {
+            //this.Header = new ManageRequestHeaderModel(entity);
+            this.CartonRules = new RequestCartonRulesViewModel
+            {
+                CartonReceivedDate = entity.CartonReceivedDate,
+                PriceSeasonCode = entity.PriceSeasonCode,
+                QualityCode = entity.SourceQuality,
+                SewingPlantCode = entity.SewingPlantCode,
+                BuildingId = entity.BuildingId
+            };
+
+            this.AssignedDate = entity.AssignedDate;
+
+            this.ResvId = entity.CtnResvId;
+            //this.ReqId = entity.ReqId;
+            this.BuildingId = entity.BuildingId;
+            this.VirtualWareHouseId = entity.SourceVwhId;
+            this.SourceAreaId = entity.SourceAreaId;
+            this.SourceAreaShortName = entity.SourceAreaShortName;
+            this.DestinationAreaId = entity.DestinationArea;
+            this.DestinationAreaShortName = entity.DestinationAreaShortName;
+            this.Priorities = Convert.ToInt32(entity.Priority);
+            //this.Remarks = entity.Remarks;
+            this.RequestedBy = entity.RequestedBy;
+            this.OverPullCarton = entity.AllowOverPulling == "O";
+            this.IsHung = entity.PackagingPreferance == "H";
+            this.RequestForConversion = entity.IsConversionRequest;
+            this.TargetQualityCode = entity.TargetQuality;
+            this.SaleTypeId = entity.SaleTypeId;
+            this.TargetVwhId = entity.TargetVwhId;
+        }
+
+        [Display(Name = "Request")]
+        public string ResvId { get; set; }
+
+        [Display(Name = "Perform Conversion")]
+        public bool RequestForConversion { get; set; }
+
+        [Display(Name = "Assigned?")]
+        public DateTime? AssignedDate { get; set; }
+
+        [Display(Name = "Pull to Area", ShortName = "To")]
+        public string DestinationAreaShortName { get; set; }
+
+        [DisplayFormat(NullDisplayText = "None")]
+        [Display(Name = "Convert To VWh")]
+        public string TargetVwhId { get; set; }
+
+        [Display(Name = "Change Quality To")]
+        public string TargetQualityCode { get; set; }
+
+        [Display(Name = "Sale Type")]
+        public string SaleTypeId { get; set; }
+
+        int _priorities = 10; //set Default Value here
+        [Required]
+        [Range(minimum: 1, maximum: 99, ErrorMessage = "Priority must be in between 1 to 99")]
+        [Display(Name = "Priority")]
+        public int Priorities
+        {
+            get
+            {
+                return _priorities;
+            }
+            set
+            {
+                _priorities = value;
+            }
+        }
+
+        [Display(Name = "Overpulling")]
+        public bool OverPullCarton { get; set; }
+
+        [Display(Name = "Hung")]
+        public bool IsHung { get; set; }
+
+        [Display(Name = "Requested By")]
+        public string RequestedBy { get; set; }
+
+        [Required]
+        [Display(Name = "Source Area", ShortName = "From")]
+        public string SourceAreaId { get; set; }
+
+        [Required]
+        [Display(Name = "Pull to Area", ShortName = "To")]
+        public string DestinationAreaId { get; set; }
+
+        [Required]
+        [Display(Name = "VWh", ShortName = "VWh")]
+        public string VirtualWareHouseId { get; set; }
+
+        [Display(Name = "Building")]
+        public string BuildingId { get; set; }
+
+        [Display(Name = "Source Area", ShortName = "From")]
+        public string SourceAreaShortName { get; set; }
+
+        public RequestCartonRulesViewModel CartonRules { get; set; }
 
         #region SourceSKu Property
         [Required]
@@ -54,8 +177,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Pieces must be greater then or equal to 1")]
         public int? NewPieces { get; set; }
 
-        [Display(Name = "Target")]
-        public RequestViewModel CurrentRequest { get; set; }
+        //[Display(Name = "Target")]
+        //public ManageSkuRequestModel CurrentRequest { get; set; }
 
         private IList<RequestSkuViewModel> _requestedSkus;
 
@@ -75,7 +198,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }
         }
 
-        public IList<AssignedCartonViewModel> AssignedCartonInfo { get; set; }
+        public IList<AssignedCartonModel> AssignedCartonInfo { get; set; }
 
         public IEnumerable<SelectListItem> SewingPlantCodes { get; set; }
 

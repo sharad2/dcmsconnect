@@ -33,7 +33,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
   
 
-    public class ReqService : IDisposable
+    internal class ReqService : IDisposable
     {
 
         #region Intialization
@@ -92,7 +92,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
-        public IEnumerable<RequestSkuModel> GetRequestSKUs(string ctnresvId)
+        public IEnumerable<RequestSku> GetRequestSKUs(string ctnresvId)
         {
             return _repos.GetRequestSkus(ctnresvId);
         }
@@ -103,7 +103,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
-        public RequestModel GetRequestInfo(string ctnresvId)
+        public PullRequest GetRequestInfo(string ctnresvId)
         {
             if (string.IsNullOrEmpty(ctnresvId))
             {
@@ -112,7 +112,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             return _repos.GetRequests(ctnresvId, 1).SingleOrDefault();
         }
 
-        public IEnumerable<RequestModel> GetRequests()
+        public IEnumerable<PullRequest> GetRequests()
         {
             return _repos.GetRequests(null, 20);
         }
@@ -122,10 +122,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             return _repos.GetAssignedCartons(ctnresvId);
         }
-        public IEnumerable<CartonList> GetCartonList(string ctnresvId)
-        {
-            return _repos.GetCartonList(ctnresvId, 500);
-        }
 
         //public string GetCtnRevId(string reqId)
         //{
@@ -134,7 +130,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         #endregion
 
-        public void CreateCartonRequest(RequestModel model)
+        public void CreateCartonRequest(PullRequest model)
         {
 
             string sourceBuildingId = _repos.GetBuildingofArea(model.SourceAreaId);
@@ -162,7 +158,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             _repos.CreateCartonRequest(model);
         }
 
-        public void UpdateCartonRequest(RequestModel model, RequestProperties propertiesToUpdate)
+        public void UpdateCartonRequest(PullRequest model, RequestProperties propertiesToUpdate)
         {
             var modelToUpdate = _repos.GetRequests(model.CtnResvId, 1).SingleOrDefault();
             if (modelToUpdate == null)
@@ -299,7 +295,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <param name="dimension"></param>
         /// <param name="skuSize"></param>
         /// <returns></returns>
-        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
+        public Sku GetSku(string style, string color, string dimension, string skuSize)
         {
             return _repos.GetSku(style, color, dimension, skuSize);
         }

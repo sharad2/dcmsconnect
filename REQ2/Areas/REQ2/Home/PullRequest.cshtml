@@ -1,0 +1,38 @@
+﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.PullRequestViewModel
+@{
+    ViewBag.Title = "Request 123";
+    Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
+}
+
+<div class="container">
+    <h2>Request # 123</h2>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Properties <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor("6023426"))">Edit</a></h3>
+        </div>
+        <div class="panel-body">
+            Panel content will display aread only view of all properties
+            <dl class="dl-horizontal">
+                <dt>Property 1</dt>
+                <dd>Value 1</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">SKU</h3>
+        </div>
+        <div class="panel-body">
+            Panel content
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Cartons</h3>
+        </div>
+        <div class="panel-body">
+            Panel content
+        </div>
+    </div>
+</div>
