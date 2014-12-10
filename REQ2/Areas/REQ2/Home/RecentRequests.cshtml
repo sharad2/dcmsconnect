@@ -31,53 +31,75 @@
     }*@
 
 <div class="container">
-    <div class="page-header">
-        <h2>Recent Inventory Requests <small>Pull<span class="glyphicon glyphicon-off"></span> <span class="hidden-xs"> </span>/Convert <span class="glyphicon glyphicon-refresh"></span> <span class="hidden-xs"> </span></small></h2>
-    </div>
+    <h2 style="margin-top:0px" >
+        Recent Inventory Requests <small>Pull<span class="glyphicon glyphicon-off"></span> <span class="hidden-xs"> </span>/Convert <span class="glyphicon glyphicon-refresh"></span> <span class="hidden-xs"> </span></small>
+    </h2>
     <ul class="list-group">
+
         @for (var i = 0; i < Model.RecentRequests.Count; ++i)
         {
             <li class="list-group-item">
-              
-        
-                @*<span class="glyphicon glyphicon-refresh"></span>*@
-                <span class="label label-default">@Html.DisplayFor(m => m.RecentRequests[i].Header.Priorities)</span>
-                <span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId)</span>
+                <div class="row">
+                    <div class="col-md-4">
+                       
+                        <h4 class="list-group-item-heading">
+                            @if (@Model.RecentRequests[i].Header.RequestForConversion)
+                            {
+                                <span class="glyphicon glyphicon-refresh"></span>
+                            }
+                            else
+                            {
+                                <span class="glyphicon glyphicon-off"></span>
+                            }
+                            <small>
+                                <span class="label label-warning " ><span class="glyphicon glyphicon-star"> </span></span>
+                            </small>
+                            @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId)                                                   
 
-                <span class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</span>
-                @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
-                <!-- Split button -->
-                <div class="btn-group btn-group-sm">
-                    <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Edit</a></li>
-                        <li><a href="#">Delete</a></li>
+                            <span class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</span>
+                        </h4>
+                    </div>
+                    <div class="col-md-6">
+                        @*<span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>*@
 
-                    </ul>
+                       
+                            <div class="bg-success">
+                              
+                            <span >  @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for virtual warehouse @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId) </span>
+                              <br />  @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
+                                
+                              </div>
+                        
+                    </div>
+                    <div class="col-md-2">
+                        <span class="badge">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
+                        <div class="btn-group btn-group-sm ">
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Edit</a></li>
+                                <li><a href="#">Delete</a></li>
+
+                            </ul>
+                        </div>
+                      
+                      
+                    </div>
                 </div>
-                <span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>
-                <span class="badge">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
 
-               
 
-                @if (@Model.RecentRequests[i].Header.RequestForConversion)
-                {
-                  <span class="badge">Conversion Request Created on @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) </span>
+                <!-- Split button -->
 
-                }
-                else
-                {
-                    <span class="badge">Created on @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) </span>
 
-                }
 
             </li>
         }
     </ul>
+
+    
 
 </div>
 
