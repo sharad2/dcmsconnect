@@ -21,7 +21,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Case Id is required")]
+        [Required(ErrorMessage = "Case is required")]
         public string CaseId { get; set; }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Case Id is required")]
+        [Required(ErrorMessage = "Case is required")]
         public string CaseId { get; set; }
 
         private IEnumerable<SelectListItem> _skuCases;
