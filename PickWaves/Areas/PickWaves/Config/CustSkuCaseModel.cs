@@ -21,7 +21,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Case Id cannot be null")]
+        [Required(ErrorMessage = "Case Id is required")]
         public string CaseId { get; set; }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Case Id cannot be null")]
+        [Required(ErrorMessage = "Case Id is required")]
         public string CaseId { get; set; }
 
         private IEnumerable<SelectListItem> _skuCases;
@@ -68,7 +68,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Customer cannot be null")]
+        [Required(ErrorMessage = "Customer is required")]
         public string CustomerId { get; set; }
 
         /// <summary>

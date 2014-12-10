@@ -81,8 +81,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             OrigMaxSkuWithinBox = this.MaxSkuWithinBox;
             OrigIsSingleStyleColor = this.IsSingleStyleColor;
         }
-
-        [Required (ErrorMessage="Customer cannot be null")]
+      
+        [Required (ErrorMessage="Customer is required")]
         public string CustomerId { get; set; }
 
         public string CustomerName { get; set; }
