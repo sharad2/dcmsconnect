@@ -155,7 +155,8 @@ namespace Links_Inquiry
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string CustomerList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/CustomerList.min.js") ? Url("CustomerList.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/CustomerList.min.js") : Url("CustomerList.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/CustomerList.js");
-                        }
+                        public static readonly string CustomerList_min_js_map = Url("CustomerList.min.js.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/CustomerList.min.js.map");
+            }
         
         }
     }
@@ -248,7 +249,8 @@ namespace Links_Inquiry
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string SkuList_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuList.min.js") ? Url("SkuList.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuList.min.js") : Url("SkuList.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuList.js");
-                        }
+                        public static readonly string SkuList_min_js_map = Url("SkuList.min.js.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuList.min.js.map");
+            }
         
         }
     }
