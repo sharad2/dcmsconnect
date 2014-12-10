@@ -76,7 +76,7 @@
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
                             Maximum SKUs With in Box
-                            <em>System Default: @Html.DisplayFor(m => m.DefaultConstraints.MaxSkuWithinBox)</em>
+                            <small>System Default: @Html.DisplayFor(m => m.DefaultConstraints.MaxSkuWithinBox)</small>
                         </h4>
                         <p class="list-group-item-text">@query1.Count customers override this limit</p>
                     </li>
@@ -110,7 +110,7 @@
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
                             Single Style Color
-                            <em>System Default:@string.Format(Model.DefaultConstraints.IsSingleStyleColor ? "Set" : "Not Set")</em>
+                            <small>System Default:@string.Format(Model.DefaultConstraints.IsSingleStyleColor ? "Set" : "Not Set")</small>
                         </h4>
                         <p class="list-group-item-text">@query2.Count customers override this limit</p>
                     </li>
@@ -140,18 +140,12 @@
                     }
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
-                            Required Minimum SKUs/Pieces
-                            <em>System Default: @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</em>
+                           
+                            Minimum Pieces/SKUs With in Box
+                            <small>System Default: @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</small>
                         </h4>
                         <p class="list-group-item-text">@query3.Count customers override this limit</p>
                     </li>
-                    @*<li class="list-group-item list-group-item-success">
-                            <h4 class="list-group-item-heading">
-                                @Html.LabelFor(m => m.DefaultConstraints.RequiredMinSkuPieces)
-                                @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)
-                            </h4>
-                        </li>*@
-
                     @foreach (var item in query3)
                     {
                         <li class="list-group-item" style="padding-left:2em;">
@@ -181,17 +175,11 @@
                     }
                     <li class="list-group-item list-group-item-success">
                         <h4 class="list-group-item-heading">
-                            Required Maximum SKUs/Pieces
-                            <em>System Default: @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</em>
+                            Maximum Pieces/SKUs With in Box
+                            <small>System Default: @Html.DisplayFor(m => m.DefaultConstraints.RequiredMinSkuPieces)</small>
                         </h4>
                         <p class="list-group-item-text">@query4.Count customers override this limit</p>
                     </li>
-                    @*<li class="list-group-item list-group-item-success">
-                            <h4 class="list-group-item-heading">
-                                @Html.LabelFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)
-                                @Html.DisplayFor(m => m.DefaultConstraints.RequiredMaxSkuPieces)
-                            </h4>
-                        </li>*@
                     @foreach (var item in query4)
                     {
                         <li class="list-group-item" style="padding-left:2em;">
