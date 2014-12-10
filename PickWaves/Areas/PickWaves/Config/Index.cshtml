@@ -16,9 +16,9 @@
                         Carton Sizes
                     </h2>
                     <hr />
-                    <small>
+                    <p>
                         The carton creation algorithm needs to know the various carton sizes which are available for packing.
-                    </small>
+                    </p>
                     <dl class="dl-horizontal">
                         <dt>Largest Carton Size</dt>
                         <dd>@Model.MaxCaseId: @Model.MaxCaseDescription <em>@Model.MaxContentVolume cu ft</em></dd>
@@ -38,9 +38,9 @@
                         Per Customer
                     </h2>
                     <hr />
-                    <small>
+                    <p>
                         You can specify special packing requirements for each customer.
-                    </small>
+                    </p>
                     <hr />
                     <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
                     <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
@@ -54,9 +54,9 @@
                         Per Style
                     </h2>
                     <hr />
-                    <small>
+                    <p>
                         For each Style you can require that a specific carton size is used.
-                    </small>
+                    </p>
                     <hr />
                     <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCase())" role="button">Manage</a>
 
