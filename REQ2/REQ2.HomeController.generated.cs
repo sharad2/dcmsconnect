@@ -172,7 +172,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_DisplayExistingRequest
         {
-            public readonly string ctnresvId = "ctnresvId";
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_DeleteRequest s_params_DeleteRequest = new ActionParamsClass_DeleteRequest();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -307,14 +307,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [NonAction]
-        partial void DisplayExistingRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+        partial void DisplayExistingRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DisplayExistingRequest(string ctnresvId)
+        public override System.Web.Mvc.ActionResult DisplayExistingRequest(string id)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisplayExistingRequest);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            DisplayExistingRequestOverride(callInfo, ctnresvId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            DisplayExistingRequestOverride(callInfo, id);
             return callInfo;
         }
 
