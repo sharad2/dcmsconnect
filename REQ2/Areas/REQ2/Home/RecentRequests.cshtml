@@ -64,7 +64,7 @@
                         }
                         @*<span class="badge alert-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>*@
                         <div class="btn-group btn-group-sm ">
-                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
