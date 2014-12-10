@@ -33,8 +33,8 @@
                 </label>
                 <div class="col-sm-9">
                     <div class="input-group">
-                        <input id="tbCustomer" placeholder="Search Customer"
-                               class="form-control typeahead" />
+                        <input placeholder="Search Customer"
+                               class="form-control typeahead" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))" data-typeahead-hf="#hfCustomer" />
                         <span class="input-group-btn">
                             <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                         </span>

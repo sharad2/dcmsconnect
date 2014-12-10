@@ -342,8 +342,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("addview")]
-        public virtual ActionResult PackingRuleAddView(string style, string caseId, bool? ignoreFlag)
+        [Route("ruleeditor")]
+        public virtual ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
         {
             var skuCaseList = _service.GetSkuCaseList();
             var model = new PackingRulesModel
@@ -353,8 +353,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 CaseId = caseId,
                 IgnoreFlag = ignoreFlag.HasValue
             };
-            var html = RenderPartialViewToString(Views._addPackinRulePartial, model);
-            return Content(html);
+            return PartialView(Views._packinRuleEditorPartial, model);
+            //return Content(html);
         }
 
         /// <summary>

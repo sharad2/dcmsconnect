@@ -254,7 +254,7 @@
                     {
                         <button class="btn btn-primary" data-toggle="modal"
                                 data-target="#tabModal" title="Add packing rule"
-                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                                data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleEditor())">
                             <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule..
                         </button>
                     }
@@ -311,20 +311,20 @@
                                 <div class="col-md-4 col-sm-4">
                                     @if (Model.UserIsManager)
                                     {
-                                        <div class="btn-group btn-group-xs  pull-right" role="group">
+                                        <div class="btn-group btn-group  pull-right btn-group-sm" role="group">
                                             <button class="btn btn-primary" data-toggle="modal" data-show-style="@Model.PackingRuleList[i].Style" data-show-case="@Model.PackingRuleList[i].CaseId"
                                                     data-target="#tabModal" title="Edit packing rule"
-                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleAddView())">
+                                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.PackingRuleEditor())">
                                                 <span class="glyphicon glyphicon-edit"></span>  Edit
                                             </button>
-                                            <div class="btn-group pull-right">
-                                                <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-primary dropdown-toggle"
                                                         data-toggle="dropdown">
                                                     <span class="glyphicon glyphicon-remove"></span>
                                                     Remove
                                                     <span class="caret"></span>
                                                 </button>
-                                                <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                                <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
                                                     <li>
                                                         <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelPackingRule())" method="post">
                                                             <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelPackingRuleParams.style" />
@@ -367,7 +367,7 @@
     <link href="@Links_PickWaves.Areas.PickWaves.Config.SkuCase_css" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript">
-        var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
+        //var _customerAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))';
         var _styleAutocompleteUrl = '@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))';
     </script>
 

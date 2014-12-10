@@ -80,27 +80,27 @@ namespace Links_PickWaves
         private const string URLPATH = "~/Scripts";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bloodhound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bloodhound.min.js") ? Url("bloodhound.min.js") : Url("bloodhound.js");
-        public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
-        public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js") : Url("jquery-2.1.1.js");
-        public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
-        public static readonly string jquery_validate_unobtrusive_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.bootstrap.min.js") ? Url("jquery.validate.unobtrusive.bootstrap.min.js") : Url("jquery.validate.unobtrusive.bootstrap.js");
-        public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
-        public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
-        public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js") : Url("typeahead.bundle.js");
-        public static readonly string typeahead_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.jquery.min.js") ? Url("typeahead.jquery.min.js") : Url("typeahead.jquery.js");
-    }
+        public static readonly string bloodhound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bloodhound.min.js") ? Url("bloodhound.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bloodhound.min.js") : Url("bloodhound.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bloodhound.js");
+                public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
+                public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.min.js") : Url("jquery-2.1.1.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.1.js");
+                public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.min.js") : Url("jquery.validate.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.js");
+                public static readonly string jquery_validate_unobtrusive_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.bootstrap.min.js") ? Url("jquery.validate.unobtrusive.bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.bootstrap.min.js") : Url("jquery.validate.unobtrusive.bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.bootstrap.js");
+                public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.validate.unobtrusive.js");
+                public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/npm.min.js") : Url("npm.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/npm.js");
+                public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.bundle.min.js") : Url("typeahead.bundle.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.bundle.js");
+                public static readonly string typeahead_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.jquery.min.js") ? Url("typeahead.jquery.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.jquery.min.js") : Url("typeahead.jquery.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.jquery.js");
+                }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static class Content {
         private const string URLPATH = "~/Content";
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
+        public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.min.css") : Url("bootstrap-theme.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.css");
              
-        public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
+        public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.css") : Url("bootstrap.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css");
              
-        public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css") : Url("typeahead.css");
+        public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.min.css") : Url("typeahead.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.css");
              
     }
 
@@ -121,8 +121,8 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/BoxPickPallet";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js") : Url("BoxPickPalletIndex-all.js");
-            }
+                public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all.min.js") : Url("BoxPickPalletIndex-all.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all.js");
+                        }
         
         }
     }
@@ -135,11 +135,10 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/Config";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string _addPackinRule_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addPackinRule.min.js") ? Url("_addPackinRule.min.js") : Url("_addPackinRule.js");
-                public static readonly string SkuCase_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.css") ? Url("SkuCase.min.css") : Url("SkuCase.css");
+                public static readonly string SkuCase_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.css") ? Url("SkuCase.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.min.css") : Url("SkuCase.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.css");
                      
-                public static readonly string SkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.js") ? Url("SkuCase.min.js") : Url("SkuCase.js");
-            }
+                public static readonly string SkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.js") ? Url("SkuCase.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.min.js") : Url("SkuCase.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.js");
+                        }
         
         }
     }
@@ -178,9 +177,9 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/ManageWaves";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js") : Url("Index.js");
-                public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js") : Url("Wave.js");
-            }
+                public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
+                        public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.min.js") : Url("Wave.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.js");
+                        }
         
         }
     }
@@ -193,8 +192,8 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/AutoComplete";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string AutoComplete_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.partial_O.min.js") ? Url("AutoComplete.partial_O.min.js") : Url("AutoComplete.partial_O.js");
-            }
+                public static readonly string AutoComplete_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.partial_O.min.js") ? Url("AutoComplete.partial_O.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AutoComplete.partial_O.min.js") : Url("AutoComplete.partial_O.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AutoComplete.partial_O.js");
+                        }
         
         }
     }
@@ -207,10 +206,10 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/SharedViews";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
-                public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css") : Url("typeahead.css");
+                public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ajax-loader.gif");
+                public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.min.css") : Url("typeahead.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.css");
                      
-                public static readonly string typeahed_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahed.min.css") ? Url("typeahed.min.css") : Url("typeahed.css");
+                public static readonly string typeahed_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahed.min.css") ? Url("typeahed.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.min.css") : Url("typeahed.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.css");
                      
             }
         
