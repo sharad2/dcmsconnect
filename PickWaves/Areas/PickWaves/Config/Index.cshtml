@@ -27,15 +27,12 @@
             <div class="jumbotron">
                 <h2>Per Customer </h2>
                 <p>You can specify special packing requirements for each customer.</p>
-                <ul>
-                    <li>
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
-                    </li>
-                </ul>
-
+                <p>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
+                </p>
                 @*<p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>*@
             </div>
         </div>
