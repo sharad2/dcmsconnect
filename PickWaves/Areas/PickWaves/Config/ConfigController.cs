@@ -170,8 +170,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             {
                 ModelState.AddModelError("", ex.InnerException);
             }
-
-            return RedirectToAction(Actions.SkuCase());
+            return RedirectToAction(Actions.CustSkuCase());
         }
 
         /// <summary>
@@ -195,7 +194,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
             AddStatusMessage(string.Format("SKU case {0} is added to customer {1} preference.", model.CaseId,
                                                 model.CustomerId));
-            return RedirectToAction(Actions.SkuCase());
+            return RedirectToAction(Actions.CustSkuCase());
         }
 
         #endregion
