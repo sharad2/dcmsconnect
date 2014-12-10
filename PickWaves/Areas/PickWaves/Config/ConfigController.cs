@@ -249,7 +249,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Required fields must be passed");
-                return RedirectToAction(Actions.SkuCase());
+                //return RedirectToAction(Actions.SkuCase());
+                return RedirectToAction(Actions.StyleSkuCase());
             }
             try
             {
@@ -263,10 +264,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase());
+                //return RedirectToAction(Actions.SkuCase());
+                return RedirectToAction(Actions.StyleSkuCase());
             }
             this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
-            return RedirectToAction(Actions.SkuCase());
+            //return RedirectToAction(Actions.SkuCase());
+            return RedirectToAction(Actions.StyleSkuCase());
         }
 
         /// <summary>
@@ -287,10 +290,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase());
+                //return RedirectToAction(Actions.SkuCase());
+                return RedirectToAction(Actions.StyleSkuCase());
             }
             AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
-            return RedirectToAction(Actions.SkuCase());
+            //return RedirectToAction(Actions.SkuCase());
+            return RedirectToAction(Actions.StyleSkuCase());
         }
 
         #endregion
