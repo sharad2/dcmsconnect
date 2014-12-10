@@ -145,13 +145,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             try
             {
                 _service.DelCustSkuCasePrefereence(customerId, caseId);
+                AddStatusMessage(string.Format("Deleted SKU case {0} from customer {1} preference.", caseId, customerId));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
             }
-            AddStatusMessage(string.Format("Deleted SKU case {0} from customer {1} preference.", caseId, customerId));
+
             return RedirectToAction(Actions.SkuCase(activeTab));
         }
 

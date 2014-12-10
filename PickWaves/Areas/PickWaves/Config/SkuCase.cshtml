@@ -22,14 +22,14 @@
 
     <div role="tabpanel">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs bg-info" role="tablist" data-active-tab="@Model.ActiveTab">
-            <li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">SKU Cases</a></li>
-            <li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">Customer SKU Cases</a></li>
-            <li role="presentation"><a href="#tab3" role="tab" data-toggle="tab">Packing rules</a></li>
+        <ul class="nav nav-tabs bg-info" role="tablist">
+            <li role="presentation" class="@((Model.ActiveTab ?? 0) == 0 ? "active" : null)"><a href="#tab1" role="tab" data-toggle="tab">SKU Cases</a></li>
+            <li role="presentation" class="@(Model.ActiveTab == 1 ? "active" : null)"><a href="#tab2" role="tab" data-toggle="tab">Customer SKU Cases</a></li>
+            <li role="presentation" class="@(Model.ActiveTab == 2 ? "active" : null)"><a href="#tab3" role="tab" data-toggle="tab">Packing rules</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="tab1">
+            <div role="tabpanel" class="tab-pane @((Model.ActiveTab ?? 0) == 0 ? "active" : null)" id="tab1">
 
                 <blockquote class="text-info">
                     Available SKU Cases
@@ -115,7 +115,7 @@
                     }
                 </ul>
             </div>
-            <div role="tabpanel" class="tab-pane" id="tab2">
+            <div role="tabpanel" class="tab-pane @(Model.ActiveTab == 1 ? "active" : null)" id="tab2">
                 <blockquote class="text-info">
                     Customer prefered SKU Cases
                     @if (Model.UserIsManager)
@@ -221,7 +221,7 @@
                                                 <span class="caret"></span>
                                             </button>
 
-                                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
                                                 <li>
                                                     <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
                                                         <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
@@ -247,7 +247,7 @@
                     }
                 </ul>
             </div>
-            <div role="tabpanel" class="tab-pane" id="tab3">
+            <div role="tabpanel" class="tab-pane @(Model.ActiveTab == 2 ? "active" : null)" id="tab3">
                 <blockquote class="text-info">
                     Customer prefered SKU Cases
                     @if (Model.UserIsManager)
