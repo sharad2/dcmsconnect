@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.ViewModels.Config
 {
-    public class PackingRulesModel
+    public class PackingRuleModel
     {
         /// <summary>
         /// This is style for which SKU cases are ignored.

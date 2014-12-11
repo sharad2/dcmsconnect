@@ -40,7 +40,6 @@ namespace T4MVC
         public DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.CreateWaveController CreateWave = new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.T4MVC_CreateWaveController();
         public DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController Home = new DcmsMobile.PickWaves.Areas.PickWaves.Home.T4MVC_HomeController();
         public DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController ManageWaves = new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.T4MVC_ManageWavesController();
-        public T4MVC.PickWaves.AutoCompleteController AutoComplete = new T4MVC.PickWaves.AutoCompleteController();
         public T4MVC.PickWaves.SharedViewsController SharedViews = new T4MVC.PickWaves.SharedViewsController();
     }
 }
@@ -177,20 +176,6 @@ namespace Links_PickWaves
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
                         public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.min.js") : Url("Wave.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.js");
-                        }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class PickWaves {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class AutoComplete {
-                private const string URLPATH = "~/Areas/PickWaves/AutoComplete";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string AutoComplete_partial_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AutoComplete.partial_O.min.js") ? Url("AutoComplete.partial_O.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AutoComplete.partial_O.min.js") : Url("AutoComplete.partial_O.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AutoComplete.partial_O.js");
                         }
         
         }

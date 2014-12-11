@@ -38,16 +38,16 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
             }
         }
 
-        private IList<PackingRulesModel> _packingRuleList;
+        private IList<PackingRuleModel> _packingRuleList;
 
         /// <summary>
         /// This is the list of cases that are ignored for a style
         /// </summary>
-        public IList<PackingRulesModel> PackingRuleList
+        public IList<PackingRuleModel> PackingRuleList
         {
             get
             {
-                return _packingRuleList ?? new List<PackingRulesModel>(0);
+                return _packingRuleList ?? new List<PackingRuleModel>(0);
             }
             set
             {

@@ -22,54 +22,32 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
         }
 
-        private ConfigService _service;
+        private Lazy<ConfigService> _service;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
-            if (_service == null)
-            {
-                _service = new ConfigService(this.HttpContext.Trace,
-                    HttpContext.User.IsInRole(ROLE_WAVE_MANAGER) ? HttpContext.User.Identity.Name : string.Empty,
-                    HttpContext.Request.UserHostName ?? HttpContext.Request.UserHostAddress);
-            }
+
+            _service = new Lazy<ConfigService>(() => new ConfigService(this.HttpContext.Trace,
+                HttpContext.User.IsInRole(ROLE_WAVE_MANAGER) ? HttpContext.User.Identity.Name : string.Empty,
+                HttpContext.Request.UserHostName ?? HttpContext.Request.UserHostAddress));
+
 
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (_service != null)
+            if (_service != null && _service.IsValueCreated)
             {
-                _service.Dispose();
+                _service.Value.Dispose();
             }
+            _service = null;
             base.Dispose(disposing);
         }
 
         #endregion
 
         #region mapping
-
-        //private AutocompleteItem MapCustomer(Customer customer)
-        //{
-        //    return new AutocompleteItem
-        //    {
-        //        label = string.Format("{0}:{1}", customer.CustomerId, customer.Name),
-        //        value = customer.CustomerId
-        //    };
-        //}
-
-        //private AutocompleteItem MapStyle(Style style)
-        //{
-        //    return new AutocompleteItem
-        //    {
-        //        label = string.Format("{0}:{1}", style.StyleId, style.Description),
-        //        value = style.StyleId
-        //    };
-        //}
-
-
-
-
         /// <summary>
         /// This function maps from SkuCAse entity to SelectListItem
         /// </summary>
@@ -84,23 +62,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             };
         }
 
-        /// <summary>
-        /// This function maps SKucaseModel into SkuCase entity
-        /// </summary>
-        /// <param name="skuCase"></param>
-        /// <returns></returns>
-        private SkuCase MapSkuCase(SkuCaseModel skuCase)
-        {
-            return new SkuCase
-            {
-                CaseId = skuCase.CaseId,
-                Description = skuCase.Description,
-                EmptyWeight = skuCase.EmptyWeight,
-                IsAvailable = skuCase.IsAvailable,
-                MaxContentVolume = skuCase.MaxContentVolume,
-                OuterCubeVolume = skuCase.OuterCubeVolume
-            };
-        }
+        ///// <summary>
+        ///// This function maps SKucaseModel into SkuCase entity
+        ///// </summary>
+        ///// <param name="skuCase"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //private SkuCase MapSkuCase(SkuCaseModel skuCase)
+        //{
+        //    return new SkuCase
+        //    {
+        //        CaseId = skuCase.CaseId,
+        //        Description = skuCase.Description,
+        //        EmptyWeight = skuCase.EmptyWeight,
+        //        IsAvailable = skuCase.IsAvailable,
+        //        MaxContentVolume = skuCase.MaxContentVolume,
+        //        OuterCubeVolume = skuCase.OuterCubeVolume
+        //    };
+        //}
 
 
 
@@ -110,7 +89,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [Route]
         public virtual ActionResult Index()
         {
-            var skuCaseList = _service.GetSkuCaseList().ToArray();
+            var skuCaseList = _service.Value.GetSkuCaseList().ToArray();
             var maxSkuCase = skuCaseList.OrderByDescending(p => p.MaxContentVolume).First();
             var minSkuCase = skuCaseList.OrderBy(p => p.MaxContentVolume).First();
             var model = new IndexViewModel
@@ -142,7 +121,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             try
             {
-                _service.DelCustSkuCasePrefereence(customerId, caseId);
+                _service.Value.DelCustSkuCasePrefereence(customerId, caseId);
                 AddStatusMessage(string.Format("Deleted SKU case {0} from customer {1} preference.", caseId, customerId));
             }
             catch (Exception ex)
@@ -165,7 +144,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             try
             {
-                _service.AddCustSKuCasePreference(model.CustomerId, model.CaseId, model.Comment);
+                _service.Value.AddCustSKuCasePreference(model.CustomerId, model.CaseId, model.Comment);
             }
             catch (Exception ex)
             {
@@ -195,7 +174,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             try
             {
-                _service.AddorUpdateSkuCase(MapSkuCase(model));
+                _service.Value.AddorUpdateSkuCase(
+                    new SkuCase
+                    {
+                        CaseId = model.CaseId,
+                        Description = model.Description,
+                        EmptyWeight = model.EmptyWeight,
+                        IsAvailable = model.IsAvailable,
+                        MaxContentVolume = model.MaxContentVolume,
+                        OuterCubeVolume = model.OuterCubeVolume
+                    });
                 AddStatusMessage(string.Format("Provided SKU Case properties has been set for case {0}.", model.CaseId));
             }
             catch (Exception ex)
@@ -215,7 +203,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [Route("sku")]
         public virtual ActionResult SkuCase(int? activeTab)
         {
-            var skuCases = _service.GetSkuCaseList().ToArray();
+            var skuCases = _service.Value.GetSkuCaseList().ToArray();
             //TC2: If no sku case has been defined yet.
             if (!skuCases.Any())
             {
@@ -223,8 +211,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 return View(Views.SkuCase, new SkuCaseViewModel());
             }
 
-            var custSkuCaseList = _service.GetCustomerSkuCaseList();
-            var packingRules = _service.GetPackingRules();
+            var custSkuCaseList = _service.Value.GetCustomerSkuCaseList();
+            var packingRules = _service.Value.GetPackingRules();
             var model = new SkuCaseViewModel
                 {
                     CustomerSkuCaseList = custSkuCaseList.Select(p => new CustomerSkuCaseModel
@@ -241,7 +229,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
                     SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList(),
 
-                    PackingRuleList = packingRules.Select(p => new PackingRulesModel
+                    PackingRuleList = packingRules.Select(p => new PackingRuleModel
                         {
                             CaseId = p.CaseId,
                             Style = p.Style,
@@ -258,7 +246,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <param name="skuCaseId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("skucaseeditor")]
+        [Route("editor/skucase")]
         public virtual ActionResult SkuCaseEditor(string skuCaseId)
         {
             SkuCaseModel model;
@@ -268,7 +256,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             else
             {
-                var skuCase = _service.GetSkuCase(skuCaseId);
+                var skuCase = _service.Value.GetSkuCase(skuCaseId);
                 //TC4: You will get here if passed SKU case has been deleted.
                 if (skuCase == null)
                 {
@@ -281,34 +269,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             return PartialView(Views._skuCaseEditorPartial, model);
         }
 
-        ///// <summary>
-        ///// This function returns Sku Case Add Partial.
-        ///// </summary>
-        ///// <returns></returns>
-        //[HttpGet]
-        //[Route("skucase")]
-        //public virtual ActionResult SkuCaseAddPartial()
-        //{
-
-        //    var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel());
-        //    return Content(html);
-        //}
-
         /// <summary>
         /// This function returns partial view to add customer's Sku case preferences.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("prefeditor")]
-        public virtual ActionResult CustSkuCasePreferenceEditor(string customerId)
+        [Route("editor/custskucase")]
+        public virtual ActionResult CustSkuCaseEditor(string customerId)
         {
-            var skuCaseList = _service.GetSkuCaseList();
+            var skuCaseList = _service.Value.GetSkuCaseList();
             var model = new CustomerSkuCaseModel
                 {
                     SkuCaseList = skuCaseList.Select(Map),
                     CustomerId = customerId
                 };
-            return PartialView(Views._custSkuCasePreferenceEditorPartial, model);
+            return PartialView(Views._custSkuCaseEditorPartial, model);
         }
 
         /// <summary>
@@ -324,7 +299,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             try
             {
-                _service.DelCaseIgnorance(style, caseId);
+                _service.Value.DelCaseIgnorance(style, caseId);
             }
             catch (Exception ex)
             {
@@ -340,18 +315,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("ruleeditor")]
+        [Route("editor/packingrule")]
         public virtual ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
         {
-            var skuCaseList = _service.GetSkuCaseList();
-            var model = new PackingRulesModel
+            var skuCaseList = _service.Value.GetSkuCaseList();
+            var model = new PackingRuleModel
             {
                 SkuCaseList = skuCaseList.Select(Map),
                 Style = style,
                 CaseId = caseId,
                 IgnoreFlag = ignoreFlag.HasValue
             };
-            return PartialView(Views._packinRuleEditorPartial, model);
+            return PartialView(Views._packingRuleEditorPartial, model);
             //return Content(html);
         }
 
@@ -363,7 +338,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("updaterule")]
-        public virtual ActionResult AddPackingRule(PackingRulesModel model, int? activeTab)
+        public virtual ActionResult AddPackingRule(PackingRuleModel model, int? activeTab)
         {
             //TC5: If required feild does not passed.
             if (!ModelState.IsValid)
@@ -373,7 +348,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             try
             {
-                _service.InsertPackingRule(new PackingRule
+                _service.Value.InsertPackingRule(new PackingRule
                 {
                     CaseId = model.CaseId,
                     IgnoreFlag = model.IgnoreFlag,
@@ -398,8 +373,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         [Route("constraint")]
         public virtual ActionResult Constraint(int? selectedTab)
         {
-            var constraints = _service.GetDefaultConstraints();
-            var custConstraints = _service.GetAllCustomerConstraints();
+            var constraints = _service.Value.GetDefaultConstraints();
+            var custConstraints = _service.Value.GetAllCustomerConstraints();
             var model = new ConstraintViewModel
             {
                 DefaultConstraints = new ConstraintModel(constraints),
@@ -431,7 +406,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        [Route("customerconstrainteditor")]
+        [Route("editor/custconstraint")]
         public virtual ActionResult CustomerConstraintEditor(string customerId)
         {
             CustomerConstraintEditorModel model;
@@ -442,7 +417,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             else
             {
                 string customerName;
-                var customerConstraints = _service.GetCustomerConstraints(customerId, out customerName);
+                var customerConstraints = _service.Value.GetCustomerConstraints(customerId, out customerName);
                 //TC2: If no constraint defined for passed customer. This haapnned only when when some one deleted customer.
                 if (customerConstraints == null)
                 {
@@ -455,22 +430,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     };
             }
             return PartialView(Views._customerConstraintEditorPartial, model);
-            //return PartialView(Views._addCustomerConstraintPartial, model);
-            //return Content(html);
         }
-
-
-        ///// <summary>
-        ///// Add new customer and its constraint.
-        ///// </summary>
-        ///// <returns></returns>
-        //[Route("customeraddview")]
-        //[Obsolete]
-        //public virtual ActionResult CustomerConstraintAddView()
-        //{
-        //    var html = RenderPartialViewToString(Views._customerConstraintEditorPartial, new CustomerConstraintEditorModel());
-        //    return Content(html);
-        //}
 
 
         [HttpPost]
@@ -491,22 +451,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     ModelState.AddModelError("", "Max SKU pieces must be greater than or equal to Min SKU pieces.");
                     return RedirectToAction(Actions.Constraint(activeTab));
                 }
-                _service.UpdateSkuMinMaxPieces(customerId, constraints.RequiredMinSkuPieces, constraints.RequiredMaxSkuPieces, constraints.OrigRequiredMaxSkuPieces, constraints.OrigRequiredMinSkuPieces);
+                _service.Value.UpdateSkuMinMaxPieces(customerId, constraints.RequiredMinSkuPieces, constraints.RequiredMaxSkuPieces, constraints.OrigRequiredMaxSkuPieces, constraints.OrigRequiredMinSkuPieces);
             }
             //TC5: Update Max box weight value only if is different from its old value.
             if (constraints.OrigMaxBoxWeight != constraints.MaxBoxWeight)
             {
-                _service.UpdateMaxBoxWeight(customerId, constraints.MaxBoxWeight);
+                _service.Value.UpdateMaxBoxWeight(customerId, constraints.MaxBoxWeight);
             }
             //TC6: Upate MaxSkuWithinBox value only if is different from its old value.
             if (constraints.OrigMaxSkuWithinBox != constraints.MaxSkuWithinBox)
             {
-                _service.UpdateMaxSkuInBox(customerId, constraints.MaxSkuWithinBox);
+                _service.Value.UpdateMaxSkuInBox(customerId, constraints.MaxSkuWithinBox);
             }
             //TC7: Update single style color value only if is different from its old value.
             if (constraints.OrigIsSingleStyleColor != constraints.IsSingleStyleColor)
             {
-                _service.UpdateSkuMixing(customerId, constraints.IsSingleStyleColor);
+                _service.Value.UpdateSkuMixing(customerId, constraints.IsSingleStyleColor);
             }
             AddStatusMessage(string.Format("Provided setting has been set for the Customer: {0}.", customerId));
             return RedirectToAction(Actions.Constraint(activeTab));
@@ -566,7 +526,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
 
             }
-            var data = _service.CustomerAutoComplete(searchId, searchDescription).Select(p => new
+            var data = _service.Value.CustomerAutoComplete(searchId, searchDescription).Select(p => new
             {
                 label = string.Format("{0}: {1}", p.Item1, p.Item2),
                 value = p.Item1
@@ -614,7 +574,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
 
             }
-            var data = _service.StyleAutoComplete(searchId, searchDescription).Select(p => new
+            var data = _service.Value.StyleAutoComplete(searchId, searchDescription).Select(p => new
             {
                 label = string.Format("{0}: {1}", p.Item1, p.Item2),
                 value = p.Item1

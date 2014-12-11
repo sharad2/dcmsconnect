@@ -86,9 +86,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CustSkuCasePreferenceEditor()
+        public virtual System.Web.Mvc.ActionResult CustSkuCaseEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCasePreferenceEditor);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -160,7 +160,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public readonly string SkuCase = "SkuCase";
             public readonly string SkuCaseEditor = "SkuCaseEditor";
-            public readonly string CustSkuCasePreferenceEditor = "CustSkuCasePreferenceEditor";
+            public readonly string CustSkuCaseEditor = "CustSkuCaseEditor";
             public readonly string DelPackingRule = "DelPackingRule";
             public readonly string PackingRuleEditor = "PackingRuleEditor";
             public readonly string AddPackingRule = "AddPackingRule";
@@ -180,7 +180,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public const string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public const string SkuCase = "SkuCase";
             public const string SkuCaseEditor = "SkuCaseEditor";
-            public const string CustSkuCasePreferenceEditor = "CustSkuCasePreferenceEditor";
+            public const string CustSkuCaseEditor = "CustSkuCaseEditor";
             public const string DelPackingRule = "DelPackingRule";
             public const string PackingRuleEditor = "PackingRuleEditor";
             public const string AddPackingRule = "AddPackingRule";
@@ -235,11 +235,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             public readonly string skuCaseId = "skuCaseId";
         }
-        static readonly ActionParamsClass_CustSkuCasePreferenceEditor s_params_CustSkuCasePreferenceEditor = new ActionParamsClass_CustSkuCasePreferenceEditor();
+        static readonly ActionParamsClass_CustSkuCaseEditor s_params_CustSkuCaseEditor = new ActionParamsClass_CustSkuCaseEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CustSkuCasePreferenceEditor CustSkuCasePreferenceEditorParams { get { return s_params_CustSkuCasePreferenceEditor; } }
+        public ActionParamsClass_CustSkuCaseEditor CustSkuCaseEditorParams { get { return s_params_CustSkuCaseEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CustSkuCasePreferenceEditor
+        public class ActionParamsClass_CustSkuCaseEditor
         {
             public readonly string customerId = "customerId";
         }
@@ -325,8 +325,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _customerConstraintEditorPartial = "_customerConstraintEditorPartial";
-                public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
-                public readonly string _packinRuleEditorPartial = "_packinRuleEditorPartial";
+                public readonly string _custSkuCaseEditorPartial = "_custSkuCaseEditorPartial";
+                public readonly string _packingRuleEditorPartial = "_packingRuleEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
@@ -334,8 +334,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string SkuCase_js = "SkuCase.js";
             }
             public readonly string _customerConstraintEditorPartial = "~/Areas/PickWaves/Config/_customerConstraintEditorPartial.cshtml";
-            public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
-            public readonly string _packinRuleEditorPartial = "~/Areas/PickWaves/Config/_packinRuleEditorPartial.cshtml";
+            public readonly string _custSkuCaseEditorPartial = "~/Areas/PickWaves/Config/_custSkuCaseEditorPartial.cshtml";
+            public readonly string _packingRuleEditorPartial = "~/Areas/PickWaves/Config/_packingRuleEditorPartial.cshtml";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
@@ -424,14 +424,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void CustSkuCasePreferenceEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
+        partial void CustSkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CustSkuCasePreferenceEditor(string customerId)
+        public override System.Web.Mvc.ActionResult CustSkuCaseEditor(string customerId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCasePreferenceEditor);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            CustSkuCasePreferenceEditorOverride(callInfo, customerId);
+            CustSkuCaseEditorOverride(callInfo, customerId);
             return callInfo;
         }
 
@@ -464,10 +464,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.Config.PackingRulesModel model, int? activeTab);
+        partial void AddPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.Config.PackingRuleModel model, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPackingRule(DcmsMobile.PickWaves.ViewModels.Config.PackingRulesModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddPackingRule(DcmsMobile.PickWaves.ViewModels.Config.PackingRuleModel model, int? activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPackingRule);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
