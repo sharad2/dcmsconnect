@@ -133,11 +133,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             return View(Views.CustSkuCase, model);
         }
 
-
-        #endregion
-
-        #region Manage SKU Case
-
+        /// <summary>
+        /// This function returns partial view to add customer's Sku case preferences.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("editor/custskucase")]
+        public virtual ActionResult CustSkuCaseEditor(string customerId)
+        {
+            var skuCaseList = _service.Value.GetSkuCaseList();
+            var model = new CustSkuCaseEditorViewModel
+            {
+                SkuCaseList = skuCaseList.Select(Map),
+                CustomerId = customerId
+            };
+            return PartialView(Views._custSkuCaseEditorPartial, model);
+        }
 
         /// <summary>
         /// This function deletes customer SKU case constraint.
@@ -147,8 +158,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <param name="activeTab">Index of active tab</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("delcaseconstraint")]
-        public virtual ActionResult DeleteCustomerSkuCaseConstraint(string caseId, string customerId, int? activeTab)
+        [Route("delcustskucase")]
+        public virtual ActionResult DelCustSkuCase(string caseId, string customerId, int? activeTab)
         {
             try
             {
@@ -170,8 +181,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <param name="activeTab">Index of active tab</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("addpref")]
-        public virtual ActionResult AddCustomerSkuCasePreference(CustSkuCaseModel model, int? activeTab)
+        [Route("addcustskucase")]
+        public virtual ActionResult AddCustSkuCase(CustSkuCaseModel model, int? activeTab)
         {
             try
             {
@@ -187,6 +198,95 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             return RedirectToAction(Actions.SkuCase(activeTab));
         }
 
+        #endregion
+
+        #region StyleSkuCase
+
+        public virtual ActionResult StyleSkuCase()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// This function returns partial view to add a new packing rule.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("editor/stylesku")]
+        public virtual ActionResult StyleSkuCaseEditor(string style, string caseId, bool? ignoreFlag)
+        {
+            var skuCaseList = _service.Value.GetSkuCaseList();
+            var model = new StyleSkuCaseEditorViewModel
+            {
+                SkuCaseList = skuCaseList.Select(Map),
+                Style = style,
+                CaseId = caseId,
+                IgnoreFlag = ignoreFlag.HasValue
+            };
+            return PartialView(Views._styleSkuCaseEditorPartial, model);
+        }
+
+        /// <summary>
+        /// This function adds a new packing rule.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="activeTab"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("updaterule")]
+        public virtual ActionResult AddStyleSkuCase(StyleSkuCaseModel model, int? activeTab)
+        {
+            //TC5: If required feild does not passed.
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Required fields must be passed");
+                return RedirectToAction(Actions.SkuCase());
+            }
+            try
+            {
+                _service.Value.InsertPackingRule(new StyleSkuCase
+                {
+                    CaseId = model.CaseId,
+                    IgnoreFlag = model.IgnoreFlag,
+                    Style = model.Style
+                });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.InnerException);
+                return RedirectToAction(Actions.SkuCase(activeTab));
+            }
+            this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
+            return RedirectToAction(Actions.SkuCase(activeTab));
+        }
+
+        /// <summary>
+        /// This function deletes specific Packing rule.
+        /// </summary>
+        /// <param name="style"></param>
+        /// <param name="caseId"></param>
+        /// <param name="activeTab"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("delpackingrule")]
+        public virtual ActionResult DelStyleSkuCase(string style, string caseId, int? activeTab)
+        {
+            try
+            {
+                _service.Value.DelCaseIgnorance(style, caseId);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.InnerException);
+                return RedirectToAction(Actions.SkuCase(activeTab));
+            }
+            AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
+            return RedirectToAction(Actions.SkuCase(activeTab));
+        }
+
+        #endregion
+
+        #region Manage SKU Case
         /// <summary>
         /// This function update's properties of Sku case.
         /// </summary>
@@ -286,100 +386,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             return PartialView(Views._skuCaseEditorPartial, model);
         }
 
-        /// <summary>
-        /// This function returns partial view to add customer's Sku case preferences.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("editor/custskucase")]
-        public virtual ActionResult CustSkuCaseEditor(string customerId)
-        {
-            var skuCaseList = _service.Value.GetSkuCaseList();
-            var model = new CustSkuCaseEditorViewModel
-                {
-                    SkuCaseList = skuCaseList.Select(Map),
-                    CustomerId = customerId
-                };
-            return PartialView(Views._custSkuCaseEditorPartial, model);
-        }
 
-        /// <summary>
-        /// This function deletes specific Packing rule.
-        /// </summary>
-        /// <param name="style"></param>
-        /// <param name="caseId"></param>
-        /// <param name="activeTab"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("delpackingrule")]
-        public virtual ActionResult DelPackingRule(string style, string caseId, int? activeTab)
-        {
-            try
-            {
-                _service.Value.DelCaseIgnorance(style, caseId);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
-            }
-            AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
-            return RedirectToAction(Actions.SkuCase(activeTab));
-        }
 
-        /// <summary>
-        /// This function returns partial view to add a new packing rule.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("editor/packingrule")]
-        public virtual ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
-        {
-            var skuCaseList = _service.Value.GetSkuCaseList();
-            var model = new StyleSkuCaseEditorViewModel
-            {
-                SkuCaseList = skuCaseList.Select(Map),
-                Style = style,
-                CaseId = caseId,
-                IgnoreFlag = ignoreFlag.HasValue
-            };
-            return PartialView(Views._styleSkuCaseEditorPartial, model);
-            //return Content(html);
-        }
 
-        /// <summary>
-        /// This function adds a new packing rule.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="activeTab"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Route("updaterule")]
-        public virtual ActionResult AddPackingRule(StyleSkuCaseModel model, int? activeTab)
-        {
-            //TC5: If required feild does not passed.
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Required fields must be passed");
-                return RedirectToAction(Actions.SkuCase());
-            }
-            try
-            {
-                _service.Value.InsertPackingRule(new StyleSkuCase
-                {
-                    CaseId = model.CaseId,
-                    IgnoreFlag = model.IgnoreFlag,
-                    Style = model.Style
-                });
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
-            }
-            this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
-            return RedirectToAction(Actions.SkuCase(activeTab));
-        }
         #endregion
 
         /// <summary>

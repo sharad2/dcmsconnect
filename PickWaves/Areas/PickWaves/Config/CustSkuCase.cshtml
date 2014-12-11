@@ -113,12 +113,12 @@
 
                                     <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
                                         <li>
-                                            <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
+                                            <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelCustSkuCase())" method="post">
                                                 <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
-                                                       name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
+                                                       name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.caseId" />
                                                 <input type="hidden" id="hfCustomerId" value="@Model.CustomerSkuCaseList[i].CustomerId"
-                                                       name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
-                                                <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
+                                                       name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
+                                                <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.activeTab" value="1" />
                                                 <center>Are you sure?</center>
                                                 <div class="btn-group btn-group-justified">
                                                     <button class="btn btn-primary" type="submit">Yes</button>

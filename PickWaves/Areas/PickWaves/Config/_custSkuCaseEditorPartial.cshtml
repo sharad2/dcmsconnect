@@ -19,8 +19,8 @@
 
 </div>
 <div class="modal-body">
-    <form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
+    <form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustSkuCase())" method="post">
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustSkuCaseParams.activeTab" value="1" />
         @if (Model.CustomerId == null)
         {
             <div class="form-group">

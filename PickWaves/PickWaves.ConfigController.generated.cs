@@ -56,15 +56,39 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DeleteCustomerSkuCaseConstraint()
+        public virtual System.Web.Mvc.ActionResult CustSkuCaseEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteCustomerSkuCaseConstraint);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult AddCustomerSkuCasePreference()
+        public virtual System.Web.Mvc.ActionResult DelCustSkuCase()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustomerSkuCasePreference);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelCustSkuCase);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddCustSkuCase()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustSkuCase);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult StyleSkuCaseEditor()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleSkuCaseEditor);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddStyleSkuCase()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddStyleSkuCase);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DelStyleSkuCase()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelStyleSkuCase);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -83,30 +107,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public virtual System.Web.Mvc.ActionResult SkuCaseEditor()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseEditor);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CustSkuCaseEditor()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DelPackingRule()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelPackingRule);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult PackingRuleEditor()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PackingRuleEditor);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult AddPackingRule()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPackingRule);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -156,15 +156,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             public readonly string Index = "Index";
             public readonly string CustSkuCase = "CustSkuCase";
-            public readonly string DeleteCustomerSkuCaseConstraint = "DeleteCustomerSkuCaseConstraint";
-            public readonly string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
+            public readonly string CustSkuCaseEditor = "CustSkuCaseEditor";
+            public readonly string DelCustSkuCase = "DelCustSkuCase";
+            public readonly string AddCustSkuCase = "AddCustSkuCase";
+            public readonly string StyleSkuCase = "StyleSkuCase";
+            public readonly string StyleSkuCaseEditor = "StyleSkuCaseEditor";
+            public readonly string AddStyleSkuCase = "AddStyleSkuCase";
+            public readonly string DelStyleSkuCase = "DelStyleSkuCase";
             public readonly string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public readonly string SkuCase = "SkuCase";
             public readonly string SkuCaseEditor = "SkuCaseEditor";
-            public readonly string CustSkuCaseEditor = "CustSkuCaseEditor";
-            public readonly string DelPackingRule = "DelPackingRule";
-            public readonly string PackingRuleEditor = "PackingRuleEditor";
-            public readonly string AddPackingRule = "AddPackingRule";
             public readonly string Constraint = "Constraint";
             public readonly string CustomerConstraintEditor = "CustomerConstraintEditor";
             public readonly string UpdateCustomerConstraints = "UpdateCustomerConstraints";
@@ -177,15 +178,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             public const string Index = "Index";
             public const string CustSkuCase = "CustSkuCase";
-            public const string DeleteCustomerSkuCaseConstraint = "DeleteCustomerSkuCaseConstraint";
-            public const string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
+            public const string CustSkuCaseEditor = "CustSkuCaseEditor";
+            public const string DelCustSkuCase = "DelCustSkuCase";
+            public const string AddCustSkuCase = "AddCustSkuCase";
+            public const string StyleSkuCase = "StyleSkuCase";
+            public const string StyleSkuCaseEditor = "StyleSkuCaseEditor";
+            public const string AddStyleSkuCase = "AddStyleSkuCase";
+            public const string DelStyleSkuCase = "DelStyleSkuCase";
             public const string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
             public const string SkuCase = "SkuCase";
             public const string SkuCaseEditor = "SkuCaseEditor";
-            public const string CustSkuCaseEditor = "CustSkuCaseEditor";
-            public const string DelPackingRule = "DelPackingRule";
-            public const string PackingRuleEditor = "PackingRuleEditor";
-            public const string AddPackingRule = "AddPackingRule";
             public const string Constraint = "Constraint";
             public const string CustomerConstraintEditor = "CustomerConstraintEditor";
             public const string UpdateCustomerConstraints = "UpdateCustomerConstraints";
@@ -194,23 +196,60 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
 
-        static readonly ActionParamsClass_DeleteCustomerSkuCaseConstraint s_params_DeleteCustomerSkuCaseConstraint = new ActionParamsClass_DeleteCustomerSkuCaseConstraint();
+        static readonly ActionParamsClass_CustSkuCaseEditor s_params_CustSkuCaseEditor = new ActionParamsClass_CustSkuCaseEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DeleteCustomerSkuCaseConstraint DeleteCustomerSkuCaseConstraintParams { get { return s_params_DeleteCustomerSkuCaseConstraint; } }
+        public ActionParamsClass_CustSkuCaseEditor CustSkuCaseEditorParams { get { return s_params_CustSkuCaseEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeleteCustomerSkuCaseConstraint
+        public class ActionParamsClass_CustSkuCaseEditor
+        {
+            public readonly string customerId = "customerId";
+        }
+        static readonly ActionParamsClass_DelCustSkuCase s_params_DelCustSkuCase = new ActionParamsClass_DelCustSkuCase();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DelCustSkuCase DelCustSkuCaseParams { get { return s_params_DelCustSkuCase; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DelCustSkuCase
         {
             public readonly string caseId = "caseId";
             public readonly string customerId = "customerId";
             public readonly string activeTab = "activeTab";
         }
-        static readonly ActionParamsClass_AddCustomerSkuCasePreference s_params_AddCustomerSkuCasePreference = new ActionParamsClass_AddCustomerSkuCasePreference();
+        static readonly ActionParamsClass_AddCustSkuCase s_params_AddCustSkuCase = new ActionParamsClass_AddCustSkuCase();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AddCustomerSkuCasePreference AddCustomerSkuCasePreferenceParams { get { return s_params_AddCustomerSkuCasePreference; } }
+        public ActionParamsClass_AddCustSkuCase AddCustSkuCaseParams { get { return s_params_AddCustSkuCase; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AddCustomerSkuCasePreference
+        public class ActionParamsClass_AddCustSkuCase
         {
             public readonly string model = "model";
+            public readonly string activeTab = "activeTab";
+        }
+        static readonly ActionParamsClass_StyleSkuCaseEditor s_params_StyleSkuCaseEditor = new ActionParamsClass_StyleSkuCaseEditor();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_StyleSkuCaseEditor StyleSkuCaseEditorParams { get { return s_params_StyleSkuCaseEditor; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_StyleSkuCaseEditor
+        {
+            public readonly string style = "style";
+            public readonly string caseId = "caseId";
+            public readonly string ignoreFlag = "ignoreFlag";
+        }
+        static readonly ActionParamsClass_AddStyleSkuCase s_params_AddStyleSkuCase = new ActionParamsClass_AddStyleSkuCase();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddStyleSkuCase AddStyleSkuCaseParams { get { return s_params_AddStyleSkuCase; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddStyleSkuCase
+        {
+            public readonly string model = "model";
+            public readonly string activeTab = "activeTab";
+        }
+        static readonly ActionParamsClass_DelStyleSkuCase s_params_DelStyleSkuCase = new ActionParamsClass_DelStyleSkuCase();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DelStyleSkuCase DelStyleSkuCaseParams { get { return s_params_DelStyleSkuCase; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DelStyleSkuCase
+        {
+            public readonly string style = "style";
+            public readonly string caseId = "caseId";
             public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_AddOrUpdateSkuCase s_params_AddOrUpdateSkuCase = new ActionParamsClass_AddOrUpdateSkuCase();
@@ -236,43 +275,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionParamsClass_SkuCaseEditor
         {
             public readonly string skuCaseId = "skuCaseId";
-        }
-        static readonly ActionParamsClass_CustSkuCaseEditor s_params_CustSkuCaseEditor = new ActionParamsClass_CustSkuCaseEditor();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CustSkuCaseEditor CustSkuCaseEditorParams { get { return s_params_CustSkuCaseEditor; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CustSkuCaseEditor
-        {
-            public readonly string customerId = "customerId";
-        }
-        static readonly ActionParamsClass_DelPackingRule s_params_DelPackingRule = new ActionParamsClass_DelPackingRule();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DelPackingRule DelPackingRuleParams { get { return s_params_DelPackingRule; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DelPackingRule
-        {
-            public readonly string style = "style";
-            public readonly string caseId = "caseId";
-            public readonly string activeTab = "activeTab";
-        }
-        static readonly ActionParamsClass_PackingRuleEditor s_params_PackingRuleEditor = new ActionParamsClass_PackingRuleEditor();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_PackingRuleEditor PackingRuleEditorParams { get { return s_params_PackingRuleEditor; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_PackingRuleEditor
-        {
-            public readonly string style = "style";
-            public readonly string caseId = "caseId";
-            public readonly string ignoreFlag = "ignoreFlag";
-        }
-        static readonly ActionParamsClass_AddPackingRule s_params_AddPackingRule = new ActionParamsClass_AddPackingRule();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_AddPackingRule AddPackingRuleParams { get { return s_params_AddPackingRule; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_AddPackingRule
-        {
-            public readonly string model = "model";
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_Constraint s_params_Constraint = new ActionParamsClass_Constraint();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -376,29 +378,93 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void DeleteCustomerSkuCaseConstraintOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string caseId, string customerId, int? activeTab);
+        partial void CustSkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DeleteCustomerSkuCaseConstraint(string caseId, string customerId, int? activeTab)
+        public override System.Web.Mvc.ActionResult CustSkuCaseEditor(string customerId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteCustomerSkuCaseConstraint);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            DeleteCustomerSkuCaseConstraintOverride(callInfo, caseId, customerId, activeTab);
+            CustSkuCaseEditorOverride(callInfo, customerId);
             return callInfo;
         }
 
         [NonAction]
-        partial void AddCustomerSkuCasePreferenceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab);
+        partial void DelCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string caseId, string customerId, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddCustomerSkuCasePreference(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult DelCustSkuCase(string caseId, string customerId, int? activeTab)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustomerSkuCasePreference);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelCustSkuCase);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
+            DelCustSkuCaseOverride(callInfo, caseId, customerId, activeTab);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddCustSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            AddCustomerSkuCasePreferenceOverride(callInfo, model, activeTab);
+            AddCustSkuCaseOverride(callInfo, model, activeTab);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void StyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult StyleSkuCase()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleSkuCase);
+            StyleSkuCaseOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void StyleSkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId, bool? ignoreFlag);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult StyleSkuCaseEditor(string style, string caseId, bool? ignoreFlag)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.StyleSkuCaseEditor);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ignoreFlag", ignoreFlag);
+            StyleSkuCaseEditorOverride(callInfo, style, caseId, ignoreFlag);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AddStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddStyleSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddStyleSkuCase);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
+            AddStyleSkuCaseOverride(callInfo, model, activeTab);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DelStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId, int? activeTab);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DelStyleSkuCase(string style, string caseId, int? activeTab)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelStyleSkuCase);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
+            DelStyleSkuCaseOverride(callInfo, style, caseId, activeTab);
             return callInfo;
         }
 
@@ -435,59 +501,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "skuCaseId", skuCaseId);
             SkuCaseEditorOverride(callInfo, skuCaseId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CustSkuCaseEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CustSkuCaseEditor(string customerId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCaseEditor);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            CustSkuCaseEditorOverride(callInfo, customerId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void DelPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId, int? activeTab);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult DelPackingRule(string style, string caseId, int? activeTab)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelPackingRule);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            DelPackingRuleOverride(callInfo, style, caseId, activeTab);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void PackingRuleEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId, bool? ignoreFlag);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PackingRuleEditor);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ignoreFlag", ignoreFlag);
-            PackingRuleEditorOverride(callInfo, style, caseId, ignoreFlag);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AddPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AddPackingRule(DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPackingRule);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            AddPackingRuleOverride(callInfo, model, activeTab);
             return callInfo;
         }
 
