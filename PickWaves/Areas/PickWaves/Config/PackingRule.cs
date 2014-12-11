@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.PickWaves.Repository.Config
 {
-    public class PackingRules
+    internal class PackingRule
     {
         /// <summary>
         /// This is style for which SKU cases are ignored.

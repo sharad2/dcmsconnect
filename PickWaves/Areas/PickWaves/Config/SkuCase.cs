@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.PickWaves.Repository.Config
 {
-    public class SkuCase
+    internal class SkuCase
     {
         public string CaseId { get; set; }
 

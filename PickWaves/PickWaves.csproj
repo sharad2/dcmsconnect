@@ -146,10 +146,9 @@
     <Compile Include="Areas\PickWaves\Config\ConfigRepository.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigService.cs" />
     <Compile Include="Areas\PickWaves\Config\CustomerSkuCase.cs" />
-    <Compile Include="Areas\PickWaves\Config\PackingRules.cs" />
+    <Compile Include="Areas\PickWaves\Config\PackingRule.cs" />
     <Compile Include="Areas\PickWaves\Config\SkuCase.cs" />
     <Compile Include="Repository\Bucket.cs" />
-    <Compile Include="Areas\PickWaves\Config\Style_O.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveArea.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\PickWaveEditable.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\VirtualWarehouse.cs" />

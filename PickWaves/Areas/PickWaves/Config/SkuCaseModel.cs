@@ -10,9 +10,9 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
 
         }
 
-        
-       
-        public SkuCaseModel(SkuCase entity)
+
+
+        internal SkuCaseModel(SkuCase entity)
         {
             this.CaseId = entity.CaseId;
             this.Description = entity.Description;

@@ -375,7 +375,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             }
             try
             {
-                _service.InsertPackingRule(new PackingRules
+                _service.InsertPackingRule(new PackingRule
                 {
                     CaseId = model.CaseId,
                     IgnoreFlag = model.IgnoreFlag,
