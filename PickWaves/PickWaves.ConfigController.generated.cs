@@ -155,6 +155,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string CustSkuCase = "CustSkuCase";
             public readonly string DeleteCustomerSkuCaseConstraint = "DeleteCustomerSkuCaseConstraint";
             public readonly string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
             public readonly string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
@@ -175,6 +176,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string CustSkuCase = "CustSkuCase";
             public const string DeleteCustomerSkuCaseConstraint = "DeleteCustomerSkuCaseConstraint";
             public const string AddCustomerSkuCasePreference = "AddCustomerSkuCasePreference";
             public const string AddOrUpdateSkuCase = "AddOrUpdateSkuCase";
@@ -330,6 +332,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
                 public readonly string AjaxModal_js = "AjaxModal.js";
                 public readonly string Constraint = "Constraint";
+                public readonly string CustSkuCase = "CustSkuCase";
                 public readonly string Index = "Index";
                 public readonly string SkuCase = "SkuCase";
             }
@@ -339,6 +342,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
             public readonly string AjaxModal_js = "~/Areas/PickWaves/Config/AjaxModal.js.bundle";
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
+            public readonly string CustSkuCase = "~/Areas/PickWaves/Config/CustSkuCase.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
             public readonly string SkuCase = "~/Areas/PickWaves/Config/SkuCase.cshtml";
         }
@@ -357,6 +361,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult CustSkuCase()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustSkuCase);
+            CustSkuCaseOverride(callInfo);
             return callInfo;
         }
 

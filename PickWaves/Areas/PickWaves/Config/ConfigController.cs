@@ -103,6 +103,39 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 
         }
 
+        #region CustSkuCase
+
+        /// <summary>
+        /// This function fetches all SKU Cases, customer preferred SKU cases ,and packing rules for SKU cases and returns SKU case view with last selected tab.
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("custskucase")]
+        public virtual ActionResult CustSkuCase()
+        {
+            var custSkuCaseList = _service.Value.GetCustomerSkuCaseList();
+            //var packingRules = _service.Value.GetPackingRules();
+            var model = new CustSkuCaseViewModel
+            {
+                CustomerSkuCaseList = custSkuCaseList.Select(p => new CustomerSkuCaseModel
+                {
+                    CaseId = p.CaseId,
+                    CustomerId = p.CustomerId,
+                    CustomerName = p.CustomerName,
+                    EmptyWeight = p.EmptyWeight,
+                    MaxContentVolume = p.MaxContentVolume,
+                    OuterCubeVolume = p.OuterCubeVolume,
+                    Comment = p.Comment,
+                    CaseDescription = p.CaseDescription
+                }).ToList()
+            };
+            return View(Views.CustSkuCase, model);
+        }
+
+
+        #endregion
+
         #region Manage SKU Case
 
 
@@ -198,7 +231,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        [Route("sku")]
+        [Route("skucase")]
         public virtual ActionResult SkuCase(int? activeTab)
         {
             var skuCases = _service.Value.GetSkuCaseList().ToArray();
@@ -208,23 +241,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 AddStatusMessage("SKU case is not added yet.");
                 return View(Views.SkuCase, new SkuCaseViewModel());
             }
-
-            var custSkuCaseList = _service.Value.GetCustomerSkuCaseList();
             var packingRules = _service.Value.GetPackingRules();
             var model = new SkuCaseViewModel
                 {
-                    CustomerSkuCaseList = custSkuCaseList.Select(p => new CustomerSkuCaseModel
-                        {
-                            CaseId = p.CaseId,
-                            CustomerId = p.CustomerId,
-                            CustomerName = p.CustomerName,
-                            EmptyWeight = p.EmptyWeight,
-                            MaxContentVolume = p.MaxContentVolume,
-                            OuterCubeVolume = p.OuterCubeVolume,
-                            Comment = p.Comment,
-                            CaseDescription = p.CaseDescription
-                        }).ToList(),
-
                     SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList(),
 
                     PackingRuleList = packingRules.Select(p => new PackingRuleModel

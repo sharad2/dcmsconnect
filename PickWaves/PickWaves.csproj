@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\PickWaves\Config\ConfigController.cs" />
+    <Compile Include="Areas\PickWaves\Config\CustSkuCaseViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletController.cs" />
@@ -287,6 +288,7 @@
     <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
       <DependentUpon>Wave.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\Config\CustSkuCase.cshtml" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

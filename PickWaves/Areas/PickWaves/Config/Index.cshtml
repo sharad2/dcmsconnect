@@ -19,15 +19,26 @@
                     <dt>Smallest Carton Size</dt>
                     <dd>@Model.MinCaseId: @Model.MinCaseDescription <em>@Model.MinContentVolume cu ft</em></dd>
                 </dl>
+                <p>
+                    For each Style you can also require that a specific carton size is used.
+                </p>
                 <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" role="button">Manage</a></p>
             </div>
         </div>
         <div class="col-md-6">
             <div class="jumbotron">
-                <h2>Customer Specific Carton Sizes</h2>
-                <p>Some customers may require that only specific carton sizes are used when shipping merchandise to them.</p>
+                <h2>Customer Specific Packing Rules</h2>
+                @*<p>Some customers may require that only specific carton sizes are used when shipping merchandise to them.</p>*@
+                <ul>
+                    <li>
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
+                    </li>
+                </ul>
 
-                <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>
+                @*<p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>*@
             </div>
         </div>
     </div>

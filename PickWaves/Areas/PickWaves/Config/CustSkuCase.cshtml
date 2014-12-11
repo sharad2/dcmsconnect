@@ -1,0 +1,161 @@
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseViewModel
+@{
+    ViewBag.Title = "Customer Carton Requirements";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+}
+
+<div class="container">
+    <div>
+        <blockquote class="text-info">
+            Customer prefered SKU Cases
+            @if (Model.UserIsManager)
+            {
+                <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                        data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCaseEditor())">
+                    <span class="glyphicon glyphicon-plus"></span>  New Customer Preference...
+                </button>
+            }
+        </blockquote>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5">
+                        <h4 class="list-group-item-heading">
+                            Case
+                            <small>
+                                Description
+                            </small>
+                        </h4>
+                        <p class="list-group-item-text">
+                            <em>Comment</em>
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                        <label>Empty Weight(lbs)</label>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <label>Volume(ft)</label>
+                        <span class="label label-info">Inner <span class="glyphicon glyphicon-sort-by-order-alt"></span> </span>&nbsp; Outer
+                    </div>
+
+                    <div class="col-md-2 col-sm-2">
+                        @if (Model.UserIsManager)
+                        {
+                            <button class="btn btn-xs btn-primary  pull-right" disabled>
+                                Action
+                            </button>
+                        }
+                    </div>
+                </div>
+            </li>
+
+            @for (var i = 0; i < Model.CustomerSkuCaseList.Count; ++i)
+            {
+                if (i == 0 || Model.CustomerSkuCaseList[i].CustomerId != Model.CustomerSkuCaseList[i - 1].CustomerId)
+                {
+                    <li class="list-group-item list-group-item-info">
+
+
+                        <h4 class="list-group-item-heading">
+                            Customer @Model.CustomerSkuCaseList[i].CustomerId
+                            <small>
+                                : @Model.CustomerSkuCaseList[i].CustomerName
+                            </small>
+                            @if (Model.UserIsManager)
+                            {
+                                <button class="btn btn-link btn-xs" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                                        data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCaseEditor(Model.CustomerSkuCaseList[i].CustomerId))">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            }
+                        </h4>
+
+
+
+                    </li>
+                }
+
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <h4 class="list-group-item-heading">
+                                <small>@(i + 1)</small>
+
+                                @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseId)
+                                <small>
+                                    @Html.DisplayFor(m => m.CustomerSkuCaseList[i].CaseDescription)
+                                </small>
+                            </h4>
+                            <p class="list-group-item-text">
+                                <em> @Html.DisplayFor(m => m.CustomerSkuCaseList[i].Comment)</em>
+                            </p>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                            @Html.DisplayFor(m => m.CustomerSkuCaseList[i].EmptyWeight)
+                        </div>
+                        <div class="col-md-3 ol-sm-3">
+                            <span class="label label-info">
+                                @Html.DisplayFor(m => m.CustomerSkuCaseList[i].MaxContentVolume)
+
+                            </span>&nbsp; @Html.DisplayFor(m => m.CustomerSkuCaseList[i].OuterCubeVolume)
+                        </div>
+
+                        <div class="col-md-2 col-sm-2">
+                            @if (Model.UserIsManager)
+                            {
+                                <div class="btn-group pull-right">
+                                    <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                            data-toggle="dropdown">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                        Remove
+                                        <span class="caret"></span>
+                                    </button>
+
+                                    <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
+                                        <li>
+                                            <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraint())" method="post">
+                                                <input type="hidden" id="hfPreferedCaseId" value="@Model.CustomerSkuCaseList[i].CaseId"
+                                                       name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.caseId" />
+                                                <input type="hidden" id="hfCustomerId" value="@Model.CustomerSkuCaseList[i].CustomerId"
+                                                       name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.customerId" />
+                                                <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DeleteCustomerSkuCaseConstraintParams.activeTab" value="1" />
+                                                <center>Are you sure?</center>
+                                                <div class="btn-group btn-group-justified">
+                                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                                    <a class="btn btn-default">No</a>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+
+            }
+        </ul>
+    </div>
+
+
+
+
+
+</div>
+
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            AJAX loaded HTML here
+        </div>
+    </div>
+</div>
+
+@section script {
+    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
+
+    <script src="@Links_PickWaves.Areas.PickWaves.Config.AjaxModal_js" type="text/javascript"></script>
+
+}
