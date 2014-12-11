@@ -9,7 +9,7 @@
         Pick Wave Configuration
     </h1>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="jumbotron">
                 <h2>Carton Sizes</h2>
                 <p>The carton creation algorithm needs to know the various carton sizes which are available for packing.</p>
@@ -19,16 +19,14 @@
                     <dt>Smallest Carton Size</dt>
                     <dd>@Model.MinCaseId: @Model.MinCaseDescription <em>@Model.MinContentVolume cu ft</em></dd>
                 </dl>
-                <p>
-                    For each Style you can also require that a specific carton size is used.
-                </p>
+
                 <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" role="button">Manage</a></p>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="jumbotron">
-                <h2>Customer Specific Packing Rules</h2>
-                @*<p>Some customers may require that only specific carton sizes are used when shipping merchandise to them.</p>*@
+                <h2>Per Customer </h2>
+                <p>You can specify special packing requirements for each customer.</p>
                 <ul>
                     <li>
                         <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
@@ -39,6 +37,17 @@
                 </ul>
 
                 @*<p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>*@
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="jumbotron">
+                <h2>Per Style</h2>
+                <p>
+                    For each Style you can require that a specific carton size is used.
+                </p>
+
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">Manage</a></p>
             </div>
         </div>
     </div>
