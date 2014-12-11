@@ -98,12 +98,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult SkuCase()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCase);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult SkuCaseEditor()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCaseEditor);
@@ -212,7 +206,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             public readonly string caseId = "caseId";
             public readonly string customerId = "customerId";
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_AddCustSkuCase s_params_AddCustSkuCase = new ActionParamsClass_AddCustSkuCase();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -221,7 +214,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionParamsClass_AddCustSkuCase
         {
             public readonly string model = "model";
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_StyleSkuCaseEditor s_params_StyleSkuCaseEditor = new ActionParamsClass_StyleSkuCaseEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -240,7 +232,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionParamsClass_AddStyleSkuCase
         {
             public readonly string model = "model";
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_DelStyleSkuCase s_params_DelStyleSkuCase = new ActionParamsClass_DelStyleSkuCase();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -250,7 +241,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             public readonly string style = "style";
             public readonly string caseId = "caseId";
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_AddOrUpdateSkuCase s_params_AddOrUpdateSkuCase = new ActionParamsClass_AddOrUpdateSkuCase();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -259,14 +249,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionParamsClass_AddOrUpdateSkuCase
         {
             public readonly string model = "model";
-        }
-        static readonly ActionParamsClass_SkuCase s_params_SkuCase = new ActionParamsClass_SkuCase();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_SkuCase SkuCaseParams { get { return s_params_SkuCase; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_SkuCase
-        {
-            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_SkuCaseEditor s_params_SkuCaseEditor = new ActionParamsClass_SkuCaseEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -392,29 +374,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void DelCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string caseId, string customerId, int? activeTab);
+        partial void DelCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string caseId, string customerId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DelCustSkuCase(string caseId, string customerId, int? activeTab)
+        public override System.Web.Mvc.ActionResult DelCustSkuCase(string caseId, string customerId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelCustSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            DelCustSkuCaseOverride(callInfo, caseId, customerId, activeTab);
+            DelCustSkuCaseOverride(callInfo, caseId, customerId);
             return callInfo;
         }
 
         [NonAction]
-        partial void AddCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab);
+        partial void AddCustSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddCustSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddCustSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            AddCustSkuCaseOverride(callInfo, model, activeTab);
+            AddCustSkuCaseOverride(callInfo, model);
             return callInfo;
         }
 
@@ -444,29 +424,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void AddStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab);
+        partial void AddStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddStyleSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddStyleSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddStyleSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            AddStyleSkuCaseOverride(callInfo, model, activeTab);
+            AddStyleSkuCaseOverride(callInfo, model);
             return callInfo;
         }
 
         [NonAction]
-        partial void DelStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId, int? activeTab);
+        partial void DelStyleSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string style, string caseId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DelStyleSkuCase(string style, string caseId, int? activeTab)
+        public override System.Web.Mvc.ActionResult DelStyleSkuCase(string style, string caseId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DelStyleSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "style", style);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "caseId", caseId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            DelStyleSkuCaseOverride(callInfo, style, caseId, activeTab);
+            DelStyleSkuCaseOverride(callInfo, style, caseId);
             return callInfo;
         }
 
@@ -483,14 +461,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void SkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? activeTab);
+        partial void SkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult SkuCase(int? activeTab)
+        public override System.Web.Mvc.ActionResult SkuCase()
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuCase);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
-            SkuCaseOverride(callInfo, activeTab);
+            SkuCaseOverride(callInfo);
             return callInfo;
         }
 

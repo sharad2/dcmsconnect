@@ -159,7 +159,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("delcustskucase")]
-        public virtual ActionResult DelCustSkuCase(string caseId, string customerId, int? activeTab)
+        public virtual ActionResult DelCustSkuCase(string caseId, string customerId)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 ModelState.AddModelError("", ex.InnerException);
             }
 
-            return RedirectToAction(Actions.SkuCase(activeTab));
+            return RedirectToAction(Actions.SkuCase());
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("addcustskucase")]
-        public virtual ActionResult AddCustSkuCase(CustSkuCaseModel model, int? activeTab)
+        public virtual ActionResult AddCustSkuCase(CustSkuCaseModel model)
         {
             try
             {
@@ -191,11 +191,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
+                return RedirectToAction(Actions.SkuCase());
             }
             AddStatusMessage(string.Format("SKU case {0} is added to customer {1} preference.", model.CaseId,
                                                 model.CustomerId));
-            return RedirectToAction(Actions.SkuCase(activeTab));
+            return RedirectToAction(Actions.SkuCase());
         }
 
         #endregion
@@ -244,7 +244,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("updaterule")]
-        public virtual ActionResult AddStyleSkuCase(StyleSkuCaseModel model, int? activeTab)
+        public virtual ActionResult AddStyleSkuCase(StyleSkuCaseModel model)
         {
             //TC5: If required feild does not passed.
             if (!ModelState.IsValid)
@@ -264,10 +264,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
+                return RedirectToAction(Actions.SkuCase());
             }
             this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
-            return RedirectToAction(Actions.SkuCase(activeTab));
+            return RedirectToAction(Actions.SkuCase());
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("delpackingrule")]
-        public virtual ActionResult DelStyleSkuCase(string style, string caseId, int? activeTab)
+        public virtual ActionResult DelStyleSkuCase(string style, string caseId)
         {
             try
             {
@@ -288,10 +288,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
+                return RedirectToAction(Actions.SkuCase());
             }
             AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
-            return RedirectToAction(Actions.SkuCase(activeTab));
+            return RedirectToAction(Actions.SkuCase());
         }
 
         #endregion
@@ -342,7 +342,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         [AllowAnonymous]
         [HttpGet]
         [Route("skucase")]
-        public virtual ActionResult SkuCase(int? activeTab)
+        public virtual ActionResult SkuCase()
         {
             var skuCases = _service.Value.GetSkuCaseList().ToArray();
             //TC2: If no sku case has been defined yet.
@@ -354,15 +354,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             //var packingRules = _service.Value.GetPackingRules();
             var model = new SkuCaseViewModel
                 {
-                    SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList(),
-
-                    //PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
-                    //    {
-                    //        CaseId = p.CaseId,
-                    //        Style = p.Style,
-                    //        IgnoreFlag = p.IgnoreFlag
-                    //    }).ToList(),
-                    ActiveTab = activeTab
+                    SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList()
                 };
             return View(Views.SkuCase, model);
         }

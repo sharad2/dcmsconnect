@@ -1,11 +1,12 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
 
 
-    public class SkuCaseViewModel :ViewModelBase
+    public class SkuCaseViewModel : ViewModelBase
     {
         private IList<SkuCaseModel> _skuCaseList;
 
@@ -26,20 +27,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 
 
 
-                //this property added to get the value Case sleeted from dropdown list
-        public string SelectedCase { get; set; }
+        ////this property added to get the value Case sleeted from dropdown list
+        //[Obsolete]
+        //public string SelectedCase { get; set; }
 
-        //this property added to get the customer Id sleeted from auto complete
-        public string SelectedCustomerId { get; set; }
+        ////this property added to get the customer Id sleeted from auto complete
+        //[Obsolete]
+        //public string SelectedCustomerId { get; set; }
 
-        /// <summary>
-        /// This property is added to get detail of SKU case we need to add or update.
-        /// </summary>
-        public SkuCaseModel SkuCase { get; set; }
+        ///// <summary>
+        ///// This property is added to get detail of SKU case we need to add or update.
+        ///// </summary>
+        //[Obsolete]
+        //public SkuCaseModel SkuCase { get; set; }
 
-        /// <summary>
-        /// this property is used to hold index of last selected tab or tab to make active
-        /// </summary>
-        public int? ActiveTab { get; set; }
     }
 }
