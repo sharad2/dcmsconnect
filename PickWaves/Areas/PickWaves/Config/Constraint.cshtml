@@ -56,7 +56,7 @@
                                 {
                                     <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" data-show-customer="@item.Key.CustomerId"
                                             title="Edit customer constraints"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -90,7 +90,7 @@
                                 {
 
                                     <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -121,7 +121,7 @@
                                 @if (Model.UserIsManager)
                                 {
                                     <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -162,7 +162,7 @@
                                 {
 
                                     <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -202,7 +202,7 @@
                                 {
 
                                     <button class="btn btn-xs btn-default" data-toggle="modal" data-target="#tabModal" title="Edit customer constraints" data-show-customer="@item.Key.CustomerId"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(item.Key.CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(item.Key.CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>
@@ -224,7 +224,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-primary" id="btnAddNewCustConstraint" data-toggle="modal"
-                                data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintAddView())"
+                                data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor())"
                                 title="Add Customer Constraint">
                             <span class="glyphicon glyphicon-plus"></span> Add Customer..
                         </button>
@@ -240,7 +240,7 @@
                                 {
                                     <button class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#tabModal"
                                             data-show-customer="@Model.CustomerGroupedList.Keys[i].CustomerId" title="Edit Customer Constraint"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditView(Model.CustomerGroupedList.Keys[i].CustomerId))">
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(Model.CustomerGroupedList.Keys[i].CustomerId))">
                                         <span class="glyphicon glyphicon-edit"></span>
                                         Edit
                                     </button>

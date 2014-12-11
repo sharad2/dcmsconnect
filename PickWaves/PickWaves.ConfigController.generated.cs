@@ -116,9 +116,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CustomerConstraintEditView()
+        public virtual System.Web.Mvc.ActionResult CustomerConstraintEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintEditView);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -165,8 +165,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public readonly string PackingRuleEditor = "PackingRuleEditor";
             public readonly string AddPackingRule = "AddPackingRule";
             public readonly string Constraint = "Constraint";
-            public readonly string CustomerConstraintEditView = "CustomerConstraintEditView";
-            public readonly string CustomerConstraintAddView = "CustomerConstraintAddView";
+            public readonly string CustomerConstraintEditor = "CustomerConstraintEditor";
             public readonly string UpdateCustomerConstraints = "UpdateCustomerConstraints";
             public readonly string CustomerAutocomplete = "CustomerAutocomplete";
             public readonly string StyleAutoComplete = "StyleAutoComplete";
@@ -186,8 +185,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public const string PackingRuleEditor = "PackingRuleEditor";
             public const string AddPackingRule = "AddPackingRule";
             public const string Constraint = "Constraint";
-            public const string CustomerConstraintEditView = "CustomerConstraintEditView";
-            public const string CustomerConstraintAddView = "CustomerConstraintAddView";
+            public const string CustomerConstraintEditor = "CustomerConstraintEditor";
             public const string UpdateCustomerConstraints = "UpdateCustomerConstraints";
             public const string CustomerAutocomplete = "CustomerAutocomplete";
             public const string StyleAutoComplete = "StyleAutoComplete";
@@ -282,11 +280,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         {
             public readonly string selectedTab = "selectedTab";
         }
-        static readonly ActionParamsClass_CustomerConstraintEditView s_params_CustomerConstraintEditView = new ActionParamsClass_CustomerConstraintEditView();
+        static readonly ActionParamsClass_CustomerConstraintEditor s_params_CustomerConstraintEditor = new ActionParamsClass_CustomerConstraintEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CustomerConstraintEditView CustomerConstraintEditViewParams { get { return s_params_CustomerConstraintEditView; } }
+        public ActionParamsClass_CustomerConstraintEditor CustomerConstraintEditorParams { get { return s_params_CustomerConstraintEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CustomerConstraintEditView
+        public class ActionParamsClass_CustomerConstraintEditor
         {
             public readonly string customerId = "customerId";
         }
@@ -326,7 +324,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _addCustomerConstraintPartial = "_addCustomerConstraintPartial";
+                public readonly string _customerConstraintEditorPartial = "_customerConstraintEditorPartial";
                 public readonly string _custSkuCasePreferenceEditorPartial = "_custSkuCasePreferenceEditorPartial";
                 public readonly string _packinRuleEditorPartial = "_packinRuleEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
@@ -335,7 +333,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 public readonly string SkuCase = "SkuCase";
                 public readonly string SkuCase_js = "SkuCase.js";
             }
-            public readonly string _addCustomerConstraintPartial = "~/Areas/PickWaves/Config/_addCustomerConstraintPartial.cshtml";
+            public readonly string _customerConstraintEditorPartial = "~/Areas/PickWaves/Config/_customerConstraintEditorPartial.cshtml";
             public readonly string _custSkuCasePreferenceEditorPartial = "~/Areas/PickWaves/Config/_custSkuCasePreferenceEditorPartial.cshtml";
             public readonly string _packinRuleEditorPartial = "~/Areas/PickWaves/Config/_packinRuleEditorPartial.cshtml";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
@@ -491,25 +489,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void CustomerConstraintEditViewOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
+        partial void CustomerConstraintEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CustomerConstraintEditView(string customerId)
+        public override System.Web.Mvc.ActionResult CustomerConstraintEditor(string customerId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintEditView);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            CustomerConstraintEditViewOverride(callInfo, customerId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CustomerConstraintAddViewOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CustomerConstraintAddView()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintAddView);
-            CustomerConstraintAddViewOverride(callInfo);
+            CustomerConstraintEditorOverride(callInfo, customerId);
             return callInfo;
         }
 

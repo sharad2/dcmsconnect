@@ -1,13 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DcmsMobile.PickWaves.Helpers;
+﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository.Config;
 using DcmsMobile.PickWaves.ViewModels.Config;
 using EclipseLibrary.Mvc.Controllers;
-using DcmsMobile.PickWaves.Repository;
-using System.Threading;
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 {
@@ -433,42 +431,46 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        [Route("editview")]
-        public virtual ActionResult CustomerConstraintEditView(string customerId)
+        [Route("customerconstrainteditor")]
+        public virtual ActionResult CustomerConstraintEditor(string customerId)
         {
-            //TC1: Invalid customer Id passed.
+            CustomerConstraintEditorModel model;
             if (string.IsNullOrEmpty(customerId))
             {
-                throw new ArgumentNullException("customerId", "Internal error. The Customer to edit should be specified");
+                model = new CustomerConstraintEditorModel();
             }
-            string customerName;
-            var customerConstraints = _service.GetCustomerConstraints(customerId, out customerName);
-            //TC2: If no constraint defined for passed customer. This haapnned only when when some one deleted customer.
-            if (customerConstraints == null)
+            else
             {
-                throw new ArgumentOutOfRangeException("customerId", string.Format("Customer {0} does not exist. It may have been deleted", customerId));
-            }
-            var model = new CustomerConstraintEditorModel(customerConstraints)
+                string customerName;
+                var customerConstraints = _service.GetCustomerConstraints(customerId, out customerName);
+                //TC2: If no constraint defined for passed customer. This haapnned only when when some one deleted customer.
+                if (customerConstraints == null)
                 {
-                    CustomerId = customerId,
-                    CustomerName = customerName
-                };
-            var html = RenderPartialViewToString(Views._addCustomerConstraintPartial, model);
+                    throw new ArgumentOutOfRangeException("customerId", string.Format("Customer {0} does not exist. It may have been deleted", customerId));
+                }
+                model = new CustomerConstraintEditorModel(customerConstraints)
+                    {
+                        CustomerId = customerId,
+                        CustomerName = customerName
+                    };
+            }
+            return PartialView(Views._customerConstraintEditorPartial, model);
             //return PartialView(Views._addCustomerConstraintPartial, model);
-             return Content(html);
+            //return Content(html);
         }
-       
 
-        /// <summary>
-        /// Add new customer and its constraint.
-        /// </summary>
-        /// <returns></returns>
-        [Route("customeraddview")]
-        public virtual ActionResult CustomerConstraintAddView()
-        {
-            var html = RenderPartialViewToString(Views._addCustomerConstraintPartial, new CustomerConstraintEditorModel());
-            return Content(html);
-        }
+
+        ///// <summary>
+        ///// Add new customer and its constraint.
+        ///// </summary>
+        ///// <returns></returns>
+        //[Route("customeraddview")]
+        //[Obsolete]
+        //public virtual ActionResult CustomerConstraintAddView()
+        //{
+        //    var html = RenderPartialViewToString(Views._customerConstraintEditorPartial, new CustomerConstraintEditorModel());
+        //    return Content(html);
+        //}
 
 
         [HttpPost]

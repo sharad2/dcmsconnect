@@ -1,7 +1,5 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
-using System;
-using System.IO;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Helpers
@@ -38,23 +36,23 @@ namespace DcmsMobile.PickWaves.Helpers
             base.OnActionExecuted(filterContext);
         }
 
-        [Obsolete]
-        public string RenderPartialViewToString(string viewName, object model)
-        {
-            //This is a safe code never going to get called with in normal user practice.
-            if (string.IsNullOrEmpty(viewName))
-                viewName = ControllerContext.RouteData.GetRequiredString("action");
+        //[Obsolete]
+        //public string RenderPartialViewToString(string viewName, object model)
+        //{
+        //    //This is a safe code never going to get called with in normal user practice.
+        //    if (string.IsNullOrEmpty(viewName))
+        //        viewName = ControllerContext.RouteData.GetRequiredString("action");
 
-            ViewData.Model = model;
+        //    ViewData.Model = model;
 
-            using (StringWriter sw = new StringWriter())
-            {
-                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-                viewResult.View.Render(viewContext, sw);
+        //    using (StringWriter sw = new StringWriter())
+        //    {
+        //        ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+        //        ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+        //        viewResult.View.Render(viewContext, sw);
 
-                return sw.GetStringBuilder().ToString();
-            }
-        }
+        //        return sw.GetStringBuilder().ToString();
+        //    }
+        //}
     }
 }

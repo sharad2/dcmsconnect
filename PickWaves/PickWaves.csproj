@@ -338,7 +338,7 @@
     <Content Include="Areas\PickWaves\Config\_packinRuleEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_wavePickslipsPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Config\_addCustomerConstraintPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_customerConstraintEditorPartial.cshtml" />
     <None Include="Doc\GPL Technical.docx" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
