@@ -216,13 +216,13 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Config\SkuCase.js">
-      <DependentUpon>SkuCase.js.bundle</DependentUpon>
+    <Content Include="Areas\PickWaves\Config\AjaxModal.js">
+      <DependentUpon>AjaxModal.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.min.js">
-      <DependentUpon>SkuCase.js</DependentUpon>
+    <Content Include="Areas\PickWaves\Config\AjaxModal.min.js">
+      <DependentUpon>AjaxModal.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.partial.js" />
+    <Content Include="Areas\PickWaves\Config\AjaxModal.partial.js" />
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -277,9 +277,15 @@
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
-    <Content Include="Areas\PickWaves\Config\SkuCase.js.bundle" />
-    <Content Include="Areas\PickWaves\Config\SkuCase.min.js.map">
-      <DependentUpon>SkuCase.min.js</DependentUpon>
+    <Content Include="Areas\PickWaves\Config\AjaxModal.js.bundle" />
+    <Content Include="Areas\PickWaves\Config\AjaxModal.min.js.map">
+      <DependentUpon>AjaxModal.min.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\Index.min.js.map">
+      <DependentUpon>Index.min.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
+      <DependentUpon>Wave.min.js</DependentUpon>
     </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/PickWaves/SharedViews/_bucketModel.partial.js
+$(document).ready(function () {
     "use strict";
     $('#freezeModal').on('show.bs.modal', function (e) {
         //alert($(e.relatedTarget).data('bucketid'));

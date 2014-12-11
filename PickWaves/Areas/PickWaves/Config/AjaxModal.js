@@ -3076,7 +3076,7 @@ $.extend($.fn, {
         };
     })();
 })(window.jQuery);
-///#source 1 1 /Areas/PickWaves/Config/SkuCase.partial.js
+///#source 1 1 /Areas/PickWaves/Config/AjaxModal.partial.js
 
 // Generic handling for AJAX loaded modal
 /*

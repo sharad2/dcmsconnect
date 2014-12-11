@@ -1,4 +1,5 @@
-﻿// Wrapping all code in an anonymous function to make the variables used private.
+﻿///#source 1 1 /Areas/BoxPick/Scripts/session.partial.js
+// Wrapping all code in an anonymous function to make the variables used private.
 // This is a standard javascript trick.
 (function () {
     var timeoutValueElem = null;
@@ -31,7 +32,8 @@
 
 
 
-//$Id: session.partial.js 8493 2011-12-15 12:00:30Z rkandari $
+//$Id$
+///#source 1 1 /Areas/BoxPick/Scripts/scan.partial.js
 /*
 This function should be called from the onload handler of the body element.
 It sets focus to the first text box in the document.
@@ -83,4 +85,4 @@ function InitScanTextBox(body) {
 
 
 
-//$Id: scan.partial.js 9809 2012-03-17 08:48:09Z ssinghal $
+//$Id$

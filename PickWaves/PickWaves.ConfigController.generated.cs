@@ -328,19 +328,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 public readonly string _custSkuCaseEditorPartial = "_custSkuCaseEditorPartial";
                 public readonly string _packingRuleEditorPartial = "_packingRuleEditorPartial";
                 public readonly string _skuCaseEditorPartial = "_skuCaseEditorPartial";
+                public readonly string AjaxModal_js = "AjaxModal.js";
                 public readonly string Constraint = "Constraint";
                 public readonly string Index = "Index";
                 public readonly string SkuCase = "SkuCase";
-                public readonly string SkuCase_js = "SkuCase.js";
             }
             public readonly string _customerConstraintEditorPartial = "~/Areas/PickWaves/Config/_customerConstraintEditorPartial.cshtml";
             public readonly string _custSkuCaseEditorPartial = "~/Areas/PickWaves/Config/_custSkuCaseEditorPartial.cshtml";
             public readonly string _packingRuleEditorPartial = "~/Areas/PickWaves/Config/_packingRuleEditorPartial.cshtml";
             public readonly string _skuCaseEditorPartial = "~/Areas/PickWaves/Config/_skuCaseEditorPartial.cshtml";
+            public readonly string AjaxModal_js = "~/Areas/PickWaves/Config/AjaxModal.js.bundle";
             public readonly string Constraint = "~/Areas/PickWaves/Config/Constraint.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Config/Index.cshtml";
             public readonly string SkuCase = "~/Areas/PickWaves/Config/SkuCase.cshtml";
-            public readonly string SkuCase_js = "~/Areas/PickWaves/Config/SkuCase.js.bundle";
         }
     }
 

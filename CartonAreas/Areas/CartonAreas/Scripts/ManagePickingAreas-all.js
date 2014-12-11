@@ -1,9 +1,11 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/CartonAreas/Scripts/ManagePickingAreas.partial.js
+$(document).ready(function () {
     $('#btnAplyForFilter').button();
 });
+///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
-// $Id: AutoComplete.partial.js 24597 2014-05-30 09:31:49Z ssinghal $
+// $Id$
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers

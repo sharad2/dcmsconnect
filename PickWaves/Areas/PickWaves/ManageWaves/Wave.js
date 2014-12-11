@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/PickWaves/SharedViews/_bucketModel.partial.js
+$(document).ready(function () {
     "use strict";
     $('#freezeModal').on('show.bs.modal', function (e) {
         //alert($(e.relatedTarget).data('bucketid'));
@@ -21,6 +22,7 @@
 });
 
 
+///#source 1 1 /Scripts/jquery.validate.js
 /*!
  * jQuery Validation Plugin v1.13.1
  *
@@ -1386,6 +1388,7 @@ $.extend($.fn, {
 });
 
 }));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.js
 /* NUGET: BEGIN LICENSE TEXT
  *
  * Microsoft grants you the right to use these script files for the sole
@@ -1796,6 +1799,7 @@ $.extend($.fn, {
         $jQval.unobtrusive.parse(document);
     });
 }(jQuery));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.bootstrap.js
 /*!
  * jQuery Validate Unobtrusive Bootstrap 1.2.3
  *

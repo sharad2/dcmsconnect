@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿///#source 1 1 /Areas/Inquiry/CustomerEntity/CustomerList.partial.js
+$(document).ready(function () {
     $('#tbCustomer').typeahead(null, {
         name: 'customers',
         displayKey: 'label',
@@ -29,6 +30,7 @@
 
 });
 
+///#source 1 1 /Scripts/typeahead.jquery.js
 /*!
  * typeahead.js 0.10.5
  * https://github.com/twitter/typeahead.js

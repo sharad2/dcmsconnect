@@ -359,6 +359,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Inquiry\CustomerEntity\CustomerList.min.js.map">
+      <DependentUpon>CustomerList.min.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\Inquiry\SkuEntity\SkuList.min.js.map">
+      <DependentUpon>SkuList.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Properties\PublishProfiles\I.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />

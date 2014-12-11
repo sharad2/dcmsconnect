@@ -1,4 +1,5 @@
-﻿/*!
+﻿///#source 1 1 /Scripts/jquery.validate.js
+/*!
  * jQuery Validation Plugin v1.13.1
  *
  * http://jqueryvalidation.org/
@@ -1363,6 +1364,7 @@ $.extend($.fn, {
 });
 
 }));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.js
 /* NUGET: BEGIN LICENSE TEXT
  *
  * Microsoft grants you the right to use these script files for the sole
@@ -1773,6 +1775,7 @@ $.extend($.fn, {
         $jQval.unobtrusive.parse(document);
     });
 }(jQuery));
+///#source 1 1 /Scripts/jquery.validate.unobtrusive.bootstrap.js
 /*!
  * jQuery Validate Unobtrusive Bootstrap 1.2.3
  *
@@ -1888,6 +1891,7 @@ $.extend($.fn, {
 	});
 
 }(jQuery));
+///#source 1 1 /Scripts/typeahead.jquery.js
 /*!
  * typeahead.js 0.10.5
  * https://github.com/twitter/typeahead.js

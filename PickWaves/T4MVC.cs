@@ -134,7 +134,7 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/Config";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string SkuCase_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SkuCase.min.js") ? Url("SkuCase.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.min.js") : Url("SkuCase.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/SkuCase.js");
+                public static readonly string AjaxModal_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/AjaxModal.min.js") ? Url("AjaxModal.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AjaxModal.min.js") : Url("AjaxModal.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/AjaxModal.js");
                         }
         
         }

@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/Repack/Scripts/conditional-validation.partial.js
+/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 
 $.validator.addMethod('requiredif',
@@ -38,6 +39,7 @@ $.validator.unobtrusive.adapters.add(
         options.messages['requiredif'] = options.message;
     });
 
+///#source 1 1 /Areas/Repack/Scripts/Repack.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
 
@@ -115,8 +117,9 @@ $(document).ready(function () {
 //});
 
 
-//$Id: Repack.partial.js 22979 2013-10-30 10:41:00Z asharma $
+//$Id$
 
+///#source 1 1 /Areas/Repack/Scripts/CreateDialog.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
 
@@ -264,4 +267,4 @@ $(document).ready(function () {
 
 
 
-//$Id: CreateDialog.partial.js 23991 2014-05-06 05:41:54Z dbhatt $
+//$Id$

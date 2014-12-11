@@ -14,6 +14,6 @@
     <file>/Scripts/jquery.validate.unobtrusive.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>
     <file>/Scripts/typeahead.jquery.js</file>    
-    <file>/Areas/PickWaves/Config/SkuCase.partial.js</file>
+    <file>/Areas/PickWaves/Config/AjaxModal.partial.js</file>
   </files>
 </bundle>

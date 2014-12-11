@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/CartonManager/Scripts/AdvanceUi.partial.js
+/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 ///Script used by advance Ui to perform validation and also to create dialog
 $(document).ready(function () {
@@ -154,10 +155,11 @@ $.validator.addMethod("notequal", function (value, element, param) {
 
 
 
-//$Id: AdvanceUi.partial.js 12130 2012-06-13 12:08:39Z rverma $
+//$Id$
 
+///#source 1 1 /Areas/CartonManager/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
-// $Id: AutoComplete.partial.js 12312 2012-06-21 09:14:20Z bkumar $
+// $Id$
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers
@@ -307,6 +309,7 @@ $(document).ready(function () {
 
 
 
+///#source 1 1 /Areas/CartonManager/Scripts/HandleScan.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 // Apply to the text box whose scan will be passed to the server via ajax call
@@ -437,7 +440,8 @@ function PlaySound(file) {
 
 
 
-//$Id: HandleScan.partial.js 23095 2013-11-12 10:31:31Z spandey $
+//$Id$
+///#source 1 1 /Areas/CartonManager/Scripts/DestPallet.partial.js
 /// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 
 //Validates destination Pallet. Treats enter as tab

@@ -1,4 +1,5 @@
-﻿/*
+﻿///#source 1 1 /Areas/PieceReplenish/Scripts/PieceReplenish.js
+/*
 This function should be called from the onload handler of the body element.
 It sets focus to the first text box in the document.
 Define the javascript global _emptyOk to true if you want a postback to occur even if the text box is empty.
@@ -36,6 +37,7 @@ function OnBodyKeyPress() {
 }
 
 
+///#source 1 1 /Areas/PieceReplenish/Scripts/RedirectToChoice.partial.js
 // This function must be called from onkeypress handler. It redirects when enter is pressed
 function RedirectToChoice(e, choice) {
     var key = e.keyCode || e.which;  // Firefox uses e.which

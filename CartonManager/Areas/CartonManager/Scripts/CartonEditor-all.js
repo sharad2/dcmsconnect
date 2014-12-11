@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/CartonManager/Scripts/CartonEditor.partial.js
+/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 ///Script used by Carton Editor.
 
 $(document).ready(function () {
@@ -116,10 +117,11 @@ function PlaySound(file) {
 }
 
 
-//$Id: CartonEditor.partial.js 13505 2012-08-17 10:22:33Z rverma $
+//$Id$
 
+///#source 1 1 /Areas/CartonManager/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
-// $Id: AutoComplete.partial.js 12312 2012-06-21 09:14:20Z bkumar $
+// $Id$
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers
@@ -269,6 +271,7 @@ $(document).ready(function () {
 
 
 
+///#source 1 1 /Areas/CartonManager/Scripts/DestPallet.partial.js
 /// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 
 //Validates destination Pallet. Treats enter as tab

@@ -1,4 +1,5 @@
-﻿/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/CartonManager/Scripts/HandleScan.partial.js
+/// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 // Apply to the text box whose scan will be passed to the server via ajax call
 // When user presses enter on the text box, the value in the text box is passed to the action method.
@@ -128,7 +129,8 @@ function PlaySound(file) {
 
 
 
-//$Id: HandleScan.partial.js 23095 2013-11-12 10:31:31Z spandey $
+//$Id$
+///#source 1 1 /Areas/CartonManager/Scripts/CommonPalletize.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /*
   This script is used by UI PalletizeUI, MarkReworkComplete and AbandonRework and Locating UI.
@@ -143,8 +145,9 @@ $(document).ready(function () {
     }).button();
 });
 
-//$Id: CommonPalletize.partial.js 12494 2012-07-04 10:09:34Z rverma $
+//$Id$
 
+///#source 1 1 /Areas/CartonManager/Scripts/DestPallet.partial.js
 /// <reference path="~/Scripts/jquery-1.6.2-vsdoc.js" />
 
 //Validates destination Pallet. Treats enter as tab

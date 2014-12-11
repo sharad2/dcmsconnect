@@ -1,4 +1,5 @@
-﻿/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
+﻿///#source 1 1 /Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js
+/// <reference1 path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 
 $(document).ready(function () {
     //$('button.mca-unassign').button({ text: false, icons: { primary: 'ui-icon-close' } });
@@ -115,16 +116,17 @@ $(document).ready(function () {
 });
 
 /*
-$Id: ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $ 
-$Revision: 24663 $
-$URL: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js $
-$Header: http://server/svn/DcmsConnect/Projects/Mvc/DcmsMobile.CartonAreas/trunk/CartonAreas/Areas/CartonAreas/Scripts/ManageCartonAreas.partial.js 24663 2014-06-03 09:46:17Z spandey $
-$Author: spandey $
-$Date: 2014-06-03 02:46:17 -0700 (Tue, 03 Jun 2014) $
+$Id$ 
+$Revision$
+$URL$
+$Header$
+$Author$
+$Date$
 */
+///#source 1 1 /Areas/CartonAreas/Scripts/AutoComplete.partial.js
 /// <reference path="../../../Scripts/jquery-1.6.2-vsdoc.js" />
 /// <reference path="../../../Scripts/jquery.validate-vsdoc.js" />
-// $Id: AutoComplete.partial.js 24597 2014-05-30 09:31:49Z ssinghal $
+// $Id$
 
 /*
 Generic autocomplete script to be used in conjunction with autocomplete helpers
