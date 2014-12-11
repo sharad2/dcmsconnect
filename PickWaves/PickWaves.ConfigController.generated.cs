@@ -390,10 +390,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void AddCustomerSkuCasePreferenceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerSkuCaseModel model, int? activeTab);
+        partial void AddCustomerSkuCasePreferenceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddCustomerSkuCasePreference(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerSkuCaseModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddCustomerSkuCasePreference(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustSkuCaseModel model, int? activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustomerSkuCasePreference);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

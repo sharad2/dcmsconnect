@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
-    public class CustomerSkuCaseModel
+    public class CustSkuCaseModel
     {
         /// <summary>
         /// Id of Customer who have overwritten splh
         /// </summary>
-        [Required(ErrorMessage = "Customer cannot be null")]
         public string CustomerId { get; set; }
 
         /// <summary>
@@ -41,6 +41,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// This is comment that is gave while adding new customer sku case preference
         /// </summary>
         public string Comment { get; set; }
+    }
+
+    public class CustSkuCaseEditorViewModel
+    {
+        /// <summary>
+        /// Id of Customer who have overwritten splh
+        /// </summary>
+        [Required(ErrorMessage = "Case Id cannot be null")]
+        public string CaseId { get; set; }
 
         private IEnumerable<SelectListItem> _skuCases;
 
@@ -56,8 +65,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
         }
 
+        /// <summary>
+        /// Id of Customer who have overwritten splh
+        /// </summary>
+        [Required(ErrorMessage = "Customer cannot be null")]
+        public string CustomerId { get; set; }
 
-
+        /// <summary>
+        /// This is comment that is gave while adding new customer sku case preference
+        /// </summary>
+        public string Comment { get; set; }
 
     }
 }

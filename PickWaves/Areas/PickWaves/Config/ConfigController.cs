@@ -118,7 +118,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             //var packingRules = _service.Value.GetPackingRules();
             var model = new CustSkuCaseViewModel
             {
-                CustomerSkuCaseList = custSkuCaseList.Select(p => new CustomerSkuCaseModel
+                CustomerSkuCaseList = custSkuCaseList.Select(p => new CustSkuCaseModel
                 {
                     CaseId = p.CaseId,
                     CustomerId = p.CustomerId,
@@ -171,7 +171,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("addpref")]
-        public virtual ActionResult AddCustomerSkuCasePreference(CustomerSkuCaseModel model, int? activeTab)
+        public virtual ActionResult AddCustomerSkuCasePreference(CustSkuCaseModel model, int? activeTab)
         {
             try
             {
@@ -295,7 +295,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public virtual ActionResult CustSkuCaseEditor(string customerId)
         {
             var skuCaseList = _service.Value.GetSkuCaseList();
-            var model = new CustomerSkuCaseModel
+            var model = new CustSkuCaseEditorViewModel
                 {
                     SkuCaseList = skuCaseList.Select(Map),
                     CustomerId = customerId

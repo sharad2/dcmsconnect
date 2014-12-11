@@ -186,7 +186,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\PickWaves\Config\CustomerModel.cs" />
-    <Compile Include="Areas\PickWaves\Config\CustomerSkuCaseModel.cs">
+    <Compile Include="Areas\PickWaves\Config\CustSkuCaseModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\PickWaves\Config\IndexViewModel.cs" />
