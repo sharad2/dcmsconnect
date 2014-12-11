@@ -10,7 +10,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// <summary>
         /// This is style for which SKU cases are ignored.
         /// </summary>
-        [Required(ErrorMessage = "Style cannot be null")]
+        [Required(ErrorMessage = "Specify the Style to which this packing rule applies")]
         public string Style { get; set; }
 
         private IEnumerable<SelectListItem> _skuCases;
@@ -27,7 +27,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
             }
         }
 
-        [Required(ErrorMessage = "Case cannot be null")]
+        [Required(ErrorMessage = "Specify the SKU case which must be used for the style")]
         public string CaseId { get; set; }
 
         /// <summary>

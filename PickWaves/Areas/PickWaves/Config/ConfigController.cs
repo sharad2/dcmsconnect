@@ -145,13 +145,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             try
             {
                 _service.DelCustSkuCasePrefereence(customerId, caseId);
+                AddStatusMessage(string.Format("Deleted SKU case {0} from customer {1} preference.", caseId, customerId));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                return RedirectToAction(Actions.SkuCase(activeTab));
             }
-            AddStatusMessage(string.Format("Deleted SKU case {0} from customer {1} preference.", caseId, customerId));
+
             return RedirectToAction(Actions.SkuCase(activeTab));
         }
 
@@ -261,37 +261,40 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("skucaseeditor")]
-        public virtual ActionResult GetSkuCaseEditor(string skuCaseId)
+        public virtual ActionResult SkuCaseEditor(string skuCaseId)
         {
-            //TC3: If sku case does not passed. this will not come in normal user practise.
-            if (string.IsNullOrEmpty(skuCaseId))
+            SkuCaseModel model;
+            if (string.IsNullOrWhiteSpace(skuCaseId))
             {
-                throw new ArgumentNullException("skuCaseId", "Internal error. The SKU case to edit should be specified");
+                model = new SkuCaseModel();
             }
-
-            var skuCase = _service.GetSkuCase(skuCaseId);
-            //TC4: You will get here if passed SKU case has been deleted.
-            if (skuCase == null)
+            else
             {
-                throw new ArgumentOutOfRangeException("skuCaseId", string.Format("SKU Case {0} does not exist. It may have been deleted", skuCaseId));
+                var skuCase = _service.GetSkuCase(skuCaseId);
+                //TC4: You will get here if passed SKU case has been deleted.
+                if (skuCase == null)
+                {
+                    throw new ArgumentOutOfRangeException("skuCaseId", string.Format("SKU Case {0} does not exist. It may have been deleted", skuCaseId));
+                }
+                model = new SkuCaseModel(skuCase);
             }
 
             //var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel(skuCase));
-            return PartialView(Views._skuCaseEditorPartial, new SkuCaseModel(skuCase));
+            return PartialView(Views._skuCaseEditorPartial, model);
         }
 
-        /// <summary>
-        /// This function returns Sku Case Add Partial.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("skucase")]
-        public virtual ActionResult SkuCaseAddPartial()
-        {
+        ///// <summary>
+        ///// This function returns Sku Case Add Partial.
+        ///// </summary>
+        ///// <returns></returns>
+        //[HttpGet]
+        //[Route("skucase")]
+        //public virtual ActionResult SkuCaseAddPartial()
+        //{
 
-            var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel());
-            return Content(html);
-        }
+        //    var html = RenderPartialViewToString(Views._skuCaseEditorPartial, new SkuCaseModel());
+        //    return Content(html);
+        //}
 
         /// <summary>
         /// This function returns partial view to add customer's Sku case preferences.
@@ -307,8 +310,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     SkuCaseList = skuCaseList.Select(Map),
                     CustomerId = customerId
                 };
-            var html = RenderPartialViewToString(Views._custSkuCasePreferenceEditorPartial, model);
-            return Content(html);
+            return PartialView(Views._custSkuCasePreferenceEditorPartial, model);
         }
 
         /// <summary>
@@ -340,8 +342,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("addview")]
-        public virtual ActionResult PackingRuleAddView(string style, string caseId, bool? ignoreFlag)
+        [Route("ruleeditor")]
+        public virtual ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
         {
             var skuCaseList = _service.GetSkuCaseList();
             var model = new PackingRulesModel
@@ -351,8 +353,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 CaseId = caseId,
                 IgnoreFlag = ignoreFlag.HasValue
             };
-            var html = RenderPartialViewToString(Views._addPackinRulePartial, model);
-            return Content(html);
+            return PartialView(Views._packinRuleEditorPartial, model);
+            //return Content(html);
         }
 
         /// <summary>

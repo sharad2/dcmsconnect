@@ -5,112 +5,126 @@
 @model DcmsMobile.PickWaves.ViewModels.Config.CustomerConstraintEditorModel
 
 
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title">
 
-<form class="form-horizontal" id="frmAddCustomerConstraint" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
-    <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+            <span>TODO</span>
 
-    <div class="form-group">
-        <label for="case" class="col-sm-4 control-label">
-            Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
-            @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
-        </label>
-        <div class="col-sm-8">
-            <div class="input-group">
-                <input class="form-control typeahead" placeholder="Search Customer" id="tbCustomer" />
-                <span class="input-group-btn">
-                    <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                </span>
-            </div>
+    </h4>
 
-            @Html.ValidationMessageFor(m => m.CustomerId, null, new
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" id="frmAddCustomerConstraint" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraints())" method="post">
+        <input id="hfActiveTabIndex" type="hidden" name="@MVC_PickWaves.PickWaves.Config.UpdateCustomerConstraintsParams.activeTab" />
+        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+        <div class="form-group">
+            <label for="case" class="col-sm-4 control-label">
+                Customer<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
+                @Html.TextBoxFor(m => m.CustomerId, new { @id = "hfCustomer", @style = "visibility:hidden" })
+            </label>
+            <div class="col-sm-8">
+                <div class="input-group">
+                    <input class="form-control typeahead" placeholder="Search Customer" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))"
+                           data-typeahead-hf="#hfCustomer" />
+                    <span class="input-group-btn">
+                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                    </span>
+                </div>
+
+                @Html.ValidationMessageFor(m => m.CustomerId, null, new
            {
                @class = "help-block"
            })
 
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4 control-label">
-            @Html.LabelFor(m => m.MaxBoxWeight)
-        </div>
-        <div class="col-sm-8">
-            @Html.TextBoxFor(m => m.MaxBoxWeight, new
-{
-    maxlength = 2,
-    size = 2,
-    @class = "form-control",
-    placeholder = "Blank means no limit"
-})
-            @Html.HiddenFor(m => m.OrigMaxBoxWeight)
-
-
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4 control-label">
-            @Html.LabelFor(m => m.MaxSkuWithinBox)
-        </div>
-        <div class="col-sm-8">
-            @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
-{
-    maxlength = 2,
-    size = 2,
-    @class = "form-control",
-    placeholder = "Blank means no limit"
-
-})
-            @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
-
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-4 control-label">
-            @Html.LabelFor(m => m.RequiredMinSkuPieces)
-        </div>
-
-
-        <div class="col-sm-8">
-            @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
-{
-    maxlength = 2,
-    size = 2,
-    @class = "form-control",
-    placeholder = "Blank means no limit"
-})
-            @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
-
-
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-4 control-label">
-            @Html.LabelFor(m => m.RequiredMaxSkuPieces)
-        </div>
-        <div class="col-sm-8">
-            @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
-{
-    maxlength = 2,
-    size = 2,
-    @class = "form-control",
-    placeholder = "Blank means no limit"
-
-})
-            @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
-
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-            <div class="checkbox">
-                <label>
-                    @Html.CheckBoxFor(p => p.IsSingleStyleColor) @Html.LabelFor(p => p.IsSingleStyleColor)
-                </label>
-                @Html.HiddenFor(p => p.OrigIsSingleStyleColor)
             </div>
         </div>
-    </div>
-</form>
-<script src="@Links_PickWaves.Areas.PickWaves.Config._custSkuCasePreferenceEditor_js"></script>
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(m => m.MaxBoxWeight)
+            </div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.MaxBoxWeight, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+})
+                @Html.HiddenFor(m => m.OrigMaxBoxWeight)
+
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(m => m.MaxSkuWithinBox)
+            </div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.MaxSkuWithinBox, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+
+})
+                @Html.HiddenFor(m => m.OrigMaxSkuWithinBox)
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(m => m.RequiredMinSkuPieces)
+            </div>
+
+
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.RequiredMinSkuPieces, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+})
+                @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
+
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-4 control-label">
+                @Html.LabelFor(m => m.RequiredMaxSkuPieces)
+            </div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(m => m.RequiredMaxSkuPieces, new
+{
+    maxlength = 2,
+    size = 2,
+    @class = "form-control",
+    placeholder = "Blank means no limit"
+
+})
+                @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-8">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(p => p.IsSingleStyleColor) @Html.LabelFor(p => p.IsSingleStyleColor)
+                    </label>
+                    @Html.HiddenFor(p => p.OrigIsSingleStyleColor)
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+</div>
 

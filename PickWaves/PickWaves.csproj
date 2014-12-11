@@ -225,26 +225,13 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Config\SkuCase.css">
-      <DependentUpon>SkuCase.css.bundle</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.js">
       <DependentUpon>SkuCase.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.min.css">
-      <DependentUpon>SkuCase.css</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js">
       <DependentUpon>SkuCase.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.partial.js" />
-    <Content Include="Areas\PickWaves\Config\_addPackinRule.js">
-      <DependentUpon>_addPackinRule.js.bundle</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\_addPackinRule.min.js">
-      <DependentUpon>_addPackinRule.js</DependentUpon>
-    </Content>
-    <Content Include="Areas\PickWaves\Config\_addPackinRule.Partial.js" />
     <Content Include="Areas\PickWaves\ManageWaves\Index.js">
       <DependentUpon>Index.js.bundle</DependentUpon>
     </Content>
@@ -299,14 +286,10 @@
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
-    <Content Include="Areas\PickWaves\Config\_addPackinRule.js.bundle">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Areas\PickWaves\Config\SkuCase.js.bundle" />
     <Content Include="Areas\PickWaves\Config\SkuCase.min.js.map">
       <DependentUpon>SkuCase.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\Config\SkuCase.css.bundle" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -353,7 +336,7 @@
     <Content Include="Areas\PickWaves\Config\Constraint.cshtml" />
     <Content Include="Areas\PickWaves\Config\_skuCaseEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_custSkuCasePreferenceEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Config\_addPackinRulePartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_packinRuleEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_wavePickslipsPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_addCustomerConstraintPartial.cshtml" />

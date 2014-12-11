@@ -21,9 +21,10 @@
 <div class="modal-body">
     <form class="form-horizontal" id="frmAddCustSkuCasePreference" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreference())" method="post">
         <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.AddCustomerSkuCasePreferenceParams.activeTab" value="1" />
-        @Html.HiddenFor(m => m.CustomerId, new
+        @Html.TextBoxFor(m => m.CustomerId, new
    {
-       id = "hfCustomer"
+       id = "hfCustomer",
+       style = "visibility:hidden"
    })
         @if (Model.CustomerId == null)
         {
@@ -33,8 +34,8 @@
                 </label>
                 <div class="col-sm-9">
                     <div class="input-group">
-                        <input id="tbCustomer" placeholder="Search Customer"
-                               class="form-control typeahead" />
+                        <input placeholder="Search Customer"
+                               class="form-control typeahead" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerAutocomplete("~"))" data-typeahead-hf="#hfCustomer" />
                         <span class="input-group-btn">
                             <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
                         </span>
