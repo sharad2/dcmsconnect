@@ -1,4 +1,5 @@
-﻿namespace DcmsMobile.PickWaves.ViewModels.Config
+﻿using DcmsMobile.PickWaves.ViewModels;
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class IndexViewModel : ViewModelBase
     {

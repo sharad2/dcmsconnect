@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using DcmsMobile.PickWaves.Repository.Config;
 
-namespace DcmsMobile.PickWaves.ViewModels.Config
+
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class SkuCaseModel
     {

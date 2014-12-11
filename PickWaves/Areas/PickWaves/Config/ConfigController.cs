@@ -1,13 +1,11 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository.Config;
-using DcmsMobile.PickWaves.ViewModels.Config;
 using EclipseLibrary.Mvc.Controllers;
 using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     [AuthorizeEx("Managing Pick Waves requires role {0}", Roles = ROLE_WAVE_MANAGER)]
     [RoutePrefix("config")]

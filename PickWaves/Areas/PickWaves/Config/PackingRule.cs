@@ -1,5 +1,5 @@
 ﻿
-namespace DcmsMobile.PickWaves.Repository.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     internal class PackingRule
     {

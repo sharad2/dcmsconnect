@@ -1,6 +1,6 @@
 using System;
 
-namespace DcmsMobile.PickWaves.ViewModels.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class CustomerModel : IComparable<CustomerModel>, IEquatable<CustomerModel>
     {

@@ -1,11 +1,12 @@
-﻿using EclipseLibrary.Oracle;
+﻿using DcmsMobile.PickWaves.Repository;
+using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
 using System.Web;
 
-namespace DcmsMobile.PickWaves.Repository.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     internal class ConfigRepository : PickWaveRepositoryBase
     {

@@ -21,7 +21,7 @@ using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
 using T4MVC;
-namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public partial class ConfigController
     {
@@ -345,7 +345,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-    public partial class T4MVC_ConfigController : DcmsMobile.PickWaves.Areas.PickWaves.Controllers.ConfigController
+    public partial class T4MVC_ConfigController : DcmsMobile.PickWaves.Areas.PickWaves.Config.ConfigController
     {
         public T4MVC_ConfigController() : base(Dummy.Instance) { }
 
@@ -375,10 +375,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddCustomerSkuCasePreferenceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.Config.CustomerSkuCaseModel model, int? activeTab);
+        partial void AddCustomerSkuCasePreferenceOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerSkuCaseModel model, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddCustomerSkuCasePreference(DcmsMobile.PickWaves.ViewModels.Config.CustomerSkuCaseModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddCustomerSkuCasePreference(DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerSkuCaseModel model, int? activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddCustomerSkuCasePreference);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -388,10 +388,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddOrUpdateSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.Config.SkuCaseModel model);
+        partial void AddOrUpdateSkuCaseOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.SkuCaseModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddOrUpdateSkuCase(DcmsMobile.PickWaves.ViewModels.Config.SkuCaseModel model)
+        public override System.Web.Mvc.ActionResult AddOrUpdateSkuCase(DcmsMobile.PickWaves.Areas.PickWaves.Config.SkuCaseModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddOrUpdateSkuCase);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -464,10 +464,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void AddPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.ViewModels.Config.PackingRuleModel model, int? activeTab);
+        partial void AddPackingRuleOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.Config.PackingRuleModel model, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPackingRule(DcmsMobile.PickWaves.ViewModels.Config.PackingRuleModel model, int? activeTab)
+        public override System.Web.Mvc.ActionResult AddPackingRule(DcmsMobile.PickWaves.Areas.PickWaves.Config.PackingRuleModel model, int? activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPackingRule);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -501,10 +501,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         }
 
         [NonAction]
-        partial void UpdateCustomerConstraintsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.ViewModels.Config.CustomerConstraintEditorModel constraints, int? activeTab);
+        partial void UpdateCustomerConstraintsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerConstraintEditorModel constraints, int? activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult UpdateCustomerConstraints(string customerId, DcmsMobile.PickWaves.ViewModels.Config.CustomerConstraintEditorModel constraints, int? activeTab)
+        public override System.Web.Mvc.ActionResult UpdateCustomerConstraints(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.Config.CustomerConstraintEditorModel constraints, int? activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateCustomerConstraints);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);

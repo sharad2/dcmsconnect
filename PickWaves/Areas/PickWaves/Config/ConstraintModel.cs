@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DcmsMobile.PickWaves.ViewModels.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class ConstraintModel
     {
@@ -13,7 +13,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         /// Generate constraints based on the passed list of SPLH
         /// </summary>
         /// <param name="entity"></param>
-        internal ConstraintModel(DcmsMobile.PickWaves.Repository.Config.ConfigService.Constraint entity)
+        internal ConstraintModel(ConfigService.Constraint entity)
         {
             this.MaxBoxWeight = entity.MaxBoxWeight;
             this.MaxSkuWithinBox = entity.MaxSkuWithinBox;
@@ -72,7 +72,7 @@ namespace DcmsMobile.PickWaves.ViewModels.Config
         {
 
         }
-        internal CustomerConstraintEditorModel(DcmsMobile.PickWaves.Repository.Config.ConfigService.Constraint entity)
+        internal CustomerConstraintEditorModel(ConfigService.Constraint entity)
             : base(entity)
         {
             OrigRequiredMinSkuPieces = this.RequiredMinSkuPieces;

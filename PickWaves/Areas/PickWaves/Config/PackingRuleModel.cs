@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace DcmsMobile.PickWaves.ViewModels.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class PackingRuleModel
     {

@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.PickWaves.ViewModels;
+using System.Collections.Generic;
 
-namespace DcmsMobile.PickWaves.ViewModels.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     public class ConstraintViewModel : ViewModelBase
     {

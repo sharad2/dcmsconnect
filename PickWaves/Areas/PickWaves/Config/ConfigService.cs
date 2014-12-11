@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
 
-namespace DcmsMobile.PickWaves.Repository.Config
+namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
     internal class ConfigService : PickWaveServiceBase<ConfigRepository>
     {
