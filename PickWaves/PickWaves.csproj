@@ -139,7 +139,7 @@
     <Compile Include="Areas\PickWaves\Config\ConfigRepository.cs" />
     <Compile Include="Areas\PickWaves\Config\ConfigService.cs" />
     <Compile Include="Areas\PickWaves\Config\CustomerSkuCase.cs" />
-    <Compile Include="Areas\PickWaves\Config\PackingRule.cs" />
+    <Compile Include="Areas\PickWaves\Config\StyleSkuCase.cs" />
     <Compile Include="Areas\PickWaves\Config\SkuCase.cs" />
     <Compile Include="Repository\Bucket.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveArea.cs" />
@@ -190,7 +190,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\PickWaves\Config\IndexViewModel.cs" />
-    <Compile Include="Areas\PickWaves\Config\PackingRuleModel.cs" />
+    <Compile Include="Areas\PickWaves\Config\StyleSkuCaseModel.cs" />
     <Compile Include="Areas\PickWaves\Config\SkuCaseModel.cs" />
     <Compile Include="Areas\PickWaves\Config\SkuCaseViewModel.cs">
       <SubType>Code</SubType>
@@ -334,7 +334,7 @@
     <Content Include="Areas\PickWaves\Config\Constraint.cshtml" />
     <Content Include="Areas\PickWaves\Config\_skuCaseEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_custSkuCaseEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\Config\_packingRuleEditorPartial.cshtml" />
+    <Content Include="Areas\PickWaves\Config\_styleSkuCaseEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\_wavePickslipsPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_customerConstraintEditorPartial.cshtml" />

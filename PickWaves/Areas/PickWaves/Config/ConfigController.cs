@@ -246,7 +246,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 {
                     SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList(),
 
-                    PackingRuleList = packingRules.Select(p => new PackingRuleModel
+                    PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
                         {
                             CaseId = p.CaseId,
                             Style = p.Style,
@@ -336,14 +336,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public virtual ActionResult PackingRuleEditor(string style, string caseId, bool? ignoreFlag)
         {
             var skuCaseList = _service.Value.GetSkuCaseList();
-            var model = new PackingRuleModel
+            var model = new StyleSkuCaseEditorViewModel
             {
                 SkuCaseList = skuCaseList.Select(Map),
                 Style = style,
                 CaseId = caseId,
                 IgnoreFlag = ignoreFlag.HasValue
             };
-            return PartialView(Views._packingRuleEditorPartial, model);
+            return PartialView(Views._styleSkuCaseEditorPartial, model);
             //return Content(html);
         }
 
@@ -355,7 +355,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("updaterule")]
-        public virtual ActionResult AddPackingRule(PackingRuleModel model, int? activeTab)
+        public virtual ActionResult AddPackingRule(StyleSkuCaseModel model, int? activeTab)
         {
             //TC5: If required feild does not passed.
             if (!ModelState.IsValid)
@@ -365,7 +365,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
             try
             {
-                _service.Value.InsertPackingRule(new PackingRule
+                _service.Value.InsertPackingRule(new StyleSkuCase
                 {
                     CaseId = model.CaseId,
                     IgnoreFlag = model.IgnoreFlag,

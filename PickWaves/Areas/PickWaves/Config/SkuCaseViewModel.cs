@@ -3,6 +3,22 @@ using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
+    public class StyleSkuCaseModel
+    {
+        /// <summary>
+        /// This is style for which SKU cases are ignored.
+        /// </summary>
+        public string Style { get; set; }
+
+
+        public string CaseId { get; set; }
+
+        /// <summary>
+        /// This is flag value to tell that the case is ignore or not.
+        /// </summary>
+        public bool IgnoreFlag { get; set; }
+    }
+
     public class SkuCaseViewModel :ViewModelBase
     {
         private IList<SkuCaseModel> _skuCaseList;
@@ -22,16 +38,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
         }
 
-        private IList<PackingRuleModel> _packingRuleList;
+        private IList<StyleSkuCaseModel> _packingRuleList;
 
         /// <summary>
         /// This is the list of cases that are ignored for a style
         /// </summary>
-        public IList<PackingRuleModel> PackingRuleList
+        public IList<StyleSkuCaseModel> PackingRuleList
         {
             get
             {
-                return _packingRuleList ?? new List<PackingRuleModel>(0);
+                return _packingRuleList ?? new List<StyleSkuCaseModel>(0);
             }
             set
             {

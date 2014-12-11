@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 {
-    public class PackingRuleModel
+    public class StyleSkuCaseEditorViewModel
     {
         /// <summary>
         /// This is style for which SKU cases are ignored.

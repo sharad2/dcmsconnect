@@ -203,7 +203,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// This function returns a list of packing rules for SKU case.
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PackingRule> GetPackingRules()
+        public IEnumerable<StyleSkuCase> GetPackingRules()
         {
             return _repos.GetPackingRules();
         }
@@ -228,7 +228,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             _repos.DelCaseIgnorance(style, caseId);
         }
 
-        public void InsertPackingRule(PackingRule model)
+        public void InsertPackingRule(StyleSkuCase model)
         {
             _repos.InsertPackingRule(model);
         }

@@ -329,7 +329,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// This function returns a list of Packing rules for SKU cases
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<PackingRule> GetPackingRules()
+        public IEnumerable<StyleSkuCase> GetPackingRules()
         {
             const string QUERY = @"
                   SELECT PR.STYLE       AS STYLE,
@@ -341,7 +341,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                       ORDER BY PR.STYLE
 
             ";
-            var binder = SqlBinder.Create(row => new PackingRule
+            var binder = SqlBinder.Create(row => new StyleSkuCase
             {
                 Style = row.GetString("STYLE"),
                 CaseId = row.GetString("CASE_ID"),
@@ -411,7 +411,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// This function insert a new packing rule.
         /// </summary>
         /// <param name="model"></param>
-        public void InsertPackingRule(PackingRule model)
+        public void InsertPackingRule(StyleSkuCase model)
         {
             const string QUERY = @"
 
