@@ -1,0 +1,132 @@
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseViewModel
+@{
+    ViewBag.Title = "Style Cartons";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+}
+
+<div class="container">
+
+
+    <div>
+        <blockquote class="text-info">
+            Style specific SKU Cases
+            @if (Model.UserIsManager)
+            {
+                <button class="btn btn-default" data-toggle="modal"
+                        data-target="#tabModal" title="Add packing rule"
+                        data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor())">
+                    <span class="glyphicon glyphicon-plus"></span>  Add Packing Rule..
+                </button>
+            }
+        </blockquote>
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success">
+                <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                        <h4 class="list-group-item-heading">
+                            <span class="label label-success"> Style</span>
+                        </h4>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <h4 class="list-group-item-heading">
+                            Case
+                        </h4>
+
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        @if (Model.UserIsManager)
+                        {
+                            <button class="btn btn-default btn-xs pull-right" disabled>Action</button>
+                        }
+                    </div>
+                </div>
+            </li>
+            @for (var i = 0; i < Model.PackingRuleList.Count; i++)
+            {
+
+                <li class="list-group-item @(Model.PackingRuleList[i].IgnoreFlag ? "disabled" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <h4 class="list-group-item-heading">
+                                @if (Model.PackingRuleList[i].IgnoreFlag)
+                                {
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                }
+                                @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                {
+
+                                    <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
+
+                                }
+                            </h4>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <h4 class="list-group-item-heading">
+                                @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
+                            </h4>
+
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                            @if (Model.UserIsManager)
+                            {
+                                <div class="btn-group btn-group  pull-right btn-group-sm" role="group">
+                                    <button class="btn btn-default" data-toggle="modal"
+                                            data-target="#tabModal" title="Edit packing rule"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId,
+                            Model.PackingRuleList[i].IgnoreFlag))">
+                                        <span class="glyphicon glyphicon-edit"></span>  Edit
+                                    </button>
+                                    <div class="btn-group btn-group-sm">
+                                        <button class="btn btn-default dropdown-toggle"
+                                                data-toggle="dropdown">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                            Remove
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
+                                            <li>
+                                                <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelStyleSkuCase())" method="post">
+                                                    <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.style" />
+                                                    <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
+                                                    <input type="hidden" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.activeTab" value="2" />
+                                                    <center>Are you sure?</center>
+                                                    <div class="btn-group btn-group-justified">
+                                                        <button class="btn btn-primary" type="submit">Yes</button>
+                                                        <a class="btn btn-default">No</a>
+                                                    </div>
+                                                </form>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+
+
+</div>
+
+<!--Modal called from actions of each tabs-->
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            AJAX loaded HTML here
+        </div>
+    </div>
+</div>
+
+
+@section script {
+    <link href="@Links_PickWaves.Areas.PickWaves.SharedViews.typeahead_css" rel="stylesheet" />
+
+    <script src="@Links_PickWaves.Areas.PickWaves.Config.AjaxModal_js" type="text/javascript"></script>
+
+}

@@ -201,10 +201,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         #endregion
 
         #region StyleSkuCase
-
+        [Route("styleskucase")]
         public virtual ActionResult StyleSkuCase()
         {
-            throw new NotImplementedException();
+            var packingRules = _service.Value.GetPackingRules();
+            var model = new StyleSkuCaseViewModel
+            {
+                PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
+                {
+                    CaseId = p.CaseId,
+                    Style = p.Style,
+                    IgnoreFlag = p.IgnoreFlag
+                }).ToList()
+            };
+            return View(Views.StyleSkuCase, model);
         }
 
         /// <summary>
@@ -341,17 +351,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 AddStatusMessage("SKU case is not added yet.");
                 return View(Views.SkuCase, new SkuCaseViewModel());
             }
-            var packingRules = _service.Value.GetPackingRules();
+            //var packingRules = _service.Value.GetPackingRules();
             var model = new SkuCaseViewModel
                 {
                     SkuCaseList = skuCases.Select(p => new SkuCaseModel(p)).ToList(),
 
-                    PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
-                        {
-                            CaseId = p.CaseId,
-                            Style = p.Style,
-                            IgnoreFlag = p.IgnoreFlag
-                        }).ToList(),
+                    //PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
+                    //    {
+                    //        CaseId = p.CaseId,
+                    //        Style = p.Style,
+                    //        IgnoreFlag = p.IgnoreFlag
+                    //    }).ToList(),
                     ActiveTab = activeTab
                 };
             return View(Views.SkuCase, model);
