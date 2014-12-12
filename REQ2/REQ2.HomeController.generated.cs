@@ -92,12 +92,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CartonList()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CartonList);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult AddSku()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddSku);
@@ -131,7 +125,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string Search = "Search";
             public readonly string DeleteRequest = "DeleteRequest";
             public readonly string SkuEditor = "SkuEditor";
-            public readonly string CartonList = "CartonList";
             public readonly string AddSku = "AddSku";
             public readonly string DeleteSku = "DeleteSku";
             public readonly string AssignCartons = "AssignCartons";
@@ -149,7 +142,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public const string Search = "Search";
             public const string DeleteRequest = "DeleteRequest";
             public const string SkuEditor = "SkuEditor";
-            public const string CartonList = "CartonList";
             public const string AddSku = "AddSku";
             public const string DeleteSku = "DeleteSku";
             public const string AssignCartons = "AssignCartons";
@@ -206,14 +198,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             public readonly string ctnresvId = "ctnresvId";
         }
-        static readonly ActionParamsClass_CartonList s_params_CartonList = new ActionParamsClass_CartonList();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CartonList CartonListParams { get { return s_params_CartonList; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CartonList
-        {
-            public readonly string ctnresvId = "ctnresvId";
-        }
         static readonly ActionParamsClass_AddSku s_params_AddSku = new ActionParamsClass_AddSku();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_AddSku AddSkuParams { get { return s_params_AddSku; } }
@@ -244,7 +228,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string _assignedCartonInfoPartial = "_assignedCartonInfoPartial";
                 public readonly string _existingRequestPartial = "_existingRequestPartial";
                 public readonly string _manageSkuListPartial = "_manageSkuListPartial";
-                public readonly string CartonList = "CartonList";
                 public readonly string Index = "Index";
                 public readonly string PropertyEditor = "PropertyEditor";
                 public readonly string PullRequest = "PullRequest";
@@ -255,7 +238,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string _assignedCartonInfoPartial = "~/Areas/REQ2/Home/_assignedCartonInfoPartial.cshtml";
             public readonly string _existingRequestPartial = "~/Areas/REQ2/Home/_existingRequestPartial.cshtml";
             public readonly string _manageSkuListPartial = "~/Areas/REQ2/Home/_manageSkuListPartial.cshtml";
-            public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
             public readonly string PullRequest = "~/Areas/REQ2/Home/PullRequest.cshtml";
@@ -367,18 +349,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
             SkuEditorOverride(callInfo, ctnresvId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void CartonListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult CartonList(string ctnresvId)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CartonList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            CartonListOverride(callInfo, ctnresvId);
             return callInfo;
         }
 

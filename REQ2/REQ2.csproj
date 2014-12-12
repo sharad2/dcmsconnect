@@ -102,9 +102,8 @@
     </Compile>
     <Compile Include="Areas\REQ2\Home\AssignedCarton.cs" />
     <Compile Include="Areas\REQ2\Home\CartonArea.cs" />
-    <Compile Include="Areas\REQ2\Home\CartonList.cs" />
     <Compile Include="Areas\REQ2\Home\CodeDescriptionModel.cs" />
-    <Compile Include="Areas\REQ2\Home\RequestModel.cs" />
+    <Compile Include="Areas\REQ2\Home\PullRequest.cs" />
     <Compile Include="Areas\REQ2\Home\RequestSkuModel.cs" />
     <Compile Include="Areas\REQ2\SharedViews\SkuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,8 +129,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Areas\REQ2\Home\AssignedCartonViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\CartonListViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\IndexViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestSkuViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestViewModel.cs" />
@@ -263,7 +260,6 @@
     <None Include="Areas\REQ2\Home\REQ2.partial.css" />
     <None Include="Areas\REQ2\Home\RecentRequest-all.js" />
     <None Include="Areas\REQ2\Home\ManageSku-all.js" />
-    <Content Include="Areas\REQ2\Home\CartonList.cshtml" />
     <Content Include="Areas\REQ2\Home\Tutorial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />

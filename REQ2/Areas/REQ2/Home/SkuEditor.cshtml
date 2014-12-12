@@ -76,7 +76,7 @@
                 </span>@Html.ActionLink("Back to Recent Requests", MVC_REQ2.REQ2.Home.Index())<br />
                 <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
                 </span>
-                @Html.ActionLink(string.Format("Carton List for Request #{0}", Model.CurrentRequest.Header.ResvId), MVC_REQ2.REQ2.Home.CartonList(Model.CurrentRequest.Header.ResvId))<br />
+
                 @if (!Model.CurrentRequest.AssignedDate.HasValue)
                 {
                     <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">

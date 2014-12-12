@@ -186,7 +186,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 //return View(Views.PropertyEditor, rvm);
                 throw new NotImplementedException();
             }
-            var requestModel = new RequestModel
+            var requestModel = new PullRequest
             {
                 AllowOverPulling = model.OverPullCarton ? "O" : "U",
                 BuildingId = model.BuildingId,
@@ -331,7 +331,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </remarks>
         public virtual ActionResult SkuEditor(string ctnresvId)
         {
-            RequestModel requestInfo;
+            PullRequest requestInfo;
             if (string.IsNullOrEmpty(ctnresvId))
             {
                 this.AddStatusMessage("Please enter the valid Request ID");
@@ -363,7 +363,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             };
         }
 
-        private ActionResult DoDisplayRequest(RequestModel requestInfo, ViewTab selectedTab)
+        private ActionResult DoDisplayRequest(PullRequest requestInfo, ViewTab selectedTab)
         {
             var model = new ManageSkuViewModel();
 
@@ -379,7 +379,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var buildings = _service.GetBuildingList();
             model.BuildingList = buildings.Select(p => MapCode(p));
 
-            model.CurrentRequest = new RequestViewModel(requestInfo);
+            model.CurrentRequest = new ManageSkuRequestModel(requestInfo);
 
             var skus = _service.GetRequestSKUs(requestInfo.CtnResvId);
             model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
@@ -412,32 +412,32 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// return a view which show Cartonlist
         /// </returns>
-        [HttpGet]
-        public virtual ActionResult CartonList(string ctnresvId)
-        {
-            var result = _service.GetCartonList(ctnresvId);
-            var model = new CartonListViewModel
-                            {
-                                CartonList = result.Select(p => new CartonListViewModel
-                                {
-                                    CartonId = p.CartonId,
-                                    AreaDescription = p.AreaDescription,
-                                    PalletId = p.PalletId,
-                                    StoregeArea = p.StoregeArea,
-                                    QualityCode = p.QuilityCode,
-                                    ReqId = p.ReqId,
-                                    CtnresvId = p.CtnresvId,
-                                    Quantity = p.Quantity,
-                                    VwhId = p.VwhId
-                                }).ToList(),
-                                CtnresvId = ctnresvId
-                            };
-            if (model.CartonList.Any())
-            {
-                model.ReqId = model.CartonList.First().ReqId;
-            }
-            return View(Views.CartonList, model);
-        }
+        //[HttpGet]
+        //public virtual ActionResult CartonList(string ctnresvId)
+        //{
+        //    var result = _service.GetCartonList(ctnresvId);
+        //    var model = new CartonListViewModel
+        //                    {
+        //                        CartonList = result.Select(p => new CartonListViewModel
+        //                        {
+        //                            CartonId = p.CartonId,
+        //                            AreaDescription = p.AreaDescription,
+        //                            PalletId = p.PalletId,
+        //                            StoregeArea = p.StoregeArea,
+        //                            QualityCode = p.QuilityCode,
+        //                            ReqId = p.ReqId,
+        //                            CtnresvId = p.CtnresvId,
+        //                            Quantity = p.Quantity,
+        //                            VwhId = p.VwhId
+        //                        }).ToList(),
+        //                        CtnresvId = ctnresvId
+        //                    };
+        //    if (model.CartonList.Any())
+        //    {
+        //        model.ReqId = model.CartonList.First().ReqId;
+        //    }
+        //    return View(Views.CartonList, model);
+        //}
 
         /// <summary>
         /// This method is used to add an SKU to an existing request
@@ -549,7 +549,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 throw new ApplicationException("Internal Error. Request Id was not passed.");
             }
             var rules = new RequestCartonRulesViewModel();
-            RequestModel requestUpdated;
+            PullRequest requestUpdated;
             if (TryUpdateModel(rules, EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.CartonRules)))
             {
                 try
@@ -557,7 +557,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     //If already cartons assigned to request, Firstly we have to unassign this
                     // Unassign carton is intelligent enough to not do anything if cartons have not been assigned
                     _service.UnAssignCartons(ctnresvId);
-                    requestUpdated = new RequestModel
+                    requestUpdated = new PullRequest
                     {
                         SourceQuality = rules.QualityCode,
                         SewingPlantCode = rules.SewingPlantCode,

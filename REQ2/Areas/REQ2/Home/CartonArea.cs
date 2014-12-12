@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class CartonArea
+    internal class CartonArea
     {
         public string AreaId { get; set; }
 

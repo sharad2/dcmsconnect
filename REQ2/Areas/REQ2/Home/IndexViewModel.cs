@@ -12,27 +12,21 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             
         }
 
-        internal RecentRequestModel(RequestModel entity)
+        internal RecentRequestModel(PullRequest entity)
         {
             this.ResvId = entity.CtnResvId;
-            //this.ReqId = entity.ReqId;
+
             this.BuildingId = entity.BuildingId;
             this.VirtualWareHouseId = entity.SourceVwhId;
-            //this.SourceAreaId = entity.SourceAreaId;
+
             this.SourceAreaShortName = entity.SourceAreaShortName;
-            //this.DestinationAreaId = entity.DestinationArea;
+
             this.DestinationAreaShortName = entity.DestinationAreaShortName;
             this.Priorities = Convert.ToInt32(entity.Priority);
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
-            //this.OverPullCarton = entity.AllowOverPulling == "O";
-            //this.IsHung = entity.PackagingPreferance == "H";
-            this.RequestForConversion = entity.IsConversionRequest;
-            //this.TargetQualityCode = entity.TargetQuality;
-            //this.SaleTypeId = entity.SaleTypeId;
-            //this.TargetVwhId = entity.TargetVwhId;
 
-            //this.Header = new RequestHeaderViewModel(entity);
+            this.RequestForConversion = entity.IsConversionRequest;
 
 
             this.QuantityRequested = entity.QuantityRequested;

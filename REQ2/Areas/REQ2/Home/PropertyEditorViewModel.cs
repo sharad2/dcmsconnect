@@ -13,7 +13,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         }
 
-        public PropertyEditorViewModel(RequestModel entity)
+        internal PropertyEditorViewModel(PullRequest entity)
         {
             this.ResvId = entity.CtnResvId;
             //this.ReqId = entity.ReqId;
