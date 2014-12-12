@@ -14,12 +14,12 @@
 
 <div class="container">
     <h2 style="margin-top:0">
-        Recent Inventory Requests
+        Recent Pull Requests
     </h2>
     <ul class="list-group">
         <li class="list-group-item list-group-item-info">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <h4 class="list-group-item-heading">
 
                         <button type="button" class="btn btn-xs btn-danger" style="cursor:default" title="High Priority"><span class="glyphicon glyphicon-star"></span> High Priority</button>
@@ -33,7 +33,7 @@
                     </h4>
                     <p class="list-group-item-text">Source &rarr; Dest</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-sm-6">
                     <p class="list-group-item-text">
                         <span>  Created on <em>date</em> by  <em>name</em> for <abbr title="Virtual Warehouse">Vwh</abbr></span>
                     </p>
@@ -60,7 +60,7 @@
         {
             <li class="list-group-item">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <h4 class="list-group-item-heading">
                             @if (@Model.RecentRequests[i].Header.Priorities > 10)
                             {
@@ -74,7 +74,7 @@
                         </h4>
                         <p class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-6">
                         <p class="list-group-item-text">
                             @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)
                         </p>
@@ -83,7 +83,7 @@
                         </p>
                     </div>
                     <div class="col-md-4">
-                        <div class="progress" style="margin-bottom:0; width:80%; display:inline-block">
+                        <div class="progress" style="margin-bottom:0; width:70%; display:inline-block">
                             <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.RecentRequests[i].PercentAssigned%">
                                 <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)</span>
                             </div>
