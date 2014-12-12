@@ -33,7 +33,7 @@
                     </h4>
                     <p class="list-group-item-text">Source &rarr; Dest</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <p class="list-group-item-text">
                         <span>  Created on <em>date</em> by  <em>name</em> for <abbr title="Virtual Warehouse">Vwh</abbr></span>
                     </p>
@@ -45,7 +45,8 @@
                     <span class="h4">
                         <span class="label label-default"><em>m</em> of <em>n</em> pieces assigned</span>
                     </span>
-
+                </div>
+                <div class="col-md-2">
                     <button class="btn btn-default btn-sm" disabled>
                         <span class="glyphicon glyphicon-plus"></span>
                         <span class="hidden-xs">Add SKU</span>
@@ -72,7 +73,7 @@
                         </h4>
                         <p class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</p>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <p class="list-group-item-text">
                             @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)
                         </p>
@@ -82,17 +83,15 @@
                     </div>
                     <div class="col-md-2">
                         <span class="h4">
-                            @if (@Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested)
-                            {
-                                <span class="label label-success">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) </span>
-                            }
-                            else
-                            {
+                            <span class="label label-@(Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested ? "success" : "danger") label-success">
+                                @Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)
+                            </span>
 
-                                <span class="label label-danger">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) </span>
-
-                            }
                         </span>
+                    </div>
+
+
+                    <div class="col-md-2">
                         <div class="btn-group btn-group-sm ">
                             <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-default">
                                 <span class="glyphicon glyphicon-plus"></span>
@@ -105,11 +104,10 @@
                                 <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.CreateRequest(Model.RecentRequests[i].Header.ResvId))"> Edit</a></li>
                                 <li><a href="#">Delete</a></li>
                             </ul>
-
-
                         </div>
-
                     </div>
+
+
                 </div>
             </li>
         }
