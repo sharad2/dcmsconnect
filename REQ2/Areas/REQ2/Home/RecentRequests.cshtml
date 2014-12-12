@@ -13,67 +13,90 @@
 }
 
 <div class="container">
-    <h2 style="margin-top:0px" >
-        Recent Inventory Requests <small>Pull<span class="glyphicon glyphicon-share-alt"></span> <span class="hidden-xs"> </span>/Convert <span class="glyphicon glyphicon-retweet"></span> <span class="hidden-xs"> </span></small>
+    <h2 style="margin-top:0">
+        Recent Inventory Requests
     </h2>
     <ul class="list-group">
+        <li class="list-group-item list-group-item-info">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="list-group-item-heading">
+
+                        <button type="button" class="btn btn-xs btn-danger" style="cursor:default" title="High Priority"><span class="glyphicon glyphicon-star"></span> High Priority</button>
+
+
+                        <button type="button" class="btn btn-xs btn-default" style="cursor:default" title="Conversion Request"><span class="glyphicon glyphicon-retweet"></span> Conversion</button>
+
+                        <strong>   Request Id </strong>
+
+
+                    </h4>
+                    <p class="list-group-item-text">Source &rarr; Dest</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="list-group-item-text">
+                        <span>  Created on <em>date</em> by  <em>name</em> for <abbr title="Virtual Warehouse">Vwh</abbr></span>
+                    </p>
+                    <p class="list-group-item-text">
+                        Remarks
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <span class="h4">
+                        <span class="label label-default"><em>m</em> of <em>n</em> pieces assigned</span>
+                    </span>
+
+                    <button class="btn btn-default btn-sm" disabled>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="hidden-xs">Add SKU</span>
+                    </button>
+                </div>
+            </div>
+        </li>
 
         @for (var i = 0; i < Model.RecentRequests.Count; ++i)
         {
             <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-4">
-
-
                         <h4 class="list-group-item-heading">
                             @if (@Model.RecentRequests[i].Header.Priorities > 10)
                             {
-                                <small>
-                                    <span class="label label-danger "><span class="glyphicon glyphicon-star"> </span></span>
-                                </small>
+                                <button type="button" class="btn btn-xs btn-danger" style="cursor:default" title="High Priority"><span class="glyphicon glyphicon-star"></span></button>
                             }
                             @if (@Model.RecentRequests[i].Header.RequestForConversion)
                             {
-                                <span class="glyphicon glyphicon-retweet"></span>
+                                <button type="button" class="btn btn-xs btn-default" style="cursor:default" title="Conversion Request"><span class="glyphicon glyphicon-retweet"></span></button>
+                            }
+                            <strong>   @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId) </strong>
+                        </h4>
+                        <p class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)
+                        </p>
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="h4">
+                            @if (@Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested)
+                            {
+                                <span class="label label-success">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) </span>
                             }
                             else
                             {
-                                <span class="glyphicon glyphicon-share-alt"></span>
+
+                                <span class="label label-danger">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) </span>
+
                             }
-
-
-
-                            <b>   @Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId) </b>
-
-                            <span class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</span>
-                           
-
-                        </h4>
-                      
-                    </div>
-                    <div class="col-md-6">
-                        @*<span class="list-group-item-heading h4">@Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>*@
-
-
-                        @*<div class="bg-success">*@
-                        <div class="bg-info">
-
-                            <span>  @Html.DisplayFor(m => m.RecentRequests[i].DateCreated) by  @Html.DisplayFor(m => m.RecentRequests[i].Header.RequestedBy) for virtual warehouse @Html.DisplayFor(m => m.RecentRequests[i].Header.VirtualWareHouseId)</span>
-                          <Br>  <span>   @Html.DisplayFor(m => m.RecentRequests[i].Header.Remarks)  </span>
-</div>
-                    </div>
-                    <div class="col-md-2">
-                        @if (@Model.RecentRequests[i].AssignedPieces == @Model.RecentRequests[i].QuantityRequested || @Model.RecentRequests[i].AssignedPieces >= @Model.RecentRequests[i].QuantityRequested)
-                        {
-                            <span class="badge alert-success">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
-                        }
-                        else
-                        {
-                            <span class="badge alert-danger">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>
-                        }
-                        @*<span class="badge alert-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested) pieces assigned</span>*@
+                        </span>
                         <div class="btn-group btn-group-sm ">
-                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> <span class="hidden-xs">Add SKU</span></a>
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.DisplayRequest(Model.RecentRequests[i].Header.ResvId))" class="btn btn-default">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -93,4 +116,4 @@
     </ul>
 
 
-    </div>
+</div>

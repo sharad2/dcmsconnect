@@ -166,6 +166,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [Display(Name = "Quantity Requested", ShortName = "Pieces")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int QuantityRequested { get; set; }
 
 
