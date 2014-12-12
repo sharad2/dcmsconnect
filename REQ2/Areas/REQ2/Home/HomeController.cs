@@ -72,11 +72,21 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpGet]
         public virtual ActionResult PropertyEditor(string ctnresvId)
         {
-            var model = new PropertyEditorViewModel();
-            if (!string.IsNullOrEmpty(ctnresvId))
+            PropertyEditorViewModel model;
+            if (string.IsNullOrEmpty(ctnresvId))
             {
-                model.CurrentRequest = new RequestHeaderViewModel(_service.GetRequestInfo(ctnresvId));
+                model = new PropertyEditorViewModel();
             }
+            else
+            {
+                var req = _service.GetRequestInfo(ctnresvId);
+                if (req == null)
+                {
+                    throw new NotImplementedException();
+                }
+                model = new PropertyEditorViewModel(req);
+            }
+
             PopulateIndexViewModel(model);
             return View(Views.PropertyEditor, model);
         }
@@ -110,10 +120,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         private void PopulateIndexViewModel(PropertyEditorViewModel model)
         {
-            if (model.CurrentRequest == null)
-            {
-                model.CurrentRequest = new RequestHeaderViewModel();
-            }
+            //if (model.CurrentRequest == null)
+            //{
+            //    model.CurrentRequest = new RequestHeaderViewModel();
+            //}
 
             var vwh = _service.GetVwhList().ToList();
             model.VirtualWareHouseList = vwh.Select(p => MapCode(p));
@@ -171,32 +181,33 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             if (!ModelState.IsValid)
             {
                 // Unable to Create or Update Populate RequestViewModel again 
-                rvm.CurrentRequest = model.CurrentRequest;
-                PopulateIndexViewModel(rvm);
-                return View(Views.PropertyEditor, rvm);
+                //rvm.CurrentRequest = model.CurrentRequest;
+                //PopulateIndexViewModel(rvm);
+                //return View(Views.PropertyEditor, rvm);
+                throw new NotImplementedException();
             }
             var requestModel = new RequestModel
             {
-                AllowOverPulling = model.CurrentRequest.OverPullCarton ? "O" : "U",
-                BuildingId = model.CurrentRequest.BuildingId,
-                CtnResvId = model.CurrentRequest.ResvId,
-                DestinationArea = model.CurrentRequest.DestinationAreaId,
-                PackagingPreferance = model.CurrentRequest.IsHung ? "H" : "",
-                Priority = model.CurrentRequest.Priorities.ToString(),
-                Remarks = model.CurrentRequest.Remarks,
-                SaleTypeId = model.CurrentRequest.SaleTypeId,
-                SourceAreaId = model.CurrentRequest.SourceAreaId,
-                TargetVwhId = model.CurrentRequest.TargetVwhId,
-                SourceVwhId = model.CurrentRequest.VirtualWareHouseId,
-                IsConversionRequest = model.CurrentRequest.RequestForConversion,
-                TargetQuality = model.CurrentRequest.TargetQualityCode,
-                DestinationAreaShortName = model.CurrentRequest.DestinationAreaShortName,
+                AllowOverPulling = model.OverPullCarton ? "O" : "U",
+                BuildingId = model.BuildingId,
+                CtnResvId = model.ResvId,
+                DestinationArea = model.DestinationAreaId,
+                PackagingPreferance = model.IsHung ? "H" : "",
+                Priority = model.Priorities.ToString(),
+                Remarks = model.Remarks,
+                SaleTypeId = model.SaleTypeId,
+                SourceAreaId = model.SourceAreaId,
+                TargetVwhId = model.TargetVwhId,
+                SourceVwhId = model.VirtualWareHouseId,
+                IsConversionRequest = model.RequestForConversion,
+                TargetQuality = model.TargetQualityCode,
+                DestinationAreaShortName = model.DestinationAreaShortName,
                 //ReqId = model.CurrentRequest.ReqId,
-                RequestedBy = model.CurrentRequest.RequestedBy,
-                SourceAreaShortName = model.CurrentRequest.SourceAreaShortName
+                RequestedBy = model.RequestedBy,
+                SourceAreaShortName = model.SourceAreaShortName
             };
 
-            if (string.IsNullOrEmpty(model.CurrentRequest.ResvId))
+            if (string.IsNullOrEmpty(model.ResvId))
             {
                 //Creating New Request
                 try
@@ -223,7 +234,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 catch (ProviderException ex)
                 {
                     PopulateIndexViewModel(rvm);
-                    rvm.CurrentRequest.ResvId = requestModel.CtnResvId;
+                    rvm.ResvId = requestModel.CtnResvId;
                     ModelState.AddModelError("", ex.Message);
                     return View(Views.PropertyEditor, rvm);
                 }

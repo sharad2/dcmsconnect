@@ -1,6 +1,6 @@
 ﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.PropertyEditorViewModel
 @{  
-    ViewBag.Title = string.IsNullOrEmpty(Model.CurrentRequest.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.CurrentRequest.ResvId);
+    ViewBag.Title = string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId);
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
@@ -81,29 +81,29 @@
     id = "frmMain"
 }))
 {
-    @Html.HiddenFor(m => m.CurrentRequest.ResvId, new { id = "resvId" })
+    @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
     <div class="box divReqMain">
-        @Html.LabelFor(m => m.CurrentRequest.RequestForConversion)
-        @Html.CheckBoxFor(m => m.CurrentRequest.RequestForConversion, new { id = "CbConversionRequest" })
+        @Html.LabelFor(m => m.RequestForConversion)
+        @Html.CheckBoxFor(m => m.RequestForConversion, new { id = "CbConversionRequest" })
         Check this if you want to convert SKU/VWH<br />
-        @Html.LabelFor(m => m.CurrentRequest.VirtualWareHouseId)
-        @Html.DropDownListFor(m => m.CurrentRequest.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, null)*
+        @Html.LabelFor(m => m.VirtualWareHouseId)
+        @Html.DropDownListFor(m => m.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, null)*
         <br />
         <label>
             Pull From Area</label>
-        @Html.GroupDropListFor(m => m.CurrentRequest.SourceAreaId, Model.SourceAreas, "(Please Select)")
+        @Html.GroupDropListFor(m => m.SourceAreaId, Model.SourceAreas, "(Please Select)")
         * To
-        @Html.GroupDropListFor(m => m.CurrentRequest.DestinationAreaId, Model.DestinationAreas)
+        @Html.GroupDropListFor(m => m.DestinationAreaId, Model.DestinationAreas)
         *<br />
         <label for ="ddlTargetQualityCode" >
-        @Html.CheckBoxFor(m => m.CurrentRequest.UpdateQualityFlag, new { id = "cbUpdateQuality" })
+        @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { id = "cbUpdateQuality" })
         Change Quality To
         </label>
-        @Html.DropDownListFor(m => m.CurrentRequest.TargetQualityCode, Model.TargetQualityCodeList, "(No Change)", new { id = "ddlTargetQualityCode" })<br />
-        @Html.LabelFor(m => m.CurrentRequest.Remarks)
-        @Html.TextAreaFor(m => m.CurrentRequest.Remarks)
+        @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "(No Change)", new { id = "ddlTargetQualityCode" })<br />
+        @Html.LabelFor(m => m.Remarks)
+        @Html.TextAreaFor(m => m.Remarks)
         <br />
-        @if (string.IsNullOrEmpty(Model.CurrentRequest.ResvId))
+        @if (string.IsNullOrEmpty(Model.ResvId))
         {
             <button id="btnCreateRequest">
                 Create Request</button>
@@ -112,7 +112,7 @@
         {
             <button id="btnSaveRequest">
                 Save Request</button>
-            @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.SkuEditor(Model.CurrentRequest.ResvId))
+            @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.SkuEditor(Model.ResvId))
         }
         @Html.ValidationSummary()
     </div>
@@ -120,24 +120,24 @@
         <h3>
             <a href="#divConv">Conversion</a></h3>
         <div id="divConv">
-            @Html.LabelFor(m => m.CurrentRequest.TargetVwhId)
-            @Html.DropDownListFor(m => m.CurrentRequest.TargetVwhId, Model.TargetVwhList, "(No Change)", new { id = "ddlTargetVwh" })
+            @Html.LabelFor(m => m.TargetVwhId)
+            @Html.DropDownListFor(m => m.TargetVwhId, Model.TargetVwhList, "(No Change)", new { id = "ddlTargetVwh" })
         </div>
         <h3>
             <a href="#divAdvance">Advanced</a></h3>
         <div id="divAdvance" class="box divReqMain">
-            @Html.LabelFor(m => m.CurrentRequest.SaleTypeId)
-            @Html.DropDownListFor(m => m.CurrentRequest.SaleTypeId, Model.SaleTypes, "(Any)", null)
+            @Html.LabelFor(m => m.SaleTypeId)
+            @Html.DropDownListFor(m => m.SaleTypeId, Model.SaleTypes, "(Any)", null)
             <br />
-            @Html.LabelFor(m => m.CurrentRequest.Priorities)
-            @Html.TextBoxFor(m => m.CurrentRequest.Priorities, new { style = "width:30px;" })
+            @Html.LabelFor(m => m.Priorities)
+            @Html.TextBoxFor(m => m.Priorities, new { style = "width:30px;" })
             <br />
-            @Html.LabelFor(m => m.CurrentRequest.OverPullCarton)
-            @Html.CheckBoxFor(m => m.CurrentRequest.OverPullCarton, new { onclick = "return false" })
+            @Html.LabelFor(m => m.OverPullCarton)
+            @Html.CheckBoxFor(m => m.OverPullCarton, new { onclick = "return false" })
             Yes
             <br />
-            @Html.LabelFor(m => m.CurrentRequest.IsHung)
-            @Html.CheckBoxFor(m => m.CurrentRequest.IsHung) Yes
+            @Html.LabelFor(m => m.IsHung)
+            @Html.CheckBoxFor(m => m.IsHung) Yes
             <br />
         </div>
     </div>
