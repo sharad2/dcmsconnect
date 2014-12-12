@@ -373,7 +373,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         private ActionResult DoDisplayRequest(PullRequest requestInfo, ViewTab selectedTab)
         {
-            var model = new ManageSkuViewModel();
+            var model = new ManageSkuViewModel(requestInfo);
 
             var qualities = _service.GetQualityCodes();
             model.Qualities = qualities.Select(p => MapCode(p));
@@ -387,7 +387,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var buildings = _service.GetBuildingList();
             model.BuildingList = buildings.Select(p => MapCode(p));
 
-            model.CurrentRequest = new ManageSkuRequestModel(requestInfo);
+            //model.CurrentRequest = new ManageSkuRequestModel(requestInfo);
 
             var skus = _service.GetRequestSKUs(requestInfo.CtnResvId);
             model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
@@ -459,7 +459,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             //User can convert only VwhId without providing target sku.Target sku is only required when user wants to convert sku
             Sku targetSku = null;
-            if (model.CurrentRequest.Header.RequestForConversion)
+            if (model.Header.RequestForConversion)
             {
                 if (string.IsNullOrEmpty(model.TargetStyle) && string.IsNullOrEmpty(model.TargetColor) && string.IsNullOrEmpty(model.TargetDimension) && string.IsNullOrEmpty(model.TargetSkuSize))
                 {
@@ -484,11 +484,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             try
             {
                 //Adding sku to request
-                _service.AddSkutoRequest(model.CurrentRequest.Header.ResvId, newSku.SkuId, model.NewPieces.Value,
+                _service.AddSkutoRequest(model.Header.ResvId, newSku.SkuId, model.NewPieces.Value,
                                          targetSku == null ? (int?)null : targetSku.SkuId);
 
                 //getting list of added all SKUs to request.
-                var skus = _service.GetRequestSKUs(model.CurrentRequest.Header.ResvId);
+                var skus = _service.GetRequestSKUs(model.Header.ResvId);
                 model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
                 return PartialView(Views._manageSkuListPartial, model);
             }
@@ -550,7 +550,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpPost]
         public virtual ActionResult AssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.Header.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {
@@ -558,7 +558,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }
             var rules = new RequestCartonRulesViewModel();
             PullRequest requestUpdated;
-            if (TryUpdateModel(rules, EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.CartonRules)))
+            if (TryUpdateModel(rules, EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CartonRules)))
             {
                 try
                 {
@@ -601,7 +601,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpPost]
         public virtual ActionResult UnAssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.Header.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {

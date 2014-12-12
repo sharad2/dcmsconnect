@@ -139,70 +139,71 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
 
 
-    /// <summary>
-    /// Contains all available Request properties
-    /// </summary>
-    public class ManageSkuRequestModel
-    {
-        public ManageSkuRequestModel()
-        {
-        }
-        internal ManageSkuRequestModel(PullRequest entity)
-        {
+    ///// <summary>
+    ///// Contains all available Request properties
+    ///// </summary>
+    //[Obsolete]
+    //public class ManageSkuRequestModel
+    //{
+    //    public ManageSkuRequestModel()
+    //    {
+    //    }
+    //    internal ManageSkuRequestModel(PullRequest entity)
+    //    {
 
-            this.Header = new manageRequestHeaderModel(entity);
-            this.CartonRules = new RequestCartonRulesViewModel
-            {
-                CartonReceivedDate = entity.CartonReceivedDate,
-                PriceSeasonCode = entity.PriceSeasonCode,
-                QualityCode = entity.SourceQuality,
-                SewingPlantCode = entity.SewingPlantCode,
-                BuildingId = entity.BuildingId
-            };
-            this.AssignedCartonCount = entity.AssignedCartonCount;
-            this.QuantityRequested = entity.QuantityRequested;
-            this.AssignedDate = entity.AssignedDate;
-            this.AssignedPieces = entity.AssignedPieces;
-            this.DateCreated = entity.DateCreated;
-        }
+    //        this.Header = new manageRequestHeaderModel(entity);
+    //        this.CartonRules = new RequestCartonRulesViewModel
+    //        {
+    //            CartonReceivedDate = entity.CartonReceivedDate,
+    //            PriceSeasonCode = entity.PriceSeasonCode,
+    //            QualityCode = entity.SourceQuality,
+    //            SewingPlantCode = entity.SewingPlantCode,
+    //            BuildingId = entity.BuildingId
+    //        };
+    //        this.AssignedCartonCount = entity.AssignedCartonCount;
+    //        this.QuantityRequested = entity.QuantityRequested;
+    //        this.AssignedDate = entity.AssignedDate;
+    //        this.AssignedPieces = entity.AssignedPieces;
+    //        this.DateCreated = entity.DateCreated;
+    //    }
 
-        [Display(Name = "Quantity Requested", ShortName = "Pieces")]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int QuantityRequested { get; set; }
+    //    [Display(Name = "Quantity Requested", ShortName = "Pieces")]
+    //    [DisplayFormat(DataFormatString = "{0:N0}")]
+    //    public int QuantityRequested { get; set; }
 
 
-        [Display(Name = "Assigned?")]
-        public DateTime? AssignedDate { get; set; }
+    //    [Display(Name = "Assigned?")]
+    //    public DateTime? AssignedDate { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int AssignedCartonCount { get; set; }
+    //    [DisplayFormat(DataFormatString = "{0:N0}")]
+    //    public int AssignedCartonCount { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int AssignedPieces { get; set; }
+    //    [DisplayFormat(DataFormatString = "{0:N0}")]
+    //    public int AssignedPieces { get; set; }
 
-        /// <summary>
-        /// Date when request was created
-        /// </summary>
-        [Display(Name = "Created On")]
-        public DateTime? DateCreated { get; set; }
+    //    /// <summary>
+    //    /// Date when request was created
+    //    /// </summary>
+    //    [Display(Name = "Created On")]
+    //    public DateTime? DateCreated { get; set; }
 
-        public manageRequestHeaderModel Header { get; set; }
+    //    public manageRequestHeaderModel Header { get; set; }
 
-        public RequestCartonRulesViewModel CartonRules { get; set; }
+    //    public RequestCartonRulesViewModel CartonRules { get; set; }
 
-        public int PercentAssigned
-        {
-            get
-            {
-                if (QuantityRequested == 0 || AssignedPieces > QuantityRequested)
-                {
-                    // We are done
-                    return 100;
-                }
-                return (int)Math.Round((double)AssignedPieces * 100.0 / (double)QuantityRequested);
-            }
-        }
-    }
+    //    public int PercentAssigned
+    //    {
+    //        get
+    //        {
+    //            if (QuantityRequested == 0 || AssignedPieces > QuantityRequested)
+    //            {
+    //                // We are done
+    //                return 100;
+    //            }
+    //            return (int)Math.Round((double)AssignedPieces * 100.0 / (double)QuantityRequested);
+    //        }
+    //    }
+    //}
 
     public enum ViewTab
     {
@@ -213,6 +214,32 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
     public class ManageSkuViewModel
     {
+        public ManageSkuViewModel()
+        {
+
+        }
+
+        internal ManageSkuViewModel(PullRequest entity)
+        {
+            this.Header = new manageRequestHeaderModel(entity);
+            this.CartonRules = new RequestCartonRulesViewModel
+            {
+                CartonReceivedDate = entity.CartonReceivedDate,
+                PriceSeasonCode = entity.PriceSeasonCode,
+                QualityCode = entity.SourceQuality,
+                SewingPlantCode = entity.SewingPlantCode,
+                BuildingId = entity.BuildingId
+            };
+
+            this.AssignedDate = entity.AssignedDate;
+        }
+
+        [Display(Name = "Assigned?")]
+        public DateTime? AssignedDate { get; set; }
+
+        public manageRequestHeaderModel Header { get; set; }
+
+        public RequestCartonRulesViewModel CartonRules { get; set; }
 
         #region SourceSKu Property
         [Required]
@@ -253,8 +280,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Pieces must be greater then or equal to 1")]
         public int? NewPieces { get; set; }
 
-        [Display(Name = "Target")]
-        public ManageSkuRequestModel CurrentRequest { get; set; }
+        //[Display(Name = "Target")]
+        //public ManageSkuRequestModel CurrentRequest { get; set; }
 
         private IList<RequestSkuViewModel> _requestedSkus;
 
