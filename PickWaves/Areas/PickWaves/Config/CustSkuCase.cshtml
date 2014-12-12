@@ -4,6 +4,14 @@
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
 
+@section applinks{
+    <li>@Html.ActionLink("Style Sku Case", MVC_PickWaves.PickWaves.Config.StyleSkuCase())</li>
+    <li>@Html.ActionLink(" Customer Sku Case", MVC_PickWaves.PickWaves.Config.SkuCase())</li>
+    <li>@Html.ActionLink("Customer Constraints", MVC_PickWaves.PickWaves.Config.Constraint())</li>
+    <li class="divider">
+    </li>
+}
+
 <div class="container">
     <div>
         <blockquote class="text-info">
