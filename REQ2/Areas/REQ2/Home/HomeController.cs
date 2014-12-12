@@ -394,7 +394,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// return a view which show Cartonlist
         /// </returns>
         [HttpGet]
-        public virtual ActionResult DisplayCartonList(string ctnresvId)
+        public virtual ActionResult CartonList(string ctnresvId)
         {
             var result = _service.GetCartonList(ctnresvId);
             var model = new CartonListViewModel
@@ -427,6 +427,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return a partial view which shows the containing SKUs in list
         /// </returns>
+        [HttpPost]
         public virtual ActionResult AddSku(ManageSkuViewModel model)
         {
             //User can convert only VwhId without providing target sku.Target sku is only required when user wants to convert sku
@@ -480,6 +481,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return a partial view which shows the containing SKUs in list
         /// </returns>
+        [HttpPost]
         public virtual ActionResult DeleteSku(int? skuId, string resvId)
         {
             if (skuId == null || string.IsNullOrEmpty(resvId))
@@ -518,6 +520,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <c>CurrentRequest.Header.ResvId</c> within the model to get the id. It will then access the values in
         /// <c>CurrentRequest.CartonRules</c> to perform the assignment
         /// </remarks>
+        [HttpPost]
         public virtual ActionResult AssignCartons()
         {
             var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
@@ -568,6 +571,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// Unassigning the cartons from request
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult UnAssignCartons()
         {
             var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.CurrentRequest.Header.ResvId))
