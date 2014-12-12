@@ -6,19 +6,22 @@
 
 @section applinks{
     <li>@Html.ActionLink("Style Sku Case", MVC_PickWaves.PickWaves.Config.StyleSkuCase())</li>
-    <li>@Html.ActionLink(" Customer Sku Case", MVC_PickWaves.PickWaves.Config.SkuCase())</li>
+    <li>@Html.ActionLink(" Packing Sku Case", MVC_PickWaves.PickWaves.Config.SkuCase())</li>
     <li>@Html.ActionLink("Customer Constraints", MVC_PickWaves.PickWaves.Config.Constraint())</li>
     <li class="divider">
     </li>
 }
 
 <div class="container">
+    <h2 style="margin-top:0">
+        @ViewBag.Title
+    </h2>
     <div>
         <blockquote class="text-info">
             Customer prefered SKU Cases
             @if (Model.UserIsManager)
             {
-                <button class="btn btn-primary" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
+                <button class="btn btn-default" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                         data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCaseEditor())">
                     <span class="glyphicon glyphicon-plus"></span>  New Customer Preference...
                 </button>
@@ -112,7 +115,7 @@
                             @if (Model.UserIsManager)
                             {
                                 <div class="btn-group pull-right">
-                                    <button class=" pull-right btn btn-primary btn-xs dropdown-toggle"
+                                    <button class=" pull-right btn btn-default btn-xs dropdown-toggle"
                                             data-toggle="dropdown">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         Remove
@@ -128,7 +131,7 @@
                                                        name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
                                                 <center>Are you sure?</center>
                                                 <div class="btn-group btn-group-justified">
-                                                    <button class="btn btn-primary" type="submit">Yes</button>
+                                                    <button class="btn btn-default" type="submit">Yes</button>
                                                     <a class="btn btn-default">No</a>
                                                 </div>
                                             </form>
