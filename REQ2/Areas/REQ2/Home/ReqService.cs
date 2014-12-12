@@ -92,7 +92,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
-        public IEnumerable<RequestSkuModel> GetRequestSKUs(string ctnresvId)
+        public IEnumerable<RequestSku> GetRequestSKUs(string ctnresvId)
         {
             return _repos.GetRequestSkus(ctnresvId);
         }
@@ -295,7 +295,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <param name="dimension"></param>
         /// <param name="skuSize"></param>
         /// <returns></returns>
-        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
+        public Sku GetSku(string style, string color, string dimension, string skuSize)
         {
             return _repos.GetSku(style, color, dimension, skuSize);
         }

@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class CodeDescriptionModel
+    internal class CodeDescriptionModel
     {
         public string Code { get; set; }
 

@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.REQ2.Areas.REQ2.SharedViews
 {
-    public class SkuModel
+    internal class Sku
     {
         public int SkuId { get; set; }
 

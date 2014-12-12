@@ -391,7 +391,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 TotalCartons = row.TotalCartons,
                 PulledPieces = row.PulledPieces,
                 TotalPieces = row.TotalPieces,
-                Sku = new SkuViewModel
+                Sku = new SkuModel
                 {
                     Style = row.Sku.Style,
                     Color = row.Sku.Color,
@@ -450,7 +450,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public virtual ActionResult AddSku(ManageSkuViewModel model)
         {
             //User can convert only VwhId without providing target sku.Target sku is only required when user wants to convert sku
-            SkuModel targetSku = null;
+            Sku targetSku = null;
             if (model.CurrentRequest.Header.RequestForConversion)
             {
                 if (string.IsNullOrEmpty(model.TargetStyle) && string.IsNullOrEmpty(model.TargetColor) && string.IsNullOrEmpty(model.TargetDimension) && string.IsNullOrEmpty(model.TargetSkuSize))

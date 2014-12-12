@@ -2,7 +2,7 @@
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class SkuViewModel
+    public class SkuModel
     {
         public int? SkuId { get; set; }
 

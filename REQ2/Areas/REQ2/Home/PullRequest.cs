@@ -43,7 +43,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public DateTime? CartonReceivedDate { get; set; }
 
-        public IEnumerable<RequestSkuModel> RequestedSkus { get; set; }
+        public IEnumerable<RequestSku> RequestedSkus { get; set; }
 
         public DateTime? DateCreated { get; set; }
 

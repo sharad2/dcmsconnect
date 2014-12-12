@@ -458,7 +458,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <param name="ctnresvId"></param>
         /// <returns></returns>
-        public IEnumerable<RequestSkuModel> GetRequestSkus(string ctnresvId)
+        public IEnumerable<RequestSku> GetRequestSkus(string ctnresvId)
         {
             const string QUERY = @"
             SELECT 
@@ -483,10 +483,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
              WHERE C.CTN_RESV_ID = :ctnresv_id
             GROUP BY REQDET.REQ_PROCESS_ID, REQDET.REQ_LINE_NUMBER
         ";
-            var binder = SqlBinder.Create(row => new RequestSkuModel
+            var binder = SqlBinder.Create(row => new RequestSku
             {
                 Pieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
-                SourceSku = new SkuModel
+                SourceSku = new Sku
                 {
                     Style = row.GetString("STYLE"),
                     Color = row.GetString("COLOR"),
@@ -495,7 +495,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     SkuId = row.GetInteger("SKU_ID") ?? 0,
                 },
 
-                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new SkuModel
+                TargetSku = row.GetInteger("CON_SKU_ID") != null ? new Sku
                 {
                     Style = row.GetString("CON_STYLE_"),
                     Color = row.GetString("CON_COLOR_"),
@@ -576,7 +576,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 PulledPieces = row.GetInteger("pulled_pieces").Value,
                 TotalCartons = row.GetInteger("num_cartons").Value,
                 TotalPieces = row.GetInteger("num_pieces").Value,
-                Sku = new SkuModel
+                Sku = new Sku
                 {
                     Style = row.GetString("STYLE"),
                     Color = row.GetString("COLOR"),
@@ -673,7 +673,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <returns>
         /// Return style,color,dimension,SKuSize and SKuId.
         /// </returns>
-        public SkuModel GetSku(string style, string color, string dimension, string skuSize)
+        public Sku GetSku(string style, string color, string dimension, string skuSize)
         {
             const string QUERY =
                              @" SELECT MSKU.SKU_ID      AS SKU_ID,
@@ -687,7 +687,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                                         AND MSKU.DIMENSION = :DIMENSION
                                         AND MSKU.SKU_SIZE = :SKU_SIZE";
 
-            var binder = SqlBinder.Create(row => new SkuModel
+            var binder = SqlBinder.Create(row => new Sku
             {
                 Style = row.GetString("STYLE"),
                 Color = row.GetString("COLOR"),

@@ -9,7 +9,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     public class AssignedCartonViewModel
     {
         [Display(Name = "SKU")]
-        public SkuViewModel Sku { get; set; }
+        public SkuModel Sku { get; set; }
 
         [Display(Name = "Total Cartons")]
         public int TotalCartons { get; set; }

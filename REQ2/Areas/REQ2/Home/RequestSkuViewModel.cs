@@ -6,14 +6,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     {
         public RequestSkuViewModel()
         {
-            SourceSku = new SkuViewModel();
-            TargetSku = new SkuViewModel();
+            SourceSku = new SkuModel();
+            TargetSku = new SkuModel();
         }
 
-        public RequestSkuViewModel(RequestSkuModel entity)
+        internal RequestSkuViewModel(RequestSku entity)
         {
             this.Pieces = entity.Pieces;            
-            this.SourceSku = new SkuViewModel
+            this.SourceSku = new SkuModel
             {
                 Style = entity.SourceSku.Style,
                 Color = entity.SourceSku.Color,
@@ -24,7 +24,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             };
             if (entity.TargetSku != null)
             {
-                this.TargetSku = new SkuViewModel
+                this.TargetSku = new SkuModel
                 {
                     Style = entity.TargetSku.Style,
                     Color = entity.TargetSku.Color,
@@ -38,11 +38,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         [Display(Name = "Source SKU")]
         [Required(ErrorMessage = "{0} is required")]
-        public SkuViewModel SourceSku { get; set; }
+        public SkuModel SourceSku { get; set; }
 
         [Display(Name = "Target SKU")]
         [Required(ErrorMessage = "{0} is required")]
-        public SkuViewModel TargetSku { get; set; }
+        public SkuModel TargetSku { get; set; }
 
         [Display(Name = "Pieces")]
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "{0} must be greater then or equal to 1")]

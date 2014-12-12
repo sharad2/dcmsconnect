@@ -104,8 +104,8 @@
     <Compile Include="Areas\REQ2\Home\CartonArea.cs" />
     <Compile Include="Areas\REQ2\Home\CodeDescriptionModel.cs" />
     <Compile Include="Areas\REQ2\Home\PullRequest.cs" />
-    <Compile Include="Areas\REQ2\Home\RequestSkuModel.cs" />
-    <Compile Include="Areas\REQ2\SharedViews\SkuModel.cs" />
+    <Compile Include="Areas\REQ2\Home\RequestSku.cs" />
+    <Compile Include="Areas\REQ2\SharedViews\Sku.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteRepository.cs" />
     <Compile Include="Areas\REQ2\Home\ReqRepository.cs" />
@@ -134,7 +134,7 @@
     <Compile Include="Areas\REQ2\Home\RequestViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\PropertyEditorViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\ManageSkuViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\SkuViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\SkuModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\REQ2\Home\ManageSku-all.min.js">
