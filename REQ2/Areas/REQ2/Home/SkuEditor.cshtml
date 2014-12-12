@@ -24,47 +24,47 @@
         <div class="boxContent">
             <ul>
                 <li>
-                    @Html.LabelFor(m => m.Header.DestinationAreaShortName)
-                    @Html.DisplayFor(m => m.Header.DestinationAreaShortName)
+                    @Html.LabelFor(m => m.DestinationAreaShortName)
+                    @Html.DisplayFor(m => m.DestinationAreaShortName)
                 </li>
-                @if (!string.IsNullOrEmpty(Model.Header.TargetVwhId))
+                @if (!string.IsNullOrEmpty(Model.TargetVwhId))
                 {
                     <li>
-                        @Html.LabelFor(m => m.Header.TargetVwhId)
-                        @Html.DisplayFor(m => m.Header.TargetVwhId)
+                        @Html.LabelFor(m => m.TargetVwhId)
+                        @Html.DisplayFor(m => m.TargetVwhId)
                     </li>
                 }
-                @if (!string.IsNullOrEmpty(Model.Header.TargetQualityCode))
+                @if (!string.IsNullOrEmpty(Model.TargetQualityCode))
                 {
                     <li>
-                        @Html.LabelFor(m => m.Header.TargetQualityCode)
-                        @Html.DisplayFor(m => m.Header.TargetQualityCode)
+                        @Html.LabelFor(m => m.TargetQualityCode)
+                        @Html.DisplayFor(m => m.TargetQualityCode)
                     </li>
                 }
-                @if (!string.IsNullOrEmpty(Model.Header.SaleTypeId))
+                @if (!string.IsNullOrEmpty(Model.SaleTypeId))
                 {
                     <li>
-                        @Html.LabelFor(m => m.Header.SaleTypeId)
-                        @Html.DisplayFor(m => m.Header.SaleTypeId)
+                        @Html.LabelFor(m => m.SaleTypeId)
+                        @Html.DisplayFor(m => m.SaleTypeId)
                     </li>
                 }
                 <li>
-                    @Html.LabelFor(m => m.Header.Priorities)
-                    @Html.DisplayFor(m => m.Header.Priorities)
+                    @Html.LabelFor(m => m.Priorities)
+                    @Html.DisplayFor(m => m.Priorities)
                 </li>
-                @if (Model.Header.OverPullCarton)
+                @if (Model.OverPullCarton)
                 {
                     <li>Overpulling OK</li>
                 }
-                @if (Model.Header.IsHung)
+                @if (Model.IsHung)
                 {
                     <li>
-                        @Html.LabelFor(m => m.Header.IsHung)
+                        @Html.LabelFor(m => m.IsHung)
                     </li>
                 }
                 <li>
-                    @Html.LabelFor(m => m.Header.RequestedBy)
-                    @Html.DisplayFor(m => m.Header.RequestedBy)
+                    @Html.LabelFor(m => m.RequestedBy)
+                    @Html.DisplayFor(m => m.RequestedBy)
                 </li>
             </ul>
         </div>
@@ -80,7 +80,7 @@
                 @if (!Model.AssignedDate.HasValue)
                 {
                     <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">
-                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.Header.ResvId), MVC_REQ2.REQ2.Home.PropertyEditor(Model.Header.ResvId))
+                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.ResvId), MVC_REQ2.REQ2.Home.PropertyEditor(Model.ResvId))
                 }
             </div>
         </div>
@@ -88,18 +88,18 @@
     <div class="box boxA">
         <div class="boxContent">
             <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
-            </span><a href="@string.Format("{0}?CARTON_STORAGE_AREA={1}&vwh_id={2}", Model.CartonDetailsForStoragAreaUrl, Model.Header.SourceAreaId, Model.Header.VirtualWareHouseId)" title="Carton with details for define storage area" target="_blank">
+            </span><a href="@string.Format("{0}?CARTON_STORAGE_AREA={1}&vwh_id={2}", Model.CartonDetailsForStoragAreaUrl, Model.SourceAreaId, Model.VirtualWareHouseId)" title="Carton with details for define storage area" target="_blank">
                 Report 40.16
-            </a> : @string.Format("Check carton availability in {0}", Model.Header.DestinationAreaShortName)<br />
+            </a> : @string.Format("Check carton availability in {0}", Model.DestinationAreaShortName)<br />
             <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-arrowreturnthick-1-w">
-            </span><a href="@string.Format("{0}?destination_area={1}&inventory_storage_area={2}&vwh_id={3}&warehouse_location_id={4}", Model.SkuToBePulledUrl, Model.Header.DestinationAreaId,
-            Model.Header.SourceAreaId, Model.Header.VirtualWareHouseId, Model.Header.BuildingId)" title="SKUs to be pulled" target="_blank">
+            </span><a href="@string.Format("{0}?destination_area={1}&inventory_storage_area={2}&vwh_id={3}&warehouse_location_id={4}", Model.SkuToBePulledUrl, Model.DestinationAreaId,
+            Model.SourceAreaId, Model.VirtualWareHouseId, Model.BuildingId)" title="SKUs to be pulled" target="_blank">
                 Report 30.06
-            </a> : @string.Format("SKUs to be pulled in {0}", Model.Header.DestinationAreaShortName)
+            </a> : @string.Format("SKUs to be pulled in {0}", Model.DestinationAreaShortName)
         </div>
     </div>
 }
-<h2>@Html.LabelFor(m => m.Header.ResvId) #@Html.DisplayFor(m => m.Header.ResvId)</h2>
+<h2>@Html.LabelFor(m => m.ResvId) #@Html.DisplayFor(m => m.ResvId)</h2>
 <div id="divTabs" data-unassign-carton-url="@Url.Action(MVC_REQ2.REQ2.Home.UnAssignCartons())" data-selected-index="@selectedTabIndex">
     <ul>
         <li><a href="#divAddSku">Add SKU</a></li>
@@ -125,10 +125,10 @@
                     id = "frmAddSku"
                 }))
                 {
-                    @Html.HiddenFor(m => m.Header.ResvId, new { id = "resvId" })
-                    @Html.HiddenFor(m => m.Header.RequestForConversion)
+                    @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
+                    @Html.HiddenFor(m => m.RequestForConversion)
                     @Html.HiddenFor(m => m.AssignedDate.HasValue, new { id = "hfAssignedFlag" })
-                    @Html.HiddenFor(m => m.Header.TargetVwhId)
+                    @Html.HiddenFor(m => m.TargetVwhId)
                     <label for="tbNewStyle">
                         Style/Color/Dimension/Size <sup>*</sup>
                     </label>
@@ -165,7 +165,7 @@
                     <br />
 
                     // Request for conversion.
-                    if (Model.Header.RequestForConversion)
+                    if (Model.RequestForConversion)
                     {
 
                         <label for="tbTargetStyle">
@@ -220,20 +220,20 @@
                 }
             </div>
         }
-        @if (!string.IsNullOrEmpty(Model.Header.TargetVwhId) && Model.Header.VirtualWareHouseId != Model.Header.TargetVwhId)
+        @if (!string.IsNullOrEmpty(Model.TargetVwhId) && Model.VirtualWareHouseId != Model.TargetVwhId)
         {
             <div class="ui-state-highlight boxA">
                 Converting from Virtual Warehouse
-                @Html.DisplayFor(m => m.Header.VirtualWareHouseId)
+                @Html.DisplayFor(m => m.VirtualWareHouseId)
                 to
-                @Html.DisplayFor(m => m.Header.TargetVwhId)
+                @Html.DisplayFor(m => m.TargetVwhId)
             </div>
         }
         else
         {
             <div class="ui-state-highlight boxA">
-                @Html.LabelFor(m => m.Header.VirtualWareHouseId)
-                @Html.DisplayFor(m => m.Header.VirtualWareHouseId)
+                @Html.LabelFor(m => m.VirtualWareHouseId)
+                @Html.DisplayFor(m => m.VirtualWareHouseId)
             </div>
         }
         <div id="divSkuList" class="boxContent" style="width: 30em" data-delete-ajax-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku())">
@@ -247,15 +247,15 @@
         }))
         {
             //@Html.HiddenFor(m => m.CurrentRequest.Header.ResvId)
-            <input type="hidden" name="@Html.NameFor(m => m.Header.ResvId)" value="@Model.Header.ResvId" />
+            <input type="hidden" name="@Html.NameFor(m => m.ResvId)" value="@Model.ResvId" />
             //@Html.HiddenFor(m => m.CurrentRequest.AssignedFlag)
             <input type="hidden" name="@Html.NameFor(m => m.AssignedDate.HasValue)" value="@Model.AssignedDate.HasValue" />
             <div class="ui-state-highlight boxA">
-                @Html.LabelFor(m => m.Header.VirtualWareHouseId)
-                @Html.DisplayFor(m => m.Header.VirtualWareHouseId)
+                @Html.LabelFor(m => m.VirtualWareHouseId)
+                @Html.DisplayFor(m => m.VirtualWareHouseId)
                 <br />
-                @Html.LabelFor(m => m.Header.SourceAreaShortName)
-                @Html.DisplayFor(m => m.Header.SourceAreaShortName)
+                @Html.LabelFor(m => m.SourceAreaShortName)
+                @Html.DisplayFor(m => m.SourceAreaShortName)
             </div>
 
             @Html.LabelFor(m => m.CartonRules.CartonReceivedDate)
@@ -290,7 +290,7 @@
                 id = "frmUnAssignCarton"
             }))
             {
-                @Html.HiddenFor(m => m.Header.ResvId)
+                @Html.HiddenFor(m => m.ResvId)
                 <button data-name="btnUnAssign" type="submit">
                     Unassign Cartons
                 </button>

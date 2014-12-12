@@ -393,7 +393,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
 
             var result = _service.GetAssignedCartons(requestInfo.CtnResvId);
-            model.AssignedCartonInfo = result.Select(row => new AssignedCartonViewModel
+            model.AssignedCartonInfo = result.Select(row => new AssignedCartonModel
             {
                 PulledCartons = row.PulledCartons,
                 TotalCartons = row.TotalCartons,
@@ -459,7 +459,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             //User can convert only VwhId without providing target sku.Target sku is only required when user wants to convert sku
             Sku targetSku = null;
-            if (model.Header.RequestForConversion)
+            if (model.RequestForConversion)
             {
                 if (string.IsNullOrEmpty(model.TargetStyle) && string.IsNullOrEmpty(model.TargetColor) && string.IsNullOrEmpty(model.TargetDimension) && string.IsNullOrEmpty(model.TargetSkuSize))
                 {
@@ -484,11 +484,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             try
             {
                 //Adding sku to request
-                _service.AddSkutoRequest(model.Header.ResvId, newSku.SkuId, model.NewPieces.Value,
+                _service.AddSkutoRequest(model.ResvId, newSku.SkuId, model.NewPieces.Value,
                                          targetSku == null ? (int?)null : targetSku.SkuId);
 
                 //getting list of added all SKUs to request.
-                var skus = _service.GetRequestSKUs(model.Header.ResvId);
+                var skus = _service.GetRequestSKUs(model.ResvId);
                 model.RequestedSkus = skus.Select(p => new RequestSkuViewModel(p)).ToList();
                 return PartialView(Views._manageSkuListPartial, model);
             }
@@ -550,7 +550,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpPost]
         public virtual ActionResult AssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {
@@ -601,7 +601,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpPost]
         public virtual ActionResult UnAssignCartons()
         {
-            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.Header.ResvId))
+            var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.ResvId))
                 .AttemptedValue;
             if (string.IsNullOrEmpty(ctnresvId))
             {
