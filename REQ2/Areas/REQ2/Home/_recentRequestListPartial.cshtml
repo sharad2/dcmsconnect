@@ -91,7 +91,7 @@
                         @item.Header.RequestedBy
                     </td>
                     <td title="Edit request details." class ="@(item.AssignedDate.HasValue ? "edit-icon-disabled" : "edit-icon")">
-                        @Html.ActionLink(item.Header.ResvId, MVC_REQ2.REQ2.Home.CreateRequest(item.Header.ResvId))
+                        @Html.ActionLink(item.Header.ResvId, MVC_REQ2.REQ2.Home.PropertyEditor(item.Header.ResvId))
                     </td>
                     <td class="@(item.AssignedDate.HasValue ? "delete-icon-disabled" : "")">
                         <div style="float: left; cursor: pointer" class="ui-icon ui-icon-close" title="Delete Request" />

@@ -63,7 +63,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult CreateRequest(string ctnresvId)
+        public virtual ActionResult PropertyEditor(string ctnresvId)
         {
             var model = new SelectRequestViewModel();
             if (!string.IsNullOrEmpty(ctnresvId))
@@ -71,7 +71,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 model.CurrentRequest = new RequestHeaderViewModel(_service.GetRequestInfo(ctnresvId));
             }
             PopulateIndexViewModel(model);
-            return View(Views.CreateRequest, model);
+            return View(Views.PropertyEditor, model);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             {
                 RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
             };
-            return View(Views.RecentRequests, model);
+            return View(Views.Index, model);
         }
 
         private GroupSelectListItem MapArea(CartonArea entity)
@@ -166,7 +166,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 // Unable to Create or Update Populate RequestViewModel again 
                 rvm.CurrentRequest = model.CurrentRequest;
                 PopulateIndexViewModel(rvm);
-                return View(Views.CreateRequest, rvm);
+                return View(Views.PropertyEditor, rvm);
             }
             var requestModel = new RequestModel
             {
@@ -201,7 +201,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
                     PopulateIndexViewModel(rvm);
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateRequest, rvm);
+                    return View(Views.PropertyEditor, rvm);
                 }
             }
             else
@@ -218,7 +218,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     PopulateIndexViewModel(rvm);
                     rvm.CurrentRequest.ResvId = requestModel.CtnResvId;
                     ModelState.AddModelError("", ex.Message);
-                    return View(Views.CreateRequest, rvm);
+                    return View(Views.PropertyEditor, rvm);
                 }
             }
             var cookie = new HttpCookie(COOKIE_BUILDING)

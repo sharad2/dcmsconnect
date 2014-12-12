@@ -268,7 +268,7 @@
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
     <Content Include="Areas\REQ2\Home\ManageSku.cshtml" />
-    <Content Include="Areas\REQ2\Home\RecentRequests.cshtml" />
+    <Content Include="Areas\REQ2\Home\Index.cshtml" />
     <Content Include="Areas\REQ2\Home\_manageSkuListPartial.cshtml" />
     <Content Include="Areas\REQ2\Home\_assignedCartonInfoPartial.cshtml" />
     <Content Include="Areas\REQ2\Home\_existingRequestPartial.cshtml" />
@@ -292,7 +292,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\REQ2\Home\CreateRequest.cshtml" />
+    <Content Include="Areas\REQ2\Home\PropertyEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\REQ2\SharedViews\_layoutReq.cshtml" />

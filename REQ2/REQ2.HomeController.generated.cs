@@ -56,9 +56,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult CreateRequest()
+        public virtual System.Web.Mvc.ActionResult PropertyEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRequest);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PropertyEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -118,7 +118,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string CreateRequest = "CreateRequest";
+            public readonly string PropertyEditor = "PropertyEditor";
             public readonly string Index = "Index";
             public readonly string UpdateRequest = "UpdateRequest";
             public readonly string DisplayExistingRequest = "DisplayExistingRequest";
@@ -135,7 +135,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string CreateRequest = "CreateRequest";
+            public const string PropertyEditor = "PropertyEditor";
             public const string Index = "Index";
             public const string UpdateRequest = "UpdateRequest";
             public const string DisplayExistingRequest = "DisplayExistingRequest";
@@ -150,11 +150,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
-        static readonly ActionParamsClass_CreateRequest s_params_CreateRequest = new ActionParamsClass_CreateRequest();
+        static readonly ActionParamsClass_PropertyEditor s_params_PropertyEditor = new ActionParamsClass_PropertyEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CreateRequest CreateRequestParams { get { return s_params_CreateRequest; } }
+        public ActionParamsClass_PropertyEditor PropertyEditorParams { get { return s_params_PropertyEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateRequest
+        public class ActionParamsClass_PropertyEditor
         {
             public readonly string ctnresvId = "ctnresvId";
         }
@@ -230,9 +230,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string _manageSkuListPartial = "_manageSkuListPartial";
                 public readonly string _recentRequestListPartial = "_recentRequestListPartial";
                 public readonly string CartonList = "CartonList";
-                public readonly string CreateRequest = "CreateRequest";
+                public readonly string Index = "Index";
                 public readonly string ManageSku = "ManageSku";
-                public readonly string RecentRequests = "RecentRequests";
+                public readonly string PropertyEditor = "PropertyEditor";
                 public readonly string Stylesheets_chirp = "Stylesheets.chirp";
                 public readonly string Tutorial = "Tutorial";
             }
@@ -241,9 +241,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string _manageSkuListPartial = "~/Areas/REQ2/Home/_manageSkuListPartial.cshtml";
             public readonly string _recentRequestListPartial = "~/Areas/REQ2/Home/_recentRequestListPartial.cshtml";
             public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
-            public readonly string CreateRequest = "~/Areas/REQ2/Home/CreateRequest.cshtml";
+            public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string ManageSku = "~/Areas/REQ2/Home/ManageSku.cshtml";
-            public readonly string RecentRequests = "~/Areas/REQ2/Home/RecentRequests.cshtml";
+            public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
             public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";
             public readonly string Tutorial = "~/Areas/REQ2/Home/Tutorial.cshtml";
             static readonly _imagesClass s_images = new _imagesClass();
@@ -272,14 +272,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void CreateRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+        partial void PropertyEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CreateRequest(string ctnresvId)
+        public override System.Web.Mvc.ActionResult PropertyEditor(string ctnresvId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateRequest);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PropertyEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            CreateRequestOverride(callInfo, ctnresvId);
+            PropertyEditorOverride(callInfo, ctnresvId);
             return callInfo;
         }
 
