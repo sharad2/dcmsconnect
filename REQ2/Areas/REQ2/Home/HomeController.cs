@@ -61,7 +61,15 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         #region Read Only Request properties
         public virtual ActionResult PullRequest(string ctnresvId)
         {
-            return View(Views.PullRequest);
+            var req = _service.GetRequestInfo(ctnresvId);
+
+            var model = new PullRequestViewModel(req);
+
+            var skus = _service.GetRequestSKUs(ctnresvId);
+
+            model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
+
+            return View(Views.PullRequest, model);
         }
 
         #endregion

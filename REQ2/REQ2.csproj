@@ -96,6 +96,7 @@
   <ItemGroup>
     <Compile Include="Areas\REQ2\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\REQ2\Home\HomeController.cs" />
+    <Compile Include="Areas\REQ2\Home\PullRequestViewModel.cs" />
     <Compile Include="Areas\REQ2\Req2AreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
