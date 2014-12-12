@@ -58,6 +58,13 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         #endregion
 
 
+        #region Read Only Request properties
+        public virtual ActionResult Request(string ctnresvId)
+        {
+            return View(Views.Request);
+        }
+
+        #endregion
         /// <summary>
         /// This is the GET Method for Create new Request 
         /// </summary>
@@ -65,7 +72,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [HttpGet]
         public virtual ActionResult PropertyEditor(string ctnresvId)
         {
-            var model = new SelectRequestViewModel();
+            var model = new PropertyEditorViewModel();
             if (!string.IsNullOrEmpty(ctnresvId))
             {
                 model.CurrentRequest = new RequestHeaderViewModel(_service.GetRequestInfo(ctnresvId));
@@ -101,7 +108,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             };
         }
 
-        private void PopulateIndexViewModel(SelectRequestViewModel model)
+        private void PopulateIndexViewModel(PropertyEditorViewModel model)
         {
             if (model.CurrentRequest == null)
             {
@@ -158,9 +165,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </para>
         /// </remarks>
         [HttpPost]
-        public virtual ActionResult UpdateRequest(SelectRequestViewModel model)
+        public virtual ActionResult UpdateRequest(PropertyEditorViewModel model)
         {
-            var rvm = new SelectRequestViewModel();
+            var rvm = new PropertyEditorViewModel();
             if (!ModelState.IsValid)
             {
                 // Unable to Create or Update Populate RequestViewModel again 

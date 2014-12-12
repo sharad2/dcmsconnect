@@ -4,7 +4,7 @@ using EclipseLibrary.Mvc.Html;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class SelectRequestViewModel
+    public class PropertyEditorViewModel
     {
         public RequestHeaderViewModel CurrentRequest { get; set; }
 

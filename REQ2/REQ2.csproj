@@ -135,7 +135,7 @@
     <Compile Include="Areas\REQ2\Home\RecentRequestsViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestSkuViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\RequestViewModel.cs" />
-    <Compile Include="Areas\REQ2\Home\SelectRequestViewModel.cs" />
+    <Compile Include="Areas\REQ2\Home\PropertyEditorViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\ManageSkuViewModel.cs" />
     <Compile Include="Areas\REQ2\Home\SkuViewModel.cs" />
   </ItemGroup>
@@ -235,6 +235,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\REQ2\Home\Request.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

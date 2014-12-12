@@ -56,6 +56,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Request()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Request);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult PropertyEditor()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PropertyEditor);
@@ -118,6 +124,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Request = "Request";
             public readonly string PropertyEditor = "PropertyEditor";
             public readonly string Index = "Index";
             public readonly string UpdateRequest = "UpdateRequest";
@@ -135,6 +142,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Request = "Request";
             public const string PropertyEditor = "PropertyEditor";
             public const string Index = "Index";
             public const string UpdateRequest = "UpdateRequest";
@@ -150,6 +158,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
+        static readonly ActionParamsClass_Request s_params_Request = new ActionParamsClass_Request();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Request RequestParams { get { return s_params_Request; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Request
+        {
+            public readonly string ctnresvId = "ctnresvId";
+        }
         static readonly ActionParamsClass_PropertyEditor s_params_PropertyEditor = new ActionParamsClass_PropertyEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_PropertyEditor PropertyEditorParams { get { return s_params_PropertyEditor; } }
@@ -232,6 +248,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string CartonList = "CartonList";
                 public readonly string Index = "Index";
                 public readonly string PropertyEditor = "PropertyEditor";
+                public readonly string Request = "Request";
                 public readonly string SkuEditor = "SkuEditor";
                 public readonly string Stylesheets_chirp = "Stylesheets.chirp";
                 public readonly string Tutorial = "Tutorial";
@@ -243,6 +260,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
+            public readonly string Request = "~/Areas/REQ2/Home/Request.cshtml";
             public readonly string SkuEditor = "~/Areas/REQ2/Home/SkuEditor.cshtml";
             public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";
             public readonly string Tutorial = "~/Areas/REQ2/Home/Tutorial.cshtml";
@@ -272,6 +290,18 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
         [NonAction]
+        partial void RequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Request(string ctnresvId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Request);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
+            RequestOverride(callInfo, ctnresvId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void PropertyEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
 
         [NonAction]
@@ -295,10 +325,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [NonAction]
-        partial void UpdateRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.Areas.REQ2.Home.SelectRequestViewModel model);
+        partial void UpdateRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.REQ2.Areas.REQ2.Home.PropertyEditorViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult UpdateRequest(DcmsMobile.REQ2.Areas.REQ2.Home.SelectRequestViewModel model)
+        public override System.Web.Mvc.ActionResult UpdateRequest(DcmsMobile.REQ2.Areas.REQ2.Home.PropertyEditorViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateRequest);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
