@@ -188,6 +188,19 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public RequestHeaderViewModel Header { get; set; }
 
         public RequestCartonRulesViewModel CartonRules { get; set; }
+
+        public int PercentAssigned
+        {
+            get
+            {
+                if (QuantityRequested == 0 || AssignedPieces > QuantityRequested)
+                {
+                    // We are done
+                    return 100;
+                }
+                return (int)Math.Round((double)AssignedPieces * 100.0 / (double)QuantityRequested);
+            }
+        }
     }
 
 }
