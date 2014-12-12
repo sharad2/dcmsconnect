@@ -28,6 +28,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     /// <summary>
     /// This view model supplies information for request header editing and creating
     /// </summary>
+    [Obsolete]
     public class RequestHeaderViewModel
     {
 

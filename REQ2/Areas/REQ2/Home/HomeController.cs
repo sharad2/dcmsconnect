@@ -101,7 +101,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public virtual ActionResult Index()
         {
             var requests = _service.GetRequests();
-            var model = new RecentRequestsViewModel
+            var model = new IndexViewModel
             {
                 RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
             };
@@ -302,12 +302,13 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
                 //Request deleted successfully
                 var requests = _service.GetRequests();
-                var model = new RecentRequestsViewModel
+                var model = new IndexViewModel
                     {
                         RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
                     };
 
-                return PartialView(Views._recentRequestListPartial, model);
+                //return PartialView(Views._recentRequestListPartial, model);
+                throw new NotImplementedException();
             }
             catch (Exception ex)
             {

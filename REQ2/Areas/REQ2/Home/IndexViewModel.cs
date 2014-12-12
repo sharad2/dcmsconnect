@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
-    public class RecentRequestsViewModel
+    public class IndexViewModel
     {
 
         private IList<RequestViewModel> _recentRequests;
