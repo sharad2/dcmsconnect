@@ -142,6 +142,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     /// <summary>
     /// Contains all available Request properties
     /// </summary>
+    [Obsolete]
     public class RequestViewModel
     {
         public RequestViewModel()
@@ -149,7 +150,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
         public RequestViewModel(RequestModel entity)
         {
-            
+
             this.Header = new RequestHeaderViewModel(entity);
             this.CartonRules = new RequestCartonRulesViewModel
             {

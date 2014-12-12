@@ -103,7 +103,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var requests = _service.GetRequests();
             var model = new IndexViewModel
             {
-                RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
+                RecentRequests = requests.Select(p => new RecentRequestModel(p)).ToList()
             };
             return View(Views.Index, model);
         }
@@ -301,11 +301,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 _service.DeleteCartonRequest(resvId);
 
                 //Request deleted successfully
-                var requests = _service.GetRequests();
-                var model = new IndexViewModel
-                    {
-                        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
-                    };
+                //var requests = _service.GetRequests();
+                //var model = new IndexViewModel
+                //    {
+                //        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
+                //    };
 
                 //return PartialView(Views._recentRequestListPartial, model);
                 throw new NotImplementedException();
