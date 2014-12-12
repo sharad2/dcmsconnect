@@ -56,9 +56,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult Request()
+        public virtual System.Web.Mvc.ActionResult PullRequest()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Request);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PullRequest);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -124,7 +124,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
-            public readonly string Request = "Request";
+            public readonly string PullRequest = "PullRequest";
             public readonly string PropertyEditor = "PropertyEditor";
             public readonly string Index = "Index";
             public readonly string UpdateRequest = "UpdateRequest";
@@ -142,7 +142,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
-            public const string Request = "Request";
+            public const string PullRequest = "PullRequest";
             public const string PropertyEditor = "PropertyEditor";
             public const string Index = "Index";
             public const string UpdateRequest = "UpdateRequest";
@@ -158,11 +158,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
 
-        static readonly ActionParamsClass_Request s_params_Request = new ActionParamsClass_Request();
+        static readonly ActionParamsClass_PullRequest s_params_PullRequest = new ActionParamsClass_PullRequest();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_Request RequestParams { get { return s_params_Request; } }
+        public ActionParamsClass_PullRequest PullRequestParams { get { return s_params_PullRequest; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_Request
+        public class ActionParamsClass_PullRequest
         {
             public readonly string ctnresvId = "ctnresvId";
         }
@@ -248,7 +248,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string CartonList = "CartonList";
                 public readonly string Index = "Index";
                 public readonly string PropertyEditor = "PropertyEditor";
-                public readonly string Request = "Request";
+                public readonly string PullRequest = "PullRequest";
                 public readonly string SkuEditor = "SkuEditor";
                 public readonly string Stylesheets_chirp = "Stylesheets.chirp";
                 public readonly string Tutorial = "Tutorial";
@@ -260,7 +260,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
-            public readonly string Request = "~/Areas/REQ2/Home/Request.cshtml";
+            public readonly string PullRequest = "~/Areas/REQ2/Home/PullRequest.cshtml";
             public readonly string SkuEditor = "~/Areas/REQ2/Home/SkuEditor.cshtml";
             public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";
             public readonly string Tutorial = "~/Areas/REQ2/Home/Tutorial.cshtml";
@@ -290,14 +290,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public T4MVC_HomeController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void RequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+        partial void PullRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Request(string ctnresvId)
+        public override System.Web.Mvc.ActionResult PullRequest(string ctnresvId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Request);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PullRequest);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            RequestOverride(callInfo, ctnresvId);
+            PullRequestOverride(callInfo, ctnresvId);
             return callInfo;
         }
 

@@ -70,7 +70,7 @@
                             {
                                 <button type="button" class="btn btn-xs btn-default" style="cursor:default" title="Conversion Request"><span class="glyphicon glyphicon-retweet"></span></button>
                             }
-                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.Request(Model.RecentRequests[i].Header.ResvId))">@Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId) </a>
+                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.PullRequest(Model.RecentRequests[i].Header.ResvId))">@Html.DisplayFor(m => m.RecentRequests[i].Header.ResvId) </a>
                         </h4>
                         <p class="list-group-item-text">@Html.DisplayFor(m => m.RecentRequests[i].Header.BuildingId) @Html.DisplayFor(m => m.RecentRequests[i].Header.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.RecentRequests[i].Header.DestinationAreaShortName)</p>
                     </div>

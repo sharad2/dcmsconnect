@@ -59,9 +59,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
 
         #region Read Only Request properties
-        public virtual ActionResult Request(string ctnresvId)
+        public virtual ActionResult PullRequest(string ctnresvId)
         {
-            return View(Views.Request);
+            return View(Views.PullRequest);
         }
 
         #endregion
