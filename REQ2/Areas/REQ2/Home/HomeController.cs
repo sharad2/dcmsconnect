@@ -228,7 +228,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                              };
             // Remember building for 7 days
             this.Response.Cookies.Add(cookie);
-            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(requestModel.CtnResvId));
+            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(requestModel.CtnResvId));
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult DisplayExistingRequest(string id)
+        public virtual ActionResult Search(string id)
         {
             //int _reqId;
             //if (!int.TryParse(ctnresvId, out _reqId))
@@ -250,7 +250,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             if (req != null)
             {
                 // var ctnresvId = _service.GetCtnRevId(reqId);
-                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.DisplayRequest(id));
+                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(id));
             }
             var x = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
             if (x != null)
@@ -270,6 +270,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <param name="resvId"></param>
         /// <returns></returns>
+        [HttpPost]
         public virtual ActionResult DeleteRequest(string resvId)
         {
             if (string.IsNullOrEmpty(resvId))
@@ -309,7 +310,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <remarks> TODO: Remove hardwired name of the parameter as 'ctnresvId'
         /// Any exception will lead to a yellow screen.
         /// </remarks>
-        public virtual ActionResult DisplayRequest(string ctnresvId)
+        public virtual ActionResult SkuEditor(string ctnresvId)
         {
             RequestModel requestInfo;
             if (string.IsNullOrEmpty(ctnresvId))
@@ -383,7 +384,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }).ToList();
             model.SelectedTab = selectedTab;
 
-            return View(Views.ManageSku, model);
+            return View(Views.SkuEditor, model);
         }
         /// <summary>
         /// this method is used for show carton list for existing request

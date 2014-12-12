@@ -267,7 +267,7 @@
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Global.asax" />
-    <Content Include="Areas\REQ2\Home\ManageSku.cshtml" />
+    <Content Include="Areas\REQ2\Home\SkuEditor.cshtml" />
     <Content Include="Areas\REQ2\Home\Index.cshtml" />
     <Content Include="Areas\REQ2\Home\_manageSkuListPartial.cshtml" />
     <Content Include="Areas\REQ2\Home\_assignedCartonInfoPartial.cshtml" />

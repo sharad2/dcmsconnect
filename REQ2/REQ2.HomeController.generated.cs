@@ -68,9 +68,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DisplayExistingRequest()
+        public virtual System.Web.Mvc.ActionResult Search()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisplayExistingRequest);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -80,9 +80,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DisplayRequest()
+        public virtual System.Web.Mvc.ActionResult SkuEditor()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisplayRequest);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuEditor);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -121,9 +121,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string PropertyEditor = "PropertyEditor";
             public readonly string Index = "Index";
             public readonly string UpdateRequest = "UpdateRequest";
-            public readonly string DisplayExistingRequest = "DisplayExistingRequest";
+            public readonly string Search = "Search";
             public readonly string DeleteRequest = "DeleteRequest";
-            public readonly string DisplayRequest = "DisplayRequest";
+            public readonly string SkuEditor = "SkuEditor";
             public readonly string DisplayCartonList = "DisplayCartonList";
             public readonly string AddSku = "AddSku";
             public readonly string DeleteSku = "DeleteSku";
@@ -138,9 +138,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public const string PropertyEditor = "PropertyEditor";
             public const string Index = "Index";
             public const string UpdateRequest = "UpdateRequest";
-            public const string DisplayExistingRequest = "DisplayExistingRequest";
+            public const string Search = "Search";
             public const string DeleteRequest = "DeleteRequest";
-            public const string DisplayRequest = "DisplayRequest";
+            public const string SkuEditor = "SkuEditor";
             public const string DisplayCartonList = "DisplayCartonList";
             public const string AddSku = "AddSku";
             public const string DeleteSku = "DeleteSku";
@@ -166,11 +166,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             public readonly string model = "model";
         }
-        static readonly ActionParamsClass_DisplayExistingRequest s_params_DisplayExistingRequest = new ActionParamsClass_DisplayExistingRequest();
+        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DisplayExistingRequest DisplayExistingRequestParams { get { return s_params_DisplayExistingRequest; } }
+        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DisplayExistingRequest
+        public class ActionParamsClass_Search
         {
             public readonly string id = "id";
         }
@@ -182,11 +182,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             public readonly string resvId = "resvId";
         }
-        static readonly ActionParamsClass_DisplayRequest s_params_DisplayRequest = new ActionParamsClass_DisplayRequest();
+        static readonly ActionParamsClass_SkuEditor s_params_SkuEditor = new ActionParamsClass_SkuEditor();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DisplayRequest DisplayRequestParams { get { return s_params_DisplayRequest; } }
+        public ActionParamsClass_SkuEditor SkuEditorParams { get { return s_params_SkuEditor; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DisplayRequest
+        public class ActionParamsClass_SkuEditor
         {
             public readonly string ctnresvId = "ctnresvId";
         }
@@ -231,8 +231,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string _recentRequestListPartial = "_recentRequestListPartial";
                 public readonly string CartonList = "CartonList";
                 public readonly string Index = "Index";
-                public readonly string ManageSku = "ManageSku";
                 public readonly string PropertyEditor = "PropertyEditor";
+                public readonly string SkuEditor = "SkuEditor";
                 public readonly string Stylesheets_chirp = "Stylesheets.chirp";
                 public readonly string Tutorial = "Tutorial";
             }
@@ -242,8 +242,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string _recentRequestListPartial = "~/Areas/REQ2/Home/_recentRequestListPartial.cshtml";
             public readonly string CartonList = "~/Areas/REQ2/Home/CartonList.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
-            public readonly string ManageSku = "~/Areas/REQ2/Home/ManageSku.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
+            public readonly string SkuEditor = "~/Areas/REQ2/Home/SkuEditor.cshtml";
             public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";
             public readonly string Tutorial = "~/Areas/REQ2/Home/Tutorial.cshtml";
             static readonly _imagesClass s_images = new _imagesClass();
@@ -307,14 +307,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [NonAction]
-        partial void DisplayExistingRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DisplayExistingRequest(string id)
+        public override System.Web.Mvc.ActionResult Search(string id)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisplayExistingRequest);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DisplayExistingRequestOverride(callInfo, id);
+            SearchOverride(callInfo, id);
             return callInfo;
         }
 
@@ -331,14 +331,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [NonAction]
-        partial void DisplayRequestOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+        partial void SkuEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult DisplayRequest(string ctnresvId)
+        public override System.Web.Mvc.ActionResult SkuEditor(string ctnresvId)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DisplayRequest);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SkuEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            DisplayRequestOverride(callInfo, ctnresvId);
+            SkuEditorOverride(callInfo, ctnresvId);
             return callInfo;
         }
 
