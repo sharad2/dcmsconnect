@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,6 +25,42 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public string Style { get; set; }
         public string Color { get; set; }
+
+    }
+
+    public class AssignedCartonListModel
+    {
+
+        public AssignedCartonListModel()
+        {
+            
+        }
+        internal AssignedCartonListModel(AssignedCarton entity)
+        {
+            this.Sku = new SkuModel
+            {
+                Style = entity.Sku.Style,
+                Color = entity.Sku.Color,
+                Dimension = entity.Sku.Dimension,
+                SkuSize = entity.Sku.SkuSize
+            };
+           
+            this.TotalCartons = entity.TotalCartons;
+            this.TotalPieces = entity.TotalPieces;
+            this.PulledCartons = entity.PulledCartons;
+            this.PulledPieces = entity.PulledPieces;
+        }
+
+        public SkuModel Sku { get; set; }
+
+        public int TotalCartons { get; set; }
+
+        public int PulledCartons { get; set; }
+
+        public int TotalPieces { get; set; }
+
+        public int PulledPieces { get; set; }
+
 
     }
 
@@ -99,5 +136,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string SewingPlantCode { get; set; }
 
         public IList<PullRequestSkuModel> SkuList { get; set; }
+
+        public IList<AssignedCartonListModel> CartonList { get; set; }
+
+
     }
 }
+
