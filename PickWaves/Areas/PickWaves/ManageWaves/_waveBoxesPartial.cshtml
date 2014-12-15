@@ -7,15 +7,21 @@
 {
     if (box.CurrentPieces == box.ExpectedPieces)
     {
-        @box.CurrentPieces
+       
+            @box.CurrentPieces
+       
     }
     else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
     {
-        @box.ExpectedPieces
+       
+            @box.ExpectedPieces
+       
     }
     else
     {
-        @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
+       
+            @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
+       
     }
 }
 @helper ShowBoxPiecesStatus(BoxState filter)
@@ -34,7 +40,7 @@
 
 
 
-<blockquote>  
+<blockquote>
     Boxes of Pick Wave @Html.DisplayFor(m => m.BucketId)
 </blockquote>
 
@@ -54,7 +60,7 @@
             <div class="col-md-1">
                 <h4 class="list-group-item-heading">
                     <abbr title="Virtual Wearhouse">VWH</abbr>
-</h4>
+                </h4>
             </div>
             <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                 <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
@@ -95,8 +101,8 @@
                 </div>
                 <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                    <span class="badge"> @DisplayBoxPieces(Model.BoxesList[i])</span>
-                </div>
+                    <span class="badge">@DisplayBoxPieces(Model.BoxesList[i])</span>
+</div>
                 <div class="col-md-1">
                     <span class="label @Html.DisplayFor(m => m.BoxesList[i].DisplayStateStyle)">
                         @Html.DisplayFor(m => m.BoxesList[i].DisplayStateText)
