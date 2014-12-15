@@ -1,4 +1,6 @@
-﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
+
+@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
 
 @*This layout is designed to be used as the main layout of every Area.
         It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
@@ -130,7 +132,7 @@
                 </a>
 
                 <div style="width:12em; display:inline-block" class="hidden-xs">
-                    <form action="@PublicUrl(new[] { (string) ViewBag.AppSearchUrl, "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+                    <form action="@PublicUrl(new[] { (string) ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
                         <div class="input-group navbar-btn input-group-sm">
                             <input type="search" class="form-control" name="id" placeholder="Search DCMS">
                             <span class="input-group-btn">
@@ -178,7 +180,7 @@
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
-                            <li><a href="@Url.Content("~/trace.axd")" target="_trace"><span class="glyphicon glyphicon-record"></span> Trace Output</a></li>
+                            <li><a href="@Url.Content("~/trace.axd")" target="trace"><span class="glyphicon glyphicon-record"></span> Trace Output</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -186,7 +188,7 @@
         </div>
     </div>
     <div class="modal" id="searchModal">
-        <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+        <form action="@PublicUrl(new[] { (string)ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
             <div class="input-group navbar-btn input-group-sm" style="margin-top:12px;margin-left:20px">
                 <input type="search" class="form-control" name="id" placeholder="Search DCMS">
                 <span class="input-group-btn">
