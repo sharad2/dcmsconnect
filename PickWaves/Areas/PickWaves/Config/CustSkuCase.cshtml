@@ -23,7 +23,7 @@
             {
                 <button class="btn btn-default" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
                         data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.Actions.CustSkuCaseEditor())">
-                    <span class="glyphicon glyphicon-plus"></span>  New Customer Preference...
+                    <span class="glyphicon glyphicon-file"></span>  New Customer Preference...
                 </button>
             }
         </blockquote>
@@ -52,7 +52,7 @@
                     <div class="col-md-2 col-sm-2">
                         @if (Model.UserIsManager)
                         {
-                            <button class="btn btn-xs btn-primary  pull-right" disabled>
+                            <button class="btn btn-xs btn-default  pull-right" disabled>
                                 Action
                             </button>
                         }
@@ -80,9 +80,6 @@
                                 </button>
                             }
                         </h4>
-
-
-
                     </li>
                 }
 
@@ -131,7 +128,7 @@
                                                        name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
                                                 <center>Are you sure?</center>
                                                 <div class="btn-group btn-group-justified">
-                                                    <button class="btn btn-default" type="submit">Yes</button>
+                                                    <button class="btn btn-primary" type="submit">Yes</button>
                                                     <a class="btn btn-default">No</a>
                                                 </div>
                                             </form>
