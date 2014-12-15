@@ -16,11 +16,19 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         internal PullRequestSkuModel(RequestSku entity)
         {
-
+            // Source SKU
             this.Style = entity.SourceSku.Style;
             this.Color = entity.SourceSku.Color;
             this.Dimension = entity.SourceSku.Dimension;
             this.SkuSize = entity.SourceSku.SkuSize;
+
+       
+                this.TargetStyle = entity.SourceSku.Style;
+                this.TargetColor = entity.SourceSku.Color;
+                this.TargetDimension = entity.SourceSku.Dimension;
+                this.TargetSkuSize = entity.SourceSku.SkuSize;
+
+            
             
 
         }
@@ -45,6 +53,29 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             get
             {
                 return  string.Format(Style + "," + Color + "," + Dimension + "," + SkuSize) ;
+            }
+        }
+
+        [Display(Name = "Target Style")]
+        public string TargetStyle { get; set; }
+
+        [Display(Name = "Target Color")]
+        public string TargetColor { get; set; }
+
+        [Display(Name = "Terget Dim")]
+        public string TargetDimension { get; set; }
+
+        [Display(Name = "Target Size")]
+        public string TargetSkuSize { get; set; }
+
+        public string TargetUpcCode { get; set; }
+
+        [Display(Name = "Target SKU")]
+        public string DisplayTargetSku
+        {
+            get
+            {
+                return this.Style != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : string.Empty;
             }
         }
 
