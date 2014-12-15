@@ -29,7 +29,7 @@
 
                     <dt>Remarks</dt>
                     <dd>@Html.DisplayFor(m => m.Remarks)</dd>             
-
+                    </dl>
             </div>
 
             <div class="col-md-4 col-sm-6">
@@ -56,13 +56,44 @@
             </div>
         </div>
     </div>
+  
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">SKU</h3>
         </div>
         <div class="panel-body">
-            Panel content
-        </div>
+            @for (var i = 0; i < Model.SkuList.Count; ++i)
+            {
+               
+                    <ul class="list-group">
+                        <li class="list-group-item">@Html.DisplayFor(m => m.SkuList[i].Style) </li>
+                        <li class="list-group-item">@Html.DisplayFor(m => m.SkuList[i].Color)</li>
+                    </ul>
+</div>
+                    @*<dl class="dl-horizontal">
+
+                            <dt>Style</dt>
+                            <dd> </dd>
+                            <dt>Color</dt>
+                            <dd>@Html.DisplayFor(m => m.SkuList[i].Color)</dd>
+
+                            <dt>Sale type Id</dt>
+                            <dd>@Html.DisplayFor(m => m.SaleTypeId)</dd>
+
+                            <dt>Hung</dt>
+                            <dd>@Html.DisplayFor(m => m.PackagingPreferance)</dd>
+
+                            <dt>Price Season Code</dt>
+                            <dd>@Html.DisplayFor(m => m.PriceSeasonCode)</dd>
+
+                            <dt>Sewing Plant Code</dt>
+                            <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
+
+                        </dl>*@
+
+
+                    }
+                </div>
     </div>
 
     <div class="panel panel-default">

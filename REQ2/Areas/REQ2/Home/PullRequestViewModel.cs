@@ -10,13 +10,20 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     {
         public PullRequestSkuModel()
         {
-
+            int i = 0;
         }
 
         internal PullRequestSkuModel(RequestSku entity)
         {
 
+            this.Style = entity.SourceSku.Style;
+            this.Color = entity.SourceSku.Color;
+            
+
         }
+
+        public string Style { get; set; }
+        public string Color { get; set; }
 
     }
 
