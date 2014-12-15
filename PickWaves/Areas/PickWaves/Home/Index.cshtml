@@ -1,4 +1,7 @@
-﻿@model DcmsMobile.PickWaves.Areas.PickWaves.Home.IndexViewModel
+﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
+
+
+@model DcmsMobile.PickWaves.Areas.PickWaves.Home.IndexViewModel
 @{
     ViewBag.Title = "Pick Waves Home";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
@@ -57,7 +60,7 @@
                 @if (Model.ImportedOrders.Count > 0)
                 {
                     <li role="presentation" class="active">
-                        <a href="#ToCreate" role="tab" data-toggle="tab">
+                        <a href="#ToCreate" role="tab" data-toggle="tab" aria-controls="ToCreate">
                             To Create
                             <span class="badge" title="@Model.ImportedOrders.Count customers">
                                 @Model.ImportedOrders.Count
@@ -69,7 +72,7 @@
                 {
                    
                     <li role="presentation" @(Model.ImportedOrders.Count > 0 ? "" : i == 0 ? "class=active" : "")>                     
-                        <a href="#@Model.BucketsByStatus.Keys[i].ToString()" aria-controls="home" role="tab" data-toggle="tab">
+                        <a href="#@Model.BucketsByStatus.Keys[i].ToString()" aria-controls="@Model.BucketsByStatus.Keys[i].ToString()" role="tab" data-toggle="tab">
                             @Model.StateDisplayNames[Model.BucketsByStatus.Keys[i]]
                             <span class="badge" title="@Model.BucketsByStatus.Values[i].Count customers">
                                 @Model.BucketsByStatus.Values[i].Count
