@@ -19,12 +19,34 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             this.Style = entity.SourceSku.Style;
             this.Color = entity.SourceSku.Color;
+            this.Dimension = entity.SourceSku.Dimension;
+            this.SkuSize = entity.SourceSku.SkuSize;
             
 
         }
 
+        [Display(Name = "Style")]
         public string Style { get; set; }
+
+        [Display(Name = "Color")]
         public string Color { get; set; }
+
+        [Display(Name = "Dim")]
+        public string Dimension { get; set; }
+
+        [Display(Name = "Size")]
+        public string SkuSize { get; set; }
+
+        public string UpcCode { get; set; }
+
+        [Display(Name = "SKU")]
+        public string DisplaySku
+        {
+            get
+            {
+                return  string.Format(Style + "," + Color + "," + Dimension + "," + SkuSize) ;
+            }
+        }
 
     }
 
