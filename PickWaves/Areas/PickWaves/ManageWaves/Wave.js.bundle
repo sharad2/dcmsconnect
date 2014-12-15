@@ -14,5 +14,6 @@
     <file>/Scripts/jquery.validate.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.js</file>
     <file>/Scripts/jquery.validate.unobtrusive.bootstrap.js</file>
+    <file>Wave.partial.js</file>
   </files>
 </bundle>

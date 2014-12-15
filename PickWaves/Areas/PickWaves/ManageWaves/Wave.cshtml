@@ -12,23 +12,23 @@
         </a>
     </li>
 }
-<div class="container">  
-        <h2 style="margin-top:0px;">
-            @ViewBag.Title
-        </h2>
-        @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
-        {
+<div class="container">
+    <h2 style="margin-top:0px;">
+        @ViewBag.Title
+    </h2>
+    @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
+    {
 
-            <small>
+        <small>
 
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
-                    See: Other @Model.Bucket.StateDisplayName Waves of same customer
-                </a>
-            </small>
+                See: Other @Model.Bucket.StateDisplayName Waves of same customer
+            </a>
+        </small>
 
-        }
- 
+    }
+
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)
         {
@@ -45,111 +45,54 @@
         }
     </div>
 
- 
 
-        <div role="tabpanel" id="tabs">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs bg-success" role="tablist">
-                <li>
-                    <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId))"
-                       role="tab" data-toggle="tab">
-                        Pickslips
-                        <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
-                    </a>
 
-                </li>
-                <li>
-                    <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId))" role="tab" data-toggle="tab">
-                        Boxes
-                        <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
-                    </a>
-                </li>
-                <li>
-                    <a href="#skus" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId))"
-                        role="tab" data-toggle="tab">
-                        SKUs
-                        <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
-                    </a>
-                </li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">              
-                <div role="tabpanel" class="tab-pane" id="pickslips"></div>
-                <div role="tabpanel" class="tab-pane" id="boxes"></div>
-                <div role="tabpanel" class="tab-pane" id="skus"></div>
-            </div>
+    <div role="tabpanel" id="tabs">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bg-success" role="tablist">
+            <li>
+                <a href="#pickslips" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId))"
+                   role="tab" data-toggle="tab">
+                    Pickslips
+                    <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
+                </a>
+
+            </li>
+            <li>
+                <a href="#boxes" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId))" role="tab" data-toggle="tab">
+                    Boxes
+                    <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
+                </a>
+            </li>
+            <li>
+                <a href="#skus" data-href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId))"
+                   role="tab" data-toggle="tab">
+                    SKUs
+                    <img class="hidden" src="@Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif " alt=" loading.." />
+                </a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane" id="pickslips"></div>
+            <div role="tabpanel" class="tab-pane" id="boxes"></div>
+            <div role="tabpanel" class="tab-pane" id="skus"></div>
         </div>
-
-
-
-
-
-
     </div>
 
 
 
+
+
+
 </div>
+
 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
 
 
 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Wave_js"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function (e) {
-            // Make the first tab active
-            $('#tabs').on('show.bs.tab', function (e) {
-                // Load AJAX content when the tab is shown
-                $('img', e.target).removeClass('hidden');
-                //alert(x.length);
-                $.ajax($(e.target).data('href'), {
-                    type: 'GET',
-                    cache: false
-                }).done(function (data, textStatus, jqXHR) {
-                    //success
-                    $($(e.target).attr('href')).html(data);
-                }).fail(function (jqXHR, textStatus, errorThrown) {
-                    //error
-                    alert(jqXHR.responseText);
-                }).always(function () {
-                    $('img', e.target).addClass('hidden');
-                });
-            }).on('click', 'button[data-pickslip-remove-url]', function (e) {
-                // Remove Pickslip
-                alert($(e.target).data('pickslip-remove-url'));
-
-                $.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
-                    //success
-                    $(e.target).closest('li.list-group-item').addClass('list-group-item-warning')
-                      .find('a.pickslip').css('text-decoration', 'line-through');
-                }).error(function (jqXHR, textStatus, errorThrown) {
-                    //error
-                   alert.html(jqXHR.responseText);
-                });
-            }).find('> ul a:first').tab('show');
-
-            
-            //$('div.tab-content').on('click', '#pickslips button[data-pickslip-remove-url]', function (e) {
-            //    $.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
-            //        //success
-            //        $('.alert', e.delegateTarget).removeClass('hidden').addClass('alert-info').html(jqXHR.responseText);
-            //        location.reload(true);
-            //        return;
-            //    }).error(function (jqXHR, textStatus, errorThrown) {
-            //        //error
-            //        $('.alert', e.delegateTarget).removeClass('hidden').addClass('alert-danger').html(jqXHR.responseText);
-            //    });
-
-            //});
-
-
-        });
-    </script>
-
-    @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_css" rel="stylesheet" />
-        <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Wave_js"></script>*@
 }
 
 
