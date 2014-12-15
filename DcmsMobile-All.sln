@@ -48,6 +48,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Git Scripts", "Git Scripts"
 		GitScripts\subtree-push.sh = GitScripts\subtree-push.sh
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A7AB66F-7100-4558-9A50-9151BBE0A073}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
