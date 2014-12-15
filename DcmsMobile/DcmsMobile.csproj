@@ -158,7 +158,10 @@
     <Content Include="MainArea\Home\Index.min.js">
       <DependentUpon>Index.js</DependentUpon>
     </Content>
-    <Content Include="MainArea\SharedViews\_layoutBootstrap.cshtml" />
+    <Content Include="MainArea\SharedViews\_layoutBootstrap.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
