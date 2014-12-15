@@ -11,7 +11,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     {
         public PullRequestSkuModel()
         {
-            int i = 0;
+   
         }
 
         internal PullRequestSkuModel(RequestSku entity)
