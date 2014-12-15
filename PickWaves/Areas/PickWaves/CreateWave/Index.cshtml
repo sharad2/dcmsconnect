@@ -1,4 +1,6 @@
-﻿@model DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel
+﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
+
+@model DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel
 @{
     ViewBag.Title = string.Format("Create Pick Waves for {0} {1}", Model.CustomerName, Model.CustomerId);
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
@@ -123,11 +125,12 @@
             <legend class="text-success">Add Pickslips</legend>
             <p>You will add groups of pickslips to a pick wave.</p>
             <form action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index())" method="get" class="form-inline">
-                @Html.HiddenFor(m => m.CustomerId)
+                @Html.HiddenFor(m => m.CustomerId, new { @id= "custId"})
                 <p class="form-control-static">Pickslips of Vwh</p>
                 @Html.DropDownListFor(m => m.VwhId, Model.VwhList, new
    {
-       @class = "form-control"
+       @class = "form-control",
+       @id="vwhId"
    })
 
                 @Html.HiddenFor(m => m.RowDimIndex, new
