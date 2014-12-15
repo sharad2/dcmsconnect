@@ -1,4 +1,5 @@
-﻿@model DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseViewModel
+﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by jnegi-->
+@model DcmsMobile.PickWaves.Areas.PickWaves.Config.StyleSkuCaseViewModel
 @{
     ViewBag.Title = "Style Cartons";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
@@ -13,7 +14,7 @@
 }
 <div class="container">
     <h2 style="margin-top:0">
-       @ViewBag.Title
+        @ViewBag.Title
     </h2>
     <div>
         <blockquote class="text-info">
@@ -61,13 +62,13 @@
                                 {
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 }
-                                @if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
-                                {
+                                @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
+                                    {*@
 
-                                    <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
-
-                                }
+                                <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
                             </h4>
+                            @*}*@
+
 
                         </div>
                         <div class="col-md-6 col-sm-6">
@@ -98,7 +99,7 @@
                                                 <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelStyleSkuCase())" method="post">
                                                     <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.style" />
                                                     <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
-                                                    <center>Are you sure?</center>
+                                                    <span style="text-align:center">Are you sure?</span>
                                                     <div class="btn-group btn-group-justified">
                                                         <button class="btn btn-primary" type="submit">Yes</button>
                                                         <a class="btn btn-default">No</a>
@@ -122,7 +123,7 @@
 </div>
 
 <!--Modal called from actions of each tabs-->
-<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             AJAX loaded HTML here
