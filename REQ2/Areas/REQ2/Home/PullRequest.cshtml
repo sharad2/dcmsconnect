@@ -28,13 +28,13 @@
                     <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
 
                     <dt>Remarks</dt>
-                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>             
+                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>
 
             </div>
 
             <div class="col-md-4 col-sm-6">
                 <dl class="dl-horizontal">
-   
+
                     <dt>Overpulling</dt>
                     <dd>@Html.DisplayFor(m => m.AllowOverPulling)</dd>
                     <dt>Priority</dt>
@@ -68,10 +68,73 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Cartons</h3>
+
         </div>
         <div class="panel-body">
-            Panel content
+      
+            <table>
+                <caption>Assigned Cartons</caption>
+                <thead>
+                    <tr>
+                        <th style="text-align:center" colspan="4">
+                            SKU
+                        </th>
+                        <th style="text-align:center">
+                            Total Cartons
+                        </th>
+                        <th style="text-align:center">
+                            Pulled Cartons
+                        </th>
+                        <th style="text-align:center">
+                            Total Pieces
+                        </th>
+                        <th style="text-align:center">
+                            Pulled Pieces
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @for (var i = 0; i < Model.CartonList.Count; ++i)
+                    {
+                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                            <td>
+                                @Html.DisplayFor(m => m.CartonList[i].Sku.Style)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.CartonList[i].Sku.Color)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.CartonList[i].Sku.Dimension)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(m => m.CartonList[i].Sku.SkuSize)
+                            </td>
+                            <td style="text-align:right">
+                                @Html.DisplayFor(m => m.CartonList[i].TotalCartons)
+                            </td>
+                            <td style="text-align:right">
+                                @Html.DisplayFor(m => m.CartonList[i].TotalPieces)
+                            </td>
+                            <td style="text-align:right">
+                                @Html.DisplayFor(m => m.CartonList[i].PulledCartons)
+                            </td>
+                            <td style="text-align:right">
+                                @Html.DisplayFor(m => m.CartonList[i].PulledPieces)
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+
+
+
+
         </div>
     </div>
-</div>
 
+
+
+
+</div>

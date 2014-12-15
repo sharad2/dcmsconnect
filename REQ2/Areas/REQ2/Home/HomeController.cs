@@ -69,6 +69,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
 
+            var cartons = _service.GetAssignedCartons(ctnresvId);
+
+            model.CartonList = cartons.Select(p => new AssignedCartonListModel(p)).ToList();
+
             return View(Views.PullRequest, model);
         }
 
