@@ -10,6 +10,62 @@
     </h1>
     <div class="row">
         <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        Carton Sizes
+                    </h2>
+                    <hr />
+                    <small>
+                        The carton creation algorithm needs to know the various carton sizes which are available for packing.
+                    </small>
+                    <dl class="dl-horizontal">
+                        <dt>Largest Carton Size</dt>
+                        <dd>@Model.MaxCaseId: @Model.MaxCaseDescription <em>@Model.MaxContentVolume cu ft</em></dd>
+                        <dt>Smallest Carton Size</dt>
+                        <dd>@Model.MinCaseId: @Model.MinCaseDescription <em>@Model.MinContentVolume cu ft</em></dd>
+                    </dl>
+                    <hr />
+                    <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" role="button">Manage</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        Per Customer
+                    </h2>
+                    <hr />
+                    <small>
+                        You can specify special packing requirements for each customer.
+                    </small>
+                    <hr />
+                    <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())">Preferred Carton Sizes</a>
+                    <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">
+                        Per Style
+                    </h2>
+                    <hr />
+                    <small>
+                        For each Style you can require that a specific carton size is used.
+                    </small>
+                    <hr />
+                    <a class="btn btn-primary" href="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCase())" role="button">Manage</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="col-md-4">
             <div class="jumbotron">
                 <h2>Carton Sizes</h2>
                 <p>The carton creation algorithm needs to know the various carton sizes which are available for packing.</p>
@@ -33,7 +89,6 @@
                 <p>
                     <a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())">Packing Constraints</a>
                 </p>
-                @*<p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" role="button">Manage</a></p>*@
             </div>
         </div>
 
@@ -47,26 +102,9 @@
                 <p><a class="btn btn-primary btn-lg" href="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCase())" role="button">Manage</a></p>
             </div>
         </div>
-    </div>
+    </div>*@
 
 
 
-    @*<blockquote>
-        <div>
-            <h4 class="text-info"> Boxes are created for pitching per pickslip. The objective is to use minimum number of boxes to fit all the orders SKUs. To achieve this objective the system needs to know</h4>
-            <p class="h5">
-                What size cartons are available in which, SKUs can be shipped.
-                Largest SKU Case <em><b>@Model.MaxCaseId: @Model.MaxCaseDescription [@Model.MaxContentVolume cu ft]</b></em>. Smallest SKU Case <em><b>@Model.MinCaseId: @Model.MinCaseDescription [@Model.MinContentVolume cu ft]</b></em>
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" class="btn btn-primary btn-xs" role="button">Manage</a>
-            </p>
-        </div>
-        <hr />
-        <div>
-            <h4 class="text-info">
-                Customers can impose constraints on the cartons they are willing to accept. DCMS supports this scenario by allowing you to define the customer constraints
-                on a per customer basis.
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="btn btn-primary btn-xs" role="button">DCMS Supported Constraints</a>
-            </h4>
-        </div>
-    </blockquote>*@
+   
 </div>
