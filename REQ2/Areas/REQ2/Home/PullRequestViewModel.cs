@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -44,6 +45,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.TargetQuality = entity.TargetQuality;
             this.SourceVwhId = entity.TargetVwhId;
             this.AssignedPieces = entity.AssignedPieces;
+            this.BuildingId = entity.BuildingId;
+            this.PriceSeasonCode = entity.PriceSeasonCode;
+            this.SewingPlantCode = entity.SewingPlantCode;
         }
 
 
@@ -78,7 +82,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public string TargetQuality { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int AssignedPieces { get; set; }
+
+        public string BuildingId { get; set; }
+
+        public string PriceSeasonCode { get; set; }
+
+        public string SewingPlantCode { get; set; }
 
         public IList<PullRequestSkuModel> SkuList { get; set; }
     }

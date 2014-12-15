@@ -11,33 +11,49 @@
             <h3 class="panel-title">Properties <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor("6023426"))">Edit</a></h3>
         </div>
         <div class="panel-body">
-         Request of @Model.QuantityRequested pieces created by @Model.RequestedBy  on @Model.DateCreated. @Model.AssignedPieces pieces assigned to request.
-            <dl class="dl-horizontal">
-                <dt>Source area &rarr; Destination area</dt>
-                <dd>@Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
-                <dt>Conversion Request</dt>
-                <dd>@Html.DisplayFor(m => m.IsConversionRequest)</dd>
+            <h4>Request of @Html.DisplayFor(m => m.QuantityRequested) pieces created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)  @Html.DisplayFor(m => m.AssignedPieces) pieces assigned to request.</h4>
 
-                <dt>Source quality&rarr; Target quality</dt>
-                <dd>@Html.DisplayFor(m => m.SourceQuality) &rarr; @Html.DisplayFor(m => m.TargetQuality)</dd>
+            <div class="col-md-4 col-sm-6">
+                <dl class="dl-horizontal">
 
-                <dt>Source vwh &rarr; Target vwh</dt>
-                <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
+                    <dt>Conversion Request</dt>
+                    <dd>@Html.DisplayFor(m => m.IsConversionRequest)</dd>
+                    <dt>Source &rarr; Destination</dt>
+                    <dd>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
 
-                <dt>Overpulling</dt>
-                <dd>@Html.DisplayFor(m => m.AllowOverPulling)</dd>
-                <dt>Priority</dt>
-                <dd>@Html.DisplayFor(m => m.Priority)</dd>
+                    <dt>Source quality&rarr; Target quality</dt>
+                    <dd>@Html.DisplayFor(m => m.SourceQuality) &rarr; @Html.DisplayFor(m => m.TargetQuality)</dd>
 
-                <dt>Sale type Id</dt>
-                <dd>@Html.DisplayFor(m => m.SaleTypeId)</dd>
+                    <dt>Source vwh &rarr; Target vwh</dt>
+                    <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
 
-                <dt>Hung</dt>
-                <dd>@Html.DisplayFor(m => m.PackagingPreferance)</dd>
+                    <dt>Remarks</dt>
+                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>             
 
-                <dt>Remarks</dt>
-                <dd>@Html.DisplayFor(m => m.Remarks)</dd>
-            </dl>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <dl class="dl-horizontal">
+   
+                    <dt>Overpulling</dt>
+                    <dd>@Html.DisplayFor(m => m.AllowOverPulling)</dd>
+                    <dt>Priority</dt>
+                    <dd>@Html.DisplayFor(m => m.Priority)</dd>
+
+                    <dt>Sale type Id</dt>
+                    <dd>@Html.DisplayFor(m => m.SaleTypeId)</dd>
+
+                    <dt>Hung</dt>
+                    <dd>@Html.DisplayFor(m => m.PackagingPreferance)</dd>
+
+                    <dt>Price Season Code</dt>
+                    <dd>@Html.DisplayFor(m => m.PriceSeasonCode)</dd>
+
+                    <dt>Sewing Plant Code</dt>
+                    <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
+
+                </dl>
+            </div>
         </div>
     </div>
     <div class="panel panel-default">
@@ -58,3 +74,4 @@
         </div>
     </div>
 </div>
+
