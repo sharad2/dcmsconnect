@@ -29,10 +29,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(NullDisplayText="Pitch")]
         public string CartonId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? ExpectedPieces { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N0}",NullDisplayText="None")]
+        public int? ExpectedPieces { get; set;}
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}",NullDisplayText="None")]
         public int? CurrentPieces { get; set; }
 
         [DisplayFormat(DataFormatString = "{0}", HtmlEncode = false)]
