@@ -61,7 +61,16 @@
             <h3 class="panel-title">SKU</h3>
         </div>
         <div class="panel-body">
-            Panel content
+           @for (var i = 0; i < Model.SkuList.Count; ++i)
+           {
+               
+               <ul class="list-group">
+  <li class="list-group-item">
+    <span class="badge">14</span>
+      @Html.DisplayFor( m => m.SkuList[i].DisplaySku)
+  </li>
+</ul>
+           }
         </div>
     </div>
 
@@ -71,66 +80,52 @@
 
         </div>
         <div class="panel-body">
-      
-            <table>
-                <caption>Assigned Cartons</caption>
-                <thead>
-                    <tr>
-                        <th style="text-align:center" colspan="4">
-                            SKU
-                        </th>
-                        <th style="text-align:center">
-                            Total Cartons
-                        </th>
-                        <th style="text-align:center">
+
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-info">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                           SKU
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                           Total Cartons
+                        </div>
+                        <div class="col-md-2 col-sm-2">
                             Pulled Cartons
-                        </th>
-                        <th style="text-align:center">
+                        </div>
+                        <div class="col-md-2 col-sm-2">
                             Total Pieces
-                        </th>
-                        <th style="text-align:center">
+                        </div>
+                        <div class="col-md-2 col-sm-2">
                             Pulled Pieces
-                        </th>
-                    </tr>
-                </thead>
+                        </div>
 
-                <tbody>
-                    @for (var i = 0; i < Model.CartonList.Count; ++i)
-                    {
-                        <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                            <td>
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.Style)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.Color)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.Dimension)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.SkuSize)
-                            </td>
-                            <td style="text-align:right">
+                    </div>
+                </li>
+
+                @for (var i = 0; i < Model.CartonList.Count; ++i)
+                {
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4">
+                                @Html.DisplayFor(m => m.CartonList[i].Sku.Style),@Html.DisplayFor(m => m.CartonList[i].Sku.Color),@Html.DisplayFor(m => m.CartonList[i].Sku.Dimension),@Html.DisplayFor(m => m.CartonList[i].Sku.SkuSize)
+                            </div>
+                            <div class="col-md-2 col-sm-2">
                                 @Html.DisplayFor(m => m.CartonList[i].TotalCartons)
-                            </td>
-                            <td style="text-align:right">
-                                @Html.DisplayFor(m => m.CartonList[i].TotalPieces)
-                            </td>
-                            <td style="text-align:right">
+                            </div>
+                            <div class="col-md-2 col-sm-2">
                                 @Html.DisplayFor(m => m.CartonList[i].PulledCartons)
-                            </td>
-                            <td style="text-align:right">
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                @Html.DisplayFor(m => m.CartonList[i].TotalPieces)
+                            </div>
+                            <div class="col-md-2 col-sm-2">
                                 @Html.DisplayFor(m => m.CartonList[i].PulledPieces)
-                            </td>
-                        </tr>
-                    }
-
-                </tbody>
-            </table>
-
-
-
-
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 

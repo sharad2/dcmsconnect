@@ -1,5 +1,4 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-
 @using DcmsMobile.PickWaves.Helpers
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
@@ -33,7 +32,7 @@
                 @if (Model.IsFrozen)
                 {
 
-                    <a class="btn btn-default btn-sm"
+                    <a class="btn btn-default btn-xs"
                        href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel(
                                                             Model.BucketId,
                                                     DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing)))">
@@ -43,7 +42,7 @@
                 else
                 {
                 <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
                         <span class="glyphicon glyphicon-ban-circle"></span> Freeze
                     </button>
                 }
@@ -86,32 +85,38 @@
 
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
-                                        <label class="sr-only">Email</label>
-                                        <p class="form-control-static"> Priority</p>
+                                        <p class="form-control-static">
+                                            Priority
+                                            &nbsp;
+                                            @if (isAuthorized)
+                                            {
+                                                <div class="form-group">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
+                                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
+                                                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control" value="@Model.PriorityId" readonly size="2" style="text-align:right">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
+                                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
+                                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                @Model.PriorityId
+                                            }
+                                        </p>
                                     </div>
-                                    @if (isAuthorized)
-                                    {
-                                        <div class="form-group">
-                                            <div class="input-group input-group-sm">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
-                                                            data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
-                                                        <span class="glyphicon glyphicon-arrow-down"></span>
-                                                    </button>
-                                                </span>
-                                                <input type="text" class="form-control" value="@Model.PriorityId" readonly size="2" style="text-align:right">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
-                                                            data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
-                                                        <span class="glyphicon glyphicon-arrow-up"></span>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        @Model.PriorityId}
+
+
+
                                 </div>
                             </div>
                         </div>
@@ -164,6 +169,7 @@
 
 
                 </ul>
+
 
 
 
@@ -242,4 +248,3 @@
         </div>
     </div>
 </div>
-
