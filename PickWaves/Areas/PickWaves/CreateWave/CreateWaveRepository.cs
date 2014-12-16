@@ -69,6 +69,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             var clauses = new List<string>(2);
             foreach (var dim in dimensions)
             {
+                if (dim.Item2 == null)
+                {
+                    throw new ArgumentNullException("dimensions[i].Item2");
+                }
                 clauses.Add(GetDimensionWhereClause(dim.Item1, dim.Item2));
                 if (attrs.ContainsKey(dim.Item1) && attrs[dim.Item1].DataType == DataType.Date)
                 {
@@ -76,7 +80,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 }
                 else
                 {
-                    binder.Parameter(dim.Item1.ToString(), Convert.ToString(dim.Item2));
+                    // Sharad 16 Dec 2014: Trimming the value because we get leading spaces in priority once in a while
+                    binder.Parameter(dim.Item1.ToString(), Convert.ToString(dim.Item2).Trim());
                 }
             }
             var queryFinal = string.Format(QUERY, string.Join(" AND ", clauses));
