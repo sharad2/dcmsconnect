@@ -32,7 +32,7 @@
                 @if (Model.IsFrozen)
                 {
 
-                    <a class="btn btn-default btn-sm"
+                    <a class="btn btn-default btn-xs"
                        href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel(
                                                             Model.BucketId,
                                                     DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing)))">
@@ -42,7 +42,7 @@
                 else
                 {
                 <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
                         <span class="glyphicon glyphicon-ban-circle"></span> Freeze
                     </button>
                 }
