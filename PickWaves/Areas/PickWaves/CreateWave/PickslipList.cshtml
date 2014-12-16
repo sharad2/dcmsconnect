@@ -27,7 +27,7 @@
     }*@
 
 <div class="container">   
-        <h2 style="margin-top:0px;">
+        <h2 style="margin-top:0;">
             Add Pickslips <small>@Html.DisplayFor(m => m.CustomerId) @Html.DisplayFor(m => m.CustomerName)</small>
         </h2>
   
@@ -40,7 +40,10 @@
     }
     else
     {
-        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket , new ViewDataDictionary
+                               {
+                                   {"IsAuthorized", Model.UserIsManager}
+                               })
     }
     <ul class="list-inline">
         <li>@Html.DisplayFor(m => m.ColDimDisplayName) @Html.DisplayFor(m => m.ColDimVal)</li>
@@ -104,6 +107,14 @@
         </ul>
     }
 </div>
+@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
+@section script {
+    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
+}
+
+
+
+
 @*<div class="boxContent">
     @if (Model.Bucket != null)
         {
@@ -198,7 +209,7 @@
         }
     </div>
 </div>*@
-@section script{
+@*@section script{*@
     @*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
         <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
         <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
@@ -229,4 +240,4 @@
                 display: inline-block;
             }
         </style>*@
-}
+@* } *@
