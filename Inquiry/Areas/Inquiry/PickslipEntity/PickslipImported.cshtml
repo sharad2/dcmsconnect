@@ -80,9 +80,6 @@
     @if (Model.AllSku.Any())
     {
         <ul class="list-group">
-            <li class="list-group-item list-group-item-info">
-                Ordered
-            </li>
             <li class="list-group-item list-group-item-success">
                 <div class="row">
                     <div class="col-md-6">
@@ -108,7 +105,7 @@
                     <div class="col-md-2">
 
                         <h4 class="list-group-item-heading">
-                            Pieces <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                            @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces)) Pieces 
                         </h4>
 
 
@@ -152,25 +149,6 @@
                         </div>
                     </div>
                 </li>
-                @*<li class="list-group-item">
-                  
-                    <h4 class="list-group-item-heading">
-                       
-                        <small>
-                            VWH
-                            Pcs 
-                            QC 
-                            <span class="label label-default"> Price</span>
-                        </small>
-                    </h4>
-                     @if(Model.AllSku[i].MinPiecesPerBox != null && Model.AllSku[i].MaxPiecesPerBox != null)
-                     { 
-                 <span class="badge pull-right">
-                    
-                 </span>
-                     }  
-                    Pcs Per Package
-                </li>*@
             }
         </ul>
     }
