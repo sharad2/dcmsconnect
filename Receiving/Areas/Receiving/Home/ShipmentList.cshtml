@@ -9,11 +9,11 @@
 
 
 <div class="container">
-    <div id="message" class="alert hidden"></div>   
+    <div id="message" class="alert hidden"></div>
     <h2 style="margin-top:0px;">
         @ViewBag.Title
     </h2>
-    
+
     <small class="text-info"><span class="glyphicon glyphicon-info-sign"></span> To update Shipment List please refresh the page.</small>
     <h4>List of open shipments(Max 200)</h4>
     <ul class="list-group" id="list">
@@ -34,15 +34,15 @@
                         <span class="label label-success">PO #</span>
                         &nbsp;
                         <small>ERP</small>
-                        </h4>
-                        <p class="list-group-item-text">
-                            <span class="label label-info">
-                                Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span>
-                            </span>
-                            &nbsp;
-                            <small>Order Type</small>
-                        </p>
-</div>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <span class="label label-info">
+                            Receiving Process <span class="glyphicon glyphicon-sort-by-order-alt"></span>
+                        </span>
+                        &nbsp;
+                        <small>Order Type</small>
+                    </p>
+                </div>
                 <div class="col-md-3">
                     Pieces received of pieces expected
                     <p class="list-group-item-text">
@@ -78,8 +78,8 @@
                                 @Html.DisplayFor(m => m.ShipmentList[i].PoNumber)
                             </span>&nbsp;<small>@Html.DisplayFor(m => m.ShipmentList[i].ErpType)</small>
                         </h4>
-                        
-                  
+
+
 
 
                         <p class="list-group-item-text">
@@ -106,17 +106,13 @@
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                                 <img src="@Links_Receiving.Areas.Receiving.SharedViews.ajax_loader_gif" class="hidden" />  Close <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
-                                <li>
-                                    <center>Are you sure?</center>
-                                    <div class="btn-group btn-group-justified">
-                                        <button class="btn btn-primary" type="submit"
-                                                data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))">
-                                            Yes
-                                        </button>
-                                        <a class="btn btn-default">No</a>
-                                    </div>
-
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation" style="text-align:center">
+                                    <span>Sure?</span>&nbsp;
+                                    <button class="btn btn-primary" type="submit"
+                                            data-shipment-close-url="@Url.Action(MVC_Receiving.Receiving.Home.CloseShipment(Model.ShipmentList[i].ShipmentId, @Model.ShipmentList[i].PoNumber))">
+                                        Yes
+                                    </button>
                                 </li>
                             </ul>
                         </div>
