@@ -107,5 +107,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         public string UrlInquiryPickslip { get; set; }
 
         public string UrlInquiryPurchaseOrder { get; set; }
+
+       
     }
 }
