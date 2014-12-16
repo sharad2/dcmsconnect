@@ -36,7 +36,7 @@
                             <span class="label label-success"> Style</span>
                         </h4>
                     </div>
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-8 col-sm-8">
                         <h4 class="list-group-item-heading">
                             Case
                         </h4>
@@ -44,7 +44,7 @@
                     </div>
                     @if (Model.UserIsManager)
                     {
-                        <div class="col-md-4 col-sm-4">
+                        <div class="col-md-2 col-sm-2">
                             <div style="text-align:right">
                                 <button class="btn btn-default btn-xs " disabled>Action</button>
                             </div>
@@ -62,25 +62,21 @@
 
                             <h4 class="list-group-item-heading">
                                 <small>@(i + 1)</small>
-                                @*@if (Model.PackingRuleList[i].IgnoreFlag)
-                                    {
-                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                    }*@
-
-
                                 <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
                             </h4>
 
 
 
                         </div>
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-8 col-sm-8">
                             @for (var j = 0; j < Model.PackingRuleList[i].StyleCases.Count; ++j)
                             {
                                 if (Model.PackingRuleList[i].StyleCases.Values[j])
                                 {
                                     <s class="list-group-item-heading h4">
-                                        @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
+                                        <abbr title="The ignorance of this case is temporarily dishonoured.">
+                                            @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
+                                        </abbr> 
                                     </s>
                                 }
                                 else
@@ -118,7 +114,7 @@
                                 }
                             }
                         </div>
-                        <div class="col-md-4 col-sm-4">
+                        <div class="col-md-2 col-sm-2">
                             @if (Model.UserIsManager)
                             {
                                 <div class="btn-group btn-group  pull-right btn-group-xs" role="group">
