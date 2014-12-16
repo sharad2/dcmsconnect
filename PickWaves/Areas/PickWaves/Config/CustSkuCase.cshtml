@@ -112,56 +112,7 @@
                         <div class="col-md-2 col-sm-2">
                             @if (Model.UserIsManager)
                             {
-                                @*<div class="btn-group">
-                                        <button class="btn btn-default btn-xs dropdown-toggle"
-                                                data-toggle="dropdown">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                            Remove
-                                            <span class="caret"></span>
-                                        </button>
-
-                                        <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
-                                            <li>
-                                                <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelCustSkuCase())" method="post">
-                                                    <input type="hidden"  value="@Model.CustomerSkuCaseList[i].CaseId"
-                                                           name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.caseId" />
-                                                    <input type="hidden" value="@Model.CustomerSkuCaseList[i].CustomerId"
-                                                           name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
-                                                    <span style="text-align:center">Are you sure?</span>
-                                                    <div class="btn-group btn-group-justified">
-                                                        <button class="btn btn-primary" type="submit">Yes</button>
-                                                        <a class="btn btn-default">No</a>
-                                                    </div>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>*@
-
-                                @*<div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                        Remove
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                        <li role="presentation">
-                                            <a> Are you sure ?</a>
-                                        </li>
-                                        <li class="divider" role="presentation"></li>
-                                        <li role="presentation" style="text-align:center">
-                                            <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelCustSkuCase())" method="post">
-                                                <input type="hidden" value="@Model.CustomerSkuCaseList[i].CaseId"
-                                                       name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.caseId" />
-                                                <input type="hidden" value="@Model.CustomerSkuCaseList[i].CustomerId"
-                                                       name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
-                                                <button class="btn btn-primary" type="submit">Yes</button>
-                                                <button class="btn btn-default" type="button">No</button>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>*@
-
-
+                               
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-expanded="true">
                                         <span class="glyphicon glyphicon-remove"></span>

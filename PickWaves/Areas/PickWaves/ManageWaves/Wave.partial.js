@@ -19,7 +19,7 @@
 		});
 	}).on('click', 'button[data-pickslip-remove-url]', function (e) {
 		// Remove Pickslip
-		alert($(e.target).data('pickslip-remove-url'));
+		//alert($(e.target).data('pickslip-remove-url'));
 
 		$.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
 			//success
