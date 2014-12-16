@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <remarks>
         /// Passed selectedRowDimIndex and selectedColDimIndex are ignored if it turns out that either of them have no pickslips
         /// </remarks>
-        private void PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model, string customerId, int selectedRowDimIndex, int selectedColDimIndex)
+        private bool PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model, string customerId, int selectedRowDimIndex, int selectedColDimIndex)
         {
             model.CustomerId = customerId;
 
@@ -95,80 +95,79 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 // No more pickslips which can be added to a bucket. The dimension matrix will be empty.
                 // This happens when the last set of pickslips has been added to the bucket.
-                // Nothing to do.
+                return false;
             }
-            else
+            var requery = false;
+            if (summary.CountValuesPerDimension[pdimRow] == 0)
             {
-                var requery = false;
-                if (summary.CountValuesPerDimension[pdimRow] == 0)
-                {
-                    pdimRow = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
-                    requery = true;
-                }
-
-                if (summary.CountValuesPerDimension[pdimCol] == 0)
-                {
-                    pdimCol = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
-                    requery = true;
-                }
-
-                if (requery)
-                {
-                    summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
-                }
-
-                model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
-                model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
-
-
-
-                const int MAX_COL_DIMENSIONS = 30;
-
-                model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                                          let count = summary.CountValuesPerDimension[kvp.Key]
-                                          select new SelectListItem
-                                          {
-                                              Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                              Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
-                                          }).OrderBy(p => p.Text).ToArray();
-
-                // Dimensions which have too many distinct values are not displayed as column dimensions
-                model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                                          let count = summary.CountValuesPerDimension[kvp.Key]
-                                          where count <= MAX_COL_DIMENSIONS
-                                          select new SelectListItem
-                                          {
-                                              Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                              Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
-                                          }).OrderBy(p => p.Text).ToArray();
-
-                model.RowDimIndex = (int)pdimRow;
-                model.ColDimIndex = (int)pdimCol;
-
-                model.Rows = (from rowVal in summary.AllValues.RowValues
-                              let row = summary.AllValues.GetRow(rowVal)
-                              select new RowDimensionModel
-                              {
-                                  PickslipCounts = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
-                                  OrderedPieces = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
-                                  DimensionValue = FormatDimensionValue(rowVal)
-                              }).ToArray();
-
-                model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
-
-                model.VwhList = from item in _service.GetVWhListOfCustomer(customerId)
-                                select new SelectListItem
-                                {
-                                    Text = item.VWhId + " : " + item.Description,
-                                    Value = item.VWhId,
-                                    Selected = item.VWhId == model.VwhId
-                                };
-                if (string.IsNullOrEmpty(model.VwhId))
-                {
-                    model.VwhId = model.VwhList.Select(p => p.Value).First();
-                }
+                pdimRow = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
+                requery = true;
             }
+
+            if (summary.CountValuesPerDimension[pdimCol] == 0)
+            {
+                pdimCol = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
+                requery = true;
+            }
+
+            if (requery)
+            {
+                summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
+            }
+
+            model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
+            model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
+
+
+
+            const int MAX_COL_DIMENSIONS = 30;
+
+            model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                                      let count = summary.CountValuesPerDimension[kvp.Key]
+                                      select new SelectListItem
+                                      {
+                                          Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                      }).OrderBy(p => p.Text).ToArray();
+
+            // Dimensions which have too many distinct values are not displayed as column dimensions
+            model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+                                      let count = summary.CountValuesPerDimension[kvp.Key]
+                                      where count <= MAX_COL_DIMENSIONS
+                                      select new SelectListItem
+                                      {
+                                          Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                      }).OrderBy(p => p.Text).ToArray();
+
+            model.RowDimIndex = (int)pdimRow;
+            model.ColDimIndex = (int)pdimCol;
+
+            model.Rows = (from rowVal in summary.AllValues.RowValues
+                          let row = summary.AllValues.GetRow(rowVal)
+                          select new RowDimensionModel
+                          {
+                              PickslipCounts = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
+                              OrderedPieces = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
+                              DimensionValue = FormatDimensionValue(rowVal)
+                          }).ToArray();
+
+            model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
+
+            model.VwhList = from item in _service.GetVWhListOfCustomer(customerId)
+                            select new SelectListItem
+                            {
+                                Text = item.VWhId + " : " + item.Description,
+                                Value = item.VWhId,
+                                Selected = item.VWhId == model.VwhId
+                            };
+            if (string.IsNullOrEmpty(model.VwhId))
+            {
+                model.VwhId = model.VwhList.Select(p => p.Value).First();
+            }
+            return true;
         }
+
 
 
         /// <summary>
@@ -265,7 +264,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             #endregion
 
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
-            PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0);
+            if (!PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0))
+            {
+                var model2 = new
+                {
+                    BucketId = model.LastBucketId,
+                    CustomerId = model.CustomerId
+                };
+                return View(Views.IndexNoPickslips);
+            }
 
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
 
@@ -288,24 +295,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             return View(Views.Index, model);
         }
 
-        ///// <summary>
-        ///// Ajax call : This method refreshes the pickslip list, when change dimension value.
-        ///// </summary>
-        ///// <param name="model">
-        ///// Posted value
-        ///// </param>
-        ///// <returns></returns>
-        ///// <remarks>
-        ///// Need to refresh the pickslip list every time after wave creation. i.e [OutputCache(Duration = 0)]
-        ///// </remarks>
-        //[OutputCache(Duration = 0)]
-        //[Route("refpickslipmatrix")]
-        //public virtual ActionResult RefreshPickslipMatrix(PickslipMatrixPartialViewModel model)
-        //{
-        //    PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex.Value, model.ColDimIndex.Value);
-        //    var html = RenderPartialViewToString(this.Views._pickslipMatrixPartial, model);
-        //    return Content(html);
-        //}
 
         /// <summary>
         /// Add pickslips to passed bucket.Or if bucket is not created then create it first, then add pickslip.

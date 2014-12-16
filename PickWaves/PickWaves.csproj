@@ -291,6 +291,7 @@
     <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
       <DependentUpon>Wave.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\CreateWave\IndexNoPickslips.cshtml" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
