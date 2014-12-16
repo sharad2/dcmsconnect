@@ -96,5 +96,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public int? OrigMaxSkuWithinBox { get; set; }
 
         public bool OrigIsSingleStyleColor { get; set; }
+
+        /// <summary>
+        /// Which tab should be made active after action is performed
+        /// </summary>
+        public int ActiveTab { get; set; }
     }
 }

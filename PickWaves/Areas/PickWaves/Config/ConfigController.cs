@@ -292,7 +292,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// </summary>
         /// <param name="style"></param>
         /// <param name="caseId"></param>
-        /// <param name="disable">If this is passed as true then the style case is disabled, not deleted</param>
+        /// <param name="disable">If this is null then the StyleSkuCase is deleted. Otherwise, it is enabled/disabled based on this parameter</param>
         /// <returns></returns>
         [HttpPost]
         [Route("delpackingrule")]
@@ -306,15 +306,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                     _service.Value.InsertPackingRule(new StyleSkuCase
                     {
                         CaseId = caseId,
-                        IgnoreFlag = disable == true ? true : false,
+                        IgnoreFlag = disable.Value,
                         Style = style
                     });
-                    AddStatusMessage(string.Format("Case {0} ignorance modified against SKU {1}", caseId, style));
+                    if (disable.Value) { 
+                    AddStatusMessage(string.Format("Case {0} will not be used for Style {1} until you enable it", caseId, style));
+                    }
+                    else
+                    {
+                        AddStatusMessage(string.Format("Case {0} can now be used for Style {1}", caseId, style));
+                    }
                 }
                 else
                 {
                     _service.Value.DelCaseIgnorance(style, caseId);
-                    AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
+                    AddStatusMessage(string.Format("Case {0} can no longer be used for Style {1}", caseId, style));
                 }
             }
             catch (Exception ex)
@@ -466,7 +472,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <param name="customerId"></param>
         /// <returns></returns>
         [Route("editor/custconstraint")]
-        public virtual ActionResult CustomerConstraintEditor(string customerId)
+        public virtual ActionResult CustomerConstraintEditor(string customerId, int activeTab)
         {
             CustomerConstraintEditorModel model;
             if (string.IsNullOrEmpty(customerId))
@@ -485,7 +491,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 model = new CustomerConstraintEditorModel(customerConstraints)
                     {
                         CustomerId = customerId,
-                        CustomerName = customerName
+                        CustomerName = customerName,
+                        ActiveTab = activeTab
                     };
             }
             return PartialView(Views._customerConstraintEditorPartial, model);

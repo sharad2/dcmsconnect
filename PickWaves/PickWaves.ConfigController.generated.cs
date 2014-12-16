@@ -274,6 +274,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public class ActionParamsClass_CustomerConstraintEditor
         {
             public readonly string customerId = "customerId";
+            public readonly string activeTab = "activeTab";
         }
         static readonly ActionParamsClass_UpdateCustomerConstraints s_params_UpdateCustomerConstraints = new ActionParamsClass_UpdateCustomerConstraints();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -498,14 +499,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         }
 
         [NonAction]
-        partial void CustomerConstraintEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId);
+        partial void CustomerConstraintEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, int activeTab);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CustomerConstraintEditor(string customerId)
+        public override System.Web.Mvc.ActionResult CustomerConstraintEditor(string customerId, int activeTab)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CustomerConstraintEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            CustomerConstraintEditorOverride(callInfo, customerId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "activeTab", activeTab);
+            CustomerConstraintEditorOverride(callInfo, customerId, activeTab);
             return callInfo;
         }
 
