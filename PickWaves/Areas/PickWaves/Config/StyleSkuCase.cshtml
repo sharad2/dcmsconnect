@@ -63,9 +63,9 @@
                             <h4 class="list-group-item-heading">
                                 <small>@(i + 1)</small>
                                 @*@if (Model.PackingRuleList[i].IgnoreFlag)
-                                {
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                                }*@
+                                    {
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                    }*@
 
 
                                 <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
@@ -77,9 +77,18 @@
                         <div class="col-md-6 col-sm-6">
                             @for (var j = 0; j < Model.PackingRuleList[i].StyleCases.Count; ++j)
                             {
-                                <span class="list-group-item-heading h4">
-                                    @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
-                                </span>
+                                if (Model.PackingRuleList[i].StyleCases.Values[j])
+                                {
+                                    <s class="list-group-item-heading h4">
+                                        @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
+                                    </s>
+                                }
+                                else
+                                {
+                                    <span class="list-group-item-heading h4">
+                                        @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
+                                    </span>
+                                }
                                 if (Model.UserIsManager)
                                 {
 
@@ -96,7 +105,12 @@
 
 
                                                     <button class="btn btn-primary" type="submit">Delete</button>
-                                                    <button class="btn btn-default" type="submit" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.disable" value="True">Disable</button>
+
+                                                    @if (!Model.PackingRuleList[i].StyleCases.Values[j])
+                                                    {
+                                                        <button class="btn btn-default" type="submit" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.disable" value="True">Disable</button>
+                                                    }
+
                                                 </form>
                                             </li>
                                         </ul>
@@ -110,9 +124,9 @@
                             {
                                 <div class="btn-group btn-group  pull-right btn-group-xs" role="group">
                                     <button class="btn btn-default" data-toggle="modal"
-                                    data-target="#tabModal" title="Add packing rule"
-                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, null, null))">
-                                    <span class="glyphicon glyphicon-plus"></span>  Add
+                                            data-target="#tabModal" title="Add packing rule"
+                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, null, null))">
+                                        <span class="glyphicon glyphicon-plus"></span>  Add
                                     </button>
 
                                 </div>

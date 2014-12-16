@@ -298,20 +298,32 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         [Route("delpackingrule")]
         public virtual ActionResult DelStyleSkuCase(string style, string caseId, bool? disable)
         {
-            throw new NotImplementedException(String.Format("Disabled *{0}*", disable));
-            try
+            //throw new NotImplementedException(String.Format("Disabled *{0}*", disable));
+            if (disable == true)
             {
-                _service.Value.DelCaseIgnorance(style, caseId);
+
+                return RedirectToAction(Actions.UpdateStyleSkuCase(new StyleSkuCaseEditorViewModel
+                {
+                    Style = style,
+                    CaseId = caseId,
+                    IgnoreFlag = true
+
+                }));
             }
-            catch (Exception ex)
+            else
             {
-                ModelState.AddModelError("", ex.InnerException);
-                //return RedirectToAction(Actions.SkuCase());
+                try
+                {
+                    _service.Value.DelCaseIgnorance(style, caseId);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.InnerException);
+                    return RedirectToAction(Actions.StyleSkuCase());
+                }
+                AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
                 return RedirectToAction(Actions.StyleSkuCase());
             }
-            AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
-            //return RedirectToAction(Actions.SkuCase());
-            return RedirectToAction(Actions.StyleSkuCase());
         }
 
         #endregion
