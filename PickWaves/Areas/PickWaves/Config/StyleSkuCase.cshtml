@@ -55,17 +55,17 @@
             @for (var i = 0; i < Model.PackingRuleList.Count; i++)
             {
 
-                <li class="list-group-item @(Model.PackingRuleList[i].IgnoreFlag ? "disabled" : "")" title="@(Model.PackingRuleList[i].IgnoreFlag ? "The ignorance of this case is temporarily dishonoured." : "")">
+                <li class="list-group-item">
 
                     <div class="row">
                         <div class="col-md-2 col-sm-2">
 
                             <h4 class="list-group-item-heading">
                                 <small>@(i + 1)</small>
-                                @if (Model.PackingRuleList[i].IgnoreFlag)
+                                @*@if (Model.PackingRuleList[i].IgnoreFlag)
                                 {
                                     <span class="glyphicon glyphicon-info-sign"></span>
-                                }
+                                }*@
 
 
                                 <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
@@ -96,7 +96,7 @@
 
 
                                                     <button class="btn btn-primary" type="submit">Delete</button>
-                                                    <button class="btn btn-default" type="submit">Disable</button>
+                                                    <button class="btn btn-default" type="submit" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.disable" value="True">Disable</button>
                                                 </form>
                                             </li>
                                         </ul>
@@ -110,8 +110,9 @@
                             {
                                 <div class="btn-group btn-group  pull-right btn-group-xs" role="group">
                                     <button class="btn btn-default" data-toggle="modal"
-                                            data-target="#tabModal" title="Add packing rule">
-                                        <span class="glyphicon glyphicon-plus"></span>  Add
+                                    data-target="#tabModal" title="Add packing rule"
+                                    data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, null, null))">
+                                    <span class="glyphicon glyphicon-plus"></span>  Add
                                     </button>
 
                                 </div>

@@ -259,7 +259,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("updaterule")]
-        public virtual ActionResult AddStyleSkuCase(StyleSkuCaseModel model)
+        public virtual ActionResult UpdateStyleSkuCase(StyleSkuCaseEditorViewModel model)
         {
             //TC5: If required feild does not passed.
             if (!ModelState.IsValid)
@@ -276,14 +276,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                     IgnoreFlag = model.IgnoreFlag,
                     Style = model.Style
                 });
+                this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                //return RedirectToAction(Actions.SkuCase());
-                return RedirectToAction(Actions.StyleSkuCase());
             }
-            this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
+
             //return RedirectToAction(Actions.SkuCase());
             return RedirectToAction(Actions.StyleSkuCase());
         }
@@ -293,12 +292,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// </summary>
         /// <param name="style"></param>
         /// <param name="caseId"></param>
-        /// <param name="activeTab"></param>
+        /// <param name="disable">If this is passed as true then the style case is disabled, not deleted</param>
         /// <returns></returns>
         [HttpPost]
         [Route("delpackingrule")]
-        public virtual ActionResult DelStyleSkuCase(string style, string caseId)
+        public virtual ActionResult DelStyleSkuCase(string style, string caseId, bool? disable)
         {
+            throw new NotImplementedException(String.Format("Disabled *{0}*", disable));
             try
             {
                 _service.Value.DelCaseIgnorance(style, caseId);

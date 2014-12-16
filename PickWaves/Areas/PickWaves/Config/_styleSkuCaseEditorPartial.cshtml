@@ -6,36 +6,38 @@
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h4 class="modal-title">       
-            <span>Add New Packing Rule</span>
+    <h4 class="modal-title">
+        <span>Add New Packing Rule</span>
     </h4>
 
 </div>
 <div class="modal-body">
     <form class="form-horizontal" role="form"
-          action="@Url.Action(MVC_PickWaves.PickWaves.Config.AddStyleSkuCase())" method="post">
+          action="@Url.Action(MVC_PickWaves.PickWaves.Config.UpdateStyleSkuCase())" method="post">
 
         <div class="form-group">
             <label for="case" class="col-sm-3 control-label">
                 Style<sup><span class="glyphicon glyphicon-asterisk"></span></sup>
-                @if (Model.Style == null)
-                {
-                    @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", style = "visibility:hidden" })
-                }
-                else
-                {
-                    @Html.DisplayFor(m=>m.Style)
-                }
+
+                @Html.TextBoxFor(m => m.Style, new { @id = "hfStyle", style = "visibility:hidden" })
 
             </label>
             <div class="col-sm-9">
-                <div class="input-group">
-                    <input placeholder="Search Style" value="@Model.Style"
-                           class="form-control typeahead" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))" data-typeahead-hf="#hfStyle" />
-                    <span class="input-group-btn">
-                        <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
-                    </span>
-                </div>
+                @if (Model.Style == null)
+                {
+                    <div class="input-group">
+                        <input placeholder="Search Style" value="@Model.Style"
+                               class="form-control typeahead" data-typeahead-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleAutoComplete("~"))" data-typeahead-hf="#hfStyle" />
+                        <span class="input-group-btn">
+                            <span class="btn btn-default"><span class="glyphicon glyphicon-search"></span></span>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    @Html.DisplayFor(m => m.Style)
+                }
+
 
                 @Html.ValidationMessageFor(m => m.Style, null, new
            {
