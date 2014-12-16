@@ -11,77 +11,64 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
     {
         public PullRequestSkuModel()
         {
-   
+            SourceSku = new SkuModel();
+            TargetSku = new SkuModel();
         }
 
         internal PullRequestSkuModel(RequestSku entity)
         {
-            // Source SKU
+            this.SourceSku = new SkuModel
+            {
+                Style = entity.SourceSku.Style,
+                Color = entity.SourceSku.Color,
+                Dimension = entity.SourceSku.Dimension,
+                SkuSize = entity.SourceSku.SkuSize,
+                SkuId = entity.SourceSku.SkuId,
+                UpcCode = entity.SourceSku.UpcCode
+            };
+            if (entity.TargetSku != null)
+            {
+                this.TargetSku = new SkuModel
+                {
+                    Style = entity.TargetSku.Style,
+                    Color = entity.TargetSku.Color,
+                    Dimension = entity.TargetSku.Dimension,
+                    SkuSize = entity.TargetSku.SkuSize,
+                    SkuId = entity.TargetSku.SkuId,
+                    UpcCode = entity.TargetSku.UpcCode
+                };
+            }
 
-            this.Style = entity.SourceSku.Style;
-            this.Color = entity.SourceSku.Color;
-            this.Dimension = entity.SourceSku.Dimension;
-            this.SkuSize = entity.SourceSku.SkuSize;
+            //Pcs requested
             this.RequestedPieces = entity.RequestedPieces;
-
-            // targetSku
-       if(entity.TargetSku != null)
-       {
-           this.TargetStyle = entity.TargetSku.Style;
-           this.TargetColor = entity.TargetSku.Color;
-           this.TargetDimension = entity.TargetSku.Dimension;
-           this.TargetSkuSize = entity.TargetSku.SkuSize;
-       }
-                       
-            
 
         }
 
         public int RequestedPieces { get; set; }
-
-        [Display(Name = "Style")]
-        public string Style { get; set; }
-
-        [Display(Name = "Color")]
-        public string Color { get; set; }
-
-        [Display(Name = "Dim")]
-        public string Dimension { get; set; }
-
-        [Display(Name = "Size")]
-        public string SkuSize { get; set; }
-
-        public string UpcCode { get; set; }
 
         [Display(Name = "SKU")]
         public string DisplaySku
         {
             get
             {
-                return  string.Format(Style + "," + Color + "," + Dimension + "," + SkuSize) ;
+                return string.Format(this.SourceSku.Style + "," + this.SourceSku.Color + "," + this.SourceSku.Dimension + "," + this.SourceSku.SkuSize);
             }
         }
 
-        [Display(Name = "Target Style")]
-        public string TargetStyle { get; set; }
+        [Display(Name = "Source SKU")]
+        [Required(ErrorMessage = "{0} is required")]
+        public SkuModel SourceSku { get; set; }
 
-        [Display(Name = "Target Color")]
-        public string TargetColor { get; set; }
-
-        [Display(Name = "Terget Dim")]
-        public string TargetDimension { get; set; }
-
-        [Display(Name = "Target Size")]
-        public string TargetSkuSize { get; set; }
-
-        public string TargetUpcCode { get; set; }
+        [Display(Name = "Target SKU")]
+        [Required(ErrorMessage = "{0} is required")]
+        public SkuModel TargetSku { get; set; }
 
         [Display(Name = "Target SKU")]
         public string DisplayTargetSku
         {
             get
             {
-                return this.TargetStyle != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : "No conversion";
+                return this.TargetSku != null ? string.Format(this.TargetSku.Style + "," + this.TargetSku.Color + "," + this.TargetSku.Dimension + "," + this.TargetSku.SkuSize) : "No conversion";
             }
         }
 
