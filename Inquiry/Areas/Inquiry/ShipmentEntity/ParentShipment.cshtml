@@ -13,6 +13,7 @@
             </a>
         }
     </li>
+<li class="divider"></li>
 }
 
 
@@ -144,7 +145,7 @@
     <div class="modal fade" id="printDialog" tabindex="-1" role="dialog" aria-labelledby="printDialogLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content list-group">
-                <div class="list-group-item active">
+                <div class="list-group-item">
                     <span class="close glyphicon glyphicon-remove" data-dismiss="modal" aria-hidden="true"></span>
                     <h4 class="modal-title">Print BOL</h4>
                 </div>
@@ -162,8 +163,8 @@
                         <small>1 BOL will be printed for shipment @Model.ParentShippingId</small>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         <button id="btnPrintBox" class="btn btn-primary" type="submit">Print</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                     
                     </div>
                 </form>
             </div>
