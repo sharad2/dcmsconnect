@@ -12,7 +12,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
         public Sku SourceSku { get; set; }
         public Sku TargetSku { get; set; }
-        public int Pieces { get; set; }
+        public int RequestedPieces { get; set; }
     }
 }
 

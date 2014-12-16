@@ -17,11 +17,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         internal PullRequestSkuModel(RequestSku entity)
         {
             // Source SKU
+
             this.Style = entity.SourceSku.Style;
             this.Color = entity.SourceSku.Color;
             this.Dimension = entity.SourceSku.Dimension;
             this.SkuSize = entity.SourceSku.SkuSize;
+            this.RequestedPieces = entity.RequestedPieces;
 
+            // targetSku
        if(entity.TargetSku != null)
        {
            this.TargetStyle = entity.TargetSku.Style;
@@ -29,12 +32,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
            this.TargetDimension = entity.TargetSku.Dimension;
            this.TargetSkuSize = entity.TargetSku.SkuSize;
        }
-               
-           // targetSku == null ? (int?)null : targetSku.SkuId
-            
+                       
             
 
         }
+
+        public int RequestedPieces { get; set; }
 
         [Display(Name = "Style")]
         public string Style { get; set; }
@@ -78,7 +81,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             get
             {
-                return this.TargetStyle != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : "No conversion SKU";
+                return this.TargetStyle != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : "No conversion";
             }
         }
 

@@ -485,7 +485,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         ";
             var binder = SqlBinder.Create(row => new RequestSku
             {
-                Pieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
+                RequestedPieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
                 SourceSku = new Sku
                 {
                     Style = row.GetString("STYLE"),
