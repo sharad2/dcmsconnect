@@ -1,7 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
-
 using DcmsMobile.PickWaves.ViewModels;
-
 using EclipseLibrary.Mvc.Controllers;
 using System;
 using System.ComponentModel.DataAnnotations;

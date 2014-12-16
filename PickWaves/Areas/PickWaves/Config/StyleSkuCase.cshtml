@@ -42,12 +42,14 @@
                         </h4>
 
                     </div>
-                    <div class="col-md-4 col-sm-4">
-                        @if (Model.UserIsManager)
-                        {
-                            <button class="btn btn-default btn-xs pull-right" disabled>Action</button>
-                        }
-                    </div>
+                    @if (Model.UserIsManager)
+                    {
+                        <div class="col-md-4 col-sm-4">
+                            <div style="text-align:right">
+                                <button class="btn btn-default btn-xs " disabled>Action</button>
+                            </div>
+                        </div>
+                    }
                 </div>
             </li>
             @for (var i = 0; i < Model.PackingRuleList.Count; i++)
@@ -57,25 +59,48 @@
 
                     <div class="row">
                         <div class="col-md-2 col-sm-2">
+                           
                             <h4 class="list-group-item-heading">
+                                <small>@(i + 1)</small>
                                 @if (Model.PackingRuleList[i].IgnoreFlag)
                                 {
                                     <span class="glyphicon glyphicon-info-sign"></span>
                                 }
-                                @*@if (i == 0 || Model.PackingRuleList[i].Style != Model.PackingRuleList[i - 1].Style)
-                                    {*@
+
 
                                 <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
                             </h4>
-                            @*}*@
+                           
 
 
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <h4 class="list-group-item-heading">
+                            <span class="list-group-item-heading h4">
                                 @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
-                            </h4>
+                            </span>
+                            @if (Model.UserIsManager)
+                            {
+                              
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <span class="glyphicon glyphicon-remove"></span>                                        
 
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li role="presentation" style="text-align:center">
+                                                <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelStyleSkuCase())" method="post">
+                                                    <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.style" />
+                                                    <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
+
+                                                   
+                                                    <button class="btn btn-primary" type="submit">Delete</button>
+                                                    <button class="btn btn-default" type="submit">Disable</button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                                              
+                            }
                         </div>
                         <div class="col-md-4 col-sm-4">
                             @if (Model.UserIsManager)
@@ -85,30 +110,9 @@
                                             data-target="#tabModal" title="Edit packing rule"
                                             data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId,
                             Model.PackingRuleList[i].IgnoreFlag))">
-                                        <span class="glyphicon glyphicon-edit"></span>  Edit
+                                        <span class="glyphicon glyphicon-plus"></span>  Add
                                     </button>
-                                    <div class="btn-group btn-group-xs">
-                                        <button class="btn btn-default dropdown-toggle"
-                                                data-toggle="dropdown">
-                                            <span class="glyphicon glyphicon-remove"></span>
-                                            Remove
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
-                                            <li>
-                                                <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelStyleSkuCase())" method="post">
-                                                    <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.style" />
-                                                    <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
-                                                    <span style="text-align:center">Are you sure?</span>
-                                                    <div class="btn-group btn-group-justified">
-                                                        <button class="btn btn-primary" type="submit">Yes</button>
-                                                        <a class="btn btn-default">No</a>
-                                                    </div>
-                                                </form>
-                                            </li>
-                                        </ul>
 
-                                    </div>
                                 </div>
                             }
                         </div>
