@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
 using EclipseLibrary.Mvc.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -204,15 +205,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public virtual ActionResult StyleSkuCase()
         {
             var packingRules = _service.Value.GetPackingRules();
+            //var model = new StyleSkuCaseViewModel
+            //{
+            //    PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
+            //    {
+            //        CaseId = p.CaseId,
+            //        Style = p.Style,
+            //        IgnoreFlag = p.IgnoreFlag
+            //    }).ToList()
+            //};
+
+            var query = from rule in packingRules
+                        group rule by rule.Style into g
+                        orderby g.Key
+                        select new StyleSkuCaseModel
+                        {
+                            Style = g.Key,
+                            StyleCases = new SortedList<string, bool>(g.ToDictionary(p => p.CaseId, p => p.IgnoreFlag))
+                        };
+
             var model = new StyleSkuCaseViewModel
             {
-                PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
-                {
-                    CaseId = p.CaseId,
-                    Style = p.Style,
-                    IgnoreFlag = p.IgnoreFlag
-                }).ToList()
+                PackingRuleList = query.ToList()
             };
+
             return View(Views.StyleSkuCase, model);
         }
 

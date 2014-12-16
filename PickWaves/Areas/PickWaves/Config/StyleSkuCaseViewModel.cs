@@ -14,13 +14,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// </summary>
         public string Style { get; set; }
 
-
+        [Obsolete]
         public string CaseId { get; set; }
 
         /// <summary>
         /// This is flag value to tell that the case is ignore or not.
         /// </summary>
+        [Obsolete]
         public bool IgnoreFlag { get; set; }
+
+        /// <summary>
+        /// This is a list of cases allowed for the style. Value represents whether the case is currently disabled
+        /// </summary>
+        public SortedList<string, bool> StyleCases { get; set; }
     }
 
     public class StyleSkuCaseViewModel:ViewModelBase

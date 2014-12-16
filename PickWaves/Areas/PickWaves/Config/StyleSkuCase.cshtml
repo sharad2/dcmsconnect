@@ -59,7 +59,7 @@
 
                     <div class="row">
                         <div class="col-md-2 col-sm-2">
-                           
+
                             <h4 class="list-group-item-heading">
                                 <small>@(i + 1)</small>
                                 @if (Model.PackingRuleList[i].IgnoreFlag)
@@ -70,36 +70,39 @@
 
                                 <span class="label label-success">@Html.DisplayFor(m => m.PackingRuleList[i].Style)</span>
                             </h4>
-                           
+
 
 
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <span class="list-group-item-heading h4">
-                                @Html.DisplayFor(m => m.PackingRuleList[i].CaseId)
-                            </span>
-                            @if (Model.UserIsManager)
+                            @for (var j = 0; j < Model.PackingRuleList[i].StyleCases.Count; ++j)
                             {
-                              
+                                <span class="list-group-item-heading h4">
+                                    @Html.DisplayFor(m => m.PackingRuleList[i].StyleCases.Keys[j])
+                                </span>
+                                if (Model.UserIsManager)
+                                {
+
                                     <div class="btn-group btn-group-sm" role="group">
                                         <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                            <span class="glyphicon glyphicon-remove"></span>                                        
+                                            <span class="glyphicon glyphicon-remove"></span>
 
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation" style="text-align:center">
                                                 <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelStyleSkuCase())" method="post">
                                                     <input type="hidden" value="@Model.PackingRuleList[i].Style" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.style" />
-                                                    <input type="hidden" value="@Model.PackingRuleList[i].CaseId" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
+                                                    <input type="hidden" value="@Model.PackingRuleList[i].StyleCases.Keys[j]" name="@MVC_PickWaves.PickWaves.Config.DelStyleSkuCaseParams.caseId" />
 
-                                                   
+
                                                     <button class="btn btn-primary" type="submit">Delete</button>
                                                     <button class="btn btn-default" type="submit">Disable</button>
                                                 </form>
                                             </li>
                                         </ul>
                                     </div>
-                                                              
+
+                                }
                             }
                         </div>
                         <div class="col-md-4 col-sm-4">
@@ -107,9 +110,7 @@
                             {
                                 <div class="btn-group btn-group  pull-right btn-group-xs" role="group">
                                     <button class="btn btn-default" data-toggle="modal"
-                                            data-target="#tabModal" title="Edit packing rule"
-                                            data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCaseEditor(Model.PackingRuleList[i].Style, Model.PackingRuleList[i].CaseId,
-                            Model.PackingRuleList[i].IgnoreFlag))">
+                                            data-target="#tabModal" title="Add packing rule">
                                         <span class="glyphicon glyphicon-plus"></span>  Add
                                     </button>
 
