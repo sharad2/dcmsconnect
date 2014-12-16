@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-md-4">
                             <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry"
-                               class="Po">@Model.PickslipList[i].PurchaseOrder</a>
+                               class="Po">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
                             @*<a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>*@
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId) &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
                         </div>

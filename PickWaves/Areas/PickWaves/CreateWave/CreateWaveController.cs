@@ -408,8 +408,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Pickslip list of passed dimension.
             var pickslips = _service.GetPickslipList(model.CustomerId, model.VwhId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             model.PickslipList = (from pickslip in pickslips
-                                 // let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
-                                  let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1]
+                                   // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                   let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
                                   select new PickslipModel
                                   {
@@ -421,7 +421,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                       StartDate = pickslip.StartDate,
                                       CustomerDcId = pickslip.CustomerDcId,
                                       CustomerStoreId = pickslip.CustomerStoreId,
-                                      UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
+                                      UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
                                       {
                                           id = pickslip.PickslipId
                                       }),
