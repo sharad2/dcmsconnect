@@ -286,12 +286,12 @@
     <Content Include="Areas\PickWaves\ManageWaves\Index.min.js.map">
       <DependentUpon>Index.min.js</DependentUpon>
     </Content>
-    <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
-      <DependentUpon>Wave.min.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\Config\CustSkuCase.cshtml" />
     <Content Include="Areas\PickWaves\Config\StyleSkuCase.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\Wave.partial.js" />
+    <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
+      <DependentUpon>Wave.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
