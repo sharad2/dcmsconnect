@@ -301,15 +301,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                         
             try
             {
-                if (disable == true)
+                if (disable.HasValue)
                 {
                     _service.Value.InsertPackingRule(new StyleSkuCase
                     {
                         CaseId = caseId,
-                        IgnoreFlag = true,
+                        IgnoreFlag = disable == true ? true : false,
                         Style = style
                     });
-                    AddStatusMessage(string.Format("Case {0} ignored against SKU {1}", caseId, style));
+                    AddStatusMessage(string.Format("Case {0} ignorance modified against SKU {1}", caseId, style));
                 }
                 else
                 {
