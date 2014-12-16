@@ -22,12 +22,15 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.Dimension = entity.SourceSku.Dimension;
             this.SkuSize = entity.SourceSku.SkuSize;
 
-       
-                this.TargetStyle = entity.SourceSku.Style;
-                this.TargetColor = entity.SourceSku.Color;
-                this.TargetDimension = entity.SourceSku.Dimension;
-                this.TargetSkuSize = entity.SourceSku.SkuSize;
-
+       if(entity.TargetSku != null)
+       {
+           this.TargetStyle = entity.TargetSku.Style;
+           this.TargetColor = entity.TargetSku.Color;
+           this.TargetDimension = entity.TargetSku.Dimension;
+           this.TargetSkuSize = entity.TargetSku.SkuSize;
+       }
+               
+           // targetSku == null ? (int?)null : targetSku.SkuId
             
             
 
@@ -75,7 +78,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             get
             {
-                return this.Style != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : string.Empty;
+                return this.TargetStyle != null ? string.Format(TargetStyle + "," + TargetColor + "," + TargetDimension + "," + TargetSkuSize) : "No conversion SKU";
             }
         }
 
