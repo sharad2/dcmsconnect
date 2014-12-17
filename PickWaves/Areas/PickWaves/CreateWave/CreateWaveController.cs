@@ -266,12 +266,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
             if (!PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0))
             {
-                var model2 = new
+                var nopickslip = new IndexNoPickslipsViewModel
                 {
                     BucketId = model.LastBucketId,
                     CustomerId = model.CustomerId
                 };
-                return View(Views.IndexNoPickslips);
+                return View(Views.IndexNoPickslips, nopickslip);
             }
 
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
@@ -408,6 +408,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Pickslip list of passed dimension.
             var pickslips = _service.GetPickslipList(model.CustomerId, model.VwhId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             model.PickslipList = (from pickslip in pickslips
+                                 // let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                                  let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                                  let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
                                   select new PickslipModel
                                   {
                                       PickslipId = pickslip.PickslipId,
@@ -417,7 +420,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                       PickslipImportDate = pickslip.PickslipImportDate,
                                       StartDate = pickslip.StartDate,
                                       CustomerDcId = pickslip.CustomerDcId,
-                                      CustomerStoreId = pickslip.CustomerStoreId
+                                      CustomerStoreId = pickslip.CustomerStoreId,
+                                      UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
+                                      {
+                                          id = pickslip.PickslipId
+                                      }),
+                                     UrlInquiryPurchaseOrder = routePo == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3, new
+                                            {
+                                                id = pickslip.PurchaseOrder,
+                                                pk1 = pickslip.CustomerId,
+                                                pk2 = pickslip.Iteration
+                                            })
                                   }).ToArray();
             model.ManagerRoleName = ROLE_WAVE_MANAGER;
 

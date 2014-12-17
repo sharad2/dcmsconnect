@@ -72,14 +72,16 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesPerPackage { get; set; }
 
-        [DisplayFormat(DataFormatString = "$ {0:N2}")]
+        [DisplayFormat(DataFormatString = "$ {0:N2}",NullDisplayText="None")]
         [Display(Name = "Total Retail Price", Order = 9)]
         public decimal? RetailPrice { get; set; }
 
         [Display(Name = "Min Pcs Per Box", Order = 10)]
+        [DisplayFormat(NullDisplayText = "None")]
         public int? MinPiecesPerBox { get; set; }
 
         [Display(Name = "Max Pcs Per Box", Order = 11)]
+        [DisplayFormat(NullDisplayText = "None")]
         public int? MaxPiecesPerBox { get; set; }
 
         public string DisplayPiecesPerBox
