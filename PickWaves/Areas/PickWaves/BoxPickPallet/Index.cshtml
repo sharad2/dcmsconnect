@@ -173,7 +173,7 @@
                                 {
 
                                     <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                 
+
                                         <a class="btn btn-default" title="Click to print the pallet"
                                            href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}?showPrintDialog={1}", Model.PalletList[j].PalletId, "True"))' target="printPallet"
                                            style="display: inline-block;" data-total-boxes="@Model.PalletList[j].TotalBoxesOnPallet"><span class="glyphicon glyphicon-print"></span></a>
@@ -199,41 +199,35 @@
                                                 {
                                                     <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
                                                     <input type="hidden" name="@Model.NameFor(m => m.PalletId)" value="@Model.PalletList[j].PalletId" />
-                                                    <button type="submit" title="Remove non physical boxes from the pallet"
-                                                             data-unpicked-boxes="@(Model.PalletList[j].TotalBoxesOnPallet - Model.PalletList[j].PickedBoxes)">
+                                                    <button class="btn btn-default" type="submit"
+                                                            title="Remove non physical boxes from the pallet"
+                                                            data-unpicked-boxes="@(Model.PalletList[j].TotalBoxesOnPallet - Model.PalletList[j].PickedBoxes)">
                                                         <span class="glyphicon glyphicon-minus"></span>
                                                     </button>
+
                                                 }
                                             }
                                             else
                                             {
+
                                                 <button class="btn btn-default" type="button" disabled="disabled"
-                                                        title="Disabled because all boxes have been picked" data-icon="ui-icon-minus">
+                                                        title="Disabled because all boxes have been picked">
                                                     <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                             }
 
                                             <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#modal"
-                                                    title="@(Model.ExpeditedBoxCount < Model.TotalBoxes ? "Expedite the remaining boxes" : "Disabled because all boxes have been expedited")" 
+                                                    title="@(Model.ExpeditedBoxCount < Model.TotalBoxes ? "Expedite the remaining boxes" : "Disabled because all boxes have been expedited")"
                                                     @( Model.ExpeditedBoxCount < Model.TotalBoxes ? "" : "disabled=\"disabled\"")
                                                     data-icon="ui-icon-plus">
                                                 <span class="glyphicon glyphicon-plus"></span>
                                             </button>
                                         }
 
-
                                     </div>
-
                                 }
-
                             </div>
-
                         </div>
-
-
-
-
-
                     </li>
                 }
             }
@@ -252,32 +246,52 @@
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
                 </button>
-                <h4 class="modal-title">Create Pallet</h4>
+                <h4 class="modal-title"> Create or Add cartons to pallet</h4>
             </div>
-            <form action="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.CreatePallet())" method="post">
+            <form class="form-horizontal" role="form" action="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.CreatePallet())" method="post">
                 <div class="modal-body">
                     <div id="divInfo" class="ui-state-highlight" style="margin-bottom: 1em;">
                         To keep more boxes on this pallet, please enter new pallet limit.
                     </div>
                     @Html.HiddenFor(m => m.BucketId)
-                    @Html.LabelFor(m => m.PalletId)
-                    @Html.TextBoxFor(m => m.PalletId, new { style = "text-transform: uppercase", id = "tbPalletId" })<span>*</span>
-                    @Html.ValidationMessageFor(m => m.PalletId)
-                    <br />
-                    Pallet Limit
-                    @Html.TextBoxFor(m => m.PalletLimit, new { size = 5 })<span>*</span>
-                    @Html.ValidationMessageFor(m => m.PalletLimit)
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Scan Pallet<span>*</span></label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.PalletId,
+                            new
+                            {
+                                style = "text-transform: uppercase",
+                                id = "tbPalletId",
+                                @class = "form-control"
+                            })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.PalletId)
+                    </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Pallet Limit<span>*</span></label>
+                        <div class="col-sm-9">
+                            @Html.TextBoxFor(m => m.PalletLimit,
+                            new
+                            {
+                                size = 5,
+                                @class = "form-control"
+                            })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.PalletId)
+                    </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        Create Pallet or Add Cartons
+                    </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
-
 
 
 
