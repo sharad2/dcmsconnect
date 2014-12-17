@@ -62,9 +62,9 @@
                     @Html.DisplayFor(m => m.ImportDate)
                 </small>
             </h4>
-            <address>
+            <p class="list-group-item-text">
                 @Html.DisplayFor(m => m.ShipAddress)
-            </address>
+            </p>
         </li>
         <li class="list-group-item">
             <h4 class="list-group-item-heading">
@@ -82,41 +82,53 @@
         <ul class="list-group">
             <li class="list-group-item list-group-item-success">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <h4 class="list-group-item-heading">
-                            @Model.AllSku.Count SKUs
+                            @Model.AllSku.Count SKUs  <span class="glyphicon glyphicon-sort-by-attributes"></span>
                             <small>
                                 <span class="label label-info">
-                                    VWH
+                                    <abbr title="Virtual WearHouse">VWH</abbr>
                                 </span>
-                                QualityCode
+                                &nbsp;<abbr title="QualityCode">QC</abbr>
                             </small>   </h4>
 
                     </div>
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading" style="width:7em;text-align:right; display:inline-block">
+                            <span class="label label-success">
+                                Price $
+                            </span>
+                        </h4>
+                        <h4 class="list-group-item-heading" style="width:4em;text-align:right; display:inline-block">
+                            <span class="label label-success">
+                                @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))  Pieces
+                            </span>
+                        </h4>
 
+                    </div>
                     <div class="col-md-4">
                         <h4 class="list-group-item-heading">
-                            Pieces Per Box Pieces 
-                            <span class="badge">
-                                Total Locations
+                            Pieces Per Box  
+                            <span class="badge pull-right">
+                                Pieces Per Package
                             </span>
                         </h4>
                     </div>
-                    <div class="col-md-2">
+                    @*<div class="col-md-2">
 
                         <h4 class="list-group-item-heading">
                             @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces)) Pieces 
                         </h4>
 
 
-                    </div>
+                    </div>*@
                 </div>
             </li>
             @for (int i = 0; i < Model.AllSku.Count; i++)
             {
                 <li class="list-group-item ">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <h4 class="list-group-item-heading">
                                 <small>@(i + 1)</small>
                                 @Html.ActionLink(Model.AllSku[i].DisplaySku, MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllSku[i].SkuId))
@@ -125,37 +137,54 @@
                                     <span class="label label-info">
                                         @Html.DisplayFor(m => Model.AllSku[i].VwhId)
                                     </span>
-                                    @Html.DisplayFor(m => Model.AllSku[i].QualityCode)
+                                    &nbsp; @Html.DisplayFor(m => Model.AllSku[i].QualityCode)
                                 </small>
                             </h4>
 
                         </div>
+                        <div class="col-md-4">
+                            <h4 class="list-group-item-heading" style="width:7em;text-align:right; display:inline-block">
+                                <span class="label label-success">
+                                  $ @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
+                                </span>
+                            </h4>
+                            <h4 class="list-group-item-heading" style="width:4em;text-align:right; display:inline-block">
+                                <span class="label label-success">
+                                    @Html.DisplayFor(m => Model.AllSku[i].Pieces)
+                                </span>
+                            </h4>
 
+                        </div>
                         <div class="col-md-4">
                             <div>
+
                                 @Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) Per @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)
-                                <span class="badge">
+                                <span class="badge pull-right">
                                     @Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)
                                 </span>
                            </div>
                         </div>
-                        <div class="col-md-2">
+                        @*<div class="col-md-2">
 
                             <h4 class="list-group-item-heading">
                                @Html.DisplayFor(m => Model.AllSku[i].Pieces)
                             </h4>
                            Price @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
 
-                        </div>
+                        </div>*@
                     </div>
                 </li>
             }
         </ul>
     }
+    else
+    {
+        <div class="well well-sm">No Orders SKUs</div>
+    }
 </div>
-<div data-role="page">
+@*<div data-role="page">
 
-    <h2 style="margin-top:0px">
+    <h2 style="margin-top:0">
         @Model.ModelTitle
     </h2>
 
@@ -275,4 +304,4 @@
         }
     </div>
 
-</div>
+</div>*@

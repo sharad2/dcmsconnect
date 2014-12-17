@@ -77,7 +77,7 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
         public decimal? RetailPrice { get; set; }
 
         [Display(Name = "Min Pcs Per Box", Order = 10)]
-        [DisplayFormat(NullDisplayText="None")]
+        [DisplayFormat(NullDisplayText = "None")]
         public int? MinPiecesPerBox { get; set; }
 
         [Display(Name = "Max Pcs Per Box", Order = 11)]

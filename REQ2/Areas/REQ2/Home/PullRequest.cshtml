@@ -62,16 +62,24 @@
             <h3 class="panel-title">SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus"></span></a></h3>
         </div>
         <div class="panel-body">
-           @for (var i = 0; i < Model.SkuList.Count; ++i)
-           {
+          
+           
                
                <ul class="list-group">
+@for (var i = 0; i < Model.SkuList.Count; ++i)
+{ 
   <li class="list-group-item">
+      <button class="btn btn-default" type="button"  title="Remove SKU"
+              data-priority-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku(@Model.SkuList[i].SourceSku.SkuId,@Model.CtnResvId))">
+          <span class="glyphicon glyphicon-remove-sign"></span>
+      </button>
+
     <span class="badge">@Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
       @Html.DisplayFor( m => m.SkuList[i].DisplaySku) &rarr; @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
   </li>
+}
 </ul>
-           }
+           
         </div>
     </div>
 
@@ -134,10 +142,25 @@
             </ul>
         </div>
     </div>
-
-
-
+    
 
 </div>
+
+@section script {
+    <script type="text/javascript">
+        $(document).on('click', 'button[data-priority-url]', function (e) {
+            var $li = $(this).closest('li');
+            // Remove content first
+  
+           $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
+               $li.css("text-decoration", "line-through")
+                //$li.remove();
+            }).error(function () {
+                alert('error');
+            });
+        });
+   
+    </script>
+    }
 
 
