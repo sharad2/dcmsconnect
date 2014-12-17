@@ -1,7 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
 @{
-    ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId + " : " + Model.Bucket.MaxCustomerName;
+    ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
 
@@ -16,6 +16,9 @@
 <div class="container">
     <h2 style="margin-top:0px;">
         @ViewBag.Title
+        <small>
+            @Model.Bucket.MaxCustomerId : @Model.Bucket.MaxCustomerName
+        </small>
     </h2>
     @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
     {
@@ -24,7 +27,7 @@
 
             <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
                                          (Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null)))">
-                See: Other @Model.Bucket.StateDisplayName Waves of same customer
+                See: Other @Model.Bucket.StateDisplayName Waves of same customer 
             </a>
         </small>
 

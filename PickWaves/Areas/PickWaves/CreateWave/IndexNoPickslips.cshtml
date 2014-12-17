@@ -1,17 +1,67 @@
-﻿@{
-    Layout = null;
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexNoPickslipsViewModel
+@{
+    ViewBag.Title = "No data found !";
+    Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
 
-<!DOCTYPE html>
+@section applinks{
+    <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
+        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel.OrderSummaryReportUrl, Model.CustomerId))"
+           target="report">
+            <span class="glyphicon glyphicon-new-window"></span>110.08: Order summary report
+        </a>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search("23008"))">See other pick wave of Customer 23008</a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">Change Customer</a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">All Pick Waves of <em>(@Html.DisplayFor(m => m.CustomerId))</em></a>
+
+    </li>
+    <li class="divider"></li>
+}
+
+<div class="container">
+    <div class="alert alert-warning">
+        <h1>
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            @ViewBag.Title
+            <small>
+                No Pickslips found for Pick Wave <strong>@Model.BucketId</strong>
+                against Customer <strong>@Model.CustomerId</strong>
+            </small>
+        </h1>
+        <hr/>       
+            <p>
+             
+                <span class="label label-warning">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                </span>
+                &nbsp;
+                <a  role="button" href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))">
+                    Pick Waves of same Customer <strong>@Model.CustomerId</strong>
+                </a>
+                &nbsp;&nbsp;
+
+
+                <span class="label label-warning">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                </span>
+                &nbsp;
+                <a  role="button" href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.BucketId.ToString()))">
+                   Go back to same Pick Wave <strong>@Model.BucketId</strong>
+                </a>
+                &nbsp;&nbsp;
+
+
+                <span class="label label-warning">
+                    <span class="glyphicon glyphicon-hand-right"></span>
+                </span>
+                &nbsp;
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">Change Customer</a>
+            </p>
+        </div>
     </div>
-</body>
-</html>
+
+

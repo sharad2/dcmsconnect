@@ -266,12 +266,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
             if (!PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0))
             {
-                var model2 = new
+                var nopickslip = new IndexNoPickslipsViewModel
                 {
                     BucketId = model.LastBucketId,
                     CustomerId = model.CustomerId
                 };
-                return View(Views.IndexNoPickslips);
+                return View(Views.IndexNoPickslips, nopickslip);
             }
 
             model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
