@@ -26,6 +26,133 @@
     </style>
 }
 
+<div class="container">
+    <h2 style="margin-top:0">
+        @ViewBag.Title
+    </h2>
+    <ul class="list-group">
+        @if (Model.PickslipCancelDate != null)
+        {
+            <li class="list-group-item">
+                <h4 class="list-group-item-heading">
+                    Pickslip Cancel Date
+                    @Html.DisplayFor(m => m.PickslipCancelDate)
+                </h4>
+            </li>
+        }
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
+                    @Model.CustomerDisplayName
+                </a><small>
+                    Dept: @Html.DisplayFor(m => m.CustomerDepartmentId) &bull;
+                    DC : @Html.DisplayFor(m => m.CustomerDC) &bull; Store : @Html.DisplayFor(m => m.CustomerStore)
+                    &bull; Vendor # @Html.DisplayFor(m => m.VendorNumber)
+                </small>
+
+            </h4>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                PO
+                <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.ImportedPo(Model.PoId, Model.CustomerId))">
+                    @Html.DisplayFor(m => m.PoId)
+                </a>
+                <small>
+                    Start @Html.DisplayFor(m => m.StartDate) DC cancel @Html.DisplayFor(m => m.DcCancelDate)
+                    @Html.DisplayFor(m => m.ImportDate)
+                </small>
+            </h4>
+            <address>
+                @Html.DisplayFor(m => m.ShipAddress)
+            </address>
+        </li>
+        <li class="list-group-item">
+            <h4 class="list-group-item-heading">
+                Received from ERP - @Html.DisplayFor(m => m.ErpId)
+                <small>Transfer on : @Html.DisplayFor(m => m.TransferDate)</small>
+                <small class="pull-right"><span class="glyphicon glyphicon-@(Model.AsnFlag ? "ok text-success" : "remove")"></span> ASN Flag &nbsp;
+               <span class="glyphicon glyphicon-@(Model.ExportFlag ? "ok text-success" : "remove")"></span> Export Flag</small>
+            </h4>
+        </li>
+
+
+    </ul>
+    @if (Model.AllSku.Any())
+    {
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-success">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="list-group-item-heading">
+                            @Model.AllSku.Count SKUs
+                            <small>
+                                <span class="label label-info">
+                                    VWH
+                                </span>
+                                QualityCode
+                            </small>   </h4>
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading">
+                            Pieces Per Box Pieces 
+                            <span class="badge">
+                                Total Locations
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="col-md-2">
+
+                        <h4 class="list-group-item-heading">
+                            @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces)) Pieces 
+                        </h4>
+
+
+                    </div>
+                </div>
+            </li>
+            @for (int i = 0; i < Model.AllSku.Count; i++)
+            {
+                <li class="list-group-item ">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="list-group-item-heading">
+                                <small>@(i + 1)</small>
+                                @Html.ActionLink(Model.AllSku[i].DisplaySku, MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllSku[i].SkuId))
+
+                                <small>
+                                    <span class="label label-info">
+                                        @Html.DisplayFor(m => Model.AllSku[i].VwhId)
+                                    </span>
+                                    @Html.DisplayFor(m => Model.AllSku[i].QualityCode)
+                                </small>
+                            </h4>
+
+                        </div>
+
+                        <div class="col-md-4">
+                            <div>
+                                @Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) Per @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)
+                                <span class="badge">
+                                    @Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)
+                                </span>
+                           </div>
+                        </div>
+                        <div class="col-md-2">
+
+                            <h4 class="list-group-item-heading">
+                               @Html.DisplayFor(m => Model.AllSku[i].Pieces)
+                            </h4>
+                           Price @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
+
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+</div>
 <div data-role="page">
 
     <h2 style="margin-top:0px">
