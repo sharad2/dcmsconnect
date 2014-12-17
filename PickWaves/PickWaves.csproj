@@ -219,6 +219,12 @@
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\PickWaves\BoxPickPallet\Index.js">
+      <DependentUpon>Index.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\BoxPickPallet\Index.min.js">
+      <DependentUpon>Index.js</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\Config\AjaxModal.js">
       <DependentUpon>AjaxModal.js.bundle</DependentUpon>
     </Content>
@@ -293,6 +299,10 @@
       <DependentUpon>Wave.min.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\CreateWave\IndexNoPickslips.cshtml" />
+    <Content Include="Areas\PickWaves\BoxPickPallet\Index.js.bundle" />
+    <Content Include="Areas\PickWaves\BoxPickPallet\Index.min.js.map">
+      <DependentUpon>Index.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

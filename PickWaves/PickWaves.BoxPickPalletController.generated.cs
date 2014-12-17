@@ -138,8 +138,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             public class _ViewNamesClass
             {
                 public readonly string Index = "Index";
+                public readonly string Index_js = "Index.js";
             }
             public readonly string Index = "~/Areas/PickWaves/BoxPickPallet/Index.cshtml";
+            public readonly string Index_js = "~/Areas/PickWaves/BoxPickPallet/Index.js.bundle";
         }
     }
 
