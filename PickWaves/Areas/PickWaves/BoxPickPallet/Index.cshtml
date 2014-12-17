@@ -1,6 +1,6 @@
 ﻿@model DcmsMobile.PickWaves.ViewModels.BoxPickPallet.BoxPickPalletViewModel
 @{
-    ViewBag.Title = string.Format("Expedite Box Picking for Pick Wave {0}", Model.BucketId);
+    ViewBag.Title = "Expedite Box Picking";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
@@ -10,179 +10,165 @@
 
     <h2 style="margin-top:0">
         @ViewBag.Title
+        <small>
+            Pick Wave @Html.DisplayFor(m => m.BucketId): @Html.DisplayFor(m => m.BucketName)
+            @if (Model.IsFrozen)
+            {
+                <span class="label label-default">Frozen</span>
+            }
+        </small>
+
     </h2>
 
-    <blockquote>
 
 
-        <div class="row">
-            @using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.Index(), FormMethod.Get))
-            {
-                <div class="col-lg-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            Pick Wave
-                        </span>
-                        @Html.TextBoxFor(m => m.BucketId, new
-                    {
-                        size = 5,
-                        maxlength = 5,
-                        @class = "form-control"
-                    })
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button">Go!</button>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="btn btn-default">Auto Select Pick Wave</a>
-                </div>
-            }
-            <div class="col-lg-5">
-                @if (Model.UserIsManager && !Model.IsFrozen)
-                {
-                    if (Model.ExpeditedBoxCount < Model.TotalBoxes)
-                    {
-                        <span> @string.Format("{0} boxes need to be expedited.", Model.TotalBoxes - Model.ExpeditedBoxCount)</span>
-                        <button class="btn btn-primary" id="btnNonExpeditedBox" @(Model.ExpeditedBoxCount < Model.TotalBoxes ? "" : "disabled=\"disabled\"")>
-                            Create Pallet..
-                        </button>
-                    }
-                    else
-                    {
-                        <span>All Boxes have been expedited.</span>
-                    }
-                }
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
 
-            </div>
-        </div>
-    </blockquote>
-    @if (Model.BucketId != null)
-    {
-        <div class="well well-sm">
             <div class="row">
-                <div class="col-md-6">
-                    <h4>
-                        Customer:@Html.DisplayFor(m => m.CustomerId) : @Html.DisplayFor(m => m.CustomerName)
-                        <small>
-                            PickSlip:@Html.DisplayFor(m => m.BucketId) : @Html.DisplayFor(m => m.BucketName)
-
-                        </small>
-                    </h4>
-                </div>
-                <div class="col-md-3">
-                    @*<div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 40em; height: 1.5em; display: inline-block">
-                            <div style="width: @Model.PercentExpedited%; color:Black" class="ui-progressbar-value ui-widget-header ui-corner-left ui-state-active">
-                                <div style="color: Black; white-space: nowrap; margin-left: 0.5em; margin-top: 1mm">
-                                    @string.Format("{0:N0} of {1:N0} boxes", Model.ExpeditedBoxCount, Model.TotalBoxes)
-                                </div>
-                            </div>
-                        </div>*@
-
-                    <div class="progress" style="margin-bottom:0">
-                        <div style="width: @Model.PercentExpedited%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                            <span style="white-space:nowrap" class="text-info">
-                                @string.Format("{0:N0} of {1:N0} Expedited Boxes", Model.ExpeditedBoxCount, Model.TotalBoxes)
-
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <span class="pull-right">
-                        @if (Model.PullBuildingId == Model.PitchBuildingId)
+                @using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.Index(), FormMethod.Get))
+                {
+                    <div class="col-lg-4">
+                        <h4 class="list-group-item-heading">
+                            Search or <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">Auto Select Pick Wave</a>
+                        </h4>
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.BucketId, new
                         {
-                            <span>Pull & Pitch from </span>@Html.DisplayFor(m => m.PullBuildingId)
+                            size = 5,
+                            maxlength = 5,
+                            @class = "form-control"
+                        })
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="button">Go!</button>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                }
+                <div class="col-lg-4">
+                    @if (Model.BucketId != null)
+                    {
+                        <h4 class="list-group-item-heading">
+                            Customer @Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)
+                        </h4>
+                        <p class="list-group-item-text">
+                            @if (Model.PullBuildingId == Model.PitchBuildingId)
+                            {
+                                <span>Pull & Pitch from </span>@Html.DisplayFor(m => m.PullBuildingId)
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(Model.PullBuildingId))
+                                {
+                                    <span> @Html.LabelFor(m => m.PullBuildingId) </span>
+                                    @Html.DisplayFor(m => m.PullBuildingId)
+                                }
+                                if (!string.IsNullOrEmpty(Model.PitchBuildingId))
+                                {
+                                    <span> &bull; @Html.LabelFor(m => m.PitchBuildingId) </span>
+                                    @Html.DisplayFor(m => m.PitchBuildingId)
+                                }
+                            }
+                        </p>
+                    }
+
+                </div>
+                <div class="col-lg-4" style="text-align:right">
+                    @if (Model.UserIsManager && !Model.IsFrozen)
+                    {
+                        if (Model.ExpeditedBoxCount < Model.TotalBoxes)
+                        {
+                            <span> @string.Format("{0} boxes need to be expedited.", Model.TotalBoxes - Model.ExpeditedBoxCount)</span>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal" @( Model.ExpeditedBoxCount < Model.TotalBoxes ? "" : "disabled=\"disabled\"")>
+                                Create Pallet..
+                            </button>
                         }
                         else
                         {
-                            if (!string.IsNullOrEmpty(Model.PullBuildingId))
-                            {
-                                <span>@Html.LabelFor(m => m.PullBuildingId) </span>
-                                @Html.DisplayFor(m => m.PullBuildingId)
-                            }
-                            if (!string.IsNullOrEmpty(Model.PitchBuildingId))
-                            {
-                                <span>@Html.LabelFor(m => m.PitchBuildingId) </span>
-                                @Html.DisplayFor(m => m.PitchBuildingId)
-                            }
+                            <span>All Boxes have been expedited.</span>
                         }
-                    </span>
-                    @if (Model.IsFrozen)
-                    {
-                        <span class="list-group-item list-group-item-danger">This Pick Wave is frozen</span>
                     }
-                </div>
 
+                </div>
             </div>
 
+        </li>
 
-
-        </div>
-    }
-    <ul class="list-group">
         @if (Model.BucketId != null)
         {
+            <li class="list-group-item list-group-item-info">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="list-group-item-heading">
+                            Pallet
+                            <small>
+                                <span class="label label-success">Picked on</span>
+                                <span class="label label-info">Printed on</span>
+                            </small>
+                        </h4>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="progress" style="margin-bottom:0">
+                            <div style="width: @Model.PercentExpedited%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                                <strong style="white-space:nowrap" class="text-info">
+                                    @string.Format("{0:N0} of {1:N0} Expedited Boxes", Model.ExpeditedBoxCount, Model.TotalBoxes) <em>@Model.PercentExpedited% </em>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        @if (Model.PalletList.Any())
+                        {
+                            <span class="pull-right">Pallet Limit  <span class="badge">@Model.PalletLimit boxes</span></span>
+                        }
+                    </div>
+                </div>
+
+            </li>
             if (Model.PalletList.Any())
             {
+
                 for (var j = 0; j < Model.PalletList.Count; j++)
                 {
                     <li class="list-group-item">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <h4 class="list-group-item-heading">
                                     <a href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}", Model.PalletList[j].PalletId))' target="printSpecificUcc" class="data-palletId">
                                         @Html.DisplayFor(m => m.PalletList[j].PalletId)
                                     </a>
                                     <small>
-                                        Picked on:@Html.DisplayFor(m => m.PalletList[j].IaChangeDate)
-                                        Print on : @Html.DisplayFor(m => m.PalletList[j].PrintDate)
+                                        <span class="label label-success">@Html.DisplayFor(m => m.PalletList[j].IaChangeDate)</span>
+                                        <span class="label label-info">@Html.DisplayFor(m => m.PalletList[j].PrintDate)</span>
                                     </small>
                                 </h4>
                             </div>
                             <div class="col-md-4">
-                                @*<div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="height: 1.5em;">
-                                        <div style="width: @Model.PalletList[j].PercentPickedBoxes%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                                            <div style="color: Black; white-space: nowrap; font-size: 0.9em; margin-top: 0.5mm;">
-                                                @if (Model.PalletList[j].PickedBoxes < Model.PalletList[j].TotalBoxesOnPallet)
-                                                {
-                                                    <text>
-                                                        @Html.DisplayFor(m => m.PalletList[j].PickedBoxes) of @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                    </text>
-                                                }
-                                                else
-                                                {
-                                                    <text>
-                                                        All @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                    </text>
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>*@
-
-
-
                                 <div class="progress" style="margin-bottom:0">
                                     <div style="width:  @Model.PalletList[j].PercentPickedBoxes%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                                        <span style="white-space:nowrap" class="text-info">
+                                        <strong style="white-space:nowrap" class="text-info">
                                             @if (Model.PalletList[j].PickedBoxes < Model.PalletList[j].TotalBoxesOnPallet)
                                             {
-                                                <text>
-                                                    @Html.DisplayFor(m => m.PalletList[j].PickedBoxes) of @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                </text>
+                                                <span>
+                                                    @Html.DisplayFor(m => m.PalletList[j].PickedBoxes) of @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked <em>@Model.PalletList[j].PercentPickedBoxes%</em>
+                                                </span>
                                             }
                                             else
                                             {
-                                                <text>
-                                                    All @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                </text>
+                                                <span>
+                                                    All @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked <em>@Model.PalletList[j].PercentPickedBoxes%</em>
+                                                </span>
                                             }
 
-                                        </span>
+                                        </strong>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-4">
                                 @if (Model.UserIsManager)
                                 {
                                     <a class="btn btn-xs btn-default pull-right" title="Click to print the pallet" href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}?showPrintDialog={1}", Model.PalletList[j].PalletId, "True"))' target="printPallet"
@@ -229,52 +215,7 @@
                                         </button>
                                     }
                                 }
-                                @*@if (Model.UserIsManager)
-                                    {
-                                        <a class="ui-icon ui-icon-print ui-state-highlight" title="Click to print the pallet" href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}?showPrintDialog={1}", Model.PalletList[j].PalletId, "True"))' target="printPallet"
-                                           style="display: inline-block;" data-total-boxes="@Model.PalletList[j].TotalBoxesOnPallet"></a>
-                                        if (!Model.IsFrozen)
-                                        {
-                                            if (Model.PalletList[j].PickedBoxes < Model.PalletList[j].TotalBoxesOnPallet)
-                                            {
-                                                using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.RemoveUnPickedBoxesFromPallet(), FormMethod.Post, new { style = "display:inline-block" }))
-                                                {
-                                                    <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
-                                                    <input type="hidden" name="@Model.NameFor(m => m.PalletId)" value="@Model.PalletList[j].PalletId" />
-                                                    <button type="submit" class="btnRemoveUnpickedBoxes" title="Remove non physical boxes from the pallet" data-unpicked-boxes="@(Model.PalletList[j].TotalBoxesOnPallet - Model.PalletList[j].PickedBoxes)" data-icon="ui-icon-minus">
-                                                        X
-                                                    </button>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <button type="button" disabled="disabled" title="Disabled because all boxes have been picked" data-icon="ui-icon-minus">
-                                                    X
-                                                </button>
-                                            }
-                                            if (Model.ExpeditedBoxCount < Model.TotalBoxes)
-                                            {
-                                                <button type="submit" class="btnExpediteBoxes" title="Expedite the remaining boxes" data-icon="ui-icon-plus">
-                                                    X
-                                                </button>
-                                            }
-                                            else
-                                            {
-                                                <button type="button" disabled="disabled" title="Disabled because all boxes have been expedited" data-icon="ui-icon-plus">
-                                                    X
-                                                </button>
-                                            }
-                                        }
-                                        else
-                                        {
-                                            <button type="button" disabled="disabled" title="Disabled because all boxes have been picked" data-icon="ui-icon-minus">
-                                                X
-                                            </button>
-                                            <button type="button" disabled="disabled" title="Disabled because all boxes have been expedited" data-icon="ui-icon-plus">
-                                                X
-                                            </button>
-                                        }
-                                    }*@
+
                             </div>
 
                         </div>
@@ -293,219 +234,66 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="box">
-
-    @if (Model.BucketId != null)
-    {
-        <div class="boxContent">
-            @*<h3>
-                    <span style="color: Gray">@Html.LabelFor(m => m.CustomerName) </span>@Html.DisplayFor(m => m.CustomerId) : @Html.DisplayFor(m => m.CustomerName)
-                </h3>
-                <h3>
-                    <span style="color: Gray">@Html.LabelFor(m => m.BucketName)</span> @Html.DisplayFor(m => m.BucketId) : @Html.DisplayFor(m => m.BucketName)
-                </h3>
-                <h3>
-                    @if (Model.PullBuildingId == Model.PitchBuildingId)
-                    {
-                        <span style="color: Gray">Pull & Pitch from </span>@Html.DisplayFor(m => m.PullBuildingId)
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(Model.PullBuildingId))
-                        {
-                            <span style="color: Gray">@Html.LabelFor(m => m.PullBuildingId) </span>
-                            @Html.DisplayFor(m => m.PullBuildingId)
-                        }
-                        if (!string.IsNullOrEmpty(Model.PitchBuildingId))
-                        {
-                            <span style="color: Gray">@Html.LabelFor(m => m.PitchBuildingId) </span>
-                            @Html.DisplayFor(m => m.PitchBuildingId)
-                        }
-                    }
-                </h3>
-                @if (Model.IsFrozen)
-                {
-                    <span class="ui-state-highlight">This Pick Wave is frozen</span>
-                }
-                <br />
-                Expedited Boxes:
-                <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="width: 40em; height: 1.5em; display: inline-block">
-                    <div style="width: @Model.PercentExpedited%; color:Black" class="ui-progressbar-value ui-widget-header ui-corner-left ui-state-active">
-                        <div style="color: Black; white-space: nowrap; margin-left: 0.5em; margin-top: 1mm">
-                            @string.Format("{0:N0} of {1:N0} boxes", Model.ExpeditedBoxCount, Model.TotalBoxes)
-                        </div>
-                    </div>
-                </div>*@
-            <div style="padding-top: 1em">
-                @if (Model.PalletList.Any())
-                {
-                    <table id="tblPallets">
-                        <caption>
-                            Pallet Limit is @Model.PalletLimit boxes
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th>
-                                    #
-                                </th>
-                                <th>
-                                    Pallet
-                                </th>
-                                <th>
-                                    Picked
-                                </th>
-                                <th>
-                                    Printed on
-                                </th>
-                                <th>
-                                    Box Picking Progress
-                                </th>
-                                @if (Model.UserIsManager)
-                                {
-                                    <th>
-                                        Actions
-                                    </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (var j = 0; j < Model.PalletList.Count; j++)
-                            {
-                                <tr class="@(j % 2 == 0 ? "rowA" : "rowB")">
-                                    <td>
-                                        @(j + 1)
-                                    </td>
-                                    <td>
-                                        <a href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}", Model.PalletList[j].PalletId))' target="printSpecificUcc" class="data-palletId">
-                                            @Html.DisplayFor(m => m.PalletList[j].PalletId)
-                                        </a>
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(m => m.PalletList[j].IaChangeDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(m => m.PalletList[j].PrintDate)
-                                    </td>
-                                    <td style="text-align: right" title="@Model.PalletList[j].PercentPickedBoxes % Boxes Picked">
-                                        <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all" style="height: 1.5em;">
-                                            <div style="width: @Model.PalletList[j].PercentPickedBoxes%" class="ui-progressbar-value ui-widget-header ui-corner-left">
-                                                <div style="color: Black; white-space: nowrap; font-size: 0.9em; margin-top: 0.5mm;">
-                                                    @if (Model.PalletList[j].PickedBoxes < Model.PalletList[j].TotalBoxesOnPallet)
-                                                    {
-                                                        <text>
-                                                            @Html.DisplayFor(m => m.PalletList[j].PickedBoxes) of @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                        </text>
-                                                    }
-                                                    else
-                                                    {
-                                                        <text>
-                                                            All @Html.DisplayFor(m => m.PalletList[j].TotalBoxesOnPallet) boxes picked
-                                                        </text>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    @if (Model.UserIsManager)
-                                    {
-                                        <td>
-                                            <a class="ui-icon ui-icon-print ui-state-highlight" title="Click to print the pallet" href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}?showPrintDialog={1}", Model.PalletList[j].PalletId, "True"))' target="printPallet"
-                                               style="display: inline-block;" data-total-boxes="@Model.PalletList[j].TotalBoxesOnPallet"></a>
-                                            @if (!Model.IsFrozen)
-                                            {
-                                                if (Model.PalletList[j].PickedBoxes < Model.PalletList[j].TotalBoxesOnPallet)
-                                                {
-                                                    using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.RemoveUnPickedBoxesFromPallet(), FormMethod.Post, new { style = "display:inline-block" }))
-                                                    {
-                                                        <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
-                                                        <input type="hidden" name="@Model.NameFor(m => m.PalletId)" value="@Model.PalletList[j].PalletId" />
-                                                        <button type="submit" class="btnRemoveUnpickedBoxes" title="Remove non physical boxes from the pallet" data-unpicked-boxes="@(Model.PalletList[j].TotalBoxesOnPallet - Model.PalletList[j].PickedBoxes)" data-icon="ui-icon-minus">
-                                                            X
-                                                        </button>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <button type="button" disabled="disabled" title="Disabled because all boxes have been picked" data-icon="ui-icon-minus">
-                                                        X
-                                                    </button>
-                                                }
-                                                if (Model.ExpeditedBoxCount < Model.TotalBoxes)
-                                                {
-                                                    <button type="submit" class="btnExpediteBoxes" title="Expedite the remaining boxes" data-icon="ui-icon-plus">
-                                                        X
-                                                    </button>
-                                                }
-                                                else
-                                                {
-                                                    <button type="button" disabled="disabled" title="Disabled because all boxes have been expedited" data-icon="ui-icon-plus">
-                                                        X
-                                                    </button>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <button type="button" disabled="disabled" title="Disabled because all boxes have been picked" data-icon="ui-icon-minus">
-                                                    X
-                                                </button>
-                                                <button type="button" disabled="disabled" title="Disabled because all boxes have been expedited" data-icon="ui-icon-plus">
-                                                    X
-                                                </button>
-                                            }
-                                        </td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                }
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Create Pallet</h4>
             </div>
+            <form action="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.CreatePallet())" method="post">
+                <div class="modal-body">
+                    <div id="divInfo" class="ui-state-highlight" style="margin-bottom: 1em;">
+                        To keep more boxes on this pallet, please enter new pallet limit.
+                    </div>
+                    @Html.HiddenFor(m => m.BucketId)
+                    @Html.LabelFor(m => m.PalletId)
+                    @Html.TextBoxFor(m => m.PalletId, new { style = "text-transform: uppercase", id = "tbPalletId" })<span>*</span>
+                    @Html.ValidationMessageFor(m => m.PalletId)
+                    <br />
+                    Pallet Limit
+                    @Html.TextBoxFor(m => m.PalletLimit, new { size = 5 })<span>*</span>
+                    @Html.ValidationMessageFor(m => m.PalletLimit)
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
         </div>
-    }
+    </div>
 </div>
-<div>
-</div>
-<div id="divCreateDialog">
-    @using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.CreatePallet(), FormMethod.Post, new
-    {
-        id = "frmCreate"
-    }))
-    {
-        <div id="divInfo" class="ui-state-highlight" style="margin-bottom: 1em;">
-            To keep more boxes on this pallet, please enter new pallet limit.
-        </div>
-        @Html.HiddenFor(m => m.BucketId)
-        @Html.LabelFor(m => m.PalletId)
-        @Html.TextBoxFor(m => m.PalletId, new { style = "text-transform: uppercase", id = "tbPalletId" })<span>*</span>
-        @Html.ValidationMessageFor(m => m.PalletId)
-        <br />
-        @:Pallet Limit
-        @Html.TextBoxFor(m => m.PalletLimit, new { size = 5 })<span>*</span>
-        @Html.ValidationMessageFor(m => m.PalletLimit)
-    }
-</div>
+
+
+
+
+
+
+@*<div id="divCreateDialog">
+        @using (Html.BeginForm(MVC_PickWaves.PickWaves.BoxPickPallet.CreatePallet(), FormMethod.Post, new
+        {
+            id = "frmCreate"
+        }))
+        {
+            <div id="divInfo" class="ui-state-highlight" style="margin-bottom: 1em;">
+                To keep more boxes on this pallet, please enter new pallet limit.
+            </div>
+            @Html.HiddenFor(m => m.BucketId)
+            @Html.LabelFor(m => m.PalletId)
+            @Html.TextBoxFor(m => m.PalletId, new { style = "text-transform: uppercase", id = "tbPalletId" })<span>*</span>
+            @Html.ValidationMessageFor(m => m.PalletId)
+            <br />
+            @:Pallet Limit
+            @Html.TextBoxFor(m => m.PalletLimit, new { size = 5 })<span>*</span>
+            @Html.ValidationMessageFor(m => m.PalletLimit)
+        }
+    </div>*@
 @*@section scripts{
-        <script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
-        <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
-        <script src="@Links_PickWaves.Areas.PickWaves.BoxPickPallet.BoxPickPalletIndex_all_js" type="text/javascript"></script>
-    }*@
+    <script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <script src="@Links_PickWaves.Areas.PickWaves.BoxPickPallet.BoxPickPalletIndex_all_js" type="text/javascript"></script>
+        }*@
