@@ -4,6 +4,7 @@ $(document).ready(function () {
     $('#freezeModal').on('show.bs.modal', function (e) {
         //alert($(e.relatedTarget).data('bucketid'));
         $('#hfBucketid', e.delegateTarget).val($(e.relatedTarget).data('bucketid'));
+        $('#spanBucketId', e.delegateTarget).text($(e.relatedTarget).data('bucketid'));
         $('#countNotStartedBoxes', e.delegateTarget).html($(e.relatedTarget).data('countnotstartedboxes'));
     }).on('click', 'button:not([data-dismiss])', function (e) {
         //alert('submit');
@@ -1937,7 +1938,7 @@ $(document).ready(function (e) {
 		});
 	}).on('click', 'button[data-pickslip-remove-url]', function (e) {
 		// Remove Pickslip
-		alert($(e.target).data('pickslip-remove-url'));
+		//alert($(e.target).data('pickslip-remove-url'));
 
 		$.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
 			//success

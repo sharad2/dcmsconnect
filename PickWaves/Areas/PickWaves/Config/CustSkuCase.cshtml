@@ -112,31 +112,27 @@
                         <div class="col-md-2 col-sm-2">
                             @if (Model.UserIsManager)
                             {
-                                <div class="btn-group pull-right">
-                                    <button class=" pull-right btn btn-default btn-xs dropdown-toggle"
-                                            data-toggle="dropdown">
+                               
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button"  data-toggle="dropdown" aria-expanded="true">
                                         <span class="glyphicon glyphicon-remove"></span>
                                         Remove
                                         <span class="caret"></span>
                                     </button>
-
-                                    <ul class="dropdown-menu" role="menu" style="padding-bottom:0">
-                                        <li>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li role="presentation" style="text-align:center">
                                             <form action="@Url.Action(MVC_PickWaves.PickWaves.Config.DelCustSkuCase())" method="post">
-                                                <input type="hidden"  value="@Model.CustomerSkuCaseList[i].CaseId"
+                                                <input type="hidden" value="@Model.CustomerSkuCaseList[i].CaseId"
                                                        name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.caseId" />
                                                 <input type="hidden" value="@Model.CustomerSkuCaseList[i].CustomerId"
                                                        name="@MVC_PickWaves.PickWaves.Config.DelCustSkuCaseParams.customerId" />
-                                                <span style="text-align:center">Are you sure?</span>
-                                                <div class="btn-group btn-group-justified">
-                                                    <button class="btn btn-primary" type="submit">Yes</button>
-                                                    <a class="btn btn-default">No</a>
-                                                </div>
+                                                <span>Sure?</span>&nbsp;
+                                                <button class="btn btn-primary" type="submit">Yes</button>
                                             </form>
                                         </li>
                                     </ul>
-
                                 </div>
+
                             }
                         </div>
                     </div>
@@ -153,7 +149,7 @@
 </div>
 
 <!--Modal called from actions of each tabs-->
-<div class="modal fade" id="tabModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal fade" id="tabModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             AJAX loaded HTML here

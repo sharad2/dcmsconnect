@@ -50,25 +50,17 @@
 
     var appLinks = RenderSection("applinks", false);
 
-    //var appSearchUrl = ((string) ViewBag.AppSearchUrl) ??
+    var searchUrl = PublicUrl(new[] { (string)ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 }).ToString();
 
 }
 @helper PublicUrl(string[] routeNames)
 {
     var query = from item in routeNames
                 where !string.IsNullOrWhiteSpace(item)
-                let url = item.Contains("/") ? item : (Url.RouteCollection[item] == null ? (string) null : Url.RouteUrl(item))
+                let url = item.Contains("/") ? item : (Url.RouteCollection[item] == null ? (string)null : Url.RouteUrl(item))
                 where !string.IsNullOrWhiteSpace(url)
                 select url;
 
-    @*var routeName = routeNames.Where(p => !string.IsNullOrWhiteSpace(p))
-
-        .FirstOrDefault(p => Url.RouteCollection[p] != null);
-    if (!string.IsNullOrWhiteSpace(routeName))
-    {
-        @Url.RouteUrl(routeName)
-    }*@
-    
     var finalUrl = query.FirstOrDefault();
     if (!string.IsNullOrWhiteSpace(finalUrl))
     {
@@ -82,64 +74,75 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap -->
     <link href="@url_bootstrap_css" rel="stylesheet">
-
 </head>
 <body>
     <div class="navbar navbar-default">
         <div class="container-fluid  bg-info">
             <div class="navbar-header">
+                <!--Visible on mobile device only-->
                 <a class="navbar-brand bg-danger visible-xs pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" title="App Setting">
                     <span class="glyphicon glyphicon-align-justify" style="cursor:default"></span>
                 </a>
 
-                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:2px;padding-left:2px;">
+                <!--Visible on mobile device only-->
+                @if (!string.IsNullOrWhiteSpace(searchUrl))
+                {
+                    <a class="visible-xs btn navbar-brand pull-right" data-toggle="modal" href="#searchModal">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                }
+
+                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:5px;padding-left:2px;">
                     <span class="glyphicon glyphicon-home"></span> DCMS
                 </a>
 
                 @if (ViewBag.AppName != null && ViewBag.AppHomeUrl != null)
                 {
-                    <div class="btn-group" style="vertical-align:top">
-                        <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px;padding-left:2px;">
-                            <span class="glyphicon glyphicon-th-large hidden-xs"></span> @ViewBag.AppName
-                        </a>
+                    <div class="navbar-left">
+                        <div class="btn-group">
+                            <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px;padding-left:2px;">
+                                <span class=" glyphicon glyphicon-th-large">
+                                </span> @ViewBag.AppName
+                            </a>
 
-                        @if (appLinks != null)
-                        {
-                            <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                @Html.Raw(appLinks.ToHtmlString())
-                            </ul>
-                        }
+                            @if (appLinks != null)
+                            {
+                                <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    @Html.Raw(appLinks.ToHtmlString())
+                                </ul>
+                            }
+                        </div>
                     </div>
                 }
                 else
                 {
                         <!-- Place holder for minimal empty space between brand and search box -->
-                    <div style="display:inline-block">
+                    <div class="navbar-left">
 
                     </div>
                 }
 
-                <a class="visible-xs-inline-block btn navbar-btn" data-toggle="modal" href="#searchModal" style="padding-right:0px;padding-left:0px;">
-                    <span class="glyphicon glyphicon-search"></span>
-                </a>
 
-                <div style="width:12em; display:inline-block" class="hidden-xs">
-                    <form action="@PublicUrl(new[] { (string) ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
-                        <div class="input-group navbar-btn input-group-sm">
+                @if (!string.IsNullOrWhiteSpace(searchUrl))
+                {
+
+                <!--Hidden on mobile device only-->
+                    <form action="@searchUrl" method="get" role="search" class="hidden-xs navbar-form navbar-left">
+                        <div class="input-group">
                             <input type="search" class="form-control" name="id" placeholder="Search DCMS">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
                             </span>
                         </div><!-- /input-group -->
                     </form>
-                </div>
+
+                }
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -176,6 +179,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-cog"></span>
+                            <!--Visible on mobile device only-->
+                            <span class="visible-xs-inline-block">Tools</span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
@@ -186,16 +191,7 @@
             </div>
         </div>
     </div>
-    <div class="modal" id="searchModal">
-        <form action="@PublicUrl(new[] { (string)ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
-            <div class="input-group navbar-btn input-group-sm" style="margin-top:12px;margin-left:20px">
-                <input type="search" class="form-control" name="id" placeholder="Search DCMS">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div><!-- /input-group -->
-        </form>
-    </div>
+
     @if (messages.Count > 0)
     {
         <div class="container-fluid">
@@ -229,19 +225,37 @@
     }
     @RenderBody()
 
+    @if (!string.IsNullOrWhiteSpace(searchUrl))
+    {
+
+    <!--Visible on mobile device only-->
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                    <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>
+
+    }
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="@url_jquery_js" type="text/javascript"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="@url_bootstrap_js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(window).on('resize', function (e) {
-                //alert('resize');
-                $('#searchModal').hide();
+
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $(window).on('resize', function (e) {
+                    //alert('resize');
+                    $('#searchModal').hide();
+                });
             });
-        });
-    </script>
+        </script>*@
 
     @RenderSection("script", false)
 </body>
@@ -249,4 +263,3 @@
 
 
 </html>
-

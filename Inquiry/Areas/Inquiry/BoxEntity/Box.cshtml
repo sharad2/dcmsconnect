@@ -72,17 +72,14 @@
                         @(Model.StopProcessDate.HasValue ? "disabled" : "")>
                     Cancel Box <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu" role="menu" style="padding-bottom:0px;">
+                <ul class="dropdown-menu" role="menu">
                     @if (Model.CanCancelBox)
                     {
-                        <li>
+                        <li role="presentation" style="text-align:center">
                             <form action="@Url.Action(MVC_Inquiry.Inquiry.BoxEntity.CancelBox())" method="post">
                                 <input type="hidden" value="@Model.Ucc128Id" name="@MVC_Inquiry.Inquiry.BoxEntity.CancelBoxParams.id" />
-                                <center>Are you sure?</center>
-                                <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-primary" type="submit">Yes</button>
-                                    <a class="btn btn-default">No</a>
-                                </div>
+                                <span>Sure?</span>&nbsp;
+                                <button class="btn btn-primary" type="submit">Yes</button>
                             </form>
                         </li>
                     }
@@ -92,7 +89,6 @@
                     }
                 </ul>
             </div>
-
             <p class="h5">
                 @if (Model.PitchingEndDate.HasValue)
                 {

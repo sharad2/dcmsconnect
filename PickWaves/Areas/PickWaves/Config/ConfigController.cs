@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
 using EclipseLibrary.Mvc.Controllers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -204,15 +205,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         public virtual ActionResult StyleSkuCase()
         {
             var packingRules = _service.Value.GetPackingRules();
+            //var model = new StyleSkuCaseViewModel
+            //{
+            //    PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
+            //    {
+            //        CaseId = p.CaseId,
+            //        Style = p.Style,
+            //        IgnoreFlag = p.IgnoreFlag
+            //    }).ToList()
+            //};
+
+            var query = from rule in packingRules
+                        group rule by rule.Style into g
+                        orderby g.Key
+                        select new StyleSkuCaseModel
+                        {
+                            Style = g.Key,
+                            StyleCases = new SortedList<string, bool>(g.ToDictionary(p => p.CaseId, p => p.IgnoreFlag))
+                        };
+
             var model = new StyleSkuCaseViewModel
             {
-                PackingRuleList = packingRules.Select(p => new StyleSkuCaseModel
-                {
-                    CaseId = p.CaseId,
-                    Style = p.Style,
-                    IgnoreFlag = p.IgnoreFlag
-                }).ToList()
+                PackingRuleList = query.ToList()
             };
+
             return View(Views.StyleSkuCase, model);
         }
 
@@ -243,7 +259,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <returns></returns>
         [HttpPost]
         [Route("updaterule")]
-        public virtual ActionResult AddStyleSkuCase(StyleSkuCaseModel model)
+        public virtual ActionResult UpdateStyleSkuCase(StyleSkuCaseEditorViewModel model)
         {
             //TC5: If required feild does not passed.
             if (!ModelState.IsValid)
@@ -260,14 +276,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                     IgnoreFlag = model.IgnoreFlag,
                     Style = model.Style
                 });
+                this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.InnerException);
-                //return RedirectToAction(Actions.SkuCase());
-                return RedirectToAction(Actions.StyleSkuCase());
             }
-            this.AddStatusMessage(string.Format("Packing rule is added for case {0} against style {1}", model.CaseId, model.Style));
+
             //return RedirectToAction(Actions.SkuCase());
             return RedirectToAction(Actions.StyleSkuCase());
         }
@@ -277,24 +292,42 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// </summary>
         /// <param name="style"></param>
         /// <param name="caseId"></param>
-        /// <param name="activeTab"></param>
+        /// <param name="disable">If this is null then the StyleSkuCase is deleted. Otherwise, it is enabled/disabled based on this parameter</param>
         /// <returns></returns>
         [HttpPost]
         [Route("delpackingrule")]
-        public virtual ActionResult DelStyleSkuCase(string style, string caseId)
+        public virtual ActionResult DelStyleSkuCase(string style, string caseId, bool? disable)
         {
+                        
             try
             {
-                _service.Value.DelCaseIgnorance(style, caseId);
+                if (disable.HasValue)
+                {
+                    _service.Value.InsertPackingRule(new StyleSkuCase
+                    {
+                        CaseId = caseId,
+                        IgnoreFlag = disable.Value,
+                        Style = style
+                    });
+                    if (disable.Value) { 
+                    AddStatusMessage(string.Format("Case {0} will not be used for Style {1} until you enable it", caseId, style));
+                    }
+                    else
+                    {
+                        AddStatusMessage(string.Format("Case {0} can now be used for Style {1}", caseId, style));
+                    }
+                }
+                else
+                {
+                    _service.Value.DelCaseIgnorance(style, caseId);
+                    AddStatusMessage(string.Format("Case {0} can no longer be used for Style {1}", caseId, style));
+                }
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.InnerException);
-                //return RedirectToAction(Actions.SkuCase());
-                return RedirectToAction(Actions.StyleSkuCase());
+                ModelState.AddModelError("", ex.InnerException);              
             }
-            AddStatusMessage(string.Format("Ignorance of case {0} is deleted against SKU {1}", caseId, style));
-            //return RedirectToAction(Actions.SkuCase());
+
             return RedirectToAction(Actions.StyleSkuCase());
         }
 
@@ -439,7 +472,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// <param name="customerId"></param>
         /// <returns></returns>
         [Route("editor/custconstraint")]
-        public virtual ActionResult CustomerConstraintEditor(string customerId)
+        public virtual ActionResult CustomerConstraintEditor(string customerId, int activeTab)
         {
             CustomerConstraintEditorModel model;
             if (string.IsNullOrEmpty(customerId))
@@ -458,7 +491,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 model = new CustomerConstraintEditorModel(customerConstraints)
                     {
                         CustomerId = customerId,
-                        CustomerName = customerName
+                        CustomerName = customerName,
+                        ActiveTab = activeTab
                     };
             }
             return PartialView(Views._customerConstraintEditorPartial, model);
