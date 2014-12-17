@@ -12,7 +12,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         internal RequestSkuViewModel(RequestSku entity)
         {
-            this.Pieces = entity.Pieces;            
+            this.Pieces = entity.RequestedPieces;            
             this.SourceSku = new SkuModel
             {
                 Style = entity.SourceSku.Style,

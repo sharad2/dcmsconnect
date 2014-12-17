@@ -98,11 +98,11 @@
         </ul>
     }
 </div>
-<div class="boxContent">
-    @*@if (Model.Bucket != null)
+@*<div class="boxContent">
+    @if (Model.Bucket != null)
         {
             @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
-        }*@
+        }
     <div>
         @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
         {
@@ -191,7 +191,7 @@
             }
         }
     </div>
-</div>
+</div>*@
 @section script{
     @*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
         <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
