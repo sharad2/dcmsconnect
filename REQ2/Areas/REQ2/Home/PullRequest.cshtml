@@ -92,8 +92,6 @@
         //Deletes the SKU from request.
         $(document).on('click', 'button[data-priority-url]', function (e) {
             var $li = $(this).closest('li');
-            // Remove content first
-
             $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
                 $li.css("text-decoration", "line-through")
                 //$li.remove();
