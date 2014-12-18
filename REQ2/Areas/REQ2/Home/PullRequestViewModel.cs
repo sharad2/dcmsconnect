@@ -95,7 +95,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.QuantityRequested = entity.QuantityRequested;
             this.SourceQuality = entity.SourceQuality;
             this.TargetQuality = entity.TargetQuality;
-            this.SourceVwhId = entity.TargetVwhId;
+            this.SourceVwhId = entity.SourceVwhId;
+            this.TargetVwhId = entity.TargetVwhId;
             this.AssignedPieces = entity.AssignedPieces;
             this.BuildingId = entity.BuildingId;
             this.PriceSeasonCode = entity.PriceSeasonCode;
