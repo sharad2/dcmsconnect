@@ -267,8 +267,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                       Lresv_rec.target_quality := :target_quality;
                       Lresv_rec.module_code := 'REQ2';
                       Lresv_rec.warehouse_location_id := :warehouse_location_id;
-                      Lresv_rec.packaging_preference := :packaging_preference;
-                      Lresv_rec.sale_type_id := :sale_type_id;
                       Lresv_rec.price_season_code := :price_season_code;
                       Lresv_rec.sewing_plant_code := :sewing_plant_code;
                       Lresv_rec.receive_date := :receive_date;
@@ -286,8 +284,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 .Parameter("quality_code", model.SourceQuality)
                 .Parameter("target_quality", model.TargetQuality)
                 .Parameter("warehouse_location_id", model.BuildingId)
-                .Parameter("packaging_preference", model.PackagingPreferance)
-                .Parameter("sale_type_id", model.SaleTypeId)
+                //.Parameter("packaging_preference", model.PackagingPreferance)
                 .Parameter("price_season_code", model.PriceSeasonCode)
                 .Parameter("sewing_plant_code", model.SewingPlantCode)
                 .Parameter("remarks", model.Remarks)
@@ -359,9 +356,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                      MAX(T.QUALITY_CODE)                           AS QUALITY_CODE,
                      MAX(T.ASSIGN_DATE)                          AS ASSIGN_DATE,
                      MAX(T.PIECES_CONSTRAINT)                      AS OVERPULLING,
-                     MAX(T.PACKAGING_PREFERENCE)                   AS PACKAGING_PREFERENCE,
                      MAX(T.PRICE_SEASON_CODE)                      AS PRICE_SEASON_CODE,
-                     MAX(T.SALE_TYPE_ID)                           AS SALE_TYPE_ID,
                      MAX(T.RECEIVE_DATE)                           AS RECEIVE_DATE,
                      MAX(T.WAREHOUSE_LOCATION_ID)                  AS WAREHOUSE_LOCATION_ID,
                      SUM(REQDET.QUANTITY_REQUESTED)                AS QUANTITY_REQUESTED,
@@ -395,9 +390,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                    REQ.QUALITY_CODE          AS QUALITY_CODE,
                    REQ.ASSIGN_DATE         AS ASSIGN_DATE,
                    REQ.OVERPULLING           AS OVERPULLING,
-                   REQ.PACKAGING_PREFERENCE  AS PACKAGING_PREFERENCE,
                    REQ.PRICE_SEASON_CODE     AS PRICE_SEASON_CODE,
-                   REQ.SALE_TYPE_ID          AS SALE_TYPE_ID,
                    REQ.RECEIVE_DATE          AS RECEIVE_DATE,
                    REQ.WAREHOUSE_LOCATION_ID AS WAREHOUSE_LOCATION_ID,
                    REQ.QUANTITY_REQUESTED    AS QUANTITY_REQUESTED,
@@ -439,10 +432,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 SewingPlantCode = row.GetString("SEWING_PLANT_CODE"),
                 SourceQuality = row.GetString("QUALITY_CODE"),
                 AllowOverPulling = row.GetString("OVERPULLING"),
-                PackagingPreferance = row.GetString("PACKAGING_PREFERENCE"),
+             //   PackagingPreferance = row.GetString("PACKAGING_PREFERENCE"),
                 PriceSeasonCode = row.GetString("PRICE_SEASON_CODE"),
                 CartonReceivedDate = row.GetDate("RECEIVE_DATE"),
-                SaleTypeId = row.GetString("SALE_TYPE_ID"),
                 AssignedCartonCount = row.GetInteger("CARTON_COUNT") ?? 0,
                 AssignedPieces = row.GetInteger("total_pieces") ?? 0,
                 //ReqId = row.GetInteger("DCMS4_REQ_ID"),

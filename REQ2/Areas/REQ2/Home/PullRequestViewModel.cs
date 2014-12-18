@@ -7,6 +7,7 @@ using System.Web;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
+ 
     public class PullRequestSkuModel
     {
         public PullRequestSkuModel()
@@ -24,7 +25,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 Dimension = entity.SourceSku.Dimension,
                 SkuSize = entity.SourceSku.SkuSize,
                 SkuId = entity.SourceSku.SkuId,
-                UpcCode = entity.SourceSku.UpcCode
+               
             };
             if (entity.TargetSku != null)
             {
@@ -34,8 +35,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     Color = entity.TargetSku.Color,
                     Dimension = entity.TargetSku.Dimension,
                     SkuSize = entity.TargetSku.SkuSize,
-                    SkuId = entity.TargetSku.SkuId,
-                    UpcCode = entity.TargetSku.UpcCode
+                   // SkuId = entity.TargetSku.SkuId,
+                   
                 };
             }
 
@@ -46,6 +47,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public int RequestedPieces { get; set; }
 
+        [Required(ErrorMessage = "{0} is required")]
+        public SkuModel SourceSku { get; set; }
+
         [Display(Name = "SKU")]
         public string DisplaySku
         {
@@ -55,11 +59,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }
         }
 
-        [Display(Name = "Source SKU")]
-        [Required(ErrorMessage = "{0} is required")]
-        public SkuModel SourceSku { get; set; }
-
-        [Display(Name = "Target SKU")]
         [Required(ErrorMessage = "{0} is required")]
         public SkuModel TargetSku { get; set; }
 
@@ -71,42 +70,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 return this.TargetSku != null ? string.Format(this.TargetSku.Style + "," + this.TargetSku.Color + "," + this.TargetSku.Dimension + "," + this.TargetSku.SkuSize) : "No conversion";
             }
         }
-
-    }
-
-    public class AssignedCartonListModel
-    {
-
-        public AssignedCartonListModel()
-        {
-            
-        }
-        internal AssignedCartonListModel(AssignedCarton entity)
-        {
-            this.Sku = new SkuModel
-            {
-                Style = entity.Sku.Style,
-                Color = entity.Sku.Color,
-                Dimension = entity.Sku.Dimension,
-                SkuSize = entity.Sku.SkuSize
-            };
-           
-            this.TotalCartons = entity.TotalCartons;
-            this.TotalPieces = entity.TotalPieces;
-            this.PulledCartons = entity.PulledCartons;
-            this.PulledPieces = entity.PulledPieces;
-        }
-
-        public SkuModel Sku { get; set; }
-
-        public int TotalCartons { get; set; }
-
-        public int PulledCartons { get; set; }
-
-        public int TotalPieces { get; set; }
-
-        public int PulledPieces { get; set; }
-
 
     }
 
@@ -124,16 +87,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.DestinationAreaShortName = entity.DestinationAreaShortName;
             this.IsConversionRequest = entity.IsConversionRequest;
             this.Priority = entity.Priority;
-            this.SaleTypeId = entity.SaleTypeId;
-            this.AllowOverPulling = entity.AllowOverPulling;
-            this.PackagingPreferance = entity.PackagingPreferance;
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
             this.DateCreated = entity.DateCreated;
             this.QuantityRequested = entity.QuantityRequested;
             this.SourceQuality = entity.SourceQuality;
             this.TargetQuality = entity.TargetQuality;
-            this.SourceVwhId = entity.TargetVwhId;
+            this.SourceVwhId = entity.SourceVwhId;
+            this.TargetVwhId = entity.TargetVwhId;
             this.AssignedPieces = entity.AssignedPieces;
             this.BuildingId = entity.BuildingId;
             this.PriceSeasonCode = entity.PriceSeasonCode;
@@ -150,12 +111,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public bool IsConversionRequest { get; set; }
 
         public string Priority { get; set; }
-        public string SaleTypeId { get; set; }
+    
 
-        public string AllowOverPulling { get; set; }
-
-        public string PackagingPreferance { get; set; }
-
+       // public string PackagingPreferance { get; set; }
         public string Remarks { get; set; }
 
         public string RequestedBy { get; set; }
@@ -182,8 +140,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string SewingPlantCode { get; set; }
 
         public IList<PullRequestSkuModel> SkuList { get; set; }
-
-        public IList<AssignedCartonListModel> CartonList { get; set; }
 
 
     }

@@ -17,150 +17,80 @@
                 <dl class="dl-horizontal ">
 
                     <dt>Conversion</dt>
-                    <dd>@Html.DisplayFor(m => m.IsConversionRequest)</dd>
+                    <dd>                       
+                        <span class= "@Html.Raw(Model.IsConversionRequest ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"> </span> 
+                    </dd>
+
                     <dt>Source &rarr; Destination</dt>
                     <dd>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
 
                     <dt>Quality</dt>
-                   
-                    <dd>@Html.DisplayFor(m => m.SourceQuality) &rarr; @Html.DisplayFor(m => m.TargetQuality)</dd>
+
+                    <dd>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality) </dd>
 
                     <dt>Vwh</dt>
-                    <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
+                    <dd>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </dd>
 
-                    <dt>Remarks</dt>
-                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>
-              </dl>
+                    
             </div>
 
             <div class="col-md-6 col-sm-6">
                 <dl class="dl-horizontal">
 
-                    <dt>Overpulling</dt>
-                    <dd>@Html.DisplayFor(m => m.AllowOverPulling)</dd>
                     <dt>Priority</dt>
                     <dd>@Html.DisplayFor(m => m.Priority)</dd>
 
-                    <dt>Sale type Id</dt>
-                    <dd>@Html.DisplayFor(m => m.SaleTypeId)</dd>
-
-                    <dt>Hung</dt>
-                    <dd>@Html.DisplayFor(m => m.PackagingPreferance)</dd>
-
-                    <dt>Price Season Code</dt>
+                    <dt>Price Season</dt>
                     <dd>@Html.DisplayFor(m => m.PriceSeasonCode)</dd>
 
-                    <dt>Sewing Plant Code</dt>
+                    <dt>Sewing Plant</dt>
                     <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
-
+                    <dt>Remarks</dt>
+                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>
+                </dl>
                 </dl>
             </div>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
             <h3 class="panel-title">SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus"></span></a></h3>
-        </div>
-        <div class="panel-body">
-          
-           
-               
-               <ul class="list-group">
-@for (var i = 0; i < Model.SkuList.Count; ++i)
-{ 
-  <li class="list-group-item">
-      <button class="btn btn-default" type="button"  title="Remove SKU"
-              data-priority-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku(@Model.SkuList[i].SourceSku.SkuId,@Model.CtnResvId))">
-          <span class="glyphicon glyphicon-remove-sign"></span>
-      </button>
-
-    <span class="badge">@Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
-      @Html.DisplayFor( m => m.SkuList[i].DisplaySku) &rarr; @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
-  </li>
-}
-</ul>
-           
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Cartons
-                <a href="@Url.Action(MVC_REQ2.REQ2.Home.AssignCartons())">Assign</a>
-                <a href="@Url.Action(MVC_REQ2.REQ2.Home.UnAssignCartons())">Unassign</a>
-
-            </h3>
-
-        </div>
-        <div class="panel-body">
-
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-info">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                           SKU
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                           Total Cartons
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Pulled Cartons
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Total Pieces
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Pulled Pieces
-                        </div>
-
+        </li>
+        @for (var i = 0; i < Model.SkuList.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h4 class="list-group-item-heading">
+                            @Html.DisplayFor(m => m.SkuList[i].DisplaySku) &rarr; @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
+                        </h4>
                     </div>
-                </li>
-
-                @for (var i = 0; i < Model.CartonList.Count; ++i)
-                {
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4">
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.Style),@Html.DisplayFor(m => m.CartonList[i].Sku.Color),@Html.DisplayFor(m => m.CartonList[i].Sku.Dimension),@Html.DisplayFor(m => m.CartonList[i].Sku.SkuSize)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].TotalCartons)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].PulledCartons)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].TotalPieces)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].PulledPieces)
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-    </div>
-    
+                    <div class="col-md-3">
+                        <span class="badge">@Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
+                        <button class="btn btn-default btn-sm pull-right" type="button" title="Remove SKU" data-priority-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku(@Model.SkuList[i].SourceSku.SkuId,@Model.CtnResvId))">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 
 </div>
 
 @section script {
     <script type="text/javascript">
+        //Deletes the SKU from request.
         $(document).on('click', 'button[data-priority-url]', function (e) {
             var $li = $(this).closest('li');
-            // Remove content first
-  
-           $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
-               $li.css("text-decoration", "line-through")
+            $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
+                $li.css("text-decoration", "line-through")
                 //$li.remove();
             }).error(function () {
                 alert('error');
             });
         });
-   
     </script>
-    }
+}
 
 

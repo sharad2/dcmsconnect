@@ -69,9 +69,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
 
-            var cartons = _service.GetAssignedCartons(ctnresvId);
+           // var cartons = _service.GetAssignedCartons(ctnresvId);
 
-            model.CartonList = cartons.Select(p => new AssignedCartonListModel(p)).ToList();
+           // model.CartonList = cartons.Select(p => new AssignedCartonListModel(p)).ToList();
 
             return View(Views.PullRequest, model);
         }
@@ -204,10 +204,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 BuildingId = model.BuildingId,
                 CtnResvId = model.ResvId,
                 DestinationArea = model.DestinationAreaId,
-                PackagingPreferance = model.IsHung ? "H" : "",
                 Priority = model.Priorities.ToString(),
                 Remarks = model.Remarks,
-                SaleTypeId = model.SaleTypeId,
                 SourceAreaId = model.SourceAreaId,
                 TargetVwhId = model.TargetVwhId,
                 SourceVwhId = model.VirtualWareHouseId,

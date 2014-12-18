@@ -27,10 +27,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
             this.OverPullCarton = entity.AllowOverPulling == "O";
-            this.IsHung = entity.PackagingPreferance == "H";
+           //this.IsHung = entity.PackagingPreferance == "H";
             this.RequestForConversion = entity.IsConversionRequest;
             this.TargetQualityCode = entity.TargetQuality;
-            this.SaleTypeId = entity.SaleTypeId;
+            //this.SaleTypeId = entity.SaleTypeId;
             this.TargetVwhId = entity.TargetVwhId;
 
         }

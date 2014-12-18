@@ -181,11 +181,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             {
                 modelToUpdate.DestinationArea = model.DestinationArea;
             }
-            if (propertiesToUpdate.HasFlag(RequestProperties.PackagingPreference))
-            {
-                modelToUpdate.PackagingPreferance = model.PackagingPreferance;
-            }
-            if (propertiesToUpdate.HasFlag(RequestProperties.PriceSeasonCode))
+              if (propertiesToUpdate.HasFlag(RequestProperties.PriceSeasonCode))
             {
                 modelToUpdate.PriceSeasonCode = model.PriceSeasonCode;
             }
@@ -201,10 +197,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             {
                 modelToUpdate.Remarks = model.Remarks;
             }
-            if (propertiesToUpdate.HasFlag(RequestProperties.SaleTypeId))
-            {
-                modelToUpdate.SaleTypeId = model.SaleTypeId;
-            }
+
             if (propertiesToUpdate.HasFlag(RequestProperties.SewingPlantCode))
             {
                 modelToUpdate.SewingPlantCode = model.SewingPlantCode;
