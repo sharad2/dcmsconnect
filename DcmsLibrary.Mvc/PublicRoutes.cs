@@ -98,7 +98,11 @@ namespace DcmsLibrary.Mvc {
 		  // Generated code: TODO
 		public const string DcmsConnect_SearchPo3 = "DcmsConnect_SearchPo3";
 		  // Generated code: TODO
+		public const string DcmsConnect_SearchPoImported3 = "DcmsConnect_SearchPoImported3";
+		  // Generated code: TODO
 		public const string DcmsConnect_SearchPickslip1 = "DcmsConnect_SearchPickslip1";
+		  // Generated code: TODO
+		public const string DcmsConnect_SearchPickslipImported1 = "DcmsConnect_SearchPickslipImported1";
 		  // Generated code: TODO
 		public const string DcmsConnect_SearchUpc1 = "DcmsConnect_SearchUpc1";
 		  // Generated code: TODO

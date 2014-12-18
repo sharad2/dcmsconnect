@@ -75,17 +75,14 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
         [Display(Name = "ASN Flag")]
         public bool AsnFlag { get; set; }
 
-        [Display(Name = "ERP Id")]
-        [DisplayFormat(NullDisplayText="Unknown")]
+        [Display(Name = "ERP")]
+        [DisplayFormat(NullDisplayText="?")]
         public string ErpId { get; set; }
 
 
         [Display(Name = "Carrier")]
         [DisplayFormat(NullDisplayText = "Unknown")]
         public string CarrierId { get; set; }
-
-
-        ////public PickslipModel Pickslip { get; set; }
 
         [Display(Name = "Customer")]
         public string CustomerId { get; set; }

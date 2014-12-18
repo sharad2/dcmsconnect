@@ -69,9 +69,21 @@
         <li class="list-group-item">
             <h4 class="list-group-item-heading">
                 Received from ERP - @Html.DisplayFor(m => m.ErpId)
-                <small>Transfer on : @Html.DisplayFor(m => m.TransferDate)</small>
-                <small class="pull-right"><span class="glyphicon glyphicon-@(Model.AsnFlag ? "ok text-success" : "remove")"></span> ASN Flag &nbsp;
-               <span class="glyphicon glyphicon-@(Model.ExportFlag ? "ok text-success" : "remove")"></span> Export Flag</small>
+                @if (Model.AsnFlag)
+                {
+                    @:&nbsp;
+                    <span class="label label-default" title="Carton level shipment notification will be sent to ERP">
+                        ASN
+                    </span>
+                }
+
+                @if (Model.ExportFlag)
+                {
+                    @:&nbsp;
+                    <span class="label label-default" title="This order will be shipped internationally">
+                        Export
+                    </span>
+                }
             </h4>
         </li>
 
@@ -90,7 +102,8 @@
                                     <abbr title="Virtual WearHouse">VWH</abbr>
                                 </span>
                                 &nbsp;<abbr title="QualityCode">QC</abbr>
-                            </small>   </h4>
+                            </small>
+                        </h4>
 
                     </div>
                     <div class="col-md-4">
@@ -101,27 +114,19 @@
                         </h4>
                         <h4 class="list-group-item-heading" style="width:4em;text-align:right; display:inline-block">
                             <span class="label label-success">
-                                @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))  Pieces
+                                @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))  Pieces Ordered
                             </span>
                         </h4>
 
                     </div>
                     <div class="col-md-4">
                         <h4 class="list-group-item-heading">
-                            Pieces Per Box  
+                            Pieces Per Box Min - Max
                             <span class="badge pull-right">
                                 Pieces Per Package
                             </span>
                         </h4>
                     </div>
-                    @*<div class="col-md-2">
-
-                        <h4 class="list-group-item-heading">
-                            @string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces)) Pieces 
-                        </h4>
-
-
-                    </div>*@
                 </div>
             </li>
             @for (int i = 0; i < Model.AllSku.Count; i++)
@@ -145,7 +150,7 @@
                         <div class="col-md-4">
                             <h4 class="list-group-item-heading" style="width:7em;text-align:right; display:inline-block">
                                 <span class="label label-success">
-                                  $ @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
+                                    @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
                                 </span>
                             </h4>
                             <h4 class="list-group-item-heading" style="width:4em;text-align:right; display:inline-block">
@@ -158,20 +163,20 @@
                         <div class="col-md-4">
                             <div>
 
-                                @Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) Per @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)
+                                @Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) - @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)
                                 <span class="badge pull-right">
                                     @Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)
                                 </span>
-                           </div>
+                            </div>
                         </div>
                         @*<div class="col-md-2">
 
-                            <h4 class="list-group-item-heading">
-                               @Html.DisplayFor(m => Model.AllSku[i].Pieces)
-                            </h4>
-                           Price @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
+                                <h4 class="list-group-item-heading">
+                                   @Html.DisplayFor(m => Model.AllSku[i].Pieces)
+                                </h4>
+                               Price @Html.DisplayFor(m => Model.AllSku[i].RetailPrice)
 
-                        </div>*@
+                            </div>*@
                     </div>
                 </li>
             }
@@ -184,124 +189,124 @@
 </div>
 @*<div data-role="page">
 
-    <h2 style="margin-top:0">
-        @Model.ModelTitle
-    </h2>
+        <h2 style="margin-top:0">
+            @Model.ModelTitle
+        </h2>
 
 
 
-    <div class="ui-content">
-        <ul data-role="listview" data-inset="true">
-            @if (Model.PickslipCancelDate != null)
-            {
+        <div class="ui-content">
+            <ul data-role="listview" data-inset="true">
+                @if (Model.PickslipCancelDate != null)
+                {
+                    <li class="ui-field-contain">
+                        <label>Pickslip Cancel Date</label>
+                        @Html.DisplayFor(m => m.PickslipCancelDate)
+                    </li>
+                }
                 <li class="ui-field-contain">
-                    <label>Pickslip Cancel Date</label>
-                    @Html.DisplayFor(m => m.PickslipCancelDate)
+                    <label>Customer</label>
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
+                        <h3>@Model.CustomerDisplayName</h3>
+                        <p>
+                            Dept: @Html.DisplayFor(m => m.CustomerDepartmentId) &bull;
+                            DC : @Html.DisplayFor(m => m.CustomerDC) &bull; Store : @Html.DisplayFor(m => m.CustomerStore)
+                            &bull; Vendor # @Html.DisplayFor(m => m.VendorNumber)
+                        </p>
+                    </a>
                 </li>
-            }
-            <li class="ui-field-contain">
-                <label>Customer</label>
-                <a href="@Url.Action(MVC_Inquiry.Inquiry.CustomerEntity.Customer(Model.CustomerId))">
-                    <h3>@Model.CustomerDisplayName</h3>
-                    <p>
-                        Dept: @Html.DisplayFor(m => m.CustomerDepartmentId) &bull;
-                        DC : @Html.DisplayFor(m => m.CustomerDC) &bull; Store : @Html.DisplayFor(m => m.CustomerStore)
-                        &bull; Vendor # @Html.DisplayFor(m => m.VendorNumber)
-                    </p>
-                </a>
-            </li>
-            <li class="ui-field-contain">
-                <label>PO</label>
-                <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.ImportedPo(Model.PoId, Model.CustomerId))">
-                    <h3>@Html.DisplayFor(m => m.PoId)</h3>
-                    <p>Start @Html.DisplayFor(m => m.StartDate) DC cancel @Html.DisplayFor(m => m.DcCancelDate)</p>
-                    <p class="ui-li-aside">@Html.DisplayFor(m => m.ImportDate)</p>
-                </a>
-            </li>
-            <li class="ui-field-contain">
-                <label>Shipping Address</label>
-                @Html.DisplayFor(m => m.ShipAddress)
-            </li>
-            <li class="ui-field-contain">
-                <label>Transfer on </label>
-                @Html.DisplayFor(m => m.TransferDate)
-            </li>
-            <li class="ui-field-contain">
-                <label>Export Flag</label>
-                @Html.DisplayFor(m => m.ExportFlag)
-            </li>
-            <li class="ui-field-contain">
-                <label>Asn Flag</label>
-                @Html.DisplayFor(m => m.AsnFlag)
-            </li>
-            <li class="ui-field-contain">
-                <label>ERP</label>
-                @Html.DisplayFor(m => m.ErpId)
-            </li>
-        </ul>
-        @if (Model.AllSku.Any())
-        {
-            <div data-role="collapsible">
-                <h4>@Model.AllSku.Count SKUs Ordered</h4>
-                <table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive" data-mode="columntoggle">
-                    <thead>
-                        <tr>
-                            <th data-priority="6">#</th>
-                            <th style="text-align:center"><abbr title="SKU">SKU<sup>&#8743;</sup></abbr></th>
-                            <th data-priority="1">Pieces</th>
-                            <th data-priority="2">VWH</th>
-                            <th data-priority="4">Quality</th>
-                            <th data-priority="3">$ Retail Price</th>
-                            <th colspan="2" style="text-align:center" data-priority="6">Constraints</th>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th style="text-align:center">Pieces Per Box</th>
-                            <th style="text-align:center">Pieces Per Package</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.AllSku.Count; i++)
-                        {
+                <li class="ui-field-contain">
+                    <label>PO</label>
+                    <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.ImportedPo(Model.PoId, Model.CustomerId))">
+                        <h3>@Html.DisplayFor(m => m.PoId)</h3>
+                        <p>Start @Html.DisplayFor(m => m.StartDate) DC cancel @Html.DisplayFor(m => m.DcCancelDate)</p>
+                        <p class="ui-li-aside">@Html.DisplayFor(m => m.ImportDate)</p>
+                    </a>
+                </li>
+                <li class="ui-field-contain">
+                    <label>Shipping Address</label>
+                    @Html.DisplayFor(m => m.ShipAddress)
+                </li>
+                <li class="ui-field-contain">
+                    <label>Transfer on </label>
+                    @Html.DisplayFor(m => m.TransferDate)
+                </li>
+                <li class="ui-field-contain">
+                    <label>Export Flag</label>
+                    @Html.DisplayFor(m => m.ExportFlag)
+                </li>
+                <li class="ui-field-contain">
+                    <label>Asn Flag</label>
+                    @Html.DisplayFor(m => m.AsnFlag)
+                </li>
+                <li class="ui-field-contain">
+                    <label>ERP</label>
+                    @Html.DisplayFor(m => m.ErpId)
+                </li>
+            </ul>
+            @if (Model.AllSku.Any())
+            {
+                <div data-role="collapsible">
+                    <h4>@Model.AllSku.Count SKUs Ordered</h4>
+                    <table data-role="table" class="ui-body-d ui-shadow table-stripe ui-responsive" data-mode="columntoggle">
+                        <thead>
                             <tr>
-                                <td style="text-align:center">@(i + 1)</td>
-                                <td style="text-align:center">
-                                    @Html.ActionLink(Model.AllSku[i].DisplaySku, MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllSku[i].SkuId))
-                                </td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].Pieces)</td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].VwhId)</td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].QualityCode)</td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].RetailPrice)</td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) to @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)</td>
-                                <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)</td>
+                                <th data-priority="6">#</th>
+                                <th style="text-align:center"><abbr title="SKU">SKU<sup>&#8743;</sup></abbr></th>
+                                <th data-priority="1">Pieces</th>
+                                <th data-priority="2">VWH</th>
+                                <th data-priority="4">Quality</th>
+                                <th data-priority="3">$ Retail Price</th>
+                                <th colspan="2" style="text-align:center" data-priority="6">Constraints</th>
                             </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td>Total</td>
-                            <td></td>
-                            <td style="text-align:center">@string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="text-align:center">Pieces Per Box</th>
+                                <th style="text-align:center">Pieces Per Package</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.AllSku.Count; i++)
+                            {
+                                <tr>
+                                    <td style="text-align:center">@(i + 1)</td>
+                                    <td style="text-align:center">
+                                        @Html.ActionLink(Model.AllSku[i].DisplaySku, MVC_Inquiry.Inquiry.SkuEntity.Sku(Model.AllSku[i].SkuId))
+                                    </td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].Pieces)</td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].VwhId)</td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].QualityCode)</td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].RetailPrice)</td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].MinPiecesPerBox) to @Html.DisplayFor(m => Model.AllSku[i].MaxPiecesPerBox)</td>
+                                    <td style="text-align:center">@Html.DisplayFor(m => Model.AllSku[i].PiecesPerPackage)</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td style="text-align:center">@string.Format("{0:N0}", Model.AllSku.Sum(c => c.Pieces))</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
 
-                </table>
-            </div>
-        }
-        else
-        {
-            <span class="ui-bar ui-bar-a">No Orders SKUs</span>
-        }
-    </div>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <span class="ui-bar ui-bar-a">No Orders SKUs</span>
+            }
+        </div>
 
-</div>*@
+    </div>*@

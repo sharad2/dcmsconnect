@@ -25,12 +25,22 @@
         </ul>
     </div>
     }*@
+}
+@section applinks{
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(Model.CustomerId,Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.VwhId, null, null, Model.BucketId)))">
+            Add more pickslip
+        </a>
 
-<div class="container">   
-        <h2 style="margin-top:0px;">
-            Add Pickslips <small>@Html.DisplayFor(m => m.CustomerId) @Html.DisplayFor(m => m.CustomerName)</small>
-        </h2>
-  
+    </li>
+    <li class="divider">
+    </li>
+}
+<div class="container">
+    <h2 style="margin-top:0;">
+        Add Pickslips <small>@Html.DisplayFor(m => m.CustomerId) @Html.DisplayFor(m => m.CustomerName)</small>
+    </h2>
+
 
     @if (Model.Bucket == null)
     {
@@ -40,7 +50,10 @@
     }
     else
     {
-        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                               {
+                                   {"IsAuthorized", Model.UserIsManager}
+                               })
     }
     <ul class="list-inline">
         <li>@Html.DisplayFor(m => m.ColDimDisplayName) @Html.DisplayFor(m => m.ColDimVal)</li>
@@ -83,14 +96,14 @@
                                 <input type="checkbox" class="ui-helper-hidden" name='@Model.NameFor(m => m.SelectedPickslip)' value="@Model.PickslipList[i].PickslipId" />
                                 <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
                                    class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
-                               
+
                                 @*<a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PickslipId))' target="PO">@Model.PickslipList[i].PickslipId</a>*@
-                                
+
                             </h4>
                         </div>
                         <div class="col-md-4">
                             <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry"
-                               class="Po">@Model.PickslipList[i].PurchaseOrder</a>
+                               class="Po">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
                             @*<a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>*@
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId) &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
                         </div>
@@ -104,129 +117,137 @@
         </ul>
     }
 </div>
-@*<div class="boxContent">
-    @if (Model.Bucket != null)
-        {
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
-        }
-    <div>
-        @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
-        {
-            <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
-            <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
-            <input type="hidden" name="@Model.NameFor(m => m.RowDimVal)" value="@Model.RowDimVal" />
-            <input type="hidden" name="@Model.NameFor(m => m.ColDimVal)" value="@Model.ColDimVal" />
-            <input type="hidden" name="@Model.NameFor(m => m.RowDimIndex)" value="@Model.RowDimIndex" />
-            <input type="hidden" name="@Model.NameFor(m => m.ColDimIndex)" value="@Model.ColDimIndex" />
-            <input type="hidden" name="@Model.NameFor(m => m.VwhId)" value="@Model.VwhId" />
-
-            if (Model.PickslipList.Count > 0)
-            {
-                if (Model.Bucket != null)
-                {
-                    <blockquote>
-                        Select pickslips first from below list to add in Pick Wave @Model.BucketId.
-                        <button type="submit" @Html.Raw(Model.UserIsManager ? "" : "disabled='disabled'")>Add pickslips</button>
-                    </blockquote>
-                }
-                <table>
-                    <caption>
-                        @string.Format("Pickslips of {0}: {1}; {2}: {3}", Model.ColDimDisplayName, Model.ColDimVal, Model.RowDimDisplayName, Model.RowDimVal)
-                        <span style="font-size: 0.7em;">(VWh : @Model.VwhId)</span>
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th>
-                                <input type="checkbox" id="btnSelectAll" title="Select All/Clear" />
-                                #
-                            </th>
-                            <th>
-                                Pickslip<span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
-                            </th>
-                            <th>
-                                Purchase Order<span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
-                            </th>
-                            <th>
-                                Start Date
-                            </th>
-                            <th>
-                                Imported
-                            </th>
-                            <th>
-                                Customer DC
-                            </th>
-                            <th>
-                                Customer Store
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="pickslipListBody">
-                        @for (var i = 0; i < Model.PickslipList.Count; ++i)
-                        {
-                            <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
-                                <td style="white-space: nowrap; text-align: right">
-                                    <input type="checkbox" class="ui-helper-hidden" name='@Model.NameFor(m => m.SelectedPickslip)' value="@Model.PickslipList[i].PickslipId" />
-                                    @(i + 1)
-                                </td>
-                                <td style="text-align: center">
-                                    <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PickslipId))' target="PO">@Model.PickslipList[i].PickslipId</a>
-                                </td>
-                                <td style="text-align: center">
-                                    <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(m => m.PickslipList[i].StartDate)
-                                </td>
-                                <td style="text-align: center">
-                                    @Html.DisplayFor(m => m.PickslipList[i].PickslipImportDate)
-                                </td>
-                                <td style="text-align: center">
-                                    @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
-                                </td>
-                                <td style="text-align: center">
-                                    @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <span class="ui-state-highlight">No pickslips found for @Model.ColDimDisplayName : @Model.ColDimVal @Model.RowDimDisplayName : @Model.RowDimVal of this customer.</span>
-            }
-        }
-    </div>
-</div>*@
-@section script{
-    @*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
-        <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
-        <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
-        <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />*@
-    @*<style type="text/css">
-            .ui-selected {
-                background-color: rgb(243,152,20) !important;
-            }
-
-            .ui-selectee {
-                cursor: crosshair;
-            }
-            /*These styling is used to showing progress bar when showing bucket information*/
-            .ui-progressbar-value {
-                display: inline-block;
-                text-align: center;
-                font-size: 0.9em;
-                overflow: hidden;
-                font-weight: normal;
-            }
-
-            .ui-progressbar {
-                width: 12em;
-            }
-
-            span.ui-icon {
-                cursor: pointer;
-                display: inline-block;
-            }
-        </style>*@
+@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
+@section script {
+    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
 }
+
+
+
+
+@*<div class="boxContent">
+        @if (Model.Bucket != null)
+            {
+                @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket)
+            }
+        <div>
+            @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
+            {
+                <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
+                <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
+                <input type="hidden" name="@Model.NameFor(m => m.RowDimVal)" value="@Model.RowDimVal" />
+                <input type="hidden" name="@Model.NameFor(m => m.ColDimVal)" value="@Model.ColDimVal" />
+                <input type="hidden" name="@Model.NameFor(m => m.RowDimIndex)" value="@Model.RowDimIndex" />
+                <input type="hidden" name="@Model.NameFor(m => m.ColDimIndex)" value="@Model.ColDimIndex" />
+                <input type="hidden" name="@Model.NameFor(m => m.VwhId)" value="@Model.VwhId" />
+
+                if (Model.PickslipList.Count > 0)
+                {
+                    if (Model.Bucket != null)
+                    {
+                        <blockquote>
+                            Select pickslips first from below list to add in Pick Wave @Model.BucketId.
+                            <button type="submit" @Html.Raw(Model.UserIsManager ? "" : "disabled='disabled'")>Add pickslips</button>
+                        </blockquote>
+                    }
+                    <table>
+                        <caption>
+                            @string.Format("Pickslips of {0}: {1}; {2}: {3}", Model.ColDimDisplayName, Model.ColDimVal, Model.RowDimDisplayName, Model.RowDimVal)
+                            <span style="font-size: 0.7em;">(VWh : @Model.VwhId)</span>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="btnSelectAll" title="Select All/Clear" />
+                                    #
+                                </th>
+                                <th>
+                                    Pickslip<span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
+                                </th>
+                                <th>
+                                    Purchase Order<span class="ui-icon ui-icon-extlink" style="display: inline-block" title="Inquiry link"></span>
+                                </th>
+                                <th>
+                                    Start Date
+                                </th>
+                                <th>
+                                    Imported
+                                </th>
+                                <th>
+                                    Customer DC
+                                </th>
+                                <th>
+                                    Customer Store
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="pickslipListBody">
+                            @for (var i = 0; i < Model.PickslipList.Count; ++i)
+                            {
+                                <tr class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                                    <td style="white-space: nowrap; text-align: right">
+                                        <input type="checkbox" class="ui-helper-hidden" name='@Model.NameFor(m => m.SelectedPickslip)' value="@Model.PickslipList[i].PickslipId" />
+                                        @(i + 1)
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PickslipId))' target="PO">@Model.PickslipList[i].PickslipId</a>
+                                    </td>
+                                    <td style="text-align: center">
+                                        <a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(m => m.PickslipList[i].StartDate)
+                                    </td>
+                                    <td style="text-align: center">
+                                        @Html.DisplayFor(m => m.PickslipList[i].PickslipImportDate)
+                                    </td>
+                                    <td style="text-align: center">
+                                        @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+                                    </td>
+                                    <td style="text-align: center">
+                                        @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <span class="ui-state-highlight">No pickslips found for @Model.ColDimDisplayName : @Model.ColDimVal @Model.RowDimDisplayName : @Model.RowDimVal of this customer.</span>
+                }
+            }
+        </div>
+    </div>*@
+@*@section script{*@
+@*<script src="@Links_PickWaves.Scripts.jquery_validate_js" type="text/javascript"></script>
+    <script src="@Links_PickWaves.Scripts.jquery_validate_unobtrusive_js" type="text/javascript"></script>
+    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_js" type="text/javascript"></script>
+    <link type="text/css" href="@Links_PickWaves.Areas.PickWaves.CreateWave.CreateWave_PickslipList_css" rel="stylesheet" />*@
+@*<style type="text/css">
+        .ui-selected {
+            background-color: rgb(243,152,20) !important;
+        }
+
+        .ui-selectee {
+            cursor: crosshair;
+        }
+        /*These styling is used to showing progress bar when showing bucket information*/
+        .ui-progressbar-value {
+            display: inline-block;
+            text-align: center;
+            font-size: 0.9em;
+            overflow: hidden;
+            font-weight: normal;
+        }
+
+        .ui-progressbar {
+            width: 12em;
+        }
+
+        span.ui-icon {
+            cursor: pointer;
+            display: inline-block;
+        }
+    </style>*@
+@* } *@

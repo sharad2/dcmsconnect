@@ -155,10 +155,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 public readonly string Index = "Index";
                 public readonly string IndexNoPickslips = "IndexNoPickslips";
                 public readonly string PickslipList = "PickslipList";
+                public readonly string PickslipList_js = "PickslipList.js";
             }
             public readonly string Index = "~/Areas/PickWaves/CreateWave/Index.cshtml";
             public readonly string IndexNoPickslips = "~/Areas/PickWaves/CreateWave/IndexNoPickslips.cshtml";
             public readonly string PickslipList = "~/Areas/PickWaves/CreateWave/PickslipList.cshtml";
+            public readonly string PickslipList_js = "~/Areas/PickWaves/CreateWave/PickslipList.js.bundle";
         }
     }
 
