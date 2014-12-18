@@ -182,7 +182,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public IList<PullRequestSkuModel> SkuList { get; set; }
 
-        public IList<AssignedCartonListModel> CartonList { get; set; }
+       // public IList<AssignedCartonListModel> CartonList { get; set; }
 
 
     }
