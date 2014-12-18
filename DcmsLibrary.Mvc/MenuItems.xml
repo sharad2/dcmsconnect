@@ -158,8 +158,12 @@
     </item>
     <item route="DcmsConnect_SearchPo3" name="TODO">
     </item>
+    <item route="DcmsConnect_SearchPoImported3" name="TODO">
+    </item>
     <item route="DcmsConnect_SearchPickslip1" name="TODO">
     </item>
+    <item route="DcmsConnect_SearchPickslipImported1" name="TODO">
+    </item>    
     <item route="DcmsConnect_SearchUpc1" name="TODO">
     </item>
     <item route="DcmsConnect_SearchStyle1" name="TODO">

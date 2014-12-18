@@ -317,20 +317,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 model.RowDimVal = model.RowDimVal.Trim();
             }
 
-            // If user want to see pickslip list.
-            //if (!string.IsNullOrWhiteSpace(viewPickslips))
-            //{
-            //    return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new PickslipListViewModel
-            //    {
-            //        BucketId = model.LastBucketId.Value,
-            //        RowDimIndex = model.RowDimIndex,
-            //        ColDimIndex = model.ColDimIndex,
-            //        RowDimVal = model.RowDimVal,
-            //        ColDimVal = model.ColDimVal,
-            //        CustomerId = model.CustomerId,
-            //        VwhId = model.VwhId
-            //    }));
-            //}
             if (!ModelState.IsValid)
             {
                 return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
@@ -408,9 +394,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Pickslip list of passed dimension.
             var pickslips = _service.GetPickslipList(model.CustomerId, model.VwhId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             model.PickslipList = (from pickslip in pickslips
-                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1]
+                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1]
                                    // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
-                                  let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
+                                  let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3]
                                   select new PickslipModel
                                   {
                                       PickslipId = pickslip.PickslipId,
@@ -421,11 +407,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                       StartDate = pickslip.StartDate,
                                       CustomerDcId = pickslip.CustomerDcId,
                                       CustomerStoreId = pickslip.CustomerStoreId,
-                                      UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
+                                      UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1, new
                                       {
                                           id = pickslip.PickslipId
                                       }),
-                                     UrlInquiryPurchaseOrder = routePo == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3, new
+                                      UrlInquiryPurchaseOrder = routePo == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3, new
                                             {
                                                 id = pickslip.PurchaseOrder,
                                                 pk1 = pickslip.CustomerId,

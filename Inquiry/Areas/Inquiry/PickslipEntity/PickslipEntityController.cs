@@ -104,7 +104,7 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
             return result;
         }
 
-        [Route("psimp/{id:long}")]
+        [Route("psimp/{id:long}", Name=DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1)]
         [SearchQuery(@"SELECT {0}, TO_CHAR(p.pickslip_id), 'In Order Bucket Pickslip', NULL, NULL FROM <proxy />dem_pickslip p WHERE p.pickslip_id = :int_value AND p.ps_status_id = 1",
             Group = "ps", Rating = 2)]
         public virtual ActionResult PickslipImported(long? id)
@@ -151,7 +151,7 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
         /// <param name="id"></param>
         /// <param name="pk1"></param>
         /// <returns></returns>
-        [Route("po/{id}/{pk1}")]
+        [Route("po/{id}/{pk1}",Name=DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3)]
         [SearchQuery(@"
 SELECT {0}, t.customer_order_id,
                            'In Order Bucket PO starting ' || TO_CHAR(MAX(t.DELIVERY_DATE)) ||
