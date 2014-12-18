@@ -28,7 +28,7 @@
 
 @section applinks{
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, null, null, Model.BucketId))">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.BucketId))">
             Add more pickslip
         </a>
 
@@ -60,7 +60,7 @@
         <li>@Html.DisplayFor(m => m.ColDimDisplayName) <em> @Html.DisplayFor(m => m.ColDimVal)</em></li>
         <li>@Html.DisplayFor(m => m.RowDimDisplayName) <em>@Html.DisplayFor(m => m.RowDimVal)</em></li>
         <li><abbr title="Virtual Warehouse">VWH</abbr> <em>@Model.VwhId</em></li>
-        <li><a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId, Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, null, null, Model.BucketId))">Change</a></li>
+        <li><a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId, Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.BucketId))">Change</a></li>
     </ul>
     @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
     {

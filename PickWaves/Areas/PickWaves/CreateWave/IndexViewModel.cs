@@ -52,22 +52,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         public int? LastBucketId { get; set; }
 
-        #region Posted Values while creating new pick wave
-
-        [Display(Name = "Pulling")]
-        public string PullAreaId { get; set; }
-
-        [Display(Name = "Pitching")]
-        public string PitchAreaId { get; set; }
-
-        [Display(Name = "Require Box Expediting")]
-        public bool RequiredBoxExpediting { get; set; }
-
-        [Display(Name = "Quick Pitch")]
-        public bool QuickPitch { get; set; }
-        #endregion
-
-        public IList<SelectListItem> PullAreas { get; set; }
 
         public IList<SelectListItem> PitchAreas { get; set; }
 

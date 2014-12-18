@@ -52,7 +52,9 @@
             <fieldset>
                 <legend class="text-success">Create New Pick Wave</legend>
 
-                <form class="form-horizontal" role="form">
+                <p>When you add picklips, a new default pick wave will be created for you. You will be able to edit the properties of the pick wave later.</p>
+
+                @*<form class="form-horizontal" role="form">
                     @if (Model.PullAreas.Count > 0)
                     {
                     <div class="form-group">
@@ -95,7 +97,8 @@
                         </div>
                     </div>
                     }
-                </form>
+                </form>*@
+
             </fieldset>
         }
         else
@@ -114,7 +117,7 @@
                 <p>
                     This pick wave contains <span class="h4">@Html.DisplayFor(m => m.PickslipCount) pickslips</span>. Continue adding pickslips below or
                     @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,
-               Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null))
+               Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, null))
                 </p>
                 <dl class="dl-horizontal">
                     <dt>Pull From</dt>
@@ -197,19 +200,15 @@
                                     </div>
                                     <div class="col-md-4">
                                         <form role="form" action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">
-                                            @*@Html.HiddenFor(m => m.LastBucketId)
-                                            @Html.HiddenFor(m => m.CustomerId)
-                                            @Html.HiddenFor(m => m.VwhId)
-                                            @Html.HiddenFor(m => m.RowDimIndex)
-                                            @Html.HiddenFor(m => m.ColDimIndex)*@
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.bucketId" value="@Model.LastBucketId" />
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.customerId" value="@Model.CustomerId" />
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.vwhId" value="@Model.VwhId" />
 
-                                            <input type="hidden" name="@Html.NameFor(m => m.LastBucketId)" value="@Model.LastBucketId" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.VwhId)" value="@Model.VwhId" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.RowDimIndex)" value="@Model.RowDimIndex" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.ColDimIndex)" value="@Model.ColDimIndex" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.RowDimVal)" value="@Model.Rows[i].DimensionValue" />
-                                            <input type="hidden" name="@Html.NameFor(m => m.ColDimVal)" value="@item.Key" />
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowPair" value="ToDo" />
+                                            @*<input type="hidden" name="@Html.NameFor(m => m.RowDimVal)" value="@Model.Rows[i].DimensionValue" />*@
+
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colPair" value="ToDo" />                                          
+                                            @*<input type="hidden" name="@Html.NameFor(m => m.ColDimVal)" value="@item.Key" />*@
 
                                             <button type="submit" class="btn btn-primary pull-right">Add @Model.Rows[i].OrderedPieces[item.Key] pcs</button>
                                         </form>
