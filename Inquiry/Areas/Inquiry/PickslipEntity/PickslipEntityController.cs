@@ -122,7 +122,7 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
             }
             var model = new PickslipViewModel(pickslip)
             {
-                AllSku = _repos.Value.GetSkuOfTransferPickslip(id.Value).Select(p => new PickslipSkuModel(p)).ToArray(),
+                AllSku = _repos.Value.GetSkuOfImportedPickslip(id.Value).Select(p => new PickslipSkuModel(p)).ToArray(),
                 AllBoxes = new BoxHeadlineModel[0]
             };
             model.ModelTitle = string.Format("In Order Bucket Pickslip {0}", id);
@@ -141,7 +141,7 @@ namespace DcmsMobile.Inquiry.Areas.Inquiry.PickslipEntity
         public virtual ActionResult PickslipImportedExcel(long id)
         {
             var result = new ExcelResult("Pickslip_" + id);
-            result.AddWorkSheet(_repos.Value.GetSkuOfTransferPickslip(id).Select(p => new PickslipSkuModel(p)).ToArray(), "SKUs", "List od SKUs in Pickslip " + id);
+            result.AddWorkSheet(_repos.Value.GetSkuOfImportedPickslip(id).Select(p => new PickslipSkuModel(p)).ToArray(), "SKUs", "List od SKUs in Pickslip " + id);
             return result;
         }
 

@@ -371,22 +371,23 @@ AND PS.PICKSLIP_ID = :pickslip_id
             return _db.ExecuteSingle(QUERY_PICKSLIP_INFO, binder);
         }
 
-        public IList<PickslipSku> GetSkuOfTransferPickslip(long pickslipId)
+        public IList<PickslipSku> GetSkuOfImportedPickslip(long pickslipId)
         {
             Contract.Assert(_db != null);
             const string QUERY_TRANSFER_PICKSLIP_DETAIL = @"
             SELECT 
-                   MAX(MSKU.SKU_ID)            AS SKU_ID,
+                   MSKU.SKU_ID            AS SKU_ID,
                    PS.VWH_ID                   AS VWH_ID,
                    DEMPS.STYLE                 AS STYLE,
                    DEMPS.COLOR                 AS COLOR,
                    DEMPS.DIMENSION             AS DIMENSION,
                    DEMPS.SKU_SIZE              AS SKU_SIZE,
                    DEMPS.QUALITY_CODE          AS QUALITY_CODE,
-                   SUM(DEMPS.QUANTITY_ORDERED) AS QUANTITY_ORDERED,
-                   MAX(DEMPS.MIN_PIECES_PER_BOX) AS MIN_PIECES_PER_BOX,
-                   MAX(DEMPS.MAX_PIECES_PER_BOX) AS MAX_PIECES_PER_BOX,
-                   MAX(DEMPS.PIECES_PER_PACKAGE) AS PIECES_PER_PACKAGE
+                   DEMPS.QUANTITY_ORDERED AS QUANTITY_ORDERED,
+                   DEMPS.MIN_PIECES_PER_BOX AS MIN_PIECES_PER_BOX,
+                   DEMPS.MAX_PIECES_PER_BOX AS MAX_PIECES_PER_BOX,
+                   DEMPS.PIECES_PER_PACKAGE AS PIECES_PER_PACKAGE,
+demps.extended_price as extended_price
               FROM <proxy />DEM_PICKSLIP_DETAIL DEMPS
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
                 ON MSKU.STYLE = DEMPS.STYLE
@@ -396,12 +397,6 @@ AND PS.PICKSLIP_ID = :pickslip_id
              INNER JOIN <proxy />DEM_PICKSLIP PS
                 ON PS.PICKSLIP_ID = DEMPS.PICKSLIP_ID
              WHERE DEMPS.PICKSLIP_ID = :PICKSLIP_ID
-             GROUP BY DEMPS.STYLE,
-                      DEMPS.COLOR,
-                      DEMPS.DIMENSION,
-                      DEMPS.SKU_SIZE,
-                      DEMPS.QUALITY_CODE,
-                      PS.VWH_ID
              ORDER BY DEMPS.STYLE, DEMPS.COLOR, DEMPS.DIMENSION, DEMPS.SKU_SIZE
             ";
             var binder = SqlBinder.Create(row => new PickslipSku
@@ -411,13 +406,13 @@ AND PS.PICKSLIP_ID = :pickslip_id
                 Dimension = row.GetString("DIMENSION"),
                 SkuSize = row.GetString("SKU_SIZE"),
                 SkuId = row.GetInteger("SKU_ID") ?? 0,
-                //Upc = row.GetString("UPC_CODE"),
                 Pieces = row.GetInteger("QUANTITY_ORDERED"),
                 QualityCode = row.GetString("QUALITY_CODE"),
                 VwhId = row.GetString("VWH_ID"),
                 PiecesPerPackage = row.GetInteger("PIECES_PER_PACKAGE").Value,
                 MaxPiecesPerBox = row.GetInteger("MAX_PIECES_PER_BOX"),
-                MinPiecesPerBox = row.GetInteger("MIN_PIECES_PER_BOX")
+                MinPiecesPerBox = row.GetInteger("MIN_PIECES_PER_BOX"),
+                RetailPrice = row.GetDecimal("extended_price")
             }).Parameter("PICKSLIP_ID", pickslipId);
 
             return _db.ExecuteReader(QUERY_TRANSFER_PICKSLIP_DETAIL, binder);
