@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <remarks>
         /// Passed selectedRowDimIndex and selectedColDimIndex are ignored if it turns out that either of them have no pickslips
         /// </remarks>
-        private bool PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model)
+        private bool PopulatePickslipMatrixPartialModel(IndexViewModel model)
         {
             //model.CustomerId = customerId;
             //PickslipDimension pdimRow;

@@ -1,25 +1,22 @@
-﻿using EclipseLibrary.Mvc.Helpers;
+﻿using DcmsMobile.PickWaves.ViewModels;
+using EclipseLibrary.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     /// <summary>
     /// The unbinder is capable of handling many properties.
     /// </summary>
-    public class IndexViewModel : PickslipMatrixPartialViewModel
+    public class IndexViewModel : ViewModelBase
     {
         public IndexViewModel()
         {
         }
-
-        //public IndexViewModel(string customerId)
-        //{
-        //    CustomerId = customerId;
-        //}
 
         public IndexViewModel(string customerId, int? bucketId = null)
         {
@@ -86,7 +83,72 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         #endregion
 
+        [Display(Name = "Virtual Warehouse")]
+        public string VwhId { get; set; }
 
+        private IList<SelectListItem> _vwhList;
+        public IList<SelectListItem> VwhList
+        {
+            get
+            {
+                return _vwhList ?? new SelectListItem[0];
+            }
+            set
+            {
+                _vwhList = value;
+            }
+        }
+
+        public string CustomerId { get; set; }
+
+        private IList<RowDimensionModel> _rows;
+        public IList<RowDimensionModel> Rows
+        {
+            get
+            {
+                return _rows ?? new List<RowDimensionModel>();
+            }
+            set
+            {
+                _rows = value;
+            }
+        }
+
+        /// <summary>
+        /// Unique dimension values for the column
+        /// </summary>
+        public IList<string> ColDimensionValues { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int GrandTotalPickslips
+        {
+            get
+            {
+                return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
+            }
+        }
+
+        #region Posted Values
+        public PickslipDimension RowDimIndex { get; set; }
+
+        public PickslipDimension ColDimIndex { get; set; }
+
+        /// <summary>
+        /// Value of the dimension in the selected column. This is posted.
+        /// </summary>        
+        public string ColDimVal { get; set; }
+
+        public string RowDimVal { get; set; }
+
+        #endregion
+
+        public IList<SelectListItem> RowDimensionList { get; set; }
+
+        public IList<SelectListItem> ColDimensionList { get; set; }
+
+        public string RowDimDisplayName { get; set; }
+
+        public string ColDimDisplayName { get; set; }
 
         public static string OrderSummaryReportUrl
         {
@@ -98,28 +160,4 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
     }
 
-    //[Obsolete]
-    //internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
-    //{
-    //    public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
-    //    {
-    //        base.UnbindModel(routeValueDictionary, routeName, value);
-    //        var model = value as IndexViewModel;
-
-    //        if (model.LastBucketId.HasValue)
-    //        {
-    //            routeValueDictionary.Add(model.NameFor(m => m.LastBucketId), model.LastBucketId);
-    //        }
-
-    //        // After a bucket has been created, show these settings as default
-    //        if (!string.IsNullOrWhiteSpace(model.PitchAreaId))
-    //        {
-    //            routeValueDictionary.Add(model.NameFor(m => m.PitchAreaId), model.PitchAreaId);
-    //        }
-    //        if (!string.IsNullOrWhiteSpace(model.PullAreaId))
-    //        {
-    //            routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
-    //        }
-    //    }
-    //}
 }
