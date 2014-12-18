@@ -179,7 +179,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             if (string.IsNullOrWhiteSpace(vwhId))
             {
                 throw new ArgumentNullException("vwhId");
-            }          
+            }
+            if (col1 == PickslipDimension.NotSet)
+            {
+                throw new ArgumentOutOfRangeException("col1");
+            }
+            if (col2 == PickslipDimension.NotSet)
+            {
+                throw new ArgumentOutOfRangeException("col2");
+            }
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
                 {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},

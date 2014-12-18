@@ -61,9 +61,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         }
 
         #region Posted Values
-        public int? RowDimIndex { get; set; }
+        public PickslipDimension RowDimIndex { get; set; }
 
-        public int? ColDimIndex { get; set; }
+        public PickslipDimension ColDimIndex { get; set; }
 
         /// <summary>
         /// Value of the dimension in the selected column. This is posted.

@@ -10,6 +10,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// </remarks>
     public enum PickslipDimension
     {
+        NotSet,
+
         /// <summary>
         /// Value Type: string
         /// </summary>

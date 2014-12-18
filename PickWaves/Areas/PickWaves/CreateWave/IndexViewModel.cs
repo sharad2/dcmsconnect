@@ -27,7 +27,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             LastBucketId = bucketId;
         }
 
-        internal IndexViewModel(string customerId, int rowDimIndex, int colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
+        internal IndexViewModel(string customerId, PickslipDimension rowDimIndex, PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
         {
             CustomerId = customerId;
             RowDimIndex = rowDimIndex;

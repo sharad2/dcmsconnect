@@ -1,16 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Web.Routing;
-using EclipseLibrary.Mvc.Helpers;
-using DcmsMobile.PickWaves.ViewModels;
-using System;
+﻿using DcmsMobile.PickWaves.ViewModels;
+using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
-    public class PickslipListViewModel : PickslipMatrixPartialViewModel
+    public class PickslipListViewModel :ViewModelBase
     {
         public PickslipListViewModel()
         {
         }
+
+        public string CustomerId { get; set; }
+
+        public PickslipDimension RowDimIndex { get; set; }
+
+        public PickslipDimension ColDimIndex { get; set; }
+
+        public string ColDimVal { get; set; }
+
+        public string RowDimVal { get; set; }
+
+        public string VwhId { get; set; }
+
+        public string RowDimDisplayName { get; set; }
+
+        public string ColDimDisplayName { get; set; }
+   
 
         public IList<PickslipModel> PickslipList { get; set; }
 
@@ -24,6 +38,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public int? BucketId { get; set; }
 
         public BucketModel Bucket { get; set; }
+
     }
 
     //internal class PickslipListViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder

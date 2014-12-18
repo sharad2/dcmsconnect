@@ -22,7 +22,7 @@
 
     </li>
 }
-@helper OptionAttributes(SelectListItem item, int? selectedIndex)
+@helper OptionAttributes(SelectListItem item, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension selectedIndex)
 {
     @:value="@item.Value"
 
@@ -33,7 +33,7 @@
     }
     else
     {
-        if (selectedIndex != null && item.Value == selectedIndex.ToString())
+        if (item.Value == selectedIndex.ToString())
         {
             @:selected="selected"
         }
@@ -114,7 +114,7 @@
                 <p>
                     This pick wave contains <span class="h4">@Html.DisplayFor(m => m.PickslipCount) pickslips</span>. Continue adding pickslips below or
                     @Html.ActionLink("Create New Wave", MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,
-               Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null))
+               Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.PullAreaId, Model.PitchAreaId, null))
                 </p>
                 <dl class="dl-horizontal">
                     <dt>Pull From</dt>
@@ -192,9 +192,8 @@
                                                 @Model.ColDimDisplayName @item.Key
                                             </div>
                                             <div class="col-md-4">
-                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(Model.CustomerId,Model.RowDimIndex ?? 0,Model.Rows[i].DimensionValue,
-                                Model.ColDimIndex ?? 0, item.Key, Model.VwhId, Model.LastBucketId))
-                                        ">@item.Value&nbsp; pickslips</a>
+                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(Model.CustomerId,Model.RowDimIndex,Model.Rows[i].DimensionValue,
+                                Model.ColDimIndex, item.Key, Model.VwhId, Model.LastBucketId))">@item.Value&nbsp; pickslips</a>
                                     </div>
                                     <div class="col-md-4">
                                         <form role="form" action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">

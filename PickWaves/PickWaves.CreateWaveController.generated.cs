@@ -182,10 +182,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public T4MVC_CreateWaveController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, int? rowDimIndex, int? colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string customerId, int? rowDimIndex, int? colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
+        public override System.Web.Mvc.ActionResult Index(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
@@ -212,10 +212,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         }
 
         [NonAction]
-        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, int rowDimIndex, string rowDimVal, int colDimIndex, string colDimVal, string vwhId, int? bucketId);
+        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, string rowDimVal, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string colDimVal, string vwhId, int? bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PickslipList(string customerId, int rowDimIndex, string rowDimVal, int colDimIndex, string colDimVal, string vwhId, int? bucketId)
+        public override System.Web.Mvc.ActionResult PickslipList(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, string rowDimVal, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string colDimVal, string vwhId, int? bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PickslipList);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
