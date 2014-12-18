@@ -7,6 +7,7 @@ using System.Web;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
+ 
     public class PullRequestSkuModel
     {
         public PullRequestSkuModel()
@@ -24,7 +25,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 Dimension = entity.SourceSku.Dimension,
                 SkuSize = entity.SourceSku.SkuSize,
                 SkuId = entity.SourceSku.SkuId,
-                UpcCode = entity.SourceSku.UpcCode
+               
             };
             if (entity.TargetSku != null)
             {
@@ -35,7 +36,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     Dimension = entity.TargetSku.Dimension,
                     SkuSize = entity.TargetSku.SkuSize,
                     SkuId = entity.TargetSku.SkuId,
-                    UpcCode = entity.TargetSku.UpcCode
+                   
                 };
             }
 
@@ -46,6 +47,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public int RequestedPieces { get; set; }
 
+        [Required(ErrorMessage = "{0} is required")]
+        public SkuModel SourceSku { get; set; }
+
         [Display(Name = "SKU")]
         public string DisplaySku
         {
@@ -55,11 +59,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }
         }
 
-        [Display(Name = "Source SKU")]
-        [Required(ErrorMessage = "{0} is required")]
-        public SkuModel SourceSku { get; set; }
-
-        [Display(Name = "Target SKU")]
         [Required(ErrorMessage = "{0} is required")]
         public SkuModel TargetSku { get; set; }
 
@@ -74,41 +73,41 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
     }
 
-    public class AssignedCartonListModel
-    {
+    //public class AssignedCartonListModel
+    //{
 
-        public AssignedCartonListModel()
-        {
+    //    public AssignedCartonListModel()
+    //    {
             
-        }
-        internal AssignedCartonListModel(AssignedCarton entity)
-        {
-            this.Sku = new SkuModel
-            {
-                Style = entity.Sku.Style,
-                Color = entity.Sku.Color,
-                Dimension = entity.Sku.Dimension,
-                SkuSize = entity.Sku.SkuSize
-            };
+    //    }
+    //    internal AssignedCartonListModel(AssignedCarton entity)
+    //    {
+    //        this.Sku = new SkuModel
+    //        {
+    //            Style = entity.Sku.Style,
+    //            Color = entity.Sku.Color,
+    //            Dimension = entity.Sku.Dimension,
+    //            SkuSize = entity.Sku.SkuSize
+    //        };
            
-            this.TotalCartons = entity.TotalCartons;
-            this.TotalPieces = entity.TotalPieces;
-            this.PulledCartons = entity.PulledCartons;
-            this.PulledPieces = entity.PulledPieces;
-        }
+    //        this.TotalCartons = entity.TotalCartons;
+    //        this.TotalPieces = entity.TotalPieces;
+    //        this.PulledCartons = entity.PulledCartons;
+    //        this.PulledPieces = entity.PulledPieces;
+    //    }
 
-        public SkuModel Sku { get; set; }
+    //    public SkuModel Sku { get; set; }
 
-        public int TotalCartons { get; set; }
+    //    public int TotalCartons { get; set; }
 
-        public int PulledCartons { get; set; }
+    //    public int PulledCartons { get; set; }
 
-        public int TotalPieces { get; set; }
+    //    public int TotalPieces { get; set; }
 
-        public int PulledPieces { get; set; }
+    //    public int PulledPieces { get; set; }
 
 
-    }
+    //}
 
     public class PullRequestViewModel
     {

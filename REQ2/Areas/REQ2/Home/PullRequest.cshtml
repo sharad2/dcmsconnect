@@ -83,7 +83,7 @@
         </div>
     </div>
 
-    <div class="panel panel-default">
+    @*<div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
                 Cartons
@@ -141,13 +141,15 @@
                 }
             </ul>
         </div>
-    </div>
+    </div>*@
     
 
 </div>
 
 @section script {
     <script type="text/javascript">
+
+        //Deletes the SKU from request. 
         $(document).on('click', 'button[data-priority-url]', function (e) {
             var $li = $(this).closest('li');
             // Remove content first
