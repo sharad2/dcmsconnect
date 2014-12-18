@@ -1,9 +1,9 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.ViewModels;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
@@ -98,6 +98,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public string SearchUserName { get; set; }
 
         public string SearchCustomerId { get; set; }
+
+        /// <summary>
+        /// The layout page displays a Show All link when this is true. Individual actions are expected to set this..
+        /// </summary>
+        public bool IsUserNameFilterApplied { get; set; }
+
+        /// <summary>
+        /// The layout page displays a Show All link when this is true. Individual actions are expected to set this..
+        /// </summary>
+        public bool IsCustomerFilterApplied { get; set; }
     }
 }
 
