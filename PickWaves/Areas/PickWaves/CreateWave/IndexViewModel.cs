@@ -18,22 +18,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         {
         }
 
-        public IndexViewModel(string customerId, int? bucketId = null)
-        {
-            CustomerId = customerId;
-            LastBucketId = bucketId;
-        }
+        //public IndexViewModel(string customerId, int? bucketId = null)
+        //{
+        //    CustomerId = customerId;
+        //    LastBucketId = bucketId;
+        //}
 
-        internal IndexViewModel(string customerId, PickslipDimension rowDimIndex, PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
-        {
-            CustomerId = customerId;
-            RowDimIndex = rowDimIndex;
-            ColDimIndex = colDimIndex;
-            VwhId = vwhId;
-            PullAreaId = pullAreaId;
-            PitchAreaId = pitchAreaId;
-            LastBucketId = lastBucketId;
-        }
+        //internal IndexViewModel(string customerId, PickslipDimension rowDimIndex, PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
+        //{
+        //    CustomerId = customerId;
+        //    RowDimIndex = rowDimIndex;
+        //    ColDimIndex = colDimIndex;
+        //    VwhId = vwhId;
+        //    PullAreaId = pullAreaId;
+        //    PitchAreaId = pitchAreaId;
+        //    LastBucketId = lastBucketId;
+        //}
 
         public string CustomerName { get; set; }
 
