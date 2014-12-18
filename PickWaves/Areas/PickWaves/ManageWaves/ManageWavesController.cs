@@ -356,13 +356,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             var bucket = _service.GetBucket(bucketId);
             var pickslips = _service.GetBucketPickslip(bucketId);
-            //var pickslip1 = pickslips.First();
-            //var x = Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3, new
-            //                                {
-            //                                    id = pickslip1.PurchaseOrder,
-            //                                    pk1 = pickslip1.CustomerId,
-            //                                    pk2 = pickslip1.Iteration
-            //                                });
            
             var model = new WavePickslipsViewModel
                 {
@@ -370,19 +363,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
-                                    select new PickslipModel
+                                    select new PickslipModel(pickslip)
                                         {
-                                            PickslipId = pickslip.PickslipId,
-                                            PurchaseOrder = pickslip.PurchaseOrder,
-                                            CustomerDcId = pickslip.CustomerDcId,
-                                            CustomerStoreId = pickslip.CustomerStoreId,
-                                            VwhId = pickslip.VwhId,
-                                            OrderedPieces = pickslip.OrderedPieces,
-                                            CurrentPieces = pickslip.CurrentPieces,
-                                            CancelledBoxCount = pickslip.CancelledBoxCount,
-                                            PiecesInCancelledBoxes = pickslip.PiecesInCancelledBoxes,
-                                            BoxCount = pickslip.BoxCount,
-                                            IsFrozenWave = pickslip.IsFrozenWave,
                                             UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
                                             {
                                                 id = pickslip.PickslipId

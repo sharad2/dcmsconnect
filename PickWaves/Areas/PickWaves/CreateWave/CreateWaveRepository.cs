@@ -143,7 +143,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     break;
 
                 case PickslipDimension.CustomerDcCancelDate:
-                    clause = "DEMPS.DC_CANCEL_DATE BETWEEN CAST(:{0} AS DATE) AND CAST(:{0} + 1 AS DATE)";
+                    clause = "(DEMPS.DC_CANCEL_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DC_CANCEL_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
                     break;
 
                 case PickslipDimension.CustomerDc:
@@ -176,7 +176,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 throw new ArgumentNullException("customerId");
             }
-           
+            if (string.IsNullOrWhiteSpace(vwhId))
+            {
+                throw new ArgumentNullException("vwhId");
+            }          
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
                 {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},
@@ -201,7 +204,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 FROM <proxy />DEM_PICKSLIP T
                WHERE T.PS_STATUS_ID = 1
                  AND T.CUSTOMER_ID = :CUSTOMER_ID
-             <if>AND T.VWH_ID = :VWH_ID</if>)
+             AND T.VWH_ID = :VWH_ID)
             SELECT PICKSLIP_DIMENSION, {3}, CAST(DIM_COL_XML AS VARCHAR2(4000)) AS DIM_COL_XML
               FROM Q1 PIVOT XML(COUNT(PICKSLIP_ID) AS PICKSLIP_COUNT,SUM(Q1.TOTAL_QUANTITY_ORDERED) AS ORDER_COUNT FOR DIM_COL IN(ANY))
              ORDER BY PICKSLIP_DIMENSION

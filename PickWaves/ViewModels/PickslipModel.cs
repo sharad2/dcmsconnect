@@ -1,10 +1,35 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.ViewModels
 {
     public class PickslipModel
     {
+        public PickslipModel()
+        {
+
+        }
+
+        internal PickslipModel(Pickslip entity)
+        {
+            PickslipId = entity.PickslipId;
+            PurchaseOrder = entity.PurchaseOrder;
+            VwhId = entity.VwhId;
+            CancelDate = entity.CancelDate;
+            PickslipImportDate = entity.PickslipImportDate;
+            StartDate = entity.StartDate;
+            CustomerDcId = entity.CustomerDcId;
+            CustomerStoreId = entity.CustomerStoreId;
+            OrderedPieces = entity.OrderedPieces;
+            CurrentPieces = entity.CurrentPieces;
+            CancelledBoxCount = entity.CancelledBoxCount;
+            PiecesInCancelledBoxes = entity.PiecesInCancelledBoxes;
+            BoxCount = entity.BoxCount;
+            IsFrozenWave = entity.IsFrozenWave;
+            DcCancelDate=entity.DcCancelDate;
+
+        }
         [Display(Name = "Pickslip")]
         public long PickslipId { get; set; }
 
@@ -77,7 +102,7 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return (int)Math.Round((decimal)this.CurrentPieces * 100 / (decimal)this.OrderedPieces);
             }
         }
-        
+
         /// <summary>
         /// Total number of cancelled boxes in this pickslip
         /// </summary>
@@ -108,6 +133,6 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         public string UrlInquiryPurchaseOrder { get; set; }
 
-       
+
     }
 }

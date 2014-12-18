@@ -397,16 +397,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1]
                                    // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                   let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3]
-                                  select new PickslipModel
+                                  select new PickslipModel(pickslip)
                                   {
-                                      PickslipId = pickslip.PickslipId,
-                                      PurchaseOrder = pickslip.PurchaseOrder,
-                                      VwhId = pickslip.VwhId,
-                                      CancelDate = pickslip.CancelDate,
-                                      PickslipImportDate = pickslip.PickslipImportDate,
-                                      StartDate = pickslip.StartDate,
-                                      CustomerDcId = pickslip.CustomerDcId,
-                                      CustomerStoreId = pickslip.CustomerStoreId,
                                       UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1, new
                                       {
                                           id = pickslip.PickslipId

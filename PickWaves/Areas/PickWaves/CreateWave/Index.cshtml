@@ -7,19 +7,19 @@
 
 
 @section applinks{
-<li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
-    <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel.OrderSummaryReportUrl, Model.CustomerId))"
-       target="report">
-        <span class="glyphicon glyphicon-new-window"></span>110.08: Order summary report 
-    </a>
+    <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
+        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel.OrderSummaryReportUrl, Model.CustomerId))"
+           target="report">
+            <span class="glyphicon glyphicon-new-window"></span>110.08: Order summary report
+        </a>
 
-</li>
+    </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">Change Customer</a>
     </li>
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">All Pick Waves of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em></a>       
-       
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">All Pick Waves of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em></a>
+
     </li>
 }
 @helper OptionAttributes(SelectListItem item, int? selectedIndex)
@@ -41,6 +41,10 @@
 }
 
 <div class="container">
+    <h2 style="margin-top:0;">
+       Create Pick Wave <small> @Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)</small>
+
+    </h2>
 
     <div class="well well-sm">
         @if (Model.LastBucketId == null)
@@ -51,45 +55,45 @@
                 <form class="form-horizontal" role="form">
                     @if (Model.PullAreas.Count > 0)
                     {
-                        <div class="form-group">
-                            <label for="ddlPullFrom" class="col-sm-2 control-label">Pull From</label>
-                            <div class="col-sm-7">
-                                @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)", new
+                    <div class="form-group">
+                        <label for="ddlPullFrom" class="col-sm-2 control-label">Pull From</label>
+                        <div class="col-sm-7">
+                            @Html.DropDownListFor(m => m.PullAreaId, Model.PullAreas, "(Decide Later)", new
                {
                    @class = "form-control",
                    id = "ddlPullFrom"
                })
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" checked="@Model.RequiredBoxExpediting" value="True" name="@Html.NameFor(m => m.RequiredBoxExpediting)">
-                                        Require Box Expediting
-                                    </label>
-                                </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="@Model.RequiredBoxExpediting" value="True" name="@Html.NameFor(m => m.RequiredBoxExpediting)">
+                                    Require Box Expediting
+                                </label>
                             </div>
                         </div>
+                    </div>
                     }
                     @if (Model.PitchAreas.Count > 0)
                     {
-                        <div class="form-group">
-                            <label for="ddlPitchFrom" class="col-sm-2 control-label">Pull From</label>
-                            <div class="col-sm-7">
-                                @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)", new
+                    <div class="form-group">
+                        <label for="ddlPitchFrom" class="col-sm-2 control-label">Pull From</label>
+                        <div class="col-sm-7">
+                            @Html.DropDownListFor(m => m.PitchAreaId, Model.PitchAreas, "(Decide Later)", new
                {
                    @class = "form-control",
                    id = "ddlPitchFrom"
                })
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" checked="@Model.QuickPitch" value="True" name="@Html.NameFor(m => m.QuickPitch)">
-                                        Quick Pitch
-                                    </label>
-                                </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" checked="@Model.QuickPitch" value="True" name="@Html.NameFor(m => m.QuickPitch)">
+                                    Quick Pitch
+                                </label>
                             </div>
                         </div>
+                    </div>
                     }
                 </form>
             </fieldset>

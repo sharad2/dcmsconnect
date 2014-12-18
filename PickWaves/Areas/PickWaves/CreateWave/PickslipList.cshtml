@@ -25,7 +25,7 @@
         </ul>
     </div>
     }*@
-}
+
 @section applinks{
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(Model.CustomerId,Model.RowDimIndex.Value, Model.ColDimIndex.Value, Model.VwhId, null, null, Model.BucketId)))">
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-md-4">
                         Imported
-                        <span class="badge pull-right">Start</span>
+                        <span class="badge pull-right">Start - DC Cancel</span>
                     </div>
                 </div>
             </li>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-md-4">
                             @Html.DisplayFor(m => m.PickslipList[i].PickslipImportDate)
-                            <span class="badge pull-right">@Html.DisplayFor(m => m.PickslipList[i].StartDate)</span>
+                            <span class="badge pull-right">@Html.DisplayFor(m => m.PickslipList[i].StartDate) - @Html.DisplayFor(m => m.PickslipList[i].DcCancelDate)</span>
                         </div>
                     </div>
                 </li>

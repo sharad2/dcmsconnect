@@ -15,12 +15,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         {
         }
 
-        public IndexViewModel(string customerId)
-        {
-            CustomerId = customerId;
-        }
+        //public IndexViewModel(string customerId)
+        //{
+        //    CustomerId = customerId;
+        //}
 
-        public IndexViewModel(string customerId, int bucketId)
+        public IndexViewModel(string customerId, int? bucketId = null)
         {
             CustomerId = customerId;
             LastBucketId = bucketId;
