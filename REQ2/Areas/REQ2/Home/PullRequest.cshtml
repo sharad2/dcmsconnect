@@ -17,27 +17,33 @@
                 <dl class="dl-horizontal ">
 
                     <dt>Conversion</dt>
-                    <dd>@Html.DisplayFor(m => m.IsConversionRequest)</dd>
+                    <dd>
+                        @if (@Model.IsConversionRequest)
+                        {
+                            <span class="glyphicon glyphicon-ok"> </span>
+                        }
+
+                    </dd>
+
                     <dt>Source &rarr; Destination</dt>
                     <dd>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
 
                     <dt>Quality</dt>
-                   
-                    <dd>@Html.DisplayFor(m => m.SourceQuality) &rarr; @Html.DisplayFor(m => m.TargetQuality)</dd>
+
+                    <dd>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != null ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality) </dd>
 
                     <dt>Vwh</dt>
                     <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
 
                     <dt>Remarks</dt>
                     <dd>@Html.DisplayFor(m => m.Remarks)</dd>
-              </dl>
+                </dl>
             </div>
 
             <div class="col-md-6 col-sm-6">
                 <dl class="dl-horizontal">
 
-                    <dt>Overpulling</dt>
-                    <dd>@Html.DisplayFor(m => m.AllowOverPulling)</dd>
+                  
                     <dt>Priority</dt>
                     <dd>@Html.DisplayFor(m => m.Priority)</dd>
 
@@ -82,67 +88,6 @@
            
         </div>
     </div>
-
-    @*<div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                Cartons
-                <a href="@Url.Action(MVC_REQ2.REQ2.Home.AssignCartons())">Assign</a>
-                <a href="@Url.Action(MVC_REQ2.REQ2.Home.UnAssignCartons())">Unassign</a>
-
-            </h3>
-
-        </div>
-        <div class="panel-body">
-
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-info">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                           SKU
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                           Total Cartons
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Pulled Cartons
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Total Pieces
-                        </div>
-                        <div class="col-md-2 col-sm-2">
-                            Pulled Pieces
-                        </div>
-
-                    </div>
-                </li>
-
-                @for (var i = 0; i < Model.CartonList.Count; ++i)
-                {
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4">
-                                @Html.DisplayFor(m => m.CartonList[i].Sku.Style),@Html.DisplayFor(m => m.CartonList[i].Sku.Color),@Html.DisplayFor(m => m.CartonList[i].Sku.Dimension),@Html.DisplayFor(m => m.CartonList[i].Sku.SkuSize)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].TotalCartons)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].PulledCartons)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].TotalPieces)
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                @Html.DisplayFor(m => m.CartonList[i].PulledPieces)
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
-        </div>
-    </div>*@
-    
 
 </div>
 

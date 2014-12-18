@@ -35,7 +35,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     Color = entity.TargetSku.Color,
                     Dimension = entity.TargetSku.Dimension,
                     SkuSize = entity.TargetSku.SkuSize,
-                    SkuId = entity.TargetSku.SkuId,
+                   // SkuId = entity.TargetSku.SkuId,
                    
                 };
             }
@@ -73,42 +73,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
     }
 
-    //public class AssignedCartonListModel
-    //{
-
-    //    public AssignedCartonListModel()
-    //    {
-            
-    //    }
-    //    internal AssignedCartonListModel(AssignedCarton entity)
-    //    {
-    //        this.Sku = new SkuModel
-    //        {
-    //            Style = entity.Sku.Style,
-    //            Color = entity.Sku.Color,
-    //            Dimension = entity.Sku.Dimension,
-    //            SkuSize = entity.Sku.SkuSize
-    //        };
-           
-    //        this.TotalCartons = entity.TotalCartons;
-    //        this.TotalPieces = entity.TotalPieces;
-    //        this.PulledCartons = entity.PulledCartons;
-    //        this.PulledPieces = entity.PulledPieces;
-    //    }
-
-    //    public SkuModel Sku { get; set; }
-
-    //    public int TotalCartons { get; set; }
-
-    //    public int PulledCartons { get; set; }
-
-    //    public int TotalPieces { get; set; }
-
-    //    public int PulledPieces { get; set; }
-
-
-    //}
-
     public class PullRequestViewModel
     {
         public PullRequestViewModel()
@@ -124,7 +88,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.IsConversionRequest = entity.IsConversionRequest;
             this.Priority = entity.Priority;
             this.SaleTypeId = entity.SaleTypeId;
-            this.AllowOverPulling = entity.AllowOverPulling;
             this.PackagingPreferance = entity.PackagingPreferance;
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
@@ -150,8 +113,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public string Priority { get; set; }
         public string SaleTypeId { get; set; }
-
-        public string AllowOverPulling { get; set; }
 
         public string PackagingPreferance { get; set; }
 
@@ -181,8 +142,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string SewingPlantCode { get; set; }
 
         public IList<PullRequestSkuModel> SkuList { get; set; }
-
-       // public IList<AssignedCartonListModel> CartonList { get; set; }
 
 
     }
