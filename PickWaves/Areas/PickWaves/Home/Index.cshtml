@@ -145,7 +145,8 @@
                                                 <small>@(i + 1)</small>  @if (Model.UserIsManager)
                                                 {
                                                     <a @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "style='text-decoration:line-through'")
-                                                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(Model.ImportedOrders[i].CustomerId)))" title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                                                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
+                                                        title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
                                                         @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
                                                     </a>
                                                     <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>

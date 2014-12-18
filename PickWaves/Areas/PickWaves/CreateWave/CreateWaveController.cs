@@ -83,27 +83,50 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <remarks>
         /// Passed selectedRowDimIndex and selectedColDimIndex are ignored if it turns out that either of them have no pickslips
         /// </remarks>
-        private bool PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model, string customerId, int selectedRowDimIndex, int selectedColDimIndex)
+        private bool PopulatePickslipMatrixPartialModel(PickslipMatrixPartialViewModel model)
         {
-            model.CustomerId = customerId;
+            //model.CustomerId = customerId;
+            PickslipDimension pdimRow;
 
-            var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedRowDimIndex.ToString());
-            var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedColDimIndex.ToString());
+            if (model.RowDimIndex.HasValue)
+            {
+                pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
+            }
+            else
+            {
+                pdimRow = PickslipDimension.CustomerDcCancelDate;
+            }
 
-            model.VwhList = from item in _service.GetVWhListOfCustomer(customerId)
+            PickslipDimension pdimCol;
+            if (model.ColDimIndex.HasValue)
+            {
+                pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
+            }
+            else
+            {
+                pdimCol = PickslipDimension.CustomerDc;
+            }
+
+
+            model.VwhList = (from item in _service.GetVWhListOfCustomer(model.CustomerId)
                             select new SelectListItem
                             {
                                 Text = item.VWhId + " : " + item.Description,
                                 Value = item.VWhId,
                                 Selected = item.VWhId == model.VwhId
-                            };
+                            }).ToList();
+
+            if (model.VwhList.Count == 0)
+            {
+                return false;
+            }
             if (string.IsNullOrWhiteSpace(model.VwhId))
             {
                 // If Vwh has not been passed, use this one
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
 
-            var summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
+            var summary = _service.GetOrderSummary(model.CustomerId, model.VwhId, pdimRow, pdimCol);
 
             if (summary.CountValuesPerDimension == null)
             {
@@ -126,7 +149,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             if (requery)
             {
-                summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
+                summary = _service.GetOrderSummary(model.CustomerId, model.VwhId, pdimRow, pdimCol);
             }
 
             model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
@@ -175,67 +198,76 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
 
         /// <summary>
-        /// Showing list of dimension and their pickslip count for passed customer and dimension.
+        /// Displays the add pickslips page using the supplied defaults. All parameters are optional except customerId
         /// </summary>
-        /// <param name="model">
-        /// Posted value
-        /// SelectedDimension,CustomerId
-        /// </param>       
+        /// <param name="customerId"></param>
+        /// <param name="rowDimIndex"></param>
+        /// <param name="colDimIndex"></param>
+        /// <param name="vwhId"></param>
+        /// <param name="pullAreaId"></param>
+        /// <param name="pitchAreaId"></param>
+        /// <param name="lastBucketId"></param>
         /// <returns></returns>
         [Route]
-        public virtual ActionResult Index(IndexViewModel model)
+        public virtual ActionResult Index(string customerId, int? rowDimIndex = null, int? colDimIndex = null, string vwhId = null, string pullAreaId = null, string pitchAreaId = null,
+            int? lastBucketId = null)
         {
-            //Showing only those area where order of customer are available.
-            var areas = _service.GetAreasForCustomer(model.CustomerId);
-            if (areas != null)
+            if (string.IsNullOrWhiteSpace(customerId))
             {
-                model.PullAreas = (from area in areas
-                                   where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
-                                   orderby area.CountSku descending
-                                   select new SelectListItem
-                                   {
-                                       Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                       Value = area.AreaId
-                                   }).ToList();
-
-                model.PitchAreas = (from area in areas
-                                    where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
-                                    orderby area.CountSku descending
-                                    select new SelectListItem
-                                    {
-                                        Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                        Value = area.AreaId
-                                    }).ToList();
-
-                if (model.PullAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
-                {
-                    // Pull areas exist but none of them have SKUs available
-                    model.PullAreas.Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not available in any Pull Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
-
-                if (model.PitchAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
-                {
-                    // Pitch areas exist but none of them have SKUs assigned
-                    model.PitchAreas.Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
+                throw new NotImplementedException();
             }
+
+            var model = new IndexViewModel();
+            //Showing only those area where order of customer are available.
+            var areas = _service.GetAreasForCustomer(customerId);
+
+            model.PullAreas = (from area in areas
+                                where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
+                                orderby area.CountSku descending
+                                select new SelectListItem
+                                {
+                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                    Value = area.AreaId
+                                }).ToList();
+
+            model.PitchAreas = (from area in areas
+                                 where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
+                                 orderby area.CountSku descending
+                                 select new SelectListItem
+                                 {
+                                     Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                     Value = area.AreaId
+                                 }).ToList();
+
+            if (model.PullAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
+            {
+                // Pull areas exist but none of them have SKUs available
+                model.PullAreas.Add(new SelectListItem
+                {
+                    Text = "(Ordered SKUs are not available in any Pull Area)",
+                    Value = "",
+                    Selected = true
+                });
+            }
+
+            if (model.PitchAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
+            {
+                // Pitch areas exist but none of them have SKUs assigned
+                model.PitchAreas.Add(new SelectListItem
+                {
+                    Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+                    Value = "",
+                    Selected = true
+                });
+            }
+
 
             #region Manage Cookie
             //  SelectedDimension : If null, then a reasonable default is used. The default is cookie => factory default
             //  If non null, then it is used and written to a cookie.
             var cookie = Request.Cookies[COOKIE_PICKWAVE];
 
-            if (model.RowDimIndex == null || model.ColDimIndex == null)
+            if (rowDimIndex == null || colDimIndex == null)
             {
                 // Read cookie
                 int dimRowIndex, dimColIndex;
@@ -248,6 +280,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }
             else
             {
+                model.RowDimIndex = rowDimIndex;
+                model.ColDimIndex = colDimIndex;
                 // Write cookie
                 if (cookie == null)
                 {
@@ -267,33 +301,36 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             #endregion
 
+            model.CustomerId = customerId;
+            model.RowDimIndex = rowDimIndex;
+            model.ColDimIndex = colDimIndex;
+
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
-            if (!PopulatePickslipMatrixPartialModel(model, model.CustomerId, model.RowDimIndex ?? 0, model.ColDimIndex ?? 0))
+            if (!PopulatePickslipMatrixPartialModel(model))
             {
                 var nopickslip = new IndexNoPickslipsViewModel
                 {
-                    BucketId = model.LastBucketId,
-                    CustomerId = model.CustomerId
+                    BucketId = lastBucketId,
+                    CustomerId = customerId
                 };
                 return View(Views.IndexNoPickslips, nopickslip);
             }
 
-            model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
+
+            var cust = _service.GetCustomer(model.CustomerId);
+            model.CustomerName = cust == null ? model.CustomerId : cust.Name;
 
             // If Bucket is created.
-            if (model.LastBucketId.HasValue)
+            if (lastBucketId.HasValue)
             {
                 // Retrive some information of bucket.
+                model.LastBucketId = lastBucketId;
                 var bucket = _service.GetEditableBucket(model.LastBucketId.Value);
                 if (bucket != null)
                 {
                     model.PullAreaShortName = bucket.PullAreaShortName;
                     model.PitchAreaShortName = bucket.PitchAreaShortName;
                     model.PickslipCount = bucket.PickslipCount;
-                }
-                else
-                {
-                    model.LastBucketId = null;
                 }
             }
             return View(Views.Index, model);
@@ -321,61 +358,60 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 model.RowDimVal = model.RowDimVal.Trim();
             }
 
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(MVC_PickWaves.PickWaves.CreateWave.Index(model));
-            }
-
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
 
-            // If bucket is not created.create it first.
-            if (!model.LastBucketId.HasValue)
+            if (ModelState.IsValid)
             {
-                var bucket = new PickWaveEditable
+                // If bucket is not created.create it first.
+                if (!model.LastBucketId.HasValue)
                 {
-                    PriorityId = 1,   // Default priority
-                    QuickPitch = model.QuickPitch
-                };
-
-                // Give pull area if user wants to pulled cartons.
-                bucket.PullAreaId = model.PullAreaId;
-
-                // Give pitch area if user wants to pitched pieces.
-                bucket.PitchAreaId = model.PitchAreaId;
-
-                // Update Bucket name default. it change when pickslip is added to this bucket.
-                bucket.BucketName = "Bucket";
-
-                if (string.IsNullOrWhiteSpace(model.PullAreaId))
-                {
-                    // This bucket is not pulling buccket.
-                    bucket.PullingBucket = null;
-                }
-                else
-                {
-                    if (model.RequiredBoxExpediting)
+                    var bucket = new PickWaveEditable
                     {
-                        // Bucket is pull and Required Box Expediting (ADREPPWSS)
-                        bucket.PullingBucket = "N";
+                        PriorityId = 1,   // Default priority
+                        QuickPitch = model.QuickPitch
+                    };
+
+                    // Give pull area if user wants to pulled cartons.
+                    bucket.PullAreaId = model.PullAreaId;
+
+                    // Give pitch area if user wants to pitched pieces.
+                    bucket.PitchAreaId = model.PitchAreaId;
+
+                    // Update Bucket name default. it change when pickslip is added to this bucket.
+                    bucket.BucketName = "Bucket";
+
+                    if (string.IsNullOrWhiteSpace(model.PullAreaId))
+                    {
+                        // This bucket is not pulling buccket.
+                        bucket.PullingBucket = null;
                     }
                     else
                     {
-                        // Pulling bucket , ADRE bucket
-                        bucket.PullingBucket = "Y";
+                        if (model.RequiredBoxExpediting)
+                        {
+                            // Bucket is pull and Required Box Expediting (ADREPPWSS)
+                            bucket.PullingBucket = "N";
+                        }
+                        else
+                        {
+                            // Pulling bucket , ADRE bucket
+                            bucket.PullingBucket = "Y";
+                        }
                     }
+                    //Now Create bucket
+                    model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
+                    AddStatusMessage(string.Format("Pick Wave {0} created.", model.LastBucketId));
                 }
-                //Now Create bucket
-                model.LastBucketId = _service.CreateWave(bucket, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
-                AddStatusMessage(string.Format("Pick Wave {0} created.", model.LastBucketId));
+                else
+                {
+                    // Add pickslip to bucket 
+                    _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
+                    AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", model.LastBucketId));
+                }
             }
-            else
-            {
-                // Add pickslip to bucket 
-                _service.AddPickslipsPerDim(model.LastBucketId.Value, model.CustomerId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal, model.VwhId);
-                AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", model.LastBucketId));
-            }
-            return RedirectToAction(this.Actions.Index(model));
+            return RedirectToAction(Actions.Index(model.CustomerId, model.RowDimIndex, model.ColDimIndex,
+                model.VwhId, model.PullAreaId, model.PitchAreaId, model.LastBucketId));
         }
 
         /// <summary>
@@ -398,8 +434,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Pickslip list of passed dimension.
             var pickslips = _service.GetPickslipList(model.CustomerId, model.VwhId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
             model.PickslipList = (from pickslip in pickslips
-                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1]
-                                   // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                                  let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1]
+                                  // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                   let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3]
                                   select new PickslipModel(pickslip)
                                   {

@@ -1,6 +1,7 @@
 ﻿
 using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,23 +15,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// </summary>
     public class PickslipMatrixPartialViewModel : ViewModelBase
     {
-        public PickslipMatrixPartialViewModel()
-        {
-            // Factory defaults
-            this.RowDimIndex = (int)PickslipDimension.CustomerDcCancelDate;
-
-            this.ColDimIndex = (int)PickslipDimension.CustomerDc;
-        }
-
         [Display(Name = "Virtual Warehouse")]
         public string VwhId { get; set; }
 
-        private IEnumerable<SelectListItem> _vwhList;
-        public IEnumerable<SelectListItem> VwhList
+        private IList<SelectListItem> _vwhList;
+        public IList<SelectListItem> VwhList
         {
             get
             {
-                return _vwhList ?? Enumerable.Empty<SelectListItem>();
+                return _vwhList ?? new SelectListItem[0];
             }
             set
             {
@@ -90,6 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public string ColDimDisplayName { get; set; }
     }
 
+    [Obsolete]
     internal abstract class PickslipMatrixPartialViewModelUnbinder : IModelUnbinder
     {
         public virtual void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)

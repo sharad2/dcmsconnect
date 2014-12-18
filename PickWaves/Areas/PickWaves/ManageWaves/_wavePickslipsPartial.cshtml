@@ -8,8 +8,7 @@
         Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
 
 
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.IndexViewModel(
-                 Model.Bucket.MaxCustomerId, Model.Bucket.BucketId)))">Add more pickslips</a>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.Bucket.MaxCustomerId, lastBucketId: Model.Bucket.BucketId))">Add more pickslips</a>
 
     </blockquote>
 

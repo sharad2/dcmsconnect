@@ -1,4 +1,5 @@
 ﻿using EclipseLibrary.Mvc.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             LastBucketId = bucketId;
         }
 
-        public IndexViewModel(string customerId, int rowDimIndex, int colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
+        internal IndexViewModel(string customerId, int rowDimIndex, int colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
         {
             CustomerId = customerId;
             RowDimIndex = rowDimIndex;
@@ -97,6 +98,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
     }
 
+    [Obsolete]
     internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
     {
         public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
