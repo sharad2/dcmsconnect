@@ -203,14 +203,14 @@
                                             <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.bucketId" value="@Model.LastBucketId" />
                                             <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.customerId" value="@Model.CustomerId" />
                                             <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.vwhId" value="@Model.VwhId" />
+                                          
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowDimVal" value="@Model.Rows[i].DimensionValue" />
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowDimIndex" value="@Model.RowDimIndex" />                                        
+                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colDimIndex" value="@Model.ColDimIndex" />    
 
-                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowPair" value="ToDo" />
-                                            @*<input type="hidden" name="@Html.NameFor(m => m.RowDimVal)" value="@Model.Rows[i].DimensionValue" />*@
-
-                                            <input type="text" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colPair" value="ToDo" />                                          
-                                            @*<input type="hidden" name="@Html.NameFor(m => m.ColDimVal)" value="@item.Key" />*@
-
-                                            <button type="submit" class="btn btn-primary pull-right">Add @Model.Rows[i].OrderedPieces[item.Key] pcs</button>
+                                            <button type="submit" class="btn btn-primary pull-right" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colDimVal" value="@item.Key">
+                                                Add @Model.Rows[i].OrderedPieces[item.Key] pcs
+                                            </button>
                                         </form>
                                     </div>
                                 </div>

@@ -357,7 +357,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <returns></returns>
         [HttpPost]
         [Route("adddim")]
-        public virtual ActionResult AddPickslipsOfDim(int? bucketId, string customerId, string rowPair, string colPair, string vwhId)
+        public virtual ActionResult AddPickslipsOfDim(int? bucketId, string customerId, 
+            PickslipDimension rowDimIndex, string rowDimVal,
+             PickslipDimension colDimIndex, string colDimVal,
+            string vwhId)
         {
 
             if (string.IsNullOrWhiteSpace(customerId))
@@ -368,8 +371,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 throw new ArgumentNullException("vwhId");
             }
-            Tuple<PickslipDimension, string> parsedRowPair = ParseDimensionPair(rowPair);
-            Tuple<PickslipDimension, string> parsedColPair = ParseDimensionPair(colPair);
+            throw new NotSupportedException();
             //if (model.ColDimVal != null || model.RowDimVal != null)
             //{
             //    model.ColDimVal = model.ColDimVal.Trim();
@@ -386,26 +388,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
                 //Now Create bucket
                 bucketId = _service.CreateWave(bucket, customerId,
-                    parsedRowPair.Item1,
-                    parsedRowPair.Item2, parsedColPair.Item1, parsedColPair.Item2, vwhId);
+                    rowDimIndex,
+                    rowDimVal, colDimIndex, colDimVal, vwhId);
                 AddStatusMessage(string.Format("Pick Wave {0} created.", bucketId));
             }
             else
             {
                 // Add pickslip to bucket 
                 _service.AddPickslipsPerDim(bucketId.Value, customerId,
-                    parsedRowPair.Item1,
-                    parsedRowPair.Item2, parsedColPair.Item1, parsedColPair.Item2, vwhId);
+                    rowDimIndex,
+                    rowDimVal, colDimIndex, colDimVal, vwhId);
                 AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
             }
 
-            return RedirectToAction(Actions.Index(customerId, parsedRowPair.Item1, parsedColPair.Item1,
+            return RedirectToAction(Actions.Index(customerId, rowDimIndex, colDimIndex,
                 vwhId, bucketId));
-        }
-
-        private Tuple<PickslipDimension, string> ParseDimensionPair(string rowPair)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>

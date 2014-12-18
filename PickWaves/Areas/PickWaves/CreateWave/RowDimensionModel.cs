@@ -51,7 +51,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }
         }
 
-        public Dictionary<string, int> OrderedPieces { get; set; }
+        public IDictionary<string, int> OrderedPieces { get; set; }
     }
 
 }
