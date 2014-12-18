@@ -33,7 +33,8 @@
                     <dd>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != null ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality) </dd>
 
                     <dt>Vwh</dt>
-                    <dd>@Html.DisplayFor(m => m.SourceVwhId) &rarr; @Html.DisplayFor(m => m.TargetVwhId)</dd>
+                    <dd>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != null ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </dd>
+
 
                     <dt>Remarks</dt>
                     <dd>@Html.DisplayFor(m => m.Remarks)</dd>
