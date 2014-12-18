@@ -89,6 +89,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedRowDimIndex.ToString());
             var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), selectedColDimIndex.ToString());
+
+            model.VwhList = from item in _service.GetVWhListOfCustomer(customerId)
+                            select new SelectListItem
+                            {
+                                Text = item.VWhId + " : " + item.Description,
+                                Value = item.VWhId,
+                                Selected = item.VWhId == model.VwhId
+                            };
+            if (string.IsNullOrWhiteSpace(model.VwhId))
+            {
+                // If Vwh has not been passed, use this one
+                model.VwhId = model.VwhList.Select(p => p.Value).First();
+            }
+
             var summary = _service.GetOrderSummary(customerId, model.VwhId, pdimRow, pdimCol);
 
             if (summary.CountValuesPerDimension == null)
@@ -154,17 +168,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
 
-            model.VwhList = from item in _service.GetVWhListOfCustomer(customerId)
-                            select new SelectListItem
-                            {
-                                Text = item.VWhId + " : " + item.Description,
-                                Value = item.VWhId,
-                                Selected = item.VWhId == model.VwhId
-                            };
-            if (string.IsNullOrEmpty(model.VwhId))
-            {
-                model.VwhId = model.VwhList.Select(p => p.Value).First();
-            }
+
             return true;
         }
 
