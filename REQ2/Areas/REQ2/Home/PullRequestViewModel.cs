@@ -87,8 +87,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.DestinationAreaShortName = entity.DestinationAreaShortName;
             this.IsConversionRequest = entity.IsConversionRequest;
             this.Priority = entity.Priority;
-            this.SaleTypeId = entity.SaleTypeId;
-            this.PackagingPreferance = entity.PackagingPreferance;
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
             this.DateCreated = entity.DateCreated;
@@ -113,10 +111,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public bool IsConversionRequest { get; set; }
 
         public string Priority { get; set; }
-        public string SaleTypeId { get; set; }
+    
 
-        public string PackagingPreferance { get; set; }
-
+       // public string PackagingPreferance { get; set; }
         public string Remarks { get; set; }
 
         public string RequestedBy { get; set; }

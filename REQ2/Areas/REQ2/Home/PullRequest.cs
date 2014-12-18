@@ -32,14 +32,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string Priority { get; set; }
 
         public string AllowOverPulling { get; set; }
-       
-        public string PackagingPreferance { get; set; }
         
         public string DestinationArea { get; set; }
 
         public string TargetVwhId { get; set; }
-
-        public string SaleTypeId { get; set; }
 
         public DateTime? CartonReceivedDate { get; set; }
 

@@ -42,8 +42,8 @@
                     <dt>Priority</dt>
                     <dd>@Html.DisplayFor(m => m.Priority)</dd>
 
-                    <dt>Sale type Id</dt>
-                    <dd>@Html.DisplayFor(m => m.SaleTypeId)</dd>
+                    <dt>Sale type</dt>
+                    <dd> @Html.Raw(Model.SaleTypeId == "" ?  "Not Set" : Model.SaleTypeId) </dd>
 
                     <dt>Hung</dt>
                     <dd>@Html.DisplayFor(m => m.PackagingPreferance)</dd>
@@ -53,7 +53,6 @@
 
                     <dt>Sewing Plant Code</dt>
                     <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
-
                 </dl>
             </div>
         </div>
@@ -78,21 +77,14 @@
                         </button>
                     </div>
                 </div>
-
-
-
-
             </li>
         }
     </ul>
-
-
 
 </div>
 
 @section script {
     <script type="text/javascript">
-
         //Deletes the SKU from request.
         $(document).on('click', 'button[data-priority-url]', function (e) {
             var $li = $(this).closest('li');
@@ -103,7 +95,6 @@
                 alert('error');
             });
         });
-
     </script>
 }
 
