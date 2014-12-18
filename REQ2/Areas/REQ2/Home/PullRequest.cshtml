@@ -35,7 +35,6 @@
                     <dt>Vwh</dt>
                     <dd>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != null ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </dd>
 
-
                     <dt>Remarks</dt>
                     <dd>@Html.DisplayFor(m => m.Remarks)</dd>
                 </dl>
@@ -43,8 +42,7 @@
 
             <div class="col-md-6 col-sm-6">
                 <dl class="dl-horizontal">
-
-                  
+                                      
                     <dt>Priority</dt>
                     <dd>@Html.DisplayFor(m => m.Priority)</dd>
 
@@ -68,10 +66,7 @@
         <div class="panel-heading">
             <h3 class="panel-title">SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus"></span></a></h3>
         </div>
-        <div class="panel-body">
-          
-           
-               
+        <div class="panel-body">      
                <ul class="list-group">
 @for (var i = 0; i < Model.SkuList.Count; ++i)
 { 
