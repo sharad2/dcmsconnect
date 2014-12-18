@@ -192,16 +192,9 @@
                                                 @Model.ColDimDisplayName @item.Key
                                             </div>
                                             <div class="col-md-4">
-                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(new DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel
-                                        {
-                                            BucketId = Model.LastBucketId,
-                                            CustomerId = Model.CustomerId,
-                                            VwhId = Model.VwhId,
-                                            RowDimIndex = Model.RowDimIndex,
-                                            ColDimIndex = Model.ColDimIndex,
-                                            RowDimVal = Model.Rows[i].DimensionValue,
-                                            ColDimVal = item.Key
-                                        }))">@item.Value&nbsp; pickslips</a>
+                                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(Model.CustomerId,Model.RowDimIndex ?? 0,Model.Rows[i].DimensionValue,
+                                Model.ColDimIndex ?? 0, item.Key, Model.VwhId, Model.LastBucketId))
+                                        ">@item.Value&nbsp; pickslips</a>
                                     </div>
                                     <div class="col-md-4">
                                         <form role="form" action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">

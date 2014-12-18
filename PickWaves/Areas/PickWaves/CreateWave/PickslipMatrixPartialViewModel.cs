@@ -83,36 +83,36 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public string ColDimDisplayName { get; set; }
     }
 
-    [Obsolete]
-    internal abstract class PickslipMatrixPartialViewModelUnbinder : IModelUnbinder
-    {
-        public virtual void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
-        {
-            var model = value as PickslipMatrixPartialViewModel;
-            if (!string.IsNullOrEmpty(model.CustomerId))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.CustomerId), model.CustomerId);
-            }
-            if (model.RowDimIndex.HasValue)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.RowDimIndex), model.RowDimIndex);
-            }
-            if (model.ColDimIndex.HasValue)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.ColDimIndex), model.ColDimIndex);
-            }
-            if (!string.IsNullOrEmpty(model.RowDimVal))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.RowDimVal), model.RowDimVal);
-            }
-            if (!string.IsNullOrEmpty(model.ColDimVal))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.ColDimVal), model.ColDimVal);
-            }
-            if (!string.IsNullOrEmpty(model.VwhId))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.VwhId), model.VwhId);
-            }
-        }
-    }
+    //[Obsolete]
+    //internal abstract class PickslipMatrixPartialViewModelUnbinder : IModelUnbinder
+    //{
+    //    public virtual void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
+    //    {
+    //        var model = value as PickslipMatrixPartialViewModel;
+    //        if (!string.IsNullOrEmpty(model.CustomerId))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.CustomerId), model.CustomerId);
+    //        }
+    //        if (model.RowDimIndex.HasValue)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.RowDimIndex), model.RowDimIndex);
+    //        }
+    //        if (model.ColDimIndex.HasValue)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.ColDimIndex), model.ColDimIndex);
+    //        }
+    //        if (!string.IsNullOrEmpty(model.RowDimVal))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.RowDimVal), model.RowDimVal);
+    //        }
+    //        if (!string.IsNullOrEmpty(model.ColDimVal))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.ColDimVal), model.ColDimVal);
+    //        }
+    //        if (!string.IsNullOrEmpty(model.VwhId))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.VwhId), model.VwhId);
+    //        }
+    //    }
+    //}
 }

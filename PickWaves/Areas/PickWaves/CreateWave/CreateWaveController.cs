@@ -422,18 +422,68 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </param
         /// <returns></returns>
         [Route("ps")]
-        public virtual ActionResult PickslipList(PickslipListViewModel model)
+        public virtual ActionResult PickslipList(
+            [Required]
+            string customerId,
+            int rowDimIndex,
+            [Required]
+            string rowDimVal,
+            int colDimIndex,
+            [Required]
+            string colDimVal,
+            [Required]
+            string vwhId, 
+            int? bucketId)
         {
-            if (string.IsNullOrEmpty(model.CustomerId))
+
+            if (string.IsNullOrWhiteSpace(customerId))
             {
                 throw new ArgumentNullException("customerId");
             }
-            var pdimRow = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.RowDimIndex.ToString());
-            var pdimCol = (PickslipDimension)Enum.Parse(typeof(PickslipDimension), model.ColDimIndex.ToString());
+            if (string.IsNullOrWhiteSpace(vwhId))
+            {
+                throw new ArgumentNullException("vwhId");
+            }
+            if (string.IsNullOrWhiteSpace(rowDimVal))
+            {
+                throw new ArgumentNullException("rowDimVal");
+            }
+            if (string.IsNullOrWhiteSpace(colDimVal))
+            {
+                throw new ArgumentNullException("colDimVal");
+            }
+            var model2 = new PickslipListViewModel();
+            model2.CustomerId = customerId;
 
+            model2.RowDimIndex = rowDimIndex;
+            model2.ColDimIndex = colDimIndex;
+
+            PickslipDimension pdimRow;
+
+            if (model2.RowDimIndex.HasValue)
+            {
+                pdimRow = (PickslipDimension)model2.RowDimIndex.Value;
+            }
+            else
+            {
+                pdimRow = PickslipDimension.CustomerDcCancelDate;
+            }
+
+            PickslipDimension pdimCol;
+            if (model2.ColDimIndex.HasValue)
+            {
+                pdimCol = (PickslipDimension)model2.ColDimIndex.Value;
+            }
+            else
+            {
+                pdimCol = PickslipDimension.CustomerDc;
+            }
+            model2.VwhId = vwhId;
+            model2.RowDimVal = rowDimVal;
+            model2.ColDimVal = colDimVal;
             // Pickslip list of passed dimension.
-            var pickslips = _service.GetPickslipList(model.CustomerId, model.VwhId, pdimRow, model.RowDimVal, pdimCol, model.ColDimVal);
-            model.PickslipList = (from pickslip in pickslips
+            var pickslips = _service.GetPickslipList(model2.CustomerId, model2.VwhId, pdimRow, model2.RowDimVal, pdimCol, model2.ColDimVal);
+            model2.PickslipList = (from pickslip in pickslips
                                   let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslipImported1]
                                   // let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                   let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPoImported3]
@@ -450,23 +500,25 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                                 pk2 = pickslip.Iteration
                                             })
                                   }).ToArray();
-            model.ManagerRoleName = ROLE_WAVE_MANAGER;
+            model2.ManagerRoleName = ROLE_WAVE_MANAGER;
 
-            model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
-            model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
-            model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
-            model.CustomerName = (_service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name);
+            model2.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimRow].Name;
+            model2.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[pdimCol].Name;
+            model2.RowDimVal = string.IsNullOrEmpty(model2.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model2.RowDimVal;
+            model2.CustomerName = (_service.GetCustomer(model2.CustomerId) == null ? "" : _service.GetCustomer(model2.CustomerId).Name);
 
-            if (model.BucketId.HasValue)
+            model2.BucketId = bucketId;
+
+            if (model2.BucketId.HasValue)
             {
-                var bucket = _service.GetBucket(model.BucketId.Value);
-                model.Bucket = new BucketModel(bucket);
+                var bucket = _service.GetBucket(model2.BucketId.Value);
+                model2.Bucket = new BucketModel(bucket);
             }
             else
             {
                 //model.Bucket = new BucketModel();
             }
-            return View(Views.PickslipList, model);
+            return View(Views.PickslipList, model2);
         }
 
         /// <summary>
@@ -491,7 +543,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 _service.AddPickslipsToWave(model.BucketId.Value, model.SelectedPickslip);
                 AddStatusMessage(string.Format("{0} pickslips have been added to PickWave {1}", model.SelectedPickslip.Count, model.BucketId));
             }
-            return RedirectToAction(this.Actions.PickslipList(model));
+            return RedirectToAction(this.Actions.PickslipList(model.CustomerId, model.RowDimIndex ?? 0, model.RowDimVal, model.ColDimIndex ?? 0, model.ColDimVal, model.VwhId, model.BucketId));
         }
 
         protected override string ManagerRoleName

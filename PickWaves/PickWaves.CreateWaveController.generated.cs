@@ -138,7 +138,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_PickslipList
         {
-            public readonly string model = "model";
+            public readonly string customerId = "customerId";
+            public readonly string rowDimIndex = "rowDimIndex";
+            public readonly string rowDimVal = "rowDimVal";
+            public readonly string colDimIndex = "colDimIndex";
+            public readonly string colDimVal = "colDimVal";
+            public readonly string vwhId = "vwhId";
+            public readonly string bucketId = "bucketId";
         }
         static readonly ActionParamsClass_AddPickslipsToBucket s_params_AddPickslipsToBucket = new ActionParamsClass_AddPickslipsToBucket();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -206,14 +212,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         }
 
         [NonAction]
-        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model);
+        partial void PickslipListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, int rowDimIndex, string rowDimVal, int colDimIndex, string colDimVal, string vwhId, int? bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PickslipList(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model)
+        public override System.Web.Mvc.ActionResult PickslipList(string customerId, int rowDimIndex, string rowDimVal, int colDimIndex, string colDimVal, string vwhId, int? bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PickslipList);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            PickslipListOverride(callInfo, model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rowDimIndex", rowDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rowDimVal", rowDimVal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "colDimIndex", colDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "colDimVal", colDimVal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "vwhId", vwhId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            PickslipListOverride(callInfo, customerId, rowDimIndex, rowDimVal, colDimIndex, colDimVal, vwhId, bucketId);
             return callInfo;
         }
 

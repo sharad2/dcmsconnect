@@ -98,28 +98,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
     }
 
-    [Obsolete]
-    internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
-    {
-        public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
-        {
-            base.UnbindModel(routeValueDictionary, routeName, value);
-            var model = value as IndexViewModel;
+    //[Obsolete]
+    //internal class IndexViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
+    //{
+    //    public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
+    //    {
+    //        base.UnbindModel(routeValueDictionary, routeName, value);
+    //        var model = value as IndexViewModel;
 
-            if (model.LastBucketId.HasValue)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.LastBucketId), model.LastBucketId);
-            }
+    //        if (model.LastBucketId.HasValue)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.LastBucketId), model.LastBucketId);
+    //        }
 
-            // After a bucket has been created, show these settings as default
-            if (!string.IsNullOrWhiteSpace(model.PitchAreaId))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.PitchAreaId), model.PitchAreaId);
-            }
-            if (!string.IsNullOrWhiteSpace(model.PullAreaId))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
-            }
-        }
-    }
+    //        // After a bucket has been created, show these settings as default
+    //        if (!string.IsNullOrWhiteSpace(model.PitchAreaId))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.PitchAreaId), model.PitchAreaId);
+    //        }
+    //        if (!string.IsNullOrWhiteSpace(model.PullAreaId))
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.PullAreaId), model.PullAreaId);
+    //        }
+    //    }
+    //}
 }

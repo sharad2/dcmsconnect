@@ -2,6 +2,7 @@
 using System.Web.Routing;
 using EclipseLibrary.Mvc.Helpers;
 using DcmsMobile.PickWaves.ViewModels;
+using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
@@ -25,18 +26,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public BucketModel Bucket { get; set; }
     }
 
-    internal class PickslipListViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
-    {
-        public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
-        {
-            base.UnbindModel(routeValueDictionary, routeName, value);
-            var model = value as PickslipListViewModel;
+    //internal class PickslipListViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
+    //{
+    //    public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
+    //    {
+    //        base.UnbindModel(routeValueDictionary, routeName, value);
+    //        var model = value as PickslipListViewModel;
 
-            if (model.BucketId > 0)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.BucketId), model.BucketId);
-            }
-        }
+    //        if (model.BucketId > 0)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.BucketId), model.BucketId);
+    //        }
+    //    }
 
-    }
+    //}
 }
