@@ -10,5 +10,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public int? BucketId { get; set; }
 
         public string CustomerId { get; set; }
+
+        public string CustomerName { get; set; }
     }
 }

@@ -311,20 +311,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             model.CustomerId = customerId;
 
+            var cust = _service.GetCustomer(model.CustomerId);
+            model.CustomerName = cust == null ? model.CustomerId : cust.Name;
+
+
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
             if (!PopulatePickslipMatrixPartialModel(model))
             {
                 var nopickslip = new IndexNoPickslipsViewModel
                 {
                     BucketId = lastBucketId,
-                    CustomerId = customerId
+                    CustomerId = customerId,
+                    CustomerName= model.CustomerName
                 };
                 return View(Views.IndexNoPickslips, nopickslip);
             }
 
 
-            var cust = _service.GetCustomer(model.CustomerId);
-            model.CustomerName = cust == null ? model.CustomerId : cust.Name;
 
             // If Bucket is created.
             if (lastBucketId.HasValue)
