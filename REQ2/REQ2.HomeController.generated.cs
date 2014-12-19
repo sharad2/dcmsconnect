@@ -228,6 +228,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string _assignedCartonInfoPartial = "_assignedCartonInfoPartial";
                 public readonly string _existingRequestPartial = "_existingRequestPartial";
                 public readonly string _manageSkuListPartial = "_manageSkuListPartial";
+                public readonly string AddSku = "AddSku";
                 public readonly string Index = "Index";
                 public readonly string PropertyEditor = "PropertyEditor";
                 public readonly string PullRequest = "PullRequest";
@@ -238,6 +239,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string _assignedCartonInfoPartial = "~/Areas/REQ2/Home/_assignedCartonInfoPartial.cshtml";
             public readonly string _existingRequestPartial = "~/Areas/REQ2/Home/_existingRequestPartial.cshtml";
             public readonly string _manageSkuListPartial = "~/Areas/REQ2/Home/_manageSkuListPartial.cshtml";
+            public readonly string AddSku = "~/Areas/REQ2/Home/AddSku.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
             public readonly string PullRequest = "~/Areas/REQ2/Home/PullRequest.cshtml";

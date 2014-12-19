@@ -1,0 +1,111 @@
+﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.ManageSkuViewModel
+@{
+    ViewBag.Title = "Add Sku from here";
+    Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
+}
+
+
+<div class="container">
+  
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3> ADD SKU</h3>
+        </div>
+        <div class="panel-body">
+            
+            <div class="col-md-12 col-sm-12">
+
+                        <label for="tbNewStyle">
+                            Style/Color/Dimension/Size <sup>*</sup>
+                        </label>
+                        @Html.TextBoxFor(m => m.NewStyle, new
+               {
+                   id = "tbNewStyle",
+                   style = "text-transform: uppercase",
+                   size = 10,
+                   maxlength = 15,
+                   data_ac_list_url = Url.Action(MVC_REQ2.REQ2.AutoComplete.SkuAutocomplete())
+               })
+                        @Html.TextBoxFor(m => m.NewColor, new
+               {
+                   id = "tbNewColor",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                        @Html.TextBoxFor(m => m.NewDimension, new
+               {
+                   id = "tbNewDimension",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                        @Html.TextBoxFor(m => m.NewSkuSize, new
+               {
+                   id = "tbNewSkuSize",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })   <br />
+
+                            <label for="tbTargetStyle">
+                                Target Style/Color/Dimension/Size <sup>*</sup>
+                            </label>
+                            @Html.TextBoxFor(m => m.TargetStyle, new
+               {
+                   id = "tbTargetStyle",
+                   style = "text-transform: uppercase",
+                   size = 10,
+                   maxlength = 15,
+                   data_ac_list_url = Url.Action(MVC_REQ2.REQ2.AutoComplete.SkuAutocomplete())
+               })
+                        @Html.TextBoxFor(m => m.TargetColor, new
+               {
+                   id = "tbTargetColor",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                        @Html.TextBoxFor(m => m.TargetDimension, new
+               {
+                   id = "tbTargetDimension",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                        @Html.TextBoxFor(m => m.TargetSkuSize, new
+               {
+                   id = "tbTargetSkuSize",
+                   style = "text-transform: uppercase",
+                   size = 6,
+                   maxlength = 10
+               })
+                        
+                        <br />
+
+                        <label for="tbPieces">
+                            Pieces <sup>*</sup>
+                        </label>
+                        @Html.TextBoxFor(m => m.NewPieces, new
+               {
+                   maxlength = 8,
+                   size = 8,
+                   id = "tbPieces"
+               })
+                       
+                        <br />
+                   
+                <button class="btn btn-default" type="button" title="Add Sku" data-priority-url="@Url.Action(MVC_REQ2.REQ2.Home.AddSku())">
+                    <b> ADD SKU </b> <span class="glyphicon glyphicon-plus"></span>
+                </button>
+
+                        @Html.ValidationSummary()
+                    
+               
+            </div>
+
+           
+        </div>
+    </div>
+    </div>
+
