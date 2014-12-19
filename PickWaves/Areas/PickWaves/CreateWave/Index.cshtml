@@ -22,23 +22,6 @@
 
     </li>
 }
-@helper OptionAttributes(SelectListItem item, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension selectedIndex)
-{
-    @:value="@item.Value"
-
-
-    if (string.IsNullOrWhiteSpace(item.Value))
-    {
-        @:disabled="disabled"
-    }
-    else
-    {
-        if (item.Value == selectedIndex.ToString())
-        {
-            @:selected="selected"
-        }
-    }
-}
 
 <div class="container">
     <h2 style="margin-top:0;">
@@ -49,10 +32,10 @@
         @if (Model.LastBucketId == null)
         {
 
-            <div class="panel-heading">
+            @*<div class="panel-heading">
                 <span class="glyphicon glyphicon-info-sign"></span>
                 A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
-            </div>
+            </div>*@
         }
         else
         {
@@ -112,11 +95,12 @@
                 &nbsp;
                 <p class="form-control-static">View By</p>
                 <select name="@Html.NameFor(m => m.ColDimIndex)" class="form-control">
-                    @foreach (var item in Model.ColDimensionList)
+                    @for (var i = 0; i < Model.ColDimensionList.Count; ++i )
                     {
-                        <option @OptionAttributes(item, Model.ColDimIndex)>
-                            @item.Text
-                        </option>
+                    <option @(string.IsNullOrWhiteSpace(Model.ColDimensionList[i].Value) ? "disabled" : "")
+                            @(Model.ColDimensionList[i].Selected ? "selected" : "")>
+                        @Model.ColDimensionList[i].Text
+                    </option>
                     }
                 </select>
                 <button type="submit" class="btn btn-primary">
@@ -127,6 +111,13 @@
             </form>
 
         </div>
+        @if (Model.LastBucketId == null)
+        {
+            <div class="panel-footer">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
+            </div>
+        }
     </div>
 
 
@@ -136,9 +127,13 @@
             <li role="presentation">
                 <div class="form-inline" style="margin-right:1em; margin-left:0.5em;margin-top:4px;">
                     <select class="form-control" id="ddlRowDim">
-                        @foreach (var item in Model.RowDimensionList)
+                        @for (var i = 0; i < Model.RowDimensionList.Count; ++i)
                         {
-                            <option @OptionAttributes(item, Model.RowDimIndex)>@item.Text</option>
+                            <option @(string.IsNullOrWhiteSpace(Model.RowDimensionList[i].Value) ? "disabled" : "")
+                                    @(Model.RowDimensionList[i].Selected ? "selected" : "")>
+                                @Model.RowDimensionList[i].Text
+                            </option>
+
                         }
                     </select>
                 </div>
@@ -166,6 +161,7 @@
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.vwhId" value="@Model.VwhId" />
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowDimIndex" value="@Model.RowDimIndex" />
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colDimIndex" value="@Model.ColDimIndex" />
+                        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowDimVal" value="@Model.Rows[i].DimensionValue" />
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-success">
                                 <div class="row">
@@ -196,11 +192,10 @@
                                         <div class="col-md-4">
                                             <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(Model.CustomerId,Model.RowDimIndex,Model.Rows[i].DimensionValue,
                                 Model.ColDimIndex, item.Key, Model.VwhId, Model.LastBucketId))">
-                                                <span class="badge">@item.Value</span>
+                                                @item.Value Pickslips
                                             </a>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.rowDimVal" value="@Model.Rows[i].DimensionValue" />
                                             <button type="submit" class="btn btn-primary pull-right btn-xs" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.colDimVal" value="@item.Key">
                                                 Add @Model.Rows[i].OrderedPieces[item.Key] pcs
                                             </button>

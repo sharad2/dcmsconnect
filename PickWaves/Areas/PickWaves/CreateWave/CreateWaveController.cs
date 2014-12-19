@@ -164,7 +164,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                       select new SelectListItem
                                       {
                                           Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
+                                          Selected = kvp.Key == model.RowDimIndex
                                       }).OrderBy(p => p.Text).ToArray();
 
             // Dimensions which have too many distinct values are not displayed as column dimensions
@@ -174,11 +175,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                       select new SelectListItem
                                       {
                                           Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count)
+                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
+                                          Selected = kvp.Key == model.ColDimIndex
                                       }).OrderBy(p => p.Text).ToArray();
-
-            //model.RowDimIndex = pdimRow;
-            //model.ColDimIndex = pdimCol;
 
             model.Rows = (from rowVal in summary.AllValues.RowValues
                           let row = summary.AllValues.GetRow(rowVal)
