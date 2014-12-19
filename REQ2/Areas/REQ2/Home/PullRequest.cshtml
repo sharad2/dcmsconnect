@@ -12,48 +12,49 @@
         </div>
         <div class="panel-body">
             <h4>Request of @Html.DisplayFor(m => m.QuantityRequested) pieces created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)  @Html.DisplayFor(m => m.AssignedPieces) pieces assigned to request.</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="dl-horizontal ">
 
-            <div class="col-md-6 col-sm-6">
-                <dl class="dl-horizontal ">
+                        <dt>Conversion</dt>
+                        <dd>
+                            <span class="@Html.Raw(Model.IsConversionRequest ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"></span>
+                        </dd>
 
-                    <dt>Conversion</dt>
-                    <dd>                       
-                        <span class= "@Html.Raw(Model.IsConversionRequest ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove")"> </span> 
-                    </dd>
+                        <dt>Source &rarr; Destination</dt>
+                        <dd>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
 
-                    <dt>Source &rarr; Destination</dt>
-                    <dd>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</dd>
+                        <dt>Quality</dt>
 
-                    <dt>Quality</dt>
+                        <dd>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality) </dd>
 
-                    <dd>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality) </dd>
+                        <dt>Vwh</dt>
+                        <dd>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </dd>
 
-                    <dt>Vwh</dt>
-                    <dd>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </dd>
+                    </dl>
+                </div>
 
-                  </dl>  
-            </div>
+                <div class="col-md-6">
+                    <dl class="dl-horizontal">
 
-            <div class="col-md-6 col-sm-6">
-                <dl class="dl-horizontal">
+                        <dt>Priority</dt>
+                        <dd>@Html.DisplayFor(m => m.Priority)</dd>
 
-                    <dt>Priority</dt>
-                    <dd>@Html.DisplayFor(m => m.Priority)</dd>
+                        <dt>Price Season</dt>
+                        <dd>@Html.DisplayFor(m => m.PriceSeasonCode)</dd>
 
-                    <dt>Price Season</dt>
-                    <dd>@Html.DisplayFor(m => m.PriceSeasonCode)</dd>
-
-                    <dt>Sewing Plant</dt>
-                    <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
-                    <dt>Remarks</dt>
-                    <dd>@Html.DisplayFor(m => m.Remarks)</dd>
-                </dl>
+                        <dt>Sewing Plant</dt>
+                        <dd>@Html.DisplayFor(m => m.SewingPlantCode)</dd>
+                        <dt>Remarks</dt>
+                        <dd>@Html.DisplayFor(m => m.Remarks)</dd>
+                    </dl>
+                </div>
             </div>
         </div>
     </div>
     <ul class="list-group">
         <li class="list-group-item list-group-item-success">
-            <h3 class="panel-title">SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus"></span></a></h3>
+            <h3>SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus"></span></a></h3>
         </li>
         @for (var i = 0; i < Model.SkuList.Count; ++i)
         {
