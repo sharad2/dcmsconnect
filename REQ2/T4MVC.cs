@@ -80,6 +80,7 @@ namespace Links_REQ2
         public static readonly string jquery_2_1_1_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.1.min.js") ? Url("jquery-2.1.1.min.js") : Url("jquery-2.1.1.js");
         public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
+        public static readonly string jquery_validate_unobtrusive_bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.bootstrap.min.js") ? Url("jquery.validate.unobtrusive.bootstrap.min.js") : Url("jquery.validate.unobtrusive.bootstrap.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js") : Url("npm.js");
     }
@@ -91,10 +92,8 @@ namespace Links_REQ2
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css") : Url("bootstrap-theme.css");
              
-        public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css") : Url("bootstrap.css");
              
-        public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class themes {
             private const string URLPATH = "~/Content/themes";
@@ -213,9 +212,8 @@ namespace Links_REQ2
                 }
             
                 public static readonly string ManageSku_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ManageSku-all.min.js") ? Url("ManageSku-all.min.js") : Url("ManageSku-all.js");
-                public static readonly string ManageSku_all_min_js_map = Url("ManageSku-all.min.js.map");
+                public static readonly string PropertyEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PropertyEditor.min.js") ? Url("PropertyEditor.min.js") : Url("PropertyEditor.js");
                 public static readonly string RecentRequest_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/RecentRequest-all.min.js") ? Url("RecentRequest-all.min.js") : Url("RecentRequest-all.js");
-                public static readonly string RecentRequest_all_min_js_map = Url("RecentRequest-all.min.js.map");
                 public static readonly string REQ2_mobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2.mobile.partial.min.css") ? Url("REQ2.mobile.partial.min.css") : Url("REQ2.mobile.partial.css");
                      
                 public static readonly string REQ2_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/REQ2.partial.min.css") ? Url("REQ2.partial.min.css") : Url("REQ2.partial.css");

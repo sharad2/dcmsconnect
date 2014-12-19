@@ -231,6 +231,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 public readonly string AddSku = "AddSku";
                 public readonly string Index = "Index";
                 public readonly string PropertyEditor = "PropertyEditor";
+                public readonly string PropertyEditor_js = "PropertyEditor.js";
                 public readonly string PullRequest = "PullRequest";
                 public readonly string SkuEditor = "SkuEditor";
                 public readonly string Stylesheets_chirp = "Stylesheets.chirp";
@@ -242,6 +243,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string AddSku = "~/Areas/REQ2/Home/AddSku.cshtml";
             public readonly string Index = "~/Areas/REQ2/Home/Index.cshtml";
             public readonly string PropertyEditor = "~/Areas/REQ2/Home/PropertyEditor.cshtml";
+            public readonly string PropertyEditor_js = "~/Areas/REQ2/Home/PropertyEditor.js.bundle";
             public readonly string PullRequest = "~/Areas/REQ2/Home/PullRequest.cshtml";
             public readonly string SkuEditor = "~/Areas/REQ2/Home/SkuEditor.cshtml";
             public readonly string Stylesheets_chirp = "~/Areas/REQ2/Home/Stylesheets.chirp.config";

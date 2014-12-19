@@ -141,6 +141,12 @@
     <Content Include="Areas\REQ2\Home\ManageSku-all.min.js">
       <DependentUpon>ManageSku-all.js</DependentUpon>
     </Content>
+    <Content Include="Areas\REQ2\Home\PropertyEditor.js">
+      <DependentUpon>PropertyEditor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\REQ2\Home\PropertyEditor.min.js">
+      <DependentUpon>PropertyEditor.js</DependentUpon>
+    </Content>
     <Content Include="Areas\REQ2\Home\RecentRequest-all.min.js">
       <DependentUpon>RecentRequest-all.js</DependentUpon>
     </Content>
@@ -223,6 +229,8 @@
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Areas\REQ2\SharedViews\_layoutBootstrap.cshtml">
@@ -238,11 +246,16 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\REQ2\Home\PullRequest.cshtml" />
     <Content Include="Areas\REQ2\Home\AddSku.cshtml" />
+    <Content Include="Areas\REQ2\Home\PropertyEditor.js.bundle" />
+    <Content Include="Areas\REQ2\Home\PropertyEditor.min.js.map">
+      <DependentUpon>PropertyEditor.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
