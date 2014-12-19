@@ -119,15 +119,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     break;
 
                 case PickslipDimension.ImportDate:
-                    clause = "DEMPS.PICKSLIP_IMPORT_DATE BETWEEN CAST(:{0} AS DATE) AND CAST(:{0} + 1 AS DATE)";
+                    clause = "(DEMPS.PICKSLIP_IMPORT_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.PICKSLIP_IMPORT_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
                     break;
 
                 case PickslipDimension.StartDate:
-                    clause = "DEMPS.DELIVERY_DATE BETWEEN CAST(:{0} AS DATE) AND CAST(:{0} + 1 AS DATE)";
-                    break;
+                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";          break;
 
                 case PickslipDimension.CancelDate:
-                    clause = "DEMPS.CANCEL_DATE BETWEEN CAST(:{0} AS DATE) AND CAST(:{0} + 1 AS DATE)";
+                    clause = "(DEMPS.CANCEL_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.CANCEL_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
+                    
                     break;
 
                 case PickslipDimension.CustomerOrderType:
