@@ -373,7 +373,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 throw new ArgumentNullException("vwhId");
             }
-            throw new NotSupportedException();
+            //throw new NotSupportedException();
             //if (model.ColDimVal != null || model.RowDimVal != null)
             //{
             //    model.ColDimVal = model.ColDimVal.Trim();
