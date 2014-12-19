@@ -29,15 +29,7 @@
     </h2>
 
     <div class="panel panel-success">
-        @if (Model.LastBucketId == null)
-        {
-
-            @*<div class="panel-heading">
-                <span class="glyphicon glyphicon-info-sign"></span>
-                A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
-            </div>*@
-        }
-        else
+        @if (Model.LastBucketId.HasValue)
         {
             <div class="panel-heading">
                 <div class="row">
@@ -114,7 +106,7 @@
         @if (Model.LastBucketId == null)
         {
             <div class="panel-footer">
-                <span class="glyphicon glyphicon-info-sign"></span>
+                
                 A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
             </div>
         }
@@ -153,7 +145,7 @@
             {
                 <div role="tabpanel" class="tab-pane @(i == 0 ? "active" : null) " id="@("content_" + i.ToString())">
 
-                    <blockquote>@Model.RowDimDisplayName @Model.Rows[i].DimensionDisplayValue</blockquote>
+                    <blockquote class="text-center">@Model.RowDimDisplayName @Model.Rows[i].DimensionDisplayValue</blockquote>
 
                     <form role="form" action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.bucketId" value="@Model.LastBucketId" />
@@ -170,10 +162,8 @@
                                             @Model.ColDimDisplayName
                                         </h4>
                                     </div>
-                                    <div class="col-md-4">
-                                        <span class="badge">Pickslips Count</span>
-                                    </div>
-                                    <div class="col-md-4">
+
+                                    <div class="col-md-offset-4 col-md-4">
                                         <button type="submit" class="btn btn-primary pull-right btn-xs" disabled>
                                             Action
                                         </button>
