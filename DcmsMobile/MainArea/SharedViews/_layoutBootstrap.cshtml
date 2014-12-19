@@ -1,38 +1,39 @@
-﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+﻿@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
 
-@*This layout is designed to be used as the main layout of every Area.
-        It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
-        It also displays status summary and validation errors.
+@*
+    This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar
+     This layout is designed to be used as the main layout of every Area.
+         It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
+         It also displays status summary and validation errors.
 
-        This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
+         This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
 
-        Usage:
-        To display an app specific drop down menu, the layout page of your application must set
-          ViewBag.AppName = Short name of your application, e.g. Inquiry
-          ViewBag.AppHomeUrl = The URL of the home page of your application.
-          ViewBag.AppSearchUrl = The URL used for searching. Defaults to the Inquiry URL. You should specify this if you want to provide custom searching. For example,
-           PickWaves provides its own URL here to special handle bucket search. If it does not find the bucket, it redirects to Inquiry URL
-           DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1
+         Usage:
+         To display an app specific drop down menu, the layout page of your application must set
+           ViewBag.AppName = Short name of your application, e.g. Inquiry
+           ViewBag.AppHomeUrl = The URL of the home page of your application.
+           ViewBag.AppSearchUrl = The URL used for searching. Defaults to the Inquiry URL. You should specify this if you want to provide custom searching. For example,
+            PickWaves provides its own URL here to special handle bucket search. If it does not find the bucket, it redirects to Inquiry URL
+            DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1
 
-        If BOTH of the above are set, then you will see a drop down menu for your application. You can add links to this drop down menu by defining the
-        section applinks. Here is an example implementation from Inquiry layout page. Note that each link must be enclosed within an li.
+         If BOTH of the above are set, then you will see a drop down menu for your application. You can add links to this drop down menu by defining the
+         section applinks. Here is an example implementation from Inquiry layout page. Note that each link must be enclosed within an li.
 
-        @section applinks {
-        <li>
-            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoList())">
-                Purchase Orders
-            </a>
-        </li>
-        <li>
-            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.WaveList())"> Pick Waves</a>
-        </li>
-        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.ParentShipmentList())"> BOLs</a></li>
-        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())"> Intransit Shipments</a></li>
-        <!-- Allow individual pages to add their own links  -->
-        @RenderSection("applinks", false)
-    }
-    If your application does not have any app links, this layout will detect this and not show any drop down.
+         @section applinks {
+         <li>
+             <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoList())">
+                 Purchase Orders
+             </a>
+         </li>
+         <li>
+             <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.WaveList())"> Pick Waves</a>
+         </li>
+         <li><a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.ParentShipmentList())"> BOLs</a></li>
+         <li><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())"> Intransit Shipments</a></li>
+         <!-- Allow individual pages to add their own links  -->
+         @RenderSection("applinks", false)
+     }
+     If your application does not have any app links, this layout will detect this and not show any drop down.
 
 *@
 @inherits System.Web.Mvc.WebViewPage
@@ -229,33 +230,33 @@
     {
 
     <!--Visible on mobile device only-->
-        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
-                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                    <input type="search" class="form-control" name="id" placeholder="Search DCMS">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div><!-- /input-group -->
-            </form>
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Search DCMS</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="@searchUrl" method="get" role="search">
+                        <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                            <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
 
     }
-    
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="@url_jquery_js" type="text/javascript"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="@url_bootstrap_js" type="text/javascript"></script>
-
-
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                $(window).on('resize', function (e) {
-                    //alert('resize');
-                    $('#searchModal').hide();
-                });
-            });
-        </script>*@
 
     @RenderSection("script", false)
 </body>

@@ -225,7 +225,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Areas\REQ2\SharedViews\_layoutBootstrap.cshtml" />
+    <Content Include="Areas\REQ2\SharedViews\_layoutBootstrap.cshtml">
+      <SubType>
+      </SubType>
+    </Content>
     <Content Include="Areas\REQ2\SharedViews\_layoutReq2.cshtml" />
     <Content Include="Scripts\npm.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
