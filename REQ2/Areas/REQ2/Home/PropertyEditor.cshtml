@@ -1,10 +1,62 @@
 ﻿@model DcmsMobile.REQ2.Areas.REQ2.Home.PropertyEditorViewModel
-@{  
+@{
+    Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
     ViewBag.Title = string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId);
     Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
-@section scripts {
+<div class="container">
+
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <label for="ddlVwh" class="col-sm-2 control-label">Vwh</label>
+            <div class="col-sm-5">
+                @*<input type="email" class="form-control" id="inputEmail3" placeholder="Email">*@
+                @Html.DropDownListFor(m => m.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, new
+           {
+               id = "ddlVwh",
+               @class = "form-control"
+           })
+                <input type="checkbox" /> Allow Overpulling
+                <span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+            </div>
+            <div class="col-sm-5 conversion-only">
+                <div class="input-group">
+                    <span class="input-group-addon">Convert To</span>
+                    @Html.DropDownListFor(m => m.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, new
+           {
+               id = "ddlVwh",
+               @class = "form-control"
+           })
+                </div>
+                <span id="helpBlock" class="help-block">The Virtual Warehouse to which all pulled SKUs should be converted to</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Sign in</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+@section script {
     <script type="text/javascript">
         $(document).ready(function () {
             var $ddlTargetQualityCode = $('#ddlTargetQualityCode');
@@ -50,9 +102,9 @@
                 }
             });
 
-            $('#btnCreateRequest').button({ icons: { primary: 'ui-icon-document'} });
-            $('#btnSaveRequest').button({ icons: { primary: 'ui-icon-disk'} });
-            $('#btnGo').button({ icons: { secondary: 'ui-icon-search'} }).click(function (e) {
+            $('#btnCreateRequest').button({ icons: { primary: 'ui-icon-document' } });
+            $('#btnSaveRequest').button({ icons: { primary: 'ui-icon-disk' } });
+            $('#btnGo').button({ icons: { secondary: 'ui-icon-search' } }).click(function (e) {
                 if ($('#frmSearch input:text').val() == '') {
                     $('#frmSearch div').html("Please enter the valid Request ID")
                         .removeClass('validation-summary-valid')
@@ -63,19 +115,19 @@
         });
     </script>
 }
-@section sidebar{
-    <div class="box boxA">
-        <div class="boxContent">
-            @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
+@*@section sidebar{
+        <div class="box boxA">
+            <div class="boxContent">
+                @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
+            </div>
         </div>
-    </div>
-    <div class="box boxB">
-        <div class="boxContent">
-            <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
-            </span>@Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
+        <div class="box boxB">
+            <div class="boxContent">
+                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
+                </span>@Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
+            </div>
         </div>
-    </div>
-}
+    }*@
 @using (Html.BeginForm(MVC_REQ2.REQ2.Home.UpdateRequest(), FormMethod.Post, new
 {
     id = "frmMain"
@@ -86,18 +138,19 @@
         @Html.LabelFor(m => m.RequestForConversion)
         @Html.CheckBoxFor(m => m.RequestForConversion, new { id = "CbConversionRequest" })
         Check this if you want to convert SKU/VWH<br />
-        @Html.LabelFor(m => m.VirtualWareHouseId)
+        @*@Html.LabelFor(m => m.VirtualWareHouseId)
         @Html.DropDownListFor(m => m.VirtualWareHouseId, Model.VirtualWareHouseList, Model.VirtualWareHouseList.Count() > 1 ? "(Please Select)" : null, null)*
-        <br />
+        <br />*@
         <label>
-            Pull From Area</label>
+            Pull From Area
+        </label>
         @Html.GroupDropListFor(m => m.SourceAreaId, Model.SourceAreas, "(Please Select)")
         * To
         @Html.GroupDropListFor(m => m.DestinationAreaId, Model.DestinationAreas)
         *<br />
-        <label for ="ddlTargetQualityCode" >
-        @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { id = "cbUpdateQuality" })
-        Change Quality To
+        <label for="ddlTargetQualityCode">
+            @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { id = "cbUpdateQuality" })
+            Change Quality To
         </label>
         @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "(No Change)", new { id = "ddlTargetQualityCode" })<br />
         @Html.LabelFor(m => m.Remarks)
@@ -106,25 +159,29 @@
         @if (string.IsNullOrEmpty(Model.ResvId))
         {
             <button id="btnCreateRequest">
-                Create Request</button>
+                Create Request
+            </button>
         }
         else
         {
             <button id="btnSaveRequest">
-                Save Request</button>
+                Save Request
+            </button>
             @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.SkuEditor(Model.ResvId))
         }
         @Html.ValidationSummary()
     </div>
     <div id="divAccordion" class="box divReqMain">
         <h3>
-            <a href="#divConv">Conversion</a></h3>
+            <a href="#divConv">Conversion</a>
+        </h3>
         <div id="divConv">
             @Html.LabelFor(m => m.TargetVwhId)
             @Html.DropDownListFor(m => m.TargetVwhId, Model.TargetVwhList, "(No Change)", new { id = "ddlTargetVwh" })
         </div>
         <h3>
-            <a href="#divAdvance">Advanced</a></h3>
+            <a href="#divAdvance">Advanced</a>
+        </h3>
         <div id="divAdvance" class="box divReqMain">
             @Html.LabelFor(m => m.SaleTypeId)
             @Html.DropDownListFor(m => m.SaleTypeId, Model.SaleTypes, "(Any)", null)
