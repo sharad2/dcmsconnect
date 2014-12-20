@@ -107,16 +107,10 @@
 
             <div class="col-sm-5">
 
-                Priority
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> High
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> Medium
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> Low
-                </label>
+                <div class="form-group">
+                    <label for="tbPriority">Priority</label>
+                    @Html.TextBoxFor( model => model.Priorities, new { @class = "form-control" })
+                </div>
             </div>
         </div>
 
