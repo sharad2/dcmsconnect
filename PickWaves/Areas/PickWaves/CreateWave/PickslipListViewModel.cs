@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
@@ -27,8 +28,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
    
 
         public IList<PickslipModel> PickslipList { get; set; }
-
-        public IList<int> SelectedPickslip { get; set; }
 
         public string CustomerName { get; set; }
 

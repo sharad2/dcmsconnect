@@ -177,6 +177,42 @@ namespace EclipseLibrary.Oracle.Helpers
         }
 
         /// <summary>
+        /// Array parameter for longs added by Sharad on 20 Dec 2014
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public SqlBinderDmlArray Parameter(string field, IEnumerable<long?> values)
+        {
+            if (values == null)
+            {
+                throw new ArgumentNullException("values");
+            }
+            var param = GetBindParameter(field, ParameterDirection.Input);
+            param.Value = values.Select(p => p == null ? DBNull.Value : (object)p.Value).Take(this.ArrayBindCount).ToArray();
+            param.OracleDbType = OracleDbType.Long;
+            return this;
+        }
+
+        /// <summary>
+        /// Array parameter for longs added by Sharad on 20 Dec 2014
+        /// </summary>
+        /// <param name="field"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        public SqlBinderDmlArray Parameter(string field, IEnumerable<long> values)
+        {
+            if (values == null)
+            {
+                throw new ArgumentNullException("values");
+            }
+            var param = GetBindParameter(field, ParameterDirection.Input);
+            param.Value = values.Take(this.ArrayBindCount).ToArray();
+            param.OracleDbType = OracleDbType.Long;
+            return this;
+        }
+
+        /// <summary>
         /// Integer parameter
         /// </summary>
         /// <param name="field">Paramter name</param>

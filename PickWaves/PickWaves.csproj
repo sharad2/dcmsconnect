@@ -145,7 +145,7 @@
     <Compile Include="Areas\PickWaves\Config\SkuCase.cs" />
     <Compile Include="Repository\Bucket.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveArea.cs" />
-    <Compile Include="Areas\PickWaves\CreateWave\PickWaveEditable.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\PickWave.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\VirtualWarehouse.cs" />
     <Compile Include="Repository\Customer.cs" />
     <Compile Include="Areas\PickWaves\Home\BucketSummary.cs" />

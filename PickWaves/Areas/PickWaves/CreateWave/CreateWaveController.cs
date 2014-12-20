@@ -322,7 +322,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 {
                     BucketId = lastBucketId,
                     CustomerId = customerId,
-                    CustomerName= model.CustomerName
+                    CustomerName = model.CustomerName
                 };
                 return View(Views.IndexNoPickslips, nopickslip);
             }
@@ -334,7 +334,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 // Retrive some information of bucket.
                 model.LastBucketId = lastBucketId;
-                var bucket = _service.GetEditableBucket(model.LastBucketId.Value);
+                var bucket = _service.GetPickWave(model.LastBucketId.Value);
                 if (bucket != null)
                 {
                     model.PullAreaShortName = bucket.PullAreaShortName;
@@ -373,35 +373,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 throw new ArgumentNullException("vwhId");
             }
-            //throw new NotSupportedException();
-            //if (model.ColDimVal != null || model.RowDimVal != null)
-            //{
-            //    model.ColDimVal = model.ColDimVal.Trim();
-            //    model.RowDimVal = model.RowDimVal.Trim();
-            //}
 
-            // If bucket is not created.create it first.
-            if (bucketId == null)
+            using (var trans = _service.BeginTransaction())
             {
-                var bucket = new PickWaveEditable();
-
-                // Update Bucket name default. it change when pickslip is added to this bucket.
-                bucket.BucketName = "Bucket";
-
-                //Now Create bucket
-                bucketId = _service.CreateWave(bucket, customerId,
-                    rowDimIndex,
-                    rowDimVal, colDimIndex, colDimVal, vwhId);
-                AddStatusMessage(string.Format("Pick Wave {0} created.", bucketId));
-            }
-            else
-            {
+                // If bucket is not created.create it first.
+                if (bucketId == null)
+                {
+                    //Now Create bucket
+                    bucketId = _service.CreateDefaultWave();
+                    AddStatusMessage(string.Format("Pick Wave {0} created.", bucketId));
+                }
                 // Add pickslip to bucket 
                 _service.AddPickslipsPerDim(bucketId.Value, customerId,
                     rowDimIndex,
                     rowDimVal, colDimIndex, colDimVal, vwhId);
-                AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
+                trans.Commit();
             }
+            AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
 
             return RedirectToAction(Actions.Index(customerId, rowDimIndex, colDimIndex,
                 vwhId, bucketId));
@@ -501,22 +489,29 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <returns></returns>
         [HttpPost]
         [Route("addps")]
-        public virtual ActionResult AddPickslipsToBucket(PickslipListViewModel model)
+        public virtual ActionResult AddPickslipsToBucket(int? bucketId, long[] pickslips, string customerId, PickslipDimension rowDimIndex,
+            string rowDimVal, PickslipDimension colDimIndex, string colDimVal, string vwhId)
         {
-            if (model.BucketId == null)
-            {
-                throw new ArgumentNullException("model.BucketId");
-            }
-            if (model.SelectedPickslip.Count == 0)
+            if (pickslips == null || pickslips.Length == 0)
             {
                 AddStatusMessage("Please select pickslip.");
             }
             else
             {
-                _service.AddPickslipsToWave(model.BucketId.Value, model.SelectedPickslip);
-                AddStatusMessage(string.Format("{0} pickslips have been added to PickWave {1}", model.SelectedPickslip.Count, model.BucketId));
+                using (var trans = _service.BeginTransaction())
+                {
+                    if (bucketId == null)
+                    {
+                        bucketId = _service.CreateDefaultWave();
+                        AddStatusMessage(string.Format("New PickWave {1} created", pickslips.Length, bucketId));
+                    }
+
+                    _service.AddPickslipsToWave(bucketId.Value, pickslips);
+                    trans.Commit();
+                    AddStatusMessage(string.Format("{0} pickslips have been added to PickWave {1}", pickslips.Length, bucketId));
+                }
             }
-            return RedirectToAction(this.Actions.PickslipList(model.CustomerId, model.RowDimIndex, model.RowDimVal, model.ColDimIndex, model.ColDimVal, model.VwhId, model.BucketId));
+            return RedirectToAction(this.Actions.PickslipList(customerId, rowDimIndex, rowDimVal, colDimIndex, colDimVal, vwhId, bucketId));
         }
 
         protected override string ManagerRoleName

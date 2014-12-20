@@ -156,7 +156,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_AddPickslipsToBucket
         {
-            public readonly string model = "model";
+            public readonly string bucketId = "bucketId";
+            public readonly string pickslips = "pickslips";
+            public readonly string customerId = "customerId";
+            public readonly string rowDimIndex = "rowDimIndex";
+            public readonly string rowDimVal = "rowDimVal";
+            public readonly string colDimIndex = "colDimIndex";
+            public readonly string colDimVal = "colDimVal";
+            public readonly string vwhId = "vwhId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -238,14 +245,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         }
 
         [NonAction]
-        partial void AddPickslipsToBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model);
+        partial void AddPickslipsToBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int? bucketId, long[] pickslips, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, string rowDimVal, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string colDimVal, string vwhId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AddPickslipsToBucket(DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipListViewModel model)
+        public override System.Web.Mvc.ActionResult AddPickslipsToBucket(int? bucketId, long[] pickslips, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, string rowDimVal, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string colDimVal, string vwhId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddPickslipsToBucket);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            AddPickslipsToBucketOverride(callInfo, model);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pickslips", pickslips);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rowDimIndex", rowDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rowDimVal", rowDimVal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "colDimIndex", colDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "colDimVal", colDimVal);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "vwhId", vwhId);
+            AddPickslipsToBucketOverride(callInfo, bucketId, pickslips, customerId, rowDimIndex, rowDimVal, colDimIndex, colDimVal, vwhId);
             return callInfo;
         }
 
