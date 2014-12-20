@@ -84,10 +84,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             _repos.AddPickslipsToWave(bucketId, pickslipList);
         }
 
-        public IList<CreateWaveArea> GetAreasForCustomer(string customerId)
-        {
-            return _repos.GetAreasForCustomer(customerId);
-        }
 
         /// <summary>
         /// Returns the list of VWh ID of passed customer orders

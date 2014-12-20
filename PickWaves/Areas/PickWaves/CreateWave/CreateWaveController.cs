@@ -199,47 +199,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             var model = new IndexViewModel();
             //Showing only those area where order of customer are available.
-            var areas = _service.Value.GetAreasForCustomer(customerId);
+            //var areas = _service.Value.GetAreasForCustomer(customerId);
 
-            //model.PullAreas = (from area in areas
-            //                    where area.AreaType == BucketActivityType.Pulling && area.CountSku > 0
-            //                    orderby area.CountSku descending
-            //                    select new SelectListItem
-            //                    {
-            //                        Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-            //                        Value = area.AreaId
-            //                    }).ToList();
-
-            model.PitchAreas = (from area in areas
-                                where area.AreaType == BucketActivityType.Pitching && area.CountSku > 0
-                                orderby area.CountSku descending
-                                select new SelectListItem
-                                {
-                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                    Value = area.AreaId
-                                }).ToList();
-
-            //if (model.PullAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pulling).Count() > 0)
-            //{
-            //    // Pull areas exist but none of them have SKUs available
-            //    model.PullAreas.Add(new SelectListItem
-            //    {
-            //        Text = "(Ordered SKUs are not available in any Pull Area)",
-            //        Value = "",
-            //        Selected = true
-            //    });
-            //}
-
-            if (model.PitchAreas.Count == 0 && areas.Where(p => p.AreaType == BucketActivityType.Pitching).Count() > 0)
-            {
-                // Pitch areas exist but none of them have SKUs assigned
-                model.PitchAreas.Add(new SelectListItem
-                {
-                    Text = "(Ordered SKUs are not assigned in any Pitch Area)",
-                    Value = "",
-                    Selected = true
-                });
-            }
 
 
             #region Manage Cookie

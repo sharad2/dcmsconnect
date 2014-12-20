@@ -14,26 +14,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// </summary>
     public class IndexViewModel : ViewModelBase
     {
-        public IndexViewModel()
-        {
-        }
-
-        //public IndexViewModel(string customerId, int? bucketId = null)
-        //{
-        //    CustomerId = customerId;
-        //    LastBucketId = bucketId;
-        //}
-
-        //internal IndexViewModel(string customerId, PickslipDimension rowDimIndex, PickslipDimension colDimIndex, string vwhId, string pullAreaId, string pitchAreaId, int? lastBucketId)
-        //{
-        //    CustomerId = customerId;
-        //    RowDimIndex = rowDimIndex;
-        //    ColDimIndex = colDimIndex;
-        //    VwhId = vwhId;
-        //    PullAreaId = pullAreaId;
-        //    PitchAreaId = pitchAreaId;
-        //    LastBucketId = lastBucketId;
-        //}
 
         public string CustomerName { get; set; }
 
@@ -52,8 +32,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         public int? LastBucketId { get; set; }
 
-
-        public IList<SelectListItem> PitchAreas { get; set; }
 
         #region Only for display
 
