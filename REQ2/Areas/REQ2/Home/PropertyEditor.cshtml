@@ -6,6 +6,13 @@
     Html.EnableUnobtrusiveJavaScript();
 }
 
+
+@section applinks {
+    <li>
+        @Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
+    </li>
+}
+
 @section script {
     <script type="text/javascript" src="@Links_REQ2.Areas.REQ2.Home.PropertyEditor_js"></script>
     <script type="text/javascript">
@@ -66,19 +73,7 @@
         });
     </script>
 }
-@*@section sidebar{
-        <div class="box boxA">
-            <div class="boxContent">
-                @Html.Partial(MVC_REQ2.REQ2.Home.Views._existingRequestPartial, Model)
-            </div>
-        </div>
-        <div class="box boxB">
-            <div class="boxContent">
-                <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-folder-open">
-                </span>@Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
-            </div>
-        </div>
-    }*@
+
 
 <div class="container">
     <h2 style="margin-top:0">
@@ -93,7 +88,7 @@
 }))
     {
 
-   
+
         @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
 
 
@@ -216,14 +211,15 @@
                     Save Request
                 </button>
                 @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.SkuEditor(Model.ResvId))
+              
             }
             @Html.ValidationSummary()
 
         </div>
 
-    
+
     }
 
-</div>
+    </div>
 
-@*$Id$*@
+    @*$Id$*@
