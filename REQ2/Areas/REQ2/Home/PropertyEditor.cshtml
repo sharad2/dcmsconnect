@@ -109,7 +109,13 @@
 
                 <div class="form-group">
                     <label for="tbPriority">Priority</label>
-                    @Html.TextBoxFor( model => model.Priorities, new { @class = "form-control" })
+                    <input type="number" name="@Html.NameFor(m=>m.Priorities)" value="@Model.Priorities" min="1" max="99"/>
+                    @Html.ValidationMessageFor(m => m.Priorities, null, new
+           {
+               @class = "help-block"
+           })
+
+
                 </div>
             </div>
         </div>
@@ -205,15 +211,14 @@
                     Save Request
                 </button>
                 @Html.ActionLink("Continue without saving", MVC_REQ2.REQ2.Home.SkuEditor(Model.ResvId))
-              
+
             }
-            @Html.ValidationSummary()
 
         </div>
 
 
     }
 
-    </div>
+</div>
 
-    @*$Id$*@
+@*$Id$*@
