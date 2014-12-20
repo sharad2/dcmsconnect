@@ -35,24 +35,5 @@ namespace DcmsMobile.PickWaves.Helpers
             }
             base.OnActionExecuted(filterContext);
         }
-
-        //[Obsolete]
-        //public string RenderPartialViewToString(string viewName, object model)
-        //{
-        //    //This is a safe code never going to get called with in normal user practice.
-        //    if (string.IsNullOrEmpty(viewName))
-        //        viewName = ControllerContext.RouteData.GetRequiredString("action");
-
-        //    ViewData.Model = model;
-
-        //    using (StringWriter sw = new StringWriter())
-        //    {
-        //        ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
-        //        ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
-        //        viewResult.View.Render(viewContext, sw);
-
-        //        return sw.GetStringBuilder().ToString();
-        //    }
-        //}
     }
 }
