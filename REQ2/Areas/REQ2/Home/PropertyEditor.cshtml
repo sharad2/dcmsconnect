@@ -104,18 +104,15 @@
 
                 <p class="help-block hidden-xs">A block of help text that breaks onto a new line and may extend beyond one line.</p>
             </div>
-
             <div class="col-sm-5">
 
                 <div class="form-group">
                     <label for="tbPriority">Priority</label>
-                    <input type="number" name="@Html.NameFor(m=>m.Priorities)" value="@Model.Priorities" min="1" max="99"/>
+                    <input type="number" name="@Html.NameFor(m=>m.Priorities)" value="@Model.Priorities" min="1" max="99" />
                     @Html.ValidationMessageFor(m => m.Priorities, null, new
            {
                @class = "help-block"
            })
-
-
                 </div>
             </div>
         </div>
@@ -129,7 +126,7 @@
                @class = "form-control"
            })
 
-                <p class="help-block hidden-xs">A block of help text that breaks onto a new line and may extend beyond one line.</p>
+                <p class="help-block hidden-xs">Source Virtual Warehouse.</p>
             </div>
             <div class="col-sm-5 conversion-only">
                 <div class="input-group">
@@ -154,14 +151,13 @@
                id = "ddlArea",
                @class = "form-control"
            })
+                <p class="help-block">Source area where cartons will be looked.</p>
                 <div class="checkbox">
                     <label>
                         @Html.CheckBoxFor(m => m.OverPullCarton, new { }) Allow Overpulling
                     </label>
                 </div>
 
-
-                <p class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</p>
             </div>
             <div class="col-sm-5 conversion-only">
                 @Html.DropDownListFor(m => m.DestinationAreaId, Model.DestinationAreas, Model.DestinationAreas.Count() > 1 ? "(Please Select)" : null, new
