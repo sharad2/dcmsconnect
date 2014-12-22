@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
@@ -49,15 +50,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <param name="dimColVal"></param>
         /// <param name="vwhId"></param>
         /// <returns></returns>
-        public int CreateWave(PickWaveEditable bucket, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
+        //[Obsolete]
+        //public int CreateWave(PickWaveEditable bucket, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
+        //{
+        //    using (var trans = _repos.BeginTransaction())
+        //    {
+        //        var bucketId = _repos.CreateWave(bucket);
+        //        _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, vwhId, true);
+        //        trans.Commit();
+        //        return bucketId;
+        //    }
+        //}
+
+        public DbTransaction BeginTransaction()
         {
-            using (var trans = _repos.BeginTransaction())
-            {
-                var bucketId = _repos.CreateWave(bucket);
-                _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, vwhId, true);
-                trans.Commit();
-                return bucketId;
-            }
+
+            return _repos.BeginTransaction();
+
+        }
+
+        public int CreateDefaultWave()
+        {
+            return _repos.CreateDefaultWave();
         }
 
         public void AddPickslipsPerDim(int bucketId, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
@@ -65,7 +79,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, vwhId, false);
         }
 
-        internal void AddPickslipsToWave(int bucketId, IList<int> pickslipList)
+        internal void AddPickslipsToWave(int bucketId, IList<long> pickslipList)
         {
             _repos.AddPickslipsToWave(bucketId, pickslipList);
         }
@@ -85,9 +99,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             return _repos.GetVWhListOfCustomer(customerId);
         }
 
-        public PickWaveEditable GetEditableBucket(int bucketId)
+        public PickWave GetPickWave(int bucketId)
         {
-            return _repos.GetEditableBucket(bucketId);
+            return _repos.GetPickWave(bucketId);
         }
     }
 }

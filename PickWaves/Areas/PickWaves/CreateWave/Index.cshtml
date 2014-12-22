@@ -87,12 +87,12 @@
                 &nbsp;
                 <p class="form-control-static">View By</p>
                 <select name="@Html.NameFor(m => m.ColDimIndex)" class="form-control">
-                    @for (var i = 0; i < Model.ColDimensionList.Count; ++i )
+                    @for (var i = 0; i < Model.ColDimensionList.Count; ++i)
                     {
-                    <option @(string.IsNullOrWhiteSpace(Model.ColDimensionList[i].Value) ? "disabled" : "")
-                            @(Model.ColDimensionList[i].Selected ? "selected" : "")>
-                        @Model.ColDimensionList[i].Text
-                    </option>
+                        <option @(string.IsNullOrWhiteSpace(Model.ColDimensionList[i].Value) ? "disabled" : "")
+                                @(Model.ColDimensionList[i].Selected ? "selected" : "") value="@Model.ColDimensionList[i].Value">
+                            @Model.ColDimensionList[i].Text
+                        </option>
                     }
                 </select>
                 <button type="submit" class="btn btn-primary">
@@ -122,7 +122,7 @@
                         @for (var i = 0; i < Model.RowDimensionList.Count; ++i)
                         {
                             <option @(string.IsNullOrWhiteSpace(Model.RowDimensionList[i].Value) ? "disabled" : "")
-                                    @(Model.RowDimensionList[i].Selected ? "selected" : "")>
+                                    @(Model.RowDimensionList[i].Selected ? "selected" : "") value="@Model.RowDimensionList[i].Value">
                                 @Model.RowDimensionList[i].Text
                             </option>
 

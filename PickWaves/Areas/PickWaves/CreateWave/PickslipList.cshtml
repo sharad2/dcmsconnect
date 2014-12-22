@@ -43,13 +43,13 @@
     </ul>
     @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
     {
-        <input type="hidden" name="@Model.NameFor(m => m.BucketId)" value="@Model.BucketId" />
-        <input type="hidden" name="@Model.NameFor(m => m.CustomerId)" value="@Model.CustomerId" />
-        <input type="hidden" name="@Model.NameFor(m => m.RowDimVal)" value="@Model.RowDimVal" />
-        <input type="hidden" name="@Model.NameFor(m => m.ColDimVal)" value="@Model.ColDimVal" />
-        <input type="hidden" name="@Model.NameFor(m => m.RowDimIndex)" value="@Model.RowDimIndex" />
-        <input type="hidden" name="@Model.NameFor(m => m.ColDimIndex)" value="@Model.ColDimIndex" />
-        <input type="hidden" name="@Model.NameFor(m => m.VwhId)" value="@Model.VwhId" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.bucketId" value="@Model.BucketId" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.customerId" value="@Model.CustomerId" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.rowDimVal" value="@Model.RowDimVal" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.colDimVal" value="@Model.ColDimVal" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.rowDimIndex" value="@Model.RowDimIndex" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.colDimIndex" value="@Model.ColDimIndex" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.vwhId" value="@Model.VwhId" />
         <ul class="list-group">
             <li class="list-group-item list-group-item-info">
                 <div class="row">
@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h4 class="list-group-item-heading">
-                                <input type="checkbox" class="ui-helper-hidden" name='@Model.NameFor(m => m.SelectedPickslip)' value="@Model.PickslipList[i].PickslipId" />
+                                <input type="checkbox" name='@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.pickslips' value="@Model.PickslipList[i].PickslipId" />
                                 <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
                                    class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
 
@@ -100,8 +100,14 @@
         </ul>
     }
 </div>
-@Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
+@if (Model.Bucket != null)
+{
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
+}
 @section script {
-    <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
+    @if (Model.Bucket != null)
+    {
+        <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
+    }
 }
 

@@ -346,44 +346,30 @@ SELECT *
         /// </summary>
         /// <param name="bucket"></param>
         /// <returns></returns>
-        public int CreateWave(PickWaveEditable bucket)
+        public int CreateDefaultWave()
         {
-            if (bucket == null)
-            {
-                throw new ArgumentNullException("bucket");
-            }
             const string QUERY = @"  
                                     INSERT INTO <proxy />BUCKET BKT
                                         (BKT.BUCKET_ID,
-                                         BKT.PITCH_TYPE,
                                          BKT.NAME,
-                                         BKT.PITCH_IA_ID,
                                          BKT.PRIORITY,
-                                         BKT.QUICK_PITCH_FLAG,
-                                         BKT.PULL_CARTON_AREA,
-                                         BKT.FREEZE,
-                                         BKT.PULL_TO_DOCK)
+                                         BKT.FREEZE)
                                       VALUES
                                         (<proxy />BUCKET_SEQUENCE.NEXTVAL,
-                                         :PITCH_TYPE,
-                                         SUBSTR(:NAME, 1, 50),
-                                         :PITCH_IA_ID,
-                                         :PRIORITY,
-                                         :QUICK_PITCH_FLAG,
-                                         :PULL_CARTON_AREA,
-                                         'Y',
-                                         :PULL_TO_DOCK)
+                                         'Automatically Created',
+                                         '1',
+                                         'Y')
                                       RETURNING BUCKET_ID INTO :BUCKET_ID
               ";
             var binder = SqlBinder.Create();
-            binder.Parameter("PITCH_TYPE", "BOX")
-                  .Parameter("NAME", bucket.BucketName)
-                  .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
-                  .Parameter("PRIORITY", bucket.PriorityId)
-                  .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
-                  .Parameter("QUICK_PITCH_FLAG", bucket.QuickPitch ? "Y" : null)
-                  .Parameter("PULL_TO_DOCK", bucket.PullingBucket)
-                  ;
+            //binder.Parameter("PITCH_TYPE", "BOX")
+            //      .Parameter("NAME", bucket.BucketName)
+            //      .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
+            //      .Parameter("PRIORITY", bucket.PriorityId)
+            //      .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
+            //      .Parameter("QUICK_PITCH_FLAG", bucket.QuickPitch ? "Y" : null)
+            //      .Parameter("PULL_TO_DOCK", bucket.PullingBucket)
+            //      ;
             var bucketId = 0;
             binder.OutParameter("BUCKET_ID", val => bucketId = val.Value);
             _db.ExecuteDml(QUERY, binder);
@@ -429,7 +415,7 @@ SELECT *
                                     END;";
 
             var binder = SqlBinder.Create();
-            var bucket = new PickWaveEditable();
+            var bucket = new PickWave();
             binder.Parameter("BUCKET_ID", bucketId)
                   .Parameter("CUSTOMER_ID", customerId)
                   .Parameter("VWH_ID", vwhId)
@@ -459,7 +445,7 @@ SELECT *
         /// </summary>
         /// <param name="bucketId"></param>
         /// <param name="pickslipList"></param>
-        internal void AddPickslipsToWave(int bucketId, IList<int> pickslipList)
+        internal void AddPickslipsToWave(int bucketId, IList<long> pickslipList)
         {
             const string QUERY = @"
                             BEGIN                         
@@ -573,7 +559,7 @@ SELECT *
             return _db.ExecuteReader(QUERY, binder);
         }
 
-        public PickWaveEditable GetEditableBucket(int bucketId)
+        public PickWave GetPickWave(int bucketId)
         {
             if (bucketId == 0)
             {
@@ -596,7 +582,7 @@ SELECT *
                                  WHERE B.BUCKET_ID = :BUCKET_ID
                                     GROUP BY B.BUCKET_ID";
 
-            var binder = SqlBinder.Create(row => new PickWaveEditable
+            var binder = SqlBinder.Create(row => new PickWave
             {
                 BucketId = row.GetInteger("BUCKET_ID") ?? 0,
                 PullAreaShortName = row.GetString("PULL_AREA"),
