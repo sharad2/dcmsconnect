@@ -56,6 +56,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Obsolete]
         private static string FormatDimensionValue(object value)
         {
             if (value == null)
@@ -190,11 +191,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //              }).ToArray();
 
             var query = from item in summary.AllValues3
-                        select Tuple.Create(FormatDimensionValue(item.Key.Item1), FormatDimensionValue(item.Key.Item2),
+                        select Tuple.Create(new DimensionValue(item.Key.Item1), new DimensionValue(item.Key.Item2),
                             new DimensionValueModel(item.Value));
 
-            model.DimensionValues = new SparseMatrix<string, string, DimensionValueModel>();
-            model.DimensionValues.AddRange(query);
+            model.DimensionMatrix = new SparseMatrix<DimensionValue, DimensionValue, DimensionValueModel>();
+            model.DimensionMatrix.AddRange(query);
             //var list = new List<RowDimensionModel>();
 
             //foreach (var rowVal in summary.AllValues2.RowValues())

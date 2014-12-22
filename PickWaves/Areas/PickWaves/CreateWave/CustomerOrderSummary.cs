@@ -71,7 +71,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     //    }
     //}
 
-    internal class DimensionValue
+    internal class MatrixCellValue
     {
 
         public int PickslipCount { get; set; }
@@ -85,18 +85,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// </summary>
     internal class CustomerOrderSummary
     {
-        private readonly SparseMatrix<object, object, DimensionValue> _values;
+        private readonly SparseMatrix<object, object, MatrixCellValue> _values;
 
         public CustomerOrderSummary()
         {
-            _values = new SparseMatrix<object, object, DimensionValue>();
+            _values = new SparseMatrix<object, object, MatrixCellValue>();
         }
         /// <summary>
         /// Specifies the count of distinct values for each possible dimension. This will be null when there are no status 1 orders of the customer
         /// </summary>
         public IDictionary<PickslipDimension, int> CountValuesPerDimension { get; set; }
 
-        public SparseMatrix<object, object, DimensionValue> AllValues3
+        public SparseMatrix<object, object, MatrixCellValue> AllValues3
         {
             get
             {

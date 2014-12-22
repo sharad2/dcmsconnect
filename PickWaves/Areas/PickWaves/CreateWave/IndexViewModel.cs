@@ -1,13 +1,15 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
     public class DimensionValueModel
     {
-        internal DimensionValueModel(DimensionValue entity)
+        internal DimensionValueModel(MatrixCellValue entity)
         {
             this.PickslipCount = entity.PickslipCount;
             this.OrderedPieces = entity.OrderedPieces;
@@ -16,6 +18,94 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public int PickslipCount { get; set; }
 
         public int OrderedPieces { get; set; }
+    }
+
+    /// <summary>
+    /// The formatting is applied based on type of the value. Equality is is also based on underlying value. This makes it possible to used Distinct()
+    /// </summary>
+    public class DimensionValue: IEquatable<DimensionValue>
+    {
+        private readonly object _rawValue;
+        public DimensionValue(object value)
+        {
+            _rawValue = value;
+        }
+
+        /// <summary>
+        /// Post value shows date as YYYY-MM-DD
+        /// </summary>
+        public string PostValue
+        {
+            get
+            {
+                if (_rawValue == null)
+                {
+                    return string.Empty;
+                }
+                if (_rawValue is DateTime)
+                {
+                    return string.Format("{0:yyyy-MM-dd}", _rawValue, CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                }
+                return _rawValue.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Display value shows date only
+        /// </summary>
+        public string DisplayValue
+        {
+            get
+            {
+                if (_rawValue == null)
+                {
+                    return string.Empty;
+                }
+                if (_rawValue is DateTime)
+                {
+                    return string.Format("{0:d}", _rawValue);
+                }
+                return _rawValue.ToString();
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            //var other = obj as DimensionValue;
+            //if (other == null)
+            //{
+            //    return false;
+            //}
+            //if (_rawValue == null)
+            //{
+            //    return other._rawValue == null;
+            //}
+            //return _rawValue.Equals(other._rawValue);
+            return this.Equals(obj as DimensionValue);
+        }
+
+        public override int GetHashCode()
+        {
+            if (_rawValue == null)
+            {
+                return 0;
+            }
+            return _rawValue.GetHashCode();
+        }
+
+
+        public bool Equals(DimensionValue other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            if (_rawValue == null)
+            {
+                return other._rawValue == null;
+            }
+            return _rawValue.Equals(other._rawValue);
+        }
     }
 
     /// <summary>
@@ -72,7 +162,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public string CustomerId { get; set; }
 
-        public SparseMatrix<string, string, DimensionValueModel> DimensionValues { get; set; }
+        public SparseMatrix<DimensionValue, DimensionValue, DimensionValueModel> DimensionMatrix { get; set; }
 
 
         public PickslipDimension GroupDimIndex { get; set; }

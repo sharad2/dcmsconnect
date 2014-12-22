@@ -339,13 +339,13 @@ SELECT *
         /// ]]>
         /// </code>
         /// </remarks>
-        private IList<Tuple<object, object, DimensionValue>> MapOrderSummaryXml3(object rowVal, string pivotData, bool isColDate)
+        private IList<Tuple<object, object, MatrixCellValue>> MapOrderSummaryXml3(object rowVal, string pivotData, bool isColDate)
         {
             var xml = XElement.Parse(pivotData);
             var query = from item in xml.Elements("item")
                         let column = item.Elements("column")
                         let dimCol = column.First(p => p.Attribute("name").Value == "DIM_COL")
-                        let dimVal = new DimensionValue
+                        let dimVal = new MatrixCellValue
                         {
                             PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
                             OrderedPieces = (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT") ?? 0
