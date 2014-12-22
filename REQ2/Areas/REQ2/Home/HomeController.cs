@@ -132,16 +132,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         private void PopulateIndexViewModel(PropertyEditorViewModel model)
         {
-            //if (model.CurrentRequest == null)
-            //{
-            //    model.CurrentRequest = new RequestHeaderViewModel();
-            //}
-
             var vwh = _service.GetVwhList().ToList();
             model.VirtualWareHouseList = vwh.Select(p => MapCode(p));
-
             model.TargetVwhList = vwh.Select(p => MapCode(p));
-
             var areas = _service.GetCartonAreas();
             model.SourceAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag && (p.IsCartonArea))), "AreaId", "Description", "BuildingId", 1);
             model.DestinationAreas = new SelectList(areas.Where(p => (!p.LocationNumberingFlag)), "AreaId", "Description", "BuildingId", 1);
