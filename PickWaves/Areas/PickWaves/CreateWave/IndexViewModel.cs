@@ -9,6 +9,19 @@ using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
+    public class DimensionValueModel
+    {
+        internal DimensionValueModel(DimensionValue entity)
+        {
+            this.PickslipCount = entity.PickslipCount;
+            this.OrderedPieces = entity.OrderedPieces;
+        }
+
+        public int PickslipCount { get; set; }
+
+        public int OrderedPieces { get; set; }
+    }
+
     /// <summary>
     /// The unbinder is capable of handling many properties.
     /// </summary>
@@ -63,32 +76,37 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public string CustomerId { get; set; }
 
-        private IList<RowDimensionModel> _rows;
-        public IList<RowDimensionModel> Rows
-        {
-            get
-            {
-                return _rows ?? new List<RowDimensionModel>();
-            }
-            set
-            {
-                _rows = value;
-            }
-        }
+        //[Obsolete]
+        //private IList<RowDimensionModel> _rows;
+
+        //[Obsolete]
+        //public IList<RowDimensionModel> Rows
+        //{
+        //    get
+        //    {
+        //        return _rows ?? new List<RowDimensionModel>();
+        //    }
+        //    set
+        //    {
+        //        _rows = value;
+        //    }
+        //}
+
+        public SparseMatrix<string, string, DimensionValueModel> DimensionValues { get; set; }
 
         /// <summary>
         /// Unique dimension values for the column
         /// </summary>
         //public IList<string> ColDimensionValues { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int GrandTotalPickslips
-        {
-            get
-            {
-                return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
-            }
-        }
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int GrandTotalPickslips
+        //{
+        //    get
+        //    {
+        //        return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
+        //    }
+        //}
 
         #region Posted Values
         public PickslipDimension RowDimIndex { get; set; }

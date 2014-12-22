@@ -180,15 +180,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //                  DimensionValue = FormatDimensionValue(rowVal)
             //              }).ToArray();
 
-            model.Rows = (from rowVal in summary.AllValues3.FirstKeys
-                          //let row = summary.AllValues.GetRow(rowVal)
-                          select new RowDimensionModel
-                          {
-                              PickslipCounts = summary.AllValues3.FirstKeyValues(rowVal).ToDictionary(p => FormatDimensionValue(p.Item1), p => p.Item2.PickslipCount),
-                              OrderedPieces = summary.AllValues3.FirstKeyValues(rowVal).ToDictionary(p => FormatDimensionValue(p.Item1), p => p.Item2.OrderedPieces),
-                              DimensionValue = FormatDimensionValue(rowVal)
-                          }).ToArray();
+            //model.Rows = (from rowVal in summary.AllValues3.FirstKeys
+            //              //let row = summary.AllValues.GetRow(rowVal)
+            //              select new RowDimensionModel
+            //              {
+            //                  PickslipCounts = summary.AllValues3[rowVal].ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
+            //                  OrderedPieces = summary.AllValues3[rowVal].ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
+            //                  DimensionValue = FormatDimensionValue(rowVal)
+            //              }).ToArray();
 
+            var query = from item in summary.AllValues3
+                        select Tuple.Create(FormatDimensionValue(item.Key.Item1), FormatDimensionValue(item.Key.Item2),
+                            new DimensionValueModel(item.Value));
+
+            model.DimensionValues = new SparseMatrix<string, string, DimensionValueModel>();
+            model.DimensionValues.AddRange(query);
             //var list = new List<RowDimensionModel>();
 
             //foreach (var rowVal in summary.AllValues2.RowValues())
@@ -440,7 +446,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.RowDimIndex].Name;
             model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.ColDimIndex].Name;
-            model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
+            model.RowDimVal = model.RowDimVal;
             model.CustomerName = (_service.Value.GetCustomer(model.CustomerId) == null ? "" : _service.Value.GetCustomer(model.CustomerId).Name);
 
             model.BucketId = bucketId;

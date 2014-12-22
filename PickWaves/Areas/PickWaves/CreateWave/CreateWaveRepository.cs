@@ -123,7 +123,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     break;
 
                 case PickslipDimension.StartDate:
-                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)"; break;
+                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
+                    break;
 
                 case PickslipDimension.CancelDate:
                     clause = "(DEMPS.CANCEL_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.CANCEL_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
@@ -269,7 +270,7 @@ SELECT *
                 .Parameter("VWH_ID", vwhId)
                 ;
             var rows = _db.ExecuteReader(query, binder);
-            result.AllValues3.Add(rows.SelectMany(p => p));
+            result.AllValues3.AddRange(rows.SelectMany(p => p));
             return result;
         }
 
