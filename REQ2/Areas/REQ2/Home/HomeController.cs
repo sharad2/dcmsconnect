@@ -142,19 +142,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             model.TargetVwhList = vwh.Select(p => MapCode(p));
 
-            var areas = _service.GetCartonAreas().ToList();
-
-            //model.SourceAreas = Mapper.Map<IEnumerable<GroupSelectListItem>>(areas.Where(p => (p.LocationNumberingFlag) && (p.IsCartonArea)));
+            var areas = _service.GetCartonAreas();
             model.SourceAreas = areas.Where(p => (p.LocationNumberingFlag) && (p.IsCartonArea)).Select(p => MapArea(p)).ToList();
-
-            //model.DestinationAreas =
-            //Enumerable.Repeat(new GroupSelectListItem
-            //{
-            //    Text = "(Please Select)",
-            //    Value = ""
-            //}, 1).Concat(
-            //Mapper.Map<IEnumerable<GroupSelectListItem>>(areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag)));
-            model.DestinationAreas = areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag).Select(p => MapArea(p)).ToList();
+            model.DestinationAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag)), "AreaId", "Description", "BuildingId", 1);
 
             var qualityCode = _service.GetQualityCodes();
             model.TargetQualityCodeList = qualityCode.Select(p => MapCode(p));
