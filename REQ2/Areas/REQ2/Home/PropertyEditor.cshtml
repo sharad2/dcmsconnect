@@ -79,7 +79,7 @@
 
 <div class="container">
     <h2 style="margin-top:0">
-         Request #@Model.ResvId
+        @Html.Raw(string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId))
     </h2>
 
 
