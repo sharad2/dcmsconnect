@@ -2,6 +2,7 @@
 using DcmsMobile.PickWaves.ViewModels;
 using EclipseLibrary.Mvc.Controllers;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -55,6 +56,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [Obsolete]
         private static string FormatDimensionValue(object value)
         {
             if (value == null)
@@ -157,16 +159,38 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                                           Selected = kvp.Key == model.ColDimIndex
                                       }).OrderBy(p => p.Text).ToArray();
 
-            model.Rows = (from rowVal in summary.AllValues.RowValues
-                          let row = summary.AllValues.GetRow(rowVal)
+            //model.Rows = (from rowVal in summary.AllValues.RowValues
+            //              let row = summary.AllValues.GetRow(rowVal)
+            //              select new RowDimensionModel
+            //              {
+            //                  PickslipCounts = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
+            //                  OrderedPieces = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
+            //                  DimensionValue = FormatDimensionValue(rowVal)
+            //              }).ToArray();
+
+            model.Rows = (from rowVal in summary.AllValues2.RowValues()
+                          //let row = summary.AllValues.GetRow(rowVal)
                           select new RowDimensionModel
                           {
-                              PickslipCounts = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
-                              OrderedPieces = row.ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
-                              DimensionValue = FormatDimensionValue(rowVal)
+                              PickslipCounts = summary.AllValues2.PickslipCounts(rowVal),
+                              OrderedPieces = summary.AllValues2.OrderedPieces(rowVal),
+                              DimensionValue = SparseMatrix.FormatValue(rowVal)
                           }).ToArray();
 
-            model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
+            //var list = new List<RowDimensionModel>();
+
+            //foreach (var rowVal in summary.AllValues2.RowValues())
+            //{
+            //    var x = new RowDimensionModel
+            //                {
+            //                    PickslipCounts = summary.AllValues2.PickslipCounts(rowVal),
+            //                    OrderedPieces = summary.AllValues2.OrderedPieces(rowVal),
+            //                    DimensionValue = SparseMatrix.FormatValue(rowVal)
+            //                };
+            //    list.Add(x);
+            //}
+
+            //model.ColDimensionValues = summary.AllValues.ColValues.Select(p => FormatDimensionValue(p)).ToArray();
 
 
             return true;

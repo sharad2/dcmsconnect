@@ -79,7 +79,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <summary>
         /// Unique dimension values for the column
         /// </summary>
-        public IList<string> ColDimensionValues { get; set; }
+        //public IList<string> ColDimensionValues { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int GrandTotalPickslips

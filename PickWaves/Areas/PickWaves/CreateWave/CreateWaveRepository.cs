@@ -123,11 +123,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     break;
 
                 case PickslipDimension.StartDate:
-                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";          break;
+                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)"; break;
 
                 case PickslipDimension.CancelDate:
                     clause = "(DEMPS.CANCEL_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.CANCEL_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
-                    
+
                     break;
 
                 case PickslipDimension.CustomerOrderType:
@@ -218,12 +218,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
              ORDER BY PICKSLIP_DIMENSION
         ";
 
-
-            //var array = new List<string>();
-            //foreach (var item in dimMap)
-            //{
-            //    array.Add(string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", item.Value.Item1, item.Key.ToString()));
-            //}
             var query = string.Format(QUERY,
                 dimMap[col1].Item1,    //{0}
                 dimMap[col2].Item1,    //{1}
@@ -256,10 +250,10 @@ SELECT *
  ORDER BY PICKSLIP_DIMENSION
              */
 
-            var result = new CustomerOrderSummary
-            {
-                AllValues = new Matrix()
-            };
+            var result = new CustomerOrderSummary();
+
+            var matrix = new SparseMatrix();
+
             var binder = SqlBinder.Create(row =>
             {
                 if (result.CountValuesPerDimension == null)
@@ -270,22 +264,25 @@ SELECT *
                         result.CountValuesPerDimension.Add(item.Key, row.GetInteger(item.Key.ToString()) ?? 0);
                     }
                 }
-                return new
-            {
-                RowValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                ColValues = MapOrderSummaryXml(row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
-            };
+                var colvalues = MapOrderSummaryXml(row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime));
+                foreach (var kvp in colvalues)
+                {
+                    matrix.Add(dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
+                        kvp.Key, kvp.Value.Item1, kvp.Value.Item2);
+                }
+                return 0;
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
                 ;
             var rows = _db.ExecuteReader(query, binder);
 
-            foreach (var row in rows)
-            {
-                result.AllValues.AddRow(row.RowValue, row.ColValues);
+            //foreach (var row in rows)
+            //{
+            //    result.AllValues.AddRow(row.RowValue, row.ColValues);
 
-            }
+            //}
+            result.AllValues2 = matrix;
             return result;
         }
 
@@ -313,7 +310,7 @@ SELECT *
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<object, CellValue> MapOrderSummaryXml(string data, bool isColDate)
+        private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(string data, bool isColDate)
         {
             var xml = XElement.Parse(data);
             var query = (from item in xml.Elements("item")
@@ -322,24 +319,20 @@ SELECT *
                          {
                              ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
                              PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
-                             OrderedPieces = column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
+                             OrderedPieces = (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
                          });
             if (isColDate)
             {
-                //return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
-                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => new CellValue
-                {
-                    OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
-                    PickslipCount = p.PickslipCount
-                });
+                return query.ToDictionary(p => (object)(DateTime?)p.ColElement,
+                    p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
             }
-            //return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
-            return query.ToDictionary(p => (object)(string)p.ColElement, p => new CellValue
-            {
-                PickslipCount = p.PickslipCount,
-                OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
-            });
+            return query.ToDictionary(p => (object)(string)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
         }
+
+        //private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(string data, bool isColDate)
+        //{
+
+        //}
 
         /// <summary>
         /// Create bucket
