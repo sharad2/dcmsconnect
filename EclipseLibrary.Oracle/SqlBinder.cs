@@ -136,10 +136,10 @@ namespace EclipseLibrary.Oracle
 
         private IEnumerable<OracleDataRow2> ReadReader(OracleDataReader reader)
         {
-            var row = new OracleDataRow2(reader);
+            var row = new OracleDataRow2(reader.GetSchemaTable());
             while (reader.Read())
             {
-                row.RefreshValues();
+                row.SetValues(reader);
                 yield return row;
             }
         }
