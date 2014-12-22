@@ -21,7 +21,7 @@ git subtree push --prefix DcmsRights dcmsrights master
 
 git subtree push --prefix EclipseLibrary.Mvc libmvc master
 
-git subtree push --prefix EclipseLibrary.Oracle liboracle master
+git subtree push --prefix EclipseLibrary.Oracle http://server/git/dcmsconnect/libs/liboracle.git master
 
 git subtree push --prefix Inquiry inquiry master
 

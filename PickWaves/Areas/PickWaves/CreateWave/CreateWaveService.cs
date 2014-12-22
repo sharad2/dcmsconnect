@@ -39,28 +39,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             return _repos.GetOrderSummaryForCustomer(customerId, vwhId, dimRow, dimCol);
         }
 
-        /// <summary>
-        /// Create wave and then add pickslips to this.
-        /// </summary>
-        /// <param name="bucket"></param>
-        /// <param name="customerId"></param>
-        /// <param name="dimRow"></param>
-        /// <param name="dimRowVal"></param>
-        /// <param name="dimCol"></param>
-        /// <param name="dimColVal"></param>
-        /// <param name="vwhId"></param>
-        /// <returns></returns>
-        //[Obsolete]
-        //public int CreateWave(PickWaveEditable bucket, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
-        //{
-        //    using (var trans = _repos.BeginTransaction())
-        //    {
-        //        var bucketId = _repos.CreateWave(bucket);
-        //        _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, vwhId, true);
-        //        trans.Commit();
-        //        return bucketId;
-        //    }
-        //}
 
         public DbTransaction BeginTransaction()
         {
@@ -84,10 +62,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             _repos.AddPickslipsToWave(bucketId, pickslipList);
         }
 
-        public IList<CreateWaveArea> GetAreasForCustomer(string customerId)
-        {
-            return _repos.GetAreasForCustomer(customerId);
-        }
 
         /// <summary>
         /// Returns the list of VWh ID of passed customer orders

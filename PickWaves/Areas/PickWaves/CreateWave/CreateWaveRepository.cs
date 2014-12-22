@@ -123,11 +123,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     break;
 
                 case PickslipDimension.StartDate:
-                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";          break;
+                    clause = "(DEMPS.DELIVERY_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.DELIVERY_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)"; break;
 
                 case PickslipDimension.CancelDate:
                     clause = "(DEMPS.CANCEL_DATE &gt;= TRUNC(CAST(:{0} AS DATE)) AND DEMPS.CANCEL_DATE &lt; TRUNC(CAST(:{0} AS DATE))  + 1)";
-                    
+
                     break;
 
                 case PickslipDimension.CustomerOrderType:
@@ -218,12 +218,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
              ORDER BY PICKSLIP_DIMENSION
         ";
 
-
-            //var array = new List<string>();
-            //foreach (var item in dimMap)
-            //{
-            //    array.Add(string.Format("COUNT(UNIQUE {0}) OVER() AS {1}", item.Value.Item1, item.Key.ToString()));
-            //}
             var query = string.Format(QUERY,
                 dimMap[col1].Item1,    //{0}
                 dimMap[col2].Item1,    //{1}
@@ -258,8 +252,9 @@ SELECT *
 
             var result = new CustomerOrderSummary
             {
-                AllValues = new Matrix()
+                AllValues2 = new SparseMatrix()
             };
+
             var binder = SqlBinder.Create(row =>
             {
                 if (result.CountValuesPerDimension == null)
@@ -270,24 +265,57 @@ SELECT *
                         result.CountValuesPerDimension.Add(item.Key, row.GetInteger(item.Key.ToString()) ?? 0);
                     }
                 }
-                return new
-            {
-                RowValue = dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
-                ColValues = MapOrderSummaryXml(row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime))
-            };
+                return MapOrderSummaryXml2(dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
+                    row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime));
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
                 ;
             var rows = _db.ExecuteReader(query, binder);
-
-            foreach (var row in rows)
-            {
-                result.AllValues.AddRow(row.RowValue, row.ColValues);
-
-            }
+            result.AllValues2.Add(rows.SelectMany(p => p));
             return result;
         }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="xml"></param>
+        ///// <param name="isColDate"> </param>
+        ///// <returns></returns>
+        ///// <remarks>
+        ///// <code>
+        ///// <![CDATA[
+        ///// <PivotSet>
+        /////   <item>
+        /////     <column name = "CUSTOMER_DIST_CENTER_ID">81234</column>
+        /////     <column name = "PICKSLIP_COUNT">647</column>
+        /////     <column name = "PO_COUNT">8</column>
+        /////   </item>
+        /////   <item>
+        /////     <column name = "CUSTOMER_DIST_CENTER_ID">82567</column>
+        /////     <column name = "PICKSLIP_COUNT">35</column>
+        /////     <column name = "PO_COUNT">3</column>
+        /////   </item>
+        ///// </PivotSet>  
+        ///// ]]>
+        ///// </code>
+        ///// </remarks>
+        //[Obsolete]
+        //private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(string data, bool isColDate)
+        //{
+        //    var xml = XElement.Parse(data);
+        //    var query = (from item in xml.Elements("item")
+        //                 let column = item.Elements("column")
+        //                 let dimCol = column.First(p => p.Attribute("name").Value == "DIM_COL")
+        //                 select new
+        //                 {
+        //                     ColValue = isColDate ? (object)(DateTime?)dimCol : (object)(string)dimCol,
+        //                     PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
+        //                     OrderedPieces = (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
+        //                 });
+
+        //    return query.ToDictionary(p => p.ColValue, p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
+        //}
 
         /// <summary>
         /// 
@@ -313,32 +341,20 @@ SELECT *
         /// ]]>
         /// </code>
         /// </remarks>
-        private IDictionary<object, CellValue> MapOrderSummaryXml(string data, bool isColDate)
+        private IList<Tuple<object, object, int, int>> MapOrderSummaryXml2(object rowVal, string pivotData, bool isColDate)
         {
-            var xml = XElement.Parse(data);
-            var query = (from item in xml.Elements("item")
-                         let column = item.Elements("column")
-                         select new
-                         {
-                             ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
-                             PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
-                             OrderedPieces = column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
-                         });
-            if (isColDate)
-            {
-                //return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => p.PickslipCount);
-                return query.ToDictionary(p => (object)(DateTime?)p.ColElement, p => new CellValue
-                {
-                    OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
-                    PickslipCount = p.PickslipCount
-                });
-            }
-            //return query.ToDictionary(p => (object)(string)p.ColElement, p => p.PickslipCount);
-            return query.ToDictionary(p => (object)(string)p.ColElement, p => new CellValue
-            {
-                PickslipCount = p.PickslipCount,
-                OrderedPieces = string.IsNullOrEmpty(p.OrderedPieces.Value) ? 0 : (int)p.OrderedPieces,
-            });
+            var xml = XElement.Parse(pivotData);
+            var query = from item in xml.Elements("item")
+                        let column = item.Elements("column")
+                        let dimCol = column.First(p => p.Attribute("name").Value == "DIM_COL")
+                        select Tuple.Create(
+                            rowVal,
+                            isColDate ? (object)(DateTime?)dimCol : (object)(string)dimCol,
+                            (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
+                            (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT") ?? 0
+                        );
+
+            return query.ToList();
         }
 
         /// <summary>
@@ -455,82 +471,6 @@ SELECT *
             binder.Parameter("pickslip_id", pickslipList);
             binder.Parameter("BUCKET_ID", Enumerable.Repeat(bucketId, pickslipList.Count));
             _db.ExecuteDml(QUERY, binder);
-        }
-
-        /// <summary>
-        /// Returns those numbered carton areas which contain at least one carton.
-        /// Only just imported orders are considered.
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <returns></returns>
-        public IList<CreateWaveArea> GetAreasForCustomer(string customerId)
-        {
-            const string QUERY = @"
-                                WITH ORDERED_SKU AS
-                                     (SELECT MAX(PD.UPC_CODE) AS UPC_CODE, SKU.SKU_ID, P.VWH_ID
-                                        FROM <proxy />DEM_PICKSLIP P
-                                       INNER JOIN <proxy />DEM_PICKSLIP_DETAIL PD
-                                          ON P.PICKSLIP_ID = PD.PICKSLIP_ID
-                                       INNER JOIN <proxy />MASTER_SKU SKU
-                                          ON SKU.UPC_CODE = PD.UPC_CODE
-                                       WHERE P.CUSTOMER_ID = :CUSTOMER_ID
-                                         AND P.PS_STATUS_ID = 1
-                                       GROUP BY SKU.SKU_ID, P.VWH_ID),
-                                CARTON_AREAS AS
-                                     (SELECT CTN.CARTON_STORAGE_AREA, COUNT(UNIQUE OS.SKU_ID) AS COUNT_SKU
-                                        FROM <proxy />SRC_CARTON CTN
-                                       INNER JOIN <proxy />SRC_CARTON_DETAIL CTNDET
-                                          ON CTN.CARTON_ID = CTNDET.CARTON_ID
-                                        LEFT OUTER JOIN ORDERED_SKU OS
-                                          ON OS.SKU_ID = CTNDET.SKU_ID
-                                         AND OS.VWH_ID = CTN.VWH_ID
-                                       WHERE CTN.LOCATION_ID IS NOT NULL
-                                       GROUP BY CTN.CARTON_STORAGE_AREA),
-                                PICK_AREAS AS
-                                 (SELECT IALOC.IA_ID, COUNT(UNIQUE OS.SKU_ID) AS COUNT_SKU
-                                    FROM <proxy />IALOC IALOC
-                                    LEFT OUTER JOIN ORDERED_SKU OS
-                                      ON OS.UPC_CODE = IALOC.ASSIGNED_UPC_CODE
-                                     AND OS.VWH_ID = IALOC.VWH_ID  
-                                   GROUP BY IALOC.IA_ID)
-                            SELECT :PULL_AREA_TYPE                                  AS AREA_TYPE,
-                                   TIA.INVENTORY_STORAGE_AREA                       AS INVENTORY_STORAGE_AREA,
-                                   TIA.DESCRIPTION                                  AS DESCRIPTION,
-                                   TIA.SHORT_NAME                                   AS SHORT_NAME,
-                                   TIA.WAREHOUSE_LOCATION_ID                        AS WAREHOUSE_LOCATION_ID,
-                                   CA.COUNT_SKU                                     AS COUNT_SKU,
-                                   (SELECT COUNT(UNIQUE SKU_ID) FROM ORDERED_SKU)   AS COUNT_ORDERED_SKU
-                              FROM <proxy />TAB_INVENTORY_AREA TIA
-                             INNER JOIN CARTON_AREAS CA
-                                ON CA.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA                            
-
-                            UNION ALL
-
-                            SELECT :PITCH_AREA_TYPE                                 AS AREA_TYPE,
-                                   I.IA_ID                                          AS INVENTORY_STORAGE_AREA,
-                                   I.SHORT_DESCRIPTION                              AS DESCRIPTION,
-                                   I.SHORT_NAME                                     AS SHORT_NAME,
-                                   I.WAREHOUSE_LOCATION_ID                          AS WAREHOUSE_LOCATION_ID,
-                                   CA.COUNT_SKU                                     AS COUNT_SKU,
-                                   (SELECT COUNT(UNIQUE SKU_ID) FROM ORDERED_SKU)   AS COUNT_ORDERED_SKU
-                              FROM <proxy />IA I
-                             INNER JOIN PICK_AREAS CA
-                                ON CA.IA_ID = I.IA_ID
-                             WHERE I.PICKING_AREA_FLAG = 'Y'";
-            var binder = SqlBinder.Create(row => new CreateWaveArea
-            {
-                AreaId = row.GetString("INVENTORY_STORAGE_AREA"),
-                ShortName = row.GetString("SHORT_NAME"),
-                Description = row.GetString("DESCRIPTION"),
-                BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
-                CountSku = row.GetInteger("COUNT_SKU"),
-                AreaType = row.GetEnum<BucketActivityType>("AREA_TYPE"),
-                CountOrderedSku = row.GetInteger("COUNT_ORDERED_SKU")
-            });
-            binder.Parameter("CUSTOMER_ID", customerId)
-                .Parameter("PITCH_AREA_TYPE", BucketActivityType.Pitching.ToString())
-                .Parameter("PULL_AREA_TYPE", BucketActivityType.Pulling.ToString());
-            return _db.ExecuteReader(QUERY, binder);
         }
 
         /// <summary>

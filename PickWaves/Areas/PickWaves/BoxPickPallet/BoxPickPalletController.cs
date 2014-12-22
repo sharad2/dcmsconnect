@@ -25,22 +25,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
         }
 
-        private BoxPickPalletService _service;
+        private Lazy<BoxPickPalletService> _service;
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
             if (_service == null)
             {
-                _service = new BoxPickPalletService(this.HttpContext.Trace,
+                _service = new Lazy<BoxPickPalletService>(() => new BoxPickPalletService(this.HttpContext.Trace,
                     HttpContext.User.IsInRole(ROLE_EXPEDITE_BOXES) ? HttpContext.User.Identity.Name : string.Empty,
-                    Request.UserHostName ?? Request.UserHostAddress);
+                    Request.UserHostName ?? Request.UserHostAddress));
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            _service.Dispose();
+            if (_service != null && _service.IsValueCreated)
+            {
+                _service.Value.Dispose();
+            }
+            _service = null;
             base.Dispose(disposing);
         }
 
@@ -70,7 +74,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             //TC1: bucket not passed, get best bucket to expedite.
             if (bucketId == null)
             {
-                bucketId = _service.GetBucketToExpedite();
+                bucketId = _service.Value.GetBucketToExpedite();
             }
             //TC2: best bucket to expedite not found, Show index page with message.
             if (bucketId == null)
@@ -78,7 +82,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 AddStatusMessage("There are no pick wave to expedite.");
                 return View(Views.Index, model);
             }
-            var bucket = _service.GetBucketDetail(bucketId.Value);
+            var bucket = _service.Value.GetBucketDetail(bucketId.Value);
             //TC3: bucket must be valid, get bucket details.
             if (bucket == null)
             {
@@ -97,10 +101,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     PullBuildingId = bucket.PullBuildingId,
                     PitchBuildingId = bucket.PitchBuildingId,
                     IsFrozen = bucket.IsFrozen,
-                    PalletList = _service.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
+                    PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
                 };
             model.BucketId = bucketId;
-            model.CustomerName = _service.GetCustomer(model.CustomerId).Name;
+            model.CustomerName = _service.Value.GetCustomer(model.CustomerId).Name;
             return View(Views.Index, model);
         }
 
@@ -120,7 +124,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 ModelState.AddModelError("", "Wave ID is required.");
                 return RedirectToAction(this.Actions.Index(model.BucketId));
             }
-            var pallet = _service.GetPallet(model.PalletId);
+            var pallet = _service.Value.GetPallet(model.PalletId);
 
             //TC5: Pallet is exist but not belongs to any bucket.
             if (pallet != null && pallet.BucketId == null)
@@ -147,7 +151,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
             try
             {
-                var count = _service.CreatePallet(model.BucketId.Value, model.PalletId, model.PalletLimit);
+                var count = _service.Value.CreatePallet(model.BucketId.Value, model.PalletId, model.PalletLimit);
                 AddStatusMessage(string.Format(count > 0 ? "{0} boxes put on the Pallet {1} successfully." : "No new boxes kept on the Pallet {1}. This could be because inventory is not available at the moment.", count, model.PalletId));
             }
             catch (ApplicationException ex)
@@ -155,7 +159,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 ModelState.AddModelError("pallet", ex.Message);
             }
 
-            model.PalletList = _service.GetPalletsOfBucket(model.BucketId.Value).Select(Map).ToArray();
+            model.PalletList = _service.Value.GetPalletsOfBucket(model.BucketId.Value).Select(Map).ToArray();
             return RedirectToAction(this.Actions.Index(model.BucketId));
         }
 
@@ -174,7 +178,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
             {
                 throw new ArgumentNullException("Wave or palletId is null");
             }
-            _service.RemoveUnPickedBoxesFromPallet(palletId);
+            _service.Value.RemoveUnPickedBoxesFromPallet(palletId);
             this.AddStatusMessage(string.Format("Unpicked boxes removed from Pallet {0}", palletId));
             return RedirectToAction(this.Actions.Index(bucketId));
         }
