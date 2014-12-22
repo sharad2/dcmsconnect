@@ -144,8 +144,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             var areas = _service.GetCartonAreas();
             model.SourceAreas = areas.Where(p => (p.LocationNumberingFlag) && (p.IsCartonArea)).Select(p => MapArea(p)).ToList();
-            model.DestinationAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag)), "AreaId", "Description", "BuildingId", 1);
-
+            model.SourceAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag && (p.IsCartonArea))), "AreaId", "Description", "BuildingId", 1);
+            model.DestinationAreas = new SelectList(areas.Where(p => (!p.LocationNumberingFlag)), "AreaId", "Description", "BuildingId", 1);
             var qualityCode = _service.GetQualityCodes();
             model.TargetQualityCodeList = qualityCode.Select(p => MapCode(p));
             model.SourceQualityCodeList = qualityCode.Select(p => MapCode(p));
