@@ -10,6 +10,7 @@
 @section applinks {
     <li>
         @Html.ActionLink("Recent Requests", MVC_REQ2.REQ2.Home.Index())
+        @Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.PropertyEditor())
     </li>
 }
 
@@ -17,18 +18,19 @@
     <script type="text/javascript" src="@Links_REQ2.Areas.REQ2.Home.PropertyEditor_js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
             var $ddlTargetQualityCode = $('#ddlTargetQualityCode');
             var $cbUpdateQuality = $('#cbUpdateQuality');
             var $CbConversionRequest = $('#CbConversionRequest');
             var $ddlTargetVwh = $('#ddlTargetVwh');
 
-            $('#divAccordion').accordion();
             if ($('#resvId').val() != '') {
                 if ($ddlTargetQualityCode.val() != '') {
                     $cbUpdateQuality.attr('checked', 'checked');
                 } else {
                     $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
                 }
+                // Converion request can not be undone. 
                 $CbConversionRequest.attr('disabled', 'disabled');
                 if ($CbConversionRequest.attr('checked')) {
                     $ddlTargetVwh.removeAttr('disabled');
@@ -77,7 +79,7 @@
 
 <div class="container">
     <h2 style="margin-top:0">
-        Request Editor
+        @Html.Raw(string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId))
     </h2>
 
 
@@ -87,11 +89,8 @@
     role = "form"
 }))
     {
-
-
         @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
-
-
+        
         <div class="form-group">
             <label for="CbConversionRequest" class="col-sm-2 control-label">Perform conversion</label>
             <div class="col-sm-5">
@@ -102,7 +101,7 @@
                @class = "form-control"
            })
 
-                <p class="help-block hidden-xs">A block of help text that breaks onto a new line and may extend beyond one line.</p>
+                <p class="help-block hidden-xs">Check it if you want to convert SKU.</p>
             </div>
             <div class="col-sm-5">
 
@@ -113,6 +112,7 @@
            {
                @class = "help-block"
            })
+                    <p class="help-block hidden-xs">Increase it if you need SKU urgently.</p>
                 </div>
             </div>
         </div>
@@ -126,7 +126,7 @@
                @class = "form-control"
            })
 
-                <p class="help-block hidden-xs">Source Virtual Warehouse.</p>
+                <p class="help-block hidden-xs">Source Virtual Warehouse</p>
             </div>
             <div class="col-sm-5 conversion-only">
                 <div class="input-group">
@@ -134,8 +134,10 @@
 
                     @Html.DropDownListFor(m => m.TargetVwhId, Model.TargetVwhList, Model.TargetVwhList.Count() > 1 ? "(Please Select)" : null, new
            {
-               id = "ddlVwh",
+               id = "ddlTargetVwh",
                @class = "form-control"
+ 
+
            })
                 </div>
                 <p class="help-block">The Virtual Warehouse to which all pulled SKUs should be converted to</p>
@@ -143,7 +145,7 @@
         </div>
 
         <div class="form-group">
-            <label for="ddlArea" class="col-sm-2 control-label">Pull from area</label>
+            <label for="ddlArea" class="col-sm-2 control-label">Source area</label>
             <div class="col-sm-5">
 
                 @Html.DropDownListFor(m => m.SourceAreaId, Model.SourceAreas, Model.SourceAreas.Count() > 1 ? "(Please Select)" : null, new
@@ -165,7 +167,7 @@
                id = "ddlArea",
                @class = "form-control"
            })
-                <p class="help-block">Destination area</p>
+                <p class="help-block">Destination area where cartons will be sent</p>
             </div>
         </div>
 

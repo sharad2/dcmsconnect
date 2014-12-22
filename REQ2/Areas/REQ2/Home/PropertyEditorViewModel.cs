@@ -62,7 +62,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string ResvId { get; set; }
 
         [Required]
-        [Display(Name = "Pull to Area", ShortName = "To")]
+        [Display(Name = "Destination Area", ShortName = "To")]
         public string DestinationAreaId { get; set; }
 
         [Display(Name = "Hung")]
