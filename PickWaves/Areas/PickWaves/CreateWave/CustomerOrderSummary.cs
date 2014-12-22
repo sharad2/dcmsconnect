@@ -13,9 +13,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             _dict = new Dictionary<Tuple<object, object>, Tuple<int, int>>(20);
         }
 
-        public void Add(object rowVal, object colVal, int pickslipCount, int orderedPieces)
+        /// <summary>
+        /// The typle consists of rowVal, colVal, pickslip count and ordered pieces count respectively
+        /// </summary>
+        /// <param name="list"></param>
+        public void Add(IEnumerable<Tuple<object, object, int, int>> list)
         {
-            _dict.Add(Tuple.Create(rowVal, colVal), Tuple.Create(pickslipCount, orderedPieces));
+            foreach (var item in list)
+            {
+                _dict.Add(Tuple.Create(item.Item1, item.Item2), Tuple.Create(item.Item3, item.Item4));
+            }
         }
 
         public IEnumerable<object> RowValues()
