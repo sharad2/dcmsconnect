@@ -193,9 +193,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             if (!ModelState.IsValid)
             {
                 // Unable to Create or Update Populate RequestViewModel again 
-                //rvm.CurrentRequest = model.CurrentRequest;
-                //PopulateIndexViewModel(rvm);
-                //return View(Views.PropertyEditor, rvm);
+                rvm.ResvId = model.ResvId;
+                PopulateIndexViewModel(rvm);
+                return View(Views.PropertyEditor, rvm);
                 throw new NotImplementedException();
             }
             var requestModel = new PullRequest

@@ -2,7 +2,7 @@
 @{
     Layout = MVC_REQ2.REQ2.SharedViews.Views._layoutReq2;
     ViewBag.Title = string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId);
-    Html.EnableClientValidation();
+   // Html.EnableClientValidation();
     Html.EnableUnobtrusiveJavaScript();
 }
 
@@ -126,7 +126,7 @@
                @class = "form-control"
            })
 
-                <p class="help-block hidden-xs">Source Virtual Warehouse.</p>
+                <p class="help-block hidden-xs">Source Virtual Warehouse</p>
             </div>
             <div class="col-sm-5 conversion-only">
                 <div class="input-group">
@@ -143,7 +143,7 @@
         </div>
 
         <div class="form-group">
-            <label for="ddlArea" class="col-sm-2 control-label">Pull from area</label>
+            <label for="ddlArea" class="col-sm-2 control-label">Source area</label>
             <div class="col-sm-5">
 
                 @Html.DropDownListFor(m => m.SourceAreaId, Model.SourceAreas, Model.SourceAreas.Count() > 1 ? "(Please Select)" : null, new
@@ -165,7 +165,7 @@
                id = "ddlArea",
                @class = "form-control"
            })
-                <p class="help-block">Destination area</p>
+                <p class="help-block">Destination area where cartons will be sent</p>
             </div>
         </div>
 
