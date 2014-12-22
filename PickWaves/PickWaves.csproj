@@ -104,6 +104,7 @@
     <Compile Include="Areas\PickWaves\Config\StyleSkuCaseViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\IndexNoPickslipsViewModel.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\SparseMatrix.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletController.cs" />
     <Compile Include="Areas\PickWaves\Home\HomeController.cs" />

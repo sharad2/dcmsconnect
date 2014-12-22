@@ -250,10 +250,7 @@ SELECT *
  ORDER BY PICKSLIP_DIMENSION
              */
 
-            var result = new CustomerOrderSummary
-            {
-                AllValues2 = new SparseMatrix()
-            };
+            var result = new CustomerOrderSummary();
 
             var binder = SqlBinder.Create(row =>
             {
@@ -265,14 +262,14 @@ SELECT *
                         result.CountValuesPerDimension.Add(item.Key, row.GetInteger(item.Key.ToString()) ?? 0);
                     }
                 }
-                return MapOrderSummaryXml2(dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
+                return MapOrderSummaryXml3(dimMap[col1].Item2 == typeof(DateTime) ? (object)row.GetDate("pickslip_dimension") : (object)row.GetString("pickslip_dimension"),
                     row.GetString("DIM_COL_XML"), dimMap[col2].Item2 == typeof(DateTime));
             });
             binder.Parameter("CUSTOMER_ID", customerId)
                 .Parameter("VWH_ID", vwhId)
                 ;
             var rows = _db.ExecuteReader(query, binder);
-            result.AllValues2.Add(rows.SelectMany(p => p));
+            result.AllValues3.Add(rows.SelectMany(p => p));
             return result;
         }
 
@@ -341,17 +338,21 @@ SELECT *
         /// ]]>
         /// </code>
         /// </remarks>
-        private IList<Tuple<object, object, int, int>> MapOrderSummaryXml2(object rowVal, string pivotData, bool isColDate)
+        private IList<Tuple<object, object, DimensionValue>> MapOrderSummaryXml3(object rowVal, string pivotData, bool isColDate)
         {
             var xml = XElement.Parse(pivotData);
             var query = from item in xml.Elements("item")
                         let column = item.Elements("column")
                         let dimCol = column.First(p => p.Attribute("name").Value == "DIM_COL")
+                        let dimVal = new DimensionValue
+                        {
+                            PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
+                            OrderedPieces = (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT") ?? 0
+                        }
                         select Tuple.Create(
                             rowVal,
                             isColDate ? (object)(DateTime?)dimCol : (object)(string)dimCol,
-                            (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
-                            (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT") ?? 0
+                            dimVal
                         );
 
             return query.ToList();

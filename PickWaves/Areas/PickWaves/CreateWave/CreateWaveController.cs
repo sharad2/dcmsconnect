@@ -56,7 +56,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        [Obsolete]
         private static string FormatDimensionValue(object value)
         {
             if (value == null)
@@ -74,6 +73,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         private const string COOKIE_ROW_DIMENSION = "SELECTED_ROW_DIMENSION";
         private const string COOKIE_COL_DIMENSION = "SELECTED_COL_DIMENSION";
+
+        //private static string FormatDimensionValue(object value)
+        //{
+        //    if (value == null)
+        //    {
+        //        return string.Empty;
+        //    }
+        //    if (value is DateTime)
+        //    {
+        //        return string.Format("{0:d}", value);
+        //    }
+        //    return value.ToString();
+        //}
 
         /// <summary>
         /// Populates the passed PickslipMatrixPartialViewModel
@@ -168,13 +180,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //                  DimensionValue = FormatDimensionValue(rowVal)
             //              }).ToArray();
 
-            model.Rows = (from rowVal in summary.AllValues2.RowValues()
+            model.Rows = (from rowVal in summary.AllValues3.FirstKeys
                           //let row = summary.AllValues.GetRow(rowVal)
                           select new RowDimensionModel
                           {
-                              PickslipCounts = summary.AllValues2.PickslipCounts(rowVal),
-                              OrderedPieces = summary.AllValues2.OrderedPieces(rowVal),
-                              DimensionValue = SparseMatrix.FormatValue(rowVal)
+                              PickslipCounts = summary.AllValues3.FirstKeyValues(rowVal).ToDictionary(p => FormatDimensionValue(p.Item1), p => p.Item2.PickslipCount),
+                              OrderedPieces = summary.AllValues3.FirstKeyValues(rowVal).ToDictionary(p => FormatDimensionValue(p.Item1), p => p.Item2.OrderedPieces),
+                              DimensionValue = FormatDimensionValue(rowVal)
                           }).ToArray();
 
             //var list = new List<RowDimensionModel>();
