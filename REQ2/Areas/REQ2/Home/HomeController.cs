@@ -154,18 +154,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             //    Value = ""
             //}, 1).Concat(
             //Mapper.Map<IEnumerable<GroupSelectListItem>>(areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag)));
-            model.DestinationAreas =
-            Enumerable.Repeat(new GroupSelectListItem
-            {
-                Text = "(Please Select)",
-                Value = ""
-            }, 1).Concat(areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag).Select(p => MapArea(p))).ToList();
+            model.DestinationAreas = areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag).Select(p => MapArea(p)).ToList();
 
             var qualityCode = _service.GetQualityCodes();
             model.TargetQualityCodeList = qualityCode.Select(p => MapCode(p));
-
             model.SourceQualityCodeList = qualityCode.Select(p => MapCode(p));
-
             var saleTypes = _service.GetSaleTypeList();
             model.SaleTypes = saleTypes.Select(p => MapCode(p));
 

@@ -45,9 +45,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public IEnumerable<SelectListItem> VirtualWareHouseList { get; set; }
 
-        public IEnumerable<GroupSelectListItem> DestinationAreas { get; set; }
+        public IEnumerable<SelectListItem> DestinationAreas { get; set; }
 
-        public IEnumerable<GroupSelectListItem> SourceAreas { get; set; }
+        public IEnumerable<SelectListItem> SourceAreas { get; set; }
 
         public IEnumerable<SelectListItem> TargetVwhList { get; set; }
 
