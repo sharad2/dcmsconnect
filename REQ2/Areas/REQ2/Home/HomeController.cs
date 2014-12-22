@@ -259,7 +259,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                              };
             // Remember building for 7 days
             this.Response.Cookies.Add(cookie);
-            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(requestModel.CtnResvId));
+            return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.PullRequest(requestModel.CtnResvId));
         }
 
         /// <summary>
