@@ -174,14 +174,16 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Pull SKUs of Quality</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="TODO: Dropdown for source quality">
-            </div>
+                <div class="input-group">
+                    @Html.DropDownListFor(m => m.SourceQualityCode, Model.SourceQualityCodeList, "ANY", new { @class = "form-control" })
+                    </div>
+                </div>
             <div class="col-sm-5">
                 <div class="input-group">
                     <span class="input-group-addon">
                         @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { })
                     </span>
-                    @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "(No Change)", new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "No Change", new { @class = "form-control" })
 
                 </div><!-- /input-group -->
                 <p class="help-block">Select a quality above if you would like to change the quality of the cartons before they are pulled.</p>

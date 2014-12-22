@@ -29,6 +29,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.OverPullCarton = entity.AllowOverPulling == "O";
            //this.IsHung = entity.PackagingPreferance == "H";
             this.RequestForConversion = entity.IsConversionRequest;
+            this.SourceQualityCode = entity.SourceQuality;
             this.TargetQualityCode = entity.TargetQuality;
             //this.SaleTypeId = entity.SaleTypeId;
             this.TargetVwhId = entity.TargetVwhId;
@@ -39,6 +40,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public IEnumerable<SelectListItem> BuildingList { get; set; }
 
         public IEnumerable<SelectListItem> TargetQualityCodeList { get; set; }
+
+        public IEnumerable<SelectListItem> SourceQualityCodeList { get; set; }
 
         public IEnumerable<SelectListItem> VirtualWareHouseList { get; set; }
 
@@ -105,6 +108,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         [Required]
         [Display(Name = "VWh", ShortName = "VWh")]
         public string VirtualWareHouseId { get; set; }
+
+        [Display(Name = "Source Quality")]
+        public string SourceQualityCode { get; set; }
 
         [Display(Name = "Change Quality To")]
         public string TargetQualityCode { get; set; }
