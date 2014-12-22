@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// <summary>
     /// The formatting is applied based on type of the value. Equality is is also based on underlying value. This makes it possible to used Distinct()
     /// </summary>
-    public class DimensionValue: IEquatable<DimensionValue>
+    public struct DimensionValue: IEquatable<DimensionValue>
     {
         private readonly object _rawValue;
         public DimensionValue(object value)
@@ -81,7 +81,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //    return other._rawValue == null;
             //}
             //return _rawValue.Equals(other._rawValue);
-            return this.Equals(obj as DimensionValue);
+            if (obj is DimensionValue)
+            {
+                return this.Equals((DimensionValue)obj);
+            }
+            return false;
         }
 
         public override int GetHashCode()
@@ -96,10 +100,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public bool Equals(DimensionValue other)
         {
-            if (other == null)
-            {
-                return false;
-            }
             if (_rawValue == null)
             {
                 return other._rawValue == null;
