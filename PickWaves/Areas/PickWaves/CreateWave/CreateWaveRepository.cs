@@ -277,11 +277,6 @@ SELECT *
                 ;
             var rows = _db.ExecuteReader(query, binder);
 
-            //foreach (var row in rows)
-            //{
-            //    result.AllValues.AddRow(row.RowValue, row.ColValues);
-
-            //}
             result.AllValues2 = matrix;
             return result;
         }
@@ -315,24 +310,16 @@ SELECT *
             var xml = XElement.Parse(data);
             var query = (from item in xml.Elements("item")
                          let column = item.Elements("column")
+                         let dimCol = column.First(p => p.Attribute("name").Value == "DIM_COL")
                          select new
                          {
-                             ColElement = column.First(p => p.Attribute("name").Value == "DIM_COL"),
+                             ColValue = isColDate ? (object)(DateTime?)dimCol : (object)(string) dimCol,
                              PickslipCount = (int)column.First(p => p.Attribute("name").Value == "PICKSLIP_COUNT"),
                              OrderedPieces = (int?)column.First(p => p.Attribute("name").Value == "ORDER_COUNT")
                          });
-            if (isColDate)
-            {
-                return query.ToDictionary(p => (object)(DateTime?)p.ColElement,
-                    p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
-            }
-            return query.ToDictionary(p => (object)(string)p.ColElement, p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
+
+            return query.ToDictionary(p => p.ColValue, p => Tuple.Create(p.PickslipCount, p.OrderedPieces ?? 0));
         }
-
-        //private IDictionary<object, Tuple<int, int>> MapOrderSummaryXml(string data, bool isColDate)
-        //{
-
-        //}
 
         /// <summary>
         /// Create bucket
