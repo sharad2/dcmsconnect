@@ -9,7 +9,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
 
-            <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId))" class="pull-right">Edit</a>
+            <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId))" class="pull-right"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
             Created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)
             <span class="badge">@Html.DisplayFor(m => m.AssignedPieces) of @Html.DisplayFor(m => m.QuantityRequested) Piecess Assigned </span>
 
@@ -36,7 +36,7 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item list-group-item-success">
-            <h3>SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-plus pull-right"></span></a></h3>
+            <h3>SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-pencil pull-right"></span></a></h3>
         </li>
         @for (var i = 0; i < Model.SkuList.Count; ++i)
         {
