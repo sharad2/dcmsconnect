@@ -1,11 +1,7 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
-using EclipseLibrary.Mvc.Helpers;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
@@ -76,59 +72,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public string CustomerId { get; set; }
 
-        //[Obsolete]
-        //private IList<RowDimensionModel> _rows;
-
-        //[Obsolete]
-        //public IList<RowDimensionModel> Rows
-        //{
-        //    get
-        //    {
-        //        return _rows ?? new List<RowDimensionModel>();
-        //    }
-        //    set
-        //    {
-        //        _rows = value;
-        //    }
-        //}
-
         public SparseMatrix<string, string, DimensionValueModel> DimensionValues { get; set; }
 
-        /// <summary>
-        /// Unique dimension values for the column
-        /// </summary>
-        //public IList<string> ColDimensionValues { get; set; }
 
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int GrandTotalPickslips
-        //{
-        //    get
-        //    {
-        //        return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
-        //    }
-        //}
+        public PickslipDimension GroupDimIndex { get; set; }
 
-        #region Posted Values
-        public PickslipDimension RowDimIndex { get; set; }
+        public PickslipDimension SubgroupDimIndex { get; set; }
 
-        public PickslipDimension ColDimIndex { get; set; }
+        public IList<SelectListItem> GroupDimensionList { get; set; }
 
-        /// <summary>
-        /// Value of the dimension in the selected column. This is posted.
-        /// </summary>        
-        public string ColDimVal { get; set; }
+        public IList<SelectListItem> SubgroupDimensionList { get; set; }
 
-        public string RowDimVal { get; set; }
+        public string GroupDimDisplayName { get; set; }
 
-        #endregion
-
-        public IList<SelectListItem> RowDimensionList { get; set; }
-
-        public IList<SelectListItem> ColDimensionList { get; set; }
-
-        public string RowDimDisplayName { get; set; }
-
-        public string ColDimDisplayName { get; set; }
+        public string SubgroupDimDisplayName { get; set; }
 
         public static string OrderSummaryReportUrl
         {

@@ -117,8 +117,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public class ActionParamsClass_Index
         {
             public readonly string customerId = "customerId";
-            public readonly string rowDimIndex = "rowDimIndex";
-            public readonly string colDimIndex = "colDimIndex";
+            public readonly string groupDimIndex = "groupDimIndex";
+            public readonly string subgroupDimIndex = "subgroupDimIndex";
             public readonly string vwhId = "vwhId";
             public readonly string lastBucketId = "lastBucketId";
         }
@@ -193,18 +193,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public T4MVC_CreateWaveController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string vwhId, int? lastBucketId);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension rowDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension colDimIndex, string vwhId, int? lastBucketId)
+        public override System.Web.Mvc.ActionResult Index(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "rowDimIndex", rowDimIndex);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "colDimIndex", colDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "groupDimIndex", groupDimIndex);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "subgroupDimIndex", subgroupDimIndex);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "vwhId", vwhId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "lastBucketId", lastBucketId);
-            IndexOverride(callInfo, customerId, rowDimIndex, colDimIndex, vwhId, lastBucketId);
+            IndexOverride(callInfo, customerId, groupDimIndex, subgroupDimIndex, vwhId, lastBucketId);
             return callInfo;
         }
 
