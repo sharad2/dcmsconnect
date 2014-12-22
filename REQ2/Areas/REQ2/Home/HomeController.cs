@@ -164,6 +164,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var qualityCode = _service.GetQualityCodes();
             model.TargetQualityCodeList = qualityCode.Select(p => MapCode(p));
 
+            model.SourceQualityCodeList = qualityCode.Select(p => MapCode(p));
+
             var saleTypes = _service.GetSaleTypeList();
             model.SaleTypes = saleTypes.Select(p => MapCode(p));
 
@@ -210,6 +212,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 TargetVwhId = model.TargetVwhId,
                 SourceVwhId = model.VirtualWareHouseId,
                 IsConversionRequest = model.RequestForConversion,
+                SourceQuality = model.SourceQualityCode,
                 TargetQuality = model.TargetQualityCode,
                 DestinationAreaShortName = model.DestinationAreaShortName,
                 //ReqId = model.CurrentRequest.ReqId,
