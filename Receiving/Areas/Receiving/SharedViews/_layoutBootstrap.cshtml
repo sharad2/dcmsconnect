@@ -230,7 +230,7 @@
 
     <!--Visible on mobile device only-->
         <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <form action="@PublicUrl(new[] { "DcmsMobile_Search", DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 })" method="get" role="search">
+            <form action="@searchUrl" method="get" role="search">
                 <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
                     <input type="search" class="form-control" name="id" placeholder="Search DCMS">
                     <span class="input-group-btn">
