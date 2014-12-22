@@ -132,40 +132,15 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         private void PopulateIndexViewModel(PropertyEditorViewModel model)
         {
-            //if (model.CurrentRequest == null)
-            //{
-            //    model.CurrentRequest = new RequestHeaderViewModel();
-            //}
-
             var vwh = _service.GetVwhList().ToList();
             model.VirtualWareHouseList = vwh.Select(p => MapCode(p));
-
             model.TargetVwhList = vwh.Select(p => MapCode(p));
-
-            var areas = _service.GetCartonAreas().ToList();
-
-            //model.SourceAreas = Mapper.Map<IEnumerable<GroupSelectListItem>>(areas.Where(p => (p.LocationNumberingFlag) && (p.IsCartonArea)));
-            model.SourceAreas = areas.Where(p => (p.LocationNumberingFlag) && (p.IsCartonArea)).Select(p => MapArea(p)).ToList();
-
-            //model.DestinationAreas =
-            //Enumerable.Repeat(new GroupSelectListItem
-            //{
-            //    Text = "(Please Select)",
-            //    Value = ""
-            //}, 1).Concat(
-            //Mapper.Map<IEnumerable<GroupSelectListItem>>(areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag)));
-            model.DestinationAreas =
-            Enumerable.Repeat(new GroupSelectListItem
-            {
-                Text = "(Please Select)",
-                Value = ""
-            }, 1).Concat(areas.Where(p => !p.UnusableInventory && !p.LocationNumberingFlag).Select(p => MapArea(p))).ToList();
-
+            var areas = _service.GetCartonAreas();
+            model.SourceAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag && (p.IsCartonArea))), "AreaId", "Description", "BuildingId", 1);
+            model.DestinationAreas = new SelectList(areas.Where(p => (!p.LocationNumberingFlag)), "AreaId", "Description", "BuildingId", 1);
             var qualityCode = _service.GetQualityCodes();
             model.TargetQualityCodeList = qualityCode.Select(p => MapCode(p));
-
             model.SourceQualityCodeList = qualityCode.Select(p => MapCode(p));
-
             var saleTypes = _service.GetSaleTypeList();
             model.SaleTypes = saleTypes.Select(p => MapCode(p));
 
