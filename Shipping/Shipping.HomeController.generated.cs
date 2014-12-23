@@ -513,6 +513,23 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             public readonly string Routing = "~/Areas/Shipping/Home/Routing.cshtml";
             public readonly string RoutingSummary = "~/Areas/Shipping/Home/RoutingSummary.cshtml";
             public readonly string Unrouted = "~/Areas/Shipping/Home/Unrouted.cshtml";
+            static readonly _imagesClass s_images = new _imagesClass();
+            public _imagesClass images { get { return s_images; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _imagesClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string a1 = "a1";
+                    public readonly string ajax_loader = "ajax-loader";
+                    public readonly string calendar = "calendar";
+                }
+                public readonly string a1 = "~/Areas/Shipping/Home/images/a1.gif";
+                public readonly string ajax_loader = "~/Areas/Shipping/Home/images/ajax-loader.gif";
+                public readonly string calendar = "~/Areas/Shipping/Home/images/calendar.gif";
+            }
         }
     }
 

@@ -36,42 +36,6 @@ namespace T4MVC.Shipping
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string GuidedTruckLoading = "GuidedTruckLoading";
-            }
-            public readonly string GuidedTruckLoading = "~/Areas/Shipping/Content/GuidedTruckLoading.ppt";
-            static readonly _imagesClass s_images = new _imagesClass();
-            public _imagesClass images { get { return s_images; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _imagesClass
-            {
-                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
-                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
-                public class _ViewNamesClass
-                {
-                    public readonly string a1 = "a1";
-                    public readonly string ajax_loader = "ajax-loader";
-                    public readonly string calendar = "calendar";
-                }
-                public readonly string a1 = "~/Areas/Shipping/Content/images/a1.gif";
-                public readonly string ajax_loader = "~/Areas/Shipping/Content/images/ajax-loader.gif";
-                public readonly string calendar = "~/Areas/Shipping/Content/images/calendar.gif";
-            }
-            static readonly _SoundsClass s_Sounds = new _SoundsClass();
-            public _SoundsClass Sounds { get { return s_Sounds; } }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public partial class _SoundsClass
-            {
-                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
-                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
-                public class _ViewNamesClass
-                {
-                    public readonly string Error = "Error";
-                    public readonly string success = "success";
-                    public readonly string warning = "warning";
-                }
-                public readonly string Error = "~/Areas/Shipping/Content/Sounds/Error.wav";
-                public readonly string success = "~/Areas/Shipping/Content/Sounds/success.wav";
-                public readonly string warning = "~/Areas/Shipping/Content/Sounds/warning.wav";
             }
         }
     }

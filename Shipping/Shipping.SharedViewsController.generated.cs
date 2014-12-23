@@ -38,13 +38,32 @@ namespace T4MVC.Shipping
             {
                 public readonly string _layoutShipping = "_layoutShipping";
                 public readonly string _soundPartial = "_soundPartial";
+                public readonly string GuidedTruckLoading = "GuidedTruckLoading";
                 public readonly string Shipping_all_css = "Shipping-all.css";
                 public readonly string Shipping_mobile_all_css = "Shipping-mobile-all.css";
             }
             public readonly string _layoutShipping = "~/Areas/Shipping/SharedViews/_layoutShipping.cshtml";
             public readonly string _soundPartial = "~/Areas/Shipping/SharedViews/_soundPartial.cshtml";
+            public readonly string GuidedTruckLoading = "~/Areas/Shipping/SharedViews/GuidedTruckLoading.ppt";
             public readonly string Shipping_all_css = "~/Areas/Shipping/SharedViews/Shipping-all.css.bundle";
             public readonly string Shipping_mobile_all_css = "~/Areas/Shipping/SharedViews/Shipping-mobile-all.css.bundle";
+            static readonly _SoundsClass s_Sounds = new _SoundsClass();
+            public _SoundsClass Sounds { get { return s_Sounds; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _SoundsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string Error = "Error";
+                    public readonly string success = "success";
+                    public readonly string warning = "warning";
+                }
+                public readonly string Error = "~/Areas/Shipping/SharedViews/Sounds/Error.wav";
+                public readonly string success = "~/Areas/Shipping/SharedViews/Sounds/success.wav";
+                public readonly string warning = "~/Areas/Shipping/SharedViews/Sounds/warning.wav";
+            }
         }
     }
 

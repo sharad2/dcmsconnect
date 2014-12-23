@@ -112,6 +112,16 @@ namespace Links_Shipping
                      
                 public static readonly string fullcalendar_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.partial.min.css") ? Url("fullcalendar.partial.min.css") : Url("fullcalendar.partial.css");
                      
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class images {
+                    private const string URLPATH = "~/Areas/Shipping/Home/images";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string a1_gif = Url("a1.gif");
+                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
+                    public static readonly string calendar_gif = Url("calendar.gif");
+                }
+            
             }
         
         }
@@ -138,27 +148,6 @@ namespace Links_Shipping
                 private const string URLPATH = "~/Areas/Shipping/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string GuidedTruckLoading_ppt = Url("GuidedTruckLoading.ppt");
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class images {
-                    private const string URLPATH = "~/Areas/Shipping/Content/images";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string a1_gif = Url("a1.gif");
-                    public static readonly string ajax_loader_gif = Url("ajax-loader.gif");
-                    public static readonly string calendar_gif = Url("calendar.gif");
-                }
-            
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class Sounds {
-                    private const string URLPATH = "~/Areas/Shipping/Content/Sounds";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string Error_wav = Url("Error.wav");
-                    public static readonly string success_wav = Url("success.wav");
-                    public static readonly string warning_wav = Url("warning.wav");
-                }
-            
             }
         
         }
@@ -216,6 +205,7 @@ namespace Links_Shipping
                 private const string URLPATH = "~/Areas/Shipping/SharedViews";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string GuidedTruckLoading_ppt = Url("GuidedTruckLoading.ppt");
                 public static readonly string Print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Print.min.css") ? Url("Print.min.css") : Url("Print.css");
                      
                 public static readonly string Shipping_all_css_bundle = Url("Shipping-all.css.bundle");
@@ -230,6 +220,16 @@ namespace Links_Shipping
                      
                 public static readonly string SiteMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.partial.min.css") ? Url("SiteMobile.partial.min.css") : Url("SiteMobile.partial.css");
                      
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Sounds {
+                    private const string URLPATH = "~/Areas/Shipping/SharedViews/Sounds";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string Error_wav = Url("Error.wav");
+                    public static readonly string success_wav = Url("success.wav");
+                    public static readonly string warning_wav = Url("warning.wav");
+                }
+            
                 public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
                      
             }

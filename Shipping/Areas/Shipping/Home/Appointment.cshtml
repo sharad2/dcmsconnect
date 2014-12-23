@@ -72,7 +72,7 @@
             <button id="btnAppNumber" data-url="@Url.Action(MVC_Shipping.Shipping.Home.GetAppointmentByNumber(-1))">Go</button>
             <hr />
             <label for="#tbGotoAppointmentDate">Go To Date</label>
-            <input id="tbGotoAppointmentDate" size="9" data-image-url="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif"/>
+            <input id="tbGotoAppointmentDate" size="9" data-image-url="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif"/>
         </div>
     </div>
 
@@ -116,7 +116,7 @@
             <label>
                 Scheduled Pickup</label>
             <input id="tbAppointmentDate" name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.AppointmentDate)" size="10" 
-                data-image-url="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
+                data-image-url="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
             <input name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.AppointmentDate)" id="tbAppointmentTime" size="8" /><sup>*</sup>
         </div>
         <div>

@@ -43,9 +43,9 @@ Used CSS class:
     <fieldset id="fldSetRoutingFilters">
         <legend>Filter Orders</legend>
         @Html.LabelFor(m => m.StartDate)
-        <input id="tbStartDate" type="text" size="10" name="@Model.NameFor(m => m.StartDate)" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
+        <input id="tbStartDate" type="text" size="10" name="@Model.NameFor(m => m.StartDate)" data-calendar-img="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
         @Html.LabelFor(m => m.DcCancelDate)
-        <input id="tbDcCancelDate" type="text" size="10" name="@Model.NameFor(m => m.DcCancelDate)" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
+        <input id="tbDcCancelDate" type="text" size="10" name="@Model.NameFor(m => m.DcCancelDate)" data-calendar-img="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
         <button id="btnApplyFilter" type="submit">Go</button>
     </fieldset>
     <blockquote>
@@ -296,7 +296,8 @@ Used CSS class:
             <input type="checkbox" id="cbtbPickupDate" name="@Model.NameFor(m => m.UpdatePickUpDate)" value="true" />
             <label for="tbPickupDate">
                 Pickup Date</label>
-            <input type = "text"  id = "tbPickupDate" size="10" maxlength="10" name ="@Model.NameFor(m => m.RoutingInfo.PickUpDate)" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif"/>
+            <input type = "text"  id = "tbPickupDate" size="10" maxlength="10" name ="@Model.NameFor(m => m.RoutingInfo.PickUpDate)"
+                    data-calendar-img="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif"/>
              <span class="ui-icon ui-icon-comment" title="Pickup-date is not a part of BOL creation" style="display:inline-block"></span>
         </div>
     }

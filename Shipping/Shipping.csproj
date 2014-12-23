@@ -182,6 +182,7 @@
     <Compile Include="ViewModels\UnroutedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Shipping\SharedViews\GuidedTruckLoading.ppt" />
     <Content Include="Areas\Shipping\Home\Appointment.css">
       <DependentUpon>Appointment.css.bundle</DependentUpon>
     </Content>
@@ -201,9 +202,9 @@
     <Content Include="Areas\Shipping\SharedViews\Shipping-mobile-all.min.css">
       <DependentUpon>Shipping-mobile-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Sounds\Error.wav" />
-    <Content Include="Areas\Shipping\Content\Sounds\success.wav" />
-    <Content Include="Areas\Shipping\Content\Sounds\warning.wav" />
+    <Content Include="Areas\Shipping\SharedViews\Sounds\Error.wav" />
+    <Content Include="Areas\Shipping\SharedViews\Sounds\success.wav" />
+    <Content Include="Areas\Shipping\SharedViews\Sounds\warning.wav" />
     <Content Include="Areas\Shipping\Scripts\Appointment.min.js">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
@@ -222,7 +223,6 @@
     <Content Include="Areas\Shipping\Scripts\Routing.min.js">
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -347,9 +347,9 @@
     <None Include="Scripts\_references.js" />
     <None Include="Areas\Shipping\Home\fullcalendar.partial.css" />
     <None Include="Areas\Shipping\Home\Appointment.partial.css" />
-    <Content Include="Areas\Shipping\Content\images\a1.gif" />
-    <Content Include="Areas\Shipping\Content\images\ajax-loader.gif" />
-    <Content Include="Areas\Shipping\Content\images\calendar.gif" />
+    <Content Include="Areas\Shipping\Home\images\a1.gif" />
+    <Content Include="Areas\Shipping\Home\images\ajax-loader.gif" />
+    <Content Include="Areas\Shipping\Home\images\calendar.gif" />
     <None Include="Areas\Shipping\SharedViews\Shipping.mobile.partial.css" />
     <None Include="Areas\Shipping\SharedViews\SiteMobile.partial.css" />
     <None Include="Areas\Shipping\SharedViews\standardized.partial.css" />

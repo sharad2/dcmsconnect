@@ -69,7 +69,8 @@
             <label>
                 ATS Date
             </label>
-            <input name="@Html.NameFor(m => m.AtsDate)" value="@string.Format("{0:d}", Model.AtsDate)" id="tbAtsDate" size="10" maxlength="10" data-calendar-img="@Links_Shipping.Areas.Shipping.Content.images.calendar_gif" />
+            <input name="@Html.NameFor(m => m.AtsDate)" value="@string.Format("{0:d}", Model.AtsDate)" id="tbAtsDate" size="10" maxlength="10" 
+                   data-calendar-img="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
             <span>*</span>
             <span class="ui-icon ui-icon-comment" title="Select POs from the list and assign an ATS Date to them." style="display: inline-block"></span>
             <div class="ui-state-highlight">
