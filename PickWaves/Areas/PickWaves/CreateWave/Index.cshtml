@@ -126,7 +126,7 @@
             </li>
             @for (var i = 0; i < Model.DimensionMatrix.FirstKeys.Count; ++i)
             {
-                <li role="presentation" class="@(i == 0 ? "active" : null)">
+                <li role="presentation" class="@(Model.GroupDimVal.ToString() == Model.SubgroupDimIndex.ToString() ? "active" : null)">
                     <a href="@("#content_" + i.ToString())" aria-controls="@("content_" + i.ToString())" role="tab" data-toggle="tab">
                         @Model.DimensionMatrix.FirstKeys[i].DisplayValue
                     </a>
@@ -137,7 +137,7 @@
         <div class="tab-content">
             @for (var i = 0; i < Model.DimensionMatrix.FirstKeys.Count; ++i)
             {
-                <div role="tabpanel" class="tab-pane @(i == 0 ? "active" : null) " id="@("content_" + i.ToString())">
+                <div role="tabpanel" class="tab-pane @(Model.GroupDimVal.ToString() == Model.SubgroupDimIndex.ToString() ? "active" : null)" id="@("content_" + i.ToString())">
 
                     <blockquote class="text-center">@Model.GroupDimDisplayName @Model.DimensionMatrix.FirstKeys[i].DisplayValue</blockquote>
 
