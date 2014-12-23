@@ -96,7 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Shipping\Controllers\AutoCompleteController.cs" />
+    <Compile Include="Areas\Shipping\AutoComplete\AutoCompleteController.cs" />
     <Compile Include="Areas\Shipping\Home\HomeController.cs" />
     <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckController.cs" />
     <Compile Include="Areas\Shipping\ShippingAreaRegistration.cs" />
@@ -135,9 +135,6 @@
       <DependentUpon>ShippingResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Shipping.AutoCompleteController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipping.ControllersController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Shipping.HomeController.generated.cs">

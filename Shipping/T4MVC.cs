@@ -38,7 +38,6 @@ namespace T4MVC
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.HomeController Home = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_HomeController();
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.ScanToTruckController ScanToTruck = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_ScanToTruckController();
-        public T4MVC.Shipping.ControllersController Controllers = new T4MVC.Shipping.ControllersController();
         public T4MVC.Shipping.SharedViewsController SharedViews = new T4MVC.Shipping.SharedViewsController();
     }
 }
@@ -99,6 +98,19 @@ namespace Links_Shipping
             public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
             public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class AutoComplete {
+                private const string URLPATH = "~/Areas/Shipping/AutoComplete";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            }
+        
+        }
+    }
+
+    public static partial class Areas {
+    
+        public static partial class Shipping {
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Home {
                 private const string URLPATH = "~/Areas/Shipping/Home";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
@@ -156,19 +168,6 @@ namespace Links_Shipping
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class ScanToTruck {
                 private const string URLPATH = "~/Areas/Shipping/ScanToTruck";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class Shipping {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Controllers {
-                private const string URLPATH = "~/Areas/Shipping/Controllers";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
             }
