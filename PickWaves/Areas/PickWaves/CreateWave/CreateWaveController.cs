@@ -159,7 +159,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //              }).ToArray();
 
             var query = from item in summary.AllValues3
-                        select Tuple.Create(new DimensionValue(item.Key.Item1), new DimensionValue(item.Key.Item2),
+                        select Tuple.Create(DimensionValue.FromValue(item.Key.Item1),
+                        DimensionValue.FromValue(item.Key.Item2),
                             new DimensionValueModel(item.Value));
 
             model.DimensionMatrix = new SparseMatrix<DimensionValue, DimensionValue, DimensionValueModel>();
@@ -202,7 +203,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             PickslipDimension subgroupDimIndex = PickslipDimension.NotSet,
             string vwhId = null,
             int? lastBucketId = null,
-            DimensionValue? groupDimVal = null)
+            DimensionValue groupDimVal = default(DimensionValue))
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {

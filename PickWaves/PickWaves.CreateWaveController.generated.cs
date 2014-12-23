@@ -194,10 +194,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public T4MVC_CreateWaveController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.DimensionValue? groupDimVal);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.DimensionValue groupDimVal);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.DimensionValue? groupDimVal)
+        public override System.Web.Mvc.ActionResult Index(string customerId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension groupDimIndex, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.PickslipDimension subgroupDimIndex, string vwhId, int? lastBucketId, DcmsMobile.PickWaves.Areas.PickWaves.CreateWave.DimensionValue groupDimVal)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);

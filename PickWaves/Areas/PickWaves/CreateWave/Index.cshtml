@@ -128,7 +128,7 @@
             {
                 <li role="presentation" class="@(Model.GroupDimVal.ToString() == Model.SubgroupDimIndex.ToString() ? "active" : null)">
                     <a href="@("#content_" + i.ToString())" aria-controls="@("content_" + i.ToString())" role="tab" data-toggle="tab">
-                        @Model.DimensionMatrix.FirstKeys[i].DisplayValue
+                        @Model.DimensionMatrix.FirstKeys[i]
                     </a>
                 </li>
             }
@@ -139,7 +139,7 @@
             {
                 <div role="tabpanel" class="tab-pane @(Model.GroupDimVal.ToString() == Model.SubgroupDimIndex.ToString() ? "active" : null)" id="@("content_" + i.ToString())">
 
-                    <blockquote class="text-center">@Model.GroupDimDisplayName @Model.DimensionMatrix.FirstKeys[i].DisplayValue</blockquote>
+                    <blockquote class="text-center">@Model.GroupDimDisplayName @Model.DimensionMatrix.FirstKeys[i]</blockquote>
 
                     <form role="form" action="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDim())" method="post">
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.bucketId" value="@Model.LastBucketId" />
@@ -147,7 +147,7 @@
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.vwhId" value="@Model.VwhId" />
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.groupDimIndex" value="@Model.GroupDimIndex" />
                         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.subgroupDimIndex" value="@Model.SubgroupDimIndex" />
-                        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.groupDimVal" value="@Model.DimensionMatrix.FirstKeys[i].DisplayValue" />
+                        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.groupDimVal" value="@Model.DimensionMatrix.FirstKeys[i]" />
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-success">
                                 <div class="row">
@@ -171,19 +171,19 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <h4 class="list-group-item-heading">
-                                                @Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key.DisplayValue
+                                                @Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key
                                             </h4>
                                         </div>
                                         <div class="col-md-4">
                                             <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.PickslipList(Model.CustomerId, Model.GroupDimIndex,
-Model.DimensionMatrix.FirstKeys[i].PostValue,
-Model.SubgroupDimIndex, Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key.PostValue, Model.VwhId, Model.LastBucketId))">
+Model.DimensionMatrix.FirstKeys[i].PostValue1,
+Model.SubgroupDimIndex, Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key.PostValue1, Model.VwhId, Model.LastBucketId))">
                                                 @Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Value.PickslipCount Pickslips
                                             </a>
                                         </div>
                                         <div class="col-md-4">
                                             <button type="submit" class="btn btn-primary pull-right btn-xs" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsOfDimParams.subgroupDimVal"
-                                                    value="@Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key.PostValue">
+                                                    value="@Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Key.PostValue1">
                                                 Add @Model.DimensionMatrix[Model.DimensionMatrix.FirstKeys[i]][j].Value.OrderedPieces pcs
                                             </button>
                                         </div>
