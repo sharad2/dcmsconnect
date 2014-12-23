@@ -391,10 +391,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("editwave")]
         public virtual ActionResult EditWave(int bucketId, SuggestedNextActionType suggestedNextAction)
         {
-            //if (!ModelState.IsValid)
-            //  {
-            //      return RedirectToAction(this.Actions.EditableWave(new WaveViewModel(model.Bucket.BucketId, SuggestedNextActionType.CancelEditing)));
-            //  }
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
+            }
 
             if (!ModelState.IsValid)
             {
