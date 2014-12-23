@@ -55,9 +55,15 @@
                 <div class="row">
                     <div class="col-md-4">
                         <h4 class="list-group-item-heading">
-                            Pickslip <button class="btn btn-primary" type="submit" @(Model.UserIsManager ? "" : "disabled=disabled")>
-                                Add Selected
-                            </button>
+                            Pickslip
+                            @if (Model.PickslipList.Count > 0)
+                            {
+                                <button class="btn btn-primary addPickslips" type="submit" @(Model.UserIsManager ? "" : "disabled=disabled")
+                                        data-container="body" data-toggle="popover" data-placement="auto"
+                                        data-content="Please select atleast one Pickslip">
+                                    Add Selected
+                                </button>
+                            }
                         </h4>
                     </div>
                     <div class="col-md-4">
@@ -76,18 +82,15 @@
                     <div class="row">
                         <div class="col-md-4">
                             <h4 class="list-group-item-heading">
-                                <input type="checkbox" name='@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.pickslips' value="@Model.PickslipList[i].PickslipId" />
+                                <input type="checkbox" name='@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.pickslips'
+                                       @(Model.UserIsManager ? "" : "disabled=disabled") value="@Model.PickslipList[i].PickslipId" />
                                 <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
                                    class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
-
-                                @*<a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PickslipId))' target="PO">@Model.PickslipList[i].PickslipId</a>*@
-
                             </h4>
                         </div>
                         <div class="col-md-4">
                             <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry"
                                class="Po">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
-                            @*<a href='@Url.Content(string.Format("~/Inquiry/Home/InquiryIndex?id={0}", Model.PickslipList[i].PurchaseOrder))' target="PO">@Model.PickslipList[i].PurchaseOrder</a>*@
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId) &bull; @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
                         </div>
                         <div class="col-md-4">
@@ -109,5 +112,20 @@
     {
         <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
     }
+   
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.addPickslips').on('click', function (e) {            
+                var isCheckked = $(":checkbox[name='@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.pickslips']", $('form')).is(":checked")
+                if (!isCheckked) {                   
+                    $(e.delegateTarget).popover();
+                    return false;
+                }
+            });
+
+        });
+    </script>
 }
 
