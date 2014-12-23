@@ -137,9 +137,6 @@
     <Compile Include="Shipping.AutoCompleteController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Shipping.ContentController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Shipping.ControllersController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -147,9 +144,6 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Shipping.ScanToTruckController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipping.ScriptsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Shipping.SharedViewsController.generated.cs">
@@ -205,22 +199,22 @@
     <Content Include="Areas\Shipping\SharedViews\Sounds\Error.wav" />
     <Content Include="Areas\Shipping\SharedViews\Sounds\success.wav" />
     <Content Include="Areas\Shipping\SharedViews\Sounds\warning.wav" />
-    <Content Include="Areas\Shipping\Scripts\Appointment.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Appointment.min.js">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Bol.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.js">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Bol.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.min.js">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Index-desktop.min.js">
       <DependentUpon>Index-desktop.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Routing.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Routing.js">
       <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Routing.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Routing.min.js">
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -288,7 +282,7 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Appointment.min.js.map">
+    <Content Include="Areas\Shipping\Home\Scripts\Appointment.min.js.map">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
@@ -312,30 +306,30 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Areas\Shipping\SharedViews\Shipping-mobile-all.css.bundle" />
-    <None Include="Areas\Shipping\Scripts\Bol.js.bundle" />
-    <Content Include="Areas\Shipping\Scripts\Bol.min.js.map">
+    <None Include="Areas\Shipping\Home\Scripts\Bol.js.bundle" />
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.min.js.map">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js.map">
+    <Content Include="Areas\Shipping\Home\Scripts\Index-desktop.min.js.map">
       <DependentUpon>Index-desktop.js</DependentUpon>
     </Content>
-    <None Include="Areas\Shipping\Scripts\Routing.js.bundle">
+    <None Include="Areas\Shipping\Home\Scripts\Routing.js.bundle">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Areas\Shipping\Scripts\Routing.min.js.map">
+    <Content Include="Areas\Shipping\Home\Scripts\Routing.min.js.map">
       <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
-    <None Include="Areas\Shipping\Scripts\Unrouted.js.bundle" />
-    <Content Include="Areas\Shipping\Scripts\Unrouted.min.js.map">
+    <None Include="Areas\Shipping\Home\Scripts\Unrouted.js.bundle" />
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.min.js.map">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Shipping.pubxml" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
-    <None Include="Areas\Shipping\Scripts\selectable.partial.js" />
-    <Content Include="Areas\Shipping\Scripts\Unrouted.js">
+    <None Include="Areas\Shipping\Home\Scripts\selectable.partial.js" />
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.js">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Unrouted.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.min.js">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <Content Include="Areas\Shipping\SharedViews\_soundPartial.cshtml" />
@@ -354,12 +348,12 @@
     <None Include="Areas\Shipping\SharedViews\SiteMobile.partial.css" />
     <None Include="Areas\Shipping\SharedViews\standardized.partial.css" />
     <None Include="Areas\Shipping\SharedViews\Shipping.partial.css" />
-    <Content Include="Areas\Shipping\Scripts\fullcalendar.js" />
-    <None Include="Areas\Shipping\Scripts\Appointment.js" />
-    <None Include="Areas\Shipping\Scripts\Bol.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Routing.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Unrouted.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Index-desktop.js" />
+    <Content Include="Areas\Shipping\Home\Scripts\fullcalendar.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Appointment.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Bol.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Routing.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Unrouted.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Index-desktop.js" />
     <Content Include="Areas\Shipping\Home\_dayHtmlPartial.cshtml" />
     <Content Include="Areas\Shipping\Home\_monthHtmlPartial.cshtml" />
     <Content Include="Areas\Shipping\Home\_bolAppointmentHtmlPartial.cshtml" />

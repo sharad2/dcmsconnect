@@ -38,9 +38,7 @@ namespace T4MVC
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.AutoCompleteController AutoComplete = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_AutoCompleteController();
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.HomeController Home = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_HomeController();
         public DcmsMobile.Shipping.Areas.Shipping.Controllers.ScanToTruckController ScanToTruck = new DcmsMobile.Shipping.Areas.Shipping.Controllers.T4MVC_ScanToTruckController();
-        public T4MVC.Shipping.ContentController Content = new T4MVC.Shipping.ContentController();
         public T4MVC.Shipping.ControllersController Controllers = new T4MVC.Shipping.ControllersController();
-        public T4MVC.Shipping.ScriptsController Scripts = new T4MVC.Shipping.ScriptsController();
         public T4MVC.Shipping.SharedViewsController SharedViews = new T4MVC.Shipping.SharedViewsController();
     }
 }
@@ -122,6 +120,31 @@ namespace Links_Shipping
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class Scripts {
+                    private const string URLPATH = "~/Areas/Shipping/Home/Scripts";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string Appointment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.js") ? Url("Appointment.min.js") : Url("Appointment.js");
+                    public static readonly string Appointment_min_js_map = Url("Appointment.min.js.map");
+                    public static readonly string Bol_js_bundle = Url("Bol.js.bundle");
+                    public static readonly string Bol_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bol.min.js") ? Url("Bol.min.js") : Url("Bol.js");
+                    public static readonly string Bol_min_js_map = Url("Bol.min.js.map");
+                    public static readonly string Bol_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bol.partial.min.js") ? Url("Bol.partial.min.js") : Url("Bol.partial.js");
+                    public static readonly string fullcalendar_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.min.js") ? Url("fullcalendar.min.js") : Url("fullcalendar.js");
+                    public static readonly string Index_desktop_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-desktop.min.js") ? Url("Index-desktop.min.js") : Url("Index-desktop.js");
+                    public static readonly string Index_desktop_min_js_map = Url("Index-desktop.min.js.map");
+                    public static readonly string Routing_js_bundle = Url("Routing.js.bundle");
+                    public static readonly string Routing_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.min.js") ? Url("Routing.min.js") : Url("Routing.js");
+                    public static readonly string Routing_min_js_map = Url("Routing.min.js.map");
+                    public static readonly string Routing_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.partial.min.js") ? Url("Routing.partial.min.js") : Url("Routing.partial.js");
+                    public static readonly string selectable_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.partial.min.js") ? Url("selectable.partial.min.js") : Url("selectable.partial.js");
+                    public static readonly string Unrouted_js_bundle = Url("Unrouted.js.bundle");
+                    public static readonly string Unrouted_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Unrouted.min.js") ? Url("Unrouted.min.js") : Url("Unrouted.js");
+                    public static readonly string Unrouted_min_js_map = Url("Unrouted.min.js.map");
+                    public static readonly string Unrouted_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Unrouted.partial.min.js") ? Url("Unrouted.partial.min.js") : Url("Unrouted.partial.js");
+                }
+            
             }
         
         }
@@ -144,54 +167,10 @@ namespace Links_Shipping
     
         public static partial class Shipping {
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Content {
-                private const string URLPATH = "~/Areas/Shipping/Content";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class Shipping {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
             public static class Controllers {
                 private const string URLPATH = "~/Areas/Shipping/Controllers";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            }
-        
-        }
-    }
-
-    public static partial class Areas {
-    
-        public static partial class Shipping {
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class Scripts {
-                private const string URLPATH = "~/Areas/Shipping/Scripts";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Appointment_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.js") ? Url("Appointment.min.js") : Url("Appointment.js");
-                public static readonly string Appointment_min_js_map = Url("Appointment.min.js.map");
-                public static readonly string Bol_js_bundle = Url("Bol.js.bundle");
-                public static readonly string Bol_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bol.min.js") ? Url("Bol.min.js") : Url("Bol.js");
-                public static readonly string Bol_min_js_map = Url("Bol.min.js.map");
-                public static readonly string Bol_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Bol.partial.min.js") ? Url("Bol.partial.min.js") : Url("Bol.partial.js");
-                public static readonly string fullcalendar_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.min.js") ? Url("fullcalendar.min.js") : Url("fullcalendar.js");
-                public static readonly string Index_desktop_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index-desktop.min.js") ? Url("Index-desktop.min.js") : Url("Index-desktop.js");
-                public static readonly string Index_desktop_min_js_map = Url("Index-desktop.min.js.map");
-                public static readonly string Routing_js_bundle = Url("Routing.js.bundle");
-                public static readonly string Routing_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.min.js") ? Url("Routing.min.js") : Url("Routing.js");
-                public static readonly string Routing_min_js_map = Url("Routing.min.js.map");
-                public static readonly string Routing_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.partial.min.js") ? Url("Routing.partial.min.js") : Url("Routing.partial.js");
-                public static readonly string selectable_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.partial.min.js") ? Url("selectable.partial.min.js") : Url("selectable.partial.js");
-                public static readonly string Unrouted_js_bundle = Url("Unrouted.js.bundle");
-                public static readonly string Unrouted_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Unrouted.min.js") ? Url("Unrouted.min.js") : Url("Unrouted.js");
-                public static readonly string Unrouted_min_js_map = Url("Unrouted.min.js.map");
-                public static readonly string Unrouted_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Unrouted.partial.min.js") ? Url("Unrouted.partial.min.js") : Url("Unrouted.partial.js");
             }
         
         }

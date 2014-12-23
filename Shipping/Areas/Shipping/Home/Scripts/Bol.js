@@ -1,4 +1,4 @@
-﻿///#source 1 1 /Areas/Shipping/Scripts/selectable.partial.js
+﻿///#source 1 1 selectable.partial.js
 // When the user is interacting with the mouse, pretend that he has the Ctrl key pressed.
 $(function () {
     $.widget("ui.selectable", $.ui.selectable, {
@@ -24,7 +24,7 @@ $(function () {
     });
 });
 
-///#source 1 1 /Areas/Shipping/Scripts/Bol.partial.js
+///#source 1 1 Bol.partial.js
 // Returns true if the two passed appointments have similar properties
 function AppointmentSimilar(app1, app2) {
     if (app1.id && app2.id) {

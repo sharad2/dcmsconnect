@@ -10,7 +10,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/Areas/Shipping/Scripts/Routing.partial.js</file>
-    <file>/Areas/Shipping/Scripts/selectable.partial.js</file>
+    <file>selectable.partial.js</file>
+    <file>Bol.partial.js</file>
   </files>
 </bundle>
