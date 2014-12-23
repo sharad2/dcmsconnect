@@ -389,19 +389,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [HttpPost]
         [Route("editwave")]
-        public virtual ActionResult EditWave(int bucketId, SuggestedNextActionType suggestedNextAction)
+        public virtual ActionResult EditWave(WaveViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
+                return RedirectToAction(this.Actions.EditableWave(model.Bucket.BucketId, SuggestedNextActionType.CancelEditing));
             }
-
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
-            }
-
-            var model = new WaveViewModel();
             var count = model.Bucket.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId));
             if (count == 0 && model.UnfreezeWaveAfterSave)
             {
@@ -483,7 +476,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             return RedirectToAction(this.Actions.Wave(model.Bucket.BucketId, SuggestedNextActionType.UnfreezeMe));
         }
-
         /// <summary>
         /// Returns flags corresponding to changed values. Compares original values with current values.
         /// </summary>

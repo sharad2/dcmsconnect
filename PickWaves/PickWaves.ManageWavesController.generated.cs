@@ -224,8 +224,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_EditWave
         {
-            public readonly string bucketId = "bucketId";
-            public readonly string suggestedNextAction = "suggestedNextAction";
+            public readonly string model = "model";
         }
         static readonly ActionParamsClass_IncrementPriority s_params_IncrementPriority = new ActionParamsClass_IncrementPriority();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -374,15 +373,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void EditWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType suggestedNextAction);
+        partial void EditWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditWave(int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType suggestedNextAction)
+        public override System.Web.Mvc.ActionResult EditWave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditWave);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "suggestedNextAction", suggestedNextAction);
-            EditWaveOverride(callInfo, bucketId, suggestedNextAction);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
+            EditWaveOverride(callInfo, model);
             return callInfo;
         }
 
