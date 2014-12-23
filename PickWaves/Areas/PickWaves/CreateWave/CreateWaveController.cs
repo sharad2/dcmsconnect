@@ -342,8 +342,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         [HttpPost]
         [Route("adddim")]
         public virtual ActionResult AddPickslipsOfDim(int? bucketId, string customerId,
-            PickslipDimension rowDimIndex, string rowDimVal,
-             PickslipDimension colDimIndex, string colDimVal,
+            PickslipDimension groupDimIndex, string groupDimVal,
+             PickslipDimension subgroupDimIndex, string subgroupDimVal,
             string vwhId)
         {
 
@@ -367,13 +367,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 }
                 // Add pickslip to bucket 
                 _service.Value.AddPickslipsPerDim(bucketId.Value, customerId,
-                    rowDimIndex,
-                    rowDimVal, colDimIndex, colDimVal, vwhId);
+                    groupDimIndex,
+                    groupDimVal, subgroupDimIndex, subgroupDimVal, vwhId);
                 trans.Commit();
             }
             AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
 
-            return RedirectToAction(Actions.Index(customerId, rowDimIndex, colDimIndex,
+            return RedirectToAction(Actions.Index(customerId, groupDimIndex, subgroupDimIndex,
                 vwhId, bucketId));
         }
 
