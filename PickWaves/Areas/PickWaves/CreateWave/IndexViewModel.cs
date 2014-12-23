@@ -71,16 +71,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public override bool Equals(object obj)
         {
-            //var other = obj as DimensionValue;
-            //if (other == null)
-            //{
-            //    return false;
-            //}
-            //if (_rawValue == null)
-            //{
-            //    return other._rawValue == null;
-            //}
-            //return _rawValue.Equals(other._rawValue);
             if (obj is DimensionValue)
             {
                 return this.Equals((DimensionValue)obj);
@@ -168,6 +158,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public PickslipDimension GroupDimIndex { get; set; }
 
         public PickslipDimension SubgroupDimIndex { get; set; }
+
+        /// <summary>
+        /// If this is set, the the view attempts to make the tab of this group active. It is set after pickslips are added
+        /// </summary>
+        public DimensionValue? GroupDimVal { get; set; }
 
         public IList<SelectListItem> GroupDimensionList { get; set; }
 

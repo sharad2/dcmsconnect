@@ -201,14 +201,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             PickslipDimension groupDimIndex = PickslipDimension.NotSet,
             PickslipDimension subgroupDimIndex = PickslipDimension.NotSet,
             string vwhId = null,
-            int? lastBucketId = null)
+            int? lastBucketId = null,
+            DimensionValue? groupDimVal = null)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
                 throw new NotImplementedException();
             }
 
-            var model = new IndexViewModel();
+            var model = new IndexViewModel
+            {
+                GroupDimVal = groupDimVal
+            };
             //Showing only those area where order of customer are available.
             //var areas = _service.Value.GetAreasForCustomer(customerId);
 
