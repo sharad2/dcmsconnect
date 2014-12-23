@@ -51,42 +51,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         #endregion
 
-        /// <summary>
-        /// Applies {0:d} to date time values. Otherwise leaves the value alone
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [Obsolete]
-        private static string FormatDimensionValue(object value)
-        {
-            if (value == null)
-            {
-                return string.Empty;
-            }
-            if (value is DateTime)
-            {
-                return string.Format("{0:d}", value);
-            }
-            return value.ToString();
-        }
-
         private const string COOKIE_PICKWAVE = "PICKWAVE_ALL_COOKIES";
 
         private const string COOKIE_ROW_DIMENSION = "SELECTED_ROW_DIMENSION";
         private const string COOKIE_COL_DIMENSION = "SELECTED_COL_DIMENSION";
-
-        //private static string FormatDimensionValue(object value)
-        //{
-        //    if (value == null)
-        //    {
-        //        return string.Empty;
-        //    }
-        //    if (value is DateTime)
-        //    {
-        //        return string.Format("{0:d}", value);
-        //    }
-        //    return value.ToString();
-        //}
 
         /// <summary>
         /// Populates the passed PickslipMatrixPartialViewModel

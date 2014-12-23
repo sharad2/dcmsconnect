@@ -64,16 +64,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var buckets = _service.GetBuckets(customerId, bucketState, userName);
 
-            var model = new IndexViewModel();
+            var model = new IndexViewModel
+            {
+                CustomerId = customerId,
+                BucketState = bucketState,
+                UserName = userName
+            };
             // Null DC Cancel dates display last
             model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
                              orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
                              select bucket).ToArray();
 
-            if (!buckets.Any())
-            {
-                return View(Views.Index, model);
-            }
             if (!string.IsNullOrWhiteSpace(model.CustomerId))
             {
                 model.CustomerName = _service.GetCustomer(model.CustomerId) == null ? "" : _service.GetCustomer(model.CustomerId).Name;
@@ -88,7 +89,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [AllowAnonymous]
         [Route("wave")]
-        public virtual ActionResult Wave(int bucketId, SuggestedNextActionType suggestedNextAction)
+        public virtual ActionResult Wave(int bucketId, SuggestedNextActionType nextAction)
         {
             var bucket = _service.GetBucket(bucketId);
             if (bucket == null)
@@ -97,7 +98,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
-            var model = new WaveViewModel();
+            var model = new WaveViewModel
+            {
+                HighlightedActions = nextAction
+            };
             model.Bucket = new BucketModel(bucket);
 
             // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
@@ -138,8 +142,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
             }
 
-            var model = new WaveViewModel();
-            model.Bucket = new BucketModel(bucket);
+            var model = new WaveViewModel
+            {
+                HighlightedActions = suggestedNextAction,
+                Bucket = new BucketModel(bucket)
+            };
+
 
             var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
             model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
