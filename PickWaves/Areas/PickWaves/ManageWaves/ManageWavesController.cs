@@ -363,7 +363,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
-                                    select new PickslipModel(pickslip)
+                                    select new ManageWavesPickslipModel(pickslip)
                                         {
                                             UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
                                             {

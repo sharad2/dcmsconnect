@@ -1,9 +1,65 @@
-﻿using DcmsMobile.PickWaves.ViewModels;
+﻿using DcmsMobile.PickWaves.Repository;
+using DcmsMobile.PickWaves.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
+
+    public class CreateWavePickslipModel
+    {
+        internal CreateWavePickslipModel(Pickslip entity)
+        {
+            PickslipId = entity.PickslipId;
+            PurchaseOrder = entity.PurchaseOrder;
+            //VwhId = entity.VwhId;
+            //CancelDate = entity.CancelDate;
+            PickslipImportDate = entity.PickslipImportDate;
+            StartDate = entity.StartDate;
+            CustomerDcId = entity.CustomerDcId;
+            CustomerStoreId = entity.CustomerStoreId;
+            //OrderedPieces = entity.OrderedPieces;
+            //CurrentPieces = entity.CurrentPieces;
+            //CancelledBoxCount = entity.CancelledBoxCount;
+            //PiecesInCancelledBoxes = entity.PiecesInCancelledBoxes;
+            //BoxCount = entity.BoxCount;
+            //IsFrozenWave = entity.IsFrozenWave;
+            DcCancelDate=entity.DcCancelDate;
+
+        }
+
+        [Display(Name = "Pickslip")]
+        [Key]
+        public long PickslipId { get; set; }
+
+        [Display(Name = "Purchase Order")]
+        public string PurchaseOrder { get; set; }
+
+        [Display(Name = "Customer DC ID")]
+        public string CustomerDcId { get; set; }
+
+        [Display(Name = "Pickslip Import Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? PickslipImportDate { get; set; }
+
+        [Display(Name = "Customer Store ID")]
+        public string CustomerStoreId { get; set; }
+
+        [Display(Name = "Start Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? StartDate { get; set; }
+
+        [Display(Name = "DC Cancel Date")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime? DcCancelDate { get; set; }
+
+        public string UrlInquiryPickslip { get; set; }
+
+        public string UrlInquiryPurchaseOrder { get; set; }
+    }
+
+
     public class PickslipListViewModel :ViewModelBase
     {
         public PickslipListViewModel()
@@ -25,9 +81,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         public string RowDimDisplayName { get; set; }
 
         public string ColDimDisplayName { get; set; }
-   
 
-        public IList<PickslipModel> PickslipList { get; set; }
+
+        public IList<CreateWavePickslipModel> PickslipList { get; set; }
 
         public string CustomerName { get; set; }
 
@@ -40,18 +96,4 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
     }
 
-    //internal class PickslipListViewModelUnbinder : PickslipMatrixPartialViewModelUnbinder
-    //{
-    //    public override void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, object value)
-    //    {
-    //        base.UnbindModel(routeValueDictionary, routeName, value);
-    //        var model = value as PickslipListViewModel;
-
-    //        if (model.BucketId > 0)
-    //        {
-    //            routeValueDictionary.Add(model.NameFor(m => m.BucketId), model.BucketId);
-    //        }
-    //    }
-
-    //}
 }

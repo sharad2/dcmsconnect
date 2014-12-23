@@ -49,7 +49,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         public IEnumerable<Pickslip> GetBucketPickslip(int bucketId)
         {
-            return _repos.GetBucketPickslip(bucketId);
+            return _repos.GetBucketPickslips(bucketId);
         }
 
         /// <summary>
