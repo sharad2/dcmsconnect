@@ -144,7 +144,7 @@
 
            })
                 </div>
-                <p class="help-block">The Virtual Warehouse to which all pulled SKUs should be converted to</p>
+                <p class="help-block  hidden-xs">The Virtual Warehouse to which all pulled SKUs should be converted to</p>
             </div>
         </div>
 
@@ -157,7 +157,7 @@
                id = "ddlArea",
                @class = "form-control"
            })
-                <p class="help-block">Source area where cartons will be looked.</p>
+                <p class="help-block  hidden-xs">Source area where cartons will be looked.</p>
                 <div class="checkbox">
                     <label>
                         @Html.CheckBoxFor(m => m.OverPullCarton, new { }) Allow Overpulling
@@ -171,7 +171,7 @@
                id = "ddlArea",
                @class = "form-control"
            })
-                <p class="help-block">Destination area where cartons will be sent</p>
+                <p class="help-block  hidden-xs">Destination area where cartons will be sent</p>
             </div>
         </div>
 
@@ -190,7 +190,7 @@
                     @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "No Change", new { id = "ddlTargetQuality", @class = "form-control" })
 
                 </div><!-- /input-group -->
-                <p class="help-block">Select a quality above if you would like to change the quality of the cartons before they are pulled.</p>
+                <p class="help-block  hidden-xs">Select a quality above if you would like to change the quality of the cartons before they are pulled.</p>
             </div>
         </div>
 
