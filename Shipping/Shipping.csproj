@@ -105,7 +105,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\UnixTimestampBinder.cs" />
-    <Compile Include="Repository\Address.cs" />
     <Compile Include="Repository\Appointment.cs" />
     <Compile Include="Repository\AtsDateSummary.cs" />
     <Compile Include="Repository\Bol.cs" />
@@ -126,7 +125,6 @@
     <Compile Include="Repository\ScanToTruck\ScanToTruckRepository.cs" />
     <Compile Include="Repository\ScanToTruck\ScanToTruckService.cs" />
     <Compile Include="Repository\AppointmentBol.cs" />
-    <Compile Include="Repository\ShippingAddress.cs" />
     <Compile Include="Repository\ShippingRepository.cs" />
     <Compile Include="Repository\ShippingService.cs" />
     <Compile Include="Resources\ShippingResource.Designer.cs">
