@@ -105,28 +105,28 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\UnixTimestampBinder.cs" />
-    <Compile Include="Repository\Appointment.cs" />
-    <Compile Include="Repository\AtsDateSummary.cs" />
-    <Compile Include="Repository\Bol.cs" />
-    <Compile Include="Repository\Carrier.cs" />
-    <Compile Include="Repository\CodeDescriptionModel.cs" />
-    <Compile Include="Repository\CustomerOrderSummary.cs" />
-    <Compile Include="Repository\EdiPo.cs" />
-    <Compile Include="Repository\PoStatus.cs" />
-    <Compile Include="Repository\RoutingUpdater.cs" />
-    <Compile Include="Repository\RoutablePo.cs" />
-    <Compile Include="Repository\Po.cs" />
-    <Compile Include="Repository\Customer.cs" />
-    <Compile Include="Repository\ScanToTruck\Appointment.cs" />
-    <Compile Include="Repository\ScanToTruck\Box.cs" />
+    <Compile Include="Areas\Shipping\Home\Appointment.cs" />
+    <Compile Include="Areas\Shipping\Home\AtsDateSummary.cs" />
+    <Compile Include="Areas\Shipping\Home\Bol.cs" />
+    <Compile Include="Areas\Shipping\AutoComplete\Carrier.cs" />
+    <Compile Include="Areas\Shipping\Home\CodeDescriptionModel.cs" />
+    <Compile Include="Areas\Shipping\Home\CustomerOrderSummary.cs" />
+    <Compile Include="Areas\Shipping\Home\EdiPo.cs" />
+    <Compile Include="Areas\Shipping\Home\PoStatus.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingUpdater.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutablePo.cs" />
+    <Compile Include="Areas\Shipping\Home\Po.cs" />
+    <Compile Include="Areas\Shipping\Home\Customer.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Appointment.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Box.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AutoCompleteRepository.cs" />
-    <Compile Include="Repository\ScanToTruck\Pallet.cs" />
-    <Compile Include="Repository\ScanToTruck\ScanToTruckRepository.cs" />
-    <Compile Include="Repository\ScanToTruck\ScanToTruckService.cs" />
-    <Compile Include="Repository\AppointmentBol.cs" />
-    <Compile Include="Repository\ShippingRepository.cs" />
-    <Compile Include="Repository\ShippingService.cs" />
+    <Compile Include="Areas\Shipping\Home\AutoCompleteRepository.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Pallet.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckRepository.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckService.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentBol.cs" />
+    <Compile Include="Areas\Shipping\Home\ShippingRepository.cs" />
+    <Compile Include="Areas\Shipping\Home\ShippingService.cs" />
     <Compile Include="Resources\ShippingResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -149,26 +149,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AppointmentModel.cs" />
-    <Compile Include="ViewModels\AppointmentViewModel.cs" />
-    <Compile Include="ViewModels\BolModel.cs" />
-    <Compile Include="ViewModels\BolViewModel.cs" />
-    <Compile Include="ViewModels\CustomerSummaryModel.cs" />
-    <Compile Include="ViewModels\PoSearchResultsViewModel.cs" />
-    <Compile Include="ViewModels\PoStatusModel.cs" />
-    <Compile Include="ViewModels\RoutablePoModel.cs" />
-    <Compile Include="ViewModels\RoutedViewModel.cs" />
-    <Compile Include="ViewModels\LayoutTabsViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\IndexViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\UnloadPalletViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\ViewModelBase.cs" />
-    <Compile Include="ViewModels\UnroutedPoModel.cs" />
-    <Compile Include="ViewModels\RoutingSummaryViewModel.cs" />
-    <Compile Include="ViewModels\RoutingViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\PalletModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\PalletViewModel.cs" />
-    <Compile Include="ViewModels\AppointmentBolModel.cs" />
-    <Compile Include="ViewModels\UnroutedViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\BolModel.cs" />
+    <Compile Include="Areas\Shipping\Home\BolViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\CustomerSummaryModel.cs" />
+    <Compile Include="Areas\Shipping\Home\PoSearchResultsViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\PoStatusModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutablePoModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutedViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\LayoutTabsViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\IndexViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\UnloadPalletViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ViewModelBase.cs" />
+    <Compile Include="Areas\Shipping\Home\UnroutedPoModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingSummaryViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\PalletModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\PalletViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentBolModel.cs" />
+    <Compile Include="Areas\Shipping\Home\UnroutedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Shipping\SharedViews\GuidedTruckLoading.ppt" />
