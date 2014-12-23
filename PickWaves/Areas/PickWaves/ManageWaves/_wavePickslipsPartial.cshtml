@@ -36,22 +36,19 @@
             </div>
             <div class="col-md-5">
                 <span class="badge">@Html.DisplayFor(m => m.TotalUnpickedPieces)</span>unpicked
-                <div class="progress" style="margin-bottom:0px;">
+                <div class="progress" style="margin-bottom:0">
                     <div style="width: @Model.TotalPercentPickedPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                         <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.TotalPickedPieces) of  @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces picked <em>&bull;@Model.TotalPercentPickedPieces% picked</em></span>
                     </div>
                 </div>
             </div>
             <div class="col-md-2">
-                @if (Model.PickslipList[0].IsRemovablePickslip)
-                {
                     <div class="btn-group pull-right">
                         <button type="button" class="btn btn-default dropdown-toggle btn-sm disabled" data-toggle="dropdown">
                             Action <span class="caret"></span>
                         </button>
 
                     </div>
-                }
             </div>
         </div>
     </li>
@@ -97,7 +94,7 @@
                 <div class="col-md-2">
                     @if (Model.UserIsManager)
                     {
-                        if (Model.PickslipList[i].IsRemovablePickslip)
+                        if (Model.PickslipList[i].CurrentPieces == 0 && Model.Bucket.IsFrozen)
                         {
                             <div class="btn-group pull-right">
                                 <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">

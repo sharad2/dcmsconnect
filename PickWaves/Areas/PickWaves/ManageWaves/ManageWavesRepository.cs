@@ -378,7 +378,7 @@ WHERE 1 = 1
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetBucketPickslip(int bucketId)
+        public IEnumerable<Pickslip> GetBucketPickslips(int bucketId)
         {
             const string QUERY = @"
                                 SELECT PS.PICKSLIP_ID                           AS PICKSLIP_ID,
@@ -398,8 +398,7 @@ MAX(ps.customer_id) AS customer_id,
                                        SUM(CASE
                                              WHEN B.STOP_PROCESS_DATE IS NOT NULL AND
                                                   B.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES,
-                                      MAX(BKT.FREEZE)                           AS MAX_FREEZE
+                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES
                                   FROM <proxy />PS PS
                                  INNER JOIN <proxy />BUCKET BKT
                                     ON PS.BUCKET_ID = BKT.BUCKET_ID
@@ -408,7 +407,7 @@ MAX(ps.customer_id) AS customer_id,
                                  LEFT OUTER JOIN <proxy />BOXDET BD
                                     ON B.PICKSLIP_ID = BD.PICKSLIP_ID
                                    AND B.UCC128_ID = BD.UCC128_ID
-                                 WHERE BKT.BUCKET_ID = :BUCKET_ID
+                                 WHERE ps.BUCKET_ID = :BUCKET_ID
                                    AND PS.TRANSFER_DATE IS NULL
                                  GROUP BY PS.PICKSLIP_ID";
             var binder = SqlBinder.Create(row => new Pickslip
@@ -423,7 +422,6 @@ MAX(ps.customer_id) AS customer_id,
                 CancelledBoxCount = row.GetInteger("CANCELLED_BOXES") ?? 0,
                 PiecesInCancelledBoxes = row.GetInteger("PIECES_IN_CANCELLED_BOXES") ?? 0,
                 BoxCount = row.GetInteger("BOX_COUNT") ?? 0,
-                IsFrozenWave = row.GetString("MAX_FREEZE") == "Y",
                 Iteration = row.GetInteger("iteration"),
                 CustomerId = row.GetString("customer_id")
             });

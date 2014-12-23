@@ -204,7 +204,7 @@
     <Compile Include="Areas\PickWaves\CreateWave\PickslipListViewModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BoxModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\WaveBoxListModel.cs" />
-    <Compile Include="Areas\PickWaves\ManageWaves\WavePickslipListModel.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WavePickslipsViewModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\WaveSkuListModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\WaveViewModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\IndexViewModel.cs" />
@@ -212,7 +212,6 @@
     <Compile Include="ViewModels\BucketModel.cs" />
     <Compile Include="Areas\PickWaves\Home\IndexViewModel.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\PalletModel.cs" />
-    <Compile Include="ViewModels\PickslipModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BucketSkuModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
