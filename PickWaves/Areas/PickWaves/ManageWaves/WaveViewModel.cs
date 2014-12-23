@@ -36,19 +36,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
     public class WaveViewModel : ViewModelBase
     {
-        public WaveViewModel()
-        {
+        //public WaveViewModel()
+        //{
 
-        }
-        public WaveViewModel(int bucketId, SuggestedNextActionType actions = SuggestedNextActionType.NotSet, BucketActivityType? activityTypeFilter = null)
-        {
-            Bucket = new BucketModel
-            {
-                BucketId = bucketId
-            };
-            this.HighlightedActions = actions;
-            ActivityTypeFilter = activityTypeFilter;
-        }
+        //}
+        //public WaveViewModel(int bucketId, SuggestedNextActionType actions = SuggestedNextActionType.NotSet, BucketActivityType? activityTypeFilter = null)
+        //{
+        //    Bucket = new BucketModel
+        //    {
+        //        BucketId = bucketId
+        //    };
+        //    this.HighlightedActions = actions;
+        //    ActivityTypeFilter = activityTypeFilter;
+        //}
 
         public BucketModel Bucket { get; set; }
 
