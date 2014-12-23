@@ -115,8 +115,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
                 // When search text is bucket id.
                 case SearchTextType.BucketId:
-                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel(int.Parse(id),
-                         DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.SearchAgain)));
+                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.Wave(int.Parse(id),
+                         DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.SearchAgain));
 
                 // When search text is customer id.
                 case SearchTextType.CustomerId:

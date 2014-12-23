@@ -263,8 +263,8 @@
                                         <div class="col-md-4">
                                             <h4 class="list-group-item-heading">
                                                 <small> @(i + 1)</small>
-                                                <a @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "style='text-decoration:line-through'") href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(
-                                                 new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus, Model.SearchUserName)))" title="Wave List">
+                                                <a @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "style='text-decoration:line-through'")
+                                                    href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.BucketsByStatus.Values[j][i].CustomerId, Model.BucketsByStatus.Values[j][i].BucketStatus, Model.SearchUserName))" title="Wave List">
                                                     @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId):
                                                 </a>
                                                 <small>

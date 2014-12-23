@@ -36,15 +36,13 @@
                     <div class="col-md-3">
                         <span class="h4">Pick Wave @Html.DisplayFor(m => m.LastBucketId)</span>
                         <div class="btn-group btn-group-xs" role="group">
-                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(
-            new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
-                (Model.LastBucketId.Value, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe)))" class="btn btn-default">
+                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.LastBucketId.Value,
+                            DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe))" class="btn btn-default">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 View
                             </a>
-                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
-            new DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel
-             (Model.LastBucketId.Value, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing)))" class="btn btn-default">
+                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(Model.LastBucketId.Value, 
+                            DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing))" class="btn btn-default">
                                 <span class="glyphicon glyphicon-edit"></span>
                                 Edit
                             </a>
