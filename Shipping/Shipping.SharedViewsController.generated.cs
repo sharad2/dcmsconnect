@@ -38,9 +38,13 @@ namespace T4MVC.Shipping
             {
                 public readonly string _layoutShipping = "_layoutShipping";
                 public readonly string _soundPartial = "_soundPartial";
+                public readonly string Shipping_all_css = "Shipping-all.css";
+                public readonly string Shipping_mobile_all_css = "Shipping-mobile-all.css";
             }
             public readonly string _layoutShipping = "~/Areas/Shipping/SharedViews/_layoutShipping.cshtml";
             public readonly string _soundPartial = "~/Areas/Shipping/SharedViews/_soundPartial.cshtml";
+            public readonly string Shipping_all_css = "~/Areas/Shipping/SharedViews/Shipping-all.css.bundle";
+            public readonly string Shipping_mobile_all_css = "~/Areas/Shipping/SharedViews/Shipping-mobile-all.css.bundle";
         }
     }
 

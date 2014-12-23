@@ -12,7 +12,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/Areas/Shipping/Content/SiteMobile.partial.css</file>
-    <file>/Areas/Shipping/Content/Shipping.mobile.partial.css</file>
+    <file>SiteMobile.partial.css</file>
+    <file>Shipping.mobile.partial.css</file>
   </files>
 </bundle>

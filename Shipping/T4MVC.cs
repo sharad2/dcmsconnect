@@ -105,6 +105,13 @@ namespace Links_Shipping
                 private const string URLPATH = "~/Areas/Shipping/Home";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Appointment_css_bundle = Url("Appointment.css.bundle");
+                public static readonly string Appointment_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.css") ? Url("Appointment.min.css") : Url("Appointment.css");
+                     
+                public static readonly string Appointment_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.partial.min.css") ? Url("Appointment.partial.min.css") : Url("Appointment.partial.css");
+                     
+                public static readonly string fullcalendar_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.partial.min.css") ? Url("fullcalendar.partial.min.css") : Url("fullcalendar.partial.css");
+                     
             }
         
         }
@@ -131,13 +138,6 @@ namespace Links_Shipping
                 private const string URLPATH = "~/Areas/Shipping/Content";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string Appointment_css_bundle = Url("Appointment.css.bundle");
-                public static readonly string Appointment_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.css") ? Url("Appointment.min.css") : Url("Appointment.css");
-                     
-                public static readonly string Appointment_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.partial.min.css") ? Url("Appointment.partial.min.css") : Url("Appointment.partial.css");
-                     
-                public static readonly string fullcalendar_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.partial.min.css") ? Url("fullcalendar.partial.min.css") : Url("fullcalendar.partial.css");
-                     
                 public static readonly string GuidedTruckLoading_ppt = Url("GuidedTruckLoading.ppt");
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
@@ -149,20 +149,6 @@ namespace Links_Shipping
                     public static readonly string calendar_gif = Url("calendar.gif");
                 }
             
-                public static readonly string Print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Print.min.css") ? Url("Print.min.css") : Url("Print.css");
-                     
-                public static readonly string Shipping_all_css_bundle = Url("Shipping-all.css.bundle");
-                public static readonly string Shipping_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-all.min.css") ? Url("Shipping-all.min.css") : Url("Shipping-all.css");
-                     
-                public static readonly string Shipping_mobile_all_css_bundle = Url("Shipping-mobile-all.css.bundle");
-                public static readonly string Shipping_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-mobile-all.min.css") ? Url("Shipping-mobile-all.min.css") : Url("Shipping-mobile-all.css");
-                     
-                public static readonly string Shipping_mobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.mobile.partial.min.css") ? Url("Shipping.mobile.partial.min.css") : Url("Shipping.mobile.partial.css");
-                     
-                public static readonly string Shipping_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.partial.min.css") ? Url("Shipping.partial.min.css") : Url("Shipping.partial.css");
-                     
-                public static readonly string SiteMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.partial.min.css") ? Url("SiteMobile.partial.min.css") : Url("SiteMobile.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Shipping/Content/Sounds";
@@ -173,8 +159,6 @@ namespace Links_Shipping
                     public static readonly string warning_wav = Url("warning.wav");
                 }
             
-                public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
-                     
             }
         
         }
@@ -232,6 +216,22 @@ namespace Links_Shipping
                 private const string URLPATH = "~/Areas/Shipping/SharedViews";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string Print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Print.min.css") ? Url("Print.min.css") : Url("Print.css");
+                     
+                public static readonly string Shipping_all_css_bundle = Url("Shipping-all.css.bundle");
+                public static readonly string Shipping_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-all.min.css") ? Url("Shipping-all.min.css") : Url("Shipping-all.css");
+                     
+                public static readonly string Shipping_mobile_all_css_bundle = Url("Shipping-mobile-all.css.bundle");
+                public static readonly string Shipping_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-mobile-all.min.css") ? Url("Shipping-mobile-all.min.css") : Url("Shipping-mobile-all.css");
+                     
+                public static readonly string Shipping_mobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.mobile.partial.min.css") ? Url("Shipping.mobile.partial.min.css") : Url("Shipping.mobile.partial.css");
+                     
+                public static readonly string Shipping_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.partial.min.css") ? Url("Shipping.partial.min.css") : Url("Shipping.partial.css");
+                     
+                public static readonly string SiteMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.partial.min.css") ? Url("SiteMobile.partial.min.css") : Url("SiteMobile.partial.css");
+                     
+                public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
+                     
             }
         
         }

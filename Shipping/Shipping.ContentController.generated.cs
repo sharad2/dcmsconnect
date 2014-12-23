@@ -36,15 +36,9 @@ namespace T4MVC.Shipping
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string Appointment_css = "Appointment.css";
                 public readonly string GuidedTruckLoading = "GuidedTruckLoading";
-                public readonly string Shipping_all_css = "Shipping-all.css";
-                public readonly string Shipping_mobile_all_css = "Shipping-mobile-all.css";
             }
-            public readonly string Appointment_css = "~/Areas/Shipping/Content/Appointment.css.bundle";
             public readonly string GuidedTruckLoading = "~/Areas/Shipping/Content/GuidedTruckLoading.ppt";
-            public readonly string Shipping_all_css = "~/Areas/Shipping/Content/Shipping-all.css.bundle";
-            public readonly string Shipping_mobile_all_css = "~/Areas/Shipping/Content/Shipping-mobile-all.css.bundle";
             static readonly _imagesClass s_images = new _imagesClass();
             public _imagesClass images { get { return s_images; } }
             [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

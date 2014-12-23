@@ -12,7 +12,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/Areas/Shipping/Content/fullcalendar.partial.css</file>
-    <file>/Areas/Shipping/Content/Appointment.partial.css</file>
+    <file>/Areas/Shipping/Home/fullcalendar.partial.css</file>
+    <file>/Areas/Shipping/Home/Appointment.partial.css</file>
   </files>
 </bundle>

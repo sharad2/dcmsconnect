@@ -490,6 +490,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string _dayHtmlPartial = "_dayHtmlPartial";
                 public readonly string _monthHtmlPartial = "_monthHtmlPartial";
                 public readonly string Appointment = "Appointment";
+                public readonly string Appointment_css = "Appointment.css";
                 public readonly string Bol = "Bol";
                 public readonly string Index = "Index";
                 public readonly string Index_mobile = "Index.mobile";
@@ -503,6 +504,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             public readonly string _dayHtmlPartial = "~/Areas/Shipping/Home/_dayHtmlPartial.cshtml";
             public readonly string _monthHtmlPartial = "~/Areas/Shipping/Home/_monthHtmlPartial.cshtml";
             public readonly string Appointment = "~/Areas/Shipping/Home/Appointment.cshtml";
+            public readonly string Appointment_css = "~/Areas/Shipping/Home/Appointment.css.bundle";
             public readonly string Bol = "~/Areas/Shipping/Home/Bol.cshtml";
             public readonly string Index = "~/Areas/Shipping/Home/Index.cshtml";
             public readonly string Index_mobile = "~/Areas/Shipping/Home/Index.mobile.cshtml";
