@@ -29,10 +29,10 @@ namespace DcmsMobile.Shipping
 
         protected void Application_Start()
         {
-             HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-               Links_Shipping.Content.Url(),
-               Links_Shipping.Scripts.Url()
-             }));          
+             //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+             //  Links_Shipping.Content.Url(),
+             //  Links_Shipping.Scripts.Url()
+             //}));          
             
             AreaRegistration.RegisterAllAreas();
 

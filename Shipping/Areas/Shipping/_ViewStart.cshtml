@@ -5,9 +5,13 @@ Determines the path of the layout page based on device specific rules.
 *@
 @{
     // If layout has already been set by the view, do not change it
-    var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, MVC_Shipping.Shipping.Shared.Views._layoutShipping);
-    var layoutView = (RazorView)layoutResult.View;
-    Layout = layoutView == null ? null : layoutView.ViewPath;
+    //var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, MVC_Shipping.Shipping.Shared.Views._layoutShipping);
+    //var layoutView = (RazorView)layoutResult.View;
+    //Layout = layoutView == null ? null : layoutView.ViewPath;
+    if (Layout == null)
+    {
+        Layout = "~/Areas/Shipping/SharedViews/_layoutShipping.cshtml";
+    }
 
     this.ViewContext.HttpContext.Trace.Write("View Name", this.VirtualPath);
 }

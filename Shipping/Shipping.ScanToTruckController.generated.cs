@@ -158,9 +158,9 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string Pallet = "Pallet";
                 public readonly string UnloadPallet = "UnloadPallet";
             }
-            public readonly string Index = "~/Areas/Shipping/Views/ScanToTruck/Index.cshtml";
-            public readonly string Pallet = "~/Areas/Shipping/Views/ScanToTruck/Pallet.cshtml";
-            public readonly string UnloadPallet = "~/Areas/Shipping/Views/ScanToTruck/UnloadPallet.cshtml";
+            public readonly string Index = "~/Areas/Shipping/ScanToTruck/Index.cshtml";
+            public readonly string Pallet = "~/Areas/Shipping/ScanToTruck/Pallet.cshtml";
+            public readonly string UnloadPallet = "~/Areas/Shipping/ScanToTruck/UnloadPallet.cshtml";
         }
     }
 

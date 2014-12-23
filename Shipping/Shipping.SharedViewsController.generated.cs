@@ -23,7 +23,7 @@ using System.Web.Routing;
 using T4MVC;
 namespace T4MVC.Shipping
 {
-    public class SharedController
+    public class SharedViewsController
     {
 
         static readonly ViewsClass s_views = new ViewsClass();
@@ -37,12 +37,10 @@ namespace T4MVC.Shipping
             public class _ViewNamesClass
             {
                 public readonly string _layoutShipping = "_layoutShipping";
-                public readonly string _layoutShipping_Mobile = "_layoutShipping.Mobile";
                 public readonly string _soundPartial = "_soundPartial";
             }
-            public readonly string _layoutShipping = "~/Areas/Shipping/Views/Shared/_layoutShipping.cshtml";
-            public readonly string _layoutShipping_Mobile = "~/Areas/Shipping/Views/Shared/_layoutShipping.Mobile.cshtml";
-            public readonly string _soundPartial = "~/Areas/Shipping/Views/Shared/_soundPartial.cshtml";
+            public readonly string _layoutShipping = "~/Areas/Shipping/SharedViews/_layoutShipping.cshtml";
+            public readonly string _soundPartial = "~/Areas/Shipping/SharedViews/_soundPartial.cshtml";
         }
     }
 

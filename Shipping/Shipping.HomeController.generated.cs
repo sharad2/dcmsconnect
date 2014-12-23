@@ -499,18 +499,18 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string RoutingSummary = "RoutingSummary";
                 public readonly string Unrouted = "Unrouted";
             }
-            public readonly string _bolAppointmentHtmlPartial = "~/Areas/Shipping/Views/Home/_bolAppointmentHtmlPartial.cshtml";
-            public readonly string _dayHtmlPartial = "~/Areas/Shipping/Views/Home/_dayHtmlPartial.cshtml";
-            public readonly string _monthHtmlPartial = "~/Areas/Shipping/Views/Home/_monthHtmlPartial.cshtml";
-            public readonly string Appointment = "~/Areas/Shipping/Views/Home/Appointment.cshtml";
-            public readonly string Bol = "~/Areas/Shipping/Views/Home/Bol.cshtml";
-            public readonly string Index = "~/Areas/Shipping/Views/Home/Index.cshtml";
-            public readonly string Index_mobile = "~/Areas/Shipping/Views/Home/Index.mobile.cshtml";
-            public readonly string PoSearchResults = "~/Areas/Shipping/Views/Home/PoSearchResults.cshtml";
-            public readonly string Routed = "~/Areas/Shipping/Views/Home/Routed.cshtml";
-            public readonly string Routing = "~/Areas/Shipping/Views/Home/Routing.cshtml";
-            public readonly string RoutingSummary = "~/Areas/Shipping/Views/Home/RoutingSummary.cshtml";
-            public readonly string Unrouted = "~/Areas/Shipping/Views/Home/Unrouted.cshtml";
+            public readonly string _bolAppointmentHtmlPartial = "~/Areas/Shipping/Home/_bolAppointmentHtmlPartial.cshtml";
+            public readonly string _dayHtmlPartial = "~/Areas/Shipping/Home/_dayHtmlPartial.cshtml";
+            public readonly string _monthHtmlPartial = "~/Areas/Shipping/Home/_monthHtmlPartial.cshtml";
+            public readonly string Appointment = "~/Areas/Shipping/Home/Appointment.cshtml";
+            public readonly string Bol = "~/Areas/Shipping/Home/Bol.cshtml";
+            public readonly string Index = "~/Areas/Shipping/Home/Index.cshtml";
+            public readonly string Index_mobile = "~/Areas/Shipping/Home/Index.mobile.cshtml";
+            public readonly string PoSearchResults = "~/Areas/Shipping/Home/PoSearchResults.cshtml";
+            public readonly string Routed = "~/Areas/Shipping/Home/Routed.cshtml";
+            public readonly string Routing = "~/Areas/Shipping/Home/Routing.cshtml";
+            public readonly string RoutingSummary = "~/Areas/Shipping/Home/RoutingSummary.cshtml";
+            public readonly string Unrouted = "~/Areas/Shipping/Home/Unrouted.cshtml";
         }
     }
 
