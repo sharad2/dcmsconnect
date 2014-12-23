@@ -1,14 +1,113 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
-using EclipseLibrary.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Web.Mvc;
-using System.Web.Routing;
-using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
+    public class DimensionValueModel
+    {
+        internal DimensionValueModel(MatrixCellValue entity)
+        {
+            this.PickslipCount = entity.PickslipCount;
+            this.OrderedPieces = entity.OrderedPieces;
+        }
+
+        public int PickslipCount { get; set; }
+
+        public int OrderedPieces { get; set; }
+    }
+
+    /// <summary>
+    /// The formatting is applied based on type of the value. Equality is is also based on underlying value. This makes it possible to used Distinct()
+    /// </summary>
+    public struct DimensionValue: IEquatable<DimensionValue>
+    {
+        private readonly object _rawValue;
+        public DimensionValue(object value)
+        {
+            _rawValue = value;
+        }
+
+        /// <summary>
+        /// Post value shows date as YYYY-MM-DD
+        /// </summary>
+        public string PostValue
+        {
+            get
+            {
+                if (_rawValue == null)
+                {
+                    return string.Empty;
+                }
+                if (_rawValue is DateTime)
+                {
+                    return string.Format("{0:yyyy-MM-dd}", _rawValue, CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern);
+                }
+                return _rawValue.ToString();
+            }
+        }
+
+        /// <summary>
+        /// Display value shows date only
+        /// </summary>
+        public string DisplayValue
+        {
+            get
+            {
+                if (_rawValue == null)
+                {
+                    return string.Empty;
+                }
+                if (_rawValue is DateTime)
+                {
+                    return string.Format("{0:d}", _rawValue);
+                }
+                return _rawValue.ToString();
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            //var other = obj as DimensionValue;
+            //if (other == null)
+            //{
+            //    return false;
+            //}
+            //if (_rawValue == null)
+            //{
+            //    return other._rawValue == null;
+            //}
+            //return _rawValue.Equals(other._rawValue);
+            if (obj is DimensionValue)
+            {
+                return this.Equals((DimensionValue)obj);
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            if (_rawValue == null)
+            {
+                return 0;
+            }
+            return _rawValue.GetHashCode();
+        }
+
+
+        public bool Equals(DimensionValue other)
+        {
+            if (_rawValue == null)
+            {
+                return other._rawValue == null;
+            }
+            return _rawValue.Equals(other._rawValue);
+        }
+    }
+
     /// <summary>
     /// The unbinder is capable of handling many properties.
     /// </summary>
@@ -63,54 +162,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public string CustomerId { get; set; }
 
-        private IList<RowDimensionModel> _rows;
-        public IList<RowDimensionModel> Rows
-        {
-            get
-            {
-                return _rows ?? new List<RowDimensionModel>();
-            }
-            set
-            {
-                _rows = value;
-            }
-        }
+        public SparseMatrix<DimensionValue, DimensionValue, DimensionValueModel> DimensionMatrix { get; set; }
 
-        /// <summary>
-        /// Unique dimension values for the column
-        /// </summary>
-        //public IList<string> ColDimensionValues { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int GrandTotalPickslips
-        {
-            get
-            {
-                return Rows.Select(p => p.PickslipCounts.Values.Sum()).Sum();
-            }
-        }
+        public PickslipDimension GroupDimIndex { get; set; }
 
-        #region Posted Values
-        public PickslipDimension RowDimIndex { get; set; }
+        public PickslipDimension SubgroupDimIndex { get; set; }
 
-        public PickslipDimension ColDimIndex { get; set; }
+        public IList<SelectListItem> GroupDimensionList { get; set; }
 
-        /// <summary>
-        /// Value of the dimension in the selected column. This is posted.
-        /// </summary>        
-        public string ColDimVal { get; set; }
+        public IList<SelectListItem> SubgroupDimensionList { get; set; }
 
-        public string RowDimVal { get; set; }
+        public string GroupDimDisplayName { get; set; }
 
-        #endregion
-
-        public IList<SelectListItem> RowDimensionList { get; set; }
-
-        public IList<SelectListItem> ColDimensionList { get; set; }
-
-        public string RowDimDisplayName { get; set; }
-
-        public string ColDimDisplayName { get; set; }
+        public string SubgroupDimDisplayName { get; set; }
 
         public static string OrderSummaryReportUrl
         {

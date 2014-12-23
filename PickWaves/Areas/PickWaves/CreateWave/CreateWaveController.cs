@@ -75,6 +75,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         private const string COOKIE_ROW_DIMENSION = "SELECTED_ROW_DIMENSION";
         private const string COOKIE_COL_DIMENSION = "SELECTED_COL_DIMENSION";
 
+        //private static string FormatDimensionValue(object value)
+        //{
+        //    if (value == null)
+        //    {
+        //        return string.Empty;
+        //    }
+        //    if (value is DateTime)
+        //    {
+        //        return string.Format("{0:d}", value);
+        //    }
+        //    return value.ToString();
+        //}
+
         /// <summary>
         /// Populates the passed PickslipMatrixPartialViewModel
         /// </summary>
@@ -106,7 +119,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 model.VwhId = model.VwhList.Select(p => p.Value).First();
             }
 
-            var summary = _service.Value.GetOrderSummary(model.CustomerId, model.VwhId, model.RowDimIndex, model.ColDimIndex);
+            var summary = _service.Value.GetOrderSummary(model.CustomerId, model.VwhId, model.GroupDimIndex, model.SubgroupDimIndex);
 
             if (summary.CountValuesPerDimension == null)
             {
@@ -115,48 +128,48 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                 return false;
             }
             var requery = false;
-            if (summary.CountValuesPerDimension[model.RowDimIndex] == 0)
+            if (summary.CountValuesPerDimension[model.GroupDimIndex] == 0)
             {
-                model.RowDimIndex = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
+                model.GroupDimIndex = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
                 requery = true;
             }
 
-            if (summary.CountValuesPerDimension[model.ColDimIndex] == 0)
+            if (summary.CountValuesPerDimension[model.SubgroupDimIndex] == 0)
             {
-                model.ColDimIndex = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
+                model.SubgroupDimIndex = summary.CountValuesPerDimension.First(p => p.Value > 0).Key;
                 requery = true;
             }
 
             if (requery)
             {
-                summary = _service.Value.GetOrderSummary(model.CustomerId, model.VwhId, model.RowDimIndex, model.ColDimIndex);
+                summary = _service.Value.GetOrderSummary(model.CustomerId, model.VwhId, model.GroupDimIndex, model.SubgroupDimIndex);
             }
 
-            model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.RowDimIndex].Name;
-            model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.ColDimIndex].Name;
+            model.GroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.GroupDimIndex].Name;
+            model.SubgroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.SubgroupDimIndex].Name;
 
 
 
             const int MAX_COL_DIMENSIONS = 30;
 
-            model.RowDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+            model.GroupDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
                                       let count = summary.CountValuesPerDimension[kvp.Key]
                                       select new SelectListItem
                                       {
                                           Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
                                           Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
-                                          Selected = kvp.Key == model.RowDimIndex
+                                          Selected = kvp.Key == model.GroupDimIndex
                                       }).OrderBy(p => p.Text).ToArray();
 
             // Dimensions which have too many distinct values are not displayed as column dimensions
-            model.ColDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
+            model.SubgroupDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
                                       let count = summary.CountValuesPerDimension[kvp.Key]
                                       where count <= MAX_COL_DIMENSIONS
                                       select new SelectListItem
                                       {
                                           Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
                                           Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
-                                          Selected = kvp.Key == model.ColDimIndex
+                                          Selected = kvp.Key == model.SubgroupDimIndex
                                       }).OrderBy(p => p.Text).ToArray();
 
             //model.Rows = (from rowVal in summary.AllValues.RowValues
@@ -168,15 +181,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //                  DimensionValue = FormatDimensionValue(rowVal)
             //              }).ToArray();
 
-            model.Rows = (from rowVal in summary.AllValues2.RowValues()
-                          //let row = summary.AllValues.GetRow(rowVal)
-                          select new RowDimensionModel
-                          {
-                              PickslipCounts = summary.AllValues2.PickslipCounts(rowVal),
-                              OrderedPieces = summary.AllValues2.OrderedPieces(rowVal),
-                              DimensionValue = SparseMatrix.FormatValue(rowVal)
-                          }).ToArray();
+            //model.Rows = (from rowVal in summary.AllValues3.FirstKeys
+            //              //let row = summary.AllValues.GetRow(rowVal)
+            //              select new RowDimensionModel
+            //              {
+            //                  PickslipCounts = summary.AllValues3[rowVal].ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.PickslipCount),
+            //                  OrderedPieces = summary.AllValues3[rowVal].ToDictionary(p => FormatDimensionValue(p.Key), p => p.Value.OrderedPieces),
+            //                  DimensionValue = FormatDimensionValue(rowVal)
+            //              }).ToArray();
 
+            var query = from item in summary.AllValues3
+                        select Tuple.Create(new DimensionValue(item.Key.Item1), new DimensionValue(item.Key.Item2),
+                            new DimensionValueModel(item.Value));
+
+            model.DimensionMatrix = new SparseMatrix<DimensionValue, DimensionValue, DimensionValueModel>();
+            model.DimensionMatrix.AddRange(query);
             //var list = new List<RowDimensionModel>();
 
             //foreach (var rowVal in summary.AllValues2.RowValues())
@@ -202,8 +221,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// Displays the add pickslips page using the supplied defaults. All parameters are optional except customerId
         /// </summary>
         /// <param name="customerId"></param>
-        /// <param name="rowDimIndex"></param>
-        /// <param name="colDimIndex"></param>
+        /// <param name="groupDimIndex"></param>
+        /// <param name="subgroupDimIndex"></param>
         /// <param name="vwhId"></param>
         /// <param name="pullAreaId"></param>
         /// <param name="pitchAreaId"></param>
@@ -211,8 +230,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <returns></returns>
         [Route]
         public virtual ActionResult Index(string customerId,
-            PickslipDimension rowDimIndex = PickslipDimension.NotSet,
-            PickslipDimension colDimIndex = PickslipDimension.NotSet,
+            PickslipDimension groupDimIndex = PickslipDimension.NotSet,
+            PickslipDimension subgroupDimIndex = PickslipDimension.NotSet,
             string vwhId = null,
             int? lastBucketId = null)
         {
@@ -232,40 +251,40 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //  If non null, then it is used and written to a cookie.
             var cookie = Request.Cookies[COOKIE_PICKWAVE];
 
-            if (rowDimIndex == PickslipDimension.NotSet || colDimIndex == PickslipDimension.NotSet)
+            if (groupDimIndex == PickslipDimension.NotSet || subgroupDimIndex == PickslipDimension.NotSet)
             {
                 // Read cookie
                 int dimRowIndex, dimColIndex;
                 if (cookie != null && cookie[COOKIE_ROW_DIMENSION] != null && int.TryParse(cookie[COOKIE_ROW_DIMENSION], out dimRowIndex) &&
                     int.TryParse(cookie[COOKIE_COL_DIMENSION], out dimColIndex))
                 {
-                    model.RowDimIndex = (PickslipDimension)dimRowIndex;
-                    model.ColDimIndex = (PickslipDimension)dimColIndex;
+                    model.GroupDimIndex = (PickslipDimension)dimRowIndex;
+                    model.SubgroupDimIndex = (PickslipDimension)dimColIndex;
                 }
                 else
                 {
                     // Factory defaults
-                    model.RowDimIndex = PickslipDimension.CustomerDcCancelDate;
-                    model.ColDimIndex = PickslipDimension.CustomerDc;
+                    model.GroupDimIndex = PickslipDimension.CustomerDcCancelDate;
+                    model.SubgroupDimIndex = PickslipDimension.CustomerDc;
                 }
             }
             else
             {
-                model.RowDimIndex = rowDimIndex;
-                model.ColDimIndex = colDimIndex;
+                model.GroupDimIndex = groupDimIndex;
+                model.SubgroupDimIndex = subgroupDimIndex;
                 // Write cookie
                 if (cookie == null)
                 {
                     cookie = new HttpCookie(COOKIE_PICKWAVE) { Expires = DateTime.Now.AddDays(7) };
-                    cookie.Values.Add(COOKIE_ROW_DIMENSION, model.RowDimIndex.ToString());
-                    cookie.Values.Add(COOKIE_COL_DIMENSION, model.ColDimIndex.ToString());
+                    cookie.Values.Add(COOKIE_ROW_DIMENSION, model.GroupDimIndex.ToString());
+                    cookie.Values.Add(COOKIE_COL_DIMENSION, model.SubgroupDimIndex.ToString());
                 }
                 else
                 {
                     if (cookie[COOKIE_ROW_DIMENSION] != null)
-                        cookie.Values.Set(COOKIE_ROW_DIMENSION, model.RowDimIndex.ToString());
+                        cookie.Values.Set(COOKIE_ROW_DIMENSION, model.GroupDimIndex.ToString());
                     if (cookie[COOKIE_COL_DIMENSION] != null)
-                        cookie.Values.Set(COOKIE_COL_DIMENSION, model.ColDimIndex.ToString());
+                        cookie.Values.Set(COOKIE_COL_DIMENSION, model.SubgroupDimIndex.ToString());
                 }
                 HttpContext.Response.Cookies.Add(cookie);
             }
@@ -428,7 +447,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             model.RowDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.RowDimIndex].Name;
             model.ColDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.ColDimIndex].Name;
-            model.RowDimVal = string.IsNullOrEmpty(model.RowDimVal) ? RowDimensionModel.NULL_DIMENSION_VALUE : model.RowDimVal;
+            model.RowDimVal = model.RowDimVal;
             model.CustomerName = (_service.Value.GetCustomer(model.CustomerId) == null ? "" : _service.Value.GetCustomer(model.CustomerId).Name);
 
             model.BucketId = bucketId;

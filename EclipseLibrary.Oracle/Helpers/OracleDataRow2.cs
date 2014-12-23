@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Oracle.ManagedDataAccess.Client;
 using Oracle.ManagedDataAccess.Types;
+using System.Data;
 
 namespace EclipseLibrary.Oracle.Helpers
 {
@@ -19,26 +20,54 @@ namespace EclipseLibrary.Oracle.Helpers
     /// </remarks>
     public class OracleDataRow2
     {
-        private readonly OracleDataReader _reader;
+        //private readonly OracleDataReader _reader;
         private readonly object[] _values;
+
+        /// <summary>
+        /// Maps field name to its ordinal
+        /// </summary>
+        private IDictionary<string, int> _fieldMap;
+
         /// <summary>
         /// Create an instance once you have recieved a reader
         /// </summary>
-        /// <param name="reader"></param>
-        public OracleDataRow2(OracleDataReader reader)
+        /// <param name="schemaTable"></param>
+        public OracleDataRow2(DataTable schemaTable)
         {
-            _values = new object[reader.FieldCount];
-            _reader = reader;
+            _values = new object[schemaTable.Rows.Count];
+            //_reader = reader;
+            //var x = _reader.GetSchemaTable();
+
+            _fieldMap = (from DataRow item in schemaTable.Rows
+                        select new
+                        {
+                            ColumnName = (string)item["ColumnName"],
+                            ColumnOrdinal = (int)item["ColumnOrdinal"]
+                        }).ToDictionary(p => p.ColumnName, p => p.ColumnOrdinal, StringComparer.InvariantCultureIgnoreCase);
+
+            //var dict = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
+            //dict.Add()
         }
 
+        ///// <summary>
+        ///// Called after the reader has been positioned at the next row
+        ///// </summary>
+        //[Obsolete]
+        //internal void RefreshValues()
+        //{
+        //    //_reader.GetProviderSpecificValues(_values);
+        //    _reader.GetOracleValues(_values);
+        //}
+
         /// <summary>
-        /// Called after the reader has been positioned at the next row
+        /// Call this each time the reader is repositioned
         /// </summary>
-        internal void RefreshValues()
+        /// <param name="reader"></param>
+        internal void SetValues(OracleDataReader reader)
         {
-            //_reader.GetProviderSpecificValues(_values);
-            _reader.GetOracleValues(_values);
+            reader.GetOracleValues(_values);
         }
+
 
         public string GetString(int index)
         {
@@ -281,35 +310,34 @@ namespace EclipseLibrary.Oracle.Helpers
         }
 
 #if DEBUG
-        private HashSet<string> _fieldMappings;
+        private HashSet<string> _debugFieldNames;
 #endif
 
         private T GetValueAs<T>(string fieldName)
         {
 #if DEBUG
             // Additional debug check to ensure that same field is not being retrieved twice.
-            if (_fieldMappings == null)
+            if (_debugFieldNames == null)
             {
-                _fieldMappings = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
-                for (int i = 0; i < _reader.FieldCount; ++i)
+                _debugFieldNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+                foreach (var item in _fieldMap)
                 {
-                    var name = _reader.GetName(i);
-                    var b = _fieldMappings.Add(name);
+                    var b = _debugFieldNames.Add(item.Key);
                     if (!b)
                     {
                         // Key already added
-                        var msg = string.Format("DEBUG only exception: Query retrieves column {0} more than once.", name);
+                        var msg = string.Format("DEBUG only exception: Query retrieves column {0} more than once.", item.Key);
                         throw new OperationCanceledException(msg);
                     }
                 }
             }
             // The dispose method raises exception if all fields are not accessed
-            _fieldMappings.Remove(fieldName);
+            _debugFieldNames.Remove(fieldName);
 #endif
             object obj;
             try
             {
-                obj = _values[_reader.GetOrdinal(fieldName)];
+                obj = _values[_fieldMap[fieldName]];
             }
 #if DEBUG
             catch (IndexOutOfRangeException ex)
@@ -361,11 +389,11 @@ namespace EclipseLibrary.Oracle.Helpers
         /// </summary>
         internal void DebugCheck()
         {
-            if (_fieldMappings == null || _fieldMappings.Count == 0)
+            if (_debugFieldNames == null || _debugFieldNames.Count == 0)
             {
                 return;
             }
-            var unusedColumns = _fieldMappings.Where(p => !p.EndsWith("_"));
+            var unusedColumns = _debugFieldNames.Where(p => !p.EndsWith("_"));
             // Make sure that all fields retrieved by the query were accessed
             if (unusedColumns.Any())
             {

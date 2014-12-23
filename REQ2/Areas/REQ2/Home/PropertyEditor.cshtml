@@ -19,17 +19,13 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var $ddlTargetQualityCode = $('#ddlTargetQualityCode');
-            var $cbUpdateQuality = $('#cbUpdateQuality');
+            var $ddlTargetQuality = $('#ddlTargetQuality');
+            var $CbTargetQuality = $('#CbTargetQuality');
             var $CbConversionRequest = $('#CbConversionRequest');
             var $ddlTargetVwh = $('#ddlTargetVwh');
 
             if ($('#resvId').val() != '') {
-                if ($ddlTargetQualityCode.val() != '') {
-                    $cbUpdateQuality.attr('checked', 'checked');
-                } else {
-                    $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
-                }
+            
                 // Converion request can not be undone. 
                 $CbConversionRequest.attr('disabled', 'disabled');
                 if ($CbConversionRequest.attr('checked')) {
@@ -37,11 +33,19 @@
                 } else {
                     $ddlTargetVwh.attr('disabled', 'disabled');
                 }
+                if ($ddlTargetQuality.val() != '') {
+                    $CbTargetQuality.attr('checked', 'checked');
+                } else {
+                    $ddlTargetQuality.val('').attr('disabled', 'disabled');
+                }
+      
+           
+
             }
             else {
                 $CbConversionRequest.removeAttr('disabled');
                 $ddlTargetVwh.attr('disabled', 'disabled');
-                $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
+                $ddlTargetQuality.val('').attr('disabled', 'disabled');
             }
 
             $CbConversionRequest.change(function (e) {
@@ -53,12 +57,12 @@
                 }
             });
 
-            $cbUpdateQuality.change(function (e) {
-                if ($cbUpdateQuality.is(':checked')) {
-                    $ddlTargetQualityCode.removeAttr('disabled');
+            $CbTargetQuality.change(function (e) {
+                if ($CbTargetQuality.is(':checked')) {
+                    $ddlTargetQuality.removeAttr('disabled');
                 }
                 else {
-                    $ddlTargetQualityCode.val('').attr('disabled', 'disabled');
+                    $ddlTargetQuality.val('').attr('disabled', 'disabled');
                 }
             });
 
@@ -181,9 +185,9 @@
             <div class="col-sm-5">
                 <div class="input-group">
                     <span class="input-group-addon">
-                        @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { })
+                        @Html.CheckBoxFor(m => m.UpdateQualityFlag, new { id = "CbTargetQuality", })
                     </span>
-                    @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "No Change", new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.TargetQualityCode, Model.TargetQualityCodeList, "No Change", new { id = "ddlTargetQuality", @class = "form-control" })
 
                 </div><!-- /input-group -->
                 <p class="help-block  hidden-xs">Select a quality above if you would like to change the quality of the cartons before they are pulled.</p>
