@@ -68,19 +68,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public string CustomerId { get; set; }
 
-        public PickslipDimension RowDimIndex { get; set; }
+        public PickslipDimension GroupDimIndex { get; set; }
 
-        public PickslipDimension ColDimIndex { get; set; }
+        public PickslipDimension SubgroupDimIndex { get; set; }
 
-        public string ColDimVal { get; set; }
+        public string SubgroupDimVal { get; set; }
 
-        public string RowDimVal { get; set; }
+        public string GroupDimVal { get; set; }
 
         public string VwhId { get; set; }
 
-        public string RowDimDisplayName { get; set; }
+        public string GroupDimDisplayName { get; set; }
 
-        public string ColDimDisplayName { get; set; }
+        public string SubgroupDimDisplayName { get; set; }
 
 
         public IList<CreateWavePickslipModel> PickslipList { get; set; }

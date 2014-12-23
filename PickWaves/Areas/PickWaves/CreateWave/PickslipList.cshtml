@@ -7,7 +7,7 @@
 
 @section applinks{
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.BucketId))">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId,Model.GroupDimIndex, Model.SubgroupDimIndex, Model.VwhId, Model.BucketId))">
             Add more pickslip
         </a>
 
@@ -36,19 +36,19 @@
     }
     <ul class="list-inline">
         <li>Pickslips of </li>
-        <li>@Html.DisplayFor(m => m.ColDimDisplayName) <em> @Html.DisplayFor(m => m.ColDimVal)</em></li>
-        <li>@Html.DisplayFor(m => m.RowDimDisplayName) <em>@Html.DisplayFor(m => m.RowDimVal)</em></li>
+        <li>@Html.DisplayFor(m => m.SubgroupDimDisplayName) <em> @Html.DisplayFor(m => m.SubgroupDimVal)</em></li>
+        <li>@Html.DisplayFor(m => m.GroupDimDisplayName) <em>@Html.DisplayFor(m => m.GroupDimVal)</em></li>
         <li><abbr title="Virtual Warehouse">VWH</abbr> <em>@Model.VwhId</em></li>
-        <li><a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId, Model.RowDimIndex, Model.ColDimIndex, Model.VwhId, Model.BucketId))">Change</a></li>
+        <li><a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId, Model.GroupDimIndex, Model.SubgroupDimIndex, Model.VwhId, Model.BucketId))">Change</a></li>
     </ul>
     @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))
     {
         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.bucketId" value="@Model.BucketId" />
         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.customerId" value="@Model.CustomerId" />
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.rowDimVal" value="@Model.RowDimVal" />
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.colDimVal" value="@Model.ColDimVal" />
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.rowDimIndex" value="@Model.RowDimIndex" />
-        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.colDimIndex" value="@Model.ColDimIndex" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.GroupDimVal" value="@Model.GroupDimVal" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.subgroupDimVal" value="@Model.SubgroupDimVal" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.groupDimIndex" value="@Model.GroupDimIndex" />
+        <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.subgroupDimIndex" value="@Model.SubgroupDimIndex" />
         <input type="hidden" name="@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.vwhId" value="@Model.VwhId" />
         <ul class="list-group">
             <li class="list-group-item list-group-item-info">
