@@ -82,29 +82,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public ProgressStage BucketState { get; set; }
     }
 
-    internal class IndexViewModelUnbinder : IModelUnbinder<IndexViewModel>
-    {
-        public void UnbindModel(RouteValueDictionary routeValueDictionary, string routeName, IndexViewModel model)
-        {
-            if (model == null)
-            {
-                return;
-            }
-            if (!string.IsNullOrWhiteSpace(model.CustomerId))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.CustomerId), model.CustomerId);
-            }
-            if (model.BucketState != ProgressStage.InProgress)
-            {
-                // Don't bother to encode the default state
-                routeValueDictionary.Add(model.NameFor(m => m.BucketState), (int)model.BucketState);
-            }
-            if (!string.IsNullOrWhiteSpace(model.UserName))
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.UserName), model.UserName);
-            }
-        }
-    }
 }
 
 /*

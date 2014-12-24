@@ -103,6 +103,7 @@
     <Compile Include="Areas\PickWaves\Config\CustSkuCaseViewModel.cs" />
     <Compile Include="Areas\PickWaves\Config\StyleSkuCaseViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
+    <Compile Include="Areas\PickWaves\CreateWave\DimensionValue.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\IndexNoPickslipsViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\SparseMatrix.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
@@ -114,7 +115,6 @@
     <Compile Include="Helpers\ProgressStage.cs" />
     <Compile Include="Helpers\PickWaveHelpers.cs" />
     <Compile Include="Helpers\PickWavesControllerBase.cs" />
-    <Compile Include="Areas\PickWaves\PickWavesAreaRegistration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

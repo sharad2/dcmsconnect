@@ -36,19 +36,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
     public class WaveViewModel : ViewModelBase
     {
-        public WaveViewModel()
-        {
+        //public WaveViewModel()
+        //{
 
-        }
-        public WaveViewModel(int bucketId, SuggestedNextActionType actions = SuggestedNextActionType.NotSet, BucketActivityType? activityTypeFilter = null)
-        {
-            Bucket = new BucketModel
-            {
-                BucketId = bucketId
-            };
-            this.HighlightedActions = actions;
-            ActivityTypeFilter = activityTypeFilter;
-        }
+        //}
+        //public WaveViewModel(int bucketId, SuggestedNextActionType actions = SuggestedNextActionType.NotSet, BucketActivityType? activityTypeFilter = null)
+        //{
+        //    Bucket = new BucketModel
+        //    {
+        //        BucketId = bucketId
+        //    };
+        //    this.HighlightedActions = actions;
+        //    ActivityTypeFilter = activityTypeFilter;
+        //}
 
         public BucketModel Bucket { get; set; }
 
@@ -118,26 +118,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
      
     }
 
-    internal class WaveViewModelUnbinder : IModelUnbinder<WaveViewModel>
-    {
+    //internal class WaveViewModelUnbinder : IModelUnbinder<WaveViewModel>
+    //{
 
-        public void UnbindModel(System.Web.Routing.RouteValueDictionary routeValueDictionary, string routeName, WaveViewModel model)
-        {
-            if (model.Bucket != null && model.Bucket.BucketId > 0)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.Bucket.BucketId), model.Bucket.BucketId);
-            }
+    //    public void UnbindModel(System.Web.Routing.RouteValueDictionary routeValueDictionary, string routeName, WaveViewModel model)
+    //    {
+    //        if (model.Bucket != null && model.Bucket.BucketId > 0)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.Bucket.BucketId), model.Bucket.BucketId);
+    //        }
 
-            if (model.ActivityTypeFilter != null)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.ActivityTypeFilter), model.ActivityTypeFilter);
-            }
+    //        if (model.ActivityTypeFilter != null)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.ActivityTypeFilter), model.ActivityTypeFilter);
+    //        }
 
-            if (model.HighlightedActions != SuggestedNextActionType.NotSet)
-            {
-                routeValueDictionary.Add(model.NameFor(m => m.HighlightedActions), model.HighlightedActions);
-            }
-        }
-    }
+    //        if (model.HighlightedActions != SuggestedNextActionType.NotSet)
+    //        {
+    //            routeValueDictionary.Add(model.NameFor(m => m.HighlightedActions), model.HighlightedActions);
+    //        }
+    //    }
+    //}
 
 }

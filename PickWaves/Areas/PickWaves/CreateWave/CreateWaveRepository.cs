@@ -191,7 +191,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
-                {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},
+                {PickslipDimension.Priority, Tuple.Create("T.PRIORITY_ID", typeof(string))},
                 {PickslipDimension.CustomerStore, Tuple.Create("T.CUSTOMER_STORE_ID", typeof(string))},
                 {PickslipDimension.CustomerDcCancelDate, Tuple.Create("TRUNC(T.DC_CANCEL_DATE)", typeof(DateTime))},
                 {PickslipDimension.Label, Tuple.Create("T.PICKSLIP_TYPE", typeof(string))},
@@ -402,7 +402,8 @@ SELECT *
         /// <param name="dimensions"></param>
         /// <param name="vwhId"></param>
         /// <param name="updateBucketName"></param>
-        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, object>> dimensions, string vwhId, bool updateBucketName)
+        public void AddPickslipsPerDim(int bucketId, string customerId, IList<Tuple<PickslipDimension, DimensionValue>> dimensions,
+            string vwhId, bool updateBucketName)
         {
             const string QUERY = @"
                                     DECLARE
@@ -440,18 +441,18 @@ SELECT *
                   .ParameterXPath("updateBucketName", updateBucketName)
                   ;
 
-            var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
+            //var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
             var clauses = new List<string>(2);
             foreach (var dim in dimensions)
             {
                 clauses.Add(GetDimensionWhereClause(dim.Item1, dim.Item2));
-                if (attrs.ContainsKey(dim.Item1) && attrs[dim.Item1].DataType == DataType.Date)
+                if (dim.Item2.IsDate)
                 {
-                    binder.Parameter(dim.Item1.ToString(), Convert.ToDateTime(dim.Item2));
+                    binder.Parameter(dim.Item1.ToString(), dim.Item2.DateValue);
                 }
                 else
                 {
-                    binder.Parameter(dim.Item1.ToString(), Convert.ToString(dim.Item2));
+                    binder.Parameter(dim.Item1.ToString(), dim.Item2.ToString());
                 }
             }
             var queryFinal = string.Format(QUERY, string.Join(" AND ", clauses));

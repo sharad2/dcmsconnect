@@ -52,9 +52,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             return _repos.CreateDefaultWave();
         }
 
-        public void AddPickslipsPerDim(int bucketId, string customerId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal, string vwhId)
+        public void AddPickslipsPerDim(int bucketId, string customerId,
+            PickslipDimension dimRow, DimensionValue dimRowVal,
+            PickslipDimension dimCol, DimensionValue dimColVal, string vwhId)
         {
-            _repos.AddPickslipsPerDim(bucketId, customerId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) }, vwhId, false);
+            _repos.AddPickslipsPerDim(bucketId, customerId, new[] { 
+                Tuple.Create(dimRow, dimRowVal),
+                Tuple.Create(dimCol, dimColVal) 
+            }, vwhId, false);
         }
 
         internal void AddPickslipsToWave(int bucketId, IList<long> pickslipList)
