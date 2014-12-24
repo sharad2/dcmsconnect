@@ -127,15 +127,6 @@
             @for (var i = 0; i < Model.DimensionMatrix.FirstKeys.Count; ++i)
             {
                 
-                if(Model.GroupDimVal.ToString() == Model.DimensionMatrix.FirstKeys[i].ToString())
-                { 
-                @:equal
-                }
-                else
-                {
-                    @:No
-                }
-                
                 <li role="presentation" class="@(Model.GroupDimVal == null ?
                   (Model.GroupDimVal.ToString() == Model.DimensionMatrix.FirstKeys[i].ToString() ? "active" : null)
                 :  (i == 0 ? "active":null) )">
