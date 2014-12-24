@@ -13,9 +13,9 @@
 }
 
 <div class="container">
-    <h2 style="margin-top:0">
-        Recent Pull Requests
-    </h2>
+    <div class="page-header">
+        <h1>Recent Pull Requests <small><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor())"> <span class="glyphicon glyphicon-plus-sign"></span></a></small></h1>
+    </div>
     <ul class="list-group">
         <li class="list-group-item list-group-item-info">
             <div class="row">
@@ -42,15 +42,12 @@
                     </p>
                 </div>
                 <div class="col-md-4">
-                    <div class="progress" style="margin-bottom:0; width:70%; display:inline-block">
+                    <div class="progress" style="margin-bottom:0; width:100%; display:inline-block">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
                             <span style="white-space:nowrap" class="text-info">m of n pieces assigned</span>
                         </div>
                     </div>
-                    <button class="btn btn-default btn-sm" disabled type="button">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        <span class="hidden-xs">Add SKU</span>
-                    </button>
+
                 </div>
 
             </div>
@@ -86,24 +83,20 @@
                         </p>
                     </div>
                     <div class="col-md-4">
-                        <div class="progress" style="margin-bottom:0; width:70%; display:inline-block">
-                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.RecentRequests[i].PercentAssigned%">
-                                <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)</span>
-                            </div>
+                        <div class="progress" style="margin-bottom:0; width:100%; display:inline-block">
+                            @if (Model.RecentRequests[i].QuantityRequested == 0)
+                            {
+                                <div> No Skus added yet</div>
+                            }
+                            else
+                           {
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.RecentRequests[i].PercentAssigned%">
+                                    <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)</span>
+                                </div>
+
+                            }
                         </div>
-                        <div class="btn-group btn-group-sm ">
-                            <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(Model.RecentRequests[i].ResvId))" class="btn btn-default">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.RecentRequests[i].ResvId))"> Edit</a></li>
-                               
-                            </ul>
-                        </div>
+
                     </div>
                 </div>
             </li>

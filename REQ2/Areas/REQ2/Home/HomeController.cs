@@ -256,7 +256,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             if (req != null)
             {
                 // var ctnresvId = _service.GetCtnRevId(reqId);
-                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.SkuEditor(id));
+                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.PullRequest(id));
             }
             var x = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
             if (x != null)
