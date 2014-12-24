@@ -315,8 +315,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         [HttpPost]
         [Route("adddim")]
         public virtual ActionResult AddPickslipsOfDim(int? bucketId, string customerId,
-            PickslipDimension groupDimIndex, string groupDimVal,
-             PickslipDimension subgroupDimIndex, string subgroupDimVal,
+            PickslipDimension groupDimIndex, DimensionValue groupDimVal,
+             PickslipDimension subgroupDimIndex, DimensionValue subgroupDimVal,
             string vwhId)
         {
 
