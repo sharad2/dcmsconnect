@@ -67,7 +67,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             get
             {
-                return this.TargetSku != null ? string.Format(this.TargetSku.Style + "," + this.TargetSku.Color + "," + this.TargetSku.Dimension + "," + this.TargetSku.SkuSize) : "No conversion";
+                return this.TargetSku != null ? string.Format(this.TargetSku.Style + "," + this.TargetSku.Color + "," + this.TargetSku.Dimension + "," + this.TargetSku.SkuSize) : string.Empty;
             }
         }
 
