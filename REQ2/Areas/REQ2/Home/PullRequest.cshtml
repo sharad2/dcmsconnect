@@ -11,14 +11,14 @@
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
-
-                    <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId))" class="pull-right"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+                    
+                    <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId))" class="pull-right" ><span class="glyphicon glyphicon-pencil pull-right"></span></a>
                     Created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)
-                    <span class="badge">@Html.DisplayFor(m => m.AssignedPieces) of @Html.DisplayFor(m => m.QuantityRequested) Piecess Assigned </span>
+                    <span class="badge">@Html.DisplayFor(m => m.AssignedPieces) of @Html.DisplayFor(m => m.QuantityRequested) Piecess Assigned </span> 
 
-                </h4>
+               </h4>
             </div>
-            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
                     <div class="row">
                         <div>
@@ -43,7 +43,14 @@
         <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingTwo">
                 <h4 class="panel-title">
-                    SKU <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))"> <span class="glyphicon glyphicon-pencil pull-right"></span></a>
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        SKU
+                    </a>
+                    <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))">
+                        <span class="glyphicon glyphicon-pencil pull-right"></span>
+                      
+                    </a>
+
                 </h4>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
