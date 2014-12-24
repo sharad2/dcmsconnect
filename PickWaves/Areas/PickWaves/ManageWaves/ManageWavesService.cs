@@ -66,31 +66,29 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Edit bucket property. Error if you attempt to edit an unfrozen wave
         /// </summary>
         /// <param name="bucket"></param>
-        internal Bucket EditWave(Bucket bucket, EditBucketFlags flags, Bucket bucketOld)
+        internal Bucket EditWave(Bucket bucket)
         {
             if (bucket == null)
             {
                 throw new ArgumentNullException("bucket");
             }
-            using (var trans = _repos.BeginTransaction())
-            {
-                var bucketCurrent = _repos.GetLockedBucket(bucket.BucketId);
-                if (bucketCurrent == null)
-                {
-                    throw new ValidationException("Invalid Pick Wave" + bucket.BucketId.ToString());
-                }
-                if (!bucketCurrent.IsFrozen)
-                {
-                    throw new ValidationException("Only frozen Waves can be edited");
-                }
-                if (!bucketCurrent.Equals(bucketOld))
-                {
-                    throw new ValidationException("Cannot edit. Bucket has been modified by someone else.");
-                }
-                var updatedWave = _repos.EditWave(bucket, flags);
-                trans.Commit();
+
+                //var bucketCurrent = _repos.GetLockedBucket(bucket.BucketId);
+                //if (bucketCurrent == null)
+                //{
+                //    throw new ValidationException("Invalid Pick Wave" + bucket.BucketId.ToString());
+                //}
+                //if (!bucketCurrent.IsFrozen)
+                //{
+                //    throw new ValidationException("Only frozen Waves can be edited");
+                //}
+                //if (!bucketCurrent.Equals(bucketOld))
+                //{
+                //    throw new ValidationException("Cannot edit. Bucket has been modified by someone else.");
+                //}
+                var updatedWave = _repos.EditWave(bucket);
                 return updatedWave;
-            }
+
         }
 
         public void RemovePickslipFromBucket(long pickslipId, int bucketId)
@@ -148,13 +146,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public Bucket IncrementPriority(int bucketId)
+        public int IncrementPriority(int bucketId)
         {
-            return _repos.EditWave(new Bucket
-            {
-                BucketId = bucketId,
-                PriorityId = 1
-            }, EditBucketFlags.PriorityDelta);
+            //return _repos.EditWave(new Bucket
+            //{
+            //    BucketId = bucketId,
+            //    PriorityId = 1
+            //}, EditBucketFlags.PriorityDelta);
+            return _repos.UpdatePriority(bucketId, 1);
         }
 
         /// <summary>
@@ -162,13 +161,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public Bucket DecrementPriority(int bucketId)
+        public int DecrementPriority(int bucketId)
         {
-            return _repos.EditWave(new Bucket
-            {
-                BucketId = bucketId,
-                PriorityId = -1
-            }, EditBucketFlags.PriorityDelta);
+            //return _repos.EditWave(new Bucket
+            //{
+            //    BucketId = bucketId,
+            //    PriorityId = -1
+            //}, EditBucketFlags.PriorityDelta);
+            return _repos.UpdatePriority(bucketId, 1);
         }
 
         /// <summary>

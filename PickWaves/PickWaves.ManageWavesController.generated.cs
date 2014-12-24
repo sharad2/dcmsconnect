@@ -86,9 +86,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EditWave()
+        public virtual System.Web.Mvc.ActionResult UpdateWave()
         {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditWave);
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateWave);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -141,7 +141,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public readonly string WaveSkus = "WaveSkus";
             public readonly string WaveBoxes = "WaveBoxes";
             public readonly string WavePickslips = "WavePickslips";
-            public readonly string EditWave = "EditWave";
+            public readonly string UpdateWave = "UpdateWave";
             public readonly string IncrementPriority = "IncrementPriority";
             public readonly string DecrementPriority = "DecrementPriority";
             public readonly string FreezeBucket = "FreezeBucket";
@@ -157,7 +157,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public const string WaveSkus = "WaveSkus";
             public const string WaveBoxes = "WaveBoxes";
             public const string WavePickslips = "WavePickslips";
-            public const string EditWave = "EditWave";
+            public const string UpdateWave = "UpdateWave";
             public const string IncrementPriority = "IncrementPriority";
             public const string DecrementPriority = "DecrementPriority";
             public const string FreezeBucket = "FreezeBucket";
@@ -209,11 +209,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             public readonly string bucketId = "bucketId";
         }
-        static readonly ActionParamsClass_EditWave s_params_EditWave = new ActionParamsClass_EditWave();
+        static readonly ActionParamsClass_UpdateWave s_params_UpdateWave = new ActionParamsClass_UpdateWave();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditWave EditWaveParams { get { return s_params_EditWave; } }
+        public ActionParamsClass_UpdateWave UpdateWaveParams { get { return s_params_UpdateWave; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditWave
+        public class ActionParamsClass_UpdateWave
         {
             public readonly string model = "model";
         }
@@ -361,14 +361,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void EditWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model);
+        partial void UpdateWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveEditorViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditWave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveViewModel model)
+        public override System.Web.Mvc.ActionResult UpdateWave(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveEditorViewModel model)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditWave);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UpdateWave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            EditWaveOverride(callInfo, model);
+            UpdateWaveOverride(callInfo, model);
             return callInfo;
         }
 

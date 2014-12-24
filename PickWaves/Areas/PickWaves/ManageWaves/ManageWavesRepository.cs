@@ -13,6 +13,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// Flags which indicate what properties need to be updated
     /// </summary>
     [Flags]
+    [Obsolete]
     internal enum EditBucketFlags
     {
         /// <summary>
@@ -532,6 +533,11 @@ MAX(ps.customer_id) AS customer_id,
             return _db.ExecuteReader(QUERY, binder,2000);
         }
 
+        public int UpdatePriority(int bucketId, int delta)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary> 
         /// Edit bucket property as Pull area , pitch area etc..        
         /// </summary>
@@ -540,27 +546,22 @@ MAX(ps.customer_id) AS customer_id,
         /// <returns>Updated bucket values. If the passed bucket does not exist, returns null.</returns>
         /// <remarks>
         /// </remarks>
-        internal Bucket EditWave(Bucket bucket, EditBucketFlags flags)
+        internal Bucket EditWave(Bucket bucket)
         {
-            if (flags == EditBucketFlags.None)
-            {
-                // Nothing to do                
-                return bucket;
-            }
             const string QUERY = @"
                         UPDATE <proxy />BUCKET BKT
-                            SET <if c = '$NAME_FLAG'>               BKT.NAME              = :NAME,           </if>
-                                <if c = '$PITCH_IA_ID_FLAG'>        BKT.PITCH_IA_ID       = :PITCH_IA_ID,    </if>
-                                <if c = '$BUCKET_COMMENT_FLAG'>     BKT.BUCKET_COMMENT    = :BUCKET_COMMENT, </if>
-                                <if c = '$PRIORITY_FLAG'>           BKT.PRIORITY          = :PRIORITY,       </if>
-                                <if c = '$PRIORITY_DELTA_FLAG'>     BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
-                                                                                            ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
-                                                                                            END,                </if>
-                                <if c = '$PULL_CARTON_AREA_FLAG'>   BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  </if>
-                                <if c = '$PULL_TYPE_FLAG'>          BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      </if>
-                                <if c = '$QUICK_PITCH_FLAG'>        BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       </if>
-                                <if c = '$PITCH_LIMIT_FLAG'>        BKT.PITCH_LIMIT       = :PITCH_LIMIT,       </if>
-                                                                    BKT.DATE_MODIFIED = SYSDATE
+                            SET  BKT.NAME              = :NAME,           
+                                 BKT.PITCH_IA_ID       = :PITCH_IA_ID,    
+                                 BKT.BUCKET_COMMENT    = :BUCKET_COMMENT, 
+                                 BKT.PRIORITY          = :PRIORITY,       
+                                 BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
+                                                         ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
+                                                         END,                
+                                 BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
+                                 BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      
+                                 BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       
+                                 BKT.PITCH_LIMIT       = :PITCH_LIMIT,       
+                                 BKT.DATE_MODIFIED = SYSDATE
                          WHERE BKT.BUCKET_ID = :BUCKET_ID
                         RETURNING BKT.NAME, 
                                   BKT.PITCH_IA_ID,
@@ -589,15 +590,15 @@ MAX(ps.customer_id) AS customer_id,
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
-            binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
-            binder.ParameterXPath("PRIORITY_FLAG", flags.HasFlag(EditBucketFlags.Priority));
-            binder.ParameterXPath("PRIORITY_DELTA_FLAG", flags.HasFlag(EditBucketFlags.PriorityDelta));
-            binder.ParameterXPath("PULL_CARTON_AREA_FLAG", flags.HasFlag(EditBucketFlags.PullArea));
-            binder.ParameterXPath("PITCH_IA_ID_FLAG", flags.HasFlag(EditBucketFlags.PitchArea));
-            binder.ParameterXPath("BUCKET_COMMENT_FLAG", flags.HasFlag(EditBucketFlags.Remarks));
-            binder.ParameterXPath("PULL_TYPE_FLAG", flags.HasFlag(EditBucketFlags.PullType));
-            binder.ParameterXPath("QUICK_PITCH_FLAG", flags.HasFlag(EditBucketFlags.QuickPitch));
-            binder.ParameterXPath("PITCH_LIMIT_FLAG", flags.HasFlag(EditBucketFlags.PitchLimit));
+            //binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
+            //binder.ParameterXPath("PRIORITY_FLAG", flags.HasFlag(EditBucketFlags.Priority));
+            //binder.ParameterXPath("PRIORITY_DELTA_FLAG", flags.HasFlag(EditBucketFlags.PriorityDelta));
+            //binder.ParameterXPath("PULL_CARTON_AREA_FLAG", flags.HasFlag(EditBucketFlags.PullArea));
+            //binder.ParameterXPath("PITCH_IA_ID_FLAG", flags.HasFlag(EditBucketFlags.PitchArea));
+            //binder.ParameterXPath("BUCKET_COMMENT_FLAG", flags.HasFlag(EditBucketFlags.Remarks));
+            //binder.ParameterXPath("PULL_TYPE_FLAG", flags.HasFlag(EditBucketFlags.PullType));
+            //binder.ParameterXPath("QUICK_PITCH_FLAG", flags.HasFlag(EditBucketFlags.QuickPitch));
+            //binder.ParameterXPath("PITCH_LIMIT_FLAG", flags.HasFlag(EditBucketFlags.PitchLimit));
 
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
