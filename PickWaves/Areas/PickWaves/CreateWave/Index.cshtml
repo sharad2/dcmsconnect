@@ -132,8 +132,7 @@
                 :  (i == 0 ? "active":null) )">
 
                     <a href="@("#content_" + i.ToString())" aria-controls="@("content_" + i.ToString())" role="tab" data-toggle="tab">
-                        @Model.DimensionMatrix.FirstKeys[i]
-                        @Model.GroupDimVal
+                        @Model.DimensionMatrix.FirstKeys[i]                    
                     </a>
                 </li>
             }
