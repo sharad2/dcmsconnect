@@ -21,19 +21,19 @@
     </h2>
 
 
-    @if (Model.Bucket == null)
-    {
+    @*@if (Model.Bucket == null)
+    {*@
         <blockquote>
             <p>   A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.</p>
         </blockquote>
-    }
-    else
+    @*}*@
+    @*else
     {
         @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}
                                })
-    }
+    }*@
     <ul class="list-inline">
         <li class="h4">Pickslips of </li>
         <li>@Html.DisplayFor(m => m.SubgroupDimDisplayName) <em> @Model.SubgroupDimVal</em></li>
@@ -103,15 +103,15 @@
         </ul>
     }
 </div>
-@if (Model.Bucket != null)
+@*@if (Model.Bucket != null)
 {
     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
-}
+}*@
 @section script {
-    @if (Model.Bucket != null)
+    @*@if (Model.Bucket != null)
     {
         <script src="@Links_PickWaves.Areas.PickWaves.CreateWave.PickslipList_js"></script>
-    }
+    }*@
    
 
     <script type="text/javascript">
