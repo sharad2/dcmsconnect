@@ -191,7 +191,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }
             var dimMap = new Dictionary<PickslipDimension, Tuple<string, Type>>
             {
-                {PickslipDimension.Priority, Tuple.Create("LPAD(T.PRIORITY_ID, 10)", typeof(string))},
+                {PickslipDimension.Priority, Tuple.Create("T.PRIORITY_ID", typeof(string))},
                 {PickslipDimension.CustomerStore, Tuple.Create("T.CUSTOMER_STORE_ID", typeof(string))},
                 {PickslipDimension.CustomerDcCancelDate, Tuple.Create("TRUNC(T.DC_CANCEL_DATE)", typeof(DateTime))},
                 {PickslipDimension.Label, Tuple.Create("T.PICKSLIP_TYPE", typeof(string))},
