@@ -363,10 +363,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             string customerId,
             PickslipDimension groupDimIndex,
             [Required]
-            string groupDimVal,
+            DimensionValue groupDimVal,
             PickslipDimension subgroupDimIndex,
             [Required]
-            string subgroupDimVal,
+            DimensionValue subgroupDimVal,
             [Required]
             string vwhId,
             int? bucketId)
@@ -380,14 +380,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 throw new ArgumentNullException("vwhId");
             }
-            if (string.IsNullOrWhiteSpace(groupDimVal))
-            {
-                throw new ArgumentNullException("rowDimVal");
-            }
-            if (string.IsNullOrWhiteSpace(subgroupDimVal))
-            {
-                throw new ArgumentNullException("colDimVal");
-            }
+            //if (string.IsNullOrWhiteSpace(groupDimVal))
+            //{
+            //    throw new ArgumentNullException("rowDimVal");
+            //}
+            //if (string.IsNullOrWhiteSpace(subgroupDimVal))
+            //{
+            //    throw new ArgumentNullException("colDimVal");
+            //}
             var model = new PickslipListViewModel();
             model.CustomerId = customerId;
 
@@ -441,7 +441,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         [HttpPost]
         [Route("addps")]
         public virtual ActionResult AddPickslipsToBucket(int? bucketId, long[] pickslips, string customerId, PickslipDimension groupDimIndex,
-            string GroupDimVal, PickslipDimension subgroupDimIndex, string subgroupDimVal, string vwhId)
+            DimensionValue GroupDimVal, PickslipDimension subgroupDimIndex, DimensionValue subgroupDimVal, string vwhId)
         {
             if (pickslips == null || pickslips.Length == 0)
             {

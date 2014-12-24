@@ -17,9 +17,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         #endregion
 
-        public IEnumerable<Pickslip> GetPickslipList(string customerId, string vwhId, PickslipDimension dimRow, string dimRowVal, PickslipDimension dimCol, string dimColVal)
+        public IEnumerable<Pickslip> GetPickslipList(string customerId, string vwhId, PickslipDimension dimRow, DimensionValue dimRowVal, PickslipDimension dimCol, DimensionValue dimColVal)
         {
-            return _repos.GetPickslips(customerId, vwhId, new[] { Tuple.Create(dimRow, (object)dimRowVal), Tuple.Create(dimCol, (object)dimColVal) });
+            return _repos.GetPickslips(customerId, vwhId, new[] { Tuple.Create(dimRow, dimRowVal), Tuple.Create(dimCol, dimColVal) });
         }
 
         /// <summary>

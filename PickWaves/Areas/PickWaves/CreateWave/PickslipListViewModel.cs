@@ -72,9 +72,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         public PickslipDimension SubgroupDimIndex { get; set; }
 
-        public string SubgroupDimVal { get; set; }
+        public DimensionValue SubgroupDimVal { get; set; }
 
-        public string GroupDimVal { get; set; }
+        public DimensionValue GroupDimVal { get; set; }
 
         public string VwhId { get; set; }
 

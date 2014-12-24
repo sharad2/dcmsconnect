@@ -27,7 +27,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <param name="customerId"> </param>
         /// <param name="dimensions"> </param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetPickslips(string customerId, string vwhId, IList<Tuple<PickslipDimension, object>> dimensions)
+        public IEnumerable<Pickslip> GetPickslips(string customerId, string vwhId, IList<Tuple<PickslipDimension, DimensionValue>> dimensions)
         {
             if (string.IsNullOrEmpty(customerId))
             {
@@ -65,7 +65,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }).Parameter("CUSTOMER_ID", customerId)
             .Parameter("VWH_ID", vwhId);
 
-            var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
+            //var attrs = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DataTypeAttribute>();
             var clauses = new List<string>(2);
             foreach (var dim in dimensions)
             {
@@ -74,14 +74,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
                     throw new ArgumentNullException("dimensions[i].Item2");
                 }
                 clauses.Add(GetDimensionWhereClause(dim.Item1, dim.Item2));
-                if (attrs.ContainsKey(dim.Item1) && attrs[dim.Item1].DataType == DataType.Date)
+                if (dim.Item2.IsDate)
                 {
-                    binder.Parameter(dim.Item1.ToString(), Convert.ToDateTime(dim.Item2));
+                    binder.Parameter(dim.Item1.ToString(), dim.Item2.DateValue);
                 }
                 else
                 {
                     // Sharad 16 Dec 2014: Trimming the value because we get leading spaces in priority once in a while
-                    binder.Parameter(dim.Item1.ToString(), Convert.ToString(dim.Item2).Trim());
+                    binder.Parameter(dim.Item1.ToString(), dim.Item2.ToString());
                 }
             }
             var queryFinal = string.Format(QUERY, string.Join(" AND ", clauses));

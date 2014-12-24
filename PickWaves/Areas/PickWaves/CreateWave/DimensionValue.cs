@@ -10,11 +10,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// These values can be compared to each other and can be posted from MVC view.
     /// You construct it by passing a string or a date object.
     /// Dates are displayed using the {0:d} format. Strings are displayed as is.
+    /// You can post a DimensionValue and it will properly reconstruct itself to date or string.
     /// </summary>
     [ModelBinder(typeof(DimensionValueBinder))]
     public struct DimensionValue : IEquatable<DimensionValue>
     {
-        private const string POST_FORMAT_STRING = "yyyy-MM-dd";
+        private const string FORMAT_STRING = "d";
         
         /// <summary>
         /// Returns and empty value
@@ -54,7 +55,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static DimensionValue FromPostedValue(string value)
+        public static DimensionValue FromString(string value)
         {
             if (value == null) 
             {
@@ -62,7 +63,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             }
             DimensionValue dv;
             DateTime date;
-            if (DateTime.TryParseExact(value, POST_FORMAT_STRING, CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+            if (DateTime.TryParseExact(value, FORMAT_STRING, CultureInfo.CurrentCulture, DateTimeStyles.None, out date))
             {
                 dv._rawValue = date;
                 dv._type = typeof(DateTime);
@@ -78,26 +79,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
         private  object _rawValue;
         private  Type _type;
-
-        /// <summary>
-        /// Post value shows date as YYYY-MM-DD.
-        /// This value should be used for posting and for action links.
-        /// </summary>
-        public string PostValue
-        {
-            get
-            {
-                if (_rawValue == null)
-                {
-                    return string.Empty;
-                }
-                if (_rawValue is DateTime)
-                {
-                    return  string.Format("{0:" + POST_FORMAT_STRING + "}", _rawValue);
-                }
-                return _rawValue.ToString();
-            }
-        }
 
         /// <summary>
         /// Returns true if the contained value is a date.
@@ -176,6 +157,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             return _rawValue.ToString();
         }
 
+        public static bool operator == (DimensionValue a, DimensionValue b)
+        {
+            //throw new NotImplementedException();
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(DimensionValue a, DimensionValue b)
+        {
+            //throw new NotImplementedException();
+            return !a.Equals(b);
+        }
+
     }
 
     /// <summary>
@@ -190,7 +183,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             {
                 return DimensionValue.Empty;
             }
-            return DimensionValue.FromPostedValue(x.AttemptedValue);
+            return DimensionValue.FromString(x.AttemptedValue);
         }
     }
 }
