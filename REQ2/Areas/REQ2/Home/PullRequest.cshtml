@@ -65,10 +65,8 @@
                                     </h4>
                                 </div>
                                 <div class="col-md-3">
-                                    <span class="badge">@Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
-                                    <button class="btn btn-default btn-sm pull-right" type="button" title="Remove SKU" data-priority-url="@Url.Action(MVC_REQ2.REQ2.Home.DeleteSku(@Model.SkuList[i].SourceSku.SkuId,@Model.CtnResvId))">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
+                                    <span class="badge pull-right">@Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
+                                    
                                 </div>
                             </div>
                         </div>
