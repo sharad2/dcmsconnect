@@ -617,5 +617,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             get { return ROLE_WAVE_MANAGER; }
         }
+
+        [Route("wave-editor")]
+        public virtual ActionResult WaveEditor(int bucketId)
+        {
+            var model = new WaveEditorViewModel
+            {
+                PitchAreaList = new SelectListItem[0],
+                PullAreaList= new SelectListItem[0]
+            };
+            return View(Views.WaveEditor,model);
+        }
     }
 }

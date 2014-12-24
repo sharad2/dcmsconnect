@@ -120,6 +120,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemovePickslipFromBucket);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult WaveEditor()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WaveEditor);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ManageWavesController Actions { get { return MVC_PickWaves.PickWaves.ManageWaves; } }
@@ -147,6 +153,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public readonly string DecrementPriority = "DecrementPriority";
             public readonly string FreezeBucket = "FreezeBucket";
             public readonly string RemovePickslipFromBucket = "RemovePickslipFromBucket";
+            public readonly string WaveEditor = "WaveEditor";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -163,6 +170,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public const string DecrementPriority = "DecrementPriority";
             public const string FreezeBucket = "FreezeBucket";
             public const string RemovePickslipFromBucket = "RemovePickslipFromBucket";
+            public const string WaveEditor = "WaveEditor";
         }
 
 
@@ -261,6 +269,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public readonly string bucketId = "bucketId";
             public readonly string pickslipId = "pickslipId";
         }
+        static readonly ActionParamsClass_WaveEditor s_params_WaveEditor = new ActionParamsClass_WaveEditor();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_WaveEditor WaveEditorParams { get { return s_params_WaveEditor; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_WaveEditor
+        {
+            public readonly string bucketId = "bucketId";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -279,6 +295,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 public readonly string Index_js = "Index.js";
                 public readonly string Wave = "Wave";
                 public readonly string Wave_js = "Wave.js";
+                public readonly string WaveEditor = "WaveEditor";
             }
             public readonly string _bucketEditorPartial = "~/Areas/PickWaves/ManageWaves/_bucketEditorPartial.cshtml";
             public readonly string _waveBoxesPartial = "~/Areas/PickWaves/ManageWaves/_waveBoxesPartial.cshtml";
@@ -288,6 +305,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public readonly string Index_js = "~/Areas/PickWaves/ManageWaves/Index.js.bundle";
             public readonly string Wave = "~/Areas/PickWaves/ManageWaves/Wave.cshtml";
             public readonly string Wave_js = "~/Areas/PickWaves/ManageWaves/Wave.js.bundle";
+            public readonly string WaveEditor = "~/Areas/PickWaves/ManageWaves/WaveEditor.cshtml";
         }
     }
 
@@ -432,6 +450,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pickslipId", pickslipId);
             RemovePickslipFromBucketOverride(callInfo, bucketId, pickslipId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void WaveEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult WaveEditor(int bucketId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WaveEditor);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            WaveEditorOverride(callInfo, bucketId);
             return callInfo;
         }
 

@@ -109,6 +109,7 @@
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletController.cs" />
     <Compile Include="Areas\PickWaves\Home\HomeController.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\WaveEditorViewModel.cs" />
     <Compile Include="Helpers\BoxState.cs" />
     <Compile Include="Helpers\BucketActivityType.cs" />
     <Compile Include="Helpers\DateRange.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Areas\PickWaves\CreateWave\PickslipList.min.js.map">
       <DependentUpon>PickslipList.min.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.cshtml" />
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />

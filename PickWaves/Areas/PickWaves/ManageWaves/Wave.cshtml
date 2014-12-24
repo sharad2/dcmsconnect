@@ -14,7 +14,7 @@
     </li>
 }
 <div class="container">
-    <h2 style="margin-top:0px;">
+    <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
             @Model.Bucket.MaxCustomerId : @Model.Bucket.MaxCustomerName
@@ -31,6 +31,9 @@
         </small>
 
     }
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))">Edit</a>
+
+
 
     <div>
         @if (Model.DisplayEditableWave && Model.UserIsManager)

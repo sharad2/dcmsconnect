@@ -1,0 +1,172 @@
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveEditorViewModel
+
+@{
+    ViewBag.Title = "Edit Pick Wave # ";
+    Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+    var dict = new Dictionary<DcmsMobile.PickWaves.Helpers.BucketActivityType, string>
+    {
+        {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching, "(Undecided)"},
+        {DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling, "(No Pulling)"}
+    };
+}
+
+<div class="container">
+    <h2 style="margin-top:0">
+        @ViewBag.Title
+        <small>
+            @Html.DisplayFor(m => m.CustomerId) : @Html.DisplayFor(m => m.CustomerName)
+        </small>
+    </h2>
+
+    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditWave())" method="post" class="form-horizontal" role="form">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+
+        @Html.HiddenFor(m => m.BucketId)
+        @*@Html.HiddenFor(m => m.BucketNameOriginal)
+            @Html.HiddenFor(m => m.PriorityIdOriginal)
+            @Html.HiddenFor(m => m.PullAreaOriginal)
+            @Html.HiddenFor(m => m.PitchAreaOriginal)
+            @Html.HiddenFor(m => m.BucketCommentOriginal)
+            @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
+            @Html.HiddenFor(m => m.QuickPitchOriginal)
+            @Html.HiddenFor(m => m.PitchLimitOriginal)*@
+
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name<sup>*</sup></label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.BucketName, new
+   {
+       size = 50,
+       maxlength = 50,
+       @class = "form-control"
+   })
+
+                @Html.ValidationMessageFor(m => m.BucketName, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+
+
+
+            <label class="col-sm-2 control-label">Priority<sup>*</sup></label>
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.PriorityId, new
+   {
+       size = 2,
+       maxlength = 2,
+       @class = "form-control",
+       @placeholder = "Pick Waves with higher priority will show first(Max: 99)"
+   })
+
+                @Html.ValidationMessageFor(m => m.PriorityId, null, new
+           {
+               @class = "help-block"
+           })
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pitching</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.PitchAreaId,
+                         Model.PitchAreaList,
+                "Undecided", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.CheckBoxFor(m => m.QuickPitch)
+                <label>
+                    Required Box Expediting
+                </label>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pitch Limit</label>
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.PitchLimit, new
+                                                         {
+                                                             size = 5,
+                                                             maxlength = 5,
+                                                             @class = "form-control"
+                                                         })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Pulling</label>
+            <div class="col-sm-10">
+                @Html.DropDownListFor(m => m.PullAreaId,
+                         Model.PullAreaList,
+                "Undecided", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
+                <label>
+                    Required Box Expediting
+                </label>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Remark</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(m => m.BucketComment, new
+            {
+                maxlength = 128,
+                @class = "form-control",
+                placeholder = "Max 128 characters"
+            })
+
+
+                <span class="help-block">Remark will be shown in Wave Summery UI</span>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
+                <label>
+                    Unfreeze current pick wave after save.
+                </label>
+
+                <small class="help-block">
+                    After Unfreezing, boxes will be created for this pick wave and it will become available for processing.
+                    <br />
+                    <em>
+                        We will try to pull as many cartons as possible for <strong>@Model.PiecesIncomplete</strong>
+                        pieces from pull area <strong>@Html.DisplayFor(m => m.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
+                        <strong>@Html.DisplayFor(m => m.PitchAreaShortName)</strong>.
+                    </em>
+                </small>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId,
+     DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe))">Cancel</a>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+</div>
