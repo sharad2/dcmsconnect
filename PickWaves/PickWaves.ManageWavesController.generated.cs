@@ -68,12 +68,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EditableWave()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditableWave);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult WaveSkus()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.WaveSkus);
@@ -144,7 +138,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             public readonly string Index = "Index";
             public readonly string Wave = "Wave";
-            public readonly string EditableWave = "EditableWave";
             public readonly string WaveSkus = "WaveSkus";
             public readonly string WaveBoxes = "WaveBoxes";
             public readonly string WavePickslips = "WavePickslips";
@@ -161,7 +154,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             public const string Index = "Index";
             public const string Wave = "Wave";
-            public const string EditableWave = "EditableWave";
             public const string WaveSkus = "WaveSkus";
             public const string WaveBoxes = "WaveBoxes";
             public const string WavePickslips = "WavePickslips";
@@ -192,15 +184,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             public readonly string bucketId = "bucketId";
             public readonly string nextAction = "nextAction";
-        }
-        static readonly ActionParamsClass_EditableWave s_params_EditableWave = new ActionParamsClass_EditableWave();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditableWave EditableWaveParams { get { return s_params_EditableWave; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditableWave
-        {
-            public readonly string bucketId = "bucketId";
-            public readonly string suggestedNextAction = "suggestedNextAction";
         }
         static readonly ActionParamsClass_WaveSkus s_params_WaveSkus = new ActionParamsClass_WaveSkus();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -338,19 +321,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nextAction", nextAction);
             WaveOverride(callInfo, bucketId, nextAction);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void EditableWaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType suggestedNextAction);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult EditableWave(int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType suggestedNextAction)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditableWave);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "suggestedNextAction", suggestedNextAction);
-            EditableWaveOverride(callInfo, bucketId, suggestedNextAction);
             return callInfo;
         }
 
