@@ -347,7 +347,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
 
             return RedirectToAction(Actions.Index(customerId, groupDimIndex, subgroupDimIndex,
-                vwhId, bucketId));
+                vwhId, bucketId,groupDimVal));
         }
 
         /// <summary>
