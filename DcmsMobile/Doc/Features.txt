@@ -43,6 +43,9 @@ http://stackoverflow.com/questions/604883/where-to-put-view-specific-javascript-
     <Area>Receiving</Area>
   </FeatureFolderAreas>
   <AddAllViewsFoldersToStaticFilesFolders>True</AddAllViewsFoldersToStaticFilesFolders>
+  <StaticFilesFolders>
+    <!--<FileFolder></FileFolder>-->
+  </StaticFilesFolders>
 
   5. Modify web.config in Areas/Receiving folder to allow ASP.NET to serve content files from Areas/Receiving folder
 
