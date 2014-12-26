@@ -45,11 +45,13 @@
                 <h4 class="panel-title">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         SKU
+                        
                     </a>
                     <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))">
                         <span class="glyphicon glyphicon-pencil pull-right"></span>
                       
                     </a>
+                    <small>@Model.SkuList.Sum(p => p.AssignedCartons) cartons assigned to @Model.SkuList.Sum(p => p.RequestedPieces) pieces requested</small>
 
                 </h4>
             </div>
@@ -71,10 +73,6 @@
                                         </div>
                                     </div>
                                     </div>
-                                @*<div class="col-md-3">
-                                    <span class="badge pull-right">@Html.DisplayFor(m => m.SkuList[i].AssignedPieces) of  @Html.DisplayFor(m => m.SkuList[i].RequestedPieces) pieces assigned</span>
-                                    
-                                </div>*@
                             </div>
                         </div>
                     }
