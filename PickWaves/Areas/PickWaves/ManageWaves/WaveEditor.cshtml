@@ -17,7 +17,8 @@
     <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
-            @Html.DisplayFor(m => m.CustomerId) : @Html.DisplayFor(m => m.CustomerName)
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))"
+               title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>
 

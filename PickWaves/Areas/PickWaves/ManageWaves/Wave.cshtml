@@ -39,7 +39,9 @@
         }
         if (Model.Bucket.IsFrozen)
         {
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))" class="btn btn-default" role="button">Edit</a>
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-edit"></span> Edit
+            </a>
         }
         else
         {
