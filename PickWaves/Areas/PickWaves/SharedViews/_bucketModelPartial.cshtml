@@ -26,7 +26,7 @@
             }
         </h3>
         <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>
-        @if (isAuthorized)
+        @*@if (isAuthorized)
         {
             <div class="pull-right">
                 @if (Model.IsFrozen)
@@ -41,13 +41,13 @@
                 }
                 else
                 {
-                <!-- Button trigger modal -->
+            
                     <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
                         <span class="glyphicon glyphicon-ban-circle"></span> Freeze
                     </button>
                 }
             </div>
-        }
+        }*@
 
 
     </div>

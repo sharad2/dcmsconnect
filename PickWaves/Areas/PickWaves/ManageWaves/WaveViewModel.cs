@@ -73,6 +73,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// If true, the properties of the pick wave are editable
         /// </summary>
+        [Obsolete]
         public bool DisplayEditableWave { get; set; }
 
         /// <summary>

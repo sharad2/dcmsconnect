@@ -18,7 +18,8 @@
         @ViewBag.Title
         <small>
             @Model.Bucket.MaxCustomerId : @Model.Bucket.MaxCustomerName
-        </small>
+        </small>  
+
     </h2>
     @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
     {
@@ -26,30 +27,49 @@
         <small>
 
             <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null))">
-                See: Other @Model.Bucket.StateDisplayName Waves of same customer 
+                See: Other @Model.Bucket.StateDisplayName Waves of same customer
             </a>
         </small>
 
     }
-    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))">Edit</a>
+    @if (Model.UserIsManager)
+    {
+        <span class="h2">
+
+           @if (Model.Bucket.IsFrozen)
+            {
+
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))">
+                Edit
+            </a>
+            }
+            else
+            {
+
+            <a href="#" data-toggle="modal" data-target="#freezeModal"
+               data-bucketid="@Model.Bucket.BucketId" data-countnotstartedboxes="@Model.Bucket.CountNotStartedBoxes">
+                Freeze
+            </a>
+            }
+        </span>
+    }
 
 
 
-    <div>
-        @if (Model.DisplayEditableWave && Model.UserIsManager)
-        {
-            <!--Edit the pickwave partial-->
-            @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._bucketEditorPartial, Model)
-        }
-        else
-        {
-            <!--Pickwave detail partial-->
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
-                               {
-                                   {"IsAuthorized", Model.UserIsManager}
-                               })
-        }
-    </div>
+
+
+
+
+
+
+
+
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
+
+
 
 
 
