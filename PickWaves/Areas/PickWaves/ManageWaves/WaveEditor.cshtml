@@ -22,20 +22,8 @@
     </h2>
 
     <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UpdateWave())" method="post" class="form-horizontal" role="form">
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-
-
+        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
         @Html.HiddenFor(m => m.BucketId)
-        @*@Html.HiddenFor(m => m.BucketNameOriginal)
-            @Html.HiddenFor(m => m.PriorityIdOriginal)
-            @Html.HiddenFor(m => m.PullAreaOriginal)
-            @Html.HiddenFor(m => m.PitchAreaOriginal)
-            @Html.HiddenFor(m => m.BucketCommentOriginal)
-            @Html.HiddenFor(m => m.RequiredBoxExpeditingOriginal)
-            @Html.HiddenFor(m => m.QuickPitchOriginal)
-            @Html.HiddenFor(m => m.PitchLimitOriginal)*@
-
-
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Name<sup>*</sup></label>
@@ -147,7 +135,7 @@
                     After Unfreezing, boxes will be created for this pick wave and it will become available for processing.
                     <br />
                     <em>
-                        We will try to pull as many cartons as possible for <b>Model.PiecesIncomplete</b>
+                        We will try to pull as many cartons as possible for <strong>@Model.PiecesIncomplete</strong>
                         pieces from pull area <strong>@Html.DisplayFor(m => m.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
                         <strong>@Html.DisplayFor(m => m.PitchAreaShortName)</strong>.
                     </em>
@@ -163,10 +151,12 @@
      DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe))">Cancel</a>
             </div>
         </div>
-
-
-    </form>
-
-
-
+        </form>
 </div>
+
+@section script {
+     <!--Bundle for form validation-->
+    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.WaveEditor_js"></script>
+}
+
+

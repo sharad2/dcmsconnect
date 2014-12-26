@@ -222,6 +222,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             model.BucketCommentOriginal = bucket.BucketComment;
             model.QuickPitchOriginal = bucket.QuickPitch;
             model.PitchLimitOriginal = bucket.PitchLimit;
+            
 
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {

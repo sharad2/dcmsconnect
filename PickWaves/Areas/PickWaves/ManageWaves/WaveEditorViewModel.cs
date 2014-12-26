@@ -67,5 +67,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string PullAreaShortName { get; set; }
 
         public string PitchAreaShortName { get; set; }
+
+        public int PiecesIncomplete { get; set; }
     }
 }

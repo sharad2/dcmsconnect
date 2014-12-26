@@ -54,22 +54,10 @@
         </span>
     }
 
-
-
-
-
-
-
-
-
-
-
     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                    {
                                        {"IsAuthorized", Model.UserIsManager}
                                    })
-
-
 
 
 
@@ -105,19 +93,13 @@
             <div role="tabpanel" class="tab-pane" id="skus"></div>
         </div>
     </div>
-
-
-
-
-
-
 </div>
 
 @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelModalPartial)
 
 
-
 @section script {
+    <!--Bundle of ManageWaves/Wave.partial.js and SharedViews/_bucketModel.partial.js-->
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Wave_js"></script>
 }
 
