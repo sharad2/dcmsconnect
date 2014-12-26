@@ -41,12 +41,6 @@
                             @*<span class="glyphicon glyphicon-eye-open"></span>*@
                             View
                         </a>
-                        &nbsp;|&nbsp;
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(Model.LastBucketId.Value,
-                            DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing))" >
-                            @*<span class="glyphicon glyphicon-edit"></span>*@
-                            Edit
-                        </a>
                     </div>
                     <div class="col-md-6">
                         Contains <span class="h4">@Html.DisplayFor(m => m.PickslipCount) pickslips</span>. Continue adding pickslips below

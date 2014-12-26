@@ -353,9 +353,6 @@
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </None>
     <None Include="Areas\PickWaves\ManageWaves\Index.js.bundle" />
-    <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial_O.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Doc\PickWaveManager.doc" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />

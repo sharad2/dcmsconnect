@@ -68,53 +68,47 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        #region Editing
+        //#region Editing
 
-        /// <summary>
-        /// If true, the properties of the pick wave are editable
-        /// </summary>
-        [Obsolete]
-        public bool DisplayEditableWave { get; set; }
+        ///// <summary>
+        ///// This value will be posted after editing. We will update the database only if the current value is different from this value
+        ///// </summary>
+        //public string BucketNameOriginal { get; set; }
 
-        /// <summary>
-        /// This value will be posted after editing. We will update the database only if the current value is different from this value
-        /// </summary>
-        public string BucketNameOriginal { get; set; }
+        //public int PriorityIdOriginal { get; set; }
 
-        public int PriorityIdOriginal { get; set; }
+        //public string PullAreaOriginal { get; set; }
 
-        public string PullAreaOriginal { get; set; }
+        //public string PitchAreaOriginal { get; set; }
 
-        public string PitchAreaOriginal { get; set; }
+        //public int? PitchLimitOriginal { get; set; }
 
-        public int? PitchLimitOriginal { get; set; }
+        //public string BucketCommentOriginal { get; set; }
 
-        public string BucketCommentOriginal { get; set; }
+        //public bool RequiredBoxExpeditingOriginal { get; set; }
 
-        public bool RequiredBoxExpeditingOriginal { get; set; }
+        //public bool QuickPitchOriginal { get; set; }        
 
-        public bool QuickPitchOriginal { get; set; }        
+        //public IDictionary<BucketActivityType, IList<SelectListItem>> BucketAreaLists { get; set; }
 
-        public IDictionary<BucketActivityType, IList<SelectListItem>> BucketAreaLists { get; set; }
+        ///// <summary>
+        ///// If user set it true, bucket will be unfrozen after save
+        ///// </summary>
+        //[Display(Name = "Unfreeze current pick wave after save.")]
+        //public bool UnfreezeWaveAfterSave { get; set; }
 
-        /// <summary>
-        /// If user set it true, bucket will be unfrozen after save
-        /// </summary>
-        [Display(Name = "Unfreeze current pick wave after save.")]
-        public bool UnfreezeWaveAfterSave { get; set; }
-
-        #endregion
+        //#endregion
         
-        /// <summary>
-        /// If user wants to edit the Wave must show the SKU tab for its inventory availability
-        /// </summary>
-        public int ActiveTab
-        {
-            get
-            {
-                return DisplayEditableWave ? 2 : 0;
-            }
-        }
+        ///// <summary>
+        ///// If user wants to edit the Wave must show the SKU tab for its inventory availability
+        ///// </summary>
+        //public int ActiveTab
+        //{
+        //    get
+        //    {
+        //        return DisplayEditableWave ? 2 : 0;
+        //    }
+        //}
 
      
     }

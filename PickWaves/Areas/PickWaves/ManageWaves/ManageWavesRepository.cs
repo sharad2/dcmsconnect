@@ -9,39 +9,39 @@ using System.Xml.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    /// <summary>
-    /// Flags which indicate what properties need to be updated
-    /// </summary>
-    [Flags]
-    [Obsolete]
-    internal enum EditBucketFlags
-    {
-        /// <summary>
-        /// No task needs to be performed
-        /// </summary>
-        None = 0,
+    ///// <summary>
+    ///// Flags which indicate what properties need to be updated
+    ///// </summary>
+    //[Flags]
+    //[Obsolete]
+    //internal enum EditBucketFlags
+    //{
+    //    /// <summary>
+    //    /// No task needs to be performed
+    //    /// </summary>
+    //    None = 0,
 
-        BucketName = 0x1,
+    //    BucketName = 0x1,
 
-        Priority = 0x2,
+    //    Priority = 0x2,
 
-        PullArea = 0x4,
+    //    PullArea = 0x4,
 
-        PitchArea = 0x8,
+    //    PitchArea = 0x8,
 
-        Remarks = 0x10,
+    //    Remarks = 0x10,
 
-        PullType = 0x40,
+    //    PullType = 0x40,
 
-        /// <summary>
-        /// The priority of the bucket must be incremented/decremented by the value specified in the Bucket.Priority property
-        /// </summary>
-        PriorityDelta = 0x80,
+    //    /// <summary>
+    //    /// The priority of the bucket must be incremented/decremented by the value specified in the Bucket.Priority property
+    //    /// </summary>
+    //    PriorityDelta = 0x80,
 
-        QuickPitch = 0x100,
+    //    QuickPitch = 0x100,
 
-        PitchLimit = 0x200
-    }
+    //    PitchLimit = 0x200
+    //}
 
     internal class ManageWavesRepository : PickWaveRepositoryBase
     {

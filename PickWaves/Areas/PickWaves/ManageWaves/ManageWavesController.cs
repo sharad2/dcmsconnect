@@ -116,122 +116,122 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             return View(this.Views.Wave, model);
         }
 
-        /// <summary>
-        /// We check bucket is editable or not.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Route("editable")]
-        [Obsolete]
-        public virtual ActionResult EditableWave(int bucketId, SuggestedNextActionType suggestedNextAction)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
-            }
-            var bucket = _service.GetBucket(bucketId);
-            if (bucket == null)
-            {
-                // Unreasonable bucket id
-                ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
-            }
-            if (!bucket.IsFrozen)
-            {
-                // bucket is not freeze,freeze it before attempting to edit it.
-                ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
-            }
+        ///// <summary>
+        ///// We check bucket is editable or not.
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[Route("editable")]
+        //[Obsolete]
+        //public virtual ActionResult EditableWave(int bucketId, SuggestedNextActionType suggestedNextAction)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+        //    }
+        //    var bucket = _service.GetBucket(bucketId);
+        //    if (bucket == null)
+        //    {
+        //        // Unreasonable bucket id
+        //        ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+        //    }
+        //    if (!bucket.IsFrozen)
+        //    {
+        //        // bucket is not freeze,freeze it before attempting to edit it.
+        //        ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
+        //        return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
+        //    }
 
-            var model = new WaveViewModel
-            {
-                HighlightedActions = suggestedNextAction,
-                Bucket = new BucketModel(bucket)
-            };
+        //    var model = new WaveViewModel
+        //    {
+        //        HighlightedActions = suggestedNextAction,
+        //        Bucket = new BucketModel(bucket)
+        //    };
 
 
-            var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
-            model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
-                {
-                    {
-                        BucketActivityType.Pulling,
-                        (from area in bucketAreas
-                         where area.AreaType == BucketActivityType.Pulling
-                         orderby area.CountSku descending
-                            select new SelectListItem
-                            {
-                                Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                Value = area.CountSku > 0 ? area.AreaId : "",
-                                Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
-                            }).ToArray()
-                      },
-                      {
-                            BucketActivityType.Pitching,
-                            (from area in bucketAreas
-                             where area.AreaType == BucketActivityType.Pitching
-                             orderby area.CountSku descending
-                             select new SelectListItem
-                                {
-                                   Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                   Value = area.CountSku > 0 ? area.AreaId : "",
-                                   Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
-                                }).ToArray()
-                       }
-                };
+        //    var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
+        //    model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
+        //        {
+        //            {
+        //                BucketActivityType.Pulling,
+        //                (from area in bucketAreas
+        //                 where area.AreaType == BucketActivityType.Pulling
+        //                 orderby area.CountSku descending
+        //                    select new SelectListItem
+        //                    {
+        //                        Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+        //                        Value = area.CountSku > 0 ? area.AreaId : "",
+        //                        Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
+        //                    }).ToArray()
+        //              },
+        //              {
+        //                    BucketActivityType.Pitching,
+        //                    (from area in bucketAreas
+        //                     where area.AreaType == BucketActivityType.Pitching
+        //                     orderby area.CountSku descending
+        //                     select new SelectListItem
+        //                        {
+        //                           Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+        //                           Value = area.CountSku > 0 ? area.AreaId : "",
+        //                           Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
+        //                        }).ToArray()
+        //               }
+        //        };
 
-            //For Pull area
-            if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
-            {
-                // We have some areas with no ordered SKUs
-                model.BucketAreaLists[BucketActivityType.Pulling] = model.BucketAreaLists[BucketActivityType.Pulling].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
-                if (!model.BucketAreaLists[BucketActivityType.Pulling].Any())
-                {
-                    // We do have pull areas but none with SKUs needed
-                    model.BucketAreaLists[BucketActivityType.Pulling].Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not available in any Pull Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
-            }
+        //    //For Pull area
+        //    if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+        //    {
+        //        // We have some areas with no ordered SKUs
+        //        model.BucketAreaLists[BucketActivityType.Pulling] = model.BucketAreaLists[BucketActivityType.Pulling].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+        //        if (!model.BucketAreaLists[BucketActivityType.Pulling].Any())
+        //        {
+        //            // We do have pull areas but none with SKUs needed
+        //            model.BucketAreaLists[BucketActivityType.Pulling].Add(new SelectListItem
+        //            {
+        //                Text = "(Ordered SKUs are not available in any Pull Area)",
+        //                Value = "",
+        //                Selected = true
+        //            });
+        //        }
+        //    }
 
-            //For Pitch area
-            if (model.BucketAreaLists[BucketActivityType.Pitching].Any(p => string.IsNullOrWhiteSpace(p.Value)))
-            {
-                // We have some areas with no ordered SKUs
-                model.BucketAreaLists[BucketActivityType.Pitching] = model.BucketAreaLists[BucketActivityType.Pitching].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
-                if (!model.BucketAreaLists[BucketActivityType.Pitching].Any())
-                {
-                    // We do have pitch areas but none with SKUs needed
-                    model.BucketAreaLists[BucketActivityType.Pitching].Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
-            }
+        //    //For Pitch area
+        //    if (model.BucketAreaLists[BucketActivityType.Pitching].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+        //    {
+        //        // We have some areas with no ordered SKUs
+        //        model.BucketAreaLists[BucketActivityType.Pitching] = model.BucketAreaLists[BucketActivityType.Pitching].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+        //        if (!model.BucketAreaLists[BucketActivityType.Pitching].Any())
+        //        {
+        //            // We do have pitch areas but none with SKUs needed
+        //            model.BucketAreaLists[BucketActivityType.Pitching].Add(new SelectListItem
+        //            {
+        //                Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+        //                Value = "",
+        //                Selected = true
+        //            });
+        //        }
+        //    }
 
-            // For edit wave
-            model.DisplayEditableWave = true;
-            model.BucketNameOriginal = bucket.BucketName;
-            model.PriorityIdOriginal = bucket.PriorityId;
-            model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-            model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-            model.BucketCommentOriginal = bucket.BucketComment;
-            model.QuickPitchOriginal = bucket.QuickPitch;
-            model.PitchLimitOriginal = bucket.PitchLimit;
+        //    // For edit wave
+        //    model.DisplayEditableWave = true;
+        //    model.BucketNameOriginal = bucket.BucketName;
+        //    model.PriorityIdOriginal = bucket.PriorityId;
+        //    model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
+        //    model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
+        //    model.BucketCommentOriginal = bucket.BucketComment;
+        //    model.QuickPitchOriginal = bucket.QuickPitch;
+        //    model.PitchLimitOriginal = bucket.PitchLimit;
             
 
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                // If pulling bucket
-                model.Bucket.RequiredBoxExpediting = true;
-                model.RequiredBoxExpeditingOriginal = true;
-            }
-            return View(this.Views.Wave, model);
-        }
+        //    if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+        //    {
+        //        // If pulling bucket
+        //        model.Bucket.RequiredBoxExpediting = true;
+        //        model.RequiredBoxExpeditingOriginal = true;
+        //    }
+        //    return View(this.Views.Wave, model);
+        //}
 
         /// <summary>
         /// Ajax call.
@@ -488,46 +488,46 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
         }
-        /// <summary>
-        /// Returns flags corresponding to changed values. Compares original values with current values.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Obsolete]
-        private EditBucketFlags GetEditFlags(WaveViewModel model)
-        {
-            var flags = EditBucketFlags.None;
-            if (model.BucketNameOriginal != model.Bucket.BucketName)
-            {
-                flags |= EditBucketFlags.BucketName;
-            }
-            if (model.PriorityIdOriginal != model.Bucket.PriorityId)
-            {
-                flags |= EditBucketFlags.Priority;
-            }
-            if (model.PullAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId)
-            {
-                flags |= EditBucketFlags.PullArea;
-            }
-            if (model.PitchAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId)
-            {
-                flags |= EditBucketFlags.PitchArea;
-            }
-            if (model.BucketCommentOriginal != model.Bucket.BucketComment)
-            {
-                flags |= EditBucketFlags.Remarks;
-            }
-            if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-            {
-                flags |= EditBucketFlags.QuickPitch;
-            }
-            if (model.PitchLimitOriginal != model.Bucket.PitchLimit && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-            {
-                flags |= EditBucketFlags.PitchLimit;
-            }
-            flags |= EditBucketFlags.PullType;
-            return flags;
-        }
+        ///// <summary>
+        ///// Returns flags corresponding to changed values. Compares original values with current values.
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //private EditBucketFlags GetEditFlags(WaveViewModel model)
+        //{
+        //    var flags = EditBucketFlags.None;
+        //    if (model.BucketNameOriginal != model.Bucket.BucketName)
+        //    {
+        //        flags |= EditBucketFlags.BucketName;
+        //    }
+        //    if (model.PriorityIdOriginal != model.Bucket.PriorityId)
+        //    {
+        //        flags |= EditBucketFlags.Priority;
+        //    }
+        //    if (model.PullAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId)
+        //    {
+        //        flags |= EditBucketFlags.PullArea;
+        //    }
+        //    if (model.PitchAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId)
+        //    {
+        //        flags |= EditBucketFlags.PitchArea;
+        //    }
+        //    if (model.BucketCommentOriginal != model.Bucket.BucketComment)
+        //    {
+        //        flags |= EditBucketFlags.Remarks;
+        //    }
+        //    if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+        //    {
+        //        flags |= EditBucketFlags.QuickPitch;
+        //    }
+        //    if (model.PitchLimitOriginal != model.Bucket.PitchLimit && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
+        //    {
+        //        flags |= EditBucketFlags.PitchLimit;
+        //    }
+        //    flags |= EditBucketFlags.PullType;
+        //    return flags;
+        //}
 
         /// <summary>
         /// Increase priority.

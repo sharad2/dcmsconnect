@@ -270,7 +270,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _bucketEditorPartial_O = "_bucketEditorPartial_O";
                 public readonly string _waveBoxesPartial = "_waveBoxesPartial";
                 public readonly string _wavePickslipsPartial = "_wavePickslipsPartial";
                 public readonly string _waveSkusPartial = "_waveSkusPartial";
@@ -281,7 +280,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 public readonly string WaveEditor = "WaveEditor";
                 public readonly string WaveEditor_js = "WaveEditor.js";
             }
-            public readonly string _bucketEditorPartial_O = "~/Areas/PickWaves/ManageWaves/_bucketEditorPartial_O.cshtml";
             public readonly string _waveBoxesPartial = "~/Areas/PickWaves/ManageWaves/_waveBoxesPartial.cshtml";
             public readonly string _wavePickslipsPartial = "~/Areas/PickWaves/ManageWaves/_wavePickslipsPartial.cshtml";
             public readonly string _waveSkusPartial = "~/Areas/PickWaves/ManageWaves/_waveSkusPartial.cshtml";
