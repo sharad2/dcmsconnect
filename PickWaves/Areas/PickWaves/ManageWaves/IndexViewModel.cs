@@ -39,12 +39,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// Title of the browser windows
         /// </summary>
-        public string PageTitle
+        public string PickWaveState
         {
             get
             {
                 var state = PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>()[this.BucketState].Name;
-                return string.Format("{0} waves of {1}: {2}", state, this.CustomerId,this.CustomerName);
+                return state;
             }
         }
 

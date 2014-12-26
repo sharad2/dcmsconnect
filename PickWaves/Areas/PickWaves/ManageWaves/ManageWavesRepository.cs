@@ -1,7 +1,6 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,39 +8,6 @@ using System.Xml.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    ///// <summary>
-    ///// Flags which indicate what properties need to be updated
-    ///// </summary>
-    //[Flags]
-    //[Obsolete]
-    //internal enum EditBucketFlags
-    //{
-    //    /// <summary>
-    //    /// No task needs to be performed
-    //    /// </summary>
-    //    None = 0,
-
-    //    BucketName = 0x1,
-
-    //    Priority = 0x2,
-
-    //    PullArea = 0x4,
-
-    //    PitchArea = 0x8,
-
-    //    Remarks = 0x10,
-
-    //    PullType = 0x40,
-
-    //    /// <summary>
-    //    /// The priority of the bucket must be incremented/decremented by the value specified in the Bucket.Priority property
-    //    /// </summary>
-    //    PriorityDelta = 0x80,
-
-    //    QuickPitch = 0x100,
-
-    //    PitchLimit = 0x200
-    //}
 
     internal class ManageWavesRepository : PickWaveRepositoryBase
     {
@@ -470,39 +436,7 @@ MAX(ps.customer_id) AS customer_id,
                 VWhId = row.GetString("VWH_ID")
             });
             binder.Parameter("BUCKET_ID", bucketId);
-
-            //if (stateFilter == BoxState.NotSet)
-            //{
             binder.ParameterXPath("All", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Completed))
-            //{
-            //    binder.ParameterXPath("Completed", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.InProgress))
-            //{
-            //    binder.ParameterXPath("InProgress", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Cancelled))
-            //{
-            //    binder.ParameterXPath("Cancelled", true);
-            //}
-            //switch (activityFilter)
-            //{
-            //    case BucketActivityType.NotSet:
-            //        break;
-
-            //    case BucketActivityType.Pitching:
-            //        binder.ParameterXPath("Pitching", true);
-            //        break;
-
-            //    case BucketActivityType.Pulling:
-            //        binder.ParameterXPath("Pulling", true);
-            //        break;
-
-            //    default:
-            //        throw new NotImplementedException();
-            //}
             binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder, 2000);
         }

@@ -1,7 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
 @{
-    ViewBag.Title = Model.PageTitle;
+    ViewBag.Title = string.Format("{0} wave of {1}:{2}",Model.PickWaveState,Model.CustomerId,Model.CustomerName);
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
@@ -33,9 +33,13 @@
         </div>
     }
    
-        <h2 style="margin-top:0px;">
-            @Model.PageTitle
-        </h2>
+    <h2 style="margin-top:0">
+        @Model.PickWaveState wave of
+        <small>
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))"
+               title="See other pick waves of this customer">@Model.CustomerId: @Model.CustomerName</a>
+        </small>
+    </h2>
 
     <p>This list is order by priority and then DC Cancel Date</p>
     @if (Model.Buckets.Count > 0)
