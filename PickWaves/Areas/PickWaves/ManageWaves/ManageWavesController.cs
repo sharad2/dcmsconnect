@@ -89,7 +89,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [AllowAnonymous]
         [Route("wave")]
-        public virtual ActionResult Wave(int bucketId, SuggestedNextActionType nextAction)
+        public virtual ActionResult Wave(int bucketId)
         {
             var bucket = _service.GetBucket(bucketId);
             if (bucket == null)
@@ -100,7 +100,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             var model = new WaveViewModel
             {
-                HighlightedActions = nextAction
+                //HighlightedActions = nextAction
             };
             model.Bucket = new BucketModel(bucket);
 
@@ -111,7 +111,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             if (!model.Bucket.IsFrozen)
             {
-                model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
+                //model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
             }
             return View(this.Views.Wave, model);
         }
@@ -471,22 +471,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
                // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
+                return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
+                return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
             if (model.UnfreezeWaveAfterSave)
             {
                 //  if user says unfreeze bucket after editing.
                 _service.FreezeWave(model.BucketId, false);
                 AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", model.BucketId));
-                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeOthers));
+                return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
-            return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
+            return RedirectToAction(this.Actions.Wave(model.BucketId));
         }
         ///// <summary>
         ///// Returns flags corresponding to changed values. Compares original values with current values.
@@ -582,21 +582,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                     //{
                     //    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
                     //}
-                    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
+                    return RedirectToAction(this.Actions.Wave(bucketId));
 
                 }
                 else
                 {
                     // User has unfrozen a bucket.
                     AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", bucketId));
-                    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.UnfreezeOthers));
+                    return RedirectToAction(this.Actions.Wave(bucketId));
                 }
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
                // return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
-                return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
+                return RedirectToAction(this.Actions.Wave(bucketId));
             }
         }
 
@@ -640,7 +640,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // bucket is not freeze,freeze it before attempting to edit it.
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(Actions.Wave(bucketId));
             }
 
             var bucketAreas = _service.GetBucketAreas(bucketId);

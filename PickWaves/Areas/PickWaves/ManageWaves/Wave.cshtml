@@ -21,17 +21,7 @@
         </small>  
 
     </h2>
-    @if (Model.HighlightedActions != DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.NotSet)
-    {
 
-        <small>
-
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.MaxCustomerId, Model.Bucket.BucketState, null))">
-                See: Other @Model.Bucket.StateDisplayName Waves of same customer
-            </a>
-        </small>
-
-    }
     @if (Model.UserIsManager)
     {
         <span class="h2">

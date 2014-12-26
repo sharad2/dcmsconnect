@@ -9,30 +9,31 @@ using DcmsMobile.PickWaves.ViewModels;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    /// <summary>
-    /// What should the wave details page propose to the user
-    /// </summary>
-    [Flags]
-    public enum SuggestedNextActionType
-    {
-        NotSet = 0x0,
-        BackTo = 0x1,
-        CancelEditing = 0x2,
-        SearchAgain = 0x4,
+    ///// <summary>
+    ///// What should the wave details page propose to the user
+    ///// </summary>
+    //[Flags]
+    //[Obsolete]
+    //public enum SuggestedNextActionType
+    //{
+    //    NotSet = 0x0,
+    //    BackTo = 0x1,
+    //    CancelEditing = 0x2,
+    //    SearchAgain = 0x4,
 
-        /// <summary>
-        /// Just after a wave has been successfully edited
-        /// </summary>
-        UnfreezeMe = 0x8,
-        EditMe = 0x10,
+    //    /// <summary>
+    //    /// Just after a wave has been successfully edited
+    //    /// </summary>
+    //    UnfreezeMe = 0x8,
+    //    EditMe = 0x10,
 
-        /// <summary>
-        /// Link which will help in freezing other waves
-        /// </summary>
-        FreezeOthers = 0x20,
+    //    /// <summary>
+    //    /// Link which will help in freezing other waves
+    //    /// </summary>
+    //    FreezeOthers = 0x20,
 
-        UnfreezeOthers = 0x40
-    }
+    //    UnfreezeOthers = 0x40
+    //}
 
     public class WaveViewModel : ViewModelBase
     {
@@ -52,8 +53,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public BucketModel Bucket { get; set; }
 
-
-        public SuggestedNextActionType HighlightedActions { get; set; }
+        //[Obsolete]
+        //public SuggestedNextActionType HighlightedActions { get; set; }
 
         /// <summary>
         /// If this is non null, box, pickslip and SKU details should be shown for this activity type only

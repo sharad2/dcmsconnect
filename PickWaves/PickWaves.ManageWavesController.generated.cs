@@ -183,7 +183,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public class ActionParamsClass_Wave
         {
             public readonly string bucketId = "bucketId";
-            public readonly string nextAction = "nextAction";
         }
         static readonly ActionParamsClass_WaveSkus s_params_WaveSkus = new ActionParamsClass_WaveSkus();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -312,15 +311,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void WaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType nextAction);
+        partial void WaveOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Wave(int bucketId, DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType nextAction)
+        public override System.Web.Mvc.ActionResult Wave(int bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Wave);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "nextAction", nextAction);
-            WaveOverride(callInfo, bucketId, nextAction);
+            WaveOverride(callInfo, bucketId);
             return callInfo;
         }
 
