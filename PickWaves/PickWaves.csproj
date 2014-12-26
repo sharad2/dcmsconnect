@@ -268,7 +268,6 @@
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
-    <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

@@ -222,7 +222,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         //    model.BucketCommentOriginal = bucket.BucketComment;
         //    model.QuickPitchOriginal = bucket.QuickPitch;
         //    model.PitchLimitOriginal = bucket.PitchLimit;
-            
+
 
         //    if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
         //    {
@@ -421,7 +421,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 BucketName = model.BucketName,
                 PriorityId = model.PriorityId,
                 BucketComment = model.BucketComment,
-                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch               
+                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch
             };
             if (!string.IsNullOrEmpty(model.PitchAreaId) && model.PitchLimit != null)
             {
@@ -470,7 +470,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
-               // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
                 return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
             catch (ValidationException ex)
@@ -556,7 +556,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         /// <summary>
-        /// This method is used to freeze or unfreeze any bucket.
+        /// This method is used to freeze a bucket.
         /// </summary>
         /// <param name="bucketId"> </param>
         /// <param name="freeze"> </param>
@@ -564,40 +564,57 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [HttpPost]
         [Route("freeze")]
-        public virtual ActionResult FreezeBucket(int bucketId, bool freeze, bool displayEditable = false)
+        public virtual ActionResult FreezeBucket(int bucketId)
         {
             try
             {
-                _service.FreezeWave(bucketId, freeze);
-                if (freeze)
-                {
-                    // user has frozen a bucket.
-                    AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
-                    //if (displayEditable)
-                    //{
-                    //    return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing
-                    //        | SuggestedNextActionType.FreezeOthers));
-                    //}
-                    //else
-                    //{
-                    //    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
-                    //}
-                    return RedirectToAction(this.Actions.Wave(bucketId));
-
-                }
-                else
-                {
-                    // User has unfrozen a bucket.
-                    AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", bucketId));
-                    return RedirectToAction(this.Actions.Wave(bucketId));
-                }
+                _service.FreezePickWave(bucketId);
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
             }
-            catch (ValidationException ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-               // return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
+            }
+            return RedirectToAction(this.Actions.Wave(bucketId));
+        }
+
+
+        [HttpPost]
+        [Route("freezeedit")]
+        public virtual ActionResult FreezeAndEditBucket(int bucketId)
+        {
+            try
+            {
+                _service.FreezePickWave(bucketId);
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
+                return RedirectToAction(this.Actions.WaveEditor(bucketId));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                // In case of error, show the wave viewer page
                 return RedirectToAction(this.Actions.Wave(bucketId));
             }
+
+        }
+
+        [HttpPost]
+        [Route("unfreeze")]
+        public virtual ActionResult UnfreezeBucket(int bucketId)
+        {
+            try
+            {
+                _service.UnfreezePickWave(bucketId);
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} is no longer frozen.", bucketId));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return RedirectToAction(this.Actions.Wave(bucketId));
         }
 
         /// <summary>
@@ -665,7 +682,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                      Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
                                  }).ToList()
             };
-            
+
 
 
 
@@ -748,7 +765,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //    model.RequiredBoxExpeditingOriginal = true;
             //}
 
-            return View(Views.WaveEditor,model);
+            return View(Views.WaveEditor, model);
         }
     }
 }

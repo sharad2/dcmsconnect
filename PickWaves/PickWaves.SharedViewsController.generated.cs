@@ -36,14 +36,12 @@ namespace T4MVC.PickWaves
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
-                public readonly string _bucketModelModalPartial = "_bucketModelModalPartial";
                 public readonly string _bucketModelPartial = "_bucketModelPartial";
                 public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutPickWaves = "_layoutPickWaves";
                 public readonly string ajax_loader = "ajax-loader";
                 public readonly string typeahed_css = "typeahed.css";
             }
-            public readonly string _bucketModelModalPartial = "~/Areas/PickWaves/SharedViews/_bucketModelModalPartial.cshtml";
             public readonly string _bucketModelPartial = "~/Areas/PickWaves/SharedViews/_bucketModelPartial.cshtml";
             public readonly string _layoutBootstrap = "~/Areas/PickWaves/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutPickWaves = "~/Areas/PickWaves/SharedViews/_layoutPickWaves.cshtml";

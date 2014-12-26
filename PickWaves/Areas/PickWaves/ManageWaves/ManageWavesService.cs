@@ -90,6 +90,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <param name="freeze"></param>
+        [Obsolete]
         public Bucket FreezeWave(int bucketId, bool freeze)
         {
             using (var trans = _repos.BeginTransaction())
@@ -125,6 +126,26 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 _repos.SetFreezeStatus(bucketId, freeze);
                 trans.Commit();
                 return bucket;
+            }
+        }
+
+        public void FreezePickWave(int bucketId)
+        {
+            using (var trans = _repos.BeginTransaction())
+            {
+                _repos.DeleteBoxes(bucketId);
+                _repos.SetFreezeStatus(bucketId, true);
+                trans.Commit();
+            }
+        }
+
+        public void UnfreezePickWave(int bucketId)
+        {
+            using (var trans = _repos.BeginTransaction())
+            {
+                _repos.CreateBoxes(bucketId);
+                _repos.SetFreezeStatus(bucketId, false);
+                trans.Commit();
             }
         }
 

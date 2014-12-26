@@ -110,6 +110,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FreezeAndEditBucket()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FreezeAndEditBucket);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UnfreezeBucket()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnfreezeBucket);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult RemovePickslipFromBucket()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemovePickslipFromBucket);
@@ -145,6 +157,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public readonly string IncrementPriority = "IncrementPriority";
             public readonly string DecrementPriority = "DecrementPriority";
             public readonly string FreezeBucket = "FreezeBucket";
+            public readonly string FreezeAndEditBucket = "FreezeAndEditBucket";
+            public readonly string UnfreezeBucket = "UnfreezeBucket";
             public readonly string RemovePickslipFromBucket = "RemovePickslipFromBucket";
             public readonly string WaveEditor = "WaveEditor";
         }
@@ -161,6 +175,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public const string IncrementPriority = "IncrementPriority";
             public const string DecrementPriority = "DecrementPriority";
             public const string FreezeBucket = "FreezeBucket";
+            public const string FreezeAndEditBucket = "FreezeAndEditBucket";
+            public const string UnfreezeBucket = "UnfreezeBucket";
             public const string RemovePickslipFromBucket = "RemovePickslipFromBucket";
             public const string WaveEditor = "WaveEditor";
         }
@@ -239,8 +255,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public class ActionParamsClass_FreezeBucket
         {
             public readonly string bucketId = "bucketId";
-            public readonly string freeze = "freeze";
-            public readonly string displayEditable = "displayEditable";
+        }
+        static readonly ActionParamsClass_FreezeAndEditBucket s_params_FreezeAndEditBucket = new ActionParamsClass_FreezeAndEditBucket();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FreezeAndEditBucket FreezeAndEditBucketParams { get { return s_params_FreezeAndEditBucket; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FreezeAndEditBucket
+        {
+            public readonly string bucketId = "bucketId";
+        }
+        static readonly ActionParamsClass_UnfreezeBucket s_params_UnfreezeBucket = new ActionParamsClass_UnfreezeBucket();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UnfreezeBucket UnfreezeBucketParams { get { return s_params_UnfreezeBucket; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UnfreezeBucket
+        {
+            public readonly string bucketId = "bucketId";
         }
         static readonly ActionParamsClass_RemovePickslipFromBucket s_params_RemovePickslipFromBucket = new ActionParamsClass_RemovePickslipFromBucket();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -395,16 +425,38 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void FreezeBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, bool freeze, bool displayEditable);
+        partial void FreezeBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult FreezeBucket(int bucketId, bool freeze, bool displayEditable)
+        public override System.Web.Mvc.ActionResult FreezeBucket(int bucketId)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FreezeBucket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "freeze", freeze);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "displayEditable", displayEditable);
-            FreezeBucketOverride(callInfo, bucketId, freeze, displayEditable);
+            FreezeBucketOverride(callInfo, bucketId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FreezeAndEditBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FreezeAndEditBucket(int bucketId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FreezeAndEditBucket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            FreezeAndEditBucketOverride(callInfo, bucketId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UnfreezeBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UnfreezeBucket(int bucketId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UnfreezeBucket);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
+            UnfreezeBucketOverride(callInfo, bucketId);
             return callInfo;
         }
 

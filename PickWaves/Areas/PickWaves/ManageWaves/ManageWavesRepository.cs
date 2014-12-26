@@ -1,6 +1,7 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -30,6 +31,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
+        [Obsolete]
         public Bucket GetLockedBucket(int bucketId)
         {
             const string QUERY = @"
