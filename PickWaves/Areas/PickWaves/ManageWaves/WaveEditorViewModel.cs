@@ -9,6 +9,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class WaveEditorViewModel
     {
+        public WaveEditorViewModel()
+        {
+                
+        }
+
         internal WaveEditorViewModel(Bucket entity)
         {
             this.BucketComment = entity.BucketComment;

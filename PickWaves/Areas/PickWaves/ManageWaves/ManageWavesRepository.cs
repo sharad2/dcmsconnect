@@ -310,14 +310,14 @@ WHERE 1 = 1
                     bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");                   
+                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
                     return bs;
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
             //if (stateFilter == BoxState.NotSet)
             //{
-                binder.ParameterXPath("All", true);
+            binder.ParameterXPath("All", true);
             //}
             //if (stateFilter.HasFlag(BoxState.Completed))
             //{
@@ -345,7 +345,7 @@ WHERE 1 = 1
             //        throw new NotImplementedException();
             //}
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
         private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
@@ -427,7 +427,7 @@ MAX(ps.customer_id) AS customer_id,
                 CustomerId = row.GetString("customer_id")
             });
             binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
         /// <summary>
@@ -499,7 +499,7 @@ MAX(ps.customer_id) AS customer_id,
 
             //if (stateFilter == BoxState.NotSet)
             //{
-                binder.ParameterXPath("All", true);
+            binder.ParameterXPath("All", true);
             //}
             //if (stateFilter.HasFlag(BoxState.Completed))
             //{
@@ -530,7 +530,7 @@ MAX(ps.customer_id) AS customer_id,
             //        throw new NotImplementedException();
             //}
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
         public int UpdatePriority(int bucketId, int delta)
@@ -554,9 +554,9 @@ MAX(ps.customer_id) AS customer_id,
                                  BKT.PITCH_IA_ID       = :PITCH_IA_ID,    
                                  BKT.BUCKET_COMMENT    = :BUCKET_COMMENT, 
                                  BKT.PRIORITY          = :PRIORITY,       
-                                 BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
-                                                         ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
-                                                         END,                
+                                -- BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
+                                     --                    ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
+                                    --                     END,                
                                  BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
                                  BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      
                                  BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       

@@ -398,7 +398,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("editwave")]
+        [Route("updatewave")]
         public virtual ActionResult UpdateWave(WaveEditorViewModel model)
         {
             if (!ModelState.IsValid)
@@ -421,7 +421,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 BucketName = model.BucketName,
                 PriorityId = model.PriorityId,
                 BucketComment = model.BucketComment,
-                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch
+                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch               
             };
             if (!string.IsNullOrEmpty(model.PitchAreaId) && model.PitchLimit != null)
             {
@@ -470,12 +470,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+               // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
             }
             if (model.UnfreezeWaveAfterSave)
             {
@@ -571,15 +573,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 {
                     // user has frozen a bucket.
                     AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
-                    if (displayEditable)
-                    {
-                        return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing
-                            | SuggestedNextActionType.FreezeOthers));
-                    }
-                    else
-                    {
-                        return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
-                    }
+                    //if (displayEditable)
+                    //{
+                    //    return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing
+                    //        | SuggestedNextActionType.FreezeOthers));
+                    //}
+                    //else
+                    //{
+                    //    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
+                    //}
+                    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
+
                 }
                 else
                 {
@@ -591,7 +595,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
+               // return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
+                return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
             }
         }
 
