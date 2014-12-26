@@ -146,6 +146,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             model.SaleTypes = saleTypes.Select(p => MapCode(p));
             var buildings = _service.GetBuildingList();
             model.BuildingList = buildings.Select(p => MapCode(p));
+            var priceSeasonCodes = _service.GetPriceSeasonCodes();
+            model.PriceSeason = priceSeasonCodes.Select(p => MapCode(p));
+
+            var sewingPlants = _service.GetSewingPlantCodes();
+            model.SewingPlant = sewingPlants.Select(p => MapCode(p));
+
 
         }
 

@@ -33,6 +33,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.TargetQualityCode = entity.TargetQuality;
             //this.SaleTypeId = entity.SaleTypeId;
             this.TargetVwhId = entity.TargetVwhId;
+            this.PriceSeasonCode = entity.PriceSeasonCode;
+            this.SewingPlantCode = entity.SewingPlantCode;
 
         }
         //public RequestHeaderViewModel CurrentRequest { get; set; }
@@ -52,6 +54,10 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public IEnumerable<SelectListItem> TargetVwhList { get; set; }
 
         public IEnumerable<SelectListItem> SaleTypes { get; set; }
+
+        public IEnumerable<SelectListItem> PriceSeason { get; set; }
+
+        public IEnumerable<SelectListItem> SewingPlant { get; set; }
 
         public string PriorityId { get; set; }
 
@@ -93,6 +99,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         [Display(Name = "Sale Type")]
         public string SaleTypeId { get; set; }
+
+         [Display(Name = "Price Season")]
+        public string PriceSeasonCode { get; set; }
+
+         [Display(Name = "Sewing Plant")]
+         public string SewingPlantCode { get; set; }
 
         [Required]
         [Display(Name = "Source Area", ShortName = "From")]

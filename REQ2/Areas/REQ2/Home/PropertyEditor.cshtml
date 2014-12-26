@@ -212,6 +212,36 @@
                 <p class="help-block  hidden-xs">Select a quality above if you would like to change the quality of the cartons before they are pulled.</p>
             </div>
         </div>
+        
+          <div class="form-group">
+            
+            <label for="ddlArea" class="col-sm-2 control-label">Price Season Code</label>
+            <div class="col-sm-5">
+
+                @Html.DropDownListFor(m => m.PriceSeasonCode, Model.PriceSeason, Model.PriceSeason.Count() > 1 ? "(Please Select)" : null, new
+           {
+               id = "ddlArea",
+               @class = "form-control"
+           })
+                <p class="help-block  hidden-xs">Select price season code of the cartons to be pulled for your request.</p>
+               
+            </div>
+
+             <div> <b>Sewing Plant Code  </b> </div>
+           
+              <div class="col-sm-5">
+
+                  @Html.DropDownListFor(m => m.SewingPlantCode, Model.SewingPlant, Model.SewingPlant.Count() > 1 ? "(Please Select)" : null, new
+           {
+               id = "ddlArea",
+               @class = "form-control"
+           })
+                  <p class="help-block  hidden-xs">Select price season code of the cartons to be pulled for your request.</p>
+
+              </div>
+           
+        </div>
+
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Remarks</label>
