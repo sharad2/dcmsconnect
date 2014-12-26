@@ -51,7 +51,7 @@
                         <span class="glyphicon glyphicon-pencil pull-right"></span>
                       
                     </a>
-                    <small>@Model.SkuList.Sum(p => p.AssignedCartons) cartons assigned to @Model.SkuList.Sum(p => p.RequestedPieces) pieces requested</small>
+                    <small>@Model.SkuList.Sum(p => p.AssignedCartons) cartons assigned to @Model.SkuList.Sum(p => p.RequestedPieces) pieces requested.Last tried on @Html.DisplayFor(m => m.AssignedDate)</small>
 
                 </h4>
             </div>

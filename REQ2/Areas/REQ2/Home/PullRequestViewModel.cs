@@ -117,6 +117,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.BuildingId = entity.BuildingId;
             this.PriceSeasonCode = entity.PriceSeasonCode;
             this.SewingPlantCode = entity.SewingPlantCode;
+            this.AssignedDate = entity.AssignedDate;
         }
 
 
@@ -137,6 +138,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string RequestedBy { get; set; }
 
         public DateTime? DateCreated { get; set; }
+
+        public DateTime? AssignedDate { get; set; }
 
         public int QuantityRequested { get; set; }
 
