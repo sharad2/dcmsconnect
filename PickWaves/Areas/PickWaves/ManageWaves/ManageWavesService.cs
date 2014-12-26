@@ -168,7 +168,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //    BucketId = bucketId,
             //    PriorityId = -1
             //}, EditBucketFlags.PriorityDelta);
-            return _repos.UpdatePriority(bucketId, 1);
+            return _repos.UpdatePriority(bucketId, -1);
         }
 
         /// <summary>

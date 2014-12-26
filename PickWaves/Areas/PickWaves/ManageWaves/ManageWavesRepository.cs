@@ -533,9 +533,30 @@ MAX(ps.customer_id) AS customer_id,
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
+
+
         public int UpdatePriority(int bucketId, int delta)
         {
-            throw new NotImplementedException();
+            //  throw new NotImplementedException();      
+            const string QUERY = @"
+                        UPDATE <proxy />BUCKET BKT
+                            SET   BKT.PRIORITY          =  CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :delta, 1) > 99 THEN 99
+                                                       ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :delta, 1)
+                                                     END
+                         WHERE BKT.BUCKET_ID = :BUCKET_ID
+                        RETURNING BKT.PRIORITY
+                        INTO       :PRIORITY_OUT";
+            var binder = SqlBinder.Create();
+            binder.Parameter("delta", delta)
+                .Parameter("BUCKET_ID", bucketId);
+            binder.OutParameter("PRIORITY_OUT", p => delta = p ?? 0);
+            int rows = _db.ExecuteDml(QUERY, binder);
+            if (rows == 0)
+            {
+                // Invalid bucket id
+                return 0;
+            }
+            return delta;
         }
 
         /// <summary> 
@@ -554,9 +575,9 @@ MAX(ps.customer_id) AS customer_id,
                                  BKT.PITCH_IA_ID       = :PITCH_IA_ID,    
                                  BKT.BUCKET_COMMENT    = :BUCKET_COMMENT, 
                                  BKT.PRIORITY          = :PRIORITY,       
-                                -- BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
-                                     --                    ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
-                                    --                     END,                
+                                BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
+                                                       ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
+                                                     END,                
                                  BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
                                  BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      
                                  BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       
