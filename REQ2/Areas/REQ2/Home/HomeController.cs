@@ -136,6 +136,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             model.VirtualWareHouseList = vwh.Select(p => MapCode(p));
             model.TargetVwhList = vwh.Select(p => MapCode(p));
             var areas = _service.GetCartonAreas();
+  
             model.SourceAreas = new SelectList(areas.Where(p => (p.LocationNumberingFlag && (p.IsCartonArea))).OrderBy(m=>m.BuildingId), "AreaId", "Description", "BuildingId",1);
             model.DestinationAreas = new SelectList(areas.Where(p => (!p.LocationNumberingFlag)).OrderBy(m=>m.BuildingId), "AreaId", "Description", "BuildingId", 1);
             var qualityCode = _service.GetQualityCodes();
@@ -143,6 +144,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             model.SourceQualityCodeList = qualityCode.Select(p => MapCode(p));
             var saleTypes = _service.GetSaleTypeList();
             model.SaleTypes = saleTypes.Select(p => MapCode(p));
+            var buildings = _service.GetBuildingList();
+            model.BuildingList = buildings.Select(p => MapCode(p));
 
         }
 

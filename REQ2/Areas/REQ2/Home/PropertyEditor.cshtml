@@ -93,6 +93,7 @@
     role = "form"
 }))
     {
+        
         @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
         
         <div class="form-group">
@@ -147,8 +148,30 @@
                 <p class="help-block  hidden-xs">The Virtual Warehouse to which all pulled SKUs should be converted to</p>
             </div>
         </div>
+        <div class="form-group">
+            
+            <label for="ddlArea" class="col-sm-2 control-label">Building</label>
+            <div class="col-sm-5">
+
+                @Html.DropDownListFor(m => m.BuildingId, Model.BuildingList, Model.BuildingList.Count() > 1 ? "(Please Select)" : null, new
+           {
+               id = "ddlArea",
+               @class = "form-control"
+           })
+                <p class="help-block  hidden-xs">Source area where cartons will be looked.</p>
+               
+            </div>
+           
+                <div class="checkbox col-sm-5">
+                    <label>
+                        @Html.CheckBoxFor(m => m.OverPullCarton, new { }) Allow Overpulling
+                    </label>
+                </div>
+           
+        </div>
 
         <div class="form-group">
+            
             <label for="ddlArea" class="col-sm-2 control-label">Source area</label>
             <div class="col-sm-5">
 
@@ -158,11 +181,7 @@
                @class = "form-control"
            })
                 <p class="help-block  hidden-xs">Source area where cartons will be looked.</p>
-                <div class="checkbox">
-                    <label>
-                        @Html.CheckBoxFor(m => m.OverPullCarton, new { }) Allow Overpulling
-                    </label>
-                </div>
+              
 
             </div>
             <div class="col-sm-5 conversion-only">
