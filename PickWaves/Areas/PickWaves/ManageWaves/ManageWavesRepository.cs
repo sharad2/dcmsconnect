@@ -315,35 +315,9 @@ WHERE 1 = 1
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
-            //if (stateFilter == BoxState.NotSet)
-            //{
+
             binder.ParameterXPath("All", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Completed))
-            //{
-            //    binder.ParameterXPath("Completed", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.InProgress))
-            //{
-            //    binder.ParameterXPath("InProgress", true);
-            //}           
 
-            //switch (activityFilter)
-            //{
-            //    case BucketActivityType.NotSet:
-            //        break;
-
-            //    case BucketActivityType.Pitching:
-            //        binder.ParameterXPath("Pitching", true);
-            //        break;
-
-            //    case BucketActivityType.Pulling:
-            //        binder.ParameterXPath("Pulling", true);
-            //        break;
-
-            //    default:
-            //        throw new NotImplementedException();
-            //}
             binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
@@ -610,16 +584,6 @@ MAX(ps.customer_id) AS customer_id,
                   .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
-
-            //binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
-            //binder.ParameterXPath("PRIORITY_FLAG", flags.HasFlag(EditBucketFlags.Priority));
-            //binder.ParameterXPath("PRIORITY_DELTA_FLAG", flags.HasFlag(EditBucketFlags.PriorityDelta));
-            //binder.ParameterXPath("PULL_CARTON_AREA_FLAG", flags.HasFlag(EditBucketFlags.PullArea));
-            //binder.ParameterXPath("PITCH_IA_ID_FLAG", flags.HasFlag(EditBucketFlags.PitchArea));
-            //binder.ParameterXPath("BUCKET_COMMENT_FLAG", flags.HasFlag(EditBucketFlags.Remarks));
-            //binder.ParameterXPath("PULL_TYPE_FLAG", flags.HasFlag(EditBucketFlags.PullType));
-            //binder.ParameterXPath("QUICK_PITCH_FLAG", flags.HasFlag(EditBucketFlags.QuickPitch));
-            //binder.ParameterXPath("PITCH_LIMIT_FLAG", flags.HasFlag(EditBucketFlags.PitchLimit));
 
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
