@@ -42,10 +42,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
             //Pcs requested
             this.RequestedPieces = entity.RequestedPieces;
+            this.AssignedPieces = entity.AssignedPieces;
+            this.AssignedCartons = entity.AssignedCartons;
 
         }
 
         public int RequestedPieces { get; set; }
+        public int AssignedPieces { get; set; }
+        public int AssignedCartons { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         public SkuModel SourceSku { get; set; }

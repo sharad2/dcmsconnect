@@ -464,10 +464,18 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                    MAX(MSKUCONV.DIMENSION)     AS CON_DIMENSION_,
                    MAX(MSKUCONV.SKU_SIZE)      AS CON_SKU_SIZE_,
                    MAX(MSKUCONV.SKU_ID)                 AS CON_SKU_ID,
-                   MAX(REQDET.QUANTITY_REQUESTED)       AS QUANTITY_REQUESTED
+                   MAX(REQDET.QUANTITY_REQUESTED)       AS QUANTITY_REQUESTED,
+                   SUM(SD.QUANTITY) AS Quantity_assigned,
+                   count(DISTINCT sd.carton_id) AS cartons_assigned
+
               FROM <proxy />CTNRESV C
               INNER JOIN <proxy />SRC_REQ_DETAIL REQDET
                 ON C.ctn_resv_id = REQDET.ctn_resv_id
+              LEFT OUTER JOIN <proxy />SRC_CARTON_DETAIL sd
+               ON sd.Req_Process_Id = reqdet.req_process_id
+               AND sd.req_line_number = reqdet.req_line_number
+               AND sd.req_module_code = reqdet.req_module_code
+
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKU
                 ON MSKU.SKU_ID =  reqdet.sku_id
               LEFT OUTER JOIN <proxy />MASTER_SKU MSKUCONV
@@ -478,6 +486,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var binder = SqlBinder.Create(row => new RequestSku
             {
                 RequestedPieces = row.GetInteger("QUANTITY_REQUESTED") ?? 0,
+                AssignedPieces = row.GetInteger("Quantity_assigned") ?? 0,
+                AssignedCartons = row.GetInteger("cartons_assigned") ?? 0,
                 SourceSku = new Sku
                 {
                     Style = row.GetString("STYLE"),

@@ -13,6 +13,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public Sku SourceSku { get; set; }
         public Sku TargetSku { get; set; }
         public int RequestedPieces { get; set; }
+        public int AssignedPieces { get; set; }
+        public int AssignedCartons { get; set; }
     }
 }
 
