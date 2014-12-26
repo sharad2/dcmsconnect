@@ -463,7 +463,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
             try
             {
-                _service.EditWave(bucket);
+                _service.UpdateWave(bucket);
                 AddStatusMessage(string.Format("Pick Wave {0} updated.", model.BucketId));
             }
             catch (DbException ex)

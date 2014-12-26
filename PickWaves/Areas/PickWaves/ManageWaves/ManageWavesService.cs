@@ -25,7 +25,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state,string userName)
+        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
         {
             return _repos.GetBuckets(customerId, state, userName);
         }
@@ -66,28 +66,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Edit bucket property. Error if you attempt to edit an unfrozen wave
         /// </summary>
         /// <param name="bucket"></param>
-        internal Bucket EditWave(Bucket bucket)
+        internal Bucket UpdateWave(Bucket bucket)
         {
             if (bucket == null)
             {
                 throw new ArgumentNullException("bucket");
             }
 
-                //var bucketCurrent = _repos.GetLockedBucket(bucket.BucketId);
-                //if (bucketCurrent == null)
-                //{
-                //    throw new ValidationException("Invalid Pick Wave" + bucket.BucketId.ToString());
-                //}
-                //if (!bucketCurrent.IsFrozen)
-                //{
-                //    throw new ValidationException("Only frozen Waves can be edited");
-                //}
-                //if (!bucketCurrent.Equals(bucketOld))
-                //{
-                //    throw new ValidationException("Cannot edit. Bucket has been modified by someone else.");
-                //}
-                var updatedWave = _repos.EditWave(bucket);
-                return updatedWave;
+            var updatedWave = _repos.UpdateWave(bucket);
+            return updatedWave;
 
         }
 

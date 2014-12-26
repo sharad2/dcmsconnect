@@ -567,7 +567,7 @@ MAX(ps.customer_id) AS customer_id,
         /// <returns>Updated bucket values. If the passed bucket does not exist, returns null.</returns>
         /// <remarks>
         /// </remarks>
-        internal Bucket EditWave(Bucket bucket)
+        internal Bucket UpdateWave(Bucket bucket)
         {
             const string QUERY = @"
                         UPDATE <proxy />BUCKET BKT
