@@ -14,8 +14,22 @@
 
 <div class="container">
     <div class="page-header">
-        <h1>Recent Pull Requests <small><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor())"> <span class="glyphicon glyphicon-plus-sign"></span></a></small></h1>
+        <h1>Recent Pull Requests @*<small><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor())"> <span class="glyphicon glyphicon-plus-sign"></span></a></small>*@</h1>
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.CtnresvId,true))">Conversion</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.CtnresvId, false))">Non-conversion request</a></li>
+               
+            </ul>
+        </div>
     </div>
+ 
+      
+
     <ul class="list-group">
         <li class="list-group-item list-group-item-info">
             <div class="row">

@@ -82,12 +82,16 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public virtual ActionResult PropertyEditor(string ctnresvId)
+        public virtual ActionResult PropertyEditor(string ctnresvId,bool isConversionRequest)
         {
             PropertyEditorViewModel model;
             if (string.IsNullOrEmpty(ctnresvId))
             {
                 model = new PropertyEditorViewModel();
+                if (isConversionRequest)
+                {
+                    model.RequestForConversion = isConversionRequest;
+                }
             }
             else
             {

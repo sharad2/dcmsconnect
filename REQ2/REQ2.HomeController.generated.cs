@@ -165,6 +165,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public class ActionParamsClass_PropertyEditor
         {
             public readonly string ctnresvId = "ctnresvId";
+            public readonly string isConversionRequest = "isConversionRequest";
         }
         static readonly ActionParamsClass_UpdateRequest s_params_UpdateRequest = new ActionParamsClass_UpdateRequest();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -286,14 +287,15 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         }
 
         [NonAction]
-        partial void PropertyEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+        partial void PropertyEditorOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId, bool isConversionRequest);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult PropertyEditor(string ctnresvId)
+        public override System.Web.Mvc.ActionResult PropertyEditor(string ctnresvId, bool isConversionRequest)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.PropertyEditor);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
-            PropertyEditorOverride(callInfo, ctnresvId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "isConversionRequest", isConversionRequest);
+            PropertyEditorOverride(callInfo, ctnresvId, isConversionRequest);
             return callInfo;
         }
 
