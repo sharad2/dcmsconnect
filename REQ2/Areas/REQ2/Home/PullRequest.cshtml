@@ -59,15 +59,20 @@
                     {
                         <div class="list-group-item">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-8">
                                     <h4 class="list-group-item-heading">
                                         @Html.DisplayFor(m => m.SkuList[i].DisplaySku) @Html.Raw(Model.SkuList[i].DisplayTargetSku != "" ? "&rarr;" : "")  @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
                                     </h4>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.SkuList[i].PercentAssigned%">
+                                        <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.SkuList[i].AssignedPieces) of @Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-3">
                                     <span class="badge pull-right">@Html.DisplayFor(m => m.SkuList[i].AssignedPieces) of  @Html.DisplayFor(m => m.SkuList[i].RequestedPieces) pieces assigned</span>
                                     
-                                </div>
+                                </div>*@
                             </div>
                         </div>
                     }

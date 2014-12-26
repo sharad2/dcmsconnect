@@ -51,6 +51,20 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public int AssignedPieces { get; set; }
         public int AssignedCartons { get; set; }
 
+        public int PercentAssigned
+        {
+            get
+            {
+                if (RequestedPieces == 0 || AssignedPieces > RequestedPieces)
+                {
+                    // We are done
+                    return 100;
+                }
+                return (int)Math.Round((double)AssignedPieces * 100.0 / (double)RequestedPieces);
+            }
+        }
+
+
         [Required(ErrorMessage = "{0} is required")]
         public SkuModel SourceSku { get; set; }
 
