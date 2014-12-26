@@ -85,7 +85,7 @@
     <h2 style="margin-top:0">
         @Html.Raw(string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId))
     </h2>
-
+   
 
     @using (Html.BeginForm(MVC_REQ2.REQ2.Home.UpdateRequest(), FormMethod.Post, new
 {
@@ -95,6 +95,8 @@
     {
         
         @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
+        
+        @Html.HiddenFor(m => m.RequestForConversion, new { id = "RequestForConversion" })
         
         <div class="form-group">
            
