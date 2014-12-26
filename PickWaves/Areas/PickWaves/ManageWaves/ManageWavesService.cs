@@ -3,6 +3,7 @@ using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using System.Linq;
 using System.Web;
 
@@ -63,17 +64,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         /// <summary>
-        /// Edit bucket property. Error if you attempt to edit an unfrozen wave
+        /// Edit bucket property. Error if you attempt to edit an unfrozen wave. This should be called within a transaction so that the update can be cancelled
+        /// if the wave is not frozen
         /// </summary>
         /// <param name="bucket"></param>
-        internal Bucket UpdateWave(Bucket bucket)
+        /// <param name="trans">Required only to ensure that the caller has created a transaction</param>
+        internal BucketEditable UpdateWave(int bucketId, BucketEditable bucket, DbTransaction trans)
         {
             if (bucket == null)
             {
                 throw new ArgumentNullException("bucket");
             }
 
-            var updatedWave = _repos.UpdateWave(bucket);
+            var updatedWave = _repos.UpdateWave(bucketId, bucket);
+            if (!bucket.IsFrozen)
+            {
+                throw new InvalidOperationException("Only frozen pick waves can be edited");
+            }
             return updatedWave;
 
         }
@@ -129,14 +136,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        public void FreezePickWave(int bucketId)
+        public void FreezePickWave(int bucketId, DbTransaction trans)
         {
-            using (var trans = _repos.BeginTransaction())
-            {
                 _repos.DeleteBoxes(bucketId);
                 _repos.SetFreezeStatus(bucketId, true);
-                trans.Commit();
-            }
         }
 
         public void UnfreezePickWave(int bucketId)

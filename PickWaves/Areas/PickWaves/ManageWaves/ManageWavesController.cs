@@ -415,55 +415,32 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             //var pullAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId;
             //var pitchAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId;
-            var bucket = new Bucket
+            var bucket = new BucketEditable
             {
-                BucketId = model.BucketId,
+                //BucketId = model.BucketId,
                 BucketName = model.BucketName,
-                PriorityId = model.PriorityId,
+                //PriorityId = model.PriorityId,
                 BucketComment = model.BucketComment,
-                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch
+                QuickPitch = model.QuickPitch,
+                PitchLimit = model.PitchLimit.Value,
+                RequireBoxExpediting = model.RequiredBoxExpediting,
+                PullAreaId = model.PullAreaId,
+                PitchAreaId = model.PitchAreaId
             };
-            if (!string.IsNullOrEmpty(model.PitchAreaId) && model.PitchLimit != null)
-            {
-                bucket.PitchLimit = model.PitchLimit;
-            }
 
-            // For manage PullToDock flag. In case of pulling, PullToDock is not null.
-            if (!string.IsNullOrEmpty(model.PullAreaId))
-            {
-                if (model.RequiredBoxExpediting)
-                {
-                    bucket.PullingBucket = "N";
-                }
-                else
-                {
-                    bucket.PullingBucket = "Y";
-                }
-            }
-            // In case of pitching, PullToDock is null.
-            else
-            {
-                bucket.PullingBucket = null;
-            }
-
-            bucket.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaId;
-            bucket.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaId;
-            //var bucketOld = new Bucket
-            //{
-            //    BucketId = model.Bucket.BucketId,
-            //    BucketName = model.BucketNameOriginal,
-            //    PriorityId = model.PriorityIdOriginal,
-            //    RequiredBoxExpediting = model.RequiredBoxExpeditingOriginal,
-            //    BucketComment = model.BucketCommentOriginal,
-            //    QuickPitch = model.QuickPitchOriginal,
-            //    PitchLimit = model.PitchLimitOriginal
-            //};
-
-            //bucketOld.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaOriginal;
-            //bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
             try
             {
-                _service.UpdateWave(bucket);
+                using (var trans = _service.BeginTransaction())
+                {
+                    _service.UpdateWave(model.BucketId, bucket, trans);
+                    if (model.UnfreezeWaveAfterSave)
+                    {
+                        //  if user says unfreeze bucket after editing.
+                        _service.FreezePickWave(model.BucketId, trans);
+                    }
+
+                    trans.Commit();
+                }
                 AddStatusMessage(string.Format("Pick Wave {0} updated.", model.BucketId));
             }
             catch (DbException ex)
@@ -479,55 +456,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
                 return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
-            if (model.UnfreezeWaveAfterSave)
-            {
-                //  if user says unfreeze bucket after editing.
-                _service.FreezeWave(model.BucketId, false);
-                AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", model.BucketId));
-                return RedirectToAction(this.Actions.Wave(model.BucketId));
-            }
+
             return RedirectToAction(this.Actions.Wave(model.BucketId));
         }
-        ///// <summary>
-        ///// Returns flags corresponding to changed values. Compares original values with current values.
-        ///// </summary>
-        ///// <param name="model"></param>
-        ///// <returns></returns>
-        //[Obsolete]
-        //private EditBucketFlags GetEditFlags(WaveViewModel model)
-        //{
-        //    var flags = EditBucketFlags.None;
-        //    if (model.BucketNameOriginal != model.Bucket.BucketName)
-        //    {
-        //        flags |= EditBucketFlags.BucketName;
-        //    }
-        //    if (model.PriorityIdOriginal != model.Bucket.PriorityId)
-        //    {
-        //        flags |= EditBucketFlags.Priority;
-        //    }
-        //    if (model.PullAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId)
-        //    {
-        //        flags |= EditBucketFlags.PullArea;
-        //    }
-        //    if (model.PitchAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId)
-        //    {
-        //        flags |= EditBucketFlags.PitchArea;
-        //    }
-        //    if (model.BucketCommentOriginal != model.Bucket.BucketComment)
-        //    {
-        //        flags |= EditBucketFlags.Remarks;
-        //    }
-        //    if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-        //    {
-        //        flags |= EditBucketFlags.QuickPitch;
-        //    }
-        //    if (model.PitchLimitOriginal != model.Bucket.PitchLimit && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-        //    {
-        //        flags |= EditBucketFlags.PitchLimit;
-        //    }
-        //    flags |= EditBucketFlags.PullType;
-        //    return flags;
-        //}
+
 
         /// <summary>
         /// Increase priority.
@@ -568,7 +500,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             try
             {
-                _service.FreezePickWave(bucketId);
+                using (var trans = _service.BeginTransaction())
+                {
+                    _service.FreezePickWave(bucketId, trans);
+                }
                 // user has frozen a bucket.
                 AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
             }
@@ -586,7 +521,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             try
             {
-                _service.FreezePickWave(bucketId);
+                using (var trans = _service.BeginTransaction())
+                {
+                    _service.FreezePickWave(bucketId, trans);
+                }
                 // user has frozen a bucket.
                 AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
                 return RedirectToAction(this.Actions.WaveEditor(bucketId));

@@ -40,13 +40,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         }
 
 
-        public DbTransaction BeginTransaction()
-        {
-
-            return _repos.BeginTransaction();
-
-        }
-
         public int CreateDefaultWave()
         {
             return _repos.CreateDefaultWave();
