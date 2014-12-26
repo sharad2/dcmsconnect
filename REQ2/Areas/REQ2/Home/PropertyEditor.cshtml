@@ -97,18 +97,8 @@
         @Html.HiddenFor(m => m.ResvId, new { id = "resvId" })
         
         <div class="form-group">
-            <label for="CbConversionRequest" class="col-sm-2 control-label">Perform conversion</label>
-            <div class="col-sm-5">
-
-                @Html.CheckBoxFor(m => m.RequestForConversion, new
-           {
-               id = "CbConversionRequest",
-               @class = "form-control"
-           })
-
-                <p class="help-block hidden-xs">Check it if you want to convert SKU.</p>
-            </div>
-            <div class="col-sm-5">
+           
+            <div>
 
                 <div class="form-group">
                     <label for="tbPriority">Priority</label>
