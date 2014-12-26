@@ -21,18 +21,18 @@
 
             var $ddlTargetQuality = $('#ddlTargetQuality');
             var $CbTargetQuality = $('#CbTargetQuality');
-            var $CbConversionRequest = $('#CbConversionRequest');
-            var $ddlTargetVwh = $('#ddlTargetVwh');
+           // var $CbConversionRequest = $('#CbConversionRequest');
+           // var $ddlTargetVwh = $('#ddlTargetVwh');
 
             if ($('#resvId').val() != '') {
             
                 // Converion request can not be undone. 
-                $CbConversionRequest.attr('disabled', 'disabled');
-                if ($CbConversionRequest.attr('checked')) {
-                    $ddlTargetVwh.removeAttr('disabled');
-                } else {
-                    $ddlTargetVwh.attr('disabled', 'disabled');
-                }
+                //$CbConversionRequest.attr('disabled', 'disabled');
+                //if ($CbConversionRequest.attr('checked')) {
+                //    $ddlTargetVwh.removeAttr('disabled');
+                //} else {
+                //    $ddlTargetVwh.attr('disabled', 'disabled');
+                //}
                 if ($ddlTargetQuality.val() != '') {
                     $CbTargetQuality.attr('checked', 'checked');
                 } else {
@@ -43,19 +43,19 @@
 
             }
             else {
-                $CbConversionRequest.removeAttr('disabled');
-                $ddlTargetVwh.attr('disabled', 'disabled');
+              //  $CbConversionRequest.removeAttr('disabled');
+               // $ddlTargetVwh.attr('disabled', 'disabled');
                 $ddlTargetQuality.val('').attr('disabled', 'disabled');
             }
 
-            $CbConversionRequest.change(function (e) {
-                if ($CbConversionRequest.is(':checked')) {
-                    $ddlTargetVwh.removeAttr('disabled');
-                }
-                else {
-                    $ddlTargetVwh.val('').attr('disabled', 'disabled');
-                }
-            });
+            //$CbConversionRequest.change(function (e) {
+            //    if ($CbConversionRequest.is(':checked')) {
+            //        $ddlTargetVwh.removeAttr('disabled');
+            //    }
+            //    else {
+            //        $ddlTargetVwh.val('').attr('disabled', 'disabled');
+            //    }
+            //});
 
             $CbTargetQuality.change(function (e) {
                 if ($CbTargetQuality.is(':checked')) {

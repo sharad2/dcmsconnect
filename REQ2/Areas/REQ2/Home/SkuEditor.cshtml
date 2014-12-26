@@ -80,7 +80,7 @@
                 @if (!Model.AssignedDate.HasValue)
                 {
                     <span style="display: inline-block" class="ui-icon ui-state-active ui-icon-pencil">
-                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.ResvId), MVC_REQ2.REQ2.Home.PropertyEditor(Model.ResvId))
+                    </span>@Html.ActionLink(string.Format("Edit Request #{0}", Model.ResvId), MVC_REQ2.REQ2.Home.PropertyEditor(Model.ResvId,Model.RequestForConversion))
                 }
             </div>
         </div>
