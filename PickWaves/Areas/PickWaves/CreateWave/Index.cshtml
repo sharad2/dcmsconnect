@@ -36,16 +36,9 @@
                     <div class="col-md-3">
                         <span class="h4">Pick Wave @Html.DisplayFor(m => m.LastBucketId)</span>
                         <br />
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.LastBucketId.Value,
-                            DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.UnfreezeMe))" >
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.LastBucketId.Value))" >
                             @*<span class="glyphicon glyphicon-eye-open"></span>*@
                             View
-                        </a>
-                        &nbsp;|&nbsp;
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(Model.LastBucketId.Value,
-                            DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing))" >
-                            @*<span class="glyphicon glyphicon-edit"></span>*@
-                            Edit
                         </a>
                     </div>
                     <div class="col-md-6">

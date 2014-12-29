@@ -3,6 +3,7 @@ using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using System.Linq;
 using System.Web;
 
@@ -25,7 +26,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state,string userName)
+        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
         {
             return _repos.GetBuckets(customerId, state, userName);
         }
@@ -63,31 +64,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         /// <summary>
-        /// Edit bucket property. Error if you attempt to edit an unfrozen wave
+        /// Edit bucket property. Error if you attempt to edit an unfrozen wave. This should be called within a transaction so that the update can be cancelled
+        /// if the wave is not frozen
         /// </summary>
         /// <param name="bucket"></param>
-        internal Bucket EditWave(Bucket bucket)
+        /// <param name="trans">Required only to ensure that the caller has created a transaction</param>
+        internal BucketEditable UpdateWave(int bucketId, BucketEditable bucket, DbTransaction trans)
         {
             if (bucket == null)
             {
                 throw new ArgumentNullException("bucket");
             }
 
-                //var bucketCurrent = _repos.GetLockedBucket(bucket.BucketId);
-                //if (bucketCurrent == null)
-                //{
-                //    throw new ValidationException("Invalid Pick Wave" + bucket.BucketId.ToString());
-                //}
-                //if (!bucketCurrent.IsFrozen)
-                //{
-                //    throw new ValidationException("Only frozen Waves can be edited");
-                //}
-                //if (!bucketCurrent.Equals(bucketOld))
-                //{
-                //    throw new ValidationException("Cannot edit. Bucket has been modified by someone else.");
-                //}
-                var updatedWave = _repos.EditWave(bucket);
-                return updatedWave;
+            var updatedWave = _repos.UpdateWave(bucketId, bucket);
+            if (!bucket.IsFrozen)
+            {
+                throw new InvalidOperationException("Only frozen pick waves can be edited");
+            }
+            return updatedWave;
 
         }
 
@@ -103,6 +97,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <param name="freeze"></param>
+        [Obsolete]
         public Bucket FreezeWave(int bucketId, bool freeze)
         {
             using (var trans = _repos.BeginTransaction())
@@ -141,6 +136,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
+        public void FreezePickWave(int bucketId, DbTransaction trans)
+        {
+                _repos.DeleteBoxes(bucketId);
+                _repos.SetFreezeStatus(bucketId, true);
+        }
+
+        public void UnfreezePickWave(int bucketId)
+        {
+            using (var trans = _repos.BeginTransaction())
+            {
+                _repos.CreateBoxes(bucketId);
+                _repos.SetFreezeStatus(bucketId, false);
+                trans.Commit();
+            }
+        }
+
         /// <summary>
         /// Increase priority by 1.
         /// </summary>
@@ -168,7 +179,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //    BucketId = bucketId,
             //    PriorityId = -1
             //}, EditBucketFlags.PriorityDelta);
-            return _repos.UpdatePriority(bucketId, 1);
+            return _repos.UpdatePriority(bucketId, -1);
         }
 
         /// <summary>

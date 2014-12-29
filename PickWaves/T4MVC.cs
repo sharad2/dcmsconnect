@@ -149,6 +149,7 @@ namespace Links_PickWaves
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
                         public static readonly string Wave_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Wave.min.js") ? Url("Wave.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.min.js") : Url("Wave.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Wave.js");
+                        public static readonly string WaveEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/WaveEditor.min.js") ? Url("WaveEditor.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/WaveEditor.min.js") : Url("WaveEditor.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/WaveEditor.js");
                         }
         
         }

@@ -1,14 +1,17 @@
 ﻿using DcmsMobile.PickWaves.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     public class WaveEditorViewModel
     {
+        public WaveEditorViewModel()
+        {
+                
+        }
+
         internal WaveEditorViewModel(Bucket entity)
         {
             this.BucketComment = entity.BucketComment;
@@ -16,7 +19,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             this.BucketName = entity.BucketName;
             this.CustomerId = entity.MaxCustomerId;
             this.CustomerName = entity.MaxCustomerName;
-            //this.PiecesIncomplete=entity.p
             if (entity.Activities.Contains(Helpers.BucketActivityType.Pitching))
             {
                 this.PitchAreaId = entity.Activities[Helpers.BucketActivityType.Pitching].Area.AreaId;
@@ -28,7 +30,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 this.PullAreaShortName = entity.Activities[Helpers.BucketActivityType.Pulling].Area.ShortName;
             }
             this.PitchLimit = entity.PitchLimit;
-            this.PriorityId = entity.PriorityId;
+            //this.PriorityId = entity.PriorityId;
             this.QuickPitch = entity.QuickPitch;
             this.RequiredBoxExpediting = entity.RequiredBoxExpediting; 
             
@@ -41,7 +43,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public string BucketName { get; set; }
 
-        public int PriorityId { get; set; }
+        //public int PriorityId { get; set; }
 
         public string PullAreaId { get; set; }
 
@@ -55,17 +57,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public bool QuickPitch { get; set; }
 
+        [Required]
         public int? PitchLimit { get; set; }
 
         public string BucketComment { get; set; }
 
         public bool UnfreezeWaveAfterSave { get; set; }
 
-
-        // public int PiecesIncomplete { get; set; }
-
         public string PullAreaShortName { get; set; }
 
         public string PitchAreaShortName { get; set; }
+
+        public int PiecesIncomplete { get; set; }
     }
 }

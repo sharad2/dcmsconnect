@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Runtime.Caching;
 
@@ -51,6 +52,11 @@ namespace DcmsMobile.PickWaves.Repository
         internal Bucket GetBucket(int bucketId)
         {
             return _repos.GetBucket(bucketId);
+        }
+
+        internal DbTransaction BeginTransaction()
+        {
+            return _repos.BeginTransaction();
         }
     }
 }

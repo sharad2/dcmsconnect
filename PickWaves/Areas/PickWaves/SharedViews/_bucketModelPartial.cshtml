@@ -14,8 +14,7 @@
 
         <h3 class="list-group-item-heading" style="display:inline-block">
             Pick Wave <a title="Pick Wave Details"
-                         href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId,
-                                                                   DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.BackTo))">
+                         href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">
 
                 @Model.BucketId
             </a>
@@ -25,31 +24,7 @@
                 <small class="badge"> <em>Frozen</em></small>
             }
         </h3>
-        <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>
-        @if (isAuthorized)
-        {
-            <div class="pull-right">
-                @if (Model.IsFrozen)
-                {
-
-                    <a class="btn btn-default btn-xs"
-                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.EditableWave(
-                                                            Model.BucketId,
-                                                    DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.SuggestedNextActionType.CancelEditing))">
-                        <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
-                }
-                else
-                {
-                <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#freezeModal" data-bucketid="@Model.BucketId" data-countnotstartedboxes="@Model.CountNotStartedBoxes">
-                        <span class="glyphicon glyphicon-ban-circle"></span> Freeze
-                    </button>
-                }
-            </div>
-        }
-
-
+        <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>       
     </div>
     <div class="panel-body">
         <div class="row">

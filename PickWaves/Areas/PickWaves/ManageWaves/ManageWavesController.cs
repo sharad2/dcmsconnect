@@ -89,7 +89,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [AllowAnonymous]
         [Route("wave")]
-        public virtual ActionResult Wave(int bucketId, SuggestedNextActionType nextAction)
+        public virtual ActionResult Wave(int bucketId)
         {
             var bucket = _service.GetBucket(bucketId);
             if (bucket == null)
@@ -100,7 +100,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             var model = new WaveViewModel
             {
-                HighlightedActions = nextAction
+                //HighlightedActions = nextAction
             };
             model.Bucket = new BucketModel(bucket);
 
@@ -111,126 +111,127 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
             if (!model.Bucket.IsFrozen)
             {
-                model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
+                //model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
             }
             return View(this.Views.Wave, model);
         }
 
-        /// <summary>
-        /// We check bucket is editable or not.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Route("editable")]
-        [Obsolete]
-        public virtual ActionResult EditableWave(int bucketId, SuggestedNextActionType suggestedNextAction)
-        {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
-            }
-            var bucket = _service.GetBucket(bucketId);
-            if (bucket == null)
-            {
-                // Unreasonable bucket id
-                ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
-            }
-            if (!bucket.IsFrozen)
-            {
-                // bucket is not freeze,freeze it before attempting to edit it.
-                ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
-            }
+        ///// <summary>
+        ///// We check bucket is editable or not.
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[Route("editable")]
+        //[Obsolete]
+        //public virtual ActionResult EditableWave(int bucketId, SuggestedNextActionType suggestedNextAction)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+        //    }
+        //    var bucket = _service.GetBucket(bucketId);
+        //    if (bucket == null)
+        //    {
+        //        // Unreasonable bucket id
+        //        ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+        //    }
+        //    if (!bucket.IsFrozen)
+        //    {
+        //        // bucket is not freeze,freeze it before attempting to edit it.
+        //        ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
+        //        return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
+        //    }
 
-            var model = new WaveViewModel
-            {
-                HighlightedActions = suggestedNextAction,
-                Bucket = new BucketModel(bucket)
-            };
+        //    var model = new WaveViewModel
+        //    {
+        //        HighlightedActions = suggestedNextAction,
+        //        Bucket = new BucketModel(bucket)
+        //    };
 
 
-            var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
-            model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
-                {
-                    {
-                        BucketActivityType.Pulling,
-                        (from area in bucketAreas
-                         where area.AreaType == BucketActivityType.Pulling
-                         orderby area.CountSku descending
-                            select new SelectListItem
-                            {
-                                Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                Value = area.CountSku > 0 ? area.AreaId : "",
-                                Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
-                            }).ToArray()
-                      },
-                      {
-                            BucketActivityType.Pitching,
-                            (from area in bucketAreas
-                             where area.AreaType == BucketActivityType.Pitching
-                             orderby area.CountSku descending
-                             select new SelectListItem
-                                {
-                                   Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                   Value = area.CountSku > 0 ? area.AreaId : "",
-                                   Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
-                                }).ToArray()
-                       }
-                };
+        //    var bucketAreas = _service.GetBucketAreas(model.Bucket.BucketId);
+        //    model.BucketAreaLists = new Dictionary<BucketActivityType, IList<SelectListItem>>
+        //        {
+        //            {
+        //                BucketActivityType.Pulling,
+        //                (from area in bucketAreas
+        //                 where area.AreaType == BucketActivityType.Pulling
+        //                 orderby area.CountSku descending
+        //                    select new SelectListItem
+        //                    {
+        //                        Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+        //                        Value = area.CountSku > 0 ? area.AreaId : "",
+        //                        Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
+        //                    }).ToArray()
+        //              },
+        //              {
+        //                    BucketActivityType.Pitching,
+        //                    (from area in bucketAreas
+        //                     where area.AreaType == BucketActivityType.Pitching
+        //                     orderby area.CountSku descending
+        //                     select new SelectListItem
+        //                        {
+        //                           Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+        //                           Value = area.CountSku > 0 ? area.AreaId : "",
+        //                           Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
+        //                        }).ToArray()
+        //               }
+        //        };
 
-            //For Pull area
-            if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
-            {
-                // We have some areas with no ordered SKUs
-                model.BucketAreaLists[BucketActivityType.Pulling] = model.BucketAreaLists[BucketActivityType.Pulling].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
-                if (!model.BucketAreaLists[BucketActivityType.Pulling].Any())
-                {
-                    // We do have pull areas but none with SKUs needed
-                    model.BucketAreaLists[BucketActivityType.Pulling].Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not available in any Pull Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
-            }
+        //    //For Pull area
+        //    if (model.BucketAreaLists[BucketActivityType.Pulling].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+        //    {
+        //        // We have some areas with no ordered SKUs
+        //        model.BucketAreaLists[BucketActivityType.Pulling] = model.BucketAreaLists[BucketActivityType.Pulling].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+        //        if (!model.BucketAreaLists[BucketActivityType.Pulling].Any())
+        //        {
+        //            // We do have pull areas but none with SKUs needed
+        //            model.BucketAreaLists[BucketActivityType.Pulling].Add(new SelectListItem
+        //            {
+        //                Text = "(Ordered SKUs are not available in any Pull Area)",
+        //                Value = "",
+        //                Selected = true
+        //            });
+        //        }
+        //    }
 
-            //For Pitch area
-            if (model.BucketAreaLists[BucketActivityType.Pitching].Any(p => string.IsNullOrWhiteSpace(p.Value)))
-            {
-                // We have some areas with no ordered SKUs
-                model.BucketAreaLists[BucketActivityType.Pitching] = model.BucketAreaLists[BucketActivityType.Pitching].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
-                if (!model.BucketAreaLists[BucketActivityType.Pitching].Any())
-                {
-                    // We do have pitch areas but none with SKUs needed
-                    model.BucketAreaLists[BucketActivityType.Pitching].Add(new SelectListItem
-                    {
-                        Text = "(Ordered SKUs are not assigned in any Pitch Area)",
-                        Value = "",
-                        Selected = true
-                    });
-                }
-            }
+        //    //For Pitch area
+        //    if (model.BucketAreaLists[BucketActivityType.Pitching].Any(p => string.IsNullOrWhiteSpace(p.Value)))
+        //    {
+        //        // We have some areas with no ordered SKUs
+        //        model.BucketAreaLists[BucketActivityType.Pitching] = model.BucketAreaLists[BucketActivityType.Pitching].Where(p => !string.IsNullOrWhiteSpace(p.Value)).ToList();
+        //        if (!model.BucketAreaLists[BucketActivityType.Pitching].Any())
+        //        {
+        //            // We do have pitch areas but none with SKUs needed
+        //            model.BucketAreaLists[BucketActivityType.Pitching].Add(new SelectListItem
+        //            {
+        //                Text = "(Ordered SKUs are not assigned in any Pitch Area)",
+        //                Value = "",
+        //                Selected = true
+        //            });
+        //        }
+        //    }
 
-            // For edit wave
-            model.DisplayEditableWave = true;
-            model.BucketNameOriginal = bucket.BucketName;
-            model.PriorityIdOriginal = bucket.PriorityId;
-            model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-            model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-            model.BucketCommentOriginal = bucket.BucketComment;
-            model.QuickPitchOriginal = bucket.QuickPitch;
-            model.PitchLimitOriginal = bucket.PitchLimit;
+        //    // For edit wave
+        //    model.DisplayEditableWave = true;
+        //    model.BucketNameOriginal = bucket.BucketName;
+        //    model.PriorityIdOriginal = bucket.PriorityId;
+        //    model.PullAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
+        //    model.PitchAreaOriginal = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
+        //    model.BucketCommentOriginal = bucket.BucketComment;
+        //    model.QuickPitchOriginal = bucket.QuickPitch;
+        //    model.PitchLimitOriginal = bucket.PitchLimit;
 
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                // If pulling bucket
-                model.Bucket.RequiredBoxExpediting = true;
-                model.RequiredBoxExpeditingOriginal = true;
-            }
-            return View(this.Views.Wave, model);
-        }
+
+        //    if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+        //    {
+        //        // If pulling bucket
+        //        model.Bucket.RequiredBoxExpediting = true;
+        //        model.RequiredBoxExpeditingOriginal = true;
+        //    }
+        //    return View(this.Views.Wave, model);
+        //}
 
         /// <summary>
         /// Ajax call.
@@ -397,7 +398,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("editwave")]
+        [Route("updatewave")]
         public virtual ActionResult UpdateWave(WaveEditorViewModel model)
         {
             if (!ModelState.IsValid)
@@ -414,117 +415,51 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             //var pullAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId;
             //var pitchAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId;
-            var bucket = new Bucket
+            var bucket = new BucketEditable
             {
-                BucketId = model.BucketId,
+                //BucketId = model.BucketId,
                 BucketName = model.BucketName,
-                PriorityId = model.PriorityId,
+                //PriorityId = model.PriorityId,
                 BucketComment = model.BucketComment,
-                QuickPitch = !string.IsNullOrEmpty(model.PitchAreaId) && model.QuickPitch
+                QuickPitch = model.QuickPitch,
+                PitchLimit = model.PitchLimit.Value,
+                RequireBoxExpediting = model.RequiredBoxExpediting,
+                PullAreaId = model.PullAreaId,
+                PitchAreaId = model.PitchAreaId
             };
-            if (!string.IsNullOrEmpty(model.PitchAreaId) && model.PitchLimit != null)
-            {
-                bucket.PitchLimit = model.PitchLimit;
-            }
 
-            // For manage PullToDock flag. In case of pulling, PullToDock is not null.
-            if (!string.IsNullOrEmpty(model.PullAreaId))
-            {
-                if (model.RequiredBoxExpediting)
-                {
-                    bucket.PullingBucket = "N";
-                }
-                else
-                {
-                    bucket.PullingBucket = "Y";
-                }
-            }
-            // In case of pitching, PullToDock is null.
-            else
-            {
-                bucket.PullingBucket = null;
-            }
-
-            bucket.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaId;
-            bucket.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaId;
-            //var bucketOld = new Bucket
-            //{
-            //    BucketId = model.Bucket.BucketId,
-            //    BucketName = model.BucketNameOriginal,
-            //    PriorityId = model.PriorityIdOriginal,
-            //    RequiredBoxExpediting = model.RequiredBoxExpeditingOriginal,
-            //    BucketComment = model.BucketCommentOriginal,
-            //    QuickPitch = model.QuickPitchOriginal,
-            //    PitchLimit = model.PitchLimitOriginal
-            //};
-
-            //bucketOld.Activities[BucketActivityType.Pulling].Area.AreaId = model.PullAreaOriginal;
-            //bucketOld.Activities[BucketActivityType.Pitching].Area.AreaId = model.PitchAreaOriginal;
             try
             {
-                _service.EditWave(bucket);
+                using (var trans = _service.BeginTransaction())
+                {
+                    _service.UpdateWave(model.BucketId, bucket, trans);
+                    if (model.UnfreezeWaveAfterSave)
+                    {
+                        //  if user says unfreeze bucket after editing.
+                        _service.FreezePickWave(model.BucketId, trans);
+                    }
+
+                    trans.Commit();
+                }
                 AddStatusMessage(string.Format("Pick Wave {0} updated.", model.BucketId));
             }
             catch (DbException ex)
             {
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(this.Actions.Wave(model.BucketId));
             }
-            if (model.UnfreezeWaveAfterSave)
-            {
-                //  if user says unfreeze bucket after editing.
-                _service.FreezeWave(model.BucketId, false);
-                AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", model.BucketId));
-                return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeOthers));
-            }
-            return RedirectToAction(this.Actions.Wave(model.BucketId, SuggestedNextActionType.UnfreezeMe));
+
+            return RedirectToAction(this.Actions.Wave(model.BucketId));
         }
-        /// <summary>
-        /// Returns flags corresponding to changed values. Compares original values with current values.
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [Obsolete]
-        private EditBucketFlags GetEditFlags(WaveViewModel model)
-        {
-            var flags = EditBucketFlags.None;
-            if (model.BucketNameOriginal != model.Bucket.BucketName)
-            {
-                flags |= EditBucketFlags.BucketName;
-            }
-            if (model.PriorityIdOriginal != model.Bucket.PriorityId)
-            {
-                flags |= EditBucketFlags.Priority;
-            }
-            if (model.PullAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId)
-            {
-                flags |= EditBucketFlags.PullArea;
-            }
-            if (model.PitchAreaOriginal != model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId)
-            {
-                flags |= EditBucketFlags.PitchArea;
-            }
-            if (model.BucketCommentOriginal != model.Bucket.BucketComment)
-            {
-                flags |= EditBucketFlags.Remarks;
-            }
-            if (model.QuickPitchOriginal != model.Bucket.QuickPitch && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-            {
-                flags |= EditBucketFlags.QuickPitch;
-            }
-            if (model.PitchLimitOriginal != model.Bucket.PitchLimit && !string.IsNullOrWhiteSpace(model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId))
-            {
-                flags |= EditBucketFlags.PitchLimit;
-            }
-            flags |= EditBucketFlags.PullType;
-            return flags;
-        }
+
 
         /// <summary>
         /// Increase priority.
@@ -553,7 +488,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         /// <summary>
-        /// This method is used to freeze or unfreeze any bucket.
+        /// This method is used to freeze a bucket.
         /// </summary>
         /// <param name="bucketId"> </param>
         /// <param name="freeze"> </param>
@@ -561,37 +496,63 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [HttpPost]
         [Route("freeze")]
-        public virtual ActionResult FreezeBucket(int bucketId, bool freeze, bool displayEditable = false)
+        public virtual ActionResult FreezeBucket(int bucketId)
         {
             try
             {
-                _service.FreezeWave(bucketId, freeze);
-                if (freeze)
+                using (var trans = _service.BeginTransaction())
                 {
-                    // user has frozen a bucket.
-                    AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
-                    if (displayEditable)
-                    {
-                        return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing
-                            | SuggestedNextActionType.FreezeOthers));
-                    }
-                    else
-                    {
-                        return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.EditMe | SuggestedNextActionType.FreezeOthers));
-                    }
+                    _service.FreezePickWave(bucketId, trans);
                 }
-                else
-                {
-                    // User has unfrozen a bucket.
-                    AddStatusMessage(string.Format("Pick wave {0} has been unfrozen.", bucketId));
-                    return RedirectToAction(this.Actions.Wave(bucketId, SuggestedNextActionType.UnfreezeOthers));
-                }
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
             }
-            catch (ValidationException ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                return RedirectToAction(this.Actions.EditableWave(bucketId, SuggestedNextActionType.CancelEditing));
             }
+            return RedirectToAction(this.Actions.Wave(bucketId));
+        }
+
+
+        [HttpPost]
+        [Route("freezeedit")]
+        public virtual ActionResult FreezeAndEditBucket(int bucketId)
+        {
+            try
+            {
+                using (var trans = _service.BeginTransaction())
+                {
+                    _service.FreezePickWave(bucketId, trans);
+                }
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} has been frozen.", bucketId));
+                return RedirectToAction(this.Actions.WaveEditor(bucketId));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                // In case of error, show the wave viewer page
+                return RedirectToAction(this.Actions.Wave(bucketId));
+            }
+
+        }
+
+        [HttpPost]
+        [Route("unfreeze")]
+        public virtual ActionResult UnfreezeBucket(int bucketId)
+        {
+            try
+            {
+                _service.UnfreezePickWave(bucketId);
+                // user has frozen a bucket.
+                AddStatusMessage(string.Format("Pick wave {0} is no longer frozen.", bucketId));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            return RedirectToAction(this.Actions.Wave(bucketId));
         }
 
         /// <summary>
@@ -634,7 +595,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // bucket is not freeze,freeze it before attempting to edit it.
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId, SuggestedNextActionType.NotSet));
+                return RedirectToAction(Actions.Wave(bucketId));
             }
 
             var bucketAreas = _service.GetBucketAreas(bucketId);
@@ -659,7 +620,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                      Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
                                  }).ToList()
             };
-            
+
 
 
 
@@ -742,7 +703,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //    model.RequiredBoxExpeditingOriginal = true;
             //}
 
-            return View(Views.WaveEditor,model);
+            return View(Views.WaveEditor, model);
         }
     }
 }

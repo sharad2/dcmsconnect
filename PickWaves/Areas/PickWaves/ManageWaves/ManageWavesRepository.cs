@@ -9,39 +9,6 @@ using System.Xml.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    /// <summary>
-    /// Flags which indicate what properties need to be updated
-    /// </summary>
-    [Flags]
-    [Obsolete]
-    internal enum EditBucketFlags
-    {
-        /// <summary>
-        /// No task needs to be performed
-        /// </summary>
-        None = 0,
-
-        BucketName = 0x1,
-
-        Priority = 0x2,
-
-        PullArea = 0x4,
-
-        PitchArea = 0x8,
-
-        Remarks = 0x10,
-
-        PullType = 0x40,
-
-        /// <summary>
-        /// The priority of the bucket must be incremented/decremented by the value specified in the Bucket.Priority property
-        /// </summary>
-        PriorityDelta = 0x80,
-
-        QuickPitch = 0x100,
-
-        PitchLimit = 0x200
-    }
 
     internal class ManageWavesRepository : PickWaveRepositoryBase
     {
@@ -64,6 +31,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
+        [Obsolete]
         public Bucket GetLockedBucket(int bucketId)
         {
             const string QUERY = @"
@@ -310,42 +278,16 @@ WHERE 1 = 1
                     bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");                   
+                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
                     return bs;
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
-            //if (stateFilter == BoxState.NotSet)
-            //{
-                binder.ParameterXPath("All", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Completed))
-            //{
-            //    binder.ParameterXPath("Completed", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.InProgress))
-            //{
-            //    binder.ParameterXPath("InProgress", true);
-            //}           
 
-            //switch (activityFilter)
-            //{
-            //    case BucketActivityType.NotSet:
-            //        break;
+            binder.ParameterXPath("All", true);
 
-            //    case BucketActivityType.Pitching:
-            //        binder.ParameterXPath("Pitching", true);
-            //        break;
-
-            //    case BucketActivityType.Pulling:
-            //        binder.ParameterXPath("Pulling", true);
-            //        break;
-
-            //    default:
-            //        throw new NotImplementedException();
-            //}
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
         private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
@@ -427,7 +369,7 @@ MAX(ps.customer_id) AS customer_id,
                 CustomerId = row.GetString("customer_id")
             });
             binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
         /// <summary>
@@ -496,46 +438,35 @@ MAX(ps.customer_id) AS customer_id,
                 VWhId = row.GetString("VWH_ID")
             });
             binder.Parameter("BUCKET_ID", bucketId);
-
-            //if (stateFilter == BoxState.NotSet)
-            //{
-                binder.ParameterXPath("All", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Completed))
-            //{
-            //    binder.ParameterXPath("Completed", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.InProgress))
-            //{
-            //    binder.ParameterXPath("InProgress", true);
-            //}
-            //if (stateFilter.HasFlag(BoxState.Cancelled))
-            //{
-            //    binder.ParameterXPath("Cancelled", true);
-            //}
-            //switch (activityFilter)
-            //{
-            //    case BucketActivityType.NotSet:
-            //        break;
-
-            //    case BucketActivityType.Pitching:
-            //        binder.ParameterXPath("Pitching", true);
-            //        break;
-
-            //    case BucketActivityType.Pulling:
-            //        binder.ParameterXPath("Pulling", true);
-            //        break;
-
-            //    default:
-            //        throw new NotImplementedException();
-            //}
+            binder.ParameterXPath("All", true);
             binder.TolerateMissingParams = true;
-            return _db.ExecuteReader(QUERY, binder,2000);
+            return _db.ExecuteReader(QUERY, binder, 2000);
         }
+
+
 
         public int UpdatePriority(int bucketId, int delta)
         {
-            throw new NotImplementedException();
+            //  throw new NotImplementedException();      
+            const string QUERY = @"
+                        UPDATE <proxy />BUCKET BKT
+                            SET   BKT.PRIORITY          =  CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :delta, 1) > 99 THEN 99
+                                                       ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :delta, 1)
+                                                     END
+                         WHERE BKT.BUCKET_ID = :BUCKET_ID
+                        RETURNING BKT.PRIORITY
+                        INTO       :PRIORITY_OUT";
+            var binder = SqlBinder.Create();
+            binder.Parameter("delta", delta)
+                .Parameter("BUCKET_ID", bucketId);
+            binder.OutParameter("PRIORITY_OUT", p => delta = p ?? 0);
+            int rows = _db.ExecuteDml(QUERY, binder);
+            if (rows == 0)
+            {
+                // Invalid bucket id
+                return 0;
+            }
+            return delta;
         }
 
         /// <summary> 
@@ -545,20 +476,17 @@ MAX(ps.customer_id) AS customer_id,
         /// <param name="flags"> </param>
         /// <returns>Updated bucket values. If the passed bucket does not exist, returns null.</returns>
         /// <remarks>
+        /// Throws an exception if the pick wave is not frozen
         /// </remarks>
-        internal Bucket EditWave(Bucket bucket)
+        internal BucketEditable UpdateWave(int bucketId, BucketEditable bucket)
         {
             const string QUERY = @"
                         UPDATE <proxy />BUCKET BKT
                             SET  BKT.NAME              = :NAME,           
                                  BKT.PITCH_IA_ID       = :PITCH_IA_ID,    
-                                 BKT.BUCKET_COMMENT    = :BUCKET_COMMENT, 
-                                 BKT.PRIORITY          = :PRIORITY,       
-                                 BKT.PRIORITY          = CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1) > 99 THEN 99
-                                                         ELSE GREATEST(NVL(BKT.PRIORITY, 0) + :PRIORITY, 1)
-                                                         END,                
+                                 BKT.BUCKET_COMMENT    = :BUCKET_COMMENT,                    
                                  BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
-                                 BKT.PULL_TO_DOCK      = :PULL_TO_DOCK,      
+                                 BKT.PULL_TYPE      = :PULL_TYPE,      
                                  BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       
                                  BKT.PITCH_LIMIT       = :PITCH_LIMIT,       
                                  BKT.DATE_MODIFIED = SYSDATE
@@ -566,61 +494,47 @@ MAX(ps.customer_id) AS customer_id,
                         RETURNING BKT.NAME, 
                                   BKT.PITCH_IA_ID,
                                   BKT.BUCKET_COMMENT,
-                                  BKT.PRIORITY,
                                   BKT.PULL_CARTON_AREA,
-                                  BKT.PULL_TO_DOCK,
+                                  BKT.PULL_TYPE,
                                   BKT.QUICK_PITCH_FLAG,
-                                  BKT.PITCH_LIMIT
+                                  BKT.PITCH_LIMIT,
+BKT.FREEZE
                         INTO      :NAME_OUT,
                                   :PITCH_IA_ID_OUT,
                                   :BUCKET_COMMENT_OUT,
-                                  :PRIORITY_OUT,
                                   :PULL_CARTON_AREA_OUT,
-                                  :PULL_TO_DOCK_OUT,
+                                  :PULL_TYPE_OUT,
                                   :QUICK_PITCH_FLAG_OUT,
-                                  :PITCH_LIMIT_OUT";
+                                  :PITCH_LIMIT_OUT,
+:FREEZE_OUT
+";
             var binder = SqlBinder.Create();
             binder.Parameter("NAME", bucket.BucketName)
-                  .Parameter("PRIORITY", bucket.PriorityId)
-                  .Parameter("PULL_CARTON_AREA", bucket.Activities[BucketActivityType.Pulling].Area.AreaId)
-                  .Parameter("PITCH_IA_ID", bucket.Activities[BucketActivityType.Pitching].Area.AreaId)
-                  .Parameter("BUCKET_ID", bucket.BucketId)
-                  .Parameter("PULL_TO_DOCK", bucket.PullingBucket)
+                  .Parameter("PULL_CARTON_AREA", bucket.PullAreaId)
+                  .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
+                  .Parameter("BUCKET_ID", bucketId)
+                  .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
                   .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
-            //binder.ParameterXPath("NAME_FLAG", flags.HasFlag(EditBucketFlags.BucketName));
-            //binder.ParameterXPath("PRIORITY_FLAG", flags.HasFlag(EditBucketFlags.Priority));
-            //binder.ParameterXPath("PRIORITY_DELTA_FLAG", flags.HasFlag(EditBucketFlags.PriorityDelta));
-            //binder.ParameterXPath("PULL_CARTON_AREA_FLAG", flags.HasFlag(EditBucketFlags.PullArea));
-            //binder.ParameterXPath("PITCH_IA_ID_FLAG", flags.HasFlag(EditBucketFlags.PitchArea));
-            //binder.ParameterXPath("BUCKET_COMMENT_FLAG", flags.HasFlag(EditBucketFlags.Remarks));
-            //binder.ParameterXPath("PULL_TYPE_FLAG", flags.HasFlag(EditBucketFlags.PullType));
-            //binder.ParameterXPath("QUICK_PITCH_FLAG", flags.HasFlag(EditBucketFlags.QuickPitch));
-            //binder.ParameterXPath("PITCH_LIMIT_FLAG", flags.HasFlag(EditBucketFlags.PitchLimit));
-
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
-                .OutParameter("PRIORITY_OUT", p => bucket.PriorityId = p ?? 0)
                 .OutParameter("PITCH_LIMIT_OUT", p => bucket.PitchLimit = p ?? 0) //TODO
-                .OutParameter("PULL_TO_DOCK_OUT", p => bucket.PullingBucket = p)
-                .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y");
-            binder.OutParameter("PITCH_IA_ID_OUT", p =>
-                {
-                    bucket.Activities[BucketActivityType.Pitching].Area.AreaId = p;
-                });
-            binder.OutParameter("PULL_CARTON_AREA_OUT", p =>
-                    {
-                        bucket.Activities[BucketActivityType.Pulling].Area.AreaId = p;
-                    });
+                .OutParameter("PULL_TYPE_OUT", p => bucket.QuickPitch = p == "EXP")
+                .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y")
+                .OutParameter("PITCH_IA_ID_OUT", p => bucket.PitchAreaId = p)
+                .OutParameter("PULL_CARTON_AREA_OUT", p => bucket.PullAreaId = p)
+                .OutParameter("FREEZE_OUT", p => bucket.IsFrozen = p == "Y");
+
 
             int rows = _db.ExecuteDml(QUERY, binder);
             if (rows == 0)
             {
                 // Invalid bucket id
-                return null;
+                throw new ArgumentOutOfRangeException("bucketId", "Could not update pick wave " + bucketId.ToString());
             }
+
             return bucket;
         }
 

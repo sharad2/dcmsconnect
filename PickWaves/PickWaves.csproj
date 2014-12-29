@@ -106,6 +106,7 @@
     <Compile Include="Areas\PickWaves\CreateWave\DimensionValue.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\IndexNoPickslipsViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\SparseMatrix.cs" />
+    <Compile Include="Areas\PickWaves\ManageWaves\BucketEditable.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\ManageWavesController.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletController.cs" />
     <Compile Include="Areas\PickWaves\Home\HomeController.cs" />
@@ -248,6 +249,12 @@
     <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js">
       <DependentUpon>Wave.js</DependentUpon>
     </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.js">
+      <DependentUpon>WaveEditor.js.bundle</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.min.js">
+      <DependentUpon>WaveEditor.js</DependentUpon>
+    </Content>
     <Content Include="Areas\PickWaves\SharedViews\typeahead.css">
       <DependentUpon>typeahed.css.bundle</DependentUpon>
     </Content>
@@ -262,7 +269,6 @@
     </Content>
     <Content Include="Areas\PickWaves\SharedViews\_bucketModel.partial.js" />
     <Content Include="Areas\PickWaves\SharedViews\_bucketModelPartial.cshtml" />
-    <Content Include="Areas\PickWaves\SharedViews\_bucketModelModalPartial.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -276,7 +282,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js.map" />
-    <Content Include="Areas\PickWaves\ManageWaves\Wave.js.bundle" />
+    <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Areas\PickWaves\SharedViews\_layoutBootstrap.cshtml" />
     <Content Include="Scripts\npm.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -299,9 +307,6 @@
     <Content Include="Areas\PickWaves\Config\CustSkuCase.cshtml" />
     <Content Include="Areas\PickWaves\Config\StyleSkuCase.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\Wave.partial.js" />
-    <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
-      <DependentUpon>Wave.min.js</DependentUpon>
-    </Content>
     <Content Include="Areas\PickWaves\CreateWave\IndexNoPickslips.cshtml" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.js.bundle" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.min.js.map">
@@ -312,6 +317,15 @@
       <DependentUpon>PickslipList.min.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\Wave.js.bundle">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\Wave.min.js.map">
+      <DependentUpon>Wave.min.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\PickWaves\ManageWaves\WaveEditor.min.js.map">
+      <DependentUpon>WaveEditor.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -339,9 +353,6 @@
       <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
     </None>
     <None Include="Areas\PickWaves\ManageWaves\Index.js.bundle" />
-    <Content Include="Areas\PickWaves\ManageWaves\_bucketEditorPartial.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="Doc\PickWaveManager.doc" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />

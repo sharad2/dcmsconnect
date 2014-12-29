@@ -1,6 +1,6 @@
 ﻿$(document).ready(function (e) {
 	"use strict";
-	// Make the first tab active
+	// Make the first tab active. Load tab content when it becomes active
 	$('#tabs').on('show.bs.tab', function (e) {
 		// Load AJAX content when the tab is shown
 		$('img', e.target).removeClass('hidden');
@@ -19,7 +19,6 @@
 		});
 	}).on('click', 'button[data-pickslip-remove-url]', function (e) {
 		// Remove Pickslip
-		//alert($(e.target).data('pickslip-remove-url'));
 
 		$.post($(e.target).data('pickslip-remove-url')).done(function (data, textStatus, jqXHR) {
 			//success
@@ -30,4 +29,10 @@
 			alert.html(jqXHR.responseText);
 		});
 	}).find('> ul a:first').tab('show');
+
+	//$('#freezeModal').on('click', 'button:not([data-dismiss])', function (e) {
+	//    //alert('submit');
+	//    $('form', e.delegateTarget).trigger('submit');
+	//});
+
 });
