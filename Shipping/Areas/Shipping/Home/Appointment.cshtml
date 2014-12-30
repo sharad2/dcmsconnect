@@ -1,0 +1,143 @@
+﻿@*Create appointment dialog performs synchronous AJAX request. We need it for the Calendar view to display correctly.
+   Must have following properties as these are used by appointment script
+    data-event-url:url to action which fetches appointments 
+    data-start-param:start date parameter of action fecthing appointments.
+    data-end-param:end date parameter of action fecthing appointments.
+    data-viewname-param:view name parameter of action fecthing appointments.
+    data-createupdate-url: url of action for creating and  updating appointment.
+    data-delete-url:url of action for deleting appointment.
+    data-id-param=id aparam for action to update truck arival time
+    data-appointmentTime-param: appointment time parameter of action to update truck arrival time. 
+    data-updatearrival-url:url of action to update trcuk arrival time
+    data-initial-date :initial date 
+    data-initial-appId: initial appointment Id
+*@
+
+
+@model DcmsMobile.Shipping.ViewModels.AppointmentViewModel
+@{      
+    ViewBag.Title = "Appointments";
+    var isLoggedIn = ViewContext.HttpContext.User.Identity.IsAuthenticated;
+}
+@section sidebar {
+    <div>
+        @if (!string.IsNullOrWhiteSpace(Model.Summary.CustomerId))
+        {
+            <span>Filters: Customer: @Model.Summary.CustomerId</span>
+        }
+        <a href="@Url.Action(MVC_Shipping.Shipping.Home.AllAppointments())">
+            <strong style="font-style: italic">Clear Filters</strong></a>
+    </div>
+    <div id="divBuildings" class="box boxA">
+        <h3>Filter by Building</h3>
+        <div class="boxContent">
+            @foreach (var item in Model.BuildingList)
+            {
+                <div>
+                    <input type="checkbox" value="@item.Value" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.buildingIdList" checked />@item.Text
+                </div>
+            }
+            <hr />
+            <h3>Filter by Type</h3>
+            <div id="divFilter" style="padding-top: 1mm">
+                <input type="radio" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.scheduled" checked value="" /><label>All</label>
+                <br />
+                <input id="rbScheduled" type="radio" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.scheduled" value="true">
+                <label for="rbScheduled" title="Appointments for which carrier has been specified">Scheduled</label>
+                <br />
+                <input id="rbUnScheduled" type="radio" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.scheduled" value="false">
+                <label for="rbUnScheduled" title="Appointments for which carrier has not been specified">Unscheduled</label>                   
+                 <hr />
+                <h3>Filter by Carrier</h3>
+                <span style="white-space: nowrap">
+                    <input type="text" id="tbCarrierFilter" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.carrierId" size="12" maxlength="4"
+                        data-list-url="@Url.Action(MVC_Shipping.Shipping.AutoComplete.GetCarriers())" />
+                    &darr;
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="box boxA">
+        <div id="divShipped" class="boxContent">
+            <input id="cbShipped" type="checkbox" value="true" name="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.shipped"/>
+            <label for="cbShipped">Include Shipped</label>
+        </div>
+    </div>
+    <div class="box boxA">
+        <h3>Find</h3>
+        <div class="boxContent">
+            <label for="tbAppointmentNumber">Appointment Number</label>
+            <br />
+            <input id="tbAppointmentNumber" type="text" name="@MVC_Shipping.Shipping.Home.GetAppointmentByNumberParams.appointmentNumber" value="@Model.AppointmentNumber" size="10" maxlength="4" />
+            <button id="btnAppNumber" data-url="@Url.Action(MVC_Shipping.Shipping.Home.GetAppointmentByNumber(-1))">Go</button>
+            <hr />
+            <label for="#tbGotoAppointmentDate">Go To Date</label>
+            <input id="tbGotoAppointmentDate" size="9" data-image-url="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif"/>
+        </div>
+    </div>
+
+}
+@Html.ValidationSummary()
+@Html.StatusSummary()
+<div id="divAppntDltdError">
+</div>
+<div id="calendarLoading">Loading</div>
+<div id='calendar' data-event-url="@Url.Action(MVC_Shipping.Shipping.Home.GetAppointments())" 
+    data-start-param ="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.start"
+    data-end-param ="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.end"
+    data-viewname-param ="@MVC_Shipping.Shipping.Home.GetAppointmentsParams.viewName"
+    data-createupdate-url="@Url.Action(MVC_Shipping.Shipping.Home.CreateUpdateAppointment())"
+    data-delete-url ="@Url.Action(MVC_Shipping.Shipping.Home.DeleteAppointment(-1))" 
+    data-id-param="@MVC_Shipping.Shipping.Home.UpdateTruckArrivalParams.id"
+    data-appointmentTime-param="@MVC_Shipping.Shipping.Home.UpdateTruckArrivalParams.appointmentTime"
+    data-updatearrival-url="@Url.Action(MVC_Shipping.Shipping.Home.UpdateTruckArrival())"
+    data-initial-date="@Model.InitialDateIso"
+    data-initial-appId="@Model.AppointmentId"
+    data-userLogged-in="@isLoggedIn">
+</div>
+<div id="dlgAppointment">
+    <form>
+        <div>
+            <label>
+                Building</label>
+            @Html.DropDownList(ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.BuildingId), Model.BuildingList, "(Please Select)", new
+                {
+                    id = "ddlBuilding"
+                   
+                })<sup>*</sup>
+        </div>
+        <div>
+            <label>
+                Door</label>
+            <input id="tbDoor" name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.PickUpDoor)" size="4" maxlength="5" style="text-transform:uppercase" />
+        </div>
+
+        <div>
+            <label>
+                Scheduled Pickup</label>
+            <input id="tbAppointmentDate" name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.AppointmentDate)" size="10" 
+                data-image-url="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
+            <input name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.AppointmentDate)" id="tbAppointmentTime" size="8" /><sup>*</sup>
+        </div>
+        <div>
+            <label>
+                Carrier</label>
+            <input id="tbCarrier" maxlength="4" name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.CarrierId)" data-list-url="@Url.Action(MVC_Shipping.Shipping.AutoComplete.GetCarriers())" />&darr;
+        </div>
+        <div>
+            <label>
+                Remarks</label>
+            <textarea id="tbRemarks" rows="2" cols="30"  maxlength="100" name="@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.AppointmentModel m) => m.Remarks)"></textarea>
+        </div>
+        <div id="divAjaxError">
+        </div>
+    </form>
+</div>
+
+
+@section scripts {
+    <script type='text/javascript' src="@Links_Shipping.Areas.Shipping.Home.Scripts.fullcalendar_js"></script>
+    <script src="@Links_Shipping.Areas.Shipping.Home.Scripts.Appointment_js" type="text/javascript"></script>
+    <link href="@Links_Shipping.Areas.Shipping.Home.Appointment_css" rel="stylesheet" type="text/css" />
+   
+}

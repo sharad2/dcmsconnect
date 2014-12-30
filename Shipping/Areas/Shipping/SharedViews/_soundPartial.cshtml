@@ -1,0 +1,60 @@
+﻿@model char
+@helper SoundFile()
+{
+    string url;
+    switch (Model)
+    {
+        case '\0':
+            if (this.ViewData.ModelState.IsValid)
+            {
+                url = Links_Shipping.Areas.Shipping.SharedViews.Sounds.success_wav;
+            }
+            else
+            {
+                url = Links_Shipping.Areas.Shipping.SharedViews.Sounds.Error_wav;
+            }
+            break;
+
+        case 'S':
+            url = Links_Shipping.Areas.Shipping.SharedViews.Sounds.success_wav;
+            break;
+
+        case 'E':
+            url = Links_Shipping.Areas.Shipping.SharedViews.Sounds.Error_wav;
+            break;
+
+        case 'W':
+            url = Links_Shipping.Areas.Shipping.SharedViews.Sounds.warning_wav;
+            break;
+
+        default:
+            throw new NotImplementedException();
+    }
+    @url   
+}
+@helper Loop()
+{
+    int loop = 0;
+    switch (Model)
+    {
+        case '\0':
+            if (!this.ViewData.ModelState.IsValid)
+            {
+                loop = 5;
+            }
+            break;
+
+        case 'E':
+            loop = 5;
+            break;
+
+        default:
+            break;
+    }
+    if (loop > 0)
+    {
+        string loopString = string.Format("loop={0}", loop);
+    @loopString
+    }
+}
+<bgsound src="@SoundFile()" @Loop() />

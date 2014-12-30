@@ -96,39 +96,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Shipping\Controllers\AutoCompleteController.cs" />
-    <Compile Include="Areas\Shipping\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Shipping\Controllers\ScanToTruckController.cs" />
+    <Compile Include="Areas\Shipping\AutoComplete\AutoCompleteController.cs" />
+    <Compile Include="Areas\Shipping\Home\HomeController.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckController.cs" />
     <Compile Include="Areas\Shipping\ShippingAreaRegistration.cs" />
     <Compile Include="Areas\Shipping\Subareas.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\UnixTimestampBinder.cs" />
-    <Compile Include="Repository\Address.cs" />
-    <Compile Include="Repository\Appointment.cs" />
-    <Compile Include="Repository\AtsDateSummary.cs" />
-    <Compile Include="Repository\Bol.cs" />
-    <Compile Include="Repository\Carrier.cs" />
-    <Compile Include="Repository\CodeDescriptionModel.cs" />
-    <Compile Include="Repository\CustomerOrderSummary.cs" />
-    <Compile Include="Repository\EdiPo.cs" />
-    <Compile Include="Repository\PoStatus.cs" />
-    <Compile Include="Repository\RoutingUpdater.cs" />
-    <Compile Include="Repository\RoutablePo.cs" />
-    <Compile Include="Repository\Po.cs" />
-    <Compile Include="Repository\Customer.cs" />
-    <Compile Include="Repository\ScanToTruck\Appointment.cs" />
-    <Compile Include="Repository\ScanToTruck\Box.cs" />
+    <Compile Include="Areas\Shipping\Home\Appointment.cs" />
+    <Compile Include="Areas\Shipping\Home\AtsDateSummary.cs" />
+    <Compile Include="Areas\Shipping\Home\Bol.cs" />
+    <Compile Include="Areas\Shipping\AutoComplete\Carrier.cs" />
+    <Compile Include="Areas\Shipping\Home\CodeDescriptionModel.cs" />
+    <Compile Include="Areas\Shipping\Home\CustomerOrderSummary.cs" />
+    <Compile Include="Areas\Shipping\Home\EdiPo.cs" />
+    <Compile Include="Areas\Shipping\Home\PoStatus.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingUpdater.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutablePo.cs" />
+    <Compile Include="Areas\Shipping\Home\Po.cs" />
+    <Compile Include="Areas\Shipping\Home\Customer.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Appointment.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Box.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\AutoCompleteRepository.cs" />
-    <Compile Include="Repository\ScanToTruck\Pallet.cs" />
-    <Compile Include="Repository\ScanToTruck\ScanToTruckRepository.cs" />
-    <Compile Include="Repository\ScanToTruck\ScanToTruckService.cs" />
-    <Compile Include="Repository\AppointmentBol.cs" />
-    <Compile Include="Repository\ShippingAddress.cs" />
-    <Compile Include="Repository\ShippingRepository.cs" />
-    <Compile Include="Repository\ShippingService.cs" />
+    <Compile Include="Areas\Shipping\Home\AutoCompleteRepository.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\Pallet.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckRepository.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ScanToTruckService.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentBol.cs" />
+    <Compile Include="Areas\Shipping\Home\ShippingRepository.cs" />
+    <Compile Include="Areas\Shipping\Home\ShippingService.cs" />
     <Compile Include="Resources\ShippingResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,7 +141,7 @@
     <Compile Include="Shipping.ScanToTruckController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Shipping.SharedController.generated.cs">
+    <Compile Include="Shipping.SharedViewsController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="T4MVC.cs">
@@ -151,77 +149,145 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AppointmentModel.cs" />
-    <Compile Include="ViewModels\AppointmentViewModel.cs" />
-    <Compile Include="ViewModels\BolModel.cs" />
-    <Compile Include="ViewModels\BolViewModel.cs" />
-    <Compile Include="ViewModels\CustomerSummaryModel.cs" />
-    <Compile Include="ViewModels\PoSearchResultsViewModel.cs" />
-    <Compile Include="ViewModels\PoStatusModel.cs" />
-    <Compile Include="ViewModels\RoutablePoModel.cs" />
-    <Compile Include="ViewModels\RoutedViewModel.cs" />
-    <Compile Include="ViewModels\LayoutTabsViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\IndexViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\UnloadPalletViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\ViewModelBase.cs" />
-    <Compile Include="ViewModels\UnroutedPoModel.cs" />
-    <Compile Include="ViewModels\RoutingSummaryViewModel.cs" />
-    <Compile Include="ViewModels\RoutingViewModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\PalletModel.cs" />
-    <Compile Include="ViewModels\ScanToTruck\PalletViewModel.cs" />
-    <Compile Include="ViewModels\AppointmentBolModel.cs" />
-    <Compile Include="ViewModels\UnroutedViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\BolModel.cs" />
+    <Compile Include="Areas\Shipping\Home\BolViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\CustomerSummaryModel.cs" />
+    <Compile Include="Areas\Shipping\Home\PoSearchResultsViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\PoStatusModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutablePoModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutedViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\LayoutTabsViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\IndexViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\UnloadPalletViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\ViewModelBase.cs" />
+    <Compile Include="Areas\Shipping\Home\UnroutedPoModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingSummaryViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\RoutingViewModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\PalletModel.cs" />
+    <Compile Include="Areas\Shipping\ScanToTruck\PalletViewModel.cs" />
+    <Compile Include="Areas\Shipping\Home\AppointmentBolModel.cs" />
+    <Compile Include="Areas\Shipping\Home\UnroutedViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shipping\Content\Appointment.css">
+    <Content Include="Areas\Shipping\SharedViews\GuidedTruckLoading.ppt" />
+    <Content Include="Areas\Shipping\Home\Appointment.css">
       <DependentUpon>Appointment.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Appointment.min.css">
+    <Content Include="Areas\Shipping\Home\Appointment.min.css">
       <DependentUpon>Appointment.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Print.css" />
-    <Content Include="Areas\Shipping\Content\Shipping-all.css">
+    <Content Include="Areas\Shipping\SharedViews\Print.css" />
+    <Content Include="Areas\Shipping\SharedViews\Shipping-all.css">
       <DependentUpon>Shipping-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Shipping-all.min.css">
+    <Content Include="Areas\Shipping\SharedViews\Shipping-all.min.css">
       <DependentUpon>Shipping-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Shipping-mobile-all.css">
+    <Content Include="Areas\Shipping\SharedViews\Shipping-mobile-all.css">
       <DependentUpon>Shipping-mobile-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Shipping-mobile-all.min.css">
+    <Content Include="Areas\Shipping\SharedViews\Shipping-mobile-all.min.css">
       <DependentUpon>Shipping-mobile-all.css.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\Sounds\Error.wav" />
-    <Content Include="Areas\Shipping\Content\Sounds\success.wav" />
-    <Content Include="Areas\Shipping\Content\Sounds\warning.wav" />
-    <Content Include="Areas\Shipping\Scripts\Appointment.min.js">
+    <Content Include="Areas\Shipping\SharedViews\Sounds\Error.wav" />
+    <Content Include="Areas\Shipping\SharedViews\Sounds\success.wav" />
+    <Content Include="Areas\Shipping\SharedViews\Sounds\warning.wav" />
+    <Content Include="Areas\Shipping\Home\Scripts\Appointment.min.js">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Bol.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.js">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Bol.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.min.js">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Index-desktop.min.js">
       <DependentUpon>Index-desktop.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Routing.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Routing.js">
       <DependentUpon>Routing.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Routing.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Routing.min.js">
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Content\GuidedTruckLoading.ppt" />
-    <Content Include="Content\themes\Start1.10.0\jquery-ui.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Appointment.min.js.map">
+    <Content Include="Areas\Shipping\Home\Scripts\Appointment.min.js.map">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -230,92 +296,73 @@
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\Shipping\Content\Appointment.css.bundle" />
-    <None Include="Areas\Shipping\Content\Shipping-all.css.bundle">
+    <None Include="Areas\Shipping\Home\Appointment.css.bundle" />
+    <None Include="Areas\Shipping\SharedViews\Shipping-all.css.bundle">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Areas\Shipping\Content\Shipping-mobile-all.css.bundle" />
-    <None Include="Areas\Shipping\Scripts\Bol.js.bundle" />
-    <Content Include="Areas\Shipping\Scripts\Bol.min.js.map">
+    <None Include="Areas\Shipping\SharedViews\Shipping-mobile-all.css.bundle" />
+    <None Include="Areas\Shipping\Home\Scripts\Bol.js.bundle" />
+    <Content Include="Areas\Shipping\Home\Scripts\Bol.min.js.map">
       <DependentUpon>Bol.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Index-desktop.min.js.map">
+    <Content Include="Areas\Shipping\Home\Scripts\Index-desktop.min.js.map">
       <DependentUpon>Index-desktop.js</DependentUpon>
     </Content>
-    <None Include="Areas\Shipping\Scripts\Routing.js.bundle">
+    <None Include="Areas\Shipping\Home\Scripts\Routing.js.bundle">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Areas\Shipping\Scripts\Routing.min.js.map">
-      <DependentUpon>Routing.js.bundle</DependentUpon>
-    </Content>
-    <None Include="Areas\Shipping\Scripts\Unrouted.js.bundle" />
-    <Content Include="Areas\Shipping\Scripts\Unrouted.min.js.map">
+    <None Include="Areas\Shipping\Home\Scripts\Unrouted.js.bundle" />
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.min.js.map">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Shipping.pubxml" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_55_999999_40x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_flat_75_aaaaaa_40x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_45_0078ae_1x400.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_55_f8da4e_1x400.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_glass_75_79c9ec_1x400.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_50_6eac2c_500x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_gloss-wave_75_2191c0_500x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_0078ae_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_056b93_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_d8e7f3_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_e0fdff_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_f5e175_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_f7a50d_256x240.png" />
-    <None Include="Content\themes\Start1.10.0\images\ui-icons_fcd113_256x240.png" />
     <None Include="Scripts\jquery-ui-1.10.0.js" />
-    <None Include="Areas\Shipping\Scripts\selectable.partial.js" />
-    <Content Include="Areas\Shipping\Scripts\Unrouted.js">
+    <None Include="Areas\Shipping\Home\Scripts\selectable.partial.js" />
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.js">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Scripts\Unrouted.min.js">
+    <Content Include="Areas\Shipping\Home\Scripts\Unrouted.min.js">
       <DependentUpon>Unrouted.js.bundle</DependentUpon>
     </Content>
-    <Content Include="Areas\Shipping\Views\Shared\_soundPartial.cshtml" />
-    <Content Include="Areas\Shipping\Views\ScanToTruck\UnloadPallet.cshtml" />
-    <Content Include="Areas\Shipping\Views\ScanToTruck\Index.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\PoSearchResults.cshtml" />
+    <Content Include="Areas\Shipping\SharedViews\_soundPartial.cshtml" />
+    <Content Include="Areas\Shipping\ScanToTruck\UnloadPallet.cshtml" />
+    <Content Include="Areas\Shipping\ScanToTruck\Index.cshtml" />
+    <Content Include="Areas\Shipping\Home\PoSearchResults.cshtml" />
     <None Include="Properties\PublishProfiles\desktop.pubxml" />
     <None Include="Scripts\jquery.validate.unobtrusive.js" />
     <None Include="Scripts\_references.js" />
-    <None Include="Areas\Shipping\Content\fullcalendar.partial.css" />
-    <None Include="Areas\Shipping\Content\Appointment.partial.css" />
-    <Content Include="Areas\Shipping\Content\images\a1.gif" />
-    <Content Include="Areas\Shipping\Content\images\ajax-loader.gif" />
-    <Content Include="Areas\Shipping\Content\images\calendar.gif" />
-    <None Include="Areas\Shipping\Content\Shipping.mobile.partial.css" />
-    <None Include="Areas\Shipping\Content\SiteMobile.partial.css" />
-    <None Include="Areas\Shipping\Content\standardized.partial.css" />
-    <None Include="Areas\Shipping\Content\Shipping.partial.css" />
-    <Content Include="Areas\Shipping\Scripts\fullcalendar.js" />
-    <None Include="Areas\Shipping\Scripts\Appointment.js" />
-    <None Include="Areas\Shipping\Scripts\Bol.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Routing.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Unrouted.partial.js" />
-    <None Include="Areas\Shipping\Scripts\Index-desktop.js" />
-    <Content Include="Areas\Shipping\Views\Home\_dayHtmlPartial.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\_monthHtmlPartial.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\_bolAppointmentHtmlPartial.cshtml" />
+    <None Include="Areas\Shipping\Home\fullcalendar.partial.css" />
+    <None Include="Areas\Shipping\Home\Appointment.partial.css" />
+    <Content Include="Areas\Shipping\Home\images\a1.gif" />
+    <Content Include="Areas\Shipping\Home\images\ajax-loader.gif" />
+    <Content Include="Areas\Shipping\Home\images\calendar.gif" />
+    <None Include="Areas\Shipping\SharedViews\Shipping.mobile.partial.css" />
+    <None Include="Areas\Shipping\SharedViews\SiteMobile.partial.css" />
+    <None Include="Areas\Shipping\SharedViews\standardized.partial.css" />
+    <None Include="Areas\Shipping\SharedViews\Shipping.partial.css" />
+    <Content Include="Areas\Shipping\Home\Scripts\fullcalendar.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Appointment.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Bol.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Routing.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Unrouted.partial.js" />
+    <None Include="Areas\Shipping\Home\Scripts\Index-desktop.js" />
+    <Content Include="Areas\Shipping\Home\_dayHtmlPartial.cshtml" />
+    <Content Include="Areas\Shipping\Home\_monthHtmlPartial.cshtml" />
+    <Content Include="Areas\Shipping\Home\_bolAppointmentHtmlPartial.cshtml" />
     <None Include="Doc\Readme.txt" />
     <None Include="Doc\Roles.txt" />
     <None Include="Doc\SampleLayout.html" />
     <None Include="Doc\ScanToTruck.txt" />
     <None Include="Global.asax" />
-    <Content Include="Areas\Shipping\Views\Home\Unrouted.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\Routing.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\Routed.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\Bol.cshtml" />
+    <Content Include="Areas\Shipping\Home\Unrouted.cshtml" />
+    <Content Include="Areas\Shipping\Home\Routing.cshtml" />
+    <Content Include="Areas\Shipping\Home\Routed.cshtml" />
+    <Content Include="Areas\Shipping\Home\Bol.cshtml" />
     <None Include="Doc\GTL Technical.docx" />
-    <Content Include="Areas\Shipping\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Shipping\Views\ScanToTruck\Pallet.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\Index.mobile.cshtml" />
-    <Content Include="Areas\Shipping\Views\Home\Appointment.cshtml" />
+    <Content Include="Areas\Shipping\Home\Index.cshtml" />
+    <Content Include="Areas\Shipping\ScanToTruck\Pallet.cshtml" />
+    <Content Include="Areas\Shipping\Home\Index.mobile.cshtml" />
+    <Content Include="Areas\Shipping\Home\Appointment.cshtml" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
@@ -329,18 +376,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="Areas\Shipping\Views\Web.config">
+    <Content Include="Areas\Shipping\Web.config">
       <SubType>
       </SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shipping\Views\Home\RoutingSummary.cshtml" />
+    <Content Include="Areas\Shipping\Home\RoutingSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shipping\Views\Shared\_layoutShipping.cshtml" />
-    <Content Include="Areas\Shipping\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Shipping\Views\Shared\_layoutShipping.Mobile.cshtml" />
+    <Content Include="Areas\Shipping\SharedViews\_layoutShipping.cshtml" />
+    <Content Include="Areas\Shipping\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

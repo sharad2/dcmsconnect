@@ -1,0 +1,168 @@
+﻿@model DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel
+@{
+    var layoutResult = ViewEngines.Engines.FindPartialView(ViewContext.Controller.ControllerContext, MVC_Shipping.Shipping.SharedViews.Views._layoutShipping);
+    ViewBag.Title = "Routing Summary";
+    int i = 0;
+}
+
+@Html.ValidationSummary(true)
+@Html.StatusSummary()
+
+   @* @if (Model.RoutingFilter != DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.NotSet)
+    {
+    <div class="box">
+        <div class="boxContent">
+        Filtered by <strong>@Model.DisplayName</strong>
+        </div>
+    </div>
+    }*@
+    <p>
+        Display customers having:       
+        <a class="@(Model.RoutingFilter==DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.NotSet && string.IsNullOrEmpty(Model.PostedCustomerId) ? "filter-highlight" : "")" href="@Url.Action(MVC_Shipping.Shipping.Home.RoutingSummaryAll(new DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel(null,DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.NotSet)))">All</a>|   
+        <a class="@(Model.RoutingFilter==DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.UnroutedOnly && string.IsNullOrEmpty(Model.PostedCustomerId) ? "filter-highlight" : "")"href="@Url.Action(MVC_Shipping.Shipping.Home.RoutingSummaryAll(new DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel(null,DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.UnroutedOnly)))" title="Only show Customers having Unrouted Orders. ">Unrouted</a>|    
+        <a class="@(Model.RoutingFilter==DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.RoutingOnly && string.IsNullOrEmpty(Model.PostedCustomerId) ? "filter-highlight" : "")"href="@Url.Action(MVC_Shipping.Shipping.Home.RoutingSummaryAll(new DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel(null,DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.RoutingOnly)))" title="Only show Customers having Routing Orders. ">Routing</a>|
+        <a class="@(Model.RoutingFilter==DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.RoutedOnly && string.IsNullOrEmpty(Model.PostedCustomerId) ? "filter-highlight" : "")"href="@Url.Action(MVC_Shipping.Shipping.Home.RoutingSummaryAll(new DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel(null,DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.RoutedOnly)))" title="Only show Customers having Routed Orders. ">Routed</a>|    
+        <a class="@(Model.RoutingFilter==DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.BolOnly && string.IsNullOrEmpty(Model.PostedCustomerId) ? "filter-highlight" : "")" href="@Url.Action(MVC_Shipping.Shipping.Home.RoutingSummaryAll(new DcmsMobile.Shipping.ViewModels.RoutingSummaryViewModel(null,DcmsMobile.Shipping.ViewModels.RoutingSummaryFilter.BolOnly)))" title="Only show Customers having some created Bol.">BOL</a> &nbsp;Orders
+    </p>
+
+<table style="width: 100%">
+    <caption>
+        @if (Model.Summary == null)
+        {
+            <text>
+            Open Orders Routing Summary by Customer</text>
+        }
+        else
+        {
+            <text>
+            Open Orders Routing Summary for @Model.Summary.CustomerDisplay
+            </text>
+        }
+    </caption>
+    <thead>
+        <tr>
+            <th>#
+            </th>
+            <th>Customer
+            </th>
+            <th>DC Cancel <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s"
+                title="List of DC Cancel dates in ascending order."></span>
+            </th>
+            <th>Ordered
+            </th>
+            <td># PO
+                    <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                        <div style="width: 25%" class="ui-progressbar-value ui-corner-left">Unrouted</div>
+                        <div style="left: 25%; width: 25%" class="ui-progressbar-value  ui-state-highlight">Routing</div>
+                        <div style="left: 50%; width: 25%" class="ui-progressbar-value ui-widget-header">Routed</div>
+                        <div style="left: 75%; width: 25%" class="ui-progressbar-value ui-state-active">In BOL</div>
+                    </div>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CustomerRoutingDetails)
+        {
+            <tr  class="@(i % 2 == 0 ? "rowA" : "rowB")">
+                <td>
+                    @(i + 1)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.EdiCustomer))
+                    {
+                        <span class="ui-icon ui-icon-info" style="display: inline-block" title="For this customer EDI 753 is sent and received EDI 754 Data."></span>
+                    }
+                    @item.CustomerDisplay
+                </td>
+                <td>
+                    @item.DcCancelDateDisplay
+                </td>
+                <td>
+                    <strong>@string.Format("{0:N0} POs", item.CountOpenPos)</strong>. @item.OrderedPiecesDisplay pieces.
+                        <em>@item.TotalDollarsOrderedDisplay</em>
+                </td>
+                <td>
+                    <div class="ui-progressbar ui-widget ui-widget-content ui-corner-all">
+                        @if (item.CountUnroutedpo.HasValue)
+                        {
+                            <div style="width: @item.PercentUnroutedPo%" class="ui-progressbar-value ui-corner-left">
+                                <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(item.CustomerId)))"
+                                        title="POs which are not part of any BOL or EDI"
+                                        >@item.CountUnroutedpoDisplay</a>
+                            </div>
+                        }
+                        @if (item.CountRoutingInProgressPo.HasValue)
+                        {
+                            <div style="left: @item.PercentUnroutedPo%; width: @item.PercentRoutingInProgressPo%" class="ui-progressbar-value  ui-state-highlight ">
+                                <a href="@Url.Action(MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(item.CustomerId)))"
+                                        title='POs included in an EDI for which routing information has not been set'
+                                        >
+                                    @item.CountRoutingInProgressPoDisplay</a>
+                            </div>
+                        }
+                        @if (item.CountRoutedPo.HasValue)
+                        {
+                            <div style="left: @(item.PercentUnroutedPo + item.PercentRoutingInProgressPo)%; width: @item.PercentRoutedPo%" class="ui-progressbar-value ui-widget-header">
+                                <a href="@Url.Action(MVC_Shipping.Shipping.Home.Routed(new DcmsMobile.Shipping.ViewModels.RoutedViewModel(item.CustomerId)))"
+                                        title="POs included in an EDI for which routing information has been set"
+                                        >@item.CountRoutedPoDisplay</a>
+                            </div>
+                        }
+                        @if (item.CountPosInBol.HasValue)
+                        {
+                            <div style="left: @(item.PercentUnroutedPo + item.PercentRoutingInProgressPo + item.PercentRoutedPo)%; width: @item.PercentPosInBol%"
+                                     class="ui-progressbar-value ui-state-active">
+                                <a href="@Url.Action(MVC_Shipping.Shipping.Home.Bol(new DcmsMobile.Shipping.ViewModels.BolViewModel(item.CustomerId, null, null)))" >@item.CountPosInBolDisplay</a>
+                            </div>
+                        }
+                    </div>
+                </td>
+            </tr>
+                        ++i;
+        }
+    </tbody>
+</table>
+@section sidebar{
+  
+    <div class="box">
+        <h3>Legend</h3>
+        <div class="boxContent">
+            <span class="ui-icon ui-icon-info" style="display: inline-block"></span>Displays against a customer for which EDI 753 is sent and received EDI 754 Data.
+        </div>
+    </div>
+}
+@section scripts{
+    <style type="text/css">
+        td .ui-progressbar-value {
+            position: absolute;
+            font-weight: normal;
+            overflow: hidden;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        td .ui-state-active a:link, td .ui-state-active a:visited, td .ui-state-active a {
+            text-decoration: underline;
+        }
+
+        td .ui-progressbar {
+            overflow: visible;
+        }
+
+        thead th, thead td {
+            text-align: center;
+        }
+
+        .ui-progressbar {
+            position: relative;
+            height: 1.1em;
+            width: 20em;
+        }
+
+        .filter-highlight
+        {
+            font-weight:bold;
+            font-size:1.3em;
+        }
+    </style>
+}

@@ -490,6 +490,7 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string _dayHtmlPartial = "_dayHtmlPartial";
                 public readonly string _monthHtmlPartial = "_monthHtmlPartial";
                 public readonly string Appointment = "Appointment";
+                public readonly string Appointment_css = "Appointment.css";
                 public readonly string Bol = "Bol";
                 public readonly string Index = "Index";
                 public readonly string Index_mobile = "Index.mobile";
@@ -499,18 +500,53 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string RoutingSummary = "RoutingSummary";
                 public readonly string Unrouted = "Unrouted";
             }
-            public readonly string _bolAppointmentHtmlPartial = "~/Areas/Shipping/Views/Home/_bolAppointmentHtmlPartial.cshtml";
-            public readonly string _dayHtmlPartial = "~/Areas/Shipping/Views/Home/_dayHtmlPartial.cshtml";
-            public readonly string _monthHtmlPartial = "~/Areas/Shipping/Views/Home/_monthHtmlPartial.cshtml";
-            public readonly string Appointment = "~/Areas/Shipping/Views/Home/Appointment.cshtml";
-            public readonly string Bol = "~/Areas/Shipping/Views/Home/Bol.cshtml";
-            public readonly string Index = "~/Areas/Shipping/Views/Home/Index.cshtml";
-            public readonly string Index_mobile = "~/Areas/Shipping/Views/Home/Index.mobile.cshtml";
-            public readonly string PoSearchResults = "~/Areas/Shipping/Views/Home/PoSearchResults.cshtml";
-            public readonly string Routed = "~/Areas/Shipping/Views/Home/Routed.cshtml";
-            public readonly string Routing = "~/Areas/Shipping/Views/Home/Routing.cshtml";
-            public readonly string RoutingSummary = "~/Areas/Shipping/Views/Home/RoutingSummary.cshtml";
-            public readonly string Unrouted = "~/Areas/Shipping/Views/Home/Unrouted.cshtml";
+            public readonly string _bolAppointmentHtmlPartial = "~/Areas/Shipping/Home/_bolAppointmentHtmlPartial.cshtml";
+            public readonly string _dayHtmlPartial = "~/Areas/Shipping/Home/_dayHtmlPartial.cshtml";
+            public readonly string _monthHtmlPartial = "~/Areas/Shipping/Home/_monthHtmlPartial.cshtml";
+            public readonly string Appointment = "~/Areas/Shipping/Home/Appointment.cshtml";
+            public readonly string Appointment_css = "~/Areas/Shipping/Home/Appointment.css.bundle";
+            public readonly string Bol = "~/Areas/Shipping/Home/Bol.cshtml";
+            public readonly string Index = "~/Areas/Shipping/Home/Index.cshtml";
+            public readonly string Index_mobile = "~/Areas/Shipping/Home/Index.mobile.cshtml";
+            public readonly string PoSearchResults = "~/Areas/Shipping/Home/PoSearchResults.cshtml";
+            public readonly string Routed = "~/Areas/Shipping/Home/Routed.cshtml";
+            public readonly string Routing = "~/Areas/Shipping/Home/Routing.cshtml";
+            public readonly string RoutingSummary = "~/Areas/Shipping/Home/RoutingSummary.cshtml";
+            public readonly string Unrouted = "~/Areas/Shipping/Home/Unrouted.cshtml";
+            static readonly _imagesClass s_images = new _imagesClass();
+            public _imagesClass images { get { return s_images; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _imagesClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string a1 = "a1";
+                    public readonly string ajax_loader = "ajax-loader";
+                    public readonly string calendar = "calendar";
+                }
+                public readonly string a1 = "~/Areas/Shipping/Home/images/a1.gif";
+                public readonly string ajax_loader = "~/Areas/Shipping/Home/images/ajax-loader.gif";
+                public readonly string calendar = "~/Areas/Shipping/Home/images/calendar.gif";
+            }
+            static readonly _ScriptsClass s_Scripts = new _ScriptsClass();
+            public _ScriptsClass Scripts { get { return s_Scripts; } }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public partial class _ScriptsClass
+            {
+                static readonly _ViewNamesClass s_ViewNames = new _ViewNamesClass();
+                public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
+                public class _ViewNamesClass
+                {
+                    public readonly string Bol_js = "Bol.js";
+                    public readonly string Routing_js = "Routing.js";
+                    public readonly string Unrouted_js = "Unrouted.js";
+                }
+                public readonly string Bol_js = "~/Areas/Shipping/Home/Scripts/Bol.js.bundle";
+                public readonly string Routing_js = "~/Areas/Shipping/Home/Scripts/Routing.js.bundle";
+                public readonly string Unrouted_js = "~/Areas/Shipping/Home/Scripts/Unrouted.js.bundle";
+            }
         }
     }
 

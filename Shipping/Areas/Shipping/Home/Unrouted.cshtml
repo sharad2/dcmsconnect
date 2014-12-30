@@ -1,0 +1,286 @@
+﻿@*Promises added by: Binay Bhushan 4th December 2012.
+
+    Following attributes  are used in our code:
+    1. data-calendar-img: We keep it to show calendar image for datepicker used by Unrouted script.
+    2. variable layoutResult and layoutView: used to provide reference of view "_layoutTabs" .
+
+    Used CSS class:
+    1. .ui-datepicker: Used to provide specific look to those ATS dates which have some POs for routing or selected row.
+    2. .ui-selected: Used with selected rows and Unrouted script.
+    3. td.row-span[rowspan]: Used for make browser compatibility and provide specific look to those td on which "row-span" class used.
+    4. .po-column : Used for apply selectable event on selected orders.
+
+*@
+
+
+@model DcmsMobile.Shipping.ViewModels.UnroutedViewModel
+@{
+    ViewBag.Title = "Unrouted Orders";
+    var k = 0;
+}
+@helper Highlight(DcmsMobile.Shipping.ViewModels.UnroutedPoGroup group1, DcmsMobile.Shipping.ViewModels.UnroutedPoGroup group2)
+{
+    if (group1 != null && group2 != null && group1.Equals(group2))
+    {
+        @:class="ui-state-highlight"
+    }
+}
+@if (Model.RecentlyAssignedPoCount.HasValue)
+{
+    <div class="ui-state-highlight">
+        @Html.DisplayFor(m => m.RecentlyAssignedPoCount) POs have been routed for @Html.DisplayFor(m => m.RecentlyAssignedGroup.AtsDate).
+      <span style="font-weight:bold;">  @Html.ActionLink("Enter Routing Information", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId,
+                initialGroup: Model.RecentlyAssignedGroup)), null, null, null, Model.RecentlyAssignedGroup.HtmlId)</span>
+    </div>
+}
+@Html.StatusSummary()
+@Html.ValidationSummary(true)
+@if (Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()))
+{
+    <div class="ui-state-highlight" style="font-size: 1.8em;">EDI 753 is send for customer @Model.Summary.CustomerId</div>
+}
+<p>
+    <span class="ui-icon ui-icon-lightbulb" style="display: inline-block"></span>
+    Select POs below and assign an ATS Date to them.
+</p>
+@using (Html.BeginForm(MVC_Shipping.Shipping.Home.Unrouted(), FormMethod.Get, new
+{
+    id = "frmShowUnavailableBucket"
+}))
+{
+    <blockquote>
+        @Html.CheckBoxFor(m => m.ShowUnavailableBucket, new
+   {
+       id = "cbShowUnavailableBucket"
+   })
+        <label for="cbShowRouted">
+            Show orders of unavailable waves also.
+        </label>
+        <input type="hidden" name="@Model.NameFor(m => m.PostedCustomerId)" value="@Model.Summary.CustomerId" />
+        <input type="hidden" name="@Model.NameFor(m => m.BuildingId)" value="@Model.BuildingId" />
+    </blockquote>
+}
+@if (Model.GroupedPoList.Count >= 1 && !string.IsNullOrEmpty(Model.Summary.CustomerId))
+{
+    <div id="divAtsDate" class="ui-widget-content">
+        @using (Html.BeginForm(MVC_Shipping.Shipping.Home.PrepareToRoute(), FormMethod.Post, new { id = "frmAtsDate" }))
+        {
+            <input type="hidden" name="@Model.NameFor(m => m.PostedCustomerId)" value="@Model.Summary.CustomerId" />
+            <label>
+                ATS Date
+            </label>
+            <input name="@Html.NameFor(m => m.AtsDate)" value="@string.Format("{0:d}", Model.AtsDate)" id="tbAtsDate" size="10" maxlength="10" 
+                   data-calendar-img="@Links_Shipping.Areas.Shipping.Home.images.calendar_gif" />
+            <span>*</span>
+            <span class="ui-icon ui-icon-comment" title="Select POs from the list and assign an ATS Date to them." style="display: inline-block"></span>
+            <div class="ui-state-highlight">
+                <span class="spnPOSelected"></span>
+            </div>
+            <span>Send EDI 753 &nbsp;&nbsp;</span><input type="checkbox" name="@Model.NameFor(m => m.IsAutomaticEdi)" @(Model.GroupedPoList.Any(p => p.Value.Select(p1 => p1.IsEdiCustomer == true).FirstOrDefault()) ? "checked" : "") id="cbElectronicEdi" />
+        }
+    </div>
+}
+<div>
+    @Model.BucketAvailabilityInfo
+</div>
+@if (Model.GroupedPoList.Count > 1)
+{
+    <fieldset>
+        <legend>Go to DC Cancel Date</legend>
+        <dl id="quicklist">
+            @for (var i = 0; i < Model.DcCancelDatesByBuilding.Count; ++i)
+            {
+            <dt>
+                Building
+                <em>
+                    @Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])
+                @if (Model.DcCancelDatesByBuilding.Count > 1)
+                     {
+                    <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(Model.Summary.CustomerId, Model.DcCancelDatesByBuilding.Keys[i], Model.ShowUnavailableBucket)))">
+                        <span title="Only show POs having Building @Html.DisplayFor(m => m.DcCancelDatesByBuilding.Keys[i])">Only</span>
+                    </a>
+                     }
+            </em>
+        </dt>
+            <dd style="margin-left: 5em">
+                @for (var j = 0; j < Model.DcCancelDatesByBuilding.Values[i].Count; ++j)
+                    {
+                        if (Model.DcCancelDatesByBuilding.Values[i][j].DcCancelDate.HasValue)
+                        {
+                    <div style="white-space: nowrap; display: inline-block; width: 12em">
+                        <a href="#@Model.DcCancelDatesByBuilding.Values[i][j].HtmlId" @Highlight(Model.DcCancelDatesByBuilding.Values[i][j], Model.InitialGroup)>
+                            @Html.DisplayFor(m => Model.DcCancelDatesByBuilding.Values[i][j].DcCancelDate)
+                        </a>
+                    </div>
+                        }
+                    }
+            </dd>
+            }
+        </dl>
+    </fieldset>
+}
+@if (Model.BuildingId != null)
+{
+    <a href="@Url.Action(MVC_Shipping.Shipping.Home.Unrouted(new DcmsMobile.Shipping.ViewModels.UnroutedViewModel(Model.Summary.CustomerId)))">
+        <strong style="font-style: italic">Clear Building Filter</strong>
+    </a>
+}
+<div id="pogroups">
+    @for (var i = 0; i < Model.GroupedPoList.Count; ++i)
+    {
+        <table id="@Model.GroupedPoList.Keys[i].HtmlId">
+            <caption @Highlight(Model.GroupedPoList.Keys[i], Model.InitialGroup)>
+                Building: @Model.GroupedPoList.Keys[i].BuildingId - @Model.GroupedPoList.Values[i].Count POs
+                <br />
+                Start Date: @Html.DisplayFor(m => m.GroupedPoList.Keys[i].StartDateDisplay).
+                <br />
+                DC Cancel Date: @Html.DisplayFor(m => m.GroupedPoList.Keys[i].DcCancelDate).
+                <br />
+                <a href="#">Back to Top</a>
+            </caption>
+            <thead>
+                <tr>
+                    <th>
+                        #
+                    </th>
+                    <th>
+                        DC
+                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="DC in ascending order"></span><sup>1</sup>
+                    </th>
+                    <th style="text-align: left">
+                        <input type="checkbox" class="select-all" title="Select All/Clear" /><span> &nbsp;&nbsp; </span>PO
+                        <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each PO that provide their details"></span>
+                        <span style="display: inline-block" class="ui-icon ui-icon-circle-triangle-s" title="PO in ascending order"></span><sup>2</sup>
+                    </th>
+                    <th>
+                        Pieces Ordered
+                    </th>
+                    <th>
+                        #Boxes
+                    </th>
+                    <th>
+                        Wave
+                        <span style="display: inline-block" class="ui-icon ui-icon-extlink" title="Link avilable with each Bucket that provide their details"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                @for (var j = 0; j < Model.GroupedPoList.Values[i].Count; ++j)
+                {
+                    <tr class="@(j % 2 == 0 ? "rowA" : "rowB") @(Model.GroupedPoList.Values[i][j].HasBucket ? "" : "ui-state-disabled") @(Model.GroupedPoList.Values[i][j].NumberOfBoxes > 0 ? "" : "ui-state-disabled") ">
+                        <td>
+                            @(k + 1)
+                        </td>
+                        @if (j == 0 || Model.GroupedPoList.Values[i][j].CustomerDcId != Model.GroupedPoList.Values[i][j - 1].CustomerDcId)
+                        {
+                            var span = Model.GroupedPoList.Values[i].Skip(j).TakeWhile(p => p.CustomerDcId == Model.GroupedPoList.Values[i][j].CustomerDcId).Count();
+                            <td rowspan="@span" class="dc row-span">
+                                @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].CustomerDcId)
+                            </td>
+                        }
+                        <td class="po">
+                            <input type="checkbox" name='@ReflectionHelpers.NameFor((DcmsMobile.Shipping.ViewModels.UnroutedViewModel m) => m.SelectedKeys)' value="@Model.GroupedPoList.Values[i][j].Key" />
+                            <a href="@Url.Content(string.Format("~/Inquiry/PurchaseOrder/{0}/{1}/{2}", Model.GroupedPoList.Values[i][j].PoId, Model.PostedCustomerId, Model.GroupedPoList.Values[i][j].Iteration))" target="_inquiry" title="PO Details">
+                                @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PoId)
+                            </a>
+                            @if (Model.GroupedPoList.Values[i][j].UnroutedPoAlertMessages.Count > 0)
+                            {
+                                <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
+                                <ol class="ui-helper-hidden">
+                                    @foreach (var msg in Model.GroupedPoList.Values[i][j].UnroutedPoAlertMessages)
+                                    {
+                                        <li>@msg</li>
+                                    }
+                                </ol>
+                            }
+                        </td>
+                        <td style="text-align: right">
+                            @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].PiecesOrdered)
+                        </td>
+
+                        <td style="text-align: right">
+                            @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].NumberOfBoxesDisplay)
+                            @if (Model.GroupedPoList.Values[i][j].PercentFull != 0 && Model.GroupedPoList.Values[i][j].PercentFull != 100)
+                            {
+                                <span class="ui-icon ui-icon-info" style="display:inline-block" title="@string.Format("{0} of {1} Ordered Pieces have been picked.", Model.GroupedPoList.Values[i][j].PickedPieces, Model.GroupedPoList.Values[i][j].PiecesOrdered)"></span>
+                            }
+                        </td>
+                        @if (j == 0 || Model.GroupedPoList.Values[i][j].BucketId != Model.GroupedPoList.Values[i][j - 1].BucketId)
+                        {
+                            var span = Model.GroupedPoList.Values[i].Skip(j).TakeWhile(p => p.BucketId == Model.GroupedPoList.Values[i][j].BucketId).Count();
+                            <td rowspan="@span" class="row-span">
+                                @if (Model.GroupedPoList.Values[i][j].BucketId != null)
+                                {
+                                    <a href="@Url.Content(string.Format("~/Inquiry/Wave/{0}", Model.GroupedPoList.Values[i][j].BucketId))" target="_inquiry" title="Bucket Details">
+                                        @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BucketId)
+                                    </a>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(m => m.GroupedPoList.Values[i][j].BucketId)
+                                    <span class="ui-icon ui-icon-info" style="display: inline-block" title="You can’t assign ATS date due to unavailability of bucket"></span>
+                                }
+                            </td>
+                        }
+
+                    </tr>
+                        k++;
+                }
+            </tbody>
+        </table>
+    }
+</div>
+@if (Model.GroupedPoList.Count == 0 && !string.IsNullOrWhiteSpace(Model.Summary.CustomerId))
+{
+    <p>
+        There are no unrouted orders for this customer. If you have already assigned ATS date to orders, they will be visible in
+        @Html.ActionLink("Routing", MVC_Shipping.Shipping.Home.Routing(new DcmsMobile.Shipping.ViewModels.RoutingViewModel(Model.Summary.CustomerId))) Orders.
+    </p>
+}
+@section sidebar{
+    @if (Model.GroupedPoList.SelectMany(p => p.Value).Any(p => p.UnroutedPoAlertMessages.Count > 0))
+    {
+        <div class="box">
+            <h3>Legend</h3>
+            <div class="boxContent">
+                <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>Displays against a PO if the PO is unusual in some way.
+            </div>
+        </div>
+    }
+    @if (Model.GroupedPoList.SelectMany(p => p.Value).Any(p => p.PercentFull != 0 && p.PercentFull != 100))
+    {
+        <div class="box">
+
+            <div class="boxContent">
+                <span class="ui-icon ui-icon-info" style="display: inline-block"></span>Displays against boxes when complete order will not be shipped.
+            </div>
+        </div>
+    }
+}
+@section scripts {
+    <script type="text/javascript">
+        var _atsDates = eval(@Html.Raw(Model.JsonDateList));
+    </script>
+    <script src="@Links_Shipping.Areas.Shipping.Home.Scripts.Unrouted_js" type="text/javascript"></script>
+    <style type="text/css">
+        .dlg-atsdate {
+            position: fixed;
+        }
+
+        .ui-datepicker .ui-selected a {
+            background-color: inherit;
+            background-image: inherit;
+        }
+
+        td.weekend-day .ui-state-default {
+            color: red;
+        }
+
+        td.row-span[rowspan] {
+            padding-top: 2mm;
+            vertical-align: top;
+            border-top: 1px solid;
+            background-color: wheat;
+        }
+    </style>
+}

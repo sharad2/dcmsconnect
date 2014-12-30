@@ -19,7 +19,7 @@
   <!--Names of areas which follow the FeatureFolder convention (controllers and views are placed within the same folder).
 Use <Area>*</Area> if you only use Areas with FeatureFolders-->
   <FeatureFolderAreas>
-    <!--<Area></Area>-->
+    <Area>Shipping</Area>
   </FeatureFolderAreas>
   <!--Choose whether you want to include an 'Areas' token when referring to areas.
 e.g. Assume the Area is called Blog and the Controller is Post:
@@ -53,11 +53,10 @@ See http://mvccontrib.codeplex.com/workitem/7163 for potential issues with this 
   <AddTimestampToStaticLinks>False</AddTimestampToStaticLinks>
   <!--Folders containing static files for which links are generated (e.g. Links.Scripts.Map_js)-->
   <StaticFilesFolders>
-    <FileFolder>Scripts</FileFolder>
-    <FileFolder>Content</FileFolder>
+    <!--<FileFolder></FileFolder>-->
   </StaticFilesFolders>
   <!--If true, static file helpers are generated for all view folders. See https://t4mvc.codeplex.com/discussions/445358-->
-  <AddAllViewsFoldersToStaticFilesFolders>False</AddAllViewsFoldersToStaticFilesFolders>
+  <AddAllViewsFoldersToStaticFilesFolders>True</AddAllViewsFoldersToStaticFilesFolders>
   <!--Static files to exclude from the generated links-->
   <ExcludedStaticFileExtensions>
     <Extension>.cs</Extension>
