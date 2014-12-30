@@ -15,47 +15,44 @@
 }
 <div class="container">
   
-    <div class="h2" style="margin-top:0">
+    <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.Bucket.CustomerId))"
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
-       
-            @if (Model.UserIsManager)
-            {
-                if (Model.Bucket.IsFrozen)
-                {
-                    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="display:inline">
-                        <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Unfreeze... <small>TODO Modal</small></button>
-                    </form>
-                }
-                else
-                {
-                    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="display:inline">
-                        <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Freeze... <small>TODO Modal</small></button>
-                    </form>
-                }
-                if (Model.Bucket.IsFrozen)
-                {
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.Bucket.BucketId))" class="btn btn-default" role="button">
-                        <span class="glyphicon glyphicon-edit"></span> Edit
-                    </a>
-                }
-                else
-                {
-                    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post" style="display:inline">
-                        <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.Bucket.BucketId"
-                                type="submit">
-                            Freeze and Edit <small>TODO Modal</small>
-                        </button>
-                    </form>
-                }
-            }
- 
-    </div>
+    </h2>
    
- 
+    @if (Model.UserIsManager)
+    {
+        if (Model.Bucket.IsFrozen)
+        {
+            <div class="alert alert-warning" role="alert">
+                This pick wave is currently frozen. To start processing this pick wave, you must unfreeze it.
+                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="display:inline">
+                    <button class="btn btn-warning" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Unfreeze</button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="display:inline">
+                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Freeze</button>
+            </form>
+        }
+        if (!Model.Bucket.IsFrozen)
+        {
+            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post" style="display:inline">
+                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.Bucket.BucketId"
+                        type="submit">
+                    Freeze and Edit
+                </button>
+            </form>
+        }
+    }
+
+
+
 
     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                    {
@@ -98,7 +95,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="freezeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="freezeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -127,7 +124,7 @@
         </div>
 
     </div>
-</div>
+</div>*@
 
 
 

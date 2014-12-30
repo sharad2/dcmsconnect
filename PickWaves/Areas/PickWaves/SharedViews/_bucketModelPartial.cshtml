@@ -7,25 +7,116 @@
     // - Include script _bucketModel.partial.js in your script bundle
     bool? obj = ViewBag.IsAuthorized;
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
+
+    // Do not show link to the viewer page if we are already on the viewer page. Instead link to edit page
+    var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId)) == Request.Url.PathAndQuery;
 }
 
 <div class="panel panel-success">
     <div class="panel-heading">
-
-        <h3 class="list-group-item-heading" style="display:inline-block">
-            Pick Wave <a title="Pick Wave Details"
-                         href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">
-
-                @Model.BucketId
-            </a>
-            <small>@Model.BucketName </small>
-            @if (Model.IsFrozen)
+        @if (Model.IsFrozen)
+        {
+            if (isViewerPage)
             {
-                <small class="badge"> <em>Frozen</em></small>
+                if (Model.IsFrozen)
+                {
+                    <div class="btn-group pull-right" role="group">
+                        <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            Frozen
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            @*<li style="white-space:normal">
+                                <a>Lorem impsum ajkdhsa djksahad asdsajkhdksa jksahdjksa djkhajk hsdjadhjkadksad sajkhasjkdh ksahd sa</a>
+                            </li>*@
+                            <li role="presentation">
+                                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
+                                    @if (Model.BoxNotCreatedPieces.HasValue)
+                                    {
+                                        <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
+                                    }
+                                    <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
+                                            value="@Model.BucketId" type="submit">
+                                        <span class="glyphicon glyphicon-play"></span> Unfreeze
+                                    </button>
+                                </form>
+                            </li>
+                            <li class="divider"></li>
+                            <li role="presentation">
+                                <div style="text-align:center; margin:1mm">
+                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" role="menuitem" tabindex="-1">
+                                        <span class="glyphicon glyphicon-edit"></span> Edit
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <div class="btn-group pull-right" role="group">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                            ...
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post">
+                                    <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId"
+                                            value="@Model.BucketId" type="submit">
+                                        Freeze
+                                    </button>
+                                </form>
+                            </li>
+                            <li role="presentation">
+                                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post">
+                                    <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.BucketId"
+                                            type="submit">
+                                        Freeze and Edit
+                                    </button>
+                                </form>
+
+                            </li>
+                        </ul>
+                    </div>
+                }
+
             }
+            else
+            {
+
+                <div class="pull-right">
+                    <em class="badge">Frozen</em>
+                </div>
+            }
+        }
+
+        <h3 class="list-group-item-heading">
+            Pick Wave
+            @if (isViewerPage)
+            {
+                @Html.DisplayFor(m => m.BucketId)
+            }
+            else
+            {
+                <a title="Pick Wave Details"
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">
+
+                    @Html.DisplayFor(m => m.BucketId)
+                </a>
+            }
+
+            <small>
+                @Model.BucketName
+                <span style="font-size:0.8em">Created @Html.DisplayFor(m => m.CreationDate) by @Html.DisplayFor(m => m.CreatedBy)</span>
+            </small>
         </h3>
-        <small>Created @Html.DisplayFor(m => m.CreationDate) @Html.DisplayFor(m => m.CreatedBy)</small>       
+
+
     </div>
+
+
+
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6 ">
