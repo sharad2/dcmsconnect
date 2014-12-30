@@ -41,6 +41,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int BucketId { get; set; }
 
+         [Required(ErrorMessage="Bucket Name is Required.")]
         public string BucketName { get; set; }
 
         //public int PriorityId { get; set; }
