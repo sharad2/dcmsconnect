@@ -180,9 +180,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                     orderby item.MinDcCancelDate, item.DollarsOrdered descending
                                     select new ImportedOrderSummaryModel
                                     {
-                                        CustomerId = item.Customer.CustomerId,
-                                        CustomerName = item.Customer.Name,
-                                        IsCustomerActive = item.Customer.IsActive,
+                                        CustomerId = item.CustomerId,
+                                        CustomerName = item.CustonerName,
+                                        IsCustomerActive = item.IsActiveCustomer,
                                         PickslipCount = item.PickslipCount,
                                         PiecesOrdered = item.PiecesOrdered,
                                         DollarsOrdered = (double)item.DollarsOrdered,

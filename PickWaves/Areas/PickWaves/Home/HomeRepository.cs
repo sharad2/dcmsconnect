@@ -234,12 +234,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
             var binder = SqlBinder.Create(row => new ImportedOrderSummary
             {
-                Customer = new Customer
-                {
-                    CustomerId = row.GetString("CUSTOMER_ID"),
-                    Name = row.GetString("NAME"),
-                    IsActive = row.GetString("inactive_flag") != "Y"
-                },
+
+                CustomerId = row.GetString("CUSTOMER_ID"),
+                CustonerName = row.GetString("NAME"),
+                IsActiveCustomer = row.GetString("inactive_flag") != "Y",
+
                 PickslipCount = row.GetInteger("PICKSLIP_COUNT").Value,
                 PiecesOrdered = row.GetInteger("TOTAL_QUANTITY_ORDERED") ?? 0,
                 DollarsOrdered = row.GetDecimal("TOTAL_DOLLARS_ORDERED") ?? 0,
