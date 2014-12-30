@@ -70,6 +70,10 @@
                                                              maxlength = 5,
                                                              @class = "form-control"
                                                          })
+                @Html.ValidationMessageFor(m => m.PitchLimit, null, new
+           {
+               @class = "help-block"
+           })
             </div>
         </div>
 
