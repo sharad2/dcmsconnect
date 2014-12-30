@@ -106,10 +106,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             return new Constraint(_repos.GetDefaultSplhValues());
         }
 
-        internal Constraint GetCustomerConstraints(string customerId, out string customerName)
+        internal Constraint GetCustomerConstraints(string customerId)
         {
             var result = _repos.GetCustomerSplhValues(customerId);
-            customerName = result.Select(p => p.CustomerName).First();
+            //customerName = result.Select(p => p.CustomerName).First();
             return new Constraint(result);
         }
 
@@ -117,15 +117,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         /// Key is customer Id
         /// </summary>
         /// <returns></returns>
-        internal IDictionary<Customer, Constraint> GetAllCustomerConstraints()
+        internal IDictionary<string, Constraint> GetAllCustomerConstraints()
         {
             var custConstraints = _repos.GetCustomerSplhValues(null);
             var query = (from item in custConstraints
-                         group item by new Customer
-                         {
-                             CustomerId = item.CustomerId,
-                             Name = item.CustomerName
-                         } into g
+                         group item by item.CustomerId into g
                          select g).ToDictionary(p => p.Key, p => new Constraint(p));
             return query;
         }
@@ -235,7 +231,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 
 
         #region autocomplete
-       
+
         internal IList<Tuple<string, string>> CustomerAutoComplete(string searchId, string searchDescription)
         {
             return _repos.CustomerAutoComplete(searchId, searchDescription);
@@ -246,7 +242,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             return _repos.StyleAutoComplete(searchId, searchDescription);
         }
-       
+
         #endregion
     }
 }

@@ -77,7 +77,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             if (!string.IsNullOrWhiteSpace(model.CustomerId))
             {
-                model.CustomerName = _service.Value.GetCustomer(model.CustomerId) == null ? "" : _service.Value.GetCustomer(model.CustomerId).Name;
+                model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
             }
             return View(Views.Index, model);
         }

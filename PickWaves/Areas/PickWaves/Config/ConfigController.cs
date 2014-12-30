@@ -448,10 +448,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
 
             //Getting SPLH setting group by Customer.
             var query = from item in custConstraints
-                        orderby item.Key.Name
+                        orderby item.Key
                         select new
                         {
-                            Customer = item.Key,
+                            CustomerId = item.Key,
                             Constraint = new ConstraintModel(item.Value)
                         };
 
@@ -459,8 +459,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             {
                 model.CustomerGroupedList.Add(new CustomerModel
                 {
-                    CustomerId = item.Customer.CustomerId,
-                    CustomerName = item.Customer.Name
+                    CustomerId = item.CustomerId,
+                    CustomerName = _service.Value.GetCustomerName(item.CustomerId)
                 }, item.Constraint);
             }
             return View(Views.Constraint, model);
@@ -481,8 +481,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
             else
             {
-                string customerName;
-                var customerConstraints = _service.Value.GetCustomerConstraints(customerId, out customerName);
+                //string customerName;
+                var customerConstraints = _service.Value.GetCustomerConstraints(customerId);
                 //TC2: If no constraint defined for passed customer. This haapnned only when when some one deleted customer.
                 if (customerConstraints == null)
                 {
@@ -491,7 +491,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 model = new CustomerConstraintEditorModel(customerConstraints)
                     {
                         CustomerId = customerId,
-                        CustomerName = customerName,
+                        CustomerName = _service.Value.GetCustomerName(customerId),
                         ActiveTab = activeTab
                     };
             }

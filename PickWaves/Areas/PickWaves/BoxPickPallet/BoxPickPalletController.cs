@@ -104,7 +104,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
                 };
             model.BucketId = bucketId;
-            model.CustomerName = _service.Value.GetCustomer(model.CustomerId).Name;
+            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
             return View(Views.Index, model);
         }
 
