@@ -29,7 +29,7 @@
     @if (!string.IsNullOrWhiteSpace(Model.UserName))
     {
         <div class="alert alert-info">
-            Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.BucketState, null))
+            Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, Model.BucketState))
         </div>
     }
    

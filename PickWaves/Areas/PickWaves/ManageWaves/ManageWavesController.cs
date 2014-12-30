@@ -10,6 +10,9 @@ using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
+    /// <summary>
+    /// This controller requires authentication. Some actions which are decorated with [AllowAnonymous] can be accessed anonymously.
+    /// </summary>
     [AuthorizeEx("Managing Pick Waves requires role {0}", Roles = ROLE_WAVE_MANAGER)]
     [RoutePrefix("manage")]
     public partial class ManageWavesController : PickWavesControllerBase
@@ -57,28 +60,48 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// CustomerId,BucketStatus
         /// </param>
         /// <returns></returns>
+        /// <remarks>
+        /// customerId is required. If not passed, we silently redirect to home page
+        /// If customerId is garbage and the bucket list is empty, then also we redirect to home page.
+        /// bucketState is optional and defaults to InProgress
+        /// </remarks>
         [AllowAnonymous]
-        [Route("index")]
-        public virtual ActionResult Index(string customerId, ProgressStage bucketState, string userName)
+        [Route]
+        public virtual ActionResult Index(string customerId, string userName, ProgressStage? bucketState)
         {
-
-            var buckets = _service.Value.GetBuckets(customerId, bucketState, userName);
+            if (string.IsNullOrWhiteSpace(customerId))
+            {
+                // Should never happen. Redirect to home page
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+            }
+            if (bucketState == null)
+            {
+                // By default show in progress pick waves
+                bucketState = ProgressStage.InProgress;
+            }
+            var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
 
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
-                BucketState = bucketState,
+                BucketState = bucketState.Value,
                 UserName = userName
             };
             // Null DC Cancel dates display last
             model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
                              orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
-                             select bucket).ToArray();
+                             select bucket).ToList();
 
-            if (!string.IsNullOrWhiteSpace(model.CustomerId))
+
+            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
+
+            if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
             {
-                model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
+                // This must be a garbage customer. Redirect to home page
+                ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
+
             return View(Views.Index, model);
         }
 
