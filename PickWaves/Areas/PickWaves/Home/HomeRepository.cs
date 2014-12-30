@@ -98,7 +98,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                                MAX(BI.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE,
                                                MIN(BI.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
                                                CASE
-                                                 WHEN BI.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN
+                                                 WHEN BI.FREEZE = 'Y'  THEN
                                                   :FROZENSTATE
                                                  WHEN NVL(pp.COUNT_VALIDATED_BOXES, 0) = NVL(pp.COUNT_BOXES, 0) THEN
                                                   :COMPLETEDSTATE
@@ -114,7 +114,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                            <if>AND BI.CREATED_BY = :CREATED_BY</if>
                                         GROUP BY BI.CUSTOMER_ID,
                                                 CASE
-                                                WHEN BI.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN
+                                                WHEN BI.FREEZE = 'Y'  THEN
                                                     :FROZENSTATE
                                                 WHEN NVL(pp.COUNT_VALIDATED_BOXES, 0) = NVL(pp.COUNT_BOXES, 0) THEN
                                                     :COMPLETEDSTATE
