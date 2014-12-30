@@ -149,7 +149,6 @@
     <Compile Include="Repository\Bucket.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\PickWave.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\VirtualWarehouse.cs" />
-    <Compile Include="Repository\Customer.cs" />
     <Compile Include="Areas\PickWaves\Home\BucketSummary.cs" />
     <Compile Include="Areas\PickWaves\Home\ImportedOrderSummary.cs" />
     <Compile Include="Repository\InventoryArea.cs" />

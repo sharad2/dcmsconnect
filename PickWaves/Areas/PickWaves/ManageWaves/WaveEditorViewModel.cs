@@ -18,7 +18,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             this.BucketId = entity.BucketId;
             this.BucketName = entity.BucketName;
             this.CustomerId = entity.MaxCustomerId;
-            this.CustomerName = entity.MaxCustomerName;
+            //this.CustomerName = entity.MaxCustomerName;
             if (entity.Activities.Contains(Helpers.BucketActivityType.Pitching))
             {
                 this.PitchAreaId = entity.Activities[Helpers.BucketActivityType.Pitching].Area.AreaId;

@@ -39,12 +39,6 @@ namespace DcmsMobile.PickWaves.Repository
         public string MaxCustomerId { get; set; }
 
         /// <summary>
-        /// Customer name for whom the bucket was created
-        /// </summary>
-        [Obsolete]
-        public string MaxCustomerName { get; set; }
-
-        /// <summary>
         /// Number of pickslips in the bucket
         /// </summary>
         internal int CountPickslips { get; set; }

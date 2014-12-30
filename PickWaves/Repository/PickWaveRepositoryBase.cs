@@ -47,9 +47,7 @@ namespace DcmsMobile.PickWaves.Repository
         public string GetCustomerName(string customerId)
         {
             const string QUERY = @"
-                                    SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID,
-                                           CUST.NAME AS NAME,
-                                           CUST.INACTIVE_FLAG as INACTIVE_FLAG
+                                    SELECT CUST.NAME AS NAME
                                      FROM <proxy />MASTER_CUSTOMER CUST
                                     WHERE CUST.CUSTOMER_ID = :SEARCH
                                     ";
@@ -122,7 +120,7 @@ namespace DcmsMobile.PickWaves.Repository
        --  MIN(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MIN_PO,
        --  MAX(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MAX_PO,
          PS.CUSTOMER_ID AS CUSTOMER_ID,
-         CUST.NAME AS CUSTOMER_NAME,
+       --  CUST.NAME AS CUSTOMER_NAME,
          PS.PICKSLIP_ID AS PICKSLIP_ID,
          BKT.FREEZE AS FREEZE,
          BKT.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
@@ -137,8 +135,6 @@ namespace DcmsMobile.PickWaves.Repository
     FROM <proxy />BUCKET BKT
    INNER JOIN <proxy />PS PS
       ON PS.BUCKET_ID = BKT.BUCKET_ID
-   INNER JOIN <proxy />MASTER_CUSTOMER CUST
-      ON CUST.CUSTOMER_ID = PS.CUSTOMER_ID
     LEFT OUTER JOIN <proxy />PO PO
       ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
      AND PS.PO_ID = PO.PO_ID
@@ -172,7 +168,7 @@ TOTAL_ORDERED_PIECES AS
       --   MIN(Q1.MIN_PO) AS MIN_PO,
       --   MAX(Q1.MAX_PO) AS MAX_PO,
          MAX(Q1.CUSTOMER_ID) AS CUSTOMER_ID,
-         MAX(Q1.CUSTOMER_NAME) AS CUSTOMER_NAME,
+         --MAX(Q1.CUSTOMER_NAME) AS CUSTOMER_NAME,
          COUNT(UNIQUE Q1.PICKSLIP_ID) AS PICKSLIP_COUNT,
          MAX(Q1.FREEZE) AS FREEZE,
          MAX(Q1.QUICK_PITCH_FLAG) AS QUICK_PITCH_FLAG,
@@ -329,7 +325,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
        OP.DATE_CREATED            AS DATE_CREATED,
        OP.CREATED_BY              AS CREATED_BY,
        OP.CUSTOMER_ID             AS CUSTOMER_ID,
-       OP.CUSTOMER_NAME           AS CUSTOMER_NAME,
+       --OP.CUSTOMER_NAME           AS CUSTOMER_NAME,
        OP.PO_COUNT                AS PO_COUNT,
       -- OP.MIN_PO                  AS MIN_PO,
       -- OP.MAX_PO                  AS MAX_PO,
@@ -397,7 +393,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     //MinPoId = row.GetString("MIN_PO"),
                     //MaxPoId = row.GetString("MAX_PO"),
                     MaxCustomerId = row.GetString("CUSTOMER_ID"),
-                    MaxCustomerName = row.GetString("CUSTOMER_NAME"),
+                    //MaxCustomerName = row.GetString("CUSTOMER_NAME"),
                     CountPickslips = row.GetInteger("PICKSLIP_COUNT").Value,
                     PriorityId = row.GetInteger("PRIORITY").Value,
                     MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE"),

@@ -49,7 +49,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             //MinPoId = src.MinPoId;
             //MaxPoId = src.MaxPoId;
             MaxCustomerId = src.MaxCustomerId;
-            MaxCustomerName = src.MaxCustomerName;
+            //MaxCustomerName = src.MaxCustomerName;
 
             DcCancelDateRange = new DateRange
             {
@@ -195,6 +195,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Customer")]
         public string MaxCustomerId { get; set; }
 
+        [Obsolete]
         public string MaxCustomerName { get; set; }
 
         /// <summary>

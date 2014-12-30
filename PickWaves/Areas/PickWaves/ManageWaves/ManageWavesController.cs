@@ -389,7 +389,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                      Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                      Value = area.CountSku > 0 ? area.AreaId : "",
                                      Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
-                                 }).ToList()
+                                 }).ToList(),
+                CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
             };
 
             return View(Views.WaveEditor, model);
