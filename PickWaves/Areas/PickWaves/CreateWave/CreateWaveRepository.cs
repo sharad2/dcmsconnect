@@ -1,9 +1,7 @@
-﻿using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository;
+﻿using DcmsMobile.PickWaves.Repository;
 using EclipseLibrary.Oracle;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -27,7 +25,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
         /// <param name="customerId"> </param>
         /// <param name="dimensions"> </param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetPickslips(string customerId, string vwhId, IList<Tuple<PickslipDimension, DimensionValue>> dimensions)
+        public IList<Pickslip> GetPickslips(string customerId, string vwhId, IList<Tuple<PickslipDimension, DimensionValue>> dimensions)
         {
             if (string.IsNullOrEmpty(customerId))
             {
