@@ -439,7 +439,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                         _service.FreezePickWave(model.BucketId, trans);
                     }
 
-                    trans.Commit();
+                   trans.Commit();
                 }
                 AddStatusMessage(string.Format("Pick Wave {0} updated.", model.BucketId));
             }

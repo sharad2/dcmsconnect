@@ -97,49 +97,50 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <param name="freeze"></param>
-        [Obsolete]
-        public Bucket FreezeWave(int bucketId, bool freeze)
-        {
-            using (var trans = _repos.BeginTransaction())
-            {
-                var bucket = _repos.GetLockedBucket(bucketId);
-                if (bucket == null)
-                {
-                    throw new ValidationException("Invalid Pick Wave " + bucketId.ToString());
-                }
+        //[Obsolete]
+        //public Bucket FreezeWave(int bucketId, bool freeze)
+        //{
+        //    using (var trans = _repos.BeginTransaction())
+        //    {
+        //        var bucket = _repos.GetLockedBucket(bucketId);
+        //        if (bucket == null)
+        //        {
+        //            throw new ValidationException("Invalid Pick Wave " + bucketId.ToString());
+        //        }
 
-                var pullArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-                var pitchArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-                if (string.IsNullOrWhiteSpace(pullArea) && string.IsNullOrWhiteSpace(pitchArea))
-                {
-                    throw new ValidationException("Please select at least one area for pulling and/ pitching.");
-                }
+        //        var pullArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
+        //        var pitchArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
+        //        if (string.IsNullOrWhiteSpace(pullArea) && string.IsNullOrWhiteSpace(pitchArea))
+        //        {
+        //            throw new ValidationException("Please select at least one area for pulling and/ pitching.");
+        //        }
 
-                if (bucket.IsFrozen == freeze)
-                {
-                    // Nothing to do
-                    return bucket;
-                }
-                if (freeze)
-                {
-                    // Delete boxes
-                    _repos.DeleteBoxes(bucketId);
-                }
-                else
-                {
-                    // Create Boxes
-                    _repos.CreateBoxes(bucketId);
-                }
-                _repos.SetFreezeStatus(bucketId, freeze);
-                trans.Commit();
-                return bucket;
-            }
-        }
+        //        if (bucket.IsFrozen == freeze)
+        //        {
+        //            // Nothing to do
+        //            return bucket;
+        //        }
+        //        if (freeze)
+        //        {
+        //            // Delete boxes
+        //            _repos.DeleteBoxes(bucketId);
+        //        }
+        //        else
+        //        {
+        //            // Create Boxes
+        //            _repos.CreateBoxes(bucketId);
+        //        }
+        //        _repos.SetFreezeStatus(bucketId, freeze);
+        //        trans.Commit();
+        //        return bucket;
+        //    }
+        //}
 
         public void FreezePickWave(int bucketId, DbTransaction trans)
         {
                 _repos.DeleteBoxes(bucketId);
                 _repos.SetFreezeStatus(bucketId, true);
+                trans.Commit();
         }
 
         public void UnfreezePickWave(int bucketId)
