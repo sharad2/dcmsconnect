@@ -46,8 +46,8 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             CountPickslips = src.CountPickslips;
             CountPurchaseOrder = src.CountPurchaseOrder;
-            MinPoId = src.MinPoId;
-            MaxPoId = src.MaxPoId;
+            //MinPoId = src.MinPoId;
+            //MaxPoId = src.MaxPoId;
             MaxCustomerId = src.MaxCustomerId;
             MaxCustomerName = src.MaxCustomerName;
 
@@ -181,11 +181,13 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountPurchaseOrder { get; set; }
 
-        [DisplayFormat(NullDisplayText = "(Not Specified)")]
-        public string MaxPoId { get; set; }
+        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
+        //[Obsolete]
+        //public string MaxPoId { get; set; }
 
-        [DisplayFormat(NullDisplayText = "(Not Specified)")]
-        public string MinPoId { get; set; }
+        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
+        //[Obsolete]
+        //public string MinPoId { get; set; }
 
         /// <summary>
         /// One of the customers of this bucket

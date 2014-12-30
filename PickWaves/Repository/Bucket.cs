@@ -68,9 +68,11 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool QuickPitch { get; set; }
 
-        public string MaxPoId { get; set; }
+        //[Obsolete]
+        //public string MaxPoId { get; set; }
 
-        public string MinPoId { get; set; }
+        //[Obsolete]
+        //public string MinPoId { get; set; }
 
         public DateTime CreationDate { get; set; }
 
