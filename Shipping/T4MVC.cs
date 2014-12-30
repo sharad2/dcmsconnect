@@ -148,7 +148,6 @@ namespace Links_Shipping
                     public static readonly string Index_desktop_min_js_map = Url("Index-desktop.min.js.map");
                     public static readonly string Routing_js_bundle = Url("Routing.js.bundle");
                     public static readonly string Routing_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.min.js") ? Url("Routing.min.js") : Url("Routing.js");
-                    public static readonly string Routing_min_js_map = Url("Routing.min.js.map");
                     public static readonly string Routing_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Routing.partial.min.js") ? Url("Routing.partial.min.js") : Url("Routing.partial.js");
                     public static readonly string selectable_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.partial.min.js") ? Url("selectable.partial.min.js") : Url("selectable.partial.js");
                     public static readonly string Unrouted_js_bundle = Url("Unrouted.js.bundle");
