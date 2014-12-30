@@ -2,9 +2,7 @@
 using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
-using System.Linq;
 using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
@@ -89,52 +87,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             _repos.RemovePickslipFromBucket(pickslipId, bucketId);
         }
-
-        /// <summary>
-        /// If bucket is already freeze then do nothing.
-        /// Otherwise when bucket is freeze,delete the unpicked boxes of bucket.
-        /// and if bucket is unfreeze,create the boxes of unpicked pieces.
-        /// </summary>
-        /// <param name="bucketId"></param>
-        /// <param name="freeze"></param>
-        //[Obsolete]
-        //public Bucket FreezeWave(int bucketId, bool freeze)
-        //{
-        //    using (var trans = _repos.BeginTransaction())
-        //    {
-        //        var bucket = _repos.GetLockedBucket(bucketId);
-        //        if (bucket == null)
-        //        {
-        //            throw new ValidationException("Invalid Pick Wave " + bucketId.ToString());
-        //        }
-
-        //        var pullArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-        //        var pitchArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-        //        if (string.IsNullOrWhiteSpace(pullArea) && string.IsNullOrWhiteSpace(pitchArea))
-        //        {
-        //            throw new ValidationException("Please select at least one area for pulling and/ pitching.");
-        //        }
-
-        //        if (bucket.IsFrozen == freeze)
-        //        {
-        //            // Nothing to do
-        //            return bucket;
-        //        }
-        //        if (freeze)
-        //        {
-        //            // Delete boxes
-        //            _repos.DeleteBoxes(bucketId);
-        //        }
-        //        else
-        //        {
-        //            // Create Boxes
-        //            _repos.CreateBoxes(bucketId);
-        //        }
-        //        _repos.SetFreezeStatus(bucketId, freeze);
-        //        trans.Commit();
-        //        return bucket;
-        //    }
-        //}
 
         public void FreezePickWave(int bucketId, DbTransaction trans)
         {
