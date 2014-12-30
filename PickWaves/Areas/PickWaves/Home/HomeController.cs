@@ -215,15 +215,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                    group item by new
                    {
                        BucketStatus = item.BucketState,
-                       item.Customer.CustomerId
+                       item.CustomerId
                    } into g
                    select new CustomerBucketStateModel
                                 {
                                     BucketStatus = g.Key.BucketStatus,
                                     BucketCount = g.Sum(p => p.BucketCount),
                                     CustomerId = g.Key.CustomerId,
-                                    CustomerName = g.First().Customer.Name,
-                                    IsCustomerActive = g.First().Customer.IsActive,
+                                    CustomerName = g.First().CustomerName,
+                                    IsCustomerActive = g.First().IsActiveCustomer,
                                     PickedPieces = g.Sum(p => p.CurrentPieces),
                                     OrderedPieces = g.Sum(p => p.OrderedPieces),
                                     ExpectedPieces = g.Sum(p => p.ExpectedPieces),

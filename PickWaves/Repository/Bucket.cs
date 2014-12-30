@@ -41,6 +41,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// <summary>
         /// Customer name for whom the bucket was created
         /// </summary>
+        [Obsolete]
         public string MaxCustomerName { get; set; }
 
         /// <summary>
