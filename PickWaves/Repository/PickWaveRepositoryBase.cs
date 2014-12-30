@@ -71,6 +71,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// Bucket information
         /// When we showing specific bucket information, show all information such as cancelled box , etc..
         /// </returns>
+        [Obsolete]
         public Bucket GetBucket(int bucketId)
         {
             if (bucketId == 0)
@@ -429,7 +430,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
 
 
         /// <summary>
-        ///  This method gets Buckets information.
+        ///  This method gets Buckets information. For performance reasons, cancelled box info is retrieved only when bucketId is passed
         /// </summary>       
         /// <param name="customerId">This is optional parameter, need to see only customer specific buckets</param>
         /// <param name="state">Passed to get bucket with specific status.</param>
@@ -451,9 +452,9 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
         /// </remarks>
         /// Discuss with Sharad sir on 15-May-2014 : 
         /// Get bucket for customer is not showing cancelled box.
-        public IList<Bucket> GetBuckets(string customerId, ProgressStage? state, string userName)
+        public IList<Bucket> GetBuckets(int? bucketId, string customerId, ProgressStage? state, string userName)
         {
-            if (string.IsNullOrWhiteSpace(customerId))
+            if (bucketId == null && string.IsNullOrWhiteSpace(customerId))
             {
                 throw new ArgumentException("All parameters cannot be null to avoid retrieving too many buckets");
             }
@@ -517,8 +518,12 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
       ON TIA.INVENTORY_STORAGE_AREA = BKT.PULL_CARTON_AREA
     LEFT OUTER JOIN <proxy />IA IA
       ON IA.IA_ID = BKT.PITCH_IA_ID
-   WHERE PS.TRANSFER_DATE IS NULL
+   WHERE
+<if>bkt.bucket_ID = :bucket_ID</if>
+<else>PS.TRANSFER_DATE IS NULL</else>
+
 <if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
+
         ),
 TOTAL_ORDERED_PIECES AS
  (SELECT Q1.BUCKET_ID AS BUCKET_ID,
@@ -559,9 +564,12 @@ TOTAL_ORDERED_PIECES AS
     FROM Q1
    INNER JOIN <proxy />PSDET PD
       ON PD.PICKSLIP_ID = Q1.PICKSLIP_ID
+<if c='not($BUCKET_ID)'>
    WHERE PD.TRANSFER_DATE IS NULL
+</if>
    GROUP BY Q1.BUCKET_ID),
 TOTAL_PICKED_PIECES(BUCKET_ID,
+CAN_EXP_PCS_PITCH, CAN_CUR_PCS_PITCH,CAN_EXP_PCS_PULL,CAN_CUR_PCS_PULL,
     VRFY_EXP_PCS_PITCH, VRFY_CUR_PCS_PITCH, VRFY_EXP_PCS_PULL, VRFY_CUR_PCS_PULL,
     UNVRFY_EXP_PCS_PITCH, UNVRFY_CUR_PCS_PITCH, UNVRFY_EXP_PCS_PULL, UNVRFY_CUR_PCS_PULL,
     INPROGRESS_BOXES_PITCH, VALIDATED_BOXES_PITCH, INPROGRESS_BOXES_PULL, VALIDATED_BOXES_PULL,
@@ -570,6 +578,26 @@ UNVRFY_BOXES,
     MAX_PITCHING_END_DATE,MIN_PITCHING_END_DATE,MAX_PULLING_END_DATE,MIN_PULLING_END_DATE
 ) AS
  (SELECT PS.BUCKET_ID AS BUCKET_ID,
+
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS CAN_EXP_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                BD.CURRENT_PIECES
+             END) AS CAN_CUR_PCS_PITCH,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
+             END) AS CAN_EXP_PCS_PULL,
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL AND
+                    BOX.STOP_PROCESS_DATE IS NOT NULL THEN
+                BD.CURRENT_PIECES
+             END) AS CAN_CUR_PCS_PULL,
+
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL THEN
                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
@@ -657,10 +685,17 @@ UNVRFY_BOXES,
    INNER JOIN <proxy />BOXDET BD
       ON BOX.PICKSLIP_ID = BD.PICKSLIP_ID
      AND BOX.UCC128_ID = BD.UCC128_ID
-   WHERE PS.TRANSFER_DATE IS NULL
+   WHERE 
+<if>PS.bucket_id = :bucket_id</if>
+<else>PS.TRANSFER_DATE IS NULL</else>
 <if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
+
    GROUP BY PS.BUCKET_ID)
 SELECT OP.BUCKET_ID               AS BUCKET_ID,
+       PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
+       PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
+       PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
+       PP.CAN_CUR_PCS_PULL        AS CAN_CUR_PCS_PULL,
         OP.NAME                    AS NAME,
        OP.DATE_CREATED            AS DATE_CREATED,
        OP.CREATED_BY              AS CREATED_BY,
@@ -762,6 +797,10 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PULL");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PULL");
 
+                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PITCH");
+                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PITCH");
+                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PULL");
+                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PULL");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -795,8 +834,9 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                   .Parameter("state", bucketState)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString())
-                  .Parameter("CompletedState", ProgressStage.Completed.ToString());
-            return _db.ExecuteReader(QUERY, binder, 2000);
+                  .Parameter("CompletedState", ProgressStage.Completed.ToString())
+                  .Parameter("bucket_ID", bucketId);
+            return _db.ExecuteReader(QUERY, binder, bucketId.HasValue ? 1 : 2000);
         }
 
     }
