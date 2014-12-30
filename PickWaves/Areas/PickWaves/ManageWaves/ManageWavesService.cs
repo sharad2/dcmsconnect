@@ -138,19 +138,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public void FreezePickWave(int bucketId, DbTransaction trans)
         {
-                _repos.DeleteBoxes(bucketId);
-                _repos.SetFreezeStatus(bucketId, true);
-                trans.Commit();
+            _repos.DeleteBoxes(bucketId);
+            _repos.SetFreezeStatus(bucketId, true);
+            trans.Commit();
         }
 
-        public void UnfreezePickWave(int bucketId)
+        public void UnfreezePickWave(int bucketId, DbTransaction trans)
         {
-            using (var trans = _repos.BeginTransaction())
-            {
-                _repos.CreateBoxes(bucketId);
-                _repos.SetFreezeStatus(bucketId, false);
-                trans.Commit();
-            }
+            _repos.CreateBoxes(bucketId);
+            _repos.SetFreezeStatus(bucketId, false);
         }
 
         /// <summary>
