@@ -54,6 +54,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [ReadOnly(true)]
         public IList<BucketModel> Buckets { get; set; }
 
+        [DisplayFormat(DataFormatString="{0:N0}")]
+        public int BucketCount
+        {
+            get
+            {
+                if (this.Buckets == null)
+                {
+                    return 0;
+                }
+                return Buckets.Count;
+            }
+        }
+
         [Display(Name = "Customer")]
         [ReadOnly(false)]
         public string CustomerId { get; set; }

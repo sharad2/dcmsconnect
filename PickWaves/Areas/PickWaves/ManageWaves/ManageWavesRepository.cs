@@ -26,49 +26,49 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         #endregion
 
-        /// <summary>
-        /// Returns bucket information and locks the bucket (FOR UPDATE).
-        /// </summary>
-        /// <param name="bucketId"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public Bucket GetLockedBucket(int bucketId)
-        {
-            const string QUERY = @"
-                        SELECT BKT.BUCKET_ID AS BUCKET_ID,
-                               BKT.NAME AS NAME,
-                               BKT.PITCH_IA_ID AS PITCH_IA_ID,
-                               BKT.FREEZE AS FREEZE,
-                               BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
-                               BKT.PRIORITY AS PRIORITY,
-                               BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
-                               BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
-                       (SELECT p.customer_id
-                          from <proxy />ps p
-                         where p.bucket_id = :BUCKET_ID
-                           and rownum &lt; 2) as customer_id
-                          FROM <proxy />BUCKET BKT
-                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME NOWAIT";
-            var binder = SqlBinder.Create(row =>
-            {
-                var bucket = new Bucket
-              {
-                  BucketId = row.GetInteger("BUCKET_ID").Value,
-                  BucketName = row.GetString("NAME"),
-                  IsFrozen = row.GetString("FREEZE") == "Y",
-                  PriorityId = row.GetInteger("PRIORITY") ?? 0,
-                  PullingBucket = row.GetString("PULL_TO_DOCK"),
-                  BucketComment = row.GetString("BUCKET_COMMENT"),
-                  MaxCustomerId = row.GetString("customer_id")
-              };
-                bucket.Activities[BucketActivityType.Pulling].Area.AreaId = row.GetString("PULL_AREA_ID");
-                bucket.Activities[BucketActivityType.Pitching].Area.AreaId = row.GetString("PITCH_IA_ID");
-                return bucket;
-            }
-            );
-            binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteSingle(QUERY, binder);
-        }
+//        /// <summary>
+//        /// Returns bucket information and locks the bucket (FOR UPDATE).
+//        /// </summary>
+//        /// <param name="bucketId"></param>
+//        /// <returns></returns>
+//        [Obsolete]
+//        public Bucket GetLockedBucket(int bucketId)
+//        {
+//            const string QUERY = @"
+//                        SELECT BKT.BUCKET_ID AS BUCKET_ID,
+//                               BKT.NAME AS NAME,
+//                               BKT.PITCH_IA_ID AS PITCH_IA_ID,
+//                               BKT.FREEZE AS FREEZE,
+//                               BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
+//                               BKT.PRIORITY AS PRIORITY,
+//                               BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
+//                               BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
+//                       (SELECT p.customer_id
+//                          from <proxy />ps p
+//                         where p.bucket_id = :BUCKET_ID
+//                           and rownum &lt; 2) as customer_id
+//                          FROM <proxy />BUCKET BKT
+//                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME NOWAIT";
+//            var binder = SqlBinder.Create(row =>
+//            {
+//                var bucket = new Bucket
+//              {
+//                  BucketId = row.GetInteger("BUCKET_ID").Value,
+//                  BucketName = row.GetString("NAME"),
+//                  IsFrozen = row.GetString("FREEZE") == "Y",
+//                  PriorityId = row.GetInteger("PRIORITY") ?? 0,
+//                  PullingBucket = row.GetString("PULL_TO_DOCK"),
+//                  BucketComment = row.GetString("BUCKET_COMMENT"),
+//                  MaxCustomerId = row.GetString("customer_id")
+//              };
+//                bucket.Activities[BucketActivityType.Pulling].Area.AreaId = row.GetString("PULL_AREA_ID");
+//                bucket.Activities[BucketActivityType.Pitching].Area.AreaId = row.GetString("PITCH_IA_ID");
+//                return bucket;
+//            }
+//            );
+//            binder.Parameter("BUCKET_ID", bucketId);
+//            return _db.ExecuteSingle(QUERY, binder);
+//        }
 
         /// <summary>
         /// Get the list of SKUs of passed bucket

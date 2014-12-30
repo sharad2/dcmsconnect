@@ -451,7 +451,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
         /// </remarks>
         /// Discuss with Sharad sir on 15-May-2014 : 
         /// Get bucket for customer is not showing cancelled box.
-        public IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage? state, string userName)
+        public IList<Bucket> GetBuckets(string customerId, ProgressStage? state, string userName)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
