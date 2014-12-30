@@ -48,7 +48,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             CountPurchaseOrder = src.CountPurchaseOrder;
             //MinPoId = src.MinPoId;
             //MaxPoId = src.MaxPoId;
-            MaxCustomerId = src.MaxCustomerId;
+            CustomerId = src.MaxCustomerId;
             //MaxCustomerName = src.MaxCustomerName;
 
             DcCancelDateRange = new DateRange
@@ -193,10 +193,9 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// One of the customers of this bucket
         /// </summary>
         [Display(Name = "Customer")]
-        public string MaxCustomerId { get; set; }
+        public string CustomerId { get; set; }
 
-        [Obsolete]
-        public string MaxCustomerName { get; set; }
+        public string CustomerName { get; set; }
 
         /// <summary>
         /// Created, In Progress, Complete

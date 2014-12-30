@@ -117,7 +117,7 @@
                             @if (isAuthorized && Model.IsFrozen)
                             {
                                 <small>
-                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.MaxCustomerId, lastBucketId: Model.BucketId))">
+                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">
                                         Add more
                                     </a>
                                 </small>

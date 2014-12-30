@@ -8,14 +8,11 @@
         Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
 
 
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.Bucket.MaxCustomerId, lastBucketId: Model.Bucket.BucketId))">Add more pickslips</a>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.Bucket.CustomerId, lastBucketId: Model.Bucket.BucketId))">Add more pickslips</a>
 
     </blockquote>
 
 }
-
-
-
 <ul class="list-group">
     <li class="list-group-item active">
         <div class="row">
@@ -85,7 +82,7 @@
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
                         </strong>
                     }
-                    <div class="progress" style="margin-bottom:0px;">
+                    <div class="progress" style="margin-bottom:0">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
                             <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked <em>&bull; @Model.PickslipList[i].PercentCurrentPieces% picked</em></span>
                         </div>

@@ -126,17 +126,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 //HighlightedActions = nextAction
             };
-            model.Bucket = new BucketModel(bucket);
+            model.Bucket = new BucketModel(bucket)
+            {
+                CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+            };
 
             // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
             if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
             {
                 model.Bucket.RequiredBoxExpediting = true;
             }
-            if (!model.Bucket.IsFrozen)
-            {
-                //model.HighlightedActions = SuggestedNextActionType.UnfreezeOthers;
-            }
+
             return View(this.Views.Wave, model);
         }
 
