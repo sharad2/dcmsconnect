@@ -487,7 +487,7 @@ MAX(ps.customer_id) AS customer_id,
                                  BKT.BUCKET_COMMENT    = :BUCKET_COMMENT,                    
                                  BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
                                  BKT.PULL_TYPE      = :PULL_TYPE,      
-                                 BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       
+                                 BKT.PITCH_TYPE  = :PITCH_TYPE,       
                                  BKT.PITCH_LIMIT       = :PITCH_LIMIT,       
                                  BKT.DATE_MODIFIED = SYSDATE
                          WHERE BKT.BUCKET_ID = :BUCKET_ID
@@ -496,7 +496,7 @@ MAX(ps.customer_id) AS customer_id,
                                   BKT.BUCKET_COMMENT,
                                   BKT.PULL_CARTON_AREA,
                                   BKT.PULL_TYPE,
-                                  BKT.QUICK_PITCH_FLAG,
+                                  BKT.PITCH_TYPE,
                                   BKT.PITCH_LIMIT,
 BKT.FREEZE
                         INTO      :NAME_OUT,
@@ -504,7 +504,7 @@ BKT.FREEZE
                                   :BUCKET_COMMENT_OUT,
                                   :PULL_CARTON_AREA_OUT,
                                   :PULL_TYPE_OUT,
-                                  :QUICK_PITCH_FLAG_OUT,
+                                  :PITCH_TYPE_OUT,
                                   :PITCH_LIMIT_OUT,
 :FREEZE_OUT
 ";
@@ -514,15 +514,15 @@ BKT.FREEZE
                   .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("BUCKET_ID", bucketId)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
-                  .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
+                  .Parameter("PITCH_TYPE", bucket.QuickPitch ? "EXP" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
                 .OutParameter("PITCH_LIMIT_OUT", p => bucket.PitchLimit = p ?? 0) //TODO
-                .OutParameter("PULL_TYPE_OUT", p => bucket.QuickPitch = p == "EXP")
-                .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y")
+                .OutParameter("PULL_TYPE_OUT", p => bucket.RequireBoxExpediting = p == "EXP")
+                .OutParameter("PITCH_TYPE_OUT", p => bucket.QuickPitch = p == "QUICK")
                 .OutParameter("PITCH_IA_ID_OUT", p => bucket.PitchAreaId = p)
                 .OutParameter("PULL_CARTON_AREA_OUT", p => bucket.PullAreaId = p)
                 .OutParameter("FREEZE_OUT", p => bucket.IsFrozen = p == "Y");

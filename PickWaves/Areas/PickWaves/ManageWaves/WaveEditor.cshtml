@@ -1,7 +1,7 @@
 ﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveEditorViewModel
 
 @{
-    ViewBag.Title = "Edit Pick Wave # ";
+    ViewBag.Title = "Edit Pick Wave # " + Model.BucketId;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 
     Html.EnableClientValidation();
@@ -71,9 +71,9 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                @Html.CheckBoxFor(m => m.QuickPitch)
+                @Html.CheckBoxFor(m => m.QuickPitch) * @Model.QuickPitch *
                 <label>
-                    Required Box Expediting
+                    Quick Pitch
                 </label>
 
             </div>
