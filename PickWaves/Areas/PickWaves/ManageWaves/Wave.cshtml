@@ -22,37 +22,6 @@
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
     </h2>
-   
-    @*@if (Model.UserIsManager)
-    {
-        if (Model.Bucket.IsFrozen)
-        {
-            <div class="alert alert-warning" role="alert">
-                This pick wave is currently frozen. To start processing this pick wave, you must unfreeze it.
-                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="display:inline">
-                    <button class="btn btn-warning" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Unfreeze</button>
-                </form>
-            </div>
-        }
-        else
-        {
-            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="display:inline">
-                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" type="submit">Freeze</button>
-            </form>
-        }
-        if (!Model.Bucket.IsFrozen)
-        {
-            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post" style="display:inline">
-                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.Bucket.BucketId"
-                        type="submit">
-                    Freeze and Edit
-                </button>
-            </form>
-        }
-    }*@
-
-
-
 
     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                    {
@@ -94,40 +63,6 @@
         </div>
     </div>
 </div>
-
-@*<div class="modal fade" id="freezeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Freeze Pick Wave @Model.Bucket.BucketId</h4>
-            </div>
-            <div class="modal-body">
-                <blockquote class="text-info">Pick Wave can not be processed till it is frozen.</blockquote>
-                <em>
-                    <strong>@Model.Bucket.CountNotStartedBoxes</strong>  Boxes assigned to this pick wave, which are not picked will be deleted and will be available for other pick waves.
-                </em>
-                <br />
-                <br />
-                <b>
-                    Are you sure want to freeze pick wave?
-                </b>
-            </div>
-
-            <div class="modal-footer">
-                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post">
-                    <button type="submit" class="btn btn-primary" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId" value="@Model.Bucket.BucketId">Yes</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </form>
-            </div>
-        </div>
-
-    </div>
-</div>*@
-
-
-
 
 @section script {
     <!--Bundle of ManageWaves/Wave.partial.js and SharedViews/_bucketModel.partial.js-->
