@@ -140,6 +140,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             return _repos.GetBucketAreas(bucketId);
         }
+
+        public BucketEditable GetEditableBucket(int bucketId)
+        {
+            return _repos.GetEditableBucket(bucketId);
+        }
     }
 }
 

@@ -71,6 +71,47 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 //        }
 
         /// <summary>
+        /// Get the editable wave
+        /// </summary>
+        /// <param name="bucketId"></param>
+        /// <returns></returns>
+        public BucketEditable GetEditableBucket(int bucketId)
+        {
+            const string QUERY = @"
+                       SELECT     BKT.BUCKET_ID AS BUCKET_ID,
+                                   BKT.NAME AS NAME,
+                                   BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
+                                   BKT.PITCH_LIMIT AS PITCH_LIMIT,                                 
+                                   PS.CUSTOMER_ID AS CUSTOMER_ID,
+                                   BKT.FREEZE AS FREEZE,
+                                   CASE WHEN BKT.PITCH_TYPE = 'QUICK' THEN 'Y' END AS QUICK_PITCH_FLAG,
+                                   BKT.PULL_TYPE AS PULL_TYPE 
+                              FROM BUCKET BKT
+                             INNER JOIN <proxy />PS PS
+                                  ON PS.BUCKET_ID = BKT.BUCKET_ID                                                        
+                             WHERE BKT.BUCKET_ID = :BUCKET_ID";
+            var binder = SqlBinder.Create(row =>
+            {
+                var bucket = new BucketEditable
+              {
+                  BucketId = row.GetInteger("BUCKET_ID").Value,
+                  BucketName = row.GetString("NAME"),
+                  BucketComment=row.GetString("BUCKET_COMMENT"),
+                  PitchLimit= row.GetInteger("PITCH_LIMIT") ?? 0,
+                  IsFrozen = row.GetString("FREEZE") == "Y",
+                  CustomerId = row.GetString("CUSTOMER_ID"),                
+                  QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
+                  RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP"
+
+              };               
+                return bucket;
+            }
+            );
+            binder.Parameter("BUCKET_ID", bucketId);
+            return _db.ExecuteSingle(QUERY, binder); 
+        }
+
+        /// <summary>
         /// Get the list of SKUs of passed bucket
         /// </summary>
         /// <param name="bucketId"></param>

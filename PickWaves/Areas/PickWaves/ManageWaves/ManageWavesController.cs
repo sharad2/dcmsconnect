@@ -386,7 +386,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wave-editor")]
         public virtual ActionResult WaveEditor(int bucketId)
         {
-            var bucket = _service.Value.GetBucket(bucketId);
+            var bucket = _service.Value.GetEditableBucket(bucketId);
             if (bucket == null)
             {
                 // Unreasonable bucket id
@@ -410,7 +410,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                 {
                                     Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                     Value = area.CountSku > 0 ? area.AreaId : "",
-                                    Selected = area.AreaId == bucket.Activities[BucketActivityType.Pulling].Area.AreaId
+                                    Selected = area.AreaId == bucket.PullAreaId
                                 }).ToList(),
                 PitchAreaList = (from area in bucketAreas
                                  where area.AreaType == BucketActivityType.Pitching
@@ -419,9 +419,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  {
                                      Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
                                      Value = area.CountSku > 0 ? area.AreaId : "",
-                                     Selected = area.AreaId == bucket.Activities[BucketActivityType.Pitching].Area.AreaId
+                                     Selected = area.AreaId == bucket.PitchAreaId
                                  }).ToList(),
-                CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+                CustomerName = _service.Value.GetCustomerName(bucket.CustomerId)
             };
 
             return View(Views.WaveEditor, model);
