@@ -58,7 +58,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public bool QuickPitch { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pitch Limit is Required.")]
         public int? PitchLimit { get; set; }
 
         public string BucketComment { get; set; }
