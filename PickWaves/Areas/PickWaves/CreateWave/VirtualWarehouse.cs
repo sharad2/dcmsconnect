@@ -1,7 +1,7 @@
 ﻿
 namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 {
-    public class VirtualWarehouse
+    internal class VirtualWarehouse
     {
         public string VWhId { get; set; }
 

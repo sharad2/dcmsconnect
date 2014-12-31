@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public class Pickslip
+    internal class Pickslip
     {
         [Key]
         public long PickslipId { get; set; }

@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public enum PiecesKind
+    internal enum PiecesKind
     {
         Expected,
         Current
     }
 
-    public class BoxStats
+    internal class BoxStats
     {
         private readonly int?[,] _pieces;
 
