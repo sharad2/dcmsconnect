@@ -132,10 +132,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             };
 
             // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                model.Bucket.RequiredBoxExpediting = true;
-            }
+            //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            //{
+            //    model.Bucket.RequiredBoxExpediting = true;
+            //}
 
             return View(this.Views.Wave, model);
         }

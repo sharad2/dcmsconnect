@@ -59,8 +59,6 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool RequiredBoxExpediting { get; set; }
 
-        internal string PullingBucket { get; set; }
-
         public bool QuickPitch { get; set; }
 
         //[Obsolete]

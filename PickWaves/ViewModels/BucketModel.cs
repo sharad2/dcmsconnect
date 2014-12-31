@@ -99,10 +99,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             BucketState = state;
 
-            if (!string.IsNullOrWhiteSpace(src.PullingBucket) && src.PullingBucket == "N")
-            {
-                RequiredBoxExpediting = true;
-            }
+            RequiredBoxExpediting = src.RequiredBoxExpediting;
 
             CountAssignedSku = src.CountAssignedSku;
             CountTotalSku = src.CountTotalSku;
@@ -161,7 +158,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Pitch Limit")]
         public int? PitchLimit { get; set; }
 
-        #endregion        
+        #endregion
 
         public IList<BucketActivityModel> Activities
         {
