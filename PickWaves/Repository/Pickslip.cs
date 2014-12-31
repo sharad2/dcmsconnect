@@ -3,10 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Repository
 {
-    public class Pickslip
+    internal class Pickslip
     {
         [Key]
         public long PickslipId { get; set; }
+
+        public int BucketId { get; set; }
+
+        public bool IsFrozenBucket { get; set; }
 
         public string CustomerId { get; set; }
 

@@ -321,7 +321,7 @@ WHERE 1 = 1
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetBucketPickslips(int bucketId)
+        public IList<Pickslip> GetBucketPickslips(int bucketId)
         {
             const string QUERY = @"
                                 SELECT PS.PICKSLIP_ID                           AS PICKSLIP_ID,
@@ -341,7 +341,9 @@ MAX(ps.customer_id) AS customer_id,
                                        SUM(CASE
                                              WHEN B.STOP_PROCESS_DATE IS NOT NULL AND
                                                   B.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES
+                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES,
+MAX(bkt.freeze) as freeze,
+MAX(ps.bucket_id) as bucket_id
                                   FROM <proxy />PS PS
                                  INNER JOIN <proxy />BUCKET BKT
                                     ON PS.BUCKET_ID = BKT.BUCKET_ID
@@ -366,7 +368,9 @@ MAX(ps.customer_id) AS customer_id,
                 PiecesInCancelledBoxes = row.GetInteger("PIECES_IN_CANCELLED_BOXES") ?? 0,
                 BoxCount = row.GetInteger("BOX_COUNT") ?? 0,
                 Iteration = row.GetInteger("iteration"),
-                CustomerId = row.GetString("customer_id")
+                CustomerId = row.GetString("customer_id"),
+                IsFrozenBucket = row.GetString("freeze") == "Y",
+                BucketId = row.GetInteger("bucket_id") ?? 0
             });
             binder.Parameter("BUCKET_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder, 2000);
