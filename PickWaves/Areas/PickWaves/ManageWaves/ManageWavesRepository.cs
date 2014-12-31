@@ -518,7 +518,7 @@ BKT.FREEZE
                   .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("BUCKET_ID", bucketId)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
-                  .Parameter("PITCH_TYPE", bucket.QuickPitch ? "EXP" : null)
+                  .Parameter("PITCH_TYPE", bucket.QuickPitch ? "QUICK" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
