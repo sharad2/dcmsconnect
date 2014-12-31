@@ -22,7 +22,7 @@
         </small>
     </h2>
 
-    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UpdateWave())" method="post" class="form-horizontal" role="form">   
+    <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UpdateWave())" method="post" class="form-horizontal" role="form">
         @Html.HiddenFor(m => m.BucketId)
 
         <div class="form-group">
@@ -44,20 +44,20 @@
 
 
             @*<label class="col-sm-2 control-label">Priority<sup>*</sup></label>
-            <div class="col-sm-4">
-                @Html.TextBoxFor(m => m.PriorityId, new
-   {
-       size = 2,
-       maxlength = 2,
-       @class = "form-control",
-       @placeholder = "Pick Waves with higher priority will show first(Max: 99)"
-   })
+                         <div class="col-sm-4">
+                             @Html.TextBoxFor(m => m.PriorityId, new
+                {
+                    size = 2,
+                    maxlength = 2,
+                    @class = "form-control",
+                    @placeholder = "Pick Waves with higher priority will show first(Max: 99)"
+                })
 
-                @Html.ValidationMessageFor(m => m.PriorityId, null, new
-           {
-               @class = "help-block"
-           })
-            </div>*@
+                             @Html.ValidationMessageFor(m => m.PriorityId, null, new
+                        {
+                            @class = "help-block"
+                        })
+                         </div>*@
 
         </div>
 
@@ -150,7 +150,7 @@
                 <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">Cancel</a>
             </div>
         </div>
-        </form>
+    </form>
 </div>
 
 @section script {
