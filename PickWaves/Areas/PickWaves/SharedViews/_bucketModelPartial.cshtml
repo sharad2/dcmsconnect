@@ -19,10 +19,16 @@
         {
             if (Model.IsFrozen)
             {
+                
+                
+                
                 <div class="btn-group pull-right" role="group">
-                    <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        Frozen
-                        <span class="caret"></span>
+                    <button class="btn btn-default dropdown-toggle" type="button" title="Unfreeze or Edit"
+                            id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        <span class="glyphicon glyphicon-play"></span>
+                        |
+                        <span class="glyphicon glyphicon-edit"></span>
+
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                         <li role="presentation">
@@ -31,17 +37,19 @@
                                 {
                                     <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
                                 }
-                                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
+                                <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
                                         value="@Model.BucketId" type="submit">
-                                    <span class="glyphicon glyphicon-play"></span> Unfreeze
+                                    <span class="glyphicon glyphicon-play"></span>
+                                    Unfreeze
                                 </button>
                             </form>
                         </li>
                         <li class="divider"></li>
                         <li role="presentation">
                             <div style="text-align:center; margin:1mm">
-                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" role="menuitem" tabindex="-1">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
+                                   role="menuitem" tabindex="-1">
+                                    Edit
                                 </a>
                             </div>
                         </li>
@@ -51,24 +59,40 @@
             else
             {
                 <div class="btn-group pull-right" role="group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        ...
-                        <span class="caret"></span>
+                    <button class="btn btn-default dropdown-toggle" type="button" title="Freeze,Edit or both"
+                            id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        <span class="glyphicon glyphicon-pause"></span>
+                        |
+                        <span class="glyphicon glyphicon-edit"></span>
+
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                  
                         <li role="presentation">
-                            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="margin:1mm">                           
-                                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId"
+                            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="text-align:center; margin:1mm">
+                                <span>
+                                    Pick Wave can not be processed till it is frozen.
+                                    <br />
+                                    <small>
+                                        <em>
+                                            <strong>@Model.CountNotStartedBoxes</strong>
+                                            Boxes assigned to this pick wave, which are not picked will be deleted and will be available for other pick waves.
+                                        </em>
+                                    </small>
+                                </span>
+                                <br />
+                                <button class="btn btn-warning"
+                                        name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId"
                                         value="@Model.BucketId" type="submit">
+                                    <span class="glyphicon glyphicon-pause"></span>
                                     Freeze
                                 </button>
                             </form>
                         </li>
                         <li class="divider"></li>
                         <li role="presentation">
-                            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post">
-                                <button class="btn btn-default" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.BucketId"
+                            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post" style="text-align:center; margin:1mm">
+
+                                <button class="btn btn-link" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.BucketId"
                                         type="submit">
                                     Freeze and Edit
                                 </button>
@@ -80,13 +104,8 @@
             }
 
         }
-        else
-        {
 
-            <div class="pull-right">
-                <em class="badge">Frozen</em>
-            </div>
-        }
+
 
 
         <h3 class="list-group-item-heading">
@@ -103,9 +122,12 @@
                     @Html.DisplayFor(m => m.BucketId)
                 </a>
             }
-
             <small>
                 @Model.BucketName
+                @if (Model.IsFrozen)
+                {
+                    <em class="badge">Frozen</em>
+                }
                 <span style="font-size:0.8em">Created @Html.DisplayFor(m => m.CreationDate) by @Html.DisplayFor(m => m.CreatedBy)</span>
             </small>
         </h3>
