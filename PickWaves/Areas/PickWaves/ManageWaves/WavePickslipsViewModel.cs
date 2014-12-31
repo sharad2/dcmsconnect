@@ -142,7 +142,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
     public class WavePickslipsViewModel: ViewModelBase
     {
-        public BucketModel Bucket { get; set; }
+        public int BucketId { get; set; }
+
+        public bool IsFrozenBucket { get; set; }
+
+        public string CustomerId { get; set; }
 
         public IList<ManageWavesPickslipModel> PickslipList { get; set; }
 

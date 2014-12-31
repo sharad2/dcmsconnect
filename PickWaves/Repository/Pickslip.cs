@@ -8,6 +8,10 @@ namespace DcmsMobile.PickWaves.Repository
         [Key]
         public long PickslipId { get; set; }
 
+        public int BucketId { get; set; }
+
+        public bool IsFrozenBucket { get; set; }
+
         public string CustomerId { get; set; }
 
         public DateTime? DcCancelDate { get; set; }

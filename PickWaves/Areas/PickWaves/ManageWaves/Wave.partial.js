@@ -30,9 +30,11 @@
 		});
 	}).find('> ul a:first').tab('show');
 
-	//$('#freezeModal').on('click', 'button:not([data-dismiss])', function (e) {
-	//    //alert('submit');
-	//    $('form', e.delegateTarget).trigger('submit');
-	//});
+    //Tool tips on _buckerMoelPartial.cshtml
+	
+	    $(function () {
+	        $("[data-toggle='tooltip']").tooltip();
+	    });
+
 
 });

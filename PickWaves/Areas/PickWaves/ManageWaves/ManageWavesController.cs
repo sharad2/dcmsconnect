@@ -132,10 +132,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             };
 
             // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
-            if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            {
-                model.Bucket.RequiredBoxExpediting = true;
-            }
+            //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+            //{
+            //    model.Bucket.RequiredBoxExpediting = true;
+            //}
 
             return View(this.Views.Wave, model);
         }
@@ -298,12 +298,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavepickslip")]
         public virtual ActionResult WavePickslips(int bucketId)
         {
-            var bucket = _service.Value.GetBucket(bucketId);
+            //var bucket = _service.Value.GetBucket(bucketId);
             var pickslips = _service.Value.GetBucketPickslip(bucketId);
 
             var model = new WavePickslipsViewModel
                 {
-                    Bucket = new BucketModel(bucket),
+                    //Bucket = new BucketModel(bucket),
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
@@ -323,6 +323,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                           .ThenByDescending(p => p.OrderedPieces).ToList(),
 
                 };
+
+            if (pickslips.Count > 0)
+            {
+                var ps = pickslips.First();
+                model.CustomerId = ps.CustomerId;
+                model.BucketId = ps.BucketId;
+                model.IsFrozenBucket = ps.IsFrozenBucket;
+            }
             return PartialView(this.Views._wavePickslipsPartial, model);
         }
 
