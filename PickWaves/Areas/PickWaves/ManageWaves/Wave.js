@@ -31,10 +31,6 @@ $(document).ready(function (e) {
 		});
 	}).find('> ul a:first').tab('show');
 
-	//$('#freezeModal').on('click', 'button:not([data-dismiss])', function (e) {
-	//    //alert('submit');
-	//    $('form', e.delegateTarget).trigger('submit');
-	//});
 
 });
 
@@ -52,4 +48,11 @@ $(document).ready(function () {
     });
 });
 
+
+//Tool tips on _buckerMoelPartial.cshtml
+$(document).ready(function () {
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+    });
+});
 
