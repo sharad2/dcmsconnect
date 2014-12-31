@@ -383,7 +383,7 @@ MAX(ps.bucket_id) as bucket_id
         /// <param name="stateFilter">InProgress filter returns empty boxes. Completed filter includes partially complete as well and therefore returns all non empty boxes</param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId)
+        public IList<Box> GetBucketBoxes(int bucketId)
         {
             const string QUERY = @"
                             SELECT B.UCC128_ID                                          AS UCC128_ID,
@@ -641,7 +641,7 @@ BKT.FREEZE
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
+        public IList<BucketArea> GetBucketAreas(int bucketId)
         {
             const string QUERY = @"
                             WITH ORDERED_SKU AS

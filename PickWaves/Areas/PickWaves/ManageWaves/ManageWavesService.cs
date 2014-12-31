@@ -24,7 +24,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
+        internal IList<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
         {
             return _repos.GetBuckets(null, customerId, state, userName);
         }
@@ -56,7 +56,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId)
+        public IList<Box> GetBucketBoxes(int bucketId)
         {
             return _repos.GetBucketBoxes(bucketId);
         }
@@ -136,7 +136,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
+        public IList<BucketArea> GetBucketAreas(int bucketId)
         {
             return _repos.GetBucketAreas(bucketId);
         }
