@@ -4,7 +4,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     internal class BucketArea : InventoryArea
     {
         /// <summary>
-        /// Number of ordered SKU which can be found in this area
+        /// Number of ordered SKUs which can be found in this area
         /// </summary>
         public int? CountSku { get; set; }
 

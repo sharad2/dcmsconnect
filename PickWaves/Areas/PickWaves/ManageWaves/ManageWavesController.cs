@@ -402,22 +402,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             var bucketAreas = _service.Value.GetBucketAreas(bucketId);
             var model = new WaveEditorViewModel(bucket)
             {
+                // Show only those areas which have some SKUs available
                 PullAreaList = (from area in bucketAreas
-                                where area.AreaType == BucketActivityType.Pulling
+                                where area.AreaType == BucketActivityType.Pulling && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                                    area.CountSku.HasValue && area.CountSku > 0
                                 orderby area.CountSku descending
+                                let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
                                 select new SelectListItem
                                 {
-                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                    Value = area.CountSku > 0 ? area.AreaId : "",
+                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
+                                        area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                    Value = area.AreaId,
                                     Selected = area.AreaId == bucket.PullAreaId
                                 }).ToList(),
                 PitchAreaList = (from area in bucketAreas
-                                 where area.AreaType == BucketActivityType.Pitching
+                                 where area.AreaType == BucketActivityType.Pitching && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                                    area.CountSku.HasValue && area.CountSku > 0
                                  orderby area.CountSku descending
+                                 let pctSkuAssigned = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
                                  select new SelectListItem
                                  {
-                                     Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                     Value = area.CountSku > 0 ? area.AreaId : "",
+                                     Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, pctSkuAssigned),
+                                     Value = area.AreaId,
                                      Selected = area.AreaId == bucket.PitchAreaId
                                  }).ToList(),
                 CustomerName = _service.Value.GetCustomerName(bucket.CustomerId)
