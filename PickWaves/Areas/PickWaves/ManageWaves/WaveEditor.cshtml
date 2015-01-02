@@ -113,7 +113,7 @@
 
             </div>
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
                 <label>
@@ -131,12 +131,13 @@
                 </small>
 
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">Cancel</a>
+                <button type="submit" class="btn btn-default" name="@Html.NameFor(m => m.UnfreezeWaveAfterSave)" value="True">Save and Unfreeze</button>
+                <a class="btn btn-link" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">Cancel</a>
             </div>
         </div>
     </form>

@@ -382,7 +382,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         #region Wave Editor
 
-        [Route("wave-editor")]
+        [Route("editor")]
         public virtual ActionResult WaveEditor(int bucketId)
         {
             var bucket = _service.Value.GetEditableBucket(bucketId);
