@@ -214,7 +214,7 @@
                     @if (Model.UserIsManager)
                     {
                         <button class="btn btn-default" id="btnAddNewCustConstraint" data-toggle="modal"
-                                data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor())"
+                                data-target="#tabModal" data-action-url="@Url.Action(MVC_PickWaves.PickWaves.Config.CustomerConstraintEditor(null,1))"
                                 title="Add Customer Constraint">
                             <span class="glyphicon glyphicon-plus"></span> Add Customer..
                         </button>
