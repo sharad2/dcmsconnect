@@ -69,10 +69,12 @@
 
 
                         <h4 class="list-group-item-heading">
-                            Customer @Model.CustomerSkuCaseList[i].CustomerId
-                            <small>
-                                : @Model.CustomerSkuCaseList[i].CustomerName
-                            </small>
+                            Customer<a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerSkuCaseList[i].CustomerId))">
+                                @Model.CustomerSkuCaseList[i].CustomerId
+                                <small>
+                                    : @Model.CustomerSkuCaseList[i].CustomerName
+                                </small>
+                            </a>
                             @if (Model.UserIsManager)
                             {
                                 <button class="btn btn-link btn-xs" data-toggle="modal" data-target="#tabModal" title="Add customer SKU case preference"
@@ -112,7 +114,7 @@
                         <div class="col-md-2 col-sm-2">
                             @if (Model.UserIsManager)
                             {
-                               
+
                                 <div class="dropdown">
                                     <button class="btn btn-xs btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="true">
                                         <span class="glyphicon glyphicon-remove"></span>
