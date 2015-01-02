@@ -54,7 +54,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         #endregion
 
         /// <summary>
-        /// Showing the bucket list of passed customer and status
+        /// Showing the bucket list of passed customer and status. userName is optional. If passed, then waves created by the passed user are displayed.
         /// </summary>
         /// <param name="model">
         /// CustomerId,BucketStatus
@@ -107,7 +107,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         #region Wave Viewer
         /// <summary>
-        /// Honors the passed bucketid, displayEditable and HighlightedActions
+        /// Displays details of passed bucket id
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -155,24 +155,25 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavesku")]
         public virtual ActionResult WaveSkus(int bucketId)
         {
-            var skuList = (from item in _service.Value.GetBucketSkuList(bucketId)
+            var skuList = _service.Value.GetBucketSkuList(bucketId);
+            var query = (from item in skuList
                            select new
                            {
                                BucketSku = item,
                                Activities = item.Activities.Select(p => new BucketActivityModel(p))
                                  .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0),
                                Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
-                           }).ToArray();
+                           }).ToList();
 
             var allAreas = (from sku in skuList
-                            from area in sku.Areas
-                            where !string.IsNullOrWhiteSpace(area.AreaId)
-                            select new InventoryAreaModel(area)
-                            ).Distinct(InventoryAreaModelComparer.Instance).ToArray();
+                            from area in sku.BucketSkuInAreas
+                            where !string.IsNullOrWhiteSpace(area.InventoryArea.AreaId)
+                            select new InventoryAreaModel(area.InventoryArea)
+                            ).Distinct(InventoryAreaModelComparer.Instance).ToList();
 
             var model = new WaveSkuListModel
             {
-                BucketSkuList = (from sku in skuList
+                BucketSkuList = (from sku in query
                                  select new BucketSkuModel
                                  {
                                      Style = sku.BucketSku.Sku.Style,
@@ -208,8 +209,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ToArray(),
                 AllAreas = allAreas,
                 BucketId = bucketId,
-                //StateFilter = stateFilter,
-                //ActivityFilter = activityFilter
             };
 
             return PartialView(this.Views._waveSkusPartial, model);

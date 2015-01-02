@@ -36,7 +36,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
+        public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
             return _repos.GetBucketSkuList(bucketId);
         }

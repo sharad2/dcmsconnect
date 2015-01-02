@@ -126,7 +126,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
+        public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
