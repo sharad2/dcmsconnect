@@ -156,13 +156,13 @@
                             <div style="width:14em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
                                 <div class="well well-sm">
                                     <div>
-                                        <span class="pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
+                                        <span class="pull-right" title="Total pieces at @Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
                                         <span>@Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName</span>
                                     </div>
                                     @if (!string.IsNullOrWhiteSpace(Model.BucketSkuList[i].InventoryByArea[j].BestLocationId))
                                     {
-                                        <div class="label label-primary">
-                                            @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].PiecesAtBestLocation) pcs
+                                        <div class="label label-primary" title="Best Location with maximum number of pieces">
+                                            @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].PiecesAtBestLocation) 
                                             @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].BestLocationId)
                                         </div>
                                     }
