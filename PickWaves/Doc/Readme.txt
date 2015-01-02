@@ -289,3 +289,46 @@ ON PS.BUCKET_ID = BKT.BUCKET_ID*/
    and box.stop_process_date is null
    and bd.stop_process_date is null
  GROUP BY ps.BUCKET_ID
+
+ -----------------------------------------
+
+ Test cases: 2 Jan 2015(After migrating to feature folder and Bootstrap 3)
+
+ General
+  - All links are working and redirecting and showing to correct UIs
+
+
+ Create Pick Wave View
+  -Page shows correct data on applying filter on "Add pickslip" field.
+  -Adding the pickslips working fine and verified with index page pickslip count.
+
+  Add Pickslips View
+   - Priority updation working correct.
+   - Selected pickslip action is working.
+
+  Frozen Pick Waves of customer View
+   - Priority updation working correct.
+   - Count of pickwave is correct.
+   
+  Pick Wave View
+   - Priority updation working correct.
+   - Unfreeze, freeze, edit and all other actions working correct.
+   - Ajax call for calling partial pages on the tabs working correct.
+   - Actions inside those partial pages are working fine.
+   - UI data matched with previous UIs(Old version).
+   - Validation is working fine for Edit wave page.
+      
+
+   Packing Cartons View
+    - Form "Add new SKU case" and "Edit SKU case" working fine and validation is correct.
+
+   Customer Carton Requirements
+	 - Forms "Add new customer preference", "add" and "edit customer" working fine and validation is correct.
+
+   Style Cartons View
+    - Form "Add packing rule" working fine, as well as validation is correct.
+	- Add packing rule for same style working fine and validation is correct on the form.
+
+   BoxPickPallet Folder
+	- UI is converted to bootstrap, only print option was not working.
+	- Column Bucket.Status, BUCKET.AVAILABLE_FOR_PITCHING obsoleted and thus UI not showing View.
