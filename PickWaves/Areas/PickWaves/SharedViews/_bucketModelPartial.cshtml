@@ -26,7 +26,7 @@
 
                     <button class="btn btn-default dropdown-toggle" type="button"
                             id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="glyphicon glyphicon-list"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -34,7 +34,7 @@
                             <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
                                 @if (Model.BoxNotCreatedPieces.HasValue)
                                 {
-                                    <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
+                                    <span>This will create Boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
                                 }
                                 <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
                                         value="@Model.BucketId" type="submit">
@@ -62,7 +62,7 @@
                      title="Freeze,Edit or both">
                     <button class="btn btn-default dropdown-toggle" type="button" title="Freeze,Edit or both"
                             id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="glyphicon glyphicon-list"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -74,7 +74,7 @@
                                     <small>
                                         <em>
                                             <strong>@Model.CountNotStartedBoxes</strong>
-                                            Boxes assigned to this pick wave, which are not picked will be deleted and will be available for other pick waves.
+                                            Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
                                         </em>
                                     </small>
                                 </span>
@@ -144,7 +144,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="list-group-item-heading">
-                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) boxes Validated
+                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes validated
 
                                 </h4>
 
@@ -153,14 +153,14 @@
                                     {
 
                                         <strong>
-                                            @Html.DisplayFor(m => m.CountCancelledBoxes) boxes cancelled
+                                            @Html.DisplayFor(m => m.CountCancelledBoxes) Boxes cancelled
                                         </strong>
 
                                     }
                                     @if (Model.CountNotStartedBoxes > 0)
                                     {
                                         <span>
-                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
+                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) Boxes not started
                                         </span>
                                     }
                                 </p>
@@ -236,11 +236,11 @@
                             <small>
                                 @if (Model.RequiredBoxExpediting)
                                 {
-                                    <span class="text-success"> Required Box Expediting</span>
+                                    <span class="text-success"> Box Expediting  required</span>
                                 }
                                 @if (Model.QuickPitch)
                                 {
-                                    <span class="text-success">&bull; Quick Pitching Required</span>
+                                    <span class="text-success">&bull; Quick Pitching required</span>
                                 }
                             </small>
                         </h4>
@@ -313,11 +313,11 @@
                         {
                             if (Model.IsFrozen)
                             {
-                                <li class="list-group-item text-info"><strong>@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
+                                <li class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
                             }
                             else
                             {
-                                <li class="list-group-item list-group-item-danger">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
+                                <li class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
                             }
                         }
                         @Html.DisplayFor(m => m.OverShippedPieces)
@@ -325,7 +325,7 @@
                     }
                     else
                     {
-                        <li class="list-group-item list-group-item-danger">Area is not decided yet for pulling and pitching</li>
+                        <li class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</li>
                     }
 
                 </ul>

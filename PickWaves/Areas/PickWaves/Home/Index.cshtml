@@ -41,7 +41,7 @@
                 @if (Model != null && Model.IsCustomerFilterApplied)
                 {
 
-                    <span>Showing for customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
+                    <span>Showing for Customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
 
                 }
                 @if (Model != null && Model.IsUserNameFilterApplied)
@@ -89,7 +89,7 @@
                         @if (Model.UserIsManager)
                         {
                             <blockquote>
-                                <p class="text-info">You can create new pick waves from here by simply clicking the customer Id.</p>
+                                <p class="text-info">You can create new pick waves from here by simply clicking the Customer Id.</p>
                             </blockquote>
                         }
                         else
@@ -221,12 +221,10 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <h4 class="list-group-item-heading">
-                                            @string.Format("{0:N0} customers", Model.BucketsByStatus.Values[j].Count)
-                                            <small>
+                                            @string.Format("{0:N0} Customers", Model.BucketsByStatus.Values[j].Count)                                         
                                                 <span class="label label-info">
                                                     Max priority @Model.BucketsByStatus.Values[j].Max(p => p.MaxPriorityId)
-                                                </span>
-                                            </small>
+                                                </span>                                         
                                         </h4>
                                     </div>
                                     <div class="col-md-2">
@@ -278,12 +276,11 @@
                                                     else
                                                     {
                                                         <s title="This customer is inactive.">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerName)</s>
-                                                    }
-
-                                                    <span class="label label-info">
-                                                        @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)
-                                                    </span>
+                                                    }                                                 
                                                 </small>
+                                                <span class="label label-info">
+                                                    @Html.DisplayFor(p => p.BucketsByStatus.Values[j][i].MaxPriorityId)
+                                                </span>
                                             </h4>
                                         </div>
                                         <div class="col-md-2">

@@ -17,14 +17,14 @@
 }
 <div class="container">
     <h2 style="margin-top:0;">
-        Add Pickslips <small>@Html.DisplayFor(m => m.CustomerId) @Html.DisplayFor(m => m.CustomerName)</small>
+        Add Pickslips <small><a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))">@Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)</a></small>
     </h2>
 
 
     @if (Model.Bucket == null)
     {
         <blockquote>
-            <p>   A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.</p>
+            <p>   A new default Pick Wave will be automatically created for you when you add Pickslips. You will be able to update the properties of the Pick Wave later.</p>
         </blockquote>
     }
     else
@@ -36,9 +36,11 @@
     }
     <ul class="list-inline">
         <li class="h4">Pickslips of </li>
-        <li>@Html.DisplayFor(m => m.SubgroupDimDisplayName) <em> @Model.SubgroupDimVal</em></li>
-        <li>@Html.DisplayFor(m => m.GroupDimDisplayName) <em>@Model.GroupDimVal)</em></li>
-        <li><abbr title="Virtual Warehouse">VWH</abbr> <em>@Model.VwhId</em></li>
+        
+            <li><strong>@Html.DisplayFor(m => m.SubgroupDimDisplayName)</strong><em> @Model.SubgroupDimVal</em></li>
+            <li><strong>@Html.DisplayFor(m => m.GroupDimDisplayName)</strong> <em>@Model.GroupDimVal</em></li>
+            <li><strong><abbr title="Virtual Warehouse">VWH</abbr></strong> <em>@Model.VwhId</em></li>
+       
         <li><a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId, Model.GroupDimIndex, Model.SubgroupDimIndex, Model.VwhId, Model.BucketId))">Change</a></li>
     </ul>
     @using (Html.BeginForm(MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucket(), FormMethod.Post))

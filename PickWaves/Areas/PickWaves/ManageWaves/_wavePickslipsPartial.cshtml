@@ -8,7 +8,7 @@
         Pickslip list of Wave @Html.DisplayFor(m => m.BucketId)
 
 
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">Add more pickslips</a>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">Add more Pickslips</a>
 
     </blockquote>
 
@@ -19,11 +19,11 @@
             <div class="col-md-5">
                 <h4 class="list-group-item-heading">
 
-                    PickSlip
+                    Pickslip
                     <small>
                         Purchase Order
                         &bull;
-                        VWH
+                        <abbr title="Virtual Wearhouse">VWH</abbr>
                     </small>
                 </h4>
                 <p class="list-group-item-text">
@@ -32,7 +32,7 @@
                 </p>
             </div>
             <div class="col-md-5">
-                <span class="badge">@Html.DisplayFor(m => m.TotalUnpickedPieces)</span>unpicked
+                <span class="badge">@Html.DisplayFor(m => m.TotalUnpickedPieces) unpicked</span>
                 <div class="progress" style="margin-bottom:0">
                     <div style="width: @Model.TotalPercentPickedPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                         <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.TotalPickedPieces) of  @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces picked <em>&bull;@Model.TotalPercentPickedPieces% picked</em></span>
@@ -78,9 +78,9 @@
                     }
                     @if (Model.PickslipList[i].CancelledBoxCount > 0)
                     {
-                        <strong class="text-danger pull-right">
-                            &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
-                        </strong>
+                            <strong class="text-danger">
+                                &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
+                            </strong>                       
                     }
                     <div class="progress" style="margin-bottom:0">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
@@ -123,7 +123,7 @@
                                         <a href="#">
                                             <small>
                                                 Can't remove because some<br />
-                                                pieces are pulled or picked<br />
+                                                pieces are Pulled or Picked<br />
                                                 or Wave is unfreeze.
                                             </small>
                                         </a>
