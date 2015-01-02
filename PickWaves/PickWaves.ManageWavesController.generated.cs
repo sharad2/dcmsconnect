@@ -303,21 +303,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 public readonly string _wavePickslipsPartial = "_wavePickslipsPartial";
                 public readonly string _waveSkusPartial = "_waveSkusPartial";
                 public readonly string Index = "Index";
-                public readonly string Index_js = "Index.js";
                 public readonly string Wave = "Wave";
-                public readonly string Wave_js = "Wave.js";
                 public readonly string WaveEditor = "WaveEditor";
-                public readonly string WaveEditor_js = "WaveEditor.js";
             }
             public readonly string _waveBoxesPartial = "~/Areas/PickWaves/ManageWaves/_waveBoxesPartial.cshtml";
             public readonly string _wavePickslipsPartial = "~/Areas/PickWaves/ManageWaves/_wavePickslipsPartial.cshtml";
             public readonly string _waveSkusPartial = "~/Areas/PickWaves/ManageWaves/_waveSkusPartial.cshtml";
             public readonly string Index = "~/Areas/PickWaves/ManageWaves/Index.cshtml";
-            public readonly string Index_js = "~/Areas/PickWaves/ManageWaves/Index.js.bundle";
             public readonly string Wave = "~/Areas/PickWaves/ManageWaves/Wave.cshtml";
-            public readonly string Wave_js = "~/Areas/PickWaves/ManageWaves/Wave.js.bundle";
             public readonly string WaveEditor = "~/Areas/PickWaves/ManageWaves/WaveEditor.cshtml";
-            public readonly string WaveEditor_js = "~/Areas/PickWaves/ManageWaves/WaveEditor.js.bundle";
         }
     }
 

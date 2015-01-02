@@ -40,13 +40,11 @@ namespace T4MVC.PickWaves
                 public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutPickWaves = "_layoutPickWaves";
                 public readonly string ajax_loader = "ajax-loader";
-                public readonly string typeahed_css = "typeahed.css";
             }
             public readonly string _bucketModelPartial = "~/Areas/PickWaves/SharedViews/_bucketModelPartial.cshtml";
             public readonly string _layoutBootstrap = "~/Areas/PickWaves/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutPickWaves = "~/Areas/PickWaves/SharedViews/_layoutPickWaves.cshtml";
             public readonly string ajax_loader = "~/Areas/PickWaves/SharedViews/ajax-loader.gif";
-            public readonly string typeahed_css = "~/Areas/PickWaves/SharedViews/typeahed.css.bundle";
         }
     }
 

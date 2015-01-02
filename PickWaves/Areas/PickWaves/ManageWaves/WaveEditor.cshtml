@@ -24,7 +24,7 @@
 
     <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UpdateWave())" method="post" class="form-horizontal" role="form">
         @Html.HiddenFor(m => m.BucketId)
-
+        @Html.HiddenFor(m => m.CustomerId)
         <div class="form-group">
             <label class="col-sm-2 control-label">Name<sup>*</sup></label>
             <div class="col-sm-10">

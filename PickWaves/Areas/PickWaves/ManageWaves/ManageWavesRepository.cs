@@ -78,21 +78,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                    BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
                                    BKT.PITCH_LIMIT AS PITCH_LIMIT,
                                    BKT.PITCH_IA_ID AS PITCH_AREA_ID,
-                                  IA.SHORT_NAME AS PITCH_AREA_SHORT_NAME,
                                   BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
-                                  TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
-                                   PS.CUSTOMER_ID AS CUSTOMER_ID,
+                                   (select max(customer_id) from ps p where p.bucket_id = bkt.bucket_id) AS CUSTOMER_ID,
                                    BKT.FREEZE AS FREEZE,
                                    CASE WHEN BKT.PITCH_TYPE = 'QUICK' THEN 'Y' END AS QUICK_PITCH_FLAG,
-                                   BKT.PULL_TYPE AS PULL_TYPE      
-       
+                                   BKT.PULL_TYPE AS PULL_TYPE   
                               FROM BUCKET BKT
-                             INNER JOIN <proxy />PS PS
-                                  ON PS.BUCKET_ID = BKT.BUCKET_ID
-                              LEFT OUTER JOIN TAB_INVENTORY_AREA TIA
-                                ON TIA.INVENTORY_STORAGE_AREA = BKT.PULL_CARTON_AREA
-                              LEFT OUTER JOIN IA IA
-                               ON IA.IA_ID = BKT.PITCH_IA_ID
                              WHERE BKT.BUCKET_ID = :BUCKET_ID";
             var binder = SqlBinder.Create(row =>
             {
@@ -105,9 +96,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                   IsFrozen = row.GetString("FREEZE") == "Y",
                   CustomerId = row.GetString("CUSTOMER_ID"),
                   PullAreaId = row.GetString("PULL_AREA_ID"),
-                  PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
+                 // PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
                   PitchAreaId = row.GetString("PITCH_AREA_ID"),
-                  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
+                //  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
                   QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                   RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP"
 

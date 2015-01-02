@@ -1,11 +1,10 @@
-﻿using DcmsMobile.PickWaves.Repository;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    public class WaveEditorViewModel
+    public class WaveEditorViewModel: IValidatableObject
     {
         public WaveEditorViewModel()
         {
@@ -62,5 +61,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string PitchAreaShortName { get; set; }
 
         public int PiecesIncomplete { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (this.UnfreezeWaveAfterSave && string.IsNullOrWhiteSpace(this.PitchAreaId) && string.IsNullOrWhiteSpace(this.PullAreaId))
+            {
+                yield return new ValidationResult("To unfreeze the pickwave you must specify pitch area and/or pull area");
+            }
+        }
     }
 }

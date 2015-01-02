@@ -157,13 +157,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             var skuList = _service.Value.GetBucketSkuList(bucketId);
             var query = (from item in skuList
-                           select new
-                           {
-                               BucketSku = item,
-                               Activities = item.Activities.Select(p => new BucketActivityModel(p))
-                                 .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0),
-                               Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
-                           }).ToList();
+                         select new
+                         {
+                             BucketSku = item,
+                             Activities = item.Activities.Select(p => new BucketActivityModel(p))
+                               .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0),
+                             Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
+                         }).ToList();
 
             var allAreas = (from sku in skuList
                             from area in sku.BucketSkuInAreas
@@ -399,35 +399,36 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 return RedirectToAction(Actions.Wave(bucketId));
             }
 
-            var bucketAreas = _service.Value.GetBucketAreas(bucketId);
-            var model = new WaveEditorViewModel(bucket)
-            {
-                // Show only those areas which have some SKUs available
-                PullAreaList = (from area in bucketAreas
-                                where area.AreaType == BucketActivityType.Pulling && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
-                                    area.CountSku.HasValue && area.CountSku > 0
-                                orderby area.CountSku descending
-                                let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
-                                select new SelectListItem
-                                {
-                                    Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
-                                        area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                                    Value = area.AreaId,
-                                    Selected = area.AreaId == bucket.PullAreaId
-                                }).ToList(),
-                PitchAreaList = (from area in bucketAreas
-                                 where area.AreaType == BucketActivityType.Pitching && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
-                                    area.CountSku.HasValue && area.CountSku > 0
-                                 orderby area.CountSku descending
-                                 let pctSkuAssigned = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
-                                 select new SelectListItem
-                                 {
-                                     Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, pctSkuAssigned),
-                                     Value = area.AreaId,
-                                     Selected = area.AreaId == bucket.PitchAreaId
-                                 }).ToList(),
-                CustomerName = _service.Value.GetCustomerName(bucket.CustomerId)
-            };
+            //var bucketAreas = _service.Value.GetBucketAreas(bucketId);
+            var model = new WaveEditorViewModel(bucket);
+            PopulateWaveEditorViewModel(model);
+            //{
+            //    // Show only those areas which have some SKUs available
+            //    PullAreaList = (from area in bucketAreas
+            //                    where area.AreaType == BucketActivityType.Pulling && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+            //                        area.CountSku.HasValue && area.CountSku > 0
+            //                    orderby area.CountSku descending
+            //                    let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+            //                    select new SelectListItem
+            //                    {
+            //                        Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
+            //                            area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+            //                        Value = area.AreaId,
+            //                        Selected = area.AreaId == bucket.PullAreaId
+            //                    }).ToList(),
+            //    PitchAreaList = (from area in bucketAreas
+            //                     where area.AreaType == BucketActivityType.Pitching && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+            //                        area.CountSku.HasValue && area.CountSku > 0
+            //                     orderby area.CountSku descending
+            //                     let pctSkuAssigned = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+            //                     select new SelectListItem
+            //                     {
+            //                         Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, pctSkuAssigned),
+            //                         Value = area.AreaId,
+            //                         Selected = area.AreaId == bucket.PitchAreaId
+            //                     }).ToList(),
+            //    CustomerName = _service.Value.GetCustomerName(bucket.CustomerId)
+            //};
 
             return View(Views.WaveEditor, model);
         }
@@ -443,18 +444,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction(this.Actions.WaveEditor(model.BucketId));
+                PopulateWaveEditorViewModel(model);
+                return View(Views.WaveEditor, model);
             }
-            //var count = model.Bucket.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId));
-            //if (count == 0 && model.UnfreezeWaveAfterSave)
-            //{
-            //    // Bucket have not any area for pulling and / pitching.
-            //    ModelState.AddModelError("", "Pick wave could not be updated. Please gave at least one area for pulling and/ pitching and try again");
-            //    return RedirectToAction(this.Actions.EditableWave(model.Bucket.BucketId, SuggestedNextActionType.CancelEditing));
-            //}
-
-            //var pullAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).AreaId;
-            //var pitchAreaId = model.Bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).AreaId;
             var bucket = new BucketEditable
             {
                 //BucketId = model.BucketId,
@@ -498,6 +490,42 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
 
             return RedirectToAction(this.Actions.Wave(model.BucketId));
+        }
+
+        /// <summary>
+        /// Populates the area lists in the passed model. The model must at least contain the bucket id. If customer id is in the model, the customer name is populated as well.
+        /// You should also pass the Customer Id within the model. It is needed if model validation fails
+        /// </summary>
+        /// <param name="?"></param>
+        private void PopulateWaveEditorViewModel(WaveEditorViewModel model)
+        {
+            var bucketAreas = _service.Value.GetBucketAreas(model.BucketId);
+
+            // Show only those areas which have some SKUs available
+            model.PullAreaList = (from area in bucketAreas
+                                  where area.AreaType == BucketActivityType.Pulling && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                                      area.CountSku.HasValue && area.CountSku > 0
+                                  orderby area.CountSku descending
+                                  let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+                                  select new SelectListItem
+                                  {
+                                      Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
+                                          area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                                      Value = area.AreaId,
+                                      Selected = area.AreaId == model.PullAreaId
+                                  }).ToList();
+            model.PitchAreaList = (from area in bucketAreas
+                                   where area.AreaType == BucketActivityType.Pitching && area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                                      area.CountSku.HasValue && area.CountSku > 0
+                                   orderby area.CountSku descending
+                                   let pctSkuAssigned = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+                                   select new SelectListItem
+                                   {
+                                       Text = string.Format("{0}: {1} ({2:N0}% SKUs assigned.)", area.ShortName ?? area.AreaId, area.Description, pctSkuAssigned),
+                                       Value = area.AreaId,
+                                       Selected = area.AreaId == model.PitchAreaId
+                                   }).ToList();
+            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
         }
         #endregion
 
