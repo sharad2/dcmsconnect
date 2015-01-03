@@ -266,11 +266,6 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   (SELECT COUNT(UNIQUE ASSIGNED_UPC_CODE)
-          FROM IALOC IL
-         WHERE IL.ASSIGNED_UPC_CODE = ms.UPC_CODE
-           AND IL.VWH_ID = AOS.VWH_ID
-           AND IL.IA_ID = AOS.PITCH_AREA)            AS COUNT_ASSIGED_SKU,
                                    AOS.PITCH_AREA                   AS PITCH_AREA,
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
@@ -297,8 +292,8 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
                                 WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0,
-                                IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0
+                                //IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
                             IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),

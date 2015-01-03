@@ -37,7 +37,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public decimal VolumePerDozen { get; set; }
 
-        public bool IsAssignedSku { get; set; }
+        //public bool IsAssignedSku { get; set; }
 
         /// <summary>
         /// Number of pieces ordered for this SKU

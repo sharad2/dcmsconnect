@@ -75,11 +75,11 @@
                 <div class="col-md-5">
                     <h4>
                         <small>@(i + 1)</small>
-                        @if (!Model.BucketSkuList[i].IsAssignedSku)
+                        @*@if (!Model.BucketSkuList[i].IsAssignedSku)
                         {
 
                             <span class="glyphicon glyphicon-warning-sign text-danger" title="SKU is not assigned at any location"></span>
-                        }
+                        }*@
                         @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
 
                         <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
