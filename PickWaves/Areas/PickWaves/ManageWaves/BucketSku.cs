@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
@@ -12,12 +13,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int QuantityOrdered { get; set; }
 
-        /// <summary>
-        /// This property is use only for showing SKU is assigned in any location or not.
-        /// </summary>
-        public bool IsPitchingBucket { get; set; }
-
-        public IEnumerable<CartonAreaInventory> BucketSkuInAreas { get; set; }
+        public IList<CartonAreaInventory> BucketSkuInAreas { get; set; }
 
         private BucketActivityCollection _activities;
 
@@ -49,9 +45,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         public int InventoryPieces { get; set; }
 
+        ///// <summary>
+        ///// The number of pieces of the reference SKU available in the smallest carton
+        ///// </summary>
+        //public int PiecesInSmallestCarton { get; set; }
+
         /// <summary>
-        /// The number of pieces of the reference SKU available in the smallest carton
+        /// Location in the area where most pieces are available
         /// </summary>
-        public int PiecesInSmallestCarton { get; set; }
+        public string BestLocationId { get; set; }
+
+        public int PiecesAtBestLocation { get; set; }
     }
 }

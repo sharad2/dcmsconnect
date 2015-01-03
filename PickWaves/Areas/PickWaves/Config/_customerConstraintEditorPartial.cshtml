@@ -99,9 +99,13 @@
     placeholder = "Blank means no limit"
 })
                 @Html.HiddenFor(m => m.OrigRequiredMinSkuPieces)
-
+                @Html.ValidationMessageFor(m => m.RequiredMinSkuPieces, null, new
+           {
+               @class = "help-block"
+           })
 
             </div>
+           
         </div>
 
         <div class="form-group">
@@ -118,8 +122,12 @@
 
 })
                 @Html.HiddenFor(m => m.OrigRequiredMaxSkuPieces)
-
+                @Html.ValidationMessageFor(m => m.RequiredMaxSkuPieces, null, new
+           {
+               @class = "help-block"
+           })
             </div>
+          
         </div>
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-8">

@@ -46,10 +46,10 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             CountPickslips = src.CountPickslips;
             CountPurchaseOrder = src.CountPurchaseOrder;
-            MinPoId = src.MinPoId;
-            MaxPoId = src.MaxPoId;
-            MaxCustomerId = src.MaxCustomerId;
-            MaxCustomerName = src.MaxCustomerName;
+            //MinPoId = src.MinPoId;
+            //MaxPoId = src.MaxPoId;
+            CustomerId = src.MaxCustomerId;
+            //MaxCustomerName = src.MaxCustomerName;
 
             DcCancelDateRange = new DateRange
             {
@@ -99,10 +99,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             BucketState = state;
 
-            if (!string.IsNullOrWhiteSpace(src.PullingBucket) && src.PullingBucket == "N")
-            {
-                RequiredBoxExpediting = true;
-            }
+            RequiredBoxExpediting = src.RequiredBoxExpediting;
 
             CountAssignedSku = src.CountAssignedSku;
             CountTotalSku = src.CountTotalSku;
@@ -161,7 +158,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Pitch Limit")]
         public int? PitchLimit { get; set; }
 
-        #endregion        
+        #endregion
 
         public IList<BucketActivityModel> Activities
         {
@@ -181,19 +178,21 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountPurchaseOrder { get; set; }
 
-        [DisplayFormat(NullDisplayText = "(Not Specified)")]
-        public string MaxPoId { get; set; }
+        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
+        //[Obsolete]
+        //public string MaxPoId { get; set; }
 
-        [DisplayFormat(NullDisplayText = "(Not Specified)")]
-        public string MinPoId { get; set; }
+        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
+        //[Obsolete]
+        //public string MinPoId { get; set; }
 
         /// <summary>
         /// One of the customers of this bucket
         /// </summary>
         [Display(Name = "Customer")]
-        public string MaxCustomerId { get; set; }
+        public string CustomerId { get; set; }
 
-        public string MaxCustomerName { get; set; }
+        public string CustomerName { get; set; }
 
         /// <summary>
         /// Created, In Progress, Complete

@@ -79,6 +79,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
+       
         public string BuildingId { get; set; }
 
         public string BuildingName { get; set; }

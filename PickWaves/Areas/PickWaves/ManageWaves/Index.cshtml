@@ -1,7 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
 @{
-    ViewBag.Title = string.Format("{0} wave of {1}:{2}",Model.PickWaveState,Model.CustomerId,Model.CustomerName);
+    ViewBag.Title = string.Format("{0} wave of {1}:{2}", Model.PickWaveState, Model.CustomerId, Model.CustomerName);
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
@@ -15,13 +15,13 @@
         </a>
 
     </li>
-<li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
-    <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.UnshippedboxesReportUrl, Model.CustomerId))"
-       target="report">
-        <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of unshipped boxes. 
-    </a>
+    <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
+        <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.UnshippedboxesReportUrl, Model.CustomerId))"
+           target="report">
+            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of unshipped boxes.
+        </a>
 
-</li>
+    </li>
     <li class="divider">
     </li>
 }
@@ -29,17 +29,27 @@
     @if (!string.IsNullOrWhiteSpace(Model.UserName))
     {
         <div class="alert alert-info">
-            Showing PickWave created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.BucketState, null))
+            Showing Pick Waves created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, Model.BucketState))
         </div>
     }
-   
+
     <h2 style="margin-top:0">
-        @Model.PickWaveState wave of
+        @Html.DisplayFor(m => m.BucketCount)  @Model.PickWaveState Pick Waves of
         <small>
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))"
-               title="See other pick waves of this customer">@Model.CustomerId: @Model.CustomerName</a>
+               title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>
+
+    <ul class="list-inline">
+        @for (var i = 0; i < Model.Buckets.Count; ++i)
+        {
+            <li>
+                <a title="Pick Wave Details"
+                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">@Html.DisplayFor(m => m.Buckets[i].BucketId)</a>
+            </li>
+        }
+    </ul>
 
     <p>This list is order by priority and then DC Cancel Date</p>
     @if (Model.Buckets.Count > 0)

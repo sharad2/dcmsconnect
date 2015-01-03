@@ -37,7 +37,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public decimal VolumePerDozen { get; set; }
 
-        public bool IsAssignedSku { get; set; }
+        //public bool IsAssignedSku { get; set; }
 
         /// <summary>
         /// Number of pieces ordered for this SKU
@@ -70,15 +70,27 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// <summary>
     /// Area and available SKU quantity, ordered for bucket and which can be pulled form there.
     /// </summary>
-    public class BucketSkuAreaModel : InventoryAreaModel
+    public class BucketSkuAreaModel
     {
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? InventoryPieces { get; set; }
 
-        [DisplayFormat(DataFormatString = "[{0:N0}]")]
-        public int? QuantityInSmallestCarton { get; set; }
+        //[DisplayFormat(DataFormatString = "[{0:N0}]")]
+        //public int? QuantityInSmallestCarton { get; set; }
+
+        public int? PiecesAtBestLocation { get; set; }
+
+        [DisplayFormat(DataFormatString = "@ {0}")]
+        public string BestLocationId { get; set; }
+
+        public string BuildingId { get; set; }
+
+        public string Description { get; set; }
+
+        public string ShortName { get; set; }
 
 
 
+        public string AreaId { get; set; }
     }
 }

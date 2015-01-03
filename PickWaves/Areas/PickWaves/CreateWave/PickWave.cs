@@ -7,7 +7,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
     /// <remarks>
     /// Represents those properties of a bucket which are useful while creating or editing a bucket.
     /// </remarks>
-    public class PickWave
+    internal class PickWave
     {
         [Key]
         public int BucketId { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WaveEditorViewModel
 
 @{
-    ViewBag.Title = "Edit Pick Wave # ";
+    ViewBag.Title = "Edit Pick Wave # " + Model.BucketId;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 
     Html.EnableClientValidation();
@@ -23,9 +23,8 @@
     </h2>
 
     <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UpdateWave())" method="post" class="form-horizontal" role="form">
-        @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
         @Html.HiddenFor(m => m.BucketId)
-
+        @Html.HiddenFor(m => m.CustomerId)
         <div class="form-group">
             <label class="col-sm-2 control-label">Name<sup>*</sup></label>
             <div class="col-sm-10">
@@ -43,44 +42,27 @@
             </div>
 
 
-
-            @*<label class="col-sm-2 control-label">Priority<sup>*</sup></label>
-            <div class="col-sm-4">
-                @Html.TextBoxFor(m => m.PriorityId, new
-   {
-       size = 2,
-       maxlength = 2,
-       @class = "form-control",
-       @placeholder = "Pick Waves with higher priority will show first(Max: 99)"
-   })
-
-                @Html.ValidationMessageFor(m => m.PriorityId, null, new
-           {
-               @class = "help-block"
-           })
-            </div>*@
-
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Pitching</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
                 @Html.DropDownListFor(m => m.PitchAreaId,
                          Model.PitchAreaList,
-                "Undecided", new { @class = "form-control" })
+                         Model.PitchAreaList.Count == 0 ? "None available" : "Undecided", new { @class = "form-control" })
+                <span class="help-block">The list contains only those pick areas in which some of the ordered SKUs are available</span>
+            </div>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.QuickPitch)
+                        Quick Pitch
+                    </label>
+                </div>
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @Html.CheckBoxFor(m => m.QuickPitch)
-                <label>
-                    Required Box Expediting
-                </label>
-
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Pitch Limit</label>
+            <label class="col-sm-2 control-label">Pitch Limit<sup>*</sup></label>
             <div class="col-sm-10">
                 @Html.TextBoxFor(m => m.PitchLimit, new
                                                          {
@@ -88,25 +70,30 @@
                                                              maxlength = 5,
                                                              @class = "form-control"
                                                          })
+                @Html.ValidationMessageFor(m => m.PitchLimit, null, new
+           {
+               @class = "help-block"
+           })
             </div>
         </div>
 
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Pulling</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
                 @Html.DropDownListFor(m => m.PullAreaId,
                          Model.PullAreaList,
-                "Undecided", new { @class = "form-control" })
+                         Model.PullAreaList.Count == 0 ? "None Available" : "Undecided", new { @class = "form-control" })
+                <span class="help-block">The list contains only those carton areas in which some of the ordered SKUs are available</span>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
-                <label>
-                    Required Box Expediting
-                </label>
+            <div class="col-sm-2">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.RequiredBoxExpediting)
+                        Require Box Expediting
+                    </label>
 
+                </div>
             </div>
         </div>
 
@@ -121,41 +108,42 @@
             })
 
 
-                <span class="help-block">Remark will be shown in Wave Summery UI</span>
+                <span class="help-block">Remark will be shown in Wave Summary UI</span>
 
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
-                <label>
-                    Unfreeze current pick wave after save.
-                </label>
+        @*<div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    @Html.CheckBoxFor(m => m.UnfreezeWaveAfterSave)
+                    <label>
+                        Unfreeze current pick wave after save.
+                    </label>
 
-                <small class="help-block">
-                    After Unfreezing, boxes will be created for this pick wave and it will become available for processing.
-                    <br />
-                    <em>
-                        We will try to pull as many cartons as possible for <strong>@Model.PiecesIncomplete</strong>
-                        pieces from pull area <strong>@Html.DisplayFor(m => m.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
-                        <strong>@Html.DisplayFor(m => m.PitchAreaShortName)</strong>.
-                    </em>
-                </small>
+                    <small class="help-block">
+                        After Unfreezing, boxes will be created for this pick wave and it will become available for processing.
+                        <br />
+                        <em>
+                            We will try to pull as many cartons as possible for <strong>@Model.PiecesIncomplete</strong>
+                            pieces from pull area <strong>@Html.DisplayFor(m => m.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
+                            <strong>@Html.DisplayFor(m => m.PitchAreaShortName)</strong>.
+                        </em>
+                    </small>
 
-            </div>
-        </div>
+                </div>
+            </div>*@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-default" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">Cancel</a>
+                <button type="submit" class="btn btn-default" name="@Html.NameFor(m => m.UnfreezeWaveAfterSave)" value="True">Save and Unfreeze</button>
+                <a class="btn btn-link" href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">Cancel</a>
             </div>
         </div>
-        </form>
+    </form>
 </div>
 
 @section script {
-     <!--Bundle for form validation-->
+    <!--Bundle for form validation-->
     <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.WaveEditor_js"></script>
 }
 

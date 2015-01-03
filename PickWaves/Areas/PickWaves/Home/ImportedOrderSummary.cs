@@ -1,13 +1,17 @@
-﻿using DcmsMobile.PickWaves.Repository;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     internal class ImportedOrderSummary
     {
-        [Key]
-        public Customer Customer { get; set; }
+        public string CustomerId { get; set; }
+
+        public string CustonerName { get; set; }
+
+        /// <summary>
+        /// False if the customer has been marked as inactive
+        /// </summary>
+        public bool IsActiveCustomer { get; set; }
 
         public int PickslipCount { get; set; }
 

@@ -1,21 +1,18 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WavePickslipsViewModel
 
-@if (Model.UserIsManager && Model.Bucket.IsFrozen && Model.Bucket.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
+@if (Model.UserIsManager && Model.IsFrozenBucket)
 {
 
     <blockquote>
-        Pickslip list of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
+        Pickslip list of Wave @Html.DisplayFor(m => m.BucketId)
 
 
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.Bucket.MaxCustomerId, lastBucketId: Model.Bucket.BucketId))">Add more pickslips</a>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">Add more pickslips</a>
 
     </blockquote>
 
 }
-
-
-
 <ul class="list-group">
     <li class="list-group-item active">
         <div class="row">
@@ -85,7 +82,7 @@
                             &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
                         </strong>
                     }
-                    <div class="progress" style="margin-bottom:0px;">
+                    <div class="progress" style="margin-bottom:0">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
                             <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked <em>&bull; @Model.PickslipList[i].PercentCurrentPieces% picked</em></span>
                         </div>
@@ -94,7 +91,7 @@
                 <div class="col-md-2">
                     @if (Model.UserIsManager)
                     {
-                        if (Model.PickslipList[i].CurrentPieces == 0 && Model.Bucket.IsFrozen)
+                        if (Model.PickslipList[i].CurrentPieces == 0 && Model.IsFrozenBucket)
                         {
                             <div class="btn-group pull-right">
                                 <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
@@ -106,7 +103,7 @@
                                         <span>Sure?</span>&nbsp;
                                         <button class="btn btn-primary" type="submit"
                                                 data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
-                                                         (Model.Bucket.BucketId, Model.PickslipList[i].PickslipId))">
+                                                         (Model.BucketId, Model.PickslipList[i].PickslipId))">
                                             Yes
                                         </button>
                                     </li>

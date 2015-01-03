@@ -26,48 +26,44 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         #endregion
 
-        /// <summary>
-        /// Returns bucket information and locks the bucket (FOR UPDATE).
-        /// </summary>
-        /// <param name="bucketId"></param>
-        /// <returns></returns>
-        [Obsolete]
-        public Bucket GetLockedBucket(int bucketId)
+        public BucketEditable GetEditableBucket(int bucketId)
         {
             const string QUERY = @"
-                        SELECT BKT.BUCKET_ID AS BUCKET_ID,
-                               BKT.NAME AS NAME,
-                               BKT.PITCH_IA_ID AS PITCH_IA_ID,
-                               BKT.FREEZE AS FREEZE,
-                               BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
-                               BKT.PRIORITY AS PRIORITY,
-                               BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
-                               BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
-                       (SELECT p.customer_id
-                          from <proxy />ps p
-                         where p.bucket_id = :BUCKET_ID
-                           and rownum &lt; 2) as customer_id
-                          FROM <proxy />BUCKET BKT
-                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME NOWAIT";
+                       SELECT     BKT.BUCKET_ID AS BUCKET_ID,
+                                   BKT.NAME AS NAME,
+                                   BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
+                                   BKT.PITCH_LIMIT AS PITCH_LIMIT,
+                                   BKT.PITCH_IA_ID AS PITCH_AREA_ID,
+                                  BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
+                                   (select max(customer_id) from ps p where p.bucket_id = bkt.bucket_id) AS CUSTOMER_ID,
+                                   BKT.FREEZE AS FREEZE,
+                                   CASE WHEN BKT.PITCH_TYPE = 'QUICK' THEN 'Y' END AS QUICK_PITCH_FLAG,
+                                   BKT.PULL_TYPE AS PULL_TYPE   
+                              FROM BUCKET BKT
+                             WHERE BKT.BUCKET_ID = :BUCKET_ID";
             var binder = SqlBinder.Create(row =>
             {
-                var bucket = new Bucket
+                var bucket = new BucketEditable
               {
                   BucketId = row.GetInteger("BUCKET_ID").Value,
                   BucketName = row.GetString("NAME"),
+                  BucketComment=row.GetString("BUCKET_COMMENT"),
+                  PitchLimit= row.GetInteger("PITCH_LIMIT") ?? 0,
                   IsFrozen = row.GetString("FREEZE") == "Y",
-                  PriorityId = row.GetInteger("PRIORITY") ?? 0,
-                  PullingBucket = row.GetString("PULL_TO_DOCK"),
-                  BucketComment = row.GetString("BUCKET_COMMENT"),
-                  MaxCustomerId = row.GetString("customer_id")
-              };
-                bucket.Activities[BucketActivityType.Pulling].Area.AreaId = row.GetString("PULL_AREA_ID");
-                bucket.Activities[BucketActivityType.Pitching].Area.AreaId = row.GetString("PITCH_IA_ID");
+                  CustomerId = row.GetString("CUSTOMER_ID"),
+                  PullAreaId = row.GetString("PULL_AREA_ID"),
+                 // PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
+                  PitchAreaId = row.GetString("PITCH_AREA_ID"),
+                //  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
+                  QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
+                  RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP"
+
+              };               
                 return bucket;
             }
             );
             binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteSingle(QUERY, binder);
+            return _db.ExecuteSingle(QUERY, binder); 
         }
 
         /// <summary>
@@ -77,20 +73,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
+        public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
                                     SELECT PD.SKU_ID               AS SKU_ID,
                                            P.VWH_ID                AS VWH_ID,
-                                         MAX(B.PITCH_IA_ID)  AS PITCH_AREA,
+                                       --  MAX(B.PITCH_IA_ID)  AS PITCH_AREA,
                                          SUM(PD.PIECES_ORDERED)  AS QUANTITY_ORDERED
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
-                                   INNER JOIN <proxy />BUCKET B
-                                      ON B.BUCKET_ID = P.BUCKET_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
                                      AND P.TRANSFER_DATE IS NULL
                                      AND PD.TRANSFER_DATE IS NULL
@@ -102,6 +96,7 @@ group by PD.SKU_ID, P.VWH_ID
                             INVENTORY_AREA,
                             SHORT_NAME,
                             PIECES_IN_AREA,
+location_id,
                             DESCRIPTION,
                             REPLENISH_FROM_AREA_ID
                             ) AS
@@ -111,6 +106,7 @@ group by PD.SKU_ID, P.VWH_ID
                                          SC.CARTON_STORAGE_AREA AS INVENTORY_AREA,
                                          TIA.SHORT_NAME,
                                          SCD.QUANTITY AS PIECES_IN_AREA,
+         sc.location_id,
                                          TIA.DESCRIPTION, 
                                          NULL
                                     FROM <proxy />SRC_CARTON_DETAIL SCD
@@ -123,7 +119,7 @@ group by PD.SKU_ID, P.VWH_ID
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
-and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
+and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -131,6 +127,7 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                        IL.IA_ID,
                                        I.SHORT_NAME,
                                        IC.NUMBER_OF_UNITS,
+         il.location_id,
                                        I.SHORT_DESCRIPTION, 
                                        I.DEFAULT_REPREQ_IA_ID
                                   FROM <proxy />IALOC_CONTENT IC
@@ -139,14 +136,19 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
                                     ON I.IA_ID = IL.IA_ID 
-   where ic.sku_id in (select sku_id from ALL_ORDERED_SKU)                           
+   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
                             XML_COLUMN) AS
                                  (SELECT *
-                                    FROM ALL_INVENTORY_SKU PIVOT XML(SUM(PIECES_IN_AREA) AS PIECES_IN_AREA, MIN(PIECES_IN_AREA) AS PIECES_IN_SMALLEST_CARTON,
-                                    MAX(DESCRIPTION) AS AREA_DESCRIPTION, MAX(SHORT_NAME) AS AREA_SHORT_NAME, MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
+                                    FROM ALL_INVENTORY_SKU PIVOT XML(
+MAX(location_id) KEEP(DENSE_RANK FIRST ORDER BY PIECES_IN_AREA DESC) AS best_location_id,
+MAX(PIECES_IN_AREA) AS PIECES_AT_BEST_LOCATION,
+SUM(PIECES_IN_AREA) AS PIECES_IN_AREA,
+MAX(DESCRIPTION) AS AREA_DESCRIPTION,
+MAX(SHORT_NAME) AS AREA_SHORT_NAME,
+MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                     FOR(INVENTORY_AREA, BUILDING_ID) IN(ANY, ANY))),
                             BOX_SKU AS
                                  (SELECT BD.SKU_ID AS SKU_ID,
@@ -204,8 +206,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    WHERE p.bucket_id = :BUCKET_ID
                                     and b.stop_process_date is null 
                                     and bd.stop_process_date is null
-                            <if c='$Pitching'>AND B.CARTON_ID IS NULL</if>
-                            <if c='$Pulling'>AND B.CARTON_ID IS NOT NULL</if>
                                    GROUP BY BD.SKU_ID, B.VWH_ID
                             )
                             SELECT MS.SKU_ID        AS SKU_ID,
@@ -228,12 +228,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   (SELECT COUNT(UNIQUE ASSIGNED_UPC_CODE)
-          FROM IALOC IL
-         WHERE IL.ASSIGNED_UPC_CODE = ms.UPC_CODE
-           AND IL.VWH_ID = AOS.VWH_ID
-           AND IL.IA_ID = AOS.PITCH_AREA)            AS COUNT_ASSIGED_SKU,
-                                   AOS.PITCH_AREA                   AS PITCH_AREA,
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
@@ -244,9 +238,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                               LEFT OUTER JOIN BOX_SKU BOX_SKU
                                 ON BOX_SKU.SKU_ID = AOS.SKU_ID
                                AND BOX_SKU.VWH_ID = AOS.VWH_ID
-WHERE 1 = 1
-    <if c='$Completed'>AND (BOX_SKU.VRFY_CUR_PCS_PITCH &gt; 0 OR BOX_SKU.VRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PITCH &gt; 0)</if>
-    <if c='$InProgress'>AND (BOX_SKU.UNVRFY_EXP_PCS_PULL &gt; NVL(BOX_SKU.UNVRFY_CUR_PCS_PULL,0) OR BOX_SKU.UNVRFY_EXP_PCS_PITCH &gt; NVL(UNVRFY_CUR_PCS_PITCH,0))</if>    
 ";
             var binder = SqlBinder.Create(row =>
                 {
@@ -262,11 +253,10 @@ WHERE 1 = 1
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
                                 WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0,
-                                IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
-                            IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
+                            //IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };
                     bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
@@ -283,19 +273,15 @@ WHERE 1 = 1
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
-
-            binder.ParameterXPath("All", true);
-
-            binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
-        private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
+        private IList<CartonAreaInventory> MapOrderedSkuXml(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
             {
                 // No inventory
-                return Enumerable.Empty<CartonAreaInventory>();
+                return new CartonAreaInventory[0];
             }
             var x = XElement.Parse(xml);
             var result = (from item in x.Elements("item")
@@ -311,7 +297,10 @@ WHERE 1 = 1
                                   ReplenishAreaId = (string)column.First(p => p.Attribute("name").Value == "REPLENISH_FROM_AREA_ID")
                               },
                               InventoryPieces = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_AREA"),
-                              PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON")
+                              //PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON"),
+                              BestLocationId = (string)column.First(p => p.Attribute("name").Value == "BEST_LOCATION_ID"),
+                              // PIECES_AT_BEST_LOCATION
+                              PiecesAtBestLocation = (int)column.First(p => p.Attribute("name").Value == "PIECES_AT_BEST_LOCATION"),
                           }).ToList();
             return result;
         }
@@ -321,7 +310,7 @@ WHERE 1 = 1
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetBucketPickslips(int bucketId)
+        public IList<Pickslip> GetBucketPickslips(int bucketId)
         {
             const string QUERY = @"
                                 SELECT PS.PICKSLIP_ID                           AS PICKSLIP_ID,
@@ -341,7 +330,9 @@ MAX(ps.customer_id) AS customer_id,
                                        SUM(CASE
                                              WHEN B.STOP_PROCESS_DATE IS NOT NULL AND
                                                   B.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES
+                                              BD.EXPECTED_PIECES END)           AS PIECES_IN_CANCELLED_BOXES,
+MAX(bkt.freeze) as freeze,
+MAX(ps.bucket_id) as bucket_id
                                   FROM <proxy />PS PS
                                  INNER JOIN <proxy />BUCKET BKT
                                     ON PS.BUCKET_ID = BKT.BUCKET_ID
@@ -366,7 +357,9 @@ MAX(ps.customer_id) AS customer_id,
                 PiecesInCancelledBoxes = row.GetInteger("PIECES_IN_CANCELLED_BOXES") ?? 0,
                 BoxCount = row.GetInteger("BOX_COUNT") ?? 0,
                 Iteration = row.GetInteger("iteration"),
-                CustomerId = row.GetString("customer_id")
+                CustomerId = row.GetString("customer_id"),
+                IsFrozenBucket = row.GetString("freeze") == "Y",
+                BucketId = row.GetInteger("bucket_id") ?? 0
             });
             binder.Parameter("BUCKET_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder, 2000);
@@ -379,7 +372,7 @@ MAX(ps.customer_id) AS customer_id,
         /// <param name="stateFilter">InProgress filter returns empty boxes. Completed filter includes partially complete as well and therefore returns all non empty boxes</param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId)
+        public IList<Box> GetBucketBoxes(int bucketId)
         {
             const string QUERY = @"
                             SELECT B.UCC128_ID                                          AS UCC128_ID,
@@ -487,7 +480,7 @@ MAX(ps.customer_id) AS customer_id,
                                  BKT.BUCKET_COMMENT    = :BUCKET_COMMENT,                    
                                  BKT.PULL_CARTON_AREA  = :PULL_CARTON_AREA,  
                                  BKT.PULL_TYPE      = :PULL_TYPE,      
-                                 BKT.QUICK_PITCH_FLAG  = :QUICK_PITCH,       
+                                 BKT.PITCH_TYPE  = :PITCH_TYPE,       
                                  BKT.PITCH_LIMIT       = :PITCH_LIMIT,       
                                  BKT.DATE_MODIFIED = SYSDATE
                          WHERE BKT.BUCKET_ID = :BUCKET_ID
@@ -496,7 +489,7 @@ MAX(ps.customer_id) AS customer_id,
                                   BKT.BUCKET_COMMENT,
                                   BKT.PULL_CARTON_AREA,
                                   BKT.PULL_TYPE,
-                                  BKT.QUICK_PITCH_FLAG,
+                                  BKT.PITCH_TYPE,
                                   BKT.PITCH_LIMIT,
 BKT.FREEZE
                         INTO      :NAME_OUT,
@@ -504,7 +497,7 @@ BKT.FREEZE
                                   :BUCKET_COMMENT_OUT,
                                   :PULL_CARTON_AREA_OUT,
                                   :PULL_TYPE_OUT,
-                                  :QUICK_PITCH_FLAG_OUT,
+                                  :PITCH_TYPE_OUT,
                                   :PITCH_LIMIT_OUT,
 :FREEZE_OUT
 ";
@@ -514,15 +507,15 @@ BKT.FREEZE
                   .Parameter("PITCH_IA_ID", bucket.PitchAreaId)
                   .Parameter("BUCKET_ID", bucketId)
                   .Parameter("PULL_TYPE", bucket.RequireBoxExpediting ? "EXP" : null)
-                  .Parameter("QUICK_PITCH", bucket.QuickPitch ? "Y" : null)
+                  .Parameter("PITCH_TYPE", bucket.QuickPitch ? "QUICK" : null)
                   .Parameter("PITCH_LIMIT", bucket.PitchLimit)
                   .Parameter("BUCKET_COMMENT", bucket.BucketComment);
 
             binder.OutParameter("NAME_OUT", p => bucket.BucketName = p)
                 .OutParameter("BUCKET_COMMENT_OUT", p => bucket.BucketComment = p)
                 .OutParameter("PITCH_LIMIT_OUT", p => bucket.PitchLimit = p ?? 0) //TODO
-                .OutParameter("PULL_TYPE_OUT", p => bucket.QuickPitch = p == "EXP")
-                .OutParameter("QUICK_PITCH_FLAG_OUT", p => bucket.QuickPitch = p == "Y")
+                .OutParameter("PULL_TYPE_OUT", p => bucket.RequireBoxExpediting = p == "EXP")
+                .OutParameter("PITCH_TYPE_OUT", p => bucket.QuickPitch = p == "QUICK")
                 .OutParameter("PITCH_IA_ID_OUT", p => bucket.PitchAreaId = p)
                 .OutParameter("PULL_CARTON_AREA_OUT", p => bucket.PullAreaId = p)
                 .OutParameter("FREEZE_OUT", p => bucket.IsFrozen = p == "Y");
@@ -637,7 +630,7 @@ BKT.FREEZE
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
+        public IList<BucketArea> GetBucketAreas(int bucketId)
         {
             const string QUERY = @"
                             WITH ORDERED_SKU AS

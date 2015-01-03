@@ -2,9 +2,7 @@
 using DcmsMobile.PickWaves.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.Common;
-using System.Linq;
 using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
@@ -26,9 +24,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IEnumerable<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
+        internal IList<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
         {
-            return _repos.GetBuckets(customerId, state, userName);
+            return _repos.GetBuckets(null, customerId, state, userName);
         }
 
         /// <summary>
@@ -38,7 +36,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="stateFilter"> </param>
         /// <param name="activityFilter"> </param>
         /// <returns></returns>
-        public IEnumerable<BucketSku> GetBucketSkuList(int bucketId)
+        public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
             return _repos.GetBucketSkuList(bucketId);
         }
@@ -48,7 +46,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Pickslip> GetBucketPickslip(int bucketId)
+        public IList<Pickslip> GetBucketPickslip(int bucketId)
         {
             return _repos.GetBucketPickslips(bucketId);
         }
@@ -58,7 +56,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<Box> GetBucketBoxes(int bucketId)
+        public IList<Box> GetBucketBoxes(int bucketId)
         {
             return _repos.GetBucketBoxes(bucketId);
         }
@@ -90,67 +88,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             _repos.RemovePickslipFromBucket(pickslipId, bucketId);
         }
 
-        /// <summary>
-        /// If bucket is already freeze then do nothing.
-        /// Otherwise when bucket is freeze,delete the unpicked boxes of bucket.
-        /// and if bucket is unfreeze,create the boxes of unpicked pieces.
-        /// </summary>
-        /// <param name="bucketId"></param>
-        /// <param name="freeze"></param>
-        //[Obsolete]
-        //public Bucket FreezeWave(int bucketId, bool freeze)
-        //{
-        //    using (var trans = _repos.BeginTransaction())
-        //    {
-        //        var bucket = _repos.GetLockedBucket(bucketId);
-        //        if (bucket == null)
-        //        {
-        //            throw new ValidationException("Invalid Pick Wave " + bucketId.ToString());
-        //        }
-
-        //        var pullArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pulling).Area.AreaId;
-        //        var pitchArea = bucket.Activities.Single(p => p.ActivityType == BucketActivityType.Pitching).Area.AreaId;
-        //        if (string.IsNullOrWhiteSpace(pullArea) && string.IsNullOrWhiteSpace(pitchArea))
-        //        {
-        //            throw new ValidationException("Please select at least one area for pulling and/ pitching.");
-        //        }
-
-        //        if (bucket.IsFrozen == freeze)
-        //        {
-        //            // Nothing to do
-        //            return bucket;
-        //        }
-        //        if (freeze)
-        //        {
-        //            // Delete boxes
-        //            _repos.DeleteBoxes(bucketId);
-        //        }
-        //        else
-        //        {
-        //            // Create Boxes
-        //            _repos.CreateBoxes(bucketId);
-        //        }
-        //        _repos.SetFreezeStatus(bucketId, freeze);
-        //        trans.Commit();
-        //        return bucket;
-        //    }
-        //}
-
         public void FreezePickWave(int bucketId, DbTransaction trans)
         {
-                _repos.DeleteBoxes(bucketId);
-                _repos.SetFreezeStatus(bucketId, true);
-                trans.Commit();
+            _repos.DeleteBoxes(bucketId);
+            _repos.SetFreezeStatus(bucketId, true);
+            trans.Commit();
         }
 
-        public void UnfreezePickWave(int bucketId)
+        public void UnfreezePickWave(int bucketId, DbTransaction trans)
         {
-            using (var trans = _repos.BeginTransaction())
-            {
-                _repos.CreateBoxes(bucketId);
-                _repos.SetFreezeStatus(bucketId, false);
-                trans.Commit();
-            }
+            _repos.CreateBoxes(bucketId);
+            _repos.SetFreezeStatus(bucketId, false);
         }
 
         /// <summary>
@@ -188,9 +136,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        public IEnumerable<BucketArea> GetBucketAreas(int bucketId)
+        public IList<BucketArea> GetBucketAreas(int bucketId)
         {
             return _repos.GetBucketAreas(bucketId);
+        }
+
+        public BucketEditable GetEditableBucket(int bucketId)
+        {
+            return _repos.GetEditableBucket(bucketId);
         }
     }
 }

@@ -266,8 +266,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
 
             model.CustomerId = customerId;
 
-            var cust = _service.Value.GetCustomer(model.CustomerId);
-            model.CustomerName = cust == null ? model.CustomerId : cust.Name;
+            //var cust = _service.Value.GetCustomer(model.CustomerId);
+            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
 
 
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
@@ -421,7 +421,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             model.GroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.GroupDimIndex].Name;
             model.SubgroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.SubgroupDimIndex].Name;
             model.GroupDimVal = model.GroupDimVal;
-            model.CustomerName = (_service.Value.GetCustomer(model.CustomerId) == null ? "" : _service.Value.GetCustomer(model.CustomerId).Name);
+            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
 
             model.BucketId = bucketId;
 

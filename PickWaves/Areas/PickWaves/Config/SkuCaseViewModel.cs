@@ -24,21 +24,5 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             }
         }
 
-
-
-        ////this property added to get the value Case sleeted from dropdown list
-        //[Obsolete]
-        //public string SelectedCase { get; set; }
-
-        ////this property added to get the customer Id sleeted from auto complete
-        //[Obsolete]
-        //public string SelectedCustomerId { get; set; }
-
-        ///// <summary>
-        ///// This property is added to get detail of SKU case we need to add or update.
-        ///// </summary>
-        //[Obsolete]
-        //public SkuCaseModel SkuCase { get; set; }
-
     }
 }

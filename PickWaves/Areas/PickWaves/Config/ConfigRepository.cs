@@ -33,10 +33,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
             /// </summary>
             public string CustomerId { get; set; }
 
-            /// <summary>
-            /// Customer Name who have overwritten SPLH
-            /// </summary>
-            public string CustomerName { get; set; }
         }
 
         #region Intialization
@@ -89,7 +85,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
         {
             const string QUERY = @"
             SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID,
-                   CUST.NAME        AS CUSTOMER_NAME,
+                  -- CUST.NAME        AS CUSTOMER_NAME,
                    CSH.SPLH_ID      AS SPLH_ID,
                    CSH.SPLH_VALUE   AS OVERWRITTEN_VALUE
               FROM <proxy />CUST CUST
@@ -102,7 +98,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
     UNION ALL
 
             SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID,
-                   CUST.NAME AS CUSTOMER_NAME,
+                  -- CUST.NAME AS CUSTOMER_NAME,
                    '_$MINSKUPIECES' AS SPLH_ID,
                    CAST(CUST.MIN_PIECES_PER_BOX AS VARCHAR(5)) AS OVERWRITTEN_VALUE
               FROM <proxy />CUST CUST
@@ -112,7 +108,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
     UNION ALL
 
             SELECT CUST.CUSTOMER_ID AS CUSTOMER_ID,
-                   CUST.NAME AS CUSTOMER_NAME,
+                   --CUST.NAME AS CUSTOMER_NAME,
                    '_$MAXSKUPIECES' AS SPLH_ID,
                    CAST(CUST.MAX_PIECES_PER_BOX AS VARCHAR(5)) AS OVERWRITTEN_VALUE
               FROM <proxy />CUST CUST
@@ -125,7 +121,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Config
                 SplhId = row.GetString("SPLH_ID"),
                 SplhValue = row.GetString("OVERWRITTEN_VALUE"),
                 CustomerId = row.GetString("CUSTOMER_ID"),
-                CustomerName = row.GetString("CUSTOMER_NAME")
+                //CustomerName = row.GetString("CUSTOMER_NAME")
             }).Parameter("CUSTOMER_ID", customerId);
 
             return _db.ExecuteReader(QUERY, binder);

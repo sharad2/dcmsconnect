@@ -13,8 +13,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         [Key]
         internal ProgressStage BucketState { get; set; }
 
-        [Key]
-        public Customer Customer { get; set; }
+        //[Key]
+        //[Obsolete]
+        //public Customer Customer { get; set; }
+
+        public string CustomerId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        /// <summary>
+        /// False if the customer has been marked as inactive
+        /// </summary>
+        public bool IsActiveCustomer { get; set; }
 
         /// <summary>
         /// Number of buckets

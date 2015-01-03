@@ -5,16 +5,27 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    /// <summary>
+        /// <summary>
     /// Contains properties of bucket which can be edited
     /// </summary>
     internal class BucketEditable
     {
+
+        public int BucketId { get; set; }
+
+        public string BucketName { get; set; }
+
+        public string BucketComment { get; set; }
+
         public string PullAreaId { get; set; }
+
+        public string PullAreaShortName { get; set; }
 
         public string PitchAreaId { get; set; }
 
-        public string BucketName { get; set; }
+        public string PitchAreaShortName { get; set; }
+
+        public string CustomerId { get; set; }
 
         public bool RequireBoxExpediting { get; set; }
 
@@ -22,7 +33,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int PitchLimit { get; set; }
 
-        public string BucketComment { get; set; }
+
 
         /// <summary>
         /// This flag is not used for updating. It is used for returning the current value after the update

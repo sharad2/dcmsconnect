@@ -98,7 +98,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                                MAX(BI.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE,
                                                MIN(BI.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
                                                CASE
-                                                 WHEN BI.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN
+                                                 WHEN BI.FREEZE = 'Y'  THEN
                                                   :FROZENSTATE
                                                  WHEN NVL(pp.COUNT_VALIDATED_BOXES, 0) = NVL(pp.COUNT_BOXES, 0) THEN
                                                   :COMPLETEDSTATE
@@ -114,7 +114,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                            <if>AND BI.CREATED_BY = :CREATED_BY</if>
                                         GROUP BY BI.CUSTOMER_ID,
                                                 CASE
-                                                WHEN BI.FREEZE = 'Y' OR PP.BUCKET_ID IS NULL THEN
+                                                WHEN BI.FREEZE = 'Y'  THEN
                                                     :FROZENSTATE
                                                 WHEN NVL(pp.COUNT_VALIDATED_BOXES, 0) = NVL(pp.COUNT_BOXES, 0) THEN
                                                     :COMPLETEDSTATE
@@ -125,12 +125,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             var binder = SqlBinder.Create(row => new BucketSummary
                    {
                        BucketCount = row.GetInteger("BUCKET_COUNT").Value,
-                       Customer = new Customer
-                       {
-                           CustomerId = row.GetString("CUSTOMER_ID"),
-                           Name = row.GetString("CUSTOMER_NAME"),
-                           IsActive = row.GetString("INACTIVE_FLAG") != "Y"
-                       },
+
+                       CustomerId = row.GetString("CUSTOMER_ID"),
+                       CustomerName = row.GetString("CUSTOMER_NAME"),
+                       IsActiveCustomer = row.GetString("INACTIVE_FLAG") != "Y",
+
                        MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE").Value,
                        MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE").Value,
                        MaxPriorityId = row.GetInteger("MAX_PRIORITY") ?? 0,
@@ -202,7 +201,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                     throw new NotImplementedException("Not expected");
 
             }
-            return ret;            
+            return ret;
         }
 
         /// <summary>
@@ -235,12 +234,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
             var binder = SqlBinder.Create(row => new ImportedOrderSummary
             {
-                Customer = new Customer
-                {
-                    CustomerId = row.GetString("CUSTOMER_ID"),
-                    Name = row.GetString("NAME"),
-                    IsActive = row.GetString("inactive_flag") != "Y"
-                },
+
+                CustomerId = row.GetString("CUSTOMER_ID"),
+                CustonerName = row.GetString("NAME"),
+                IsActiveCustomer = row.GetString("inactive_flag") != "Y",
+
                 PickslipCount = row.GetInteger("PICKSLIP_COUNT").Value,
                 PiecesOrdered = row.GetInteger("TOTAL_QUANTITY_ORDERED") ?? 0,
                 DollarsOrdered = row.GetDecimal("TOTAL_DOLLARS_ORDERED") ?? 0,

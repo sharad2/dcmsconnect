@@ -7,7 +7,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// ManageWaves and BoxPickPallet
     /// IEquatable defines whether all important properties of two buckets are same. Used while updating bucket to ensure that old properties have not changed
     /// </summary>
-    internal class Bucket : IEquatable<Bucket>
+    internal class Bucket
     {
         #region Bucket
         [Key]
@@ -39,11 +39,6 @@ namespace DcmsMobile.PickWaves.Repository
         public string MaxCustomerId { get; set; }
 
         /// <summary>
-        /// Customer name for whom the bucket was created
-        /// </summary>
-        public string MaxCustomerName { get; set; }
-
-        /// <summary>
         /// Number of pickslips in the bucket
         /// </summary>
         internal int CountPickslips { get; set; }
@@ -64,13 +59,13 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool RequiredBoxExpediting { get; set; }
 
-        internal string PullingBucket { get; set; }
-
         public bool QuickPitch { get; set; }
 
-        public string MaxPoId { get; set; }
+        //[Obsolete]
+        //public string MaxPoId { get; set; }
 
-        public string MinPoId { get; set; }
+        //[Obsolete]
+        //public string MinPoId { get; set; }
 
         public DateTime CreationDate { get; set; }
 
@@ -114,17 +109,19 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool Equals(Bucket other)
         {
-             return true;
+             //return true;
+            throw new NotImplementedException("Will this ever be called ?");
         }
 
         public override bool Equals(object obj)
         {
-            var other = obj as Bucket;
-            if (obj == null)
-            {
-                return false;
-            }
-            return this.Equals(other);
+            //var other = obj as Bucket;
+            //if (obj == null)
+            //{
+            //    return false;
+            //}
+            //return this.Equals(other);
+            throw new NotImplementedException("Will this ever be called ?");
         }
 
         public override int GetHashCode()
