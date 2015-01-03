@@ -80,7 +80,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int? PiecesAtBestLocation { get; set; }
 
-        [DisplayFormat(DataFormatString = "@{0}")]
+        [DisplayFormat(DataFormatString = "@ {0}")]
         public string BestLocationId { get; set; }
 
         public string BuildingId { get; set; }
