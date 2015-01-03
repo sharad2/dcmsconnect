@@ -210,6 +210,24 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 SourceAreaShortName = model.SourceAreaShortName
             };
 
+            //int caseSwitch = 1;
+            switch (model.PriorityFlag)
+            {
+                case Priority.High:
+                    requestModel.Priority = "99";
+                    break;
+                case Priority.Medium:
+                    requestModel.Priority = "50";
+                    break;
+                case Priority.Low:
+                    requestModel.Priority = "5";
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+                  
+            }
+
             if (string.IsNullOrEmpty(model.ResvId))
             {
                 //Creating New Request

@@ -6,6 +6,12 @@ using System;
 
 namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
+    public enum Priority
+    {
+        High,
+        Medium,
+        Low
+    }
     public class PropertyEditorViewModel
     {
         public PropertyEditorViewModel()
@@ -38,6 +44,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         }
         //public RequestHeaderViewModel CurrentRequest { get; set; }
+
+        public Priority PriorityFlag { get; set; }
 
         public IEnumerable<SelectListItem> BuildingList { get; set; }
 
