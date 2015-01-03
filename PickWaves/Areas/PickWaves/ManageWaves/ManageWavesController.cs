@@ -166,6 +166,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavesku")]
         public virtual ActionResult WaveSkus(int bucketId)
         {
+            var bucket = _service.Value.GetBucket(bucketId);
             var skuList = _service.Value.GetBucketSkuList(bucketId);
             var query = (from item in skuList
                          select new
@@ -184,6 +185,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var model = new WaveSkuListModel
             {
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                 BucketSkuList = (from sku in query
                                  select new BucketSkuModel
                                  {
@@ -220,10 +222,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ThenBy(p => p.SkuSize)
                                  .ToArray(),
                 AllAreas = allAreas,
-                BucketId = bucketId,
+               // BucketId = bucketId,
             };
 
-            return PartialView(this.Views._waveSkusPartial, model);
+            //return PartialView(this.Views._waveSkusPartial, model);
+            return View(Views.WaveSku,model);
         }
 
         /// <summary>
