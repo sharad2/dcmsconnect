@@ -198,8 +198,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                                             Description = area.Description,
                                                             InventoryPieces = subitem == null || subitem.InventoryPieces == 0 ? (int?)null : subitem.InventoryPieces,
                                                             QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton
-                                                        }).ToArray(),
-                                     Activities = sku.Activities.ToArray()
+                                                        }).ToList(),
+                                     Activities = sku.Activities.ToList()
                                  })
                                  .OrderBy(p => p.PercentCurrentPieces)
                                  .ThenBy(p => p.Style)

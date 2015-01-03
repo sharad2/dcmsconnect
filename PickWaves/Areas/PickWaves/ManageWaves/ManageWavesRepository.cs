@@ -163,7 +163,7 @@ group by PD.SKU_ID, P.VWH_ID
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
-and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
+and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -179,7 +179,7 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
                                     ON I.IA_ID = IL.IA_ID 
-   where ic.sku_id in (select sku_id from ALL_ORDERED_SKU)                           
+   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
@@ -244,8 +244,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                                    WHERE p.bucket_id = :BUCKET_ID
                                     and b.stop_process_date is null 
                                     and bd.stop_process_date is null
-                            <if c='$Pitching'>AND B.CARTON_ID IS NULL</if>
-                            <if c='$Pulling'>AND B.CARTON_ID IS NOT NULL</if>
                                    GROUP BY BD.SKU_ID, B.VWH_ID
                             )
                             SELECT MS.SKU_ID        AS SKU_ID,
@@ -284,9 +282,6 @@ and scd.sku_id in (select sku_id from ALL_ORDERED_SKU)
                               LEFT OUTER JOIN BOX_SKU BOX_SKU
                                 ON BOX_SKU.SKU_ID = AOS.SKU_ID
                                AND BOX_SKU.VWH_ID = AOS.VWH_ID
-WHERE 1 = 1
-    <if c='$Completed'>AND (BOX_SKU.VRFY_CUR_PCS_PITCH &gt; 0 OR BOX_SKU.VRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PULL &gt; 0 OR BOX_SKU.UNVRFY_CUR_PCS_PITCH &gt; 0)</if>
-    <if c='$InProgress'>AND (BOX_SKU.UNVRFY_EXP_PCS_PULL &gt; NVL(BOX_SKU.UNVRFY_CUR_PCS_PULL,0) OR BOX_SKU.UNVRFY_EXP_PCS_PITCH &gt; NVL(UNVRFY_CUR_PCS_PITCH,0))</if>    
 ";
             var binder = SqlBinder.Create(row =>
                 {
@@ -323,10 +318,6 @@ WHERE 1 = 1
                 });
 
             binder.Parameter("BUCKET_ID", bucketId);
-
-            binder.ParameterXPath("All", true);
-
-            binder.TolerateMissingParams = true;
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
 

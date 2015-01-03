@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.Collections.Generic;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
@@ -15,6 +16,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// This property is use only for showing SKU is assigned in any location or not.
         /// </summary>
+        [Obsolete]
         public bool IsPitchingBucket { get; set; }
 
         public IEnumerable<CartonAreaInventory> BucketSkuInAreas { get; set; }
