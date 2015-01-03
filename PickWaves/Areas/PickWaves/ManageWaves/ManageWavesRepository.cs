@@ -26,50 +26,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         #endregion
 
-//        /// <summary>
-//        /// Returns bucket information and locks the bucket (FOR UPDATE).
-//        /// </summary>
-//        /// <param name="bucketId"></param>
-//        /// <returns></returns>
-//        [Obsolete]
-//        public Bucket GetLockedBucket(int bucketId)
-//        {
-//            const string QUERY = @"
-//                        SELECT BKT.BUCKET_ID AS BUCKET_ID,
-//                               BKT.NAME AS NAME,
-//                               BKT.PITCH_IA_ID AS PITCH_IA_ID,
-//                               BKT.FREEZE AS FREEZE,
-//                               BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
-//                               BKT.PRIORITY AS PRIORITY,
-//                               BKT.PULL_TO_DOCK AS PULL_TO_DOCK,
-//                               BKT.BUCKET_COMMENT AS BUCKET_COMMENT,
-//                       (SELECT p.customer_id
-//                          from <proxy />ps p
-//                         where p.bucket_id = :BUCKET_ID
-//                           and rownum &lt; 2) as customer_id
-//                          FROM <proxy />BUCKET BKT
-//                         WHERE BKT.BUCKET_ID = :BUCKET_ID FOR UPDATE OF bkt.bucket_comment, BKT.NAME NOWAIT";
-//            var binder = SqlBinder.Create(row =>
-//            {
-//                var bucket = new Bucket
-//              {
-//                  BucketId = row.GetInteger("BUCKET_ID").Value,
-//                  BucketName = row.GetString("NAME"),
-//                  IsFrozen = row.GetString("FREEZE") == "Y",
-//                  PriorityId = row.GetInteger("PRIORITY") ?? 0,
-//                  PullingBucket = row.GetString("PULL_TO_DOCK"),
-//                  BucketComment = row.GetString("BUCKET_COMMENT"),
-//                  MaxCustomerId = row.GetString("customer_id")
-//              };
-//                bucket.Activities[BucketActivityType.Pulling].Area.AreaId = row.GetString("PULL_AREA_ID");
-//                bucket.Activities[BucketActivityType.Pitching].Area.AreaId = row.GetString("PITCH_IA_ID");
-//                return bucket;
-//            }
-//            );
-//            binder.Parameter("BUCKET_ID", bucketId);
-//            return _db.ExecuteSingle(QUERY, binder);
-//        }
-
         public BucketEditable GetEditableBucket(int bucketId)
         {
             const string QUERY = @"
@@ -129,8 +85,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
                                       ON P.PICKSLIP_ID = PD.PICKSLIP_ID
-                              --     INNER JOIN <proxy />BUCKET B
-                              --        ON B.BUCKET_ID = P.BUCKET_ID
                                    WHERE P.BUCKET_ID = :BUCKET_ID
                                      AND P.TRANSFER_DATE IS NULL
                                      AND PD.TRANSFER_DATE IS NULL
@@ -142,6 +96,7 @@ group by PD.SKU_ID, P.VWH_ID
                             INVENTORY_AREA,
                             SHORT_NAME,
                             PIECES_IN_AREA,
+location_id,
                             DESCRIPTION,
                             REPLENISH_FROM_AREA_ID
                             ) AS
@@ -151,6 +106,7 @@ group by PD.SKU_ID, P.VWH_ID
                                          SC.CARTON_STORAGE_AREA AS INVENTORY_AREA,
                                          TIA.SHORT_NAME,
                                          SCD.QUANTITY AS PIECES_IN_AREA,
+         sc.location_id,
                                          TIA.DESCRIPTION, 
                                          NULL
                                     FROM <proxy />SRC_CARTON_DETAIL SCD
@@ -171,6 +127,7 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                        IL.IA_ID,
                                        I.SHORT_NAME,
                                        IC.NUMBER_OF_UNITS,
+         il.location_id,
                                        I.SHORT_DESCRIPTION, 
                                        I.DEFAULT_REPREQ_IA_ID
                                   FROM <proxy />IALOC_CONTENT IC
@@ -185,8 +142,13 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                             VWH_ID,
                             XML_COLUMN) AS
                                  (SELECT *
-                                    FROM ALL_INVENTORY_SKU PIVOT XML(SUM(PIECES_IN_AREA) AS PIECES_IN_AREA, MIN(PIECES_IN_AREA) AS PIECES_IN_SMALLEST_CARTON,
-                                    MAX(DESCRIPTION) AS AREA_DESCRIPTION, MAX(SHORT_NAME) AS AREA_SHORT_NAME, MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
+                                    FROM ALL_INVENTORY_SKU PIVOT XML(
+MAX(location_id) KEEP(DENSE_RANK FIRST ORDER BY PIECES_IN_AREA DESC) AS best_location_id,
+MAX(PIECES_IN_AREA) AS PIECES_AT_BEST_LOCATION,
+SUM(PIECES_IN_AREA) AS PIECES_IN_AREA,
+MAX(DESCRIPTION) AS AREA_DESCRIPTION,
+MAX(SHORT_NAME) AS AREA_SHORT_NAME,
+MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                     FOR(INVENTORY_AREA, BUILDING_ID) IN(ANY, ANY))),
                             BOX_SKU AS
                                  (SELECT BD.SKU_ID AS SKU_ID,
@@ -266,7 +228,6 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   --AOS.PITCH_AREA                   AS PITCH_AREA,
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
@@ -293,7 +254,6 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 VwhId = row.GetString("VWH_ID"),
                                 WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
                                 VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0
-                                //IsAssignedSku = row.GetInteger("COUNT_ASSIGED_SKU") > 0
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
                             //IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
@@ -316,12 +276,12 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
             return _db.ExecuteReader(QUERY, binder, 2000);
         }
 
-        private IEnumerable<CartonAreaInventory> MapOrderedSkuXml(string xml)
+        private IList<CartonAreaInventory> MapOrderedSkuXml(string xml)
         {
             if (string.IsNullOrWhiteSpace(xml))
             {
                 // No inventory
-                return Enumerable.Empty<CartonAreaInventory>();
+                return new CartonAreaInventory[0];
             }
             var x = XElement.Parse(xml);
             var result = (from item in x.Elements("item")
@@ -337,7 +297,10 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                   ReplenishAreaId = (string)column.First(p => p.Attribute("name").Value == "REPLENISH_FROM_AREA_ID")
                               },
                               InventoryPieces = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_AREA"),
-                              PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON")
+                              //PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON"),
+                              BestLocationId = (string)column.First(p => p.Attribute("name").Value == "BEST_LOCATION_ID"),
+                              // PIECES_AT_BEST_LOCATION
+                              PiecesAtBestLocation = (int)column.First(p => p.Attribute("name").Value == "PIECES_AT_BEST_LOCATION"),
                           }).ToList();
             return result;
         }

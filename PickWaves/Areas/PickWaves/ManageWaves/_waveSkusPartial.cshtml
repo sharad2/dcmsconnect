@@ -48,12 +48,12 @@
 
             </div>
             <div class="col-md-6">
-               
+
                 @foreach (var area in Model.AllAreas)
                 {
                     <div style="width:12em; display:inline-block; line-height:0.8; margin-bottom:3mm">
                         <label>
-                            <span>@area.BuildingId &rarr; @area.ShortName</span>
+                            <span>@area.BuildingId</span>-<span>@area.ShortName</span>
                             @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
                             {
                                 <small title="Replenish from @area.ReplenishAreaId">
@@ -67,7 +67,7 @@
 
             </div>
             <div class="col-md-1">
-                <span class="badge pull-right">Ordered<br/> Pieces</span>
+                <span class="badge pull-right">Ordered<br /> Pieces</span>
             </div>
         </div>
     </li>
@@ -79,7 +79,7 @@
                 <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
                 <h4>
                     <small>@(i + 1)</small>
-                  
+
                     @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
 
                     <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
@@ -90,7 +90,7 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                  
+
 
                     @if (Model.BucketSkuList[i].Activities.Count > 0)
                     {
@@ -140,7 +140,7 @@
                 </div>
 
                 <div class="col-md-7">
-                    
+
                     @{
         var hasInventory = false;
                     }
@@ -150,14 +150,20 @@
                         {
                             hasInventory = true;
                             var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
-                            <div style="width:12em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
-                                <label>
-                                    <span>@Model.AllAreas[j].BuildingId &rarr; @Model.AllAreas[j].ShortName</span>
-                                </label>
-                                <small>
-                                    <span>@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
-                                    <em title="Number of pieces in the smallest carton">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].QuantityInSmallestCarton)</em>
-                                </small>
+                            <div style="width:15em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
+                                <div class="well well-sm">
+                                    <div>
+                                        <span class="pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
+                                        <span>@Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName</span>
+                                    </div>
+                                    @if (!string.IsNullOrWhiteSpace(Model.BucketSkuList[i].InventoryByArea[j].BestLocationId))
+                                    {
+                                        <div class="label label-primary">
+                                            @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].PiecesAtBestLocation) pcs
+                                            @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].BestLocationId)
+                                        </div>
+                                    }
+                                </div>
                             </div>
                         }
                         else
@@ -174,7 +180,7 @@
 
                 </div>
 
-               
+
             </div>
 
         </li>

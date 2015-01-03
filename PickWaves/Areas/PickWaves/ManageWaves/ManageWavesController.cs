@@ -186,7 +186,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                      VolumePerDozen = sku.BucketSku.Sku.VolumePerDozen,
                                      WeightPerDozen = sku.BucketSku.Sku.WeightPerDozen,
                                      OrderedPieces = sku.BucketSku.QuantityOrdered,
-                                     //IsAssignedSku = sku.BucketSku.IsPitchingBucket ? sku.BucketSku.Sku.IsAssignedSku : true,
                                      InventoryByArea = (from area in allAreas
                                                         join item in sku.BucketSku.BucketSkuInAreas on area.AreaId equals item.InventoryArea.AreaId into gj
                                                         from subitem in gj.DefaultIfEmpty()
@@ -196,8 +195,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                                             ShortName = area.ShortName,
                                                             BuildingId = area.BuildingId,
                                                             Description = area.Description,
+                                                            BestLocationId = subitem == null ? null : subitem.BestLocationId,
                                                             InventoryPieces = subitem == null || subitem.InventoryPieces == 0 ? (int?)null : subitem.InventoryPieces,
-                                                            QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton
+                                                            PiecesAtBestLocation = subitem == null ? (int?)null : subitem.PiecesAtBestLocation,
+                                                            //QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton
                                                         }).ToList(),
                                      Activities = sku.Activities.ToList()
                                  })
