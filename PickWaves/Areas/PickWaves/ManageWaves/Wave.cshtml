@@ -14,11 +14,12 @@
     </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.Bucket.CustomerId))"
-           title="See other pick waves of this customer">All Pick Waves of @Model.Bucket.CustomerId</a>
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">All Pick Waves of Customer @Model.Bucket.CustomerId</a>
     </li>
+    <li class="divider"></li>
 }
 <div class="container">
-  
+
     <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
