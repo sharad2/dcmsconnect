@@ -163,7 +163,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         public string ReplenishAreaId { get; set; }
 
-        //[DataType(DataType.Text)]
+        [DataType(DataType.Text)]
         [DisplayFormat(NullDisplayText="Not Started")]
         public DateRange PickingDateRange { get; set; }
 
