@@ -24,38 +24,36 @@
                      data-placement="top"
                      title="Unfreeze or Edit">
 
-                        <button class="btn btn-default dropdown-toggle" type="button"
-                                id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                            <span class="glyphicon glyphicon-play"></span>
-                            |
-                            <span class="glyphicon glyphicon-edit"></span>
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation">
-                                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
-                                    @if (Model.BoxNotCreatedPieces.HasValue)
+                    <button class="btn btn-default dropdown-toggle" type="button"
+                            id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
+                                @if (Model.BoxNotCreatedPieces.HasValue)
                                 {
-                                        <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
+                                    <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
                                 }
-                                    <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
-                                            value="@Model.BucketId" type="submit">
-                                        <span class="glyphicon glyphicon-play"></span>
-                                        Unfreeze
-                                    </button>
-                                </form>
-                            </li>
-                            <li class="divider"></li>
-                            <li role="presentation">
-                                <div style="text-align:center; margin:1mm">
-                                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
-                                       role="menuitem" tabindex="-1">
-                                        Edit
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                                <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
+                                        value="@Model.BucketId" type="submit">
+                                    <span class="glyphicon glyphicon-play"></span>
+                                    Unfreeze
+                                </button>
+                            </form>
+                        </li>
+                        <li class="divider"></li>
+                        <li role="presentation">
+                            <div style="text-align:center; margin:1mm">
+                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
+                                   role="menuitem" tabindex="-1">
+                                    Edit
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             }
             else
             {
@@ -64,9 +62,7 @@
                      title="Freeze,Edit or both">
                     <button class="btn btn-default dropdown-toggle" type="button" title="Freeze,Edit or both"
                             id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-pause"></span>
-                        |
-                        <span class="glyphicon glyphicon-edit"></span>
+                        <span class="glyphicon glyphicon-th-list"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">

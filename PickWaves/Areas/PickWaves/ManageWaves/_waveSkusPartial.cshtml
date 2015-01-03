@@ -26,48 +26,58 @@
     <li class="list-group-item active">
         <div class="row">
             <div class="col-md-5">
-                <h4 class="list-group-item-heading">
+                <h4>
                     SKU
                     <span class="label label-info">@Html.DisplayFor(m => m.TotalWeight) Weight / Dozen</span>
                     <span class="label label-success"> @Html.DisplayFor(m => m.TotalVolume) Volume / Dozen</span>
-                    <abbr title="Virtual Wearhouse">VWH</abbr>
+                    <abbr title="Virtual Warehouse">VWH</abbr>
                 </h4>
+                <div class='well well-sm'>
+                    <div class="text-info">
+                        Activity Type
+                        <em>@Model.PercentPiecesComplete% picked</em>
+                        <span class="badge pull-right">Ordered Pieces @Html.DisplayFor(m => m.TotalOrderedPieces)</span>
+                    </div>
 
-                <div title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
-
-                    @Html.DisplayFor(m => m.RemainingPiecesToPick) Picked Pieces
-                    <div class="progress" style="margin-bottom:0"
-                         title="@Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked, Still @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces to pick.">
-                        <div style="width:@Model.PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                            <span style="white-space:nowrap" class="text-info">
-                                @Html.DisplayFor(m => m.TotalPiecesPicked) of @Html.DisplayFor(m => m.TotalOrderedPieces) pieces picked &bull; <em>@Model.PercentPiecesComplete% picked</em>
+                    <div class="progress" style="margin-bottom:0">
+                        <div style="width: 50%" class="progress-bar progress-bar-success">
+                            <span style="white-space:nowrap">
+                                @Html.DisplayFor(m => m.TotalPiecesPicked) pieces picked
                             </span>
+                        </div>
+                        <div class="progress-bar progress-bar-warning" style="width:  50%">
+                            @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces remains
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
 
                 @foreach (var area in Model.AllAreas)
                 {
-                    <div style="width:12em; display:inline-block; line-height:0.8; margin-bottom:3mm">
-                        <label>
-                            <span>@area.BuildingId</span>-<span>@area.ShortName</span>
-                            @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
-                            {
-                                <small title="Replenish from @area.ReplenishAreaId">
-                                    &larr;@area.ReplenishAreaId
-                                </small>
-                            }
-                        </label>
-                        <small>@area.Description</small>
+                    <div style="width:14em; display:inline-block;">
+                        <div class="well well-sm">
+                            <div class="text-info">
+                                <span class="pull-right">Pieces</span>
+                                <span>@area.BuildingId</span>-<span>@area.ShortName</span>
+                                @if (!string.IsNullOrEmpty(area.ReplenishAreaId))
+                                {
+                                    <small title="Replenish from @area.ReplenishAreaId">
+                                        &larr;@area.ReplenishAreaId
+                                    </small>
+                                }
+                            </div>
+
+                            <div class="label label-primary">
+                                Pieces @@ location
+                            </div>
+
+                        </div>
+
                     </div>
                 }
 
-            </div>
-            <div class="col-md-1">
-                <span class="badge pull-right">Ordered<br /> Pieces</span>
             </div>
         </div>
     </li>
@@ -75,21 +85,15 @@
     @for (var i = 0; i < Model.BucketSkuList.Count; ++i)
     {
         <li class="list-group-item">
-            <div>
-                <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
-                <h4>
-                    <small>@(i + 1)</small>
-
-                    @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
-
-                    <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
-                    <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
-                    @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
-
-                </h4>
-            </div>
             <div class="row">
                 <div class="col-md-5">
+                    <h4>
+                        <small>@(i + 1)</small>
+                        @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
+                        <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
+                        <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
+                        @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
+                    </h4>
 
 
                     @if (Model.BucketSkuList[i].Activities.Count > 0)
@@ -101,6 +105,7 @@
                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
                                     <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>
+                                    <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
                                 </div>
                                 <div class="progress" style="margin-bottom:0">
                                     <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar progress-bar-success">
@@ -131,12 +136,10 @@
                     }
                     else
                     {
-                        <div>
+                        <div class='alert alert-warning'>
                             Not picked or pulled yet
                         </div>
                     }
-
-
                 </div>
 
                 <div class="col-md-7">
@@ -150,7 +153,7 @@
                         {
                             hasInventory = true;
                             var activity = Model.BucketSkuList[i].Activities.FirstOrDefault(p => p.AreaId == Model.BucketSkuList[i].InventoryByArea[j].AreaId);
-                            <div style="width:15em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
+                            <div style="width:14em; display:inline-block" @InventoryTdClass(activity, Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces)>
                                 <div class="well well-sm">
                                     <div>
                                         <span class="pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)</span>
@@ -168,7 +171,7 @@
                         }
                         else
                         {
-                            <div style="width:12em; display:inline-block" class="hidden-xs">
+                            <div style="width:14em; display:inline-block" class="hidden-xs">
                                 &nbsp;
                             </div>
                         }
