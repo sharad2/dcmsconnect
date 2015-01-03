@@ -52,10 +52,10 @@
         </small>
     </h2>
 
-    <div class="panel panel-default">
+    <div class="panel panel-info">
         <div class="panel-heading">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs bg-info" role="tablist">
+            <ul class="nav nav-tabs" role="tablist">
                 @if (Model.ImportedOrders.Count > 0)
                 {
                     <li role="presentation" class="active">
@@ -109,6 +109,7 @@
                                         <span class="label label-info">
                                             Pickslips  @Html.DisplayFor(m => m.TotalImportedPickslipCount)
                                         </span>
+                                        &nbsp;
                                         @Model.ImportedOrders.Count Customers
                                         <small><em>&nbsp; Imported @Html.DisplayFor(m => m.ImportDateRange)</em></small>
                                     </div>
@@ -141,6 +142,7 @@
                                         <div class="col-md-6">
                                             <small>@(i + 1)</small>
                                             <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+
                                             @if (Model.UserIsManager)
                                             {
                                                 <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
