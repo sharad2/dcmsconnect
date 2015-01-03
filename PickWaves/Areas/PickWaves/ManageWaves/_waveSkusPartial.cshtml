@@ -45,9 +45,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
-            <div class="col-md-7">
-                <span class="badge pull-right">Ordered Pieces</span>
+            <div class="col-md-6">
+               
                 @foreach (var area in Model.AllAreas)
                 {
                     <div style="width:12em; display:inline-block; line-height:0.8; margin-bottom:3mm">
@@ -65,28 +66,31 @@
                 }
 
             </div>
+            <div class="col-md-1">
+                <span class="badge pull-right">Ordered<br/> Pieces</span>
+            </div>
         </div>
     </li>
 
     @for (var i = 0; i < Model.BucketSkuList.Count; ++i)
     {
         <li class="list-group-item">
+            <div>
+                <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
+                <h4>
+                    <small>@(i + 1)</small>
+                  
+                    @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
+
+                    <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
+                    <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
+                    @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
+
+                </h4>
+            </div>
             <div class="row">
                 <div class="col-md-5">
-                    <h4>
-                        <small>@(i + 1)</small>
-                        @*@if (!Model.BucketSkuList[i].IsAssignedSku)
-                        {
-
-                            <span class="glyphicon glyphicon-warning-sign text-danger" title="SKU is not assigned at any location"></span>
-                        }*@
-                        @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
-
-                        <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
-                        <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
-                        @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
-
-                    </h4>
+                  
 
                     @if (Model.BucketSkuList[i].Activities.Count > 0)
                     {
@@ -99,7 +103,7 @@
                                     <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>
                                 </div>
                                 <div class="progress" style="margin-bottom:0">
-                                    <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar">
+                                    <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar progress-bar-success">
                                         <span style="white-space:nowrap">
                                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
                                         </span>
@@ -136,7 +140,7 @@
                 </div>
 
                 <div class="col-md-7">
-                    <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
+                    
                     @{
         var hasInventory = false;
                     }
@@ -169,6 +173,8 @@
                     }
 
                 </div>
+
+               
             </div>
 
         </li>
