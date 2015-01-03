@@ -13,12 +13,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int QuantityOrdered { get; set; }
 
-        /// <summary>
-        /// This property is use only for showing SKU is assigned in any location or not.
-        /// </summary>
-        [Obsolete]
-        public bool IsPitchingBucket { get; set; }
-
         public IEnumerable<CartonAreaInventory> BucketSkuInAreas { get; set; }
 
         private BucketActivityCollection _activities;
