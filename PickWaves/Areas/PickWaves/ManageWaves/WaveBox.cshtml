@@ -104,10 +104,7 @@
                     Pickslips
                 </a>
             </li>
-            <li class="active">
-                @*<a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId))" role="tab">
-                Boxes
-            </a>*@
+            <li class="active">               
                 <a role="tab">
                     Boxes
                 </a>
@@ -173,10 +170,20 @@
                                             <small>@(i + 1)</small>
                                             @if (Model.UserIsManager)
                                             {
-                                                <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
-                                                       value="@Model.BoxesList[i].Ucc128Id" />
+                                                if (Model.BoxesList[i].CancelDate == null)
+                                                {
+                                                    <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
+                                                           value="@Model.BoxesList[i].Ucc128Id" />
+                                                }
+                                                else
+                                                {
+                                                    <input type="checkbox" disabled />
+                                                }
+                                            
 
                                             }
+                                         
+
                                             <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                                             <small>
                                                 &bull;
@@ -187,6 +194,7 @@
                                             </span>
                                         </h4>
                                     </div>
+
                                     <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                                         <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
                                             @Html.DisplayFor(m => m.BoxesList[i].CartonId)
