@@ -12,7 +12,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// </summary>
     public class WaveBoxListModel: ViewModelBase
     {
+        [Obsolete("use bucketmodel")]
         public int BucketId { get; set; }
+
+        public BucketModel Bucket { get; set; }
 
         public BucketActivityType ActivityFilter { get; set; }
 
