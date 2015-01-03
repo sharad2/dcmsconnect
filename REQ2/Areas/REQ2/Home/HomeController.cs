@@ -203,6 +203,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 SourceQuality = model.SourceQualityCode,
                 TargetQuality = model.TargetQualityCode,
                 DestinationAreaShortName = model.DestinationAreaShortName,
+                SewingPlantCode = model.SewingPlantCode,
+                PriceSeasonCode = model.PriceSeasonCode,
                 //ReqId = model.CurrentRequest.ReqId,
                 RequestedBy = model.RequestedBy,
                 SourceAreaShortName = model.SourceAreaShortName
@@ -230,7 +232,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     //updating existing Request
                     _service.UpdateCartonRequest(requestModel, RequestProperties.BuildingId | RequestProperties.SourceAreaId | RequestProperties.Priority |
                          RequestProperties.TargetVwhId | RequestProperties.DestinationArea | RequestProperties.AllowOverPulling | RequestProperties.PackagingPreference |
-                         RequestProperties.SaleTypeId | RequestProperties.SourceVwhId | RequestProperties.Remarks | RequestProperties.QualityCode | RequestProperties.TargetQualityCode);
+                         RequestProperties.SaleTypeId | RequestProperties.SourceVwhId | RequestProperties.Remarks | RequestProperties.QualityCode | RequestProperties.TargetQualityCode | RequestProperties.PriceSeasonCode | RequestProperties.SewingPlantCode);
                 }
                 catch (ProviderException ex)
                 {
