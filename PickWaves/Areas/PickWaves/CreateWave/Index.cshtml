@@ -21,6 +21,21 @@
         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">All Pick Waves of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em></a>
 
     </li>
+   <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+        Frozen Pick Waves of same Customer
+    </a>
+</li>
+<li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+        In Progress Pick Waves of same Customer
+    </a>
+</li>
+<li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+        Completed Pick Waves of same Customer
+    </a>
+</li>
 }
 
 <div class="container">
