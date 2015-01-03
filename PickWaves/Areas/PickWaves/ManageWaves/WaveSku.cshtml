@@ -4,6 +4,19 @@
     ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId; 
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
+
+@section applinks{
+    <li title="This report display details of pick wave.">
+        <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
+            Report 140.02: Pick Wave Summary
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null, Model.Bucket.BucketState))"
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
+    </li>
+    <li class="divider"></li>
+}
 @helper InventoryTdClass(DcmsMobile.PickWaves.ViewModels.BucketActivityModel activity, int? pcs)
 {
     if (activity != null && activity.PiecesIncomplete > 0)
