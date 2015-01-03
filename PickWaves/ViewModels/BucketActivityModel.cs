@@ -27,12 +27,15 @@ namespace DcmsMobile.PickWaves.ViewModels
             AreaDescription = entity.Area.Description;
             BuildingId = entity.Area.BuildingId;
             ReplenishAreaId = entity.Area.ReplenishAreaId;
-            PickingDateRange = new DateRange
+            if (entity.MinEndDate.HasValue || entity.MaxEndDate.HasValue)
             {
-                From = entity.MinEndDate,
-                To = entity.MaxEndDate,
-                ShowTime = true
-            };
+                PickingDateRange = new DateRange
+                {
+                    From = entity.MinEndDate,
+                    To = entity.MaxEndDate,
+                    ShowTime = true
+                };
+            }
 
             PiecesComplete = entity.Stats[BoxState.Completed | BoxState.InProgress, PiecesKind.Current] ?? 0;
             PiecesIncomplete = (entity.Stats[BoxState.InProgress, PiecesKind.Expected] ?? 0) - (entity.Stats[BoxState.InProgress, PiecesKind.Current] ?? 0);
@@ -123,12 +126,27 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                if (PiecesComplete == 0)
+                //return 10;
+                if (PiecesComplete + PiecesIncomplete == 0)
                 {
                     return 0;
                 }
 
                 return (int)Math.Round(PiecesComplete * 100.0 / (PiecesComplete + PiecesIncomplete));
+            }
+        }
+
+        public int PercentPiecesIncomplete
+        {
+            get
+            {
+                //return 10;
+                if (PiecesComplete + PiecesIncomplete == 0)
+                {
+                    return 0;
+                }
+
+                return (int)Math.Round(PiecesIncomplete * 100.0 / (PiecesComplete + PiecesIncomplete));
             }
         }
 
@@ -145,7 +163,8 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         public string ReplenishAreaId { get; set; }
 
-        [DataType(DataType.Text)]
+        //[DataType(DataType.Text)]
+        [DisplayFormat(NullDisplayText="Not Started")]
         public DateRange PickingDateRange { get; set; }
 
     }

@@ -92,21 +92,20 @@
                     {
                         for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                         {
-                            <div class='bg-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
-                                 style="vertical-align:top; padding-top:1mm">
-                                <div style="display:inline-block">
+                            <div class='alert alert-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'>
+                                <div>
                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+                                    @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
+                                    <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>
                                 </div>
-                                <div class="progress" style="margin-bottom:0;display:inline-block;width:80%">
-                                    <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                                        <span style="white-space:nowrap" class="text-info">
+                                <div class="progress" style="margin-bottom:0">
+                                    <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar">
+                                        <span style="white-space:nowrap">
                                             @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
-                                            of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) pieces picked
-                                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange).
-                                            <em>
-                                                @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete% picked
-                                            </em>
                                         </span>
+                                    </div>
+                                    <div class="progress-bar progress-bar-warning" style="width:  @Model.BucketSkuList[i].Activities[j].PercentPiecesIncomplete%">
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete)
                                     </div>
                                 </div>
                                 @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue || Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue)
