@@ -27,14 +27,7 @@
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
-    </h2>
-
-    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
-                                   {
-                                       {"IsAuthorized", Model.UserIsManager}
-                                   })
-
-
+    </h2>  
 
     <div role="tabpanel" id="tabs">
         <!-- Nav tabs -->
@@ -234,6 +227,12 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
+
 </div>
 
 

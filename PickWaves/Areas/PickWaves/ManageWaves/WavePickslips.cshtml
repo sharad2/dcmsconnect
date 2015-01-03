@@ -27,14 +27,6 @@
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
     </h2>
-
-    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
-                                   {
-                                       {"IsAuthorized", Model.UserIsManager}
-                                   })
-
-
-
     <div role="tabpanel" id="tabs">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bg-success" role="tablist">
@@ -186,6 +178,14 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
+
+
+
 </div>
 
 @section script {
