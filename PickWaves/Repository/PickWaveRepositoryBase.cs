@@ -478,10 +478,11 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                      WHERE B.IA_ID IS NULL
                        AND B.STOP_PROCESS_DATE IS NULL
                        AND B.PALLET_ID IS NULL
-                       AND BUCKET.PICK_MODE = 'ADREPPWSS'
+                     --  AND BUCKET.PICK_MODE = 'ADREPPWSS'
                        AND  bucket.pull_type = 'EXP'
                        AND P.TRANSFER_DATE IS NULL
                        AND BUCKET.FREEZE IS NULL
+and b.carton_id is not null
                      GROUP BY BUCKET.BUCKET_ID
                      ORDER BY MAX(BUCKET.PRIORITY) DESC, COUNT(P.PICKSLIP_ID) DESC
                 ";

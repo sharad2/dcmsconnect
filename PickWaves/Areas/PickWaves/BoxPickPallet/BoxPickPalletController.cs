@@ -90,6 +90,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 return View(Views.Index, model);
             }
 
+            if (bucket.IsFrozen)
+            {
+                ModelState.AddModelError("BucketId", string.Format("Pick wave {0} is frozen", bucketId));
+                return View(Views.Index, model);
+            }
+
             model = new BoxPickPalletViewModel
                 {
                     BucketId = bucketId.Value,
@@ -100,7 +106,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     TotalBoxes = bucket.CountTotalBox,
                     PullBuildingId = bucket.PullBuildingId,
                     PitchBuildingId = bucket.PitchBuildingId,
-                    IsFrozen = bucket.IsFrozen,
+                    //IsFrozen = bucket.IsFrozen,
                     PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
                 };
             model.BucketId = bucketId;

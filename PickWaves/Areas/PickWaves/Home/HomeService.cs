@@ -87,6 +87,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                     throw new NotImplementedException();
             }
         }
+
+        public IList<BucketBase> GetRecentCreatedBucket()
+        {
+            return _repos.GetRecentCreatedBucket();
+        }
     }
 }
 
