@@ -65,10 +65,9 @@
                         style="width: 12em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
                         title="@Model.CustomerIdList[i].CustomerName">
                         <span class="badge">@Html.DisplayFor(m => m.CustomerIdList[i].OrderedPieces)</span>
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerIdList[i].CustomerId))">@Html.DisplayFor(m => m.CustomerIdList[i].CustomerName)</a>
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerIdList[i].CustomerId))">@Html.DisplayFor(m => m.CustomerIdList[i].CustomerName)</a>
                     </li>
                 }
-
             </ul>
 
         </fieldset>
