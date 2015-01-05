@@ -51,17 +51,20 @@
             }
         </small>
     </h2>
-
+    <p>
+        If you know the Pick Wave Id, just search for it. To see pick waves created by you, search for your login name. Or choose a
+        <abbr title="The number of pieces ordered by the customer are also displayed">customer below</abbr>.
+    </p>
     @if (!Model.IsAnyFilterApplied)
     {
         <fieldset>
-            <legend>
-                Search by <span class="badge">Ordered Pieces</span> Customer 
-            </legend>
+            @*<legend>
+                    Search by <span class="badge">Ordered Pieces</span> Customer
+                </legend>*@
             <ul class="list-inline">
                 @for (var i = 0; i < Model.CustomerIdList.Count; ++i)
                 {
-                    <li class="@(i % 2 == 0 ? "bg-info" : null)" 
+                    <li class="@(i % 2 == 0 ? "bg-info" : null)"
                         style="width: 12em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
                         title="@Model.CustomerIdList[i].CustomerName">
                         <span class="badge">@Html.DisplayFor(m => m.CustomerIdList[i].OrderedPieces)</span>
