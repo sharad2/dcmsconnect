@@ -8,6 +8,33 @@ using System.Linq;
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
     /// <summary>
+    /// Represents an entry used to display a link to customer filter
+    /// </summary>
+    public class CustomerFilterModel
+    {
+        public string CustomerId { get; set; }
+
+        public string CustomerName { get; set; }
+    }
+
+    /// <summary>
+    /// Compare based on customer Id
+    /// </summary>
+    internal class CustomerFilterModelComparer:IEqualityComparer<CustomerFilterModel>
+    {
+
+        public bool Equals(CustomerFilterModel x, CustomerFilterModel y)
+        {
+            return x.CustomerId.Equals(y.CustomerId);
+        }
+
+        public int GetHashCode(CustomerFilterModel obj)
+        {
+            return obj.CustomerId.GetHashCode();
+        }
+    }
+
+    /// <summary>
     /// The model passed to the Index view
     /// </summary>
     public class IndexViewModel : ViewModelBase
@@ -117,21 +144,34 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             }
         }
 
-        private IList<Tuple<string, string>> _customerIdList;
-        public IList<Tuple<string, string>> CustomerIdList
+        private IList<CustomerFilterModel> _customerIdList;
+        public IList<CustomerFilterModel> CustomerIdList
         {
             get
             {
                 if (_customerIdList == null)
                 {
-                    var bucketCustomers = BucketsByStatus.SelectMany(p => p.Value).Select(p => Tuple.Create(p.CustomerId,p.CustomerName));
-                    var importedCustomers = ImportedOrders.Select(p => Tuple.Create(p.CustomerId, p.CustomerName));
-                    _customerIdList = bucketCustomers.Concat(importedCustomers).Distinct().OrderBy(p => p.Item2).ToList();
+
+                    var bucketCustomers = from item in BucketsByStatus
+                                          from cust in item.Value
+                                          select new CustomerFilterModel
+                                          {
+                                              CustomerId = cust.CustomerId,
+                                              CustomerName = cust.CustomerName
+                                          };
+                    var importedCustomers = from cust in ImportedOrders
+                                            select new CustomerFilterModel
+                                            {
+                                                CustomerId = cust.CustomerId,
+                                                CustomerName = cust.CustomerName
+                                            };
+                    _customerIdList = bucketCustomers.Concat(importedCustomers).Distinct(new CustomerFilterModelComparer()).OrderBy(p => p.CustomerName).ToList();
 
                 }
                 return _customerIdList;
             }
         }
+
     }
 }
 

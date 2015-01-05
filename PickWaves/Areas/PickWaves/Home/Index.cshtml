@@ -63,8 +63,8 @@
                 {
                     <li class="@(i % 2 == 0 ? "bg-info" : null)" 
                         style="width: 10em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
-                        title="@Model.CustomerIdList[i].Item2">
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerIdList[i].Item1))">@Html.DisplayFor(m => m.CustomerIdList[i].Item2)</a>
+                        title="@Model.CustomerIdList[i].CustomerName">
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerIdList[i].CustomerId))">@Html.DisplayFor(m => m.CustomerIdList[i].CustomerName)</a>
                     </li>
                 }
 
