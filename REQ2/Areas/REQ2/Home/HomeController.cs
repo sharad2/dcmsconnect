@@ -212,7 +212,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 BuildingId = model.BuildingId,
                 CtnResvId = model.ResvId,
                 DestinationArea = model.DestinationAreaId,
-                Priority = model.Priorities.ToString(),
+               // Priority = model.Priorities.ToString(),
                 Remarks = model.Remarks,
                 SourceAreaId = model.SourceAreaId,
                 TargetVwhId = model.TargetVwhId,
