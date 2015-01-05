@@ -230,7 +230,6 @@
       <DependentUpon>AjaxModal.js</DependentUpon>
     </Content>
     <Content Include="Areas\PickWaves\Config\AjaxModal.partial.js" />
-    <Content Include="Areas\PickWaves\CreateWave\PickslipList.partial.js" />
     <Content Include="Areas\PickWaves\CreateWave\PickslipList.js">
       <DependentUpon>PickslipList.js.bundle</DependentUpon>
     </Content>

@@ -12,6 +12,5 @@
   <files>
     <!--<file>ManageWave-Index.partial.js</file>-->
     <file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file> 
-	  <file>/Areas/PickWaves/CreateWave/PickslipList.partial.js</file> 
   </files>
 </bundle>
