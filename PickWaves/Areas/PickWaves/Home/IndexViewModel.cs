@@ -15,23 +15,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public string CustomerId { get; set; }
 
         public string CustomerName { get; set; }
-    }
 
-    /// <summary>
-    /// Compare based on customer Id
-    /// </summary>
-    internal class CustomerFilterModelComparer:IEqualityComparer<CustomerFilterModel>
-    {
-
-        public bool Equals(CustomerFilterModel x, CustomerFilterModel y)
-        {
-            return x.CustomerId.Equals(y.CustomerId);
-        }
-
-        public int GetHashCode(CustomerFilterModel obj)
-        {
-            return obj.CustomerId.GetHashCode();
-        }
+        /// <summary>
+        /// Number of ordered pieces in all buckets combined
+        /// </summary>
+        [DisplayFormat(DataFormatString="{0:N0}")]
+        public int OrderedPieces { get; set; }
     }
 
     /// <summary>
@@ -157,15 +146,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                           select new CustomerFilterModel
                                           {
                                               CustomerId = cust.CustomerId,
-                                              CustomerName = cust.CustomerName
+                                              CustomerName = cust.CustomerName,
+                                              OrderedPieces = cust.OrderedPieces
                                           };
                     var importedCustomers = from cust in ImportedOrders
                                             select new CustomerFilterModel
                                             {
                                                 CustomerId = cust.CustomerId,
-                                                CustomerName = cust.CustomerName
+                                                CustomerName = cust.CustomerName,
+                                                OrderedPieces = cust.PiecesOrdered
                                             };
-                    _customerIdList = bucketCustomers.Concat(importedCustomers).Distinct(new CustomerFilterModelComparer()).OrderBy(p => p.CustomerName).ToList();
+
+                    var query = from item in bucketCustomers.Concat(importedCustomers)
+                                group item by item.CustomerId into g
+                                let pieces = g.Sum(p => p.OrderedPieces)
+                                let name = g.Max(p => p.CustomerName)
+                                orderby pieces descending, name
+                                select new CustomerFilterModel
+                                {
+                                    CustomerId = g.Key,
+                                    CustomerName = name,
+                                    OrderedPieces = pieces
+                                };
+                    //_customerIdList = bucketCustomers.Concat(importedCustomers).Distinct(new CustomerFilterModelComparer()).OrderBy(p => p.CustomerName).ToList();
+                    _customerIdList = query.ToList();
 
                 }
                 return _customerIdList;
