@@ -37,13 +37,13 @@
     <h2 style="margin-top:0">
         Pick Waves
         <small>
-            @if (Model != null && Model.IsCustomerFilterApplied)
+            @if (Model.IsCustomerFilterApplied)
             {
 
                 <span>Showing for Customer @Model.SearchCustomerId @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
 
             }
-            @if (Model != null && Model.IsUserNameFilterApplied)
+            @if (Model.IsUserNameFilterApplied)
             {
 
                 <span>Created by @Model.SearchUserName @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.Home.Index())</span>
@@ -51,6 +51,28 @@
             }
         </small>
     </h2>
+
+    @if (!Model.IsAnyFilterApplied)
+    {
+        <fieldset>
+            <legend>
+                Search By Customer
+            </legend>
+            <ul class="list-inline">
+                @for (var i = 0; i < Model.CustomerIdList.Count; ++i)
+                {
+                    <li class="@(i % 2 == 0 ? "bg-info" : null)" 
+                        style="width: 10em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
+                        title="@Model.CustomerIdList[i].Item2">
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerIdList[i].Item1))">@Html.DisplayFor(m => m.CustomerIdList[i].Item2)</a>
+                    </li>
+                }
+
+            </ul>
+
+        </fieldset>
+    }
+
 
     <div class="panel panel-info">
         <div class="panel-heading">
@@ -106,7 +128,7 @@
                             <li class="list-group-item list-group-item-success">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <span class="label label-info">
+                                        <span class="label label-default">
                                             Pickslips  @Html.DisplayFor(m => m.TotalImportedPickslipCount)
                                         </span>
                                         &nbsp;
@@ -141,7 +163,7 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <small>@(i + 1)</small>
-                                            <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                                            <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
 
                                             @if (Model.UserIsManager)
                                             {

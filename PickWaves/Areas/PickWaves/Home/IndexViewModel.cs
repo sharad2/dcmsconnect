@@ -108,6 +108,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         /// The layout page displays a Show All link when this is true. Individual actions are expected to set this..
         /// </summary>
         public bool IsCustomerFilterApplied { get; set; }
+
+        public bool IsAnyFilterApplied
+        {
+            get
+            {
+                return IsUserNameFilterApplied || IsCustomerFilterApplied;
+            }
+        }
+
+        private IList<Tuple<string, string>> _customerIdList;
+        public IList<Tuple<string, string>> CustomerIdList
+        {
+            get
+            {
+                if (_customerIdList == null)
+                {
+                    var bucketCustomers = BucketsByStatus.SelectMany(p => p.Value).Select(p => Tuple.Create(p.CustomerId,p.CustomerName));
+                    var importedCustomers = ImportedOrders.Select(p => Tuple.Create(p.CustomerId, p.CustomerName));
+                    _customerIdList = bucketCustomers.Concat(importedCustomers).Distinct().OrderBy(p => p.Item2).ToList();
+
+                }
+                return _customerIdList;
+            }
+        }
     }
 }
 
