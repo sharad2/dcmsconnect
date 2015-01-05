@@ -103,13 +103,13 @@
         <div class="form-group">
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary ">
-                    <input type="radio" name="@Model.PriorityFlag"  id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High" autocomplete="off" checked="checked"> High Prority
+                    <input type="radio" name="@Html.NameFor(m=>m.PriorityFlag)" value="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High" autocomplete="off"> High Prority
                 </label>
                 <label class="btn btn-primary active">
-                    <input type="radio" name="@Model.PriorityFlag" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Medium" autocomplete="off"> Medium Prority
+                    <input type="radio" name="@Html.NameFor(m => m.PriorityFlag)" value="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Medium" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Medium" autocomplete="off" checked> Medium Prority
                 </label>
                 <label class="btn btn-primary">
-                    <input type="radio" name="@Model.PriorityFlag" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Low" autocomplete="off"> Low Prority
+                    <input type="radio" name="@Html.NameFor(m => m.PriorityFlag)" value="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Low" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.Low" autocomplete="off"> Low Prority
                 </label>
                
             </div>

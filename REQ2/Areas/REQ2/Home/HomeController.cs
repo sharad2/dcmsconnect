@@ -210,7 +210,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 SourceAreaShortName = model.SourceAreaShortName
             };
 
-            //int caseSwitch = 1;
             switch (model.PriorityFlag)
             {
                 case Priority.High:
