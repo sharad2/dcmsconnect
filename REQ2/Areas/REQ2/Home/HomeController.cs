@@ -101,7 +101,25 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     throw new NotImplementedException();
                 }
                 model = new PropertyEditorViewModel(req);
+
+                int priority = Int32.Parse(req.Priority);
+
+                if (priority < 9)
+                {
+                    model.PriorityFlag = Priority.Low;
+                }
+                else if (priority > 9 && priority < 50 )
+                {
+                    model.PriorityFlag = Priority.Medium;
+                }
+
+                else if (priority > 49)
+                {
+                    model.PriorityFlag = Priority.High;
+                }
             }
+
+               
 
             PopulateIndexViewModel(model);
             return View(Views.PropertyEditor, model);
@@ -156,7 +174,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var sewingPlants = _service.GetSewingPlantCodes();
             model.SewingPlant = sewingPlants.Select(p => MapCode(p));
 
-
+        
         }
 
 
@@ -216,7 +234,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     requestModel.Priority = "99";
                     break;
                 case Priority.Medium:
-                    requestModel.Priority = "50";
+                    requestModel.Priority = "45";
                     break;
                 case Priority.Low:
                     requestModel.Priority = "5";
