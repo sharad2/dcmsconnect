@@ -1,20 +1,4 @@
-﻿///#source 1 1 /Areas/PickWaves/SharedViews/_bucketModel.partial.js
-$(document).ready(function () {
-    "use strict";
-    // Handle priority up and down buttons
-    $(document).on('click', 'button[data-priority-url]', function (e) {
-        $.post($(e.target).data('priority-url')).done(function (data, textStatus, jqXHR) {
-           // alert(data);
-            $(e.target).closest('div.input-group').find('input:text').val(data);
-        }).error(function () {
-            alert('error');
-        });
-    });
-});
-
-
-///#source 1 1 /Areas/PickWaves/CreateWave/PickslipList.partial.js
-$(document).ready(function () {
+﻿$(document).ready(function () {
     //Check if any of the pickslip is selected to add
     $('.addPickslips').on('click', function (e) {
         var isCheckked = $(":checkbox[name='@MVC_PickWaves.PickWaves.CreateWave.AddPickslipsToBucketParams.pickslips']", $('form')).is(":checked")

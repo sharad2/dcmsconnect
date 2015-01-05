@@ -30,7 +30,7 @@
 		});
 	}).find('> ul a:first').tab('show');
 
-    //Tool tips on _buckerMoelPartial.cshtml
+    //Tool tips on _bucketModelPartial.cshtml
 	
 	    $(function () {
 	        $("[data-toggle='tooltip']").tooltip();
