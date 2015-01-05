@@ -52,10 +52,10 @@
         </small>
     </h2>
 
-    <div class="panel panel-default">
+    <div class="panel panel-info">
         <div class="panel-heading">
             <!-- Nav tabs -->
-            <ul class="nav nav-tabs bg-info" role="tablist">
+            <ul class="nav nav-tabs" role="tablist">
                 @if (Model.ImportedOrders.Count > 0)
                 {
                     <li role="presentation" class="active">
@@ -106,16 +106,12 @@
                             <li class="list-group-item list-group-item-success">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="list-group-item-heading">
-                                            @Model.ImportedOrders.Count Customers
-
-                                            <span class="label label-info">
-                                                @Html.DisplayFor(m => m.TotalImportedPickslipCount) Pickslips
-                                            </span>
-                                            <small><em>&nbsp; Imported @Html.DisplayFor(m => m.ImportDateRange)</em></small>
-
-                                        </h4>
-
+                                        <span class="label label-info">
+                                            Pickslips  @Html.DisplayFor(m => m.TotalImportedPickslipCount)
+                                        </span>
+                                        &nbsp;
+                                        @Model.ImportedOrders.Count Customers
+                                        <small><em>&nbsp; Imported @Html.DisplayFor(m => m.ImportDateRange)</em></small>
                                     </div>
                                     <div class="col-md-3">
                                         <h4 class="list-group-item-heading" style="width:7em;text-align:right; display:inline-block">
@@ -144,45 +140,44 @@
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <h4 class="list-group-item-heading">
-                                                <small>@(i + 1)</small>  @if (Model.UserIsManager)
-                                                {
-                                                    <a @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "style='text-decoration:line-through'")
-                                                       href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
-                                                       title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
-                                                        @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
-                                                    </a>
-                                                    <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                                                        @if (Model.ImportedOrders[i].IsCustomerActive)
-                                                        {
-                                                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
-                                                        }
-                                                        else
-                                                        {
-                                                            <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
-                                                        }
-                                                    </small>
-                                                }
-                                                else
-                                                {
-                                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)@:
-                                                    <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                                                        @if (Model.ImportedOrders[i].IsCustomerActive)
-                                                        {
-                                                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
-                                                        }
-                                                        else
-                                                        {
-                                                            <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
-                                                        }
-                                                    </small>
-                                                }  <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
-                                                <small>
+                                            <small>@(i + 1)</small>
+                                            <span class="label label-info">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
 
-                                                    <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
-
+                                            @if (Model.UserIsManager)
+                                            {
+                                                <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
+                                                   href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
+                                                   title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                                                </a>
+                                                <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                                    @if (Model.ImportedOrders[i].IsCustomerActive)
+                                                    {
+                                                        @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                                    }
+                                                    else
+                                                    {
+                                                        <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                                    }
                                                 </small>
-                                            </h4>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)@:
+                                                <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                                    @if (Model.ImportedOrders[i].IsCustomerActive)
+                                                    {
+                                                        @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                                    }
+                                                    else
+                                                    {
+                                                        <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                                    }
+                                                </small>
+                                            }
+                                            <small>
+                                                <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
+                                            </small>
 
                                         </div>
                                         <div class="col-md-3">
@@ -223,18 +218,17 @@
                             <li class="list-group-item list-group-item-success">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h4 class="list-group-item-heading">
-                                            @string.Format("{0:N0} Customers", Model.BucketsByStatus.Values[j].Count)
-                                            <span class="label label-info">
-                                                Max priority @Model.BucketsByStatus.Values[j].Max(p => p.MaxPriorityId)
-                                            </span>
-                                        </h4>
-                                    </div>
-                                    @*<div class="col-md-2">
-                                        <div class="pull-right">
+                                        <span class="label label-info">
+                                            Max priority @Model.BucketsByStatus.Values[j].Max(p => p.MaxPriorityId)
+                                        </span>
+                                        &nbsp;
+                                        @string.Format("{0:N0} Customers", Model.BucketsByStatus.Values[j].Count)
+
+
+                                        <span class="badge">
                                             @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.BucketCount)) Waves
-                                        </div>
-                                    </div>*@
+                                        </span>
+                                    </div>
                                     <div class="col-md-3">
                                         <div class="progress" style="margin-bottom:0">
                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
@@ -287,8 +281,8 @@
                                             <span class="badge">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)</span>
                                         </div>
                                         @*<div class="col-md-2">
-                                            <div class="pull-right">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)</div>
-                                        </div>*@
+                                                <div class="pull-right">@Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].BucketCount)</div>
+                                            </div>*@
                                         <div class="col-md-3">
                                             @if (Model.BucketsByStatus.Values[j][i].UnpickedPieces > 0 || Model.BucketsByStatus.Values[j][i].PickedPieces > 0)
                                             {
