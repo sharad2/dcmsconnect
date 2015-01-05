@@ -58,9 +58,6 @@
     @if (!Model.IsAnyFilterApplied)
     {
         <fieldset>
-            @*<legend>
-                    Search by <span class="badge">Ordered Pieces</span> Customer
-                </legend>*@
             <ul class="list-inline">
                 @for (var i = 0; i < Model.CustomerIdList.Count; ++i)
                 {
@@ -78,7 +75,7 @@
 
 
     <div class="panel panel-info">
-        <div class="panel-heading">
+        <div class="panel-heading" style="padding:0;border-bottom:0" >
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 @if (Model.ImportedOrders.Count > 0)
