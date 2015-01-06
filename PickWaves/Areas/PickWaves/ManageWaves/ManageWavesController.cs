@@ -644,8 +644,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public virtual ActionResult CancelBoxes(int bucketId, string[] boxes)
         {
 
-            if (!ModelState.IsValid)
+            if (boxes == null || boxes.Length < 1)
             {
+                AddStatusMessage("You have not selected any Boxes to cancel, please select atleast 1 box to cancel.");
                 return RedirectToAction(Actions.Wave(bucketId));
             }
             try

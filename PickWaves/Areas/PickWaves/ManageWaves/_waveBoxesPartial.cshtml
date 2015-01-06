@@ -159,7 +159,7 @@
 {
     @section script {
         <script type="text/javascript">
-            $(document).ready(function () {
+           // $(document).ready(function () {
                 //Check if any of the Box is selected to add
                 $('.cancelBox').on('click', function (e) {               
                     var isCheckked = $(":checkbox[name='@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes']", $('form')).is(":checked")
@@ -178,7 +178,7 @@
                     container: 'body'
                 });
 
-            });
+           /// });
             //close the popover error message on click of close icon on title
             $(document).on('click', '.close', function (e) {
                 $('[data-toggle="popover"]').popover('hide');
