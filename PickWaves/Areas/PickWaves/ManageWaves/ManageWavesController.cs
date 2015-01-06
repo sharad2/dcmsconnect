@@ -238,6 +238,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                  //ActivityFilter = activityFilter,
                  BoxesList = (from box in _service.Value.GetBucketBoxes(bucketId)
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
+                              let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                              let routeCarton = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1]
                               select new BoxModel
                               {
                                   Ucc128Id = box.Ucc128Id,
@@ -255,6 +257,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                   UrlInquiryBox = routeBox == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1, new
                                   {
                                       id = box.Ucc128Id
+                                  }),
+                                  UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
+                                    {
+                                        id = box.PickslipId
+                                    }),
+                                  UrlInquiryCarton = routeCarton == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1, new
+                                  {
+                                      id = box.CartonId
                                   })
                               }).ToArray()
              };
@@ -508,31 +518,31 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }).ToDictionary(p => p.Name);
 
             var allAreas = from area in bucketAreas
-                        where area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
-                            area.CountSku.HasValue && area.CountSku > 0
-                        orderby area.BuildingId, area.CountSku descending
-                        let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
-                        select new 
-                        {
-                            AreaId = area.AreaId,
-                            AreaType = area.AreaType,
-                            ShortName = area.ShortName ?? area.AreaId,
-                            Description = area.Description,
-                            PctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value,
-                            Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
-                                area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                            Value = area.AreaId,
-                            Group = groups[area.BuildingId]
-                        };
+                           where area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                               area.CountSku.HasValue && area.CountSku > 0
+                           orderby area.BuildingId, area.CountSku descending
+                           let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+                           select new
+                           {
+                               AreaId = area.AreaId,
+                               AreaType = area.AreaType,
+                               ShortName = area.ShortName ?? area.AreaId,
+                               Description = area.Description,
+                               PctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value,
+                               Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
+                                   area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                               Value = area.AreaId,
+                               Group = groups[area.BuildingId]
+                           };
             model.PullAreaList = (from area in allAreas
-                                 where area.AreaType == BucketActivityType.Pulling
-                                 select new SelectListItem
-                                  {
-                                      Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName, area.Description, area.PctSkuAvailable),
-                                      Value = area.AreaId,
-                                      Selected = area.AreaId == model.PullAreaId,
-                                      Group = area.Group
-                                  }).ToList();
+                                  where area.AreaType == BucketActivityType.Pulling
+                                  select new SelectListItem
+                                   {
+                                       Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName, area.Description, area.PctSkuAvailable),
+                                       Value = area.AreaId,
+                                       Selected = area.AreaId == model.PullAreaId,
+                                       Group = area.Group
+                                   }).ToList();
 
             model.PitchAreaList = (from area in allAreas
                                    where area.AreaType == BucketActivityType.Pitching

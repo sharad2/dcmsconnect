@@ -186,7 +186,7 @@
                                             }
                                             else
                                             {
-                                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId)@:
+                                                <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
                                                 <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
                                                     @if (Model.ImportedOrders[i].IsCustomerActive)
                                                     {

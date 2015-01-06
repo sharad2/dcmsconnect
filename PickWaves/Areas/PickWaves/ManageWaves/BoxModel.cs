@@ -78,5 +78,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string VWhId { get; set; }
 
         public string UrlInquiryBox { get; set; }
+
+        public string UrlInquiryPickslip { get; set; }
+
+        public string UrlInquiryCarton { get; set; }
     }
 }
