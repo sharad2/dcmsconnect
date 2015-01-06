@@ -69,7 +69,7 @@
     <h2 style="margin-top:0">
         @Html.DisplayFor(m => m.BucketCount)  @Model.BucketStateDisplayName Pick Waves of
         <small>
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))"
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))"
                title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>

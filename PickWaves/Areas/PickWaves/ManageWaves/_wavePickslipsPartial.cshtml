@@ -1,18 +1,16 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WavePickslipsViewModel
+<blockquote>
+    <p>
+        Pickslips of Wave @Html.DisplayFor(m => m.BucketId)
+        @if (Model.UserIsManager && Model.IsFrozenBucket)
+        {
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">Add more Pickslips</a>
+        }
+    </p>
+    <footer>Unpicked pickslips can be removed from frozen pick waves</footer>
+</blockquote>
 
-@if (Model.UserIsManager && Model.IsFrozenBucket)
-{
-
-    <blockquote>
-        Pickslip list of Wave @Html.DisplayFor(m => m.BucketId)
-
-
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))">Add more Pickslips</a>
-
-    </blockquote>
-
-}
 <ul class="list-group">
     <li class="list-group-item active">
         <div class="row">
@@ -76,9 +74,9 @@
                 <div class="col-md-4">
                     @if (Model.PickslipList[i].CancelledBoxCount > 0)
                     {
-                    <strong class="text-danger">
-                        &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) Boxes cancelled
-                    </strong>
+                        <strong class="text-danger">
+                            &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) Boxes cancelled
+                        </strong>
                     }
                     <div class="progress" style="margin-bottom:0">
                         <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
