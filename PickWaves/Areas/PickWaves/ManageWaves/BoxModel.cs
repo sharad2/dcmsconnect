@@ -8,7 +8,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     {
         public string Ucc128Id { get; set; }
 
-        internal string AreaId { get; set; }
+        public string AreaId { get; set; }
 
         public long PickslipId { get; set; }
 
@@ -21,7 +21,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public DateTimeOffset? VerifyDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
-        internal DateTimeOffset? CancelDate { get; set; }
+        public DateTimeOffset? CancelDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTimeOffset? MaxPitchingEndDate { get; set; }
@@ -35,46 +35,25 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(DataFormatString = "{0:N0}",NullDisplayText="None")]
         public int? CurrentPieces { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0}", HtmlEncode = false)]
-        public string DisplayStateStyle
-        {
-            get
-            {
-                if (this.CancelDate != null)
-                {
-                    return "label-danger";
-                }
-                if (this.VerifyDate != null)
-                {
-                    return "label-success";
-                }
-                if (string.IsNullOrWhiteSpace(AreaId))
-                {
-                    return "label-default";
-                }
-                return "label-info";
-            }
-        }
-
-        public string DisplayStateText
-        {
-            get
-            {
-                if (this.CancelDate != null)
-                {
-                    return "Cancelled";
-                }
-                if (this.VerifyDate != null)
-                {
-                    return "Completed";
-                }
-                if (string.IsNullOrWhiteSpace(AreaId))
-                {
-                    return "Not Started";
-                }
-                return "In Progress";
-            }
-        }
+        //public string DisplayStateText
+        //{
+        //    get
+        //    {
+        //        if (this.CancelDate != null)
+        //        {
+        //            return "Cancelled";
+        //        }
+        //        if (this.VerifyDate != null)
+        //        {
+        //            return "Completed";
+        //        }
+        //        if (string.IsNullOrWhiteSpace(AreaId))
+        //        {
+        //            return "Not Started";
+        //        }
+        //        return "In Progress";
+        //    }
+        //}
 
         public BoxState State
         {
@@ -87,6 +66,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 if (this.VerifyDate != null)
                 {
                     return BoxState.Completed;
+                }
+                if (string.IsNullOrWhiteSpace(this.AreaId))
+                {
+                    return BoxState.NotStarted;
                 }
                 return BoxState.InProgress;
             }

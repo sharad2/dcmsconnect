@@ -8,38 +8,107 @@
 {
     if (box.CurrentPieces == box.ExpectedPieces)
     {
-       
-            @box.CurrentPieces
-       
+
+        @box.CurrentPieces
+
     }
     else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
     {
-       
-            @box.ExpectedPieces
-       
+
+        @box.ExpectedPieces
+
     }
     else
     {
-       
-            @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
-       
+
+        @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }
-@helper ShowBoxPiecesStatus(BoxState filter)
+
+@helper DisplayBoxStatus(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box)
 {
+    string lblClass;
+    string stateText;
+    DateTimeOffset? date;
+    switch (box.State)
+    {
+        case BoxState.Cancelled:
+            lblClass = "label-danger";
+            stateText = "Cancelled";
+            date = box.CancelDate;
+            break;
 
-    if (filter == BoxState.NotSet || filter == BoxState.Completed || filter == BoxState.InProgress)
-    {
-        <span>@Html.DisplayFor(m => m.TotalPiecesInBox) of @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces Picked</span>
+        case BoxState.Completed:
+            lblClass = "label-success";
+            stateText = "Completed";
+            date = box.VerifyDate;
+            break;
+
+        case BoxState.InProgress:
+            lblClass = "label-info";
+
+            if (box.MaxPitchingEndDate.HasValue)
+            {
+                stateText = "Pitched";
+                date = box.MaxPitchingEndDate;
+            }
+            else
+            {
+                stateText = "Created";
+                date = box.CreatedDate;
+            }
+            break;
+
+        case BoxState.NotStarted:
+            lblClass = "label-default";
+            stateText = "Not Started";
+            date = null;
+            break;
+
+        default:
+            lblClass = "label-default";
+            stateText = "??";
+            date = null;
+            break;
+
     }
-    else if (filter == BoxState.Cancelled)
-    {
-        <span>@string.Format("{0:N0} Pcs cancelled in {1:N0} boxes", Model.BoxesList.Sum(p => p.ExpectedPieces), Model.BoxesList.Count)</span>
-    }
+
+    <span class="label @lblClass">
+        @stateText @string.Format("{0:g}", date)
+    </span>
 }
-
-
-
 
 <blockquote>
     Boxes of Pick Wave @Html.DisplayFor(m => m.BucketId)
@@ -49,21 +118,19 @@
 
 <ul class="list-group">
     <li class="list-group-item active">
-        <div class="row">
-            <div class="col-md-4">
-                <h4 class="list-group-item-heading">
-                    Box
+        <div class="row">         
+            <div class="col-md-6">
+                <h4 class="list-group-item-heading">                    
+                  Box
                     <small>
                         &bull; Pickslip
                     </small>
+                    <span class="label label-default">
+                        <abbr title="Virtual Wearhouse">VWH</abbr>
+                    </span>
                 </h4>
             </div>
-            <div class="col-md-1">
-                <h4 class="list-group-item-heading">
-                    <abbr title="Virtual Wearhouse">VWH</abbr>
-                </h4>
-            </div>
-            <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+            <div class="col-md-3">
                 <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     Pull Carton ?
                 </abbr>
@@ -71,12 +138,8 @@
                     Pieces
                 </span>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-3">
                 <span class="label label-default">Status</span>
-            </div>
-            <div class="col-md-3" style="text-align:right">
-                <span class="badge">Date Created</span>
-                <small style="text-align:right">by</small>
             </div>
         </div>
     </li>
@@ -85,33 +148,24 @@
     {
         <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h4 class="list-group-item-heading">
                         <small>@(i + 1)</small>
                         <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                         <small>
                             &bull; @Html.DisplayFor(m => m.BoxesList[i].PickslipId)
                         </small>
+                        <span class="label label-default">
+                            @Html.DisplayFor(m => m.BoxesList[i].VWhId)
+                        </span>
                     </h4>
-                </div>
-                <div class="col-md-1">
-                    <h4 class="list-group-item-heading">
-                        @Html.DisplayFor(m => m.BoxesList[i].VWhId)
-                    </h4>
-
                 </div>
                 <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                     @Html.DisplayFor(m => m.BoxesList[i].CartonId)
                     <span class="badge">@DisplayBoxPieces(Model.BoxesList[i])</span>
-</div>
-                <div class="col-md-1">
-                    <span class="label @Html.DisplayFor(m => m.BoxesList[i].DisplayStateStyle)">
-                        @Html.DisplayFor(m => m.BoxesList[i].DisplayStateText)
-                    </span>
                 </div>
-                <div class="col-md-3" style="text-align:right">
-                    <span class="badge">@Html.DisplayFor(m => m.BoxesList[i].CreatedDate)</span>
-                    <small style="text-align:right">@Html.DisplayFor(m => m.BoxesList[i].CreatedBy)</small>
+                <div class="col-md-3">
+                    @DisplayBoxStatus(Model.BoxesList[i])                  
                 </div>
             </div>
         </li>
