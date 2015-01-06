@@ -145,6 +145,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             return _repos.GetEditableBucket(bucketId);
         }
+
+        internal void CancelBoxes(string[] boxes)
+        {
+            _repos.CancelBoxes(boxes);
+        }
     }
 }
 

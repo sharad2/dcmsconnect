@@ -147,11 +147,12 @@
 </blockquote>
 
 
-
+<form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.CancelBoxes())" method="post">
 <ul class="list-group">
     <li class="list-group-item active">
         <div class="row">
             <div class="col-md-6">
+                <button class="pull-left" type="submit" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId" value="@Model.BucketId">Cancel Selected</button>
                 <h4 class="list-group-item-heading">
                     Box
                     <small>
@@ -183,6 +184,7 @@
                 <div class="col-md-6">
                     <h4 class="list-group-item-heading">
                         <small>@(i + 1)</small>
+                        <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes" value="@Model.BoxesList[i].Ucc128Id" />
                         <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                         <small>
                             &bull;
@@ -206,5 +208,4 @@
         </li>
     }
 </ul>
-
-
+</form>

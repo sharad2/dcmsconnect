@@ -700,6 +700,18 @@ BKT.FREEZE
                   .Parameter("BUCKET_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder);
         }
+
+        internal void CancelBoxes(IList<string> boxes)
+        {
+            const string QUERY = @"
+                BEGIN
+                <proxy />pkg_pickslip.cancel_box(aucc128_id => :aucc128_id);
+                                  END;";
+            var binder = SqlBinder.Create(boxes.Count);
+            binder.Parameter("aucc128_id", boxes);
+           // .Parameter("aucc128_id", ucc128Id);
+            _db.ExecuteDml(QUERY, binder);
+        }
     }
 }
 

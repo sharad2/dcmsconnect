@@ -639,6 +639,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             get { return ROLE_WAVE_MANAGER; }
         }
 
+        [HttpPost]
+        [Route("cancelboxes")]
+        public virtual ActionResult CancelBoxes(int bucketId, string[] boxes)
+        {
+            _service.Value.CancelBoxes(boxes);
+            AddStatusMessage(string.Format("{0} boxes cancelled", boxes.Length));
+            return RedirectToAction(Actions.Wave(bucketId));
+        }
+
 
     }
 }
