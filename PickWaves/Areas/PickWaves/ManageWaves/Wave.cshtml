@@ -13,7 +13,7 @@
         </a>
     </li>
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.Bucket.CustomerId))"
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
            title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">All Pick Waves of Customer @Model.Bucket.CustomerId</a>
     </li>
     <li class="divider"></li>
@@ -23,7 +23,7 @@
     <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.Bucket.CustomerId))"
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
     </h2>

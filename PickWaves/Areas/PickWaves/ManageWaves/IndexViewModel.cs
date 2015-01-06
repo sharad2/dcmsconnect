@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.ViewModels;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-using System.Web.Routing;
-using DcmsMobile.PickWaves.Helpers;
-using EclipseLibrary.Mvc.Helpers;
-using DcmsMobile.PickWaves.ViewModels;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
@@ -39,7 +36,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// Title of the browser windows
         /// </summary>
-        public string PickWaveState
+        public string BucketStateDisplayName
         {
             get
             {

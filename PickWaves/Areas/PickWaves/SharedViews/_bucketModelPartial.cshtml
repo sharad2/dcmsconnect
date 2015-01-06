@@ -1,5 +1,5 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-@using DcmsMobile.PickWaves.Helpers
+
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
     // To use this partial you must:
@@ -171,8 +171,7 @@
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
                                         <p class="form-control-static">
-                                            Priority
-                                            <span class="glyphicon glyphicon-sort-by-attributes-alt"></span><sup>1</sup>
+                                            Priority                                           
                                             &nbsp;
                                             @if (isAuthorized)
                                             {
@@ -255,17 +254,12 @@
 
 
                 </ul>
-
-
-
-
             </div>
             <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item active">
                         <span class="badge pull-right">
-                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
-                            <span class="glyphicon glyphicon-sort-by-attributes"></span><sup>2</sup>
+                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)                           
                         </span>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered

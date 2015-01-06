@@ -4,19 +4,24 @@ $(document).ready(function (e) {
 	// Make the first tab active. Load tab content when it becomes active
 	$('#tabs').on('show.bs.tab', function (e) {
 		// Load AJAX content when the tab is shown
-		$('img', e.target).removeClass('hidden');
-		//alert(x.length);
+	    if ($('img', e.target).is('.loaded,.loading')) {
+	        // Do not load again	       
+	        return;
+	    }
+		$('img', e.target).removeClass('hidden').addClass('loading');
 		$.ajax($(e.target).data('href'), {
 			type: 'GET',
 			cache: false
 		}).done(function (data, textStatus, jqXHR) {
 			//success
-			$($(e.target).attr('href')).html(data);
+		    $($(e.target).attr('href')).html(data);
+            // To prevent reloading when tab is shown again
+		    $('img', e.target).addClass('loaded');
 		}).fail(function (jqXHR, textStatus, errorThrown) {
 			//error
 			alert(jqXHR.responseText);
 		}).always(function () {
-			$('img', e.target).addClass('hidden');
+			$('img', e.target).addClass('hidden').removeClass('loading');
 		});
 	}).on('click', 'button[data-pickslip-remove-url]', function (e) {
 		// Remove Pickslip
