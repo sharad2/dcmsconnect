@@ -18,9 +18,24 @@
     <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
         <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.UnshippedboxesReportUrl, Model.CustomerId))"
            target="report">
-            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of unshipped boxes.
+            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of Unshipped Boxes.
         </a>
 
+    </li>
+    <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href=" @Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+            Frozen Pick Waves of same Customer
+        </a>
+    </li>
+    <li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+            In Progress Pick Waves of same Customer
+        </a>
+    </li>
+    <li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+            Completed Pick Waves of same Customer
+        </a>
     </li>
     <li class="divider">
     </li>
@@ -49,9 +64,9 @@
         {
             <li class="@(i % 2 == 0 ? "bg-info" : null)" style="width: 7em;">
                 <a title=" pick wave details"
-                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">
-                <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
-                @Html.DisplayFor(m => m.Buckets[i].BucketId)
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">
+                    <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
+                    @Html.DisplayFor(m => m.Buckets[i].BucketId)
                 </a>
             </li>
         }
@@ -65,7 +80,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="@Html.Raw(Model.PickWaveState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen.ToString() ? "active" : "")">
                     <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
-                      Frozen
+                        Frozen
                     </a>
                 </li>
                 <li role="presentation" class="@Html.Raw(Model.PickWaveState.Replace(" ","") == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress.ToString() ? "active" : "")">
@@ -102,7 +117,7 @@
 
 
 
-    
+
 
 
 
