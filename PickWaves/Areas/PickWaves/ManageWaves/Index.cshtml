@@ -40,18 +40,20 @@
                title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>
-
+    <p>
+        If you know the Pick Wave Id, just search for it. Or choose a
+      Pick waves below
+    </p>
     <ul class="list-inline">
         @for (var i = 0; i < Model.Buckets.Count; ++i)
         {
-            <li>
+            <li class="@(i % 2 == 0 ? "bg-info" : null)">
                 <a title="Pick Wave Details"
-                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">@Html.DisplayFor(m => m.Buckets[i].BucketId)</a>
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">@Html.DisplayFor(m => m.Buckets[i].BucketId)</a>
             </li>
         }
     </ul>
-
-    <p>This list is ordred by Priority and then DC Cancel Date</p>
+    
     @if (Model.Buckets.Count > 0)
     {
         for (var i = 0; i < Model.Buckets.Count; ++i)

@@ -172,6 +172,7 @@
                                     <div class="form-group">
                                         <p class="form-control-static">
                                             Priority
+                                            <span class="glyphicon glyphicon-sort-by-attributes-alt"></span><sup>1</sup>
                                             &nbsp;
                                             @if (isAuthorized)
                                             {
@@ -262,7 +263,10 @@
             <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item active">
-                        <span class="badge pull-right">DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</span>
+                        <span class="badge pull-right">
+                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
+                            <span class="glyphicon glyphicon-sort-by-attributes"></span><sup>2</sup>
+                        </span>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
                             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) complete

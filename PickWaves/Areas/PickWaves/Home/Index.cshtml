@@ -62,7 +62,7 @@
                 @for (var i = 0; i < Model.CustomerIdList.Count; ++i)
                 {
                     <li class="@(i % 2 == 0 ? "bg-info" : null)"
-                        style="width: 12em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
+                        style="width: 13em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
                         title="@Model.CustomerIdList[i].CustomerName">
                         <span class="badge">@Html.DisplayFor(m => m.CustomerIdList[i].OrderedPieces)</span>
                         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerIdList[i].CustomerId))">@Html.DisplayFor(m => m.CustomerIdList[i].CustomerName)</a>
