@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using DcmsMobile.PickWaves.Helpers;
 using System;
+using DcmsMobile.PickWaves.ViewModels;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
     /// <summary>
     /// Boxes list of passed bucket
     /// </summary>
-    public class WaveBoxListModel
+    public class WaveBoxListModel: ViewModelBase
     {
         public int BucketId { get; set; }
 

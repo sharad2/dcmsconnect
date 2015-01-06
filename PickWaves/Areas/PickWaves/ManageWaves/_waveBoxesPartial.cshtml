@@ -8,84 +8,15 @@
 {
     if (box.CurrentPieces == box.ExpectedPieces)
     {
-
         @box.CurrentPieces
-
     }
     else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
     {
-
         @box.ExpectedPieces
-
     }
     else
     {
-
         @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
 
@@ -148,64 +79,110 @@
 
 
 <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.CancelBoxes())" method="post">
-<ul class="list-group">
-    <li class="list-group-item active">
-        <div class="row">
-            <div class="col-md-6">
-                <button class="pull-left" type="submit" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId" value="@Model.BucketId">Cancel Selected</button>
-                <h4 class="list-group-item-heading">
-                    Box
-                    <small>
-                        &bull; Pickslip
-                    </small>
-                    <span class="label label-default">
-                        <abbr title="Virtual Wearhouse">VWH</abbr>
-                    </span>
-                </h4>
-            </div>
-            <div class="col-md-3">
-                <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                    Pull Carton ?
-                </abbr>
-                <span class="badge">
-                    Pieces
-                </span>
-            </div>
-            <div class="col-md-3">
-                <span class="label label-default">Status</span>
-            </div>
-        </div>
-    </li>
-
-    @for (var i = 0; i < Model.BoxesList.Count; i++)
-    {
-        <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
+    <ul class="list-group">
+        <li class="list-group-item active">
             <div class="row">
                 <div class="col-md-6">
+                    @if (Model.BoxesList.Count > 0)
+                    {
+                        <button class="pull-left btn btn-default btn-xs cancelBox" type="submit" 
+                                @(Model.UserIsManager ? "" : "disabled=disabled")
+                                name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId"
+                                value="@Model.BucketId" data-toggle="popover">
+                            Cancel Selected
+                        </button>
+                    }
                     <h4 class="list-group-item-heading">
-                        <small>@(i + 1)</small>
-                        <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes" value="@Model.BoxesList[i].Ucc128Id" />
-                        <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
+                        &nbsp;
+                        Box
                         <small>
-                            &bull;
-                            <a href="@Model.BoxesList[i].UrlInquiryPickslip" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].PickslipId)</a>
+                            &bull; Pickslip
                         </small>
                         <span class="label label-default">
-                            @Html.DisplayFor(m => m.BoxesList[i].VWhId)
+                            <abbr title="Virtual Wearhouse">VWH</abbr>
                         </span>
                     </h4>
                 </div>
-                <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                    <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
-                        @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                    </a>
-                    <span class="badge">@DisplayBoxPieces(Model.BoxesList[i])</span>
+                <div class="col-md-3">
+                    <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                        Pull Carton ?
+                    </abbr>
+                    <span class="badge">
+                        Pieces
+                    </span>
                 </div>
                 <div class="col-md-3">
-                    @DisplayBoxStatus(Model.BoxesList[i])
+                    <span class="label label-default">Status</span>
                 </div>
             </div>
         </li>
-    }
-</ul>
+
+        @for (var i = 0; i < Model.BoxesList.Count; i++)
+        {
+            <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="list-group-item-heading">
+                            <small>@(i + 1)</small>
+                            @if (Model.UserIsManager)
+                            {
+                                <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
+                                       value="@Model.BoxesList[i].Ucc128Id" />
+
+                            }
+                            <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
+                            <small>
+                                &bull;
+                                <a href="@Model.BoxesList[i].UrlInquiryPickslip" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].PickslipId)</a>
+                            </small>
+                            <span class="label label-default">
+                                @Html.DisplayFor(m => m.BoxesList[i].VWhId)
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                        <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
+                            @Html.DisplayFor(m => m.BoxesList[i].CartonId)
+                        </a>
+                        <span class="badge">@DisplayBoxPieces(Model.BoxesList[i])</span>
+                    </div>
+                    <div class="col-md-3">
+                        @DisplayBoxStatus(Model.BoxesList[i])
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 </form>
+
+@if (Model.UserIsManager && Model.BoxesList.Count > 0)
+{
+    @section script {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                //Check if any of the Box is selected to add
+                $('.cancelBox').on('click', function (e) {               
+                    var isCheckked = $(":checkbox[name='@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes']", $('form')).is(":checked")
+                    if (!isCheckked) {
+                        $('[data-toggle="popover"]').popover('show');
+                        return false;
+                    }
+                }).popover({
+                    trigger: 'manual',
+                    html: true,
+                    //Title to add a close icon
+                    title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
+                    //Error message to display on the popover
+                    content: "You have not selected any Boxes, please select atleast one Box to Cancel.",
+                    placement: 'auto',
+                    container: 'body'
+                });
+
+            });
+            //close the popover error message on click of close icon on title
+            $(document).on('click', '.close', function (e) {
+                $('[data-toggle="popover"]').popover('hide');
+            });
+        </script>
+    }
+}
