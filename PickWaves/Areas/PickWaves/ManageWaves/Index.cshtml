@@ -18,9 +18,31 @@
     <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
         <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.UnshippedboxesReportUrl, Model.CustomerId))"
            target="report">
-            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of unshipped boxes.
+            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of Unshipped Boxes.
         </a>
 
+    </li>
+    <li class="divider">
+    </li>
+    <li title="Pick Waves to be created by Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId))">
+            To Create Pick Waves of Customer @Model.CustomerId
+        </a>
+    </li>
+    <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+            Frozen Pick Waves of Customer @Model.CustomerId
+        </a>
+    </li>
+    <li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+            In Progress Pick Waves of Customer @Model.CustomerId
+        </a>
+    </li>
+    <li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+            Completed Pick Waves of Customer @Model.CustomerId
+        </a>
     </li>
     <li class="divider">
     </li>
@@ -40,32 +62,81 @@
                title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>
-
+    <p>
+        If you know the Pick Wave Id, just search for it. Or choose a
+        <abbr title="Pick Waves with number of orderd pieces">Pick Waves below</abbr>
+    </p>
     <ul class="list-inline">
         @for (var i = 0; i < Model.Buckets.Count; ++i)
         {
-            <li>
-                <a title="Pick Wave Details"
-                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">@Html.DisplayFor(m => m.Buckets[i].BucketId)</a>
+            <li class="@(i % 2 == 0 ? "bg-info" : null)" style="width: 7em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;">
+                <a title=" pick wave details"
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">
+                    <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
+                    @Html.DisplayFor(m => m.Buckets[i].BucketId)
+                </a>
             </li>
         }
     </ul>
 
-    <p>This list is ordred by Priority and then DC Cancel Date</p>
-    @if (Model.Buckets.Count > 0)
-    {
-        for (var i = 0; i < Model.Buckets.Count; ++i)
-        {
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary
+
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading" style="padding:0;border-bottom:0">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="@(Model.PickWaveState == DcmsMobile.PickWaves.Helpers.ProgressStage.Unknown.ToString() ? "active" : "")">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId))">
+                        To Create
+                    </a>
+                </li>
+                <li role="presentation" class="@Html.Raw(Model.PickWaveState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen.ToString() ? "active" : "")">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+                        Frozen
+                    </a>
+                </li>
+                <li role="presentation" class="@Html.Raw(Model.PickWaveState.Replace(" ","") == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress.ToString() ? "active" : "")">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+                        In Progress
+                    </a>
+                </li>
+                <li role="presentation" class="@Html.Raw(Model.PickWaveState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed.ToString() ? "active" : "")">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+                        Completed
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <div role="tabpanel" class="tab-pane active">
+                @if (Model.Buckets.Count > 0)
+                {
+                    for (var i = 0; i < Model.Buckets.Count; ++i)
+                    {
+                        @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}
                                })
-        }
-    }
-    else
-    {
-        <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
-    }
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
+                }
+            </div>
+        </div>
+    </div><!-- Nav tabs -->
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 

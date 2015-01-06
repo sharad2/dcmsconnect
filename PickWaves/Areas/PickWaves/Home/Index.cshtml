@@ -54,7 +54,7 @@
     <p>
         
         If you know the Pick Wave Id, just search for it. To see pick waves created by you, search for your login name. Or choose a
-        <abbr title="The number of pieces ordered by the customer are also displayed">customer below</abbr>.
+        <abbr title="The number of pieces ordered by the customer are also displayed">Customer below</abbr>.
     </p>
     @if (!Model.IsAnyFilterApplied)
     {
@@ -63,7 +63,7 @@
                 @for (var i = 0; i < Model.CustomerIdList.Count; ++i)
                 {
                     <li class="@(i % 2 == 0 ? "bg-info" : null)"
-                        style="width: 12em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
+                        style="width: 13em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;"
                         title="@Model.CustomerIdList[i].CustomerName">
                         <span class="badge">@Html.DisplayFor(m => m.CustomerIdList[i].OrderedPieces)</span>
                         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerIdList[i].CustomerId))">@Html.DisplayFor(m => m.CustomerIdList[i].CustomerName)</a>
@@ -133,7 +133,7 @@
                                             Pickslips  @Html.DisplayFor(m => m.TotalImportedPickslipCount)
                                         </span>
                                         &nbsp;
-                                        @Model.ImportedOrders.Count Customers
+                                         <span style="font-size:1.4em;" class="text-info">@Model.ImportedOrders.Count Customers</span>
                                         <small><em>&nbsp; Imported @Html.DisplayFor(m => m.ImportDateRange)</em></small>
                                     </div>
                                     <div class="col-md-3">
@@ -244,14 +244,14 @@
                                         <span class="label label-info">
                                             Max priority @Model.BucketsByStatus.Values[j].Max(p => p.MaxPriorityId)
                                         </span>
-                                        &nbsp;
-                                        @string.Format("{0:N0} Customers", Model.BucketsByStatus.Values[j].Count)
-
-
-                                        <span class="badge">
-                                            @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.BucketCount)) Waves
+                                        &nbsp;  
+                                        <span style="font-size:1.4em;" class="text-info">
+                                            @string.Format("{0:N0} Customers", Model.BucketsByStatus.Values[j].Count)
                                         </span>
-                                    </div>
+                                            <span class="badge">
+                                                @string.Format("{0:N0}", Model.BucketsByStatus.Values[j].Sum(p => p.BucketCount)) Waves
+                                            </span>
+</div>
                                     <div class="col-md-3">
                                         <div class="progress" style="margin-bottom:0">
                                             <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
@@ -260,7 +260,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <span style="white-space:nowrap">
+                                        <span style="white-space:nowrap"class="pull-right">
                                             <span class="badge">
                                                 &nbsp; DC Cancel @{
                     var dr = new DcmsMobile.PickWaves.Helpers.DateRange

@@ -12,9 +12,14 @@
             Report 140.02: Pick Wave Summary
         </a>
     </li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.Bucket.CustomerId))"
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">All Pick Waves of Customer @Model.Bucket.CustomerId</a>
+    </li>
+    <li class="divider"></li>
 }
 <div class="container">
-  
+
     <h2 style="margin-top:0">
         @ViewBag.Title
         <small>
