@@ -176,6 +176,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             }
         }
 
+        /// <summary>
+        /// Total number of active buckets
+        /// </summary>
+        [DisplayFormat(DataFormatString="{0:N0}")]
+        public int CountActivePickWaves
+        {
+            get
+            {
+                return BucketsByStatus.Sum(p => p.Value.Sum(q => q.BucketCount));
+            }
+        }
+
     }
 }
 

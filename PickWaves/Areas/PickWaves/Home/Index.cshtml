@@ -35,7 +35,7 @@
 <div class="container">
 
     <h2 style="margin-top:0">
-        Pick Waves
+        @Html.DisplayFor(m => m.CountActivePickWaves) Active Pick Waves
         <small>
             @if (Model.IsCustomerFilterApplied)
             {
@@ -52,6 +52,7 @@
         </small>
     </h2>
     <p>
+        
         If you know the Pick Wave Id, just search for it. To see pick waves created by you, search for your login name. Or choose a
         <abbr title="The number of pieces ordered by the customer are also displayed">customer below</abbr>.
     </p>
