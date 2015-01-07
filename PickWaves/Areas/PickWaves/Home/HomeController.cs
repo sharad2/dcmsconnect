@@ -48,7 +48,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
         public virtual ActionResult Index()
         {
-            return View(Views.Index);
+            var customerList = _service.GetImportedOrderSummary(SearchTextType.Unknown, null);
+            var model = new IndexViewModel
+            {
+                ImportedOrders = customerList.Select(p => new CustomerListModel
+                {
+                    CustomerId = p.CustomerId,
+                    CustomerName = p.CustonerName,
+                    IsCustomerActive = p.IsActiveCustomer,
+                    PickslipCount = p.PickslipCount,
+                    ImportDateRange = new DateRange
+                    {
+                        From = p.MinPickslipImportDate,
+                        To = p.MaxPickslipImportDate
+                    },
+                    InternationalFlag = p.InternationalFlag
+                }).ToList()
+            };
+            return View(Views.Index,model);
         }
         /// <summary>
         /// Showing list of bucket summary for all customer.

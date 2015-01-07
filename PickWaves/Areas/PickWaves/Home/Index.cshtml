@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DcmsMobile.PickWaves.Areas.PickWaves.Home.IndexViewModel
+@{
     ViewBag.Title = "Pick Waves Home";
     Layout = @MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
 }
@@ -26,16 +27,60 @@
         </div>
 
         <div class="col-md-4">
-            <div class="list-group">
-                <h4 class="list-group-item list-group-item-success">
-                    Create Pick Waves
-                    <span class="glyphicon glyphicon-folder-close pull-right"></span>
-                </h4>
-                <a href="#" class="list-group-item">
-                    TODO: Show customer list whose pick waves can be created
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                </a>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-success">
+                    <h4 class="list-group-item-heading">
+                        Create Pick Waves
+                        <span class="glyphicon glyphicon-folder-close pull-right"></span>
+                    </h4>
+                </li>
+
+                @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
+                {
+                    <li class="list-group-item">
+                        <small>@(i + 1)</small>
+                        <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+
+                        @if (Model.UserIsManager)
+                        {
+                            <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
+                               href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
+                               title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                            </a>
+                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                @if (Model.ImportedOrders[i].IsCustomerActive)
+                                {
+                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                }
+                                else
+                                {
+                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                }
+                            </small>
+                        }
+                        else
+                        {
+                            <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
+                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                @if (Model.ImportedOrders[i].IsCustomerActive)
+                                {
+                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                }
+                                else
+                                {
+                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                }
+                            </small>
+                        }
+                        <small>
+                            <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
+                        </small>
+
+                    </li>
+                }
+            </ul>
+
         </div>
 
         <div class="col-md-4">
