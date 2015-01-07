@@ -45,9 +45,9 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
                                   ON IA.IA_ID = BUCKET.PITCH_IA_ID
                                WHERE P.BUCKET_ID = :BUCKET_ID
                                  AND P.TRANSFER_DATE IS NULL                                  
-                                 AND BUCKET.AVAILABLE_FOR_PITCHING = 'Y'                                
+                                 AND BUCKET.FREEZE IS NULL
                                  AND B.STOP_PROCESS_DATE IS NULL
-                                 AND BUCKET.PICK_MODE IN ('ADREPPWSS','ADRE')
+                                and bucket.pull_type = 'EXP'
                         ";
             var binder = SqlBinder.Create(row =>
             {
