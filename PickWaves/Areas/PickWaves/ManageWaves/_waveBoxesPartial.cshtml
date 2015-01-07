@@ -85,10 +85,10 @@
                 <div class="col-md-6">
                     @if (Model.BoxesList.Count > 0)
                     {
-                        <button class="pull-left btn btn-default btn-xs cancelBox" type="submit" 
+                        <button class="pull-left btn btn-default btn-xs" type="submit" 
                                 @(Model.UserIsManager ? "" : "disabled=disabled")
                                 name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId"
-                                value="@Model.BucketId" data-toggle="popover">
+                                value="@Model.BucketId">
                             Cancel Selected
                         </button>
                     }
@@ -154,35 +154,3 @@
         }
     </ul>
 </form>
-
-@if (Model.UserIsManager && Model.BoxesList.Count > 0)
-{
-    @section script {
-        <script type="text/javascript">
-           // $(document).ready(function () {
-                //Check if any of the Box is selected to add
-                $('.cancelBox').on('click', function (e) {               
-                    var isCheckked = $(":checkbox[name='@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes']", $('form')).is(":checked")
-                    if (!isCheckked) {
-                        $('[data-toggle="popover"]').popover('show');
-                        return false;
-                    }
-                }).popover({
-                    trigger: 'manual',
-                    html: true,
-                    //Title to add a close icon
-                    title: '<strong class="text-danger"><span class="text-danger glyphicon glyphicon-warning-sign"></span> Error Message</strong><a class="close text-danger" href="#">&times;</a>',
-                    //Error message to display on the popover
-                    content: "You have not selected any Boxes, please select atleast one Box to Cancel.",
-                    placement: 'auto',
-                    container: 'body'
-                });
-
-           /// });
-            //close the popover error message on click of close icon on title
-            $(document).on('click', '.close', function (e) {
-                $('[data-toggle="popover"]').popover('hide');
-            });
-        </script>
-    }
-}
