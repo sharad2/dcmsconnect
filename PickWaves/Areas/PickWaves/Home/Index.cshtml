@@ -29,7 +29,7 @@
                 </a>
                 @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
                 {
-                    <a href="#" class="list-group-item">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.RecentBuckets[i].BucketId))" class="list-group-item">
 
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.RecentBuckets[i].BucketId)
@@ -101,8 +101,9 @@
             <div class="list-group">
                 <div class="list-group-item list-group-item-success">
                     <h4 class="list-group-item-heading">
+                        <span class="glyphicon glyphicon-shopping-cart "></span>
                         Create Pitch Carts
-                        <span class="glyphicon glyphicon-shopping-cart pull-right"></span>
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </h4>
                 </div>
                 <a href="#" class="list-group-item">
@@ -113,18 +114,34 @@
             </div>
 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4">       
             <div class="list-group">
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="list-group-item list-group-item-success">
                     <h4 class="list-group-item-heading">
+                        <span class="glyphicon glyphicon-briefcase"></span>
                         Box Expediting
-                        <span class="glyphicon glyphicon-briefcase pull-right"></span>
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
                     </h4>
                 </a>
-                <a href="#" class="list-group-item">
-                    TODO: List of pick waves for which boxes can be expedited
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                <a href="#" class="list-group-item active">
+                    <h4 class="list-group-item-heading">
+                        Bucket <small>Created by</small>
+                        <span class="badge">Date Created</span>
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    </h4>
                 </a>
+                @for (var i = 0; i < Model.ExpediteBuckets.Count; ++i)
+                {
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="list-group-item">
+                        <h4 class="list-group-item-heading">
+                            @Html.DisplayFor(m => m.ExpediteBuckets[i].BucketId)
+                            <small>@Html.DisplayFor(m => m.ExpediteBuckets[i].CreatedBy)</small>
+                            <span class="badge">@Html.DisplayFor(m => m.ExpediteBuckets[i].CreationDate)</span>
+                            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                        </h4>
+                    </a>
+                }
+            </div>
             </div>
         </div>
         <div class="col-md-4">
@@ -132,8 +149,8 @@
             <div class="list-group">
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())" class="list-group-item list-group-item-success">
                     <h4 class="list-group-item-heading">
-                        Pick Wave Configuration
-                        <span class="glyphicon glyphicon-cog pull-right"></span>
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Pick Wave Configuration                        
                     </h4>
                 </a>
 

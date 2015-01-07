@@ -88,9 +88,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             }
         }
 
-        public IList<BucketBase> GetRecentCreatedBucket()
+        public IList<BucketBase> GetRecentCreatedBucket(int maxRows)
         {
-            return _repos.GetRecentCreatedBucket();
+            return _repos.GetRecentCreatedBucket(maxRows);
+        }
+
+        public IList<BucketBase> GetBucketToExpedite(int maxRows)
+        {
+           return _repos.GetExpeditableBuckets(maxRows);
         }
     }
 }

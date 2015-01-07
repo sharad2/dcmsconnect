@@ -40,11 +40,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public string CreatedBy { get; set; }
 
     }
+    
 
     public class IndexViewModel : ViewModelBase
     {
         public IList<CustomerListModel> ImportedOrders { get; set; }
 
         public IList<RecentBucketModel> RecentBuckets { get; set; }
+
+        public IList<RecentBucketModel> ExpediteBuckets { get; set; }
     }
 }

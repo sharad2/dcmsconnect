@@ -8,7 +8,7 @@ using System.Web.Routing;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
-    
+
     //[RoutePrefix(HomeController.NameConst)]
     public partial class HomeController : PickWavesControllerBase
     {
@@ -48,6 +48,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
         public virtual ActionResult Index()
         {
+            
             var customerList = _service.GetImportedOrderSummary(SearchTextType.Unknown, null);
             var model = new IndexViewModel
             {
@@ -64,14 +65,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                     },
                     InternationalFlag = p.InternationalFlag
                 }).ToList(),
-                RecentBuckets = _service.GetRecentCreatedBucket().Select(p => new RecentBucketModel
+                RecentBuckets = _service.GetRecentCreatedBucket(20).Select(p => new RecentBucketModel
                 {
-                BucketId=p.BucketId,
-                CreatedBy=p.CreatedBy,
-                CreationDate=p.CreationDate
+                    BucketId = p.BucketId,
+                    CreatedBy = p.CreatedBy,
+                    CreationDate = p.CreationDate
+                }).ToList(),
+                ExpediteBuckets = _service.GetBucketToExpedite(20).Select(p => new RecentBucketModel
+                {
+                    BucketId = p.BucketId,
+                    CreatedBy = p.CreatedBy,
+                    CreationDate = p.CreationDate
                 }).ToList()
+
             };
-            return View(Views.Index,model);
+            return View(Views.Index, model);
         }
         /// <summary>
         /// Showing list of bucket summary for all customer.
