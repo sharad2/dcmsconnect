@@ -63,8 +63,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                         To = p.MaxPickslipImportDate
                     },
                     InternationalFlag = p.InternationalFlag
+                }).ToList(),
+                RecentBuckets = _service.GetRecentCreatedBucket().Select(p => new RecentBucketModel
+                {
+                BucketId=p.BucketId,
+                CreatedBy=p.CreatedBy,
+                CreationDate=p.CreationDate
                 }).ToList()
-
             };
             return View(Views.Index,model);
         }

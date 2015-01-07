@@ -8,8 +8,8 @@ using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
-    public class CustomerListModel 
-    {       
+    public class CustomerListModel
+    {
 
         public string CustomerId { get; set; }
 
@@ -21,7 +21,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public bool IsCustomerActive { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PickslipCount { get; set; } 
+        public int PickslipCount { get; set; }
 
         [DataType(DataType.Text)]
         public DateRange ImportDateRange { get; set; }
@@ -30,8 +30,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
     }
 
+    public class RecentBucketModel
+    {
+        public int BucketId { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime CreationDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+    }
+
     public class IndexViewModel : ViewModelBase
     {
         public IList<CustomerListModel> ImportedOrders { get; set; }
+
+        public IList<RecentBucketModel> RecentBuckets { get; set; }
     }
 }

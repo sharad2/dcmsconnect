@@ -20,9 +20,24 @@
                     </h4>
                 </a>
                 <a href="#" class="list-group-item">
-                    TODO: Show recently created pick waves
-                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    <h4 class="list-group-item-heading">
+                        Bucket <small>Created by</small>
+                        <span class="badge">Date Created</span>
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    </h4>
                 </a>
+                @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
+                {
+                    <a href="#" class="list-group-item">
+
+                        <h4 class="list-group-item-heading">
+                            @Html.DisplayFor(m => m.RecentBuckets[i].BucketId)
+                            <small>@Html.DisplayFor(m => m.RecentBuckets[i].CreatedBy)</small>
+                            <span class="badge">@Html.DisplayFor(m => m.RecentBuckets[i].CreationDate)</span>
+                            <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                        </h4>
+                    </a>
+                }
             </div>
         </div>
 
@@ -37,47 +52,47 @@
 
                 @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
                 {
-                <li class="list-group-item">
-                    <small>@(i + 1)</small>
-                    <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                    <li class="list-group-item">
+                        <small>@(i + 1)</small>
+                        <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
 
-                    @if (Model.UserIsManager)
+                        @if (Model.UserIsManager)
                         {
-                        <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
-                           href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
-                           title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
-                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
-                        </a>
-                        <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                            @if (Model.ImportedOrders[i].IsCustomerActive)
+                            <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
+                               href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
+                               title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                            </a>
+                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                @if (Model.ImportedOrders[i].IsCustomerActive)
                                 {
-                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                 }
                                 else
                                 {
-                                <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                 }
-                        </small>
+                            </small>
                         }
                         else
                         {
-                        <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
-                        <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                            @if (Model.ImportedOrders[i].IsCustomerActive)
+                            <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
+                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                                @if (Model.ImportedOrders[i].IsCustomerActive)
                                 {
-                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                 }
                                 else
                                 {
-                                <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                 }
-                        </small>
+                            </small>
                         }
-                    <small>
-                        <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
-                    </small>
+                        <small>
+                            <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
+                        </small>
 
-                </li>
+                    </li>
                 }
             </ul>
 
