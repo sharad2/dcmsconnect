@@ -45,14 +45,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
         #endregion
 
+        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
+        public virtual ActionResult Index()
+        {
+            return View(Views.Index);
+        }
         /// <summary>
         /// Showing list of bucket summary for all customer.
         /// </summary>
         /// <returns></returns>
-        [Route(Name = DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ManagePickWave)]
-        public virtual ActionResult Index()
+        [Route("customers")]
+        public virtual ActionResult Customers()
         {
-            return ShowHomePage(SearchTextType.Unknown, null);
+            return ShowCustomerPage(SearchTextType.Unknown, null);
         }
 
         /// <summary>
@@ -63,7 +68,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         [Route("customer")]
         public virtual ActionResult Customer(string customerId)
         {
-            return ShowHomePage(SearchTextType.CustomerId, customerId);
+            return ShowCustomerPage(SearchTextType.CustomerId, customerId);
         }
 
         /// <summary>
@@ -133,7 +138,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                     break;
 #endif
             }
-            return ShowHomePage(search, id);
+            return ShowCustomerPage(search, id);
         }
 
         /// <summary>
@@ -142,7 +147,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         /// <param name="search"></param>
         /// <param name="searchText"></param>
         /// <returns></returns>
-        private ActionResult ShowHomePage(SearchTextType search, string searchText)
+        private ActionResult ShowCustomerPage(SearchTextType search, string searchText)
         {
             var bucketSummary = _service.GetBucketSummary(search, searchText);
 
@@ -159,7 +164,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                        select item).ToArray()
                         };
 
-            var model = new IndexViewModel
+            var model = new CustomerViewModel
             {
                 IsCustomerFilterApplied = search == SearchTextType.CustomerId,
                 IsUserNameFilterApplied = search == SearchTextType.UserName
@@ -198,7 +203,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                                         },
                                         InternationalFlag = item.InternationalFlag
                                     }).ToArray();
-            return View(Views.Index, model);
+            return View(Views.Customer, model);
         }
 
         /// <summary>

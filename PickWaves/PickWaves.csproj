@@ -211,7 +211,7 @@
     <Compile Include="Areas\PickWaves\ManageWaves\IndexViewModel.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletViewModel.cs" />
     <Compile Include="ViewModels\BucketModel.cs" />
-    <Compile Include="Areas\PickWaves\Home\IndexViewModel.cs" />
+    <Compile Include="Areas\PickWaves\Home\CustomerViewModel.cs" />
     <Compile Include="Areas\PickWaves\BoxPickPallet\PalletModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BucketSkuModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -278,6 +278,7 @@
     <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\PickWaves\Home\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -391,7 +392,7 @@
     <Content Include="Areas\PickWaves\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\PickWaves\Home\Index.cshtml" />
+    <Content Include="Areas\PickWaves\Home\Customer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

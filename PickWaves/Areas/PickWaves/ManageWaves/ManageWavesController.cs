@@ -99,7 +99,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // This must be a garbage customer. Redirect to home page
                 ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
             }
 
             return View(Views.Index, model);
@@ -120,7 +120,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // Unreasonable bucket id
                 //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
             }
             var model = new WaveViewModel
             {
@@ -401,7 +401,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // Unreasonable bucket id
                 ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
             }
             if (!bucket.IsFrozen)
             {

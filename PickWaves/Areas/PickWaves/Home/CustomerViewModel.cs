@@ -26,10 +26,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
     /// <summary>
     /// The model passed to the Index view
     /// </summary>
-    public class IndexViewModel : ViewModelBase
+    public class CustomerViewModel : ViewModelBase
     {
         private readonly SortedList<ProgressStage, IList<CustomerBucketStateModel>> _bucketsByStatus;
-        public IndexViewModel()
+        public CustomerViewModel()
         {
             _bucketsByStatus = new SortedList<ProgressStage, IList<CustomerBucketStateModel>>(4);
         }
