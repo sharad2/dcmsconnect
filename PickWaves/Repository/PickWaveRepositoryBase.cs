@@ -466,6 +466,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
         /// Returns the highest priority bucket which has most boxes for expediting
         /// </summary>
         /// <returns>The best bucket id</returns>
+   
         public IList<BucketBase> GetExpeditableBuckets(int maxRows)
         {
             const string QUERY = @"                    
@@ -485,28 +486,27 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                                      INNER JOIN <proxy />BOX B
                                         ON P.PICKSLIP_ID = B.PICKSLIP_ID
                                      WHERE B.IA_ID IS NULL
-                                       AND B.STOP_PROCESS_DATE IS NULL
+                                       --AND B.STOP_PROCESS_DATE IS NULL
                                        AND B.PALLET_ID IS NULL
                                        AND BUCKET.PULL_TYPE = 'EXP'
                                        AND P.TRANSFER_DATE IS NULL
-                                       AND BUCKET.FREEZE IS NULL
+                                       AND BUCKET.FREEZE IS NULL and b.carton_id is not null
                                      GROUP BY BUCKET.BUCKET_ID
                                      ORDER BY MAX(BUCKET.PRIORITY) DESC,
-                                              COUNT(P.PICKSLIP_ID) DESC 
-                ";
+                                              COUNT(P.PICKSLIP_ID) DESC                 ";
             var binder = SqlBinder.Create(row =>
                 new BucketBase
                 {
                     BucketId = row.GetInteger("BUCKET_ID") ?? 0,
-                    BucketName = row.GetString("BUCKET_NAME"), 
+                    BucketName = row.GetString("BUCKET_NAME"),
                     BucketComment = row.GetString("BUCKET_COMMENT"),
                     IsFrozen = row.GetString("FREEZE") == "Y",
                     CreatedBy = row.GetString("CREATED_BY"),
-                    CreationDate = row.GetDate("DATE_CREATED").Value,                    
-                    PriorityId = row.GetInteger("PRIORITY").Value,                 
+                    CreationDate = row.GetDate("DATE_CREATED").Value,
+                    PriorityId = row.GetInteger("PRIORITY").Value,
                     RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
                     QuickPitch = row.GetString("QUICK_PITCH_FLAG_O") == "Y",
-                    PitchLimit = row.GetInteger("PITCH_LIMIT")                  
+                    PitchLimit = row.GetInteger("PITCH_LIMIT")
                 }
                 );
             return _db.ExecuteReader(QUERY, binder, maxRows);

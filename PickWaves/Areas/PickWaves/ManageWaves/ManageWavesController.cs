@@ -166,6 +166,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavesku")]
         public virtual ActionResult WaveSkus(int bucketId)
         {
+            var bucket = _service.Value.GetBucket(bucketId);
             var skuList = _service.Value.GetBucketSkuList(bucketId);
             var query = (from item in skuList
                          select new
@@ -184,6 +185,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var model = new WaveSkuListModel
             {
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                 BucketSkuList = (from sku in query
                                  select new BucketSkuModel
                                  {
@@ -220,10 +222,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ThenBy(p => p.SkuSize)
                                  .ToArray(),
                 AllAreas = allAreas,
-                BucketId = bucketId,
+               // BucketId = bucketId,
             };
 
-            return PartialView(this.Views._waveSkusPartial, model);
+            //return PartialView(this.Views._waveSkusPartial, model);
+            return View(Views.WaveSku,model);
         }
 
         /// <summary>
@@ -242,12 +245,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("waveboxes")]
         public virtual ActionResult WaveBoxes(int bucketId)
         {
+            var bucket = _service.Value.GetBucket(bucketId);
+            var Boxes = _service.Value.GetBucketBoxes(bucketId);
             var model = new WaveBoxListModel
              {
-                 BucketId = bucketId,
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
+                 //BucketId = bucketId,
                  //StateFilter = stateFilter,
                  //ActivityFilter = activityFilter,
-                 BoxesList = (from box in _service.Value.GetBucketBoxes(bucketId)
+                BoxesList = (from box in Boxes
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                               let routeCarton = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1]
@@ -279,7 +285,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                   })
                               }).ToArray()
              };
-            return PartialView(this.Views._waveBoxesPartial, model);
+            //return PartialView(this.Views._waveBoxesPartial, model);
+            return View(Views.WaveBox,model);
         }
 
         /// <summary>
@@ -668,7 +675,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             if (boxes == null || boxes.Length < 1)
             {
                 ModelState.AddModelError("","You have not selected any Boxes to cancel, please select atleast 1 box to cancel.");
-                return RedirectToAction(Actions.WavePickslips(bucketId));
+                return RedirectToAction(Actions.WaveBoxes(bucketId));
             }
             try
             {
@@ -679,7 +686,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 this.ModelState.AddModelError("", exception.InnerException);
             }           
             AddStatusMessage(string.Format("{0} boxes cancelled", boxes.Length));
-            return RedirectToAction(Actions.WavePickslips(bucketId));
+            return RedirectToAction(Actions.WaveBoxes(bucketId));
         }
 
 
