@@ -11,79 +11,89 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())">
-
-                            Manage Pick Waves
-                        </a>
-
-                    </h3>
-                </div>
-                <div class="panel-body">
+            <div class="list-group">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())">
+                    <h4 class="list-group-item list-group-item-success">
+                        Manage Pick Waves
+                        <span class="glyphicon glyphicon-adjust pull-right"></span>
+                    </h4>
+                </a>
+                <a href="#" class="list-group-item">
                     TODO: Show recently created pick waves
-                </div>
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Create Pick Waves
-                    </h3>
-                </div>
-                <div class="panel-body">
+            <div class="list-group">
+                <h4 class="list-group-item list-group-item-success">
+                    Create Pick Waves
+                    <span class="glyphicon glyphicon-folder-close pull-right"></span>
+                </h4>
+                <a href="#" class="list-group-item">
                     TODO: Show customer list whose pick waves can be created
-                </div>
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        Create Pitch Carts
-                    </h3>
-                </div>
-                <div class="panel-body">
+            <div class="list-group">
+                <h4 class="list-group-item list-group-item-success">
+                    Create Pitch Carts
+                    <span class="glyphicon glyphicon-shopping-cart pull-right"></span>
+                </h4>
+                <a href="#" class="list-group-item">
                     TODO: List of pick waves for which MPC can be created
-                </div>
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
+
             </div>
+
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">
-                            Box Expediting
-                        </a>
-                    </h3>
-                </div>
-                <div class="panel-body">
+            <div class="list-group">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">
+                    <h4 class="list-group-item list-group-item-success">
+                        Box Expediting
+                        <span class="glyphicon glyphicon-briefcase pull-right"></span>
+                    </h4>
+                </a>
+                <a href="#" class="list-group-item">
                     TODO: List of pick waves for which boxes can be expedited
-                </div>
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">
-                            Pick Wave Configuration
-                        </a>
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <ul>
-                        <li>Carton Sizes</li>
-                        <li>Style Cartons Sizes</li>
-                        <li>Customer Carton Sizes</li>
-                        <li>Customer Weight and Volume Restrictions</li>
-                    </ul>
-                </div>
+
+            <div class="list-group">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">
+                    <h4 class="list-group-item list-group-item-success">
+                        Pick Wave Configuration
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
+                    </h4>
+                </a>
+
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.SkuCase())" class="list-group-item">
+                    Carton Sizes
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.StyleSkuCase())" class="list-group-item">
+                    Style Cartons Sizes
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.CustSkuCase())" class="list-group-item">
+                    Customer Carton Sizes
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Constraint())" class="list-group-item">
+                    Customer Weight and Volume Restrictions
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </a>
             </div>
+
         </div>
     </div>
 </div>
