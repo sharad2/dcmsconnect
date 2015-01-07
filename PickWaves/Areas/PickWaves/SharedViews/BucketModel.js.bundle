@@ -10,7 +10,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>  
-	<file>/Areas/PickWaves/ManageWaves/Wave.partial.js</file>    
+	<!--<file>/Areas/PickWaves/ManageWaves/Wave.partial.js</file>-->    
 	<file>/Areas/PickWaves/SharedViews/_bucketModel.partial.js</file>   
   </files>
 </bundle>

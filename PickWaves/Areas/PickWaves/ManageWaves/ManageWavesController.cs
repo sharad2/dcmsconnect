@@ -54,6 +54,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         #endregion
 
         /// <summary>
+        /// Used by views
+        /// </summary>
+        public static string BucketSummaryReportUrl
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_140/R140_02.aspx";
+            }
+        }
+
+        /// <summary>
         /// Showing the bucket list of passed customer and status. userName is optional. If passed, then waves created by the passed user are displayed.
         /// </summary>
         /// <param name="model">
@@ -88,12 +99,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 UserName = userName
             };
             // Null DC Cancel dates display last
-            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
+            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p, _service.Value.GetCustomerName(customerId), BucketModelFlags.Default))
                              orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
                              select bucket).ToList();
 
 
-            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
+            //model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
 
             if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
             {
@@ -106,39 +117,39 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         #region Wave Viewer
-        /// <summary>
-        /// Displays details of passed bucket id
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [Route("wave")]
-        public virtual ActionResult Wave(int bucketId)
-        {
-            var bucket = _service.Value.GetBucket(bucketId);
-            if (bucket == null)
-            {
-                // Unreasonable bucket id
-                //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
-            }
-            var model = new WaveViewModel
-            {
-                //HighlightedActions = nextAction
-            };
-            model.Bucket = new BucketModel(bucket)
-            {
-                CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
-            };
+        ///// <summary>
+        ///// Displays details of passed bucket id
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[AllowAnonymous]
+        //[Route("wavepickslips")]
+        //public virtual ActionResult WavePickslips(int bucketId)
+        //{
+        //    var bucket = _service.Value.GetBucket(bucketId);
+        //    if (bucket == null)
+        //    {
+        //        // Unreasonable bucket id
+        //        //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
+        //    }
+        //    var model = new WaveViewModel
+        //    {
+        //        //HighlightedActions = nextAction
+        //    };
+        //    model.Bucket = new BucketModel(bucket)
+        //    {
+        //        CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+        //    };
 
-            // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
-            //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            //{
-            //    model.Bucket.RequiredBoxExpediting = true;
-            //}
+        //    // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
+        //    //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+        //    //{
+        //    //    model.Bucket.RequiredBoxExpediting = true;
+        //    //}
 
-            return View(this.Views.Wave, model);
-        }
+        //    return View(this.Views.WavePickslips, model);
+        //}
 
         /// <summary>
         /// Ajax call.
@@ -295,7 +306,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(this.Actions.Wave(bucketId));
+            return RedirectToAction(this.Actions.WavePickslips(bucketId));
         }
 
         /// <summary>
@@ -308,12 +319,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavepickslip")]
         public virtual ActionResult WavePickslips(int bucketId)
         {
-            //var bucket = _service.Value.GetBucket(bucketId);
+            var bucket = _service.Value.GetBucket(bucketId);
+            if (bucket == null)
+            {
+                // Unreasonable bucket id
+                //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
+            }
+            //model.Bucket = new BucketModel(bucket)
+            //{
+            //    CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+            //};
             var pickslips = _service.Value.GetBucketPickslip(bucketId);
 
             var model = new WavePickslipsViewModel
                 {
-                    //Bucket = new BucketModel(bucket),
+                    Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
@@ -334,14 +355,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
                 };
 
-            if (pickslips.Count > 0)
-            {
-                var ps = pickslips.First();
-                model.CustomerId = ps.CustomerId;
-                model.BucketId = ps.BucketId;
-                model.IsFrozenBucket = ps.IsFrozenBucket;
-            }
-            return PartialView(this.Views._wavePickslipsPartial, model);
+            //if (pickslips.Count > 0)
+            //{
+            //    var ps = pickslips.First();
+            //    model.CustomerId = ps.CustomerId;
+            //    model.BucketId = ps.BucketId;
+            //    model.IsFrozenBucket = ps.IsFrozenBucket;
+            //}
+            return View(this.Views.WavePickslips, model);
         }
 
 
@@ -364,7 +385,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
                 // In case of error, show the wave viewer page
-                return RedirectToAction(this.Actions.Wave(bucketId));
+                return RedirectToAction(this.Actions.WavePickslips(bucketId));
             }
 
         }
@@ -387,7 +408,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(this.Actions.Wave(bucketId));
+            return RedirectToAction(this.Actions.WavePickslips(bucketId));
         }
         #endregion
 
@@ -407,7 +428,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // bucket is not freeze,freeze it before attempting to edit it.
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId));
+                return RedirectToAction(Actions.WavePickslips(bucketId));
             }
 
             //var bucketAreas = _service.Value.GetBucketAreas(bucketId);
@@ -491,16 +512,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
                 // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId));
+                return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId));
+                return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
             }
 
-            return RedirectToAction(this.Actions.Wave(model.BucketId));
+            return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
         }
 
         /// <summary>
@@ -647,7 +668,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             if (boxes == null || boxes.Length < 1)
             {
                 ModelState.AddModelError("","You have not selected any Boxes to cancel, please select atleast 1 box to cancel.");
-                return RedirectToAction(Actions.Wave(bucketId));
+                return RedirectToAction(Actions.WavePickslips(bucketId));
             }
             try
             {
@@ -658,7 +679,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 this.ModelState.AddModelError("", exception.InnerException);
             }           
             AddStatusMessage(string.Format("{0} boxes cancelled", boxes.Length));
-            return RedirectToAction(Actions.Wave(bucketId));
+            return RedirectToAction(Actions.WavePickslips(bucketId));
         }
 
 

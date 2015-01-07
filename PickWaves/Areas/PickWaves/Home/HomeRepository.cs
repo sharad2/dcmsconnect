@@ -209,7 +209,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IEnumerable<ImportedOrderSummary> GetImportedOrderSummary(string customerId)
+        public IList<ImportedOrderSummary> GetImportedOrderSummary(string customerId)
         {
             const string QUERY = @"
                                 SELECT DEMPS.CUSTOMER_ID                    AS CUSTOMER_ID,

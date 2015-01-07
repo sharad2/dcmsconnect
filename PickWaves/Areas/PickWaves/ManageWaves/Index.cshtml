@@ -111,7 +111,7 @@
                             {
                                 <li class="@(i % 2 == 0 ? "bg-info" : null)" style="width: 7em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;">
                                     <a title=" pick wave details"
-                                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">
+                                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
                                         <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
                                         @Html.DisplayFor(m => m.Buckets[i].BucketId)
                                     </a>
@@ -151,7 +151,7 @@
 
 
 @section script {
-    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
+    <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
 
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
 }

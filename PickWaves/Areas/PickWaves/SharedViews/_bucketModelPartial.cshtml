@@ -9,13 +9,13 @@
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
 
     // Do not show link to the viewer page if we are already on the viewer page. Instead link to edit page
-    var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId)) == Request.Url.PathAndQuery;
+    //var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId)) == Request.Url.PathAndQuery;
 }
 
 <div class="panel panel-success">
     <div class="panel-heading">
 
-        @if (isViewerPage)
+        @if (Model.Flags.HasFlag(DcmsMobile.PickWaves.ViewModels.BucketModelFlags.ShowEditMenu) && isAuthorized)
         {
             if (Model.IsFrozen)
             {
@@ -109,14 +109,14 @@
 
         <h3 class="list-group-item-heading">
             Pick Wave
-            @if (isViewerPage)
+            @if (Model.Flags.HasFlag(DcmsMobile.PickWaves.ViewModels.BucketModelFlags.HideViewerLink))
             {
                 @Html.DisplayFor(m => m.BucketId)
             }
             else
             {
                 <a title="Pick Wave Details"
-                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId))">
 
                     @Html.DisplayFor(m => m.BucketId)
                 </a>

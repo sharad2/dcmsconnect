@@ -421,14 +421,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             model.GroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.GroupDimIndex].Name;
             model.SubgroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.SubgroupDimIndex].Name;
             model.GroupDimVal = model.GroupDimVal;
-            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
+           // model.CustomerName = _service.Value.GetCustomerName(customerId);
 
             model.BucketId = bucketId;
 
             if (model.BucketId.HasValue)
             {
                 var bucket = _service.Value.GetBucket(model.BucketId.Value);
-                model.Bucket = new BucketModel(bucket);
+                model.Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(customerId), BucketModelFlags.Default);
             }
             return View(Views.PickslipList, model);
         }
