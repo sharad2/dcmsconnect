@@ -23,21 +23,21 @@
 }
 
 <div class="container">
-    <div class="text-center text-info">
-        <span class=" hidden-xs hidden-sm" style="font-size:100px;opacity:.2;">
+    <div class="text-center">       
+        <h2 style="opacity:.2;" class="text-info">
             <span class="glyphicon glyphicon-exclamation-sign"></span>
             No Pickslips to add !
-        </span>
-        <span class="visible-xs visible-sm h3" style="opacity:.2;">
-            <span class="glyphicon glyphicon-exclamation-sign"></span>
-            No Pickslips to add !
-        </span>
-        <h3 class=" hidden-xs hidden-sm">
-            All Pickslips for Customer <strong>@Model.CustomerId: @Model.CustomerName</strong> have been added to the Pick Wave <strong>@Model.BucketId</strong>.
-        </h3>
-        <h5 class="visible-xs visible-sm">
-            All Pickslips for Customer <strong>@Model.CustomerId: @Model.CustomerName</strong> have been added to the Pick Wave <strong>@Model.BucketId</strong>.
-        </h5>
+        </h2>
+        <h4>
+            All Pickslips for Customer <strong>@Model.CustomerId: @Model.CustomerName</strong>
+            have been added to the Pick Wave <strong>@Model.BucketId</strong>.
+            @if (Model.BucketId.HasValue)
+            {
+                <a  href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.BucketId.ToString()))">               
+                    View
+                </a>
+            }
+        </h4>      
     </div>
     <hr />
     <div class="list-group">
@@ -47,14 +47,7 @@
         <a class="list-group-item" href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
             See other Pick Waves of Customer <strong>@Model.CustomerId</strong>
-        </a>
-        @if (Model.BucketId.HasValue)
-        {
-            <a class="list-group-item" href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.BucketId.ToString()))">
-                <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                See Pick Wave <strong>@Model.BucketId</strong>
-            </a>
-        }
+        </a>      
         <a class="list-group-item" href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">
             <span class="glyphicon glyphicon-chevron-right pull-right"></span>
             See Customers for whom new Pick Waves can be created
