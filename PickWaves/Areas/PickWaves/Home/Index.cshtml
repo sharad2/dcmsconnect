@@ -13,8 +13,8 @@
     <div class="row">
         <div class="col-md-4">
             <div class="list-group">
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())">
-                    <h4 class="list-group-item list-group-item-success">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())" class="list-group-item list-group-item-success">
+                    <h4 class="list-group-item-heading">
                         Manage Pick Waves
                         <span class="glyphicon glyphicon-adjust pull-right"></span>
                     </h4>
@@ -37,47 +37,47 @@
 
                 @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
                 {
-                    <li class="list-group-item">
-                        <small>@(i + 1)</small>
-                        <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                <li class="list-group-item">
+                    <small>@(i + 1)</small>
+                    <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
 
-                        @if (Model.UserIsManager)
+                    @if (Model.UserIsManager)
                         {
-                            <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
-                               href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
-                               title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
-                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
-                            </a>
-                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                                @if (Model.ImportedOrders[i].IsCustomerActive)
+                        <a style="font-size:1.4em; @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "text-decoration:line-through")"
+                           href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))"
+                           title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                        </a>
+                        <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                            @if (Model.ImportedOrders[i].IsCustomerActive)
                                 {
-                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                 }
                                 else
                                 {
-                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                 }
-                            </small>
+                        </small>
                         }
                         else
                         {
-                            <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
-                            <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
-                                @if (Model.ImportedOrders[i].IsCustomerActive)
+                        <span style="font-size:1.4em;"> @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId): </span>
+                        <small @Html.Raw(Model.ImportedOrders[i].InternationalFlag ? "class='bg-info' title='International customer'" : "")>
+                            @if (Model.ImportedOrders[i].IsCustomerActive)
                                 {
-                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                 }
                                 else
                                 {
-                                    <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
+                                <s title="This customer is inactive.">@Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)</s>
                                 }
-                            </small>
-                        }
-                        <small>
-                            <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
                         </small>
+                        }
+                    <small>
+                        <em>@Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)</em>
+                    </small>
 
-                    </li>
+                </li>
                 }
             </ul>
 
@@ -85,10 +85,12 @@
 
         <div class="col-md-4">
             <div class="list-group">
-                <h4 class="list-group-item list-group-item-success">
-                    Create Pitch Carts
-                    <span class="glyphicon glyphicon-shopping-cart pull-right"></span>
-                </h4>
+                <div class="list-group-item list-group-item-success">
+                    <h4 class="list-group-item-heading">
+                        Create Pitch Carts
+                        <span class="glyphicon glyphicon-shopping-cart pull-right"></span>
+                    </h4>
+                </div>
                 <a href="#" class="list-group-item">
                     TODO: List of pick waves for which MPC can be created
                     <span class="glyphicon glyphicon-chevron-right pull-right"></span>
@@ -99,8 +101,8 @@
         </div>
         <div class="col-md-4">
             <div class="list-group">
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">
-                    <h4 class="list-group-item list-group-item-success">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="list-group-item list-group-item-success">
+                    <h4 class="list-group-item-heading">
                         Box Expediting
                         <span class="glyphicon glyphicon-briefcase pull-right"></span>
                     </h4>
@@ -114,8 +116,8 @@
         <div class="col-md-4">
 
             <div class="list-group">
-                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())">
-                    <h4 class="list-group-item list-group-item-success">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())" class="list-group-item list-group-item-success">
+                    <h4 class="list-group-item-heading">
                         Pick Wave Configuration
                         <span class="glyphicon glyphicon-cog pull-right"></span>
                     </h4>
