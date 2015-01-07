@@ -23,7 +23,7 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
         }
 
-        internal BucketModel(Bucket src)
+        internal BucketModel(BucketWithActivities src)
         {
             _activities = new List<BucketActivityModel>(3);
             BucketId = src.BucketId;
@@ -99,7 +99,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             BucketState = state;
 
-            RequiredBoxExpediting = src.RequiredBoxExpediting;
+            RequiredBoxExpediting = src.RequireBoxExpediting;
 
             CountAssignedSku = src.CountAssignedSku;
             CountTotalSku = src.CountTotalSku;

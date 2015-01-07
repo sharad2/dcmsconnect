@@ -24,7 +24,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IList<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
+        internal IList<BucketWithActivities> GetBuckets(string customerId, ProgressStage state, string userName)
         {
             return _repos.GetBuckets(null, customerId, state, userName);
         }

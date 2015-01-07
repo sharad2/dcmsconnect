@@ -71,7 +71,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
-        internal Bucket GetBucket(int bucketId)
+        internal BucketWithActivities GetBucket(int bucketId)
         {
             return _repos.GetBuckets(bucketId, null, null, null).FirstOrDefault();
         }

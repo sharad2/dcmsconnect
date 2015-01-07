@@ -51,7 +51,7 @@ namespace DcmsMobile.PickWaves.Repository
                                      FROM <proxy />MASTER_CUSTOMER CUST
                                     WHERE CUST.CUSTOMER_ID = :SEARCH
                                     ";
-            var binder = SqlBinder.Create(row =>  row.GetString("NAME"));
+            var binder = SqlBinder.Create(row => row.GetString("NAME"));
             binder.Parameter("SEARCH", customerId);
             return _db.ExecuteSingle(QUERY, binder);
         }
@@ -79,7 +79,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// </remarks>
         /// Discuss with Sharad sir on 15-May-2014 : 
         /// Get bucket for customer is not showing cancelled box.
-        public IList<Bucket> GetBuckets(int? bucketId, string customerId, ProgressStage? state, string userName)
+        public IList<BucketWithActivities> GetBuckets(int? bucketId, string customerId, ProgressStage? state, string userName)
         {
             if (bucketId == null && string.IsNullOrWhiteSpace(customerId))
             {
@@ -382,7 +382,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 <if>AND OP.CREATED_BY = :CREATED_BY</if>";
             var binder = SqlBinder.Create(row =>
             {
-                var bucket = new Bucket
+                var bucket = new BucketWithActivities
                 {
                     BucketId = row.GetInteger("BUCKET_ID").Value,
                     BucketComment = row.GetString("BUCKET_COMMENT"),
@@ -397,7 +397,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE"),
                     MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
                     IsFrozen = row.GetString("FREEZE") == "Y",
-                    RequiredBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
+                    RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
                     QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                     PitchLimit = row.GetInteger("PITCH_LIMIT"),
                     CountAssignedSku = row.GetInteger("COUNT_ASSIGNED_SKU") ?? 0,
@@ -460,6 +460,39 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                   .Parameter("CompletedState", ProgressStage.Completed.ToString())
                   .Parameter("bucket_ID", bucketId);
             return _db.ExecuteReader(QUERY, binder, bucketId.HasValue ? 1 : 2000);
+        }
+
+        /// <summary>
+        /// Returns the highest priority bucket which has most boxes for expediting
+        /// </summary>
+        /// <returns>The best bucket id</returns>
+        public IList<BucketBase> GetExpeditableBuckets(int maxRows)
+        {
+            const string QUERY = @"
+                    SELECT BUCKET.BUCKET_ID
+                      FROM <proxy />BUCKET BUCKET
+                     INNER JOIN <proxy />PS P
+                        ON P.BUCKET_ID = BUCKET.BUCKET_ID
+                     INNER JOIN <proxy />BOX B
+                        ON P.PICKSLIP_ID = B.PICKSLIP_ID
+                     WHERE B.IA_ID IS NULL
+                       AND B.STOP_PROCESS_DATE IS NULL
+                       AND B.PALLET_ID IS NULL
+                       AND BUCKET.PICK_MODE = 'ADREPPWSS'
+                       AND  bucket.pull_type = 'EXP'
+                       AND P.TRANSFER_DATE IS NULL
+                       AND BUCKET.FREEZE IS NULL
+                     GROUP BY BUCKET.BUCKET_ID
+                     ORDER BY MAX(BUCKET.PRIORITY) DESC, COUNT(P.PICKSLIP_ID) DESC
+                ";
+            var binder = SqlBinder.Create(row =>
+                new BucketBase
+                {
+                    BucketId = row.GetInteger("BUCKET_ID") ?? 0
+                    //TODO: Get other columns
+                }
+                );
+            return _db.ExecuteReader(QUERY, binder, maxRows);
         }
 
     }
