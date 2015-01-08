@@ -67,8 +67,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public IEnumerable<SelectListItem> SewingPlant { get; set; }
 
-        [Obsolete]
-        public string PriorityId { get; set; }
+        //[Obsolete]
+        //public string PriorityId { get; set; }
 
         [Display(Name = "Overpulling")]
         public bool OverPullCarton { get; set; }
