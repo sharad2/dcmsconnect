@@ -31,7 +31,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         TargetQualityCode = 0x4000
     }
 
-  
+    public enum PriorityType
+    {
+        High = 99,
+        Medium = 49,
+        Low = 9
+    }
+
+
 
     internal class ReqService : IDisposable
     {
@@ -291,6 +298,33 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public Sku GetSku(string style, string color, string dimension, string skuSize)
         {
             return _repos.GetSku(style, color, dimension, skuSize);
+        }
+
+        /// <summary>
+        /// Takes priority flag and returns the value associated.
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns> priority value </returns>
+        public int GetPriority( Priority flag)
+        {
+            int priority; 
+            switch (flag)
+            {
+                case Priority.High:
+                    priority = (int)PriorityType.High;
+                    break;
+                case Priority.Medium:
+                    priority = (int)PriorityType.Medium;
+                    break;
+                case Priority.Low:
+                    priority = (int)PriorityType.Low;
+                    break;
+
+                default:
+                    throw new NotImplementedException();
+
+            }
+             return priority;
         }
     }
 }

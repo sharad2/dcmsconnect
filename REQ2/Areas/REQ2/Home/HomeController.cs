@@ -102,18 +102,18 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 }
                 model = new PropertyEditorViewModel(req);
 
-                int priority = Int32.Parse(req.Priority);
+                int? priority = req.Priority;
 
-                if (priority < 9)
+                if (priority <= (int)PriorityType.Low)
                 {
                     model.PriorityFlag = Priority.Low;
                 }
-                else if (priority > 9 && priority < 50 )
+                else if (priority > (int)PriorityType.Low && priority < (int)PriorityType.Medium)
                 {
                     model.PriorityFlag = Priority.Medium;
                 }
 
-                else if (priority > 49)
+                else if (priority > (int)PriorityType.Medium)
                 {
                     model.PriorityFlag = Priority.High;
                 }
@@ -212,7 +212,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 BuildingId = model.BuildingId,
                 CtnResvId = model.ResvId,
                 DestinationArea = model.DestinationAreaId,
-               // Priority = model.Priorities.ToString(),
                 Remarks = model.Remarks,
                 SourceAreaId = model.SourceAreaId,
                 TargetVwhId = model.TargetVwhId,
@@ -223,27 +222,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 DestinationAreaShortName = model.DestinationAreaShortName,
                 SewingPlantCode = model.SewingPlantCode,
                 PriceSeasonCode = model.PriceSeasonCode,
-                //ReqId = model.CurrentRequest.ReqId,
+                Priority = _service.GetPriority(model.PriorityFlag),
                 RequestedBy = model.RequestedBy,
                 SourceAreaShortName = model.SourceAreaShortName
             };
 
-            switch (model.PriorityFlag)
-            {
-                case Priority.High:
-                    requestModel.Priority = "99";
-                    break;
-                case Priority.Medium:
-                    requestModel.Priority = "45";
-                    break;
-                case Priority.Low:
-                    requestModel.Priority = "5";
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-                  
-            }
 
             if (string.IsNullOrEmpty(model.ResvId))
             {
