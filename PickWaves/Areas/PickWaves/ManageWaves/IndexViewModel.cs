@@ -1,11 +1,50 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
+using DcmsMobile.PickWaves.Repository;
 using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
+    /// <summary>
+    /// The model for the bucket displayed in the list on the Index page
+    /// </summary>
+    public class IndexBucketModel
+    {
+        public IndexBucketModel()
+        {
+
+        }
+
+        internal IndexBucketModel(BucketWithActivities entity)
+        {
+            this.BucketId = entity.BucketId;
+            this.OrderedPieces = entity.OrderedPieces;
+            this.Priority = entity.PriorityId;
+            this.PickslipCount = entity.CountPickslips;
+            this.PoCount = entity.CountPurchaseOrder;
+
+            //TODO: Other properties available in Bucketbase. DC Cancel.
+        }
+
+        [Display(Name = "Pick Wave")]
+        public int BucketId { get; set; }
+
+        [Display(Name = "Ordered Pieces")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int OrderedPieces { get; set; }
+
+
+        public int Priority { get; set; }
+
+        public int PickslipCount { get; set; }
+
+        public int PoCount { get; set; }
+
+
+    }
     /// <summary>
     /// ReadOnly(false) attribute explicitly clarifies what we expect to see posted. MVC's DefaultModelBinder respects this.
     /// </summary>
@@ -16,7 +55,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         public IndexViewModel()
         {
-            this.Buckets = new BucketModel[0];
+            this.Buckets_O = new BucketModel[0];
             this.BucketState = ProgressStage.InProgress;
         }
 
@@ -28,7 +67,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public IndexViewModel(string customerId, ProgressStage state, string userName)
         {
             this.CustomerId = customerId;
-            this.Buckets = new BucketModel[0];
+            this.Buckets_O = new BucketModel[0];
             this.BucketState = state;
             this.UserName = userName;
         }
@@ -45,22 +84,21 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        /// <summary>
-        /// The setter pre calculates totals
-        /// </summary>
-        [ReadOnly(true)]
-        public IList<BucketModel> Buckets { get; set; }
+        public IList<IndexBucketModel> Buckets { get; set; }
+
+        [Obsolete]
+        public IList<BucketModel> Buckets_O { get; set; }
 
         [DisplayFormat(DataFormatString="{0:N0}")]
         public int BucketCount
         {
             get
             {
-                if (this.Buckets == null)
+                if (this.Buckets_O == null)
                 {
                     return 0;
                 }
-                return Buckets.Count;
+                return Buckets_O.Count;
             }
         }
 

@@ -108,13 +108,17 @@
                         </p>
                         <ul class="list-inline">
                             @for (var i = 0; i < Model.Buckets.Count; ++i)
-                            {
-                                <li class="@(i % 2 == 0 ? "bg-info" : null)" style="width: 7em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;">
+                            {  
+                                
+                                <li class="@(i % 2 == 0 ? "bg-info" : null)" style="width: 27em; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;">
                                     <a title=" pick wave details"
                                        href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
                                         <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
                                         @Html.DisplayFor(m => m.Buckets[i].BucketId)
                                     </a>
+                                    Priority : @Html.DisplayFor(m => m.Buckets[i].Priority)
+                                    Priority : @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
+                                    Priority : @Html.DisplayFor(m => m.Buckets[i].PoCount)
                                 </li>
                             }
                         </ul>
@@ -122,7 +126,7 @@
                     <div id="fullList">
                         @for (var i = 0; i < Model.Buckets.Count; ++i)
                         {
-                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary
+                            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets_O[i], new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}
                                })
