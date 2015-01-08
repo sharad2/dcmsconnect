@@ -96,15 +96,15 @@
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
     </h2>    
-    <div role="tabpanel" id="tabs">
+    <div role="tabpanel" style="margin-bottom:0.5em">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bg-success" role="tablist">
-            <li >
+            <li>
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId))" role="tab">
                     Pickslips
                 </a>
             </li>
-            <li class="active">               
+            <li class="active">
                 <a role="tab">
                     Boxes
                 </a>
@@ -115,6 +115,11 @@
                 </a>
             </li>
         </ul>
+    </div>
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
         <!-- Tab panes -->
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active">
@@ -211,13 +216,8 @@
                 </form>
             </div>
         </div>
-    </div>   
-
-    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
-                                   {
-                                       {"IsAuthorized", Model.UserIsManager}
-                                   })
-    </div>
+    </div>    
+ 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
 }
