@@ -303,14 +303,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 public readonly string _waveBoxesPartial = "_waveBoxesPartial";
                 public readonly string _waveSkusPartial = "_waveSkusPartial";
                 public readonly string Index = "Index";
+                public readonly string WaveBox = "WaveBox";
                 public readonly string WaveEditor = "WaveEditor";
                 public readonly string WavePickslips = "WavePickslips";
+                public readonly string WaveSku = "WaveSku";
             }
             public readonly string _waveBoxesPartial = "~/Areas/PickWaves/ManageWaves/_waveBoxesPartial.cshtml";
             public readonly string _waveSkusPartial = "~/Areas/PickWaves/ManageWaves/_waveSkusPartial.cshtml";
             public readonly string Index = "~/Areas/PickWaves/ManageWaves/Index.cshtml";
+            public readonly string WaveBox = "~/Areas/PickWaves/ManageWaves/WaveBox.cshtml";
             public readonly string WaveEditor = "~/Areas/PickWaves/ManageWaves/WaveEditor.cshtml";
             public readonly string WavePickslips = "~/Areas/PickWaves/ManageWaves/WavePickslips.cshtml";
+            public readonly string WaveSku = "~/Areas/PickWaves/ManageWaves/WaveSku.cshtml";
         }
     }
 

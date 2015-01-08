@@ -7,10 +7,10 @@ using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    public class WaveSkuListModel
+    public class WaveSkuListModel:ViewModelBase
     {
-        public int BucketId { get; set; }
-
+        //public int BucketId { get; set; }
+        public BucketModel Bucket { get; set; }
         /// <summary>
         /// List of all SKU and their availability in Areas of this Wave
         /// </summary>

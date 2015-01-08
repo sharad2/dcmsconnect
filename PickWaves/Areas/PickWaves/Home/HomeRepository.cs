@@ -254,7 +254,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 
 
 
-        public IList<BucketBase> GetRecentCreatedBucket()
+        public IList<BucketBase> GetRecentCreatedBucket(int maxRows)
         {
             const string QUERY = @"SELECT BK.BUCKET_ID AS BUCKET_ID,
                                    MIN(BK.DATE_CREATED) AS DATE_CREATED,
@@ -275,7 +275,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                 CreationDate = row.GetDate("DATE_CREATED").Value
 
             });
-            return _db.ExecuteReader(QUERY, binder, 200);
+            return _db.ExecuteReader(QUERY, binder, maxRows);
         }
     }
 }

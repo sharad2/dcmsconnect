@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null, Model.Bucket.BucketState))"
-           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of@Model.Bucket.CustomerName</a>
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
     </li>
     <li class="divider"></li>
 }
@@ -27,14 +27,6 @@
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
     </h2>
-
-    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
-                                   {
-                                       {"IsAuthorized", Model.UserIsManager}
-                                   })
-
-
-
     <div role="tabpanel" id="tabs">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bg-success" role="tablist">
@@ -186,6 +178,14 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
+
+
+
 </div>
 
 @section script {
