@@ -345,6 +345,11 @@ namespace EclipseLibrary.Oracle.Helpers
                 // Reraise the exception with a clearer message
                 throw new IndexOutOfRangeException(fieldName, ex);
             }
+            catch (KeyNotFoundException ex)
+            {
+                // Reraise the exception with a clearer message
+                throw new KeyNotFoundException(fieldName, ex);
+            }
 #else
             catch (IndexOutOfRangeException)
             {
