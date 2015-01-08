@@ -18,19 +18,48 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         }
 
-        internal IndexBucketModel(BucketWithActivities entity)
+        internal IndexBucketModel(BucketList entity)
         {
             this.BucketId = entity.BucketId;
+            this.BucketName = entity.BucketName;
+            this.BucketComment = entity.BucketComment;
             this.OrderedPieces = entity.OrderedPieces;
             this.Priority = entity.PriorityId;
             this.PickslipCount = entity.CountPickslips;
             this.PoCount = entity.CountPurchaseOrder;
+            this.DcCancelDateRange = new DateRange
+             {
+                 From = entity.MinDcCancelDate,
+                 To = entity.MaxDcCancelDate
+             };
 
-            //TODO: Other properties available in Bucketbase. DC Cancel.
+            this.CreatedBy = entity.CreatedBy;
+            this.CreationDate = entity.CreationDate;
+            this.IsFrozen = entity.IsFrozen;
+            this.PitchLimit = entity.PitchLimit;
+
+            this.PitchAreaBuildingId = entity.PitchAreaBuildingId;
+            this.PitchAreaDescription=entity.PitchAreaDescription;
+            this.PitchAreaId = entity.PitchAreaId;
+            this.PitchAreaShortName = entity.PitchAreaShortName;
+            this.ReplenishAreaId = entity.ReplenishAreaId;
+          
+            this.PullAreaBuildingId = entity.PullAreaBuildingId;
+            this.PullAreaDescription = entity.PullAreaDescription;
+            this.PullAreaId = entity.PullAreaId;
+            this.PullAreaShortName = entity.PullAreaShortName;
+          
         }
 
         [Display(Name = "Pick Wave")]
         public int BucketId { get; set; }
+
+        public string BucketName { get; set; }
+
+        /// <summary>
+        /// Comment of the bucket
+        /// </summary>
+        public string BucketComment { get; set; }
 
         [Display(Name = "Ordered Pieces")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -41,7 +70,48 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int PickslipCount { get; set; }
 
+       [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PoCount { get; set; }
+
+        [Display(Name = "DC Cancel Date")]
+        [DataType(DataType.Text)]
+        public DateRange DcCancelDateRange { get; set; }
+
+
+        public bool IsFrozen { get; set; }
+
+
+        public int? PitchLimit { get; set; }       
+
+        public DateTime CreationDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+
+        /// <summary>
+        /// Pitch Area
+        /// </summary>
+        public string PitchAreaId { get; set; }
+
+        public string PitchAreaShortName { get; set; }
+
+        public string PitchAreaDescription { get; set; }
+
+        public string PitchAreaBuildingId { get; set; }
+
+        public string ReplenishAreaId { get; set; }
+
+
+        /// <summary>
+        /// Pull Area
+        /// </summary>
+        public string PullAreaId { get; set; }
+
+        public string PullAreaShortName { get; set; }
+
+        public string PullAreaDescription { get; set; }
+
+        public string PullAreaBuildingId { get; set; }
 
 
     }
@@ -89,7 +159,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Obsolete]
         public IList<BucketModel> Buckets_O { get; set; }
 
-        [DisplayFormat(DataFormatString="{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int BucketCount
         {
             get

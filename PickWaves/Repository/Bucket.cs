@@ -6,7 +6,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// <summary>
     /// Contaqins very basic properties of a bucket. All these properties are available in the bucket table
     /// </summary>
-    internal class BucketBase
+    public class BucketBase
     {
         [Key]
         public int BucketId { get; set; }

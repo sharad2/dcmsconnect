@@ -90,8 +90,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 // By default show in progress pick waves
                 bucketState = ProgressStage.InProgress;
             }
-            var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
-
+            //var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
+            var buckets = _service.Value.GetBucketList(customerId);
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
@@ -100,16 +100,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 CustomerName = _service.Value.GetCustomerName(customerId)
             };
             // Null DC Cancel dates display last
-            model.Buckets_O = (from bucket in buckets.Select(p => new BucketModel(p, model.CustomerName, BucketModelFlags.Default))
-                             orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
-                             select bucket).ToList();
+            //model.Buckets_O = (from bucket in buckets.Select(p => new BucketModel(p, model.CustomerName, BucketModelFlags.Default))
+            //                 orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
+            //                 select bucket).ToList();
 
             model.Buckets = (from bucket in buckets
-                               //orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
+                               orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue,bucket.OrderedPieces descending
                                select new IndexBucketModel(bucket)).ToList();
-            //model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
-
-            if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets_O.Count == 0)
+            if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
             {
                 // This must be a garbage customer. Redirect to home page
                 ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));
