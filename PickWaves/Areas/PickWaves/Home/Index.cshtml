@@ -23,7 +23,7 @@
                 <a href="#" class="list-group-item active">
                     <h4 class="list-group-item-heading">
                         Bucket <small>Created by</small>
-                        <span class="badge">Date Created</span>                       
+                        <span class="badge">Date Created</span>
                     </h4>
                 </a>
                 @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
@@ -38,7 +38,7 @@
                         </h4>
                     </a>
                 }
-                
+
             </div>
         </div>
 
@@ -52,15 +52,15 @@
                 </li>
                 <li class="list-group-item active">
                     <h4 class="list-group-item-heading">
-                        <span class="label label-default">Pickslips</span>                     
-                                <span>
-                                    Customer
-                                </span>                          
-                            <small>                              
-                                <em>
-                                   Import Date
-                                </em>
-                            </small>  
+                        <span class="label label-default">Pickslips</span>
+                        <span>
+                            Customer
+                        </span>
+                        <small>
+                            <em>
+                                Import Date
+                            </em>
+                        </small>
                     </h4>
                 </li>
                 @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
@@ -114,7 +114,7 @@
             </div>
 
         </div>
-        <div class="col-md-4">       
+        <div class="col-md-4">
             <div class="list-group">
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="list-group-item list-group-item-success">
                     <h4 class="list-group-item-heading">
@@ -126,7 +126,7 @@
                 <a href="#" class="list-group-item active">
                     <h4 class="list-group-item-heading">
                         Bucket <small>Created by</small>
-                        <span class="badge">Date Created</span>                      
+                        <span class="badge">Date Created</span>
                     </h4>
                 </a>
                 @for (var i = 0; i < Model.ExpediteBuckets.Count; ++i)
@@ -141,7 +141,7 @@
                     </a>
                 }
             </div>
-            </div>
+        </div>
         <div class="col-md-4">
 
             <div class="list-group">
@@ -171,6 +171,113 @@
             </div>
 
         </div>
-        </div>
-       
     </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())" class="list-group-item list-group-item-success">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-adjust"></span>
+                        Manage Pick Waves
+                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    </h3>
+                </a>
+                <a href="#" class="list-group-item active" disabled>
+                    Bucket <small>Created by</small>
+                    <span class="badge">Date Created</span>
+
+                </a>
+                <div class="list-group-item">
+                    <ul class="list-inline">
+                        @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
+                        {
+                            <li>
+                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.RecentBuckets[i].BucketId))"
+                                   class="btn btn-default btn-xs">
+                                    @Html.DisplayFor(m => m.RecentBuckets[i].BucketId)
+                                    <small>@Html.DisplayFor(m => m.RecentBuckets[i].CreatedBy)</small>
+                                    <span class="badge">@Html.DisplayFor(m => m.RecentBuckets[i].CreationDate)</span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-success">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-folder-close"></span>
+                        Create Pick Waves
+                    </h3>
+                </a>
+                <a href="#" class="list-group-item active" disabled>
+                    <span class="label label-default">Pickslips</span>
+                    <span>
+                        Customer
+                    </span>
+                    <small>
+                        <em>
+                            Import Date
+                        </em>
+                    </small>
+
+                </a>
+                <div class="list-group-item">
+                    <ul class="list-inline">
+                        @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
+                        {
+                           
+                            <li title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)">
+                                <span @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "style=text-decoration:line-through")>
+                                    @if (Model.UserIsManager)
+                                    {
+
+                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))" class="btn btn-default btn-xs">
+                                            <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                                            <small>
+                                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+
+                                                <em>
+                                                    @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
+                                                </em>
+                                            </small>
+                                        </a>
+
+                                    }
+                                    else
+                                    {
+
+                                        <a href="#" disabled class="btn btn-default btn-xs">
+                                            <span class="label label-default">@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount)</span>
+                                            @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                                            <small>
+                                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
+
+                                                <em>
+                                                    @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
+                                                </em>
+                                            </small>
+                                        </a>
+                                    }
+
+                                </span>
+
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
