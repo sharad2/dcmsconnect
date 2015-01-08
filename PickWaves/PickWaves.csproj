@@ -344,14 +344,12 @@
     <Content Include="Areas\PickWaves\CreateWave\PickslipList.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\WavePickslips.cshtml" />
     <None Include="Doc\Readme.txt" />
-    <Content Include="Areas\PickWaves\ManageWaves\_waveBoxesPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\Index.cshtml" />
     <Content Include="Areas\PickWaves\Config\SkuCase.cshtml" />
     <Content Include="Areas\PickWaves\Config\Constraint.cshtml" />
     <Content Include="Areas\PickWaves\Config\_skuCaseEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_custSkuCaseEditorPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_styleSkuCaseEditorPartial.cshtml" />
-    <Content Include="Areas\PickWaves\ManageWaves\_waveSkusPartial.cshtml" />
     <Content Include="Areas\PickWaves\Config\_customerConstraintEditorPartial.cshtml" />
     <None Include="Doc\GPL Technical.docx" />
     <None Include="Doc\Roles.txt" />

@@ -11,7 +11,7 @@
     </h2>
 
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-lg-3 col-md-4 col-sm-5">
             <div class="list-group">
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())" class="list-group-item list-group-item-success">
                     <span>
@@ -24,27 +24,26 @@
                     <strong>
                         Recently Created
                     </strong>
-                    <ul class="list-inline">
-                        @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
-                        {
-                            <li style="width:18em">
-                                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.RecentBuckets[i].BucketId))">
-                                    @Html.DisplayFor(m => m.RecentBuckets[i].BucketId)
-                                </a>
-                                <small>
 
-                                    <span>@Html.DisplayFor(m => m.RecentBuckets[i].CreationDate)</span>
-                                    by @Html.DisplayFor(m => m.RecentBuckets[i].CreatedBy)
-                                </small>
-                            </li>
-                        }
-                    </ul>
+                    @for (var i = 0; i < Model.RecentBuckets.Count; ++i)
+                    {
+                        <div>
+                            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.RecentBuckets[i].BucketId))">
+                                @Html.DisplayFor(m => m.RecentBuckets[i].BucketId)
+                            </a>
+                            <small>
+
+                                <span>@Html.DisplayFor(m => m.RecentBuckets[i].CreationDate)</span>
+                                by @Html.DisplayFor(m => m.RecentBuckets[i].CreatedBy)
+                            </small>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
 
-        <div class="col-md-7">
-
+        <div class="col-lg-5 col-md-8 col-sm-7">
             <div class="list-group">
                 <span class="list-group-item list-group-item-success">
                     <span>
@@ -54,63 +53,56 @@
                 </span>
                 <div class="list-group-item">
                     <strong>You can create Pickwave for these customer</strong>
-                    <ul class="list-inline">
+                  
                         @for (var i = 0; i < Model.ImportedOrders.Count; ++i)
                         {
 
-                            <li title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)"
-                                @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "style=text-decoration:line-through")>
+                        <div title="@string.Format("Create Pick Waves for {0}", Model.ImportedOrders[i].CustomerName)"
+                            @Html.Raw(Model.ImportedOrders[i].IsCustomerActive ? "" : "style=text-decoration:line-through")>
 
 
-                                <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))">
-                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
+                            <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.ImportedOrders[i].CustomerId))">
+                                @Html.DisplayFor(m => m.ImportedOrders[i].CustomerId):
 
-                                    <small>
-                                        @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
-                                    </small>
-                                </a>
                                 <small>
-                                    <span>@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount) pickslips</span>
-                                    <em>
-                                        Imported @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
-                                    </em>
+                                    @Html.DisplayFor(m => m.ImportedOrders[i].CustomerName)
                                 </small>
-                            </li>
+                            </a>
+                            <small>
+                                <span>@Html.DisplayFor(m => m.ImportedOrders[i].PickslipCount) pickslips</span>
+                                <em>
+                                    Imported @Html.DisplayFor(m => m.ImportedOrders[i].ImportDateRange)
+                                </em>
+                            </small>
+                        </div>
                         }
 
-                    </ul>
+                  
                 </div>
 
             </div>
-
-
-
-
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="list-group">
-                <div class="list-group-item list-group-item-success">                  
-                        <span class="glyphicon glyphicon-shopping-cart "></span>
-                        Create Pitch Carts
-                        <span class="glyphicon glyphicon-chevron-right pull-right"></span>                   
-                </div>             
+                <div class="list-group-item list-group-item-success">
+                    <span class="glyphicon glyphicon-shopping-cart "></span>
+                    Create Pitch Carts
+                    <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                </div>
                 <div class="list-group-item">
                     <strong>
                         TODO: List of pick waves for which MPC can be created
                     </strong>
-                    <ul class="list-inline">                       
-                            <li style="width:18em">
-                               asdsadasa
-                            </li>                       
+                    <ul class="list-inline">
+                        <li style="width:18em">
+                            asdsadasa
+                        </li>
                     </ul>
                 </div>
             </div>
-
         </div>
 
-        <div class="col-md-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="list-group">
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())" class="list-group-item list-group-item-success">
                     <span class="glyphicon glyphicon-briefcase"></span>
