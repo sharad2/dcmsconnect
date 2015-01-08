@@ -74,7 +74,7 @@
         </small>
     </h2>
 
-   
+
     <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
         <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen ? "active" : "")">
             <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
@@ -93,42 +93,85 @@
         </li>
     </ul>
 
-                <ul class="list-group">
-                    @if (Model.Buckets.Count > 0)
-                    {
-                        if (Model.Buckets.Count > 2)
-                        {
+    <ul class="list-group">
+        @if (Model.Buckets.Count > 0)
+        {
+            if (Model.Buckets.Count > 2)
+            {
 
 
-                            <li class="list-group-item list-group-item-success">
-                                Header of the list
-                            </li>
-                            for (var i = 0; i < Model.Buckets.Count; ++i)
-                            {
+                <li class="list-group-item list-group-item-success">
+                    OrderedPieces 
+                    Priority 
+                    PickslipCount 
+                    PoCount 
+                    DcCancelDateRange
+                    BucketComment 
+                    BucketName 
+                    CreatedBy
+                    CreationDate 
+                    DcCancelDateRange
+                    IsFrozen 
+                    PitchLimit 
 
-                                <li class="list-group-item @(i % 2 == 0 ? "bg-info" : null)">
-                                    <a title=" pick wave details"
-                                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
-                                        <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
-                                        @Html.DisplayFor(m => m.Buckets[i].BucketId)
-                                    </a>
-                                    Priority : @Html.DisplayFor(m => m.Buckets[i].Priority)
-                                    PickslipCount : @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
-                                    PoCount : @Html.DisplayFor(m => m.Buckets[i].PoCount)
-                                    DcCancelDateRange :@Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
+                    PitchAreaBuildingId 
+                    PitchAreaDescription 
+                    PitchAreaId
+                    ReplenishAreaId 
 
-                                </li>
-                            }
 
-                        }
-                    }
-                    else
-                    {
-                        <li class="list-group-item list-group-item-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</li>
-                    }
-                </ul>
+                    PitchAreaShortName
+                    PullAreaDescription
+                    PullAreaBuildingId
+                    PullAreaId 
+                    PullAreaShortName 
+                    
+                </li>
+                for (var i = 0; i < Model.Buckets.Count; ++i)
+                {
 
-          
+                    <li class="list-group-item @(i % 2 == 0 ? "bg-info" : null)">
+                        <a title=" pick wave details"
+                           href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
+                            @Html.DisplayFor(m => m.Buckets[i].BucketId)
+                        </a>
+                       @Html.DisplayFor(m => m.Buckets[i].OrderedPieces)
+                 @Html.DisplayFor(m => m.Buckets[i].Priority)
+                    @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
+                       @Html.DisplayFor(m => m.Buckets[i].PoCount)
+                     @Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
+                        @Html.DisplayFor(m => m.Buckets[i].BucketComment)
+                       @Html.DisplayFor(m => m.Buckets[i].BucketName)
+                       @Html.DisplayFor(m => m.Buckets[i].CreatedBy)
+                        @Html.DisplayFor(m => m.Buckets[i].CreationDate)
+                     @Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
+                        @Html.DisplayFor(m => m.Buckets[i].IsFrozen)
+                       @Html.DisplayFor(m => m.Buckets[i].PitchLimit)
+
+                       @Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId)
+                      @Html.DisplayFor(m => m.Buckets[i].PitchAreaDescription)
+                        @Html.DisplayFor(m => m.Buckets[i].PitchAreaId)
+                         @Html.DisplayFor(m => m.Buckets[i].ReplenishAreaId)
+
+
+                    @Html.DisplayFor(m => m.Buckets[i].PitchAreaShortName)                       
+                      @Html.DisplayFor(m => m.Buckets[i].PullAreaDescription)
+                    @Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId)
+                       @Html.DisplayFor(m => m.Buckets[i].PullAreaId)
+                         @Html.DisplayFor(m => m.Buckets[i].PullAreaShortName)                       
+                     
+                    </li>
+                }
+
+            }
+        }
+        else
+        {
+            <li class="list-group-item list-group-item-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</li>
+        }
+    </ul>
+
+
 </div>
 
 
