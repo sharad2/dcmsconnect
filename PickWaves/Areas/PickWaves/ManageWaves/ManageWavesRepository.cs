@@ -713,9 +713,9 @@ BKT.FREEZE
             _db.ExecuteDml(QUERY, binder);
         }
 
-        public IList<BucketList> GetBucketList(string customerId)
+        public IList<BucketList> GetBucketList(string customerId, string userName)
         {
-            const string QUERY = @"WITH BUCKET_INFO AS
+                       const string QUERY = @"WITH BUCKET_INFO AS
                      (SELECT BK.BUCKET_ID,
                              BK.NAME,
                              BK.BUCKET_COMMENT,
@@ -788,11 +788,12 @@ BKT.FREEZE
 
                       FROM BUCKET_INFO Q1
                      INNER JOIN BUCKET_PICKSLIP_INFO Q2
-                        ON Q2.BUCKET_ID = Q1.BUCKET_ID";
+                        ON Q2.BUCKET_ID = Q1.BUCKET_ID                           
+                <if>AND Q1.CREATED_BY = :CREATED_BY</if>";
 
             var binder = SqlBinder.Create(row => new BucketList
             {
-                
+
                 BucketId = row.GetInteger("BUCKET_ID").Value,
                 BucketName = row.GetString("BUCKET_NAME"),
                 BucketComment = row.GetString("BUCKET_COMMENT"),
@@ -821,10 +822,11 @@ BKT.FREEZE
                 PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
                 PullAreaDescription = row.GetString("PULL_AREA_DESCRIPTION"),
                 PullAreaBuildingId = row.GetString("BUILDING_PULL_FROM")
-              
+
             });
 
-            binder.Parameter("CUSTOMER_ID", customerId);
+            binder.Parameter("CUSTOMER_ID", customerId)
+                .Parameter("CREATED_BY", userName);
             return _db.ExecuteReader(QUERY, binder);
         }
     }

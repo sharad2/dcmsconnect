@@ -91,7 +91,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 bucketState = ProgressStage.InProgress;
             }
             //var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
-            var buckets = _service.Value.GetBucketList(customerId);
+            var buckets = _service.Value.GetBucketList(customerId, userName);
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
