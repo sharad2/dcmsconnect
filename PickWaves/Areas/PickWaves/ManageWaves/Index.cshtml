@@ -74,43 +74,39 @@
         </small>
     </h2>
 
-    <div class="panel panel-info">
-        <div class="panel-heading" style="padding:0;border-bottom:0">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen ? "active" : "")">
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
-                        Frozen
-                    </a>
-                </li>
-                <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress ? "active" : "")">
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
-                        In Progress
-                    </a>
-                </li>
-                <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
-                        Completed
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="panel-body">
-            <div role="tabpanel" class="tab-pane active">
+   
+    <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+                Frozen
+            </a>
+        </li>
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+                In Progress
+            </a>
+        </li>
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+                Completed
+            </a>
+        </li>
+    </ul>
 
-                @if (Model.Buckets.Count > 0)
-                {
-                    if (Model.Buckets.Count > 2)
+                <ul class="list-group">
+                    @if (Model.Buckets.Count > 0)
                     {
-                        //Show quick list only if we have many pick waves
-                        <p>
-                            Pick Wave
-                            <abbr title="Pick Waves with number of orderd pieces">Quick List</abbr>. Jump to <a href="#fullList">Detailed List</a>
-                        </p>
-                        <ul class="list-inline">
-                            @for (var i = 0; i < Model.Buckets.Count; ++i)
+                        if (Model.Buckets.Count > 2)
+                        {
+
+
+                            <li class="list-group-item list-group-item-success">
+                                Header of the list
+                            </li>
+                            for (var i = 0; i < Model.Buckets.Count; ++i)
                             {
 
-                                <li class="@(i % 2 == 0 ? "bg-info" : null)" style=" -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis;white-space:nowrap;overflow: hidden;">
+                                <li class="list-group-item @(i % 2 == 0 ? "bg-info" : null)">
                                     <a title=" pick wave details"
                                        href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
                                         <span class="badge">@Html.DisplayFor(m => m.Buckets[i].OrderedPieces)</span>
@@ -120,29 +116,19 @@
                                     PickslipCount : @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
                                     PoCount : @Html.DisplayFor(m => m.Buckets[i].PoCount)
                                     DcCancelDateRange :@Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
+
                                 </li>
                             }
-                        </ul>
-                    }              
-                }
-                else
-                {
-                    <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
-                }
-            </div>
-        </div>
-    </div><!-- Nav tabs -->
 
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item list-group-item-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</li>
+                    }
+                </ul>
 
-
-
-
-
-
-
-
-
-
+          
 </div>
 
 
