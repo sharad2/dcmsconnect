@@ -104,7 +104,6 @@
     <Compile Include="Areas\PickWaves\Config\StyleSkuCaseViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\CreateWaveController.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\DimensionValue.cs" />
-    <Compile Include="Areas\PickWaves\CreateWave\IndexNoPickslipsViewModel.cs" />
     <Compile Include="Areas\PickWaves\CreateWave\SparseMatrix.cs" />
     <Compile Include="Areas\PickWaves\Home\IndexViewModel.cs" />
     <Compile Include="Areas\PickWaves\ManageWaves\BucketEditable.cs" />
@@ -300,7 +299,6 @@
     </Content>
     <Content Include="Areas\PickWaves\Config\CustSkuCase.cshtml" />
     <Content Include="Areas\PickWaves\Config\StyleSkuCase.cshtml" />
-    <Content Include="Areas\PickWaves\CreateWave\IndexNoPickslips.cshtml" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.js.bundle" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.min.js.map">
       <DependentUpon>Index.min.js</DependentUpon>
