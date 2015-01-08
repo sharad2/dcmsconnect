@@ -101,7 +101,25 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                     throw new NotImplementedException();
                 }
                 model = new PropertyEditorViewModel(req);
+
+                int? priority = req.Priority;
+
+                if (priority <= (int)PriorityType.Low)
+                {
+                    model.PriorityFlag = Priority.Low;
+                }
+                else if (priority > (int)PriorityType.Low && priority < (int)PriorityType.Medium)
+                {
+                    model.PriorityFlag = Priority.Medium;
+                }
+
+                else if (priority > (int)PriorityType.Medium)
+                {
+                    model.PriorityFlag = Priority.High;
+                }
             }
+
+               
 
             PopulateIndexViewModel(model);
             return View(Views.PropertyEditor, model);
@@ -156,7 +174,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var sewingPlants = _service.GetSewingPlantCodes();
             model.SewingPlant = sewingPlants.Select(p => MapCode(p));
 
-
+        
         }
 
 
@@ -194,7 +212,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 BuildingId = model.BuildingId,
                 CtnResvId = model.ResvId,
                 DestinationArea = model.DestinationAreaId,
-                Priority = model.Priorities.ToString(),
                 Remarks = model.Remarks,
                 SourceAreaId = model.SourceAreaId,
                 TargetVwhId = model.TargetVwhId,
@@ -205,28 +222,11 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 DestinationAreaShortName = model.DestinationAreaShortName,
                 SewingPlantCode = model.SewingPlantCode,
                 PriceSeasonCode = model.PriceSeasonCode,
-                //ReqId = model.CurrentRequest.ReqId,
+                Priority = _service.GetPriority(model.PriorityFlag),
                 RequestedBy = model.RequestedBy,
                 SourceAreaShortName = model.SourceAreaShortName
             };
 
-            //int caseSwitch = 1;
-            switch (model.PriorityFlag)
-            {
-                case Priority.High:
-                    requestModel.Priority = "99";
-                    break;
-                case Priority.Medium:
-                    requestModel.Priority = "50";
-                    break;
-                case Priority.Low:
-                    requestModel.Priority = "5";
-                    break;
-
-                default:
-                    throw new NotImplementedException();
-                  
-            }
 
             if (string.IsNullOrEmpty(model.ResvId))
             {

@@ -372,7 +372,13 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
   FROM TOTAL_ORDERED_PIECES OP
   LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
     ON OP.BUCKET_ID = PP.BUCKET_ID
-                       
+                        <if>
+                            WHERE (CASE
+                                WHEN OP.FREEZE = 'Y' THEN       :FrozenState
+                                WHEN NVL(PP.UNVRFY_BOXES,0) = 0 THEN :CompletedState 
+                                ELSE                            :InProgressState
+                                END) = :state
+                            </if>
                 <if>AND OP.CREATED_BY = :CREATED_BY</if>";
             var binder = SqlBinder.Create(row =>
             {

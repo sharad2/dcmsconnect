@@ -151,9 +151,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             _repos.CancelBoxes(boxes);
         }
 
-        public IList<BucketList> GetBucketList(string customerId,  string userName)
+        public IList<BucketList> GetBucketList(string customerId, ProgressStage state, string userName)
         {
-            return _repos.GetBucketList(customerId, userName);
+            return _repos.GetBucketList(customerId,state, userName);
         }
     }
 }

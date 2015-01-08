@@ -160,7 +160,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public IList<BucketModel> Buckets_O { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int BucketCount
+        public int BucketCount_O
         {
             get
             {
@@ -169,6 +169,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                     return 0;
                 }
                 return Buckets_O.Count;
+            }
+        }
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int BucketCount
+        {
+            get
+            {
+                if (this.Buckets == null)
+                {
+                    return 0;
+                }
+                return Buckets.Count;
             }
         }
 

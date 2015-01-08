@@ -713,8 +713,20 @@ BKT.FREEZE
             _db.ExecuteDml(QUERY, binder);
         }
 
-        public IList<BucketList> GetBucketList(string customerId, string userName)
+        public IList<BucketList> GetBucketList(string customerId, ProgressStage? state, string userName)
         {
+            string bucketState = null;
+            switch (state)
+            {
+                case ProgressStage.Frozen:
+                    bucketState = "Frozen";
+                    break;
+                case ProgressStage.InProgress:
+                    bucketState = "InProgress";
+                    break;               
+                case ProgressStage.Unknown:
+                    throw new ArgumentOutOfRangeException("state");
+            }
                        const string QUERY = @"WITH BUCKET_INFO AS
                      (SELECT BK.BUCKET_ID,
                              BK.NAME,
@@ -788,7 +800,13 @@ BKT.FREEZE
 
                       FROM BUCKET_INFO Q1
                      INNER JOIN BUCKET_PICKSLIP_INFO Q2
-                        ON Q2.BUCKET_ID = Q1.BUCKET_ID                           
+                        ON Q2.BUCKET_ID = Q1.BUCKET_ID 
+   <if>
+                            WHERE (CASE
+                                WHEN Q1.FREEZE = 'Y' THEN       :FrozenState                             
+                                ELSE                            :InProgressState
+                                END) = :state
+                            </if>                          
                 <if>AND Q1.CREATED_BY = :CREATED_BY</if>";
 
             var binder = SqlBinder.Create(row => new BucketList
@@ -826,7 +844,10 @@ BKT.FREEZE
             });
 
             binder.Parameter("CUSTOMER_ID", customerId)
-                .Parameter("CREATED_BY", userName);
+                  .Parameter("CREATED_BY", userName)
+                  .Parameter("state", bucketState)
+                  .Parameter("FrozenState", ProgressStage.Frozen.ToString())
+                  .Parameter("InProgressState", ProgressStage.InProgress.ToString());
             return _db.ExecuteReader(QUERY, binder);
         }
     }

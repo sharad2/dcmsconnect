@@ -29,7 +29,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public string SourceAreaId { get; set; }
 
         //target
-        public string Priority { get; set; }
+        public int? Priority { get; set; }
 
         public string AllowOverPulling { get; set; }
         
