@@ -96,10 +96,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 CustomerId = customerId,
                 BucketState = bucketState.Value,
-                UserName = userName
+                UserName = userName,
+                CustomerName = _service.Value.GetCustomerName(customerId)
             };
             // Null DC Cancel dates display last
-            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p, _service.Value.GetCustomerName(customerId), BucketModelFlags.Default))
+            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p, model.CustomerName, BucketModelFlags.Default))
                              orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
                              select bucket).ToList();
 

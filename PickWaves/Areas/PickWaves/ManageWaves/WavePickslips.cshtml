@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null, Model.Bucket.BucketState))"
-           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of@Model.Bucket.CustomerName</a>
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
     </li>
     <li class="divider"></li>
 }
@@ -24,7 +24,7 @@
         @ViewBag.Title
         <small>
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
-               title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
+               title="See other pick waves of this customer">@Model.Bucket.CustomerId: @Model.Bucket.CustomerName</a>
         </small>
     </h2>
     <div role="tabpanel" style="margin-bottom:0.5em">
