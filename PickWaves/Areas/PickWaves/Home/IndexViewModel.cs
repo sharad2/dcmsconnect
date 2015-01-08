@@ -34,7 +34,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
     {
         public int BucketId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:d}")]
+        [DisplayFormat(DataFormatString = "{0:g}")]
         public DateTime CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
