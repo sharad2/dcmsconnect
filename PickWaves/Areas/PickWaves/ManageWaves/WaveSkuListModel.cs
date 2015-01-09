@@ -49,7 +49,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total ordered pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalOrderedPieces
+        public int? TotalOrderedPieces
         {
             get
             {
@@ -99,24 +99,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// Total Weight of all SKUs of this wave
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:n2}")]
-        public decimal TotalWeight
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? TotalWeight
         {
             get
             {
-                return BucketSkuList.Sum(p => p.WeightPerDozen);
+                return BucketSkuList.Sum(p => p.Weight);
             }
         }
 
         /// <summary>
         /// Total Volume of all SKUs of this wave
         /// </summary>     
-        [DisplayFormat(DataFormatString = "{0:n2}")]
-        public decimal TotalVolume
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? TotalVolume
         {
             get
             {
-                return BucketSkuList.Sum(p => p.VolumePerDozen);                
+                return BucketSkuList.Sum(p => p.Volume);                
             }
         }
     }

@@ -67,15 +67,16 @@
                         <div class="col-md-5">
                             <h4>
                                 SKU
-                                <span class="label label-info">@Html.DisplayFor(m => m.TotalWeight) Weight / Dozen</span>
-                                <span class="label label-success"> @Html.DisplayFor(m => m.TotalVolume) Volume / Dozen</span>
+                                <span class="label label-info">@Html.DisplayFor(m => m.TotalWeight) Weight</span>
+                                <span class="label label-success"> @Html.DisplayFor(m => m.TotalVolume) Volume</span>
                                 <abbr title="Virtual Warehouse">VWH</abbr>
+                                <span class="badge">Ordered Pieces @Html.DisplayFor(m => m.TotalOrderedPieces)</span>
                             </h4>
                             <div class='well well-sm'>
                                 <div class="text-info">
                                     Activity Type
                                     <em>@Model.PercentPiecesComplete% picked</em>
-                                    <span class="badge pull-right">Ordered Pieces @Html.DisplayFor(m => m.TotalOrderedPieces)</span>
+                                   
                                 </div>
 
                                 <div class="progress" style="margin-bottom:0">
@@ -134,9 +135,10 @@
                                 <h4>
                                     <small>@(i + 1)</small>
                                     @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
-                                    <span class="label label-info" title="Weight Per Dozen">@Html.DisplayFor(m => m.BucketSkuList[i].WeightPerDozen)</span>
-                                    <span class="label label-success" title="Volume Per Dozan">@Html.DisplayFor(m => m.BucketSkuList[i].VolumePerDozen)</span>
+                                    <span class="label label-info">@Html.DisplayFor(m => m.BucketSkuList[i].Weight)</span>
+                                    <span class="label label-success">@Html.DisplayFor(m => m.BucketSkuList[i].Volume)</span>
                                     @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
+                                    <span class="badge">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
                                 </h4>
 
 
@@ -148,8 +150,7 @@
                                             <div>
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
-                                                <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>
-                                                <span class="badge pull-right">@Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)</span>
+                                                <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>                                               
                                             </div>
                                             <div class="progress" style="margin-bottom:0">
                                                 <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar progress-bar-success">

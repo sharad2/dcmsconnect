@@ -252,10 +252,10 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                 SkuSize = row.GetString("SKU_SIZE"),
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
-                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0
+                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN"),
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
                             },
-                            QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
+                            QuantityOrdered = row.GetInteger("QUANTITY_ORDERED"),
                             //IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };

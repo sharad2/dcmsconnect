@@ -195,18 +195,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                 BucketSkuList = (from sku in query
-                                 select new BucketSkuModel
+                                 select new BucketSkuModel(sku.BucketSku)
                                  {
-                                     Style = sku.BucketSku.Sku.Style,
-                                     Color = sku.BucketSku.Sku.Color,
-                                     Dimension = sku.BucketSku.Sku.Dimension,
-                                     SkuSize = sku.BucketSku.Sku.SkuSize,
-                                     UpcCode = sku.BucketSku.Sku.UpcCode,
-                                     SkuId = sku.BucketSku.Sku.SkuId,
-                                     VwhId = sku.BucketSku.Sku.VwhId,
-                                     VolumePerDozen = sku.BucketSku.Sku.VolumePerDozen,
-                                     WeightPerDozen = sku.BucketSku.Sku.WeightPerDozen,
-                                     OrderedPieces = sku.BucketSku.QuantityOrdered,
                                      InventoryByArea = (from area in allAreas
                                                         join item in sku.BucketSku.BucketSkuInAreas on area.AreaId equals item.InventoryArea.AreaId into gj
                                                         from subitem in gj.DefaultIfEmpty()

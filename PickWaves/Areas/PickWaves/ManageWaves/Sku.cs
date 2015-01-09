@@ -19,9 +19,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public string VwhId { get; set; }
 
-        public decimal WeightPerDozen { get; set; }
+        public decimal? WeightPerDozen { get; set; }
 
-        public decimal VolumePerDozen { get; set; }
+        public decimal? VolumePerDozen { get; set; }
 
         //public bool IsAssignedSku { get; set; }
     }

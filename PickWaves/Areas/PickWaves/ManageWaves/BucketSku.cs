@@ -11,7 +11,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     {
         public Sku Sku { get; set; }
 
-        public int QuantityOrdered { get; set; }
+        public int? QuantityOrdered { get; set; }
 
         public IList<CartonAreaInventory> BucketSkuInAreas { get; set; }
 
