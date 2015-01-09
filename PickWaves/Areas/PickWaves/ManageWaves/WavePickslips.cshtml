@@ -68,7 +68,7 @@
                 </p>
                 <footer>Unpicked pickslips can be removed from frozen pick waves</footer>
             </blockquote>
-            @*<form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket())" method="post">*@
+            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket())" method="post">
                 <ul class="list-group">
                     <li class="list-group-item active">
                         <div class="row">
@@ -117,9 +117,9 @@
                                 <small>@(i + 1)</small>
                                 @if (Model.UserIsManager && Model.PickslipList[i].CurrentPieces == 0 && Model.Bucket.IsFrozen)
                                 {
-                                    <input type="checkbox" />
-                                    @*<input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.pickslipId"
-                                           value="@Model.PickslipList[i].PickslipId" />*@
+                                   
+                                    <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.pickslips"
+                                           value="@Model.PickslipList[i].PickslipId" />
                                 }
                                 else
                                 {
@@ -186,7 +186,7 @@
                 </li>
                 }
                 </ul>
-                @*</form>*@
+                </form>
 </div>
     </div>
 

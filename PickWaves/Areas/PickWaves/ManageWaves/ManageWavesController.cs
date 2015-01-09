@@ -649,18 +649,25 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         [HttpPost]
         [Route("removeps")]
-        public virtual ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId)
+        public virtual ActionResult RemovePickslipFromBucket(int bucketId, long[] pickslips)
         {
+
+            if (pickslips == null || pickslips.Length < 1)
+            {
+                ModelState.AddModelError("", "You have not selected any Pickslips, please select atleast 1 Pickslip to remove.");
+                return RedirectToAction(Actions.WavePickslips(bucketId));
+            }
             try
             {
-                _service.Value.RemovePickslipFromBucket(pickslipId, bucketId);
+                _service.Value.RemovePickslipFromBucket(pickslips, bucketId);
             }
             catch (DbException exception)
             {
-                this.Response.StatusCode = 203;
-                return Content(exception.Message);
+                this.ModelState.AddModelError("", exception.InnerException);
             }
-            return Content(string.Format("Pickslip {0} removed from wave {1}.", pickslipId, bucketId));
+            AddStatusMessage(string.Format("{0} Pickslips cancelled", pickslips.Length));
+            return RedirectToAction(Actions.WavePickslips(bucketId));
+           
         }
 
         protected override string ManagerRoleName
@@ -675,7 +682,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             if (boxes == null || boxes.Length < 1)
             {
-                ModelState.AddModelError("","You have not selected any Boxes to cancel, please select atleast 1 box to cancel.");
+                ModelState.AddModelError("","You have not selected any Boxes, please select atleast 1 box to cancel.");
                 return RedirectToAction(Actions.WaveBoxes(bucketId));
             }
             try
