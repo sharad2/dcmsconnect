@@ -547,6 +547,33 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 return Content(ex.Message);
             }
         }
+        /// <summary>
+        /// Tries to assign cartons to the passed request
+        /// </summary>
+        /// <param name="ctnresvId"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public virtual ActionResult AssignCartons2(string ctnresvId)
+        {
+            if (string.IsNullOrEmpty(ctnresvId))
+            {
+                throw new ApplicationException("Internal Error. Request Id was not passed.");
+            }
+
+            _service.AssignCartons(ctnresvId);
+
+            var req = _service.GetRequestInfo(ctnresvId);
+
+            var model = new PullRequestViewModel(req);
+
+            var skus = _service.GetRequestSKUs(ctnresvId);
+
+            model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
+
+            return View(Views.PullRequest, model);
+
+
+        }
 
         /// <summary>
         /// This method Assigns carton to the request

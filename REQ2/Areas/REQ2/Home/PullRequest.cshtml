@@ -6,81 +6,88 @@
 
 <div class="container">
     <h2>Request # @Html.DisplayFor(m => m.CtnResvId)</h2>
+    <form action="@Url.Action(MVC_REQ2.REQ2.Home.AssignCartons2())" method="post">
+        <button class="pull-left btn btn-default btn-xs" type="submit"
+                name="@MVC_REQ2.REQ2.Home.AssignCartons2Params.ctnresvId"
+                value="@Model.CtnResvId">
+            Assign Cartons
+        </button>
+        </form>
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    
-                    <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId,@Model.IsConversionRequest))" class="pull-right" ><span class="glyphicon glyphicon-pencil pull-right"></span></a>
-                    Created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)
-                    <span class="badge">@Html.DisplayFor(m => m.AssignedPieces) of @Html.DisplayFor(m => m.QuantityRequested) Piecess Assigned </span> 
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
 
-               </h4>
-            </div>
-            <div role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                    <div class="row">
-                        <div>
-                            <ul class="list-inline">
-                                @if (Model.IsConversionRequest)
-                                {
-                                    <li> <span class="label label-info">Conversion Request</span></li>
-                                }
-                                <li>Pull From <em>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</em></li>
-                                <li>Quality <em>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality)</em></li>
-                                <li>Virtual Warehouse <em>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </em> </li>
-                                <li> Priority <em>@Html.DisplayFor(m => m.Priority) </em> </li>
-                                <li> Price Season <em> @Html.DisplayFor(m => m.PriceSeasonCode)</em> </li>
-                                <li> Sewing Plant <em>@Html.DisplayFor(m => m.SewingPlantCode) </em> </li>
-                                <li> Remarks <em> @Html.DisplayFor(m => m.Remarks) </em></li>
-                            </ul>
+                        <a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(@Model.CtnResvId,@Model.IsConversionRequest))" class="pull-right"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+                        Created by @Html.DisplayFor(m => m.RequestedBy) on @Html.DisplayFor(m => m.DateCreated)
+                        <span class="badge">@Html.DisplayFor(m => m.AssignedPieces) of @Html.DisplayFor(m => m.QuantityRequested) Piecess Assigned </span>
+
+                    </h4>
+                </div>
+                <div role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div>
+                                <ul class="list-inline">
+                                    @if (Model.IsConversionRequest)
+                                    {
+                                        <li> <span class="label label-info">Conversion Request</span></li>
+                                    }
+                                    <li>Pull From <em>@Html.DisplayFor(m => m.BuildingId)  @Html.DisplayFor(m => m.SourceAreaShortName) &rarr; @Html.DisplayFor(m => m.DestinationAreaShortName)</em></li>
+                                    <li>Quality <em>@Html.DisplayFor(m => m.SourceQuality)  @Html.Raw(Model.TargetQuality != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetQuality)</em></li>
+                                    <li>Virtual Warehouse <em>@Html.DisplayFor(m => m.SourceVwhId)  @Html.Raw(Model.TargetVwhId != "" ? "&rarr;" : "") @Html.DisplayFor(m => m.TargetVwhId) </em> </li>
+                                    <li> Priority <em>@Html.DisplayFor(m => m.Priority) </em> </li>
+                                    <li> Price Season <em> @Html.DisplayFor(m => m.PriceSeasonCode)</em> </li>
+                                    <li> Sewing Plant <em>@Html.DisplayFor(m => m.SewingPlantCode) </em> </li>
+                                    <li> Remarks <em> @Html.DisplayFor(m => m.Remarks) </em></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingTwo">
-                <h4 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        SKU
-                        
-                    </a>
-                    <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))">
-                        <span class="glyphicon glyphicon-pencil pull-right"></span>
-                      
-                    </a>
-                    <small>@Model.SkuList.Sum(p => p.AssignedCartons) cartons assigned to @Model.SkuList.Sum(p => p.RequestedPieces) pieces requested.Last tried on @Html.DisplayFor(m => m.AssignedDate)</small>
+            <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                    <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            SKU
 
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                <div class="panel-body">
-                    @for (var i = 0; i < Model.SkuList.Count; ++i)
-                    {
-                        <div class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4 class="list-group-item-heading">
-                                        @Html.DisplayFor(m => m.SkuList[i].DisplaySku) @Html.Raw(Model.SkuList[i].DisplayTargetSku != "" ? "&rarr;" : "")  @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
-                                    </h4>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="progress" style="margin-bottom:0; width:100%; display:inline-block">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.SkuList[i].PercentAssigned%">
-                                            <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.SkuList[i].AssignedPieces) of @Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
+                        </a>
+                        <a href="@Url.Action(MVC_REQ2.REQ2.Home.SkuEditor(@Model.CtnResvId))">
+                            <span class="glyphicon glyphicon-pencil pull-right"></span>
+
+                        </a>
+                        <small>@Model.SkuList.Sum(p => p.AssignedCartons) cartons assigned to @Model.SkuList.Sum(p => p.RequestedPieces) pieces requested.Last tried on @Html.DisplayFor(m => m.AssignedDate)</small>
+
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="panel-body">
+                        @for (var i = 0; i < Model.SkuList.Count; ++i)
+                        {
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h4 class="list-group-item-heading">
+                                            @Html.DisplayFor(m => m.SkuList[i].DisplaySku) @Html.Raw(Model.SkuList[i].DisplayTargetSku != "" ? "&rarr;" : "")  @Html.DisplayFor(m => m.SkuList[i].DisplayTargetSku)
+                                        </h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="progress" style="margin-bottom:0; width:100%; display:inline-block">
+                                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.SkuList[i].PercentAssigned%">
+                                                <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.SkuList[i].AssignedPieces) of @Html.DisplayFor(m => m.SkuList[i].RequestedPieces)</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
+
         </div>
-      
-    </div>
 
 
 </div>
