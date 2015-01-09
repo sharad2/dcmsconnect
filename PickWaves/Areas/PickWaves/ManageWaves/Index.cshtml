@@ -158,10 +158,9 @@
 
                                 Pitching
                                 <strong>
-                                    @Html.DisplayFor(m => list[i].PitchAreaBuildingId):
-                                    <a href="#@Html.DisplayFor(m => list[i].PitchAreaId) ">
+                                    @Html.DisplayFor(m => list[i].PitchAreaBuildingId):                                
                                         @Html.DisplayFor(m => list[i].PitchAreaShortName)
-                                    </a> &larr;  @Html.DisplayFor(m => list[i].ReplenishAreaId)
+                                    &larr;  @Html.DisplayFor(m => list[i].ReplenishAreaId)
                                 </strong>
                             </div>
                         }
@@ -173,7 +172,7 @@
                                 <strong>
 
                                     @Html.DisplayFor(m => list[i].PullAreaBuildingId):
-                                    <a href="#@Html.DisplayFor(m => list[i].PullAreaId)">@Html.DisplayFor(m => list[i].PullAreaShortName)</a>
+                                  @Html.DisplayFor(m => list[i].PullAreaShortName)
                                 </strong>
                             </div>
                         }
