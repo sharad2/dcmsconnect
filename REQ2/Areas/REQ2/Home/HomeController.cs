@@ -561,18 +561,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             }
 
             _service.AssignCartons(ctnresvId);
-
-            var req = _service.GetRequestInfo(ctnresvId);
-
-            var model = new PullRequestViewModel(req);
-
-            var skus = _service.GetRequestSKUs(ctnresvId);
-
-            model.SkuList = skus.Select(p => new PullRequestSkuModel(p)).ToList();
-
-            return View(Views.PullRequest, model);
-
-
+            //Following PRG model
+            return RedirectToAction(MVC_REQ2.REQ2.Home.PullRequest(ctnresvId));
+            
         }
 
         /// <summary>
