@@ -78,24 +78,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </remarks>
         [AllowAnonymous]
         [Route]
-        public virtual ActionResult Index(string customerId, string userName, ProgressStage? bucketState)
+        public virtual ActionResult Index(string customerId, string userName)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
                 // Should never happen. Redirect to home page
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
-            if (bucketState == null)
-            {
-                // By default show in progress pick waves
-                bucketState = ProgressStage.InProgress;
-            }
+            //if (bucketState == null)
+            //{
+            //    // By default show in progress pick waves
+            //    bucketState = ProgressStage.InProgress;
+            //}
             //var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
-            var buckets = _service.Value.GetBucketList(customerId, bucketState.Value, userName);
+            var buckets = _service.Value.GetBucketList(customerId, userName);
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
-                BucketState = bucketState.Value,
+                //BucketState = bucketState.Value,
                 UserName = userName,
                 CustomerName = _service.Value.GetCustomerName(customerId)
             };

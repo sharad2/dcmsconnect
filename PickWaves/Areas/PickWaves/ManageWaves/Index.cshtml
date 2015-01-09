@@ -1,7 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
 @{
-    ViewBag.Title = string.Format("{0} wave of {1}:{2}", Model.BucketStateDisplayName, Model.CustomerId, Model.CustomerName);
+    ViewBag.Title = string.Format("Pick Waves - {0}:{1}", Model.CustomerId, Model.CustomerName);
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
@@ -29,32 +29,6 @@
             Create Pick Waves of  @Model.CustomerName
         </a>
     </li>
-    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)
-    {
-        <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
-                Frozen Pick Waves of @Model.CustomerName
-            </a>
-        </li>
-    }
-    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress)
-    {
-
-        <li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
-                In Progress Pick Waves of @Model.CustomerName
-            </a>
-        </li>
-    }
-    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
-    {
-
-        <li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
-                Completed Pick Waves of  @Model.CustomerName
-            </a>
-        </li>
-    }
     <li class="divider">
     </li>
 }
@@ -62,12 +36,12 @@
     @if (!string.IsNullOrWhiteSpace(Model.UserName))
     {
         <div class="alert alert-info">
-            Showing Pick Waves created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, Model.BucketState))
+            Showing Pick Waves created by @Model.UserName  @Html.ActionLink("Show all", MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null))
         </div>
     }
 
     <h2 style="margin-top:0">
-        @Html.DisplayFor(m => m.BucketCount)  @Model.BucketStateDisplayName Pick Waves of
+        @Html.DisplayFor(m => m.BucketCount) Pick Waves of
         <small>
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))"
                title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
@@ -76,21 +50,16 @@
 
 
     <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
-        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen ? "active" : "")">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+        <li role="presentation" class="active">
+            <a href="#">
                 Frozen
             </a>
         </li>
-        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress ? "active" : "")">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+        <li role="presentation">
+            <a href="#">
                 In Progress
             </a>
         </li>
-        @*<li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
-                Completed
-            </a>
-        </li>*@
     </ul>
 
     <ul class="list-group">

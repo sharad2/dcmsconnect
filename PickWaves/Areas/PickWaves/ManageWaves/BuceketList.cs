@@ -1,12 +1,12 @@
 ﻿using DcmsMobile.PickWaves.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
-    public class BucketList:BucketBase
+    /// <summary>
+    /// Represents bucket information retrieved for a specific customer
+    /// </summary>
+    public class CustomerBucket:BucketBase
     {
        
         /// <summary>

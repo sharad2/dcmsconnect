@@ -190,7 +190,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             public readonly string customerId = "customerId";
             public readonly string userName = "userName";
-            public readonly string bucketState = "bucketState";
         }
         static readonly ActionParamsClass_WaveSkus s_params_WaveSkus = new ActionParamsClass_WaveSkus();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -320,16 +319,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public T4MVC_ManageWavesController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, string userName, DcmsMobile.PickWaves.Helpers.ProgressStage? bucketState);
+        partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string customerId, string userName);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(string customerId, string userName, DcmsMobile.PickWaves.Helpers.ProgressStage? bucketState)
+        public override System.Web.Mvc.ActionResult Index(string customerId, string userName)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "customerId", customerId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "userName", userName);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketState", bucketState);
-            IndexOverride(callInfo, customerId, userName, bucketState);
+            IndexOverride(callInfo, customerId, userName);
             return callInfo;
         }
 
