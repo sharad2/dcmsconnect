@@ -75,7 +75,7 @@
                             <div class="col-md-5">
                                 @if (Model.PickslipList.Count > 0)
                                 {
-                                    <button class="pull-left btn btn-default btn-xs" type="submit"
+                                    <button class="pull-left btn btn-default btn-xs" type="submit" title="Unpicked pickslips from frozen buckets can be removed"
                                             @(Model.UserIsManager ? "" : "disabled=disabled") name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.bucketId"
                                             value="@Model.Bucket.BucketId">
                                         Remove Pickslip
@@ -120,11 +120,7 @@
                                    
                                     <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.pickslips"
                                            value="@Model.PickslipList[i].PickslipId" />
-                                }
-                                else
-                                {
-                                    <input type="checkbox" disabled title="Can't select because some pieces are pulled or picked or Wave is unfreeze.">
-                                    }
+                                }                                
                                 <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
                                    class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
                                 <small>
