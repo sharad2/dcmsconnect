@@ -667,12 +667,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             try
             {
                 _service.Value.RemovePickslipFromBucket(pickslips, bucketId);
+                AddStatusMessage(string.Format("{0} Pickslips removed from Pick Wave {1}", pickslips.Length, bucketId));
             }
             catch (DbException exception)
             {
                 this.ModelState.AddModelError("", exception.InnerException);
             }
-            AddStatusMessage(string.Format("{0} Pickslips cancelled", pickslips.Length));
             return RedirectToAction(Actions.WavePickslips(bucketId));
            
         }
