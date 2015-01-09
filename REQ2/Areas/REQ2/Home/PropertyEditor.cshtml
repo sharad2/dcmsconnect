@@ -101,7 +101,7 @@
 
 
         <div class="form-group">
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group-xs " data-toggle="buttons">
                 <label class="@Html.Raw(Model.PriorityFlag.Equals(DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High) ? "btn btn-primary active" : "btn btn-primary")">
                     <input type="radio" name="@Html.NameFor(m => m.PriorityFlag)" value="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High" id="@DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High" autocomplete="off" @Html.Raw(Model.PriorityFlag.Equals(DcmsMobile.REQ2.Areas.REQ2.Home.Priority.High) ? "checked" : "")> High Prority
                 </label>
