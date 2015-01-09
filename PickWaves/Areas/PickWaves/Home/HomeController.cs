@@ -65,18 +65,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                     },
                     InternationalFlag = p.InternationalFlag
                 }).ToList(),
-                RecentBuckets = _service.GetRecentCreatedBucket(20).Select(p => new RecentBucketModel
-                {
-                    BucketId = p.BucketId,
-                    CreatedBy = p.CreatedBy,
-                    CreationDate = p.CreationDate
-                }).ToList(),
-                ExpediteBuckets = _service.GetBucketToExpedite(20).Select(p => new RecentBucketModel
-                {
-                    BucketId = p.BucketId,
-                    CreatedBy = p.CreatedBy,
-                    CreationDate = p.CreationDate
-                }).ToList()
+                RecentBuckets = _service.GetRecentCreatedBucket(20).Select(p => new IndexBucketModel(p)).ToList(),
+                ExpediteBuckets = _service.GetBucketToExpedite(20).Select(p => new IndexBucketModel(p)).ToList()
 
             };
             return View(Views.Index, model);

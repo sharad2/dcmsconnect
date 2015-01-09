@@ -6,7 +6,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// <summary>
     /// Represents bucket information retrieved for a specific customer
     /// </summary>
-    public class CustomerBucket:BucketBase
+    internal class CustomerBucket:BucketBase
     {
        
         /// <summary>

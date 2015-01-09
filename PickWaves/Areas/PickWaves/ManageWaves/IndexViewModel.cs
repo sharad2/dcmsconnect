@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int? PitchLimit { get; set; }       
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
 

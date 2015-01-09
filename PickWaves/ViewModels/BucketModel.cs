@@ -171,7 +171,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Freeze")]
         public bool IsFrozen { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
 

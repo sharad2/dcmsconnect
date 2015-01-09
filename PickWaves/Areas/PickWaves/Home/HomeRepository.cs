@@ -257,22 +257,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public IList<BucketBase> GetRecentCreatedBucket(int maxRows)
         {
             const string QUERY = @"SELECT BK.BUCKET_ID AS BUCKET_ID,
+                                    MIN(BK.NAME) AS BUCKET_NAME,
                                    MIN(BK.DATE_CREATED) AS DATE_CREATED,
-                                   MIN(BK.CREATED_BY) AS CREATED_BY
-                                --,MAX(PS.WAREHOUSE_LOCATION_ID)
+                                   MIN(BK.CREATED_BY) AS CREATED_BY,
+                                   MIN(BK.date_modified) as date_modified                                
                               FROM BUCKET BK
                              INNER JOIN PS PS
                                 ON BK.BUCKET_ID = PS.BUCKET_ID
                              GROUP BY BK.BUCKET_ID
                              ORDER BY MIN(BK.DATE_CREATED) DESC 
-                            --,MAX(PS.WAREHOUSE_LOCATION_ID)
                                 NULLS LAST";
 
             var binder = SqlBinder.Create(row => new BucketBase
             {
                 BucketId = row.GetInteger("BUCKET_ID").Value,
                 CreatedBy = row.GetString("CREATED_BY"),
-                CreationDate = row.GetDate("DATE_CREATED").Value
+                CreationDate = row.GetDate("DATE_CREATED"),
+                ModifyDate = row.GetDate("date_modified"),
+                BucketName = row.GetString("BUCKET_NAME")
 
             });
             return _db.ExecuteReader(QUERY, binder, maxRows);
