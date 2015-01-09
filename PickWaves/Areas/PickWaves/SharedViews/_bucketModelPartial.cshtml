@@ -1,5 +1,4 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
     // To use this partial you must:
@@ -72,11 +71,11 @@
                                     Pick Wave can not be processed till it is frozen.
                                     <br />
                                     @*<small>
-                                        <em>
-                                            <strong>@Model.CountNotStartedBoxes</strong>
-                                            Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
-                                        </em>
-                                    </small>*@
+                                            <em>
+                                                <strong>@Model.CountNotStartedBoxes</strong>
+                                                Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
+                                            </em>
+                                        </small>*@
                                 </span>
                                 <br />
                                 <button class="btn btn-warning"
@@ -171,7 +170,7 @@
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
                                         <p class="form-control-static">
-                                            Priority                                           
+                                            Priority
                                             &nbsp;
                                             @if (isAuthorized)
                                             {
@@ -259,7 +258,7 @@
                 <ul class="list-group">
                     <li class="list-group-item active">
                         <span class="badge pull-right">
-                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)                           
+                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
                         </span>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
@@ -277,6 +276,9 @@
                                         <div class="col-md-5">
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
+                                            <div>
+                                                @Html.DisplayFor(m => m.Activities[j].CountBoxes) Boxes
+                                            </div>
                                         </div>
                                         <div class="col-md-7">
                                             @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining

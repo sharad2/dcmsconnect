@@ -51,6 +51,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
+            CountBoxes = entity.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted];
         }
 
         public BucketActivityType ActivityType { get; set; }
@@ -164,8 +165,10 @@ namespace DcmsMobile.PickWaves.ViewModels
         public string ReplenishAreaId { get; set; }
 
         [DataType(DataType.Text)]
-        [DisplayFormat(NullDisplayText="Not Started")]
+        [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? CountBoxes { get; set; }
     }
 }

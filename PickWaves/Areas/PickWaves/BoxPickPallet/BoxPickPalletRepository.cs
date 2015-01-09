@@ -24,6 +24,7 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
         /// </summary>
         /// <param name="bucketId"></param>
         /// <returns></returns>
+        
         public BoxPickBucket GetBucketDetail(int bucketId)
         {
             var QUERY = @"   SELECT COUNT(B.UCC128_ID) OVER()               AS TOTAL_BOXES,
