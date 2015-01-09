@@ -129,7 +129,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public bool IsConversionRequest { get; set; }
 
-        public string Priority { get; set; }
+        public int? Priority { get; set; }
     
 
        // public string PackagingPreferance { get; set; }

@@ -420,7 +420,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 SourceAreaShortName = row.GetString("SOURCE_AREA_SHORT_NAME"),
                 BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
                 SourceVwhId = row.GetString("VWH_ID"),
-                Priority = row.GetString("PRIORITY"),
+                Priority = row.GetInteger("PRIORITY"),
                 DateCreated = row.GetDate("INSERT_DATE"),
                 Remarks = row.GetString("REMARKS"),
                 RequestedBy = row.GetString("INSERTED_BY"),

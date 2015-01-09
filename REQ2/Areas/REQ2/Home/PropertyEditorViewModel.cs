@@ -8,9 +8,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 {
     public enum Priority
     {
-        High,
-        Medium,
-        Low
+        High = 0,
+        Medium = 1,
+        Low = 2
     }
     public class PropertyEditorViewModel
     {
@@ -29,7 +29,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.SourceAreaShortName = entity.SourceAreaShortName;
             this.DestinationAreaId = entity.DestinationArea;
             this.DestinationAreaShortName = entity.DestinationAreaShortName;
-            this.Priorities = Convert.ToInt32(entity.Priority);
+            //this.Priorities = Convert.ToInt32(entity.Priority);
             this.Remarks = entity.Remarks;
             this.RequestedBy = entity.RequestedBy;
             this.OverPullCarton = entity.AllowOverPulling == "O";
@@ -67,7 +67,8 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public IEnumerable<SelectListItem> SewingPlant { get; set; }
 
-        public string PriorityId { get; set; }
+        //[Obsolete]
+        //public string PriorityId { get; set; }
 
         [Display(Name = "Overpulling")]
         public bool OverPullCarton { get; set; }
@@ -86,10 +87,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public bool IsHung { get; set; }
 
         // Target (Task to perform)
+
         int _priorities = 10; //set Default Value here
         [Required]
         [Range(minimum: 1, maximum: 99, ErrorMessage = "Priority must be in between 1 to 99")]
         [Display(Name = "Priority")]
+        [Obsolete]
         public int Priorities
         {
             get

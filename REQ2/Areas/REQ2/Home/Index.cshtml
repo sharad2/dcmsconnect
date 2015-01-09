@@ -8,7 +8,7 @@
 }
 @section applinks {
     <li>
-        @Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.PropertyEditor())
+        @Html.ActionLink("Create New Request", MVC_REQ2.REQ2.Home.PropertyEditor(null, false))
     </li>
 }
 
@@ -21,9 +21,8 @@
                 <span class="glyphicon glyphicon-plus-sign"></span>
             </button>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.CtnresvId,true))">Conversion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(Model.CtnresvId, false))">Non-conversion request</a></li>
-               
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,true))">Conversion</a></li>
+                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null, false))">Non-conversion request</a></li>
             </ul>
         </div>
     </div>
