@@ -86,11 +86,11 @@
                 In Progress
             </a>
         </li>
-        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
+        @*<li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
             <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
                 Completed
             </a>
-        </li>
+        </li>*@
     </ul>
 
     <ul class="list-group">
@@ -166,6 +166,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <h4 class="list-group-item-heading">
+                                    <small>@(i+1)</small>
                                     <span class="badge">
                                         @Html.DisplayFor(m => m.Buckets[i].Priority)
                                     </span>
@@ -175,12 +176,6 @@
                                     </a>
                                     <small>
                                         @Html.DisplayFor(m => m.Buckets[i].BucketName)
-
-                                        @if (Model.Buckets[i].IsFrozen)
-                                        {
-                                            <em class="badge">Frozen</em>
-                                        }
-
                                     </small>
                                 </h4>
                                 <p class="list-group-item-text">
@@ -223,8 +218,7 @@
                                     <div class="bg-info" title="@Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId): @Html.DisplayFor(m => m.Buckets[i].PitchAreaDescription) ">
 
                                         Pitching
-                                        <strong>
-                                            &nbsp;&nbsp;
+                                        <strong>                                           
                                             @Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId):
                                             <a href="#@Html.DisplayFor(m => m.Buckets[i].PitchAreaId) ">
                                                 @Html.DisplayFor(m => m.Buckets[i].PitchAreaShortName)
@@ -238,7 +232,7 @@
 
                                         Pulling&nbsp;&nbsp;
                                         <strong>
-                                            &nbsp;&nbsp;
+                                         
                                             @Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId):
                                             <a href="#@Html.DisplayFor(m => m.Buckets[i].PullAreaId)">@Html.DisplayFor(m => m.Buckets[i].PullAreaShortName)</a>
                                         </strong>
