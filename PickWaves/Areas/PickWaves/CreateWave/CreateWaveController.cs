@@ -391,11 +391,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             //    throw new ArgumentNullException("colDimVal");
             //}
             var model = new PickslipListViewModel();
-            model.CustomerId = customerId;
-
+            model.CustomerId = customerId;           
             model.GroupDimIndex = groupDimIndex;
             model.SubgroupDimIndex = subgroupDimIndex;
-
             model.VwhId = vwhId;
             model.GroupDimVal = groupDimVal;
             model.SubgroupDimVal = subgroupDimVal;
@@ -423,7 +421,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             model.GroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.GroupDimIndex].Name;
             model.SubgroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.SubgroupDimIndex].Name;
             model.GroupDimVal = model.GroupDimVal;
-            // model.CustomerName = _service.Value.GetCustomerName(customerId);
+            model.CustomerName = _service.Value.GetCustomerName(customerId);
 
             model.BucketId = bucketId;
 

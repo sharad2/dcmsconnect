@@ -14,22 +14,26 @@
 
 <div class="container">
     <div class="page-header">
-        <h1>Recent Pull Requests @*<small><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor())"> <span class="glyphicon glyphicon-plus-sign"></span></a></small>*@</h1>
-        <div class="dropdown">
-            <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+        <h1>
+            Recent Pull Requests
+        </h1>
 
-                <span class="glyphicon glyphicon-plus-sign"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,true))">Conversion</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null, false))">Non-conversion request</a></li>
-            </ul>
-        </div>
     </div>
- 
-      
 
-    <ul class="list-group">
+
+    
+    <div class="btn-group">
+        <button type="button" class="btn btn-s">Create New Request</button>
+        <button type="button" class="btn btn-s dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,true))">Conversion request</a></li>
+            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,false))">Non-Conversion request</a></li>
+            
+        </ul>
+    </div><ul class="list-group">
         <li class="list-group-item list-group-item-info">
             <div class="row">
                 <div class="col-md-4 col-sm-6">
@@ -102,7 +106,7 @@
                                 <div> No Skus added yet</div>
                             }
                             else
-                           {
+                            {
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: @Model.RecentRequests[i].PercentAssigned%">
                                     <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.RecentRequests[i].AssignedPieces) of @Html.DisplayFor(m => m.RecentRequests[i].QuantityRequested)</span>
                                 </div>

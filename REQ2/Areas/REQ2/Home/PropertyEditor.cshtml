@@ -137,6 +137,8 @@
 
                 <p class="help-block hidden-xs">Source Virtual Warehouse</p>
             </div>
+            @if(Model.RequestForConversion)
+            {
             <div class="col-sm-5 conversion-only">
                 <div class="input-group">
                     <span class="input-group-addon">Convert To</span>
@@ -151,6 +153,7 @@
                 </div>
                 <p class="help-block  hidden-xs">The Virtual Warehouse to which all pulled SKUs should be converted to</p>
             </div>
+            }
         </div>
         <div class="form-group">
 
