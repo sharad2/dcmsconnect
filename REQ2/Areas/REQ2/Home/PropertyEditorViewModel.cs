@@ -88,22 +88,22 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         // Target (Task to perform)
 
-        //int _priorities = 10; //set Default Value here
-        //[Required]
-        //[Range(minimum: 1, maximum: 99, ErrorMessage = "Priority must be in between 1 to 99")]
-        //[Display(Name = "Priority")]
-        //[Obsolete]
-        //public int Priorities
-        //{
-        //    get
-        //    {
-        //        return _priorities;
-        //    }
-        //    set
-        //    {
-        //        _priorities = value;
-        //    }
-        //}
+        int _priorities = 10; //set Default Value here
+        [Required]
+        [Range(minimum: 1, maximum: 99, ErrorMessage = "Priority must be in between 1 to 99")]
+        [Display(Name = "Priority")]
+        [Obsolete]
+        public int Priorities
+        {
+            get
+            {
+                return _priorities;
+            }
+            set
+            {
+                _priorities = value;
+            }
+        }
 
         [Display(Name = "Remarks")]
         public string Remarks { get; set; }

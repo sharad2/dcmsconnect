@@ -129,7 +129,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
 
         public bool IsConversionRequest { get; set; }
 
-        [Obsolete]
         public int? Priority { get; set; }
     
 
