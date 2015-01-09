@@ -619,9 +619,9 @@ BKT.FREEZE
                                     END;
                                 ";
 
-            var binder = SqlBinder.Create();
-            binder.Parameter("APICKSLIP_ID", pickslips.ToString())
-               .Parameter("BUCKET_ID", bucketId);
+            var binder = SqlBinder.Create(pickslips.Count);
+            binder.Parameter("APICKSLIP_ID", pickslips)
+               .Parameter("BUCKET_ID", Enumerable.Repeat(bucketId, pickslips.Count));
             _db.ExecuteDml(QUERY, binder);
 
         }
