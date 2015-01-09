@@ -104,10 +104,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //                 orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
             //                 select bucket).ToList();
 
-            model.Buckets = (from bucket in buckets
+            model.FrozenBuckets = (from bucket in buckets
+                                   where bucket.IsFrozen
                                orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue,bucket.OrderedPieces descending
                                select new IndexBucketModel(bucket)).ToList();
-            if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
+
+            model.InProgressBuckets = (from bucket in buckets
+                                   where !bucket.IsFrozen
+                                   orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue, bucket.OrderedPieces descending
+                                   select new IndexBucketModel(bucket)).ToList();
+
+            if (string.IsNullOrWhiteSpace(model.CustomerName) && buckets.Count == 0)
             {
                 // This must be a garbage customer. Redirect to home page
                 ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));

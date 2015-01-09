@@ -32,6 +32,162 @@
     <li class="divider">
     </li>
 }
+
+@helper BucketListGroup(IList<DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexBucketModel> list) {
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-success">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4 class="list-group-item-heading">
+                        <small>
+                            <mark>
+                                Priority
+                            </mark>
+                        </small> 
+                        Bucket
+                        <small>Name</small>
+
+                    </h4>
+                    <p class="list-group-item-text">
+                        <em class="h6">Comment</em>
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <strong>
+                        Pieces Ordered
+                    </strong>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="list-group-item-heading">
+                        <span class="label label-success">
+                            Pickslips
+                        </span>
+                        &nbsp;
+                        <span class="label label-info">
+                            POs
+                        </span>
+                        &nbsp;
+                        <span class="label label-default">
+                            Pitch Limit
+                        </span>
+                    </h4>
+
+                    <p class="list-group-item-text">
+                        Created on
+                        <small>
+                            <em>
+                                by User
+                            </em>
+                        </small>
+
+                    </p>
+                </div>
+                <div class="col-md-3">
+                    <div class="bg-info" title="Building: Area <-- ReplenishArea">
+                        Pitching
+                    </div>
+                    <div class="bg-success" title="Building: Area">
+                        Pulling
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge pull-right">
+                        DC Cancel
+                    </span>
+                </div>
+            </div>
+        </li>
+        @for (var i = 0; i < list.Count; ++i)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4 class="list-group-item-heading">
+                            <small>
+                                @(i + 1)
+                            <mark>
+                                @Html.DisplayFor(m => list[i].Priority)
+                            </mark>
+                        </small>
+                            <a title="Pick Wave details"
+                               href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(list[i].BucketId))">
+                                @Html.DisplayFor(m => list[i].BucketId)
+                            </a>
+                            <small>
+                                @Html.DisplayFor(m => list[i].BucketName)
+                            </small>
+                        </h4>
+                        <p class="list-group-item-text">
+                            <em class="h6">@Html.DisplayFor(m => list[i].BucketComment)</em>
+                        </p>
+                    </div>
+                    <div class="col-md-1">
+                        <strong>
+                            @Html.DisplayFor(m => list[i].OrderedPieces)
+                        </strong>
+                    </div>
+                    <div class="col-md-3">
+                        <h4 class="list-group-item-heading">
+                            <span class="label label-success">
+                                @Html.DisplayFor(m => list[i].PickslipCount)
+                            </span>
+                            &nbsp;
+                            <span class="label label-info">
+                                @Html.DisplayFor(m => list[i].PoCount)
+                            </span>
+                            &nbsp;
+                            <span class="label label-default">
+                                <em>@Html.DisplayFor(m => list[i].PitchLimit)</em>
+                            </span>
+                        </h4>
+
+                        <p class="list-group-item-text">
+                            @Html.DisplayFor(m => list[i].CreationDate)
+                            <small>
+                                <em>
+                                    by @Html.DisplayFor(m => list[i].CreatedBy)
+                                </em>
+                            </small>
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+
+                        @if (list[i].PitchAreaBuildingId.Count() > 0)
+                        {
+                            <div class="bg-info" title="@Html.DisplayFor(m => list[i].PitchAreaBuildingId): @Html.DisplayFor(m => list[i].PitchAreaDescription) ">
+
+                                Pitching
+                                <strong>
+                                    @Html.DisplayFor(m => list[i].PitchAreaBuildingId):
+                                    <a href="#@Html.DisplayFor(m => list[i].PitchAreaId) ">
+                                        @Html.DisplayFor(m => list[i].PitchAreaShortName)
+                                    </a> &larr;  @Html.DisplayFor(m => list[i].ReplenishAreaId)
+                                </strong>
+                            </div>
+                        }
+                        @if (list[i].PullAreaBuildingId.Count() > 0)
+                        {
+                            <div class="bg-success" title="@Html.DisplayFor(m => list[i].PullAreaBuildingId): @Html.DisplayFor(m => list[i].PullAreaDescription)">
+
+                                Pulling&nbsp;&nbsp;
+                                <strong>
+
+                                    @Html.DisplayFor(m => list[i].PullAreaBuildingId):
+                                    <a href="#@Html.DisplayFor(m => list[i].PullAreaId)">@Html.DisplayFor(m => list[i].PullAreaShortName)</a>
+                                </strong>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-2">
+                        <span class="badge pull-right">
+                            @Html.DisplayFor(m => list[i].DcCancelDateRange)
+                        </span>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+}
 <div class="container">
     @if (!string.IsNullOrWhiteSpace(Model.UserName))
     {
@@ -49,184 +205,29 @@
     </h2>
 
 
-    <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
-        <li role="presentation" class="active">
-            <a href="#">
-                Frozen
-            </a>
-        </li>
-        <li role="presentation">
-            <a href="#">
-                In Progress
-            </a>
-        </li>
-    </ul>
-
-    <ul class="list-group">
-        @if (Model.Buckets.Count > 0)
-        {
-            if (Model.Buckets.Count > 2)
-            {
-                <li class="list-group-item list-group-item-success">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h4 class="list-group-item-heading">
-                                <span class="badge">
-                                    Priority
-                                </span>
-                                Bucket
-                                <small>Name</small>
-
-                            </h4>
-                            <p class="list-group-item-text">
-                                <em class="h6">Comment</em>
-                            </p>
-                        </div>
-                        <div class="col-md-1">
-                            <strong>
-                                Pieces Ordered
-                            </strong>
-                        </div>
-                        <div class="col-md-3">
-                            <h4 class="list-group-item-heading">
-                                <span class="label label-success">
-                                    Pickslips
-                                </span>
-                                &nbsp;
-                                <span class="label label-info">
-                                    POs
-                                </span>
-                                &nbsp;
-                                <span class="label label-default">
-                                    Pitch Limit
-                                </span>
-                            </h4>
-
-                            <p class="list-group-item-text">
-                                Created on
-                                <small>
-                                    <em>
-                                        by User
-                                    </em>
-                                </small>
-
-                            </p>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="bg-info" title="Building: Area <-- ReplenishArea">
-                                Pitching
-                            </div>
-                            <div class="bg-success" title="Building: Area">
-                                Pulling
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <span class="badge pull-right">
-                                DC Cancel
-                            </span>
-                        </div>
-                    </div>
-                </li>
-                for (var i = 0; i < Model.Buckets.Count; ++i)
-                {
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
+            <li role="presentation" class="active">
+                <a href="#frozen" aria-controls="home" role="tab" data-toggle="tab">Frozen <span class="badge">@Model.FrozenBuckets.Count</span></a>
+            </li>
+            <li role="presentation">
+                <a href="#inProgress" aria-controls="profile" role="tab" data-toggle="tab">In Progress <span class="badge">@Model.InProgressBuckets.Count</span></a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="frozen">
+                @BucketListGroup(Model.FrozenBuckets)
+            </div>
+            <div role="tabpanel" class="tab-pane" id="inProgress">
+                @BucketListGroup(Model.InProgressBuckets)
+            </div>
+         
+        </div>
+    </div>
 
 
-                    <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <h4 class="list-group-item-heading">
-                                    <small>@(i+1)</small>
-                                    <span class="badge">
-                                        @Html.DisplayFor(m => m.Buckets[i].Priority)
-                                    </span>
-                                    <a title="Pick Wave details"
-                                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
-                                        @Html.DisplayFor(m => m.Buckets[i].BucketId)
-                                    </a>
-                                    <small>
-                                        @Html.DisplayFor(m => m.Buckets[i].BucketName)
-                                    </small>
-                                </h4>
-                                <p class="list-group-item-text">
-                                    <em class="h6">@Html.DisplayFor(m => m.Buckets[i].BucketComment)</em>
-                                </p>
-                            </div>
-                            <div class="col-md-1">
-                                <strong>
-                                    @Html.DisplayFor(m => m.Buckets[i].OrderedPieces)
-                                </strong>
-                            </div>
-                            <div class="col-md-3">
-                                <h4 class="list-group-item-heading">
-                                    <span class="label label-success">
-                                        @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
-                                    </span>
-                                    &nbsp;
-                                    <span class="label label-info">
-                                        @Html.DisplayFor(m => m.Buckets[i].PoCount)
-                                    </span>
-                                    &nbsp;
-                                    <span class="label label-default">
-                                        <em>@Html.DisplayFor(m => m.Buckets[i].PitchLimit)</em>
-                                    </span>
-                                </h4>
-
-                                <p class="list-group-item-text">
-                                    @Html.DisplayFor(m => m.Buckets[i].CreationDate)
-                                    <small>
-                                        <em>
-                                            by @Html.DisplayFor(m => m.Buckets[i].CreatedBy)
-                                        </em>
-                                    </small>
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-
-                                @if (Model.Buckets[i].PitchAreaBuildingId.Count() > 0)
-                                {
-                                    <div class="bg-info" title="@Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId): @Html.DisplayFor(m => m.Buckets[i].PitchAreaDescription) ">
-
-                                        Pitching
-                                        <strong>                                           
-                                            @Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId):
-                                            <a href="#@Html.DisplayFor(m => m.Buckets[i].PitchAreaId) ">
-                                                @Html.DisplayFor(m => m.Buckets[i].PitchAreaShortName)
-                                            </a> &larr;  @Html.DisplayFor(m => m.Buckets[i].ReplenishAreaId)
-                                        </strong>
-                                    </div>
-                                }
-                                @if (Model.Buckets[i].PullAreaBuildingId.Count() > 0)
-                                {
-                                    <div class="bg-success" title="@Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId): @Html.DisplayFor(m => m.Buckets[i].PullAreaDescription)">
-
-                                        Pulling&nbsp;&nbsp;
-                                        <strong>
-                                         
-                                            @Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId):
-                                            <a href="#@Html.DisplayFor(m => m.Buckets[i].PullAreaId)">@Html.DisplayFor(m => m.Buckets[i].PullAreaShortName)</a>
-                                        </strong>
-                                    </div>
-                                }
-                            </div>
-                            <div class="col-md-2">
-                                <span class="badge pull-right">
-                                    @Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-
-
-
-                }
-
-            }
-        }
-        else
-        {
-            <li class="list-group-item list-group-item-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</li>
-        }
-    </ul>
 
 
 
@@ -237,8 +238,6 @@
 
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
-
-    @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
 }
 
 
