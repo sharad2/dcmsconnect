@@ -4,118 +4,50 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
 {
-    /// <summary>
-    /// The model passed to the Index view
-    /// </summary>
+    public class CustomerListModel
+    {
+
+        public string CustomerId { get; set; }
+
+        public string CustomerName { get; set; }
+
+        /// <summary>
+        /// Is this an active customer
+        /// </summary>
+        public bool IsCustomerActive { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int PickslipCount { get; set; }
+
+        [DataType(DataType.Text)]
+        public DateRange ImportDateRange { get; set; }
+
+        public bool InternationalFlag { get; set; }
+
+    }
+
+    public class RecentBucketModel
+    {
+        public int BucketId { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:g}")]
+        public DateTime CreationDate { get; set; }
+
+        public string CreatedBy { get; set; }
+
+    }
+    
+
     public class IndexViewModel : ViewModelBase
     {
-        private readonly SortedList<ProgressStage, IList<CustomerBucketStateModel>> _bucketsByStatus;
-        public IndexViewModel()
-        {
-            _bucketsByStatus = new SortedList<ProgressStage, IList<CustomerBucketStateModel>>(4);
-        }
+        public IList<CustomerListModel> ImportedOrders { get; set; }
 
-        /// <summary>
-        /// List of imported orders for which buckets have not been created
-        /// </summary>
-        public IList<ImportedOrderSummaryModel> ImportedOrders { get; set; }
+        public IList<RecentBucketModel> RecentBuckets { get; set; }
 
-        public SortedList<ProgressStage, IList<CustomerBucketStateModel>> BucketsByStatus
-        {
-            get
-            {
-                return _bucketsByStatus;
-            }
-        }
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalImportedPickslipCount
-        {
-            get
-            {
-                return ImportedOrders.Sum(p => p.PickslipCount);
-            }
-        }
-
-        [DisplayFormat(DataFormatString = "${0:N0}")]
-        public double TotalImportedDollarsOrdered
-        {
-            get
-            {
-                return ImportedOrders.Sum(p => p.DollarsOrdered);
-            }
-        }
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalImportedPiecesOrdered
-        {
-            get
-            {
-                return ImportedOrders.Sum(p => p.PiecesOrdered);
-            }
-        }
-
-        private Lazy<IDictionary<ProgressStage, string>> _lazyStateDisplayNames =
-            new Lazy<IDictionary<ProgressStage, string>>(() => PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>().ToDictionary(p => p.Key, p => p.Value.Name));
-
-        public IDictionary<ProgressStage, string> StateDisplayNames
-        {
-            get
-            {
-                return _lazyStateDisplayNames.Value;
-            }
-        }
-
-        [DataType(DataType.Text)]
-        public DateRange ImportDateRange
-        {
-            get
-            {
-                return new DateRange
-                {
-                    From = ImportedOrders.Min(p => p.ImportDateRange.From),
-                    To = ImportedOrders.Max(p => p.ImportDateRange.To)
-                };
-            }
-        }
-
-        [DataType(DataType.Text)]
-        public DateRange DcCancelDateRange
-        {
-            get
-            {
-                return new DateRange
-                {
-                    From = ImportedOrders.Min(p => p.DcCancelDateRange.From),
-                    To = ImportedOrders.Max(p => p.DcCancelDateRange.To)
-                };
-            }
-        }
-
-        public string SearchUserName { get; set; }
-
-        public string SearchCustomerId { get; set; }
-
-        /// <summary>
-        /// The layout page displays a Show All link when this is true. Individual actions are expected to set this..
-        /// </summary>
-        public bool IsUserNameFilterApplied { get; set; }
-
-        /// <summary>
-        /// The layout page displays a Show All link when this is true. Individual actions are expected to set this..
-        /// </summary>
-        public bool IsCustomerFilterApplied { get; set; }
+        public IList<RecentBucketModel> ExpediteBuckets { get; set; }
     }
 }
-
-/*
-    $Id$ 
-    $Revision$
-    $URL$
-    $Header$
-    $Author$
-    $Date$
-*/

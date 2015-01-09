@@ -54,6 +54,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         #endregion
 
         /// <summary>
+        /// Used by views
+        /// </summary>
+        public static string BucketSummaryReportUrl
+        {
+            get
+            {
+                return System.Configuration.ConfigurationManager.AppSettings["DcmsLiveBaseUrl"] + "Reports/Category_140/R140_02.aspx";
+            }
+        }
+
+        /// <summary>
         /// Showing the bucket list of passed customer and status. userName is optional. If passed, then waves created by the passed user are displayed.
         /// </summary>
         /// <param name="model">
@@ -79,66 +90,67 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 // By default show in progress pick waves
                 bucketState = ProgressStage.InProgress;
             }
-            var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
-
+            //var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
+            var buckets = _service.Value.GetBucketList(customerId, userName);
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
                 BucketState = bucketState.Value,
-                UserName = userName
+                UserName = userName,
+                CustomerName = _service.Value.GetCustomerName(customerId)
             };
             // Null DC Cancel dates display last
-            model.Buckets = (from bucket in buckets.Select(p => new BucketModel(p))
-                             orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
-                             select bucket).ToList();
+            //model.Buckets_O = (from bucket in buckets.Select(p => new BucketModel(p, model.CustomerName, BucketModelFlags.Default))
+            //                 orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
+            //                 select bucket).ToList();
 
-
-            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
-
+            model.Buckets = (from bucket in buckets
+                               orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue,bucket.OrderedPieces descending
+                               select new IndexBucketModel(bucket)).ToList();
             if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
             {
                 // This must be a garbage customer. Redirect to home page
                 ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
             }
 
             return View(Views.Index, model);
         }
 
         #region Wave Viewer
-        /// <summary>
-        /// Displays details of passed bucket id
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        [AllowAnonymous]
-        [Route("wave")]
-        public virtual ActionResult Wave(int bucketId)
-        {
-            var bucket = _service.Value.GetBucket(bucketId);
-            if (bucket == null)
-            {
-                // Unreasonable bucket id
-                //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
-            }
-            var model = new WaveViewModel
-            {
-                //HighlightedActions = nextAction
-            };
-            model.Bucket = new BucketModel(bucket)
-            {
-                CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
-            };
+        ///// <summary>
+        ///// Displays details of passed bucket id
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //[AllowAnonymous]
+        //[Route("wavepickslips")]
+        //public virtual ActionResult WavePickslips(int bucketId)
+        //{
+        //    var bucket = _service.Value.GetBucket(bucketId);
+        //    if (bucket == null)
+        //    {
+        //        // Unreasonable bucket id
+        //        //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
+        //        return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
+        //    }
+        //    var model = new WaveViewModel
+        //    {
+        //        //HighlightedActions = nextAction
+        //    };
+        //    model.Bucket = new BucketModel(bucket)
+        //    {
+        //        CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+        //    };
 
-            // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
-            //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
-            //{
-            //    model.Bucket.RequiredBoxExpediting = true;
-            //}
+        //    // If Bucket is pulling bucket and value of PullingBucket is N. then Bucket Required Box Expediting
+        //    //if (!string.IsNullOrWhiteSpace(bucket.PullingBucket) && bucket.PullingBucket == "N")
+        //    //{
+        //    //    model.Bucket.RequiredBoxExpediting = true;
+        //    //}
 
-            return View(this.Views.Wave, model);
-        }
+        //    return View(this.Views.WavePickslips, model);
+        //}
 
         /// <summary>
         /// Ajax call.
@@ -155,6 +167,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavesku")]
         public virtual ActionResult WaveSkus(int bucketId)
         {
+            var bucket = _service.Value.GetBucket(bucketId);
             var skuList = _service.Value.GetBucketSkuList(bucketId);
             var query = (from item in skuList
                          select new
@@ -173,6 +186,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var model = new WaveSkuListModel
             {
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                 BucketSkuList = (from sku in query
                                  select new BucketSkuModel
                                  {
@@ -209,10 +223,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ThenBy(p => p.SkuSize)
                                  .ToArray(),
                 AllAreas = allAreas,
-                BucketId = bucketId,
+               // BucketId = bucketId,
             };
 
-            return PartialView(this.Views._waveSkusPartial, model);
+            //return PartialView(this.Views._waveSkusPartial, model);
+            return View(Views.WaveSku,model);
         }
 
         /// <summary>
@@ -231,13 +246,18 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("waveboxes")]
         public virtual ActionResult WaveBoxes(int bucketId)
         {
+            var bucket = _service.Value.GetBucket(bucketId);
+            var Boxes = _service.Value.GetBucketBoxes(bucketId);
             var model = new WaveBoxListModel
              {
-                 BucketId = bucketId,
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
+                 //BucketId = bucketId,
                  //StateFilter = stateFilter,
                  //ActivityFilter = activityFilter,
-                 BoxesList = (from box in _service.Value.GetBucketBoxes(bucketId)
+                BoxesList = (from box in Boxes
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
+                              let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
+                              let routeCarton = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1]
                               select new BoxModel
                               {
                                   Ucc128Id = box.Ucc128Id,
@@ -255,10 +275,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                   UrlInquiryBox = routeBox == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1, new
                                   {
                                       id = box.Ucc128Id
+                                  }),
+                                  UrlInquiryPickslip = routePickslip == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1, new
+                                    {
+                                        id = box.PickslipId
+                                    }),
+                                  UrlInquiryCarton = routeCarton == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1, new
+                                  {
+                                      id = box.CartonId
                                   })
                               }).ToArray()
              };
-            return PartialView(this.Views._waveBoxesPartial, model);
+            //return PartialView(this.Views._waveBoxesPartial, model);
+            return View(Views.WaveBox,model);
         }
 
         /// <summary>
@@ -285,7 +314,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(this.Actions.Wave(bucketId));
+            return RedirectToAction(this.Actions.WavePickslips(bucketId));
         }
 
         /// <summary>
@@ -298,12 +327,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [Route("wavepickslip")]
         public virtual ActionResult WavePickslips(int bucketId)
         {
-            //var bucket = _service.Value.GetBucket(bucketId);
+            var bucket = _service.Value.GetBucket(bucketId);
+            if (bucket == null)
+            {
+                // Unreasonable bucket id
+                //ModelState.AddModelError("", string.Format("Pick Wave {0} is deleted", model.Bucket.BucketId));
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
+            }
+            //model.Bucket = new BucketModel(bucket)
+            //{
+            //    CustomerName = _service.Value.GetCustomerName(bucket.MaxCustomerId)
+            //};
             var pickslips = _service.Value.GetBucketPickslip(bucketId);
 
             var model = new WavePickslipsViewModel
                 {
-                    //Bucket = new BucketModel(bucket),
+                    Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
@@ -324,14 +363,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
                 };
 
-            if (pickslips.Count > 0)
-            {
-                var ps = pickslips.First();
-                model.CustomerId = ps.CustomerId;
-                model.BucketId = ps.BucketId;
-                model.IsFrozenBucket = ps.IsFrozenBucket;
-            }
-            return PartialView(this.Views._wavePickslipsPartial, model);
+            //if (pickslips.Count > 0)
+            //{
+            //    var ps = pickslips.First();
+            //    model.CustomerId = ps.CustomerId;
+            //    model.BucketId = ps.BucketId;
+            //    model.IsFrozenBucket = ps.IsFrozenBucket;
+            //}
+            return View(this.Views.WavePickslips, model);
         }
 
 
@@ -354,7 +393,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
                 // In case of error, show the wave viewer page
-                return RedirectToAction(this.Actions.Wave(bucketId));
+                return RedirectToAction(this.Actions.WavePickslips(bucketId));
             }
 
         }
@@ -377,7 +416,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 ModelState.AddModelError("", ex.Message);
             }
-            return RedirectToAction(this.Actions.Wave(bucketId));
+            return RedirectToAction(this.Actions.WavePickslips(bucketId));
         }
         #endregion
 
@@ -391,13 +430,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 // Unreasonable bucket id
                 ModelState.AddModelError("", string.Format("Unreasonable Pick Wave {0}", bucketId));
-                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
+                return RedirectToAction(MVC_PickWaves.PickWaves.Home.Customers());
             }
             if (!bucket.IsFrozen)
             {
                 // bucket is not freeze,freeze it before attempting to edit it.
                 ModelState.AddModelError("", "Please freeze the pick wave before attempting to edit it");
-                return RedirectToAction(Actions.Wave(bucketId));
+                return RedirectToAction(Actions.WavePickslips(bucketId));
             }
 
             //var bucketAreas = _service.Value.GetBucketAreas(bucketId);
@@ -481,16 +520,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 ModelState.AddModelError("", "Pick wave could not be updated. Please review the error and try again");
                 ModelState.AddModelError("", ex.Message);
                 // return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId));
+                return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 //return RedirectToAction(this.Actions.EditableWave(model.BucketId, SuggestedNextActionType.NotSet));
-                return RedirectToAction(this.Actions.Wave(model.BucketId));
+                return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
             }
 
-            return RedirectToAction(this.Actions.Wave(model.BucketId));
+            return RedirectToAction(this.Actions.WavePickslips(model.BucketId));
         }
 
         /// <summary>
@@ -508,31 +547,31 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }).ToDictionary(p => p.Name);
 
             var allAreas = from area in bucketAreas
-                        where area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
-                            area.CountSku.HasValue && area.CountSku > 0
-                        orderby area.BuildingId, area.CountSku descending
-                        let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
-                        select new 
-                        {
-                            AreaId = area.AreaId,
-                            AreaType = area.AreaType,
-                            ShortName = area.ShortName ?? area.AreaId,
-                            Description = area.Description,
-                            PctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value,
-                            Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
-                                area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
-                            Value = area.AreaId,
-                            Group = groups[area.BuildingId]
-                        };
+                           where area.CountOrderedSku.HasValue && area.CountOrderedSku.Value > 0 &&
+                               area.CountSku.HasValue && area.CountSku > 0
+                           orderby area.BuildingId, area.CountSku descending
+                           let pctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value
+                           select new
+                           {
+                               AreaId = area.AreaId,
+                               AreaType = area.AreaType,
+                               ShortName = area.ShortName ?? area.AreaId,
+                               Description = area.Description,
+                               PctSkuAvailable = area.CountSku.Value * 100.0 / (double)area.CountOrderedSku.Value,
+                               Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName ?? area.AreaId, area.Description,
+                                   area.CountOrderedSku == 0 ? 0 : area.CountSku * 100 / area.CountOrderedSku),
+                               Value = area.AreaId,
+                               Group = groups[area.BuildingId]
+                           };
             model.PullAreaList = (from area in allAreas
-                                 where area.AreaType == BucketActivityType.Pulling
-                                 select new SelectListItem
-                                  {
-                                      Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName, area.Description, area.PctSkuAvailable),
-                                      Value = area.AreaId,
-                                      Selected = area.AreaId == model.PullAreaId,
-                                      Group = area.Group
-                                  }).ToList();
+                                  where area.AreaType == BucketActivityType.Pulling
+                                  select new SelectListItem
+                                   {
+                                       Text = string.Format("{0}: {1} ({2:N0}% SKUs available)", area.ShortName, area.Description, area.PctSkuAvailable),
+                                       Value = area.AreaId,
+                                       Selected = area.AreaId == model.PullAreaId,
+                                       Group = area.Group
+                                   }).ToList();
 
             model.PitchAreaList = (from area in allAreas
                                    where area.AreaType == BucketActivityType.Pitching
@@ -627,6 +666,28 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         protected override string ManagerRoleName
         {
             get { return ROLE_WAVE_MANAGER; }
+        }
+
+        [HttpPost]
+        [Route("cancelboxes")]
+        public virtual ActionResult CancelBoxes(int bucketId, string[] boxes)
+        {
+
+            if (boxes == null || boxes.Length < 1)
+            {
+                ModelState.AddModelError("","You have not selected any Boxes to cancel, please select atleast 1 box to cancel.");
+                return RedirectToAction(Actions.WaveBoxes(bucketId));
+            }
+            try
+            {
+                _service.Value.CancelBoxes(boxes);
+            }
+            catch (DbException exception)
+            {
+                this.ModelState.AddModelError("", exception.InnerException);
+            }           
+            AddStatusMessage(string.Format("{0} boxes cancelled", boxes.Length));
+            return RedirectToAction(Actions.WaveBoxes(bucketId));
         }
 
 

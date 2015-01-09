@@ -43,7 +43,12 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
 
         public int? GetBucketToExpedite()
         {
-            return _repos.GetBucketToExpedite();
+            var buckets = _repos.GetExpeditableBuckets(1);
+            if (buckets.Count == 0)
+            {
+                return null;
+            }
+            return buckets.First().BucketId;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <param name="customerId"></param>
         /// <param name="state"></param>
         /// <returns></returns>
-        internal IList<Bucket> GetBuckets(string customerId, ProgressStage state, string userName)
+        internal IList<BucketWithActivities> GetBuckets(string customerId, ProgressStage state, string userName)
         {
             return _repos.GetBuckets(null, customerId, state, userName);
         }
@@ -144,6 +144,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public BucketEditable GetEditableBucket(int bucketId)
         {
             return _repos.GetEditableBucket(bucketId);
+        }
+
+        internal void CancelBoxes(string[] boxes)
+        {
+            _repos.CancelBoxes(boxes);
+        }
+
+        public IList<BucketList> GetBucketList(string customerId,  string userName)
+        {
+            return _repos.GetBucketList(customerId, userName);
         }
     }
 }

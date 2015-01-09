@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +9,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
     /// Contains properties of bucket which can be edited
     /// </summary>
-    internal class BucketEditable
+    internal class BucketEditable:BucketBase
     {
-
-        public int BucketId { get; set; }
-
-        public string BucketName { get; set; }
-
-        public string BucketComment { get; set; }
 
         public string PullAreaId { get; set; }
 
@@ -26,19 +21,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string PitchAreaShortName { get; set; }
 
         public string CustomerId { get; set; }
-
-        public bool RequireBoxExpediting { get; set; }
-
-        public bool QuickPitch { get; set; }
-
-        public int PitchLimit { get; set; }
-
-
-
-        /// <summary>
-        /// This flag is not used for updating. It is used for returning the current value after the update
-        /// </summary>
-        public bool IsFrozen { get; set; }
 
     }
 }

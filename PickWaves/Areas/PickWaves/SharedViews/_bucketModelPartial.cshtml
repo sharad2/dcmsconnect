@@ -1,5 +1,5 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-@using DcmsMobile.PickWaves.Helpers
+
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
     // To use this partial you must:
@@ -9,13 +9,13 @@
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
 
     // Do not show link to the viewer page if we are already on the viewer page. Instead link to edit page
-    var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId)) == Request.Url.PathAndQuery;
+    //var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId)) == Request.Url.PathAndQuery;
 }
 
 <div class="panel panel-success">
     <div class="panel-heading">
 
-        @if (isViewerPage)
+        @if (Model.Flags.HasFlag(DcmsMobile.PickWaves.ViewModels.BucketModelFlags.ShowEditMenu) && isAuthorized)
         {
             if (Model.IsFrozen)
             {
@@ -26,7 +26,7 @@
 
                     <button class="btn btn-default dropdown-toggle" type="button"
                             id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="glyphicon glyphicon-list"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -34,7 +34,7 @@
                             <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
                                 @if (Model.BoxNotCreatedPieces.HasValue)
                                 {
-                                    <span>This will create boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
+                                    <span>This will create Boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
                                 }
                                 <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
                                         value="@Model.BucketId" type="submit">
@@ -62,7 +62,7 @@
                      title="Freeze,Edit or both">
                     <button class="btn btn-default dropdown-toggle" type="button" title="Freeze,Edit or both"
                             id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <span class="glyphicon glyphicon-th-list"></span>
+                        <span class="glyphicon glyphicon-list"></span>
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -71,12 +71,12 @@
                                 <span>
                                     Pick Wave can not be processed till it is frozen.
                                     <br />
-                                    <small>
+                                    @*<small>
                                         <em>
                                             <strong>@Model.CountNotStartedBoxes</strong>
-                                            Boxes assigned to this pick wave, which are not picked will be deleted and will be available for other pick waves.
+                                            Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
                                         </em>
-                                    </small>
+                                    </small>*@
                                 </span>
                                 <br />
                                 <button class="btn btn-warning"
@@ -109,14 +109,14 @@
 
         <h3 class="list-group-item-heading">
             Pick Wave
-            @if (isViewerPage)
+            @if (Model.Flags.HasFlag(DcmsMobile.PickWaves.ViewModels.BucketModelFlags.HideViewerLink))
             {
                 @Html.DisplayFor(m => m.BucketId)
             }
             else
             {
                 <a title="Pick Wave Details"
-                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.BucketId))">
+                   href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId))">
 
                     @Html.DisplayFor(m => m.BucketId)
                 </a>
@@ -144,7 +144,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="list-group-item-heading">
-                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) boxes Validated
+                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes validated
 
                                 </h4>
 
@@ -153,14 +153,14 @@
                                     {
 
                                         <strong>
-                                            @Html.DisplayFor(m => m.CountCancelledBoxes) boxes cancelled
+                                            @Html.DisplayFor(m => m.CountCancelledBoxes) Boxes cancelled
                                         </strong>
 
                                     }
                                     @if (Model.CountNotStartedBoxes > 0)
                                     {
                                         <span>
-                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
+                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) Boxes not started
                                         </span>
                                     }
                                 </p>
@@ -171,7 +171,7 @@
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
                                         <p class="form-control-static">
-                                            Priority
+                                            Priority                                           
                                             &nbsp;
                                             @if (isAuthorized)
                                             {
@@ -236,11 +236,11 @@
                             <small>
                                 @if (Model.RequiredBoxExpediting)
                                 {
-                                    <span class="text-success"> Required Box Expediting</span>
+                                    <span class="text-success"> Box Expediting  required</span>
                                 }
                                 @if (Model.QuickPitch)
                                 {
-                                    <span class="text-success">&bull; Quick Pitching Required</span>
+                                    <span class="text-success">&bull; Quick Pitching required</span>
                                 }
                             </small>
                         </h4>
@@ -254,15 +254,13 @@
 
 
                 </ul>
-
-
-
-
             </div>
             <div class="col-md-6">
                 <ul class="list-group">
                     <li class="list-group-item active">
-                        <span class="badge pull-right">DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</span>
+                        <span class="badge pull-right">
+                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)                           
+                        </span>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
                             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) complete
@@ -313,11 +311,11 @@
                         {
                             if (Model.IsFrozen)
                             {
-                                <li class="list-group-item text-info"><strong>@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
+                                <li class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
                             }
                             else
                             {
-                                <li class="list-group-item list-group-item-danger">@string.Format("No boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
+                                <li class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
                             }
                         }
                         @Html.DisplayFor(m => m.OverShippedPieces)
@@ -325,7 +323,7 @@
                     }
                     else
                     {
-                        <li class="list-group-item list-group-item-danger">Area is not decided yet for pulling and pitching</li>
+                        <li class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</li>
                     }
 
                 </ul>

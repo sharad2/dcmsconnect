@@ -121,24 +121,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             const int MAX_COL_DIMENSIONS = 30;
 
             model.GroupDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                                      let count = summary.CountValuesPerDimension[kvp.Key]
-                                      select new SelectListItem
-                                      {
-                                          Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
-                                          Selected = kvp.Key == model.GroupDimIndex
-                                      }).OrderBy(p => p.Text).ToArray();
+                                        let count = summary.CountValuesPerDimension[kvp.Key]
+                                        select new SelectListItem
+                                        {
+                                            Value = count == 0 ? "" : ((int)(kvp.Key)).ToString(),
+                                            Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
+                                            Selected = kvp.Key == model.GroupDimIndex
+                                        }).OrderBy(p => p.Text).ToArray();
 
             // Dimensions which have too many distinct values are not displayed as column dimensions
             model.SubgroupDimensionList = (from kvp in PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()
-                                      let count = summary.CountValuesPerDimension[kvp.Key]
-                                      where count <= MAX_COL_DIMENSIONS
-                                      select new SelectListItem
-                                      {
-                                          Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
-                                          Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
-                                          Selected = kvp.Key == model.SubgroupDimIndex
-                                      }).OrderBy(p => p.Text).ToArray();
+                                           let count = summary.CountValuesPerDimension[kvp.Key]
+                                           where count <= MAX_COL_DIMENSIONS
+                                           select new SelectListItem
+                                           {
+                                               Value = count > MAX_COL_DIMENSIONS || count == 0 ? "" : ((int)(kvp.Key)).ToString(),
+                                               Text = string.Format("{0} ({1:N0})", kvp.Value.Name, count),
+                                               Selected = kvp.Key == model.SubgroupDimIndex
+                                           }).OrderBy(p => p.Text).ToArray();
 
             //model.Rows = (from rowVal in summary.AllValues.RowValues
             //              let row = summary.AllValues.GetRow(rowVal)
@@ -273,13 +273,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             // Make sure that selected row and dimension are within the bounds of their respective drop downs
             if (!PopulatePickslipMatrixPartialModel(model))
             {
-                var nopickslip = new IndexNoPickslipsViewModel
+                AddStatusMessage("No more pickslips available to add");
+                if (lastBucketId.HasValue)
                 {
-                    BucketId = lastBucketId,
-                    CustomerId = customerId,
-                    CustomerName = model.CustomerName
-                };
-                return View(Views.IndexNoPickslips, nopickslip);
+                    return RedirectToAction(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(lastBucketId.Value));
+                }
+                else
+                {
+                    return RedirectToAction(Actions.Index(customerId, groupDimIndex, subgroupDimIndex, vwhId, lastBucketId, groupDimVal));
+                }
             }
 
 
@@ -347,7 +349,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             AddStatusMessage(string.Format("Pickslips added to Pick Wave {0}", bucketId));
 
             return RedirectToAction(Actions.Index(customerId, groupDimIndex, subgroupDimIndex,
-                vwhId, bucketId,groupDimVal));
+                vwhId, bucketId, groupDimVal));
         }
 
         /// <summary>
@@ -421,14 +423,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.CreateWave
             model.GroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.GroupDimIndex].Name;
             model.SubgroupDimDisplayName = PickWaveHelpers.GetEnumMemberAttributes<PickslipDimension, DisplayAttribute>()[model.SubgroupDimIndex].Name;
             model.GroupDimVal = model.GroupDimVal;
-            model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
+            // model.CustomerName = _service.Value.GetCustomerName(customerId);
 
             model.BucketId = bucketId;
 
             if (model.BucketId.HasValue)
             {
                 var bucket = _service.Value.GetBucket(model.BucketId.Value);
-                model.Bucket = new BucketModel(bucket);
+                model.Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(customerId), BucketModelFlags.Default);
             }
             return View(Views.PickslipList, model);
         }

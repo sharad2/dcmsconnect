@@ -20,17 +20,17 @@ namespace DcmsMobile.PickWaves
             filters.Add(new HandleErrorAttribute());
         }
 
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+        //public static void RegisterRoutes(RouteCollection routes)
+        //{
+        //    routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = MVC_PickWaves.PickWaves.Home.Name, action = MVC_PickWaves.PickWaves.Home.ActionNames.Index, id = UrlParameter.Optional }, // Parameter defaults
-                new string[] { typeof(DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController).Namespace } // Add Namespace of controller
-            ).DataTokens.Add("area", MVC_PickWaves.PickWaves.Name);
-        }
+        //    routes.MapRoute(
+        //        "Default", // Route name
+        //        "{controller}/{action}/{id}", // URL with parameters
+        //        new { controller = MVC_PickWaves.PickWaves.Home.Name, action = MVC_PickWaves.PickWaves.Home.ActionNames.Index2, id = UrlParameter.Optional }, // Parameter defaults
+        //        new string[] { typeof(DcmsMobile.PickWaves.Areas.PickWaves.Home.HomeController).Namespace } // Add Namespace of controller
+        //    ).DataTokens.Add("area", MVC_PickWaves.PickWaves.Name);
+        //}
 
         protected void Application_Start()
         {
@@ -44,7 +44,7 @@ namespace DcmsMobile.PickWaves
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+            //RegisterRoutes(RouteTable.Routes);
 
 #if DEBUG
             // Return all actions which do not have Route attribute

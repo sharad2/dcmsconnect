@@ -1,5 +1,4 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
-using DcmsMobile.PickWaves.Repository;
 using System;
 using System.ComponentModel.DataAnnotations;
 

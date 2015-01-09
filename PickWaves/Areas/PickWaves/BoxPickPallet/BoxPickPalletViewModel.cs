@@ -22,9 +22,6 @@ namespace DcmsMobile.PickWaves.ViewModels.BoxPickPallet
         [Display(Name = "Total Boxes")]
         public int TotalBoxes { get; set; }
 
-        [Display(Name = "Frezze")]
-        public bool IsFrozen { get; set; }
-
         [Display(Name = "Boxes Palletized")]
         public int? ExpeditedBoxCount { get; set; }
 

@@ -1,0 +1,289 @@
+﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
+@model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.WavePickslipsViewModel
+@{
+    ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId;
+    Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+}
+
+
+@section applinks{
+    <li title="This report display details of pick wave.">
+        <a href="@(string.Format("{0}?bucket_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.ManageWavesController.BucketSummaryReportUrl, Model.Bucket.BucketId))" target="report">
+            Report 140.02: Pick Wave Summary
+        </a>
+    </li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null, Model.Bucket.BucketState))"
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
+    </li>
+    <li class="divider"></li>
+}
+<div class="container">
+
+    <h2 style="margin-top:0">
+        @ViewBag.Title
+        <small>
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
+               title="See other pick waves of this customer">@Model.Bucket.CustomerId: @Model.Bucket.CustomerName</a>
+        </small>
+    </h2>
+    <div role="tabpanel" style="margin-bottom:0.5em">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs bg-success" role="tablist">
+            <li class="active">
+                <a role="tab">
+                    Pickslips
+                </a>
+
+            </li>
+            <li>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId))" role="tab">
+                    Boxes
+                </a>
+            </li>
+            <li>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId))" role="tab">
+                    SKUs
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
+                                   {
+                                       {"IsAuthorized", Model.UserIsManager}
+                                   })
+
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active">
+            <blockquote>
+                <p>
+                    Pickslips of Wave @Html.DisplayFor(m => m.Bucket.BucketId)
+                    @if (Model.UserIsManager && Model.Bucket.IsFrozen)
+                    {
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.Bucket.CustomerId, lastBucketId: Model.Bucket.BucketId))">Add more Pickslips</a>
+                    }
+                </p>
+                <footer>Unpicked pickslips can be removed from frozen pick waves</footer>
+            </blockquote>
+            @*<form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket())" method="post">*@
+                <ul class="list-group">
+                    <li class="list-group-item active">
+                        <div class="row">
+                            <div class="col-md-5">
+                                @if (Model.PickslipList.Count > 0)
+                                {
+                                    <button class="pull-left btn btn-default btn-xs" type="submit"
+                                            @(Model.UserIsManager ? "" : "disabled=disabled") name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.bucketId"
+                                            value="@Model.Bucket.BucketId">
+                                        Remove Pickslip
+                                    </button>
+                                }
+                                <h4 class="list-group-item-heading">
+                                    &nbsp;
+                                    Pickslip
+                                    <small>
+                                        Purchase Order
+                                    </small>
+                                    <span class="label label-default">
+                                        <abbr title="Virtual Wearhouse">VWH</abbr>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <small class="label label-info">
+                                    Customer DC
+                                    &bull; Store
+                                </small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="progress" style="margin-bottom:0">
+                                    <div style="width: @Model.TotalPercentPickedPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                                        <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.TotalPickedPieces) of  @Html.DisplayFor(m => m.TotalOrderedPieces) Pieces picked <em>&bull;@Model.TotalPercentPickedPieces% picked</em></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    @for (var i = 0; i < Model.PickslipList.Count; ++i)
+                {
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h4 class="list-group-item-heading">
+                                <small>@(i + 1)</small>
+                                @if (Model.UserIsManager && Model.PickslipList[i].CurrentPieces == 0 && Model.Bucket.IsFrozen)
+                                {
+                                    <input type="checkbox" />
+                                    @*<input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucketParams.pickslipId"
+                                           value="@Model.PickslipList[i].PickslipId" />*@
+                                }
+                                else
+                                {
+                                    <input type="checkbox" disabled title="Can't select because some pieces are pulled or picked or Wave is unfreeze.">
+                                    }
+                                <a href='@Model.PickslipList[i].UrlInquiryPickslip' target="_inquiry"
+                                   class="pickslip">@Html.DisplayFor(m => m.PickslipList[i].PickslipId)</a>
+                                <small>
+                                    <a href='@Model.PickslipList[i].UrlInquiryPurchaseOrder' target="_inquiry">@Html.DisplayFor(m => m.PickslipList[i].PurchaseOrder)</a>
+                                </small>
+                                <span class="label label-default">
+                                    @Html.DisplayFor(m => m.PickslipList[i].VwhId)
+                                </span>
+                            </h4>
+
+
+
+
+
+                        </div>
+                        <div class="col-md-3">
+                            <small class="label label-info">
+                                @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
+                                &bull;  @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
+                            </small>
+                        </div>
+                        <div class="col-md-4">
+                            @if (Model.PickslipList[i].CancelledBoxCount > 0)
+                                {
+                                <strong class="text-danger">
+                                    &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) Boxes cancelled
+                                </strong>
+                                }
+                            <div class="progress" style="margin-bottom:0">
+                                <div style="width:@Model.PickslipList[i].PercentCurrentPieces%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info" title="@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) pieces in box">
+                                    <span style="white-space:nowrap" class="text-info">@Html.DisplayFor(m => m.PickslipList[i].CurrentPieces) of  @Html.DisplayFor(m => m.PickslipList[i].OrderedPieces) Pieces picked <em>&bull; @Model.PickslipList[i].PercentCurrentPieces% picked</em></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*@if (Model.UserIsManager && Model.PickslipList[i].CurrentPieces == 0 && Model.IsFrozenBucket)
+                    {
+                        <div class="col-md-1">
+                            <div class="btn-group pull-right">
+                                <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
+                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation" style="text-align:center">
+
+                                        <span>Sure?</span>&nbsp;
+                                        <button class="btn btn-primary" type="submit"
+                                                data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
+                                                             (Model.BucketId, Model.PickslipList[i].PickslipId))">
+                                            Yes
+                                        </button>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    }*@
+                    </div>
+                </li>
+                }
+                </ul>
+                @*</form>*@
+</div>
+    </div>
+
+
+
+</div>
+
+@section script {
+    <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@if (Model.UserIsManager)
+    {
+
+        <div id="dlgFreeze" title="@Html.Raw(Model.Bucket.IsFrozen ? "Unfreeze Pick Wave" : "Freeze Pick Wave")">
+            @using (Html.BeginForm(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket(), FormMethod.Post))
+            {
+                <input type="hidden" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId" value="@Model.Bucket.BucketId" />
+                <input type="hidden" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.freeze" value="@((!Model.Bucket.IsFrozen).ToString())" />
+                <input id="hfDisplayEditable" type="hidden" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.displayEditable" />
+            }
+            @if (Model.Bucket.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)
+            {
+                <div>
+                    Boxes will be created for this pick wave and it will become available for processing.
+                    <br />
+                    <p style="font-style: italic">
+                        We will try to pull as many cartons as possible for <strong>@Model.Bucket.PiecesIncomplete</strong>
+                        pieces from pull area <strong>@Html.DisplayFor(m => m.Bucket.PullAreaShortName)</strong>. Remaining pieces will be picked from pitch area
+                        <strong>@Html.DisplayFor(m => m.Bucket.PitchAreaShortName)</strong>.
+                    </p>
+                </div>
+                <div style="padding-top: 1em">Are you sure want to unfreeze pick wave?</div>
+            }
+            else
+            {
+                <div>
+                    Pick Wave can not be processed till it is frozen.
+                    <br />
+                    <p style="font-style: italic">
+                        <strong>@Model.Bucket.CountNotStartedBoxes</strong> Boxes assigned to this pick wave, which are not picked will be deleted and will be available for other pick waves.
+                    </p>
+                </div>
+                <div style="padding-top: 1em">Are you sure want to freeze pick wave?</div>
+            }
+        </div>
+
+    }*@
+
+
+@*<div id="divTabs" data-load-image-url="@Url.Content(Links_PickWaves.Areas.PickWaves.SharedViews.ajax_loader_gif)" data-active-tab="@Model.ActiveTab">
+        <ul>
+            <li>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId).AddRouteValue("_", 0))">Pickslips</a>
+            </li>
+            <li>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveBoxes(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
+                        DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
+                   data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.stateFilter"
+                   data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveBoxesParams.activityFilter">Boxes</a>
+            </li>
+            <li>
+                <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveSkus(Model.Bucket.BucketId, DcmsMobile.PickWaves.Helpers.BoxState.NotSet,
+                        DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet).AddRouteValue("_", 0))"
+                   data-state-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.stateFilter"
+                   data-activity-param="@MVC_PickWaves.PickWaves.ManageWaves.WaveSkusParams.activityFilter">SKUs</a>
+            </li>
+        </ul>
+    </div>*@

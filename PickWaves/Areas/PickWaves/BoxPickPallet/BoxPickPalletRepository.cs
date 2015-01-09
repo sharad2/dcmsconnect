@@ -1,4 +1,5 @@
 ﻿using EclipseLibrary.Oracle;
+using System;
 using System.Collections.Generic;
 using System.Web;
 
@@ -44,9 +45,9 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
                                   ON IA.IA_ID = BUCKET.PITCH_IA_ID
                                WHERE P.BUCKET_ID = :BUCKET_ID
                                  AND P.TRANSFER_DATE IS NULL                                  
-                                 AND BUCKET.AVAILABLE_FOR_PITCHING = 'Y'                                
+                                 AND BUCKET.FREEZE IS NULL
                                  AND B.STOP_PROCESS_DATE IS NULL
-                                 AND BUCKET.PICK_MODE IN ('ADREPPWSS','ADRE')
+                                and bucket.pull_type = 'EXP'
                         ";
             var binder = SqlBinder.Create(row =>
             {
@@ -153,31 +154,32 @@ namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
             _db.ExecuteNonQuery(QUERY, binder);
         }
 
-        /// <summary>
-        /// Returns the highest priority bucket which has most boxes for expediting
-        /// </summary>
-        /// <returns>The best bucket id</returns>
-        public int? GetBucketToExpedite()
-        {
-            const string QUERY = @"
-                    SELECT BUCKET.BUCKET_ID
-                      FROM <proxy />BUCKET BUCKET
-                     INNER JOIN <proxy />PS P
-                        ON P.BUCKET_ID = BUCKET.BUCKET_ID
-                     INNER JOIN <proxy />BOX B
-                        ON P.PICKSLIP_ID = B.PICKSLIP_ID
-                     WHERE B.IA_ID IS NULL
-                       AND B.STOP_PROCESS_DATE IS NULL
-                       AND B.PALLET_ID IS NULL
-                       AND BUCKET.PICK_MODE = 'ADREPPWSS'
-                       AND BUCKET.STATUS = 'READYFORPULL'
-                       AND P.TRANSFER_DATE IS NULL
-                       AND BUCKET.FREEZE IS NULL
-                     GROUP BY BUCKET.BUCKET_ID
-                     ORDER BY MAX(BUCKET.PRIORITY) DESC, COUNT(P.PICKSLIP_ID) DESC
-                ";
-            var binder = SqlBinder.Create(row => row.GetInteger("BUCKET_ID"));
-            return _db.ExecuteSingle(QUERY, binder);
-        }
+//        /// <summary>
+//        /// Returns the highest priority bucket which has most boxes for expediting
+//        /// </summary>
+//        /// <returns>The best bucket id</returns>
+//        [Obsolete]
+//        public int? GetBucketToExpedite()
+//        {
+//            const string QUERY = @"
+//                    SELECT BUCKET.BUCKET_ID
+//                      FROM <proxy />BUCKET BUCKET
+//                     INNER JOIN <proxy />PS P
+//                        ON P.BUCKET_ID = BUCKET.BUCKET_ID
+//                     INNER JOIN <proxy />BOX B
+//                        ON P.PICKSLIP_ID = B.PICKSLIP_ID
+//                     WHERE B.IA_ID IS NULL
+//                       AND B.STOP_PROCESS_DATE IS NULL
+//                       AND B.PALLET_ID IS NULL
+//                       AND BUCKET.PICK_MODE = 'ADREPPWSS'
+//                       AND  bucket.pull_type = 'EXP'
+//                       AND P.TRANSFER_DATE IS NULL
+//                       AND BUCKET.FREEZE IS NULL
+//                     GROUP BY BUCKET.BUCKET_ID
+//                     ORDER BY MAX(BUCKET.PRIORITY) DESC, COUNT(P.PICKSLIP_ID) DESC
+//                ";
+//            var binder = SqlBinder.Create(row => row.GetInteger("BUCKET_ID"));
+//            return _db.ExecuteSingle(QUERY, binder);
+//        }
     }
 }

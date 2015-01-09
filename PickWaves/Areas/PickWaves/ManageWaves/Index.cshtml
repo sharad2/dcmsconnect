@@ -1,7 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel
 @{
-    ViewBag.Title = string.Format("{0} wave of {1}:{2}", Model.PickWaveState, Model.CustomerId, Model.CustomerName);
+    ViewBag.Title = string.Format("{0} wave of {1}:{2}", Model.BucketStateDisplayName, Model.CustomerId, Model.CustomerName);
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
     var obj = ViewBag.IsEditable;
     var isEditable = obj != null && (bool)obj;
@@ -18,10 +18,43 @@
     <li title="This report will display all PO or Waves with no. of boxes for 23008 Customer.">
         <a href="@(string.Format("{0}?customer_id={1}", DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.IndexViewModel.UnshippedboxesReportUrl, Model.CustomerId))"
            target="report">
-            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of unshipped boxes.
+            <span class="glyphicon glyphicon-new-window"></span> 110.16: No. of Unshipped Boxes.
         </a>
 
     </li>
+    <li class="divider">
+    </li>
+    <li title="Pick Waves to be created by Customer @Model.CustomerId: @Model.CustomerName">
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(Model.CustomerId))">
+            Create Pick Waves of  @Model.CustomerName
+        </a>
+    </li>
+    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)
+    {
+        <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+                Frozen Pick Waves of @Model.CustomerName
+            </a>
+        </li>
+    }
+    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress)
+    {
+
+        <li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+                In Progress Pick Waves of @Model.CustomerName
+            </a>
+        </li>
+    }
+    @if (Model.BucketState != DcmsMobile.PickWaves.Helpers.ProgressStage.Completed)
+    {
+
+        <li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+                Completed Pick Waves of  @Model.CustomerName
+            </a>
+        </li>
+    }
     <li class="divider">
     </li>
 }
@@ -34,43 +67,213 @@
     }
 
     <h2 style="margin-top:0">
-        @Html.DisplayFor(m => m.BucketCount)  @Model.PickWaveState Pick Waves of
+        @Html.DisplayFor(m => m.BucketCount)  @Model.BucketStateDisplayName Pick Waves of
         <small>
-            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Search(Model.CustomerId))"
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))"
                title="See other pick waves of this customer">@Model.CustomerId:@Model.CustomerName</a>
         </small>
     </h2>
 
-    <ul class="list-inline">
-        @for (var i = 0; i < Model.Buckets.Count; ++i)
+
+    <ul class="nav nav-tabs bg-info" role="tablist" style="margin-bottom:.5em">
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+                Frozen
+            </a>
+        </li>
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+                In Progress
+            </a>
+        </li>
+        <li role="presentation" class="@Html.Raw(Model.BucketState == DcmsMobile.PickWaves.Helpers.ProgressStage.Completed ? "active" : "")">
+            <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,Model.UserName, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+                Completed
+            </a>
+        </li>
+    </ul>
+
+    <ul class="list-group">
+        @if (Model.Buckets.Count > 0)
         {
-            <li>
-                <a title="Pick Wave Details"
-                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.Buckets[i].BucketId))">@Html.DisplayFor(m => m.Buckets[i].BucketId)</a>
-            </li>
+            if (Model.Buckets.Count > 2)
+            {
+                <li class="list-group-item list-group-item-success">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="list-group-item-heading">
+                                <span class="badge">
+                                    Priority
+                                </span>
+                                Bucket
+                                <small>Name</small>
+
+                            </h4>
+                            <p class="list-group-item-text">
+                                <em class="h6">Comment</em>
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            <strong>
+                                Pieces Ordered
+                            </strong>
+                        </div>
+                        <div class="col-md-3">
+                            <h4 class="list-group-item-heading">
+                                <span class="label label-success">
+                                    Pickslips
+                                </span>
+                                &nbsp;
+                                <span class="label label-info">
+                                    POs
+                                </span>
+                                &nbsp;
+                                <span class="label label-default">
+                                    Pitch Limit
+                                </span>
+                            </h4>
+
+                            <p class="list-group-item-text">
+                                Created on
+                                <small>
+                                    <em>
+                                        by User
+                                    </em>
+                                </small>
+
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="bg-info" title="Building: Area <-- ReplenishArea">
+                                Pitching
+                            </div>
+                            <div class="bg-success" title="Building: Area">
+                                Pulling
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="badge pull-right">
+                                DC Cancel
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                for (var i = 0; i < Model.Buckets.Count; ++i)
+                {
+
+
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4 class="list-group-item-heading">
+                                    <span class="badge">
+                                        @Html.DisplayFor(m => m.Buckets[i].Priority)
+                                    </span>
+                                    <a title="Pick Wave details"
+                                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Buckets[i].BucketId))">
+                                        @Html.DisplayFor(m => m.Buckets[i].BucketId)
+                                    </a>
+                                    <small>
+                                        @Html.DisplayFor(m => m.Buckets[i].BucketName)
+
+                                        @if (Model.Buckets[i].IsFrozen)
+                                        {
+                                            <em class="badge">Frozen</em>
+                                        }
+
+                                    </small>
+                                </h4>
+                                <p class="list-group-item-text">
+                                    <em class="h6">@Html.DisplayFor(m => m.Buckets[i].BucketComment)</em>
+                                </p>
+                            </div>
+                            <div class="col-md-1">
+                                <strong>
+                                    @Html.DisplayFor(m => m.Buckets[i].OrderedPieces)
+                                </strong>
+                            </div>
+                            <div class="col-md-3">
+                                <h4 class="list-group-item-heading">
+                                    <span class="label label-success">
+                                        @Html.DisplayFor(m => m.Buckets[i].PickslipCount)
+                                    </span>
+                                    &nbsp;
+                                    <span class="label label-info">
+                                        @Html.DisplayFor(m => m.Buckets[i].PoCount)
+                                    </span>
+                                    &nbsp;
+                                    <span class="label label-default">
+                                        <em>@Html.DisplayFor(m => m.Buckets[i].PitchLimit)</em>
+                                    </span>
+                                </h4>
+
+                                <p class="list-group-item-text">
+                                    @Html.DisplayFor(m => m.Buckets[i].CreationDate)
+                                    <small>
+                                        <em>
+                                            by @Html.DisplayFor(m => m.Buckets[i].CreatedBy)
+                                        </em>
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="col-md-3">
+
+                                @if (Model.Buckets[i].PitchAreaBuildingId.Count() > 0)
+                                {
+                                    <div class="bg-info" title="@Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId): @Html.DisplayFor(m => m.Buckets[i].PitchAreaDescription) ">
+
+                                        Pitching
+                                        <strong>
+                                            &nbsp;&nbsp;
+                                            @Html.DisplayFor(m => m.Buckets[i].PitchAreaBuildingId):
+                                            <a href="#@Html.DisplayFor(m => m.Buckets[i].PitchAreaId) ">
+                                                @Html.DisplayFor(m => m.Buckets[i].PitchAreaShortName)
+                                            </a> &larr;  @Html.DisplayFor(m => m.Buckets[i].ReplenishAreaId)
+                                        </strong>
+                                    </div>
+                                }
+                                @if (Model.Buckets[i].PullAreaBuildingId.Count() > 0)
+                                {
+                                    <div class="bg-success" title="@Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId): @Html.DisplayFor(m => m.Buckets[i].PullAreaDescription)">
+
+                                        Pulling&nbsp;&nbsp;
+                                        <strong>
+                                            &nbsp;&nbsp;
+                                            @Html.DisplayFor(m => m.Buckets[i].PullAreaBuildingId):
+                                            <a href="#@Html.DisplayFor(m => m.Buckets[i].PullAreaId)">@Html.DisplayFor(m => m.Buckets[i].PullAreaShortName)</a>
+                                        </strong>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-2">
+                                <span class="badge pull-right">
+                                    @Html.DisplayFor(m => m.Buckets[i].DcCancelDateRange)
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+
+
+
+                }
+
+            }
+        }
+        else
+        {
+            <li class="list-group-item list-group-item-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</li>
         }
     </ul>
 
-    <p>This list is order by priority and then DC Cancel Date</p>
-    @if (Model.Buckets.Count > 0)
-    {
-        for (var i = 0; i < Model.Buckets.Count; ++i)
-        {
-            @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Buckets[i], new ViewDataDictionary
-                               {
-                                   {"IsAuthorized", Model.UserIsManager}
-                               })
-        }
-    }
-    else
-    {
-        <div class="alert alert-info">@string.Format("No Pick Waves found for customer {0}", Model.CustomerId)</div>
-    }
+
+
+
+
 </div>
 
 
 @section script {
-    <script src="@Links_PickWaves.Areas.PickWaves.ManageWaves.Index_js"></script>
+    <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
 
     @*<link type="text/css" href="@Links_PickWaves.Areas.PickWaves.ManageWaves.ManageWave_Index_css" rel="stylesheet" />*@
 }

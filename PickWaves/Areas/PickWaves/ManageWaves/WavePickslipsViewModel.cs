@@ -27,33 +27,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             OrderedPieces = entity.OrderedPieces;
             CurrentPieces = entity.CurrentPieces;
             CancelledBoxCount = entity.CancelledBoxCount;
-            //PiecesInCancelledBoxes = entity.PiecesInCancelledBoxes;
             BoxCount = entity.BoxCount;
-            //IsFrozenWave = entity.IsFrozenWave;
-            //DcCancelDate = entity.DcCancelDate;
+
 
         }
         [Display(Name = "Pickslip")]
         public long PickslipId { get; set; }
-
-        //[Display(Name = "Customer")]
-        //public string CustomerId { get; set; }
-
-        //[Display(Name = "DC Cancel Date")]
-        //[DisplayFormat(DataFormatString = "{0:d}")]
-        //public DateTime? DcCancelDate { get; set; }
-
-        //[Display(Name = "Start Date")]
-        //[DisplayFormat(DataFormatString = "{0:d}")]
-        //public DateTime? StartDate { get; set; }
-
-        //[Display(Name = "Cancel Date")]
-        //[DisplayFormat(DataFormatString = "{0:d}")]
-        //public DateTime? CancelDate { get; set; }
-
-        //[Display(Name = "Pickslip Import Date")]
-        //[DisplayFormat(DataFormatString = "{0:d}")]
-        //public DateTime? PickslipImportDate { get; set; }
 
         [Display(Name = "Purchase Order")]
         public string PurchaseOrder { get; set; }
@@ -82,18 +61,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        //public int PercentUnPickedPieces
-        //{
-        //    get
-        //    {
-        //        if (UnPickedPieces == 0 || OrderedPieces == 0)
-        //        {
-        //            return 0;
-        //        }
-        //        return (int)Math.Round((decimal)this.UnPickedPieces * 100 / (decimal)this.OrderedPieces);
-        //    }
-        //}
-
         public int PercentCurrentPieces
         {
             get
@@ -112,22 +79,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CancelledBoxCount { get; set; }
 
-        ///// <summary>
-        ///// Total number of pieces in all cancelled boxes of this pickslip 
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int PiecesInCancelledBoxes { get; set; }
-
-        //public bool IsPickslipCompleted { get; set; }
-
-        //public bool IsUnstarted
-        //{
-        //    get
-        //    {
-        //        return ((this.CurrentPieces == 0 || this.BoxCount == 0) && this.IsFrozenWave);
-        //    }
-        //}
-
         public int BoxCount { get; set; }
 
         public bool IsFrozenWave { get; set; }
@@ -142,10 +93,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
     public class WavePickslipsViewModel: ViewModelBase
     {
+        public BucketModel Bucket { get; set; }
+
+        [Obsolete("Use BucketId in BucketModel")]
         public int BucketId { get; set; }
 
+        [Obsolete("Use IsFrozenBucket in BucketModel")]
         public bool IsFrozenBucket { get; set; }
 
+        [Obsolete]
         public string CustomerId { get; set; }
 
         public IList<ManageWavesPickslipModel> PickslipList { get; set; }

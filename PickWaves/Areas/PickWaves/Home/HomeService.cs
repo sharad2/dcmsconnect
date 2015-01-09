@@ -39,7 +39,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         /// <remarks>
         /// Routing information is returned only when customer id is passed
         /// </remarks>
-        public IEnumerable<BucketSummary> GetBucketSummary(SearchTextType filterType, string filterText)
+        public IList<BucketSummary> GetBucketSummary(SearchTextType filterType, string filterText)
         {
             switch (filterType)
             {
@@ -86,6 +86,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
                 default:
                     throw new NotImplementedException();
             }
+        }
+
+        public IList<BucketBase> GetRecentCreatedBucket(int maxRows)
+        {
+            return _repos.GetRecentCreatedBucket(maxRows);
+        }
+
+        public IList<BucketBase> GetBucketToExpedite(int maxRows)
+        {
+           return _repos.GetExpeditableBuckets(maxRows);
         }
     }
 }

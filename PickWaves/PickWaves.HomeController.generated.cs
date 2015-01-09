@@ -83,6 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Customers = "Customers";
             public readonly string Customer = "Customer";
             public readonly string Search = "Search";
         }
@@ -91,6 +92,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Customers = "Customers";
             public const string Customer = "Customer";
             public const string Search = "Search";
         }
@@ -122,8 +124,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Customer = "Customer";
                 public readonly string Index = "Index";
             }
+            public readonly string Customer = "~/Areas/PickWaves/Home/Customer.cshtml";
             public readonly string Index = "~/Areas/PickWaves/Home/Index.cshtml";
         }
     }
@@ -141,6 +145,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void CustomersOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Customers()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Customers);
+            CustomersOverride(callInfo);
             return callInfo;
         }
 

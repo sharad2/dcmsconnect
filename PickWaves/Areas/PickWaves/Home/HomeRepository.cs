@@ -209,7 +209,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        public IEnumerable<ImportedOrderSummary> GetImportedOrderSummary(string customerId)
+        public IList<ImportedOrderSummary> GetImportedOrderSummary(string customerId)
         {
             const string QUERY = @"
                                 SELECT DEMPS.CUSTOMER_ID                    AS CUSTOMER_ID,
@@ -253,6 +253,30 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
         }
 
 
+
+        public IList<BucketBase> GetRecentCreatedBucket(int maxRows)
+        {
+            const string QUERY = @"SELECT BK.BUCKET_ID AS BUCKET_ID,
+                                   MIN(BK.DATE_CREATED) AS DATE_CREATED,
+                                   MIN(BK.CREATED_BY) AS CREATED_BY
+                                --,MAX(PS.WAREHOUSE_LOCATION_ID)
+                              FROM BUCKET BK
+                             INNER JOIN PS PS
+                                ON BK.BUCKET_ID = PS.BUCKET_ID
+                             GROUP BY BK.BUCKET_ID
+                             ORDER BY MIN(BK.DATE_CREATED) DESC 
+                            --,MAX(PS.WAREHOUSE_LOCATION_ID)
+                                NULLS LAST";
+
+            var binder = SqlBinder.Create(row => new BucketBase
+            {
+                BucketId = row.GetInteger("BUCKET_ID").Value,
+                CreatedBy = row.GetString("CREATED_BY"),
+                CreationDate = row.GetDate("DATE_CREATED").Value
+
+            });
+            return _db.ExecuteReader(QUERY, binder, maxRows);
+        }
     }
 }
 

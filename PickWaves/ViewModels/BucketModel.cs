@@ -7,6 +7,21 @@ using DcmsMobile.PickWaves.Repository;
 
 namespace DcmsMobile.PickWaves.ViewModels
 {
+    [Flags]
+    public enum BucketModelFlags
+    {
+        Default,
+
+        /// <summary>
+        /// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
+        /// </summary>
+        ShowEditMenu,
+
+        /// <summary>
+        /// By default a link to the bucket viewer page is displayed. This flag hides it. It is set by the viewer page itself to prefent linking to self.
+        /// </summary>
+        HideViewerLink
+    }
     /// <summary>
     /// Contains properties of a bucket
     /// </summary>
@@ -23,8 +38,9 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
         }
 
-        internal BucketModel(Bucket src)
+        internal BucketModel(BucketWithActivities src, string customerName, BucketModelFlags flags)
         {
+            CustomerName = customerName;
             _activities = new List<BucketActivityModel>(3);
             BucketId = src.BucketId;
             BucketName = src.BucketName;
@@ -99,11 +115,18 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             BucketState = state;
 
-            RequiredBoxExpediting = src.RequiredBoxExpediting;
+            RequiredBoxExpediting = src.RequireBoxExpediting;
 
             CountAssignedSku = src.CountAssignedSku;
             CountTotalSku = src.CountTotalSku;
+
+            Flags = flags;
         }
+
+        /// <summary>
+        /// Whether links to the bucket editor should be displayed
+        /// </summary>
+        public BucketModelFlags Flags { get; set; }
 
         #region Bucket
 

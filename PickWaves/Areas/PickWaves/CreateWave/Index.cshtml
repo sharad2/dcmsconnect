@@ -15,12 +15,27 @@
 
     </li>
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Index())">Change Customer</a>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())">Change Customer</a>
     </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">All Pick Waves of <em>@Html.DisplayFor(m => m.CustomerName) (@Html.DisplayFor(m => m.CustomerId))</em></a>
 
     </li>
+   <li title="Frozen Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId, null, DcmsMobile.PickWaves.Helpers.ProgressStage.Frozen)) ">
+        Frozen Pick Waves of same Customer
+    </a>
+</li>
+<li title="In Progress Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.InProgress))">
+        In Progress Pick Waves of same Customer
+    </a>
+</li>
+<li title="Completed Pick Waves of same Customer @Model.CustomerId: @Model.CustomerName">
+    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.CustomerId,null, DcmsMobile.PickWaves.Helpers.ProgressStage.Completed))">
+        Completed Pick Waves of same Customer
+    </a>
+</li>
 }
 
 <div class="container">
@@ -36,7 +51,7 @@
                     <div class="col-md-3">
                         <span class="h4">Pick Wave @Html.DisplayFor(m => m.LastBucketId)</span>
                         <br />
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Wave(Model.LastBucketId.Value))" >
+                        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.LastBucketId.Value))" >
                             @*<span class="glyphicon glyphicon-eye-open"></span>*@
                             View
                         </a>
@@ -66,7 +81,7 @@
                 <span class="h4">Add Pickslips</span>
                 &nbsp;
                 <p class="form-control-static">
-                    Filter by VWH
+                    Filter by <abbr title="Virtual Wearhouse">VWH</abbr>
                 </p>
                 @Html.DropDownList(MVC_PickWaves.PickWaves.CreateWave.IndexParams.vwhId, Model.VwhList, new
    {
@@ -107,7 +122,7 @@
         {
             <div class="panel-footer">
 
-                A new default pick wave will be automatically created for you when you add pickslips. You will be able to update the properties of the pick wave later.
+                A new default Pick Wave will be automatically created for you when you add Pickslips. You will be able to update the properties of the Pick Wave later.
             </div>
         }
     </div>

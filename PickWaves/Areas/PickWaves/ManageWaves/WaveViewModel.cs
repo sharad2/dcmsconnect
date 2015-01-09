@@ -1,8 +1,10 @@
 ﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.ViewModels;
+using System;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
+    [Obsolete]
     public class WaveViewModel : ViewModelBase
     {
         public BucketModel Bucket { get; set; }

@@ -47,23 +47,23 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
               {
                   BucketId = row.GetInteger("BUCKET_ID").Value,
                   BucketName = row.GetString("NAME"),
-                  BucketComment=row.GetString("BUCKET_COMMENT"),
-                  PitchLimit= row.GetInteger("PITCH_LIMIT") ?? 0,
+                  BucketComment = row.GetString("BUCKET_COMMENT"),
+                  PitchLimit = row.GetInteger("PITCH_LIMIT") ?? 0,
                   IsFrozen = row.GetString("FREEZE") == "Y",
                   CustomerId = row.GetString("CUSTOMER_ID"),
                   PullAreaId = row.GetString("PULL_AREA_ID"),
-                 // PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
+                  // PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
                   PitchAreaId = row.GetString("PITCH_AREA_ID"),
-                //  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
+                  //  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
                   QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                   RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP"
 
-              };               
+              };
                 return bucket;
             }
             );
             binder.Parameter("BUCKET_ID", bucketId);
-            return _db.ExecuteSingle(QUERY, binder); 
+            return _db.ExecuteSingle(QUERY, binder);
         }
 
         /// <summary>
@@ -698,6 +698,135 @@ BKT.FREEZE
             binder.Parameter("PITCH_AREA_TYPE", BucketActivityType.Pitching.ToString())
                   .Parameter("PULL_AREA_TYPE", BucketActivityType.Pulling.ToString())
                   .Parameter("BUCKET_ID", bucketId);
+            return _db.ExecuteReader(QUERY, binder);
+        }
+
+        internal void CancelBoxes(IList<string> boxes)
+        {
+            const string QUERY = @"
+                BEGIN
+                <proxy />pkg_pickslip.cancel_box(aucc128_id => :aucc128_id);
+                                  END;";
+            var binder = SqlBinder.Create(boxes.Count);
+            binder.Parameter("aucc128_id", boxes);
+            // .Parameter("aucc128_id", ucc128Id);
+            _db.ExecuteDml(QUERY, binder);
+        }
+
+        public IList<BucketList> GetBucketList(string customerId, string userName)
+        {
+                       const string QUERY = @"WITH BUCKET_INFO AS
+                     (SELECT BK.BUCKET_ID,
+                             BK.NAME,
+                             BK.BUCKET_COMMENT,
+                             BK.PRIORITY,
+                             BK.FREEZE,
+                             BK.PITCH_LIMIT,
+                             BK.PULL_TYPE,
+                             CASE
+                               WHEN BK.PITCH_TYPE = 'QUICK' THEN
+                                'Y'
+                             END AS QUICK_PITCH_FLAG,
+                             BK.DATE_CREATED,
+                             BK.CREATED_BY,
+                             BK.PULL_CARTON_AREA AS PULL_AREA_ID,
+                             TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
+                             TIA.DESCRIPTION AS PULL_AREA_DESCRIPTION,
+                             TIA.WAREHOUSE_LOCATION_ID AS BUILDING_PULL_FROM,
+                             BK.PITCH_IA_ID AS PITCH_IA_ID,
+         
+                             IA.SHORT_NAME            AS PITCH_AREA_SHORT_NAME,
+                             IA.SHORT_DESCRIPTION     AS PITCH_AREA_DESCRIPTION,
+                             IA.WAREHOUSE_LOCATION_ID AS BUILDING_PITCH_FROM,
+                             IA.DEFAULT_REPREQ_IA_ID  AS DEFAULT_REPREQ_IA_ID
+                        FROM BUCKET BK
+                        LEFT OUTER JOIN TAB_INVENTORY_AREA TIA
+                          ON TIA.INVENTORY_STORAGE_AREA = BK.PULL_CARTON_AREA
+                        LEFT OUTER JOIN IA IA
+                          ON IA.IA_ID = BK.PITCH_IA_ID),
+                    BUCKET_PICKSLIP_INFO AS
+                     (SELECT PS.BUCKET_ID,
+                             COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
+                             COUNT(UNIQUE PS.PO_ID) AS PO_COUNT,
+                             SUM(PS.TOTAL_QUANTITY_ORDERED) AS ORDERED_PIECES,
+                             MIN(PO.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
+                             MAX(PO.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE
+                        FROM PS PS
+                       INNER JOIN PO PO
+                          ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
+                         AND PS.ITERATION = PO.ITERATION
+                         AND PS.PO_ID = PO.PO_ID
+                       WHERE PS.TRANSFER_DATE IS NULL
+                         AND PS.CUSTOMER_ID = :CUSTOMER_ID
+  
+                       GROUP BY PS.BUCKET_ID)
+                    SELECT Q1.BUCKET_ID             AS BUCKET_ID,
+                           Q1.NAME                  AS BUCKET_NAME,
+                           Q1.BUCKET_COMMENT        AS BUCKET_COMMENT,
+                           Q1.PRIORITY              AS PRIORITY,
+                           Q1.FREEZE                AS FREEZE,
+                           Q1.PITCH_LIMIT           AS PITCH_LIMIT,
+                           Q1.PULL_TYPE             AS PULL_TYPE,
+                           Q1.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
+                           Q1.DATE_CREATED AS DATE_CREATED,
+                           Q1.CREATED_BY AS CREATED_BY,
+                           Q1.PULL_AREA_ID          AS PULL_AREA_ID,
+                           Q1.PULL_AREA_SHORT_NAME  AS PULL_AREA_SHORT_NAME,
+                           Q1.PULL_AREA_DESCRIPTION AS PULL_AREA_DESCRIPTION,
+                           Q1.BUILDING_PULL_FROM    AS BUILDING_PULL_FROM,
+                           Q1.PITCH_IA_ID           AS PITCH_IA_ID,
+       
+                           Q1.PITCH_AREA_SHORT_NAME  AS PITCH_AREA_SHORT_NAME,
+                           Q1.PITCH_AREA_DESCRIPTION AS PITCH_AREA_DESCRIPTION,
+                           Q1.BUILDING_PITCH_FROM    AS BUILDING_PITCH_FROM,
+                           Q1.DEFAULT_REPREQ_IA_ID AS REPLENISH_AREA_ID,
+                           Q2.ORDERED_PIECES AS ORDERED_PIECES,
+                           Q2.PICKSLIP_COUNT AS PICKSLIP_COUNT,
+                           Q2.PO_COUNT AS PO_COUNT,
+                           Q2.MIN_DC_CANCEL_DATE AS MIN_DC_CANCEL_DATE,
+                           Q2.MAX_DC_CANCEL_DATE AS MAX_DC_CANCEL_DATE
+
+                      FROM BUCKET_INFO Q1
+                     INNER JOIN BUCKET_PICKSLIP_INFO Q2
+                        ON Q2.BUCKET_ID = Q1.BUCKET_ID                           
+                <if>AND Q1.CREATED_BY = :CREATED_BY</if>";
+
+            var binder = SqlBinder.Create(row => new BucketList
+            {
+
+                BucketId = row.GetInteger("BUCKET_ID").Value,
+                BucketName = row.GetString("BUCKET_NAME"),
+                BucketComment = row.GetString("BUCKET_COMMENT"),
+                PriorityId = row.GetInteger("PRIORITY").Value,
+                IsFrozen = row.GetString("FREEZE") == "Y",
+                PitchLimit = row.GetInteger("PITCH_LIMIT"),
+                RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP",
+                CreatedBy = row.GetString("CREATED_BY"),
+                CreationDate = row.GetDate("DATE_CREATED").Value,
+                QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
+                OrderedPieces = row.GetInteger("ORDERED_PIECES") ?? 0,
+                CountPurchaseOrder = row.GetInteger("PO_COUNT") ?? 0,
+                CountPickslips = row.GetInteger("PICKSLIP_COUNT").Value,
+                MinDcCancelDate = row.GetDate("MIN_DC_CANCEL_DATE"),
+                MaxDcCancelDate = row.GetDate("MAX_DC_CANCEL_DATE"),
+
+
+                PitchAreaId = row.GetString("PITCH_IA_ID"),
+                PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
+                PitchAreaDescription = row.GetString("PITCH_AREA_DESCRIPTION"),
+                PitchAreaBuildingId = row.GetString("BUILDING_PITCH_FROM"),
+                ReplenishAreaId = row.GetString("REPLENISH_AREA_ID"),
+
+
+                PullAreaId = row.GetString("PULL_AREA_ID"),
+                PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
+                PullAreaDescription = row.GetString("PULL_AREA_DESCRIPTION"),
+                PullAreaBuildingId = row.GetString("BUILDING_PULL_FROM")
+
+            });
+
+            binder.Parameter("CUSTOMER_ID", customerId)
+                .Parameter("CREATED_BY", userName);
             return _db.ExecuteReader(QUERY, binder);
         }
     }
