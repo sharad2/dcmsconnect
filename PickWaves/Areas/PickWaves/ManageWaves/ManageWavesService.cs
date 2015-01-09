@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         }
 
-        public void RemovePickslipFromBucket(long pickslipId, int bucketId)
+        public void RemovePickslipFromBucket(long[] pickslipId, int bucketId)
         {
             _repos.RemovePickslipFromBucket(pickslipId, bucketId);
         }

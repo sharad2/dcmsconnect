@@ -279,7 +279,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public class ActionParamsClass_RemovePickslipFromBucket
         {
             public readonly string bucketId = "bucketId";
-            public readonly string pickslipId = "pickslipId";
+            public readonly string pickslips = "pickslips";
         }
         static readonly ActionParamsClass_CancelBoxes s_params_CancelBoxes = new ActionParamsClass_CancelBoxes();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -454,15 +454,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [NonAction]
-        partial void RemovePickslipFromBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, long pickslipId);
+        partial void RemovePickslipFromBucketOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int bucketId, long[] pickslips);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult RemovePickslipFromBucket(int bucketId, long pickslipId)
+        public override System.Web.Mvc.ActionResult RemovePickslipFromBucket(int bucketId, long[] pickslips)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.RemovePickslipFromBucket);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "bucketId", bucketId);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pickslipId", pickslipId);
-            RemovePickslipFromBucketOverride(callInfo, bucketId, pickslipId);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "pickslips", pickslips);
+            RemovePickslipFromBucketOverride(callInfo, bucketId, pickslips);
             return callInfo;
         }
 

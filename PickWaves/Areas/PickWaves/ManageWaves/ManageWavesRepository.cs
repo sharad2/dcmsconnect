@@ -596,9 +596,9 @@ BKT.FREEZE
         /// Removed passed pickslip from bucket
         /// Sharad Sir and Shiva : Delete Bucket when last pickslip is removed.
         /// </summary>
-        /// <param name="pickslipId"></param>
+        /// <param name="pickslips"></param>
         /// <param name="bucketId"></param>
-        public void RemovePickslipFromBucket(long pickslipId, int bucketId)
+        public void RemovePickslipFromBucket(IList<long> pickslips, int bucketId)
         {
             const string QUERY = @"
                                 DECLARE
@@ -617,11 +617,13 @@ BKT.FREEZE
                                         DELETE FROM <proxy />BUCKET BKT WHERE BKT.BUCKET_ID = :BUCKET_ID;
                                       END IF;
                                     END;
-                                ";
+                                ";         
+
             var binder = SqlBinder.Create();
-            binder.Parameter("APICKSLIP_ID", pickslipId)
-                .Parameter("BUCKET_ID", bucketId);
-            _db.ExecuteDml(QUERY, binder);
+            binder.Parameter("APICKSLIP_ID", pickslips.ToString())
+               .Parameter("BUCKET_ID", bucketId);           
+           _db.ExecuteDml(QUERY, binder);
+            
         }
 
         /// <summary>
