@@ -58,16 +58,17 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         public BucketActivityType ActivityType { get; set; }
 
-        /// <summary>
-        /// Name of this activity
-        /// </summary>
-        public string DisplayName
-        {
-            get
-            {
-                return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityType].Name;
-            }
-        }
+        ///// <summary>
+        ///// Name of this activity
+        ///// </summary>
+        //[Obsolete]
+        //public string DisplayName
+        //{
+        //    get
+        //    {
+        //        return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityType].Name;
+        //    }
+        //}
 
         public string AreaShortName { get; set; }
 
