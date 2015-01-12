@@ -56,6 +56,12 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Search()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult CreateProcess()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateProcess);
@@ -131,6 +137,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public class ActionNamesClass
         {
             public readonly string Index = "Index";
+            public readonly string Search = "Search";
             public readonly string CreateProcess = "CreateProcess";
             public readonly string CreateUpdateProcess = "CreateUpdateProcess";
             public readonly string Receiving = "Receiving";
@@ -149,6 +156,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         public class ActionNameConstants
         {
             public const string Index = "Index";
+            public const string Search = "Search";
             public const string CreateProcess = "CreateProcess";
             public const string CreateUpdateProcess = "CreateUpdateProcess";
             public const string Receiving = "Receiving";
@@ -164,6 +172,14 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
 
+        static readonly ActionParamsClass_Search s_params_Search = new ActionParamsClass_Search();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Search SearchParams { get { return s_params_Search; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Search
+        {
+            public readonly string id = "id";
+        }
         static readonly ActionParamsClass_CreateProcess s_params_CreateProcess = new ActionParamsClass_CreateProcess();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_CreateProcess CreateProcessParams { get { return s_params_CreateProcess; } }
@@ -352,6 +368,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
             IndexOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SearchOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Search(string id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Search);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            SearchOverride(callInfo, id);
             return callInfo;
         }
 
