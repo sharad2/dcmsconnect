@@ -45,6 +45,7 @@ namespace DcmsMobile.Shipping.Repository
 
         public int? CarrierCount { get; set; }
 
+        [Obsolete]
         public string DoorId { get; set; }
 
         public int? PickUpDateCount { get; set; }
