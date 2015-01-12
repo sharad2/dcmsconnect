@@ -115,25 +115,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
                 return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
 
             }
-            //var route = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1];
-            //if (route == null)
-            //{
-            //    // Inquiry not installed
-            //    AddStatusMessage(string.Format("Search text {0} was not understood and is being ignored", id));
-            //    if (Request.UrlReferrer != null)
-            //    {
-            //        return Redirect(Request.UrlReferrer.PathAndQuery);
-            //    }
-            //}
-            //else
-            //{
-            //    var url = Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1, new
-            //    {
-            //        id = id
-            //    });
-            //    return Redirect(url);
-            //}
-
             return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(Int32.Parse(id)));
         }
 
