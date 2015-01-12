@@ -142,7 +142,7 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <h4 class="list-group-item-heading">
-                                    <a href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}", Model.PalletList[j].PalletId))'>
+                                    <a href='@Url.Content(string.Format("~/Inquiry/Box/Pallet/{0}", Model.PalletList[j].PalletId))'>
                                         @Html.DisplayFor(m => m.PalletList[j].PalletId)
                                     </a>
                                     <small>
@@ -179,7 +179,7 @@
                                     <div class="btn-group" role="group" aria-label="...">
 
                                         <a class="btn btn-default" title="Click to print the pallet"
-                                           href='@Url.Content(string.Format("~/Inquiry/BoxPallet/{0}?showPrintDialog={1}"
+                                           href='@Url.Content(string.Format("~/Inquiry/Box/Pallet/{0}?showPrintDialog={1}"
                                            ,Model.PalletList[j].PalletId, "True"))' target="printPallet"
                                            style="display: inline-block;" data-total-boxes="@Model.PalletList[j].TotalBoxesOnPallet">
                                             <span class="glyphicon glyphicon-print"></span>
