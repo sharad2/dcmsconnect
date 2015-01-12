@@ -39,7 +39,7 @@ namespace DcmsMobile.DcmsLite.Repository.Ship
                                    WHERE 1 = 1
                                      AND PS.CUSTOMER_ID = :CUSTOMER_ID
                                      AND PS.TRANSFER_DATE IS NULL
-                                     AND Bk.AVAILABLE_FOR_PITCHING = 'Y'
+                                     AND Bk.FREEZE IS NULL
                                      AND PS.SHIPPING_ID IS NULL
                                      AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                      AND B.STOP_PROCESS_DATE IS NULL

@@ -123,7 +123,7 @@ namespace DcmsMobile.Shipping.Repository
                                                        WHERE PS.TRANSFER_DATE IS NULL
                                                          AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                                          AND (SHIP.ONHOLD_FLAG IS NOT NULL OR SHIP.SHIP_DATE IS NULL)
-                                                         AND B.AVAILABLE_FOR_PITCHING = 'Y'
+                                                         AND B.FREEZE IS NULL
                                                         <if>and ps.customer_id=:CUSTOMER_ID</if>
                                                        GROUP BY PS.CUSTOMER_ID, PS.PO_ID),
                                                     Q2 AS
@@ -276,7 +276,7 @@ namespace DcmsMobile.Shipping.Repository
                                          <if>AND PS.CUSTOMER_ID =:CUSTOMER_ID</if>
                                          <if>AND PS.WAREHOUSE_LOCATION_ID =:BUILDING_ID</if>
                                          AND PS.TRANSFER_DATE IS NULL
-                                         AND Bk.AVAILABLE_FOR_PITCHING = 'Y'
+                                         AND Bk.FREEZE IS NULL
                                          AND PS.SHIPPING_ID IS NULL
                                          AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                          AND B.STOP_PROCESS_DATE IS NULL 
@@ -1479,7 +1479,7 @@ namespace DcmsMobile.Shipping.Repository
                                  WHERE PS.TRANSFER_DATE IS NULL
                                    AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                    AND (SHIP.ONHOLD_FLAG IS NOT NULL OR SHIP.SHIP_DATE IS NULL)
-                                   AND B.AVAILABLE_FOR_PITCHING = 'Y'
+                                   AND B.FREEZE IS NULL
                                    AND PS.PO_ID like '%' || :PO_ID || '%'
                                  GROUP BY PS.CUSTOMER_ID, PS.PO_ID,PS.CUSTOMER_DC_ID
                                 ";
