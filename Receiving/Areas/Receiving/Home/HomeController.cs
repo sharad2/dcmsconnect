@@ -106,6 +106,21 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             return View(Views.Index, ivm);
         }
 
+        [Route("search")]
+        public virtual ActionResult Search(string id)
+        {
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
+
+            }
+            return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(Int32.Parse(id)));
+        }
+
+
+
+
 
         /// <summary>
         /// Name of the cookie which stores alert info
@@ -173,6 +188,8 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             PopulateIndexViewModel(model);
             return View(Views.ProcessEditor, model);
         }
+
+
 
 
         /// Creates a new process 
@@ -276,6 +293,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
 
+
+  
+
         /// <summary>
         /// Displays the receiving page for the passed process id.
         /// </summary>
@@ -293,7 +313,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </para>
         /// </remarks>
         [HttpGet]
-        [Route("receiving")]      
+        [Route("receiving")]
         public virtual ActionResult Receiving(int? processId)
         {
             if (processId == null)
@@ -335,6 +355,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         }
 
         #endregion
+
 
         /// <summary>
         /// Passing process id so that it can get back to the interrupted receiving session
@@ -546,7 +567,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// The selected printer is read from a cookie. The cookie is set when a carton is printed.
         /// </summary>
         /// <returns></returns>  
-      [Route("printers")]
+        [Route("printers")]
         public virtual JsonResult GetPrinters()
         {
             var cookie = this.Request.Cookies[KEY_SELECTED_PRINTER];
@@ -567,7 +588,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// Get the shipment list
         /// </summary>
         /// <returns></returns>
-       [Route("shipment/list")]
+        [Route("shipment/list")]
         public virtual ActionResult ShipmentList()
         {
             var model = new ShipmentListViewModel
