@@ -290,7 +290,6 @@
     <Content Include="Areas\Receiving\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Receiving\_ViewStart.cshtml" />
     <Content Include="Areas\Receiving\Rad\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
