@@ -30,10 +30,10 @@ namespace DcmsMobile.DcmsLite
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-                Links_DcmsLite.Content.Url(),
-                Links_DcmsLite.Scripts.Url()
-              }));
+            //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+            //    Links_DcmsLite.Content.Url(),
+            //    Links_DcmsLite.Scripts.Url()
+            //  }));
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
