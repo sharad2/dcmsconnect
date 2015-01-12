@@ -106,21 +106,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
             return View(Views.Index, ivm);
         }
 
-        [Route("search")]
-        public virtual ActionResult Search(string id)
-        {
-
-            if (string.IsNullOrEmpty(id))
-            {
-                return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
-
-            }
-            return RedirectToAction(MVC_Receiving.Receiving.Home.Receiving(Int32.Parse(id)));
-        }
-
-
-
-
 
         /// <summary>
         /// Name of the cookie which stores alert info
@@ -294,16 +279,16 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
 
 
-  
+
 
         /// <summary>
         /// Displays the receiving page for the passed process id.
         /// </summary>
-        /// <param name="processId"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
         /// <remarks>
         /// <para>
-        /// Input: Process Id
+        /// Input:id here is Process Id
         /// </para>
         /// <para>
         /// Output: Process id is queried for validity. If valid process id, receiving view is displayed. All pallets and cartons of the process are selected
@@ -314,18 +299,18 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// </remarks>
         [HttpGet]
         [Route("receiving")]
-        public virtual ActionResult Receiving(int? processId)
+        public virtual ActionResult Receiving(int? id)
         {
-            if (processId == null)
+            if (id == null)
             {
                 this.AddStatusMessage("Please enter the valid Process ID");
                 return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
             }
             // Clearing the Cache every time of GetProcessInfo() because cache info might stale.
-            var pm = _service.Value.GetProcessInfo(processId.Value, true);
+            var pm = _service.Value.GetProcessInfo(id.Value, true);
             if (pm == null)
             {
-                AddStatusMessage(string.Format("Invalid Process ID {0}", processId));
+                AddStatusMessage(string.Format("Invalid Process ID {0}", id));
                 return RedirectToAction(MVC_Receiving.Receiving.Home.Index());
             }
             // Convention based mapping.
@@ -346,9 +331,9 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
 
             };
 
-            rvm.ProcessId = processId.Value;
+            rvm.ProcessId = id.Value;
             var ser = new JavaScriptSerializer();
-            rvm.PalletIdListJson = ser.Serialize(_service.Value.GetPalletsOfProcess(processId.Value));
+            rvm.PalletIdListJson = ser.Serialize(_service.Value.GetPalletsOfProcess(id.Value));
 
 
             return View(Views.Receiving, rvm);
