@@ -51,7 +51,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
-            CountBoxes = entity.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted];
+            CountBoxesCreated = entity.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted];
+
+            CountBoxesIncomplete = entity.Stats[BoxState.InProgress | BoxState.NotStarted];
         }
 
         public BucketActivityType ActivityType { get; set; }
@@ -101,6 +103,9 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PiecesIncomplete { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? CountBoxesIncomplete { get; set; }
 
         /// <summary>
         /// Sum of complete and incomplete
@@ -157,6 +162,12 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PiecesBoxesCreated { get; private set; }
 
+        /// <summary>
+        /// Total boxes for this activity
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? CountBoxesCreated { get; set; }
+
         public string AreaId { get; set; }
 
         /// <summary>
@@ -168,7 +179,8 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxes { get; set; }
+
+
+
     }
 }
