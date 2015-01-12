@@ -14,23 +14,7 @@
         <li class="list-group-item list-group-item-success">
          
             To continue receiving a shipment, select or search... <a href="@Url.Action(MVC_Receiving.Receiving.Home.CreateProcess())" class="btn btn-default">Receive New Shipment</a>
-            @*<form class="form-inline" role="form" action="@Url.Action(MVC_Receiving.Receiving.Home.Receiving())" method="get">
-                <div class="input-group  input-group-lg">
-                    <div class="input-group-btn">
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="search" placeholder="Process Id" name="@MVC_Receiving.Receiving.Home.ReceivingParams.processId"
-                                   autofocus />
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="submit">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-
-                            </span>
-                        </div>
-                    </div>
-
-                </div>
-            </form>*@  
+            
         </li>
         @for (var i = 0; i < Model.RecentProcesses.Count; ++i)
         {
