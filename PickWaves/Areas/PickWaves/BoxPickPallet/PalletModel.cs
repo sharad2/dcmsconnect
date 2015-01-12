@@ -1,14 +1,29 @@
-﻿using System;
+﻿using DcmsMobile.PickWaves.Repository.BoxPickPallet;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.ViewModels.BoxPickPallet
 {
     public class PalletModel
     {
-        [Display( Name = "Pallet")]
+        public PalletModel()
+        {
+
+        }
+
+        internal PalletModel(Pallet src)
+        {
+            PalletId = src.PalletId;
+            PickedBoxes = src.PickedBoxes;
+            TotalBoxesOnPallet = src.TotalBoxesOnPallet;
+            PrintDate = src.PrintDate;
+            IaChangeDate = src.IaChangeDate;
+        }
+
+        [Display(Name = "Pallet")]
         public string PalletId { get; set; }
 
-        [Display( Name = "Total Boxes")]
+        [Display(Name = "Total Boxes")]
         public int? TotalBoxesOnPallet { get; set; }
 
         public int PercentPickedBoxes
@@ -32,6 +47,8 @@ namespace DcmsMobile.PickWaves.ViewModels.BoxPickPallet
         public DateTime? PrintDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
-        public DateTime? IaChangeDate { get; set; }        
+        public DateTime? IaChangeDate { get; set; }
+
+        public string UrlInquiryPrintPallet { get; set; }
     }
 }

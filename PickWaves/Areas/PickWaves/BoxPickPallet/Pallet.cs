@@ -2,7 +2,7 @@
 
 namespace DcmsMobile.PickWaves.Repository.BoxPickPallet
 {
-    public class Pallet
+    internal class Pallet
     {
         public string PalletId { get; set; }
 

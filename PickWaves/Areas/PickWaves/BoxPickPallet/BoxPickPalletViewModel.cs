@@ -55,29 +55,5 @@ namespace DcmsMobile.PickWaves.ViewModels.BoxPickPallet
         [Display(Name = "Pitch from")]
         public string PitchBuildingId { get; set; }
 
-
-
-        //public System.Web.Routing.RouteBase _urlInquiryPrintPallet { get; set; }
-  
-
-      
-
-        //public string UrlInquiryPrintPallet
-        //{
-        //    get
-        //    {
-
-        //        if (_urlInquiryPrintPallet == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            return string.Format(this._urlInquiryPrintPallet + "/{0}", this.PalletId);
-        //        }
-
-        //    }
-        //}
-
     }
 }
