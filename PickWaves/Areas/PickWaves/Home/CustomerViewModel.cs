@@ -74,16 +74,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Home
             }
         }
 
-        //private Lazy<IDictionary<ProgressStage, string>> _lazyStateDisplayNames =
-        //    new Lazy<IDictionary<ProgressStage, string>>(() => PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>().ToDictionary(p => p.Key, p => p.Value.Name));
+        private Lazy<IDictionary<ProgressStage, string>> _lazyStateDisplayNames =
+            new Lazy<IDictionary<ProgressStage, string>>(() => PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>().ToDictionary(p => p.Key, p => p.Value.Name));
 
-        //public IDictionary<ProgressStage, string> StateDisplayNames
-        //{
-        //    get
-        //    {
-        //        return _lazyStateDisplayNames.Value;
-        //    }
-        //}
+        public IDictionary<ProgressStage, string> StateDisplayNames
+        {
+            get
+            {
+                return _lazyStateDisplayNames.Value;
+            }
+        }
 
         [DataType(DataType.Text)]
         public DateRange ImportDateRange
