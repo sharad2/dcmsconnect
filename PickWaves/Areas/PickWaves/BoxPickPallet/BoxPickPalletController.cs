@@ -107,7 +107,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     PullBuildingId = bucket.PullBuildingId,
                     PitchBuildingId = bucket.PitchBuildingId,
                     //IsFrozen = bucket.IsFrozen,
-                    PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
+                    PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray(),
+                  //  _urlInquiryPrintPallet = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchBoxPallet1]
+                
+
                 };
             model.BucketId = bucketId;
             model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
