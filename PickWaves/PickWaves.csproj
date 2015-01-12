@@ -329,14 +329,14 @@
     </None>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+      <DependentUpon>BoxPickPalletIndex-all_O.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+      <DependentUpon>BoxPickPalletIndex-all_O.js</DependentUpon>
     </None>
     <Content Include="Doc\PickWaveManager.doc" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
-    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />
+    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all_O.js" />
     <Content Include="Areas\PickWaves\ManageWaves\Index.cshtml" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.cshtml" />
     <Content Include="Areas\PickWaves\CreateWave\Index.cshtml" />
