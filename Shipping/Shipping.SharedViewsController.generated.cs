@@ -36,13 +36,17 @@ namespace T4MVC.Shipping
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _layoutBootstrap = "_layoutBootstrap";
                 public readonly string _layoutShipping = "_layoutShipping";
+                public readonly string _layoutShipping2 = "_layoutShipping2";
                 public readonly string _soundPartial = "_soundPartial";
                 public readonly string GuidedTruckLoading = "GuidedTruckLoading";
                 public readonly string Shipping_all_css = "Shipping-all.css";
                 public readonly string Shipping_mobile_all_css = "Shipping-mobile-all.css";
             }
+            public readonly string _layoutBootstrap = "~/Areas/Shipping/SharedViews/_layoutBootstrap.cshtml";
             public readonly string _layoutShipping = "~/Areas/Shipping/SharedViews/_layoutShipping.cshtml";
+            public readonly string _layoutShipping2 = "~/Areas/Shipping/SharedViews/_layoutShipping2.cshtml";
             public readonly string _soundPartial = "~/Areas/Shipping/SharedViews/_soundPartial.cshtml";
             public readonly string GuidedTruckLoading = "~/Areas/Shipping/SharedViews/GuidedTruckLoading.ppt";
             public readonly string Shipping_all_css = "~/Areas/Shipping/SharedViews/Shipping-all.css.bundle";

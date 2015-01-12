@@ -212,6 +212,10 @@
     <Content Include="Areas\Shipping\Home\Scripts\Routing.min.js">
       <DependentUpon>Routing.js</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -274,12 +278,23 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Shipping\Home\Scripts\Appointment.min.js.map">
       <DependentUpon>Appointment.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Areas\Shipping\SharedViews\_layoutBootstrap.cshtml" />
+    <Content Include="Areas\Shipping\SharedViews\_layoutShipping.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -361,7 +376,6 @@
     <None Include="Doc\GTL Technical.docx" />
     <Content Include="Areas\Shipping\Home\Index.cshtml" />
     <Content Include="Areas\Shipping\ScanToTruck\Pallet.cshtml" />
-    <Content Include="Areas\Shipping\Home\Index.mobile.cshtml" />
     <Content Include="Areas\Shipping\Home\Appointment.cshtml" />
     <None Include="Scripts\jquery.validate.js" />
     <None Include="Web.config">
@@ -385,7 +399,7 @@
     <Content Include="Areas\Shipping\Home\RoutingSummary.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Shipping\SharedViews\_layoutShipping.cshtml" />
+    <Content Include="Areas\Shipping\SharedViews\_layoutShipping2.cshtml" />
     <Content Include="Areas\Shipping\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>

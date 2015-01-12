@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using EclipseLibrary.Mvc.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using EclipseLibrary.Mvc.Helpers;
 
 namespace DcmsMobile.Shipping.ViewModels
 {
