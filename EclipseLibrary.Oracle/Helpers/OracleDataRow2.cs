@@ -24,9 +24,11 @@ namespace EclipseLibrary.Oracle.Helpers
         private readonly object[] _values;
 
         /// <summary>
-        /// Maps field name to its ordinal
+        /// Maps field name to its ordinal. It is possible that the same field name will be retrieved multiple times from the query.
+        /// We are using Lookup instead of Dictionary because multiple columns in the query may have same fieldname. This can happen when the caller intends
+        /// to access values by index. Inquiry does this.
         /// </summary>
-        private IDictionary<string, int> _fieldMap;
+        private ILookup<string, int> _fieldMap;
 
         /// <summary>
         /// Create an instance once you have recieved a reader
@@ -38,12 +40,19 @@ namespace EclipseLibrary.Oracle.Helpers
             //_reader = reader;
             //var x = _reader.GetSchemaTable();
 
+            //var query = (from DataRow item in schemaTable.Rows
+            //            select new
+            //            {
+            //                ColumnName = (string)item["ColumnName"],
+            //                ColumnOrdinal = (int)item["ColumnOrdinal"]
+            //            }).ToLookup(p => p.ColumnName, p => p.ColumnOrdinal, StringComparer.InvariantCultureIgnoreCase);
+
             _fieldMap = (from DataRow item in schemaTable.Rows
                         select new
                         {
                             ColumnName = (string)item["ColumnName"],
                             ColumnOrdinal = (int)item["ColumnOrdinal"]
-                        }).ToDictionary(p => p.ColumnName, p => p.ColumnOrdinal, StringComparer.InvariantCultureIgnoreCase);
+                        }).ToLookup(p => p.ColumnName, p => p.ColumnOrdinal, StringComparer.InvariantCultureIgnoreCase);
 
             //var dict = new Dictionary<string, int>(StringComparer.InvariantCultureIgnoreCase);
             //dict.Add()
@@ -337,21 +346,20 @@ namespace EclipseLibrary.Oracle.Helpers
             object obj;
             try
             {
-                obj = _values[_fieldMap[fieldName]];
+                obj = _values[_fieldMap[fieldName].Single()];
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException(fieldName, ex);
             }
 #if DEBUG
-            catch (IndexOutOfRangeException ex)
-            {
-                // Reraise the exception with a clearer message
-                throw new IndexOutOfRangeException(fieldName, ex);
-            }
             catch (KeyNotFoundException ex)
             {
                 // Reraise the exception with a clearer message
                 throw new KeyNotFoundException(fieldName, ex);
             }
 #else
-            catch (IndexOutOfRangeException)
+            catch (KeyNotFoundException)
             {
                 // Eat the exception to prevent the application from crashing because some column was dropped.
                 obj = null;

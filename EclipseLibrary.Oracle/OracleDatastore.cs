@@ -578,6 +578,15 @@ namespace EclipseLibrary.Oracle
                 }
                 throw new OracleDataStoreException(ex, cmd);
             }
+            catch (Exception ex)
+            {
+                if (cmd == null)
+                {
+                    throw;
+                }
+                // Include the query as part of the exception
+                throw new Exception(cmd.CommandText, ex);
+            }
             finally
             {
                 if (reader != null)
