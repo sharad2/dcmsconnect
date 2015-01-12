@@ -106,7 +106,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     }).ToList(),
 
                 };
-            model.BucketId = bucketId;
+            //model.BucketId = bucketId;
             model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
             return View(Views.Index, model);
         }
