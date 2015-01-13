@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using DcmsMobile.PickWaves.Helpers;
+﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
@@ -87,35 +87,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
 
-        /// <summary>
-        /// Total number of pitching boxes in the bucket
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPitchableBoxes
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
-                    .Sum(p => p.CountBoxesIncomplete ?? 0);
-            }
-        }
-
-        /// <summary>
-        /// Total number of pulling boxes in the bucket
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPullableBoxes
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
-                    .Sum(p => p.CountBoxesIncomplete ?? 0);
-            }
-        }
-
-
 
         /// <summary>
         /// Total remaining pieces for all SKUs of this wave
@@ -129,35 +100,35 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        /// <summary>
-        /// Total ordered pieces for all SKUs of this wave
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]   
-        [Obsolete]
-        public int? TotalOrderedPieces
-        {
-            get
-            {
-                return BucketSkuList.Sum(p => p.OrderedPieces);
-            }
-        }
+        ///// <summary>
+        ///// Total ordered pieces for all SKUs of this wave
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]   
+        //[Obsolete]
+        //public int? TotalOrderedPieces
+        //{
+        //    get
+        //    {
+        //        return BucketSkuList.Sum(p => p.OrderedPieces);
+        //    }
+        //}
 
-        /// <summary>
-        /// Total Percent picked for all SKUs of this wave
-        /// </summary>
-        [DisplayFormat(DataFormatString="{0:N0}%")]
-        [Obsolete]
-        public int PercentPiecesPulled
-        {
-            get
-            {
-                if (TotalPiecesPulled == 0 || TotalOrderedPieces == 0)
-                {
-                    return 0;
-                }
-                return (int)Math.Round((decimal)TotalPiecesPulled * 100 / (decimal)(TotalOrderedPieces));
-            }
-        }
+        ///// <summary>
+        ///// Total Percent picked for all SKUs of this wave
+        ///// </summary>
+        //[DisplayFormat(DataFormatString="{0:N0}%")]
+        //[Obsolete]
+        //public int PercentPiecesPulled
+        //{
+        //    get
+        //    {
+        //        if (TotalPiecesPulled == 0 || TotalOrderedPieces == 0)
+        //        {
+        //            return 0;
+        //        }
+        //        return (int)Math.Round((decimal)TotalPiecesPulled * 100 / (decimal)(TotalOrderedPieces));
+        //    }
+        //}
 
         /// <summary>
         /// Total Weight of all SKUs of this wave
