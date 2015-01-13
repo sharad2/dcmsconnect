@@ -85,27 +85,30 @@
                 <li class="list-group-item list-group-item-success">
                     <div class="row">
                         <div class="col-md-4">
+
                             <h4>
                                 SKU
-                                <span class="label label-info">@Html.DisplayFor(m => m.TotalWeight) Weight</span>
-                                <span class="label label-success"> @Html.DisplayFor(m => m.TotalVolume) Volume</span>
-                                <abbr title="Virtual Warehouse">VWH</abbr>
-
+                                <small>
+                                    <span class="label label-info">@Html.DisplayFor(m => m.TotalWeight) Weight</span>
+                                    <span class="label label-success"> @Html.DisplayFor(m => m.TotalVolume) Volume</span>
+                                    <abbr title="Virtual Warehouse">VWH</abbr>
+                                </small>
                             </h4>
-                            <div class="bg-info" style="display:inline-block; width:48%">
-                                <em>Pitched</em>
-                                <span style="white-space:nowrap">
+                            <div class="alert-info alert" style="display:inline-block; width:48%">
+                                Pitched
+                                <small style="white-space:nowrap">
                                     @Html.DisplayFor(m => m.TotalPiecesPitched)
-                                    of @Html.DisplayFor(m => m.TotalPitchablePieces) Pieces;
-                                </span>
-                                <span style="white-space:nowrap">x boxes</span>
+                                    of @Html.DisplayFor(m => m.TotalPitchablePieces) Pieces
+                                </small>
+                                <span class="badge" style="white-space:nowrap">x boxes</span>
                             </div>
-                            <div class="bg-success" style="display:inline-block; width:48%">
-                                <em>Pulled</em>  <span style="white-space:nowrap">
+                            <div class="alert-success alert" style="display:inline-block; width:48%;">
+                                Pulled
+                                <small style="white-space:nowrap">
                                     @Html.DisplayFor(m => m.TotalPiecesPulled)
-                                    of @Html.DisplayFor(m => m.TotalPullablePieces) Pieces;
-                                </span>
-                                <span style="white-space:nowrap">x boxes</span>
+                                    of @Html.DisplayFor(m => m.TotalPullablePieces) Pieces
+                                </small>
+                                <span class="badge" style="white-space:nowrap">x boxes</span>
                             </div>
 
                         </div>
@@ -116,10 +119,11 @@
                                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6">
                                         <div class="@AlertType(i)">
 
-                                            <span class="pull-right">Pieces</span>
-                                            <span style="white-space:nowrap">
+                                            <small style="white-space:nowrap">
+
+                                                <span class="pull-right">Pieces</span>
                                                 @Model.AllAreas[i].BuildingId-@Model.AllAreas[i].ShortName
-                                            </span>
+                                            </small>
                                             @if (!string.IsNullOrEmpty(Model.AllAreas[i].ReplenishAreaId))
                                             {
                                                 <small title="Replenish from @Model.AllAreas[i].ReplenishAreaId">
@@ -147,34 +151,37 @@
                                 <h4>
                                     <small>@(i + 1)</small>
                                     @Html.DisplayFor(m => m.BucketSkuList[i].DisplaySku)
-                                    <span class="label label-info">@Html.DisplayFor(m => m.BucketSkuList[i].Weight)</span>
-                                    <span class="label label-success">@Html.DisplayFor(m => m.BucketSkuList[i].Volume)</span>
-                                    @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
+                                    <small>
+                                        <span class="label label-info">@Html.DisplayFor(m => m.BucketSkuList[i].Weight)</span>
+                                        <span class="label label-success">@Html.DisplayFor(m => m.BucketSkuList[i].Volume)</span>
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
+                                    </small>
                                 </h4>
                                 @if (Model.BucketSkuList[i].Activities.Count > 0)
                                 {
                                     for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                                     {
-                                        <div class='bg-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
-                                             style="display:inline-block; width:48%">
-                                            <em>
+                                        <div class='alert alert-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
+                                             style="display:inline-block; width:48%">                                            
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
-                                            </em>
-                                            <span style="white-space:nowrap">
-
+                                            
+                                            <small style="white-space:nowrap">
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
-                                                of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete) Pieces;
-                                            </span>
-                                            <span style="white-space:nowrap">x boxes</span>
+                                                of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesToShip) Pieces
+                                            </small>
+                                            <span class="badge" style="white-space:nowrap" >x boxes</span>
 
-                                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
-                                        </div>
+                                            <small style="white-space:nowrap">
+                                                @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
+                                              </small>
+                                                
+</div>
                                     }
                                 }
                                 else
                                 {
 
-                                    <div class='bg-warning'>
+                                    <div class='alert-warning alert'>
                                         Not picked or pulled yet
 
                                         <span class="pull-right">
@@ -204,12 +211,12 @@
 
 
                                                 <div class="@AlertType(j)">
-                                                    <div>
+                                                    <small>
                                                         <span class="pull-right" title="Total pieces at @Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName">
                                                             @Html.DisplayFor(m => m.BucketSkuList[i].InventoryByArea[j].InventoryPieces)
                                                         </span>
                                                         @Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName
-                                                    </div>
+                                                    </small>
                                                     @if (!string.IsNullOrWhiteSpace(Model.BucketSkuList[i].InventoryByArea[j].BestLocationId))
                                                     {
                                                         <div class="label label-primary" title="Best Location with maximum number of pieces">
@@ -233,37 +240,13 @@
                                     }
                                 </div>
                             </div>
-
-
                         </div>
 
                     </li>
                 }
             </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </div>
-
-
-
     </div>
-
-
-
-
 </div>
 
 
