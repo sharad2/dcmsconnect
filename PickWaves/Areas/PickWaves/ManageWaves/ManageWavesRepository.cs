@@ -75,6 +75,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
+
+            /*
+            SELECT ...,
+                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
+                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
+                FROM ...
+             */
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
@@ -256,7 +263,6 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                 VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED"),
-                            //IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };
                     bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
@@ -269,6 +275,7 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                    //bs.Activities[BucketActivityType.Pulling].Stats[Boxs]
                     return bs;
                 });
 

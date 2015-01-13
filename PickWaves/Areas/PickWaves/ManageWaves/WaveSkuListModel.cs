@@ -25,11 +25,37 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total number of picked pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPiecesPicked
+        [Obsolete]
+        public int TotalPiecesComplete
         {
             get
             {
                 return BucketSkuList.Sum(p => p.Activities.Sum(q => q.PiecesComplete));
+            }
+        }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPiecesPulled
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
+                    .Sum(p => p.PiecesComplete);
+            }
+        }
+
+        /// <summary>
+        /// Total number of pulling pieces in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPullablePieces
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
+                    .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
             }
         }
 
@@ -60,41 +86,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// Total Percent picked for all SKUs of this wave
         /// </summary>
-        public decimal PercentPiecesComplete
+        [DisplayFormat(DataFormatString="{0:N0}%")]
+        [Obsolete]
+        public int PercentPiecesPulled
         {
             get
             {
-                if (TotalPiecesPicked == 0 || TotalOrderedPieces == 0)
+                if (TotalPiecesPulled == 0 || TotalOrderedPieces == 0)
                 {
                     return 0;
                 }
-                return Math.Round((decimal)TotalPiecesPicked * 100 / (decimal)(TotalOrderedPieces));
+                return (int)Math.Round((decimal)TotalPiecesPulled * 100 / (decimal)(TotalOrderedPieces));
             }
         }
-
-        //[Obsolete]
-        //public BoxState StateFilter { get; set; }
-
-        //[Obsolete]
-        //public BucketActivityType ActivityFilter { get; set; }
-
-        //[Obsolete]
-        //public string StateFilterDisplay
-        //{
-        //    get
-        //    {
-        //        return PickWaveHelpers.GetEnumMemberAttributes<BoxState, DisplayAttribute>()[this.StateFilter].Name;
-        //    }
-        //}
-
-        //[Obsolete]
-        //public string ActivityFilterDisplay
-        //{
-        //    get
-        //    {
-        //        return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityFilter].Name;
-        //    }
-        //}
 
         /// <summary>
         /// Total Weight of all SKUs of this wave
