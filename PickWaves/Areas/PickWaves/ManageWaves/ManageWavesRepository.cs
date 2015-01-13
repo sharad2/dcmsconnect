@@ -203,7 +203,9 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                                WHEN B.CARTON_ID IS NOT NULL THEN
                                                  B.PITCHING_END_DATE
                                              END
-                                            ) AS MIN_PULL_END_DATE
+                                            ) AS MIN_PULL_END_DATE,
+                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
+                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
                                     FROM <proxy />BOX B
                                    INNER JOIN <proxy />BOXDET BD
                                       ON B.PICKSLIP_ID = BD.PICKSLIP_ID
@@ -235,7 +237,9 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
+                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN,
+                                   BOX_SKU.count_pullable_boxes As count_pullable_boxes,
+                                   BOX_SKU.count_pitchable_boxes AS count_pitchable_boxes
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
                                 ON MS.SKU_ID = AOS.SKU_ID
@@ -275,7 +279,9 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                     bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
                     bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-                    //bs.Activities[BucketActivityType.Pulling].Stats[Boxs]
+                    // This contains in progress boxes also
+                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.NotStarted] = row.GetInteger("count_pitchable_boxes");
+                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.NotStarted] = row.GetInteger("count_pullable_boxes");
                     return bs;
                 });
 

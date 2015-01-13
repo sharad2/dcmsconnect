@@ -73,7 +73,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         /// <summary>
-        /// Total number of pulling pieces in the bucket
+        /// Total number of pitching pieces in the bucket
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int TotalPitchablePieces
@@ -83,6 +83,35 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                 return BucketSkuList.SelectMany(p => p.Activities)
                     .Where(p => p.ActivityType == BucketActivityType.Pitching)
                     .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
+            }
+        }
+
+
+        /// <summary>
+        /// Total number of pitching boxes in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPitchableBoxes
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
+                    .Sum(p => p.CountBoxesIncomplete ?? 0);
+            }
+        }
+
+        /// <summary>
+        /// Total number of pulling boxes in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPullableBoxes
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
+                    .Sum(p => p.CountBoxesIncomplete ?? 0);
             }
         }
 
