@@ -72,23 +72,22 @@
                                 <abbr title="Virtual Warehouse">VWH</abbr>
                                 <span class="badge">Ordered Pieces @Html.DisplayFor(m => m.TotalOrderedPieces)</span>
                             </h4>
-                            <div class='well well-sm'>
+                            <div class='alert alert-info'>
                                 <div class="text-info">
                                     Activity Type
                                     <em>@Model.PercentPiecesComplete% picked</em>
                                    
                                 </div>
 
-                                <div class="progress" style="margin-bottom:0">
+                                <div class="progress" style="margin-bottom:0;text-align:center">
                                     <div style="width: 50%" class="progress-bar progress-bar-success">
                                         <span style="white-space:nowrap">
                                             @Html.DisplayFor(m => m.TotalPiecesPicked) pieces picked
                                         </span>
-                                    </div>
-                                    <div class="progress-bar progress-bar-warning" style="width:  50%">
-                                        @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces remains
-                                    </div>
+                                    </div>                                  
+                                        @Html.DisplayFor(m => m.RemainingPiecesToPick) pieces remains                            
                                 </div>
+                           
                             </div>
 
                         </div>
@@ -152,15 +151,14 @@
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
                                                 <em>@Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%</em>                                               
                                             </div>
-                                            <div class="progress" style="margin-bottom:0">
+                                            <div class="progress" style="margin-bottom:0;text-align:center">
                                                 <div style="width: @Model.BucketSkuList[i].Activities[j].PercentPiecesComplete%" class="progress-bar progress-bar-success">
                                                     <span style="white-space:nowrap">
                                                         @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
                                                     </span>
-                                                </div>
-                                                <div class="progress-bar progress-bar-warning" style="width:  @Model.BucketSkuList[i].Activities[j].PercentPiecesIncomplete%">
+                                                </div>                                              
                                                     @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesIncomplete)
-                                                </div>
+                                               
                                             </div>
                                             @if (Model.BucketSkuList[i].Activities[j].UnderPickedPieces.HasValue || Model.BucketSkuList[i].Activities[j].CancelledPieces.HasValue)
                                             {
