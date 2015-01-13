@@ -285,7 +285,15 @@
                             <small>
                                 @if (Model.RequiredBoxExpediting)
                                 {
-                                    <span class="text-success"> Box Expediting  required</span>
+
+                                    if (Model.CountTotalBoxes > 0 && !Model.IsFrozen)
+                                    {
+                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))">Box Expediting  required</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success"> Box Expediting  required</span>
+                                    }
                                 }
                                 @if (Model.QuickPitch)
                                 {
@@ -293,6 +301,7 @@
                                 }
                             </small>
                         </h4>
+
                     </li>
                     @if (Model.CountNotAssignedSku > 0)
                     {
