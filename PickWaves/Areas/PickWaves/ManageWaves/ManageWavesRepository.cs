@@ -119,7 +119,7 @@ location_id,
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
-and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
+--and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -136,7 +136,7 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
                                     ON I.IA_ID = IL.IA_ID 
-   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
+--   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
