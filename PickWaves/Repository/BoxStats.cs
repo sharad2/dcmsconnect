@@ -52,20 +52,11 @@ namespace DcmsMobile.PickWaves.Repository
         }
 
         /// <summary>
-        /// Returns sum of pieces in boxes
+        /// Returns sum of pieces in boxes in various box states
         /// </summary>
         /// <param name="kind"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        [Obsolete]
-        public int? this[PiecesKind kind, BoxState[] states]
-        {
-            get
-            {
-                return _dictPieces.Where(p => states.Contains(p.Key.Item1) && p.Key.Item2 == kind).Sum(p => p.Value);
-            }
-        }
-
         public int? GetPieces(PiecesKind kind, BoxState[] states)
         {
             return _dictPieces.Where(p => states.Contains(p.Key.Item1) && p.Key.Item2 == kind).Sum(p => p.Value);

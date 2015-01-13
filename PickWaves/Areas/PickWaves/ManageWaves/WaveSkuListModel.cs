@@ -68,7 +68,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 return BucketSkuList.SelectMany(p => p.Activities)
                     .Where(p => p.ActivityType == BucketActivityType.Pulling)
-                    .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
+                    .Sum(p => p.PiecesRemaining + p.PiecesComplete);
             }
         }
 
@@ -82,7 +82,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 return BucketSkuList.SelectMany(p => p.Activities)
                     .Where(p => p.ActivityType == BucketActivityType.Pitching)
-                    .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
+                    .Sum(p => p.PiecesRemaining + p.PiecesComplete);
             }
         }
 
@@ -92,11 +92,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total remaining pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete("Rename to TotalPieesRemaining")]
         public int RemainingPiecesToPick
         {
             get
             {
-                return BucketSkuList.Sum(p => p.Activities.Sum(q => q.PiecesIncomplete));
+                return BucketSkuList.Sum(p => p.Activities.Sum(q => q.PiecesRemaining));
             }
         }
 
