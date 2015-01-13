@@ -392,7 +392,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home
         /// <param name="processId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Obsolete]
+        [Route("tutorial")]
         public virtual ActionResult Tutorial(int? processId)
         {
             return View(Views.Tutorial, processId);
