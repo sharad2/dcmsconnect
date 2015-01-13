@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -59,6 +60,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Number of pieces ordered for this SKU
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete]
         public int? OrderedPieces { get; set; }
 
         /// <summary>

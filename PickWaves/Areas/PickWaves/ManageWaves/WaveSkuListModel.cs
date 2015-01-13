@@ -75,6 +75,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total ordered pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete]
         public int? TotalOrderedPieces
         {
             get

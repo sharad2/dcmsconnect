@@ -139,6 +139,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CancelledPieces { get; set; }
 
+        [Obsolete]
         public int PercentPiecesComplete
         {
             get
