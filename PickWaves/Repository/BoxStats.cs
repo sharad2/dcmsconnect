@@ -40,19 +40,23 @@ namespace DcmsMobile.PickWaves.Repository
             _dictPieces = new Dictionary<Tuple<BoxState, PiecesKind>, int?>(8);
         }
 
-        public int? this[params BoxState[] states]
+        public int? this[BoxState state]
+        {
+            get
+            {
+                return _dictBoxCounts.Where(p => p.Key == state).Sum(p => p.Value);
+            }
+            set
+            {
+                _dictBoxCounts[state] = value;
+            }
+        }
+
+        public int? this[BoxState[] states]
         {
             get
             {
                 return _dictBoxCounts.Where(p => states.Contains(p.Key)).Sum(p => p.Value);
-            }
-            set
-            {
-                if (states.Length != 1)
-                {
-                    throw new ArgumentOutOfRangeException("Can set the value of only one state");
-                }
-                _dictBoxCounts[states[0]] = value;
             }
         }
 
@@ -120,49 +124,23 @@ namespace DcmsMobile.PickWaves.Repository
         /// <param name="kind"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public int? this[PiecesKind kind, params BoxState[] states]
+        public int? this[PiecesKind kind, BoxState[] states]
         {
             get
             {
                 return _dictPieces.Where(p => states.Contains(p.Key.Item1) && p.Key.Item2 == kind).Sum(p => p.Value);
-                //var results = new List<int?>(2);
-                //if (states.HasFlag(BoxState.Cancelled))
-                //{
-                //    results.Add(_pieces[INDEX_STATE_CANCELLED, (int)kind]);
-                //}
-                //if (states.HasFlag(BoxState.InProgress))
-                //{
-                //    results.Add(_pieces[INDEX_STATE_UNVERIFIED, (int)kind]);
-                //}
-                //if (states.HasFlag(BoxState.Completed))
-                //{
-                //    results.Add(_pieces[INDEX_STATE_VERIFIED, (int)kind]);
-                //}
-                //return results.Sum();
+            }
+        }
+
+        public int? this[PiecesKind kind, BoxState state]
+        {
+            get
+            {
+                return _dictPieces.Where(p => p.Key.Item1 == state && p.Key.Item2 == kind).Sum(p => p.Value);
             }
             set
             {
-                if (states.Length != 1)
-                {
-                    throw new ArgumentOutOfRangeException("Can set the value of only one state");
-                }
-                _dictPieces[Tuple.Create(states[0], kind)] = value;
-                //switch (states)
-                //{
-                //    case BoxState.Completed:
-                //        _pieces[INDEX_STATE_VERIFIED, (int)kind] = value;
-                //        break;
-                //    case BoxState.Cancelled:
-                //        _pieces[INDEX_STATE_CANCELLED, (int)kind] = value;
-                //        break;
-
-                //    case BoxState.InProgress:
-                //        _pieces[INDEX_STATE_UNVERIFIED, (int)kind] = value;
-                //        break;
-
-                //    default:
-                //        throw new NotSupportedException();
-                //}
+                _dictPieces[Tuple.Create(state, kind)] = value;
             }
         }
     }
