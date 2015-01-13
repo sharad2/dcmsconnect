@@ -52,7 +52,8 @@
                     @if (Model.BucketId != null)
                     {
                         <h4 class="list-group-item-heading">
-                            Customer @Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)
+                            Customer
+                            <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.CustomerId))">@Html.DisplayFor(m => m.CustomerId): @Html.DisplayFor(m => m.CustomerName)</a>                          
                         </h4>
                         <p class="list-group-item-text">
                             @if (Model.PullBuildingId == Model.PitchBuildingId)
@@ -143,8 +144,10 @@
                             <div class="col-md-4">
                                 <h4 class="list-group-item-heading">
                                     <a href='@Model.PalletList[j].UrlInquiryPrintPallet'>
-                                        <span class="glyphicon glyphicon-print"></span>
-                                        @Html.DisplayFor(m => m.PalletList[j].PalletId)
+                                        <span title="Print or View detail of pallet">
+                                            <span class="glyphicon glyphicon-print"></span>
+                                            @Html.DisplayFor(m => m.PalletList[j].PalletId)
+                                        </span>
                                     </a>
 
                                     <small>
