@@ -397,19 +397,19 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     Description = row.GetString("PULL_AREA_DESCRIPTION"),
                     BuildingId = row.GetString("BUILDING_PULL_FROM")
                 };
-                activity.Stats[BoxState.Completed, PiecesKind.Expected] = row.GetInteger("VRFY_EXP_PCS_PULL");
-                activity.Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                activity.Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-                activity.Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
 
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PULL");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PULL");
 
-                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PITCH");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PITCH");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PULL");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -423,10 +423,10 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     BuildingId = row.GetString("BUILDING_PITCH_FROM"),
                     ReplenishAreaId = row.GetString("REPLENISH_AREA_ID")
                 };
-                activity.Stats[BoxState.Completed, PiecesKind.Expected] = row.GetInteger("VRFY_EXP_PCS_PITCH");
-                activity.Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                activity.Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
-                activity.Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
 
                 // Count of unverified boxes
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PITCH");

@@ -37,23 +37,23 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
-            PiecesComplete = entity.Stats[BoxState.Completed | BoxState.InProgress, PiecesKind.Current] ?? 0;
-            PiecesIncomplete = (entity.Stats[BoxState.InProgress, PiecesKind.Expected] ?? 0) - (entity.Stats[BoxState.InProgress, PiecesKind.Current] ?? 0);
-            PiecesBoxesCreated = entity.Stats[BoxState.Cancelled | BoxState.InProgress | BoxState.Completed, PiecesKind.Expected] ?? 0;
+            PiecesComplete = entity.Stats[PiecesKind.Current, new[] {BoxState.Completed, BoxState.InProgress}] ?? 0;
+            PiecesIncomplete = (entity.Stats[PiecesKind.Expected, BoxState.InProgress] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.InProgress] ?? 0);
+            PiecesBoxesCreated = entity.Stats[PiecesKind.Expected, new[] {BoxState.Cancelled, BoxState.InProgress, BoxState.Completed}] ?? 0;
 
-            var pcs = (entity.Stats[BoxState.Completed, PiecesKind.Expected] ?? 0) - (entity.Stats[BoxState.Completed, PiecesKind.Current] ?? 0);
+            var pcs = (entity.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
             if (pcs > 0)
             {
                 UnderPickedPieces = pcs;
             }
-            pcs = entity.Stats[BoxState.Cancelled, PiecesKind.Expected] ?? 0;
+            pcs = entity.Stats[PiecesKind.Expected, BoxState.Cancelled] ?? 0;
             if (pcs > 0)
             {
                 CancelledPieces = pcs;
             }
-            CountBoxesCreated = entity.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted];
+            CountBoxesCreated = entity.Stats[new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted}];
 
-            CountBoxesIncomplete = entity.Stats[BoxState.InProgress | BoxState.NotStarted];
+            CountBoxesIncomplete = entity.Stats[new[] {BoxState.InProgress, BoxState.NotStarted}];
         }
 
         public BucketActivityType ActivityType { get; set; }
