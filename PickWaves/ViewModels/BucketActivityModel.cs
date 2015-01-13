@@ -37,9 +37,9 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
-            PiecesComplete = entity.Stats[PiecesKind.Current, new[] {BoxState.Completed, BoxState.InProgress}] ?? 0;
+            PiecesComplete = entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.Completed, BoxState.InProgress }) ?? 0;
             PiecesIncomplete = (entity.Stats[PiecesKind.Expected, BoxState.InProgress] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.InProgress] ?? 0);
-            PiecesBoxesCreated = entity.Stats[PiecesKind.Expected, new[] {BoxState.Cancelled, BoxState.InProgress, BoxState.Completed}] ?? 0;
+            PiecesBoxesCreated = entity.Stats.GetPieces(PiecesKind.Expected, new[] {BoxState.Cancelled, BoxState.InProgress, BoxState.Completed}) ?? 0;
 
             var pcs = (entity.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
             if (pcs > 0)
@@ -51,9 +51,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
-            CountBoxesCreated = entity.Stats[new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted}];
+            CountBoxesCreated = entity.Stats.GetBoxCounts(new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted});
 
-            CountBoxesIncomplete = entity.Stats[new[] {BoxState.InProgress, BoxState.NotStarted}];
+            CountBoxesIncomplete = entity.Stats.GetBoxCounts(new[] {BoxState.InProgress, BoxState.NotStarted});
         }
 
         public BucketActivityType ActivityType { get; set; }
