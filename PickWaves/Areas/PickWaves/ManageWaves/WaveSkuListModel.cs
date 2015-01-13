@@ -45,6 +45,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPiecesPitched
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
+                    .Sum(p => p.PiecesComplete);
+            }
+        }
+
+
         /// <summary>
         /// Total number of pulling pieces in the bucket
         /// </summary>
@@ -58,6 +71,22 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                     .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
             }
         }
+
+        /// <summary>
+        /// Total number of pulling pieces in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPitchablePieces
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
+                    .Sum(p => p.PiecesIncomplete + p.PiecesComplete);
+            }
+        }
+
+
 
         /// <summary>
         /// Total remaining pieces for all SKUs of this wave
@@ -74,7 +103,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <summary>
         /// Total ordered pieces for all SKUs of this wave
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]   
         [Obsolete]
         public int? TotalOrderedPieces
         {
