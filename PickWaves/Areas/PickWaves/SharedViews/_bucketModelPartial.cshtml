@@ -11,30 +11,6 @@
     //var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId)) == Request.Url.PathAndQuery;
 }
 
-@helper BucketActivityNoun(DcmsMobile.PickWaves.Helpers.BucketActivityType actType)
-{
-
-    switch (actType)
-    {
-        case DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet:
-            @:NotSet
-            break;
-
-        case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching:
-        @:Pitching
-            break;
-
-        case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling:
-        @:Pulling
-            break;
-
-        default:
-        @:Unexpected
-
-            break;
-    }
-
-}
 
 @helper BucketActivityVerb(DcmsMobile.PickWaves.Helpers.BucketActivityType actType)
 {
@@ -333,7 +309,7 @@
                                 <li class="list-group-item list-group-item-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
                                     <div class="row">
                                         <div class="col-md-5">
-                                            @BucketActivityNoun(Model.Activities[j].ActivityType)
+                                            @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                                             <div>
                                                 @Html.DisplayFor(m => m.Activities[j].CountBoxesIncomplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
