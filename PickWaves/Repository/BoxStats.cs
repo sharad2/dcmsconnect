@@ -15,75 +15,101 @@ namespace DcmsMobile.PickWaves.Repository
     {
         private readonly int?[,] _pieces;
 
+        [Obsolete]
         private readonly int?[] _counts;
+        [Obsolete]
         private const int INDEX_STATE_VERIFIED = 0;
+        [Obsolete]
         private const int INDEX_STATE_UNVERIFIED = 1;
+        [Obsolete]
         private const int INDEX_STATE_CANCELLED = 2;
+        [Obsolete]
         private const int INDEX_STATE_NOTSTARTED = 3;
+        [Obsolete]
         private const int INDEX_STATE_MAX = 3;
+
+        private readonly IDictionary<BoxState, int?> _dictBoxCounts;
 
         public BoxStats()
         {
             _pieces = new int?[INDEX_STATE_MAX + 1, 2];
-            _counts = new int?[INDEX_STATE_MAX + 1];
+            //_counts = new int?[INDEX_STATE_MAX + 1];
+            _dictBoxCounts = new Dictionary<BoxState, int?>(8);
         }
 
-
-        /// <summary>
-        /// Returns box counts
-        /// </summary>
-        /// <param name="states"></param>
-        /// <returns></returns>
-        public int? this[BoxState states]
+        public int? this[params BoxState[] states]
         {
             get
             {
-                var results = new List<int?>(INDEX_STATE_MAX);
-                if (states.HasFlag(BoxState.Cancelled))
-                {
-                    results.Add(_counts[INDEX_STATE_CANCELLED]);
-                }
-                if (states.HasFlag(BoxState.InProgress))
-                {
-                    results.Add(_counts[INDEX_STATE_UNVERIFIED]);
-                }
-                if (states.HasFlag(BoxState.Completed))
-                {
-                    results.Add(_counts[INDEX_STATE_VERIFIED]);
-                }
-                if (states.HasFlag(BoxState.NotStarted))
-                {
-                    results.Add(_counts[INDEX_STATE_NOTSTARTED]);
-                }
-                return results.Sum();
-
-
+                return _dictBoxCounts.Where(p => states.Contains(p.Key)).Sum(p => p.Value);
             }
             set
             {
-                switch (states)
+                if (states.Length != 1)
                 {
-                    case BoxState.Completed:
-                        _counts[INDEX_STATE_VERIFIED] = value;
-                        break;
-                    case BoxState.Cancelled:
-                        _counts[INDEX_STATE_CANCELLED] = value;
-                        break;
-
-                    case BoxState.InProgress:
-                        _counts[INDEX_STATE_UNVERIFIED] = value;
-                        break;
-
-                    case BoxState.NotStarted:
-                        _counts[INDEX_STATE_NOTSTARTED] = value;
-                        break;
-
-                    default:
-                        throw new NotSupportedException(states.ToString());
+                    throw new ArgumentOutOfRangeException("Can set the value of only one state");
                 }
-
+                _dictBoxCounts[states[0]] = value;
             }
         }
+
+        ///// <summary>
+        ///// Returns box counts
+        ///// </summary>
+        ///// <param name="states"></param>
+        ///// <returns></returns>
+        //[Obsolete]
+        //public int? this[BoxState states]
+        //{
+        //    get
+        //    {
+        //        //var results = new List<int?>(INDEX_STATE_MAX);
+        //        //if (states.HasFlag(BoxState.Cancelled))
+        //        //{
+        //        //    results.Add(_counts[INDEX_STATE_CANCELLED]);
+        //        //}
+        //        //if (states.HasFlag(BoxState.InProgress))
+        //        //{
+        //        //    results.Add(_counts[INDEX_STATE_UNVERIFIED]);
+        //        //}
+        //        //if (states.HasFlag(BoxState.Completed))
+        //        //{
+        //        //    results.Add(_counts[INDEX_STATE_VERIFIED]);
+        //        //}
+        //        //if (states.HasFlag(BoxState.NotStarted))
+        //        //{
+        //        //    results.Add(_counts[INDEX_STATE_NOTSTARTED]);
+        //        //}
+        //        //return results.Sum();
+
+        //        throw new NotImplementedException();
+        //    }
+        //    set
+        //    {
+        //        //switch (states)
+        //        //{
+        //        //    case BoxState.Completed:
+        //        //        _counts[INDEX_STATE_VERIFIED] = value;
+        //        //        break;
+        //        //    case BoxState.Cancelled:
+        //        //        _counts[INDEX_STATE_CANCELLED] = value;
+        //        //        break;
+
+        //        //    case BoxState.InProgress:
+        //        //        _counts[INDEX_STATE_UNVERIFIED] = value;
+        //        //        break;
+
+        //        //    case BoxState.NotStarted:
+        //        //        _counts[INDEX_STATE_NOTSTARTED] = value;
+        //        //        break;
+
+        //        //    default:
+        //        //        throw new NotSupportedException(states.ToString());
+        //        //}
+        //        throw new NotImplementedException();
+
+        //    }
+        //}
 
         /// <summary>
         /// Returns sum of pieces in boxes

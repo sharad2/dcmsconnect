@@ -51,9 +51,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
-            CountBoxesCreated = entity.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted];
+            CountBoxesCreated = entity.Stats[BoxState.Completed, BoxState.InProgress, BoxState.NotStarted];
 
-            CountBoxesIncomplete = entity.Stats[BoxState.InProgress | BoxState.NotStarted];
+            CountBoxesIncomplete = entity.Stats[BoxState.InProgress, BoxState.NotStarted];
         }
 
         public BucketActivityType ActivityType { get; set; }

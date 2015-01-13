@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Helpers
 {
-    [Flags]
+    //[Flags]
     public enum BoxState
     {
         [Display(Name="All")]
