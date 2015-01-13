@@ -90,9 +90,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.11.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -132,23 +131,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ShippingResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Shipping.AutoCompleteController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipping.HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipping.ScanToTruckController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Shipping.SharedViewsController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="T4MVC.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="Areas\Shipping\Home\AppointmentModel.cs" />
     <Compile Include="Areas\Shipping\Home\AppointmentViewModel.cs" />
     <Compile Include="Areas\Shipping\Home\BolModel.cs" />
@@ -169,6 +151,23 @@
     <Compile Include="Areas\Shipping\ScanToTruck\PalletViewModel.cs" />
     <Compile Include="Areas\Shipping\Home\AppointmentBolModel.cs" />
     <Compile Include="Areas\Shipping\Home\UnroutedViewModel.cs" />
+    <Compile Include="Shipping.AutoCompleteController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping.HomeController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping.ScanToTruckController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping.SharedViewsController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4MVC.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Shipping\SharedViews\GuidedTruckLoading.ppt" />
