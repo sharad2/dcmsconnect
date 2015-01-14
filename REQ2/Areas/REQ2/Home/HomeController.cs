@@ -580,6 +580,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         /// <c>CurrentRequest.CartonRules</c> to perform the assignment
         /// </remarks>
         [HttpPost]
+        [Obsolete]
         public virtual ActionResult AssignCartons()
         {
             var ctnresvId = this.ValueProvider.GetValue(EclipseLibrary.Mvc.Helpers.ReflectionHelpers.NameFor((ManageSkuViewModel m) => m.ResvId))
