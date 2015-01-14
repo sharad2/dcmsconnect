@@ -559,8 +559,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             {
                 throw new ApplicationException("Internal Error. Request Id was not passed.");
             }
-
-            _service.AssignCartons(ctnresvId);
+            try
+            {
+                _service.AssignCartons(ctnresvId);
+            }
+            catch (DbException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
             //Following PRG model
             return RedirectToAction(MVC_REQ2.REQ2.Home.PullRequest(ctnresvId));
             
