@@ -42,6 +42,21 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             this.PriceSeasonCode = entity.PriceSeasonCode;
             this.SewingPlantCode = entity.SewingPlantCode;
 
+
+            if (entity.Priority <= (int)PriorityType.Low)
+            {
+                this.PriorityFlag = Priority.Low;
+            }
+            else if (entity.Priority > (int)PriorityType.Low && entity.Priority <= (int)PriorityType.Medium)
+            {
+                this.PriorityFlag = Priority.Medium;
+            }
+
+            else if (entity.Priority > (int)PriorityType.Medium)
+            {
+                this.PriorityFlag = Priority.High;
+            }
+
         }
         //public RequestHeaderViewModel CurrentRequest { get; set; }
 
