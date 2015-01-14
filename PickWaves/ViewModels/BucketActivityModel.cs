@@ -37,11 +37,9 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
-            //PiecesComplete = ((entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
-            //            - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.Cancelled }) ?? 0))
-            //           - ((entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0)
-            //           - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.InProgress }) ?? 0));
-
+            PiecesComplete = ((entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
+                        - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.Cancelled }) ?? 0))
+                       - (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
 
 
             PiecesRemaining = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
@@ -121,17 +119,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// underpicked pieces are considered to be complete.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesComplete
-        {
-            get
-            {
-                if (PiecesComplete - PiecesRemaining == 0)
-                {
-                    return 0;
-                }
-                return this.PiecesBoxesCreated  - this.PiecesRemaining;
-            }
-        }
+        public int PiecesComplete { get; set; }
 
         /// <summary>
         /// The number of pieces for which pulling or picking needs to be performed.
