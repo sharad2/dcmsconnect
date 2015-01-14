@@ -18,7 +18,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         }
 
-        internal IndexBucketModel(BucketList entity)
+        internal IndexBucketModel(CustomerBucket entity)
         {
             this.BucketId = entity.BucketId;
             this.BucketName = entity.BucketName;
@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public int? PitchLimit { get; set; }       
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
 
@@ -120,67 +120,19 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// </summary>
     public class IndexViewModel : ViewModelBase
     {
-        /// <summary>
-        /// Needed for model binder
-        /// </summary>
-        public IndexViewModel()
-        {
-            this.Buckets_O = new BucketModel[0];
-            this.BucketState = ProgressStage.InProgress;
-        }
+        //[Obsolete]
+        //public IList<IndexBucketModel> Buckets { get; set; }
 
-        /// <summary>
-        /// Displays a list of buckets for the passed customer and bucket status
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="stateIndex"></param>
-        public IndexViewModel(string customerId, ProgressStage state, string userName)
-        {
-            this.CustomerId = customerId;
-            this.Buckets_O = new BucketModel[0];
-            this.BucketState = state;
-            this.UserName = userName;
-        }
+        public IList<IndexBucketModel> FrozenBuckets { get; set; }
 
-        /// <summary>
-        /// Title of the browser windows
-        /// </summary>
-        public string BucketStateDisplayName
-        {
-            get
-            {
-                var state = PickWaveHelpers.GetEnumMemberAttributes<ProgressStage, DisplayAttribute>()[this.BucketState].Name;
-                return state;
-            }
-        }
+        public IList<IndexBucketModel> InProgressBuckets { get; set; }
 
-        public IList<IndexBucketModel> Buckets { get; set; }
-
-        [Obsolete]
-        public IList<BucketModel> Buckets_O { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int BucketCount_O
-        {
-            get
-            {
-                if (this.Buckets_O == null)
-                {
-                    return 0;
-                }
-                return Buckets_O.Count;
-            }
-        }
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int BucketCount
         {
             get
             {
-                if (this.Buckets == null)
-                {
-                    return 0;
-                }
-                return Buckets.Count;
+                return FrozenBuckets.Count + InProgressBuckets.Count;
             }
         }
 
@@ -209,7 +161,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
-        public ProgressStage BucketState { get; set; }
     }
 
 }

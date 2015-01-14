@@ -11,7 +11,7 @@
     </div>
 }
 <div class="box">
-    @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Ship.SearchCustomer(), FormMethod.Post))
+    @using (Html.BeginForm(MVC_DcmsLite.DcmsLite.Ship.SearchCustomer(), FormMethod.Get))
     {
         <strong style="font-size: 1.8em">Search Customer</strong>
         <input id="tbScanBox" name="@MVC_DcmsLite.DcmsLite.Ship.SearchCustomerParams.customerId" size="30" style="font-size:2em;" />

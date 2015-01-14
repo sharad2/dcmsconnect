@@ -75,6 +75,13 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
+
+            /*
+            SELECT ...,
+                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
+                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
+                FROM ...
+             */
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
@@ -119,7 +126,7 @@ location_id,
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
-and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
+--and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -136,7 +143,7 @@ and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
                                     ON I.IA_ID = IL.IA_ID 
-   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
+--   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
                                 ),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
@@ -196,7 +203,9 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                                WHEN B.CARTON_ID IS NOT NULL THEN
                                                  B.PITCHING_END_DATE
                                              END
-                                            ) AS MIN_PULL_END_DATE
+                                            ) AS MIN_PULL_END_DATE,
+                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
+                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
                                     FROM <proxy />BOX B
                                    INNER JOIN <proxy />BOXDET BD
                                       ON B.PICKSLIP_ID = BD.PICKSLIP_ID
@@ -228,7 +237,9 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                    BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
+                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN,
+                                   BOX_SKU.count_pullable_boxes As count_pullable_boxes,
+                                   BOX_SKU.count_pitchable_boxes AS count_pitchable_boxes
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
                                 ON MS.SKU_ID = AOS.SKU_ID
@@ -252,23 +263,25 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                 SkuSize = row.GetString("SKU_SIZE"),
                                 UpcCode = row.GetString("UPC_CODE"),
                                 VwhId = row.GetString("VWH_ID"),
-                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN") ?? 0,
-                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN") ?? 0
+                                WeightPerDozen = row.GetDecimal("WEIGHT_PER_DOZEN"),
+                                VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
                             },
-                            QuantityOrdered = row.GetInteger("QUANTITY_ORDERED") ?? 0,
-                            //IsPitchingBucket = !string.IsNullOrWhiteSpace(row.GetString("PITCH_AREA")),
+                            QuantityOrdered = row.GetInteger("QUANTITY_ORDERED"),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
                         };
                     bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
                     bs.Activities[BucketActivityType.Pitching].MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
-                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
-                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
+                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
+                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
                     bs.Activities[BucketActivityType.Pulling].MaxEndDate = row.GetDateTimeOffset("MAX_PULL_END_DATE");
                     bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
+                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
+                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                    // This contains in progress boxes also
+                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.NotStarted] = row.GetInteger("count_pitchable_boxes");
+                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.NotStarted] = row.GetInteger("count_pullable_boxes");
                     return bs;
                 });
 
@@ -617,13 +630,13 @@ BKT.FREEZE
                                         DELETE FROM <proxy />BUCKET BKT WHERE BKT.BUCKET_ID = :BUCKET_ID;
                                       END IF;
                                     END;
-                                ";         
+                                ";
 
-            var binder = SqlBinder.Create();
-            binder.Parameter("APICKSLIP_ID", pickslips.ToString())
-               .Parameter("BUCKET_ID", bucketId);           
-           _db.ExecuteDml(QUERY, binder);
-            
+            var binder = SqlBinder.Create(pickslips.Count);
+            binder.Parameter("APICKSLIP_ID", pickslips)
+               .Parameter("BUCKET_ID", Enumerable.Repeat(bucketId, pickslips.Count));
+            _db.ExecuteDml(QUERY, binder);
+
         }
 
         /// <summary>
@@ -715,103 +728,153 @@ BKT.FREEZE
             _db.ExecuteDml(QUERY, binder);
         }
 
-        public IList<BucketList> GetBucketList(string customerId, ProgressStage? state, string userName)
+        public IList<CustomerBucket> GetBucketList(string customerId, string userName)
         {
-            string bucketState = null;
-            switch (state)
-            {
-                case ProgressStage.Frozen:
-                    bucketState = "Frozen";
-                    break;
-                case ProgressStage.InProgress:
-                    bucketState = "InProgress";
-                    break;               
-                case ProgressStage.Unknown:
-                    throw new ArgumentOutOfRangeException("state");
-            }
-                       const string QUERY = @"WITH BUCKET_INFO AS
-                     (SELECT BK.BUCKET_ID,
-                             BK.NAME,
-                             BK.BUCKET_COMMENT,
-                             BK.PRIORITY,
-                             BK.FREEZE,
-                             BK.PITCH_LIMIT,
-                             BK.PULL_TYPE,
-                             CASE
-                               WHEN BK.PITCH_TYPE = 'QUICK' THEN
-                                'Y'
-                             END AS QUICK_PITCH_FLAG,
-                             BK.DATE_CREATED,
-                             BK.CREATED_BY,
-                             BK.PULL_CARTON_AREA AS PULL_AREA_ID,
-                             TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
-                             TIA.DESCRIPTION AS PULL_AREA_DESCRIPTION,
-                             TIA.WAREHOUSE_LOCATION_ID AS BUILDING_PULL_FROM,
-                             BK.PITCH_IA_ID AS PITCH_IA_ID,
+            //string bucketState = null;
+            //switch (state)
+            //{
+            //    case ProgressStage.Frozen:
+            //        bucketState = "Frozen";
+            //        break;
+            //    case ProgressStage.InProgress:
+            //        bucketState = "InProgress";
+            //        break;
+            //    case ProgressStage.Unknown:
+            //        throw new ArgumentOutOfRangeException("state");
+            //}
+            //            const string QUERY = @"WITH BUCKET_INFO AS
+            //                     (SELECT BK.BUCKET_ID,
+            //                             BK.NAME,
+            //                             BK.BUCKET_COMMENT,
+            //                             BK.PRIORITY,
+            //                             BK.FREEZE,
+            //                             BK.PITCH_LIMIT,
+            //                             BK.PULL_TYPE,
+            //                             CASE
+            //                               WHEN BK.PITCH_TYPE = 'QUICK' THEN
+            //                                'Y'
+            //                             END AS QUICK_PITCH_FLAG,
+            //                             BK.DATE_CREATED,
+            //                             BK.CREATED_BY,
+            //                             BK.PULL_CARTON_AREA AS PULL_AREA_ID,
+            //                             TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
+            //                             TIA.DESCRIPTION AS PULL_AREA_DESCRIPTION,
+            //                             TIA.WAREHOUSE_LOCATION_ID AS BUILDING_PULL_FROM,
+            //                             BK.PITCH_IA_ID AS PITCH_IA_ID,
+            //         
+            //                             IA.SHORT_NAME            AS PITCH_AREA_SHORT_NAME,
+            //                             IA.SHORT_DESCRIPTION     AS PITCH_AREA_DESCRIPTION,
+            //                             IA.WAREHOUSE_LOCATION_ID AS BUILDING_PITCH_FROM,
+            //                             IA.DEFAULT_REPREQ_IA_ID  AS DEFAULT_REPREQ_IA_ID
+            //                        FROM BUCKET BK
+            //                        LEFT OUTER JOIN TAB_INVENTORY_AREA TIA
+            //                          ON TIA.INVENTORY_STORAGE_AREA = BK.PULL_CARTON_AREA
+            //                        LEFT OUTER JOIN IA IA
+            //                          ON IA.IA_ID = BK.PITCH_IA_ID),
+            //                    BUCKET_PICKSLIP_INFO AS
+            //                     (SELECT PS.BUCKET_ID,
+            //                             COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
+            //                             COUNT(UNIQUE PS.PO_ID) AS PO_COUNT,
+            //                             SUM(PS.TOTAL_QUANTITY_ORDERED) AS ORDERED_PIECES,
+            //                             MIN(PO.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
+            //                             MAX(PO.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE
+            //                        FROM PS PS
+            //                       INNER JOIN PO PO
+            //                          ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
+            //                         AND PS.ITERATION = PO.ITERATION
+            //                         AND PS.PO_ID = PO.PO_ID
+            //                       WHERE PS.TRANSFER_DATE IS NULL
+            //                         AND PS.CUSTOMER_ID = :CUSTOMER_ID
+            //  
+            //                       GROUP BY PS.BUCKET_ID)
+            //                    SELECT Q1.BUCKET_ID             AS BUCKET_ID,
+            //                           Q1.NAME                  AS BUCKET_NAME,
+            //                           Q1.BUCKET_COMMENT        AS BUCKET_COMMENT,
+            //                           Q1.PRIORITY              AS PRIORITY,
+            //                           Q1.FREEZE                AS FREEZE,
+            //                           Q1.PITCH_LIMIT           AS PITCH_LIMIT,
+            //                           Q1.PULL_TYPE             AS PULL_TYPE,
+            //                           Q1.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
+            //                           Q1.DATE_CREATED AS DATE_CREATED,
+            //                           Q1.CREATED_BY AS CREATED_BY,
+            //                           Q1.PULL_AREA_ID          AS PULL_AREA_ID,
+            //                           Q1.PULL_AREA_SHORT_NAME  AS PULL_AREA_SHORT_NAME,
+            //                           Q1.PULL_AREA_DESCRIPTION AS PULL_AREA_DESCRIPTION,
+            //                           Q1.BUILDING_PULL_FROM    AS BUILDING_PULL_FROM,
+            //                           Q1.PITCH_IA_ID           AS PITCH_IA_ID,
+            //       
+            //                           Q1.PITCH_AREA_SHORT_NAME  AS PITCH_AREA_SHORT_NAME,
+            //                           Q1.PITCH_AREA_DESCRIPTION AS PITCH_AREA_DESCRIPTION,
+            //                           Q1.BUILDING_PITCH_FROM    AS BUILDING_PITCH_FROM,
+            //                           Q1.DEFAULT_REPREQ_IA_ID AS REPLENISH_AREA_ID,
+            //                           Q2.ORDERED_PIECES AS ORDERED_PIECES,
+            //                           Q2.PICKSLIP_COUNT AS PICKSLIP_COUNT,
+            //                           Q2.PO_COUNT AS PO_COUNT,
+            //                           Q2.MIN_DC_CANCEL_DATE AS MIN_DC_CANCEL_DATE,
+            //                           Q2.MAX_DC_CANCEL_DATE AS MAX_DC_CANCEL_DATE
+            //
+            //                      FROM BUCKET_INFO Q1
+            //                     INNER JOIN BUCKET_PICKSLIP_INFO Q2
+            //                        ON Q2.BUCKET_ID = Q1.BUCKET_ID 
+            //   <if>
+            //                            WHERE (CASE
+            //                                WHEN Q1.FREEZE = 'Y' THEN       :FrozenState                             
+            //                                ELSE                            :InProgressState
+            //                                END) = :state
+            //                            </if>                          
+            //                <if>AND Q1.CREATED_BY = :CREATED_BY</if>";
+
+            const string QUERY = @"
+with q1 as
+ (SELECT row_number() over(partition by bk.bucket_id order by bk.bucket_id) as row_seq_,
+         SUM(p.total_quantity_ordered) over(partition by p.bucket_id) as ORDERED_PIECES,
+         COUNT(p.pickslip_id) over(partition by p.bucket_id) as PICKSLIP_COUNT,
+         COUNT(unique p.po_id) over(partition by p.bucket_id) as PO_COUNT,
+         MIN(po.dc_cancel_date) over(partition by p.bucket_id) as MIN_DC_CANCEL_DATE,
+         MAX(po.dc_cancel_date) over(partition by p.bucket_id) as MAX_DC_CANCEL_DATE,
+         BK.BUCKET_ID as BUCKET_ID,
+         BK.NAME as BUCKET_NAME,
+         BK.BUCKET_COMMENT as BUCKET_COMMENT,
+         BK.PRIORITY as PRIORITY,
+         BK.FREEZE as FREEZE,
+         BK.PITCH_LIMIT as PITCH_LIMIT,
+         BK.PULL_TYPE as PULL_TYPE,
+         CASE
+           WHEN BK.PITCH_TYPE = 'QUICK' THEN
+            'Y'
+         END AS QUICK_PITCH_FLAG,
+         BK.DATE_CREATED as DATE_CREATED,
+         BK.CREATED_BY as CREATED_BY,
+         BK.PULL_CARTON_AREA AS PULL_AREA_ID,
+         TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
+         TIA.DESCRIPTION AS PULL_AREA_DESCRIPTION,
+         TIA.WAREHOUSE_LOCATION_ID AS BUILDING_PULL_FROM,
+         BK.PITCH_IA_ID AS PITCH_IA_ID,
          
-                             IA.SHORT_NAME            AS PITCH_AREA_SHORT_NAME,
-                             IA.SHORT_DESCRIPTION     AS PITCH_AREA_DESCRIPTION,
-                             IA.WAREHOUSE_LOCATION_ID AS BUILDING_PITCH_FROM,
-                             IA.DEFAULT_REPREQ_IA_ID  AS DEFAULT_REPREQ_IA_ID
-                        FROM BUCKET BK
-                        LEFT OUTER JOIN TAB_INVENTORY_AREA TIA
-                          ON TIA.INVENTORY_STORAGE_AREA = BK.PULL_CARTON_AREA
-                        LEFT OUTER JOIN IA IA
-                          ON IA.IA_ID = BK.PITCH_IA_ID),
-                    BUCKET_PICKSLIP_INFO AS
-                     (SELECT PS.BUCKET_ID,
-                             COUNT(PS.PICKSLIP_ID) AS PICKSLIP_COUNT,
-                             COUNT(UNIQUE PS.PO_ID) AS PO_COUNT,
-                             SUM(PS.TOTAL_QUANTITY_ORDERED) AS ORDERED_PIECES,
-                             MIN(PO.DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
-                             MAX(PO.DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE
-                        FROM PS PS
-                       INNER JOIN PO PO
-                          ON PS.CUSTOMER_ID = PO.CUSTOMER_ID
-                         AND PS.ITERATION = PO.ITERATION
-                         AND PS.PO_ID = PO.PO_ID
-                       WHERE PS.TRANSFER_DATE IS NULL
-                         AND PS.CUSTOMER_ID = :CUSTOMER_ID
-  
-                       GROUP BY PS.BUCKET_ID)
-                    SELECT Q1.BUCKET_ID             AS BUCKET_ID,
-                           Q1.NAME                  AS BUCKET_NAME,
-                           Q1.BUCKET_COMMENT        AS BUCKET_COMMENT,
-                           Q1.PRIORITY              AS PRIORITY,
-                           Q1.FREEZE                AS FREEZE,
-                           Q1.PITCH_LIMIT           AS PITCH_LIMIT,
-                           Q1.PULL_TYPE             AS PULL_TYPE,
-                           Q1.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
-                           Q1.DATE_CREATED AS DATE_CREATED,
-                           Q1.CREATED_BY AS CREATED_BY,
-                           Q1.PULL_AREA_ID          AS PULL_AREA_ID,
-                           Q1.PULL_AREA_SHORT_NAME  AS PULL_AREA_SHORT_NAME,
-                           Q1.PULL_AREA_DESCRIPTION AS PULL_AREA_DESCRIPTION,
-                           Q1.BUILDING_PULL_FROM    AS BUILDING_PULL_FROM,
-                           Q1.PITCH_IA_ID           AS PITCH_IA_ID,
-       
-                           Q1.PITCH_AREA_SHORT_NAME  AS PITCH_AREA_SHORT_NAME,
-                           Q1.PITCH_AREA_DESCRIPTION AS PITCH_AREA_DESCRIPTION,
-                           Q1.BUILDING_PITCH_FROM    AS BUILDING_PITCH_FROM,
-                           Q1.DEFAULT_REPREQ_IA_ID AS REPLENISH_AREA_ID,
-                           Q2.ORDERED_PIECES AS ORDERED_PIECES,
-                           Q2.PICKSLIP_COUNT AS PICKSLIP_COUNT,
-                           Q2.PO_COUNT AS PO_COUNT,
-                           Q2.MIN_DC_CANCEL_DATE AS MIN_DC_CANCEL_DATE,
-                           Q2.MAX_DC_CANCEL_DATE AS MAX_DC_CANCEL_DATE
+         IA.SHORT_NAME            AS PITCH_AREA_SHORT_NAME,
+         IA.SHORT_DESCRIPTION     AS PITCH_AREA_DESCRIPTION,
+         IA.WAREHOUSE_LOCATION_ID AS BUILDING_PITCH_FROM,
+         IA.DEFAULT_REPREQ_IA_ID  AS REPLENISH_AREA_ID
+    FROM <proxy/>BUCKET BK
+   inner join <proxy/>ps p
+      on p.bucket_id = bk.bucket_id
+    left outer join <proxy/>po po
+      on po.po_id = p.po_id
+     and po.customer_id = p.customer_id
+     and po.iteration = p.iteration
+    LEFT OUTER JOIN <proxy/>TAB_INVENTORY_AREA TIA
+      ON TIA.INVENTORY_STORAGE_AREA = BK.PULL_CARTON_AREA
+    LEFT OUTER JOIN <proxy/>IA IA
+      ON IA.IA_ID = BK.PITCH_IA_ID
+   WHERE P.TRANSFER_DATE IS NULL
+     AND P.CUSTOMER_ID = :CUSTOMER_ID
+                <if>AND Q1.CREATED_BY = :CREATED_BY</if>
+)
+select * from q1 where row_seq_ = 1
 
-                      FROM BUCKET_INFO Q1
-                     INNER JOIN BUCKET_PICKSLIP_INFO Q2
-                        ON Q2.BUCKET_ID = Q1.BUCKET_ID 
-   <if>
-                            WHERE (CASE
-                                WHEN Q1.FREEZE = 'Y' THEN       :FrozenState                             
-                                ELSE                            :InProgressState
-                                END) = :state
-                            </if>                          
-                <if>AND Q1.CREATED_BY = :CREATED_BY</if>";
+";
 
-            var binder = SqlBinder.Create(row => new BucketList
+            var binder = SqlBinder.Create(row => new CustomerBucket
             {
 
                 BucketId = row.GetInteger("BUCKET_ID").Value,
@@ -847,7 +910,7 @@ BKT.FREEZE
 
             binder.Parameter("CUSTOMER_ID", customerId)
                   .Parameter("CREATED_BY", userName)
-                  .Parameter("state", bucketState)
+                //.Parameter("state", bucketState)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString());
             return _db.ExecuteReader(QUERY, binder);

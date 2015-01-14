@@ -123,7 +123,7 @@ namespace DcmsMobile.Shipping.Repository
                                                        WHERE PS.TRANSFER_DATE IS NULL
                                                          AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                                          AND (SHIP.ONHOLD_FLAG IS NOT NULL OR SHIP.SHIP_DATE IS NULL)
-                                                         AND B.AVAILABLE_FOR_PITCHING = 'Y'
+                                                         AND B.FREEZE IS NULL
                                                         <if>and ps.customer_id=:CUSTOMER_ID</if>
                                                        GROUP BY PS.CUSTOMER_ID, PS.PO_ID),
                                                     Q2 AS
@@ -276,7 +276,7 @@ namespace DcmsMobile.Shipping.Repository
                                          <if>AND PS.CUSTOMER_ID =:CUSTOMER_ID</if>
                                          <if>AND PS.WAREHOUSE_LOCATION_ID =:BUILDING_ID</if>
                                          AND PS.TRANSFER_DATE IS NULL
-                                         AND Bk.AVAILABLE_FOR_PITCHING = 'Y'
+                                         AND Bk.FREEZE IS NULL
                                          AND PS.SHIPPING_ID IS NULL
                                          AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                          AND B.STOP_PROCESS_DATE IS NULL 
@@ -480,7 +480,7 @@ namespace DcmsMobile.Shipping.Repository
                        PS.CUSTOMER_ID                           AS CUSTOMER_ID,
                        EDIPS.CUSTOMER_DC_ID                     AS CUSTOMER_DC_ID,
                        MAX(EDIPS.ATS_DATE)                      AS ATS_DATE,
-                       Max(bkt.ship_ia_id)                      as DOOR_ID,
+                       --Max(bkt.ship_ia_id)                      as DOOR_ID,
                        SYS.STRAGG(UNIQUE(EDIPS.EDI_ID || ',')) AS edi_ID_LIST,
                        SUM(EDIPS.WEIGHT_IN_LB)                  AS WEIGHT,
                        SUM(EDIPS.VOLUME_IN_CUFT)                AS VOLUME,
@@ -496,12 +496,12 @@ namespace DcmsMobile.Shipping.Repository
                        MAX(PS.WAREHOUSE_LOCATION_ID)            AS WAREHOUSE_LOCATION_ID,
                        COUNT(UNIQUE NVL(EDIPS.LOAD_ID,'-1'))    AS LOAD_COUNT,
                        COUNT(UNIQUE NVL(EDIPS.CARRIER_ID, '-1')) AS CARRIER_COUNT,
-                       COUNT(UNIQUE NVL(bkt.ship_ia_id, '-1')) AS DOOR_ID_COUNT,
+                       --COUNT(UNIQUE NVL(bkt.ship_ia_id, '-1')) AS DOOR_ID_COUNT,
                        COUNT(UNIQUE NVL(EDIPS.PICKUP_DATE, SYSDATE)) AS PICKUP_DATE_COUNT,
                        SYS.STRAGG(UNIQUE(EDIPS.CARRIER_ID || '-')) AS CARRIER_ID_LIST,
                        SYS.STRAGG(UNIQUE(EDIPS.PICKUP_DATE || ',')) AS PICKUP_DATE_LIST,
                        SYS.STRAGG(UNIQUE(EDIPS.LOAD_ID || '-')) AS LOAD_ID_LIST,
-                       SYS.STRAGG(UNIQUE(bkt.ship_ia_id || '-')) AS DOOR_ID_LIST,
+                       --SYS.STRAGG(UNIQUE(bkt.ship_ia_id || '-')) AS DOOR_ID_LIST,
                        MAX(PO.START_DATE) AS START_DATE,
                        MAX(PO.DC_CANCEL_DATE) AS DCCANCEL_DATE,
                        SUM(PS.TOTAL_DOLLARS_ORDERED) AS ORDERED_DOLLARS,
@@ -577,9 +577,9 @@ namespace DcmsMobile.Shipping.Repository
                 CarrierList = row.GetString("CARRIER_ID_LIST"),
                 PickupDateList = row.GetString("PICKUP_DATE_LIST"),
                 BuildingId = row.GetString("WAREHOUSE_LOCATION_ID"),
-                DoorId = row.GetString("DOOR_ID"),
-                DoorCount = row.GetInteger("DOOR_ID_COUNT"),
-                DoorList = row.GetString("DOOR_ID_LIST"),
+                //DoorId = row.GetString("DOOR_ID"),
+                //DoorCount = row.GetInteger("DOOR_ID_COUNT"),
+                //DoorList = row.GetString("DOOR_ID_LIST"),
                 PoIterationCount = row.GetInteger("PO_ITERATION_COUNT").Value,
                 StartDate = row.GetDate("START_DATE"),
                 DcCancelDate = row.GetDate("DCCANCEL_DATE"),
@@ -1479,7 +1479,7 @@ namespace DcmsMobile.Shipping.Repository
                                  WHERE PS.TRANSFER_DATE IS NULL
                                    AND PS.PICKSLIP_CANCEL_DATE IS NULL
                                    AND (SHIP.ONHOLD_FLAG IS NOT NULL OR SHIP.SHIP_DATE IS NULL)
-                                   AND B.AVAILABLE_FOR_PITCHING = 'Y'
+                                   AND B.FREEZE IS NULL
                                    AND PS.PO_ID like '%' || :PO_ID || '%'
                                  GROUP BY PS.CUSTOMER_ID, PS.PO_ID,PS.CUSTOMER_DC_ID
                                 ";

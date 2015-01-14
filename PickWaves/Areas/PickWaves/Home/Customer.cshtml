@@ -287,7 +287,7 @@
                                             &nbsp;
                                             <a style="font-size:1.4em; @Html.Raw(Model.BucketsByStatus.Values[j][i].IsCustomerActive ? "" : "text-decoration:line-through")"
                                                href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.BucketsByStatus.Values[j][i].CustomerId,
-                                                        Model.SearchUserName, Model.BucketsByStatus.Values[j][i].BucketStatus))" title="Wave List">
+                                                        Model.SearchUserName))" title="Wave List">
                                                 @Html.DisplayFor(m => m.BucketsByStatus.Values[j][i].CustomerId):
                                             </a>
 

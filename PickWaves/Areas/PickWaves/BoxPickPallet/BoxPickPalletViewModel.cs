@@ -54,5 +54,6 @@ namespace DcmsMobile.PickWaves.ViewModels.BoxPickPallet
 
         [Display(Name = "Pitch from")]
         public string PitchBuildingId { get; set; }
+
     }
 }

@@ -192,6 +192,7 @@ namespace DcmsMobile.Shipping.ViewModels
 
         public int? LoadCount { get; set; }
 
+        [Obsolete]
         public string DoorId { get; set; }
 
         public int? DoorCount { get; set; }

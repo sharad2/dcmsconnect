@@ -91,7 +91,7 @@ namespace Links_PickWaves
                 private const string URLPATH = "~/Areas/PickWaves/BoxPickPallet";
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string BoxPickPalletIndex_all_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all.min.js") ? Url("BoxPickPalletIndex-all.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all.min.js") : Url("BoxPickPalletIndex-all.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all.js");
+                public static readonly string BoxPickPalletIndex_all_O_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPickPalletIndex-all_O.min.js") ? Url("BoxPickPalletIndex-all_O.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all_O.min.js") : Url("BoxPickPalletIndex-all_O.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BoxPickPalletIndex-all_O.js");
                         public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
                         }
         

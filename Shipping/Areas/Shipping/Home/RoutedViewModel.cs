@@ -151,7 +151,7 @@ namespace DcmsMobile.Shipping.ViewModels
                 // If this is not the first row in the table, see whether the cell needs to be rendered
                 var poPreviousModel = polist[j - 1];
                 var prevCellValue = func(poPreviousModel);
-                if (curCellValue.Equals(prevCellValue) && poPreviousModel.BolRowNumber == curBolRowNumber)
+                if (curCellValue != null && curCellValue.Equals(prevCellValue) && poPreviousModel.BolRowNumber == curBolRowNumber)
                 {
                     // This value is same as previous. Do not render any td for this.
                     return -1;
@@ -162,7 +162,7 @@ namespace DcmsMobile.Shipping.ViewModels
 
             return polist.Skip(j)
                 .Where(p => p.BolRowNumber == curBolRowNumber)
-                .TakeWhile(p => func.Invoke(p).Equals(func.Invoke(poModel))).Count();
+                .TakeWhile(p => func.Invoke(p) != null &&  func.Invoke(p).Equals(func.Invoke(poModel))).Count();
         }
 
         public RoutedPoGroup InitialGroup { get; set; }

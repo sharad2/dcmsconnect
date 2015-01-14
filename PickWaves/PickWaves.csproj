@@ -93,9 +93,8 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions">
+      <HintPath>..\packages\T4MVCExtensions.3.11.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -329,14 +328,14 @@
     </None>
     <Content Include="Areas\PickWaves\SharedViews\ajax-loader.gif" />
     <Content Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+      <DependentUpon>BoxPickPalletIndex-all_O.js</DependentUpon>
     </Content>
     <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.min.js.map">
-      <DependentUpon>BoxPickPalletIndex-all.js</DependentUpon>
+      <DependentUpon>BoxPickPalletIndex-all_O.js</DependentUpon>
     </None>
     <Content Include="Doc\PickWaveManager.doc" />
     <None Include="Doc\Box Creation for Pitching.pptx" />
-    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all.js" />
+    <None Include="Areas\PickWaves\BoxPickPallet\BoxPickPalletIndex-all_O.js" />
     <Content Include="Areas\PickWaves\ManageWaves\Index.cshtml" />
     <Content Include="Areas\PickWaves\BoxPickPallet\Index.cshtml" />
     <Content Include="Areas\PickWaves\CreateWave\Index.cshtml" />

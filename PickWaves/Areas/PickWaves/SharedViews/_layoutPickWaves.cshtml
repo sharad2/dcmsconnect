@@ -13,12 +13,18 @@
 @section applinks{
     @RenderSection("applinks", false)
     <li><a href="@Url.Action(MVC_PickWaves.PickWaves.Config.Index())"> Pick Waves Configuration</a></li>
+    <li>
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index())">
+            Box Expediting
+        </a>
+    </li>
+    <li><a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customers())">
+    Pick Waves by Customer
+</a></li>
+  
 }
-
-
-
-
 @section script {
     @RenderSection("script", false)
 }
 @RenderBody()
+

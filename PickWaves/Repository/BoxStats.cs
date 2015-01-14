@@ -13,121 +13,64 @@ namespace DcmsMobile.PickWaves.Repository
 
     internal class BoxStats
     {
-        private readonly int?[,] _pieces;
 
-        private readonly int?[] _counts;
-        private const int INDEX_STATE_VERIFIED = 0;
-        private const int INDEX_STATE_UNVERIFIED = 1;
-        private const int INDEX_STATE_CANCELLED = 2;
-        private const int INDEX_STATE_NOTSTARTED = 3;
-        private const int INDEX_STATE_MAX = 3;
+        private readonly IDictionary<BoxState, int?> _dictBoxCounts;
+
+        private readonly IDictionary<Tuple<BoxState, PiecesKind>, int?> _dictPieces;
 
         public BoxStats()
         {
-            _pieces = new int?[INDEX_STATE_MAX + 1, 2];
-            _counts = new int?[INDEX_STATE_MAX + 1];
+            _dictBoxCounts = new Dictionary<BoxState, int?>(8);
+            _dictPieces = new Dictionary<Tuple<BoxState, PiecesKind>, int?>(8);
         }
 
-
-        /// <summary>
-        /// Returns box counts
-        /// </summary>
-        /// <param name="states"></param>
-        /// <returns></returns>
-        public int? this[BoxState states]
+        public int? this[BoxState state]
         {
             get
             {
-                var results = new List<int?>(INDEX_STATE_MAX);
-                if (states.HasFlag(BoxState.Cancelled))
-                {
-                    results.Add(_counts[INDEX_STATE_CANCELLED]);
-                }
-                if (states.HasFlag(BoxState.InProgress))
-                {
-                    results.Add(_counts[INDEX_STATE_UNVERIFIED]);
-                }
-                if (states.HasFlag(BoxState.Completed))
-                {
-                    results.Add(_counts[INDEX_STATE_VERIFIED]);
-                }
-                if (states.HasFlag(BoxState.NotStarted))
-                {
-                    results.Add(_counts[INDEX_STATE_NOTSTARTED]);
-                }
-                return results.Sum();
-
-
+                return _dictBoxCounts.Where(p => p.Key == state).Sum(p => p.Value);
             }
             set
             {
-                switch (states)
-                {
-                    case BoxState.Completed:
-                        _counts[INDEX_STATE_VERIFIED] = value;
-                        break;
-                    case BoxState.Cancelled:
-                        _counts[INDEX_STATE_CANCELLED] = value;
-                        break;
-
-                    case BoxState.InProgress:
-                        _counts[INDEX_STATE_UNVERIFIED] = value;
-                        break;
-
-                    case BoxState.NotStarted:
-                        _counts[INDEX_STATE_NOTSTARTED] = value;
-                        break;
-
-                    default:
-                        throw new NotSupportedException(states.ToString());
-                }
-
+                _dictBoxCounts[state] = value;
             }
         }
 
+
+        [Obsolete]
+        public int? this[BoxState[] states]
+        {
+            get
+            {
+                return _dictBoxCounts.Where(p => states.Contains(p.Key)).Sum(p => p.Value);
+            }
+        }
+
+        public int? GetBoxCounts(BoxState[] states)
+        {
+            return _dictBoxCounts.Where(p => states.Contains(p.Key)).Sum(p => p.Value);
+        }
+
         /// <summary>
-        /// Returns sum of pieces in boxes
+        /// Returns sum of pieces in boxes in various box states
         /// </summary>
-        /// <param name="states"></param>
         /// <param name="kind"></param>
+        /// <param name="states"></param>
         /// <returns></returns>
-        public int? this[BoxState states, PiecesKind kind]
+        public int? GetPieces(PiecesKind kind, BoxState[] states)
+        {
+            return _dictPieces.Where(p => states.Contains(p.Key.Item1) && p.Key.Item2 == kind).Sum(p => p.Value);
+        }
+
+        public int? this[PiecesKind kind, BoxState state]
         {
             get
             {
-                var results = new List<int?>(2);
-                if (states.HasFlag(BoxState.Cancelled))
-                {
-                    results.Add(_pieces[INDEX_STATE_CANCELLED, (int)kind]);
-                }
-                if (states.HasFlag(BoxState.InProgress))
-                {
-                    results.Add(_pieces[INDEX_STATE_UNVERIFIED, (int)kind]);
-                }
-                if (states.HasFlag(BoxState.Completed))
-                {
-                    results.Add(_pieces[INDEX_STATE_VERIFIED, (int)kind]);
-                }
-                return results.Sum();
+                return _dictPieces.Where(p => p.Key.Item1 == state && p.Key.Item2 == kind).Sum(p => p.Value);
             }
             set
             {
-                switch (states)
-                {
-                    case BoxState.Completed:
-                        _pieces[INDEX_STATE_VERIFIED, (int)kind] = value;
-                        break;
-                    case BoxState.Cancelled:
-                        _pieces[INDEX_STATE_CANCELLED, (int)kind] = value;
-                        break;
-
-                    case BoxState.InProgress:
-                        _pieces[INDEX_STATE_UNVERIFIED, (int)kind] = value;
-                        break;
-
-                    default:
-                        throw new NotSupportedException();
-                }
+                _dictPieces[Tuple.Create(state, kind)] = value;
             }
         }
     }

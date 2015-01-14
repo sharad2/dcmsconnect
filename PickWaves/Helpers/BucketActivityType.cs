@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace DcmsMobile.PickWaves.Helpers
 {
     /// <summary>
@@ -7,15 +6,10 @@ namespace DcmsMobile.PickWaves.Helpers
     /// </summary>
     public enum BucketActivityType
     {
-        [Display(Name = "")]  //For NotSet type must return Empty String
         NotSet,
 
-        [Display(Name = "Pitching")]
-        [DisplayFormat(NullDisplayText = "(Undecided)")]
         Pitching,
 
-        [Display(Name = "Pulling")]
-        [DisplayFormat(NullDisplayText = "(No Pulling)")]
         Pulling
     }
 }

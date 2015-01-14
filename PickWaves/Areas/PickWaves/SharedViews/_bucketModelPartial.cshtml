@@ -1,5 +1,4 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
-
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
     // To use this partial you must:
@@ -10,6 +9,32 @@
 
     // Do not show link to the viewer page if we are already on the viewer page. Instead link to edit page
     //var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId)) == Request.Url.PathAndQuery;
+}
+
+
+@helper BucketActivityVerb(DcmsMobile.PickWaves.Helpers.BucketActivityType actType)
+{
+
+    switch (actType)
+    {
+        case DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet:
+            @:NotSet
+            break;
+
+        case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching:
+        @:Pitched
+            break;
+
+        case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling:
+        @:Pulled
+            break;
+
+        default:
+        @:Unexpected
+
+            break;
+    }
+
 }
 
 <div class="panel panel-success">
@@ -72,11 +97,11 @@
                                     Pick Wave can not be processed till it is frozen.
                                     <br />
                                     @*<small>
-                                        <em>
-                                            <strong>@Model.CountNotStartedBoxes</strong>
-                                            Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
-                                        </em>
-                                    </small>*@
+                                            <em>
+                                                <strong>@Model.CountNotStartedBoxes</strong>
+                                                Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
+                                            </em>
+                                        </small>*@
                                 </span>
                                 <br />
                                 <button class="btn btn-warning"
@@ -171,7 +196,7 @@
                                 <div class="form-inline" role="form">
                                     <div class="form-group">
                                         <p class="form-control-static">
-                                            Priority                                           
+                                            Priority
                                             &nbsp;
                                             @if (isAuthorized)
                                             {
@@ -236,7 +261,15 @@
                             <small>
                                 @if (Model.RequiredBoxExpediting)
                                 {
-                                    <span class="text-success"> Box Expediting  required</span>
+
+                                    if (Model.CountTotalBoxes > 0 && !Model.IsFrozen)
+                                    {
+                                        <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))">Box Expediting  required</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-success"> Box Expediting  required</span>
+                                    }
                                 }
                                 @if (Model.QuickPitch)
                                 {
@@ -244,6 +277,7 @@
                                 }
                             </small>
                         </h4>
+
                     </li>
                     @if (Model.CountNotAssignedSku > 0)
                     {
@@ -259,7 +293,7 @@
                 <ul class="list-group">
                     <li class="list-group-item active">
                         <span class="badge pull-right">
-                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)                           
+                            DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
                         </span>
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
@@ -277,14 +311,18 @@
                                         <div class="col-md-5">
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
+                                            <div>
+                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesIncomplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
+                                                boxes @BucketActivityVerb(Model.Activities[j].ActivityType)
+                                            </div>
                                         </div>
                                         <div class="col-md-7">
-                                            @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining
-                                            <div style="margin-bottom:3px;" class="progress" title="@Html.DisplayFor(m => m.Activities[j].PiecesComplete) of @Html.DisplayFor(m => m.Activities[j].PiecesToShip) pieces picked @Html.DisplayFor(m => m.Activities[j].PickingDateRange) . @Html.DisplayFor(m => m.Activities[j].PiecesIncomplete) pieces remaining">
+                                            @Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining
+                                            <div style="margin-bottom:3px;" class="progress">
                                                 <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                                     <span style="white-space:nowrap" class="text-info">
                                                         @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
-                                                        of @Html.DisplayFor(m => m.Activities[j].PiecesToShip) pieces picked
+                                                        of @Html.DisplayFor(m => m.Activities[j].PiecesBoxesCreated) pieces picked
                                                         @Html.DisplayFor(m => m.Activities[j].PickingDateRange).
                                                         <em>
                                                             @Model.Activities[j].PercentPiecesComplete% picked

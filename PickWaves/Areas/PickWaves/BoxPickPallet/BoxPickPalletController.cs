@@ -50,18 +50,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
 
         #endregion
 
-        private PalletModel Map(Pallet src)
-        {
-            return new PalletModel
-            {
-                PalletId = src.PalletId,
-                PickedBoxes = src.PickedBoxes,
-                TotalBoxesOnPallet = src.TotalBoxesOnPallet,
-                PrintDate = src.PrintDate,
-                IaChangeDate = src.IaChangeDate
-            };
-        }
-
         /// <summary>
         /// called to show pallet list for passed bucket.
         /// </summary>
@@ -96,6 +84,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 return View(Views.Index, model);
             }
 
+            var route = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchBoxPallet1];
+       
             model = new BoxPickPalletViewModel
                 {
                     BucketId = bucketId.Value,
@@ -106,10 +96,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                     TotalBoxes = bucket.CountTotalBox,
                     PullBuildingId = bucket.PullBuildingId,
                     PitchBuildingId = bucket.PitchBuildingId,
-                    //IsFrozen = bucket.IsFrozen,
-                    PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(Map).ToArray()
+                    PalletList = _service.Value.GetPalletsOfBucket(bucketId.Value).Select(p => new PalletModel(p)
+                    {
+                     
+                        UrlInquiryPrintPallet = route == null ? null : Url.RouteUrl(DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchBoxPallet1, new
+                        {
+                            id = p.PalletId
+                        })
+                    }).ToList(),
+
                 };
-            model.BucketId = bucketId;
+            //model.BucketId = bucketId;
             model.CustomerName = _service.Value.GetCustomerName(model.CustomerId);
             return View(Views.Index, model);
         }
@@ -165,7 +162,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
                 ModelState.AddModelError("pallet", ex.Message);
             }
 
-            model.PalletList = _service.Value.GetPalletsOfBucket(model.BucketId.Value).Select(Map).ToArray();
+            //model.PalletList = _service.Value.GetPalletsOfBucket(model.BucketId.Value).Select(p => new PalletModel(p)).ToArray();
             return RedirectToAction(this.Actions.Index(model.BucketId));
         }
 

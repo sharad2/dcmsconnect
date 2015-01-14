@@ -45,27 +45,6 @@ namespace DcmsMobile.PickWaves.Repository
             return customer;
         }
 
-        //[Obsolete]
-        //public Customer GetCustomer(string customerId)
-        //{
-        //    if (string.IsNullOrWhiteSpace(customerId))
-        //    {
-        //        throw new ArgumentNullException("customerId");
-        //    }
-        //    var dictCache = MemoryCache.Default[APPKEY_CUSTOMER_INFO] as IDictionary<string, Customer>;
-        //    if (dictCache == null)
-        //    {
-        //        dictCache = new Dictionary<string, Customer>();
-        //        MemoryCache.Default.Add(APPKEY_CUSTOMER_INFO, dictCache, DateTime.Now.AddHours(2));
-        //    }
-        //    Customer customer;
-        //    if (!dictCache.TryGetValue(customerId, out customer))
-        //    {
-        //        customer = _repos.GetCustomer(customerId);
-        //        dictCache.Add(customerId, customer);
-        //    }
-        //    return customer;
-        //}
 
         /// <summary>
         /// </summary>
@@ -73,7 +52,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// <returns></returns>
         internal BucketWithActivities GetBucket(int bucketId)
         {
-            return _repos.GetBuckets(bucketId, null, null, null).FirstOrDefault();
+            return _repos.GetBucket(bucketId);
         }
 
         internal DbTransaction BeginTransaction()

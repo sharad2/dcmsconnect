@@ -12,57 +12,6 @@ using System.Web.Routing;
 namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
 {
 
-    //public class AlreadyReceivedCartonException : Exception
-    //{
-    //    private readonly string _palletId;
-
-    //    public string PalletId { get { return _palletId; } }
-
-    //    public AlreadyReceivedCartonException()
-    //    {
-
-    //    }
-
-    //    public AlreadyReceivedCartonException(string palletId)
-    //    {
-    //        _palletId = palletId;
-    //    }
-    //}
-
-    //public class DispositionMismatchException : Exception
-    //{
-    //    private readonly string _vwhId;
-    //    private readonly string _areaId;
-
-    //    public DispositionMismatchException()
-    //    {
-
-    //    }
-
-    //    public DispositionMismatchException(string vwhId, string areaId)
-    //    {
-    //        _vwhId = vwhId;
-    //        _areaId = areaId;
-
-    //    }
-
-    //    public string VwhId
-    //    {
-    //        get
-    //        {
-    //            return _vwhId;
-    //        }
-    //    }
-
-    //    public string AreaId
-    //    {
-    //        get
-    //        {
-    //            return _areaId;
-    //        }
-    //    }
-    //}
-
     internal class ReceivingService : IDisposable
     {
         private readonly ReceivingRepository _repos;
@@ -174,48 +123,6 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Home.Repository
             }
         }
 
-
-        /// <summary>
-        /// The session is only used for caching, so an expired session should not lead to any user visible problem.
-        /// </summary>
-        /// <param name="cartonId"></param>
-        /// <param name="processId"></param>
-        /// <returns>
-        /// IntarnsitCarton
-        /// </returns>
-        /// <remarks>
-        /// <para>
-        /// The carton returned fron the repository is returned. Additionally, the destination of the carton is set based on the spot check percent or it's requirement in FPK.
-        /// </para>
-        /// </remarks>
-        /// DB 2-04-2012: We first attempt to send the carton in spot check area. 
-        /// Our second attempt is to send the carton in assigned area where this carton might be required.
-        /// If a carton can not be send for spot check or to an assigned area then we send it to Receiving Area. 
-        /// DB: 18-07-2012 Removed Intransit carton cache.
-        //[Obsolete]
-        //private IntransitCarton GetIntransitCarton(string cartonId, int processId)
-        //{
-        //    IntransitCarton ctn = _repos.GetIntransitCarton2(cartonId);
-        //    if (ctn == null)
-        //    {
-        //        return ctn;
-        //    }
-
-        //    //var rand = new Random();
-        //    //var process = GetProcessInfo(processId);
-        //    //if (ctn.IsSpotCheckEnabled && ctn.SpotCheckPercent.HasValue && rand.Next(100 * 100 - 1) < (Convert.ToInt32(ctn.SpotCheckPercent.Value * 100)))
-        //    //{
-        //    //    // Needs spot check                 
-        //    //    ctn.DestinationArea = process.SpotCheckAreaId;
-        //    //}
-        //    //else
-        //    //{
-        //    //    var areaId = _repos.GetCartonDestination(cartonId);
-        //    //    ctn.DestinationArea = string.IsNullOrEmpty(areaId) ? process.ReceivingAreaId : areaId;
-        //    //}
-
-        //    return ctn;
-        //}
 
         private string GetDestinationArea(int processId, IntransitCarton ctn)
         {

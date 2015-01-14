@@ -88,8 +88,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="T4MVCExtensions">
-      <HintPath>..\packages\T4MVCExtensions.3.10.0\lib\net40\T4MVCExtensions.dll</HintPath>
+    <Reference Include="T4MVCExtensions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\T4MVCExtensions.3.11.0\lib\net40\T4MVCExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -147,10 +148,6 @@
     <Content Include="Areas\Receiving\Home\ProcessEditor.min.js">
       <DependentUpon>ProcessEditor.js</DependentUpon>
     </Content>
-    <Content Include="Areas\Receiving\Home\Sounds\6.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\7.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\8.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\9.mp3" />
     <Content Include="Areas\Receiving\Home\Sounds\Error.mp3" />
     <Content Include="Areas\Receiving\Home\Sounds\success.mp3" />
     <Content Include="Areas\Receiving\Home\Receiving.js" />
@@ -230,16 +227,6 @@
     <Content Include="Areas\Receiving\Home\_palletPartial.cshtml" />
     <None Include="Doc\Roles.txt" />
     <Content Include="Areas\Receiving\SharedViews\ajax-loader.gif" />
-    <Content Include="Areas\Receiving\Home\Sounds\1.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\10.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\2.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\3.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\4.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\5.mp3" />
-    <Content Include="Areas\Receiving\Home\Sounds\error.wav" />
-    <Content Include="Areas\Receiving\Home\Sounds\PalletChange.wav" />
-    <Content Include="Areas\Receiving\Home\Sounds\palletscan.wav" />
-    <Content Include="Areas\Receiving\Home\Sounds\scan.wav" />
     <Content Include="Areas\Receiving\Rad\_indexListPartial.cshtml" />
     <Content Include="Areas\Receiving\Rad\_addSpotCheckPartial.cshtml" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.cshtml" />
@@ -248,7 +235,6 @@
     </Content>
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Properties\PublishProfiles\Receiving.pubxml" />
-    <Content Include="Areas\Receiving\Home\Sounds\warning.wav" />
     <None Include="Doc\Readme.txt" />
     <None Include="Global.asax" />
     <None Include="Web.config">
@@ -290,7 +276,6 @@
     <Content Include="Areas\Receiving\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\Receiving\_ViewStart.cshtml" />
     <Content Include="Areas\Receiving\Rad\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />

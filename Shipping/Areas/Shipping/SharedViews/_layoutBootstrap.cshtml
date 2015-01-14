@@ -1,0 +1,265 @@
+﻿@*This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar*@
+@*Inspired by http://line25.com/tutorials/design-and-code-a-cool-iphone-app-website-in-html5*@
+
+@*This layout is designed to be used as the main layout of every Area.
+        It has an optional section script which should used to render scripts and CSS. jquery scripts and CSS are already included by this layout.
+        It also displays status summary and validation errors.
+
+        This page should be compilable without the existence of any web.config in the Views folder. For this reason, you will find that it explicitly inherits from WebViewPage
+
+        Usage:
+        To display an app specific drop down menu, the layout page of your application must set
+          ViewBag.AppName = Short name of your application, e.g. Inquiry
+          ViewBag.AppHomeUrl = The URL of the home page of your application.
+          ViewBag.AppSearchUrl = The URL used for searching. Defaults to the Inquiry URL. You should specify this if you want to provide custom searching. For example,
+           PickWaves provides its own URL here to special handle bucket search. If it does not find the bucket, it redirects to Inquiry URL
+           DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1
+
+        If BOTH of the above are set, then you will see a drop down menu for your application. You can add links to this drop down menu by defining the
+        section applinks. Here is an example implementation from Inquiry layout page. Note that each link must be enclosed within an li.
+
+        @section applinks {
+        <li>
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.PoList())">
+                Purchase Orders
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action(MVC_Inquiry.Inquiry.PickslipEntity.WaveList())"> Pick Waves</a>
+        </li>
+        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.ShipmentEntity.ParentShipmentList())"> BOLs</a></li>
+        <li><a href="@Url.Action(MVC_Inquiry.Inquiry.IntransitEntity.IntransitShipmentList())"> Intransit Shipments</a></li>
+        <!-- Allow individual pages to add their own links  -->
+        @RenderSection("applinks", false)
+    }
+    If your application does not have any app links, this layout will detect this and not show any drop down.
+
+*@
+@inherits System.Web.Mvc.WebViewPage
+@using System.Linq
+@using System.Web.Mvc
+@{
+    // Include file URLs. We cannot use T4MVC here because our objective is to have no dependence on DcmsMobile.dll
+    var url_bootstrap_css = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Content/bootstrap.css") : Url.Content("~/Content/bootstrap.min.css");
+    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.1.3.js") : Url.Content("~/Scripts/jquery-2.1.3.min.js");
+    var url_bootstrap_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/bootstrap.js") : Url.Content("~/Scripts/bootstrap.min.js");
+
+    //var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
+    var messages = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.StatusMessages(Html);
+    var errors = EclipseLibrary.Mvc.Html.StatusSummaryExtensions.ErrorMessages(Html);
+
+    var appLinks = RenderSection("applinks", false);
+
+    var searchUrl = PublicUrl(new[] { (string)ViewBag.AppSearchUrl, DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Search1 }).ToString();
+
+}
+@helper PublicUrl(string[] routeNames)
+{
+    var query = from item in routeNames
+                where !string.IsNullOrWhiteSpace(item)
+                let url = item.Contains("/") ? item : (Url.RouteCollection[item] == null ? (string)null : Url.RouteUrl(item))
+                where !string.IsNullOrWhiteSpace(url)
+                select url;
+
+    var finalUrl = query.FirstOrDefault();
+    if (!string.IsNullOrWhiteSpace(finalUrl))
+    {
+        @finalUrl
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap -->
+    <link href="@url_bootstrap_css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-default">
+        <div class="container-fluid  bg-info">
+            <div class="navbar-header">
+                <!--Visible on mobile device only-->
+                <a class="navbar-brand bg-danger visible-xs pull-right" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" title="App Setting">
+                    <span class="glyphicon glyphicon-align-justify" style="cursor:default"></span>
+                </a>
+
+                <!--Visible on mobile device only-->
+                @if (!string.IsNullOrWhiteSpace(searchUrl))
+                {
+                    <a class="visible-xs btn navbar-brand pull-right" data-toggle="modal" href="#searchModal">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </a>
+                }
+
+                <a class="navbar-brand bg-success" href="@Url.Content("~")" style="padding-right:5px;padding-left:2px;">
+                    <span class="glyphicon glyphicon-home"></span> DCMS
+                </a>
+
+                @if (ViewBag.AppName != null && ViewBag.AppHomeUrl != null)
+                {
+                    <div class="navbar-left">
+                        <div class="btn-group">
+                            <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px;padding-left:2px;">
+                                <span class=" glyphicon glyphicon-th-large">
+                                </span> @ViewBag.AppName
+                            </a>
+
+                            @if (appLinks != null)
+                            {
+                                <button type="button" class="btn btn-link navbar-btn dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    @Html.Raw(appLinks.ToHtmlString())
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                        <!-- Place holder for minimal empty space between brand and search box -->
+                    <div class="navbar-left">
+
+                    </div>
+                }
+
+
+                @if (!string.IsNullOrWhiteSpace(searchUrl))
+                {
+
+                <!--Hidden on mobile device only-->
+                    <form action="@searchUrl" method="get" role="search" class="hidden-xs navbar-form navbar-left">
+                        <div class="input-group">
+                            <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </form>
+
+                }
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav navbar-right">
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @ViewContext.HttpContext.User.Identity.Name <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logoff})">
+                                        <span class="glyphicon glyphicon glyphicon-log-out"></span> Sign out
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_ChangePassword})"><span class="glyphicon glyphicon-wrench"></span> Change Password</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@PublicUrl(new[] {DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_Logon})">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                Sign In
+                            </a>
+                        </li>
+                    }
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            <!--Visible on mobile device only-->
+                            <span class="visible-xs-inline-block">Tools</span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@PublicUrl(new[] {"DcmsMobile_Diagnostic"})"><span class="glyphicon glyphicon-stats"></span> Diagnostics</a></li>
+                            <li><a href="@Url.Content("~/trace.axd")" target="trace"><span class="glyphicon glyphicon-record"></span> Trace Output</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @if (messages.Count > 0)
+    {
+        <div class="container-fluid">
+            <div class="alert alert-info alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <ol>
+                    @for (var i = 0; i < messages.Count; ++i)
+                    {
+                        <li>@messages[i]</li>
+                    }
+                </ol>
+            </div>
+
+        </div>
+    }
+
+    @if (errors.Count > 0)
+    {
+        <div class="container-fluid">
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <ol>
+                    @for (var i = 0; i < errors.Count; ++i)
+                    {
+                        <li>@errors[i]</li>
+                    }
+                </ol>
+            </div>
+
+        </div>
+    }
+    @RenderBody()
+
+    @if (!string.IsNullOrWhiteSpace(searchUrl))
+    {
+
+    <!--Visible on mobile device only-->
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="@searchUrl" method="get" role="search">
+            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
+
+    }
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="@url_jquery_js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="@url_bootstrap_js" type="text/javascript"></script>
+
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $(window).on('resize', function (e) {
+                    //alert('resize');
+                    $('#searchModal').hide();
+                });
+            });
+        </script>*@
+
+    @RenderSection("script", false)
+</body>
+
+
+
+</html>

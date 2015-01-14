@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using DcmsMobile.PickWaves.Helpers;
+﻿using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 {
@@ -25,7 +25,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total number of picked pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPiecesPicked
+        [Obsolete]
+        public int TotalPiecesComplete
         {
             get
             {
@@ -33,90 +34,124 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             }
         }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPiecesPulled
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
+                    .Sum(p => p.PiecesComplete);
+            }
+        }
+
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPiecesPitched
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
+                    .Sum(p => p.PiecesComplete);
+            }
+        }
+
+
+        /// <summary>
+        /// Total number of pulling pieces in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPullablePieces
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
+                    .Sum(p => p.PiecesRemaining + p.PiecesComplete);
+            }
+        }
+
+        /// <summary>
+        /// Total number of pitching pieces in the bucket
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int TotalPitchablePieces
+        {
+            get
+            {
+                return BucketSkuList.SelectMany(p => p.Activities)
+                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
+                    .Sum(p => p.PiecesRemaining + p.PiecesComplete);
+            }
+        }
+
+
+
         /// <summary>
         /// Total remaining pieces for all SKUs of this wave
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete("Rename to TotalPieesRemaining")]
         public int RemainingPiecesToPick
         {
             get
             {
-                return BucketSkuList.Sum(p => p.Activities.Sum(q => q.PiecesIncomplete));
+                return BucketSkuList.Sum(p => p.Activities.Sum(q => q.PiecesRemaining));
             }
         }
 
-        /// <summary>
-        /// Total ordered pieces for all SKUs of this wave
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalOrderedPieces
-        {
-            get
-            {
-                return BucketSkuList.Sum(p => p.OrderedPieces);
-            }
-        }
-
-        /// <summary>
-        /// Total Percent picked for all SKUs of this wave
-        /// </summary>
-        public decimal PercentPiecesComplete
-        {
-            get
-            {
-                if (TotalPiecesPicked == 0 || TotalOrderedPieces == 0)
-                {
-                    return 0;
-                }
-                return Math.Round((decimal)TotalPiecesPicked * 100 / (decimal)(TotalOrderedPieces));
-            }
-        }
-
+        ///// <summary>
+        ///// Total ordered pieces for all SKUs of this wave
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]   
         //[Obsolete]
-        //public BoxState StateFilter { get; set; }
-
-        //[Obsolete]
-        //public BucketActivityType ActivityFilter { get; set; }
-
-        //[Obsolete]
-        //public string StateFilterDisplay
+        //public int? TotalOrderedPieces
         //{
         //    get
         //    {
-        //        return PickWaveHelpers.GetEnumMemberAttributes<BoxState, DisplayAttribute>()[this.StateFilter].Name;
+        //        return BucketSkuList.Sum(p => p.OrderedPieces);
         //    }
         //}
 
+        ///// <summary>
+        ///// Total Percent picked for all SKUs of this wave
+        ///// </summary>
+        //[DisplayFormat(DataFormatString="{0:N0}%")]
         //[Obsolete]
-        //public string ActivityFilterDisplay
+        //public int PercentPiecesPulled
         //{
         //    get
         //    {
-        //        return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityFilter].Name;
+        //        if (TotalPiecesPulled == 0 || TotalOrderedPieces == 0)
+        //        {
+        //            return 0;
+        //        }
+        //        return (int)Math.Round((decimal)TotalPiecesPulled * 100 / (decimal)(TotalOrderedPieces));
         //    }
         //}
 
         /// <summary>
         /// Total Weight of all SKUs of this wave
         /// </summary>
-        [DisplayFormat(DataFormatString = "{0:n2}")]
-        public decimal TotalWeight
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? TotalWeight
         {
             get
             {
-                return BucketSkuList.Sum(p => p.WeightPerDozen);
+                return BucketSkuList.Sum(p => p.Weight);
             }
         }
 
         /// <summary>
         /// Total Volume of all SKUs of this wave
         /// </summary>     
-        [DisplayFormat(DataFormatString = "{0:n2}")]
-        public decimal TotalVolume
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? TotalVolume
         {
             get
             {
-                return BucketSkuList.Sum(p => p.VolumePerDozen);                
+                return BucketSkuList.Sum(p => p.Volume);                
             }
         }
     }

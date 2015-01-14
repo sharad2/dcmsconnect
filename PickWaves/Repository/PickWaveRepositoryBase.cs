@@ -79,27 +79,27 @@ namespace DcmsMobile.PickWaves.Repository
         /// </remarks>
         /// Discuss with Sharad sir on 15-May-2014 : 
         /// Get bucket for customer is not showing cancelled box.
-        public IList<BucketWithActivities> GetBuckets(int? bucketId, string customerId, ProgressStage? state, string userName)
+        public BucketWithActivities GetBucket(int bucketId)
         {
-            if (bucketId == null && string.IsNullOrWhiteSpace(customerId))
-            {
-                throw new ArgumentException("All parameters cannot be null to avoid retrieving too many buckets");
-            }
-            string bucketState = null;
-            switch (state)
-            {
-                case ProgressStage.Frozen:
-                    bucketState = "Frozen";
-                    break;
-                case ProgressStage.InProgress:
-                    bucketState = "InProgress";
-                    break;
-                case ProgressStage.Completed:
-                    bucketState = "Completed";
-                    break;
-                case ProgressStage.Unknown:
-                    throw new ArgumentOutOfRangeException("state");
-            }
+            //if (bucketId == null && string.IsNullOrWhiteSpace(customerId))
+            //{
+            //    throw new ArgumentException("All parameters cannot be null to avoid retrieving too many buckets");
+            //}
+            //string bucketState = null;
+            //switch (state)
+            //{
+            //    case ProgressStage.Frozen:
+            //        bucketState = "Frozen";
+            //        break;
+            //    case ProgressStage.InProgress:
+            //        bucketState = "InProgress";
+            //        break;
+            //    case ProgressStage.Completed:
+            //        bucketState = "Completed";
+            //        break;
+            //    case ProgressStage.Unknown:
+            //        throw new ArgumentOutOfRangeException("state");
+            //}
             var QUERY = @"
            WITH Q1 AS
  -- Bucket header information
@@ -145,11 +145,7 @@ CASE WHEN BKT.PITCH_TYPE = 'QUICK' THEN 'Y' END AS QUICK_PITCH_FLAG,
     LEFT OUTER JOIN <proxy />IA IA
       ON IA.IA_ID = BKT.PITCH_IA_ID
    WHERE
-<if>bkt.bucket_ID = :bucket_ID</if>
-<else>PS.TRANSFER_DATE IS NULL</else>
-
-<if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
-
+bkt.bucket_ID = :bucket_ID
         ),
 TOTAL_ORDERED_PIECES AS
  (SELECT Q1.BUCKET_ID AS BUCKET_ID,
@@ -312,9 +308,7 @@ UNVRFY_BOXES,
       ON BOX.PICKSLIP_ID = BD.PICKSLIP_ID
      AND BOX.UCC128_ID = BD.UCC128_ID
    WHERE 
-<if>PS.bucket_id = :bucket_id</if>
-<else>PS.TRANSFER_DATE IS NULL</else>
-<if>AND PS.CUSTOMER_ID = :CUSTOMER_ID</if>
+PS.bucket_id = :bucket_id
 
    GROUP BY PS.BUCKET_ID)
 SELECT OP.BUCKET_ID               AS BUCKET_ID,
@@ -371,15 +365,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
        OP.COUNT_ASSIGNED_SKU      AS COUNT_ASSIGNED_SKU
   FROM TOTAL_ORDERED_PIECES OP
   LEFT OUTER JOIN TOTAL_PICKED_PIECES PP
-    ON OP.BUCKET_ID = PP.BUCKET_ID
-                        <if>
-                            WHERE (CASE
-                                WHEN OP.FREEZE = 'Y' THEN       :FrozenState
-                                WHEN NVL(PP.UNVRFY_BOXES,0) = 0 THEN :CompletedState 
-                                ELSE                            :InProgressState
-                                END) = :state
-                            </if>
-                <if>AND OP.CREATED_BY = :CREATED_BY</if>";
+    ON OP.BUCKET_ID = PP.BUCKET_ID";
             var binder = SqlBinder.Create(row =>
             {
                 var bucket = new BucketWithActivities
@@ -411,19 +397,19 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     Description = row.GetString("PULL_AREA_DESCRIPTION"),
                     BuildingId = row.GetString("BUILDING_PULL_FROM")
                 };
-                activity.Stats[BoxState.Completed, PiecesKind.Expected] = row.GetInteger("VRFY_EXP_PCS_PULL");
-                activity.Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                activity.Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-                activity.Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
 
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PULL");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PULL");
 
-                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PITCH");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PITCH");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Expected] = row.GetInteger("CAN_EXP_PCS_PULL");
-                activity.Stats[BoxState.Cancelled, PiecesKind.Current] = row.GetInteger("CAN_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -437,10 +423,10 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     BuildingId = row.GetString("BUILDING_PITCH_FROM"),
                     ReplenishAreaId = row.GetString("REPLENISH_AREA_ID")
                 };
-                activity.Stats[BoxState.Completed, PiecesKind.Expected] = row.GetInteger("VRFY_EXP_PCS_PITCH");
-                activity.Stats[BoxState.Completed, PiecesKind.Current] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                activity.Stats[BoxState.InProgress, PiecesKind.Expected] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
-                activity.Stats[BoxState.InProgress, PiecesKind.Current] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
 
                 // Count of unverified boxes
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PITCH");
@@ -452,14 +438,11 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 return bucket;
             });
 
-            binder.Parameter("CUSTOMER_ID", customerId)
-                  .Parameter("CREATED_BY", userName)
-                  .Parameter("state", bucketState)
-                  .Parameter("FrozenState", ProgressStage.Frozen.ToString())
+            binder.Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString())
                   .Parameter("CompletedState", ProgressStage.Completed.ToString())
                   .Parameter("bucket_ID", bucketId);
-            return _db.ExecuteReader(QUERY, binder, bucketId.HasValue ? 1 : 2000);
+            return _db.ExecuteSingle(QUERY, binder);
         }
 
         /// <summary>

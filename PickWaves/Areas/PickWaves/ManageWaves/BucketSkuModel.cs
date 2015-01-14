@@ -1,4 +1,5 @@
 ﻿using DcmsMobile.PickWaves.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,6 +11,20 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
     /// </summary>
     public class BucketSkuModel
     {
+        internal BucketSkuModel(BucketSku entity)
+        {
+            Style = entity.Sku.Style;
+            Color = entity.Sku.Color;
+            Dimension = entity.Sku.Dimension;
+            SkuSize = entity.Sku.SkuSize;
+            UpcCode = entity.Sku.UpcCode;
+            SkuId = entity.Sku.SkuId;
+            VwhId = entity.Sku.VwhId;
+            Volume = entity.Sku.VolumePerDozen / 12;
+            Weight = entity.Sku.WeightPerDozen / 12;
+            OrderedPieces = entity.QuantityOrdered;
+        }
+
         [Key]
         public int SkuId { get; set; }
 
@@ -25,7 +40,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         {
             get
             {
-                return string.Format("{0},{1},{2},{3}",this.Style,this.Color,this.Dimension,this.SkuSize);
+                return string.Format("{0},{1},{2},{3}", this.Style, this.Color, this.Dimension, this.SkuSize);
             }
         }
 
@@ -33,9 +48,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public string VwhId { get; set; }
 
-        public decimal WeightPerDozen { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? Weight { get; set; }
 
-        public decimal VolumePerDozen { get; set; }
+        [DisplayFormat(DataFormatString = "{0:N4}")]
+        public decimal? Volume { get; set; }
 
         //public bool IsAssignedSku { get; set; }
 
@@ -43,7 +60,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Number of pieces ordered for this SKU
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int OrderedPieces { get; set; }
+        public int? OrderedPieces { get; set; }
 
         /// <summary>
         /// List of Areas and available SKU quantity which were ordered for this wave.
@@ -58,11 +75,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             get
             {
                 var inbox = this.Activities.Sum(p => p.PiecesComplete);
-                if (inbox == 0 || OrderedPieces == 0)
+                if (inbox == 0 || (OrderedPieces ?? 0) == 0)
                 {
                     return 0;       // Not full at all
                 }
-                return (decimal)inbox / (this.OrderedPieces);
+                return (decimal)inbox / (this.OrderedPieces.Value);
             }
         }
     }

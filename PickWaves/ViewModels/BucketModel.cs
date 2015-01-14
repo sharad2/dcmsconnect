@@ -74,24 +74,24 @@ namespace DcmsMobile.PickWaves.ViewModels
             };
 
             OrderedPieces = src.OrderedPieces;
-            CountTotalBoxes = src.Activities.Sum(p => p.Stats[BoxState.Completed | BoxState.InProgress | BoxState.NotStarted]) ?? 0;
+            CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })) ?? 0;
             CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
             CountValidatedBoxes = src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0;
             CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
-            PiecesComplete = src.Activities.Sum(p => p.Stats[BoxState.Completed | BoxState.InProgress, PiecesKind.Current]) ?? 0;
-            PiecesToShip = (src.Activities.Sum(p => p.Stats[BoxState.Completed, PiecesKind.Current]) ?? 0) + (src.Activities.Sum(p => p.Stats[BoxState.InProgress, PiecesKind.Expected]) ?? 0);
-            var pcs = src.Activities.Sum(p => p.Stats[BoxState.Completed | BoxState.InProgress | BoxState.Cancelled, PiecesKind.Expected]) ?? 0;
+            PiecesComplete = src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed | BoxState.InProgress]) ?? 0;
+            PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
+            var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] {BoxState.Completed, BoxState.InProgress, BoxState.Cancelled})) ?? 0;
             if (pcs != this.OrderedPieces)
             {
                 this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
             }
-            pcs = src.Activities.Sum(p => p.Stats[BoxState.Cancelled, PiecesKind.Expected]) ?? 0;
+            pcs = src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0;
             if (pcs > 0)
             {
                 CancelledPieces = pcs;
             }
 
-            pcs = src.Activities.Sum(p => (p.Stats[BoxState.Completed, PiecesKind.Expected] ?? 0) - (p.Stats[BoxState.Completed, PiecesKind.Current] ?? 0));
+            pcs = src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0));
             if (pcs > 0)
             {
                 UnderPickedPieces = pcs;
@@ -171,7 +171,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [Display(Name = "Freeze")]
         public bool IsFrozen { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
 
         public string CreatedBy { get; set; }
 

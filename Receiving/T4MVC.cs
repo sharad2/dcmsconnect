@@ -118,23 +118,8 @@ namespace Links_Receiving
                     private const string URLPATH = "~/Areas/Receiving/Home/Sounds";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string _1_mp3 = Url("1.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/1.mp3");
-                    public static readonly string _10_mp3 = Url("10.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/10.mp3");
-                    public static readonly string _2_mp3 = Url("2.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/2.mp3");
-                    public static readonly string _3_mp3 = Url("3.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/3.mp3");
-                    public static readonly string _4_mp3 = Url("4.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/4.mp3");
-                    public static readonly string _5_mp3 = Url("5.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/5.mp3");
-                    public static readonly string _6_mp3 = Url("6.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/6.mp3");
-                    public static readonly string _7_mp3 = Url("7.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/7.mp3");
-                    public static readonly string _8_mp3 = Url("8.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/8.mp3");
-                    public static readonly string _9_mp3 = Url("9.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/9.mp3");
                     public static readonly string Error_mp3 = Url("Error.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Error.mp3");
-                    public static readonly string error_wav = Url("error.wav")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/error.wav");
-                    public static readonly string PalletChange_wav = Url("PalletChange.wav")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/PalletChange.wav");
-                    public static readonly string palletscan_wav = Url("palletscan.wav")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/palletscan.wav");
-                    public static readonly string scan_wav = Url("scan.wav")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/scan.wav");
                     public static readonly string success_mp3 = Url("success.mp3")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/success.mp3");
-                    public static readonly string warning_wav = Url("warning.wav")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/warning.wav");
                 }
             
             }

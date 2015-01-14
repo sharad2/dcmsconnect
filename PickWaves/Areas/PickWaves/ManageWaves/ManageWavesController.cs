@@ -78,24 +78,24 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </remarks>
         [AllowAnonymous]
         [Route]
-        public virtual ActionResult Index(string customerId, string userName, ProgressStage? bucketState)
+        public virtual ActionResult Index(string customerId, string userName)
         {
             if (string.IsNullOrWhiteSpace(customerId))
             {
                 // Should never happen. Redirect to home page
                 return RedirectToAction(MVC_PickWaves.PickWaves.Home.Index());
             }
-            if (bucketState == null)
-            {
-                // By default show in progress pick waves
-                bucketState = ProgressStage.InProgress;
-            }
+            //if (bucketState == null)
+            //{
+            //    // By default show in progress pick waves
+            //    bucketState = ProgressStage.InProgress;
+            //}
             //var buckets = _service.Value.GetBuckets(customerId, bucketState.Value, userName);
-            var buckets = _service.Value.GetBucketList(customerId, bucketState.Value, userName);
+            var buckets = _service.Value.GetBucketList(customerId, userName);
             var model = new IndexViewModel
             {
                 CustomerId = customerId,
-                BucketState = bucketState.Value,
+                //BucketState = bucketState.Value,
                 UserName = userName,
                 CustomerName = _service.Value.GetCustomerName(customerId)
             };
@@ -104,10 +104,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             //                 orderby bucket.PriorityId descending, bucket.DcCancelDateRange.From ?? DateTime.MaxValue, bucket.PercentPiecesComplete descending
             //                 select bucket).ToList();
 
-            model.Buckets = (from bucket in buckets
+            model.FrozenBuckets = (from bucket in buckets
+                                   where bucket.IsFrozen
                                orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue,bucket.OrderedPieces descending
                                select new IndexBucketModel(bucket)).ToList();
-            if (string.IsNullOrWhiteSpace(model.CustomerName) && model.Buckets.Count == 0)
+
+            model.InProgressBuckets = (from bucket in buckets
+                                   where !bucket.IsFrozen
+                                   orderby bucket.PriorityId descending, bucket.MinDcCancelDate ?? DateTime.MaxValue, bucket.OrderedPieces descending
+                                   select new IndexBucketModel(bucket)).ToList();
+
+            if (string.IsNullOrWhiteSpace(model.CustomerName) && buckets.Count == 0)
             {
                 // This must be a garbage customer. Redirect to home page
                 ModelState.AddModelError("", string.Format("Customer {0} not recognized", customerId));
@@ -174,7 +181,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                          {
                              BucketSku = item,
                              Activities = item.Activities.Select(p => new BucketActivityModel(p))
-                               .Where(p => p.PiecesComplete > 0 || p.PiecesIncomplete > 0),
+                               .Where(p => p.PiecesComplete > 0 || p.PiecesRemaining > 0),
                              Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
                          }).ToList();
 
@@ -188,18 +195,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             {
                 Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
                 BucketSkuList = (from sku in query
-                                 select new BucketSkuModel
+                                 select new BucketSkuModel(sku.BucketSku)
                                  {
-                                     Style = sku.BucketSku.Sku.Style,
-                                     Color = sku.BucketSku.Sku.Color,
-                                     Dimension = sku.BucketSku.Sku.Dimension,
-                                     SkuSize = sku.BucketSku.Sku.SkuSize,
-                                     UpcCode = sku.BucketSku.Sku.UpcCode,
-                                     SkuId = sku.BucketSku.Sku.SkuId,
-                                     VwhId = sku.BucketSku.Sku.VwhId,
-                                     VolumePerDozen = sku.BucketSku.Sku.VolumePerDozen,
-                                     WeightPerDozen = sku.BucketSku.Sku.WeightPerDozen,
-                                     OrderedPieces = sku.BucketSku.QuantityOrdered,
                                      InventoryByArea = (from area in allAreas
                                                         join item in sku.BucketSku.BucketSkuInAreas on area.AreaId equals item.InventoryArea.AreaId into gj
                                                         from subitem in gj.DefaultIfEmpty()
@@ -660,12 +657,12 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             try
             {
                 _service.Value.RemovePickslipFromBucket(pickslips, bucketId);
+                AddStatusMessage(string.Format("{0} Pickslips removed from Pick Wave {1}", pickslips.Length, bucketId));
             }
             catch (DbException exception)
             {
                 this.ModelState.AddModelError("", exception.InnerException);
             }
-            AddStatusMessage(string.Format("{0} Pickslips cancelled", pickslips.Length));
             return RedirectToAction(Actions.WavePickslips(bucketId));
            
         }

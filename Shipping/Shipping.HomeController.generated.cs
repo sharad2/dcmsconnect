@@ -493,7 +493,6 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
                 public readonly string Appointment_css = "Appointment.css";
                 public readonly string Bol = "Bol";
                 public readonly string Index = "Index";
-                public readonly string Index_mobile = "Index.mobile";
                 public readonly string PoSearchResults = "PoSearchResults";
                 public readonly string Routed = "Routed";
                 public readonly string Routing = "Routing";
@@ -507,7 +506,6 @@ namespace DcmsMobile.Shipping.Areas.Shipping.Controllers
             public readonly string Appointment_css = "~/Areas/Shipping/Home/Appointment.css.bundle";
             public readonly string Bol = "~/Areas/Shipping/Home/Bol.cshtml";
             public readonly string Index = "~/Areas/Shipping/Home/Index.cshtml";
-            public readonly string Index_mobile = "~/Areas/Shipping/Home/Index.mobile.cshtml";
             public readonly string PoSearchResults = "~/Areas/Shipping/Home/PoSearchResults.cshtml";
             public readonly string Routed = "~/Areas/Shipping/Home/Routed.cshtml";
             public readonly string Routing = "~/Areas/Shipping/Home/Routing.cshtml";

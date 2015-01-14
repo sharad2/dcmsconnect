@@ -13,7 +13,7 @@
         </a>
     </li>
     <li>
-        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null, Model.Bucket.BucketState))"
+        <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null))"
            title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
     </li>
     <li class="divider"></li>
@@ -180,12 +180,7 @@
                                                     <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
                                                            value="@Model.BoxesList[i].Ucc128Id" />
                                                 }
-                                                else
-                                                {
-                                                    <input type="checkbox" disabled />
-                                                }
-                                            
-
+                                              
                                             }
                                          
 

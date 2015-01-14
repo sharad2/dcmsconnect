@@ -6,7 +6,7 @@ namespace DcmsMobile.PickWaves.Repository
     /// <summary>
     /// Contaqins very basic properties of a bucket. All these properties are available in the bucket table
     /// </summary>
-    public class BucketBase
+    internal class BucketBase
     {
         [Key]
         public int BucketId { get; set; }
@@ -34,7 +34,9 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool QuickPitch { get; set; }
 
-        public DateTime CreationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
+
+        public DateTime? ModifyDate { get; set; }
 
         public string CreatedBy { get; set; }
     }

@@ -37,20 +37,25 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
-            PiecesComplete = entity.Stats[BoxState.Completed | BoxState.InProgress, PiecesKind.Current] ?? 0;
-            PiecesIncomplete = (entity.Stats[BoxState.InProgress, PiecesKind.Expected] ?? 0) - (entity.Stats[BoxState.InProgress, PiecesKind.Current] ?? 0);
-            PiecesBoxesCreated = entity.Stats[BoxState.Cancelled | BoxState.InProgress | BoxState.Completed, PiecesKind.Expected] ?? 0;
+            PiecesComplete = (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.InProgress }) ?? 0)
+                + (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Completed, BoxState.Cancelled }) ?? 0);
+            PiecesRemaining = (entity.Stats.GetPieces(PiecesKind.Expected, new[] {BoxState.InProgress, BoxState.NotStarted }) ?? 0)
+                - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.InProgress }) ?? 0);
+            PiecesBoxesCreated = entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Cancelled, BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0;
 
-            var pcs = (entity.Stats[BoxState.Completed, PiecesKind.Expected] ?? 0) - (entity.Stats[BoxState.Completed, PiecesKind.Current] ?? 0);
+            var pcs = (entity.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
             if (pcs > 0)
             {
                 UnderPickedPieces = pcs;
             }
-            pcs = entity.Stats[BoxState.Cancelled, PiecesKind.Expected] ?? 0;
+            pcs = entity.Stats[PiecesKind.Expected, BoxState.Cancelled] ?? 0;
             if (pcs > 0)
             {
                 CancelledPieces = pcs;
             }
+            CountBoxesCreated = entity.Stats.GetBoxCounts(new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted});
+
+            CountBoxesIncomplete = entity.Stats.GetBoxCounts(new[] {BoxState.InProgress, BoxState.NotStarted});
         }
 
         public BucketActivityType ActivityType { get; set; }
@@ -62,7 +67,18 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return PickWaveHelpers.GetEnumMemberAttributes<BucketActivityType, DisplayAttribute>()[this.ActivityType].Name;
+                switch (this.ActivityType)
+                {
+                    case BucketActivityType.Pitching:
+                        return "Pitching";
+
+                    case BucketActivityType.Pulling:
+                        return "Pulling";
+
+                    default:
+                        return this.ActivityType.ToString();
+                }
+
             }
         }
 
@@ -89,29 +105,22 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         /// <summary>
-        /// The number of pieces which have been pulled or picked
+        /// The number of pieces which work has been completed. This includes cancelled pieces. After a box is validated,
+        /// underpicked pieces are considered to be complete.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PiecesComplete { get; set; }
 
         /// <summary>
-        /// Read only.
-        /// The number of pieces for which pulling or picking have not yet been performed.
+        /// The number of pieces for which pulling or picking needs to be performed.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesIncomplete { get; set; }
+        public int PiecesRemaining { get; set; }
 
-        /// <summary>
-        /// Sum of complete and incomplete
-        /// </summary>
+
+
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesToShip
-        {
-            get
-            {
-                return PiecesIncomplete + PiecesComplete;
-            }
-        }
+        public int? CountBoxesIncomplete { get; set; }
 
         /// <summary>
         /// Number of pieces in under picked verified boxes
@@ -127,26 +136,27 @@ namespace DcmsMobile.PickWaves.ViewModels
             get
             {
                 //return 10;
-                if (PiecesComplete + PiecesIncomplete == 0)
+                if (PiecesComplete + PiecesRemaining == 0)
                 {
                     return 0;
                 }
 
-                return (int)Math.Round(PiecesComplete * 100.0 / (PiecesComplete + PiecesIncomplete));
+                return (int)Math.Round(PiecesComplete * 100.0 / (PiecesComplete + PiecesRemaining));
             }
         }
 
+        [Obsolete("Rename to PercentPiecesRemainig")]
         public int PercentPiecesIncomplete
         {
             get
             {
                 //return 10;
-                if (PiecesComplete + PiecesIncomplete == 0)
+                if (PiecesComplete + PiecesRemaining == 0)
                 {
                     return 0;
                 }
 
-                return (int)Math.Round(PiecesIncomplete * 100.0 / (PiecesComplete + PiecesIncomplete));
+                return (int)Math.Round(PiecesRemaining * 100.0 / (PiecesComplete + PiecesRemaining));
             }
         }
 
@@ -156,6 +166,12 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int PiecesBoxesCreated { get; private set; }
 
+        /// <summary>
+        /// Total boxes for this activity
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? CountBoxesCreated { get; set; }
+
         public string AreaId { get; set; }
 
         /// <summary>
@@ -164,8 +180,11 @@ namespace DcmsMobile.PickWaves.ViewModels
         public string ReplenishAreaId { get; set; }
 
         [DataType(DataType.Text)]
-        [DisplayFormat(NullDisplayText="Not Started")]
+        [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
+
+
+
 
     }
 }

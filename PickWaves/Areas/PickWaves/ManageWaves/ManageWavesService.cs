@@ -17,17 +17,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
         #endregion
 
-        /// <summary>
-        /// All parameters are optional. If none are specified, all buckets will be retrieved 
-        /// which is definitely what you will not want.
-        /// </summary>
-        /// <param name="customerId"></param>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        internal IList<BucketWithActivities> GetBuckets(string customerId, ProgressStage state, string userName)
-        {
-            return _repos.GetBuckets(null, customerId, state, userName);
-        }
+        ///// <summary>
+        ///// All parameters are optional. If none are specified, all buckets will be retrieved 
+        ///// which is definitely what you will not want.
+        ///// </summary>
+        ///// <param name="customerId"></param>
+        ///// <param name="state"></param>
+        ///// <returns></returns>
+        //internal IList<BucketWithActivities> GetBuckets(string customerId, ProgressStage state, string userName)
+        //{
+        //    return _repos.GetBuckets(null, customerId, state, userName);
+        //}
 
         /// <summary>
         /// SKU list of passed bucket
@@ -151,9 +151,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             _repos.CancelBoxes(boxes);
         }
 
-        public IList<BucketList> GetBucketList(string customerId, ProgressStage state, string userName)
+        public IList<CustomerBucket> GetBucketList(string customerId, string userName)
         {
-            return _repos.GetBucketList(customerId,state, userName);
+            return _repos.GetBucketList(customerId, userName);
         }
     }
 }
