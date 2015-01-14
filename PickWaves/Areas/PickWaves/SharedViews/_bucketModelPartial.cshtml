@@ -312,7 +312,7 @@
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                                             <div>
-                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesIncomplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
+                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesComplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
                                                 boxes @BucketActivityVerb(Model.Activities[j].ActivityType)
                                             </div>
                                         </div>
