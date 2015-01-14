@@ -102,6 +102,12 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeleteSku);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AssignCartons2()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignCartons2);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public HomeController Actions { get { return MVC_REQ2.REQ2.Home; } }
@@ -127,6 +133,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string SkuEditor = "SkuEditor";
             public readonly string AddSku = "AddSku";
             public readonly string DeleteSku = "DeleteSku";
+            public readonly string AssignCartons2 = "AssignCartons2";
             public readonly string AssignCartons = "AssignCartons";
             public readonly string UnAssignCartons = "UnAssignCartons";
             public readonly string Tutorial = "Tutorial";
@@ -144,6 +151,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public const string SkuEditor = "SkuEditor";
             public const string AddSku = "AddSku";
             public const string DeleteSku = "DeleteSku";
+            public const string AssignCartons2 = "AssignCartons2";
             public const string AssignCartons = "AssignCartons";
             public const string UnAssignCartons = "UnAssignCartons";
             public const string Tutorial = "Tutorial";
@@ -215,6 +223,14 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         {
             public readonly string skuId = "skuId";
             public readonly string resvId = "resvId";
+        }
+        static readonly ActionParamsClass_AssignCartons2 s_params_AssignCartons2 = new ActionParamsClass_AssignCartons2();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AssignCartons2 AssignCartons2Params { get { return s_params_AssignCartons2; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AssignCartons2
+        {
+            public readonly string ctnresvId = "ctnresvId";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -380,6 +396,18 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "skuId", skuId);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "resvId", resvId);
             DeleteSkuOverride(callInfo, skuId, resvId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AssignCartons2Override(T4MVC_System_Web_Mvc_ActionResult callInfo, string ctnresvId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AssignCartons2(string ctnresvId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignCartons2);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
+            AssignCartons2Override(callInfo, ctnresvId);
             return callInfo;
         }
 

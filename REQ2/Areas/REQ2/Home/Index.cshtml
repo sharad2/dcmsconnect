@@ -23,14 +23,15 @@
 
     
     <div class="btn-group">
-        <button type="button" class="btn btn-s">Create New Request</button>
+        <button type="button" class="btn btn-s">New Request</button>
         <button type="button" class="btn btn-s dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
         </button>
         <ul class="dropdown-menu" role="menu">
-            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,true))">Conversion request</a></li>
-            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,false))">Non-Conversion request</a></li>
+            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,false))">Create Request</a></li>
+            <li><a href="@Url.Action(MVC_REQ2.REQ2.Home.PropertyEditor(null,true))">Create Conversion Request</a></li>
+           
             
         </ul>
     </div><ul class="list-group">
