@@ -139,14 +139,14 @@
                         <div class="col-md-3">
                             <small class="label label-info">
                                 @Html.DisplayFor(m => m.PickslipList[i].CustomerDcId)
-                                &bull;  @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
+                                &nbsp;  @Html.DisplayFor(m => m.PickslipList[i].CustomerStoreId)
                             </small>
                         </div>
                         <div class="col-md-4">
                             @if (Model.PickslipList[i].CancelledBoxCount > 0)
                                 {
                                 <strong class="text-danger">
-                                    &bull; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) Boxes cancelled
+                                    &nbsp; @Html.DisplayFor(m => m.PickslipList[i].CancelledBoxCount) boxes cancelled
                                 </strong>
                                 }
                             <div class="progress" style="margin-bottom:0">
@@ -155,29 +155,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        @*@if (Model.UserIsManager && Model.PickslipList[i].CurrentPieces == 0 && Model.IsFrozenBucket)
-                    {
-                        <div class="col-md-1">
-                            <div class="btn-group pull-right">
-                                <button type="button" class="btn btn-default dropdown-toggle btn-sm" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Remove <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li role="presentation" style="text-align:center">
-
-                                        <span>Sure?</span>&nbsp;
-                                        <button class="btn btn-primary" type="submit"
-                                                data-pickslip-remove-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.RemovePickslipFromBucket
-                                                             (Model.BucketId, Model.PickslipList[i].PickslipId))">
-                                            Yes
-                                        </button>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    }*@
                     </div>
                 </li>
                 }

@@ -232,21 +232,7 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                        @if (Model.UnderPickedPieces.HasValue)
-                        {
-                            <strong title='Number of unpicked pieces in verified boxes' class="text-info">
-                                @Html.DisplayFor(m => m.UnderPickedPieces) pieces underpicked
-                            </strong>
-                            <br />
-                        }
-
-                        @if (Model.CancelledPieces.HasValue)
-                        {
-                            <strong title='Number of pieces in cancelled boxes' class="text-info">
-                                @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled
-                            </strong>
-                            <br />
-                        }
+                    
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountPickslips) Pickslips
                             @if (isAuthorized && Model.IsFrozen)
@@ -273,9 +259,25 @@
                                 }
                                 @if (Model.QuickPitch)
                                 {
-                                    <span class="text-success">&bull; Quick Pitching required</span>
+                                    <span class="text-success">&nbsp; Quick Pitching required</span>
+                                }
+                                @if (Model.UnderPickedPieces.HasValue)
+                                {
+                                    <strong title='Number of unpicked pieces in verified boxes' class="text-danger">
+                                        &nbsp; @Html.DisplayFor(m => m.UnderPickedPieces) pieces underpicked
+                                    </strong>
+                                 
+                                }
+
+                                @if (Model.CancelledPieces.HasValue)
+                                {
+                                    <strong title='Number of pieces in cancelled boxes' class="text-danger">
+                                        &nbsp;  @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled
+                                    </strong>
+                                 
                                 }
                             </small>
+                            
                         </h4>
 
                     </li>
@@ -312,7 +314,7 @@
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                                             <div>
-                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesIncomplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
+                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesComplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
                                                 boxes @BucketActivityVerb(Model.Activities[j].ActivityType)
                                             </div>
                                         </div>
@@ -337,7 +339,7 @@
                                                 }
                                                 @if (Model.Activities[j].CancelledPieces.HasValue)
                                                 {
-                                                    <span>&bull; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) cancelled</span>
+                                                    <span>&nbsp; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</span>
                                                 }
                                             </strong>
                                         </div>
