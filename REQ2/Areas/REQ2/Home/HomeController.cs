@@ -102,21 +102,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 }
                 model = new PropertyEditorViewModel(req);
 
-                //int? priority = req.Priority;
-
-                //if (priority <= (int)PriorityType.Low)
-                //{
-                //    model.PriorityFlag = Priority.Low;
-                //}
-                //else if (priority > (int)PriorityType.Low && priority < (int)PriorityType.Medium)
-                //{
-                //    model.PriorityFlag = Priority.Medium;
-                //}
-
-                //else if (priority > (int)PriorityType.Medium)
-                //{
-                //    model.PriorityFlag = Priority.High;
-                //}
             }
 
                
