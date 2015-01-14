@@ -23,7 +23,7 @@
     var activity = Model.Bucket.Activities.SingleOrDefault(p => p.AreaId == Model.AllAreas[j].AreaId);
     if (activity == null)
     {
-        @:well well-sm
+        @:well
     }
     else
     {
@@ -162,20 +162,19 @@
                                     for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
                                     {
                                         <div class='alert alert-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
-                                             style="display:inline-block; width:48%">                                            
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
-                                            
+                                             style="display:inline-block; width:48%">
+                                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+
                                             <small style="white-space:nowrap">
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
                                                 of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesBoxesCreated) Pieces
                                             </small>
-                                            <span class="badge" style="white-space:nowrap" >@Html.DisplayFor(m=>m.BucketSkuList[i].Activities[j].CountBoxesIncomplete) boxes</span>
+                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CountBoxesIncomplete) boxes</span>
 
                                             <small style="white-space:nowrap">
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)
-                                              </small>
-                                                
-</div>
+                                            </small>                                                                                     
+                                        </div>
                                     }
                                 }
                                 else
@@ -208,8 +207,6 @@
                                             @if (Model.BucketSkuList[i].InventoryByArea != null && Model.BucketSkuList[i].InventoryByArea[j].InventoryPieces != null)
                                             {
                                                 hasInventory = true;
-
-
                                                 <div class="@AlertType(j)">
                                                     <small>
                                                         <span class="pull-right" title="Total pieces at @Model.AllAreas[j].BuildingId-@Model.AllAreas[j].ShortName">
@@ -225,8 +222,9 @@
                                                         </div>
                                                     }
                                                 </div>
-
+                                               
                                             }
+                                        
                                         </div>
 
                                     }
@@ -248,8 +246,6 @@
         </div>
     </div>
 </div>
-
-
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
 }
