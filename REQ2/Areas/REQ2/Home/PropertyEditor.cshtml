@@ -83,6 +83,8 @@
 
 <div class="container">
     <h2 style="margin-top:0">
+
+        <span class="@Html.Raw((Model.RequestForConversion) ? "glyphicon glyphicon-retweet" : "")"></span>
         @Html.Raw(string.IsNullOrEmpty(Model.ResvId) ? "Create New Request" : string.Format("Edit Request #{0}", Model.ResvId))
     </h2>
 
