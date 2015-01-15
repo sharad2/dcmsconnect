@@ -134,7 +134,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public readonly string AddSku = "AddSku";
             public readonly string DeleteSku = "DeleteSku";
             public readonly string AssignCartons2 = "AssignCartons2";
-            public readonly string AssignCartons = "AssignCartons";
             public readonly string UnAssignCartons = "UnAssignCartons";
             public readonly string Tutorial = "Tutorial";
         }
@@ -152,7 +151,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             public const string AddSku = "AddSku";
             public const string DeleteSku = "DeleteSku";
             public const string AssignCartons2 = "AssignCartons2";
-            public const string AssignCartons = "AssignCartons";
             public const string UnAssignCartons = "UnAssignCartons";
             public const string Tutorial = "Tutorial";
         }
@@ -408,17 +406,6 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignCartons2);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "ctnresvId", ctnresvId);
             AssignCartons2Override(callInfo, ctnresvId);
-            return callInfo;
-        }
-
-        [NonAction]
-        partial void AssignCartonsOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult AssignCartons()
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AssignCartons);
-            AssignCartonsOverride(callInfo);
             return callInfo;
         }
 
