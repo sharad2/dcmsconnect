@@ -96,12 +96,6 @@
                                 <span>
                                     Pick Wave can not be processed till it is frozen.
                                     <br />
-                                    @*<small>
-                                            <em>
-                                                <strong>@Model.CountNotStartedBoxes</strong>
-                                                Boxes assigned to this Pick Wave, which are not picked will be deleted and will be available for other pick waves.
-                                            </em>
-                                        </small>*@
                                 </span>
                                 <br />
                                 <button class="btn btn-warning"
@@ -170,22 +164,29 @@
                             <div class="col-md-6">
                                 <h4 class="list-group-item-heading">
                                     @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes validated
+                                    <br />
 
                                 </h4>
 
                                 <p class="list-group-item-text">
+                                    @if (Model.PiecesRemaining > 0)
+                                    {
+                                        <span>
+                                            @Html.DisplayFor(m => m.PiecesRemaining) pieces remaining 
+                                        </span>
+                                    }
                                     @if (Model.CountCancelledBoxes > 0)
                                     {
 
-                                        <strong>
-                                            @Html.DisplayFor(m => m.CountCancelledBoxes) Boxes cancelled
-                                        </strong>
+                                        <span>
+                                           &bull; @Html.DisplayFor(m => m.CountCancelledBoxes) boxes cancelled
+                                        </span>
 
                                     }
                                     @if (Model.CountNotStartedBoxes > 0)
                                     {
                                         <span>
-                                            @Html.DisplayFor(m => m.CountNotStartedBoxes) Boxes not started
+                                            &bull; @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
                                         </span>
                                     }
                                 </p>
@@ -232,7 +233,7 @@
                         </div>
                     </li>
                     <li class="list-group-item">
-                    
+
                         <h4 class="list-group-item-heading">
                             @Html.DisplayFor(m => m.CountPickslips) Pickslips
                             @if (isAuthorized && Model.IsFrozen)
@@ -266,7 +267,7 @@
                                     <strong title='Number of unpicked pieces in verified boxes' class="text-danger">
                                         &nbsp; @Html.DisplayFor(m => m.UnderPickedPieces) pieces underpicked
                                     </strong>
-                                 
+
                                 }
 
                                 @if (Model.CancelledPieces.HasValue)
@@ -274,10 +275,10 @@
                                     <strong title='Number of pieces in cancelled boxes' class="text-danger">
                                         &nbsp;  @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled
                                     </strong>
-                                 
+
                                 }
                             </small>
-                            
+
                         </h4>
 
                     </li>
@@ -298,7 +299,7 @@
                             DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
                         </span>
                         <h4 class="list-group-item-heading">
-                            @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
+                            @Html.DisplayFor(m => m.PiecesToShip) Pieces Ordered
                             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) complete
                         </h4>
                     </li>
@@ -320,18 +321,29 @@
                                         </div>
                                         <div class="col-md-7">
                                             @Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining
-                                            <div style="margin-bottom:3px;" class="progress">
-                                                <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                                                    <span style="white-space:nowrap" class="text-info">
-                                                        @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
-                                                        of @Html.DisplayFor(m => m.Activities[j].PiecesBoxesCreated) pieces picked
-                                                        @Html.DisplayFor(m => m.Activities[j].PickingDateRange).
-                                                        <em>
-                                                            @Model.Activities[j].PercentPiecesComplete% picked
-                                                        </em>
-                                                    </span>
+                                            @if (Model.Activities[j].PiecesBoxesCreated > 0)
+                                            {
+                                                <div style="margin-bottom:3px;" class="progress">
+                                                    <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
+                                                        <span style="white-space:nowrap" class="text-info">
+                                                            @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
+                                                            of @Html.DisplayFor(m => m.Activities[j].PiecesBoxesCreated) pieces picked
+                                                            @Html.DisplayFor(m => m.Activities[j].PickingDateRange).
+                                                            <em>
+                                                                @Model.Activities[j].PercentPiecesComplete% picked
+                                                            </em>
+                                                        </span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
+                                            else
+                                            {
+                                                <div>
+                                                    <strong>
+                                                        @Html.DisplayFor(m => m.Activities[j].DisplayName) not started yet
+                                                    </strong>
+                                                </div>
+                                            }
                                             <strong class="list-group-itemm-text text-danger">
                                                 @if (Model.Activities[j].UnderPickedPieces.HasValue)
                                                 {
@@ -367,6 +379,8 @@
                     }
 
                 </ul>
+
+
             </div>
         </div>
     </div>
