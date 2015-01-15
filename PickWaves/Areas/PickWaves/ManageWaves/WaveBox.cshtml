@@ -30,7 +30,7 @@
     else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
     {
         <span class="label label-default">
-            @box.ExpectedPieces
+            @(box.CurrentPieces ?? 0) of @box.ExpectedPieces
         </span>
     }
     else

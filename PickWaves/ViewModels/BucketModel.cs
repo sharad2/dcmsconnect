@@ -91,11 +91,13 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
 
             OrderedPieces = src.OrderedPieces;
-            CountTotalBoxes = (src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })) ?? 0)
+            CountTotalBoxes = (src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })) ?? 0)
                 - (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
+
             CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
 
-            CountValidatedBoxes = (src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0);
+            CountValidatedBoxes = (src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0)
+                - (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
           
 
 

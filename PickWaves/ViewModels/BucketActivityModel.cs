@@ -61,14 +61,15 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
-            CountBoxesCreated = (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }))
-                - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
+            CountBoxesCreated = (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })?? 0)
+                - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled })?? 0);
 
             CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
-            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed });
-       
-           
+            CountBoxesComplete = (entity.Stats.GetBoxCounts(new[] { BoxState.Completed }) ?? 0)
+            - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }) ?? 0);
+
+         
         }
 
         public BucketActivityType ActivityType { get; set; }
