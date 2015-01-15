@@ -191,6 +191,7 @@ TOTAL_ORDERED_PIECES AS
 </if>
    GROUP BY Q1.BUCKET_ID),
 TOTAL_PICKED_PIECES(BUCKET_ID,
+CAN_CUR_BOX_PITCH, CAN_CUR_BOX_PULL,
 CAN_EXP_PCS_PITCH, CAN_CUR_PCS_PITCH,CAN_EXP_PCS_PULL,CAN_CUR_PCS_PULL,
     VRFY_EXP_PCS_PITCH, VRFY_CUR_PCS_PITCH, VRFY_EXP_PCS_PULL, VRFY_CUR_PCS_PULL,
     UNVRFY_EXP_PCS_PITCH, UNVRFY_CUR_PCS_PITCH, UNVRFY_EXP_PCS_PULL, UNVRFY_CUR_PCS_PULL,
@@ -200,6 +201,18 @@ UNVRFY_BOXES,
     MAX_PITCHING_END_DATE,MIN_PITCHING_END_DATE,MAX_PULLING_END_DATE,MIN_PULLING_END_DATE
 ) AS
  (SELECT PS.BUCKET_ID AS BUCKET_ID,
+
+              COUNT(UNIQUE CASE
+                            WHEN BOX.STOP_PROCESS_DATE IS NULL AND
+                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
+                            BOX.UCC128_ID END)                AS CAN_CUR_BOX_PITCH,
+  
+              COUNT(UNIQUE CASE
+                            WHEN BOX.STOP_PROCESS_DATE IS NOT NULL AND
+                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
+                            BOX.UCC128_ID END)                AS CAN_CUR_BOX_PULL,
+
+
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
@@ -312,6 +325,8 @@ PS.bucket_id = :bucket_id
 
    GROUP BY PS.BUCKET_ID)
 SELECT OP.BUCKET_ID               AS BUCKET_ID,
+       PP.CAN_CUR_BOX_PITCH       AS CAN_CUR_BOX_PITCH,
+       PP.CAN_CUR_BOX_PULL         AS CAN_CUR_BOX_PULL,
        PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
        PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
        PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
@@ -410,6 +425,10 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PITCH");
                 activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PULL");
                 activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
+
+
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PITCH");
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PULL");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");

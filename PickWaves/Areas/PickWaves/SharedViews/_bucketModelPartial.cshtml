@@ -353,6 +353,10 @@
                                                 {
                                                     <span>&nbsp; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</span>
                                                 }
+                                                @if (Model.Activities[j].CountBoxesCancelled.HasValue)
+                                                {
+                                                    <span>&nbsp; @Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled) boxes cancelled</span> 
+                                                }
                                             </strong>
                                         </div>
                                     </div>

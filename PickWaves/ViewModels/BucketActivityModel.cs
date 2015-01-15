@@ -61,11 +61,12 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 CancelledPieces = pcs;
             }
-            CountBoxesCreated = entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted });
+            CountBoxesCreated = (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }))
+                - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
-            CountBoxesIncomplete = entity.Stats.GetBoxCounts(new[] { BoxState.InProgress, BoxState.NotStarted });
+            CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
-            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed });
+            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed }) - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
         }
 
         public BucketActivityType ActivityType { get; set; }
@@ -130,11 +131,14 @@ namespace DcmsMobile.PickWaves.ViewModels
 
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete]
         public int? CountBoxesIncomplete { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountBoxesComplete { get; set; }
 
+           [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? CountBoxesCancelled { get; set; }
 
         /// <summary>
         /// Number of pieces in under picked verified boxes
@@ -196,7 +200,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DataType(DataType.Text)]
         [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
-
 
 
     }
