@@ -95,9 +95,17 @@ namespace DcmsMobile.PickWaves.ViewModels
                 - (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
 
             CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
+      
+            var box = (src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0);
 
-            CountValidatedBoxes = (src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0)
-                - (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
+            if (box > 0)
+            {
+                CountValidatedBoxes = box - (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
+            }
+            else
+            {
+                CountValidatedBoxes = box;
+            }
           
 
 
