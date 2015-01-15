@@ -320,9 +320,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-7">
-                                            @Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining
+                                         
                                             @if (Model.Activities[j].PiecesBoxesCreated > 0)
                                             {
+                                                <span> @Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining</span>
                                                 <div style="margin-bottom:3px;" class="progress">
                                                     <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
                                                         <span style="white-space:nowrap" class="text-info">
@@ -353,7 +354,7 @@
                                                 {
                                                     <span>&nbsp; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</span>
                                                 }
-                                                @if (Model.Activities[j].CountBoxesCancelled.HasValue)
+                                                @if (Model.Activities[j].CountBoxesCancelled.Value > 0)
                                                 {
                                                     <span>&nbsp; @Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled) boxes cancelled</span> 
                                                 }

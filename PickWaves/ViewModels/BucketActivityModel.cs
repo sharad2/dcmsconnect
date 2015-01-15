@@ -137,7 +137,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountBoxesComplete { get; set; }
 
-           [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountBoxesCancelled { get; set; }
 
         /// <summary>
