@@ -191,7 +191,7 @@ TOTAL_ORDERED_PIECES AS
 </if>
    GROUP BY Q1.BUCKET_ID),
 TOTAL_PICKED_PIECES(BUCKET_ID,
-CAN_CUR_BOX_PITCH, CAN_CUR_BOX_PULL,
+CANCEL_BOXES_PITCH, CANCEL_BOXES_PULL,
 CAN_EXP_PCS_PITCH, CAN_CUR_PCS_PITCH,CAN_EXP_PCS_PULL,CAN_CUR_PCS_PULL,
     VRFY_EXP_PCS_PITCH, VRFY_CUR_PCS_PITCH, VRFY_EXP_PCS_PULL, VRFY_CUR_PCS_PULL,
     UNVRFY_EXP_PCS_PITCH, UNVRFY_CUR_PCS_PITCH, UNVRFY_EXP_PCS_PULL, UNVRFY_CUR_PCS_PULL,
@@ -205,12 +205,12 @@ UNVRFY_BOXES,
               COUNT(UNIQUE CASE
                             WHEN BOX.STOP_PROCESS_DATE IS NOT NULL AND
                             BOX.STOP_PROCESS_REASON = '$BOXCANCEL' AND box.carton_id IS NULL THEN
-                            BOX.UCC128_ID END)                AS CAN_COUNT_BOX_PITCH,
+                            BOX.UCC128_ID END)                AS CANCEL_BOXES_PITCH,
   
               COUNT(UNIQUE CASE
                             WHEN BOX.STOP_PROCESS_DATE IS NOT NULL AND
                             BOX.STOP_PROCESS_REASON = '$BOXCANCEL' AND box.carton_id IS NOT NULL THEN
-                            BOX.UCC128_ID END)                AS CAN_COUNT_BOX_PULL,
+                            BOX.UCC128_ID END)                AS CANCEL_BOXES_PULL,
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
@@ -323,8 +323,8 @@ PS.bucket_id = :bucket_id
 
    GROUP BY PS.BUCKET_ID)
 SELECT OP.BUCKET_ID               AS BUCKET_ID,
-       PP.CAN_CUR_BOX_PITCH       AS CAN_CUR_BOX_PITCH,
-       PP.CAN_CUR_BOX_PULL         AS CAN_CUR_BOX_PULL,
+       PP.CANCEL_BOXES_PITCH       AS CANCEL_BOXES_PITCH,
+       PP.CANCEL_BOXES_PULL         AS CANCEL_BOXES_PULL,
        PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
        PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
        PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
@@ -415,20 +415,17 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
                 activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
 
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CANCEL_BOXES_PULL");
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PULL");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PULL");
 
-                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PITCH");
-                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PITCH");
+    
                 activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PULL");
                 activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
 
 
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_COUNT_BOX_PULL");
-                activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
-                activity.Stats[BoxState.NotStarted] = row.GetInteger("CAN_COUNT_BOX_PULL");
-                activity.Stats[BoxState.Completed] = row.GetInteger("VRFY_COUNT_BOX_PULL");
+ 
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -447,12 +444,16 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
                 activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
 
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PITCH");
+  
 
                 // Count of unverified boxes
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CANCEL_BOXES_PITCH");
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PITCH");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PITCH");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PITCH");
+
+                activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PITCH");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
