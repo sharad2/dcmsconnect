@@ -65,7 +65,14 @@
 
             if (box.MaxPitchingEndDate.HasValue)
             {
-                stateText = "Pitched";
+                if (string.IsNullOrWhiteSpace(box.CartonId))
+                {
+                    stateText = "Pitched";
+                }
+                else
+                {
+                    stateText = "Pulled";
+                }
                 date = box.MaxPitchingEndDate;
             }
             else
@@ -162,7 +169,7 @@
                                 <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
                                     Pull Carton ?
                                 </abbr>
-                                <span class="label-default">
+                                <span class="label label-default">
                                     Pieces
                                 </span>
                             </div>
