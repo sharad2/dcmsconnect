@@ -66,7 +66,9 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
-            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed }) - (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
+            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed });
+       
+           
         }
 
         public BucketActivityType ActivityType { get; set; }
