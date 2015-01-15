@@ -163,7 +163,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="list-group-item-heading">
-                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes validated
+                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes complete
 
                                 </h4>
 
@@ -292,20 +292,20 @@
                             @Html.DisplayFor(m => m.PiecesToShip) Pieces Ordered
                             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) complete
                         </h4>
-                        <p class="list-group-item-heading">
+                        <ul class="list-inline">
                             @if (Model.PiecesRemaining > 0)
                             {
 
-                                <span>@Html.DisplayFor(m => m.PiecesRemaining) pieces remaining</span>
+                                <li>@Html.DisplayFor(m => m.PiecesRemaining) pieces remaining</li>
 
                             }
                             @if (Model.CancelledPieces > 0)
                             {
-                                <span> &bull; @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled</span>
+                                <li> @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled</li>
 
                             }
 
-                        </p>
+                        </ul>
                     </li>
                     @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
                     {
@@ -325,18 +325,22 @@
 
                                             @if (Model.Activities[j].CountBoxesCancelled.Value > 0)
                                             {
-                                                <strong class="text-danger">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled) boxes cancelled</strong>
+                                                <span class="text-danger">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled) boxes cancelled</span>
                                             }
                                         </div>
                                         <div class="col-md-7">
-                                            @if (Model.Activities[j].PiecesRemaining > 0)
-                                            {
-                                                <span>@Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining</span>
-                                            }
-                                            @if (Model.Activities[j].CancelledPieces.HasValue)
-                                            {
-                                                <strong class="text-danger">&bull; @Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</strong>
-                                            }
+                                            <ul class="list-inline">
+                                                @if (Model.Activities[j].PiecesRemaining > 0)
+                                                {
+                                                    <li>@Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining</li>
+                                                }
+                                                @if (Model.Activities[j].CancelledPieces.HasValue)
+                                                {
+                                                    <li class="text-danger">@Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</li>
+                                                }
+                                            </ul>
+                                            
+                                            
                                             @if (Model.Activities[j].PiecesBoxesCreated > 0)
                                             {
 
@@ -364,7 +368,7 @@
 
                                             @if (Model.Activities[j].UnderPickedPieces.HasValue)
                                             {
-                                                <strong class="text-danger"> @Html.DisplayFor(m => m.Activities[j].UnderPickedPieces) pieces underpicked </strong>
+                                                <span class="text-danger"> @Html.DisplayFor(m => m.Activities[j].UnderPickedPieces) pieces underpicked </span>
                                             }
 
 

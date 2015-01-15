@@ -203,16 +203,14 @@ UNVRFY_BOXES,
  (SELECT PS.BUCKET_ID AS BUCKET_ID,
 
               COUNT(UNIQUE CASE
-                            WHEN BOX.STOP_PROCESS_DATE IS NULL AND
-                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                            BOX.UCC128_ID END)                AS CAN_CUR_BOX_PITCH,
+                            WHEN BOX.STOP_PROCESS_DATE IS NOT NULL AND
+                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' AND box.carton_id IS NULL THEN
+                            BOX.UCC128_ID END)                AS CAN_COUNT_BOX_PITCH,
   
               COUNT(UNIQUE CASE
                             WHEN BOX.STOP_PROCESS_DATE IS NOT NULL AND
-                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                            BOX.UCC128_ID END)                AS CAN_CUR_BOX_PULL,
-
-
+                            BOX.STOP_PROCESS_REASON = '$BOXCANCEL' AND box.carton_id IS NOT NULL THEN
+                            BOX.UCC128_ID END)                AS CAN_COUNT_BOX_PULL,
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_DATE IS NOT NULL THEN
@@ -427,8 +425,10 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
 
 
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PITCH");
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PULL");
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_COUNT_BOX_PULL");
+                activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
+                activity.Stats[BoxState.NotStarted] = row.GetInteger("CAN_COUNT_BOX_PULL");
+                activity.Stats[BoxState.Completed] = row.GetInteger("VRFY_COUNT_BOX_PULL");
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -446,6 +446,8 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
                 activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
                 activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_CUR_BOX_PITCH");
 
                 // Count of unverified boxes
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PITCH");
