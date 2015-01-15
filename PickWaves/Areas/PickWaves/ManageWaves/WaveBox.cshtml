@@ -14,7 +14,7 @@
     </li>
     <li>
         <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.Index(Model.Bucket.CustomerId, null))"
-           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of @Model.Bucket.CustomerName</a>
+           title="See other Pick Waves of Customer @Model.Bucket.CustomerId: @Model.Bucket.CustomerName">Other Pick Waves of@Model.Bucket.CustomerName</a>
     </li>
     <li class="divider"></li>
 }
@@ -23,15 +23,21 @@
 {
     if (box.CurrentPieces == box.ExpectedPieces)
     {
-        @box.CurrentPieces
+        <span class="label label-default">
+            @box.CurrentPieces
+        </span>
     }
     else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
     {
-        @box.ExpectedPieces
+        <span class="label label-success">
+            @box.ExpectedPieces Expected
+        </span>
     }
     else
     {
-        @(box.CurrentPieces ?? 0) @:of @box.ExpectedPieces
+        <span class="label label-info">
+            @(box.CurrentPieces ?? 0) of @box.ExpectedPieces
+        </span>
     }
 }
 
@@ -95,7 +101,7 @@
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
-    </h2>    
+    </h2>
     <div role="tabpanel" style="margin-bottom:0.5em">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs bg-success" role="tablist">
@@ -120,99 +126,99 @@
                                    {
                                        {"IsAuthorized", Model.UserIsManager}
                                    })
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active">
-                <blockquote>
-                    Boxes of Pick Wave @Html.DisplayFor(m => m.Bucket.BucketId)
-                </blockquote>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active">
+            <blockquote>
+                Boxes of Pick Wave @Html.DisplayFor(m => m.Bucket.BucketId)
+            </blockquote>
 
-                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.CancelBoxes())" method="post">
-                    <ul class="list-group">
-                        <li class="list-group-item active">
+            <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.CancelBoxes())" method="post">
+                <ul class="list-group">
+                    <li class="list-group-item active">
+                        <div class="row">
+                            <div class="col-md-6">
+                                @if (Model.BoxesList.Count > 0)
+                                {
+                                    <button class="pull-left btn btn-default btn-xs" type="submit"
+                                            @(Model.UserIsManager ? "" : "disabled=disabled")
+                                            name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId"
+                                            value="@Model.Bucket.BucketId">
+                                        Cancel Selected
+                                    </button>
+                                }
+                                <h4 class="list-group-item-heading">
+                                    &nbsp;
+                                    Box
+                                    <small>
+                                        &bull; Pickslip
+                                    </small>
+                                    <span class="label label-default">
+                                        <abbr title="Virtual Wearhouse">VWH</abbr>
+                                    </span>
+                                </h4>
+                            </div>
+                            <div class="col-md-3">
+                                <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                                    Pull Carton ?
+                                </abbr>
+                                <span class="label-default">
+                                    Pieces
+                                </span>
+                            </div>
+                            <div class="col-md-3" style="text-align:right">
+                                <span class="label label-default">Status</span>
+                            </div>
+                        </div>
+                    </li>
+
+                    @for (var i = 0; i < Model.BoxesList.Count; i++)
+                    {
+                        <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
                             <div class="row">
                                 <div class="col-md-6">
-                                    @if (Model.BoxesList.Count > 0)
-                                    {
-                                        <button class="pull-left btn btn-default btn-xs" type="submit"
-                                                @(Model.UserIsManager ? "" : "disabled=disabled")
-                                                name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.bucketId"
-                                                value="@Model.Bucket.BucketId">
-                                            Cancel Selected
-                                        </button>
-                                    }
                                     <h4 class="list-group-item-heading">
-                                        &nbsp;
-                                        Box
+                                        <small>@(i + 1)</small>
+                                        @if (Model.UserIsManager)
+                                        {
+                                            if (Model.BoxesList[i].CancelDate == null)
+                                            {
+                                                <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
+                                                       value="@Model.BoxesList[i].Ucc128Id" />
+                                            }
+
+                                        }
+
+
+                                        <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
                                         <small>
-                                            &bull; Pickslip
+                                            &bull;
+                                            <a href="@Model.BoxesList[i].UrlInquiryPickslip" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].PickslipId)</a>
                                         </small>
                                         <span class="label label-default">
-                                            <abbr title="Virtual Wearhouse">VWH</abbr>
+                                            @Html.DisplayFor(m => m.BoxesList[i].VWhId)
                                         </span>
                                     </h4>
                                 </div>
-                                <div class="col-md-3">
-                                    <abbr title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                                        Pull Carton ?
-                                    </abbr>
-                                    <span class="badge">
-                                        Pieces
-                                    </span>
+
+                                <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
+                                    <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
+                                        @Html.DisplayFor(m => m.BoxesList[i].CartonId)
+                                    </a>
+                                    @DisplayBoxPieces(Model.BoxesList[i])
                                 </div>
                                 <div class="col-md-3" style="text-align:right">
-                                    <span class="label label-default">Status</span>
+                                    @DisplayBoxStatus(Model.BoxesList[i])
                                 </div>
                             </div>
                         </li>
-
-                        @for (var i = 0; i < Model.BoxesList.Count; i++)
-                        {
-                            <li class="list-group-item list-group-item-@(string.IsNullOrWhiteSpace(Model.BoxesList[i].CartonId) ? "info" :"success" )">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <h4 class="list-group-item-heading">
-                                            <small>@(i + 1)</small>
-                                            @if (Model.UserIsManager)
-                                            {
-                                                if (Model.BoxesList[i].CancelDate == null)
-                                                {
-                                                    <input type="checkbox" name="@MVC_PickWaves.PickWaves.ManageWaves.CancelBoxesParams.boxes"
-                                                           value="@Model.BoxesList[i].Ucc128Id" />
-                                                }
-                                              
-                                            }
-                                         
-
-                                            <a href="@Model.BoxesList[i].UrlInquiryBox" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].Ucc128Id)</a>
-                                            <small>
-                                                &bull;
-                                                <a href="@Model.BoxesList[i].UrlInquiryPickslip" target="_inquiry">@Html.DisplayFor(m => m.BoxesList[i].PickslipId)</a>
-                                            </small>
-                                            <span class="label label-default">
-                                                @Html.DisplayFor(m => m.BoxesList[i].VWhId)
-                                            </span>
-                                        </h4>
-                                    </div>
-
-                                    <div class="col-md-3" title="If this box will be pulled, the carton id is displayed. Otherwise this box will be pitched.">
-                                        <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
-                                            @Html.DisplayFor(m => m.BoxesList[i].CartonId)
-                                        </a>
-                                        <span class="badge">@DisplayBoxPieces(Model.BoxesList[i])</span>
-                                    </div>
-                                    <div class="col-md-3" style="text-align:right">
-                                        @DisplayBoxStatus(Model.BoxesList[i])
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                    </ul>
-                </form>
-            </div>
+                    }
+                </ul>
+            </form>
         </div>
-    </div>    
- 
+    </div>
+</div>
+
 @section script {
     <script src="@Links_PickWaves.Areas.PickWaves.SharedViews.BucketModel_js"></script>
 }
