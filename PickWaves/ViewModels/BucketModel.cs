@@ -109,14 +109,14 @@ namespace DcmsMobile.PickWaves.ViewModels
             //PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
 
 
-            CountNotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
+            NotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
 
             ProgressStage state;
             if (src.IsFrozen)
             {
                 state = ProgressStage.Frozen;
             }
-            else if (PiecesRemaining == 0 && this.CountTotalBoxes == this.CountValidatedBoxes)
+            else if (PiecesRemaining == 0 && this.TotalBoxes == this.ValidatedBoxes)
             {
                 state = ProgressStage.Completed;
             }
@@ -252,20 +252,20 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [Display(Name = "Created Boxes")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountTotalBoxes
+        public int? TotalBoxes
         {
             get
             {
-                return this.Activities.Sum(p => p.CountBoxesComplete) + this.Activities.Sum(p => p.CountBoxesRemaining) + this.Activities.Sum(p => p.CountBoxesCancelled);
+                return this.Activities.Sum(p => p.BoxesComplete) + this.Activities.Sum(p => p.BoxesRemaining) + this.Activities.Sum(p => p.BoxesCancelled);
             }
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountCancelledBoxes
+        public int? CancelledBoxes
         {
             get
             {
-                return this.Activities.Sum(p => p.CountBoxesCancelled);
+                return this.Activities.Sum(p => p.BoxesCancelled);
             }
         }
 
@@ -274,16 +274,16 @@ namespace DcmsMobile.PickWaves.ViewModels
         //public int CountInProgressBoxes { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountValidatedBoxes
+        public int? ValidatedBoxes
         {
             get
             {
-                return this.Activities.Sum(p => p.CountBoxesComplete);
+                return this.Activities.Sum(p => p.BoxesComplete);
             }
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountNotStartedBoxes { get; set; }
+        public int NotStartedBoxes { get; set; }
 
         #endregion
 
@@ -362,7 +362,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         }
 
-        private int _piecesToShip;
+       // private int _piecesToShip;
 
         /// <summary>
         /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.

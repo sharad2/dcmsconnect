@@ -68,12 +68,12 @@ namespace DcmsMobile.PickWaves.ViewModels
                  entity.Stats[PiecesKind.Expected, BoxState.Cancelled]
             }.Sum();
 
-            CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
+            BoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
 
-            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed}) ?? 0;
+            BoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed}) ?? 0;
 
-            CountBoxesRemaining = (entity.Stats.GetBoxCounts( new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
+            BoxesRemaining = (entity.Stats.GetBoxCounts( new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
                 - (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }) ?? 0);
 
         }
@@ -81,13 +81,13 @@ namespace DcmsMobile.PickWaves.ViewModels
         #region Box Counts
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesRemaining { get; set; }
+        public int? BoxesRemaining { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesComplete { get; set; }
+        public int? BoxesComplete { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesCancelled { get; set; }
+        public int? BoxesCancelled { get; set; }
 
         #endregion
 
