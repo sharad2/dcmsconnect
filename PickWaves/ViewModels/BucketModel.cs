@@ -78,27 +78,27 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
             }
-            CancelledPieces = (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0)
-                + (src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0)));
-                
-            
-           
+            //CancelledPieces = (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0)
+            //+ (src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0)));
+
+
+
 
             OrderedPieces = src.OrderedPieces;
-            CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted,BoxState.Cancelled })) ?? 0;
-             
+            //CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted, BoxState.Cancelled })) ?? 0;
+
 
             CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
 
 
-            CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
+            //CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
 
-            CountValidatedBoxes =src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed })) ?? 0;
-             
+            //CountValidatedBoxes =src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed })) ?? 0;
 
 
-            PiecesComplete = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0)
-                - (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
+
+            //PiecesComplete = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0)
+               // - (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
 
 
 
@@ -107,8 +107,8 @@ namespace DcmsMobile.PickWaves.ViewModels
 
 
             PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
-            
-      
+
+
             CountNotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
 
             ProgressStage state;
@@ -252,16 +252,34 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [Display(Name = "Created Boxes")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountTotalBoxes { get; set; }
+        public int? CountTotalBoxes
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.CountBoxesComplete) + this.Activities.Sum(p => p.CountBoxesRemaining);
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountCancelledBoxes { get; set; }
+        public int? CountCancelledBoxes
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.CountBoxesCancelled);
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountInProgressBoxes { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountValidatedBoxes { get; set; }
+        public int? CountValidatedBoxes
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.CountBoxesComplete);
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountNotStartedBoxes { get; set; }
@@ -275,8 +293,10 @@ namespace DcmsMobile.PickWaves.ViewModels
         //[DisplayFormat(DataFormatString = "<span title='Number of pieces in cancelled boxes'>{0:N0} pieces cancelled</span>", HtmlEncode = false)]
         public int? CancelledPieces
         {
-            get;
-            private set;
+            get
+            {
+                return this.Activities.Sum(p => p.PiecesCancelled);
+            }
         }
 
         //[DisplayFormat(DataFormatString = "<span title='Number of unpicked pieces in verified boxes'>{0:N0} pieces underpicked</span>", HtmlEncode = false)]
@@ -320,13 +340,20 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// Total number of pieces which are pulled and pitched, i.e. PickedPieces + PulledPieces
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesComplete { get; set; }
+        public int? PiecesComplete
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.PiecesComplete);
+            }
+        }
 
         private int _piecesToShip;
 
         /// <summary>
         /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.
         /// </summary>
+        [Obsolete]
         public int PiecesToShip
         {
             get
@@ -357,15 +384,15 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// % w.r.t. pieces complete + pieces incomplete
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:p0}")]
-        public decimal PercentPiecesComplete
+        public decimal? PercentPiecesComplete
         {
             get
             {
-                if (PiecesToShip == 0 || PiecesComplete == 0)
+                if (OrderedPieces == 0 || PiecesComplete == 0)
                 {
                     return 0;
                 }
-                return PiecesComplete / (decimal)PiecesToShip;
+                return PiecesComplete / (decimal)OrderedPieces;
             }
         }
         #endregion
