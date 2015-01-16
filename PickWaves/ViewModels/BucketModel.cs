@@ -85,10 +85,10 @@ namespace DcmsMobile.PickWaves.ViewModels
 
 
             OrderedPieces = src.OrderedPieces;
-            //CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted, BoxState.Cancelled })) ?? 0;
+           // CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted, BoxState.Cancelled })) ?? 0;
 
 
-            CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
+            //CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
 
 
             //CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
@@ -106,7 +106,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             //PiecesRemaining = (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
 
 
-            PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
+            //PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
 
 
             CountNotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
@@ -256,7 +256,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.CountBoxesComplete) + this.Activities.Sum(p => p.CountBoxesRemaining);
+                return this.Activities.Sum(p => p.CountBoxesComplete) + this.Activities.Sum(p => p.CountBoxesRemaining) + this.Activities.Sum(p => p.CountBoxesCancelled);
             }
         }
 
@@ -269,8 +269,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountInProgressBoxes { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //[Obsolete]
+        //public int CountInProgressBoxes { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountValidatedBoxes
@@ -348,25 +349,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        private int _piecesToShip;
-
-        /// <summary>
-        /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.
-        /// </summary>
-        [Obsolete]
-        public int PiecesToShip
-        {
-            get
-            {
-                //If boxes are not created yet, Ordered pieces will be treated as PiecesToShip
-                return (CountTotalBoxes > 0 && BoxNotCreatedPieces == 0) ? _piecesToShip : OrderedPieces;
-            }
-            set
-            {
-                _piecesToShip = value;
-            }
-        }
-
         /// <summary>
         /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
@@ -379,6 +361,27 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
 
         }
+
+        private int _piecesToShip;
+
+        /// <summary>
+        /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.
+        /// </summary>
+        //[Obsolete]
+        //public int PiecesToShip
+        //{
+        //    get
+        //    {
+        //        //If boxes are not created yet, Ordered pieces will be treated as PiecesToShip
+        //        return (CountTotalBoxes > 0 && BoxNotCreatedPieces == 0) ? _piecesToShip : OrderedPieces;
+        //    }
+        //    set
+        //    {
+        //        _piecesToShip = value;
+        //    }
+        //}
+
+    
 
         /// <summary>
         /// % w.r.t. pieces complete + pieces incomplete
