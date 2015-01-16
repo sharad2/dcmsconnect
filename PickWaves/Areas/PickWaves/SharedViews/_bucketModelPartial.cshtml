@@ -40,13 +40,25 @@
 <div class="row">
     <div class="col-md-6 ">
         <ul class="list-group">
-            <li class="list-group-item active">
+            <li class="list-group-item">
                 <div class="row">
                     <div class="col-md-6">
                         <h4 class="list-group-item-heading">
-                            @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes complete
-
+                            @if (Model.CountTotalBoxes > 0)
+                            {
+                                <text>
+                                    @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes complete
+                                </text>
+                            }
+                            else
+                            {
+                                <text>
+                            Boxes not created yet
+                                </text>
+                            }
                         </h4>
+
+
 
                         <p class="list-group-item-heading">
 
@@ -168,12 +180,12 @@
                     @if (Model.PiecesRemaining > 0)
                     {
 
-                        <li>@Html.DisplayFor(m => m.PiecesRemaining) pieces remaining</li>
+                    <li>@Html.DisplayFor(m => m.PiecesRemaining) pieces remaining</li>
 
                     }
                     @if (Model.CancelledPieces > 0)
                     {
-                        <li> @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled</li>
+                    <li> @Html.DisplayFor(m => m.CancelledPieces) pieces cancelled</li>
 
                     }
 
@@ -187,54 +199,54 @@
                         if (!string.IsNullOrWhiteSpace(Model.Activities[j].AreaId) || Model.Activities[j].PiecesBoxesCreated > 0)
                         {
                             //class="list-group-item list-group-item-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")"
-                            <table class="table table-condensed bg-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
-                                <caption>
-                                    @Html.DisplayFor(m => m.Activities[j].DisplayName)
-                                    <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
-                                </caption>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Pieces</th>
-                                        <th>Boxes</th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <th>Remaining</th>
-                                    <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
-                                    <td>TODO</td>
-                                </tr>
-                                <tr>
-                                    <th>Complete</th>
-                                    <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
-                                    <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesComplete)</td>
-                                </tr>
-                                <tr class="danger">
-                                    <th>Cancelled</th>
-                                    <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
-                                    <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled)</td>
-                                </tr>
+                <table class="table table-condensed bg-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
+                    <caption>
+                        @Html.DisplayFor(m => m.Activities[j].DisplayName)
+                        <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Pieces</th>
+                            <th>Boxes</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <th>Remaining</th>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
+                        <td>TODO</td>
+                    </tr>
+                    <tr>
+                        <th>Complete</th>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesComplete)</td>
+                    </tr>
+                    <tr class="danger">
+                        <th>Cancelled</th>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled)</td>
+                    </tr>
 
-                            </table>
+                </table>
                         }
                     }
                     if (Model.BoxNotCreatedPieces > 0)
                     {
                         if (Model.IsFrozen)
                         {
-                            <div class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></div>
+                <div class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></div>
                         }
                         else
                         {
-                            <div class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</div>
+                <div class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</div>
                         }
                     }
-                    @Html.DisplayFor(m => m.OverShippedPieces)
+                @Html.DisplayFor(m => m.OverShippedPieces)
 
                 }
                 else
                 {
-                    <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
+                <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
                 }
             </li>
 
