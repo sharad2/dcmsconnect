@@ -191,18 +191,16 @@ TOTAL_ORDERED_PIECES AS
 </if>
    GROUP BY Q1.BUCKET_ID),
 TOTAL_PICKED_PIECES(BUCKET_ID,
-CANCEL_BOXES_PITCH, CANCEL_BOXES_PULL,
 CAN_EXP_PCS_PITCH, CAN_CUR_PCS_PITCH,CAN_EXP_PCS_PULL,CAN_CUR_PCS_PULL,
-    VRFY_EXP_PCS_PITCH, VRFY_CUR_PCS_PITCH, VRFY_EXP_PCS_PULL, VRFY_CUR_PCS_PULL,
-    UNVRFY_EXP_PCS_PITCH, UNVRFY_CUR_PCS_PITCH, UNVRFY_EXP_PCS_PULL, UNVRFY_CUR_PCS_PULL,
-    INPROGRESS_BOXES_PITCH, VALIDATED_BOXES_PITCH, INPROGRESS_BOXES_PULL, VALIDATED_BOXES_PULL,
-    NONPHYSICAL_BOXES_PULL, NONPHYSICAL_BOXES_PITCH,
-UNVRFY_BOXES,
+CAN_BOXES_PITCH, CAN_BOXES_PULL,
+VALIDATED_EXP_PCS_PITCH,VALIDATED_CUR_PCS_PITCH,VALIDATED_EXP_PCS_PULL,VALIDATED_CUR_PCS_PULL,
+INPROGRESS_EXP_PCS_PITCH, INPROGRESS_CUR_PCS_PITCH, INPROGRESS_EXP_PCS_PULL, INPROGRESS_CUR_PCS_PULL,
+INPROGRESS_BOXES_PITCH, VALIDATED_BOXES_PITCH, INPROGRESS_BOXES_PULL, VALIDATED_BOXES_PULL,
+NONPHYSICAL_BOXES_PULL, NONPHYSICAL_BOXES_PITCH,
+INPROGRESS_BOXES,
     MAX_PITCHING_END_DATE,MIN_PITCHING_END_DATE,MAX_PULLING_END_DATE,MIN_PULLING_END_DATE
 ) AS
  (SELECT PS.BUCKET_ID AS BUCKET_ID,
-
-
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
@@ -222,67 +220,71 @@ UNVRFY_BOXES,
                 BD.CURRENT_PIECES
              END) AS CAN_CUR_PCS_PULL,
 
+
               COUNT(UNIQUE CASE
                             WHEN BOX.CARTON_ID IS NULL AND BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                            BOX.UCC128_ID END)                AS CANCEL_BOXES_PITCH,
+                            BOX.UCC128_ID END)                AS CAN_BOXES_PITCH,
   
               COUNT(UNIQUE CASE WHEN BOX.CARTON_ID IS NOT NULL AND BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                            BOX.UCC128_ID END)                AS CANCEL_BOXES_PULL,
+                            BOX.UCC128_ID END)                AS CAN_BOXES_PULL,
+
+
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL')  THEN
                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-             END) AS VRFY_EXP_PCS_PITCH,
+             END) AS VALIDATED_EXP_PCS_PITCH,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') THEN
                 BD.CURRENT_PIECES
-             END) AS VRFY_CUR_PCS_PITCH,
+             END) AS VALIDATED_CUR_PCS_PITCH,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') THEN
                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-             END) AS VRFY_EXP_PCS_PULL,
+             END) AS VALIDATED_EXP_PCS_PULL,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') THEN
                 BD.CURRENT_PIECES
-             END) AS VRFY_CUR_PCS_PULL,
+             END) AS VALIDATED_CUR_PCS_PULL,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-             END) AS UNVRFY_EXP_PCS_PITCH,
+             END) AS INPROGRESS_EXP_PCS_PITCH,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                 BD.CURRENT_PIECES
-             END) AS UNVRFY_CUR_PCS_PITCH,
+             END) AS INPROGRESS_CUR_PCS_PITCH,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                 NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-             END) AS UNVRFY_EXP_PCS_PULL,
+             END) AS INPROGRESS_EXP_PCS_PULL,
          SUM(CASE
                WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                 BD.CURRENT_PIECES
-             END) AS UNVRFY_CUR_PCS_PULL,
+             END) AS INPROGRESS_CUR_PCS_PULL,
+
+
+
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
-                      BOX.IA_ID IS NOT NULL THEN
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                   BOX.UCC128_ID
                END) AS INPROGRESS_BOXES_PITCH,
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL THEN
+                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') THEN
                   BOX.UCC128_ID
                END) AS VALIDATED_BOXES_PITCH,
 
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
-                      BOX.IA_ID IS NOT NULL THEN
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                   BOX.UCC128_ID
                END) AS INPROGRESS_BOXES_PULL,
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL THEN
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') THEN
                   BOX.UCC128_ID
                END) AS VALIDATED_BOXES_PULL,
+
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND
-                      BOX.IA_ID IS NULL THEN
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
                   BOX.UCC128_ID
                END) AS NONPHYSICAL_BOXES_PULL,
          COUNT(UNIQUE CASE
@@ -290,10 +292,13 @@ UNVRFY_BOXES,
                       BOX.IA_ID IS NULL THEN
                   BOX.UCC128_ID
                END) AS NONPHYSICAL_BOXES_PITCH,
+
          COUNT(UNIQUE CASE
                  WHEN BOX.VERIFY_DATE IS NULL THEN
                   BOX.UCC128_ID
-               END) AS UNVRFY_BOXES,
+               END) AS INPROGRESS_BOXES,
+
+
          MAX(CASE
                WHEN BOX.CARTON_ID IS NULL THEN
                 BOX.PITCHING_END_DATE
@@ -321,8 +326,8 @@ PS.bucket_id = :bucket_id
 
    GROUP BY PS.BUCKET_ID)
 SELECT OP.BUCKET_ID               AS BUCKET_ID,
-       PP.CANCEL_BOXES_PITCH       AS CANCEL_BOXES_PITCH,
-       PP.CANCEL_BOXES_PULL         AS CANCEL_BOXES_PULL,
+       PP.CAN_BOXES_PITCH       AS CAN_BOXES_PITCH,
+       PP.CAN_BOXES_PULL         AS CAN_BOXES_PULL,
        PP.CAN_EXP_PCS_PITCH       AS CAN_EXP_PCS_PITCH,
        PP.CAN_CUR_PCS_PITCH       AS CAN_CUR_PCS_PITCH,
        PP.CAN_EXP_PCS_PULL        AS CAN_EXP_PCS_PULL,
@@ -337,16 +342,16 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
       -- OP.MAX_PO                  AS MAX_PO,
        OP.PICKSLIP_COUNT          AS PICKSLIP_COUNT,
        OP.ORDERED_PIECES          AS ORDERED_PIECES,
-       PP.VRFY_EXP_PCS_PITCH      AS VRFY_EXP_PCS_PITCH,
-       PP.VRFY_CUR_PCS_PITCH      AS VRFY_CUR_PCS_PITCH,
-       PP.UNVRFY_EXP_PCS_PITCH    AS UNVRFY_EXP_PCS_PITCH,
-       PP.UNVRFY_CUR_PCS_PITCH    AS UNVRFY_CUR_PCS_PITCH,
+       PP.VALIDATED_EXP_PCS_PITCH      AS VALIDATED_EXP_PCS_PITCH,
+       PP.VALIDATED_CUR_PCS_PITCH      AS VALIDATED_CUR_PCS_PITCH,
+       PP.INPROGRESS_EXP_PCS_PITCH    AS INPROGRESS_EXP_PCS_PITCH,
+       PP.INPROGRESS_CUR_PCS_PITCH    AS INPROGRESS_CUR_PCS_PITCH,
        PP.INPROGRESS_BOXES_PITCH  AS INPROGRESS_BOXES_PITCH,
        PP.VALIDATED_BOXES_PITCH   AS VALIDATED_BOXES_PITCH,
-       PP.VRFY_EXP_PCS_PULL       AS VRFY_EXP_PCS_PULL,
-       PP.VRFY_CUR_PCS_PULL       AS VRFY_CUR_PCS_PULL,
-       PP.UNVRFY_EXP_PCS_PULL     AS UNVRFY_EXP_PCS_PULL,
-       PP.UNVRFY_CUR_PCS_PULL     AS UNVRFY_CUR_PCS_PULL,
+       PP.VALIDATED_EXP_PCS_PULL       AS VALIDATED_EXP_PCS_PULL,
+       PP.VALIDATED_CUR_PCS_PULL       AS VALIDATED_CUR_PCS_PULL,
+       PP.INPROGRESS_EXP_PCS_PULL     AS INPROGRESS_EXP_PCS_PULL,
+       PP.INPROGRESS_CUR_PCS_PULL     AS INPROGRESS_CUR_PCS_PULL,
        PP.INPROGRESS_BOXES_PULL   AS INPROGRESS_BOXES_PULL,
        PP.VALIDATED_BOXES_PULL    AS VALIDATED_BOXES_PULL,
        PP.NONPHYSICAL_BOXES_PULL  AS NONPHYSICAL_BOXES_PULL,
@@ -408,12 +413,12 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     Description = row.GetString("PULL_AREA_DESCRIPTION"),
                     BuildingId = row.GetString("BUILDING_PULL_FROM")
                 };
-                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PULL");
-                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VALIDATED_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VALIDATED_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("INPROGRESS_EXP_PCS_PULL");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("INPROGRESS_CUR_PCS_PULL");
 
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CANCEL_BOXES_PULL");
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_BOXES_PULL");
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PULL");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PULL");
@@ -437,15 +442,15 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                     BuildingId = row.GetString("BUILDING_PITCH_FROM"),
                     ReplenishAreaId = row.GetString("REPLENISH_AREA_ID")
                 };
-                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VRFY_EXP_PCS_PITCH");
-                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
-                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.Completed] = row.GetInteger("VALIDATED_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VALIDATED_CUR_PCS_PITCH");
+                activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("INPROGRESS_EXP_PCS_PITCH");
+                activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("INPROGRESS_CUR_PCS_PITCH");
 
   
 
                 // Count of unverified boxes
-                activity.Stats[BoxState.Cancelled] = row.GetInteger("CANCEL_BOXES_PITCH");
+                activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_BOXES_PITCH");
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PITCH");
                 activity.Stats[BoxState.Completed] = row.GetInteger("VALIDATED_BOXES_PITCH");
                 activity.Stats[BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_BOXES_PITCH");
