@@ -61,27 +61,22 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             PiecesBoxesCreated = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted, BoxState.Cancelled }) ?? 0);
 
-
-
-            //var pcs = (entity.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
-            //if (pcs > 0)
-            //{
-            //    UnderPickedPieces = pcs;
-            //}
-
-            CountBoxesIncomplete = (entity.Stats.GetBoxCounts(new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
+          
 
             CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
 
             CountBoxesComplete = (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }) ?? 0);
 
+            CountBoxesRemaining = (entity.Stats.GetBoxCounts( new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
+                - (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }) ?? 0); ;
+
         }
 
         #region Box Counts
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesIncomplete { get; set; }
+        public int? CountBoxesRemaining { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? CountBoxesComplete { get; set; }
