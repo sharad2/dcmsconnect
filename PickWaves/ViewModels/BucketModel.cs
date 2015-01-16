@@ -78,21 +78,15 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
             }
-            pcs = src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0;
-            if (pcs > 0)
-            {
-                CancelledPieces = pcs;
-            }
-
-            pcs = src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0));
-            if (pcs > 0)
-            {
-                UnderPickedPieces = pcs;
-            }
+            CancelledPieces = (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0)
+                + (src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0)));
+                
+            
+           
 
             OrderedPieces = src.OrderedPieces;
-            CountTotalBoxes = (src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })) ?? 0)
-                + (src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0);
+            CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted,BoxState.Cancelled })) ?? 0;
+             
 
             CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
 
@@ -106,9 +100,10 @@ namespace DcmsMobile.PickWaves.ViewModels
             PiecesComplete = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0)
                 - (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
 
+
+
+
             PiecesRemaining = (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
-   
-              
 
 
             PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
@@ -353,7 +348,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get;
             set;
-           
+
         }
 
         /// <summary>
