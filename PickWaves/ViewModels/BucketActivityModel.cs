@@ -51,7 +51,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             }.Sum();
 
-            PiecesCancelled = entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Cancelled, BoxState.Completed }) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
+            //PiecesCancelled = entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Cancelled, BoxState.Completed }) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
 
             PiecesCancelled = new[] {
                 entity.Stats[PiecesKind.Expected, BoxState.Cancelled],
@@ -59,9 +59,14 @@ namespace DcmsMobile.PickWaves.ViewModels
                 -entity.Stats[PiecesKind.Current, BoxState.Completed],
             }.Sum();
 
-            PiecesBoxesCreated = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted, BoxState.Cancelled }) ?? 0);
+           // PiecesBoxesCreated = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted, BoxState.Cancelled }) ?? 0);
 
-          
+            PiecesBoxesCreated = new[] {
+                entity.Stats[PiecesKind.Expected, BoxState.InProgress],
+                entity.Stats[PiecesKind.Expected, BoxState.Completed],
+                entity.Stats[PiecesKind.Expected, BoxState.NotStarted],
+                 entity.Stats[PiecesKind.Expected, BoxState.Cancelled]
+            }.Sum();
 
             CountBoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
 
@@ -147,7 +152,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// pieces ordered.
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesBoxesCreated { get; private set; }
+        public int? PiecesBoxesCreated { get; private set; }
         #endregion
 
         public BucketActivityType ActivityType { get; set; }
