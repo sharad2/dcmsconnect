@@ -1,0 +1,67 @@
+﻿@model DcmsMobile.PickWaves.ViewModels.BucketModel
+
+@*The menu is genrated within <li></li>*@
+
+<li role="presentation" class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+        <span class="glyphicon glyphicon-list"></span> <span class="caret"></span>
+    </a>
+    @if (Model.IsFrozen)
+    {
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation">
+                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
+                    @if (Model.BoxNotCreatedPieces.HasValue)
+                    {
+                        <span>This will create Boxes for @Html.DisplayFor(m => m.BoxNotCreatedPieces) pieces</span>
+                    }
+                    <button class="btn btn-info" name="@MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucketParams.bucketId"
+                            value="@Model.BucketId" type="submit">
+                        <span class="glyphicon glyphicon-play"></span>
+                        Unfreeze
+                    </button>
+                </form>
+            </li>
+            <li class="divider"></li>
+            <li role="presentation">
+                <div style="text-align:center; margin:1mm">
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
+                       role="menuitem" tabindex="-1">
+                        Edit
+                    </a>
+                </div>
+            </li>
+        </ul>
+    }
+    else
+    {
+        <ul class="dropdown-menu" role="menu">
+            <li role="presentation">
+                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="text-align:center; margin:1mm">
+                    <span>
+                        Pick Wave can not be processed till it is frozen.
+                        <br />
+                    </span>
+                    <br />
+                    <button class="btn btn-warning"
+                            name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeBucketParams.bucketId"
+                            value="@Model.BucketId" type="submit">
+                        <span class="glyphicon glyphicon-pause"></span>
+                        Freeze
+                    </button>
+                </form>
+            </li>
+            <li class="divider"></li>
+            <li role="presentation">
+                <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucket())" method="post" style="text-align:center; margin:1mm">
+
+                    <button class="btn btn-warning" name="@MVC_PickWaves.PickWaves.ManageWaves.FreezeAndEditBucketParams.bucketId" value="@Model.BucketId"
+                            type="submit">
+                        Freeze and Edit
+                    </button>
+                </form>
+
+            </li>
+        </ul>
+    }
+</li>

@@ -12,10 +12,10 @@ namespace DcmsMobile.PickWaves.ViewModels
     {
         Default,
 
-        /// <summary>
-        /// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
-        /// </summary>
-        ShowEditMenu,
+        ///// <summary>
+        ///// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
+        ///// </summary>
+        //ShowEditMenu,
 
         /// <summary>
         /// By default a link to the bucket viewer page is displayed. This flag hides it. It is set by the viewer page itself to prefent linking to self.

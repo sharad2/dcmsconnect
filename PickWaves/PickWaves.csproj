@@ -272,6 +272,7 @@
     </Content>
     <Content Include="Areas\PickWaves\ManageWaves\WaveBox.cshtml" />
     <Content Include="Areas\PickWaves\ManageWaves\WaveSku.cshtml" />
+    <Content Include="Areas\PickWaves\ManageWaves\_waveFreezeMenuPartial.cshtml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

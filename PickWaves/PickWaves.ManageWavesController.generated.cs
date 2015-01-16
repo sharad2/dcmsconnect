@@ -299,12 +299,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _waveFreezeMenuPartial = "_waveFreezeMenuPartial";
                 public readonly string Index = "Index";
                 public readonly string WaveBox = "WaveBox";
                 public readonly string WaveEditor = "WaveEditor";
                 public readonly string WavePickslips = "WavePickslips";
                 public readonly string WaveSku = "WaveSku";
             }
+            public readonly string _waveFreezeMenuPartial = "~/Areas/PickWaves/ManageWaves/_waveFreezeMenuPartial.cshtml";
             public readonly string Index = "~/Areas/PickWaves/ManageWaves/Index.cshtml";
             public readonly string WaveBox = "~/Areas/PickWaves/ManageWaves/WaveBox.cshtml";
             public readonly string WaveEditor = "~/Areas/PickWaves/ManageWaves/WaveEditor.cshtml";
