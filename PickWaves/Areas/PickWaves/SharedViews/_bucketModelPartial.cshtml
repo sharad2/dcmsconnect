@@ -289,7 +289,7 @@
                             DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
                         </span>
                         <h4 class="list-group-item-heading">
-                            @Html.DisplayFor(m => m.PiecesToShip) Pieces Ordered
+                            @Html.DisplayFor(m => m.OrderedPieces) Pieces Ordered
                             &bull; @Html.DisplayFor(m => m.PercentPiecesComplete) complete
                         </h4>
                         <ul class="list-inline">
@@ -307,6 +307,7 @@
 
                         </ul>
                     </li>
+
                     @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
                     {
                         for (var j = 0; j < Model.Activities.Count; j++)
@@ -314,66 +315,35 @@
                             if (!string.IsNullOrWhiteSpace(Model.Activities[j].AreaId) || Model.Activities[j].PiecesBoxesCreated > 0)
                             {
                                 <li class="list-group-item list-group-item-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
-                                    <div class="row">
-                                        <div class="col-md-5">
+                                    <table class="table table-bordered table-condensed">
+                                        <caption class="text-center">
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
-                                            <div>
-                                                @Html.DisplayFor(m => m.Activities[j].CountBoxesComplete) of @Html.DisplayFor(m => m.Activities[j].CountBoxesCreated)
-                                                boxes @BucketActivityVerb(Model.Activities[j].ActivityType)
-                                            </div>
+                                        </caption>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Pieces</th>
+                                                <th>Boxes</th>
+                                            </tr>
+                                        </thead>
+                                        <tr>
+                                            <th>Remaining</th>
+                                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
+                                            <td>TODO</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Complete</th>
+                                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
+                                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesComplete)</td>
+                                        </tr>
+                                        <tr class="text-danger">
+                                            <th>Cancelled</th>
+                                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
+                                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled)</td>
+                                        </tr>
 
-                                            @if (Model.Activities[j].CountBoxesCancelled.Value > 0)
-                                            {
-                                                <span class="text-danger">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled) boxes cancelled</span>
-                                            }
-                                        </div>
-                                        <div class="col-md-7">
-                                            <ul class="list-inline">
-                                                @if (Model.Activities[j].PiecesRemaining > 0)
-                                                {
-                                                    <li>@Html.DisplayFor(m => m.Activities[j].PiecesRemaining) pieces remaining</li>
-                                                }
-                                                @if (Model.Activities[j].CancelledPieces.HasValue)
-                                                {
-                                                    <li class="text-danger">@Html.DisplayFor(m => m.Activities[j].CancelledPieces) pieces cancelled</li>
-                                                }
-                                            </ul>
-                                            
-                                            
-                                            @if (Model.Activities[j].PiecesBoxesCreated > 0)
-                                            {
-
-                                                <div style="margin-bottom:3px;" class="progress">
-                                                    <div style="width: @Model.Activities[j].PercentPiecesComplete%; overflow:visible; padding-left:1mm" class="progress-bar progress-bar-info">
-                                                        <span style="white-space:nowrap" class="text-info">
-                                                            @Html.DisplayFor(m => m.Activities[j].PiecesComplete)
-                                                            of @Html.DisplayFor(m => m.Activities[j].PiecesBoxesCreated) pieces picked
-                                                            @Html.DisplayFor(m => m.Activities[j].PickingDateRange).
-                                                            <em>
-                                                                @Model.Activities[j].PercentPiecesComplete% picked
-                                                            </em>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <div>
-                                                    <strong>
-                                                        @Html.DisplayFor(m => m.Activities[j].DisplayName) not started yet
-                                                    </strong>
-                                                </div>
-                                            }
-
-                                            @if (Model.Activities[j].UnderPickedPieces.HasValue)
-                                            {
-                                                <span class="text-danger"> @Html.DisplayFor(m => m.Activities[j].UnderPickedPieces) pieces underpicked </span>
-                                            }
-
-
-                                        </div>
-                                    </div>
+                                    </table>
                                 </li>
                             }
                         }
