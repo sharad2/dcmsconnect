@@ -307,16 +307,16 @@
 
                         </ul>
                     </li>
-
-                    @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
-                    {
-                        for (var j = 0; j < Model.Activities.Count; j++)
+                    <li class="list-group-item">
+                        @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) > 0)
                         {
-                            if (!string.IsNullOrWhiteSpace(Model.Activities[j].AreaId) || Model.Activities[j].PiecesBoxesCreated > 0)
+                            for (var j = 0; j < Model.Activities.Count; j++)
                             {
-                                <li class="list-group-item list-group-item-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
-                                    <table class="table table-bordered table-condensed">
-                                        <caption class="text-center">
+                                if (!string.IsNullOrWhiteSpace(Model.Activities[j].AreaId) || Model.Activities[j].PiecesBoxesCreated > 0)
+                                {
+                                    //class="list-group-item list-group-item-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")"
+                                    <table class="table table-condensed bg-@Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
+                                        <caption >
                                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                                         </caption>
@@ -337,34 +337,34 @@
                                             <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
                                             <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesComplete)</td>
                                         </tr>
-                                        <tr class="text-danger">
+                                        <tr class="danger">
                                             <th>Cancelled</th>
                                             <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
                                             <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled)</td>
                                         </tr>
 
                                     </table>
-                                </li>
+                                }
                             }
-                        }
-                        if (Model.BoxNotCreatedPieces > 0)
-                        {
-                            if (Model.IsFrozen)
+                            if (Model.BoxNotCreatedPieces > 0)
                             {
-                                <li class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></li>
+                                if (Model.IsFrozen)
+                                {
+                                    <div class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></div>
+                                }
+                                else
+                                {
+                                    <div class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</div>
+                                }
                             }
-                            else
-                            {
-                                <li class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</li>
-                            }
-                        }
-                        @Html.DisplayFor(m => m.OverShippedPieces)
+                            @Html.DisplayFor(m => m.OverShippedPieces)
 
-                    }
-                    else
-                    {
-                        <li class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</li>
-                    }
+                        }
+                        else
+                        {
+                            <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
+                        }
+                    </li>
 
                 </ul>
 
