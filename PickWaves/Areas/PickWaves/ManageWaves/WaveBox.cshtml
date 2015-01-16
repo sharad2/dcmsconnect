@@ -108,8 +108,14 @@
             <a href="@Url.Action(MVC_PickWaves.PickWaves.Home.Customer(Model.Bucket.CustomerId))"
                title="See other pick waves of this customer">@Model.Bucket.CustomerId:@Model.Bucket.CustomerName</a>
         </small>
+
     </h2>
 
+    <p>
+        @Model.Bucket.BucketName
+
+        <span style="font-size:0.8em">Created @Html.DisplayFor(m => m.Bucket.CreationDate) by @Html.DisplayFor(m => m.Bucket.CreatedBy)</span>
+    </p>
 
     <div role="tabpanel" style="margin-bottom:0.5em">
         <!-- Nav tabs -->

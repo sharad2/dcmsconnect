@@ -3,12 +3,28 @@
 @*The menu is genrated within <li></li>*@
 
 <li role="presentation" class="dropdown">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-        <span class="glyphicon glyphicon-list"></span> <span class="caret"></span>
-    </a>
     @if (Model.IsFrozen)
     {
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            <span><span class="label label-default">Frozen</span> <span class="caret"></span></span>
+        </a>
         <ul class="dropdown-menu" role="menu">
+            <li role="presentation">
+                <div>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
+                       role="menuitem" tabindex="-1">
+                        Edit
+                    </a>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.CreateWave.Index(customerId: Model.CustomerId, lastBucketId: Model.BucketId))" class="btn btn-link" role="menuitem" tabindex="-1">
+                        Add Pickslips
+                    </a>
+                </div>
+            </li>
+            <li class="divider"></li>
             <li role="presentation">
                 <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.UnfreezeBucket())" method="post" style="text-align:center; margin:1mm">
                     @if (Model.BoxNotCreatedPieces.HasValue)
@@ -22,19 +38,13 @@
                     </button>
                 </form>
             </li>
-            <li class="divider"></li>
-            <li role="presentation">
-                <div style="text-align:center; margin:1mm">
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WaveEditor(Model.BucketId))" class="btn btn-link"
-                       role="menuitem" tabindex="-1">
-                        Edit
-                    </a>
-                </div>
-            </li>
         </ul>
     }
     else
     {
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            <span class="glyphicon glyphicon-list"></span> <span class="caret"></span>
+        </a>
         <ul class="dropdown-menu" role="menu">
             <li role="presentation">
                 <form action="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.FreezeBucket())" method="post" style="text-align:center; margin:1mm">
