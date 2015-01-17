@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using DcmsMobile.PickWaves.Helpers;
 using DcmsMobile.PickWaves.Repository;
+using System.Linq;
 
 namespace DcmsMobile.PickWaves.ViewModels
 {
@@ -37,36 +38,98 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
-            PiecesComplete = ((entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
-                        - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.Cancelled }) ?? 0))
-                       - (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
+            PiecesComplete = entity.Stats[PiecesKind.Expected, BoxState.Completed];
 
+            PiecesNotStarted = entity.Stats[PiecesKind.Expected, BoxState.NotStarted];
 
-            PiecesRemaining = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
-            //- (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.InProgress }) ?? 0);
+            PiecesRemaining = new[] {
+                entity.Stats[PiecesKind.Expected, BoxState.InProgress],
+                entity.Stats[PiecesKind.Expected, BoxState.NotStarted],
+                -entity.Stats[PiecesKind.Current, BoxState.InProgress],
+                -entity.Stats[PiecesKind.Current, BoxState.NotStarted]
 
+            }.Sum();
 
-            PiecesBoxesCreated = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
-                        - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.Cancelled }) ?? 0);
+         
+      
+            PiecesCancelled = new[] {
+                entity.Stats[PiecesKind.Expected, BoxState.Cancelled],
+                entity.Stats[PiecesKind.Expected, BoxState.Completed],
+                -entity.Stats[PiecesKind.Current, BoxState.Completed],
+            }.Sum();
 
+          
+            PiecesBoxesCreated = new[] {
+                entity.Stats[PiecesKind.Expected, BoxState.InProgress],
+                entity.Stats[PiecesKind.Expected, BoxState.Completed],
+                entity.Stats[PiecesKind.Expected, BoxState.NotStarted],
+                 entity.Stats[PiecesKind.Expected, BoxState.Cancelled]
+            }.Sum();
 
+            BoxesCancelled = entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled });
 
-            var pcs = (entity.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
-            if (pcs > 0)
-            {
-                UnderPickedPieces = pcs;
-            }
-            pcs = entity.Stats[PiecesKind.Expected, BoxState.Cancelled] ?? 0;
-            if (pcs > 0)
-            {
-                CancelledPieces = pcs;
-            }
-            CountBoxesCreated = entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted });
+            BoxesNotStarted = entity.Stats.GetBoxCounts(new[] { BoxState.NotStarted });
 
-            CountBoxesIncomplete = entity.Stats.GetBoxCounts(new[] { BoxState.InProgress, BoxState.NotStarted });
+            BoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed}) ?? 0;
 
-            CountBoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed });
+            BoxesRemaining = (entity.Stats.GetBoxCounts( new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
+                - (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }) ?? 0);
+
         }
+
+        #region Box Counts
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesRemaining { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesNotStarted { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesComplete { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesCancelled { get; set; }
+
+        #endregion
+
+        #region Pieces
+        /// <summary>
+        /// The number of pieces which work has been completed. This does not include cancelled pieces. After a box is validated,
+        /// underpicked pieces are considered to be complete.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesComplete { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesNotStarted { get; set; }
+
+
+        /// <summary>
+        /// The number of pieces for which pulling or picking needs to be performed.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesRemaining { get; set; }
+
+
+    
+
+        /// <summary>
+        /// Sum of expected pieces in cancelled boxes plus under picked pieces in completed boxes
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesCancelled { get; set; }
+
+
+        /// <summary>
+        /// Sum of expected pieces in all created boxes. If all boxes have been created, which should be the case for unfrozen buckets, then this should be the same as
+        /// pieces ordered.
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesBoxesCreated { get; private set; }
+        #endregion
 
         public BucketActivityType ActivityType { get; set; }
 
@@ -113,78 +176,6 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return string.Format("{0}-{1}", this.BuildingId, this.AreaShortName);
             }
         }
-
-        /// <summary>
-        /// The number of pieces which work has been completed. This includes cancelled pieces. After a box is validated,
-        /// underpicked pieces are considered to be complete.
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesComplete { get; set; }
-
-        /// <summary>
-        /// The number of pieces for which pulling or picking needs to be performed.
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesRemaining { get; set; }
-
-
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesIncomplete { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesComplete { get; set; }
-
-
-        /// <summary>
-        /// Number of pieces in under picked verified boxes
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? UnderPickedPieces { get; set; }
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CancelledPieces { get; set; }
-
-        public int PercentPiecesComplete
-        {
-            get
-            {
-                //return 10;
-                if (PiecesComplete + PiecesRemaining == 0)
-                {
-                    return 0;
-                }
-
-                return (int)Math.Round(PiecesComplete * 100.0 / (PiecesComplete + PiecesRemaining));
-            }
-        }
-
-        [Obsolete("Rename to PercentPiecesRemainig")]
-        public int PercentPiecesIncomplete
-        {
-            get
-            {
-                //return 10;
-                if (PiecesComplete + PiecesRemaining == 0)
-                {
-                    return 0;
-                }
-
-                return (int)Math.Round(PiecesRemaining * 100.0 / (PiecesComplete + PiecesRemaining));
-            }
-        }
-
-        /// <summary>
-        /// Total number of pieces which will be pulled or picked for this bucket
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesBoxesCreated { get; private set; }
-
-        /// <summary>
-        /// Total boxes for this activity
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CountBoxesCreated { get; set; }
 
         public string AreaId { get; set; }
 

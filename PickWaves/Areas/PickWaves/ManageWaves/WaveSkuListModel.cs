@@ -26,7 +26,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Obsolete]
-        public int TotalPiecesComplete
+        public int? TotalPiecesComplete
         {
             get
             {
@@ -35,7 +35,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPiecesPulled
+        public int? TotalPiecesPulled
         {
             get
             {
@@ -47,7 +47,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPiecesPitched
+        public int? TotalPiecesPitched
         {
             get
             {
@@ -62,7 +62,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total number of pulling pieces in the bucket
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPullablePieces
+        public int? TotalPullablePieces
         {
             get
             {
@@ -76,7 +76,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// Total number of pitching pieces in the bucket
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int TotalPitchablePieces
+        public int? TotalPitchablePieces
         {
             get
             {
@@ -93,7 +93,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         [Obsolete("Rename to TotalPieesRemaining")]
-        public int RemainingPiecesToPick
+        public int? RemainingPiecesToPick
         {
             get
             {

@@ -29,6 +29,19 @@
     }
     else
     {
+        <div>
+            <h3 class="list-group-item-heading">
+                Pick Wave
+                    <a title="Pick Wave Details"
+                       href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId.Value))">
+                        @Html.DisplayFor(m => m.BucketId)
+                    </a>
+                <small>
+                    @Model.Bucket.BucketName
+                    <span style="font-size:0.8em">Created @Html.DisplayFor(m => m.Bucket.CreationDate) by @Html.DisplayFor(m => m.Bucket.CreatedBy)</span>
+                </small>
+            </h3>
+        </div>
         @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
                                {
                                    {"IsAuthorized", Model.UserIsManager}

@@ -50,7 +50,7 @@
 
     <div role="tabpanel" style="margin-bottom:0.5em">
         <!-- Nav tabs -->
-        <ul class="nav nav-tabs bg-success" role="tablist">
+        <ul class="nav nav-tabs" role="tablist">
             <li>
                 <a href="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.Bucket.BucketId))" role="tab">
                     Pickslips
@@ -67,6 +67,7 @@
                     SKUs
                 </a>
             </li>
+            @Html.Partial(MVC_PickWaves.PickWaves.ManageWaves.Views._waveFreezeMenuPartial, Model.Bucket)
         </ul>
     </div>
     @Html.Partial(MVC_PickWaves.PickWaves.SharedViews.Views._bucketModelPartial, Model.Bucket, new ViewDataDictionary
@@ -169,7 +170,7 @@
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
                                                 of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesBoxesCreated) Pieces
                                             </small>
-                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CountBoxesIncomplete) boxes</span>
+                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].CountBoxesRemaining) boxes</span>
 
                                             <small style="white-space:nowrap">
                                                 @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PickingDateRange)

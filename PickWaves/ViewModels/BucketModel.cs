@@ -12,10 +12,10 @@ namespace DcmsMobile.PickWaves.ViewModels
     {
         Default,
 
-        /// <summary>
-        /// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
-        /// </summary>
-        ShowEditMenu,
+        ///// <summary>
+        ///// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
+        ///// </summary>
+        //ShowEditMenu,
 
         /// <summary>
         /// By default a link to the bucket viewer page is displayed. This flag hides it. It is set by the viewer page itself to prefent linking to self.
@@ -73,38 +73,22 @@ namespace DcmsMobile.PickWaves.ViewModels
                 To = src.MaxDcCancelDate
             };
 
-            OrderedPieces = src.OrderedPieces;
-            CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] {BoxState.Completed, BoxState.InProgress, BoxState.NotStarted })) ?? 0;
-            CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
-            CountValidatedBoxes = src.Activities.Sum(p => p.Stats[BoxState.Completed]) ?? 0;
-            CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
-            PiecesComplete = src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed | BoxState.InProgress]) ?? 0;
-            PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
-            var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] {BoxState.Completed, BoxState.InProgress, BoxState.Cancelled})) ?? 0;
+            var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Completed, BoxState.InProgress, BoxState.Cancelled })) ?? 0;
             if (pcs != this.OrderedPieces)
             {
                 this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
             }
-            pcs = src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0;
-            if (pcs > 0)
-            {
-                CancelledPieces = pcs;
-            }
 
-            pcs = src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0));
-            if (pcs > 0)
-            {
-                UnderPickedPieces = pcs;
-            }
-
-            CountNotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
+            OrderedPieces = src.OrderedPieces;
+      
+            BoxesNotStarted = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
 
             ProgressStage state;
             if (src.IsFrozen)
             {
                 state = ProgressStage.Frozen;
             }
-            else if (PiecesIncomplete == 0 && this.CountTotalBoxes == this.CountValidatedBoxes)
+            else if (PiecesRemaining == 0 && this.BoxesTotal == this.BoxesValidated)
             {
                 state = ProgressStage.Completed;
             }
@@ -200,14 +184,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountPurchaseOrder { get; set; }
-
-        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
-        //[Obsolete]
-        //public string MaxPoId { get; set; }
-
-        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
-        //[Obsolete]
-        //public string MinPoId { get; set; }
+      
 
         /// <summary>
         /// One of the customers of this bucket
@@ -240,39 +217,65 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [Display(Name = "Created Boxes")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountTotalBoxes { get; set; }
+        public int? BoxesTotal
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.BoxesComplete) + this.Activities.Sum(p => p.BoxesRemaining) + this.Activities.Sum(p => p.BoxesCancelled);
+            }
+        }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]        
+        public int? BoxesCancelled
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.BoxesCancelled);
+            }
+        }
+
+      
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesValidated
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.BoxesComplete);
+            }
+        }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountCancelledBoxes { get; set; }
+        [Obsolete("showing in new table")]
+        public int BoxesNotStarted { get; set; }
+
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountInProgressBoxes { get; set; }
+        public int? BoxesRemaining
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.BoxesRemaining);
+            }
+        }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountValidatedBoxes { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int CountNotStartedBoxes { get; set; }
 
         #endregion
 
         #region Pieces
+
         /// <summary>
         /// Pieces in cancelled boxes
-        /// </summary>
-        //[DisplayFormat(DataFormatString = "<span title='Number of pieces in cancelled boxes'>{0:N0} pieces cancelled</span>", HtmlEncode = false)]
+        /// </summary> 
         public int? CancelledPieces
         {
-            get;
-            private set;
+            get
+            {
+                return this.Activities.Sum(p => p.PiecesCancelled);
+            }
         }
 
-        //[DisplayFormat(DataFormatString = "<span title='Number of unpicked pieces in verified boxes'>{0:N0} pieces underpicked</span>", HtmlEncode = false)]
-        public int? UnderPickedPieces
-        {
-            get;
-            private set;
-        }
+    
 
         [Display(Name = "Ordered Pieces")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -308,23 +311,11 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// Total number of pieces which are pulled and pitched, i.e. PickedPieces + PulledPieces
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesComplete { get; set; }
-
-        private int _piecesToShip;
-
-        /// <summary>
-        /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.
-        /// </summary>
-        public int PiecesToShip
+        public int? PiecesComplete
         {
             get
             {
-                //If boxes are not created yet, Ordered pieces will be treated as PiecesToShip
-                return (CountTotalBoxes > 0 && BoxNotCreatedPieces == 0) ? _piecesToShip : OrderedPieces;
-            }
-            set
-            {
-                _piecesToShip = value;
+                return this.Activities.Sum(p => p.PiecesComplete);
             }
         }
 
@@ -332,29 +323,44 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int PiecesIncomplete
+        public int? PiecesRemaining
         {
             get
             {
-                return PiecesToShip - PiecesComplete - (CancelledPieces ?? 0);
+                return this.Activities.Sum(p => p.PiecesRemaining);
             }
+
+        }
+
+        /// <summary>
+        /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
+        /// </summary>
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesToShip
+        {
+            get
+            {
+                return this.PiecesRemaining + PiecesComplete;
+            }
+
         }
 
         /// <summary>
         /// % w.r.t. pieces complete + pieces incomplete
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:p0}")]
-        public decimal PercentPiecesComplete
+        public decimal? PercentPiecesComplete
         {
             get
             {
-                if (PiecesToShip == 0 || PiecesComplete == 0)
+                if (OrderedPieces == 0 || PiecesComplete == 0)
                 {
                     return 0;
                 }
-                return PiecesComplete / (decimal)PiecesToShip;
+                return PiecesComplete / (decimal)OrderedPieces;
             }
         }
+
         #endregion
 
         #region Sku Assigned
@@ -363,7 +369,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         internal int CountTotalSku { get; set; }
 
-        [DisplayFormat(DataFormatString = "<span>{0:N0} SKUs are not assigned at any location.</span>", HtmlEncode = false)]
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountNotAssignedSku
         {
             get

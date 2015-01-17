@@ -193,7 +193,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var model = new WaveSkuListModel
             {
-                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
+                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink),
                 BucketSkuList = (from sku in query
                                  select new BucketSkuModel(sku.BucketSku)
                                  {
@@ -247,14 +247,16 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             var Boxes = _service.Value.GetBucketBoxes(bucketId);
             var model = new WaveBoxListModel
              {
-                Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
+                 Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink),
                  //BucketId = bucketId,
                  //StateFilter = stateFilter,
                  //ActivityFilter = activityFilter,
-                BoxesList = (from box in Boxes
+                 BoxesList = (from box in Boxes
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                               let routeCarton = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1]
+                              orderby box.CancelDate descending, box.CurrentPieces, box.ExpectedPieces
+                              
                               select new BoxModel
                               {
                                   Ucc128Id = box.Ucc128Id,
@@ -339,7 +341,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
             var model = new WavePickslipsViewModel
                 {
-                    Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink | BucketModelFlags.ShowEditMenu),
+                    Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink),
                     PickslipList = (from pickslip in pickslips
                                     let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                                     let routePo = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPo3]
