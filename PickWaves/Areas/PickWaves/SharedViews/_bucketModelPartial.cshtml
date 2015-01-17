@@ -46,7 +46,7 @@
             </li>
             <li>
                 DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
-            </li>          
+            </li>
             @if (Model.QuickPitch)
             {
                 <li>Quick Pitching required</li>
@@ -65,7 +65,7 @@
                     }
                 </li>
             }
-      
+
 
             @if (Model.CountNotAssignedSku > 0)
             {
@@ -120,35 +120,47 @@
             </thead>
             @for (var j = 0; j < Model.Activities.Count; j++)
             {
+               
                 <tbody>
-                    <tr class="text-center @Html.Raw(Model.Activities[j].ActivityType == DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling ? "success" : "info")">
+                    <tr class="text-center active">
                         <td colspan=" 3">
                             @Html.DisplayFor(m => m.Activities[j].DisplayName)
                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                         </td>
                     </tr>
+                    @if (Model.Activities[j].PiecesNotStarted > 0 || Model.Activities[j].BoxesNotStarted > 0)
+                    {
+                        <tr>
+                            <th>Not Started</th>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesNotStarted)</td>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesNotStarted)</td>
+                        </tr>
 
-                    <tr>
-                        <th>Not Started</th>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesNotStarted)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesNotStarted)</td>
-                    </tr>
-
-                    <tr class="active">
-                        <th>In Progress</th>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesRemaining)</td>
-                    </tr>
-                    <tr class="success">
-                        <th>Complete</th>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesComplete)</td>
-                    </tr>
-                    <tr class="danger">
-                        <th>Cancelled</th>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesCancelled)</td>
-                    </tr>
+                    }
+                    @if (Model.Activities[j].PiecesRemaining > 0 || Model.Activities[j].BoxesRemaining > 0)
+                    {
+                        <tr class="active">
+                            <th>In Progress</th>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesRemaining)</td>
+                        </tr>
+                    }
+                    @if (Model.Activities[j].PiecesComplete > 0 || Model.Activities[j].BoxesComplete > 0)
+                    {
+                        <tr class="success">
+                            <th>Complete</th>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesComplete)</td>
+                        </tr>
+                    }
+                    @if (Model.Activities[j].PiecesCancelled > 0 || Model.Activities[j].BoxesCancelled > 0)
+                    {
+                        <tr class="danger">
+                            <th>Cancelled</th>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
+                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesCancelled)</td>
+                        </tr>
+                    }
                 </tbody>
             }
             <tfoot>
@@ -160,9 +172,9 @@
                     <td class="text-right">
                         @if (Model.BoxesTotal > 0)
                         {
-                           
-                                <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
-                            
+
+                            <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
+
                         }
                         else
                         {
@@ -170,17 +182,22 @@
                                 Boxes not created yet
                             </span>
                         }
-                      
+
                     </td>
-                   
+
                 </tr>
-                <tr>
-                    <th>
-                        Remaining
-                    </th>
-                    <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
-                    <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
-                </tr>
+                @if (Model.PiecesRemaining > 0  || Model.BoxesRemaining > 0)
+                {
+                    <tr>
+                        <th>
+                            Remaining
+                        </th>
+                        <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
+                        <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
+                    </tr>
+                }
+                @if (Model.CancelledPieces > 0 || Model.BoxesCancelled > 0)
+                {
                 <tr>
                     <th>
                         Cancelled
@@ -188,6 +205,7 @@
                     <th class="text-right">@Html.DisplayFor(m => m.CancelledPieces)</th>
                     <th class="text-right">@Html.DisplayFor(m => m.BoxesCancelled)</th>
                 </tr>
+                }
             </tfoot>
         </table>
         @if (Model.BoxNotCreatedPieces > 0)

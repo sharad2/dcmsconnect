@@ -81,7 +81,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             OrderedPieces = src.OrderedPieces;
       
-            BoxesNotStarted = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
+
 
             ProgressStage state;
             if (src.IsFrozen)
@@ -244,9 +244,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Obsolete("showing in new table")]
-        public int BoxesNotStarted { get; set; }
+    
 
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
