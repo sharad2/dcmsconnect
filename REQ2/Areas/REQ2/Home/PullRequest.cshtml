@@ -14,6 +14,14 @@
         </button>
         </form>
 
+    <form action="@Url.Action(MVC_REQ2.REQ2.Home.DeleteRequest())" method="post">
+        <button class="pull-left btn btn-default btn-xs" type="submit"
+                name="@MVC_REQ2.REQ2.Home.DeleteRequestParams.resvId"
+                value="@Model.CtnResvId">
+            Delete Request
+        </button>
+    </form>
+
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
@@ -88,6 +96,8 @@
             </div>
 
         </div>
+
+
 
 
 </div>
