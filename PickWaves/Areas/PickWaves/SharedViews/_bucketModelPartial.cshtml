@@ -46,34 +46,7 @@
             </li>
             <li>
                 DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
-            </li>
-            <li>
-                @if (Model.BoxesTotal > 0)
-                {
-                    <text>
-                        @Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal) Boxes complete
-                    </text>
-                }
-                else
-                {
-                    <text>
-                        Boxes not created yet
-                    </text>
-                }
-            </li>
-            @if (Model.BoxesCancelled > 0)
-            {
-                <li>
-                    @Html.DisplayFor(m => m.BoxesCancelled)
-                    boxes cancelled
-                </li>
-            }
-            @if (Model.BoxesNotStarted > 0)
-            {
-                <li>
-                    @Html.DisplayFor(m => m.BoxesNotStarted) boxes not started
-                </li>
-            }
+            </li>          
             @if (Model.QuickPitch)
             {
                 <li>Quick Pitching required</li>
@@ -185,7 +158,19 @@
                     </td>
                     <td class="text-right">@Html.DisplayFor(m => m.PiecesToShip) of @Html.DisplayFor(m => m.OrderedPieces)</td>
                     <td class="text-right">
-                        @Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)
+                        @if (Model.BoxesTotal > 0)
+                        {
+                           
+                                <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
+                            
+                        }
+                        else
+                        {
+                            <span>
+                                Boxes not created yet
+                            </span>
+                        }
+                      
                     </td>
                    
                 </tr>

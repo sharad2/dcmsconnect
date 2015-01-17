@@ -225,7 +225,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N0}")]        
         public int? BoxesCancelled
         {
             get
@@ -245,6 +245,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete("showing in new table")]
         public int BoxesNotStarted { get; set; }
 
 
