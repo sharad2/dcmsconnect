@@ -307,14 +307,9 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
                 _service.DeleteCartonRequest(resvId);
 
                 //Request deleted successfully
-                //var requests = _service.GetRequests();
-                //var model = new IndexViewModel
-                //    {
-                //        RecentRequests = requests.Select(p => new RequestViewModel(p)).ToList()
-                //    };
-
-                //return PartialView(Views._recentRequestListPartial, model);
-                throw new NotImplementedException();
+              //  var requests = _service.GetRequests();
+                this.AddStatusMessage(string.Format("Request {0} deleted successfully.", resvId));
+                return RedirectToAction(MVC_REQ2.REQ2.Home.Actions.Index());
             }
             catch (Exception ex)
             {
