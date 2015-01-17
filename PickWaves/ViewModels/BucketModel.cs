@@ -78,45 +78,17 @@ namespace DcmsMobile.PickWaves.ViewModels
             {
                 this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
             }
-            //CancelledPieces = (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.Cancelled]) ?? 0)
-            //+ (src.Activities.Sum(p => (p.Stats[PiecesKind.Expected, BoxState.Completed] ?? 0) - (p.Stats[PiecesKind.Current, BoxState.Completed] ?? 0)));
-
-
-
 
             OrderedPieces = src.OrderedPieces;
-           // CountTotalBoxes = src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted, BoxState.Cancelled })) ?? 0;
-
-
-            //CountInProgressBoxes = src.Activities.Sum(p => p.Stats[BoxState.InProgress]) ?? 0;
-
-
-            //CountCancelledBoxes = src.Activities.Sum(p => p.Stats[BoxState.Cancelled]) ?? 0;
-
-            //CountValidatedBoxes =src.Activities.Sum(p => p.Stats.GetBoxCounts(new[] { BoxState.Completed })) ?? 0;
-
-
-
-            //PiecesComplete = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0)
-               // - (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
-
-
-
-
-            //PiecesRemaining = (src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0));
-
-
-            //PiecesToShip = (src.Activities.Sum(p => p.Stats[PiecesKind.Current, BoxState.Completed]) ?? 0) + (src.Activities.Sum(p => p.Stats[PiecesKind.Expected, BoxState.InProgress]) ?? 0);
-
-
-            NotStartedBoxes = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
+      
+            BoxesNotStarted = src.Activities.Sum(p => p.Stats[BoxState.NotStarted]) ?? 0;
 
             ProgressStage state;
             if (src.IsFrozen)
             {
                 state = ProgressStage.Frozen;
             }
-            else if (PiecesRemaining == 0 && this.TotalBoxes == this.ValidatedBoxes)
+            else if (PiecesRemaining == 0 && this.BoxesTotal == this.BoxesValidated)
             {
                 state = ProgressStage.Completed;
             }
@@ -212,14 +184,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountPurchaseOrder { get; set; }
-
-        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
-        //[Obsolete]
-        //public string MaxPoId { get; set; }
-
-        //[DisplayFormat(NullDisplayText = "(Not Specified)")]
-        //[Obsolete]
-        //public string MinPoId { get; set; }
+      
 
         /// <summary>
         /// One of the customers of this bucket
@@ -252,7 +217,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [Display(Name = "Created Boxes")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? TotalBoxes
+        public int? BoxesTotal
         {
             get
             {
@@ -261,7 +226,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? CancelledBoxes
+        public int? BoxesCancelled
         {
             get
             {
@@ -269,12 +234,9 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //[Obsolete]
-        //public int CountInProgressBoxes { get; set; }
-
+      
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? ValidatedBoxes
+        public int? BoxesValidated
         {
             get
             {
@@ -283,15 +245,27 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int NotStartedBoxes { get; set; }
+        public int BoxesNotStarted { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesRemaining
+        {
+            get
+            {
+                return this.Activities.Sum(p => p.BoxesRemaining);
+            }
+        }
+
+
 
         #endregion
 
         #region Pieces
+
         /// <summary>
         /// Pieces in cancelled boxes
-        /// </summary>
-        //[DisplayFormat(DataFormatString = "<span title='Number of pieces in cancelled boxes'>{0:N0} pieces cancelled</span>", HtmlEncode = false)]
+        /// </summary> 
         public int? CancelledPieces
         {
             get
@@ -300,12 +274,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        //[DisplayFormat(DataFormatString = "<span title='Number of unpicked pieces in verified boxes'>{0:N0} pieces underpicked</span>", HtmlEncode = false)]
-        public int? UnderPickedPieces
-        {
-            get;
-            private set;
-        }
+    
 
         [Display(Name = "Ordered Pieces")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -362,26 +331,18 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         }
 
-       // private int _piecesToShip;
-
         /// <summary>
-        /// Total number of pieces that we expect to ship for this bucket. Of this, <see cref="PiecesComplete"/> pieces have already been picked.
+        /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
-        //[Obsolete]
-        //public int PiecesToShip
-        //{
-        //    get
-        //    {
-        //        //If boxes are not created yet, Ordered pieces will be treated as PiecesToShip
-        //        return (CountTotalBoxes > 0 && BoxNotCreatedPieces == 0) ? _piecesToShip : OrderedPieces;
-        //    }
-        //    set
-        //    {
-        //        _piecesToShip = value;
-        //    }
-        //}
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesToShip
+        {
+            get
+            {
+                return this.PiecesRemaining + PiecesComplete;
+            }
 
-    
+        }
 
         /// <summary>
         /// % w.r.t. pieces complete + pieces incomplete
@@ -398,6 +359,7 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return PiecesComplete / (decimal)OrderedPieces;
             }
         }
+
         #endregion
 
         #region Sku Assigned

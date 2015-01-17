@@ -48,10 +48,10 @@
                 DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
             </li>
             <li>
-                @if (Model.CountTotalBoxes > 0)
+                @if (Model.BoxesTotal > 0)
                 {
                     <text>
-                        @Html.DisplayFor(m => m.CountValidatedBoxes) of @Html.DisplayFor(m => m.CountTotalBoxes) Boxes complete
+                        @Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal) Boxes complete
                     </text>
                 }
                 else
@@ -61,17 +61,17 @@
                     </text>
                 }
             </li>
-            @if (Model.CountCancelledBoxes > 0)
+            @if (Model.BoxesCancelled > 0)
             {
                 <li>
-                    @Html.DisplayFor(m => m.CountCancelledBoxes)
+                    @Html.DisplayFor(m => m.BoxesCancelled)
                     boxes cancelled
                 </li>
             }
-            @if (Model.CountNotStartedBoxes > 0)
+            @if (Model.BoxesNotStarted > 0)
             {
                 <li>
-                    @Html.DisplayFor(m => m.CountNotStartedBoxes) boxes not started
+                    @Html.DisplayFor(m => m.BoxesNotStarted) boxes not started
                 </li>
             }
             @if (Model.QuickPitch)
@@ -81,7 +81,7 @@
             @if (Model.RequiredBoxExpediting)
             {
                 <li>
-                    @if (Model.CountTotalBoxes > 0 && !Model.IsFrozen)
+                    @if (Model.BoxesTotal > 0 && !Model.IsFrozen)
                     {
 
                         <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))">Box Expediting  required</a>
@@ -92,15 +92,7 @@
                     }
                 </li>
             }
-            @if (Model.UnderPickedPieces.HasValue)
-            {
-                <li>
-                    <strong title='Number of unpicked pieces in verified boxes' class="text-danger">
-                        @Html.DisplayFor(m => m.UnderPickedPieces) pieces underpicked
-                    </strong>
-                </li>
-
-            }
+      
 
             @if (Model.CountNotAssignedSku > 0)
             {
@@ -162,47 +154,54 @@
                             <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
                         </td>
                     </tr>
+
                     <tr>
                         <th>Not Started</th>
-                        <td class="text-right">TODO</td>
-                        <td>TODO</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesNotStarted)</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesNotStarted)</td>
                     </tr>
+
                     <tr class="active">
                         <th>In Progress</th>
                         <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
-                        <td>TODO</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesRemaining)</td>
                     </tr>
                     <tr class="success">
                         <th>Complete</th>
                         <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesComplete)</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesComplete)</td>
                     </tr>
                     <tr class="danger">
                         <th>Cancelled</th>
                         <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
-                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].CountBoxesCancelled)</td>
+                        <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesCancelled)</td>
                     </tr>
                 </tbody>
             }
             <tfoot>
                 <tr>
-                    <td colspan="3">
+                    <td>
                         Totals here
                     </td>
+                    <td class="text-right">@Html.DisplayFor(m => m.PiecesToShip) of @Html.DisplayFor(m => m.OrderedPieces)</td>
+                    <td class="text-right">
+                        @Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)
+                    </td>
+                   
                 </tr>
                 <tr>
                     <th>
                         Remaining
                     </th>
                     <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
-                    <th>TODO</th>
+                    <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
                 </tr>
                 <tr>
                     <th>
                         Cancelled
                     </th>
                     <th class="text-right">@Html.DisplayFor(m => m.CancelledPieces)</th>
-                    <th>TODO</th>
+                    <th class="text-right">@Html.DisplayFor(m => m.BoxesCancelled)</th>
                 </tr>
             </tfoot>
         </table>

@@ -40,8 +40,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             PiecesComplete = entity.Stats[PiecesKind.Expected, BoxState.Completed];
 
-            //PiecesRemaining = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0)
-            //    - (entity.Stats.GetPieces(PiecesKind.Current, new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
+            PiecesNotStarted = entity.Stats[PiecesKind.Expected, BoxState.NotStarted];
 
             PiecesRemaining = new[] {
                 entity.Stats[PiecesKind.Expected, BoxState.InProgress],
@@ -51,16 +50,15 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             }.Sum();
 
-            //PiecesCancelled = entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Cancelled, BoxState.Completed }) - (entity.Stats[PiecesKind.Current, BoxState.Completed] ?? 0);
-
+         
+      
             PiecesCancelled = new[] {
                 entity.Stats[PiecesKind.Expected, BoxState.Cancelled],
                 entity.Stats[PiecesKind.Expected, BoxState.Completed],
                 -entity.Stats[PiecesKind.Current, BoxState.Completed],
             }.Sum();
 
-           // PiecesBoxesCreated = (entity.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted, BoxState.Cancelled }) ?? 0);
-
+          
             PiecesBoxesCreated = new[] {
                 entity.Stats[PiecesKind.Expected, BoxState.InProgress],
                 entity.Stats[PiecesKind.Expected, BoxState.Completed],
@@ -68,8 +66,9 @@ namespace DcmsMobile.PickWaves.ViewModels
                  entity.Stats[PiecesKind.Expected, BoxState.Cancelled]
             }.Sum();
 
-            BoxesCancelled = (entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled }));
+            BoxesCancelled = entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled });
 
+            BoxesNotStarted = entity.Stats.GetBoxCounts(new[] { BoxState.NotStarted });
 
             BoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed}) ?? 0;
 
@@ -82,6 +81,10 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesRemaining { get; set; }
+
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesNotStarted { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesComplete { get; set; }
@@ -99,6 +102,11 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesComplete { get; set; }
 
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesNotStarted { get; set; }
+
+
         /// <summary>
         /// The number of pieces for which pulling or picking needs to be performed.
         /// </summary>
@@ -106,11 +114,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         public int? PiecesRemaining { get; set; }
 
 
-        ///// <summary>
-        ///// Number of under picked pieces in verified boxes
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? UnderPickedPieces { get; set; }
+    
 
         /// <summary>
         /// Sum of expected pieces in cancelled boxes plus under picked pieces in completed boxes
@@ -118,34 +122,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesCancelled { get; set; }
 
-        //public int PercentPiecesComplete
-        //{
-        //    get
-        //    {
-        //        //return 10;
-        //        if (PiecesRemaining == null || PiecesRemaining == 0)
-        //        {
-        //            return 0;
-        //        }
-
-        //        return (int)Math.Round(PiecesComplete * 100.0 / (PiecesComplete + PiecesRemaining.Value));
-        //    }
-        //}
-
-        //[Obsolete("Rename to PercentPiecesRemainig")]
-        //public int PercentPiecesIncomplete
-        //{
-        //    get
-        //    {
-        //        //return 10;
-        //        if (PiecesComplete + PiecesRemaining == 0)
-        //        {
-        //            return 0;
-        //        }
-
-        //        return (int)Math.Round(PiecesRemaining * 100.0 / (PiecesComplete + PiecesRemaining));
-        //    }
-        //}
 
         /// <summary>
         /// Sum of expected pieces in all created boxes. If all boxes have been created, which should be the case for unfrozen buckets, then this should be the same as
@@ -211,6 +187,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DataType(DataType.Text)]
         [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
+
 
 
     }
