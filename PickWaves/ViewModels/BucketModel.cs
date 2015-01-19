@@ -300,7 +300,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// <summary>
         /// Are we overshipping? This should always be negative or 0
         /// </summary>
-        [DisplayFormat(DataFormatString = "<span class='ui-state-error'>Overshipping {0:N0} pieces</span>", HtmlEncode = false)]
+       
         public int? OverShippedPieces
         {
             get
