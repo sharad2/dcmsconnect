@@ -157,7 +157,10 @@
                     {
                         <tr class="danger">
                             <th>Cancelled</th>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesCancelled)</td>
+                            <td class="text-right">
+                                @Html.DisplayFor(m => m.Activities[j].PiecesCancelled)
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].PiecesCancelled)
+                        </td>
                             <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesCancelled)</td>
                         </tr>
                     }

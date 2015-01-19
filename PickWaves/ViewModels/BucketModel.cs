@@ -60,6 +60,12 @@ namespace DcmsMobile.PickWaves.ViewModels
             activity = new BucketActivityModel(src.Activities[BucketActivityType.Pulling]);
             Activities.Add(activity);
 
+            Activities2 = new Dictionary<BucketActivityType, BucketActivityModel>
+            {
+                {BucketActivityType.Pitching, new BucketActivityModel(src.Activities[BucketActivityType.Pitching])},
+                {BucketActivityType.Pulling, new BucketActivityModel(src.Activities[BucketActivityType.Pulling])}
+            };
+
             CountPickslips = src.CountPickslips;
             CountPurchaseOrder = src.CountPurchaseOrder;
             //MinPoId = src.MinPoId;
@@ -80,7 +86,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
 
             OrderedPieces = src.OrderedPieces;
-      
+
 
 
             ProgressStage state;
@@ -167,6 +173,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         #endregion
 
+        [Obsolete]
         public IList<BucketActivityModel> Activities
         {
             get
@@ -174,6 +181,8 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return _activities;
             }
         }
+
+        public IDictionary<BucketActivityType, BucketActivityModel> Activities2 { get; set; }
 
         [Display(Name = "#Pickslips")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -184,7 +193,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int CountPurchaseOrder { get; set; }
-      
+
 
         /// <summary>
         /// One of the customers of this bucket
@@ -225,7 +234,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]        
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesCancelled
         {
             get
@@ -234,7 +243,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-      
+
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesValidated
         {
@@ -244,7 +253,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-    
+
 
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
@@ -273,7 +282,7 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
         }
 
-    
+
 
         [Display(Name = "Ordered Pieces")]
         [DisplayFormat(DataFormatString = "{0:N0}")]
