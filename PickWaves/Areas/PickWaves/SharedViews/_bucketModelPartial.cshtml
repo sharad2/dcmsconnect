@@ -7,74 +7,193 @@
     bool? obj = ViewBag.IsAuthorized;
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
 
-    // Do not show link to the viewer page if we are already on the viewer page. Instead link to edit page
-    //var isViewerPage = Url.Action(MVC_PickWaves.PickWaves.ManageWaves.WavePickslips(Model.BucketId)) == Request.Url.PathAndQuery;
 }
 
-
-@*@helper BucketActivityVerb(DcmsMobile.PickWaves.Helpers.BucketActivityType actType)
-    {
-
-        switch (actType)
-        {
-            case DcmsMobile.PickWaves.Helpers.BucketActivityType.NotSet:
-                @:NotSet
-                break;
-
-            case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching:
-            @:Pitched
-                break;
-
-            case DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling:
-            @:Pulled
-                break;
-
-            default:
-            @:Unexpected
-
-                break;
-        }
-
-    }*@
-
 <div class="row">
-    <div class="col-md-4">
-        <ul class="list-inline">
-            <li>
-                @Html.DisplayFor(m => m.CountPickslips) Pickslips
-                &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
-            </li>
-            <li>
-                DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)
-            </li>
-            @if (Model.QuickPitch)
-            {
-                <li>Quick Pitching required</li>
-            }
-            @if (Model.RequiredBoxExpediting)
-            {
-                <li>
-                    @if (Model.BoxesTotal > 0 && !Model.IsFrozen)
-                    {
+    <div class="col-md-6">
+        <table class="table table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        <span class="h4">
+                            <span class="label-info label">
+                                @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].DisplayName)
+                                <strong>@Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].AreaShortNameDisplay)</strong>
+                            </span>
+                            &nbsp;
+                            <span class="label-success label">
+                                @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].DisplayName)
+                                <strong>@Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].AreaShortNameDisplay)</strong>
+                            </span>
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center active">
+                    <th>@Html.DisplayFor(m => m.PercentPiecesComplete) complete</th>
+                    <th class="text-center">Pieces </th>
+                    <th class="text-center">Boxes</th>
 
-                        <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))">Box Expediting  required</a>
-                    }
-                    else
-                    {
-                        <span> Box Expediting  required</span>
-                    }
-                </li>
-            }
+                </tr>
+                @if (Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesNotStarted > 0 || Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesNotStarted > 0)
+                {
+                <tr>
+                    <th>Not Started</th>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesNotStarted)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesNotStarted)
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].BoxesNotStarted)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesNotStarted)
+                        </span>
+                    </td>
+                </tr>
 
+                }
+                @if (Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesRemaining > 0 || Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesRemaining > 0)
+                {
+                <tr class="active">
+                    <th>In Progress</th>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesRemaining)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].PiecesRemaining)
+                        </span>
+                    </td>
+                    <td class="text-right">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].BoxesRemaining)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesRemaining)
+                        </span>
+                    </td>
+                </tr>
+                }
+                @if (Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesComplete > 0 || Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesComplete > 0)
+                {
+                <tr class="success">
+                    <th>Complete</th>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesComplete)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].PiecesComplete)
+                        </span>
+                    </td>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].BoxesComplete)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesComplete)
+                        </span>
+                    </td>
+                </tr>
+                }
+                @if (Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesCancelled > 0 || Model.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesCancelled > 0)
+                {
+                <tr class="danger">
+                    <th>Cancelled</th>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].PiecesCancelled)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].PiecesCancelled)
+                        </span>
+                    </td>
+                    <td class="text-right h4">
+                        <span class="label label-info">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pitching].BoxesCancelled)
+                        </span>
+                        &nbsp;
+                        <span class="label label-success">
+                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].BoxesCancelled)
+                        </span>
+                    </td>
+                </tr>
+                }
+            </tbody>
 
-            @if (Model.CountNotAssignedSku > 0)
-            {
-                <li>
-                    @Html.DisplayFor(m => m.CountNotAssignedSku) SKUs not assigned at any location
-                </li>
-            }
-            <li>
-                <div class="form-inline" role="form">
+            <tfoot>
+                <tr class="active">
+                    <th>
+                        Total Completed
+                    </th>
+                    <td class="text-right">@Html.DisplayFor(m => m.PiecesToShip) of @Html.DisplayFor(m => m.OrderedPieces)</td>
+                    <td class="text-right">
+                        @if (Model.BoxesTotal > 0)
+                        {
+
+                        <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
+
+                        }
+                        else
+                        {
+                        <strong class="text-info">
+                            Boxes not created yet
+                        </strong>
+                        }
+
+                    </td>
+
+                </tr>
+                @if (Model.PiecesRemaining > 0 || Model.BoxesRemaining > 0)
+                {
+                <tr>
+                    <th>
+                        Remaining
+                    </th>
+                    <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
+                    <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
+                </tr>
+                }
+                @if (Model.CancelledPieces > 0 || Model.BoxesCancelled > 0)
+                {
+                <tr>
+                    <th>
+                        Total Cancelled
+                    </th>
+                    <th class="text-right">@Html.DisplayFor(m => m.CancelledPieces)</th>
+                    <th class="text-right">@Html.DisplayFor(m => m.BoxesCancelled)</th>
+                </tr>
+                }
+            </tfoot>
+        </table>
+
+        
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="list-group-item-heading">
+                    @Html.DisplayFor(m => m.CountPickslips) Pickslips
+                    &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
+                    <span class="badge"> DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</span>
+                </h4>
+            </div>
+            <div class="col-md-5">
+                <div class="form-inline pull-right" role="form">
                     <div class="form-group">
                         <p class="form-control-static">
                             Priority
@@ -89,7 +208,7 @@
                                                 <span class="glyphicon glyphicon-arrow-down"></span>
                                             </button>
                                         </span>
-                                        <input type="text" class="form-control" value="@Model.PriorityId" readonly size="2" style="text-align:right">
+                                        <input type="text" class="form-control" value="@Model.PriorityId" readonly size="1" style="text-align:right">
                                         <span class="input-group-btn">
                                             <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
                                                     data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
@@ -106,127 +225,68 @@
                         </p>
                     </div>
                 </div>
-            </li>
-        </ul>
-    </div>
-    <div class="col-md-8">
-        <table class="table table-bordered table-condensed">
-            <thead>
-                <tr>
-                    <th>@Html.DisplayFor(m => m.PercentPiecesComplete) complete</th>
-                    <th>Pieces</th>
-                    <th>Boxes</th>
-                </tr>
-            </thead>
-            @for (var j = 0; j < Model.Activities.Count; j++)
+            </div>
+        </div>
+
+        <!-- List group -->
+        <div class="list-group">
+            @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) == 0)
             {
-               
-                <tbody>
-                    <tr class="text-center active">
-                        <td colspan=" 3">
-                            @Html.DisplayFor(m => m.Activities[j].DisplayName)
-                            <strong>&nbsp; @Html.DisplayFor(m => m.Activities[j].AreaShortNameDisplay)</strong>
-                        </td>
-                    </tr>
-                    @if (Model.Activities[j].PiecesNotStarted > 0 || Model.Activities[j].BoxesNotStarted > 0)
-                    {
-                        <tr>
-                            <th>Not Started</th>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesNotStarted)</td>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesNotStarted)</td>
-                        </tr>
 
-                    }
-                    @if (Model.Activities[j].PiecesRemaining > 0 || Model.Activities[j].BoxesRemaining > 0)
-                    {
-                        <tr class="active">
-                            <th>In Progress</th>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesRemaining)</td>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesRemaining)</td>
-                        </tr>
-                    }
-                    @if (Model.Activities[j].PiecesComplete > 0 || Model.Activities[j].BoxesComplete > 0)
-                    {
-                        <tr class="success">
-                            <th>Complete</th>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].PiecesComplete)</td>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesComplete)</td>
-                        </tr>
-                    }
-                    @if (Model.Activities[j].PiecesCancelled > 0 || Model.Activities[j].BoxesCancelled > 0)
-                    {
-                        <tr class="danger">
-                            <th>Cancelled</th>
-                            <td class="text-right">
-                                @Html.DisplayFor(m => m.Activities[j].PiecesCancelled)
-                            @Html.DisplayFor(m => m.Activities2[DcmsMobile.PickWaves.Helpers.BucketActivityType.Pulling].PiecesCancelled)
-                        </td>
-                            <td class="text-right">@Html.DisplayFor(m => m.Activities[j].BoxesCancelled)</td>
-                        </tr>
-                    }
-                </tbody>
+
+                <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
             }
-            <tfoot>
-                <tr>
-                    <td>
-                        Totals here
-                    </td>
-                    <td class="text-right">@Html.DisplayFor(m => m.PiecesToShip) of @Html.DisplayFor(m => m.OrderedPieces)</td>
-                    <td class="text-right">
-                        @if (Model.BoxesTotal > 0)
-                        {
-
-                            <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
-
-                        }
-                        else
-                        {
-                            <span>
-                                Boxes not created yet
-                            </span>
-                        }
-
-                    </td>
-
-                </tr>
-                @if (Model.PiecesRemaining > 0  || Model.BoxesRemaining > 0)
+            @if (Model.RequiredBoxExpediting)
+            {
+                if (Model.BoxesTotal > 0 && !Model.IsFrozen)
                 {
-                    <tr>
-                        <th>
-                            Remaining
-                        </th>
-                        <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
-                        <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
-                    </tr>
-                }
-                @if (Model.CancelledPieces > 0 || Model.BoxesCancelled > 0)
-                {
-                <tr>
-                    <th>
-                        Cancelled
-                    </th>
-                    <th class="text-right">@Html.DisplayFor(m => m.CancelledPieces)</th>
-                    <th class="text-right">@Html.DisplayFor(m => m.BoxesCancelled)</th>
-                </tr>
-                }
-            </tfoot>
-        </table>
-        @if (Model.BoxNotCreatedPieces > 0)
-        {
-            if (Model.IsFrozen)
-            {
-                <div class="list-group-item text-info"><strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong></div>
-            }
-            else
-            {
-                <div class="list-group-item list-group-item-danger">@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</div>
-            }
-        }
-        @Html.DisplayFor(m => m.OverShippedPieces)
 
-        @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) == 0)
-        {
-            <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
-        }
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))"
+                       class="list-group-item list-group-item-info">
+                        Box Expediting  required <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    </a>
+
+                }
+                else
+                {
+                    <div class="list-group-item list-group-item-info"> Box Expediting  required</div>
+                }
+            }
+            @if (Model.QuickPitch)
+            {
+                <div class="list-group-item list-group-item-info">Quick Pitching required</div>
+            }
+
+            @if (Model.CountNotAssignedSku > 0)
+            {
+                <div class="list-group-item list-group-item-info">
+                    @Html.DisplayFor(m => m.CountNotAssignedSku) SKUs not assigned at any location
+                </div>
+            }
+
+            @if (Model.BoxNotCreatedPieces > 0)
+            {
+                if (Model.IsFrozen)
+                {
+                    <div class="list-group-item list-group-item-info">
+                        <strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong>
+                    </div>
+                }
+                else
+                {
+                    <div class="list-group-item list-group-item-danger">
+                        @string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)
+                    </div>
+                }
+            }
+
+            @if (Model.OverShippedPieces > 0)
+            {
+                <div class='list-group-item list-group-item-danger'>Overshipping @Html.DisplayFor(m => m.OverShippedPieces) pieces</div>
+            }
+        </div>
+
     </div>
 </div>
+
+
