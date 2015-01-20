@@ -23,6 +23,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             Volume = entity.Sku.VolumePerDozen / 12;
             Weight = entity.Sku.WeightPerDozen / 12;
             OrderedPieces = entity.QuantityOrdered;
+            //TotalPitchablePieces = entity.TotalPitchablePieces;
+            //TotalPiecesPulled = entity.TotalPiecesPulled;
+            //TotalPiecesPitched = entity.TotalPiecesPitched;
+            //TotalPullablePieces = entity.TotalPullablePieces;
+            PiecesCompletePulling = entity.PiecesCompletePulling;
+            PiecesBoxesCreatedPulling = entity.PiecesBoxesCreatedPulling;
+            BoxesRemainingPulling = entity.BoxesRemainingPulling;
+
+            PiecesCompletePitching = entity.PiecesCompletePitching;
+            PiecesBoxesCreatedPitching = entity.PiecesBoxesCreatedPitching;
+            BoxesRemainingPitching = entity.BoxesRemainingPitching;
         }
 
         [Key]
@@ -35,6 +46,14 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string Dimension { get; set; }
 
         public string SkuSize { get; set; }
+
+        //public int? TotalPitchablePieces { get; set; }
+
+        //public int? TotalPiecesPulled { get; set; }
+
+        //public int? TotalPiecesPitched { get; set; }
+
+        //public int? TotalPullablePieces { get; set; }
 
         public string DisplaySku
         {
@@ -68,20 +87,33 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         public IList<BucketSkuAreaModel> InventoryByArea { get; set; }
 
-        public IList<BucketActivityModel> Activities { get; set; }
+        //[Obsolete]
+        //public IList<BucketActivityModel> Activities { get; set; }
 
-        internal decimal PercentCurrentPieces
-        {
-            get
-            {
-                var inbox = this.Activities.Sum(p => p.PiecesComplete);
-                if (inbox == 0 || (OrderedPieces ?? 0) == 0)
-                {
-                    return 0;       // Not full at all
-                }
-                return (decimal)inbox / (this.OrderedPieces.Value);
-            }
-        }
+        //internal decimal PercentCurrentPieces
+        //{
+        //    get
+        //    {
+        //        var inbox = this.Activities.Sum(p => p.PiecesComplete);
+        //        if (inbox == 0 || (OrderedPieces ?? 0) == 0)
+        //        {
+        //            return 0;       // Not full at all
+        //        }
+        //        return (decimal)inbox / (this.OrderedPieces.Value);
+        //    }
+        //}
+
+        public int? PiecesCompletePulling { get; set; }
+
+        public int? PiecesBoxesCreatedPulling { get; set; }
+
+        public int? BoxesRemainingPulling { get; set; }
+
+        public int? PiecesCompletePitching { get; set; }
+
+        public int? PiecesBoxesCreatedPitching { get; set; }
+
+        public int? BoxesRemainingPitching { get; set; }
     }
 
     /// <summary>

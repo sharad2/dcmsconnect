@@ -160,52 +160,10 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                             BOX_SKU AS
                                  (SELECT BD.SKU_ID AS SKU_ID,
                                          B.VWH_ID AS VWH_ID,
-                                         SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is null THEN
-                                                BD.CURRENT_PIECES
-                                             END) AS UNVRFY_CUR_PCS_PITCH,
-                                         SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is not null THEN
-                                                BD.CURRENT_PIECES
-                                             END) AS VRFY_CUR_PCS_PITCH,
-                                         SUM(CASE
-                                               WHEN B.CARTON_ID IS NULL AND b.verify_date is null THEN
-                                                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                             END) AS UNVRFY_EXP_PCS_PITCH,
-                                         SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is not null THEN
-                                                BD.CURRENT_PIECES
-                                             END) AS VRFY_CUR_PCS_PULL,
-                                         SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is null THEN
-                                                NVL(BD.EXPECTED_PIECES, BD.CURRENT_PIECES)
-                                             END) AS UNVRFY_EXP_PCS_PULL,
-                                          SUM(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is null THEN
-                                                BD.CURRENT_PIECES
-                                             END) AS UNVRFY_CUR_PCS_PULL,                                        
-                                         MAX(CASE
-                                               WHEN B.CARTON_ID IS NULL THEN
-                                                 B.PITCHING_END_DATE
-                                               END
-                                            ) AS MAX_PITCHING_END_DATE,
-                                         MIN(CASE
-                                               WHEN B.CARTON_ID IS NULL THEN
-                                                 B.PITCHING_END_DATE
-                                             END
-                                            ) AS MIN_PITCHING_END_DATE,
-                                         MAX(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL THEN
-                                                 B.PITCHING_END_DATE
-                                               END
-                                            ) AS MAX_PULL_END_DATE,
-                                         MIN(CASE
-                                               WHEN B.CARTON_ID IS NOT NULL THEN
-                                                 B.PITCHING_END_DATE
-                                             END
-                                            ) AS MIN_PULL_END_DATE,
-                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
-                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
+       SUM(CASE
+               WHEN B.CARTON_ID IS NULL AND b.verify_date is not null OR b.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
+                coalesce(bd.expected_pieces, BD.CURRENT_PIECES)
+             END) AS PCS_COMPLETE_PITCH
                                     FROM <proxy />BOX B
                                    INNER JOIN <proxy />BOXDET BD
                                       ON B.PICKSLIP_ID = BD.PICKSLIP_ID
@@ -213,8 +171,6 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                    INNER JOIN <proxy />PS P
                                       ON P.PICKSLIP_ID = B.PICKSLIP_ID
                                    WHERE p.bucket_id = :BUCKET_ID
-                                    and b.stop_process_date is null 
-                                    and bd.stop_process_date is null
                                    GROUP BY BD.SKU_ID, B.VWH_ID
                             )
                             SELECT MS.SKU_ID        AS SKU_ID,
@@ -225,21 +181,12 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                    ms.UPC_CODE     AS UPC_CODE,
                                    AOS.VWH_ID       AS VWH_ID,
                                    AOS.QUANTITY_ORDERED             AS QUANTITY_ORDERED,
-                                   BOX_SKU.UNVRFY_CUR_PCS_PITCH     AS UNVRFY_CUR_PCS_PITCH,
-                                   BOX_SKU.VRFY_CUR_PCS_PITCH       AS VRFY_CUR_PCS_PITCH,
-                                   BOX_SKU.UNVRFY_EXP_PCS_PITCH     AS UNVRFY_EXP_PCS_PITCH,
-                                   BOX_SKU.VRFY_CUR_PCS_PULL        AS VRFY_CUR_PCS_PULL,
-                                   BOX_SKU.UNVRFY_EXP_PCS_PULL      AS UNVRFY_EXP_PCS_PULL,
-                                   BOX_SKU.UNVRFY_CUR_PCS_PULL      AS UNVRFY_CUR_PCS_PULL,
-                                   BOX_SKU.MAX_PITCHING_END_DATE    AS MAX_PITCHING_END_DATE,
-                                   BOX_SKU.MIN_PITCHING_END_DATE    AS MIN_PITCHING_END_DATE,
-                                   BOX_SKU.MAX_PULL_END_DATE        AS MAX_PULL_END_DATE,
-                                   BOX_SKU.MIN_PULL_END_DATE        AS MIN_PULL_END_DATE,
+                                  
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN,
-                                   BOX_SKU.count_pullable_boxes As count_pullable_boxes,
-                                   BOX_SKU.count_pitchable_boxes AS count_pitchable_boxes
+box_sku.PCS_COMPLETE_PITCH as PCS_COMPLETE_PITCH,
+                                   AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
+                                 
                               FROM ALL_ORDERED_SKU AOS
                              INNER JOIN <proxy />MASTER_SKU MS
                                 ON MS.SKU_ID = AOS.SKU_ID
@@ -266,21 +213,22 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                 VolumePerDozen = row.GetDecimal("VOLUME_PER_DOZEN")
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED"),
-                            BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN"))
+                            BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN")),
+                            PiecesCompletePitching = row.GetInteger("PCS_COMPLETE_PITCH")
                         };
-                    bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
-                    bs.Activities[BucketActivityType.Pitching].MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
-                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
-                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                    bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
-                    bs.Activities[BucketActivityType.Pulling].MaxEndDate = row.GetDateTimeOffset("MAX_PULL_END_DATE");
-                    bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
-                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
+                    //bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
+                    //bs.Activities[BucketActivityType.Pitching].MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
+                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
+                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
+                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
+                    //bs.Activities[BucketActivityType.Pulling].MaxEndDate = row.GetDateTimeOffset("MAX_PULL_END_DATE");
+                    //bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
+                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
+                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
+                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
                     // This contains in progress boxes also
-                    bs.Activities[BucketActivityType.Pitching].Stats[BoxState.NotStarted] = row.GetInteger("count_pitchable_boxes");
-                    bs.Activities[BucketActivityType.Pulling].Stats[BoxState.NotStarted] = row.GetInteger("count_pullable_boxes");
+                    //bs.Activities[BucketActivityType.Pitching].Stats[BoxState.NotStarted] = row.GetInteger("count_pitchable_boxes");
+                    //bs.Activities[BucketActivityType.Pulling].Stats[BoxState.NotStarted] = row.GetInteger("count_pullable_boxes");
                     return bs;
                 });
 

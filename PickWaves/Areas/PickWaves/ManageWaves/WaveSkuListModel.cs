@@ -25,57 +25,49 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         public IList<InventoryAreaModel> AllAreas { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? TotalPiecesPulled
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
-                    .Sum(p => p.PiecesComplete);
-            }
-        }
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? TotalPiecesPulled
+        //{
+        //    get
+        //    {
+        //        return BucketSkuList.Sum(p => p.TotalPiecesPulled);
+        //    }
+        //}
 
 
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? TotalPiecesPitched
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
-                    .Sum(p => p.PiecesComplete);
-            }
-        }
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? TotalPiecesPitched
+        //{
+        //    get
+        //    {
+        //        return BucketSkuList.Sum(p => p.TotalPiecesPitched);
+        //    }
+        //}
 
 
-        /// <summary>
-        /// Total number of pulling pieces in the bucket
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? TotalPullablePieces
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pulling)
-                    .Sum(p => p.PiecesBoxesCreated);
-            }
-        }
+        ///// <summary>
+        ///// Total number of pulling pieces in the bucket
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? TotalPullablePieces
+        //{
+        //    get
+        //    {
+        //        return BucketSkuList.Sum(p => p.TotalPullablePieces);
+        //    }
+        //}
 
-        /// <summary>
-        /// Total number of pitching pieces in the bucket
-        /// </summary>
-        [DisplayFormat(DataFormatString = "{0:N0}")]
-        public int? TotalPitchablePieces
-        {
-            get
-            {
-                return BucketSkuList.SelectMany(p => p.Activities)
-                    .Where(p => p.ActivityType == BucketActivityType.Pitching)
-                    .Sum(p => p.PiecesRemaining + p.PiecesComplete);
-            }
-        }
+        ///// <summary>
+        ///// Total number of pitching pieces in the bucket
+        ///// </summary>
+        //[DisplayFormat(DataFormatString = "{0:N0}")]
+        //public int? TotalPitchablePieces
+        //{
+        //    get
+        //    {
+        //        return BucketSkuList.Sum(p => p.TotalPitchablePieces);
+        //    }
+        //}
 
         /// <summary>
         /// Total Weight of all SKUs of this wave

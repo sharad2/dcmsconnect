@@ -180,7 +180,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                          select new
                          {
                              BucketSku = item,
-                             Activities = item.Activities.Select(p => new BucketActivityModel(p)),
+                             //Activities = item.Activities.Select(p => new BucketActivityModel(p)),
                              //  .Where(p => p.PiecesComplete > 0 || p.PiecesRemaining > 0),
                              Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
                          }).ToList();
@@ -210,10 +210,10 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                                             InventoryPieces = subitem == null || subitem.InventoryPieces == 0 ? (int?)null : subitem.InventoryPieces,
                                                             PiecesAtBestLocation = subitem == null ? (int?)null : subitem.PiecesAtBestLocation
                                                         }).ToList(),
-                                     Activities = sku.Activities.ToList()
+                                     //Activities = sku.Activities.ToList()
                                  })
-                                 .OrderBy(p => p.PercentCurrentPieces)
-                                 .ThenBy(p => p.Style)
+                                 //.OrderBy(p => p.PercentCurrentPieces)
+                                 .OrderBy(p => p.Style)
                                  .ThenBy(p => p.Color)
                                  .ThenBy(p => p.Dimension)
                                  .ThenBy(p => p.SkuSize)

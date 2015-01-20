@@ -95,7 +95,7 @@
                                     <abbr title="Virtual Warehouse">VWH</abbr>
                                 </small>
                             </h4>
-                            <div class="alert-info alert" style="display:inline-block; width:48%">
+                            @*<div class="alert-info alert" style="display:inline-block; width:48%">
                                 Pitched
                                 <small style="white-space:nowrap">
                                     @Html.DisplayFor(m => m.TotalPiecesPitched)
@@ -110,7 +110,7 @@
                                     of @Html.DisplayFor(m => m.TotalPullablePieces) Pieces
                                 </small>
                                 <span class="badge" style="white-space:nowrap">In n boxes</span>
-                            </div>
+                            </div>*@
 
                         </div>
                         <div class="col-md-8">
@@ -158,22 +158,31 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                                     </small>
                                 </h4>
-                                @if (Model.BucketSkuList[i].Activities.Count > 0)
-                                {
-                                    for (var j = 0; j < Model.BucketSkuList[i].Activities.Count; ++j)
-                                    {
-                                        <div class='alert alert-@Html.Raw(Model.BucketSkuList[i].Activities[j].ActivityType == BucketActivityType.Pulling ? "success" : "info")'
+                               
+
+                                        <div class='alert alert-success'
                                              style="display:inline-block; width:48%">
-                                            @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].DisplayName)
+                                            Pulling
 
                                             <small style="white-space:nowrap">
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesComplete)
-                                                of @Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].PiecesBoxesCreated) Pieces
+                                                @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePulling)
+                                                of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPulling) Pieces
                                             </small>
-                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].Activities[j].BoxesRemaining) boxes</span>                                                                                    
+                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes</span>                                                                                    
                                         </div>
-                                    }
-                                }
+
+                                <div class='alert alert-info'
+                                     style="display:inline-block; width:48%">
+                                    Pitching
+
+                                    <small style="white-space:nowrap">
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePitching)
+                                        of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPitching) Pieces
+                                    </small>
+                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes</span>
+                                </div>
+
+                                @*}
                                 else
                                 {
 
@@ -188,7 +197,7 @@
                                         </span>
                                     </div>
 
-                                }
+                                }*@
 
                             </div>
 
