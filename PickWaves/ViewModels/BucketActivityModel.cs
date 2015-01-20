@@ -68,6 +68,8 @@ namespace DcmsMobile.PickWaves.ViewModels
                  entity.Stats[PiecesKind.Expected, BoxState.Cancelled]
             }.Sum();
 
+            BoxesInprogress = entity.Stats.GetBoxCounts(new[] { BoxState.InProgress });
+
             BoxesCancelled = entity.Stats.GetBoxCounts(new[] { BoxState.Cancelled });
 
             BoxesNotStarted = entity.Stats.GetBoxCounts(new[] { BoxState.NotStarted });
@@ -83,6 +85,10 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesRemaining { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? BoxesInprogress { get; set; }
+
 
 
         [DisplayFormat(DataFormatString = "{0:N0}")]

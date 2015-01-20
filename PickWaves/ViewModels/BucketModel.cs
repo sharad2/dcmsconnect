@@ -233,11 +233,13 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities2.Sum(p => p.Value.BoxesComplete) + this.Activities2.Sum(p => p.Value.BoxesRemaining) + this.Activities2.Sum(p => p.Value.BoxesCancelled);
+                return this.Activities2.Sum(p => p.Value.BoxesComplete) + this.Activities2.Sum(p => p.Value.BoxesNotStarted) + 
+                    this.Activities2.Sum(p => p.Value.BoxesCancelled) + this.Activities2.Sum(p => p.Value.BoxesInprogress);
             }
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
+        [Obsolete]
         public int? BoxesCancelled
         {
             get
@@ -276,7 +278,8 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         /// <summary>
         /// Pieces in cancelled boxes
-        /// </summary> 
+        /// </summary>
+        [Obsolete]
         public int? CancelledPieces
         {
             get
@@ -346,6 +349,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
+       [Obsolete]
         public int? PiecesToShip
         {
             get
