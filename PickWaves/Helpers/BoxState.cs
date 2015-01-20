@@ -3,33 +3,27 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DcmsMobile.PickWaves.Helpers
 {
-    //[Flags]
+    /// <summary>
+    /// These states represent the progrssion of boxes, so they can be used for sorting
+    /// </summary>
     public enum BoxState
     {
-        [Display(Name="All")]
-        NotSet = 0x0,
-
-        [Display(Name = "Not Started")]
-        NotStarted = 0x1,
+        NotSet,
+        NotStarted,
 
         /// <summary>
         /// Not validated
         /// </summary>
-        [Display(Name = "In Progress")]
-        InProgress = 0x2,
+        InProgress,
 
         /// <summary>
         /// Means box has been validated
         /// </summary>
-        [Display(Name = "Completed")]
-        Completed = 0x4,
+        Completed,
 
         /// <summary>
         /// Cancelled
         /// </summary>
-        [Display(Name = "Cancelled")]
-        Cancelled = 0x8
-
-
+        Cancelled
     }
 }

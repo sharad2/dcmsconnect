@@ -244,19 +244,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public virtual ActionResult WaveBoxes(int bucketId)
         {
             var bucket = _service.Value.GetBucket(bucketId);
-            var Boxes = _service.Value.GetBucketBoxes(bucketId);
+            var boxes = _service.Value.GetBucketBoxes(bucketId);
             var model = new WaveBoxListModel
              {
                  Bucket = new BucketModel(bucket, _service.Value.GetCustomerName(bucket.MaxCustomerId), BucketModelFlags.HideViewerLink),
-                 //BucketId = bucketId,
-                 //StateFilter = stateFilter,
-                 //ActivityFilter = activityFilter,
-                 BoxesList = (from box in Boxes
+                 // List sorted by pull/pitch, followed by box state
+                 BoxesList = (from box in boxes
                               let routeBox = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchUcc1]
                               let routePickslip = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchPickslip1]
                               let routeCarton = Url.RouteCollection[DcmsLibrary.Mvc.PublicRoutes.DcmsConnect_SearchCarton1]
-                              orderby box.CancelDate descending, box.CurrentPieces, box.ExpectedPieces
-                              
                               select new BoxModel
                               {
                                   Ucc128Id = box.Ucc128Id,
@@ -283,9 +279,9 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                   {
                                       id = box.CartonId
                                   })
-                              }).ToArray()
+                              }).OrderBy(p => string.IsNullOrWhiteSpace(p.CartonId)).ThenBy(p => p.State).ThenBy(p => p.Ucc128Id).ToList()
              };
-            //return PartialView(this.Views._waveBoxesPartial, model);
+
             return View(Views.WaveBox,model);
         }
 

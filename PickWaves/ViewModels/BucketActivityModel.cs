@@ -40,7 +40,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             PiecesInProgress = entity.Stats[PiecesKind.Expected, BoxState.InProgress];
 
-            PiecesComplete = entity.Stats[PiecesKind.Expected, BoxState.Completed];
+            PiecesComplete = entity.Stats[PiecesKind.Current, BoxState.Completed];
 
             PiecesNotStarted = entity.Stats[PiecesKind.Expected, BoxState.NotStarted];
 
@@ -104,7 +104,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         #region Pieces
         /// <summary>
         /// The number of pieces which work has been completed. This does not include cancelled pieces. After a box is validated,
-        /// underpicked pieces are considered to be complete.
+        /// underpicked pieces are considered to be complete. PieceComplete is the number of pieces in the box
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesComplete { get; set; }
@@ -113,6 +113,9 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesNotStarted { get; set; }
 
+        /// <summary>
+        /// Number of current pieces in boxes which have started but not yet completed
+        /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesInProgress { get; set; }
 

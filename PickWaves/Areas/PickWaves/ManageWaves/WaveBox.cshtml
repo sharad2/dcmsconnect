@@ -21,21 +21,43 @@
 
 @helper DisplayBoxPieces(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box)
 {
+    string lblClass;
+    switch (box.State)
+    {
+        case BoxState.Cancelled:
+            lblClass = "label-danger";
+            break;
+
+        case BoxState.Completed:
+            lblClass = "label-success";
+            break;
+
+        case BoxState.InProgress:
+            lblClass = "label-warning";
+
+            break;
+
+        case BoxState.NotStarted:
+            lblClass = "label-default";
+
+            break;
+
+        default:
+            lblClass = "label-default";
+
+            break;
+
+    }
+
     if (box.CurrentPieces == box.ExpectedPieces)
     {
-        <span class="label label-default">
+        <span class="label  @lblClass">
             @box.CurrentPieces
-        </span>
-    }
-    else if ((box.CurrentPieces ?? 0) == 0 || box.State == BoxState.Cancelled)
-    {
-        <span class="label label-default">
-            @(box.CurrentPieces ?? 0) of @box.ExpectedPieces
         </span>
     }
     else
     {
-        <span class="label label-info">
+        <span class="label  @lblClass">
             @(box.CurrentPieces ?? 0) of @box.ExpectedPieces
         </span>
     }
@@ -56,12 +78,12 @@
 
         case BoxState.Completed:
             lblClass = "label-success";
-            stateText = "Completed";
+            stateText = "Validated";
             date = box.VerifyDate;
             break;
 
         case BoxState.InProgress:
-            lblClass = "label-info";
+            lblClass = "label-warning";
 
             if (box.MaxPitchingEndDate.HasValue)
             {
