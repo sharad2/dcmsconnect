@@ -4,6 +4,15 @@
 @{
     ViewBag.Title = "Pick Wave # " + Model.Bucket.BucketId;
     Layout = MVC_PickWaves.PickWaves.SharedViews.Views._layoutPickWaves;
+
+    var labelClasses = new Dictionary<BoxState, string>
+    {
+        {BoxState.Cancelled, "label-danger"},
+        {BoxState.Completed,"label-success"},
+        {BoxState.InProgress,"label-warning"},
+        {BoxState.NotStarted,"label-default"}    
+
+    };
 }
 
 @section applinks{
@@ -19,36 +28,9 @@
     <li class="divider"></li>
 }
 
-@helper DisplayBoxPieces(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box)
+@helper DisplayBoxPieces(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box, string lblClass)
 {
-    string lblClass;
-    switch (box.State)
-    {
-        case BoxState.Cancelled:
-            lblClass = "label-danger";
-            break;
-
-        case BoxState.Completed:
-            lblClass = "label-success";
-            break;
-
-        case BoxState.InProgress:
-            lblClass = "label-warning";
-
-            break;
-
-        case BoxState.NotStarted:
-            lblClass = "label-default";
-
-            break;
-
-        default:
-            lblClass = "label-default";
-
-            break;
-
-    }
-
+    
     if (box.CurrentPieces == box.ExpectedPieces)
     {
         <span class="label  @lblClass">
@@ -63,28 +45,24 @@
     }
 }
 
-@helper DisplayBoxStatus(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box)
+@helper DisplayBoxStatus(DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves.BoxModel box, string lblClass)
 {
-    string lblClass;
+   
     string stateText;
     DateTimeOffset? date;
     switch (box.State)
     {
-        case BoxState.Cancelled:
-            lblClass = "label-danger";
+        case BoxState.Cancelled:           
             stateText = "Cancelled";
             date = box.CancelDate;
             break;
 
-        case BoxState.Completed:
-            lblClass = "label-success";
+        case BoxState.Completed:          
             stateText = "Validated";
             date = box.VerifyDate;
             break;
 
         case BoxState.InProgress:
-            lblClass = "label-warning";
-
             if (box.MaxPitchingEndDate.HasValue)
             {
                 if (string.IsNullOrWhiteSpace(box.CartonId))
@@ -105,13 +83,11 @@
             break;
 
         case BoxState.NotStarted:
-            lblClass = "label-default";
             stateText = "Not Started";
             date = null;
             break;
 
         default:
-            lblClass = "label-default";
             stateText = "??";
             date = null;
             break;
@@ -243,10 +219,10 @@
                                     <a href="@Model.BoxesList[i].UrlInquiryCarton" target="_inquiry">
                                         @Html.DisplayFor(m => m.BoxesList[i].CartonId)
                                     </a>
-                                    @DisplayBoxPieces(Model.BoxesList[i])
+                                    @DisplayBoxPieces(Model.BoxesList[i], labelClasses[Model.BoxesList[i].State])
                                 </div>
                                 <div class="col-md-3" style="text-align:right">
-                                    @DisplayBoxStatus(Model.BoxesList[i])
+                                    @DisplayBoxStatus(Model.BoxesList[i], labelClasses[Model.BoxesList[i].State])
                                 </div>
                             </div>
                         </li>

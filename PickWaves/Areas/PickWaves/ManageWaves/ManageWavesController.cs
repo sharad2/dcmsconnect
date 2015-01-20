@@ -180,8 +180,8 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                          select new
                          {
                              BucketSku = item,
-                             Activities = item.Activities.Select(p => new BucketActivityModel(p))
-                               .Where(p => p.PiecesComplete > 0 || p.PiecesRemaining > 0),
+                             Activities = item.Activities.Select(p => new BucketActivityModel(p)),
+                             //  .Where(p => p.PiecesComplete > 0 || p.PiecesRemaining > 0),
                              Areas = item.BucketSkuInAreas.Select(p => p.InventoryArea)
                          }).ToList();
 
@@ -208,8 +208,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                                             Description = area.Description,
                                                             BestLocationId = subitem == null ? null : subitem.BestLocationId,
                                                             InventoryPieces = subitem == null || subitem.InventoryPieces == 0 ? (int?)null : subitem.InventoryPieces,
-                                                            PiecesAtBestLocation = subitem == null ? (int?)null : subitem.PiecesAtBestLocation,
-                                                            //QuantityInSmallestCarton = subitem == null ? (int?)null : subitem.PiecesInSmallestCarton
+                                                            PiecesAtBestLocation = subitem == null ? (int?)null : subitem.PiecesAtBestLocation
                                                         }).ToList(),
                                      Activities = sku.Activities.ToList()
                                  })
@@ -220,7 +219,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                  .ThenBy(p => p.SkuSize)
                                  .ToArray(),
                 AllAreas = allAreas,
-               // BucketId = bucketId,
             };
 
             //return PartialView(this.Views._waveSkusPartial, model);
