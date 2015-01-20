@@ -38,6 +38,8 @@ namespace DcmsMobile.PickWaves.ViewModels
                 };
             }
 
+            PiecesInProgress = entity.Stats[PiecesKind.Expected, BoxState.InProgress];
+
             PiecesComplete = entity.Stats[PiecesKind.Expected, BoxState.Completed];
 
             PiecesNotStarted = entity.Stats[PiecesKind.Expected, BoxState.NotStarted];
@@ -106,6 +108,8 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? PiecesNotStarted { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N0}")]
+        public int? PiecesInProgress { get; set; }
 
         /// <summary>
         /// The number of pieces for which pulling or picking needs to be performed.

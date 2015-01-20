@@ -190,16 +190,7 @@ TOTAL_ORDERED_PIECES AS
    WHERE PD.TRANSFER_DATE IS NULL
 </if>
    GROUP BY Q1.BUCKET_ID),
-TOTAL_PICKED_PIECES(BUCKET_ID,
-CAN_EXP_PCS_PITCH, CAN_CUR_PCS_PITCH,CAN_EXP_PCS_PULL,CAN_CUR_PCS_PULL,
-CAN_BOXES_PITCH, CAN_BOXES_PULL,
-VALIDATED_EXP_PCS_PITCH,VALIDATED_CUR_PCS_PITCH,VALIDATED_EXP_PCS_PULL,VALIDATED_CUR_PCS_PULL,
-INPROGRESS_EXP_PCS_PITCH, INPROGRESS_CUR_PCS_PITCH, INPROGRESS_EXP_PCS_PULL, INPROGRESS_CUR_PCS_PULL,
-INPROGRESS_BOXES_PITCH, VALIDATED_BOXES_PITCH, INPROGRESS_BOXES_PULL, VALIDATED_BOXES_PULL,
-NONPHYSICAL_BOXES_PULL, NONPHYSICAL_BOXES_PITCH,
-INPROGRESS_BOXES,
-    MAX_PITCHING_END_DATE,MIN_PITCHING_END_DATE,MAX_PULLING_END_DATE,MIN_PULLING_END_DATE
-) AS
+TOTAL_PICKED_PIECES AS
  (SELECT PS.BUCKET_ID AS BUCKET_ID,
 
          SUM(CASE
@@ -227,8 +218,6 @@ INPROGRESS_BOXES,
   
               COUNT(UNIQUE CASE WHEN BOX.CARTON_ID IS NOT NULL AND BOX.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
                             BOX.UCC128_ID END)                AS CAN_BOXES_PULL,
-
-
 
          SUM(CASE
                WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NOT NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL')  THEN
@@ -263,7 +252,15 @@ INPROGRESS_BOXES,
                 BD.CURRENT_PIECES
              END) AS INPROGRESS_CUR_PCS_PULL,
 
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NOT NULL  AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is null THEN
+                BD.EXPECTED_PIECES
+             END) AS NONPHYSICAL_EXP_PCS_PULL,
 
+         SUM(CASE
+               WHEN BOX.CARTON_ID IS NULL  AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is null THEN
+                BD.EXPECTED_PIECES
+             END) AS NONPHYSICAL_EXP_PCS_PITCH,
 
          COUNT(UNIQUE CASE
                  WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
@@ -284,21 +281,13 @@ INPROGRESS_BOXES,
                END) AS VALIDATED_BOXES_PULL,
 
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is not null THEN
+                 WHEN BOX.CARTON_ID IS NOT NULL AND BOX.VERIFY_DATE IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') and box.ia_id is null THEN
                   BOX.UCC128_ID
                END) AS NONPHYSICAL_BOXES_PULL,
          COUNT(UNIQUE CASE
-                 WHEN BOX.CARTON_ID IS NULL AND BOX.VERIFY_DATE IS NULL AND
-                      BOX.IA_ID IS NULL THEN
+                 WHEN BOX.CARTON_ID IS NULL AND (BOX.STOP_PROCESS_REASON IS NULL OR BOX.STOP_PROCESS_REASON != '$BOXCANCEL') AND BOX.IA_ID IS NULL THEN
                   BOX.UCC128_ID
                END) AS NONPHYSICAL_BOXES_PITCH,
-
-         COUNT(UNIQUE CASE
-                 WHEN BOX.VERIFY_DATE IS NULL THEN
-                  BOX.UCC128_ID
-               END) AS INPROGRESS_BOXES,
-
-
          MAX(CASE
                WHEN BOX.CARTON_ID IS NULL THEN
                 BOX.PITCHING_END_DATE
@@ -356,6 +345,8 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
        PP.VALIDATED_BOXES_PULL    AS VALIDATED_BOXES_PULL,
        PP.NONPHYSICAL_BOXES_PULL  AS NONPHYSICAL_BOXES_PULL,
        PP.NONPHYSICAL_BOXES_PITCH AS NONPHYSICAL_BOXES_PITCH,
+PP.NONPHYSICAL_EXP_PCS_PULL AS NONPHYSICAL_EXP_PCS_PULL,
+PP.NONPHYSICAL_EXP_PCS_PITCH AS NONPHYSICAL_EXP_PCS_PITCH,
        OP.MIN_DC_CANCEL_DATE      AS MIN_DC_CANCEL_DATE,
        OP.MAX_DC_CANCEL_DATE      AS MAX_DC_CANCEL_DATE,
        OP.FREEZE                  AS FREEZE,
@@ -417,6 +408,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VALIDATED_CUR_PCS_PULL");
                 activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("INPROGRESS_EXP_PCS_PULL");
                 activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("INPROGRESS_CUR_PCS_PULL");
+                activity.Stats[PiecesKind.Expected, BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_EXP_PCS_PULL");
 
                 activity.Stats[BoxState.Cancelled] = row.GetInteger("CAN_BOXES_PULL");
                 activity.Stats[BoxState.InProgress] = row.GetInteger("INPROGRESS_BOXES_PULL");
@@ -426,9 +418,6 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
     
                 activity.Stats[PiecesKind.Expected, BoxState.Cancelled] = row.GetInteger("CAN_EXP_PCS_PULL");
                 activity.Stats[PiecesKind.Current, BoxState.Cancelled] = row.GetInteger("CAN_CUR_PCS_PULL");
-
-
- 
 
                 activity.MaxEndDate = row.GetDateTimeOffset("MAX_PULLING_END_DATE");
                 activity.MinEndDate = row.GetDateTimeOffset("MIN_PULLING_END_DATE");
@@ -446,7 +435,7 @@ SELECT OP.BUCKET_ID               AS BUCKET_ID,
                 activity.Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VALIDATED_CUR_PCS_PITCH");
                 activity.Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("INPROGRESS_EXP_PCS_PITCH");
                 activity.Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("INPROGRESS_CUR_PCS_PITCH");
-
+                activity.Stats[PiecesKind.Expected, BoxState.NotStarted] = row.GetInteger("NONPHYSICAL_EXP_PCS_PITCH");
   
 
                 // Count of unverified boxes
