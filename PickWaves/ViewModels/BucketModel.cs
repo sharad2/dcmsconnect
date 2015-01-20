@@ -79,10 +79,13 @@ namespace DcmsMobile.PickWaves.ViewModels
                 To = src.MaxDcCancelDate
             };
 
-            var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Completed, BoxState.InProgress, BoxState.Cancelled })) ?? 0;
+            //var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Completed, BoxState.InProgress, BoxState.Cancelled })) ?? 0;
+            var pcs = src.Activities.Sum(p => new[] { p.Stats[PiecesKind.Expected, BoxState.Completed],
+                p.Stats[PiecesKind.Expected, BoxState.InProgress],
+                p.Stats[PiecesKind.Expected, BoxState.Cancelled] }.Sum());
             if (pcs != this.OrderedPieces)
             {
-                this.BoxNotCreatedPieces = this.OrderedPieces - pcs;
+                this.BoxNotCreatedPieces = this.OrderedPieces - (pcs ?? 0);
             }
 
             OrderedPieces = src.OrderedPieces;
@@ -230,7 +233,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.BoxesComplete) + this.Activities.Sum(p => p.BoxesRemaining) + this.Activities.Sum(p => p.BoxesCancelled);
+                return this.Activities2.Sum(p => p.Value.BoxesComplete) + this.Activities2.Sum(p => p.Value.BoxesRemaining) + this.Activities2.Sum(p => p.Value.BoxesCancelled);
             }
         }
 
@@ -239,7 +242,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.BoxesCancelled);
+                return this.Activities2.Sum(p => p.Value.BoxesCancelled);
             }
         }
 
@@ -249,7 +252,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.BoxesComplete);
+                return this.Activities2.Sum(p => p.Value.BoxesComplete);
             }
         }
 
@@ -261,7 +264,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.BoxesRemaining);
+                return this.Activities2.Sum(p => p.Value.BoxesRemaining);
             }
         }
 
@@ -278,7 +281,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.PiecesCancelled);
+                return this.Activities2.Sum(p => p.Value.PiecesCancelled);
             }
         }
 
@@ -322,7 +325,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.PiecesComplete);
+                return this.Activities2.Sum(p => p.Value.PiecesComplete);
             }
         }
 
@@ -334,7 +337,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Sum(p => p.PiecesRemaining);
+                return this.Activities2.Sum(p => p.Value.PiecesRemaining);
             }
 
         }
@@ -381,7 +384,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                if (this.Activities.Select(p => p.ActivityType == BucketActivityType.Pitching).First() && this.Activities.Select(p => !string.IsNullOrWhiteSpace(p.AreaId)).First())
+                if (!string.IsNullOrWhiteSpace(this.Activities2[BucketActivityType.Pitching].AreaId))
                 {
                     if (this.CountTotalSku > this.CountAssignedSku)
                     {
@@ -402,7 +405,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Where(p => p.ActivityType == BucketActivityType.Pulling).Select(p => p.AreaShortName).FirstOrDefault();
+                return this.Activities2[BucketActivityType.Pulling].AreaShortName;
             }
         }
 
@@ -414,7 +417,7 @@ namespace DcmsMobile.PickWaves.ViewModels
         {
             get
             {
-                return this.Activities.Where(p => p.ActivityType == BucketActivityType.Pitching).Select(p => p.AreaShortName).FirstOrDefault();
+                return this.Activities2[BucketActivityType.Pitching].AreaShortName;
             }
         }
     }

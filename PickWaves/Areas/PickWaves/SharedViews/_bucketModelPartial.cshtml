@@ -11,6 +11,110 @@
 
 <div class="row">
     <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-7">
+                <h4 class="list-group-item-heading">
+                    @Html.DisplayFor(m => m.CountPickslips) Pickslips
+                    &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
+                    <span class="badge"> DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</span>
+                </h4>
+            </div>
+            <div class="col-md-5">
+                <div class="form-inline pull-right" role="form">
+                    <div class="form-group">
+                        <p class="form-control-static">
+                            Priority
+                            &nbsp;
+                            @if (isAuthorized)
+                            {
+                                <div class="form-group">
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
+                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
+                                                <span class="glyphicon glyphicon-arrow-down"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="@Model.PriorityId" readonly size="1" style="text-align:right">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
+                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
+                                                <span class="glyphicon glyphicon-arrow-up"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                @Model.PriorityId
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List group -->
+        <div class="list-group">
+            @if (Model.Activities2.All(p => string.IsNullOrWhiteSpace(p.Value.AreaId)))
+            {
+
+
+                <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
+            }
+            @if (Model.RequiredBoxExpediting)
+            {
+                if (Model.BoxesTotal > 0 && !Model.IsFrozen)
+                {
+
+                    <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))"
+                       class="list-group-item list-group-item-info">
+                        Box Expediting  required <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+                    </a>
+
+                }
+                else
+                {
+                    <div class="list-group-item list-group-item-info"> Box Expediting  required</div>
+                }
+            }
+            @if (Model.QuickPitch)
+            {
+                <div class="list-group-item list-group-item-info">Quick Pitching required</div>
+            }
+
+            @if (Model.CountNotAssignedSku > 0)
+            {
+                <div class="list-group-item list-group-item-info">
+                    @Html.DisplayFor(m => m.CountNotAssignedSku) SKUs not assigned at any location
+                </div>
+            }
+
+            @if (Model.BoxNotCreatedPieces > 0)
+            {
+                if (Model.IsFrozen)
+                {
+                    <div class="list-group-item list-group-item-info">
+                        <strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong>
+                    </div>
+                }
+                else
+                {
+                    <div class="list-group-item list-group-item-danger">
+                        @string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)
+                    </div>
+                }
+            }
+
+            @if (Model.OverShippedPieces > 0)
+            {
+                <div class='list-group-item list-group-item-danger'>Overshipping @Html.DisplayFor(m => m.OverShippedPieces) pieces</div>
+            }
+        </div>
+
+    </div>
+    <div class="col-md-6">
         <table class="table table-bordered table-condensed">
             <thead>
                 <tr>
@@ -182,111 +286,7 @@
         </table>
 
         
-    </div>
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-7">
-                <h4 class="list-group-item-heading">
-                    @Html.DisplayFor(m => m.CountPickslips) Pickslips
-                    &bull; @Html.DisplayFor(m => m.CountPurchaseOrder) POs
-                    <span class="badge"> DC Cancel @Html.DisplayFor(m => m.DcCancelDateRange)</span>
-                </h4>
-            </div>
-            <div class="col-md-5">
-                <div class="form-inline pull-right" role="form">
-                    <div class="form-group">
-                        <p class="form-control-static">
-                            Priority
-                            &nbsp;
-                            @if (isAuthorized)
-                            {
-                                <div class="form-group">
-                                    <div class="input-group input-group-sm">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default decrease-priority" type="button" disabled="@(!isAuthorized)" title="Decrease priority"
-                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.DecrementPriority(Model.BucketId))">
-                                                <span class="glyphicon glyphicon-arrow-down"></span>
-                                            </button>
-                                        </span>
-                                        <input type="text" class="form-control" value="@Model.PriorityId" readonly size="1" style="text-align:right">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default increase-priority" type="button" disabled="@(!isAuthorized)" title="Increase priority"
-                                                    data-priority-url="@Url.Action(MVC_PickWaves.PickWaves.ManageWaves.IncrementPriority(Model.BucketId))">
-                                                <span class="glyphicon glyphicon-arrow-up"></span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                @Model.PriorityId
-                            }
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- List group -->
-        <div class="list-group">
-            @if (Model.Activities.Count(p => !string.IsNullOrWhiteSpace(p.AreaId)) == 0)
-            {
-
-
-                <div class="list-group-item list-group-item-danger">Area is not decided yet for Pulling and Pitching</div>
-            }
-            @if (Model.RequiredBoxExpediting)
-            {
-                if (Model.BoxesTotal > 0 && !Model.IsFrozen)
-                {
-
-                    <a href="@Url.Action(MVC_PickWaves.PickWaves.BoxPickPallet.Index(Model.BucketId))"
-                       class="list-group-item list-group-item-info">
-                        Box Expediting  required <span class="glyphicon glyphicon-chevron-right pull-right"></span>
-                    </a>
-
-                }
-                else
-                {
-                    <div class="list-group-item list-group-item-info"> Box Expediting  required</div>
-                }
-            }
-            @if (Model.QuickPitch)
-            {
-                <div class="list-group-item list-group-item-info">Quick Pitching required</div>
-            }
-
-            @if (Model.CountNotAssignedSku > 0)
-            {
-                <div class="list-group-item list-group-item-info">
-                    @Html.DisplayFor(m => m.CountNotAssignedSku) SKUs not assigned at any location
-                </div>
-            }
-
-            @if (Model.BoxNotCreatedPieces > 0)
-            {
-                if (Model.IsFrozen)
-                {
-                    <div class="list-group-item list-group-item-info">
-                        <strong>@string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)</strong>
-                    </div>
-                }
-                else
-                {
-                    <div class="list-group-item list-group-item-danger">
-                        @string.Format("No Boxes for {0:N0} pieces", Model.BoxNotCreatedPieces)
-                    </div>
-                }
-            }
-
-            @if (Model.OverShippedPieces > 0)
-            {
-                <div class='list-group-item list-group-item-danger'>Overshipping @Html.DisplayFor(m => m.OverShippedPieces) pieces</div>
-            }
-        </div>
-
-    </div>
+    </div>   
 </div>
 
 
