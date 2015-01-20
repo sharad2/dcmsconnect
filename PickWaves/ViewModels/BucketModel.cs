@@ -62,7 +62,8 @@ namespace DcmsMobile.PickWaves.ViewModels
             };
            
             var pcs = src.Activities.Sum(p => new[] { p.Stats[PiecesKind.Expected, BoxState.Completed],
-                p.Stats[PiecesKind.Expected, BoxState.InProgress]}.Sum());
+                p.Stats[PiecesKind.Expected, BoxState.InProgress],
+                p.Stats[PiecesKind.Expected, BoxState.Cancelled] }.Sum());
             if (pcs != this.OrderedPieces)
             {
                 this.BoxNotCreatedPieces = (pcs ?? 0) - this.OrderedPieces  ;
