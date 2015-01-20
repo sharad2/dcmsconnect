@@ -20,14 +20,14 @@
 
 @helper AlertType(int j)
 {
-    var activity = Model.Bucket.Activities.SingleOrDefault(p => p.AreaId == Model.AllAreas[j].AreaId);
-    if (activity == null)
+    var activity = Model.Bucket.Activities2.SingleOrDefault(p => p.Value.AreaId == Model.AllAreas[j].AreaId);
+    if (activity.Value == null)
     {
         @:well
     }
     else
     {
-        if (activity.ActivityType == BucketActivityType.Pulling)
+        if (activity.Key == BucketActivityType.Pulling)
         {
             @:alert alert-success
         }

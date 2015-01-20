@@ -76,8 +76,7 @@ namespace DcmsMobile.PickWaves.ViewModels
 
             BoxesComplete = entity.Stats.GetBoxCounts(new[] { BoxState.Completed}) ?? 0;
 
-            BoxesRemaining = (entity.Stats.GetBoxCounts( new[] { BoxState.InProgress, BoxState.Completed, BoxState.NotStarted }) ?? 0)
-                - (entity.Stats.GetBoxCounts(new[] { BoxState.Completed, BoxState.InProgress, BoxState.NotStarted }) ?? 0);
+            BoxesRemaining = (entity.Stats.GetBoxCounts(new[] { BoxState.InProgress, BoxState.NotStarted }) ?? 0);
 
         }
 
@@ -197,7 +196,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         [DataType(DataType.Text)]
         [DisplayFormat(NullDisplayText = "Not Started")]
         public DateRange PickingDateRange { get; set; }
-
 
 
     }

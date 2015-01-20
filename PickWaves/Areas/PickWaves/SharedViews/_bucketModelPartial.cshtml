@@ -1,9 +1,7 @@
 ﻿<!--This document is HTML5 Validated by "W3C Markup Validation Service" at http://validator.w3.org/ on 15 Dec 2014 by apanwar-->
 @model DcmsMobile.PickWaves.ViewModels.BucketModel
 @{
-    // To use this partial you must:
-    // - Include _bucketModelModalPartial after your container div
-    // - Include script _bucketModel.partial.js in your script bundle
+   
     bool? obj = ViewBag.IsAuthorized;
     var isAuthorized = obj ?? false;  // Is the user authorized to edit
 
@@ -349,59 +347,6 @@
                     </tr>
                 }
             </tbody>
-
-
-
-            @*<tfoot>
-                <tr class="active">
-                    <th>
-                        Total Completed
-                    </th>
-                    <td class="text-right">@Html.DisplayFor(m => m.PiecesToShip) of @Html.DisplayFor(m => m.OrderedPieces)</td>
-                    <td class="text-right">
-                        @if (Model.BoxesTotal > 0)
-                        {
-
-                            <span>@Html.DisplayFor(m => m.BoxesValidated) of @Html.DisplayFor(m => m.BoxesTotal)</span>
-
-                        }
-                        else
-                        {
-                            <strong class="text-info">
-                                Boxes not created yet
-                            </strong>
-                        }
-
-                    </td>
-
-                </tr>
-                @if (Model.PiecesRemaining > 0 || Model.BoxesRemaining > 0)
-                {
-                    <tr>
-                        <th>
-                            Remaining
-                        </th>
-                        <th class="text-right">@Html.DisplayFor(m => m.PiecesRemaining)</th>
-                        <th class="text-right">@Html.DisplayFor(m => m.BoxesRemaining)</th>
-                    </tr>
-                }
-
-
-
-
-                @if (Model.CancelledPieces > 0 || Model.BoxesCancelled > 0)
-                {
-                    <tr>
-                        <th>
-                            Total Cancelled
-                        </th>
-                        <th class="text-right">@Html.DisplayFor(m => m.CancelledPieces)</th>
-                        <th class="text-right">@Html.DisplayFor(m => m.BoxesCancelled)</th>
-                    </tr>
-                }
-            </tfoot>*@
         </table>
-
-
     </div>
 </div>

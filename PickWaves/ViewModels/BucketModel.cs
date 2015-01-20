@@ -11,12 +11,6 @@ namespace DcmsMobile.PickWaves.ViewModels
     public enum BucketModelFlags
     {
         Default,
-
-        ///// <summary>
-        ///// By default menu to edit/freeze/unfreeze bucket is not rendered. This flag renders it.
-        ///// </summary>
-        //ShowEditMenu,
-
         /// <summary>
         /// By default a link to the bucket viewer page is displayed. This flag hides it. It is set by the viewer page itself to prefent linking to self.
         /// </summary>
@@ -52,14 +46,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             CreatedBy = src.CreatedBy;
             CreationDate = src.CreationDate;
 
-            //// Pitching Bucket
-            //var activity = new BucketActivityModel(src.Activities[BucketActivityType.Pitching]);
-            //Activities.Add(activity);
-
-            //// Pulling Bucket
-            //activity = new BucketActivityModel(src.Activities[BucketActivityType.Pulling]);
-            //Activities.Add(activity);
-
             Activities2 = new Dictionary<BucketActivityType, BucketActivityModel>
             {
                 {BucketActivityType.Pitching, new BucketActivityModel(src.Activities[BucketActivityType.Pitching])},
@@ -67,31 +53,22 @@ namespace DcmsMobile.PickWaves.ViewModels
             };
 
             CountPickslips = src.CountPickslips;
-            CountPurchaseOrder = src.CountPurchaseOrder;
-            //MinPoId = src.MinPoId;
-            //MaxPoId = src.MaxPoId;
-            CustomerId = src.MaxCustomerId;
-            //MaxCustomerName = src.MaxCustomerName;
-
+            CountPurchaseOrder = src.CountPurchaseOrder;        
+            CustomerId = src.MaxCustomerId;           
             DcCancelDateRange = new DateRange
             {
                 From = src.MinDcCancelDate,
                 To = src.MaxDcCancelDate
             };
-
-            //var pcs = src.Activities.Sum(p => p.Stats.GetPieces(PiecesKind.Expected, new[] { BoxState.Completed, BoxState.InProgress, BoxState.Cancelled })) ?? 0;
+           
             var pcs = src.Activities.Sum(p => new[] { p.Stats[PiecesKind.Expected, BoxState.Completed],
-                p.Stats[PiecesKind.Expected, BoxState.InProgress],
-                p.Stats[PiecesKind.Expected, BoxState.Cancelled] }.Sum());
+                p.Stats[PiecesKind.Expected, BoxState.InProgress]}.Sum());
             if (pcs != this.OrderedPieces)
             {
-                this.BoxNotCreatedPieces = this.OrderedPieces - (pcs ?? 0);
+                this.BoxNotCreatedPieces = (pcs ?? 0) - this.OrderedPieces  ;
             }
 
             OrderedPieces = src.OrderedPieces;
-
-
-
             ProgressStage state;
             if (src.IsFrozen)
             {
@@ -176,15 +153,6 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         #endregion
 
-        //[Obsolete]
-        //public IList<BucketActivityModel> Activities
-        //{
-        //    get
-        //    {
-        //        return _activities;
-        //    }
-        //}
-
         public IDictionary<BucketActivityType, BucketActivityModel> Activities2 { get; set; }
 
         [Display(Name = "#Pickslips")]
@@ -239,17 +207,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         }
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
-        [Obsolete]
-        public int? BoxesCancelled
-        {
-            get
-            {
-                return this.Activities2.Sum(p => p.Value.BoxesCancelled);
-            }
-        }
-
-
-        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesValidated
         {
             get
@@ -257,9 +214,6 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return this.Activities2.Sum(p => p.Value.BoxesComplete);
             }
         }
-
-
-
 
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? BoxesRemaining
@@ -269,9 +223,7 @@ namespace DcmsMobile.PickWaves.ViewModels
                 return this.Activities2.Sum(p => p.Value.BoxesRemaining);
             }
         }
-
-
-
+        
         #endregion
 
         #region Pieces
