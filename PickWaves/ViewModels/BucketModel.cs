@@ -28,20 +28,20 @@ namespace DcmsMobile.PickWaves.ViewModels
     /// <typeparam name="T"></typeparam>
     public class BucketModel
     {
-        private readonly IList<BucketActivityModel> _activities;
+        //private readonly IList<BucketActivityModel> _activities;
         public BucketModel()
         {
-            _activities = new List<BucketActivityModel>(3)
-                {
-                    new BucketActivityModel {ActivityType = BucketActivityType.Pulling},
-                    new BucketActivityModel {ActivityType = BucketActivityType.Pitching}
-                };
+            Activities2 = new Dictionary<BucketActivityType, BucketActivityModel>
+            {
+                {BucketActivityType.Pitching, new BucketActivityModel()},
+                {BucketActivityType.Pulling, new BucketActivityModel()}
+            };
         }
 
         internal BucketModel(BucketWithActivities src, string customerName, BucketModelFlags flags)
         {
             CustomerName = customerName;
-            _activities = new List<BucketActivityModel>(3);
+            //_activities = new List<BucketActivityModel>(3);
             BucketId = src.BucketId;
             BucketName = src.BucketName;
             BucketComment = src.BucketComment;
@@ -52,13 +52,13 @@ namespace DcmsMobile.PickWaves.ViewModels
             CreatedBy = src.CreatedBy;
             CreationDate = src.CreationDate;
 
-            // Pitching Bucket
-            var activity = new BucketActivityModel(src.Activities[BucketActivityType.Pitching]);
-            Activities.Add(activity);
+            //// Pitching Bucket
+            //var activity = new BucketActivityModel(src.Activities[BucketActivityType.Pitching]);
+            //Activities.Add(activity);
 
-            // Pulling Bucket
-            activity = new BucketActivityModel(src.Activities[BucketActivityType.Pulling]);
-            Activities.Add(activity);
+            //// Pulling Bucket
+            //activity = new BucketActivityModel(src.Activities[BucketActivityType.Pulling]);
+            //Activities.Add(activity);
 
             Activities2 = new Dictionary<BucketActivityType, BucketActivityModel>
             {
@@ -176,14 +176,14 @@ namespace DcmsMobile.PickWaves.ViewModels
 
         #endregion
 
-        [Obsolete]
-        public IList<BucketActivityModel> Activities
-        {
-            get
-            {
-                return _activities;
-            }
-        }
+        //[Obsolete]
+        //public IList<BucketActivityModel> Activities
+        //{
+        //    get
+        //    {
+        //        return _activities;
+        //    }
+        //}
 
         public IDictionary<BucketActivityType, BucketActivityModel> Activities2 { get; set; }
 
