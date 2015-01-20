@@ -302,7 +302,6 @@ namespace DcmsMobile.PickWaves.ViewModels
         /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
         [DisplayFormat(DataFormatString = "{0:N0}")]
-       [Obsolete]
         public int? PiecesToShip
         {
             get
