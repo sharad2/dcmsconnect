@@ -138,8 +138,9 @@
                                         <span class="label label-success">@Html.DisplayFor(m => m.BucketSkuList[i].Volume)</span>
                                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                                     </small>
+                                    <span class="badge">@Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedTotal) Pieces</span>
                                 </h4>
-                                @if (Model.BucketSkuList[i].PiecesBoxesCreatedPulling > 0) { 
+                                @if (Model.BucketSkuList[i].PiecesBoxesCreatedPulling > 0 || true) { 
                                 <div class='alert alert-success'
                                      style="display:inline-block; width:48%">
                                     Pulling
@@ -148,7 +149,7 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePulling)
                                         of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPulling) Pieces
                                     </small>
-                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes remaining</span>
+                                    <span style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes remaining</span>
                                 </div>
                                 }
                                 @if (Model.BucketSkuList[i].PiecesBoxesCreatedPitching > 0)
@@ -161,7 +162,7 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePitching)
                                         of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPitching) Pieces
                                     </small>
-                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes remaining</span>
+                                    <span style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes remaining</span>
                                 </div>
                                 }
                             </div>

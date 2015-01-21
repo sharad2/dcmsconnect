@@ -23,13 +23,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             Volume = entity.Sku.VolumePerDozen / 12;
             Weight = entity.Sku.WeightPerDozen / 12;
             OrderedPieces = entity.QuantityOrdered;
-            PiecesCompletePulling = entity.PiecesCompletePulling;
-            PiecesBoxesCreatedPulling = entity.PiecesBoxesCreatedPulling;
-            BoxesRemainingPulling = entity.BoxesRemainingPulling;
 
+            PiecesCompletePulling = entity.PiecesCompletePulling;
             PiecesCompletePitching = entity.PiecesCompletePitching;
+
+            PiecesBoxesCreatedPulling = entity.PiecesBoxesCreatedPulling;
             PiecesBoxesCreatedPitching = entity.PiecesBoxesCreatedPitching;
+
+            BoxesRemainingPulling = entity.BoxesRemainingPulling;
             BoxesRemainingPitching = entity.BoxesRemainingPitching;
+
+           
         }
 
         [Key]
@@ -86,6 +90,15 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public int? PiecesBoxesCreatedPitching { get; set; }
 
         public int? BoxesRemainingPitching { get; set; }
+
+        public int? PiecesBoxesCreatedTotal
+        { 
+            get
+            {
+                return PiecesBoxesCreatedPitching ?? 0 + PiecesBoxesCreatedPulling ?? 0; 
+            } 
+        }
+
     }
 
     /// <summary>
