@@ -157,11 +157,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                                  END) AS PCS_COMPLETE_PULLING,
 
                                                 SUM(CASE
-                                                           WHEN b.CARTON_ID IS NULL AND b.VERIFY_DATE IS NOT NULL or  b.STOP_PROCESS_REASON != '$BOXCANCEL'  and b.ia_id is null  THEN
+                                                           WHEN b.CARTON_ID IS NULL  THEN
                                                        BD.EXPECTED_PIECES
                                                          END) AS PCS_BOX_CREATED_PITCH,
                                                  SUM(CASE
-                                                           WHEN b.CARTON_ID IS NOT NULL AND b.VERIFY_DATE IS NOT  NULL or  b.STOP_PROCESS_REASON != '$BOXCANCEL'  and b.ia_id is null  THEN
+                                                           WHEN b.CARTON_ID IS NOT NULL  THEN
                                                           BD.EXPECTED_PIECES
                                                          END) AS PCS_BOX_CREATED_PULL,
 
