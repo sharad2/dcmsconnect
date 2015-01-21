@@ -81,26 +81,7 @@ namespace DcmsMobile.PickWaves.Repository
         /// Get bucket for customer is not showing cancelled box.
         public BucketWithActivities GetBucket(int bucketId)
         {
-            //if (bucketId == null && string.IsNullOrWhiteSpace(customerId))
-            //{
-            //    throw new ArgumentException("All parameters cannot be null to avoid retrieving too many buckets");
-            //}
-            //string bucketState = null;
-            //switch (state)
-            //{
-            //    case ProgressStage.Frozen:
-            //        bucketState = "Frozen";
-            //        break;
-            //    case ProgressStage.InProgress:
-            //        bucketState = "InProgress";
-            //        break;
-            //    case ProgressStage.Completed:
-            //        bucketState = "Completed";
-            //        break;
-            //    case ProgressStage.Unknown:
-            //        throw new ArgumentOutOfRangeException("state");
-            //}
-            var QUERY = @"
+                      var QUERY = @"
            WITH Q1 AS
  -- Bucket header information
 (SELECT BKT.BUCKET_ID AS BUCKET_ID,
@@ -116,14 +97,10 @@ namespace DcmsMobile.PickWaves.Repository
          SUM(PS.TOTAL_QUANTITY_ORDERED) OVER(PARTITION BY BKT.BUCKET_ID) AS ORDERED_PIECES,
          PO.DC_CANCEL_DATE AS MIN_DC_CANCEL_DATE,
          PO.DC_CANCEL_DATE AS MAX_DC_CANCEL_DATE,
-         PS.PO_ID AS PO_COUNT,
-       --  MIN(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MIN_PO,
-       --  MAX(PS.PO_ID) OVER(PARTITION BY PS.BUCKET_ID) AS MAX_PO,
-         PS.CUSTOMER_ID AS CUSTOMER_ID,
-       --  CUST.NAME AS CUSTOMER_NAME,
+         PS.PO_ID AS PO_COUNT,      
+         PS.CUSTOMER_ID AS CUSTOMER_ID,      
          PS.PICKSLIP_ID AS PICKSLIP_ID,
          BKT.FREEZE AS FREEZE,
-         --BKT.QUICK_PITCH_FLAG AS QUICK_PITCH_FLAG,
 CASE WHEN BKT.PITCH_TYPE = 'QUICK' THEN 'Y' END AS QUICK_PITCH_FLAG,
          BKT.PULL_CARTON_AREA AS PULL_AREA_ID,
          TIA.SHORT_NAME AS PULL_AREA_SHORT_NAME,
@@ -162,10 +139,7 @@ TOTAL_ORDERED_PIECES AS
          MAX(Q1.MIN_DC_CANCEL_DATE) AS MIN_DC_CANCEL_DATE,
          MAX(Q1.MAX_DC_CANCEL_DATE) AS MAX_DC_CANCEL_DATE,
          COUNT(UNIQUE Q1.PO_COUNT) AS PO_COUNT,
-      --   MIN(Q1.MIN_PO) AS MIN_PO,
-      --   MAX(Q1.MAX_PO) AS MAX_PO,
          MAX(Q1.CUSTOMER_ID) AS CUSTOMER_ID,
-         --MAX(Q1.CUSTOMER_NAME) AS CUSTOMER_NAME,
          COUNT(UNIQUE Q1.PICKSLIP_ID) AS PICKSLIP_COUNT,
          MAX(Q1.FREEZE) AS FREEZE,
          MAX(Q1.QUICK_PITCH_FLAG) AS QUICK_PITCH_FLAG,

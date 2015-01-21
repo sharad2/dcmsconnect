@@ -254,34 +254,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             private set;
         }
 
-        ///// <summary>
-        ///// Are we overshipping? This should always be negative or 0
-        ///// </summary>    
-        //public int? OverShippedPieces
-        //{
-        //    get
-        //    {
-        //        if (this.PiecesComplete <= this.OrderedPieces)
-        //        {
-        //            // Normal case
-        //            return null;
-        //        }
-        //        return this.PiecesComplete - this.OrderedPieces;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Total number of pieces which are pulled and pitched, i.e. PickedPieces + PulledPieces
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? PiecesComplete
-        //{
-        //    get
-        //    {
-        //        return this.Activities2.Sum(p => p.Value.PiecesComplete);
-        //    }
-        //}
-
         /// <summary>
         /// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
         /// </summary>
@@ -294,19 +266,6 @@ namespace DcmsMobile.PickWaves.ViewModels
             }
 
         }
-
-        ///// <summary>
-        ///// Number of pieces which have not yet reached their respective box, i.e. OrderedPieces - PiecesInBox
-        ///// </summary>
-        //[DisplayFormat(DataFormatString = "{0:N0}")]
-        //public int? PiecesToShip
-        //{
-        //    get
-        //    {
-        //        return this.PiecesRemaining + PiecesComplete;
-        //    }
-
-        //}
 
         /// <summary>
         /// % w.r.t. pieces complete + pieces incomplete

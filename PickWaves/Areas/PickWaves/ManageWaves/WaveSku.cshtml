@@ -95,23 +95,6 @@
                                     <abbr title="Virtual Warehouse">VWH</abbr>
                                 </small>
                             </h4>
-                            @*<div class="alert-info alert" style="display:inline-block; width:48%">
-                                Pitched
-                                <small style="white-space:nowrap">
-                                    @Html.DisplayFor(m => m.TotalPiecesPitched)
-                                    of @Html.DisplayFor(m => m.TotalPitchablePieces) Pieces
-                                </small>
-                                <span class="badge" style="white-space:nowrap">In n boxes</span>
-                            </div>
-                            <div class="alert-success alert" style="display:inline-block; width:48%;">
-                                Pulled
-                                <small style="white-space:nowrap">
-                                    @Html.DisplayFor(m => m.TotalPiecesPulled)
-                                    of @Html.DisplayFor(m => m.TotalPullablePieces) Pieces
-                                </small>
-                                <span class="badge" style="white-space:nowrap">In n boxes</span>
-                            </div>*@
-
                         </div>
                         <div class="col-md-8">
                             <div class="row">
@@ -131,8 +114,6 @@
                                                     &larr;@Model.AllAreas[i].ReplenishAreaId
                                                 </small>
                                             }
-
-
                                             <div class="label label-primary">
                                                 Pieces @@ location
                                             </div>
@@ -158,18 +139,16 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                                     </small>
                                 </h4>
-                               
+                                <div class='alert alert-success'
+                                     style="display:inline-block; width:48%">
+                                    Pulling
 
-                                        <div class='alert alert-success'
-                                             style="display:inline-block; width:48%">
-                                            Pulling
-
-                                            <small style="white-space:nowrap">
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePulling)
-                                                of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPulling) Pieces
-                                            </small>
-                                            <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes</span>                                                                                    
-                                        </div>
+                                    <small style="white-space:nowrap">
+                                        @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePulling)
+                                        of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPulling) Pieces
+                                    </small>
+                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes</span>
+                                </div>
 
                                 <div class='alert alert-info'
                                      style="display:inline-block; width:48%">
@@ -181,23 +160,6 @@
                                     </small>
                                     <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes</span>
                                 </div>
-
-                                @*}
-                                else
-                                {
-
-                                    <div class='alert-warning alert'>
-                                        Not picked or pulled yet
-
-                                        <span class="pull-right">
-                                            <span class="badge">
-                                                @Html.DisplayFor(m => m.BucketSkuList[i].OrderedPieces)
-                                            </span>
-                                            Pieces ordered
-                                        </span>
-                                    </div>
-
-                                }*@
 
                             </div>
 
@@ -228,9 +190,9 @@
                                                         </div>
                                                     }
                                                 </div>
-                                               
+
                                             }
-                                        
+
                                         </div>
 
                                     }

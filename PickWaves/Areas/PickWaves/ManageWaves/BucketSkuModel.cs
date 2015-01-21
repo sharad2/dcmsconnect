@@ -23,10 +23,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
             Volume = entity.Sku.VolumePerDozen / 12;
             Weight = entity.Sku.WeightPerDozen / 12;
             OrderedPieces = entity.QuantityOrdered;
-            //TotalPitchablePieces = entity.TotalPitchablePieces;
-            //TotalPiecesPulled = entity.TotalPiecesPulled;
-            //TotalPiecesPitched = entity.TotalPiecesPitched;
-            //TotalPullablePieces = entity.TotalPullablePieces;
             PiecesCompletePulling = entity.PiecesCompletePulling;
             PiecesBoxesCreatedPulling = entity.PiecesBoxesCreatedPulling;
             BoxesRemainingPulling = entity.BoxesRemainingPulling;
@@ -47,14 +43,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public string SkuSize { get; set; }
 
-        //public int? TotalPitchablePieces { get; set; }
-
-        //public int? TotalPiecesPulled { get; set; }
-
-        //public int? TotalPiecesPitched { get; set; }
-
-        //public int? TotalPullablePieces { get; set; }
-
         public string DisplaySku
         {
             get
@@ -73,7 +61,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(DataFormatString = "{0:N4}")]
         public decimal? Volume { get; set; }
 
-        //public bool IsAssignedSku { get; set; }
 
         /// <summary>
         /// Number of pieces ordered for this SKU
@@ -87,21 +74,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// </summary>
         public IList<BucketSkuAreaModel> InventoryByArea { get; set; }
 
-        //[Obsolete]
-        //public IList<BucketActivityModel> Activities { get; set; }
-
-        //internal decimal PercentCurrentPieces
-        //{
-        //    get
-        //    {
-        //        var inbox = this.Activities.Sum(p => p.PiecesComplete);
-        //        if (inbox == 0 || (OrderedPieces ?? 0) == 0)
-        //        {
-        //            return 0;       // Not full at all
-        //        }
-        //        return (decimal)inbox / (this.OrderedPieces.Value);
-        //    }
-        //}
 
         public int? PiecesCompletePulling { get; set; }
 
@@ -124,9 +96,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         [DisplayFormat(DataFormatString = "{0:N0}")]
         public int? InventoryPieces { get; set; }
 
-        //[DisplayFormat(DataFormatString = "[{0:N0}]")]
-        //public int? QuantityInSmallestCarton { get; set; }
-
         public int? PiecesAtBestLocation { get; set; }
 
         [DisplayFormat(DataFormatString = "@ {0}")]
@@ -137,8 +106,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         public string Description { get; set; }
 
         public string ShortName { get; set; }
-
-
 
         public string AreaId { get; set; }
     }
