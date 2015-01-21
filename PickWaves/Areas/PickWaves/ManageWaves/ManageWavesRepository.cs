@@ -52,9 +52,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                   IsFrozen = row.GetString("FREEZE") == "Y",
                   CustomerId = row.GetString("CUSTOMER_ID"),
                   PullAreaId = row.GetString("PULL_AREA_ID"),
-                  // PullAreaShortName = row.GetString("PULL_AREA_SHORT_NAME"),
                   PitchAreaId = row.GetString("PITCH_AREA_ID"),
-                  //  PitchAreaShortName = row.GetString("PITCH_AREA_SHORT_NAME"),
                   QuickPitch = row.GetString("QUICK_PITCH_FLAG") == "Y",
                   RequireBoxExpediting = row.GetString("PULL_TYPE") == "EXP"
 
@@ -75,19 +73,11 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
         /// <returns></returns>
         public IList<BucketSku> GetBucketSkuList(int bucketId)
         {
-
-            /*
-            SELECT ...,
-                         count(unique case when b.carton_id is not null then b.ucc128_id end) AS count_pullable_boxes,
-                         count(unique case when b.carton_id is null then b.ucc128_id end) AS count_pitchable_boxes
-                FROM ...
-             */
             const string QUERY = @"
                         WITH ALL_ORDERED_SKU AS
                                  (                             
                                     SELECT PD.SKU_ID               AS SKU_ID,
-                                           P.VWH_ID                AS VWH_ID,
-                                       --  MAX(B.PITCH_IA_ID)  AS PITCH_AREA,
+                                           P.VWH_ID                AS VWH_ID,                                    
                                          SUM(PD.PIECES_ORDERED)  AS QUANTITY_ORDERED
                                     FROM <proxy />PS P
                                    INNER JOIN <proxy />PSDET PD
@@ -95,17 +85,17 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
                                    WHERE P.BUCKET_ID = :BUCKET_ID
                                      AND P.TRANSFER_DATE IS NULL
                                      AND PD.TRANSFER_DATE IS NULL
-group by PD.SKU_ID, P.VWH_ID
-                            ),
-                            ALL_INVENTORY_SKU(SKU_ID,
-                            VWH_ID,
-                            BUILDING_ID,
-                            INVENTORY_AREA,
-                            SHORT_NAME,
-                            PIECES_IN_AREA,
-location_id,
-                            DESCRIPTION,
-                            REPLENISH_FROM_AREA_ID
+                                            group by PD.SKU_ID, P.VWH_ID
+                                      ),
+                                ALL_INVENTORY_SKU(SKU_ID,
+                                VWH_ID,
+                                BUILDING_ID,
+                                INVENTORY_AREA,
+                                SHORT_NAME,
+                                PIECES_IN_AREA,
+                                location_id,
+                                DESCRIPTION,
+                                REPLENISH_FROM_AREA_ID
                             ) AS
                                  (SELECT SCD.SKU_ID AS SKU_ID,
                                          SC.VWH_ID AS VWH_ID,
@@ -113,7 +103,7 @@ location_id,
                                          SC.CARTON_STORAGE_AREA AS INVENTORY_AREA,
                                          TIA.SHORT_NAME,
                                          SCD.QUANTITY AS PIECES_IN_AREA,
-         sc.location_id,
+                                         sc.location_id,
                                          TIA.DESCRIPTION, 
                                          NULL
                                     FROM <proxy />SRC_CARTON_DETAIL SCD
@@ -126,7 +116,6 @@ location_id,
                                       ON SC.CARTON_STORAGE_AREA = TIA.INVENTORY_STORAGE_AREA
                                    WHERE SC.SUSPENSE_DATE IS NULL
                                      AND SC.QUALITY_CODE = '01'
---and (scd.sku_id, sc.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)
                                 UNION ALL
                                 SELECT IC.SKU_ID,
                                        IL.VWH_ID,
@@ -142,28 +131,48 @@ location_id,
                                     ON IL.IA_ID = IC.IA_ID
                                    AND IL.LOCATION_ID = IC.LOCATION_ID
                                  INNER JOIN <proxy />IA I
-                                    ON I.IA_ID = IL.IA_ID 
---   where (ic.sku_id, il.vwh_id) in (select sku_id, vwh_id from ALL_ORDERED_SKU)                           
-                                ),
+                                    ON I.IA_ID = IL.IA_ID),
                             PIVOT_ALL_INVENTORY_SKU(SKU_ID,
                             VWH_ID,
                             XML_COLUMN) AS
                                  (SELECT *
                                     FROM ALL_INVENTORY_SKU PIVOT XML(
-MAX(location_id) KEEP(DENSE_RANK FIRST ORDER BY PIECES_IN_AREA DESC) AS best_location_id,
-MAX(PIECES_IN_AREA) AS PIECES_AT_BEST_LOCATION,
-SUM(PIECES_IN_AREA) AS PIECES_IN_AREA,
-MAX(DESCRIPTION) AS AREA_DESCRIPTION,
-MAX(SHORT_NAME) AS AREA_SHORT_NAME,
-MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
+                                    MAX(location_id) KEEP(DENSE_RANK FIRST ORDER BY PIECES_IN_AREA DESC) AS best_location_id,
+                                    MAX(PIECES_IN_AREA) AS PIECES_AT_BEST_LOCATION,
+                                    SUM(PIECES_IN_AREA) AS PIECES_IN_AREA,
+                                    MAX(DESCRIPTION) AS AREA_DESCRIPTION,
+                                    MAX(SHORT_NAME) AS AREA_SHORT_NAME,
+                                    MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                     FOR(INVENTORY_AREA, BUILDING_ID) IN(ANY, ANY))),
-                            BOX_SKU AS
+                             BOX_SKU AS
                                  (SELECT BD.SKU_ID AS SKU_ID,
                                          B.VWH_ID AS VWH_ID,
-       SUM(CASE
-               WHEN B.CARTON_ID IS NULL AND b.verify_date is not null OR b.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
-                coalesce(bd.expected_pieces, BD.CURRENT_PIECES)
-             END) AS PCS_COMPLETE_PITCH
+                                           SUM(CASE
+                                                   WHEN B.CARTON_ID IS NULL AND b.verify_date is not null OR b.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
+                                                    coalesce(bd.expected_pieces, BD.CURRENT_PIECES)
+                                                 END) AS PCS_COMPLETE_PITCH,
+                                           SUM(CASE
+                                                   WHEN B.CARTON_ID IS NOT NULL AND b.verify_date is not null OR b.STOP_PROCESS_REASON = '$BOXCANCEL' THEN
+                                                    coalesce(bd.expected_pieces, BD.CURRENT_PIECES)
+                                                 END) AS PCS_COMPLETE_PULLING,
+
+                                                SUM(CASE
+                                                           WHEN b.CARTON_ID IS NULL AND b.VERIFY_DATE IS NOT NULL or  b.STOP_PROCESS_REASON != '$BOXCANCEL'  and b.ia_id is null  THEN
+                                                       BD.EXPECTED_PIECES
+                                                         END) AS PCS_BOX_CREATED_PITCH,
+                                                 SUM(CASE
+                                                           WHEN b.CARTON_ID IS NOT NULL AND b.VERIFY_DATE IS NOT  NULL or  b.STOP_PROCESS_REASON != '$BOXCANCEL'  and b.ia_id is null  THEN
+                                                          BD.EXPECTED_PIECES
+                                                         END) AS PCS_BOX_CREATED_PULL,
+
+                                                 COUNT(UNIQUE CASE
+                                                         WHEN b.CARTON_ID IS NULL AND b.VERIFY_DATE IS NULL  OR b.STOP_PROCESS_REASON != '$BOXCANCEL' and b.ia_id is not null THEN
+                                                          b.UCC128_ID
+                                                       END) AS BOX_REMAINING_PITCH,
+                                                 COUNT(UNIQUE CASE
+                                                              WHEN b.CARTON_ID IS NOT NULL AND b.VERIFY_DATE IS NULL OR b.STOP_PROCESS_REASON != '$BOXCANCEL' and b.ia_id is not null THEN
+                                                              b.UCC128_ID
+                                                           END) AS BOX_REMAINING_PULL
                                     FROM <proxy />BOX B
                                    INNER JOIN <proxy />BOXDET BD
                                       ON B.PICKSLIP_ID = BD.PICKSLIP_ID
@@ -184,7 +193,16 @@ MAX(REPLENISH_FROM_AREA_ID) AS REPLENISH_FROM_AREA_ID
                                   
                                    MS.WEIGHT_PER_DOZEN              AS WEIGHT_PER_DOZEN,
                                    MS.VOLUME_PER_DOZEN              AS VOLUME_PER_DOZEN,
-box_sku.PCS_COMPLETE_PITCH as PCS_COMPLETE_PITCH,
+
+                                   box_sku.PCS_COMPLETE_PITCH as PCS_COMPLETE_PITCH,
+                                   box_sku.PCS_COMPLETE_PULLING as PCS_COMPLETE_PULLING,
+
+                                   box_sku.BOX_REMAINING_PITCH as BOX_REMAINING_PITCH,
+                                   box_sku.BOX_REMAINING_PULL as BOX_REMAINING_PULL,
+
+                                   box_sku.PCS_BOX_CREATED_PITCH as PCS_BOX_CREATED_PITCH,
+                                   box_sku.PCS_BOX_CREATED_PULL as PCS_BOX_CREATED_PULL,
+
                                    AIS.XML_COLUMN.getstringval()    AS XML_COLUMN
                                  
                               FROM ALL_ORDERED_SKU AOS
@@ -214,21 +232,21 @@ box_sku.PCS_COMPLETE_PITCH as PCS_COMPLETE_PITCH,
                             },
                             QuantityOrdered = row.GetInteger("QUANTITY_ORDERED"),
                             BucketSkuInAreas = MapOrderedSkuXml(row.GetString("XML_COLUMN")),
-                            PiecesCompletePitching = row.GetInteger("PCS_COMPLETE_PITCH")
+
+                            PiecesCompletePitching = row.GetInteger("PCS_COMPLETE_PITCH"),
+                            PiecesCompletePulling = row.GetInteger("PCS_COMPLETE_PULLING"),
+
+
+                            BoxesRemainingPitching = row.GetInteger("BOX_REMAINING_PITCH"),
+                            BoxesRemainingPulling = row.GetInteger("BOX_REMAINING_PULL"),
+
+                            PiecesBoxesCreatedPitching = row.GetInteger("PCS_BOX_CREATED_PITCH"),
+                            PiecesBoxesCreatedPulling = row.GetInteger("PCS_BOX_CREATED_PULL")
+
+                          
+
                         };
-                    //bs.Activities[BucketActivityType.Pitching].MaxEndDate = row.GetDateTimeOffset("MAX_PITCHING_END_DATE");
-                    //bs.Activities[BucketActivityType.Pitching].MinEndDate = row.GetDateTimeOffset("MIN_PITCHING_END_DATE");
-                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PITCH");
-                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PITCH");
-                    //bs.Activities[BucketActivityType.Pitching].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PITCH");
-                    //bs.Activities[BucketActivityType.Pulling].MaxEndDate = row.GetDateTimeOffset("MAX_PULL_END_DATE");
-                    //bs.Activities[BucketActivityType.Pulling].MinEndDate = row.GetDateTimeOffset("MIN_PULL_END_DATE");
-                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.InProgress] = row.GetInteger("UNVRFY_CUR_PCS_PULL");
-                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Current, BoxState.Completed] = row.GetInteger("VRFY_CUR_PCS_PULL");
-                    //bs.Activities[BucketActivityType.Pulling].Stats[PiecesKind.Expected, BoxState.InProgress] = row.GetInteger("UNVRFY_EXP_PCS_PULL");
-                    // This contains in progress boxes also
-                    //bs.Activities[BucketActivityType.Pitching].Stats[BoxState.NotStarted] = row.GetInteger("count_pitchable_boxes");
-                    //bs.Activities[BucketActivityType.Pulling].Stats[BoxState.NotStarted] = row.GetInteger("count_pullable_boxes");
+                   
                     return bs;
                 });
 
@@ -256,10 +274,8 @@ box_sku.PCS_COMPLETE_PITCH as PCS_COMPLETE_PITCH,
                                   ShortName = (string)column.First(p => p.Attribute("name").Value == "AREA_SHORT_NAME"),
                                   ReplenishAreaId = (string)column.First(p => p.Attribute("name").Value == "REPLENISH_FROM_AREA_ID")
                               },
-                              InventoryPieces = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_AREA"),
-                              //PiecesInSmallestCarton = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_SMALLEST_CARTON"),
+                              InventoryPieces = (int)column.First(p => p.Attribute("name").Value == "PIECES_IN_AREA"),                              
                               BestLocationId = (string)column.First(p => p.Attribute("name").Value == "BEST_LOCATION_ID"),
-                              // PIECES_AT_BEST_LOCATION
                               PiecesAtBestLocation = (int)column.First(p => p.Attribute("name").Value == "PIECES_AT_BEST_LOCATION"),
                           }).ToList();
             return result;
@@ -399,8 +415,7 @@ MAX(ps.bucket_id) as bucket_id
 
 
         public int UpdatePriority(int bucketId, int delta)
-        {
-            //  throw new NotImplementedException();      
+        {      
             const string QUERY = @"
                         UPDATE <proxy />BUCKET BKT
                             SET   BKT.PRIORITY          =  CASE WHEN GREATEST(NVL(BKT.PRIORITY, 0) + :delta, 1) > 99 THEN 99
@@ -670,8 +685,7 @@ BKT.FREEZE
                 <proxy />pkg_pickslip.cancel_box(aucc128_id => :aucc128_id);
                                   END;";
             var binder = SqlBinder.Create(boxes.Count);
-            binder.Parameter("aucc128_id", boxes);
-            // .Parameter("aucc128_id", ucc128Id);
+            binder.Parameter("aucc128_id", boxes);           
             _db.ExecuteDml(QUERY, binder);
         }
 
@@ -763,7 +777,6 @@ select * from q1 where row_seq_ = 1
 
             binder.Parameter("CUSTOMER_ID", customerId)
                   .Parameter("CREATED_BY", userName)
-                //.Parameter("state", bucketState)
                   .Parameter("FrozenState", ProgressStage.Frozen.ToString())
                   .Parameter("InProgressState", ProgressStage.InProgress.ToString());
             return _db.ExecuteReader(QUERY, binder);

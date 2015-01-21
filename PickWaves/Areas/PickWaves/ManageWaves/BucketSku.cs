@@ -15,14 +15,6 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public IList<CartonAreaInventory> BucketSkuInAreas { get; set; }
 
-        //public int? TotalPitchablePieces { get; set; }
-
-        //public int? TotalPiecesPulled { get; set; }
-
-        //public int? TotalPiecesPitched { get; set; }
-
-        //public int? TotalPullablePieces { get; set; }
-
         public int? PiecesCompletePulling { get; set; }
 
         public int? PiecesBoxesCreatedPulling { get; set; }

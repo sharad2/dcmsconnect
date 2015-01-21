@@ -139,6 +139,7 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].VwhId)
                                     </small>
                                 </h4>
+                                @if (Model.BucketSkuList[i].PiecesBoxesCreatedPulling > 0) { 
                                 <div class='alert alert-success'
                                      style="display:inline-block; width:48%">
                                     Pulling
@@ -147,9 +148,11 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePulling)
                                         of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPulling) Pieces
                                     </small>
-                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes</span>
+                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPulling) boxes remaining</span>
                                 </div>
-
+                                }
+                                @if (Model.BucketSkuList[i].PiecesBoxesCreatedPitching > 0)
+                                {
                                 <div class='alert alert-info'
                                      style="display:inline-block; width:48%">
                                     Pitching
@@ -158,9 +161,9 @@
                                         @Html.DisplayFor(m => m.BucketSkuList[i].PiecesCompletePitching)
                                         of @Html.DisplayFor(m => m.BucketSkuList[i].PiecesBoxesCreatedPitching) Pieces
                                     </small>
-                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes</span>
+                                    <span class="badge" style="white-space:nowrap">@Html.DisplayFor(m => m.BucketSkuList[i].BoxesRemainingPitching) boxes remaining</span>
                                 </div>
-
+                                }
                             </div>
 
                             <div class="col-md-8">
