@@ -185,6 +185,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -205,15 +211,9 @@
     <None Include="Scripts\_references.js" />
     <None Include="Content\typeahead.css" />
     <Content Include="Areas\Receiving\SharedViews\_layoutBootstrap.cshtml" />
-    <None Include="Scripts\bloodhound.js" />
-    <None Include="Scripts\bloodhound.min.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.js.bundle" />
-    <None Include="Scripts\typeahead.bundle.js" />
-    <None Include="Scripts\typeahead.bundle.min.js" />
-    <None Include="Scripts\typeahead.jquery.js" />
-    <None Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Areas\Receiving\Rad\Index.js.bundle">
       <SubType>Designer</SubType>
     </Content>

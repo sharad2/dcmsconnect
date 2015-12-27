@@ -32,6 +32,7 @@
         new MvcCoreAssemblyInfo() { Version = "2.0.41211.0", Name = "ASP.NET MVC 2 RC 1", FuturesVersion = "2.0.41211.0" },
         new MvcCoreAssemblyInfo() { Version = "2.0.50129.0", Name = "ASP.NET MVC 2 RC 2", FuturesVersion = "2.0.50129.0" },
         new MvcCoreAssemblyInfo() { Version = "2.0.50217.0", Name = "ASP.NET MVC 2 RTM", FuturesVersion = "2.0.50217.0" },
+        new MvcCoreAssemblyInfo() { Version = "2.0.50926.0", Name = "ASP.NET MVC 2 RTM (KB2993939)" },
 
         // v3
         new MvcCoreAssemblyInfo() { Version = "3.0.10714.0", Name = "ASP.NET MVC 3 Preview 1", FuturesVersion = "3.0.10714.0" },
@@ -39,17 +40,30 @@
         new MvcCoreAssemblyInfo() { Version = "3.0.11029.0", Name = "ASP.NET MVC 3 RC 1", FuturesVersion = "3.0.11029.0" },
         new MvcCoreAssemblyInfo() { Version = "3.0.11209.0", Name = "ASP.NET MVC 3 RC 2", FuturesVersion = "3.0.11209.0" },
         new MvcCoreAssemblyInfo() { Version = "3.0.20105.0", Name = "ASP.NET MVC 3 RTM", FuturesVersion = "3.0.20105.0" },
+        new MvcCoreAssemblyInfo() { Version = "3.0.50813.1", Name = "ASP.NET MVC 3 RTM (KB2993937)" },
 
         // v4
         new MvcCoreAssemblyInfo() { Version = "4.0.10906.0",     Name = "ASP.NET MVC 4 Developer Preview" },
         new MvcCoreAssemblyInfo() { Version = "4.0.20126.16343", Name = "ASP.NET MVC 4 Beta" },
         new MvcCoreAssemblyInfo() { Version = "4.0.20505.0",     Name = "ASP.NET MVC 4 RC" },
         new MvcCoreAssemblyInfo() { Version = "4.0.20710.0",     Name = "ASP.NET MVC 4 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "4.0.40804.0",     Name = "ASP.NET MVC 4 RTM (KB2993928)" },
 
         // v5
         new MvcCoreAssemblyInfo() { Version = "5.0.10530.0", Name = "ASP.NET MVC 5 Preview" },
         new MvcCoreAssemblyInfo() { Version = "5.0.10620.0", Name = "ASP.NET MVC 5 Preview Refresh" },
-        new MvcCoreAssemblyInfo() { Version = "5.2.20826.0", Name = "ASP.NET MVC 5" },
+        new MvcCoreAssemblyInfo() { Version = "5.0.10809.0", Name = "ASP.NET MVC 5 RC" },
+        new MvcCoreAssemblyInfo() { Version = "5.0.11001.0", Name = "ASP.NET MVC 5 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "5.0.20821.0", Name = "ASP.NET MVC 5.0.2 RTM (KB2992080)" },
+        new MvcCoreAssemblyInfo() { Version = "5.1.11128.0", Name = "ASP.NET MVC 5.1.0 RC1" },
+        new MvcCoreAssemblyInfo() { Version = "5.1.20110.0", Name = "ASP.NET MVC 5.1.0 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "5.1.20129.0", Name = "ASP.NET MVC 5.1.1 RTM, 5.1.2 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "5.1.20821.0", Name = "ASP.NET MVC 5.1.3 RTM (KB2994397)" },
+        new MvcCoreAssemblyInfo() { Version = "5.2.20520.0", Name = "ASP.NET MVC 5.2.0 RC" },
+        new MvcCoreAssemblyInfo() { Version = "5.2.20627.0", Name = "ASP.NET MVC 5.2.0 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "5.2.20822.0", Name = "ASP.NET MVC 5.2.2 RC" },
+        new MvcCoreAssemblyInfo() { Version = "5.2.20826.0", Name = "ASP.NET MVC 5.2.2 RTM" },
+        new MvcCoreAssemblyInfo() { Version = "5.2.30128.0", Name = "ASP.NET MVC 5.2.3 RTM" },
     };
 
     private static readonly MvcFuturesAssemblyInfo[] _mvcFuturesAssemblyHistory = new MvcFuturesAssemblyInfo[] {

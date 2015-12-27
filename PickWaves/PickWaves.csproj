@@ -263,8 +263,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\typeahead.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Scripts\bloodhound.js" />
-    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Areas\PickWaves\Home\Index.cshtml" />
     <Content Include="Areas\PickWaves\SharedViews\BucketModel.min.js.map">
       <DependentUpon>BucketModel.min.js</DependentUpon>
@@ -280,6 +278,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -297,10 +301,6 @@
     <Content Include="Areas\PickWaves\SharedViews\_layoutBootstrap.cshtml" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\typeahead.bundle.js" />
-    <Content Include="Scripts\typeahead.bundle.min.js" />
-    <Content Include="Scripts\typeahead.jquery.js" />
-    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Areas\PickWaves\SharedViews\typeahed.css.bundle" />
     <Content Include="Areas\PickWaves\Config\AjaxModal.js.bundle" />
     <Content Include="Areas\PickWaves\Config\AjaxModal.min.js.map">
