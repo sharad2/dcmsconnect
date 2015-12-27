@@ -73,7 +73,6 @@ namespace Links_DcmsMobile
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
                 public static readonly string jquery_2_1_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.3.min.js") ? Url("jquery-2.1.3.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.3.min.js") : Url("jquery-2.1.3.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.3.js");
                 public static readonly string jquery_ui_1_10_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.10.0.min.js") ? Url("jquery-ui-1.10.0.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.min.js") : Url("jquery-ui-1.10.0.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.10.0.js");
-                public static readonly string npm_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/npm.min.js") ? Url("npm.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/npm.min.js") : Url("npm.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/npm.js");
                 }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -84,9 +83,11 @@ namespace Links_DcmsMobile
         public static readonly string bootstrap_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-theme.min.css") ? Url("bootstrap-theme.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.min.css") : Url("bootstrap-theme.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.css");
              
         public static readonly string bootstrap_theme_css_map = Url("bootstrap-theme.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.css.map");
+        public static readonly string bootstrap_theme_min_css_map = Url("bootstrap-theme.min.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap-theme.min.css.map");
         public static readonly string bootstrap_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.css") ? Url("bootstrap.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.css") : Url("bootstrap.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css");
              
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.css.map");
+        public static readonly string bootstrap_min_css_map = Url("bootstrap.min.css.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.css.map");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class Sounds {
             private const string URLPATH = "~/Content/Sounds";
