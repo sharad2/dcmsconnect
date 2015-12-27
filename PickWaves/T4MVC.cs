@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -163,20 +165,88 @@ namespace Links_PickWaves
                 public static readonly string ajax_loader_gif = Url("ajax-loader.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ajax-loader.gif");
                 public static readonly string BucketModel_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BucketModel.min.js") ? Url("BucketModel.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BucketModel.min.js") : Url("BucketModel.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/BucketModel.js");
                         public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.min.css") : Url("typeahead.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.css");
-                     
-                public static readonly string typeahed_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahed.min.css") ? Url("typeahed.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.min.css") : Url("typeahed.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.css");
-                     
-            }
+                        public static readonly string typeahed_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahed.min.css") ? Url("typeahed.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.min.css") : Url("typeahed.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahed.css");
+                        }
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class BoxPickPallet 
+                {
+                    public static class Assets
+                    {
+                        public const string BoxPickPalletIndex_all_O_js = "~/Areas/PickWaves/BoxPickPallet/BoxPickPalletIndex-all_O.js"; 
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class Config 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class CreateWave 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class Home 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class ManageWaves 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class PickWaves 
+            {
+                public static partial class SharedViews 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -210,6 +280,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

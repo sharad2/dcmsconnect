@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -96,7 +98,6 @@ namespace Links_BoxPick
                 }
             
                 public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
-                     
             }
         
         }
@@ -139,7 +140,6 @@ namespace Links_BoxPick
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string BoxPick_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxPick-all.min.css") ? Url("BoxPick-all.min.css") : Url("BoxPick-all.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/BoxPick/Content/Sounds";
@@ -152,18 +152,39 @@ namespace Links_BoxPick
                 }
             
                 public static readonly string standardized_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.min.css") ? Url("standardized.min.css") : Url("standardized.css");
-                     
             }
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Content 
+        {
+            public static partial class themes 
+            {
+                public static partial class Start1_10_0 
+                {
+                    public static partial class images 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string jquery_ui_css = "~/Content/themes/Start1.10.0/jquery-ui.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static class Assets
+            {
+            }
+        }
     }
 }
 
@@ -197,6 +218,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

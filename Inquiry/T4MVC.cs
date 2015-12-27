@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -264,18 +266,159 @@ namespace Links_Inquiry
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.min.css") : Url("typeahead.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/typeahead.css");
-                     
-            }
+                        }
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class BoxEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class CartonAreaEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class CartonEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class CustomerEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class Home 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class IntransitEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class PickslipEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class ReturnEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class ShipmentEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class SkuAreaEntity 
+                {
+                    public static class Assets
+                    {
+                        public const string SkuLocation_js = "~/Areas/Inquiry/SkuAreaEntity/SkuLocation.js"; 
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class SkuEntity 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Inquiry 
+            {
+                public static partial class SharedViews 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -309,6 +452,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -113,7 +115,6 @@ namespace Links_BoxManager
                 public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
-                     
             }
         
         }
@@ -160,15 +161,11 @@ namespace Links_BoxManager
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string BoxManager_all_css_bundle = Url("BoxManager-all.css.bundle");
                 public static readonly string BoxManager_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxManager-all.min.css") ? Url("BoxManager-all.min.css") : Url("BoxManager-all.css");
-                     
                 public static readonly string BoxManager_all_mobile_css_bundle = Url("BoxManager-all.mobile.css.bundle");
                 public static readonly string BoxManager_all_mobile_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxManager-all.mobile.min.css") ? Url("BoxManager-all.mobile.min.css") : Url("BoxManager-all.mobile.css");
-                     
                 public static readonly string BoxManager_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxManager.partial.min.css") ? Url("BoxManager.partial.min.css") : Url("BoxManager.partial.css");
-                     
                 public static readonly string BoxManager_pptx = Url("BoxManager.pptx");
                 public static readonly string BoxManagerMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/BoxManagerMobile.partial.min.css") ? Url("BoxManagerMobile.partial.min.css") : Url("BoxManagerMobile.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
                     private const string URLPATH = "~/Areas/BoxManager/Content/images";
@@ -178,7 +175,6 @@ namespace Links_BoxManager
                 }
             
                 public static readonly string SiteMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.partial.min.css") ? Url("SiteMobile.partial.min.css") : Url("SiteMobile.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/BoxManager/Content/Sounds";
@@ -190,19 +186,44 @@ namespace Links_BoxManager
                 }
             
                 public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
-                     
                 public static readonly string VAS_pptx = Url("VAS.pptx");
             }
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Scripts 
+        {
+            public static class Assets
+            {
+                public const string jquery_2_1_1_js = "~/Scripts/jquery-2.1.1.js"; 
+                public const string jquery_ui_1_10_0_js = "~/Scripts/jquery-ui-1.10.0.js"; 
+                public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
+                public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 
+            }
+        }
+        public static partial class Content 
+        {
+            public static partial class themes 
+            {
+                public static partial class Start1_10_0 
+                {
+                    public static class Assets
+                    {
+                        public const string jquery_ui_css = "~/Content/themes/Start1.10.0/jquery-ui.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static class Assets
+            {
+            }
+        }
     }
 }
 
@@ -236,6 +257,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 

@@ -4,7 +4,9 @@
 // to the .tt file (i.e. the T4 template) and save it to regenerate this file.
 
 // Make sure the compiler doesn't complain about missing Xml comments and CLS compliance
-#pragma warning disable 1591, 3008, 3009
+// 0108: suppress "Foo hides inherited member Foo. Use the new keyword if hiding was intended." when a controller and its abstract parent are both processed
+// 0114: suppress "Foo.BarController.Baz()' hides inherited member 'Qux.BarController.Baz()'. To make the current member override that implementation, add the override keyword. Otherwise add the new keyword." when an action (with an argument) overrides an action in a parent controller
+#pragma warning disable 1591, 3008, 3009, 0108, 0114
 #region T4MVC
 
 using System;
@@ -117,11 +119,8 @@ namespace Links_Shipping
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string Appointment_css_bundle = Url("Appointment.css.bundle");
                 public static readonly string Appointment_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.min.css") ? Url("Appointment.min.css") : Url("Appointment.css");
-                     
                 public static readonly string Appointment_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Appointment.partial.min.css") ? Url("Appointment.partial.min.css") : Url("Appointment.partial.css");
-                     
                 public static readonly string fullcalendar_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/fullcalendar.partial.min.css") ? Url("fullcalendar.partial.min.css") : Url("fullcalendar.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class images {
                     private const string URLPATH = "~/Areas/Shipping/Home/images";
@@ -184,19 +183,13 @@ namespace Links_Shipping
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string GuidedTruckLoading_ppt = Url("GuidedTruckLoading.ppt");
                 public static readonly string Print_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Print.min.css") ? Url("Print.min.css") : Url("Print.css");
-                     
                 public static readonly string Shipping_all_css_bundle = Url("Shipping-all.css.bundle");
                 public static readonly string Shipping_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-all.min.css") ? Url("Shipping-all.min.css") : Url("Shipping-all.css");
-                     
                 public static readonly string Shipping_mobile_all_css_bundle = Url("Shipping-mobile-all.css.bundle");
                 public static readonly string Shipping_mobile_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping-mobile-all.min.css") ? Url("Shipping-mobile-all.min.css") : Url("Shipping-mobile-all.css");
-                     
                 public static readonly string Shipping_mobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.mobile.partial.min.css") ? Url("Shipping.mobile.partial.min.css") : Url("Shipping.mobile.partial.css");
-                     
                 public static readonly string Shipping_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Shipping.partial.min.css") ? Url("Shipping.partial.min.css") : Url("Shipping.partial.css");
-                     
                 public static readonly string SiteMobile_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/SiteMobile.partial.min.css") ? Url("SiteMobile.partial.min.css") : Url("SiteMobile.partial.css");
-                     
                 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Sounds {
                     private const string URLPATH = "~/Areas/Shipping/SharedViews/Sounds";
@@ -208,18 +201,94 @@ namespace Links_Shipping
                 }
             
                 public static readonly string standardized_partial_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/standardized.partial.min.css") ? Url("standardized.partial.min.css") : Url("standardized.partial.css");
-                     
             }
         
         }
     }
+    
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
     public static partial class Bundles
     {
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Scripts {}
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static partial class Styles {}
+        public static partial class Areas 
+        {
+            public static partial class Shipping 
+            {
+                public static partial class AutoComplete 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Shipping 
+            {
+                public static partial class Home 
+                {
+                    public static partial class images 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class Scripts 
+                    {
+                        public static class Assets
+                        {
+                            public const string Appointment_js = "~/Areas/Shipping/Home/Scripts/Appointment.js"; 
+                            public const string Bol_partial_js = "~/Areas/Shipping/Home/Scripts/Bol.partial.js"; 
+                            public const string fullcalendar_js = "~/Areas/Shipping/Home/Scripts/fullcalendar.js"; 
+                            public const string Index_desktop_js = "~/Areas/Shipping/Home/Scripts/Index-desktop.js"; 
+                            public const string Routing_partial_js = "~/Areas/Shipping/Home/Scripts/Routing.partial.js"; 
+                            public const string selectable_partial_js = "~/Areas/Shipping/Home/Scripts/selectable.partial.js"; 
+                            public const string Unrouted_partial_js = "~/Areas/Shipping/Home/Scripts/Unrouted.partial.js"; 
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string Appointment_partial_css = "~/Areas/Shipping/Home/Appointment.partial.css";
+                        public const string fullcalendar_partial_css = "~/Areas/Shipping/Home/fullcalendar.partial.css";
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Shipping 
+            {
+                public static partial class ScanToTruck 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+            }
+        }
+        public static partial class Areas 
+        {
+            public static partial class Shipping 
+            {
+                public static partial class SharedViews 
+                {
+                    public static partial class Sounds 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string Print_css = "~/Areas/Shipping/SharedViews/Print.css";
+                        public const string Shipping_mobile_partial_css = "~/Areas/Shipping/SharedViews/Shipping.mobile.partial.css";
+                        public const string Shipping_partial_css = "~/Areas/Shipping/SharedViews/Shipping.partial.css";
+                        public const string SiteMobile_partial_css = "~/Areas/Shipping/SharedViews/SiteMobile.partial.css";
+                        public const string standardized_partial_css = "~/Areas/Shipping/SharedViews/standardized.partial.css";
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -253,6 +322,6 @@ internal static class T4MVCHelpers {
 
 
 #endregion T4MVC
-#pragma warning restore 1591, 3008, 3009
+#pragma warning restore 1591, 3008, 3009, 0108, 0114
 
 
