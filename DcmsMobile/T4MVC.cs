@@ -73,7 +73,7 @@ namespace Links_DcmsMobile
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.min.js") : Url("bootstrap.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/bootstrap.js");
-                public static readonly string jquery_2_1_4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.4.min.js") ? Url("jquery-2.1.4.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.4.min.js") : Url("jquery-2.1.4.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.1.4.js");
+                public static readonly string jquery_2_2_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.2.0.min.js") ? Url("jquery-2.2.0.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.2.0.min.js") : Url("jquery-2.2.0.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-2.2.0.js");
                 public static readonly string jquery_ui_1_11_4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.11.4.min.js") ? Url("jquery-ui-1.11.4.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.11.4.min.js") : Url("jquery-ui-1.11.4.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui-1.11.4.js");
                 }
 
@@ -122,44 +122,10 @@ namespace Links_DcmsMobile
                     private const string URLPATH = "~/Content/themes/base/images";
                     public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
                     public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string animated_overlay_gif = Url("animated-overlay.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/animated-overlay.gif");
                 }
             
-                public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.min.css") : Url("jquery-ui.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery-ui.css");
-                        public static readonly string jquery_ui_accordion_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.accordion.min.css") ? Url("jquery.ui.accordion.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.accordion.min.css") : Url("jquery.ui.accordion.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.accordion.css");
-                        public static readonly string jquery_ui_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.all.min.css") ? Url("jquery.ui.all.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.all.min.css") : Url("jquery.ui.all.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.all.css");
-                        public static readonly string jquery_ui_autocomplete_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.autocomplete.min.css") ? Url("jquery.ui.autocomplete.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.autocomplete.min.css") : Url("jquery.ui.autocomplete.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.autocomplete.css");
-                        public static readonly string jquery_ui_base_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.base.min.css") ? Url("jquery.ui.base.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.base.min.css") : Url("jquery.ui.base.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.base.css");
-                        public static readonly string jquery_ui_button_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.button.min.css") ? Url("jquery.ui.button.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.button.min.css") : Url("jquery.ui.button.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.button.css");
-                        public static readonly string jquery_ui_core_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.core.min.css") ? Url("jquery.ui.core.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.core.min.css") : Url("jquery.ui.core.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.core.css");
-                        public static readonly string jquery_ui_datepicker_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.datepicker.min.css") ? Url("jquery.ui.datepicker.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.datepicker.min.css") : Url("jquery.ui.datepicker.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.datepicker.css");
-                        public static readonly string jquery_ui_dialog_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.dialog.min.css") ? Url("jquery.ui.dialog.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.dialog.min.css") : Url("jquery.ui.dialog.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.dialog.css");
-                        public static readonly string jquery_ui_menu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.menu.min.css") ? Url("jquery.ui.menu.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.menu.min.css") : Url("jquery.ui.menu.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.menu.css");
-                        public static readonly string jquery_ui_progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.progressbar.min.css") ? Url("jquery.ui.progressbar.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.progressbar.min.css") : Url("jquery.ui.progressbar.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.progressbar.css");
-                        public static readonly string jquery_ui_resizable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.resizable.min.css") ? Url("jquery.ui.resizable.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.resizable.min.css") : Url("jquery.ui.resizable.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.resizable.css");
-                        public static readonly string jquery_ui_selectable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.selectable.min.css") ? Url("jquery.ui.selectable.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.selectable.min.css") : Url("jquery.ui.selectable.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.selectable.css");
-                        public static readonly string jquery_ui_slider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.slider.min.css") ? Url("jquery.ui.slider.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.slider.min.css") : Url("jquery.ui.slider.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.slider.css");
-                        public static readonly string jquery_ui_spinner_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.spinner.min.css") ? Url("jquery.ui.spinner.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.spinner.min.css") : Url("jquery.ui.spinner.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.spinner.css");
-                        public static readonly string jquery_ui_tabs_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tabs.min.css") ? Url("jquery.ui.tabs.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.tabs.min.css") : Url("jquery.ui.tabs.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.tabs.css");
-                        public static readonly string jquery_ui_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.theme.min.css") ? Url("jquery.ui.theme.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.theme.min.css") : Url("jquery.ui.theme.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.theme.css");
-                        public static readonly string jquery_ui_tooltip_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tooltip.min.css") ? Url("jquery.ui.tooltip.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.tooltip.min.css") : Url("jquery.ui.tooltip.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/jquery.ui.tooltip.css");
-                        public static readonly string menu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/menu.min.css") ? Url("menu.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/menu.min.css") : Url("menu.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/menu.css");
-                        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class minified {
-                    private const string URLPATH = "~/Content/themes/base/minified";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                    public static class images {
-                        private const string URLPATH = "~/Content/themes/base/minified/images";
-                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                        public static readonly string animated_overlay_gif = Url("animated-overlay.gif")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/animated-overlay.gif");
-                    }
-                
-                }
-            
-                public static readonly string progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/progressbar.min.css") ? Url("progressbar.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/progressbar.min.css") : Url("progressbar.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/progressbar.css");
+                public static readonly string menu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/menu.min.css") ? Url("menu.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/menu.min.css") : Url("menu.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/menu.css");
+                        public static readonly string progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/progressbar.min.css") ? Url("progressbar.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/progressbar.min.css") : Url("progressbar.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/progressbar.css");
                         public static readonly string resizable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/resizable.min.css") ? Url("resizable.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/resizable.min.css") : Url("resizable.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/resizable.css");
                         public static readonly string selectable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectable.min.css") ? Url("selectable.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/selectable.min.css") : Url("selectable.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/selectable.css");
                         public static readonly string selectmenu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/selectmenu.min.css") ? Url("selectmenu.min.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/selectmenu.min.css") : Url("selectmenu.css")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/selectmenu.css");
@@ -259,7 +225,7 @@ namespace Links_DcmsMobile
             public static class Assets
             {
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
-                public const string jquery_2_1_4_js = "~/Scripts/jquery-2.1.4.js"; 
+                public const string jquery_2_2_0_js = "~/Scripts/jquery-2.2.0.js"; 
                 public const string jquery_ui_1_11_4_js = "~/Scripts/jquery-ui-1.11.4.js"; 
             }
         }
@@ -281,18 +247,6 @@ namespace Links_DcmsMobile
                         {
                         }
                     }
-                    public static partial class minified 
-                    {
-                        public static partial class images 
-                        {
-                            public static class Assets
-                            {
-                            }
-                        }
-                        public static class Assets
-                        {
-                        }
-                    }
                     public static class Assets
                     {
                         public const string accordion_css = "~/Content/themes/base/accordion.css";
@@ -304,24 +258,6 @@ namespace Links_DcmsMobile
                         public const string datepicker_css = "~/Content/themes/base/datepicker.css";
                         public const string dialog_css = "~/Content/themes/base/dialog.css";
                         public const string draggable_css = "~/Content/themes/base/draggable.css";
-                        public const string jquery_ui_css = "~/Content/themes/base/jquery-ui.css";
-                        public const string jquery_ui_accordion_css = "~/Content/themes/base/jquery.ui.accordion.css";
-                        public const string jquery_ui_all_css = "~/Content/themes/base/jquery.ui.all.css";
-                        public const string jquery_ui_autocomplete_css = "~/Content/themes/base/jquery.ui.autocomplete.css";
-                        public const string jquery_ui_base_css = "~/Content/themes/base/jquery.ui.base.css";
-                        public const string jquery_ui_button_css = "~/Content/themes/base/jquery.ui.button.css";
-                        public const string jquery_ui_core_css = "~/Content/themes/base/jquery.ui.core.css";
-                        public const string jquery_ui_datepicker_css = "~/Content/themes/base/jquery.ui.datepicker.css";
-                        public const string jquery_ui_dialog_css = "~/Content/themes/base/jquery.ui.dialog.css";
-                        public const string jquery_ui_menu_css = "~/Content/themes/base/jquery.ui.menu.css";
-                        public const string jquery_ui_progressbar_css = "~/Content/themes/base/jquery.ui.progressbar.css";
-                        public const string jquery_ui_resizable_css = "~/Content/themes/base/jquery.ui.resizable.css";
-                        public const string jquery_ui_selectable_css = "~/Content/themes/base/jquery.ui.selectable.css";
-                        public const string jquery_ui_slider_css = "~/Content/themes/base/jquery.ui.slider.css";
-                        public const string jquery_ui_spinner_css = "~/Content/themes/base/jquery.ui.spinner.css";
-                        public const string jquery_ui_tabs_css = "~/Content/themes/base/jquery.ui.tabs.css";
-                        public const string jquery_ui_theme_css = "~/Content/themes/base/jquery.ui.theme.css";
-                        public const string jquery_ui_tooltip_css = "~/Content/themes/base/jquery.ui.tooltip.css";
                         public const string menu_css = "~/Content/themes/base/menu.css";
                         public const string progressbar_css = "~/Content/themes/base/progressbar.css";
                         public const string resizable_css = "~/Content/themes/base/resizable.css";
