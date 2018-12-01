@@ -447,7 +447,7 @@ PP.NONPHYSICAL_EXP_PCS_PITCH AS NONPHYSICAL_EXP_PCS_PITCH,
                                             max(BUCKET.FREEZE) AS FREEZE,
                                             max(BUCKET.PRIORITY) AS PRIORITY ,
                                             max(BUCKET.PITCH_LIMIT) AS PITCH_LIMIT,
-                                            max(BUCKET.QUICK_PITCH_FLAG_O) AS QUICK_PITCH_FLAG_O,  /*Obsolete*/
+                                            NULL AS QUICK_PITCH_FLAG_O,  /* max(BUCKET.QUICK_PITCH_FLAG_O) Obsolete*/
                                            max( BUCKET.CREATED_BY) AS  CREATED_BY,
                                            max( BUCKET.DATE_CREATED) AS DATE_CREATED,   
                                           MAX(BUCKET.PULL_TYPE) AS PULL_TYPE                                       

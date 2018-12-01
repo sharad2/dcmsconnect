@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -47,6 +48,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.ManageWaves
 
         public IList<SelectListItem> PitchAreaList { get; set; }
 
+        [Obsolete]
         public bool QuickPitch { get; set; }
 
         [Required(ErrorMessage = "Pitch Limit is Required.")]

@@ -32,6 +32,7 @@ namespace DcmsMobile.PickWaves.Repository
 
         public bool RequireBoxExpediting { get; set; }
 
+        [Obsolete]
         public bool QuickPitch { get; set; }
 
         public DateTime? CreationDate { get; set; }
