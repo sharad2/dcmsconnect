@@ -346,7 +346,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
             WITH REQUESTS AS
              (SELECT T.CTN_RESV_ID                                 AS CTN_RESV_ID,
                      ROW_NUMBER() OVER(ORDER BY MAX(T.INSERT_DATE) DESC, MAX(T.PRIORITY) DESC, T.CTN_RESV_ID) AS ROW_SEQUENCE,
-                     MAX(T.PRIORITY)                               AS PRIORITY,
+                     CAST(MAX(T.PRIORITY) AS INTEGER)              AS PRIORITY,
                      MAX(T.TARGET_QUALITY)                         AS TARGET_QUALITY,
                      MAX(T.SOURCE_AREA)                            AS SOURCE_AREA,
                      MAX(T.DESTINATION_AREA)                       AS DESTINATION_AREA,
