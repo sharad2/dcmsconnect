@@ -48,7 +48,8 @@ namespace DcmsMobile.MainArea.Home
 
 
             // If we are the RC site, then our RC URL is null. This turns off all RC handling in the view.
-            var isRc = HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
+            var isRc = UrlRcBase != null &&
+                HttpContext.Request.Url.AbsoluteUri.TrimEnd('/').StartsWith(UrlRcBase, StringComparison.InvariantCultureIgnoreCase);
             if (isRc)
             {
                 HttpContext.Trace.Write("RC", string.Format("This is an RC site. All RC links will be invisible", isRc));
