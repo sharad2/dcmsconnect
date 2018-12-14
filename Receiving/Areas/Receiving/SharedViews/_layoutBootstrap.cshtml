@@ -41,7 +41,7 @@
 @{
     // Include file URLs. We cannot use T4MVC here because our objective is to have no dependence on DcmsMobile.dll
     var url_bootstrap_css = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Content/bootstrap.css") : Url.Content("~/Content/bootstrap.min.css");
-    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.2.0.js") : Url.Content("~/Scripts/jquery-2.2.0.min.js");
+    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.2.0.js") : Url.Content("~/Scripts/jquery-2.1.3.min.js");
     var url_bootstrap_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/bootstrap.js") : Url.Content("~/Scripts/bootstrap.min.js");
 
     //var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
@@ -102,7 +102,7 @@
                 {
                     <div class="navbar-left">
                         <div class="btn-group">
-                            <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0;padding-left:2px;">
+                            <a href="@ViewBag.AppHomeUrl" class="btn navbar-btn" style="padding-right:0px;padding-left:2px;">
                                 <span class=" glyphicon glyphicon-th-large">
                                 </span> @ViewBag.AppName
                             </a>
@@ -192,34 +192,6 @@
         </div>
     </div>
 
-    @if (this.Context.IsDebuggingEnabled)
-    {
-                @*
-                  Useful Debug info shown only when compiled in Debug Mode.
-                Debug mode is controlled by the setting in web.config
-        <system.web>
-          <compilation debug="false" targetFramework="4.5.1">
-                    ...
-          </compilation>
-                    ...
-        </system.web>
-                *@
-        <div class="container-fluid">
-            <strong>Debug Information</strong>
-            <div class="visible-lg-inline">
-                Screen Size Large
-            </div>
-            <div class="visible-md-inline">
-                Screen Size   Medium
-            </div>
-            <div class="visible-sm-inline">
-                Screen Size   Small
-            </div>
-            <div class="visible-xs-inline">
-                Screen Size  Extra Small
-            </div>
-        </div>
-    }
     @if (messages.Count > 0)
     {
         <div class="container-fluid">
@@ -257,16 +229,16 @@
     {
 
     <!--Visible on mobile device only-->
-        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <form action="@searchUrl" method="get" role="search">
-                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                    <input type="search" class="form-control" name="id" placeholder="Search DCMS">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                    </span>
-                </div><!-- /input-group -->
-            </form>
-        </div>
+    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <form action="@searchUrl" method="get" role="search">
+            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </span>
+            </div><!-- /input-group -->
+        </form>
+    </div>
 
     }
 
