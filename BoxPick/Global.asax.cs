@@ -1,6 +1,7 @@
 ﻿using EclipseLibrary.Mvc.Hosting;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing;
 using System.Web.Routing;
 
 
@@ -31,12 +32,13 @@ namespace BoxPick
 
         protected void Application_Start()
         {
-            HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
-                Links_BoxPick.Content.Url(),
-                //Links_BoxPick.Scripts.Url()
-              }));
+            RouteTable.Routes.MapMvcAttributeRoutes(new MyRouteProvider());
+            //HostingEnvironment.RegisterVirtualPathProvider(new VirtualPathProviderEx("../DcmsMobile", new[] {
+            //    Links_BoxPick.Content.Url(),
+            //    //Links_BoxPick.Scripts.Url()
+            //  }));
             // Enabling Attribute routing
-            RouteTable.Routes.MapMvcAttributeRoutes();
+            //RouteTable.Routes.MapMvcAttributeRoutes();
             AreaRegistration.RegisterAllAreas();
 
             RegisterGlobalFilters(GlobalFilters.Filters);
@@ -49,5 +51,13 @@ namespace BoxPick
             this.Context.SkipAuthorization = true;
         }
 #endif
+    }
+
+    internal class MyRouteProvider : DefaultDirectRouteProvider
+    {
+        protected override string GetAreaPrefix(ControllerDescriptor controllerDescriptor)
+        {
+            return string.Empty;  // Ignore area prefix when app is being run directly. This makes it possible to reach the right page with the URL http://localhost
+        }
     }
 }
