@@ -28,6 +28,8 @@
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
     <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -189,6 +191,9 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
+    <Content Include="..\DcmsMobile\MainArea\SharedViews\_layoutBootstrap.cshtml">
+      <Link>Areas\Receiving\SharedViews\_layoutBootstrap.cshtml</Link>
+    </Content>
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
     <Content Include="Scripts\jquery-2.2.0.min.js" />
@@ -212,7 +217,6 @@
     </Content>
     <None Include="Scripts\_references.js" />
     <None Include="Content\typeahead.css" />
-    <Content Include="Areas\Receiving\SharedViews\_layoutBootstrap.cshtml" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.js" />
     <None Include="Scripts\jquery.validate.unobtrusive.bootstrap.min.js" />
     <Content Include="Areas\Receiving\Home\ProcessEditor.js.bundle" />
@@ -326,4 +330,11 @@ xcopy /Y /F "$(TargetDir)$(TargetFileName)" "$(ProjectDir)..\DcmsMobile\bin\"</P
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets" Condition="Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets'))" />
+  </Target>
 </Project>
