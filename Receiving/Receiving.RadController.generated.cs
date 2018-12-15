@@ -83,7 +83,7 @@ namespace DcmsMobile.Receiving.Areas.Receiving.Rad
         public readonly string Name = "Rad";
         [GeneratedCode("T4MVC", "2.0")]
         public const string NameConst = "Rad";
-
+        [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }

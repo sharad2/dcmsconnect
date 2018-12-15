@@ -83,7 +83,7 @@ namespace DcmsMobile.PickWaves.Areas.PickWaves.Controllers
         public readonly string Name = "BoxPickPallet";
         [GeneratedCode("T4MVC", "2.0")]
         public const string NameConst = "BoxPickPallet";
-
+        [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }

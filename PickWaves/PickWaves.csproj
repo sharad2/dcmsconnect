@@ -323,11 +323,11 @@
     </Content>
     <None Include="Scripts\_references.js" />
     <Content Include="Areas\PickWaves\SharedViews\_layoutPickWaves.cshtml" />
-    <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
+    <None Include="T4MVC.tt.hooks.t4" />
     <None Include="T4MVC.tt.settings.xml">
       <SubType>Designer</SubType>
     </None>

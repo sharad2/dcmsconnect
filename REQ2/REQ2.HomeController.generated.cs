@@ -119,7 +119,7 @@ namespace DcmsMobile.REQ2.Areas.REQ2.Home
         public readonly string Name = "Home";
         [GeneratedCode("T4MVC", "2.0")]
         public const string NameConst = "Home";
-
+        [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
