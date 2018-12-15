@@ -86,7 +86,7 @@ namespace DcmsMobile.MainArea.Diagnostic
         public readonly string Name = "Diagnostic";
         [GeneratedCode("T4MVC", "2.0")]
         public const string NameConst = "Diagnostic";
-
+        [GeneratedCode("T4MVC", "2.0")]
         static readonly ActionNamesClass s_actions = new ActionNamesClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionNamesClass ActionNames { get { return s_actions; } }
