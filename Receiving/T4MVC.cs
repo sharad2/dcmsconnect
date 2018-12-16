@@ -106,8 +106,7 @@ namespace Links_Receiving
                 public static readonly string Guided_Receiving_pps = Url("Guided Receiving.pps")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Guided Receiving.pps");
                 public static readonly string Guided_Receiving_ppsx = Url("Guided Receiving.ppsx")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Guided Receiving.ppsx");
                 public static readonly string ProcessEditor_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/ProcessEditor.min.js") ? Url("ProcessEditor.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ProcessEditor.min.js") : Url("ProcessEditor.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ProcessEditor.js");
-                        public static readonly string ProcessEditor_min_js_map = Url("ProcessEditor.min.js.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/ProcessEditor.min.js.map");
-                public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.min.js") : Url("Receiving.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.js");
+                        public static readonly string Receiving_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Receiving.min.js") ? Url("Receiving.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.min.js") : Url("Receiving.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Receiving.js");
                         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
                 public static class Repository {
                     private const string URLPATH = "~/Areas/Receiving/Home/Repository";
@@ -139,8 +138,7 @@ namespace Links_Receiving
                 public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
                 public static readonly string _addSpotCheck_partial_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_addSpotCheck.partial.min.js") ? Url("_addSpotCheck.partial.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/_addSpotCheck.partial.min.js") : Url("_addSpotCheck.partial.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/_addSpotCheck.partial.js");
                         public static readonly string Index_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Index.min.js") ? Url("Index.min.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js") : Url("Index.js")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.js");
-                        public static readonly string Index_min_js_map = Url("Index.min.js.map")+"?"+T4MVCHelpers.TimestampString(URLPATH + "/Index.min.js.map");
-            }
+                        }
         
         }
     }
@@ -183,6 +181,7 @@ namespace Links_Receiving
                     }
                     public static class Assets
                     {
+                        public const string ProcessEditor_js = "~/Areas/Receiving/Home/ProcessEditor.js"; 
                         public const string Receiving_js = "~/Areas/Receiving/Home/Receiving.js"; 
                     }
                 }
@@ -197,6 +196,7 @@ namespace Links_Receiving
                     public static class Assets
                     {
                         public const string _addSpotCheck_partial_js = "~/Areas/Receiving/Rad/_addSpotCheck.partial.js"; 
+                        public const string Index_js = "~/Areas/Receiving/Rad/Index.js"; 
                     }
                 }
             }

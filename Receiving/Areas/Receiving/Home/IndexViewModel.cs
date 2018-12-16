@@ -1,8 +1,6 @@
-﻿using DcmsMobile.Receiving.Areas.Receiving.Home;
-using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
+﻿using DcmsMobile.Receiving.Areas.Receiving.Home.Repository;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 
 namespace DcmsMobile.Receiving.Areas.Receiving.Home
 {

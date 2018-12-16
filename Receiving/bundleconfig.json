@@ -1,0 +1,21 @@
+[
+  {
+    "outputFileName": "Areas/Receiving/Home/ProcessEditor.js",
+    "inputFiles": [
+      "Scripts/jquery.validate.js",
+      "Scripts/jquery.validate.unobtrusive.js",
+      "Scripts/jquery.validate.unobtrusive.bootstrap.js",
+      "Scripts/typeahead.jquery.js"
+    ]
+  },
+  {
+    "outputFileName": "Areas/Receiving/Rad/Index.js",
+    "inputFiles": [
+      "Scripts/jquery.validate.js",
+      "Scripts/jquery.validate.unobtrusive.js",
+      "Scripts/jquery.validate.unobtrusive.bootstrap.js",
+      "Scripts/typeahead.jquery.js",
+      "/Areas/Receiving/Rad/_addSpotCheck.partial.js"
+    ]
+  }
+]

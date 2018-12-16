@@ -14,6 +14,9 @@ DCMS Connect has been tested in Visual Studio Community Edition 2017
 ## Recommended Visual Studio Extensions
 
 * Auto T4MVC http://bennor.github.io/AutoT4MVC/. Automatically updates T4MVC code files as you work.
+* Bundler & Minifier https://marketplace.visualstudio.com/items?itemName=MadsKristensen.BundlerMinifier
+* File Nesting https://marketplace.visualstudio.com/items?itemName=MadsKristensen.FileNesting
+* 
 
 ## Known Issues
 * 16 Dec 2018: Before the very first build, you must disable Auto T4MVC (Tools -> Options -> Auto T4MVC. Set Run on build and 
