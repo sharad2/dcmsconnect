@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 /.vs
 /packages
 /Receiving/Areas/Receiving/SharedViews/_layoutBootstrap.cshtml
+/Inquiry/Areas/Inquiry/SharedViews/_layoutBootstrap.cshtml
