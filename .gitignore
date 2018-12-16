@@ -158,3 +158,4 @@ $RECYCLE.BIN/
 /packages
 /Receiving/Areas/Receiving/SharedViews/_layoutBootstrap.cshtml
 /Inquiry/Areas/Inquiry/SharedViews/_layoutBootstrap.cshtml
+/PickWaves/Areas/PickWaves/SharedViews/_layoutBootstrap.cshtml
