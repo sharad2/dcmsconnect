@@ -101,7 +101,6 @@
     <Compile Include="Areas\Receiving\Home\Repository\CartonArea.cs" />
     <Compile Include="Areas\Receiving\Rad\RadController.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Helpers\DcmsPublicRoutes.cs" />
     <Compile Include="Helpers\HttpAjaxAttribute.cs" />
     <Compile Include="Areas\Receiving\Home\Repository\Carton.cs" />
     <Compile Include="Areas\Receiving\Rad\RadEntities.cs" />
@@ -298,13 +297,8 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-
   <Target Name="CopyLinkedContentFiles" BeforeTargets="Build">
-    <Copy SourceFiles="%(Content.Identity)"
-          DestinationFiles="%(Content.Link)"
-          SkipUnchangedFiles='true'
-          OverwriteReadOnlyFiles='true'
-          Condition="'%(Content.Link)' != ''" />
+    <Copy SourceFiles="%(Content.Identity)" DestinationFiles="%(Content.Link)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition="'%(Content.Link)' != ''" />
   </Target>
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
