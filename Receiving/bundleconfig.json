@@ -17,5 +17,11 @@
       "Scripts/typeahead.jquery.js",
       "/Areas/Receiving/Rad/_addSpotCheck.partial.js"
     ]
+  },
+  {
+    "outputFileName": "Areas/Receiving/SharedViews/typeahead.css",
+    "inputFiles": [
+      "Content/typeahead.css"
+    ]
   }
 ]

@@ -163,13 +163,10 @@
       <DependentUpon>Index.js</DependentUpon>
     </Content>
     <Content Include="Areas\Receiving\Rad\_addSpotCheck.partial.js" />
-    <Content Include="Areas\Receiving\SharedViews\typeahed.css">
-      <DependentUpon>typeahed.css.bundle</DependentUpon>
+    <Content Include="Areas\Receiving\SharedViews\typeahead.css" />
+    <Content Include="Areas\Receiving\SharedViews\typeahead.min.css">
+      <DependentUpon>typeahead.css</DependentUpon>
     </Content>
-    <Content Include="Areas\Receiving\SharedViews\typeahed.min.css">
-      <DependentUpon>typeahed.css</DependentUpon>
-    </Content>
-    <Content Include="Areas\Receiving\SharedViews\typeahed.css.bundle" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -179,9 +176,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="..\DcmsMobile\MainArea\SharedViews\_layoutBootstrap.cshtml">
