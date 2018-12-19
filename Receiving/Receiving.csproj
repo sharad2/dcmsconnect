@@ -172,12 +172,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="..\DcmsMobile\MainArea\SharedViews\_layoutBootstrap.cshtml">
       <Link>Areas\Receiving\SharedViews\_layoutBootstrap.cshtml</Link>
@@ -185,20 +179,12 @@
     <Content Include="Scripts\bloodhound.min.js">
       <DependentUpon>bloodhound.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\bootstrap.min.js">
-      <DependentUpon>bootstrap.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery-2.2.1.js" />
-    <Content Include="Scripts\jquery-2.2.1.min.js">
-      <DependentUpon>jquery-2.2.1.js</DependentUpon>
-    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\typeahead.jquery.min.js">
       <DependentUpon>typeahead.jquery.js</DependentUpon>
     </Content>
     <None Include="bundleconfig.json" />
-    <Content Include="Scripts\jquery-2.2.1.min.map">
-      <DependentUpon>jquery-2.2.1.js</DependentUpon>
-    </Content>
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js">
       <DependentUpon>jquery.validate.js</DependentUpon>
@@ -212,8 +198,13 @@
       <DependentUpon>typeahead.bundle.js</DependentUpon>
     </Content>
     <Content Include="Scripts\typeahead.jquery.js" />
-    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\typeahead.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery.validate-vsdoc.js">
       <DependentUpon>jquery.validate.js</DependentUpon>
     </None>

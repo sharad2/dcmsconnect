@@ -41,7 +41,7 @@
 @{
     // Include file URLs. We cannot use T4MVC here because our objective is to have no dependence on DcmsMobile.dll
     var url_bootstrap_css = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Content/bootstrap.css") : Url.Content("~/Content/bootstrap.min.css");
-    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-2.2.1.js") : Url.Content("~/Scripts/jquery-2.2.1.min.js");
+    var url_jquery_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/jquery-3.3.1.js") : Url.Content("~/Scripts/jquery-3.3.1.min.js");
     var url_bootstrap_js = this.ViewContext.HttpContext.IsDebuggingEnabled ? Url.Content("~/Scripts/bootstrap.js") : Url.Content("~/Scripts/bootstrap.min.js");
 
     //var urlRcBase = System.Configuration.ConfigurationManager.AppSettings["RcUrl"];
@@ -122,7 +122,7 @@
                 }
                 else
                 {
-                        <!-- Place holder for minimal empty space between brand and search box -->
+                    <!-- Place holder for minimal empty space between brand and search box -->
                     <div class="navbar-left">
 
                     </div>
@@ -132,7 +132,7 @@
                 @if (!string.IsNullOrWhiteSpace(searchUrl))
                 {
 
-                <!--Hidden on mobile device only-->
+                    <!--Hidden on mobile device only-->
                     <form action="@searchUrl" method="get" role="search" class="hidden-xs navbar-form navbar-left">
                         <div class="input-group">
                             <input type="search" class="form-control" name="id" placeholder="Search DCMS">
@@ -228,22 +228,26 @@
     @if (!string.IsNullOrWhiteSpace(searchUrl))
     {
 
-    <!--Visible on mobile device only-->
-    <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <form action="@searchUrl" method="get" role="search">
-            <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
-                <input type="search" class="form-control" name="id" placeholder="Search DCMS">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-                </span>
-            </div><!-- /input-group -->
-        </form>
-    </div>
+        <!--Visible on mobile device only-->
+        <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <form action="@searchUrl" method="get" role="search">
+                <div class="input-group input-group-lg" style="margin-top:20px;margin-left:10px;margin-right:10px;">
+                    <input type="search" class="form-control" name="id" placeholder="Search DCMS">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div><!-- /input-group -->
+            </form>
+        </div>
 
     }
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="@url_jquery_js" type="text/javascript"></script>
+    <!-- Sharad 19 Dec 2018: This include helps in migrating from jquery 2.x to 3.x.
+        It should be removed after verifying that 
+        the upgrade is working well-->
+    <script src="https://code.jquery.com/jquery-migrate-3.0.1.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="@url_bootstrap_js" type="text/javascript"></script>
 

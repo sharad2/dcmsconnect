@@ -335,39 +335,43 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\typeahead.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Inquiry\SharedViews\typeahead.css.bundle" />
     <Content Include="Areas\Inquiry\CustomerEntity\CustomerList.js.bundle" />
     <Content Include="Areas\Inquiry\SkuEntity\SkuList.partial.js" />
     <Content Include="Areas\Inquiry\SkuEntity\SkuList.js.bundle" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bloodhound.js" />
     <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="..\DcmsMobile\MainArea\SharedViews\_layoutBootstrap.cshtml">
       <Link>Areas\Inquiry\SharedViews\_layoutBootstrap.cshtml</Link>
     </Content>
-    <Content Include="Scripts\jquery-2.2.1.js" />
-    <Content Include="Scripts\jquery-2.2.1.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\typeahead.bundle.js" />
     <Content Include="Scripts\typeahead.bundle.min.js" />
     <Content Include="Scripts\typeahead.jquery.js" />
     <Content Include="Scripts\typeahead.jquery.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Inquiry\CustomerEntity\CustomerList.min.js.map">
       <DependentUpon>CustomerList.min.js</DependentUpon>
     </Content>
     <Content Include="Areas\Inquiry\SkuEntity\SkuList.min.js.map">
       <DependentUpon>SkuList.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-2.2.1.min.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
     <None Include="Scripts\_references.js" />
     <None Include="Properties\PublishProfiles\I.pubxml" />
     <None Include="T4MVC.tt">
